@@ -1,0 +1,18 @@
+.button {
+  min-height: 3rem;
+  padding: 0.85rem 1.5rem;
+  border: 1px solid var(--color-accent, #305c45);
+  border-radius: 0.5rem;
+  background: var(--color-accent, #305c45);
+  color: #fff;
+  font-weight: 700;
+}
+.button:focus-visible {
+  outline: 3px solid #936712;
+  outline-offset: 4px;
+}
+.button:disabled {
+  cursor: not-allowed;
+  background: #526b58;
+  border-color: #526b58;
+}

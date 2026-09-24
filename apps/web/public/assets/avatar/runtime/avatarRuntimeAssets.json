@@ -1,0 +1,133 @@
+{
+  "version": "1.0",
+  "strategy": "precomposed-runtime",
+  "dimensions": [
+    512,
+    768
+  ],
+  "body_types": {
+    "male": {
+      "short": {
+        "moss": {
+          "light": "/assets/avatar/runtime/male/male_short_moss_light.png",
+          "medium": "/assets/avatar/runtime/male/male_short_moss_medium.png",
+          "dark": "/assets/avatar/runtime/male/male_short_moss_dark.png"
+        },
+        "ochre": {
+          "light": "/assets/avatar/runtime/male/male_short_ochre_light.png",
+          "medium": "/assets/avatar/runtime/male/male_short_ochre_medium.png",
+          "dark": "/assets/avatar/runtime/male/male_short_ochre_dark.png"
+        },
+        "blue": {
+          "light": "/assets/avatar/runtime/male/male_short_blue_light.png",
+          "medium": "/assets/avatar/runtime/male/male_short_blue_medium.png",
+          "dark": "/assets/avatar/runtime/male/male_short_blue_dark.png"
+        }
+      },
+      "long": {
+        "moss": {
+          "light": "/assets/avatar/runtime/male/male_long_moss_light.png",
+          "medium": "/assets/avatar/runtime/male/male_long_moss_medium.png",
+          "dark": "/assets/avatar/runtime/male/male_long_moss_dark.png"
+        },
+        "ochre": {
+          "light": "/assets/avatar/runtime/male/male_long_ochre_light.png",
+          "medium": "/assets/avatar/runtime/male/male_long_ochre_medium.png",
+          "dark": "/assets/avatar/runtime/male/male_long_ochre_dark.png"
+        },
+        "blue": {
+          "light": "/assets/avatar/runtime/male/male_long_blue_light.png",
+          "medium": "/assets/avatar/runtime/male/male_long_blue_medium.png",
+          "dark": "/assets/avatar/runtime/male/male_long_blue_dark.png"
+        }
+      },
+      "curly": {
+        "moss": {
+          "light": "/assets/avatar/runtime/male/male_curly_moss_light.png",
+          "medium": "/assets/avatar/runtime/male/male_curly_moss_medium.png",
+          "dark": "/assets/avatar/runtime/male/male_curly_moss_dark.png"
+        },
+        "ochre": {
+          "light": "/assets/avatar/runtime/male/male_curly_ochre_light.png",
+          "medium": "/assets/avatar/runtime/male/male_curly_ochre_medium.png",
+          "dark": "/assets/avatar/runtime/male/male_curly_ochre_dark.png"
+        },
+        "blue": {
+          "light": "/assets/avatar/runtime/male/male_curly_blue_light.png",
+          "medium": "/assets/avatar/runtime/male/male_curly_blue_medium.png",
+          "dark": "/assets/avatar/runtime/male/male_curly_blue_dark.png"
+        }
+      }
+    },
+    "female": {
+      "short": {
+        "moss": {
+          "light": "/assets/avatar/runtime/female/female_short_moss_light.png",
+          "medium": "/assets/avatar/runtime/female/female_short_moss_medium.png",
+          "dark": "/assets/avatar/runtime/female/female_short_moss_dark.png"
+        },
+        "ochre": {
+          "light": "/assets/avatar/runtime/female/female_short_ochre_light.png",
+          "medium": "/assets/avatar/runtime/female/female_short_ochre_medium.png",
+          "dark": "/assets/avatar/runtime/female/female_short_ochre_dark.png"
+        },
+        "blue": {
+          "light": "/assets/avatar/runtime/female/female_short_blue_light.png",
+          "medium": "/assets/avatar/runtime/female/female_short_blue_medium.png",
+          "dark": "/assets/avatar/runtime/female/female_short_blue_dark.png"
+        }
+      },
+      "long": {
+        "moss": {
+          "light": "/assets/avatar/runtime/female/female_long_moss_light.png",
+          "medium": "/assets/avatar/runtime/female/female_long_moss_medium.png",
+          "dark": "/assets/avatar/runtime/female/female_long_moss_dark.png"
+        },
+        "ochre": {
+          "light": "/assets/avatar/runtime/female/female_long_ochre_light.png",
+          "medium": "/assets/avatar/runtime/female/female_long_ochre_medium.png",
+          "dark": "/assets/avatar/runtime/female/female_long_ochre_dark.png"
+        },
+        "blue": {
+          "light": "/assets/avatar/runtime/female/female_long_blue_light.png",
+          "medium": "/assets/avatar/runtime/female/female_long_blue_medium.png",
+          "dark": "/assets/avatar/runtime/female/female_long_blue_dark.png"
+        }
+      },
+      "curly": {
+        "moss": {
+          "light": "/assets/avatar/runtime/female/female_curly_moss_light.png",
+          "medium": "/assets/avatar/runtime/female/female_curly_moss_medium.png",
+          "dark": "/assets/avatar/runtime/female/female_curly_moss_dark.png"
+        },
+        "ochre": {
+          "light": "/assets/avatar/runtime/female/female_curly_ochre_light.png",
+          "medium": "/assets/avatar/runtime/female/female_curly_ochre_medium.png",
+          "dark": "/assets/avatar/runtime/female/female_curly_ochre_dark.png"
+        },
+        "blue": {
+          "light": "/assets/avatar/runtime/female/female_curly_blue_light.png",
+          "medium": "/assets/avatar/runtime/female/female_curly_blue_medium.png",
+          "dark": "/assets/avatar/runtime/female/female_curly_blue_dark.png"
+        }
+      }
+    }
+  },
+  "ui_aliases": {
+    "hair": {
+      "Curto": "short",
+      "Longo": "long",
+      "Cacheado": "curly"
+    },
+    "clothing": {
+      "Musgo": "moss",
+      "Ocre": "ochre",
+      "Azul": "blue"
+    },
+    "skin": {
+      "Claro": "light",
+      "Médio": "medium",
+      "Escuro": "dark"
+    }
+  }
+}

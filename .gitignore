@@ -1,0 +1,35 @@
+# Ambientes locais; somente exemplo sem valores pode ser versionado
+.env
+.env.*
+!.env.example
+
+# Dependências e saídas geradas
+node_modules/
+.npm-cache/
+.next/
+*.tsbuildinfo
+playwright-report/
+test-results/
+dist/
+build/
+coverage/
+*.log
+__pycache__/
+*.py[cod]
+
+# Chaves privadas e recipientes de credenciais
+*.key
+*.p12
+*.pfx
+*.jks
+*.keystore
+id_rsa
+id_ed25519
+credentials.json
+credentials.*.json
+service-account*.json
+secrets/
+
+# índices gerados localmente; preservar diretório
+/rag/index/*
+!/rag/index/.gitkeep
