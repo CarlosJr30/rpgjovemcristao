@@ -5,6 +5,7 @@ import {
   claimPhaseGuildReward,
   claimSpecialChallengeReward,
   createSpecialChallenge,
+  createTestGuild,
   joinGuild,
   updateGuildChallenge,
   updateSpecialChallenge,
@@ -34,6 +35,13 @@ describe('gate obrigatório da Guilda', () => {
     storage.clear();
     Object.assign(globalThis, { window: { localStorage: storage } });
     expect(journeyRepository.saveNew(phaseCompletedTraveler())).toBe(true);
+  });
+
+  test('cria Guilda de teste com liderança local e rejeita código desconhecido', () => {
+    expect(joinGuild('INEXISTENTE')).toBe(false);
+    const code = createTestGuild();
+    expect(code).toMatch(/^TESTE-[A-F0-9]{6}$/);
+    expect(journeyRepository.load()).toMatchObject({ status: 'ready', traveler: { progress: { guildId: `guild-${travelerId}`, nextPhaseUnlocked: false } } });
   });
 
   test('bloqueia sem Guilda e libera somente após validação e recompensa', () => {

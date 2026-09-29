@@ -3,6 +3,7 @@ import { levelForXp } from '../data/progression';
 import { GUILD_CONTENT_KEY } from '../data/guildContent';
 import { EQUIPMENT_CATALOG } from '../data/equipmentCatalog';
 import { ARENA_STORAGE_KEY } from './arena-storage';
+import { LOCAL_GUILDS_KEY } from '../data/localGuilds';
 export const STORAGE_KEY = 'rpg-jovem-cristao:journey:v1';
 export const SESSION_KEY = 'rpg-jovem-cristao:active-traveler:v1';
 export const ACTIVE_TRAVELER_ID_KEY = 'rpg-jovem-cristao:active-traveler-id:v1';
@@ -18,7 +19,7 @@ export interface JourneyRepository {
   isSessionActive(): boolean;
   startSession(travelerId: string): boolean;
   activeTravelerId(): string | null;
-  logout(): boolean;
+  clearActiveTraveler(): boolean;
 }
 type StoragePort = Pick<Storage, 'getItem' | 'setItem' | 'removeItem'>;
 const MAX_STORAGE_LENGTH = 4 * 1024 * 1024;
@@ -80,6 +81,7 @@ function migrateTravelerCandidate(candidate: unknown): unknown {
       nextPhaseUnlocked: typeof currentProgress.nextPhaseUnlocked === 'boolean' ? currentProgress.nextPhaseUnlocked : false,
       specialChallenges: Array.isArray(currentProgress.specialChallenges) ? currentProgress.specialChallenges : [],
       guildActivities: record(currentProgress.guildActivities) ? currentProgress.guildActivities : {},
+      guildActivitySubmittedAt: record(currentProgress.guildActivitySubmittedAt) ? currentProgress.guildActivitySubmittedAt : {},
       gardenExploredPoints: Array.isArray(currentProgress.gardenExploredPoints) ? currentProgress.gardenExploredPoints : [],
       gardenFragments: typeof currentProgress.gardenFragments === 'number' ? currentProgress.gardenFragments : 0,
       gardenStep: typeof currentProgress.gardenStep === 'string' ? currentProgress.gardenStep : 'opening',
@@ -98,6 +100,7 @@ function migrateTravelerCandidate(candidate: unknown): unknown {
       devotionalReflection: typeof currentProgress.devotionalReflection === 'string' ? currentProgress.devotionalReflection.slice(0, 800) : '',
       explorationObjectives: Array.isArray(currentProgress.explorationObjectives) ? currentProgress.explorationObjectives.filter((id) => typeof id === 'string') : [],
       quizAttemptId: typeof currentProgress.quizAttemptId === 'number' && Number.isInteger(currentProgress.quizAttemptId) && currentProgress.quizAttemptId >= 0 ? currentProgress.quizAttemptId : 0,
+      snakeTutorialCompleted: typeof currentProgress.snakeTutorialCompleted === 'boolean' ? currentProgress.snakeTutorialCompleted : false,
     },
   };
 }
@@ -180,6 +183,7 @@ export function createJourneyRepository(
         storage().removeItem(ACTIVE_TRAVELER_ID_KEY);
         storage().removeItem(GUILD_CONTENT_KEY);
         storage().removeItem(ARENA_STORAGE_KEY);
+        storage().removeItem(LOCAL_GUILDS_KEY);
         return true;
       } catch {
         return false;
@@ -201,7 +205,7 @@ export function createJourneyRepository(
         return false;
       }
     },
-    logout() {
+    clearActiveTraveler() {
       try {
         storage().removeItem(SESSION_KEY);
         storage().removeItem(ACTIVE_TRAVELER_ID_KEY);

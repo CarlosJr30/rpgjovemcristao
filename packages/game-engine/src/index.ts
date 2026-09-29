@@ -12,7 +12,8 @@ export type BattleChallengeContract = Readonly<{
   id: string; challengerId: string; challengedId: string; status: BattleStatus; seed: number;
   challengerSnapshot: BattleParticipantSnapshot; challengedSnapshot: BattleParticipantSnapshot; createdAt: string;
 }>;
-export type BattleLogEntry = Readonly<{ round: number; actorId: string; kind: 'action' | 'damage' | 'effect' | 'result'; message: string; amount?: number }>;
+export type EquipmentEffectType = 'ACTIVE' | 'PASSIVE' | 'TRIGGERED';
+export type BattleLogEntry = Readonly<{ round: number; actorId: string; kind: 'action' | 'damage' | 'effect' | 'result'; message: string; amount?: number; effectType?: EquipmentEffectType }>;
 export type BattleFighterState = Readonly<{
   snapshot: BattleParticipantSnapshot; hp: number; maxHp: number; focusMultiplier: number;
   defendedLastRound: boolean; usedEffects: readonly BattleEffectId[];
@@ -35,16 +36,23 @@ export const battleBalanceConfig = Object.freeze({
   rewardedBattlesPerOpponentPerDay: 3, maximumRounds: 30,
 });
 
+export const combatPowerConfig = Object.freeze({
+  level: 20,
+  attributes: Object.freeze({ life: 12, strength: 12, defense: 11, wisdom: 10 }),
+  equipmentPower: 6,
+  specialEffect: 6,
+});
+
 export const equipmentEffects: Readonly<Record<BattleEffectId, Readonly<{
   id: BattleEffectId; name: string; trigger: BattleEffectTrigger; description: string;
-  cooldown: number; usesPerBattle: number; active: boolean;
+  cooldown: number; usesPerBattle: number; type: EquipmentEffectType;
 }>>> = Object.freeze({
-  'path-sword': { id: 'path-sword', name: 'Golpe do Caminho', trigger: 'onAttack', description: 'Um golpe fortalecido; após Defender, o próximo ataque também recebe bônus.', cooldown: 0, usesPerBattle: 1, active: true },
-  'steadfast-shield': { id: 'steadfast-shield', name: 'Guarda Perseverante', trigger: 'onDefend', description: 'Reduz fortemente o dano recebido nesta rodada.', cooldown: 0, usesPerBattle: 1, active: true },
-  'pilgrim-boots': { id: 'pilgrim-boots', name: 'Passo do Peregrino', trigger: 'onLowHealth', description: 'Evita um ataque quando a vida está baixa.', cooldown: 0, usesPerBattle: 1, active: false },
-  'prudence-amulet': { id: 'prudence-amulet', name: 'Discernimento', trigger: 'onFocus', description: 'Amplia o próximo Foco. Pode ser usado novamente após duas rodadas.', cooldown: 2, usesPerBattle: 2, active: true },
-  'traveler-helmet': { id: 'traveler-helmet', name: 'Prontidão', trigger: 'onRoundStart', description: 'Concede +1 à iniciativa.', cooldown: 0, usesPerBattle: 0, active: false },
-  'traveler-armor': { id: 'traveler-armor', name: 'Postura Firme', trigger: 'onDefend', description: 'Melhora levemente a proteção ao Defender.', cooldown: 0, usesPerBattle: 0, active: false },
+  'path-sword': { id: 'path-sword', name: 'Golpe do Caminho', trigger: 'onAttack', description: 'Um golpe fortalecido; após Defender, o próximo ataque também recebe bônus.', cooldown: 0, usesPerBattle: 1, type: 'ACTIVE' },
+  'steadfast-shield': { id: 'steadfast-shield', name: 'Guarda Perseverante', trigger: 'onDefend', description: 'Reduz fortemente o dano recebido nesta rodada.', cooldown: 0, usesPerBattle: 1, type: 'ACTIVE' },
+  'pilgrim-boots': { id: 'pilgrim-boots', name: 'Passo do Peregrino', trigger: 'onLowHealth', description: 'Ativa automaticamente e evita um ataque quando a vida ficaria baixa.', cooldown: 0, usesPerBattle: 1, type: 'TRIGGERED' },
+  'prudence-amulet': { id: 'prudence-amulet', name: 'Discernimento', trigger: 'onFocus', description: 'Amplia o próximo Foco. Pode ser usado novamente após duas rodadas.', cooldown: 2, usesPerBattle: 2, type: 'ACTIVE' },
+  'traveler-helmet': { id: 'traveler-helmet', name: 'Prontidão', trigger: 'onRoundStart', description: 'Concede +1 à iniciativa em todas as rodadas.', cooldown: 0, usesPerBattle: 0, type: 'PASSIVE' },
+  'traveler-armor': { id: 'traveler-armor', name: 'Postura Firme', trigger: 'onDefend', description: 'Melhora levemente a proteção sempre que Defender.', cooldown: 0, usesPerBattle: 0, type: 'PASSIVE' },
 });
 
 const clampStat = (value: number) => Number.isFinite(value) ? Math.max(0, Math.min(999, value)) : 0;
@@ -55,8 +63,15 @@ export function calculateMaxHp(attributes: BattleAttributes): number {
   return Math.round(battleBalanceConfig.hpBase + clampStat(attributes.life) * battleBalanceConfig.hpPerLife);
 }
 export function calculateCombatPower(input: Pick<BattleParticipantSnapshot, 'level' | 'attributes' | 'equipment'>): number {
+  return calculateCombatPowerBreakdown(input).total;
+}
+export function calculateCombatPowerBreakdown(input: Pick<BattleParticipantSnapshot, 'level' | 'attributes' | 'equipment'>) {
   const effects = new Set(input.equipment.flatMap((item) => item.effectIds)).size;
-  return Math.round(clampStat(input.level) * 18 + calculateMaxHp(input.attributes) * 1.4 + clampStat(input.attributes.strength) * 24 + clampStat(input.attributes.defense) * 21 + clampStat(input.attributes.wisdom) * 19 + equipmentPower(input as BattleParticipantSnapshot) * 7 + effects * 8);
+  const level = Math.round(clampStat(input.level) * combatPowerConfig.level);
+  const attributes = Math.round(clampStat(input.attributes.life) * combatPowerConfig.attributes.life + clampStat(input.attributes.strength) * combatPowerConfig.attributes.strength + clampStat(input.attributes.defense) * combatPowerConfig.attributes.defense + clampStat(input.attributes.wisdom) * combatPowerConfig.attributes.wisdom);
+  const equipment = Math.round(input.equipment.reduce((sum, item) => sum + clampStat(item.power), 0) * combatPowerConfig.equipmentPower);
+  const specialEffects = effects * combatPowerConfig.specialEffect;
+  return { level, attributes, equipment, specialEffects, total: level + attributes + equipment + specialEffects } as const;
 }
 export function isWithinMatchmakingRange(power: number, candidatePower: number, ratio = battleBalanceConfig.matchmakingRangeRatio): boolean {
   const range = Math.max(25, Math.round(Math.max(0, power) * Math.max(0, ratio)));
@@ -90,7 +105,7 @@ export function createBattle(player: BattleParticipantSnapshot, opponent: Battle
 }
 export function availableEquipmentAbility(fighter: BattleFighterState) {
   const priority: BattleEffectId[] = ['path-sword', 'steadfast-shield', 'prudence-amulet'];
-  return priority.map((id) => equipmentEffects[id]).find((effect) => hasEffect(fighter, effect.id) && fighter.usedEffects.filter((id) => id === effect.id).length < effect.usesPerBattle && (fighter.cooldowns[effect.id] ?? 0) <= 0) ?? null;
+  return priority.map((id) => equipmentEffects[id]).find((effect) => effect.type === 'ACTIVE' && hasEffect(fighter, effect.id) && fighter.usedEffects.filter((id) => id === effect.id).length < effect.usesPerBattle && (fighter.cooldowns[effect.id] ?? 0) <= 0) ?? null;
 }
 function chooseOpponentAction(state: BattleState): BattleAction {
   if (availableEquipmentAbility(state.opponent) && seededUnit(state.seed, state.round, 'ability') > 0.74) return 'equipment';
@@ -129,12 +144,12 @@ export function resolveRound(state: BattleState, playerAction: BattleAction): Ba
     }
     let attackMultiplier = actor.focusMultiplier;
     actor.focusMultiplier = 1;
-    if (actor.defendedLastRound && hasEffect(actor, 'path-sword')) { attackMultiplier *= battleBalanceConfig.swordAfterDefendMultiplier; logs.push({ round: state.round, actorId: actor.snapshot.id, kind: 'effect', message: 'Espada do Caminho respondeu à defesa anterior.' }); }
+    if (actor.defendedLastRound && hasEffect(actor, 'path-sword')) { attackMultiplier *= battleBalanceConfig.swordAfterDefendMultiplier; logs.push({ round: state.round, actorId: actor.snapshot.id, kind: 'effect', effectType: 'TRIGGERED', message: 'Espada do Caminho respondeu à defesa anterior.' }); }
     if (action === 'equipment') {
       const ability = availableEquipmentAbility(actor);
       if (!ability) continue;
       actor.usedEffects.push(ability.id); actor.abilitiesUsed += 1; actor.cooldowns[ability.id] = ability.cooldown + 1;
-      logs.push({ round: state.round, actorId: actor.snapshot.id, kind: 'effect', message: `${actor.snapshot.name} usou ${ability.name}.` });
+      logs.push({ round: state.round, actorId: actor.snapshot.id, kind: 'effect', effectType: 'ACTIVE', message: `${actor.snapshot.name} usou ${ability.name}.` });
       if (ability.id === 'steadfast-shield') { fortified.add(actor.snapshot.id); continue; }
       if (ability.id === 'prudence-amulet') { actor.focusMultiplier = Math.min(battleBalanceConfig.focusMaximumMultiplier, battleBalanceConfig.focusBaseMultiplier + 0.15 + actor.snapshot.attributes.wisdom * battleBalanceConfig.focusPerWisdom); continue; }
       if (ability.id === 'path-sword') attackMultiplier *= battleBalanceConfig.swordAttackMultiplier;
@@ -144,7 +159,7 @@ export function resolveRound(state: BattleState, playerAction: BattleAction): Ba
       (target.hp - damage) / target.maxHp <= battleBalanceConfig.lowHealthThreshold;
     if (hasEffect(target, 'pilgrim-boots') && !target.usedEffects.includes('pilgrim-boots') && bootsThresholdReached) {
       target.usedEffects.push('pilgrim-boots'); damage = 0;
-      logs.push({ round: state.round, actorId: target.snapshot.id, kind: 'effect', message: `Passo do Peregrino permitiu que ${target.snapshot.name} evitasse o golpe.` });
+      logs.push({ round: state.round, actorId: target.snapshot.id, kind: 'effect', effectType: 'TRIGGERED', message: `Passo do Peregrino foi ativado automaticamente e permitiu que ${target.snapshot.name} evitasse o golpe.` });
     }
     target.hp = Math.max(0, target.hp - damage); actor.damageDealt += damage; target.damageTaken += damage;
     logs.push({ round: state.round, actorId: actor.snapshot.id, kind: 'damage', amount: damage, message: damage ? `${actor.snapshot.name} causou ${damage} de dano.` : 'O golpe foi evitado.' });

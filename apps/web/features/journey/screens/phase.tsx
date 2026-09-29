@@ -133,7 +133,7 @@ export function PhaseScreen() {
                   </>
                 )}
 
-                {step === 'snake' && <SnakeChaseGame portrait={gameplayPortrait} onComplete={startQuiz} />}
+                {step === 'snake' && <SnakeChaseGame portrait={gameplayPortrait} tutorialCompleted={traveler.progress.snakeTutorialCompleted} onTutorialComplete={() => updateTraveler((current) => ({ ...current, progress: { ...current.progress, snakeTutorialCompleted: true } }))} onComplete={startQuiz} />}
 
                 {step === 'quiz' && question && (
                   <section className={styles.quizPanel} aria-labelledby="quiz-question">

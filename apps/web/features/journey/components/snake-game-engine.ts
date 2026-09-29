@@ -1,15 +1,16 @@
 export type Point = { x: number; y: number };
 export type Cell = { col: number; row: number };
 
-export const GAME_WIDTH = 720;
-export const GAME_HEIGHT = 420;
-export const CELL_SIZE = 30;
+export const CELL_SIZE = 36;
+export const GAME_WIDTH = 24 * CELL_SIZE;
+export const GAME_HEIGHT = 14 * CELL_SIZE;
 export const PLAYER_RADIUS = 11;
 export const PLAYER_COLLIDER_X = 6;
 export const PLAYER_COLLIDER_Y = 4;
 export const PLAYER_MAX_SPEED = 158;
 export const CHASE_START_DELAY = 2.3;
 export const RESPAWN_INVULNERABILITY = 1.35;
+export const MOBILE_SERPENT_SPEED_FACTOR = .9;
 
 export const SERPENT_MAP = [
   '########################',
@@ -109,15 +110,15 @@ export function approach(current: number, target: number, amount: number): numbe
   return Math.max(target, current - amount);
 }
 
-export function serpentSpeed(elapsed: number, portalActive: boolean, assisted: boolean): number {
+export function serpentSpeed(elapsed: number, portalActive: boolean, assisted: boolean, mobile = false): number {
   const progress = Math.min(1, elapsed / 75);
   const ratio = portalActive ? .96 : .77 + progress * .11;
-  return PLAYER_MAX_SPEED * ratio * (assisted ? .9 : 1);
+  return PLAYER_MAX_SPEED * ratio * (mobile ? MOBILE_SERPENT_SPEED_FACTOR : 1) * (assisted ? .9 : 1);
 }
 
-export function effectiveSerpentSpeed(elapsed: number, portalActive: boolean, assisted: boolean): number {
+export function effectiveSerpentSpeed(elapsed: number, portalActive: boolean, assisted: boolean, mobile = false): number {
   const breathCycle = 1 + Math.sin(elapsed * .42) * .07;
-  return Math.min(PLAYER_MAX_SPEED, serpentSpeed(elapsed, portalActive, assisted) * breathCycle);
+  return Math.min(PLAYER_MAX_SPEED, serpentSpeed(elapsed, portalActive, assisted, mobile) * breathCycle);
 }
 
 export function findPath(startPoint: Point, targetPoint: Point): Point[] {

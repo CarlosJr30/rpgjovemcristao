@@ -2,6 +2,10 @@ import { describe, expect, test } from 'vitest';
 import {
   CELL_SIZE,
   CHASE_START_DELAY,
+  GAME_HEIGHT,
+  GAME_WIDTH,
+  MOBILE_SERPENT_SPEED_FACTOR,
+  PLAYER_COLLIDER_X,
   PLAYER_MAX_SPEED,
   RESPAWN_INVULNERABILITY,
   PLAYER_SPAWN,
@@ -30,6 +34,15 @@ describe('motor da Fuga da Serpente', () => {
     ];
     for (const objective of objectives) expect(findPath(PLAYER_SPAWN, objective).length).toBeGreaterThan(0);
     expect(findPath(SERPENT_SPAWN, PLAYER_SPAWN).length).toBeGreaterThan(0);
+  });
+
+  test('corredores ganham 33% de largura útil sem aumentar o collider', () => {
+    const previousUsefulWidth = 30 - PLAYER_COLLIDER_X * 2;
+    const usefulWidth = CELL_SIZE - PLAYER_COLLIDER_X * 2;
+    expect(GAME_WIDTH).toBe(864);
+    expect(GAME_HEIGHT).toBe(504);
+    expect(usefulWidth).toBe(24);
+    expect(usefulWidth / previousUsefulWidth).toBeCloseTo(4 / 3);
   });
 
   test('todos os espaços navegáveis formam um mapa conectado e as rotas não atravessam paredes', () => {
@@ -80,6 +93,20 @@ describe('motor da Fuga da Serpente', () => {
       expect(effectiveSerpentSpeed(elapsed, false, false)).toBeLessThan(PLAYER_MAX_SPEED);
       expect(effectiveSerpentSpeed(elapsed, true, false)).toBeLessThanOrEqual(PLAYER_MAX_SPEED);
     }
+  });
+
+  test('reduz somente a curva mobile em 10% e preserva desktop, grace e respawn', () => {
+    expect(MOBILE_SERPENT_SPEED_FACTOR).toBe(.9);
+    for (const [elapsed, portalActive] of [[0, false], [75, false], [80, true]] as const) {
+      const desktop = serpentSpeed(elapsed, portalActive, false);
+      const mobile = serpentSpeed(elapsed, portalActive, false, true);
+      expect(mobile).toBeCloseTo(desktop * .9);
+    }
+    expect(serpentSpeed(0, false, false, true) / PLAYER_MAX_SPEED).toBeCloseTo(.693);
+    expect(serpentSpeed(75, false, false, true) / PLAYER_MAX_SPEED).toBeCloseTo(.792);
+    expect(serpentSpeed(80, true, false, true) / PLAYER_MAX_SPEED).toBeCloseTo(.864);
+    expect(CHASE_START_DELAY).toBe(2.3);
+    expect(RESPAWN_INVULNERABILITY).toBe(1.35);
   });
 
   test('respawn usa o último Fragmento como checkpoint seguro', () => {

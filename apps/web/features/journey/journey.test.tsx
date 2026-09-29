@@ -240,7 +240,7 @@ describe('adapter local', () => {
 
     expect(repository.save(player)).toBe(true);
     expect(repository.startSession(player.id)).toBe(true);
-    expect(repository.logout()).toBe(true);
+    expect(repository.clearActiveTraveler()).toBe(true);
     expect(repository.isSessionActive()).toBe(false);
     expect(repository.listSaved()).toEqual([player]);
 

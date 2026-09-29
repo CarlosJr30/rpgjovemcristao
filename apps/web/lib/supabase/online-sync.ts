@@ -1,0 +1,441 @@
+import { levelForXp } from '../../features/journey/data/progression';
+import { EQUIPMENT_CATALOG } from '../../features/journey/data/equipmentCatalog';
+import {
+  createTraveler,
+  parseTraveler,
+  type Appearance,
+  type EquipmentSlot,
+  type Traveler,
+} from '../../features/journey/domain/traveler';
+import { journeyRepository } from '../../features/journey/persistence/journey-storage';
+import type {
+  EquippedItemRow,
+  InventoryRow,
+  TravelerRow,
+  TravelerStatsRow,
+  WalletRow,
+} from './database.types';
+import { equipmentRepository } from './repositories/equipment-repository';
+import { inventoryRepository } from './repositories/inventory-repository';
+import { statsRepository } from './repositories/stats-repository';
+import { travelerRepository } from './repositories/traveler-repository';
+import { walletRepository } from './repositories/wallet-repository';
+import { OnlinePersistenceError } from './repositories/errors';
+
+export const ONLINE_CACHE_EVENT = 'rpg-jovem-cristao:online-cache-change';
+const ONLINE_OWNERS_KEY = 'rpg-jovem-cristao:online-owner:v1';
+
+type SyncStatus = Readonly<{
+  state: 'idle' | 'syncing' | 'synced' | 'fallback' | 'error';
+  message: string | null;
+}>;
+
+let currentOnlineUserId: string | null = null;
+let currentRemoteTravelerIds: ReadonlySet<string> | null = null;
+let currentRemoteActiveTravelerId: string | null = null;
+let syncStatus: SyncStatus = { state: 'idle', message: null };
+const syncListeners = new Set<() => void>();
+const queues = new Map<string, Promise<void>>();
+
+const readOwners = (): Record<string, string> => {
+  try {
+    const parsed: unknown = JSON.parse(
+      localStorage.getItem(ONLINE_OWNERS_KEY) ?? '{}',
+    );
+    if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed))
+      return {};
+    return Object.fromEntries(
+      Object.entries(parsed).filter(
+        ([travelerId, userId]) =>
+          /^[\da-f-]{36}$/i.test(travelerId) &&
+          typeof userId === 'string' &&
+          /^[\da-f-]{36}$/i.test(userId),
+      ),
+    );
+  } catch {
+    return {};
+  }
+};
+
+const writeOwners = (owners: Record<string, string>) => {
+  try {
+    localStorage.setItem(ONLINE_OWNERS_KEY, JSON.stringify(owners));
+  } catch {
+    // O save principal continua preservado pelo repositório local existente.
+  }
+};
+
+const markOwned = (travelerId: string, userId: string) => {
+  writeOwners({ ...readOwners(), [travelerId]: userId });
+};
+
+const setSyncStatus = (next: SyncStatus) => {
+  syncStatus = next;
+  syncListeners.forEach((listener) => listener());
+};
+
+const notifyCacheChanged = () =>
+  window.dispatchEvent(new Event(ONLINE_CACHE_EVENT));
+
+export const getOnlineSyncStatus = () => syncStatus;
+export const subscribeOnlineSync = (listener: () => void) => {
+  syncListeners.add(listener);
+  return () => syncListeners.delete(listener);
+};
+
+export const setCurrentOnlineUser = (userId: string | null) => {
+  currentOnlineUserId = userId;
+  currentRemoteTravelerIds = null;
+  currentRemoteActiveTravelerId = null;
+};
+
+export const getCurrentOnlineUserId = () => currentOnlineUserId;
+export const getCurrentRemoteActiveTravelerId = () =>
+  currentRemoteActiveTravelerId;
+
+export type OnlineTravelerCreationResult =
+  | Readonly<{ status: 'created'; travelerId: string }>
+  | Readonly<{ status: 'error'; message: string }>;
+
+export const listTravelersForCurrentSession = (): Traveler[] => {
+  const owners = readOwners();
+  const saved = journeyRepository.listSaved();
+  if (currentOnlineUserId) {
+    const allowed = currentRemoteTravelerIds;
+    return saved.filter(
+      (traveler) =>
+        owners[traveler.id] === currentOnlineUserId &&
+        (allowed === null || allowed.has(traveler.id)),
+    );
+  }
+  return saved.filter((traveler) => !owners[traveler.id]);
+};
+
+export const canUseTravelerInCurrentSession = (travelerId: string): boolean =>
+  listTravelersForCurrentSession().some(
+    (traveler) => traveler.id === travelerId,
+  );
+
+export const getLocalTravelerSnapshot = (
+  travelerId: string,
+): Traveler | null => {
+  const traveler = journeyRepository
+    .listSaved()
+    .find((candidate) => candidate.id === travelerId);
+  if (!traveler) return null;
+  return parseTraveler(JSON.parse(JSON.stringify(traveler)) as unknown);
+};
+
+const appearanceValue = <T extends readonly string[]>(
+  value: string | null,
+  allowed: T,
+  fallback: T[number],
+): T[number] => (allowed.includes(value ?? '') ? value : fallback) as T[number];
+
+const toLocalTraveler = (
+  row: TravelerRow,
+  stats: TravelerStatsRow,
+  wallet: WalletRow,
+  inventory: InventoryRow[],
+  equipped: EquippedItemRow[],
+  cached: Traveler | null,
+): Traveler => {
+  const appearance: Appearance = {
+    hair: appearanceValue(
+      row.hair_style,
+      ['curto', 'longo', 'cacheado'] as const,
+      'curto',
+    ),
+    outfit: appearanceValue(
+      row.avatar_variant,
+      ['musgo', 'ocre', 'azul'] as const,
+      'musgo',
+    ),
+    skin: appearanceValue(
+      row.skin_tone,
+      ['claro', 'medio', 'escuro'] as const,
+      'medio',
+    ),
+  };
+  const base = createTraveler(
+    row.name,
+    appearance,
+    row.id,
+    new Date(row.created_at).toISOString(),
+  );
+  const ownedItems = inventory.flatMap((entry) => {
+    const catalogItem = EQUIPMENT_CATALOG.find(
+      (item) => item.id === entry.item_id,
+    );
+    return catalogItem
+      ? [{ ...catalogItem, stats: { ...catalogItem.stats }, isNew: false }]
+      : [];
+  });
+  const equippedSlots = Object.fromEntries(
+    equipped.flatMap((entry) => {
+      const item = ownedItems.find(
+        (candidate) =>
+          candidate.id === entry.item_id && candidate.slot === entry.slot,
+      );
+      return item ? [[entry.slot as EquipmentSlot, entry.item_id]] : [];
+    }),
+  ) as Partial<Record<EquipmentSlot, string>>;
+
+  return {
+    ...(cached ?? base),
+    id: row.id,
+    name: row.name,
+    level: levelForXp(row.xp),
+    xp: row.xp,
+    coins: wallet.coins,
+    attributes: {
+      life: stats.base_life,
+      strength: stats.base_strength,
+      defense: stats.base_defense,
+      wisdom: stats.base_wisdom,
+    },
+    inventory: ownedItems,
+    equipped: equippedSlots,
+    appearance,
+    avatar: {
+      ...(cached?.avatar ?? base.avatar),
+      gender: row.body_type === 'female' ? 'female' : 'male',
+      hairColor: row.hair_color ?? base.avatar.hairColor,
+      cloakColor: appearance.outfit,
+      clothing: appearance.outfit,
+      equippedItems: equippedSlots,
+    },
+    createdAt: new Date(row.created_at).toISOString(),
+  };
+};
+
+const loadRemoteTraveler = async (
+  userId: string,
+  row: TravelerRow,
+): Promise<Traveler> => {
+  const [stats, wallet, inventory, equipped] = await Promise.all([
+    statsRepository.getTravelerStats(row.id),
+    walletRepository.getWallet(row.id),
+    inventoryRepository.getInventory(row.id),
+    equipmentRepository.getEquippedItems(row.id),
+  ]);
+  if (!stats || !wallet)
+    throw new Error('Dados essenciais do Viajante estão incompletos.');
+  const cached =
+    readOwners()[row.id] === userId ? getLocalTravelerSnapshot(row.id) : null;
+  return toLocalTraveler(row, stats, wallet, inventory, equipped, cached);
+};
+
+export const hydrateOnlineTravelers = async (userId: string): Promise<void> => {
+  setSyncStatus({ state: 'syncing', message: null });
+  try {
+    const rows = await travelerRepository.getTravelersByUser(userId);
+    const travelers = await Promise.all(
+      rows.map((row) => loadRemoteTraveler(userId, row)),
+    );
+    currentRemoteTravelerIds = new Set(
+      travelers.map((traveler) => traveler.id),
+    );
+    for (const traveler of travelers) {
+      markOwned(traveler.id, userId);
+      if (!journeyRepository.save(traveler))
+        throw new Error('Cache local indisponível.');
+    }
+    const active = travelers.find(
+      (traveler) => rows.find((row) => row.id === traveler.id)?.is_active,
+    );
+    currentRemoteActiveTravelerId = active?.id ?? null;
+    journeyRepository.clearActiveTraveler();
+    setSyncStatus({ state: 'synced', message: null });
+    notifyCacheChanged();
+  } catch {
+    currentRemoteTravelerIds = null;
+    currentRemoteActiveTravelerId = null;
+    journeyRepository.clearActiveTraveler();
+    setSyncStatus({
+      state: 'fallback',
+      message: 'Usando dados locais temporariamente.',
+    });
+    notifyCacheChanged();
+  }
+};
+
+const reconcileInventory = async (traveler: Traveler) => {
+  const remote = await inventoryRepository.getInventory(traveler.id);
+  const desired = new Set(traveler.inventory.map((item) => item.id));
+  await Promise.all(
+    traveler.inventory.map((item) =>
+      inventoryRepository.setQuantity(traveler.id, item.id, 1),
+    ),
+  );
+  await Promise.all(
+    remote
+      .filter((item) => !desired.has(item.item_id))
+      .map((item) => inventoryRepository.removeItem(traveler.id, item.item_id)),
+  );
+};
+
+const reconcileEquipment = async (traveler: Traveler) => {
+  const remote = await equipmentRepository.getEquippedItems(traveler.id);
+  const desired = new Map(Object.entries(traveler.equipped));
+  await Promise.all(
+    remote
+      .filter((item) => !desired.has(item.slot))
+      .map((item) =>
+        equipmentRepository.unequipItem(
+          traveler.id,
+          item.slot as EquipmentSlot,
+        ),
+      ),
+  );
+  await Promise.all(
+    [...desired].map(([slot, itemId]) =>
+      equipmentRepository.equipItem(traveler.id, slot as EquipmentSlot, itemId),
+    ),
+  );
+};
+
+const synchronizeTravelerSnapshot = async (
+  userId: string,
+  previous: Traveler | null,
+  traveler: Traveler,
+) => {
+  const existing = await travelerRepository.getTravelerById(
+    traveler.id,
+    userId,
+  );
+  if (!existing) await travelerRepository.createTraveler(traveler);
+  await Promise.all([
+    travelerRepository.updateTraveler(traveler.id, userId, traveler),
+    statsRepository.updateBaseStats(traveler.id, traveler.attributes),
+    reconcileInventory(traveler),
+  ]);
+  const coinDelta = traveler.coins - (previous?.coins ?? traveler.coins);
+  if (coinDelta > 0) await walletRepository.addCoins(traveler.id, coinDelta);
+  else if (coinDelta < 0)
+    await walletRepository.spendCoins(traveler.id, Math.abs(coinDelta));
+  await reconcileEquipment(traveler);
+};
+
+const enqueue = (travelerId: string, operation: () => Promise<void>) => {
+  const previous = queues.get(travelerId) ?? Promise.resolve();
+  const next = previous
+    .catch(() => undefined)
+    .then(operation)
+    .then(() => setSyncStatus({ state: 'synced', message: null }))
+    .catch(() => {
+      setSyncStatus({
+        state: 'fallback',
+        message:
+          'Não foi possível salvar online. Seus dados locais foram preservados.',
+      });
+    })
+    .finally(() => {
+      if (queues.get(travelerId) === next) queues.delete(travelerId);
+    });
+  queues.set(travelerId, next);
+};
+
+export const createOnlineTraveler = async (
+  userId: string,
+  traveler: Traveler,
+): Promise<OnlineTravelerCreationResult> => {
+  setSyncStatus({ state: 'syncing', message: null });
+  try {
+    const returnedId = await travelerRepository.createTraveler(traveler);
+    if (returnedId !== traveler.id)
+      throw new Error('A criação remota retornou um Viajante inesperado.');
+
+    await travelerRepository.setActiveTraveler(returnedId);
+    const row = await travelerRepository.getTravelerById(returnedId, userId);
+    if (!row)
+      throw new Error('O Viajante criado não foi encontrado no Supabase.');
+    const remoteTraveler = await loadRemoteTraveler(userId, row);
+
+    if (!journeyRepository.save(remoteTraveler))
+      throw new Error('Cache local indisponível.');
+    if (!journeyRepository.startSession(remoteTraveler.id))
+      throw new Error('Sessão local indisponível.');
+
+    markOwned(remoteTraveler.id, userId);
+    currentRemoteTravelerIds = new Set([
+      ...(currentRemoteTravelerIds ?? []),
+      remoteTraveler.id,
+    ]);
+    currentRemoteActiveTravelerId = remoteTraveler.id;
+    setSyncStatus({ state: 'synced', message: null });
+    notifyCacheChanged();
+    return { status: 'created', travelerId: remoteTraveler.id };
+  } catch (error) {
+    const baseMessage =
+      'Não conseguimos salvar seu Viajante online. Tente novamente.';
+    const developmentDetails =
+      error instanceof OnlinePersistenceError
+        ? (error.developmentDetails ?? error.message)
+        : error instanceof Error
+          ? error.message
+          : 'Erro remoto desconhecido.';
+    const message =
+      process.env.NODE_ENV === 'development'
+        ? `${baseMessage} ${developmentDetails}`
+        : baseMessage;
+    setSyncStatus({ state: 'error', message });
+    return { status: 'error', message };
+  }
+};
+
+export const queueOnlineTravelerSync = (
+  previous: Traveler,
+  traveler: Traveler,
+) => {
+  if (!currentOnlineUserId || readOwners()[traveler.id] !== currentOnlineUserId)
+    return;
+  const essential = (value: Traveler) => ({
+    name: value.name,
+    level: value.level,
+    xp: value.xp,
+    coins: value.coins,
+    attributes: value.attributes,
+    inventory: value.inventory.map((item) => item.id).sort(),
+    equipped: value.equipped,
+    appearance: value.appearance,
+    gender: value.avatar.gender,
+    hairColor: value.avatar.hairColor,
+  });
+  if (
+    JSON.stringify(essential(previous)) === JSON.stringify(essential(traveler))
+  )
+    return;
+  const userId = currentOnlineUserId;
+  setSyncStatus({ state: 'syncing', message: null });
+  enqueue(traveler.id, () =>
+    synchronizeTravelerSnapshot(userId, previous, traveler),
+  );
+};
+
+export const selectOnlineTraveler = async (
+  travelerId: string,
+): Promise<boolean> => {
+  if (!currentOnlineUserId || readOwners()[travelerId] !== currentOnlineUserId)
+    return false;
+  setSyncStatus({ state: 'syncing', message: null });
+  try {
+    await travelerRepository.setActiveTraveler(travelerId);
+    currentRemoteActiveTravelerId = travelerId;
+    setSyncStatus({ state: 'synced', message: null });
+    return true;
+  } catch {
+    setSyncStatus({
+      state: 'error',
+      message: 'Não foi possível selecionar o Viajante online.',
+    });
+    return false;
+  }
+};
+
+export const protectSignedOutCache = () => {
+  const activeId = journeyRepository.activeTravelerId();
+  if (activeId && readOwners()[activeId])
+    journeyRepository.clearActiveTraveler();
+  notifyCacheChanged();
+};

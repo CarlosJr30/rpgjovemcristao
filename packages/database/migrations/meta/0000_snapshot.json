@@ -1,0 +1,771 @@
+{
+  "id": "3846bae5-5ed3-4355-9137-36f7ee426304",
+  "prevId": "00000000-0000-0000-0000-000000000000",
+  "version": "7",
+  "dialect": "postgresql",
+  "tables": {
+    "public.equipped_items": {
+      "name": "equipped_items",
+      "schema": "",
+      "columns": {
+        "traveler_id": {
+          "name": "traveler_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "slot": {
+          "name": "slot",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "item_id": {
+          "name": "item_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "equipped_at": {
+          "name": "equipped_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "equipped_items_traveler_id_travelers_id_fk": {
+          "name": "equipped_items_traveler_id_travelers_id_fk",
+          "tableFrom": "equipped_items",
+          "tableTo": "travelers",
+          "columnsFrom": [
+            "traveler_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "equipped_items_owned_item_fk": {
+          "name": "equipped_items_owned_item_fk",
+          "tableFrom": "equipped_items",
+          "tableTo": "inventory",
+          "columnsFrom": [
+            "traveler_id",
+            "item_id"
+          ],
+          "columnsTo": [
+            "traveler_id",
+            "item_id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "equipped_items_traveler_id_slot_pk": {
+          "name": "equipped_items_traveler_id_slot_pk",
+          "columns": [
+            "traveler_id",
+            "slot"
+          ]
+        }
+      },
+      "uniqueConstraints": {},
+      "policies": {
+        "equipped_items_select_own": {
+          "name": "equipped_items_select_own",
+          "as": "PERMISSIVE",
+          "for": "SELECT",
+          "to": [
+            "authenticated"
+          ],
+          "using": "exists (\n    select 1 from \"travelers\"\n    where \"travelers\".\"id\" = \"equipped_items\".\"traveler_id\"\n      and \"travelers\".\"user_id\" = (select auth.uid())\n  )"
+        },
+        "equipped_items_insert_own": {
+          "name": "equipped_items_insert_own",
+          "as": "PERMISSIVE",
+          "for": "INSERT",
+          "to": [
+            "authenticated"
+          ],
+          "withCheck": "exists (\n    select 1 from \"travelers\"\n    where \"travelers\".\"id\" = \"equipped_items\".\"traveler_id\"\n      and \"travelers\".\"user_id\" = (select auth.uid())\n  )"
+        },
+        "equipped_items_update_own": {
+          "name": "equipped_items_update_own",
+          "as": "PERMISSIVE",
+          "for": "UPDATE",
+          "to": [
+            "authenticated"
+          ],
+          "using": "exists (\n    select 1 from \"travelers\"\n    where \"travelers\".\"id\" = \"equipped_items\".\"traveler_id\"\n      and \"travelers\".\"user_id\" = (select auth.uid())\n  )",
+          "withCheck": "exists (\n    select 1 from \"travelers\"\n    where \"travelers\".\"id\" = \"equipped_items\".\"traveler_id\"\n      and \"travelers\".\"user_id\" = (select auth.uid())\n  )"
+        },
+        "equipped_items_delete_own": {
+          "name": "equipped_items_delete_own",
+          "as": "PERMISSIVE",
+          "for": "DELETE",
+          "to": [
+            "authenticated"
+          ],
+          "using": "exists (\n    select 1 from \"travelers\"\n    where \"travelers\".\"id\" = \"equipped_items\".\"traveler_id\"\n      and \"travelers\".\"user_id\" = (select auth.uid())\n  )"
+        }
+      },
+      "checkConstraints": {
+        "equipped_items_slot_check": {
+          "name": "equipped_items_slot_check",
+          "value": "\"equipped_items\".\"slot\" in ('helmet', 'armor', 'weapon', 'shield', 'boots', 'amulet')"
+        }
+      },
+      "isRLSEnabled": true
+    },
+    "public.inventory": {
+      "name": "inventory",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "traveler_id": {
+          "name": "traveler_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "item_id": {
+          "name": "item_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "quantity": {
+          "name": "quantity",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 1
+        },
+        "acquired_at": {
+          "name": "acquired_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "metadata": {
+          "name": "metadata",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {
+        "inventory_traveler_id_idx": {
+          "name": "inventory_traveler_id_idx",
+          "columns": [
+            {
+              "expression": "traveler_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "inventory_traveler_id_travelers_id_fk": {
+          "name": "inventory_traveler_id_travelers_id_fk",
+          "tableFrom": "inventory",
+          "tableTo": "travelers",
+          "columnsFrom": [
+            "traveler_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "inventory_traveler_item_unique": {
+          "name": "inventory_traveler_item_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "traveler_id",
+            "item_id"
+          ]
+        }
+      },
+      "policies": {
+        "inventory_select_own": {
+          "name": "inventory_select_own",
+          "as": "PERMISSIVE",
+          "for": "SELECT",
+          "to": [
+            "authenticated"
+          ],
+          "using": "exists (\n    select 1 from \"travelers\"\n    where \"travelers\".\"id\" = \"inventory\".\"traveler_id\"\n      and \"travelers\".\"user_id\" = (select auth.uid())\n  )"
+        },
+        "inventory_insert_own": {
+          "name": "inventory_insert_own",
+          "as": "PERMISSIVE",
+          "for": "INSERT",
+          "to": [
+            "authenticated"
+          ],
+          "withCheck": "exists (\n    select 1 from \"travelers\"\n    where \"travelers\".\"id\" = \"inventory\".\"traveler_id\"\n      and \"travelers\".\"user_id\" = (select auth.uid())\n  )"
+        },
+        "inventory_update_own": {
+          "name": "inventory_update_own",
+          "as": "PERMISSIVE",
+          "for": "UPDATE",
+          "to": [
+            "authenticated"
+          ],
+          "using": "exists (\n    select 1 from \"travelers\"\n    where \"travelers\".\"id\" = \"inventory\".\"traveler_id\"\n      and \"travelers\".\"user_id\" = (select auth.uid())\n  )",
+          "withCheck": "exists (\n    select 1 from \"travelers\"\n    where \"travelers\".\"id\" = \"inventory\".\"traveler_id\"\n      and \"travelers\".\"user_id\" = (select auth.uid())\n  )"
+        },
+        "inventory_delete_own": {
+          "name": "inventory_delete_own",
+          "as": "PERMISSIVE",
+          "for": "DELETE",
+          "to": [
+            "authenticated"
+          ],
+          "using": "exists (\n    select 1 from \"travelers\"\n    where \"travelers\".\"id\" = \"inventory\".\"traveler_id\"\n      and \"travelers\".\"user_id\" = (select auth.uid())\n  )"
+        }
+      },
+      "checkConstraints": {
+        "inventory_item_id_length_check": {
+          "name": "inventory_item_id_length_check",
+          "value": "char_length(\"inventory\".\"item_id\") between 1 and 64"
+        },
+        "inventory_quantity_check": {
+          "name": "inventory_quantity_check",
+          "value": "\"inventory\".\"quantity\" > 0"
+        }
+      },
+      "isRLSEnabled": true
+    },
+    "public.profiles": {
+      "name": "profiles",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "display_name": {
+          "name": "display_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "profiles_id_users_id_fk": {
+          "name": "profiles_id_users_id_fk",
+          "tableFrom": "profiles",
+          "tableTo": "users",
+          "schemaTo": "auth",
+          "columnsFrom": [
+            "id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {
+        "profiles_select_own": {
+          "name": "profiles_select_own",
+          "as": "PERMISSIVE",
+          "for": "SELECT",
+          "to": [
+            "authenticated"
+          ],
+          "using": "(select auth.uid()) = \"profiles\".\"id\""
+        },
+        "profiles_insert_own": {
+          "name": "profiles_insert_own",
+          "as": "PERMISSIVE",
+          "for": "INSERT",
+          "to": [
+            "authenticated"
+          ],
+          "withCheck": "(select auth.uid()) = \"profiles\".\"id\""
+        },
+        "profiles_update_own": {
+          "name": "profiles_update_own",
+          "as": "PERMISSIVE",
+          "for": "UPDATE",
+          "to": [
+            "authenticated"
+          ],
+          "using": "(select auth.uid()) = \"profiles\".\"id\"",
+          "withCheck": "(select auth.uid()) = \"profiles\".\"id\""
+        }
+      },
+      "checkConstraints": {
+        "profiles_display_name_length_check": {
+          "name": "profiles_display_name_length_check",
+          "value": "\"profiles\".\"display_name\" is null or char_length(\"profiles\".\"display_name\") between 2 and 50"
+        }
+      },
+      "isRLSEnabled": true
+    },
+    "public.traveler_stats": {
+      "name": "traveler_stats",
+      "schema": "",
+      "columns": {
+        "traveler_id": {
+          "name": "traveler_id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "base_life": {
+          "name": "base_life",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 1
+        },
+        "base_strength": {
+          "name": "base_strength",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 1
+        },
+        "base_defense": {
+          "name": "base_defense",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 1
+        },
+        "base_wisdom": {
+          "name": "base_wisdom",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 1
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "traveler_stats_traveler_id_travelers_id_fk": {
+          "name": "traveler_stats_traveler_id_travelers_id_fk",
+          "tableFrom": "traveler_stats",
+          "tableTo": "travelers",
+          "columnsFrom": [
+            "traveler_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {
+        "traveler_stats_select_own": {
+          "name": "traveler_stats_select_own",
+          "as": "PERMISSIVE",
+          "for": "SELECT",
+          "to": [
+            "authenticated"
+          ],
+          "using": "exists (\n    select 1 from \"travelers\"\n    where \"travelers\".\"id\" = \"traveler_stats\".\"traveler_id\"\n      and \"travelers\".\"user_id\" = (select auth.uid())\n  )"
+        },
+        "traveler_stats_insert_own": {
+          "name": "traveler_stats_insert_own",
+          "as": "PERMISSIVE",
+          "for": "INSERT",
+          "to": [
+            "authenticated"
+          ],
+          "withCheck": "exists (\n    select 1 from \"travelers\"\n    where \"travelers\".\"id\" = \"traveler_stats\".\"traveler_id\"\n      and \"travelers\".\"user_id\" = (select auth.uid())\n  )"
+        },
+        "traveler_stats_update_own": {
+          "name": "traveler_stats_update_own",
+          "as": "PERMISSIVE",
+          "for": "UPDATE",
+          "to": [
+            "authenticated"
+          ],
+          "using": "exists (\n    select 1 from \"travelers\"\n    where \"travelers\".\"id\" = \"traveler_stats\".\"traveler_id\"\n      and \"travelers\".\"user_id\" = (select auth.uid())\n  )",
+          "withCheck": "exists (\n    select 1 from \"travelers\"\n    where \"travelers\".\"id\" = \"traveler_stats\".\"traveler_id\"\n      and \"travelers\".\"user_id\" = (select auth.uid())\n  )"
+        }
+      },
+      "checkConstraints": {
+        "traveler_stats_life_check": {
+          "name": "traveler_stats_life_check",
+          "value": "\"traveler_stats\".\"base_life\" >= 0"
+        },
+        "traveler_stats_strength_check": {
+          "name": "traveler_stats_strength_check",
+          "value": "\"traveler_stats\".\"base_strength\" >= 0"
+        },
+        "traveler_stats_defense_check": {
+          "name": "traveler_stats_defense_check",
+          "value": "\"traveler_stats\".\"base_defense\" >= 0"
+        },
+        "traveler_stats_wisdom_check": {
+          "name": "traveler_stats_wisdom_check",
+          "value": "\"traveler_stats\".\"base_wisdom\" >= 0"
+        }
+      },
+      "isRLSEnabled": true
+    },
+    "public.travelers": {
+      "name": "travelers",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "body_type": {
+          "name": "body_type",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "skin_tone": {
+          "name": "skin_tone",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "hair_style": {
+          "name": "hair_style",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "hair_color": {
+          "name": "hair_color",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "avatar_variant": {
+          "name": "avatar_variant",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "level": {
+          "name": "level",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 1
+        },
+        "xp": {
+          "name": "xp",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "is_active": {
+          "name": "is_active",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "travelers_user_id_idx": {
+          "name": "travelers_user_id_idx",
+          "columns": [
+            {
+              "expression": "user_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "travelers_one_active_per_user_idx": {
+          "name": "travelers_one_active_per_user_idx",
+          "columns": [
+            {
+              "expression": "user_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "where": "\"travelers\".\"is_active\" = true",
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "travelers_user_id_users_id_fk": {
+          "name": "travelers_user_id_users_id_fk",
+          "tableFrom": "travelers",
+          "tableTo": "users",
+          "schemaTo": "auth",
+          "columnsFrom": [
+            "user_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {
+        "travelers_select_own": {
+          "name": "travelers_select_own",
+          "as": "PERMISSIVE",
+          "for": "SELECT",
+          "to": [
+            "authenticated"
+          ],
+          "using": "\"travelers\".\"user_id\" = (select auth.uid())"
+        },
+        "travelers_insert_own": {
+          "name": "travelers_insert_own",
+          "as": "PERMISSIVE",
+          "for": "INSERT",
+          "to": [
+            "authenticated"
+          ],
+          "withCheck": "\"travelers\".\"user_id\" = (select auth.uid())"
+        },
+        "travelers_update_own": {
+          "name": "travelers_update_own",
+          "as": "PERMISSIVE",
+          "for": "UPDATE",
+          "to": [
+            "authenticated"
+          ],
+          "using": "\"travelers\".\"user_id\" = (select auth.uid())",
+          "withCheck": "\"travelers\".\"user_id\" = (select auth.uid())"
+        },
+        "travelers_delete_own": {
+          "name": "travelers_delete_own",
+          "as": "PERMISSIVE",
+          "for": "DELETE",
+          "to": [
+            "authenticated"
+          ],
+          "using": "\"travelers\".\"user_id\" = (select auth.uid())"
+        }
+      },
+      "checkConstraints": {
+        "travelers_name_length_check": {
+          "name": "travelers_name_length_check",
+          "value": "char_length(\"travelers\".\"name\") between 2 and 24"
+        },
+        "travelers_body_type_check": {
+          "name": "travelers_body_type_check",
+          "value": "\"travelers\".\"body_type\" in ('male', 'female')"
+        },
+        "travelers_level_check": {
+          "name": "travelers_level_check",
+          "value": "\"travelers\".\"level\" >= 1"
+        },
+        "travelers_xp_check": {
+          "name": "travelers_xp_check",
+          "value": "\"travelers\".\"xp\" >= 0"
+        }
+      },
+      "isRLSEnabled": true
+    },
+    "public.wallets": {
+      "name": "wallets",
+      "schema": "",
+      "columns": {
+        "traveler_id": {
+          "name": "traveler_id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "coins": {
+          "name": "coins",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "wallets_traveler_id_travelers_id_fk": {
+          "name": "wallets_traveler_id_travelers_id_fk",
+          "tableFrom": "wallets",
+          "tableTo": "travelers",
+          "columnsFrom": [
+            "traveler_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {
+        "wallets_select_own": {
+          "name": "wallets_select_own",
+          "as": "PERMISSIVE",
+          "for": "SELECT",
+          "to": [
+            "authenticated"
+          ],
+          "using": "exists (\n    select 1 from \"travelers\"\n    where \"travelers\".\"id\" = \"wallets\".\"traveler_id\"\n      and \"travelers\".\"user_id\" = (select auth.uid())\n  )"
+        },
+        "wallets_insert_own": {
+          "name": "wallets_insert_own",
+          "as": "PERMISSIVE",
+          "for": "INSERT",
+          "to": [
+            "authenticated"
+          ],
+          "withCheck": "exists (\n    select 1 from \"travelers\"\n    where \"travelers\".\"id\" = \"wallets\".\"traveler_id\"\n      and \"travelers\".\"user_id\" = (select auth.uid())\n  )"
+        },
+        "wallets_update_own": {
+          "name": "wallets_update_own",
+          "as": "PERMISSIVE",
+          "for": "UPDATE",
+          "to": [
+            "authenticated"
+          ],
+          "using": "exists (\n    select 1 from \"travelers\"\n    where \"travelers\".\"id\" = \"wallets\".\"traveler_id\"\n      and \"travelers\".\"user_id\" = (select auth.uid())\n  )",
+          "withCheck": "exists (\n    select 1 from \"travelers\"\n    where \"travelers\".\"id\" = \"wallets\".\"traveler_id\"\n      and \"travelers\".\"user_id\" = (select auth.uid())\n  )"
+        }
+      },
+      "checkConstraints": {
+        "wallets_coins_check": {
+          "name": "wallets_coins_check",
+          "value": "\"wallets\".\"coins\" >= 0"
+        }
+      },
+      "isRLSEnabled": true
+    }
+  },
+  "enums": {},
+  "schemas": {},
+  "sequences": {},
+  "roles": {},
+  "policies": {},
+  "views": {},
+  "_meta": {
+    "columns": {},
+    "schemas": {},
+    "tables": {}
+  }
+}

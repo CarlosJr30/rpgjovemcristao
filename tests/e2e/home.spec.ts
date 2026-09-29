@@ -82,8 +82,8 @@ test('líder local publica lição e missão que reaparecem após reload', async
   await expect(page.getByRole('heading', { name: 'Lição de serviço' })).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Missão de ajuda' })).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Desafio da semana' })).toBeVisible();
-  await page.getByRole('button', { name: 'Sair' }).click();
-  await page.getByRole('dialog').getByRole('button', { name: 'Sair' }).click();
+  await page.getByRole('button', { name: 'Trocar Viajante' }).click();
+  await page.getByRole('dialog').getByRole('button', { name: 'Trocar Viajante' }).click();
   await page.goto('/journey/create');
   await page.getByLabel('Nome do Viajante', { exact: true }).fill('Bia');
   await page.getByRole('button', { name: 'Criar Viajante' }).click();
@@ -105,16 +105,16 @@ test('líder local publica lição e missão que reaparecem após reload', async
   await page.locator('article').filter({ has: page.getByRole('heading', { name: 'Missão de ajuda' }) }).getByRole('button', { name: 'Concluir e enviar' }).click();
   await expect(page.getByText('Aguardando aprovação objetiva.')).toBeVisible();
   await page.locator('article').filter({ has: page.getByRole('heading', { name: 'Desafio da semana' }) }).getByRole('button', { name: 'Concluir e enviar' }).click();
-  await page.getByRole('button', { name: 'Sair' }).click();
-  await page.getByRole('dialog').getByRole('button', { name: 'Sair' }).click();
+  await page.getByRole('button', { name: 'Trocar Viajante' }).click();
+  await page.getByRole('dialog').getByRole('button', { name: 'Trocar Viajante' }).click();
   await page.locator('article').filter({ has: page.getByRole('heading', { name: 'Sara' }) }).getByRole('button', { name: 'Entrar' }).click();
   await navigate(page, 'Guilda');
   await page.getByRole('button', { name: 'Painel do líder · simulação local' }).click();
   await page.locator('article').filter({ has: page.getByRole('heading', { name: 'Missão de ajuda' }) }).getByRole('button', { name: 'Aprovar realização' }).click();
   await page.locator('article').filter({ has: page.getByRole('heading', { name: 'Desafio da semana' }) }).getByRole('button', { name: 'Aprovar realização' }).click();
   await expect(page.locator('article').filter({ has: page.getByRole('heading', { name: 'Desafio da semana' }) })).toContainText('1/2');
-  await page.getByRole('button', { name: 'Sair' }).click();
-  await page.getByRole('dialog').getByRole('button', { name: 'Sair' }).click();
+  await page.getByRole('button', { name: 'Trocar Viajante' }).click();
+  await page.getByRole('dialog').getByRole('button', { name: 'Trocar Viajante' }).click();
   await page.locator('article').filter({ has: page.getByRole('heading', { name: 'Bia' }) }).getByRole('button', { name: 'Entrar' }).click();
   await navigate(page, 'Guilda');
   await page.locator('article').filter({ has: page.getByRole('heading', { name: 'Missão de ajuda' }) }).getByRole('button', { name: 'Receber recompensa' }).click();
@@ -171,8 +171,8 @@ test('equipamento mostra inspiração bíblica, animação e persiste no Códice
   await page.goto('/journey/diary');
   await expect(page.getByRole('heading', { name: 'Equipamentos & Bíblia' })).toBeVisible();
   await expect(page.getByText('Equipamento inicial')).toBeVisible();
-  await page.getByRole('button', { name: 'Sair' }).click();
-  await page.getByRole('dialog').getByRole('button', { name: 'Sair' }).click();
+  await page.getByRole('button', { name: 'Trocar Viajante' }).click();
+  await page.getByRole('dialog').getByRole('button', { name: 'Trocar Viajante' }).click();
   await expect(page.getByRole('button', { name: 'Entrar' })).toBeVisible();
   await page.getByRole('button', { name: 'Entrar' }).click();
   await page.goto('/journey/equipment');
@@ -344,6 +344,7 @@ test('rota direta sem Viajante e registro corrompido permitem recuperação', as
 
 test('falha ao gravar não simula criação bem-sucedida', async ({ page }) => {
   await page.addInitScript(() => {
+    localStorage.setItem('rpg-jovem-cristao:auth-mode:v1', 'local');
     Storage.prototype.setItem = () => {
       throw new DOMException('Denied', 'QuotaExceededError');
     };

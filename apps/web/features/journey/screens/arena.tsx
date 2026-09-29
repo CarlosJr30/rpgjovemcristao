@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import {
   availableEquipmentAbility,
+  calculateCombatPowerBreakdown,
   calculateTrainingReward,
   createBattle,
   equipmentEffects,
@@ -11,6 +12,7 @@ import {
   type BattleAction,
   type BattleParticipantSnapshot,
   type BattleState,
+  type BattleEffectId,
   type TrainingReward,
 } from '@rpg/game-engine';
 import { Shell, RequireTraveler } from '../components/shell';
@@ -28,6 +30,11 @@ import styles from '../journey.module.css';
 type OpponentOption = { snapshot: BattleParticipantSnapshot; traveler?: Traveler; source: 'training' | 'saved' };
 type Stage = 'lobby' | 'preview' | 'battle' | 'result';
 const attributeKeys = ['life', 'strength', 'defense', 'wisdom'] as const;
+const triggerLabels = { onBattleStart: 'início da batalha', onRoundStart: 'início da rodada', onAttack: 'ao atacar', onDefend: 'ao defender', onDamageTaken: 'ao receber dano', onLowHealth: 'quando a vida fica baixa', onFocus: 'ao focar', onVictory: 'na vitória' } as const;
+
+function fighterEffects(snapshot: BattleParticipantSnapshot) {
+  return snapshot.equipment.flatMap((item) => item.effectIds.map((id) => ({ item: item.name, effect: equipmentEffects[id] })));
+}
 
 function FighterPortrait({ traveler, name, side, active }: { traveler?: Traveler; name: string; side: 'player' | 'opponent'; active?: boolean }) {
   return <div className={`${styles.arenaPortrait} ${styles[`arenaPortrait${side === 'player' ? 'Player' : 'Opponent'}`]} ${active ? styles.arenaPortraitActive : ''}`}>
@@ -98,11 +105,18 @@ function ArenaExperience({ traveler }: { traveler: Traveler }) {
 
   function reset() { setBattle(null); setReward(null); setLastAction(null); setSelected(null); setStage('lobby'); }
   const nearby = (power: number) => isWithinMatchmakingRange(playerSnapshot.combatPower, power);
+  const powerBreakdown = calculateCombatPowerBreakdown(playerSnapshot);
+  const activeAbility = battle ? availableEquipmentAbility(battle.player) : null;
+  const activeEffects = battle ? fighterEffects(battle.player.snapshot).filter(({ effect }) => effect.type === 'ACTIVE') : [];
+  const coolingEffect = battle ? activeEffects.find(({ effect }) => (battle.player.cooldowns[effect.id] ?? 0) > 0) : undefined;
+  const abilityStatus = activeAbility ? `${activeAbility.name} · Disponível` : coolingEffect
+    ? `${coolingEffect.effect.name} · ${battle?.player.cooldowns[coolingEffect.effect.id]} rodadas restantes`
+    : activeEffects.length ? 'Usos esgotados' : 'Nenhuma habilidade ativa equipada.';
 
   return <section className={styles.arenaHub}>
     <header className={styles.arenaHeader}>
       <div><span>ÁREA DE TREINO</span><h1>Arena dos Viajantes</h1><p>Batalhas estratégicas 1x1 com atributos, equipamentos e escolhas por rodada.</p></div>
-      <div className={styles.combatPower}><small>PODER DE COMBATE</small><strong>{playerSnapshot.combatPower}</strong><span>Nível {traveler.level}</span></div>
+      <div className={styles.combatPower}><small>PODER DE COMBATE</small><strong>{playerSnapshot.combatPower}</strong><span>Nível {traveler.level}</span><details><summary>Como é calculado?</summary><p>Estimativa para aproximar adversários. Não determina quem vence.</p><dl><div><dt>Nível</dt><dd>{powerBreakdown.level}</dd></div><div><dt>Atributos</dt><dd>{powerBreakdown.attributes}</dd></div><div><dt>Equipamentos</dt><dd>{powerBreakdown.equipment}</dd></div><div><dt>Efeitos</dt><dd>{powerBreakdown.specialEffects}</dd></div></dl></details></div>
     </header>
     <p className={styles.arenaEthics}>Os atributos representam somente regras do jogo. A Arena não mede fé, espiritualidade ou valor pessoal.</p>
 
@@ -153,8 +167,9 @@ function ArenaExperience({ traveler }: { traveler: Traveler }) {
         <button onClick={() => act('attack')}><b>ATACAR</b><span>Dano com Força</span></button>
         <button onClick={() => act('defend')}><b>DEFENDER</b><span>Reduz dano da rodada</span></button>
         <button onClick={() => act('focus')}><b>FOCAR</b><span>Sabedoria fortalece a próxima ação</span></button>
-        <button disabled={!availableEquipmentAbility(battle.player)} onClick={() => act('equipment')}><b>HABILIDADE</b><span>{availableEquipmentAbility(battle.player)?.name ?? 'Nenhuma disponível'}</span></button>
+        <button disabled={!activeAbility} onClick={() => act('equipment')}><b>HABILIDADE ATIVA</b><span>{abilityStatus}</span></button>
       </div>}
+      <ArenaEffects fighter={battle.player} />
       <BattleLog battle={battle} />
       {stage === 'result' && <section className={styles.battleResult}>
         <span>{battle.winnerId === traveler.id ? 'VITÓRIA' : 'DERROTA'}</span>
@@ -164,6 +179,15 @@ function ArenaExperience({ traveler }: { traveler: Traveler }) {
         <div className={styles.arenaControls}><button onClick={reset}>Voltar à Arena</button><button className={styles.arenaPrimary} onClick={begin}>Jogar novamente</button></div>
       </section>}
     </section>}
+  </section>;
+}
+
+function ArenaEffects({ fighter }: { fighter: BattleState['player'] }) {
+  const entries = fighterEffects(fighter.snapshot);
+  const remaining = (id: BattleEffectId) => Math.max(0, equipmentEffects[id].usesPerBattle - fighter.usedEffects.filter((used) => used === id).length);
+  return <section className={styles.arenaEffects} aria-label="Efeitos dos equipamentos">
+    <div><h3>HABILIDADES ATIVAS</h3>{entries.filter(({ effect }) => effect.type === 'ACTIVE').map(({ item, effect }) => <details key={effect.id}><summary>{effect.name} <span>{(fighter.cooldowns[effect.id] ?? 0) > 0 ? `${fighter.cooldowns[effect.id]} rodadas restantes` : remaining(effect.id) ? 'Disponível' : 'Usos esgotados'}</span></summary><p><b>{item}</b> · ATIVA</p><p>{effect.description}</p><small>Condição: {triggerLabels[effect.trigger]} · Cooldown: {effect.cooldown || 'sem cooldown'} · Usos restantes: {remaining(effect.id)}</small></details>)}{!entries.some(({ effect }) => effect.type === 'ACTIVE') && <p>Nenhuma habilidade ativa equipada.</p>}</div>
+    <div><h3>EFEITOS PASSIVOS E AUTOMÁTICOS</h3>{entries.filter(({ effect }) => effect.type !== 'ACTIVE').map(({ item, effect }) => <details key={effect.id}><summary>{effect.name} <span>{effect.type === 'PASSIVE' ? 'Passivo' : 'Automático'}</span></summary><p><b>{item}</b> · {effect.type === 'PASSIVE' ? 'PASSIVA' : 'DISPARADA'}</p><p>{effect.description}</p><small>Condição: {triggerLabels[effect.trigger]} · Usos restantes: {effect.usesPerBattle ? remaining(effect.id) : 'sempre ativo'}</small></details>)}</div>
   </section>;
 }
 
@@ -177,7 +201,7 @@ function FighterHud({ fighter, traveler, side, active }: { fighter: BattleState[
 }
 
 function BattleLog({ battle }: { battle: BattleState }) {
-  return <details className={styles.battleLog} open><summary>Log da batalha</summary><ol>{battle.log.slice(-8).map((entry, index) => <li key={`${entry.round}-${index}`}><b>{entry.round ? `R${entry.round}` : 'INÍCIO'}</b> {entry.message}</li>)}</ol></details>;
+  return <details className={styles.battleLog} open><summary>Log da batalha</summary><ol>{battle.log.slice(-8).map((entry, index) => <li key={`${entry.round}-${index}`}><b>{entry.round ? `R${entry.round}` : 'INÍCIO'}</b> {entry.effectType && <em>[{entry.effectType === 'ACTIVE' ? 'ATIVA' : entry.effectType === 'PASSIVE' ? 'PASSIVA' : 'DISPARADA'}]</em>} {entry.message}</li>)}</ol></details>;
 }
 
 export function ArenaScreen() {

@@ -19,6 +19,7 @@ export type GuildContent = {
   collectiveTarget: number | null;
   tier: GuildContentTier;
   createdAt: string;
+  status: 'active' | 'closed' | 'archived';
 };
 
 export const GUILD_CONTENT_KEY = 'rpg-jovem-cristao:guild-content:v1';
@@ -33,21 +34,21 @@ const validUrl = (url: string) => url === '' || /^https:\/\/www\.bible\.com\/[A-
 export function validGuildContent(value: unknown): value is GuildContent {
   if (!value || typeof value !== 'object' || Array.isArray(value)) return false;
   const item = value as Record<string, unknown>;
-  const strings = ['id', 'guildId', 'kind', 'title', 'description', 'biblicalReference', 'bibleUrl', 'objective', 'date', 'theme', 'questions', 'groupActivity', 'practicalMission', 'difficulty', 'audience', 'tier', 'createdAt'];
+  const strings = ['id', 'guildId', 'kind', 'title', 'description', 'biblicalReference', 'bibleUrl', 'objective', 'date', 'theme', 'questions', 'groupActivity', 'practicalMission', 'difficulty', 'audience', 'tier', 'createdAt', 'status'];
   if (!strings.every((key) => typeof item[key] === 'string')) return false;
   const content = item as GuildContent;
   return /^[\da-f]{8}-[\da-f]{4}-[\da-f]{4}-[\da-f]{4}-[\da-f]{12}$/i.test(content.id) && /^[a-z0-9-]{5,64}$/.test(content.guildId) &&
     ['challenge', 'lesson', 'mission'].includes(content.kind) &&
     content.title.trim().length >= 2 && content.title.length <= 80 &&
-    content.description.length <= 600 &&
-    content.biblicalReference.length > 0 && content.biblicalReference.length <= 80 && validUrl(content.bibleUrl) &&
+    content.description.length > 0 && content.description.length <= 600 &&
+    (content.kind === 'mission' ? content.biblicalReference.length <= 80 : content.biblicalReference.length > 0 && content.biblicalReference.length <= 80) && validUrl(content.bibleUrl) &&
     content.objective.length <= 240 && (content.date === '' || /^\d{4}-\d{2}-\d{2}$/.test(content.date)) &&
     content.theme.length <= 80 && content.questions.length <= 500 &&
     content.groupActivity.length <= 300 && content.practicalMission.length <= 300 &&
     ['normal', 'dificil'].includes(content.difficulty) &&
     ['individual', 'collective'].includes(content.audience) &&
     (content.collectiveTarget === null || Number.isInteger(content.collectiveTarget) && content.collectiveTarget >= 2 && content.collectiveTarget <= 1000) &&
-    ['normal', 'great', 'epic', 'extraordinary'].includes(content.tier) &&
+    ['normal', 'great', 'epic', 'extraordinary'].includes(content.tier) && ['active', 'closed', 'archived'].includes(content.status) &&
     Number.isFinite(Date.parse(content.createdAt));
 }
 
@@ -59,7 +60,7 @@ export function createGuildContentRepository(storage: () => GuildContentPort) {
       if (!raw || raw.length > 1024 * 1024) return [];
       const parsed: unknown = JSON.parse(raw);
       if (!Array.isArray(parsed)) return [];
-      return parsed.filter(validGuildContent);
+      return parsed.map((item) => item && typeof item === 'object' ? { ...item, status: 'status' in item ? item.status : 'active' } : item).filter(validGuildContent);
     } catch { return []; }
   };
   return {
@@ -69,6 +70,13 @@ export function createGuildContentRepository(storage: () => GuildContentPort) {
       const existing = list();
       if (existing.length >= 100 || existing.some((entry) => entry.id === item.id)) return false;
       try { storage().setItem(GUILD_CONTENT_KEY, JSON.stringify([...existing, item])); return true; }
+      catch { return false; }
+    },
+    update: (guildId: string, id: string, next: GuildContent) => {
+      if (next.guildId !== guildId || next.id !== id || !validGuildContent(next)) return false;
+      const existing = list();
+      if (!existing.some((item) => item.id === id && item.guildId === guildId)) return false;
+      try { storage().setItem(GUILD_CONTENT_KEY, JSON.stringify(existing.map((item) => item.id === id && item.guildId === guildId ? next : item))); return true; }
       catch { return false; }
     },
   };

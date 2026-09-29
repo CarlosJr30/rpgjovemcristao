@@ -1,36 +1,94 @@
 'use client';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { Button } from '@rpg/ui';
 import { resumeJourney, useJourney } from '../state/use-journey';
-import { journeyRepository } from '../persistence/journey-storage';
 import { JOURNEY_ROUTES as routes } from '../data/campaign';
 import { Shell } from '../components/shell';
 import { Landscape } from '../components/landscape';
 import { Avatar } from '../components/avatar';
 import styles from '../journey.module.css';
-import { MAX_LEVEL, TRAVELER_CURRENCY_NAME, nextUnlock, xpForLevel } from '../data/progression';
+import {
+  MAX_LEVEL,
+  TRAVELER_CURRENCY_NAME,
+  nextUnlock,
+  xpForLevel,
+} from '../data/progression';
+import { useAuth } from '../../../lib/supabase/auth-context';
+import {
+  getCurrentRemoteActiveTravelerId,
+  listTravelersForCurrentSession,
+} from '../../../lib/supabase/online-sync';
 
 export function Home() {
   const state = useJourney();
+  const auth = useAuth();
   const router = useRouter();
+  const [selectionError, setSelectionError] = useState<string | null>(null);
+  const [selectingId, setSelectingId] = useState<string | null>(null);
+  const savedTravelers =
+    state.status === 'logged-out' ? listTravelersForCurrentSession() : [];
+  useEffect(() => {
+    if (
+      auth.status === 'signedIn' &&
+      state.status !== 'loading' &&
+      state.status !== 'ready' &&
+      savedTravelers.length === 0
+    )
+      router.replace(routes.create);
+  }, [auth.status, router, savedTravelers.length, state.status]);
   if (state.status === 'logged-out') {
-    const savedTravelers = journeyRepository.listSaved();
+    const preferredTravelerId = getCurrentRemoteActiveTravelerId();
     return (
       <Shell>
         <section className={styles.entryScreen} aria-labelledby="entry-title">
           <p className={styles.eyebrow}>RPG JOVEM CRISTÃO</p>
-          <h1 id="entry-title">Escolha como deseja continuar sua jornada.</h1>
+          <h1 id="entry-title">Escolha seu Viajante</h1>
           <div className={styles.savedTravelerCard}>
             <p className={styles.eyebrow}>SEUS VIAJANTES</p>
-            {savedTravelers.map((traveler) => <article key={traveler.id} className={styles.savedTravelerOption}>
-              <Avatar appearance={traveler.appearance} avatar={traveler.avatar} />
-              <h2>{traveler.name}</h2>
-              <p>Viajante · Nível {traveler.level}</p>
-              <Button className={styles.primary} onClick={() => { if (resumeJourney(traveler.id)) router.replace(routes.map); }}>Entrar</Button>
-            </article>)}
+            {savedTravelers.map((traveler) => (
+              <article key={traveler.id} className={styles.savedTravelerOption}>
+                <Avatar
+                  appearance={traveler.appearance}
+                  avatar={traveler.avatar}
+                />
+                <h2>{traveler.name}</h2>
+                <p>
+                  Viajante · Nível {traveler.level}
+                  {traveler.id === preferredTravelerId ? ' · Ativo' : ''}
+                </p>
+                <Button
+                  className={styles.primary}
+                  disabled={selectingId !== null}
+                  onClick={async () => {
+                    setSelectionError(null);
+                    setSelectingId(traveler.id);
+                    const resumed = await resumeJourney(traveler.id);
+                    if (resumed) router.replace(routes.map);
+                    else
+                      setSelectionError(
+                        'Não foi possível selecionar este Viajante.',
+                      );
+                    setSelectingId(null);
+                  }}
+              >
+                {selectingId === traveler.id ? 'Selecionando…' : 'Entrar'}
+              </Button>
+              </article>
+            ))}
           </div>
-          <Link className={styles.primaryLink} href={routes.create}>+ Criar novo Viajante</Link>
+          {selectionError && (
+            <p role="alert" className={styles.error}>
+              {selectionError}
+            </p>
+          )}
+          <Link className={styles.primaryLink} href={routes.create}>
+            + Criar novo Viajante
+          </Link>
+          {(auth.status === 'signedOut' || auth.status === 'local') && (
+            <Link href="/auth">Entrar ou criar conta para sincronizar</Link>
+          )}
         </section>
       </Shell>
     );
@@ -43,19 +101,42 @@ export function Home() {
             <p className={styles.eyebrow}>
               SEU HERÓI · NÍVEL {state.traveler.level}
             </p>
-            <Avatar appearance={state.traveler.appearance} avatar={state.traveler.avatar} />
+            <Avatar
+              appearance={state.traveler.appearance}
+              avatar={state.traveler.avatar}
+            />
             <h2>{state.traveler.name}</h2>
             <div className={styles.xpBar}>
               <span
                 style={{
-                  width: String(state.traveler.level >= MAX_LEVEL ? 100 : Math.min(100, (state.traveler.xp - xpForLevel(state.traveler.level)) / (xpForLevel(state.traveler.level + 1) - xpForLevel(state.traveler.level)) * 100)) + '%',
+                  width:
+                    String(
+                      state.traveler.level >= MAX_LEVEL
+                        ? 100
+                        : Math.min(
+                            100,
+                            ((state.traveler.xp -
+                              xpForLevel(state.traveler.level)) /
+                              (xpForLevel(state.traveler.level + 1) -
+                                xpForLevel(state.traveler.level))) *
+                              100,
+                          ),
+                    ) + '%',
                 }}
               />
             </div>
             <p>
-              {state.traveler.xp} / {state.traveler.level < MAX_LEVEL ? xpForLevel(state.traveler.level + 1) : 'MÁX.'} XP · ◈ {state.traveler.coins} {TRAVELER_CURRENCY_NAME}
+              {state.traveler.xp} /{' '}
+              {state.traveler.level < MAX_LEVEL
+                ? xpForLevel(state.traveler.level + 1)
+                : 'MÁX.'}{' '}
+              XP · ◈ {state.traveler.coins} {TRAVELER_CURRENCY_NAME}
             </p>
-            <p>{nextUnlock(state.traveler.level) ? `Próximo desbloqueio: nível ${nextUnlock(state.traveler.level)?.level} · ${nextUnlock(state.traveler.level)?.label}` : 'Todos os marcos de nível alcançados'}</p>
+            <p>
+              {nextUnlock(state.traveler.level)
+                ? `Próximo desbloqueio: nível ${nextUnlock(state.traveler.level)?.level} · ${nextUnlock(state.traveler.level)?.label}`
+                : 'Todos os marcos de nível alcançados'}
+            </p>
             <div className={styles.equipment}>
               <span>⚔ arma</span>
               <span>🛡 escudo</span>
@@ -96,10 +177,16 @@ export function Home() {
             disabled={state.status === 'loading'}
             onClick={() => {
               if (state.status === 'ready') router.push(routes.map);
+              else if (auth.status === 'signedOut') router.push('/auth');
               else router.push(routes.create);
             }}
           >
-            {state.status === 'ready' ? 'Iniciar Jornada' : 'Criar Viajante'} <span aria-hidden="true">↗</span>
+            {state.status === 'ready'
+              ? 'Iniciar Jornada'
+              : auth.status === 'signedOut'
+                ? 'Entrar ou continuar localmente'
+                : 'Criar Viajante'}{' '}
+            <span aria-hidden="true">↗</span>
           </Button>
           <p className={styles.micro}>
             {state.status === 'ready'

@@ -7,6 +7,7 @@ import { PHASE_GUILD_REWARD, specialChallengeRewardTables } from '../data/guildR
 import {
   claimPhaseGuildReward,
   claimSpecialChallengeReward,
+  createTestGuild,
   joinGuild,
   updateGuildChallenge,
   updateSpecialChallenge,
@@ -14,6 +15,7 @@ import {
 import type { GuildChallengeStatus, SpecialChallengeRewardTier } from '../domain/traveler';
 import styles from '../journey.module.css';
 import { GuildContentBoard } from '../components/guild-content-board';
+import { localGuildRepository } from '../data/localGuilds';
 
 const statusLabels: Record<GuildChallengeStatus, string> = {
   locked: 'BLOQUEADO',
@@ -34,6 +36,8 @@ export function GuildHub() {
   const [tab, setTab] = useState<'phase' | 'special' | 'pending' | 'completed'>('phase');
   const [leaderView, setLeaderView] = useState(false);
   const [inviteCode, setInviteCode] = useState('');
+  const [guildFeedback, setGuildFeedback] = useState('');
+  const [createdCode, setCreatedCode] = useState('');
 
   return (
     <Shell back={routes.map} backLabel="Voltar ao mapa">
@@ -41,6 +45,8 @@ export function GuildHub() {
         {(traveler) => {
           const progress = traveler.progress;
           const status = progress.guildChallengeStatus;
+          const localGuild = progress.guildId ? localGuildRepository.findById(progress.guildId) : null;
+          const isLocalLeader = localGuild?.leaderId === traveler.id;
           const visibleSpecials = progress.specialChallenges.filter((challenge) => {
             if (tab === 'pending') return challenge.status === 'awaiting-validation';
             if (tab === 'completed') return challenge.status === 'completed';
@@ -52,21 +58,34 @@ export function GuildHub() {
                 <p className={styles.eyebrow}>GUILDA · DESAFIOS</p>
                 <h1>Desafios da Célula</h1>
                 <p>Atividades realizadas são validadas objetivamente. Nenhuma aprovação mede fé ou espiritualidade.</p>
-                <button className={styles.textLink} onClick={() => setLeaderView((value) => !value)}>
+                {progress.guildId && <button className={styles.textLink} onClick={() => setLeaderView((value) => !value)}>
                   {leaderView ? 'Ver como jogador' : 'Painel do líder · simulação local'}
-                </button>
+                </button>}
               </header>
 
               {!progress.guildId && (
                 <section className={styles.guildJoinCard}>
                   <h2>Entre em uma Célula/Guilda para continuar</h2>
                   <p>Seu progresso da fase está preservado. A próxima fase permanecerá bloqueada até você entrar em uma Guilda e concluir o desafio final.</p>
+                  <p className={styles.guildWarning}>Para avançar, participe de uma Guilda/Célula e receba a aprovação objetiva do líder.</p>
                   <div>
-                    <input value={inviteCode} onChange={(event) => setInviteCode(event.target.value)} placeholder="Código de convite" />
-                    <button onClick={() => joinGuild(inviteCode)}>Entrar com código</button>
+                    <input aria-label="Código da Guilda" value={inviteCode} onChange={(event) => setInviteCode(event.target.value)} placeholder="Código de convite" />
+                    <button onClick={() => {
+                      if (!inviteCode.trim()) { setGuildFeedback('Informe um código de Guilda.'); return; }
+                      setGuildFeedback(joinGuild(inviteCode) ? 'Entrada concluída na Guilda local.' : 'Código inválido ou inexistente neste ambiente local.');
+                    }}>Entrar com código</button>
                   </div>
+                  <button className={styles.primaryLink} onClick={() => {
+                    const code = createTestGuild();
+                    if (!code) { setGuildFeedback('Não foi possível criar a Guilda de teste.'); return; }
+                    setCreatedCode(code); setGuildFeedback('Guilda de teste criada. Você é o líder local.'); setLeaderView(true);
+                  }}>Criar Guilda de teste</button>
+                  <details><summary>Entender como funciona</summary><p>Entre por um código local conhecido ou crie uma Guilda de teste. Conclua e envie o desafio; depois, aprove a realização no Modo Líder. A próxima fase só abre após o resgate da recompensa aprovada.</p><p>Ambiente local de desenvolvimento: nenhuma Guilda online é criada.</p></details>
+                  {createdCode && <p className={styles.guildSuccess}>Código local: <strong>{createdCode}</strong></p>}
+                  <p role="status">{guildFeedback}</p>
                 </section>
               )}
+              {progress.guildId && <section className={styles.guildLocalIdentity}><b>{localGuild?.name ?? 'Guilda local'}</b><span>{isLocalLeader ? 'Líder local' : 'Membro local'} · ambiente de desenvolvimento</span>{localGuild?.code && <code>{localGuild.code}</code>}</section>}
               <GuildContentBoard traveler={traveler} leaderView={leaderView} />
 
               <nav className={styles.guildTabs} aria-label="Seções de desafios">

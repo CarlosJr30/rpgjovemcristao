@@ -148,7 +148,8 @@ export type Traveler = {
     guildRewardClaimed: boolean;
     nextPhaseUnlocked: boolean;
     specialChallenges: SpecialChallenge[];
-    guildActivities: Record<string, 'submitted' | 'approved' | 'claimed'>;
+    guildActivities: Record<string, 'submitted' | 'revision-requested' | 'approved' | 'claimed'>;
+    guildActivitySubmittedAt: Record<string, string>;
     diaryEntries: number;
     gardenExploredPoints: string[];
     gardenFragments: number;
@@ -162,6 +163,7 @@ export type Traveler = {
     devotionalReflection: string;
     explorationObjectives: string[];
     quizAttemptId: number;
+    snakeTutorialCompleted: boolean;
   };
   createdAt: string;
 };
@@ -215,6 +217,7 @@ export function createTraveler(
       nextPhaseUnlocked: false,
       specialChallenges: [],
       guildActivities: {},
+      guildActivitySubmittedAt: {},
       diaryEntries: 0,
       gardenExploredPoints: [],
       gardenFragments: 0,
@@ -234,6 +237,7 @@ export function createTraveler(
       devotionalReflection: '',
       explorationObjectives: [],
       quizAttemptId: 0,
+      snakeTutorialCompleted: false,
     },
     createdAt,
   };
@@ -353,6 +357,7 @@ export function parseTraveler(value: unknown): Traveler | null {
       'nextPhaseUnlocked',
       'specialChallenges',
       'guildActivities',
+      'guildActivitySubmittedAt',
       'diaryEntries',
       'gardenExploredPoints',
       'gardenFragments',
@@ -366,6 +371,7 @@ export function parseTraveler(value: unknown): Traveler | null {
       'devotionalReflection',
       'explorationObjectives',
       'quizAttemptId',
+      'snakeTutorialCompleted',
     ]) ||
     typeof progress.introCompleted !== 'boolean' ||
     progress.currentPhase !== 'garden-choice' ||
@@ -384,7 +390,9 @@ export function parseTraveler(value: unknown): Traveler | null {
     !Array.isArray(progress.specialChallenges) ||
     !progress.specialChallenges.every(isSpecialChallenge) ||
     !record(progress.guildActivities) ||
-    !Object.entries(progress.guildActivities).every(([id, status]) => id.length > 0 && id.length <= 64 && ['submitted', 'approved', 'claimed'].includes(String(status))) ||
+    !Object.entries(progress.guildActivities).every(([id, status]) => id.length > 0 && id.length <= 64 && ['submitted', 'revision-requested', 'approved', 'claimed'].includes(String(status))) ||
+    !record(progress.guildActivitySubmittedAt) ||
+    !Object.entries(progress.guildActivitySubmittedAt).every(([id, date]) => id.length > 0 && id.length <= 64 && typeof date === 'string' && Number.isFinite(Date.parse(date))) ||
     typeof progress.diaryEntries !== 'number' ||
     !Number.isInteger(progress.diaryEntries) ||
     progress.diaryEntries < 0
@@ -408,6 +416,7 @@ export function parseTraveler(value: unknown): Traveler | null {
     !(progress.bibleReading.genesis3Opened === null || typeof progress.bibleReading.genesis3Opened === 'string') ||
     typeof progress.bibleReading.genesis3Confirmed !== 'boolean' ||
     typeof progress.bibleReading.comprehensionCompleted !== 'boolean' ||
+    typeof progress.snakeTutorialCompleted !== 'boolean' ||
     typeof progress.devotionalCompleted !== 'boolean' ||
     typeof progress.devotionalReflection !== 'string' ||
     progress.devotionalReflection.length > 800 ||

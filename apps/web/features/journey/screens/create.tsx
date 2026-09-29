@@ -1,5 +1,5 @@
 'use client';
-import { useState, type FormEvent } from 'react';
+import { useEffect, useState, type FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { Button } from '@rpg/ui';
@@ -15,6 +15,7 @@ import { JOURNEY_ROUTES as routes } from '../data/campaign';
 import { Shell } from '../components/shell';
 import { Avatar } from '../components/avatar';
 import styles from '../journey.module.css';
+import { useAuth } from '../../../lib/supabase/auth-context';
 
 const options = {
   hair: [
@@ -42,9 +43,28 @@ export function CreateScreen() {
   const [bodyType, setBodyType] = useState<'male' | 'female'>('male');
   const [error, setError] = useState<string | null>(null);
   const [nameError, setNameError] = useState<string | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showCreationForm, setShowCreationForm] = useState(false);
   const state = useJourney();
+  const auth = useAuth();
   const router = useRouter();
-  function submit(event: FormEvent<HTMLFormElement>) {
+  const authLoading = auth.status === 'loading';
+  const canCreateTraveler =
+    auth.status === 'signedIn' || auth.status === 'local';
+
+  useEffect(() => {
+    if (process.env.NODE_ENV !== 'development') return;
+    console.info('[CREATE SCREEN AUTH]', {
+      authLoading,
+      status: auth.status,
+      sessionPresent: Boolean(auth.session),
+      userPresent: Boolean(auth.user),
+      isAuthenticated: auth.isAuthenticated,
+      continueLocally: auth.status === 'local',
+    });
+  }, [auth, authLoading]);
+
+  async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const invalid = validateName(name);
     setNameError(invalid);
@@ -52,9 +72,24 @@ export function CreateScreen() {
       event.currentTarget.querySelector('input')?.focus();
       return;
     }
-    const failure = registerTraveler(name, appearance, bodyType);
-    setError(failure);
-    if (!failure) router.push(routes.intro);
+    setIsSubmitting(true);
+    setError(null);
+    try {
+      const failure = await registerTraveler(
+        name,
+        appearance,
+        bodyType,
+        auth.status === 'signedIn'
+          ? auth.user.id
+          : auth.status === 'local'
+            ? null
+            : undefined,
+      );
+      setError(failure);
+      if (!failure) router.push(routes.intro);
+    } finally {
+      setIsSubmitting(false);
+    }
   }
   return (
     <Shell back="/" backLabel="Voltar ao início">
@@ -67,21 +102,35 @@ export function CreateScreen() {
             <br /> crie o viajante que irá acompanhá-las.
           </p>
         </div>
-        {state.status === 'ready' ? (
+        {state.status === 'ready' && !showCreationForm ? (
           <div className={styles.emptyState}>
             <h2>Seu Viajante já está pronto.</h2>
             <p>Continue o caminho de {state.traveler.name}.</p>
             <Link className={styles.primaryLink} href={routes.map}>
               Continuar jornada →
             </Link>
+            <button
+              type="button"
+              className={styles.secondaryAction}
+              onClick={() => setShowCreationForm(true)}
+            >
+              Criar outro Viajante
+            </button>
           </div>
         ) : (
           <div className={styles.createGrid}>
             <aside className={styles.characterStage}>
-              <span className={styles.eyebrow}>UM NOVO VIAJANTE</span>
+              <span className={styles.eyebrow}>
+                {state.status === 'ready'
+                  ? 'OUTRO VIAJANTE'
+                  : 'UM NOVO VIAJANTE'}
+              </span>
               <div className={styles.avatarScene}>
                 <span className={styles.avatarHalo} />
-                <Avatar appearance={appearance} avatar={{ ...DEFAULT_AVATAR, gender: bodyType }} />
+                <Avatar
+                  appearance={appearance}
+                  avatar={{ ...DEFAULT_AVATAR, gender: bodyType }}
+                />
                 <span className={styles.pedestal} />
               </div>
               <h2>{name.trim() || 'Seu Viajante'}</h2>
@@ -157,7 +206,12 @@ export function CreateScreen() {
                 <div>
                   {(['male', 'female'] as const).map((value) => (
                     <label key={value} className={styles.option}>
-                      <input type="radio" name="body-type" checked={bodyType === value} onChange={() => setBodyType(value)} />
+                      <input
+                        type="radio"
+                        name="body-type"
+                        checked={bodyType === value}
+                        onChange={() => setBodyType(value)}
+                      />
                       <span>{value === 'male' ? 'Masculino' : 'Feminino'}</span>
                     </label>
                   ))}
@@ -207,13 +261,23 @@ export function CreateScreen() {
                 type="submit"
                 className={styles.primary}
                 disabled={
-                  state.status === 'loading' || state.status === 'unavailable'
+                  isSubmitting ||
+                  !canCreateTraveler ||
+                  state.status === 'loading' ||
+                  state.status === 'unavailable'
                 }
               >
-                Criar Viajante <span aria-hidden="true">→</span>
+                {isSubmitting ? 'Salvando…' : 'Criar Viajante'}{' '}
+                {!isSubmitting && <span aria-hidden="true">→</span>}
               </Button>
               <p className={styles.micro}>
-                Salvo apenas neste navegador. Nenhuma conta necessária.
+                {auth.status === 'signedIn'
+                  ? 'Salvo online e mantido neste navegador como fallback.'
+                  : auth.status === 'local'
+                    ? 'Modo local escolhido: salvo somente neste navegador.'
+                    : auth.status === 'loading'
+                      ? 'Verificando sessão…'
+                      : 'Entre em uma conta ou escolha explicitamente o modo local em /auth.'}
               </p>
             </form>
           </div>

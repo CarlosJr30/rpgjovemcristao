@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'vitest';
 import {
-  availableEquipmentAbility, battleBalanceConfig, calculateCombatPower, calculateDamage,
+  availableEquipmentAbility, battleBalanceConfig, calculateCombatPower, calculateCombatPowerBreakdown, calculateDamage,
   calculateInitiative, calculateMaxHp, calculateTrainingReward, createBattle,
   getEngineStatus, isWithinMatchmakingRange, resolveRound,
   type BattleEffectId, type BattleParticipantSnapshot,
@@ -67,6 +67,11 @@ describe('Battle Engine', () => {
     expect(calculateTrainingReward(true, 0).rewarded).toBe(true);
     expect(calculateTrainingReward(true, 3).reason).toBe('daily-limit');
     expect(calculateTrainingReward(false, 0).reason).toBe('defeat');
+  });
+  test('decompõe Poder de Combate sem inflar Viajante inicial', () => {
+    const initial = { level: 1, attributes: { life: 1, strength: 1, defense: 1, wisdom: 1 }, equipment: [] };
+    expect(calculateCombatPowerBreakdown(initial)).toEqual({ level: 20, attributes: 45, equipment: 0, specialEffects: 0, total: 65 });
+    expect(calculateCombatPower(initial)).toBe(65);
   });
   test('builds TANK/OFFENSIVO e TÁTICO/EQUILIBRADO concluem', () => {
     const duel = (left: BattleParticipantSnapshot, right: BattleParticipantSnapshot, seed: number) => {

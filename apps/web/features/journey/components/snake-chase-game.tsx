@@ -24,7 +24,7 @@ import {
 import styles from '../journey.module.css';
 import type { GameplayPortrait } from '../data/gameplayAvatarPortrait';
 
-type Props = { portrait: GameplayPortrait; onComplete: () => void };
+type Props = { portrait: GameplayPortrait; tutorialCompleted: boolean; onTutorialComplete: () => void; onComplete: () => void };
 type Status = 'ready' | 'playing' | 'won' | 'lost';
 type PowerKind = 'shield' | 'speed' | 'heal';
 type Pickup = Point & { id: string };
@@ -32,7 +32,8 @@ type PowerPickup = Pickup & { kind: PowerKind };
 type Particle = Point & { life: number; color: string; vx: number; vy: number; sprite?: AssetKey; size?: number; hudTarget?: Point; maxLife?: number };
 type Hud = {
   lives: number;
-  apples: number;
+  lightFragments: number;
+  score: number;
   fragments: number;
   portalActivating: boolean;
   time: number;
@@ -42,19 +43,35 @@ type Hud = {
   danger: number;
   distance: number;
 };
+type CanvasViewport = { width: number; height: number; dpr: number };
+export type SnakeRenderProfile = {
+  mode: 'desktop' | 'mobile-portrait' | 'mobile-landscape' | 'tablet';
+  zoom: number;
+  actorScale: number;
+  pickupScale: number;
+};
+
+export function getSnakeRenderProfile(screenWidth: number, screenHeight: number): SnakeRenderProfile {
+  if (screenWidth > 1024) return { mode: 'desktop', zoom: 1, actorScale: 1, pickupScale: 1 };
+  if (screenWidth > screenHeight && screenHeight <= 500) {
+    return { mode: 'mobile-landscape', zoom: 1.25, actorScale: 1.15, pickupScale: 1.15 };
+  }
+  if (screenWidth <= 600) return { mode: 'mobile-portrait', zoom: 1.4, actorScale: 1.2, pickupScale: 1.16 };
+  return { mode: 'tablet', zoom: 1.3, actorScale: 1.15, pickupScale: 1.12 };
+}
 
 const fragments: readonly Pickup[] = [
   { id: 'fragment-one', ...cellCenter({ col: 3, row: 3 }) },
   { id: 'fragment-two', ...cellCenter({ col: 18, row: 3 }) },
   { id: 'fragment-three', ...cellCenter({ col: 22, row: 9 }) },
 ];
-const apples: readonly Pickup[] = [
-  { id: 'apple-safe', ...cellCenter({ col: 4, row: 11 }) },
-  { id: 'apple-branch', ...cellCenter({ col: 11, row: 3 }) },
-  { id: 'apple-risk-one', ...cellCenter({ col: 20, row: 1 }) },
-  { id: 'apple-risk-two', ...cellCenter({ col: 16, row: 7 }) },
-  { id: 'apple-detour', ...cellCenter({ col: 2, row: 5 }) },
-  { id: 'apple-portal', ...cellCenter({ col: 20, row: 11 }) },
+const lightFragments: readonly Pickup[] = [
+  { id: 'light-safe', ...cellCenter({ col: 4, row: 11 }) },
+  { id: 'light-branch', ...cellCenter({ col: 11, row: 3 }) },
+  { id: 'light-risk-one', ...cellCenter({ col: 20, row: 1 }) },
+  { id: 'light-risk-two', ...cellCenter({ col: 16, row: 7 }) },
+  { id: 'light-detour', ...cellCenter({ col: 2, row: 5 }) },
+  { id: 'light-portal', ...cellCenter({ col: 20, row: 11 }) },
 ];
 const powers: readonly PowerPickup[] = [
   { id: 'power-shield', kind: 'shield', ...cellCenter({ col: 8, row: 5 }) },
@@ -66,7 +83,7 @@ const assetUrls = {
   serpentMoveOne: '/assets/minigame/serpent/serpent_move_01.png',
   serpentMoveTwo: '/assets/minigame/serpent/serpent_move_02.png',
   serpentAttack: '/assets/minigame/serpent/serpent_attack.png',
-  apple: '/assets/minigame/pickups/apple_red.png',
+  lightFragment: '/assets/minigame/pickups/light_fragment.png',
   fragment: '/assets/minigame/pickups/wisdom_fragment.png',
   portal: '/assets/minigame/portal/exit_portal.png',
   shield: '/assets/minigame/powerups/powerup_shield.png',
@@ -92,9 +109,10 @@ const assetUrls = {
 } as const;
 type AssetKey = keyof typeof assetUrls | 'player';
 type RenderableAsset = HTMLImageElement | HTMLCanvasElement;
-type SoundEvent = 'ambient_garden' | 'serpent_near' | 'serpent_attack' | 'pickup_apple' | 'pickup_fragment' | 'pickup_powerup' | 'portal_open' | 'player_hit' | 'victory' | 'defeat';
+type SoundEvent = 'ambient_garden' | 'serpent_near' | 'serpent_attack' | 'pickup_light' | 'pickup_fragment' | 'pickup_powerup' | 'portal_open' | 'player_hit' | 'victory' | 'defeat';
 const emitSound = (event: SoundEvent) => { void event; /* fallback silencioso até existirem arquivos aprovados */ };
 const distance = (a: Point, b: Point) => Math.hypot(a.x - b.x, a.y - b.y);
+const MAX_PARTICLES = 80;
 
 function createRuntime(reducedMotion: boolean) {
   return {
@@ -103,7 +121,7 @@ function createRuntime(reducedMotion: boolean) {
     velocity: { x: 0, y: 0 },
     keys: new Set<string>(),
     fragments: fragments.map((item) => ({ ...item })),
-    apples: apples.map((item) => ({ ...item })),
+    lightFragments: lightFragments.map((item) => ({ ...item })),
     powers: powers.map((item) => ({ ...item })),
     particles: [] as Particle[],
     path: [] as Point[],
@@ -112,7 +130,7 @@ function createRuntime(reducedMotion: boolean) {
     dustTimer: 0,
     elapsed: 0,
     lives: 3,
-    appleCount: 0,
+    lightFragmentCount: 0,
     fragmentCount: 0,
     portalActivation: 0,
     shield: false,
@@ -129,31 +147,38 @@ function createRuntime(reducedMotion: boolean) {
     camera: { x: 0, y: 130 },
     reducedMotion,
     lastMessage: 'Prepare-se · a perseguição começa em instantes.',
+    serpentHintShown: false,
+    respawnHintShown: false,
+    portalHintShown: false,
+    explorationHintShown: false,
+    lastFragmentAt: 0,
   };
 }
 
-export function SnakeChaseGame({ portrait, onComplete }: Props) {
+export function SnakeChaseGame({ portrait, tutorialCompleted, onTutorialComplete, onComplete }: Props) {
   const stablePortrait = useMemo(() => ({
     imageUrl: portrait.imageUrl,
     source: { x: portrait.source.x, y: portrait.source.y, width: portrait.source.width, height: portrait.source.height },
   }), [portrait.imageUrl, portrait.source.x, portrait.source.y, portrait.source.width, portrait.source.height]);
   const canvas = useRef<HTMLCanvasElement>(null);
+  const viewport = useRef<CanvasViewport>({ width: GAME_WIDTH, height: GAME_HEIGHT, dpr: 1 });
   const images = useRef<Partial<Record<AssetKey, RenderableAsset>>>({});
   const runtime = useRef(createRuntime(false));
   const [status, setStatus] = useState<Status>('ready');
   const [attempts, setAttempts] = useState(1);
   const [losses, setLosses] = useState(0);
   const [assisted, setAssisted] = useState(false);
+  const [isFullscreen, setIsFullscreen] = useState(false);
   const [resetKey, setResetKey] = useState(0);
   const [hud, setHud] = useState<Hud>({
-    lives: 3, apples: 0, fragments: 0, portalActivating: false, time: 0,
+    lives: 3, lightFragments: 0, score: 0, fragments: 0, portalActivating: false, time: 0,
     message: 'Encontre os três Fragmentos de Sabedoria.', shield: false, speed: 0, danger: 0, distance: 0,
   });
 
   const reset = (nextStatus: Status = 'playing') => {
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     runtime.current = createRuntime(reduced);
-    setHud({ lives: 3, apples: 0, fragments: 0, portalActivating: false, time: 0, message: 'Encontre os três Fragmentos de Sabedoria.', shield: false, speed: 0, danger: 0, distance: 0 });
+    setHud({ lives: 3, lightFragments: 0, score: 0, fragments: 0, portalActivating: false, time: 0, message: 'Encontre os três Fragmentos de Sabedoria.', shield: false, speed: 0, danger: 0, distance: 0 });
     setStatus(nextStatus);
     setResetKey((value) => value + 1);
   };
@@ -171,6 +196,30 @@ export function SnakeChaseGame({ portrait, onComplete }: Props) {
   }, [portrait.imageUrl]);
 
   useEffect(() => {
+    const element = canvas.current;
+    if (!element) return;
+    const resizeCanvas = () => {
+      const rect = element.getBoundingClientRect();
+      const width = Math.max(1, Math.round(element.clientWidth || rect.width || GAME_WIDTH));
+      const height = Math.max(1, Math.round(element.clientHeight || rect.height || GAME_HEIGHT));
+      const dpr = Math.min(2, Math.max(1, window.devicePixelRatio || 1));
+      viewport.current = { width, height, dpr };
+      const renderWidth = Math.round(width * dpr);
+      const renderHeight = Math.round(height * dpr);
+      if (element.width !== renderWidth) element.width = renderWidth;
+      if (element.height !== renderHeight) element.height = renderHeight;
+    };
+    resizeCanvas();
+    const observer = typeof ResizeObserver === 'undefined' ? null : new ResizeObserver(resizeCanvas);
+    observer?.observe(element);
+    window.addEventListener('resize', resizeCanvas);
+    return () => {
+      observer?.disconnect();
+      window.removeEventListener('resize', resizeCanvas);
+    };
+  }, []);
+
+  useEffect(() => {
     const relevant = new Set(['w', 'a', 's', 'd', 'W', 'A', 'S', 'D', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight']);
     const down = (event: KeyboardEvent) => {
       if (!relevant.has(event.key)) return;
@@ -184,6 +233,17 @@ export function SnakeChaseGame({ portrait, onComplete }: Props) {
       window.removeEventListener('keydown', down);
       window.removeEventListener('keyup', up);
     };
+  }, []);
+
+  useEffect(() => {
+    document.body.dataset.snakeGameActive = status === 'ready' ? 'false' : 'true';
+    return () => { delete document.body.dataset.snakeGameActive; };
+  }, [status]);
+
+  useEffect(() => {
+    const updateFullscreen = () => setIsFullscreen(Boolean(document.fullscreenElement));
+    document.addEventListener('fullscreenchange', updateFullscreen);
+    return () => document.removeEventListener('fullscreenchange', updateFullscreen);
   }, []);
 
   useEffect(() => {
@@ -237,22 +297,28 @@ export function SnakeChaseGame({ portrait, onComplete }: Props) {
         const direction = normalizeInput({ x: serpentTarget.x - game.serpent.x, y: serpentTarget.y - game.serpent.y });
         game.serpentDirection = direction;
         if (game.chaseDelay <= 0) {
-          const chaseSpeed = effectiveSerpentSpeed(game.elapsed, game.fragmentCount === 3, assisted);
+          if (!game.serpentHintShown) {
+            game.serpentHintShown = true;
+            game.lastMessage = 'A Serpente está perseguindo você · use caminhos e obstáculos para ganhar distância.';
+          }
+          const mobile = getSnakeRenderProfile(window.innerWidth, window.innerHeight).mode !== 'desktop';
+          const chaseSpeed = effectiveSerpentSpeed(game.elapsed, game.fragmentCount === 3, assisted, mobile);
           game.serpent = moveWithCollision(game.serpent, { x: direction.x * chaseSpeed, y: direction.y * chaseSpeed }, dt, 9, 6);
         }
 
-        collect(game.apples, game.player, 19, (pickup) => {
+        collect(game.lightFragments, game.player, 19, (pickup) => {
           game.pickupPulse = .18;
-          game.appleCount += 1;
-          game.lastMessage = 'Maçã coletada · decisão de risco recompensada.';
-          burst(game, pickup, '#dd6249', 8);
+          game.lightFragmentCount += 1;
+          game.lastMessage = 'FRAGMENTO DE LUZ · +100 pontos';
+          burst(game, pickup, '#f6d77a', 8);
           game.particles.push({ ...pickup, life: .42, color: '#fff', vx: 0, vy: -18, sprite: 'collect', size: 34 });
-          if (!game.reducedMotion) game.particles.push({ ...pickup, life: .5, maxLife: .5, color: '#e4725d', vx: 0, vy: 0, size: 6, hudTarget: { x: 106, y: 16 } });
-          emitSound('pickup_apple');
+          if (!game.reducedMotion) game.particles.push({ ...pickup, life: .5, maxLife: .5, color: '#f6d77a', vx: 0, vy: 0, size: 6, hudTarget: { x: 275, y: 16 } });
+          emitSound('pickup_light');
         });
         collect(game.fragments, game.player, 21, (pickup) => {
           game.pickupPulse = .18;
           game.fragmentCount += 1;
+          game.lastFragmentAt = game.elapsed;
           game.lastMessage = game.fragmentCount === 3 ? 'PORTAL ATIVADO · Escape!' : `Fragmento encontrado · ${String(game.fragmentCount)} / 3`;
           game.flash = .45;
           burst(game, pickup, '#f1d77f', 14);
@@ -271,7 +337,7 @@ export function SnakeChaseGame({ portrait, onComplete }: Props) {
           if (pickup.kind === 'speed') game.speedTimer = 5;
           if (pickup.kind === 'heal') game.lives = Math.min(3, game.lives + 1);
           game.pickupPulse = .18;
-          game.lastMessage = pickup.kind === 'shield' ? 'ESCUDO · protege do próximo contato.' : pickup.kind === 'speed' ? 'VELOCIDADE · impulso por 5 segundos.' : 'CURA · uma vida recuperada.';
+          game.lastMessage = pickup.kind === 'shield' ? 'ESCUDO · protege contra um ataque.' : pickup.kind === 'speed' ? 'VELOCIDADE · aumenta sua velocidade por 5 segundos.' : 'CURA · recupera uma vida.';
           burst(game, pickup, '#9ed5bd', 10);
           emitSound('pickup_powerup');
           return true;
@@ -303,9 +369,18 @@ export function SnakeChaseGame({ portrait, onComplete }: Props) {
               game.velocity = { x: 0, y: 0 };
               game.path = [];
               game.invulnerable = RESPAWN_INVULNERABILITY;
-              game.lastMessage = `ATINGIDO · ${String(game.lives)} vidas restantes · reposicionamento seguro.`;
+              game.lastMessage = game.respawnHintShown ? `ATINGIDO · ${String(game.lives)} vidas restantes.` : 'Você perdeu uma vida · reapareceu em segurança com proteção temporária.';
+              game.respawnHintShown = true;
             }
           }
+        }
+        if (game.fragmentCount < 3 && !game.portalHintShown && distance(game.player, PORTAL_POSITION) < 52) {
+          game.portalHintShown = true;
+          game.lastMessage = 'PORTAL INATIVO · reúna os 3 Fragmentos para ativá-lo.';
+        }
+        if (!game.explorationHintShown && game.fragmentCount < 3 && game.elapsed - game.lastFragmentAt > 18) {
+          game.explorationHintShown = true;
+          game.lastMessage = 'DICA · explore os caminhos laterais para encontrar Fragmentos.';
         }
         if (!game.finished && game.fragmentCount === 3 && game.portalActivation <= 0 && distance(game.player, PORTAL_POSITION) < 24) {
           game.finished = true;
@@ -320,7 +395,8 @@ export function SnakeChaseGame({ portrait, onComplete }: Props) {
           uiTimer = 0;
           setHud({
             lives: game.lives,
-            apples: game.appleCount,
+            lightFragments: game.lightFragmentCount,
+            score: game.lightFragmentCount * 100,
             fragments: game.fragmentCount,
             portalActivating: game.portalActivation > 0,
             time: Math.floor(game.elapsed),
@@ -332,7 +408,7 @@ export function SnakeChaseGame({ portrait, onComplete }: Props) {
           });
         }
       }
-      renderGame(context, runtime.current, images.current, stablePortrait, now, dt);
+      renderGame(context, runtime.current, images.current, stablePortrait, viewport.current, now, dt);
       frame = requestAnimationFrame(tick);
     };
     frame = requestAnimationFrame(tick);
@@ -347,37 +423,53 @@ export function SnakeChaseGame({ portrait, onComplete }: Props) {
     setAttempts((value) => value + 1);
     reset('playing');
   };
+  const exitGame = async () => {
+    runtime.current.keys.clear();
+    if (document.fullscreenElement) await document.exitFullscreen().catch(() => undefined);
+    reset('ready');
+  };
+  const toggleFullscreen = async () => {
+    if (document.fullscreenElement) await document.exitFullscreen();
+    else if (document.documentElement.requestFullscreen) await document.documentElement.requestFullscreen();
+  };
 
   return (
-    <div className={`${styles.arcadeGame} ${hud.danger > .65 ? styles.arcadeDanger : ''}`}>
+    <div className={`${styles.arcadeGame} ${status !== 'ready' ? styles.arcadeGameActive : ''} ${hud.danger > .65 ? styles.arcadeDanger : ''}`}>
       <div className={styles.arcadeTitle}>
         <span>GRANDE DESAFIO</span>
         <strong>Fuga da Serpente</strong>
-        <small>As maçãs são itens de jogo e não representam o fruto de Gênesis.</small>
+        <small>Reúna sabedoria, colete luz e encontre a saída.</small>
       </div>
+      {status !== 'ready' && <div className={styles.arcadeGameActions}>
+        <button aria-label={isFullscreen ? 'Sair da tela cheia' : 'Entrar em tela cheia'} onClick={() => void toggleFullscreen()}><span aria-hidden="true">⛶</span></button>
+        <button onClick={() => void exitGame()}>Sair</button>
+      </div>}
       <div className={styles.arcadeHud}>
-        <span><b>♥</b> VIDAS <strong>{hud.lives}/3</strong></span>
-        <span><b>◆</b> FRAGMENTOS <strong>{hud.fragments}/3</strong></span>
-        <span><b>●</b> MAÇÃS <strong>{hud.apples}/{apples.length}</strong></span>
-        <span><b>◷</b> TEMPO <strong>{hud.time}s</strong></span>
-        <span>OBJETIVO <strong>{hud.portalActivating ? 'PORTAL DESPERTANDO' : hud.fragments === 3 ? 'PORTAL ABERTO' : 'Reúna os Fragmentos'}</strong></span>
+        <span><b>♥ VIDAS</b><strong>{hud.lives}/3</strong></span>
+        <span><b>◆ SABEDORIA</b><strong>{hud.fragments}/3</strong></span>
+        <span><b>✦ PONTOS</b><strong>{hud.score}</strong></span>
+        <span><b>OBJETIVO</b><strong>{hud.portalActivating ? 'PORTAL DESPERTANDO' : hud.fragments === 3 ? 'PORTAL ABERTO' : 'Reúna os Fragmentos'}</strong></span>
       </div>
       <p className={styles.arcadeMessage}>{hud.message}</p>
       <div className={styles.arcadeStage}>
         <canvas ref={canvas} width={GAME_WIDTH} height={GAME_HEIGHT} className={styles.arcadeCanvas} role="application" aria-label="Fuga da Serpente, jogo de perseguição" />
         {status === 'ready' && (
           <div className={styles.arcadeOverlay}>
-            <p>Explore o Jardim, reúna 3 Fragmentos e alcance o portal. Você terá um breve momento antes da perseguição começar.</p>
-            <button onClick={() => reset('playing')}>Começar perseguição</button>
+            {!tutorialCompleted ? <div className={styles.snakeTutorial}>
+              <span>OBJETIVO</span><h3>Encontre 3 Fragmentos de Sabedoria e escape pelo Portal</h3>
+              <div><p><b>WASD / SETAS</b><br />Mover o Viajante</p><p><b>◆ SABEDORIA</b><br />Ativa o Portal em 3/3</p><p><b>SERPENTE</b><br />Use caminhos e obstáculos para ganhar distância</p><p><b>✦ LUZ</b><br />Fragmentos de Luz valem pontos</p></div>
+              <small>Escudo protege contra um ataque · Velocidade dá impulso · Cura recupera uma vida.</small>
+              <button onClick={() => { onTutorialComplete(); reset('playing'); }}>Entendi · começar perseguição</button>
+            </div> : <><p>Reúna 3 Fragmentos e alcance o Portal. A perseguição começa após um breve preparo.</p><button onClick={() => reset('playing')}>Começar perseguição</button></>}
           </div>
         )}
         {status !== 'ready' && status !== 'playing' && (
           <div className={styles.arcadeOverlay}>
-            <strong>{status === 'won' ? 'DESAFIO CONCLUÍDO · VOCÊ ESCAPOU!' : 'A SERPENTE ALCANÇOU VOCÊ'}</strong>
+            <strong>{status === 'won' ? 'DESAFIO CONCLUÍDO · VOCÊ ESCAPOU!' : 'Você foi alcançado'}</strong>
             <div className={styles.arcadeStats}>
               <span>Fragmentos <b>{hud.fragments}/3</b></span>
               <span>Tempo <b>{hud.time}s</b></span>
-              <span>Maçãs <b>{hud.apples}/{apples.length}</b></span>
+              <span>Luz <b>{hud.lightFragments}/{lightFragments.length}</b></span>
               <span>Distância <b>{hud.distance}m</b></span>
               <span>Tentativa <b>{attempts}</b></span>
             </div>
@@ -385,17 +477,18 @@ export function SnakeChaseGame({ portrait, onComplete }: Props) {
             <div className={styles.arcadeResultActions}>
               <button onClick={retry}>{status === 'won' ? 'Jogar novamente' : 'Tentar novamente'}</button>
               {status === 'won' && <button onClick={onComplete}>Continuar para o Quiz →</button>}
+              <button onClick={() => void exitGame()}>Sair</button>
             </div>
           </div>
         )}
       </div>
       <div className={styles.arcadeTouchPad} aria-label="Controles touch">
-        <button onPointerDown={() => hold('arrowup', true)} onPointerUp={() => hold('arrowup', false)} onPointerLeave={() => hold('arrowup', false)} aria-label="Mover para cima">▲</button>
-        <button onPointerDown={() => hold('arrowleft', true)} onPointerUp={() => hold('arrowleft', false)} onPointerLeave={() => hold('arrowleft', false)} aria-label="Mover para esquerda">◀</button>
-        <button onPointerDown={() => hold('arrowdown', true)} onPointerUp={() => hold('arrowdown', false)} onPointerLeave={() => hold('arrowdown', false)} aria-label="Mover para baixo">▼</button>
-        <button onPointerDown={() => hold('arrowright', true)} onPointerUp={() => hold('arrowright', false)} onPointerLeave={() => hold('arrowright', false)} aria-label="Mover para direita">▶</button>
+        <button onPointerDown={() => hold('arrowup', true)} onPointerUp={() => hold('arrowup', false)} onPointerCancel={() => hold('arrowup', false)} onPointerLeave={() => hold('arrowup', false)} aria-label="Mover para cima">▲</button>
+        <button onPointerDown={() => hold('arrowleft', true)} onPointerUp={() => hold('arrowleft', false)} onPointerCancel={() => hold('arrowleft', false)} onPointerLeave={() => hold('arrowleft', false)} aria-label="Mover para esquerda">◀</button>
+        <button onPointerDown={() => hold('arrowdown', true)} onPointerUp={() => hold('arrowdown', false)} onPointerCancel={() => hold('arrowdown', false)} onPointerLeave={() => hold('arrowdown', false)} aria-label="Mover para baixo">▼</button>
+        <button onPointerDown={() => hold('arrowright', true)} onPointerUp={() => hold('arrowright', false)} onPointerCancel={() => hold('arrowright', false)} onPointerLeave={() => hold('arrowright', false)} aria-label="Mover para direita">▶</button>
       </div>
-      <p className={styles.arcadeHelp}>WASD ou setas · O portal desperta após 3 fragmentos · {assisted ? 'Ajuda ativa' : 'Dificuldade padrão'}</p>
+      <p className={styles.arcadeHelp}>WASD ou setas · Touch: use o direcional · Portal inativo até 3 Fragmentos de Sabedoria · Fragmentos de Luz = pontos · {assisted ? 'Ajuda ativa' : 'Dificuldade padrão'}</p>
     </div>
   );
 }
@@ -410,14 +503,15 @@ function collect<T extends Point>(list: T[], player: Point, radius: number, onCo
 
 function burst(game: ReturnType<typeof createRuntime>, point: Point, color: string, count: number) {
   if (game.reducedMotion) return;
-  for (let index = 0; index < count; index += 1) {
+  const available = Math.max(0, MAX_PARTICLES - game.particles.length);
+  for (let index = 0; index < Math.min(count, available); index += 1) {
     const angle = (Math.PI * 2 * index) / count;
     game.particles.push({ ...point, life: .65, color, vx: Math.cos(angle) * 48, vy: Math.sin(angle) * 48 });
   }
 }
 
 function updateParticles(game: ReturnType<typeof createRuntime>, dt: number) {
-  game.particles = game.particles.filter((particle) => {
+  game.particles = game.particles.slice(-MAX_PARTICLES).filter((particle) => {
     particle.life -= dt;
     if (particle.hudTarget) {
       const travel = Math.min(1, dt / Math.max(dt, particle.life));
@@ -431,23 +525,28 @@ function updateParticles(game: ReturnType<typeof createRuntime>, dt: number) {
   });
 }
 
-function renderGame(context: CanvasRenderingContext2D, game: ReturnType<typeof createRuntime>, assets: Partial<Record<AssetKey, RenderableAsset>>, portrait: GameplayPortrait, now: number, dt: number) {
-  const compact = window.innerWidth <= 600;
-  const zoom = compact ? 1.45 : 1;
-  const visibleWidth = GAME_WIDTH / zoom;
-  const visibleHeight = GAME_HEIGHT / zoom;
+function renderGame(context: CanvasRenderingContext2D, game: ReturnType<typeof createRuntime>, assets: Partial<Record<AssetKey, RenderableAsset>>, portrait: GameplayPortrait, viewport: CanvasViewport, now: number, dt: number) {
+  const profile = getSnakeRenderProfile(window.innerWidth, window.innerHeight);
+  const responsive = profile.mode !== 'desktop';
+  const desktopFit = Math.min(viewport.width / GAME_WIDTH, viewport.height / GAME_HEIGHT);
+  const worldScale = responsive ? profile.zoom : desktopFit;
+  const visibleWidth = Math.min(GAME_WIDTH, viewport.width / worldScale);
+  const visibleHeight = Math.min(GAME_HEIGHT, viewport.height / worldScale);
   const targetX = Math.max(0, Math.min(GAME_WIDTH - visibleWidth, game.player.x - visibleWidth / 2));
   const targetY = Math.max(0, Math.min(GAME_HEIGHT - visibleHeight, game.player.y - visibleHeight / 2));
   const cameraStep = Math.min(1, dt * 8);
-  game.camera.x = compact ? game.camera.x + (targetX - game.camera.x) * cameraStep : 0;
-  game.camera.y = compact ? game.camera.y + (targetY - game.camera.y) * cameraStep : 0;
-  context.clearRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
+  const cameraX = Math.max(0, Math.min(GAME_WIDTH - visibleWidth, game.camera.x));
+  const cameraY = Math.max(0, Math.min(GAME_HEIGHT - visibleHeight, game.camera.y));
+  game.camera.x = responsive ? cameraX + (targetX - cameraX) * cameraStep : 0;
+  game.camera.y = responsive ? cameraY + (targetY - cameraY) * cameraStep : 0;
+  context.setTransform(viewport.dpr, 0, 0, viewport.dpr, 0, 0);
+  context.clearRect(0, 0, viewport.width, viewport.height);
   const shakeX = game.reducedMotion ? 0 : (Math.random() - .5) * game.shake * 12;
   const shakeY = game.reducedMotion ? 0 : (Math.random() - .5) * game.shake * 12;
   const lookX = game.reducedMotion ? 0 : -(game.velocity.x / PLAYER_MAX_SPEED) * 2.5;
   const lookY = game.reducedMotion ? 0 : -(game.velocity.y / PLAYER_MAX_SPEED) * 1.5;
   context.save();
-  context.scale(zoom, zoom);
+  context.scale(worldScale, worldScale);
   context.translate(-game.camera.x, -game.camera.y);
   context.translate(shakeX + lookX, shakeY + lookY);
   drawCover(context, assets.gardenBackground, -5, -5, GAME_WIDTH + 10, GAME_HEIGHT + 10, '#58744c');
@@ -476,22 +575,26 @@ function renderGame(context: CanvasRenderingContext2D, game: ReturnType<typeof c
     context.fillText(portalActivating ? 'DESPERTANDO' : 'PORTAL ABERTO', PORTAL_POSITION.x, PORTAL_POSITION.y - 35);
   }
   if (game.victory) drawCenteredAsset(context, assets.victory, PORTAL_POSITION, 92, '#f3da83');
-  game.apples.forEach((item, index) => {
+  game.lightFragments.forEach((item, index) => {
     const point = { x: item.x, y: item.y + (game.reducedMotion ? 0 : Math.sin(now / 260 + index) * 1.5) };
     drawGroundShadow(context, item, 10, 4, .26);
-    drawCenteredAsset(context, assets.apple, point, 27, '#d45d49');
+    context.save();
+    context.shadowColor = '#f6d77a';
+    context.shadowBlur = 10 + Math.sin(now / 190 + index) * 3;
+    drawCenteredAsset(context, assets.lightFragment, point, 29 * profile.pickupScale, '#f6d77a');
+    context.restore();
   });
   game.fragments.forEach((item) => {
     context.save();
     context.shadowColor = '#f7e29a';
     context.shadowBlur = 12 + Math.sin(now / 180) * 5;
     drawGroundShadow(context, item, 12, 4, .26);
-    drawCenteredAsset(context, assets.fragment, { x: item.x, y: item.y + (game.reducedMotion ? 0 : Math.sin(now / 220 + item.x) * 2) }, 36, '#d8c77c');
+    drawCenteredAsset(context, assets.fragment, { x: item.x, y: item.y + (game.reducedMotion ? 0 : Math.sin(now / 220 + item.x) * 2) }, 36 * profile.pickupScale, '#d8c77c');
     context.restore();
   });
   game.powers.forEach((item) => {
     drawGroundShadow(context, item, 12, 4, .24);
-    drawCenteredAsset(context, assets[item.kind], item, 34, '#7eb5a1');
+    drawCenteredAsset(context, assets[item.kind], item, 34 * profile.pickupScale, '#7eb5a1');
   });
   game.particles.forEach((particle) => {
     context.globalAlpha = Math.max(0, particle.life / .65);
@@ -511,7 +614,7 @@ function renderGame(context: CanvasRenderingContext2D, game: ReturnType<typeof c
   context.save();
   context.translate(game.serpent.x, game.serpent.y - 13 + (game.reducedMotion || game.chaseDelay > 0 ? 0 : Math.sin(now / 140) * 1.2));
   context.scale(game.serpentDirection.x > 0 ? -1 : 1, 1);
-  drawCenteredAsset(context, serpentAsset ?? assets.serpentIdle, { x: 0, y: 0 }, serpentDistance < 75 ? 61 : 56, '#b74d43');
+  drawCenteredAsset(context, serpentAsset ?? assets.serpentIdle, { x: 0, y: 0 }, (serpentDistance < 75 ? 61 : 56) * profile.actorScale, '#b74d43');
   context.restore();
   if (game.invulnerable <= 0 || Math.floor(now / 90) % 2 === 0) {
     const moving = Math.hypot(game.velocity.x, game.velocity.y) > 8;
@@ -537,6 +640,7 @@ function renderGame(context: CanvasRenderingContext2D, game: ReturnType<typeof c
       const scale = 1 + .07 * Math.sin(Math.PI * game.pickupPulse / .18);
       context.scale(scale, scale);
     }
+    context.scale(profile.actorScale, profile.actorScale);
     drawGameplayPortrait(context, assets.player, portrait, serpentDistance);
     context.restore();
   }
@@ -577,8 +681,15 @@ function terrainShapes() {
         ground.roundRect(x - 3, y - 3, CELL_SIZE + 6, CELL_SIZE + 6, 10);
         continue;
       }
-      hedges.moveTo(x + CELL_SIZE / 2 + 21 + hash % 5, y + CELL_SIZE / 2);
-      hedges.ellipse(x + CELL_SIZE / 2, y + CELL_SIZE / 2, 21 + hash % 5, 18 + (hash * 3) % 6, 0, 0, Math.PI * 2);
+      const centerX = x + CELL_SIZE / 2;
+      const centerY = y + CELL_SIZE / 2;
+      const rotation = ((hash % 9) - 4) * .08;
+      hedges.moveTo(centerX + 21 + hash % 5, centerY);
+      hedges.ellipse(centerX, centerY, 21 + hash % 5, 17 + (hash * 3) % 7, rotation, 0, Math.PI * 2);
+      if (hash % 3 === 0) {
+        hedges.moveTo(centerX + 10, centerY - 6);
+        hedges.ellipse(centerX - 7 + hash % 4, centerY + 5, 14 + hash % 4, 11 + hash % 5, -rotation, 0, Math.PI * 2);
+      }
       const touchesPath = [[1, 0], [-1, 0], [0, 1], [0, -1]].some(([dx, dy]) => SERPENT_MAP[row + dy]?.[col + dx] === '.');
       if (!touchesPath || hash % 5 === 0 || (row === 6 && (col === 9 || col === 11))) continue;
       const keys: AssetKey[] = ['tree', 'organicHedge', 'boulder', 'organicHedge', 'organicHedge'];

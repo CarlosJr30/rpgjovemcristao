@@ -1,14 +1,29 @@
 'use client';
 import Link from 'next/link';
-import { useEffect, useRef, useState, type ReactNode } from 'react';
+import {
+  useEffect,
+  useRef,
+  useState,
+  useSyncExternalStore,
+  type ReactNode,
+} from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import { GAME_NAME } from '@rpg/shared';
 import { Avatar } from './avatar';
-import { logout, useJourney } from '../state/use-journey';
+import {
+  signOutAccount,
+  switchTraveler,
+  useJourney,
+} from '../state/use-journey';
 import { JOURNEY_ROUTES as routes } from '../data/campaign';
 import type { Traveler } from '../domain/traveler';
 import styles from '../journey.module.css';
 import { MAX_LEVEL, TRAVELER_CURRENCY_NAME, xpForLevel } from '../data/progression';
+import {
+  getOnlineSyncStatus,
+  subscribeOnlineSync,
+} from '../../../lib/supabase/online-sync';
+import { useAuth } from '../../../lib/supabase/auth-context';
 const primaryLinks = [
   ['hero', 'Herói', '✦'], ['map', 'Jornada', '⌁'], ['garden', 'Missões', '◇'],
   ['equipment', 'Equipamentos', '◈'], ['backpack', 'Mochila', '▱'],
@@ -27,12 +42,19 @@ export function Shell({
   backLabel?: string;
 }) {
   const state = useJourney();
+  const auth = useAuth();
   const router = useRouter();
   const pathname = usePathname();
   const [profileOpen, setProfileOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [confirmingLogout, setConfirmingLogout] = useState(false);
+  const [confirmingTravelerSwitch, setConfirmingTravelerSwitch] =
+    useState(false);
   const [gainNotice, setGainNotice] = useState('');
+  const onlineSync = useSyncExternalStore(
+    subscribeOnlineSync,
+    getOnlineSyncStatus,
+    getOnlineSyncStatus,
+  );
   const previous = useRef<{ id: string; level: number; coins: number } | null>(null);
   useEffect(() => {
     if (state.status !== 'ready') { previous.current = null; return; }
@@ -92,11 +114,14 @@ export function Shell({
           </button>
           {profileOpen && <div className={styles.profilePopover} role="menu">
             <Link href={routes.hero} role="menuitem" onClick={() => setProfileOpen(false)}>Meu Herói</Link>
+            {(auth.status === 'signedOut' || auth.status === 'local') && <Link href="/auth" role="menuitem" onClick={() => setProfileOpen(false)}>Sincronizar conta</Link>}
+            <button role="menuitem" onClick={() => { setProfileOpen(false); setConfirmingTravelerSwitch(true); }}>Trocar Viajante</button>
+            <Link href={routes.create} role="menuitem" onClick={() => setProfileOpen(false)}>Criar novo Viajante</Link>
+            {auth.status === 'signedIn' && <button role="menuitem" onClick={async () => { setProfileOpen(false); if (await signOutAccount()) router.replace('/auth'); }}>Sair da conta</button>}
             <button role="menuitem" disabled>Configurações</button>
-            <button role="menuitem" onClick={() => { setProfileOpen(false); setConfirmingLogout(true); }}>Sair</button>
           </div>}
           </div>
-          <button className={styles.headerLogout} onClick={() => setConfirmingLogout(true)}>Sair</button>
+          <button className={styles.headerLogout} onClick={() => setConfirmingTravelerSwitch(true)}>Trocar Viajante</button>
           </div>
         ) : (
           <span className={styles.headerNote}>
@@ -105,13 +130,14 @@ export function Shell({
         )}
       </header>
       {gainNotice && <p className={styles.gainNotice} role="status">{gainNotice}</p>}
-      {confirmingLogout && <div className={styles.dialogBackdrop} role="presentation">
-        <section className={styles.logoutDialog} role="dialog" aria-modal="true" aria-labelledby="logout-title">
-          <h2 id="logout-title">Sair da jornada?</h2>
-          <p>Seu progresso continuará salvo e você poderá voltar quando quiser.</p>
-          <div><button onClick={() => setConfirmingLogout(false)}>Cancelar</button><button className={styles.primaryLink} onClick={() => { if (logout()) router.replace('/'); }}>Sair</button></div>
+      {confirmingTravelerSwitch && <div className={styles.dialogBackdrop} role="presentation">
+        <section className={styles.logoutDialog} role="dialog" aria-modal="true" aria-labelledby="traveler-switch-title">
+          <h2 id="traveler-switch-title">Trocar de Viajante?</h2>
+          <p>Sua conta continuará conectada e nenhum Viajante será apagado.</p>
+          <div><button onClick={() => setConfirmingTravelerSwitch(false)}>Cancelar</button><button className={styles.primaryLink} onClick={() => { if (switchTraveler()) router.replace('/'); }}>Trocar Viajante</button></div>
         </section>
       </div>}
+      {onlineSync.message && <p className={styles.notice} role="status">{onlineSync.message}</p>}
       {state.status === 'ready' && <button className={styles.mobileMenuButton} aria-expanded={menuOpen} aria-controls="journey-sidebar" onClick={() => setMenuOpen((open) => !open)}>{menuOpen ? 'Fechar menu' : 'Abrir menu'}</button>}
       {menuOpen && state.status === 'ready' && <button className={styles.sidebarScrim} aria-label="Fechar menu" onClick={() => setMenuOpen(false)} />}
       <div className={state.status === 'ready' ? styles.appLayout : styles.plainLayout}>

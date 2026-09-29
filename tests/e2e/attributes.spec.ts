@@ -49,15 +49,15 @@ test('equipamentos alteram atributos derivados e persistem sem acumular', async 
   await page.reload();
   await expectAttributes(page, { life: 2, strength: 3, defense: 2, wisdom: 1 });
 
-  await page.getByRole('button', { name: 'Sair', exact: true }).click();
-  await page.getByRole('dialog').getByRole('button', { name: 'Sair' }).click();
+  await page.getByRole('button', { name: 'Trocar Viajante', exact: true }).click();
+  await page.getByRole('dialog').getByRole('button', { name: 'Trocar Viajante' }).click();
   await page.goto('/journey/create');
   await page.getByLabel('Nome do Viajante', { exact: true }).fill('Bia');
   await page.getByRole('button', { name: 'Criar Viajante' }).click();
   await navigate(page, 'Herói');
   await expectAttributes(page, { life: 2, strength: 1, defense: 1, wisdom: 1 });
-  await page.getByRole('button', { name: 'Sair', exact: true }).click();
-  await page.getByRole('dialog').getByRole('button', { name: 'Sair' }).click();
+  await page.getByRole('button', { name: 'Trocar Viajante', exact: true }).click();
+  await page.getByRole('dialog').getByRole('button', { name: 'Trocar Viajante' }).click();
   await page.locator('article').filter({ has: page.getByRole('heading', { name: 'Luca' }) }).getByRole('button', { name: 'Entrar' }).click();
   await navigate(page, 'Herói');
   await expectAttributes(page, { life: 2, strength: 3, defense: 2, wisdom: 1 });
