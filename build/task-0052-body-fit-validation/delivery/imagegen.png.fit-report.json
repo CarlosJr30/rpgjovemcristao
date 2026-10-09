@@ -1,0 +1,75 @@
+{
+  "at": "2026-10-08T04:24:51.868Z",
+  "file": "imagegen.png",
+  "sha256": "db27038c0fc35bf6181254bdebafdd60c4c6fe53a2cd536a7784e8cc8e054d20",
+  "bytes": 2579888,
+  "width": 1024,
+  "height": 1536,
+  "format": "png",
+  "hasAlpha": true,
+  "alpha": {
+    "zero": 744665,
+    "partial": 828199,
+    "opaque": 0,
+    "max": 254,
+    "atLeast128": 805286
+  },
+  "bounds": {
+    "left": 15,
+    "top": 95,
+    "right": 1008,
+    "bottom": 1404
+  },
+  "integrity": {
+    "status": "CRC_PASS",
+    "chunks": 43,
+    "decode": "DECODE_PASS"
+  },
+  "technicalStatus": "TECHNICAL_PASS",
+  "sourceStatus": "SOURCE_VISUAL_APPROVED",
+  "approvalEvidence": "Carlos Faustino: source-art delivery instruction, confirmed by delivered manifest and actual hash",
+  "manifestPath": "manifest.json",
+  "manifestHashMatches": true,
+  "mapping": {
+    "status": "UNMAPPED_SOURCE_ART",
+    "target": null,
+    "reason": "No single explicit, valid target binding"
+  },
+  "fitStatus": "FIT_VALIDATION_PENDING",
+  "humanBodyFitApproved": false,
+  "runtimeReady": false,
+  "observedFamily": "armor",
+  "observedFamilyIsNotMapping": true,
+  "diagnosticStatus": "NEEDS_REWORK",
+  "diagnosticScope": "Full-canvas comparison over both HD reference bodies; no target assignment or compatibility approval",
+  "observations": "Ombreiras excedem os ombros do HD; cintura e saias ficam abaixo da cintura/quadril reais e invadem coxas. Templária e torácica também cobrem o rosto; a primeira armadura chega ao nível da cabeça.",
+  "regeneration": "Após confirmar target, gerar overlay corporal sobre o HD exato, preservando pose/canvas. Medir ombros, peito, cintura e quadril no HD; deixar rosto, mãos e pernas transparentes. Alinhar volume da armadura ao torso, sem ampliar para ocupar o canvas inteiro.",
+  "evidence": [
+    {
+      "reference": "female_short_moss_medium",
+      "overview": "screenshots/source-11-female_short_moss_medium.png",
+      "views": [
+        "screenshots/source-11-female_short_moss_medium-base.png",
+        "screenshots/source-11-female_short_moss_medium-source.png",
+        "screenshots/source-11-female_short_moss_medium-combined.png",
+        "screenshots/source-11-female_short_moss_medium-blend.png",
+        "screenshots/source-11-female_short_moss_medium-split.png",
+        "screenshots/source-11-female_short_moss_medium-guides.png"
+      ]
+    },
+    {
+      "reference": "male_short_moss_medium",
+      "overview": "screenshots/source-11-male_short_moss_medium.png",
+      "views": [
+        "screenshots/source-11-male_short_moss_medium-base.png",
+        "screenshots/source-11-male_short_moss_medium-source.png",
+        "screenshots/source-11-male_short_moss_medium-combined.png",
+        "screenshots/source-11-male_short_moss_medium-blend.png",
+        "screenshots/source-11-male_short_moss_medium-split.png",
+        "screenshots/source-11-male_short_moss_medium-guides.png"
+      ]
+    }
+  ],
+  "duplicateOf": "armadura_paladina_verde_e_dourada.png",
+  "correction": "NONE"
+}

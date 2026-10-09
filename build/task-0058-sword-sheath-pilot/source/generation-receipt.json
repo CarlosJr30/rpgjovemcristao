@@ -1,0 +1,22 @@
+{
+  "task": "TASK-0058",
+  "tool": "built-in image_gen",
+  "authorizedTargets": [
+    "sword_path_common_female_v2"
+  ],
+  "generationPrompt": "Use case: stylized-concept / compositing. Asset: ONE game equipment overlay, native portrait 1024x1536 RGBA TRUE TRANSPARENT full canvas.\nInput 1 is structural Avatar reference ONLY. Input 2 is the original sword aesthetic reference ONLY. Input 3 is a precise placement study: use its exact sword blade silhouette and location as a template for a new leather sheath. Do NOT output the Avatar, body, face, hands, clothes, cloak, pouch, existing belt, sword hilt, sword guard, blade, background, cast shadow or guides. Output ONLY a new sheath and connected leather suspension straps at their exact registered positions in input3. The original hilt and guard will be composited from original pixels afterwards; never invent a new sword.\nCreate a plausible plain dark brown leather scabbard with discreet stitching, aged bronze throat and small bronze tip fitting, compatible with the existing broad tapering blade. The sheath must envelop the entire silver blade in image3, including its full width and point; tip DOWN. Its throat is near pixel (716,754), long axis runs down-right to point (796,1196), with approx 55px external width near throat, tapering naturally to the point. Preserve this layout relative to the1024x1536 canvas; equipment occupies only screen-right waist/hip and lateral leg space.\nTwo real flat dark brown leather suspension straps form a stable attached holder: short belt loops/buckled tabs at (619,579) and (640,603), on the existing belt in reference, narrow leather paths running down the right side of the tunic to an embracing leather collar at the sheath throat (715,755). All straps and sheath must be continuously connected physical leather with small aged bronze rivets, no floating detached pieces. The leather may pass behind the foreground arm in intended layering (offline occlusion later), do not draw any arm pixels. Match painterly polished stylized medieval biblical-fantasy equipment quality and warm upper-left lighting. No runes, symbols, magic, excessive gold decoration, glowing gems on the new leather, text, watermark. Do not alter proportions, do not center or enlarge the isolated equipment to fill the frame. Keep all unoccupied canvas actually transparent. Output one registered equipment-only overlay.",
+  "editPrompt": "Use case: precise-object-edit. Edit this ONE existing transparent equipment source, preserving the leather sheath body, bronze throat, lower chape, silhouette, scale, lighting, material and canvas1024x1536 exactly. Change ONLY the top suspension harness above y410. The current two buckle tabs at centers approx(185,66) and(274,116) are wrong for the Avatar belt. Reposition their uppermost loop centers to exactly (132,144) and (175,167). These are attachment contact points, not buckle centers. Make the two leather belt loops narrow about34px wide so they do not overlap at their top. Curved narrow leather straps from these two points must connect continuously down and right to the existing common harness collar at (380,380), which remains connected to the sheath throat near(406,450). This creates a longer leftward suspension span anchored on the actual belt when uniformly transformed offline. Both buckles should be dull aged bronze, small and discreet. Keep all original sheath pixels below y410 and all other canvas regions unchanged. Equipment only: no Avatar, no hands, no new sword, no background or guides, no extra detached objects. Actual transparent background, preserve original alpha. Do not recenter or enlarge.",
+  "iterations": [
+    {
+      "version": 1,
+      "source": "sheath-generated-v1.png",
+      "sourceFile": "C:/Users/carlo/.codex/generated_images/01a11e04-ed83-7092-a9e9-29721caabe60/exec-0138d072-11cb-4097-9772-db09227e7473.png"
+    },
+    {
+      "version": 2,
+      "source": "sheath-generated-v2.png",
+      "sourceFile": "C:/Users/carlo/.codex/generated_images/01a11e04-ed83-7092-a9e9-29721caabe60/exec-4ab7bca5-17a9-4f4c-ba57-4cbcf615d02a.png",
+      "note": "Targeted suspension edit on same pilot. Generator also changed sheath pixels; both versions physically preserved and hashed."
+    }
+  ]
+}

@@ -1,0 +1,201 @@
+{
+  "task": "TASK-0056",
+  "id": "sword_path_rare_male_v2",
+  "gender": "male",
+  "itemId": "traveler-sword-rare",
+  "source": {
+    "path": "assets-source/body-fit-v2-targets/sword_path_rare_male_v2.png",
+    "format": "png",
+    "width": 1024,
+    "height": 1536,
+    "channels": 4,
+    "hasAlpha": true,
+    "integrity": {
+      "status": "CRC_PASS",
+      "chunks": 24
+    },
+    "alpha128Bounds": {
+      "left": 194,
+      "top": 8,
+      "right": 830,
+      "bottom": 1518,
+      "count": 188126
+    },
+    "alphaPositiveBoundsDiagnostic": {
+      "left": 33,
+      "top": 6,
+      "right": 991,
+      "bottom": 1521,
+      "count": 214286
+    },
+    "transparentPixels": 1358578,
+    "sha256": "89676a2f0f5b8ce73e25e6088ff52979115a11a091bbf25ce810b3c8488c96cb",
+    "decode": "PASS"
+  },
+  "avatar": {
+    "path": "apps/web/public/assets/avatar/hd/male/male_short_moss_medium_hd.png",
+    "sha256": "b182c2e29b512b337891716a413ab7efaad737e23c6354779fae17fe19b8af34",
+    "id": "male_short_moss_medium",
+    "immutable": true,
+    "footBaseline": 1513
+  },
+  "previous": {
+    "task": "TASK-0055",
+    "path": "build/task-0055-body-fit-bake/sword_path_rare_male_v2/baked_overlay.png",
+    "sha256": "283f40926d2c012ed8517c8c8187b2f49a7a7f71b78939b1efe9b27851ffd09f",
+    "fitStatus": "NEEDS_REWORK"
+  },
+  "transform": {
+    "scale": 0.335,
+    "rotation": -0.1278921525789331,
+    "translateX": 53.60979081133334,
+    "translateY": 740.257337926867
+  },
+  "landmarks": {
+    "grip": {
+      "source": [
+        511,
+        275
+      ],
+      "projected": [
+        225,
+        832
+      ]
+    },
+    "root": {
+      "source": [
+        512,
+        622
+      ],
+      "projected": [
+        225.59447396545858,
+        948.2439626419557
+      ]
+    },
+    "tip": {
+      "source": [
+        510,
+        1518
+      ],
+      "projected": [
+        225.5944739654586,
+        1248.4047104088813
+      ]
+    },
+    "palm": [
+      225,
+      832
+    ]
+  },
+  "measurementMethod": "Manual native-pixel landmarks, approximate +/-12px; exact vertical blade axis by root/tip; exact grip registration to chosen palm proxy. Does not prove a closed grip.",
+  "pipeline": {
+    "implementation": "Shared TASK-0054 inverse similarity / premultiplied-alpha bilinear; separate TASK-0056 rotation validation",
+    "uniform": true,
+    "warp": "NONE",
+    "mask": "NONE on final candidate",
+    "sharp": "0.35.4"
+  },
+  "output": {
+    "path": "build/task-0056-sword-downward/attempt-02/sword_path_rare_male_v2/sword_path_rare_male_v2_downward_baked.png",
+    "format": "png",
+    "width": 1024,
+    "height": 1536,
+    "channels": 4,
+    "hasAlpha": true,
+    "integrity": {
+      "status": "CRC_PASS",
+      "chunks": 16
+    },
+    "alpha128Bounds": {
+      "left": 119,
+      "top": 743,
+      "right": 331,
+      "bottom": 1248,
+      "count": 21094
+    },
+    "alphaPositiveBoundsDiagnostic": {
+      "left": 81,
+      "top": 742,
+      "right": 385,
+      "bottom": 1249,
+      "count": 24137
+    },
+    "transparentPixels": 1548727,
+    "sha256": "8e549def7ee66c9e9f3cd80e256b820e3fd889c99b0b9d05d738a62b2b657088",
+    "decode": "PASS"
+  },
+  "occlusionExperiment": {
+    "path": "build/task-0056-sword-downward/attempt-02/sword_path_rare_male_v2/masked_overlay_diagnostic.png",
+    "sha256": "b5f4e4880238cec8ce75cb66f33f7bd7819918e2166109dd36bfa1075ffcbb0e",
+    "maskPath": "build/task-0056-sword-downward/attempt-02/sword_path_rare_male_v2/offline_hand_occlusion_mask.png",
+    "maskSha256": "f1f478890c7f29167d68b5296531cb12bad7eba919512d0421aadb4e2ead94e0",
+    "frontHandPolygon": [
+      [
+        195,
+        819
+      ],
+      [
+        214,
+        814
+      ],
+      [
+        224,
+        832
+      ],
+      [
+        224,
+        851
+      ],
+      [
+        240,
+        862
+      ],
+      [
+        250,
+        872
+      ],
+      [
+        245,
+        885
+      ],
+      [
+        231,
+        887
+      ],
+      [
+        215,
+        876
+      ],
+      [
+        199,
+        852
+      ],
+      [
+        193,
+        833
+      ]
+    ],
+    "handCrop": {
+      "left": 150,
+      "top": 750,
+      "width": 165,
+      "height": 190
+    },
+    "removedPixels": 1286,
+    "method": "Offline alpha subtraction only from sword; no HD pixels edited, added, copied or redrawn",
+    "selectedAsFinal": false,
+    "status": "VISUAL_INSPECTION_PENDING"
+  },
+  "runtime": {
+    "activated": false,
+    "render": {
+      "top": 0,
+      "left": 0,
+      "width": "100%",
+      "height": "100%",
+      "transform": "none"
+    }
+  },
+  "humanBodyFitApproved": false,
+  "ready": false
+}

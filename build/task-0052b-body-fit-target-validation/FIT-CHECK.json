@@ -1,0 +1,12 @@
+{
+  "at": "2026-10-08T06:13:37.444Z",
+  "result": "PASS_ASSESSMENT_COMPLETE",
+  "evaluated": 16,
+  "fitPass": 0,
+  "fitFail": 16,
+  "needsRework": 16,
+  "errors": [],
+  "semantics": "Validates complete evidence-backed author assessments, not an automated anatomical FIT_PASS",
+  "humanApproved": 0,
+  "ready": 0
+}

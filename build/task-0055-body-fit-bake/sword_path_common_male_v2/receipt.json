@@ -1,0 +1,44 @@
+{
+  "id": "sword_path_common_male_v2",
+  "filename": "sword_path_common_male_v2.png",
+  "itemId": "traveler-sword-common",
+  "gender": "male",
+  "slot": "weapon",
+  "avatar": {
+    "id": "male_short_moss_medium",
+    "path": "apps/web/public/assets/avatar/hd/male/male_short_moss_medium_hd.png",
+    "sha256": "b182c2e29b512b337891716a413ab7efaad737e23c6354779fae17fe19b8af34",
+    "immutable": true,
+    "footBaseline": 1513
+  },
+  "transform": {
+    "translateX": 107.08607805938641,
+    "translateY": 288.20928858528356,
+    "scale": 0.425791518407452,
+    "rotation": 0
+  },
+  "sha256": "4b7c2c3f6b1798413b1bc7c1c8d700a09cca5e5ab0301ac027276dd0396050e8",
+  "sourceSha256": "ef4ca354506a7da6a9c80dcbb2b4d5388af7d11bef98fce9a81d8de6b40e8818",
+  "technicalStatus": "TECHNICALLY_VALIDATED",
+  "mapping": "MAPPED",
+  "fitStatus": "NEEDS_REWORK",
+  "humanBodyFitApproved": false,
+  "ready": false,
+  "runtimeActivated": false,
+  "reviewStatus": "NEEDS_REWORK",
+  "fitReport": "build/task-0055-body-fit-bake/sword_path_common_male_v2/fit-report.json",
+  "metadata": "build/task-0055-body-fit-bake/sword_path_common_male_v2/fit-metadata.json",
+  "metadataSha256": "3750e9326ad41cd961cfcef54e4d753d5f4921c95159400a9498320151d794db",
+  "observations": [
+    "Centro do cabo foi aproximado da mão esquerda da tela; dedos continuam abertos na pose HD.",
+    "Overlay único desenha cabo sobre a mão sem a oclusão necessária dos dedos; arma parece sobreposta/solta.",
+    "Lâmina diagonal sobe atravessando o tronco e termina próxima do pescoço; rotação ≤5° não reorienta a arte suficientemente."
+  ],
+  "reworkRecommendation": "Regenerar espada na orientação e posição da mão de male_short_moss_medium, com cabo desenhado para a pose existente e oclusão transparente específica dos dedos/área da mão. Não redesenhar mãos/HD nem adicionar máscara runtime. Se a mão aberta impedir uma pega convincente sem mudar a base, manter NEEDS_REWORK e registrar a limitação, sem promoção.",
+  "task": "TASK-0055",
+  "updatedAt": "2026-10-08T20:27:47.341Z",
+  "sourceApproval": "SOURCE_VISUAL_APPROVED (inherited)",
+  "runtimePath": null,
+  "stagingPath": "build/task-0055-body-fit-bake/sword_path_common_male_v2/sword_path_common_male_v2_baked.png",
+  "approvedBy": null
+}

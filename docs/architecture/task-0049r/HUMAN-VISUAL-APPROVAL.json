@@ -1,0 +1,31 @@
+{
+  "task": "TASK-0049R",
+  "id": "male_curly_blue_light",
+  "attempt": 2,
+  "candidatePath": "build/task-0049r-evidence/attempt-2/hd_candidate.png",
+  "sha256": "f4a119053fe94850222d606ca7ab5907399fec28246b8700338893a25897713c",
+  "reviewedBy": "Carlos Faustino",
+  "reviewedAt": "2026-10-07T13:32:57.372Z",
+  "timestampMeaning": "Actual execution time when explicit human approval was recorded",
+  "reviewSource": "Explicit user confirmation in this conversation",
+  "reviewStatus": "HUMAN_VISUAL_APPROVED",
+  "geometryStatus": "GEOMETRY_PASS",
+  "geometryMethodStatus": "GEOMETRY_METHOD_VALIDATED",
+  "methodVisualStatus": "HUMAN_VISUAL_APPROVED",
+  "approvedCriteria": [
+    "visual identity",
+    "hairstyle",
+    "pose",
+    "silhouette",
+    "proportions",
+    "feet baseline",
+    "framing",
+    "overall appearance compared with legacy"
+  ],
+  "usage": "LOCAL_REFERENCE_FOR_FUTURE_TASK_0049_RESUMPTION",
+  "runtimeIntegrationApproved": false,
+  "productionActivationApproved": false,
+  "bodyFitApprovalGranted": false,
+  "remaining51GenerationAuthorized": false,
+  "pushDeployRemoteAuthorized": false
+}

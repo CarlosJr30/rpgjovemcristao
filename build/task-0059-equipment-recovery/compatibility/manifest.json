@@ -1,0 +1,538 @@
+{
+  "combinations": [
+    {
+      "id": "female-armor-uncommon-weapon",
+      "gender": "female",
+      "ids": [
+        "armor_traveler_uncommon_female_v2",
+        "sword_path_common_female_v2"
+      ],
+      "status": "NO_NEW_CONFLICT_OBSERVED",
+      "compositionPath": "build/task-0059-equipment-recovery/compatibility/female-armor-uncommon-weapon/combined.png",
+      "sha256": "e37317f30e863f3ca4455f9a8b4ac946ace57bc86f34cefc8eb2b80d65b571ac",
+      "zoomPath": "build/task-0059-equipment-recovery/compatibility/female-armor-uncommon-weapon/intersection-zoom.png",
+      "avatar": {
+        "path": "apps/web/public/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+        "sha256": "f260cb9b053b35c328025f1bc7ee602cbb30e57c71ba1f2238a4b1519685f460"
+      },
+      "derivedBase": false,
+      "pieces": [
+        {
+          "id": "armor_traveler_uncommon_female_v2",
+          "path": "build/task-0054-body-fit-bake/pilot/armor_traveler_uncommon_female_v2_baked.png",
+          "sha256": "ebee2f026c2dd6aac6b47850c8412f243cdc20c51a36d6f91e2d6cf3b46c20cb",
+          "isolatedStatus": "FIT_PASS",
+          "layer": 2
+        },
+        {
+          "id": "sword_path_common_female_v2",
+          "path": "build/task-0058-sword-sheath-pilot/baked/attempt-03/sword_path_common_female_v2_sheathed_baked.png",
+          "sha256": "735000c62ddaee5214cfb895deae17685a1f2e1c0c642f3557e09879d90524f2",
+          "isolatedStatus": "FIT_PASS",
+          "layer": 6
+        }
+      ],
+      "runtimeActivated": false,
+      "humanApproval": false,
+      "findings": "No reference HD: composi??o revisada em corpo inteiro e zoom, sem nova interse??o grave. Suspens?o comum mant?m contato visual com cinto/armadura; escudo continua ? frente da m?o. N?o prova pega oculta nem substitui aprova??o humana; s? esta dupla e este HD.",
+      "ready": false
+    },
+    {
+      "id": "female-armor-uncommon-shield",
+      "gender": "female",
+      "ids": [
+        "armor_traveler_uncommon_female_v2",
+        "shield_perseverance_rare_female_v2"
+      ],
+      "status": "NO_NEW_CONFLICT_OBSERVED",
+      "compositionPath": "build/task-0059-equipment-recovery/compatibility/female-armor-uncommon-shield/combined.png",
+      "sha256": "05a709d78144bb806dce8905208ccbee5b0539b3825f0faf6c3055bc828f62c0",
+      "zoomPath": "build/task-0059-equipment-recovery/compatibility/female-armor-uncommon-shield/intersection-zoom.png",
+      "avatar": {
+        "path": "apps/web/public/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+        "sha256": "f260cb9b053b35c328025f1bc7ee602cbb30e57c71ba1f2238a4b1519685f460"
+      },
+      "derivedBase": false,
+      "pieces": [
+        {
+          "id": "armor_traveler_uncommon_female_v2",
+          "path": "build/task-0054-body-fit-bake/pilot/armor_traveler_uncommon_female_v2_baked.png",
+          "sha256": "ebee2f026c2dd6aac6b47850c8412f243cdc20c51a36d6f91e2d6cf3b46c20cb",
+          "isolatedStatus": "FIT_PASS",
+          "layer": 2
+        },
+        {
+          "id": "shield_perseverance_rare_female_v2",
+          "path": "build/task-0055-body-fit-bake/shield_perseverance_rare_female_v2/shield_perseverance_rare_female_v2_baked.png",
+          "sha256": "1d0392230985f18b22ff043083af121fb9f276d526a3e8ecf4b9c93135dabe02",
+          "isolatedStatus": "FIT_PASS",
+          "layer": 7
+        }
+      ],
+      "runtimeActivated": false,
+      "humanApproval": false,
+      "findings": "No reference HD: composi??o revisada em corpo inteiro e zoom, sem nova interse??o grave. Suspens?o comum mant?m contato visual com cinto/armadura; escudo continua ? frente da m?o. N?o prova pega oculta nem substitui aprova??o humana; s? esta dupla e este HD.",
+      "ready": false
+    },
+    {
+      "id": "female-armor-uncommon-amulet",
+      "gender": "female",
+      "ids": [
+        "armor_traveler_uncommon_female_v2",
+        "medallion_path_rare_female_v2"
+      ],
+      "status": "NEEDS_REWORK",
+      "compositionPath": "build/task-0059-equipment-recovery/compatibility/female-armor-uncommon-amulet/combined.png",
+      "sha256": "d30a3448d1188fcc4d9610a0d44ed3ea18de6b510ec79f591793fddd48ae329b",
+      "zoomPath": "build/task-0059-equipment-recovery/compatibility/female-armor-uncommon-amulet/intersection-zoom.png",
+      "avatar": {
+        "path": "apps/web/public/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+        "sha256": "f260cb9b053b35c328025f1bc7ee602cbb30e57c71ba1f2238a4b1519685f460"
+      },
+      "derivedBase": false,
+      "pieces": [
+        {
+          "id": "armor_traveler_uncommon_female_v2",
+          "path": "build/task-0054-body-fit-bake/pilot/armor_traveler_uncommon_female_v2_baked.png",
+          "sha256": "ebee2f026c2dd6aac6b47850c8412f243cdc20c51a36d6f91e2d6cf3b46c20cb",
+          "isolatedStatus": "FIT_PASS",
+          "layer": 2
+        },
+        {
+          "id": "medallion_path_rare_female_v2",
+          "path": "build/task-0059-equipment-recovery/recovery/medallion_path_rare_female_v2/a-chain-behind-scarf/medallion_path_rare_female_v2_baked.png",
+          "sha256": "de79f2e9a09af5c423b591c3eae822e79d37b56fa312f9aa42780e5c0bbd092a",
+          "isolatedStatus": "NEEDS_NEW_ART",
+          "layer": 4
+        }
+      ],
+      "runtimeActivated": false,
+      "humanApproval": false,
+      "findings": "Corrente n?o sustenta medalh?o sobre peitoral; fonte/m?scara cria apar?ncia de broche ou corte.",
+      "ready": false
+    },
+    {
+      "id": "female-armor-uncommon-boots",
+      "gender": "female",
+      "ids": [
+        "armor_traveler_uncommon_female_v2",
+        "boots_traveler_common_female_v2"
+      ],
+      "status": "NEEDS_REWORK",
+      "compositionPath": "build/task-0059-equipment-recovery/compatibility/female-armor-uncommon-boots/combined.png",
+      "sha256": "d4283fce812d31c49c651bef64de94b06da9dba2af7ab8e2604b7b79022a3be7",
+      "zoomPath": "build/task-0059-equipment-recovery/compatibility/female-armor-uncommon-boots/intersection-zoom.png",
+      "avatar": {
+        "path": "apps/web/public/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+        "sha256": "f260cb9b053b35c328025f1bc7ee602cbb30e57c71ba1f2238a4b1519685f460"
+      },
+      "derivedBase": true,
+      "pieces": [
+        {
+          "id": "armor_traveler_uncommon_female_v2",
+          "path": "build/task-0054-body-fit-bake/pilot/armor_traveler_uncommon_female_v2_baked.png",
+          "sha256": "ebee2f026c2dd6aac6b47850c8412f243cdc20c51a36d6f91e2d6cf3b46c20cb",
+          "isolatedStatus": "FIT_PASS",
+          "layer": 2
+        },
+        {
+          "id": "boots_traveler_common_female_v2",
+          "path": "build/task-0059-equipment-recovery/recovery/boots_traveler_common_female_v2/b-localized-footwear-replacement/boots_traveler_common_female_v2_baked.png",
+          "sha256": "81608ac55e9f5594f8a46a754af7ece36130f56c5492ccc48a85de693ff3b51f",
+          "isolatedStatus": "NEEDS_NEW_ART",
+          "layer": 3
+        }
+      ],
+      "runtimeActivated": false,
+      "humanApproval": false,
+      "findings": "Contornos ou lacunas do cal?ado continuam; masculino ? bake hist?rico diagn?stico, nenhuma nova bota masculina gerada.",
+      "ready": false
+    },
+    {
+      "id": "female-armor-uncommon-helmet",
+      "gender": "female",
+      "ids": [
+        "armor_traveler_uncommon_female_v2",
+        "helmet_traveler_rare_female_v2"
+      ],
+      "status": "NEEDS_REWORK",
+      "compositionPath": "build/task-0059-equipment-recovery/compatibility/female-armor-uncommon-helmet/combined.png",
+      "sha256": "009e25a7f1ff69cc8a35be6f199bb026ce4183ab6fc459c9b99cdbbc5b8be656",
+      "zoomPath": "build/task-0059-equipment-recovery/compatibility/female-armor-uncommon-helmet/intersection-zoom.png",
+      "avatar": {
+        "path": "apps/web/public/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+        "sha256": "f260cb9b053b35c328025f1bc7ee602cbb30e57c71ba1f2238a4b1519685f460"
+      },
+      "derivedBase": false,
+      "pieces": [
+        {
+          "id": "armor_traveler_uncommon_female_v2",
+          "path": "build/task-0054-body-fit-bake/pilot/armor_traveler_uncommon_female_v2_baked.png",
+          "sha256": "ebee2f026c2dd6aac6b47850c8412f243cdc20c51a36d6f91e2d6cf3b46c20cb",
+          "isolatedStatus": "FIT_PASS",
+          "layer": 2
+        },
+        {
+          "id": "helmet_traveler_rare_female_v2",
+          "path": "build/task-0059-equipment-recovery/recovery/helmet_traveler_rare_female_v2/a-crown-in-canvas/helmet_traveler_rare_female_v2_baked.png",
+          "sha256": "0896335cd7e310538f09f8aa09669146de8ca1334ba102a1932ed34dc78ae9f4",
+          "isolatedStatus": "NEEDS_NEW_ART",
+          "layer": 8
+        }
+      ],
+      "runtimeActivated": false,
+      "humanApproval": false,
+      "findings": "Cabelo excede casco e abertura/olhos incompat?veis; elmo toca gola sem encaixe craniano validado.",
+      "ready": false
+    },
+    {
+      "id": "female-armor-rare-weapon",
+      "gender": "female",
+      "ids": [
+        "armor_traveler_rare_female_v2",
+        "sword_path_common_female_v2"
+      ],
+      "status": "NO_NEW_CONFLICT_OBSERVED",
+      "compositionPath": "build/task-0059-equipment-recovery/compatibility/female-armor-rare-weapon/combined.png",
+      "sha256": "ad6023849a992c276492680b65ac8631c7818a147f2f2a966d899d449f5b8a29",
+      "zoomPath": "build/task-0059-equipment-recovery/compatibility/female-armor-rare-weapon/intersection-zoom.png",
+      "avatar": {
+        "path": "apps/web/public/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+        "sha256": "f260cb9b053b35c328025f1bc7ee602cbb30e57c71ba1f2238a4b1519685f460"
+      },
+      "derivedBase": false,
+      "pieces": [
+        {
+          "id": "armor_traveler_rare_female_v2",
+          "path": "build/task-0055-body-fit-bake/armor_traveler_rare_female_v2/armor_traveler_rare_female_v2_baked.png",
+          "sha256": "58be3d1d95eeab11ac0a38d67f06ad88383d018e3720502d31dada7a9f2fc833",
+          "isolatedStatus": "FIT_PASS",
+          "layer": 2
+        },
+        {
+          "id": "sword_path_common_female_v2",
+          "path": "build/task-0058-sword-sheath-pilot/baked/attempt-03/sword_path_common_female_v2_sheathed_baked.png",
+          "sha256": "735000c62ddaee5214cfb895deae17685a1f2e1c0c642f3557e09879d90524f2",
+          "isolatedStatus": "FIT_PASS",
+          "layer": 6
+        }
+      ],
+      "runtimeActivated": false,
+      "humanApproval": false,
+      "findings": "No reference HD: composi??o revisada em corpo inteiro e zoom, sem nova interse??o grave. Suspens?o comum mant?m contato visual com cinto/armadura; escudo continua ? frente da m?o. N?o prova pega oculta nem substitui aprova??o humana; s? esta dupla e este HD.",
+      "ready": false
+    },
+    {
+      "id": "female-armor-rare-shield",
+      "gender": "female",
+      "ids": [
+        "armor_traveler_rare_female_v2",
+        "shield_perseverance_rare_female_v2"
+      ],
+      "status": "NO_NEW_CONFLICT_OBSERVED",
+      "compositionPath": "build/task-0059-equipment-recovery/compatibility/female-armor-rare-shield/combined.png",
+      "sha256": "4b245aabaff64c731d13bcb99fc45eea880a6fed25e726ffb68f34eaebdaa9e6",
+      "zoomPath": "build/task-0059-equipment-recovery/compatibility/female-armor-rare-shield/intersection-zoom.png",
+      "avatar": {
+        "path": "apps/web/public/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+        "sha256": "f260cb9b053b35c328025f1bc7ee602cbb30e57c71ba1f2238a4b1519685f460"
+      },
+      "derivedBase": false,
+      "pieces": [
+        {
+          "id": "armor_traveler_rare_female_v2",
+          "path": "build/task-0055-body-fit-bake/armor_traveler_rare_female_v2/armor_traveler_rare_female_v2_baked.png",
+          "sha256": "58be3d1d95eeab11ac0a38d67f06ad88383d018e3720502d31dada7a9f2fc833",
+          "isolatedStatus": "FIT_PASS",
+          "layer": 2
+        },
+        {
+          "id": "shield_perseverance_rare_female_v2",
+          "path": "build/task-0055-body-fit-bake/shield_perseverance_rare_female_v2/shield_perseverance_rare_female_v2_baked.png",
+          "sha256": "1d0392230985f18b22ff043083af121fb9f276d526a3e8ecf4b9c93135dabe02",
+          "isolatedStatus": "FIT_PASS",
+          "layer": 7
+        }
+      ],
+      "runtimeActivated": false,
+      "humanApproval": false,
+      "findings": "No reference HD: composi??o revisada em corpo inteiro e zoom, sem nova interse??o grave. Suspens?o comum mant?m contato visual com cinto/armadura; escudo continua ? frente da m?o. N?o prova pega oculta nem substitui aprova??o humana; s? esta dupla e este HD.",
+      "ready": false
+    },
+    {
+      "id": "male-armor-uncommon-weapon",
+      "gender": "male",
+      "ids": [
+        "armor_traveler_uncommon_male_v2",
+        "sword_path_common_male_v2"
+      ],
+      "status": "NO_NEW_CONFLICT_OBSERVED",
+      "compositionPath": "build/task-0059-equipment-recovery/compatibility/male-armor-uncommon-weapon/combined.png",
+      "sha256": "e0e7697a12cc67e79e3c8a5f430ccb6713c74b7b9cfeb586727302b089e339db",
+      "zoomPath": "build/task-0059-equipment-recovery/compatibility/male-armor-uncommon-weapon/intersection-zoom.png",
+      "avatar": {
+        "path": "apps/web/public/assets/avatar/hd/male/male_short_moss_medium_hd.png",
+        "sha256": "b182c2e29b512b337891716a413ab7efaad737e23c6354779fae17fe19b8af34"
+      },
+      "derivedBase": false,
+      "pieces": [
+        {
+          "id": "armor_traveler_uncommon_male_v2",
+          "path": "build/task-0055-body-fit-bake/armor_traveler_uncommon_male_v2/armor_traveler_uncommon_male_v2_baked.png",
+          "sha256": "8ece1c5d4daad2b4b7b0a6d673eb3ad6e2d16a9bcc888082ee33a2bd71c928c2",
+          "isolatedStatus": "FIT_PASS",
+          "layer": 2
+        },
+        {
+          "id": "sword_path_common_male_v2",
+          "path": "build/task-0059-equipment-recovery/recovery/sword_path_common_male_v2/c-split-suspension-mouth/sword_path_common_male_v2_baked.png",
+          "sha256": "73e29fafd9adec500978eae7bb35eca05e8b79d946862b98704f40e95964aec4",
+          "isolatedStatus": "FIT_PASS",
+          "layer": 6
+        }
+      ],
+      "runtimeActivated": false,
+      "humanApproval": false,
+      "findings": "No reference HD: composi??o revisada em corpo inteiro e zoom, sem nova interse??o grave. Suspens?o comum mant?m contato visual com cinto/armadura; escudo continua ? frente da m?o. N?o prova pega oculta nem substitui aprova??o humana; s? esta dupla e este HD.",
+      "ready": false
+    },
+    {
+      "id": "male-armor-uncommon-shield",
+      "gender": "male",
+      "ids": [
+        "armor_traveler_uncommon_male_v2",
+        "shield_perseverance_rare_male_v2"
+      ],
+      "status": "NO_NEW_CONFLICT_OBSERVED",
+      "compositionPath": "build/task-0059-equipment-recovery/compatibility/male-armor-uncommon-shield/combined.png",
+      "sha256": "e7f4c2f74d4698c2910a01b949abdf2c9cfc37b51094ef8a12fc4f2382f07f9d",
+      "zoomPath": "build/task-0059-equipment-recovery/compatibility/male-armor-uncommon-shield/intersection-zoom.png",
+      "avatar": {
+        "path": "apps/web/public/assets/avatar/hd/male/male_short_moss_medium_hd.png",
+        "sha256": "b182c2e29b512b337891716a413ab7efaad737e23c6354779fae17fe19b8af34"
+      },
+      "derivedBase": false,
+      "pieces": [
+        {
+          "id": "armor_traveler_uncommon_male_v2",
+          "path": "build/task-0055-body-fit-bake/armor_traveler_uncommon_male_v2/armor_traveler_uncommon_male_v2_baked.png",
+          "sha256": "8ece1c5d4daad2b4b7b0a6d673eb3ad6e2d16a9bcc888082ee33a2bd71c928c2",
+          "isolatedStatus": "FIT_PASS",
+          "layer": 2
+        },
+        {
+          "id": "shield_perseverance_rare_male_v2",
+          "path": "build/task-0055-body-fit-bake/shield_perseverance_rare_male_v2/shield_perseverance_rare_male_v2_baked.png",
+          "sha256": "bf0785671741851d4e64402984309cfc30ff80313da98cf453b3e3a57b40e2a6",
+          "isolatedStatus": "FIT_PASS",
+          "layer": 7
+        }
+      ],
+      "runtimeActivated": false,
+      "humanApproval": false,
+      "findings": "No reference HD: composi??o revisada em corpo inteiro e zoom, sem nova interse??o grave. Suspens?o comum mant?m contato visual com cinto/armadura; escudo continua ? frente da m?o. N?o prova pega oculta nem substitui aprova??o humana; s? esta dupla e este HD.",
+      "ready": false
+    },
+    {
+      "id": "male-armor-uncommon-amulet",
+      "gender": "male",
+      "ids": [
+        "armor_traveler_uncommon_male_v2",
+        "medallion_path_rare_male_v2"
+      ],
+      "status": "NEEDS_REWORK",
+      "compositionPath": "build/task-0059-equipment-recovery/compatibility/male-armor-uncommon-amulet/combined.png",
+      "sha256": "6db551ce117cc1af1cd5a76a517bc1ec60d0a1e90d1f03bb6386c04593d62a79",
+      "zoomPath": "build/task-0059-equipment-recovery/compatibility/male-armor-uncommon-amulet/intersection-zoom.png",
+      "avatar": {
+        "path": "apps/web/public/assets/avatar/hd/male/male_short_moss_medium_hd.png",
+        "sha256": "b182c2e29b512b337891716a413ab7efaad737e23c6354779fae17fe19b8af34"
+      },
+      "derivedBase": false,
+      "pieces": [
+        {
+          "id": "armor_traveler_uncommon_male_v2",
+          "path": "build/task-0055-body-fit-bake/armor_traveler_uncommon_male_v2/armor_traveler_uncommon_male_v2_baked.png",
+          "sha256": "8ece1c5d4daad2b4b7b0a6d673eb3ad6e2d16a9bcc888082ee33a2bd71c928c2",
+          "isolatedStatus": "FIT_PASS",
+          "layer": 2
+        },
+        {
+          "id": "medallion_path_rare_male_v2",
+          "path": "build/task-0059-equipment-recovery/recovery/medallion_path_rare_male_v2/a-chain-behind-scarf/medallion_path_rare_male_v2_baked.png",
+          "sha256": "381cc1593896cedd300595d690a1b539b90ef8bcb76a4da76f58641e10c547fb",
+          "isolatedStatus": "NEEDS_NEW_ART",
+          "layer": 4
+        }
+      ],
+      "runtimeActivated": false,
+      "humanApproval": false,
+      "findings": "Corrente n?o sustenta medalh?o sobre peitoral; fonte/m?scara cria apar?ncia de broche ou corte.",
+      "ready": false
+    },
+    {
+      "id": "male-armor-uncommon-boots",
+      "gender": "male",
+      "ids": [
+        "armor_traveler_uncommon_male_v2",
+        "boots_traveler_common_male_v2"
+      ],
+      "status": "NEEDS_REWORK",
+      "compositionPath": "build/task-0059-equipment-recovery/compatibility/male-armor-uncommon-boots/combined.png",
+      "sha256": "e889616434c193702ca1ab4ff60a7cb3ab9817a6717b7a7ee47c42df207be124",
+      "zoomPath": "build/task-0059-equipment-recovery/compatibility/male-armor-uncommon-boots/intersection-zoom.png",
+      "avatar": {
+        "path": "apps/web/public/assets/avatar/hd/male/male_short_moss_medium_hd.png",
+        "sha256": "b182c2e29b512b337891716a413ab7efaad737e23c6354779fae17fe19b8af34"
+      },
+      "derivedBase": false,
+      "pieces": [
+        {
+          "id": "armor_traveler_uncommon_male_v2",
+          "path": "build/task-0055-body-fit-bake/armor_traveler_uncommon_male_v2/armor_traveler_uncommon_male_v2_baked.png",
+          "sha256": "8ece1c5d4daad2b4b7b0a6d673eb3ad6e2d16a9bcc888082ee33a2bd71c928c2",
+          "isolatedStatus": "FIT_PASS",
+          "layer": 2
+        },
+        {
+          "id": "boots_traveler_common_male_v2",
+          "path": "build/task-0055-body-fit-bake/boots_traveler_common_male_v2/boots_traveler_common_male_v2_baked.png",
+          "sha256": "e0f392c934da8376e9ee4d5b54e31be1de1f2ab65dc3cb102bf8fce17a7c6049",
+          "isolatedStatus": "NEEDS_REWORK",
+          "layer": 3
+        }
+      ],
+      "runtimeActivated": false,
+      "humanApproval": false,
+      "findings": "Contornos ou lacunas do cal?ado continuam; masculino ? bake hist?rico diagn?stico, nenhuma nova bota masculina gerada.",
+      "ready": false
+    },
+    {
+      "id": "male-armor-uncommon-helmet",
+      "gender": "male",
+      "ids": [
+        "armor_traveler_uncommon_male_v2",
+        "helmet_traveler_rare_male_v2"
+      ],
+      "status": "NEEDS_REWORK",
+      "compositionPath": "build/task-0059-equipment-recovery/compatibility/male-armor-uncommon-helmet/combined.png",
+      "sha256": "2c84fcb2c5252df38bb2ad0f6f8c9130c7e7ca4add3a72777a02b30b0a08b5ee",
+      "zoomPath": "build/task-0059-equipment-recovery/compatibility/male-armor-uncommon-helmet/intersection-zoom.png",
+      "avatar": {
+        "path": "apps/web/public/assets/avatar/hd/male/male_short_moss_medium_hd.png",
+        "sha256": "b182c2e29b512b337891716a413ab7efaad737e23c6354779fae17fe19b8af34"
+      },
+      "derivedBase": false,
+      "pieces": [
+        {
+          "id": "armor_traveler_uncommon_male_v2",
+          "path": "build/task-0055-body-fit-bake/armor_traveler_uncommon_male_v2/armor_traveler_uncommon_male_v2_baked.png",
+          "sha256": "8ece1c5d4daad2b4b7b0a6d673eb3ad6e2d16a9bcc888082ee33a2bd71c928c2",
+          "isolatedStatus": "FIT_PASS",
+          "layer": 2
+        },
+        {
+          "id": "helmet_traveler_rare_male_v2",
+          "path": "build/task-0059-equipment-recovery/recovery/helmet_traveler_rare_male_v2/a-crown-in-canvas/helmet_traveler_rare_male_v2_baked.png",
+          "sha256": "a5ed12e9de23a9ff8b1ea54eba0b9590e82015c947e591274434df8c827049dd",
+          "isolatedStatus": "NEEDS_NEW_ART",
+          "layer": 8
+        }
+      ],
+      "runtimeActivated": false,
+      "humanApproval": false,
+      "findings": "Cabelo excede casco e abertura/olhos incompat?veis; elmo toca gola sem encaixe craniano validado.",
+      "ready": false
+    },
+    {
+      "id": "male-armor-rare-weapon",
+      "gender": "male",
+      "ids": [
+        "armor_traveler_rare_male_v2",
+        "sword_path_common_male_v2"
+      ],
+      "status": "NO_NEW_CONFLICT_OBSERVED",
+      "compositionPath": "build/task-0059-equipment-recovery/compatibility/male-armor-rare-weapon/combined.png",
+      "sha256": "ba0b737af26dd984642f4ae378ef3c6d36ad73b9a3d094aac6976862b8ffaf13",
+      "zoomPath": "build/task-0059-equipment-recovery/compatibility/male-armor-rare-weapon/intersection-zoom.png",
+      "avatar": {
+        "path": "apps/web/public/assets/avatar/hd/male/male_short_moss_medium_hd.png",
+        "sha256": "b182c2e29b512b337891716a413ab7efaad737e23c6354779fae17fe19b8af34"
+      },
+      "derivedBase": false,
+      "pieces": [
+        {
+          "id": "armor_traveler_rare_male_v2",
+          "path": "build/task-0055-body-fit-bake/armor_traveler_rare_male_v2/armor_traveler_rare_male_v2_baked.png",
+          "sha256": "cc96ad925b3c298a0e85f2cfeda2f1171130d83f6bd7c71080e1b43c87e7f0dd",
+          "isolatedStatus": "FIT_PASS",
+          "layer": 2
+        },
+        {
+          "id": "sword_path_common_male_v2",
+          "path": "build/task-0059-equipment-recovery/recovery/sword_path_common_male_v2/c-split-suspension-mouth/sword_path_common_male_v2_baked.png",
+          "sha256": "73e29fafd9adec500978eae7bb35eca05e8b79d946862b98704f40e95964aec4",
+          "isolatedStatus": "FIT_PASS",
+          "layer": 6
+        }
+      ],
+      "runtimeActivated": false,
+      "humanApproval": false,
+      "findings": "No reference HD: composi??o revisada em corpo inteiro e zoom, sem nova interse??o grave. Suspens?o comum mant?m contato visual com cinto/armadura; escudo continua ? frente da m?o. N?o prova pega oculta nem substitui aprova??o humana; s? esta dupla e este HD.",
+      "ready": false
+    },
+    {
+      "id": "male-armor-rare-shield",
+      "gender": "male",
+      "ids": [
+        "armor_traveler_rare_male_v2",
+        "shield_perseverance_rare_male_v2"
+      ],
+      "status": "NO_NEW_CONFLICT_OBSERVED",
+      "compositionPath": "build/task-0059-equipment-recovery/compatibility/male-armor-rare-shield/combined.png",
+      "sha256": "02b073864a8e401cb2cfbe541e96b6fe7721d5543291296635d7b57205297cf1",
+      "zoomPath": "build/task-0059-equipment-recovery/compatibility/male-armor-rare-shield/intersection-zoom.png",
+      "avatar": {
+        "path": "apps/web/public/assets/avatar/hd/male/male_short_moss_medium_hd.png",
+        "sha256": "b182c2e29b512b337891716a413ab7efaad737e23c6354779fae17fe19b8af34"
+      },
+      "derivedBase": false,
+      "pieces": [
+        {
+          "id": "armor_traveler_rare_male_v2",
+          "path": "build/task-0055-body-fit-bake/armor_traveler_rare_male_v2/armor_traveler_rare_male_v2_baked.png",
+          "sha256": "cc96ad925b3c298a0e85f2cfeda2f1171130d83f6bd7c71080e1b43c87e7f0dd",
+          "isolatedStatus": "FIT_PASS",
+          "layer": 2
+        },
+        {
+          "id": "shield_perseverance_rare_male_v2",
+          "path": "build/task-0055-body-fit-bake/shield_perseverance_rare_male_v2/shield_perseverance_rare_male_v2_baked.png",
+          "sha256": "bf0785671741851d4e64402984309cfc30ff80313da98cf453b3e3a57b40e2a6",
+          "isolatedStatus": "FIT_PASS",
+          "layer": 7
+        }
+      ],
+      "runtimeActivated": false,
+      "humanApproval": false,
+      "findings": "No reference HD: composi??o revisada em corpo inteiro e zoom, sem nova interse??o grave. Suspens?o comum mant?m contato visual com cinto/armadura; escudo continua ? frente da m?o. N?o prova pega oculta nem substitui aprova??o humana; s? esta dupla e este HD.",
+      "ready": false
+    }
+  ],
+  "notTested": [
+    {
+      "combination": "Calças + botas",
+      "reason": "Sem fonte/item/candidato Calças; proposta não gera evidência visual"
+    },
+    {
+      "combination": "Calças + armadura",
+      "reason": "Sem fonte/item/candidato Calças; proposta não gera evidência visual"
+    }
+  ],
+  "counts": {
+    "referenceNoNewConflict": 8,
+    "needsRework": 6,
+    "notTested": 2
+  },
+  "scope": "Duplas no HD de refer?ncia, n?o todos os54HD, n?o loadout completo, n?o runtime"
+}

@@ -1,0 +1,82 @@
+{
+  "task": "TASK-0056",
+  "id": "sword_path_rare_male_v2",
+  "output": {
+    "path": "build/task-0056-sword-downward/attempt-02/sword_path_rare_male_v2/sword_path_rare_male_v2_downward_baked.png",
+    "format": "png",
+    "width": 1024,
+    "height": 1536,
+    "channels": 4,
+    "hasAlpha": true,
+    "integrity": {
+      "status": "CRC_PASS",
+      "chunks": 16
+    },
+    "alpha128Bounds": {
+      "left": 119,
+      "top": 743,
+      "right": 331,
+      "bottom": 1248,
+      "count": 21094
+    },
+    "alphaPositiveBoundsDiagnostic": {
+      "left": 81,
+      "top": 742,
+      "right": 385,
+      "bottom": 1249,
+      "count": 24137
+    },
+    "transparentPixels": 1548727,
+    "sha256": "8e549def7ee66c9e9f3cd80e256b820e3fd889c99b0b9d05d738a62b2b657088",
+    "decode": "PASS"
+  },
+  "source": {
+    "path": "assets-source/body-fit-v2-targets/sword_path_rare_male_v2.png",
+    "format": "png",
+    "width": 1024,
+    "height": 1536,
+    "channels": 4,
+    "hasAlpha": true,
+    "integrity": {
+      "status": "CRC_PASS",
+      "chunks": 24
+    },
+    "alpha128Bounds": {
+      "left": 194,
+      "top": 8,
+      "right": 830,
+      "bottom": 1518,
+      "count": 188126
+    },
+    "alphaPositiveBoundsDiagnostic": {
+      "left": 33,
+      "top": 6,
+      "right": 991,
+      "bottom": 1521,
+      "count": 214286
+    },
+    "transparentPixels": 1358578,
+    "sha256": "89676a2f0f5b8ce73e25e6088ff52979115a11a091bbf25ce810b3c8488c96cb",
+    "decode": "PASS"
+  },
+  "avatar": {
+    "path": "apps/web/public/assets/avatar/hd/male/male_short_moss_medium_hd.png",
+    "sha256": "b182c2e29b512b337891716a413ab7efaad737e23c6354779fae17fe19b8af34",
+    "id": "male_short_moss_medium",
+    "immutable": true,
+    "footBaseline": 1513
+  },
+  "transform": {
+    "scale": 0.335,
+    "rotation": -0.1278921525789331,
+    "translateX": 53.60979081133334,
+    "translateY": 740.257337926867
+  },
+  "status": "NEEDS_REWORK",
+  "metadataSha256": "e099c1f61d17130ec0659b7b89c4db9b1d82d6cc73b170c91605fd9c738e200b",
+  "reportSha256": "559a5f142bfbf83c0a1c6cfeed2e16a248f044b250d89e3069197f7986e806dd",
+  "runtimePath": null,
+  "humanBodyFitApproved": false,
+  "ready": false,
+  "runtimeActivated": false
+}

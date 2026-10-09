@@ -1,0 +1,188 @@
+{
+  "music": {},
+  "effects": {},
+  "visual": {
+    "arenaBackground": {
+      "src": "/assets/world/arena/arena_training_courtyard.webp",
+      "license": "original · OpenAI image generation via ChatGPT · Original asset generated for RPG Jovem Cristão",
+      "mobileSrc": "/assets/world/arena/arena_training_courtyard_960.webp"
+    },
+    "arenaDavi": {
+      "src": "/assets/characters/arena/arena_davi.png",
+      "license": "original · OpenAI image generation via ChatGPT · Original asset generated for RPG Jovem Cristão"
+    },
+    "arenaElias": {
+      "src": "/assets/characters/arena/arena_elias.png",
+      "license": "original · OpenAI image generation via ChatGPT · Original asset generated for RPG Jovem Cristão"
+    },
+    "arenaMara": {
+      "src": "/assets/characters/arena/arena_mara.png",
+      "license": "original · OpenAI image generation via ChatGPT · Original asset generated for RPG Jovem Cristão"
+    },
+    "arenaNoemi": {
+      "src": "/assets/characters/arena/arena_noemi.png",
+      "license": "original · OpenAI image generation via ChatGPT · Original asset generated for RPG Jovem Cristão"
+    }
+  },
+  "results": [
+    {
+      "file": "audio/music/journey_ambient.ogg",
+      "status": "MISSING"
+    },
+    {
+      "file": "audio/music/garden_exploration.ogg",
+      "status": "MISSING"
+    },
+    {
+      "file": "audio/music/serpent_chase.ogg",
+      "status": "MISSING"
+    },
+    {
+      "file": "audio/music/arena_training.ogg",
+      "status": "REJECTED",
+      "reason": "Missing/mismatched hash, license provenance or human review"
+    },
+    {
+      "file": "audio/music/guild_community.ogg",
+      "status": "MISSING"
+    },
+    {
+      "file": "audio/music/devotional_reflection.ogg",
+      "status": "MISSING"
+    },
+    {
+      "file": "audio/music/quiz_focus.ogg",
+      "status": "MISSING"
+    },
+    {
+      "file": "audio/effects/ui_select.ogg",
+      "status": "MISSING"
+    },
+    {
+      "file": "audio/effects/arena_attack.ogg",
+      "status": "REJECTED",
+      "reason": "Missing/mismatched hash, license provenance or human review"
+    },
+    {
+      "file": "audio/effects/arena_defense.ogg",
+      "status": "REJECTED",
+      "reason": "Missing/mismatched hash, license provenance or human review"
+    },
+    {
+      "file": "audio/effects/arena_focus.ogg",
+      "status": "REJECTED",
+      "reason": "Missing/mismatched hash, license provenance or human review"
+    },
+    {
+      "file": "audio/effects/arena_dodge.ogg",
+      "status": "REJECTED",
+      "reason": "Missing/mismatched hash, license provenance or human review"
+    },
+    {
+      "file": "audio/effects/reward_receive.ogg",
+      "status": "MISSING"
+    },
+    {
+      "file": "audio/effects/level_up.ogg",
+      "status": "MISSING"
+    },
+    {
+      "file": "audio/effects/chest_open.ogg",
+      "status": "MISSING"
+    },
+    {
+      "file": "audio/effects/equipment_confirm.ogg",
+      "status": "MISSING"
+    },
+    {
+      "file": "audio/effects/objective_complete.ogg",
+      "status": "MISSING"
+    },
+    {
+      "file": "audio/effects/guild_approval.ogg",
+      "status": "MISSING"
+    },
+    {
+      "file": "audio/effects/serpent_near.ogg",
+      "status": "MISSING"
+    },
+    {
+      "file": "audio/effects/serpent_attack.ogg",
+      "status": "MISSING"
+    },
+    {
+      "file": "audio/effects/player_hit.ogg",
+      "status": "REJECTED",
+      "reason": "Missing/mismatched hash, license provenance or human review"
+    },
+    {
+      "file": "audio/effects/pickup_light.ogg",
+      "status": "MISSING"
+    },
+    {
+      "file": "audio/effects/pickup_fragment.ogg",
+      "status": "MISSING"
+    },
+    {
+      "file": "audio/effects/pickup_powerup.ogg",
+      "status": "MISSING"
+    },
+    {
+      "file": "audio/effects/portal_open.ogg",
+      "status": "MISSING"
+    },
+    {
+      "file": "audio/effects/victory.ogg",
+      "status": "REJECTED",
+      "reason": "Missing/mismatched hash, license provenance or human review"
+    },
+    {
+      "file": "audio/effects/defeat.ogg",
+      "status": "REJECTED",
+      "reason": "Missing/mismatched hash, license provenance or human review"
+    },
+    {
+      "file": "world/arena/arena_training_courtyard.webp",
+      "status": "VALIDATED",
+      "sha256": "d1a2c334c0eb08461447f1acf2f39fdd67d56a2a385bf7c7b370d6ac09200263"
+    },
+    {
+      "file": "world/arena/arena_training_courtyard_960.webp",
+      "status": "VALIDATED",
+      "sha256": "4294088d0b16b7de28e61b1c7fafc05069c2dba137f369b4aa0415c6d3d3145b"
+    },
+    {
+      "file": "characters/arena/arena_davi.png",
+      "status": "VALIDATED",
+      "sha256": "9ab5c7ff317434ff41bde172640f6d60426dbcfe09f878235aeaf7731dbcb5af"
+    },
+    {
+      "file": "characters/arena/arena_elias.png",
+      "status": "VALIDATED",
+      "sha256": "5363d3e92609128b7f31e1cd3d8ce65d1fbbba0c5fc0ad14d451c664991362ca"
+    },
+    {
+      "file": "characters/arena/arena_mara.png",
+      "status": "VALIDATED",
+      "sha256": "a8f3a68ddbed7eacbf57af9278cfb24922d7d06adc0f2eabe66d48e1663b034a"
+    },
+    {
+      "file": "characters/arena/arena_noemi.png",
+      "status": "VALIDATED",
+      "sha256": "f7e84ad1cb5762b9a7bee4dac32b6d7266928b76d0f4fb4c4c21b08c28b80755"
+    },
+    {
+      "file": "world/guild/guild_community_hall.webp",
+      "status": "MISSING"
+    },
+    {
+      "file": "world/equipment/equipment_workbench.webp",
+      "status": "MISSING"
+    },
+    {
+      "file": "world/diary/diary_parchment_scene.webp",
+      "status": "MISSING"
+    }
+  ],
+  "pass": false
+}

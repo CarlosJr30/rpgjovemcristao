@@ -1,0 +1,103 @@
+{
+  "task": "TASK-0049D",
+  "at": "2026-10-07T16:41:31.308Z",
+  "selectionRule": "First eight PENDING_HD in official queue order",
+  "items": [
+    {
+      "id": "male_long_moss_dark",
+      "gender": "male",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "long",
+      "legacyPath": "/assets/avatar/runtime/male/male_long_moss_dark.png",
+      "hdPath": "/assets/avatar/hd/male/male_long_moss_dark_hd.png",
+      "combination": {
+        "outfit": "moss",
+        "skin": "dark"
+      }
+    },
+    {
+      "id": "male_long_blue_medium",
+      "gender": "male",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "long",
+      "legacyPath": "/assets/avatar/runtime/male/male_long_blue_medium.png",
+      "hdPath": "/assets/avatar/hd/male/male_long_blue_medium_hd.png",
+      "combination": {
+        "outfit": "blue",
+        "skin": "medium"
+      }
+    },
+    {
+      "id": "male_long_moss_medium",
+      "gender": "male",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "long",
+      "legacyPath": "/assets/avatar/runtime/male/male_long_moss_medium.png",
+      "hdPath": "/assets/avatar/hd/male/male_long_moss_medium_hd.png",
+      "combination": {
+        "outfit": "moss",
+        "skin": "medium"
+      }
+    },
+    {
+      "id": "male_long_ochre_dark",
+      "gender": "male",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "long",
+      "legacyPath": "/assets/avatar/runtime/male/male_long_ochre_dark.png",
+      "hdPath": "/assets/avatar/hd/male/male_long_ochre_dark_hd.png",
+      "combination": {
+        "outfit": "ochre",
+        "skin": "dark"
+      }
+    },
+    {
+      "id": "male_curly_moss_light",
+      "gender": "male",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "curly",
+      "legacyPath": "/assets/avatar/runtime/male/male_curly_moss_light.png",
+      "hdPath": "/assets/avatar/hd/male/male_curly_moss_light_hd.png",
+      "combination": {
+        "outfit": "moss",
+        "skin": "light"
+      }
+    },
+    {
+      "id": "male_long_ochre_medium",
+      "gender": "male",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "long",
+      "legacyPath": "/assets/avatar/runtime/male/male_long_ochre_medium.png",
+      "hdPath": "/assets/avatar/hd/male/male_long_ochre_medium_hd.png",
+      "combination": {
+        "outfit": "ochre",
+        "skin": "medium"
+      }
+    },
+    {
+      "id": "male_long_ochre_light",
+      "gender": "male",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "long",
+      "legacyPath": "/assets/avatar/runtime/male/male_long_ochre_light.png",
+      "hdPath": "/assets/avatar/hd/male/male_long_ochre_light_hd.png",
+      "combination": {
+        "outfit": "ochre",
+        "skin": "light"
+      }
+    },
+    {
+      "id": "female_curly_blue_dark",
+      "gender": "female",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "curly",
+      "legacyPath": "/assets/avatar/runtime/female/female_curly_blue_dark.png",
+      "hdPath": "/assets/avatar/hd/female/female_curly_blue_dark_hd.png",
+      "combination": {
+        "outfit": "blue",
+        "skin": "dark"
+      }
+    }
+  ]
+}

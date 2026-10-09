@@ -1,0 +1,140 @@
+{
+  "filename": "medallion_path_rare_male_v2.png",
+  "itemId": "wisdom-amulet",
+  "gender": "male",
+  "slot": "amulet",
+  "sourcePath": "assets-source/body-fit-v2-targets/medallion_path_rare_male_v2.png",
+  "exists": true,
+  "sourceApproval": {
+    "declaredBy": "Carlos Faustino",
+    "declaration": "SOURCE_VISUAL_APPROVED",
+    "boundToFileHash": true
+  },
+  "technicalStatus": "TECHNICALLY_VALIDATED",
+  "mapping": {
+    "status": "MAPPED",
+    "errors": [],
+    "targetFilename": "medallion_path_rare_male_v2.png",
+    "itemId": "wisdom-amulet",
+    "gender": "male",
+    "slot": "amulet"
+  },
+  "fitStatus": "NEEDS_REWORK",
+  "humanBodyFitApproved": false,
+  "runtimeReady": false,
+  "knownCorrectiveEditing": "Prior resize/crop not established by metadata; no corrective processing performed by this task",
+  "referenceAvatar": {
+    "id": "male_short_moss_medium",
+    "source": "/assets/avatar/hd/male/male_short_moss_medium_hd.png",
+    "sha256": "b182c2e29b512b337891716a413ab7efaad737e23c6354779fae17fe19b8af34",
+    "alphaThreshold": 128,
+    "bounds": {
+      "left": 169,
+      "top": 2,
+      "right": 933,
+      "bottom": 1513
+    },
+    "footBaseline": 1513,
+    "alphaPositiveBoundsDiagnostic": {
+      "left": 0,
+      "top": 0,
+      "right": 1003,
+      "bottom": 1521
+    }
+  },
+  "expectedLandmarks": [
+    "chest center",
+    "neckline",
+    "size relative to torso",
+    "occlusion"
+  ],
+  "evidenceLimit": "Technical/mapping checks do not establish fit; visual lab review required",
+  "sha256": "2ef82d3b22ad557019f41529d6c7dcd155c641142f5012ac2dbf7b9bb58a4b8e",
+  "integrity": {
+    "status": "CRC_PASS",
+    "chunks": 38
+  },
+  "manifestHash": "2ef82d3b22ad557019f41529d6c7dcd155c641142f5012ac2dbf7b9bb58a4b8e",
+  "manifestHashMatches": true,
+  "metadata": {
+    "format": "png",
+    "width": 1024,
+    "height": 1536,
+    "hasAlpha": true,
+    "transparentPixels": 935932,
+    "alpha128Pixels": 618130,
+    "fullNativeCanvas": true,
+    "decode": "PASS"
+  },
+  "readyEligible": false,
+  "sourceBoundsAlpha128": {
+    "left": 44,
+    "top": 0,
+    "right": 982,
+    "bottom": 1437
+  },
+  "geometry": {
+    "nativeCanvas": {
+      "width": 1024,
+      "height": 1536
+    },
+    "sourceWidth": 939,
+    "sourceHeight": 1438,
+    "sourceBottomMinusHDFootBaseline": -76,
+    "correction": "NONE: full canvas inset 0; no crop/warp/stretch/offset",
+    "guideMeaning": "Pixel bounds and foot baseline, not new anatomy anchors"
+  },
+  "manifestSourceFile": "medalhão_dourado_de_esmeralda.png",
+  "provenance": "User supplied target PNG and hash-bound manifest; original authoring/crop history cannot be proven from PNG metadata. No corrective editing performed here.",
+  "reviewedBy": "Codex author fit QA; no human Body-Fit approval",
+  "fitResult": "FIT_FAIL",
+  "finalStatus": "NEEDS_REWORK",
+  "observations": "Corrente acima da cabeça e peça superior sobre rosto; medalhão cobre torso/quadril/pernas, fora da escala e altura do peito.",
+  "criteria": [
+    {
+      "criterion": "chestCenter",
+      "result": "FAIL",
+      "evidence": "Visible mismatch in correct-gender full-canvas comparison; see observations"
+    },
+    {
+      "criterion": "height",
+      "result": "FAIL",
+      "evidence": "Visible mismatch in correct-gender full-canvas comparison; see observations"
+    },
+    {
+      "criterion": "scale",
+      "result": "FAIL",
+      "evidence": "Visible mismatch in correct-gender full-canvas comparison; see observations"
+    },
+    {
+      "criterion": "armorOverlap",
+      "result": "NOT_TESTED_NO_FIT_PASS_ARMOR",
+      "evidence": "Not claimed as validated; decisive failures already require rework"
+    },
+    {
+      "criterion": "attachment",
+      "result": "FAIL",
+      "evidence": "Visible mismatch in correct-gender full-canvas comparison; see observations"
+    },
+    {
+      "criterion": "fabricOcclusion",
+      "result": "FAIL",
+      "evidence": "Visible mismatch in correct-gender full-canvas comparison; see observations"
+    }
+  ],
+  "regenerationRecommendation": "Regenerar corrente/medalhão pequeno no centro e altura real do peito, com contato no tecido e transparência fora da joia; avaliar depois sobre armor também válida. Não desenhar corrente acima da cabeça nem pendente no quadril.",
+  "assessedAt": "2026-10-08T06:04:18.570Z",
+  "humanBodyFitReviewStatus": "NOT_ELIGIBLE_FIT_FAILED",
+  "evidence": [
+    "medallion_path_rare_male_v2/comparison.png",
+    "medallion_path_rare_male_v2/base.png",
+    "medallion_path_rare_male_v2/overlay.png",
+    "medallion_path_rare_male_v2/combined.png",
+    "medallion_path_rare_male_v2/blend.png",
+    "medallion_path_rare_male_v2/split.png",
+    "medallion_path_rare_male_v2/guides.png",
+    "medallion_path_rare_male_v2/zoom-combined.png"
+  ],
+  "correctionApplied": false,
+  "scope": "Primary same-gender HD reference only; failed primary fit, therefore no broader compatibility claim or 27-variant PASS"
+}

@@ -1,0 +1,192 @@
+{
+  "task": "TASK-0056",
+  "id": "sword_path_common_female_v2",
+  "gender": "female",
+  "itemId": "traveler-sword-common",
+  "assessedBy": "Codex / QA visual pelo autor; não revisão independente nem aprovação de Carlos Faustino",
+  "outputSha256": "14c11b9454113ffb5dca678234a0286315d36b81e91f816d9835d5b6fee54cf1",
+  "sourceSha256": "03e3edbcf9572fae0cafc46b0a02eda045cbcdfe855dfcdf808e4aa8a5401d29",
+  "avatar": {
+    "path": "apps/web/public/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+    "sha256": "f260cb9b053b35c328025f1bc7ee602cbb30e57c71ba1f2238a4b1519685f460",
+    "id": "female_short_moss_medium",
+    "immutable": true,
+    "footBaseline": 1495
+  },
+  "selectedForReview": true,
+  "attempt": 2,
+  "status": "NEEDS_REWORK",
+  "reviewStatus": "NEEDS_REWORK",
+  "technicalStatus": "TECHNICALLY_VALIDATED",
+  "orientation": "DOWNWARD_VERTICAL",
+  "grip": "FAIL_OPEN_HAND",
+  "actualHandHoldsGrip": false,
+  "floatingOrDisconnectedGrip": "VISUAL_GRIP_NOT_CONVINCING",
+  "observations": [
+    "Cabo sobreposto à palma e dedos no candidato sem máscara; polegar visivelmente afastado.",
+    "Máscara revela os dedos à frente, mas recorta a empunhadura e deixa abertura entre polegar e cabo.",
+    "Lâmina vertical, lateral, sem cruzar torso/pernas/botas na segunda tentativa; pomo sobre região da luva."
+  ],
+  "regions": {
+    "bladeDirection": "PASS_DOWNWARD",
+    "tipTowardsGround": "PASS",
+    "gripRegistration": "PALM_PROXY_ALIGNED_ONLY",
+    "fingersOcclusion": "FAIL_HANDLE_FOREGROUND",
+    "thumbClosure": "FAIL_OPEN_THUMB",
+    "torsoBladeCrossing": "NOT_OBSERVED",
+    "legBladeCrossing": "NOT_OBSERVED",
+    "proportion": "VISUAL_REVIEW_PENDING"
+  },
+  "occlusion": {
+    "path": "build/task-0056-sword-downward/attempt-02/sword_path_common_female_v2/masked_overlay_diagnostic.png",
+    "sha256": "ed9a9a82917c1262a4e23c5806c41b1eae65573bd56a287d7a612b7721621d75",
+    "maskPath": "build/task-0056-sword-downward/attempt-02/sword_path_common_female_v2/offline_hand_occlusion_mask.png",
+    "maskSha256": "b5ab39efd6930bf17f9526ee42f839ed44dfabcf7320b95ae0e8e230f0cfefc0",
+    "frontHandPolygon": [
+      [
+        209,
+        787
+      ],
+      [
+        231,
+        781
+      ],
+      [
+        241,
+        797
+      ],
+      [
+        238,
+        816
+      ],
+      [
+        247,
+        831
+      ],
+      [
+        259,
+        839
+      ],
+      [
+        266,
+        850
+      ],
+      [
+        259,
+        860
+      ],
+      [
+        246,
+        861
+      ],
+      [
+        230,
+        851
+      ],
+      [
+        213,
+        830
+      ],
+      [
+        206,
+        808
+      ]
+    ],
+    "handCrop": {
+      "left": 165,
+      "top": 730,
+      "width": 155,
+      "height": 190
+    },
+    "removedPixels": 1257,
+    "method": "Offline alpha subtraction only from sword; no HD pixels edited, added, copied or redrawn",
+    "selectedAsFinal": false,
+    "status": "NEEDS_REWORK",
+    "observations": "Máscara experimental offline melhora ordem dos dedos/cabo, mas não muda a pose aberta; bordas poligonais introduzem recortes/halo. Não selecionada como PNG final."
+  },
+  "reworkRecommendation": "Contornar precisamente os dedos e polegar em máscara offline própria por referência, testar perfil mais estreito e menor comprimento da empunhadura. A máscara não fecha os dedos: se continuar aberta, manter NEEDS_REWORK. Alternativa a avaliar por Carlos: camada frontal independente de mão em pose de pega, sem sobrescrever HD, exigindo escopo/arte e aceite específicos antes de qualquer runtime.",
+  "limits": "Somente este hash sobre female_short_moss_medium ou male_short_moss_medium. Nenhuma compatibilidade com os outros 52 HD presumida. Registro matemático e direção vertical não provam pega real. Avaliação da capa/guarda é 2D; anatomia oculta não certificada.",
+  "evidence": [
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_common_female_v2/avatar_base.png",
+      "sha256": "f260cb9b053b35c328025f1bc7ee602cbb30e57c71ba1f2238a4b1519685f460",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_common_female_v2/source.png",
+      "sha256": "03e3edbcf9572fae0cafc46b0a02eda045cbcdfe855dfcdf808e4aa8a5401d29",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_common_female_v2/combined.png",
+      "sha256": "92eb8eadb398fcbc936ea9e8e3ac4f61c52f39214396392b5c46beb22a534c6b",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_common_female_v2/full_body.png",
+      "sha256": "92eb8eadb398fcbc936ea9e8e3ac4f61c52f39214396392b5c46beb22a534c6b",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_common_female_v2/hand_zoom.png",
+      "sha256": "c9308eec46831b761b0bb1a2d578147e7e7c33c3342bd099ae4723ea4e331a9e",
+      "width": 620,
+      "height": 760
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_common_female_v2/hand_zoom_base.png",
+      "sha256": "25995b20bdfc636c0636ed6deee8c44fc0b3335af0e27f16914639fb8906ed96",
+      "width": 620,
+      "height": 760
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_common_female_v2/alignment_guides.png",
+      "sha256": "0e02e7cf88f7e0f0ef8b09279ebcd659e81475878644df56f2ef25ea7e5f1f99",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_common_female_v2/offline_hand_occlusion_mask.png",
+      "sha256": "b5ab39efd6930bf17f9526ee42f839ed44dfabcf7320b95ae0e8e230f0cfefc0",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_common_female_v2/masked_overlay_diagnostic.png",
+      "sha256": "ed9a9a82917c1262a4e23c5806c41b1eae65573bd56a287d7a612b7721621d75",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_common_female_v2/masked_combined_diagnostic.png",
+      "sha256": "63fbb8b98541c3dcd39f7f24c4121ccbbd400754643d549fc9bc4533b9181fe9",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_common_female_v2/hand_zoom_masked.png",
+      "sha256": "cb27d1057bc173bfcccd23f880d997c171f1007c3ec6628943941416b758d721",
+      "width": 620,
+      "height": 760
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_common_female_v2/previous_combined.png",
+      "sha256": "baee9dfb530ab97c7dfcd88b8dcaf9e5aa1853d88d41f25ca887f06065ce0dc2",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_common_female_v2/sword_path_common_female_v2_downward_baked.png",
+      "sha256": "14c11b9454113ffb5dca678234a0286315d36b81e91f816d9835d5b6fee54cf1",
+      "width": 1024,
+      "height": 1536
+    }
+  ],
+  "humanBodyFitApproved": false,
+  "ready": false,
+  "runtimeActivated": false
+}

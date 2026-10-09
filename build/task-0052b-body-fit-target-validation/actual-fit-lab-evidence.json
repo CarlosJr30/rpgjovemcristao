@@ -1,0 +1,972 @@
+{
+  "at": "2026-10-08T06:06:27.904Z",
+  "samples": [
+    {
+      "filename": "armor_traveler_uncommon_female_v2.png",
+      "gender": "female",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "fullCanvas": true
+    },
+    {
+      "filename": "armor_traveler_uncommon_male_v2.png",
+      "gender": "male",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "fullCanvas": true
+    },
+    {
+      "filename": "helmet_traveler_rare_female_v2.png",
+      "gender": "female",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "fullCanvas": true
+    },
+    {
+      "filename": "helmet_traveler_rare_male_v2.png",
+      "gender": "male",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "fullCanvas": true
+    },
+    {
+      "filename": "boots_traveler_common_female_v2.png",
+      "gender": "female",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "fullCanvas": true
+    },
+    {
+      "filename": "boots_traveler_common_male_v2.png",
+      "gender": "male",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "fullCanvas": true
+    },
+    {
+      "filename": "sword_path_common_female_v2.png",
+      "gender": "female",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "fullCanvas": true
+    },
+    {
+      "filename": "sword_path_common_male_v2.png",
+      "gender": "male",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "fullCanvas": true
+    },
+    {
+      "filename": "shield_perseverance_rare_female_v2.png",
+      "gender": "female",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "fullCanvas": true
+    },
+    {
+      "filename": "shield_perseverance_rare_male_v2.png",
+      "gender": "male",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "fullCanvas": true
+    },
+    {
+      "filename": "medallion_path_rare_female_v2.png",
+      "gender": "female",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "fullCanvas": true
+    },
+    {
+      "filename": "medallion_path_rare_male_v2.png",
+      "gender": "male",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "fullCanvas": true
+    },
+    {
+      "filename": "armor_traveler_rare_female_v2.png",
+      "gender": "female",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "fullCanvas": true
+    },
+    {
+      "filename": "armor_traveler_rare_male_v2.png",
+      "gender": "male",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "fullCanvas": true
+    },
+    {
+      "filename": "sword_path_rare_female_v2.png",
+      "gender": "female",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "fullCanvas": true
+    },
+    {
+      "filename": "sword_path_rare_male_v2.png",
+      "gender": "male",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "fullCanvas": true
+    },
+    {
+      "filename": "armor_traveler_uncommon_female_v2.png",
+      "gender": "female",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 412,
+        "height": 915
+      },
+      "fullCanvas": true
+    },
+    {
+      "filename": "armor_traveler_uncommon_male_v2.png",
+      "gender": "male",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 412,
+        "height": 915
+      },
+      "fullCanvas": true
+    },
+    {
+      "filename": "helmet_traveler_rare_female_v2.png",
+      "gender": "female",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 412,
+        "height": 915
+      },
+      "fullCanvas": true
+    },
+    {
+      "filename": "helmet_traveler_rare_male_v2.png",
+      "gender": "male",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 412,
+        "height": 915
+      },
+      "fullCanvas": true
+    },
+    {
+      "filename": "boots_traveler_common_female_v2.png",
+      "gender": "female",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 412,
+        "height": 915
+      },
+      "fullCanvas": true
+    },
+    {
+      "filename": "boots_traveler_common_male_v2.png",
+      "gender": "male",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 412,
+        "height": 915
+      },
+      "fullCanvas": true
+    },
+    {
+      "filename": "sword_path_common_female_v2.png",
+      "gender": "female",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 412,
+        "height": 915
+      },
+      "fullCanvas": true
+    },
+    {
+      "filename": "sword_path_common_male_v2.png",
+      "gender": "male",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 412,
+        "height": 915
+      },
+      "fullCanvas": true
+    },
+    {
+      "filename": "shield_perseverance_rare_female_v2.png",
+      "gender": "female",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 412,
+        "height": 915
+      },
+      "fullCanvas": true
+    },
+    {
+      "filename": "shield_perseverance_rare_male_v2.png",
+      "gender": "male",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 412,
+        "height": 915
+      },
+      "fullCanvas": true
+    },
+    {
+      "filename": "medallion_path_rare_female_v2.png",
+      "gender": "female",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 412,
+        "height": 915
+      },
+      "fullCanvas": true
+    },
+    {
+      "filename": "medallion_path_rare_male_v2.png",
+      "gender": "male",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 412,
+        "height": 915
+      },
+      "fullCanvas": true
+    },
+    {
+      "filename": "armor_traveler_rare_female_v2.png",
+      "gender": "female",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 412,
+        "height": 915
+      },
+      "fullCanvas": true
+    },
+    {
+      "filename": "armor_traveler_rare_male_v2.png",
+      "gender": "male",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 412,
+        "height": 915
+      },
+      "fullCanvas": true
+    },
+    {
+      "filename": "sword_path_rare_female_v2.png",
+      "gender": "female",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 412,
+        "height": 915
+      },
+      "fullCanvas": true
+    },
+    {
+      "filename": "sword_path_rare_male_v2.png",
+      "gender": "male",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 412,
+        "height": 915
+      },
+      "fullCanvas": true
+    },
+    {
+      "filename": "armor_traveler_uncommon_female_v2.png",
+      "gender": "female",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "fullCanvas": true
+    },
+    {
+      "filename": "armor_traveler_uncommon_male_v2.png",
+      "gender": "male",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "fullCanvas": true
+    },
+    {
+      "filename": "helmet_traveler_rare_female_v2.png",
+      "gender": "female",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "fullCanvas": true
+    },
+    {
+      "filename": "helmet_traveler_rare_male_v2.png",
+      "gender": "male",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "fullCanvas": true
+    },
+    {
+      "filename": "boots_traveler_common_female_v2.png",
+      "gender": "female",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "fullCanvas": true
+    },
+    {
+      "filename": "boots_traveler_common_male_v2.png",
+      "gender": "male",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "fullCanvas": true
+    },
+    {
+      "filename": "sword_path_common_female_v2.png",
+      "gender": "female",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "fullCanvas": true
+    },
+    {
+      "filename": "sword_path_common_male_v2.png",
+      "gender": "male",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "fullCanvas": true
+    },
+    {
+      "filename": "shield_perseverance_rare_female_v2.png",
+      "gender": "female",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "fullCanvas": true
+    },
+    {
+      "filename": "shield_perseverance_rare_male_v2.png",
+      "gender": "male",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "fullCanvas": true
+    },
+    {
+      "filename": "medallion_path_rare_female_v2.png",
+      "gender": "female",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "fullCanvas": true
+    },
+    {
+      "filename": "medallion_path_rare_male_v2.png",
+      "gender": "male",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "fullCanvas": true
+    },
+    {
+      "filename": "armor_traveler_rare_female_v2.png",
+      "gender": "female",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "fullCanvas": true
+    },
+    {
+      "filename": "armor_traveler_rare_male_v2.png",
+      "gender": "male",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "fullCanvas": true
+    },
+    {
+      "filename": "sword_path_rare_female_v2.png",
+      "gender": "female",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "fullCanvas": true
+    },
+    {
+      "filename": "sword_path_rare_male_v2.png",
+      "gender": "male",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "fullCanvas": true
+    },
+    {
+      "filename": "armor_traveler_uncommon_female_v2.png",
+      "gender": "female",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 915,
+        "height": 412
+      },
+      "fullCanvas": true
+    },
+    {
+      "filename": "armor_traveler_uncommon_male_v2.png",
+      "gender": "male",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 915,
+        "height": 412
+      },
+      "fullCanvas": true
+    },
+    {
+      "filename": "helmet_traveler_rare_female_v2.png",
+      "gender": "female",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 915,
+        "height": 412
+      },
+      "fullCanvas": true
+    },
+    {
+      "filename": "helmet_traveler_rare_male_v2.png",
+      "gender": "male",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 915,
+        "height": 412
+      },
+      "fullCanvas": true
+    },
+    {
+      "filename": "boots_traveler_common_female_v2.png",
+      "gender": "female",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 915,
+        "height": 412
+      },
+      "fullCanvas": true
+    },
+    {
+      "filename": "boots_traveler_common_male_v2.png",
+      "gender": "male",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 915,
+        "height": 412
+      },
+      "fullCanvas": true
+    },
+    {
+      "filename": "sword_path_common_female_v2.png",
+      "gender": "female",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 915,
+        "height": 412
+      },
+      "fullCanvas": true
+    },
+    {
+      "filename": "sword_path_common_male_v2.png",
+      "gender": "male",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 915,
+        "height": 412
+      },
+      "fullCanvas": true
+    },
+    {
+      "filename": "shield_perseverance_rare_female_v2.png",
+      "gender": "female",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 915,
+        "height": 412
+      },
+      "fullCanvas": true
+    },
+    {
+      "filename": "shield_perseverance_rare_male_v2.png",
+      "gender": "male",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 915,
+        "height": 412
+      },
+      "fullCanvas": true
+    },
+    {
+      "filename": "medallion_path_rare_female_v2.png",
+      "gender": "female",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 915,
+        "height": 412
+      },
+      "fullCanvas": true
+    },
+    {
+      "filename": "medallion_path_rare_male_v2.png",
+      "gender": "male",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 915,
+        "height": 412
+      },
+      "fullCanvas": true
+    },
+    {
+      "filename": "armor_traveler_rare_female_v2.png",
+      "gender": "female",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 915,
+        "height": 412
+      },
+      "fullCanvas": true
+    },
+    {
+      "filename": "armor_traveler_rare_male_v2.png",
+      "gender": "male",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 915,
+        "height": 412
+      },
+      "fullCanvas": true
+    },
+    {
+      "filename": "sword_path_rare_female_v2.png",
+      "gender": "female",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 915,
+        "height": 412
+      },
+      "fullCanvas": true
+    },
+    {
+      "filename": "sword_path_rare_male_v2.png",
+      "gender": "male",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 915,
+        "height": 412
+      },
+      "fullCanvas": true
+    },
+    {
+      "filename": "armor_traveler_uncommon_female_v2.png",
+      "gender": "female",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "fullCanvas": true
+    },
+    {
+      "filename": "armor_traveler_uncommon_male_v2.png",
+      "gender": "male",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "fullCanvas": true
+    },
+    {
+      "filename": "helmet_traveler_rare_female_v2.png",
+      "gender": "female",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "fullCanvas": true
+    },
+    {
+      "filename": "helmet_traveler_rare_male_v2.png",
+      "gender": "male",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "fullCanvas": true
+    },
+    {
+      "filename": "boots_traveler_common_female_v2.png",
+      "gender": "female",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "fullCanvas": true
+    },
+    {
+      "filename": "boots_traveler_common_male_v2.png",
+      "gender": "male",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "fullCanvas": true
+    },
+    {
+      "filename": "sword_path_common_female_v2.png",
+      "gender": "female",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "fullCanvas": true
+    },
+    {
+      "filename": "sword_path_common_male_v2.png",
+      "gender": "male",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "fullCanvas": true
+    },
+    {
+      "filename": "shield_perseverance_rare_female_v2.png",
+      "gender": "female",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "fullCanvas": true
+    },
+    {
+      "filename": "shield_perseverance_rare_male_v2.png",
+      "gender": "male",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "fullCanvas": true
+    },
+    {
+      "filename": "medallion_path_rare_female_v2.png",
+      "gender": "female",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "fullCanvas": true
+    },
+    {
+      "filename": "medallion_path_rare_male_v2.png",
+      "gender": "male",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "fullCanvas": true
+    },
+    {
+      "filename": "armor_traveler_rare_female_v2.png",
+      "gender": "female",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "fullCanvas": true
+    },
+    {
+      "filename": "armor_traveler_rare_male_v2.png",
+      "gender": "male",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "fullCanvas": true
+    },
+    {
+      "filename": "sword_path_rare_female_v2.png",
+      "gender": "female",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "fullCanvas": true
+    },
+    {
+      "filename": "sword_path_rare_male_v2.png",
+      "gender": "male",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "fullCanvas": true
+    },
+    {
+      "filename": "armor_traveler_uncommon_female_v2.png",
+      "gender": "female",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "fullCanvas": true
+    },
+    {
+      "filename": "armor_traveler_uncommon_male_v2.png",
+      "gender": "male",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "fullCanvas": true
+    },
+    {
+      "filename": "helmet_traveler_rare_female_v2.png",
+      "gender": "female",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "fullCanvas": true
+    },
+    {
+      "filename": "helmet_traveler_rare_male_v2.png",
+      "gender": "male",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "fullCanvas": true
+    },
+    {
+      "filename": "boots_traveler_common_female_v2.png",
+      "gender": "female",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "fullCanvas": true
+    },
+    {
+      "filename": "boots_traveler_common_male_v2.png",
+      "gender": "male",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "fullCanvas": true
+    },
+    {
+      "filename": "sword_path_common_female_v2.png",
+      "gender": "female",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "fullCanvas": true
+    },
+    {
+      "filename": "sword_path_common_male_v2.png",
+      "gender": "male",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "fullCanvas": true
+    },
+    {
+      "filename": "shield_perseverance_rare_female_v2.png",
+      "gender": "female",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "fullCanvas": true
+    },
+    {
+      "filename": "shield_perseverance_rare_male_v2.png",
+      "gender": "male",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "fullCanvas": true
+    },
+    {
+      "filename": "medallion_path_rare_female_v2.png",
+      "gender": "female",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "fullCanvas": true
+    },
+    {
+      "filename": "medallion_path_rare_male_v2.png",
+      "gender": "male",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "fullCanvas": true
+    },
+    {
+      "filename": "armor_traveler_rare_female_v2.png",
+      "gender": "female",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "fullCanvas": true
+    },
+    {
+      "filename": "armor_traveler_rare_male_v2.png",
+      "gender": "male",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "fullCanvas": true
+    },
+    {
+      "filename": "sword_path_rare_female_v2.png",
+      "gender": "female",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "fullCanvas": true
+    },
+    {
+      "filename": "sword_path_rare_male_v2.png",
+      "gender": "male",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "fullCanvas": true
+    }
+  ],
+  "viewports": 6,
+  "sourceTargets": 16,
+  "reducedMotion": true,
+  "sourceCopyHashes": "PASS",
+  "zoom": 200,
+  "consoleErrors": [],
+  "fitApproval": false
+}

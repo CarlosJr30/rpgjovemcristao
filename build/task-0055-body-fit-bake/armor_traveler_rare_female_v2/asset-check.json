@@ -1,0 +1,21 @@
+{
+  "id": "armor_traveler_rare_female_v2",
+  "status": "PASS",
+  "technical": "TECHNICALLY_VALIDATED",
+  "mapping": "MAPPED",
+  "fitStatus": "FIT_PASS",
+  "sha256": "58be3d1d95eeab11ac0a38d67f06ad88383d018e3720502d31dada7a9f2fc833",
+  "clippedAlpha128SourcePixels": 0,
+  "alpha128Bounds": {
+    "left": 300,
+    "top": 254,
+    "right": 748,
+    "bottom": 901,
+    "count": 200114
+  },
+  "footBaselineDelta": null,
+  "maxLandmarkResidual": 33.21917925002807,
+  "humanBodyFitApproved": false,
+  "ready": false,
+  "runtimeActivated": false
+}

@@ -1,0 +1,21 @@
+{
+  "id": "sword_path_rare_male_v2",
+  "status": "PASS",
+  "technical": "TECHNICALLY_VALIDATED",
+  "mapping": "MAPPED",
+  "fitStatus": "NEEDS_REWORK",
+  "sha256": "283f40926d2c012ed8517c8c8187b2f49a7a7f71b78939b1efe9b27851ffd09f",
+  "clippedAlpha128SourcePixels": 0,
+  "alpha128Bounds": {
+    "left": 76,
+    "top": 699,
+    "right": 361,
+    "bottom": 1377,
+    "count": 38059
+  },
+  "footBaselineDelta": null,
+  "maxLandmarkResidual": 6.115465076199992,
+  "humanBodyFitApproved": false,
+  "ready": false,
+  "runtimeActivated": false
+}

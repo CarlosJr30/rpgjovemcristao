@@ -1,0 +1,145 @@
+{
+  "filename": "helmet_traveler_rare_female_v2.png",
+  "itemId": "traveler-helmet-rare",
+  "gender": "female",
+  "slot": "helmet",
+  "sourcePath": "assets-source/body-fit-v2-targets/helmet_traveler_rare_female_v2.png",
+  "exists": true,
+  "sourceApproval": {
+    "declaredBy": "Carlos Faustino",
+    "declaration": "SOURCE_VISUAL_APPROVED",
+    "boundToFileHash": true
+  },
+  "technicalStatus": "TECHNICALLY_VALIDATED",
+  "mapping": {
+    "status": "MAPPED",
+    "errors": [],
+    "targetFilename": "helmet_traveler_rare_female_v2.png",
+    "itemId": "traveler-helmet-rare",
+    "gender": "female",
+    "slot": "helmet"
+  },
+  "fitStatus": "NEEDS_REWORK",
+  "humanBodyFitApproved": false,
+  "runtimeReady": false,
+  "knownCorrectiveEditing": "Prior resize/crop not established by metadata; no corrective processing performed by this task",
+  "referenceAvatar": {
+    "id": "female_short_moss_medium",
+    "source": "/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+    "sha256": "f260cb9b053b35c328025f1bc7ee602cbb30e57c71ba1f2238a4b1519685f460",
+    "alphaThreshold": 128,
+    "bounds": {
+      "left": 187,
+      "top": 2,
+      "right": 964,
+      "bottom": 1495
+    },
+    "footBaseline": 1495,
+    "alphaPositiveBoundsDiagnostic": {
+      "left": 0,
+      "top": 0,
+      "right": 1001,
+      "bottom": 1504
+    }
+  },
+  "expectedLandmarks": [
+    "head center/top/width",
+    "hairline",
+    "short/long/curly hair occlusion",
+    "face remains visible"
+  ],
+  "evidenceLimit": "Technical/mapping checks do not establish fit; visual lab review required",
+  "sha256": "49a8a293aafae600a9e5bb4feddbf17b0a68572b6c8876aaab3ea22d4804d037",
+  "integrity": {
+    "status": "CRC_PASS",
+    "chunks": 39
+  },
+  "manifestHash": "49a8a293aafae600a9e5bb4feddbf17b0a68572b6c8876aaab3ea22d4804d037",
+  "manifestHashMatches": true,
+  "metadata": {
+    "format": "png",
+    "width": 1024,
+    "height": 1536,
+    "hasAlpha": true,
+    "transparentPixels": 878136,
+    "alpha128Pixels": 670487,
+    "fullNativeCanvas": true,
+    "decode": "PASS"
+  },
+  "readyEligible": false,
+  "sourceBoundsAlpha128": {
+    "left": 6,
+    "top": 51,
+    "right": 1017,
+    "bottom": 1442
+  },
+  "geometry": {
+    "nativeCanvas": {
+      "width": 1024,
+      "height": 1536
+    },
+    "sourceWidth": 1012,
+    "sourceHeight": 1392,
+    "sourceBottomMinusHDFootBaseline": -53,
+    "correction": "NONE: full canvas inset 0; no crop/warp/stretch/offset",
+    "guideMeaning": "Pixel bounds and foot baseline, not new anatomy anchors"
+  },
+  "manifestSourceFile": "capuz_templário_verde_e_dourado.png",
+  "provenance": "User supplied target PNG and hash-bound manifest; original authoring/crop history cannot be proven from PNG metadata. No corrective editing performed here.",
+  "reviewedBy": "Codex author fit QA; no human Body-Fit approval",
+  "fitResult": "FIT_FAIL",
+  "finalStatus": "NEEDS_REWORK",
+  "observations": "Elmo ocupa quase a altura do corpo; abertura facial está no torso/cintura, cobre rosto/cabelo e painéis descem pelas pernas.",
+  "criteria": [
+    {
+      "criterion": "headTop",
+      "result": "NOT_CONFIRMED",
+      "evidence": "Not claimed as validated; decisive failures already require rework"
+    },
+    {
+      "criterion": "hairline",
+      "result": "FAIL",
+      "evidence": "Visible mismatch in correct-gender full-canvas comparison; see observations"
+    },
+    {
+      "criterion": "width",
+      "result": "FAIL",
+      "evidence": "Visible mismatch in correct-gender full-canvas comparison; see observations"
+    },
+    {
+      "criterion": "lateralPosition",
+      "result": "FAIL",
+      "evidence": "Visible mismatch in correct-gender full-canvas comparison; see observations"
+    },
+    {
+      "criterion": "hairOcclusion",
+      "result": "FAIL",
+      "evidence": "Visible mismatch in correct-gender full-canvas comparison; see observations"
+    },
+    {
+      "criterion": "faceExclusion",
+      "result": "FAIL",
+      "evidence": "Visible mismatch in correct-gender full-canvas comparison; see observations"
+    },
+    {
+      "criterion": "headBoundary",
+      "result": "FAIL",
+      "evidence": "Visible mismatch in correct-gender full-canvas comparison; see observations"
+    }
+  ],
+  "regenerationRecommendation": "Regenerar somente na cabeça do HD correspondente, medindo topo/hairline/largura e abertura facial. Tecido/ornamentos devem respeitar pescoço/ombros, não torso/pernas. Não editar ou mover o avatar.",
+  "assessedAt": "2026-10-08T06:04:18.570Z",
+  "humanBodyFitReviewStatus": "NOT_ELIGIBLE_FIT_FAILED",
+  "evidence": [
+    "helmet_traveler_rare_female_v2/comparison.png",
+    "helmet_traveler_rare_female_v2/base.png",
+    "helmet_traveler_rare_female_v2/overlay.png",
+    "helmet_traveler_rare_female_v2/combined.png",
+    "helmet_traveler_rare_female_v2/blend.png",
+    "helmet_traveler_rare_female_v2/split.png",
+    "helmet_traveler_rare_female_v2/guides.png",
+    "helmet_traveler_rare_female_v2/zoom-combined.png"
+  ],
+  "correctionApplied": false,
+  "scope": "Primary same-gender HD reference only; failed primary fit, therefore no broader compatibility claim or 27-variant PASS"
+}

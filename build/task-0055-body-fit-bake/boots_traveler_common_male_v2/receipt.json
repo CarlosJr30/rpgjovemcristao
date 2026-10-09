@@ -1,0 +1,44 @@
+{
+  "id": "boots_traveler_common_male_v2",
+  "filename": "boots_traveler_common_male_v2.png",
+  "itemId": "traveler-boots",
+  "gender": "male",
+  "slot": "boots",
+  "avatar": {
+    "id": "male_short_moss_medium",
+    "path": "apps/web/public/assets/avatar/hd/male/male_short_moss_medium_hd.png",
+    "sha256": "b182c2e29b512b337891716a413ab7efaad737e23c6354779fae17fe19b8af34",
+    "immutable": true,
+    "footBaseline": 1513
+  },
+  "transform": {
+    "translateX": 198.25511810343568,
+    "translateY": 692.084154040358,
+    "scale": 0.6165807155097828,
+    "rotation": 0
+  },
+  "sha256": "e0f392c934da8376e9ee4d5b54e31be1de1f2ab65dc3cb102bf8fce17a7c6049",
+  "sourceSha256": "bbfb5cfb3045181340daaedb5bdd87600190af8f11963de72f08ef9608fa8371",
+  "technicalStatus": "TECHNICALLY_VALIDATED",
+  "mapping": "MAPPED",
+  "fitStatus": "NEEDS_REWORK",
+  "humanBodyFitApproved": false,
+  "ready": false,
+  "runtimeActivated": false,
+  "reviewStatus": "NEEDS_REWORK",
+  "fitReport": "build/task-0055-body-fit-bake/boots_traveler_common_male_v2/fit-report.json",
+  "metadata": "build/task-0055-body-fit-bake/boots_traveler_common_male_v2/fit-metadata.json",
+  "metadataSha256": "cd6228a3938d03c6dbc95366ed066c1da372f661106a48d7da4e0bb152977bce",
+  "observations": [
+    "O transform comum ao par aproxima a baseline, mas os pés não coincidem com a abertura da pose HD.",
+    "Botas originais continuam aparecendo externamente como pés/calcanhares duplicados; novos canos sobem excessivamente para o joelho.",
+    "Separação horizontal do par e altura vertical exigem escalas diferentes; splitting/non-uniform scale não autorizados."
+  ],
+  "reworkRecommendation": "Regenerar o par vestido diretamente sobre male_short_moss_medium usando os landmarks de tornozelo/pé/baseline registrados. Exportar somente as botas em full-canvas; cobrir os dois pés originais com as mesmas direções e distância. Não entregar par de inventário; não dividir/reescala cada pé para forçar fit.",
+  "task": "TASK-0055",
+  "updatedAt": "2026-10-08T20:27:47.338Z",
+  "sourceApproval": "SOURCE_VISUAL_APPROVED (inherited)",
+  "runtimePath": null,
+  "stagingPath": "build/task-0055-body-fit-bake/boots_traveler_common_male_v2/boots_traveler_common_male_v2_baked.png",
+  "approvedBy": null
+}

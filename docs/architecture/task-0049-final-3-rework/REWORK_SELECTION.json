@@ -1,0 +1,106 @@
+{
+  "task": "TASK-0049H",
+  "at": "2026-10-07T23:20:13.416Z",
+  "items": [
+    {
+      "id": "female_short_ochre_dark",
+      "gender": "female",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "short",
+      "combination": {
+        "outfit": "ochre",
+        "skin": "dark"
+      },
+      "legacyPath": "/assets/avatar/runtime/female/female_short_ochre_dark.png",
+      "hdPath": "/assets/avatar/hd/female/female_short_ochre_dark_hd.png",
+      "status": "BLOCKED_PATTERN_FOR_ASSET",
+      "priority": "HIGH",
+      "latestGeometryStatus": "REJECTED_GEOMETRY",
+      "humanReview": "NOT_ELIGIBLE_GEOMETRY_FAILED",
+      "bodyFitReview": "BODY_FIT_REVIEW_PENDING",
+      "batch": {
+        "task": "TASK-0049G",
+        "batch": "FINAL",
+        "status": "FINAL_BATCH_BLOCKED_PATTERN",
+        "candidatePath": "build/task-0049-final-batch/female_short_ochre_dark/hd_candidate.png",
+        "sha256": "46059806ce01ae9c29f436df7bd1fbeced8a17f96ed549df345301c5109aaad4",
+        "attempts": [
+          {
+            "attempt": 1,
+            "geometryStatus": "REJECTED_GEOMETRY",
+            "sha256": "3b38249937829d6bcce8c85249aff4caddff90ea8a955fa24e18de305069de77",
+            "evidencePath": "build/task-0049-final-batch/female_short_ochre_dark/attempt-1"
+          },
+          {
+            "attempt": 2,
+            "geometryStatus": "REJECTED_GEOMETRY",
+            "sha256": "46059806ce01ae9c29f436df7bd1fbeced8a17f96ed549df345301c5109aaad4",
+            "evidencePath": "build/task-0049-final-batch/female_short_ochre_dark/attempt-2"
+          }
+        ],
+        "blockedPatternEncountered": true,
+        "availability": "LOCAL_DEV_REVIEW_ONLY",
+        "runtimeIntegrated": false
+      },
+      "queuePosition": 50
+    },
+    {
+      "id": "female_short_moss_light",
+      "gender": "female",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "short",
+      "combination": {
+        "outfit": "moss",
+        "skin": "light"
+      },
+      "legacyPath": "/assets/avatar/runtime/female/female_short_moss_light.png",
+      "hdPath": "/assets/avatar/hd/female/female_short_moss_light_hd.png",
+      "status": "PENDING_HD",
+      "priority": "HIGH",
+      "latestGeometryStatus": "NOT_GENERATED",
+      "humanReview": "NOT_READY_FOR_REVIEW",
+      "bodyFitReview": "BODY_FIT_REVIEW_PENDING",
+      "batch": {
+        "task": "TASK-0049G",
+        "batch": "FINAL",
+        "status": "FINAL_BATCH_BLOCKED_PATTERN",
+        "candidatePath": null,
+        "sha256": null,
+        "attempts": [],
+        "blockedPatternEncountered": false,
+        "availability": "NOT_GENERATED_GLOBAL_STOP",
+        "runtimeIntegrated": false
+      },
+      "queuePosition": 51
+    },
+    {
+      "id": "female_short_moss_dark",
+      "gender": "female",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "short",
+      "combination": {
+        "outfit": "moss",
+        "skin": "dark"
+      },
+      "legacyPath": "/assets/avatar/runtime/female/female_short_moss_dark.png",
+      "hdPath": "/assets/avatar/hd/female/female_short_moss_dark_hd.png",
+      "status": "PENDING_HD",
+      "priority": "HIGH",
+      "latestGeometryStatus": "NOT_GENERATED",
+      "humanReview": "NOT_READY_FOR_REVIEW",
+      "bodyFitReview": "BODY_FIT_REVIEW_PENDING",
+      "batch": {
+        "task": "TASK-0049G",
+        "batch": "FINAL",
+        "status": "FINAL_BATCH_BLOCKED_PATTERN",
+        "candidatePath": null,
+        "sha256": null,
+        "attempts": [],
+        "blockedPatternEncountered": false,
+        "availability": "NOT_GENERATED_GLOBAL_STOP",
+        "runtimeIntegrated": false
+      },
+      "queuePosition": 52
+    }
+  ]
+}

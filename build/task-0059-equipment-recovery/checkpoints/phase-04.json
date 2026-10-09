@@ -1,0 +1,8 @@
+{
+  "phase": 4,
+  "status": "LOCAL_STOP_NEEDS_NEW_FOOTWEAR_ART",
+  "approaches": 2,
+  "maleProcessed": false,
+  "reason": "HD possui calçado pré-composto. Registro por pé ainda duplica couro/sola; subtração localizada deixa5124pixels sem cobertura (9.97% da área removida), lacunas e resíduos no tornozelo. Não reconstruir fundo apagando anatomia.",
+  "evidence": "boots-experiments.json"
+}

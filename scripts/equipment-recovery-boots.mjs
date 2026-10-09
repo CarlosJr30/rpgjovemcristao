@@ -1,0 +1,20 @@
+import { readFile, writeFile } from 'node:fs/promises';
+import sharp from 'sharp';
+import { OUT, json, cutSource, anchor, experiment, svgMask, bakeSwordBytes } from './equipment-recovery-derive.mjs';
+const t=(await json(OUT+'/initial-targets.json')).targets.find(t=>t.id==='boots_traveler_common_female_v2');
+const original=await readFile(t.source), base=await readFile(t.avatar);
+const left=await cutSource(original,x=>x<512),right=await cutSource(original,x=>x>=512);
+const transforms={left:anchor([228,1299],[290,1495],.40),right:anchor([790,1299],[744,1495],.40)};
+const overlay=await sharp(await bakeSwordBytes(left,transforms.left)).composite([{input:await bakeSwordBytes(right,transforms.right)}]).png().toBuffer();
+const a=await experiment(t,'a-per-foot-uniform',overlay,{method:'Independent uniform similarity per foot, original baseline1495, no original shoe removal',transforms,splitX:512});
+const polygons=['298,1250 385,1249 390,1295 377,1368 365,1410 386,1448 379,1495 242,1498 228,1480 235,1440 278,1392 296,1327','651,1250 730,1245 746,1299 744,1370 776,1407 812,1431 836,1462 827,1495 688,1499 650,1470 650,1426 660,1362'];
+const mask=await svgMask(polygons);
+const derived=await sharp(base).composite([{input:mask,blend:'dest-out'}]).png().toBuffer();
+const b=await experiment(t,'b-localized-footwear-replacement',overlay,{method:'Localized offline subtraction of precomposed original footwear in a derived base; same per-foot candidates, no original HD mutation',transforms,polygons,base:derived,mask});
+const mr=await sharp(mask).ensureAlpha().raw().toBuffer(), br=await sharp(base).ensureAlpha().raw().toBuffer(),nr=await sharp(overlay).ensureAlpha().raw().toBuffer();
+let removedOpaque=0,uncovered=0;
+for(let k=0;k<mr.length;k+=4) if(mr[k+3]>=128&&br[k+3]>=128){removedOpaque++;if(nr[k+3]<128)uncovered++;}
+b.coverage={removedOriginalAlpha128Pixels:removedOpaque,uncoveredReplacementPixels:uncovered,ratio:1-uncovered/removedOpaque,note:'An erased original area not covered by replacement exposes missing anatomy/background, not legitimate inpainting.'};
+await writeFile(b.reportPath,JSON.stringify(b,null,2));
+await writeFile(OUT+'/boots-experiments.json',JSON.stringify({assets:[a,b],maleProcessed:false,approaches:2},null,2));
+console.log(JSON.stringify({a:a.output.path,b:b.output.path,coverage:b.coverage}));

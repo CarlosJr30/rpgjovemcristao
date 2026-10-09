@@ -1,0 +1,108 @@
+{
+  "task": "TASK-0059",
+  "id": "sword_path_rare_female_v2",
+  "gender": "female",
+  "slot": "weapon",
+  "attempt": "a-local-sheath-adaptation",
+  "status": "NEEDS_REWORK",
+  "selected": false,
+  "source": {
+    "path": "assets-source/body-fit-v2-targets/sword_path_rare_female_v2.png",
+    "sha256": "5b445879d181b54e7a4f22761f63602cce83b15341255df8409d5b6b2f8a6ab8"
+  },
+  "avatar": {
+    "path": "apps/web/public/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+    "sha256": "f260cb9b053b35c328025f1bc7ee602cbb30e57c71ba1f2238a4b1519685f460",
+    "immutable": true
+  },
+  "output": {
+    "path": "build/task-0059-equipment-recovery/recovery/sword_path_rare_female_v2/a-local-sheath-adaptation/sword_path_rare_female_v2_baked.png",
+    "format": "png",
+    "width": 1024,
+    "height": 1536,
+    "channels": 4,
+    "hasAlpha": true,
+    "integrity": {
+      "status": "CRC_PASS",
+      "chunks": 24
+    },
+    "alpha128Bounds": {
+      "left": 560,
+      "top": 539,
+      "right": 836,
+      "bottom": 1226,
+      "count": 41408
+    },
+    "alphaPositiveBoundsDiagnostic": {
+      "left": 470,
+      "top": 514,
+      "right": 936,
+      "bottom": 1233,
+      "count": 45195
+    },
+    "transparentPixels": 1527669,
+    "sha256": "59040db59c391711ac2e36a0bde481c219958037808f76ab5bd5821da0cc64e6",
+    "decode": "PASS"
+  },
+  "compositionPath": "build/task-0059-equipment-recovery/recovery/sword_path_rare_female_v2/a-local-sheath-adaptation/combined.png",
+  "settings": {
+    "method": "Individually anchored local leather sheath plus original hilt; diagnostic, not presumed compatible",
+    "transforms": {
+      "sword": {
+        "scale": 0.4,
+        "rotation": -15,
+        "translateX": 440.20459232702945,
+        "translateY": 589.243019323005
+      },
+      "sheath": {
+        "scale": 0.455,
+        "rotation": 10,
+        "translateX": 550.6309281633588,
+        "translateY": 514.2825847103384
+      }
+    },
+    "sheathSource": {
+      "path": "build/task-0058-sword-sheath-pilot/source/sheath-generated-v2.png",
+      "sha256": "b042739c4e179c504b33b0c50da710ae1c42edb7f67444f967264c8a219a9949"
+    },
+    "landmarks": {
+      "throat": [
+        697,
+        748
+      ],
+      "tip": [
+        831.2256104568944,
+        1223.5222846486524
+      ],
+      "beltLoops": [
+        [
+          614.2659206571253,
+          572.6290998617875
+        ],
+        [
+          644.7391543211469,
+          601.5653276749966
+        ]
+      ]
+    },
+    "hiltCutAxial": 55,
+    "mask": {
+      "path": "build/task-0059-equipment-recovery/recovery/sword_path_rare_female_v2/a-local-sheath-adaptation/localized-mask.png",
+      "sha256": "fc1373e65ade05466f9457a83f5cfadaa1786a02bd5d6be65c4d8e319f2e14a0"
+    },
+    "rotationBasis": "Independent original root-to-tip normalization from TASK0056, then lateral15degrees",
+    "armMaskRequiresIndividualReview": true,
+    "base": null
+  },
+  "reportPath": "build/task-0059-equipment-recovery/recovery/sword_path_rare_female_v2/a-local-sheath-adaptation/fit-report.json",
+  "ready": false,
+  "humanBodyFitApproved": false,
+  "runtimeActivated": false,
+  "review": {
+    "reviewer": "Codex — revisão técnica local, não humana",
+    "fullBodyInspected": true,
+    "zoomInspected": true,
+    "findings": "Bainha local comum não resolve guarda rara larga/ornamentada: fragmento da guarda reaparece isolado depois do antebraço, oclusão e boca desproporcionais. Não copiar máscara feminina como aprovação masculina.",
+    "humanApproval": false
+  }
+}

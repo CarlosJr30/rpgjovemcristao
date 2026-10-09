@@ -1,0 +1,180 @@
+{
+  "at": "2026-10-08T03:58:24.253Z",
+  "result": "BLOCKED",
+  "blocker": "SOURCE_FILE_NOT_LOCATED",
+  "filesInspected": 0,
+  "pngValidated": 0,
+  "resolutionValidated": 0,
+  "alphaValidated": 0,
+  "sha256Recorded": 0,
+  "integrityValidated": 0,
+  "userClaim": "PNG 1024x1536 real transparency; not independently verifiable without the source files",
+  "targets": [
+    {
+      "filename": "armor_traveler_uncommon_female_v2.png",
+      "source": null,
+      "png": null,
+      "resolution": null,
+      "alpha": null,
+      "sha256": null,
+      "integrity": null,
+      "declaredSourceVisualApproval": {
+        "reviewedBy": "Carlos Faustino",
+        "receivedAt": "2026-10-08T03:56:43.445Z",
+        "status": "SOURCE_VISUAL_APPROVED",
+        "scope": "SOURCE_ART_ONLY_NOT_BODY_FIT",
+        "hashBinding": "PENDING_SOURCE_FILE_ACCESS"
+      }
+    },
+    {
+      "filename": "armor_traveler_uncommon_male_v2.png",
+      "source": null,
+      "png": null,
+      "resolution": null,
+      "alpha": null,
+      "sha256": null,
+      "integrity": null,
+      "declaredSourceVisualApproval": null
+    },
+    {
+      "filename": "helmet_traveler_rare_female_v2.png",
+      "source": null,
+      "png": null,
+      "resolution": null,
+      "alpha": null,
+      "sha256": null,
+      "integrity": null,
+      "declaredSourceVisualApproval": null
+    },
+    {
+      "filename": "helmet_traveler_rare_male_v2.png",
+      "source": null,
+      "png": null,
+      "resolution": null,
+      "alpha": null,
+      "sha256": null,
+      "integrity": null,
+      "declaredSourceVisualApproval": null
+    },
+    {
+      "filename": "boots_traveler_common_female_v2.png",
+      "source": null,
+      "png": null,
+      "resolution": null,
+      "alpha": null,
+      "sha256": null,
+      "integrity": null,
+      "declaredSourceVisualApproval": null
+    },
+    {
+      "filename": "boots_traveler_common_male_v2.png",
+      "source": null,
+      "png": null,
+      "resolution": null,
+      "alpha": null,
+      "sha256": null,
+      "integrity": null,
+      "declaredSourceVisualApproval": null
+    },
+    {
+      "filename": "sword_path_common_female_v2.png",
+      "source": null,
+      "png": null,
+      "resolution": null,
+      "alpha": null,
+      "sha256": null,
+      "integrity": null,
+      "declaredSourceVisualApproval": null
+    },
+    {
+      "filename": "sword_path_common_male_v2.png",
+      "source": null,
+      "png": null,
+      "resolution": null,
+      "alpha": null,
+      "sha256": null,
+      "integrity": null,
+      "declaredSourceVisualApproval": null
+    },
+    {
+      "filename": "shield_perseverance_rare_female_v2.png",
+      "source": null,
+      "png": null,
+      "resolution": null,
+      "alpha": null,
+      "sha256": null,
+      "integrity": null,
+      "declaredSourceVisualApproval": null
+    },
+    {
+      "filename": "shield_perseverance_rare_male_v2.png",
+      "source": null,
+      "png": null,
+      "resolution": null,
+      "alpha": null,
+      "sha256": null,
+      "integrity": null,
+      "declaredSourceVisualApproval": null
+    },
+    {
+      "filename": "medallion_path_rare_female_v2.png",
+      "source": null,
+      "png": null,
+      "resolution": null,
+      "alpha": null,
+      "sha256": null,
+      "integrity": null,
+      "declaredSourceVisualApproval": null
+    },
+    {
+      "filename": "medallion_path_rare_male_v2.png",
+      "source": null,
+      "png": null,
+      "resolution": null,
+      "alpha": null,
+      "sha256": null,
+      "integrity": null,
+      "declaredSourceVisualApproval": null
+    },
+    {
+      "filename": "armor_traveler_rare_female_v2.png",
+      "source": null,
+      "png": null,
+      "resolution": null,
+      "alpha": null,
+      "sha256": null,
+      "integrity": null,
+      "declaredSourceVisualApproval": null
+    },
+    {
+      "filename": "armor_traveler_rare_male_v2.png",
+      "source": null,
+      "png": null,
+      "resolution": null,
+      "alpha": null,
+      "sha256": null,
+      "integrity": null,
+      "declaredSourceVisualApproval": null
+    },
+    {
+      "filename": "sword_path_rare_female_v2.png",
+      "source": null,
+      "png": null,
+      "resolution": null,
+      "alpha": null,
+      "sha256": null,
+      "integrity": null,
+      "declaredSourceVisualApproval": null
+    },
+    {
+      "filename": "sword_path_rare_male_v2.png",
+      "source": null,
+      "png": null,
+      "resolution": null,
+      "alpha": null,
+      "sha256": null,
+      "integrity": null,
+      "declaredSourceVisualApproval": null
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "at": "2026-10-08T00:46:22.371Z",
+  "result": "PASS",
+  "readyDefinitions": 0,
+  "needsDefinitions": 8,
+  "equipableItems": 6,
+  "archivedDefinitions": [
+    "traveler-sword-rare",
+    "traveler-armor-rare"
+  ],
+  "v2FilesPresent": 0,
+  "hdIdentitiesHashVerified": 54,
+  "protectedFiles": 182,
+  "preservation": "PASS",
+  "layers": {
+    "background": -1,
+    "back": 0,
+    "body": 1,
+    "armor": 2,
+    "boots": 3,
+    "medallion": 4,
+    "hands": 5,
+    "weapon": 6,
+    "shield": 7,
+    "helmet": 8,
+    "frontDetails": 9,
+    "effects": 10
+  },
+  "visualAlignment": "BLOCKED_MISSING_ASSETS",
+  "generation": "NOT_PERFORMED"
+}

@@ -1,0 +1,168 @@
+{
+  "at": "2026-10-07T14:43:16.831Z",
+  "reviewedAt": "2026-10-07T14:40:52.377Z",
+  "result": "PASS",
+  "checks": [
+    {
+      "name": "Four unique explicitly approved identities",
+      "result": "PASS"
+    },
+    {
+      "name": "Nine criteria and correct reviewer",
+      "result": "PASS"
+    },
+    {
+      "name": "Consolidated timestamps and receipts consistent",
+      "result": "PASS"
+    },
+    {
+      "name": "male_curly_blue_dark receipt/status consistency",
+      "result": "PASS"
+    },
+    {
+      "name": "male_curly_blue_dark hash-bound approval",
+      "result": "PASS"
+    },
+    {
+      "name": "male_curly_blue_dark 13/13 geometry unchanged",
+      "result": "PASS"
+    },
+    {
+      "name": "male_curly_blue_dark rejected attempts unchanged",
+      "result": "PASS"
+    },
+    {
+      "name": "male_curly_blue_dark DEV-only and no Body-Fit approval",
+      "result": "PASS"
+    },
+    {
+      "name": "male_curly_blue_dark attempt 1 bytes intact",
+      "result": "PASS"
+    },
+    {
+      "name": "male_curly_blue_medium receipt/status consistency",
+      "result": "PASS"
+    },
+    {
+      "name": "male_curly_blue_medium hash-bound approval",
+      "result": "PASS"
+    },
+    {
+      "name": "male_curly_blue_medium 13/13 geometry unchanged",
+      "result": "PASS"
+    },
+    {
+      "name": "male_curly_blue_medium rejected attempts unchanged",
+      "result": "PASS"
+    },
+    {
+      "name": "male_curly_blue_medium DEV-only and no Body-Fit approval",
+      "result": "PASS"
+    },
+    {
+      "name": "male_curly_blue_medium attempt 1 bytes intact",
+      "result": "PASS"
+    },
+    {
+      "name": "male_curly_moss_dark receipt/status consistency",
+      "result": "PASS"
+    },
+    {
+      "name": "male_curly_moss_dark hash-bound approval",
+      "result": "PASS"
+    },
+    {
+      "name": "male_curly_moss_dark 13/13 geometry unchanged",
+      "result": "PASS"
+    },
+    {
+      "name": "male_curly_moss_dark rejected attempts unchanged",
+      "result": "PASS"
+    },
+    {
+      "name": "male_curly_moss_dark DEV-only and no Body-Fit approval",
+      "result": "PASS"
+    },
+    {
+      "name": "male_curly_moss_dark attempt 1 bytes intact",
+      "result": "PASS"
+    },
+    {
+      "name": "male_curly_moss_dark attempt 2 bytes intact",
+      "result": "PASS"
+    },
+    {
+      "name": "male_long_blue_light receipt/status consistency",
+      "result": "PASS"
+    },
+    {
+      "name": "male_long_blue_light hash-bound approval",
+      "result": "PASS"
+    },
+    {
+      "name": "male_long_blue_light 13/13 geometry unchanged",
+      "result": "PASS"
+    },
+    {
+      "name": "male_long_blue_light rejected attempts unchanged",
+      "result": "PASS"
+    },
+    {
+      "name": "male_long_blue_light DEV-only and no Body-Fit approval",
+      "result": "PASS"
+    },
+    {
+      "name": "male_long_blue_light attempt 1 bytes intact",
+      "result": "PASS"
+    },
+    {
+      "name": "male_long_blue_light attempt 2 bytes intact",
+      "result": "PASS"
+    },
+    {
+      "name": "48 unselected queue items unchanged",
+      "result": "PASS"
+    },
+    {
+      "name": "47 pending and five approved in queue",
+      "result": "PASS"
+    },
+    {
+      "name": "No new generation or runtime integration",
+      "result": "PASS"
+    },
+    {
+      "name": "Batch 2 remains unauthorized",
+      "result": "PASS"
+    },
+    {
+      "name": "Batch approval status complete",
+      "result": "PASS"
+    },
+    {
+      "name": "453 protected files intact",
+      "result": "PASS"
+    },
+    {
+      "name": "Contract DONE moved without duplicate",
+      "result": "PASS"
+    },
+    {
+      "name": "Full pack not DONE",
+      "result": "PASS"
+    },
+    {
+      "name": "Review status current",
+      "result": "PASS"
+    }
+  ],
+  "protectedFiles": 453,
+  "changedProtectedFiles": [],
+  "approvedCandidateCount": 4,
+  "remainingPendingHD": 47,
+  "newGenerationsThisConfirmation": 0,
+  "scope": "Document/metadata/receipt consistency and byte preservation; no runtime suites repeated",
+  "runtimeTests": "NOT_REPEATED_UNCHANGED_CODE",
+  "lintTypecheckBuild": "N/A_NO_CODE_CHANGES",
+  "independentQA": false
+}

@@ -1,0 +1,17 @@
+{
+  "timestamp": "2026-10-08T06:46:36.879Z",
+  "status": "PASS_WITH_REWORK_RECORDED",
+  "checks": {
+    "requiredEvidence": 8,
+    "fullCanvasPNGs": 6,
+    "referenceHashes": true,
+    "candidateReportHashes": 4,
+    "preservedFiles": 281,
+    "taskStatus": "REWORK",
+    "methodValidated": false,
+    "ready": 0,
+    "humanApproval": 0,
+    "othersGenerated": 0
+  },
+  "scope": "Acceptance of truthful stop/report at generation limit; fit goal remains unmet"
+}

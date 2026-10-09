@@ -1,0 +1,146 @@
+{
+  "task": "TASK-0058",
+  "id": "sword_path_common_female_v2",
+  "status": "FIT_PASS",
+  "taskStatus": "PILOT_TECHNICALLY_COMPLETE",
+  "humanReviewStatus": "HUMAN_BODY_FIT_REVIEW_PENDING",
+  "selectedAttempt": 3,
+  "outputSha256": "735000c62ddaee5214cfb895deae17685a1f2e1c0c642f3557e09879d90524f2",
+  "criteria": {
+    "sheathed": true,
+    "bladeFullyCovered": true,
+    "tipDown": true,
+    "gripUp": true,
+    "convincingBeltAttachment": true,
+    "duplicatedSword": false,
+    "severeOcclusion": false,
+    "visibleArtificialCutsOrHalos": false,
+    "proportional": true,
+    "immutableAvatar": true
+  },
+  "observations": [
+    "Bainha real de couro marrom com costura discreta, garganta/ponta em bronze; duas correias conectadas ao colar da bainha.",
+    "Contato superior aproximadamente613,568 no cinto frontal direito e644,597 na extremidade descendente do couro. Não são âncoras da mão.",
+    "Espada estética preservada mediante pixels originais de cabo/guarda, sem hilt redesenhado pelo gerador. Parte nua da lâmina removida sob a garganta; nenhuma segunda espada.",
+    "Ponta832.70,1225.75, abaixo da garganta697,745, acima do chão1495. Eixo desce para a lateral direita, sem cruzar pernas ou bolsa esquerda.",
+    "Guarda parcialmente atrás do antebraço. Máscara subtrai alpha somente do equipamento; refinamento local pela cor do HD evita apagar guarda sobre a capa verde. Nenhum pixel do HD entra no overlay.",
+    "Mão aberta permanece original e livre; não se exige empunhadura permanente conforme DEC037.",
+    "Aceite técnico visual pelo autor apenas para female_short_moss_medium; não extrapolado aos outros53HD. Carlos deve confirmar proporção, pontos de fixação e transição guarda/bainha."
+  ],
+  "remainingOcclusionIssues": [],
+  "limitations": [
+    "A máscara é específica desta pose/roupa, não generalizada.",
+    "Medidas manuais do cinto aproximadamente±12px; inspeção visual sustenta a classificação, não só o bounding box.",
+    "Gerador alterou pixels do corpo da bainha durante a edição, apesar do pedido de preservar. Source v2 foi reinventariada por novo hash; v1 preservada."
+  ],
+  "previousAttempts": [
+    {
+      "attempt": 1,
+      "status": "NEEDS_REWORK",
+      "reason": "Correias fora do cinto; recorte grosseiro da guarda."
+    },
+    {
+      "attempt": 2,
+      "status": "NEEDS_REWORK",
+      "reason": "Suspensão corrigida, mas trace manual apagava guarda sobre a capa antes do contorno real do braço."
+    }
+  ],
+  "evidence": [
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+      "label": "Avatar HD original, imutável",
+      "sha256": "f260cb9b053b35c328025f1bc7ee602cbb30e57c71ba1f2238a4b1519685f460",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "assets-source/body-fit-v2-targets/sword_path_common_female_v2.png",
+      "label": "Espada original: cabo/guarda reutilizados",
+      "sha256": "03e3edbcf9572fae0cafc46b0a02eda045cbcdfe855dfcdf808e4aa8a5401d29",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "build/task-0058-sword-sheath-pilot/source/sheath-generated-v2.png",
+      "label": "Nova bainha de couro e suspensão — source v2",
+      "sha256": "b042739c4e179c504b33b0c50da710ae1c42edb7f67444f967264c8a219a9949",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "build/task-0058-sword-sheath-pilot/baked/attempt-03/sword_path_common_female_v2_sheathed_baked.png",
+      "label": "Overlay baked selecionado — transparência real",
+      "sha256": "735000c62ddaee5214cfb895deae17685a1f2e1c0c642f3557e09879d90524f2",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "build/task-0058-sword-sheath-pilot/baked/attempt-03/final-composition.png",
+      "label": "Composição final / corpo inteiro",
+      "sha256": "6bf021a8aaf9cd61a13aad011df2fa42e2385e5174247e82147cf5aa852bcd87",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "build/task-0058-sword-sheath-pilot/baked/attempt-03/waist-zoom.png",
+      "label": "Zoom de cintura, guarda e mão",
+      "sha256": "d62186dfb04e8b1b75e629e24cabdef97d3813f5c422a9b8f2d3096b7fd0872f",
+      "width": 960,
+      "height": 1140
+    },
+    {
+      "path": "build/task-0058-sword-sheath-pilot/baked/attempt-03/support-zoom.png",
+      "label": "Zoom do suporte e pontos no cinto",
+      "sha256": "21a1570e3eb4b88c866d05518f4857d536c26196196ea87f037f63688e36cfb2",
+      "width": 570,
+      "height": 780
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_common_female_v2/diagnostic_composition.png",
+      "label": "Anterior TASK0057: espada nua / sem suporte",
+      "sha256": "ef40d7f7bb585bd051ef005aa96f374600dd545126831180fb6d9b9bc0662e86",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "build/task-0058-sword-sheath-pilot/baked/attempt-03/alignment-guides.png",
+      "label": "Guias: cinto cyan, ancoragens magenta, eixo yellow, máscara orange",
+      "sha256": "bf71dc46d1a9a38c44a758a9d762a96184622fda2a4054c760eb0299eaf6b16e",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "build/task-0058-sword-sheath-pilot/baked/attempt-03/on-dark.png",
+      "label": "Acabamento / alpha em fundo escuro",
+      "sha256": "3adba2b73bde6afeb8f7230718d35e68b3d5de4f042027adca738b438414d1f5",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "build/task-0058-sword-sheath-pilot/baked/attempt-03/on-light.png",
+      "label": "Alpha em fundo branco",
+      "sha256": "528b9a6103062c77c1e08df675b7a39e93eb5fb7f0ce1312c1e85546fd8f6cac",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "build/task-0058-sword-sheath-pilot/baked/attempt-03/foreground-arm-mask.png",
+      "label": "Máscara offline",
+      "sha256": "fc1373e65ade05466f9457a83f5cfadaa1786a02bd5d6be65c4d8e319f2e14a0",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "build/task-0058-sword-sheath-pilot/baked/attempt-03/hilt-original-pixels.png",
+      "label": "Cabo/guarda originais isolados",
+      "sha256": "e6afd1cc712f5aee43aecf0d0498e58c6761693a266211d65c1c3c6bcaa2e83c",
+      "width": 1024,
+      "height": 1536
+    }
+  ],
+  "assessedBy": "Codex, QA visual pelo autor; não independente nem aprovação humana",
+  "ready": false,
+  "humanBodyFitApproved": false,
+  "runtimeActivated": false,
+  "runtimePath": null
+}

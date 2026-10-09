@@ -1,23 +1,31 @@
 :root {
   color-scheme: light;
-  --color-background: #f5f2e9;
-  --color-surface: #fcfaf3;
-  --color-text: #263b30;
-  --color-muted: #626b5d;
-  --color-accent: #284d39;
-  --color-border: #d8d9c9;
+  --color-background: #ede5d3;
+  --color-surface: #fbf5e7;
+  --color-text: #263c2d;
+  --color-muted: #5c6554;
+  --color-accent: #234f39;
+  --color-border: #cbbd99;
+  --color-gold: #b28a3f;
+  --color-forest: #173d2e;
+  --color-parchment: #f5ebd5;
+  --motion-short: 180ms;
 }
 * {
   box-sizing: border-box;
 }
 body {
   margin: 0;
-  background: var(--color-background);
+  background:
+    radial-gradient(ellipse at 85% 0, #faf3e4, transparent 70%),
+    var(--color-background);
   color: var(--color-text);
   font-family: Arial, Helvetica, sans-serif;
 }
 button,
-input {
+input,
+select,
+textarea {
   font: inherit;
 }
 button,
@@ -27,6 +35,7 @@ input {
 }
 button {
   cursor: pointer;
+  min-height: 44px;
 }
 a {
   color: inherit;
@@ -54,7 +63,10 @@ p {
 }
 a:focus-visible,
 button:focus-visible,
-input:focus-visible {
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+summary:focus-visible {
   outline: 3px solid #a66f23;
   outline-offset: 5px;
 }
@@ -64,6 +76,12 @@ input:focus-visible {
 button,
 a {
   touch-action: manipulation;
+}
+button:not(:disabled):active {
+  translate: 0 1px;
+}
+progress {
+  accent-color: var(--color-gold);
 }
 svg {
   display: block;

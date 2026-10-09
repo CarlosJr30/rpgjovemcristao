@@ -1,0 +1,4318 @@
+{
+  "files": 1078,
+  "unchanged": 1078,
+  "checks": [
+    {
+      "path": "apps/web/features/journey/components/avatar-runtime.tsx",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/components/snake-chase-game.tsx",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/data/attributes.ts",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/data/avatarHDApproved.json",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/data/avatarHDPack.ts",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/data/avatarRuntime.ts",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/data/bodyAnchors.ts",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/data/bodyFitV2Plan.ts",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/data/equipmentAssets.ts",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/data/equipmentCatalog.ts",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/dev/body-fit-panel.module.css",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/dev/body-fit-panel.tsx",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/domain/traveler.ts",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/persistence/arena-storage.ts",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/persistence/journey-storage.ts",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/screens/arena.tsx",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/screens/diary.tsx",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/screens/guild-hub.tsx",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/state/registration.test.ts",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/state/use-journey.ts",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/package.json",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/audio/effects/arena_attack.ogg",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/audio/effects/arena_defense.ogg",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/audio/effects/arena_dodge.ogg",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/audio/effects/arena_focus.ogg",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/audio/effects/defeat.ogg",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/audio/effects/player_hit.ogg",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/audio/effects/victory.ogg",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/audio/music/arena_training.ogg",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/base/hero_female_base.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/base/hero_male_base.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/face/female_face_01.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/face/female_face_02.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/face/female_face_03.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/face/male_face_01.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/face/male_face_02.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/face/male_face_03.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hair/female_hair_01.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hair/female_hair_02.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hair/female_hair_03.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hair/male_hair_01.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hair/male_hair_02.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hair/male_hair_03.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_curly_blue_dark_hd.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_curly_blue_light_hd.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_curly_blue_medium_hd.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_curly_moss_dark_hd.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_curly_moss_light_hd.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_curly_moss_medium_hd.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_curly_ochre_dark_hd.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_curly_ochre_light_hd.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_curly_ochre_medium_hd.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_long_blue_dark_hd.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_long_blue_light_hd.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_long_blue_medium_hd.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_long_moss_dark_hd.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_long_moss_light_hd.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_long_moss_medium_hd.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_long_ochre_dark_hd.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_long_ochre_light_hd.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_long_ochre_medium_hd.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_short_blue_dark_hd.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_short_blue_light_hd.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_short_blue_medium_hd.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_short_moss_dark_hd.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_short_moss_light_hd.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_short_ochre_dark_hd.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_short_ochre_light_hd.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_short_ochre_medium_hd.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/male/male_curly_blue_dark_hd.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/male/male_curly_blue_light_hd.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/male/male_curly_blue_medium_hd.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/male/male_curly_moss_dark_hd.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/male/male_curly_moss_light_hd.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/male/male_curly_moss_medium_hd.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/male/male_curly_ochre_dark_hd.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/male/male_curly_ochre_light_hd.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/male/male_curly_ochre_medium_hd.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/male/male_long_blue_dark_hd.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/male/male_long_blue_light_hd.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/male/male_long_blue_medium_hd.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/male/male_long_moss_dark_hd.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/male/male_long_moss_light_hd.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/male/male_long_moss_medium_hd.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/male/male_long_ochre_dark_hd.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/male/male_long_ochre_light_hd.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/male/male_long_ochre_medium_hd.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/male/male_short_blue_dark_hd.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/male/male_short_blue_light_hd.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/male/male_short_blue_medium_hd.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/male/male_short_moss_dark_hd.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/male/male_short_moss_light_hd.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/male/male_short_moss_medium_hd.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/male/male_short_ochre_dark_hd.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/male/male_short_ochre_light_hd.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/male/male_short_ochre_medium_hd.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/masks/hero_female_cloak_mask.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/masks/hero_female_skin_mask.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/masks/hero_male_cloak_mask.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/masks/hero_male_skin_mask.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/avatarRuntimeAssets.json",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/female/female_curly_blue_dark.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/female/female_curly_blue_light.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/female/female_curly_blue_medium.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/female/female_curly_moss_dark.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/female/female_curly_moss_light.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/female/female_curly_moss_medium.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/female/female_curly_ochre_dark.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/female/female_curly_ochre_light.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/female/female_curly_ochre_medium.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/female/female_long_blue_dark.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/female/female_long_blue_light.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/female/female_long_blue_medium.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/female/female_long_moss_dark.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/female/female_long_moss_light.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/female/female_long_moss_medium.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/female/female_long_ochre_dark.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/female/female_long_ochre_light.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/female/female_long_ochre_medium.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/female/female_short_blue_dark.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/female/female_short_blue_light.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/female/female_short_blue_medium.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/female/female_short_moss_dark.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/female/female_short_moss_light.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/female/female_short_moss_medium.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/female/female_short_ochre_dark.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/female/female_short_ochre_light.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/female/female_short_ochre_medium.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/male/male_curly_blue_dark.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/male/male_curly_blue_light.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/male/male_curly_blue_medium.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/male/male_curly_moss_dark.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/male/male_curly_moss_light.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/male/male_curly_moss_medium.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/male/male_curly_ochre_dark.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/male/male_curly_ochre_light.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/male/male_curly_ochre_medium.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/male/male_long_blue_dark.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/male/male_long_blue_light.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/male/male_long_blue_medium.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/male/male_long_moss_dark.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/male/male_long_moss_light.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/male/male_long_moss_medium.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/male/male_long_ochre_dark.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/male/male_long_ochre_light.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/male/male_long_ochre_medium.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/male/male_short_blue_dark.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/male/male_short_blue_light.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/male/male_short_blue_medium.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/male/male_short_moss_dark.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/male/male_short_moss_light.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/male/male_short_moss_medium.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/male/male_short_ochre_dark.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/male/male_short_ochre_light.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/male/male_short_ochre_medium.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/states/female/hero_female_back.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/states/female/hero_female_idle.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/states/female/hero_female_walk_01.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/states/female/hero_female_walk_02.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/states/male/hero_male_hurt.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/states/male/hero_male_idle.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/states/male/hero_male_prayer.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/states/male/hero_male_victory.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/states/male/hero_male_walk_01.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/avatar/states/male/hero_male_walk_02.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/characters/arena/arena_davi.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/characters/arena/arena_elias.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/characters/arena/arena_mara.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/characters/arena/arena_noemi.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/equipment/amulet/amulet_of_the_path_icon.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/equipment/armor/traveler_armor_rare_icon.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/equipment/boots/traveler_boots_common_icon.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/equipment/helmet/traveler_helmet_rare_icon.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/equipment/overlays/v1/MANIFEST.txt",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/equipment/overlays/v1/armor_traveler_rare_female.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/equipment/overlays/v1/armor_traveler_rare_male.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/equipment/overlays/v1/armor_traveler_uncommon_female.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/equipment/overlays/v1/armor_traveler_uncommon_male.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/equipment/overlays/v1/boots_traveler_common_left_female.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/equipment/overlays/v1/boots_traveler_common_left_male.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/equipment/overlays/v1/boots_traveler_common_right_female.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/equipment/overlays/v1/boots_traveler_common_right_male.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/equipment/overlays/v1/helmet_traveler_rare_female.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/equipment/overlays/v1/helmet_traveler_rare_male.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/equipment/overlays/v1/medallion_path_rare.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/equipment/overlays/v1/shield_perseverance_rare.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/equipment/overlays/v1/sword_path_common.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/equipment/overlays/v1/sword_path_rare.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/equipment/shield/traveler_shield_rare_icon.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/equipment/weapon/traveler_sword_rare_icon.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/items/coin_pouch.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/items/quest_scroll.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/items/reward_chest.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/journey/act_01_journey_map.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/minigame/effects/alert_icon.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/minigame/effects/collect_effect.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/minigame/effects/dust_effect.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/minigame/effects/victory_effect.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/minigame/obstacles/hedge_cluster_v2.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/minigame/obstacles/obstacle_boulder.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/minigame/obstacles/obstacle_log.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/minigame/obstacles/obstacle_pit.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/minigame/obstacles/obstacle_rock.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/minigame/obstacles/obstacle_spikes.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/minigame/obstacles/obstacle_thorns.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/minigame/pickups/light_fragment.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/minigame/pickups/wisdom_fragment.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/minigame/portal/exit_portal.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/minigame/powerups/powerup_heal.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/minigame/powerups/powerup_shield.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/minigame/powerups/powerup_speed.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/minigame/serpent/serpent_attack.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/minigame/serpent/serpent_idle.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/minigame/serpent/serpent_move_01.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/minigame/serpent/serpent_move_02.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/minigame/tiles/tile_bridge.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/minigame/tiles/tile_bush.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/minigame/tiles/tile_grass.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/minigame/tiles/tile_path.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/minigame/tiles/tile_stone.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/minigame/tiles/tile_tree.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/minigame/tiles/tile_wall.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/minigame/tiles/tile_water.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/world/arena/arena_training_courtyard.webp",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/world/arena/arena_training_courtyard_960.webp",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/world/garden/garden_background_day.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/world/garden/garden_background_day_1600.webp",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/world/garden/garden_background_day_800.webp",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/world/garden/garden_background_tension.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/world/garden/garden_background_tension_1600.webp",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/world/garden/garden_background_tension_800.webp",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/world/guild/guild_banner_neutral.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/world/guild/guild_hall.webp",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/world/guild/guild_hall_mobile.webp",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/world/guild/guild_leader_table.webp",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/world/guild/guild_mission_parchment.png",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/public/assets/world/guild/guild_reward_chest.png",
+      "unchanged": true
+    },
+    {
+      "path": "assets-source/body-fit-v2-targets/armor_traveler_rare_female_v2.png",
+      "unchanged": true
+    },
+    {
+      "path": "assets-source/body-fit-v2-targets/armor_traveler_rare_male_v2.png",
+      "unchanged": true
+    },
+    {
+      "path": "assets-source/body-fit-v2-targets/armor_traveler_uncommon_female_v2.png",
+      "unchanged": true
+    },
+    {
+      "path": "assets-source/body-fit-v2-targets/armor_traveler_uncommon_male_v2.png",
+      "unchanged": true
+    },
+    {
+      "path": "assets-source/body-fit-v2-targets/boots_traveler_common_female_v2.png",
+      "unchanged": true
+    },
+    {
+      "path": "assets-source/body-fit-v2-targets/boots_traveler_common_male_v2.png",
+      "unchanged": true
+    },
+    {
+      "path": "assets-source/body-fit-v2-targets/helmet_traveler_rare_female_v2.png",
+      "unchanged": true
+    },
+    {
+      "path": "assets-source/body-fit-v2-targets/helmet_traveler_rare_male_v2.png",
+      "unchanged": true
+    },
+    {
+      "path": "assets-source/body-fit-v2-targets/medallion_path_rare_female_v2.png",
+      "unchanged": true
+    },
+    {
+      "path": "assets-source/body-fit-v2-targets/medallion_path_rare_male_v2.png",
+      "unchanged": true
+    },
+    {
+      "path": "assets-source/body-fit-v2-targets/shield_perseverance_rare_female_v2.png",
+      "unchanged": true
+    },
+    {
+      "path": "assets-source/body-fit-v2-targets/shield_perseverance_rare_male_v2.png",
+      "unchanged": true
+    },
+    {
+      "path": "assets-source/body-fit-v2-targets/sword_path_common_female_v2.png",
+      "unchanged": true
+    },
+    {
+      "path": "assets-source/body-fit-v2-targets/sword_path_common_male_v2.png",
+      "unchanged": true
+    },
+    {
+      "path": "assets-source/body-fit-v2-targets/sword_path_rare_female_v2.png",
+      "unchanged": true
+    },
+    {
+      "path": "assets-source/body-fit-v2-targets/sword_path_rare_male_v2.png",
+      "unchanged": true
+    },
+    {
+      "path": "assets-source/body-fit-v2/armadura_paladina_verde_e_dourada.png",
+      "unchanged": true
+    },
+    {
+      "path": "assets-source/body-fit-v2/armadura_templária_verde_e_dourada.png",
+      "unchanged": true
+    },
+    {
+      "path": "assets-source/body-fit-v2/armadura_torácica_de_paladina_verde.png",
+      "unchanged": true
+    },
+    {
+      "path": "assets-source/body-fit-v2/armadura_verde_e_dourada_de_paladina.png",
+      "unchanged": true
+    },
+    {
+      "path": "assets-source/body-fit-v2/botas_de_paladino_verde_e_dourado.png",
+      "unchanged": true
+    },
+    {
+      "path": "assets-source/body-fit-v2/botas_élficas_de_esmeralda_e_ouro.png",
+      "unchanged": true
+    },
+    {
+      "path": "assets-source/body-fit-v2/capuz_sacerdotal_esmeralda_ornamentado.png",
+      "unchanged": true
+    },
+    {
+      "path": "assets-source/body-fit-v2/elmo_paladino_esmeralda_ornado.png",
+      "unchanged": true
+    },
+    {
+      "path": "assets-source/body-fit-v2/escudo_esmeralda_do_sol_dourado.png",
+      "unchanged": true
+    },
+    {
+      "path": "assets-source/body-fit-v2/espada_esmeralda_de_aço_e_ouro.png",
+      "unchanged": true
+    },
+    {
+      "path": "assets-source/body-fit-v2/espada_real_de_esmeralda_e_ouro.png",
+      "unchanged": true
+    },
+    {
+      "path": "assets-source/body-fit-v2/imagegen.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0053-body-fit-pilot/attempt-1/overlay_candidate.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0053-body-fit-pilot/attempt-2/overlay_candidate.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0053-body-fit-pilot/attempt-3/overlay_candidate.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0053-body-fit-pilot/attempt-4/overlay_candidate.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0054-body-fit-bake/acceptance-check.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0054-body-fit-bake/alignment_guides.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0054-body-fit-bake/approved-manifest.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0054-body-fit-bake/asset-check.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0054-body-fit-bake/avatar_base.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0054-body-fit-bake/baked_overlay.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0054-body-fit-bake/before.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0054-body-fit-bake/combined.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0054-body-fit-bake/final-checks.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0054-body-fit-bake/fit-metadata.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0054-body-fit-bake/fit-report.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0054-body-fit-bake/human-approval-receipt.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0054-body-fit-bake/lab-checks.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0054-body-fit-bake/lab-results/.last-run.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0054-body-fit-bake/overlay_50_50.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0054-body-fit-bake/pilot-settings.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0054-body-fit-bake/pilot/armor_traveler_uncommon_female_v2_baked.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0054-body-fit-bake/portal-regression/.last-run.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0054-body-fit-bake/portal-regression/equipment-portal-Missing-a-e3e70-equip-action-and-comparison-desktop/fallback-art.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0054-body-fit-bake/preservation-after.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0054-body-fit-bake/preservation-before.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0054-body-fit-bake/production-results/.last-run.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0054-body-fit-bake/review/index.html",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0054-body-fit-bake/review/review-desktop.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0054-body-fit-bake/source.png",
+      "unchanged": true
+    },
+    {
+      "path": "docs/architecture/EQUIPMENT-BODY-FIT-OVERLAYS-V2.md",
+      "unchanged": true
+    },
+    {
+      "path": "docs/architecture/NEEDS_NEW_BODY_FIT_ASSET.json",
+      "unchanged": true
+    },
+    {
+      "path": "docs/architecture/TASK-0054-BAKED-ASSET-MANIFEST.json",
+      "unchanged": true
+    },
+    {
+      "path": "docs/architecture/TASK-0054-BODY-FIT-BAKE-PILOT-REPORT.md",
+      "unchanged": true
+    },
+    {
+      "path": "docs/architecture/TASK-0054-FINAL-CHECKS.json",
+      "unchanged": true
+    },
+    {
+      "path": "docs/architecture/TASK-0054-HUMAN-BODY-FIT-APPROVAL.json",
+      "unchanged": true
+    },
+    {
+      "path": "manifest.json",
+      "unchanged": true
+    },
+    {
+      "path": "package-lock.json",
+      "unchanged": true
+    },
+    {
+      "path": "package.json",
+      "unchanged": true
+    },
+    {
+      "path": "packages/game-engine/.gitkeep",
+      "unchanged": true
+    },
+    {
+      "path": "packages/game-engine/package.json",
+      "unchanged": true
+    },
+    {
+      "path": "packages/game-engine/src/arena-combat-v2.test.ts",
+      "unchanged": true
+    },
+    {
+      "path": "packages/game-engine/src/arena-combat-v2.ts",
+      "unchanged": true
+    },
+    {
+      "path": "packages/game-engine/src/chests.test.ts",
+      "unchanged": true
+    },
+    {
+      "path": "packages/game-engine/src/guild-rewards.test.ts",
+      "unchanged": true
+    },
+    {
+      "path": "packages/game-engine/src/index.test.ts",
+      "unchanged": true
+    },
+    {
+      "path": "packages/game-engine/src/index.ts",
+      "unchanged": true
+    },
+    {
+      "path": "packages/game-engine/tsconfig.json",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/arena-lab.mjs",
+      "unchanged": true
+    },
+    {
+      "path": "tasks/completed/TASK-0054-body-fit-offline-bake-pilot.md",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/acceptance-check.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/armor_traveler_rare_female_v2/alignment_guides.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/armor_traveler_rare_female_v2/armor_traveler_rare_female_v2_baked.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/armor_traveler_rare_female_v2/asset-check.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/armor_traveler_rare_female_v2/avatar_base.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/armor_traveler_rare_female_v2/baked_overlay.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/armor_traveler_rare_female_v2/before.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/armor_traveler_rare_female_v2/combined.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/armor_traveler_rare_female_v2/fit-metadata.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/armor_traveler_rare_female_v2/fit-report.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/armor_traveler_rare_female_v2/overlay_50_50.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/armor_traveler_rare_female_v2/receipt.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/armor_traveler_rare_female_v2/source.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/armor_traveler_rare_male_v2/alignment_guides.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/armor_traveler_rare_male_v2/armor_traveler_rare_male_v2_baked.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/armor_traveler_rare_male_v2/asset-check.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/armor_traveler_rare_male_v2/avatar_base.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/armor_traveler_rare_male_v2/baked_overlay.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/armor_traveler_rare_male_v2/before.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/armor_traveler_rare_male_v2/combined.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/armor_traveler_rare_male_v2/fit-metadata.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/armor_traveler_rare_male_v2/fit-report.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/armor_traveler_rare_male_v2/overlay_50_50.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/armor_traveler_rare_male_v2/receipt.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/armor_traveler_rare_male_v2/source.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/armor_traveler_uncommon_male_v2/alignment_guides.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/armor_traveler_uncommon_male_v2/armor_traveler_uncommon_male_v2_baked.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/armor_traveler_uncommon_male_v2/asset-check.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/armor_traveler_uncommon_male_v2/avatar_base.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/armor_traveler_uncommon_male_v2/baked_overlay.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/armor_traveler_uncommon_male_v2/before.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/armor_traveler_uncommon_male_v2/combined.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/armor_traveler_uncommon_male_v2/fit-metadata.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/armor_traveler_uncommon_male_v2/fit-report.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/armor_traveler_uncommon_male_v2/overlay_50_50.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/armor_traveler_uncommon_male_v2/receipt.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/armor_traveler_uncommon_male_v2/source.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/asset-validation.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/boots_traveler_common_female_v2/alignment_guides.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/boots_traveler_common_female_v2/asset-check.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/boots_traveler_common_female_v2/avatar_base.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/boots_traveler_common_female_v2/baked_overlay.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/boots_traveler_common_female_v2/before.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/boots_traveler_common_female_v2/boots_traveler_common_female_v2_baked.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/boots_traveler_common_female_v2/combined.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/boots_traveler_common_female_v2/fit-metadata.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/boots_traveler_common_female_v2/fit-report.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/boots_traveler_common_female_v2/overlay_50_50.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/boots_traveler_common_female_v2/receipt.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/boots_traveler_common_female_v2/source.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/boots_traveler_common_male_v2/alignment_guides.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/boots_traveler_common_male_v2/asset-check.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/boots_traveler_common_male_v2/avatar_base.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/boots_traveler_common_male_v2/baked_overlay.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/boots_traveler_common_male_v2/before.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/boots_traveler_common_male_v2/boots_traveler_common_male_v2_baked.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/boots_traveler_common_male_v2/combined.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/boots_traveler_common_male_v2/fit-metadata.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/boots_traveler_common_male_v2/fit-report.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/boots_traveler_common_male_v2/overlay_50_50.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/boots_traveler_common_male_v2/receipt.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/boots_traveler_common_male_v2/source.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/final-checks.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/helmet_traveler_rare_female_v2/alignment_guides.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/helmet_traveler_rare_female_v2/asset-check.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/helmet_traveler_rare_female_v2/avatar_base.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/helmet_traveler_rare_female_v2/baked_overlay.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/helmet_traveler_rare_female_v2/before.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/helmet_traveler_rare_female_v2/combined.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/helmet_traveler_rare_female_v2/fit-metadata.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/helmet_traveler_rare_female_v2/fit-report.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/helmet_traveler_rare_female_v2/helmet_traveler_rare_female_v2_baked.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/helmet_traveler_rare_female_v2/overlay_50_50.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/helmet_traveler_rare_female_v2/receipt.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/helmet_traveler_rare_female_v2/source.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/helmet_traveler_rare_male_v2/alignment_guides.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/helmet_traveler_rare_male_v2/asset-check.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/helmet_traveler_rare_male_v2/avatar_base.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/helmet_traveler_rare_male_v2/baked_overlay.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/helmet_traveler_rare_male_v2/before.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/helmet_traveler_rare_male_v2/combined.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/helmet_traveler_rare_male_v2/fit-metadata.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/helmet_traveler_rare_male_v2/fit-report.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/helmet_traveler_rare_male_v2/helmet_traveler_rare_male_v2_baked.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/helmet_traveler_rare_male_v2/overlay_50_50.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/helmet_traveler_rare_male_v2/receipt.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/helmet_traveler_rare_male_v2/source.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/inspection/armor_traveler_rare_female_v2.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/inspection/armor_traveler_rare_male_v2.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/inspection/armor_traveler_uncommon_male_v2.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/inspection/boots_traveler_common_female_v2.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/inspection/boots_traveler_common_male_v2.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/inspection/combined-0.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/inspection/combined-10.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/inspection/combined-5.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/inspection/female-grid.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/inspection/helmet_traveler_rare_female_v2.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/inspection/helmet_traveler_rare_male_v2.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/inspection/male-grid.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/inspection/medallion_path_rare_female_v2.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/inspection/medallion_path_rare_male_v2.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/inspection/shield_perseverance_rare_female_v2.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/inspection/shield_perseverance_rare_male_v2.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/inspection/sources-0.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/inspection/sources-10.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/inspection/sources-5.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/inspection/sword_path_common_female_v2.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/inspection/sword_path_common_male_v2.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/inspection/sword_path_rare_female_v2.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/inspection/sword_path_rare_male_v2.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/inventory.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/lab-checks.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/lab-results/.last-run.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/manifest.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/medallion_path_rare_female_v2/alignment_guides.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/medallion_path_rare_female_v2/armor_overlap.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/medallion_path_rare_female_v2/asset-check.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/medallion_path_rare_female_v2/avatar_base.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/medallion_path_rare_female_v2/baked_overlay.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/medallion_path_rare_female_v2/before.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/medallion_path_rare_female_v2/combined.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/medallion_path_rare_female_v2/fit-metadata.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/medallion_path_rare_female_v2/fit-report.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/medallion_path_rare_female_v2/medallion_path_rare_female_v2_baked.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/medallion_path_rare_female_v2/overlay_50_50.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/medallion_path_rare_female_v2/receipt.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/medallion_path_rare_female_v2/source.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/medallion_path_rare_male_v2/alignment_guides.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/medallion_path_rare_male_v2/armor_overlap.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/medallion_path_rare_male_v2/asset-check.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/medallion_path_rare_male_v2/avatar_base.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/medallion_path_rare_male_v2/baked_overlay.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/medallion_path_rare_male_v2/before.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/medallion_path_rare_male_v2/combined.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/medallion_path_rare_male_v2/fit-metadata.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/medallion_path_rare_male_v2/fit-report.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/medallion_path_rare_male_v2/medallion_path_rare_male_v2_baked.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/medallion_path_rare_male_v2/overlay_50_50.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/medallion_path_rare_male_v2/receipt.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/medallion_path_rare_male_v2/source.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/portal-results/.last-run.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/portal-results/equipment-portal-Arsenal-1-588cb-son-slots-filters-and-equip-desktop/cinematic-1440x900.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/portal-results/equipment-portal-Arsenal-1-588cb-son-slots-filters-and-equip-desktop/portal-1440x900.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/portal-results/equipment-portal-Arsenal-1-b7467-son-slots-filters-and-equip-desktop/cinematic-1920x1080.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/portal-results/equipment-portal-Arsenal-1-b7467-son-slots-filters-and-equip-desktop/portal-1920x1080.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/portal-results/equipment-portal-Arsenal-3-66b23-son-slots-filters-and-equip-desktop/cinematic-390x844.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/portal-results/equipment-portal-Arsenal-3-66b23-son-slots-filters-and-equip-desktop/portal-390x844.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/portal-results/equipment-portal-Arsenal-4-f723e-son-slots-filters-and-equip-desktop/cinematic-412x915.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/portal-results/equipment-portal-Arsenal-4-f723e-son-slots-filters-and-equip-desktop/portal-412x915.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/portal-results/equipment-portal-Arsenal-8-b98fb-son-slots-filters-and-equip-desktop/cinematic-844x390.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/portal-results/equipment-portal-Arsenal-8-b98fb-son-slots-filters-and-equip-desktop/portal-844x390.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/portal-results/equipment-portal-Arsenal-9-a0d17-son-slots-filters-and-equip-desktop/cinematic-915x412.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/portal-results/equipment-portal-Arsenal-9-a0d17-son-slots-filters-and-equip-desktop/portal-915x412.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/portal-results/equipment-portal-Missing-a-e3e70-equip-action-and-comparison-desktop/fallback-art.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/preservation-after.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/preservation-before.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/review/index.html",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/review/review-desktop.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/review/review-mobile.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/settings.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/shield_perseverance_rare_female_v2/alignment_guides.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/shield_perseverance_rare_female_v2/asset-check.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/shield_perseverance_rare_female_v2/avatar_base.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/shield_perseverance_rare_female_v2/baked_overlay.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/shield_perseverance_rare_female_v2/before.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/shield_perseverance_rare_female_v2/combined.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/shield_perseverance_rare_female_v2/fit-metadata.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/shield_perseverance_rare_female_v2/fit-report.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/shield_perseverance_rare_female_v2/overlay_50_50.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/shield_perseverance_rare_female_v2/receipt.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/shield_perseverance_rare_female_v2/shield_perseverance_rare_female_v2_baked.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/shield_perseverance_rare_female_v2/source.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/shield_perseverance_rare_male_v2/alignment_guides.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/shield_perseverance_rare_male_v2/asset-check.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/shield_perseverance_rare_male_v2/avatar_base.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/shield_perseverance_rare_male_v2/baked_overlay.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/shield_perseverance_rare_male_v2/before.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/shield_perseverance_rare_male_v2/combined.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/shield_perseverance_rare_male_v2/fit-metadata.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/shield_perseverance_rare_male_v2/fit-report.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/shield_perseverance_rare_male_v2/overlay_50_50.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/shield_perseverance_rare_male_v2/receipt.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/shield_perseverance_rare_male_v2/shield_perseverance_rare_male_v2_baked.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/shield_perseverance_rare_male_v2/source.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/sword_path_common_female_v2/alignment_guides.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/sword_path_common_female_v2/asset-check.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/sword_path_common_female_v2/avatar_base.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/sword_path_common_female_v2/baked_overlay.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/sword_path_common_female_v2/before.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/sword_path_common_female_v2/combined.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/sword_path_common_female_v2/fit-metadata.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/sword_path_common_female_v2/fit-report.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/sword_path_common_female_v2/overlay_50_50.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/sword_path_common_female_v2/receipt.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/sword_path_common_female_v2/source.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/sword_path_common_female_v2/sword_path_common_female_v2_baked.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/sword_path_common_male_v2/alignment_guides.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/sword_path_common_male_v2/asset-check.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/sword_path_common_male_v2/avatar_base.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/sword_path_common_male_v2/baked_overlay.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/sword_path_common_male_v2/before.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/sword_path_common_male_v2/combined.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/sword_path_common_male_v2/fit-metadata.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/sword_path_common_male_v2/fit-report.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/sword_path_common_male_v2/overlay_50_50.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/sword_path_common_male_v2/receipt.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/sword_path_common_male_v2/source.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/sword_path_common_male_v2/sword_path_common_male_v2_baked.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/sword_path_rare_female_v2/alignment_guides.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/sword_path_rare_female_v2/asset-check.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/sword_path_rare_female_v2/avatar_base.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/sword_path_rare_female_v2/baked_overlay.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/sword_path_rare_female_v2/before.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/sword_path_rare_female_v2/combined.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/sword_path_rare_female_v2/fit-metadata.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/sword_path_rare_female_v2/fit-report.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/sword_path_rare_female_v2/overlay_50_50.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/sword_path_rare_female_v2/receipt.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/sword_path_rare_female_v2/source.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/sword_path_rare_female_v2/sword_path_rare_female_v2_baked.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/sword_path_rare_male_v2/alignment_guides.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/sword_path_rare_male_v2/asset-check.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/sword_path_rare_male_v2/avatar_base.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/sword_path_rare_male_v2/baked_overlay.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/sword_path_rare_male_v2/before.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/sword_path_rare_male_v2/combined.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/sword_path_rare_male_v2/fit-metadata.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/sword_path_rare_male_v2/fit-report.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/sword_path_rare_male_v2/overlay_50_50.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/sword_path_rare_male_v2/receipt.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/sword_path_rare_male_v2/source.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/sword_path_rare_male_v2/sword_path_rare_male_v2_baked.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/visual-assessment.json",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/arena-audio-prototype.d.mts",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/arena-audio-prototype.mjs",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/audiovisual-pack.d.mts",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/audiovisual-pack.mjs",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/audit-avatar-geometry.mjs",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/avatar-hd-pilot-lab.mjs",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/avatar-hd-runtime-audit.mjs",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/body-fit-bake-approval.mjs",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/body-fit-bake-check.mjs",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/body-fit-bake-review.mjs",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/body-fit-bake.mjs",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/body-fit-bake.test.mjs",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/body-fit-batch-bake.mjs",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/body-fit-batch-bake.test.mjs",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/body-fit-batch-check.mjs",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/body-fit-batch-review.mjs",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/body-fit-pilot-check.mjs",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/body-fit-pilot-review.mjs",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/body-fit-source-audit.mjs",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/body-fit-source-audit.test.mjs",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/body-fit-sword-inspect.mjs",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/body-fit-target-audit.mjs",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/body-fit-target-audit.test.mjs",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/body-fit-target-fit-check.mjs",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/body-fit-target-review.mjs",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/body-fit-v2-audit.mjs",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/arena-asset-status.test.ts",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/arena-audio-prototype.test.ts",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/arena-audio.test.ts",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/arena-lab.test.tsx",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/arena-specials.test.tsx",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/arena.test.ts",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/attributes.test.ts",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/audio/approved-audio-assets.ts",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/audio/arena-audio.ts",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/audio/arena-mix.ts",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/audio/audio-assets.ts",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/audio/audio-manager.ts",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/audio-manager.test.ts",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/audiovisual-pack.test.ts",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/avatar-geometry-audit.test.ts",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/avatar-hd-pack.test.tsx",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/avatar-runtime.test.tsx",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/backpack-chests.test.tsx",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/battle-presentation-hook.test.tsx",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/battle-presentation.test.ts",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/chests.test.ts",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/components/arena-specials.tsx",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/components/arena-stage.module.css",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/components/arena-stage.tsx",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/components/arena-unlock-notice.tsx",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/components/audio-settings.tsx",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/components/avatar-runtime.module.css",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/components/avatar.tsx",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/components/bible-reading.tsx",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/components/chest-panel.tsx",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/components/devotional.tsx",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/components/diary-experience.module.css",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/components/equipment-bible-details.tsx",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/components/equipment-cinematic.module.css",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/components/equipment-comparison.tsx",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/components/equipment-equip-cinematic.tsx",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/components/equipment-portal.module.css",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/components/equipment-stat-bonuses.tsx",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/components/equipment-status.tsx",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/components/equipped-avatar.tsx",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/components/garden-exploration.tsx",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/components/guild-artwork.tsx",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/components/guild-content-board.tsx",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/components/guild-experience.module.css",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/components/guild-hero.tsx",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/components/guild-reward-summary.tsx",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/components/journey-icon.tsx",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/components/journey-spotlight.tsx",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/components/landscape.tsx",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/components/online-guild-hub.tsx",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/components/pack-artwork.tsx",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/components/shell.test.tsx",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/components/shell.tsx",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/components/snake-game-engine.ts",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/components/snake-input.ts",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/data/approved-visual-assets.ts",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/data/arena.ts",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/data/arenaPresentation.ts",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/data/audiovisualAssets.ts",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/data/avatarAssets.ts",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/data/battlePresentation.ts",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/data/bibleLinks.ts",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/data/campaign.ts",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/data/chests.ts",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/data/diaryView.ts",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/data/equipmentAnimation.ts",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/data/equipmentBible.ts",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/data/equipmentCinematic.ts",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/data/gameplayAvatarPortrait.ts",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/data/gardenQuiz.ts",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/data/guildContent.ts",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/data/guildExperienceAssets.ts",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/data/guildPlayerVisibility.ts",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/data/guildPresentation.ts",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/data/guildRewards.ts",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/data/localGuilds.ts",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/data/phaseProgress.ts",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/data/progression.ts",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/data/shop.ts",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/dev/arena-asset-status.ts",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/dev/arena-lab-entry.tsx",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/dev/arena-lab-fixtures.ts",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/dev/arena-visual-lab.module.css",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/dev/arena-visual-lab.tsx",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/dev/avatar-runtime-panel.module.css",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/dev/avatar-runtime-panel.tsx",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/dev/body-fit-reference-metrics.json",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/dev/prototype-arena-audio-assets.ts",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/dev/vite-env.d.ts",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/diary-experience.test.tsx",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/equipment-animation.test.ts",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/equipment-assets.test.ts",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/equipment-bible.test.ts",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/equipment-cinematic.test.tsx",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/equipment-overlays.test.tsx",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/equipment-portal.test.tsx",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/equipment-v1-files.test.ts",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/game-audio-hook.test.tsx",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/garden-quiz.test.ts",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/guild-clock.test.tsx",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/guild-experience.test.tsx",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/guild-gate.test.ts",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/guild-player-visibility.test.ts",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/guild-visual-pack.test.tsx",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/hooks/use-battle-presentation.ts",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/hooks/use-equipment-cinematic.ts",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/hooks/use-game-audio.ts",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/hooks/use-guild-clock.ts",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/journey.module.css",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/journey.test.tsx",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/online-guild-hub.test.tsx",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/pack-artwork.test.tsx",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/phase-progress.test.ts",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/progression.test.ts",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/screens/act.tsx",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/screens/backpack.tsx",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/screens/collection.tsx",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/screens/create.test.tsx",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/screens/create.tsx",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/screens/equipment.tsx",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/screens/guild-manage.tsx",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/screens/guild.tsx",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/screens/hero.tsx",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/screens/home.test.tsx",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/screens/home.tsx",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/screens/intro.tsx",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/screens/map.tsx",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/screens/phase.tsx",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/screens/shop.tsx",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/snake-chase-game.test.tsx",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/snake-game-engine.test.ts",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/snake-input.test.ts",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/testing/equipment-overlay-fixtures.ts",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/journey/visible-systems.test.ts",
+      "unchanged": true
+    },
+    {
+      "path": "docs/architecture/TASK-0055-BAKED-ASSET-MANIFEST.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/asset-validation.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/inventory.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/settings.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_common_female_v2/alignment_guides.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_common_female_v2/avatar_base.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_common_female_v2/combined.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_common_female_v2/fit-metadata.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_common_female_v2/fit-report.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_common_female_v2/full_body.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_common_female_v2/hand_zoom.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_common_female_v2/hand_zoom_base.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_common_female_v2/hand_zoom_masked.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_common_female_v2/masked_combined_diagnostic.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_common_female_v2/masked_overlay_diagnostic.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_common_female_v2/offline_hand_occlusion_mask.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_common_female_v2/previous_combined.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_common_female_v2/receipt.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_common_female_v2/source.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_common_female_v2/sword_path_common_female_v2_downward_baked.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_common_male_v2/alignment_guides.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_common_male_v2/avatar_base.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_common_male_v2/combined.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_common_male_v2/fit-metadata.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_common_male_v2/fit-report.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_common_male_v2/full_body.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_common_male_v2/hand_zoom.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_common_male_v2/hand_zoom_base.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_common_male_v2/hand_zoom_masked.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_common_male_v2/masked_combined_diagnostic.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_common_male_v2/masked_overlay_diagnostic.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_common_male_v2/offline_hand_occlusion_mask.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_common_male_v2/previous_combined.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_common_male_v2/receipt.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_common_male_v2/source.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_common_male_v2/sword_path_common_male_v2_downward_baked.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_rare_female_v2/alignment_guides.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_rare_female_v2/avatar_base.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_rare_female_v2/combined.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_rare_female_v2/fit-metadata.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_rare_female_v2/fit-report.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_rare_female_v2/full_body.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_rare_female_v2/hand_zoom.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_rare_female_v2/hand_zoom_base.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_rare_female_v2/hand_zoom_masked.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_rare_female_v2/masked_combined_diagnostic.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_rare_female_v2/masked_overlay_diagnostic.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_rare_female_v2/offline_hand_occlusion_mask.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_rare_female_v2/previous_combined.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_rare_female_v2/receipt.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_rare_female_v2/source.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_rare_female_v2/sword_path_rare_female_v2_downward_baked.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_rare_male_v2/alignment_guides.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_rare_male_v2/avatar_base.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_rare_male_v2/combined.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_rare_male_v2/fit-metadata.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_rare_male_v2/fit-report.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_rare_male_v2/full_body.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_rare_male_v2/hand_zoom.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_rare_male_v2/hand_zoom_base.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_rare_male_v2/hand_zoom_masked.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_rare_male_v2/masked_combined_diagnostic.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_rare_male_v2/masked_overlay_diagnostic.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_rare_male_v2/offline_hand_occlusion_mask.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_rare_male_v2/previous_combined.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_rare_male_v2/receipt.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_rare_male_v2/source.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_rare_male_v2/sword_path_rare_male_v2_downward_baked.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/browser-check.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/browser-evidence/review-1366.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/browser-evidence/review-390.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/hand_sword_path_common_female_v2.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/hand_sword_path_common_male_v2.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/hand_sword_path_rare_female_v2.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/hand_sword_path_rare_male_v2.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/inventory.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/physical-png-inventory.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/preservation-after.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/preservation-before.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/previous-and-sources.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/review/index.html",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/settings.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_common_female_v2/alignment_guides.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_common_female_v2/avatar_base.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_common_female_v2/combined.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_common_female_v2/fit-metadata.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_common_female_v2/fit-report.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_common_female_v2/full_body.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_common_female_v2/hand_zoom.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_common_female_v2/hand_zoom_base.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_common_female_v2/hand_zoom_masked.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_common_female_v2/masked_combined_diagnostic.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_common_female_v2/masked_overlay_diagnostic.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_common_female_v2/offline_hand_occlusion_mask.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_common_female_v2/previous_combined.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_common_female_v2/receipt.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_common_female_v2/source.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_common_female_v2/sword_path_common_female_v2_downward_baked.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_common_male_v2/alignment_guides.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_common_male_v2/avatar_base.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_common_male_v2/combined.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_common_male_v2/fit-metadata.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_common_male_v2/fit-report.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_common_male_v2/full_body.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_common_male_v2/hand_zoom.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_common_male_v2/hand_zoom_base.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_common_male_v2/hand_zoom_masked.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_common_male_v2/masked_combined_diagnostic.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_common_male_v2/masked_overlay_diagnostic.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_common_male_v2/offline_hand_occlusion_mask.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_common_male_v2/previous_combined.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_common_male_v2/receipt.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_common_male_v2/source.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_common_male_v2/sword_path_common_male_v2_downward_baked.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_rare_female_v2/alignment_guides.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_rare_female_v2/avatar_base.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_rare_female_v2/combined.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_rare_female_v2/fit-metadata.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_rare_female_v2/fit-report.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_rare_female_v2/full_body.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_rare_female_v2/hand_zoom.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_rare_female_v2/hand_zoom_base.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_rare_female_v2/hand_zoom_masked.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_rare_female_v2/masked_combined_diagnostic.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_rare_female_v2/masked_overlay_diagnostic.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_rare_female_v2/offline_hand_occlusion_mask.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_rare_female_v2/previous_combined.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_rare_female_v2/receipt.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_rare_female_v2/source.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_rare_female_v2/sword_path_rare_female_v2_downward_baked.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_rare_male_v2/alignment_guides.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_rare_male_v2/avatar_base.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_rare_male_v2/combined.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_rare_male_v2/fit-metadata.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_rare_male_v2/fit-report.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_rare_male_v2/full_body.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_rare_male_v2/hand_zoom.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_rare_male_v2/hand_zoom_base.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_rare_male_v2/hand_zoom_masked.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_rare_male_v2/masked_combined_diagnostic.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_rare_male_v2/masked_overlay_diagnostic.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_rare_male_v2/offline_hand_occlusion_mask.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_rare_male_v2/previous_combined.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_rare_male_v2/receipt.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_rare_male_v2/source.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_rare_male_v2/sword_path_rare_male_v2_downward_baked.png",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/body-fit-sheath-inspect.mjs",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/body-fit-sword-bake.mjs",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/body-fit-sword-bake.test.mjs",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/body-fit-sword-check.mjs",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/body-fit-sword-review-check.mjs",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/body-fit-sword-review.mjs",
+      "unchanged": true
+    },
+    {
+      "path": "docs/architecture/TASK-0056-BAKED-ASSET-MANIFEST.json",
+      "unchanged": true
+    },
+    {
+      "path": "docs/architecture/TASK-0056-SWORD-DOWNWARD-REPORT.md",
+      "unchanged": true
+    },
+    {
+      "path": "docs/architecture/TASK-0056-FINAL-CHECKS.json",
+      "unchanged": true
+    },
+    {
+      "path": "tasks/active/TASK-0056-body-fit-sword-downward.md",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/asset-validation.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/belt-hip-female.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/belt-hip-male.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/diagnostic-inventory.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/lab-results/.last-run.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/lab-results/sheath-review-Existing-Bod-35024-art-gate-and-reduced-motion-sheath-lab/body-fit-matrix.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/lab-results/sheath-review-Existing-Bod-35024-art-gate-and-reduced-motion-sheath-lab/body-fit-unchanged.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/lab-results/sheath-review-Four-target--f5293-ix-viewports-reduced-motion-sheath-lab/review-1440x900.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/lab-results/sheath-review-Four-target--f5293-ix-viewports-reduced-motion-sheath-lab/review-1920x1080.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/lab-results/sheath-review-Four-target--f5293-ix-viewports-reduced-motion-sheath-lab/review-390x844.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/lab-results/sheath-review-Four-target--f5293-ix-viewports-reduced-motion-sheath-lab/review-412x915.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/lab-results/sheath-review-Four-target--f5293-ix-viewports-reduced-motion-sheath-lab/review-844x390.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/lab-results/sheath-review-Four-target--f5293-ix-viewports-reduced-motion-sheath-lab/review-915x412.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/lab-results/sheath-review-Four-target--f5293-ix-viewports-reduced-motion-sheath-lab/review-matrix.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/lab-results.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/local-art-inventory.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/local-equipment-contact-sheet.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/portal-results/.last-run.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/portal-results/body-fit-sheath-production-6252b-load-and-no-staging-overlay-desktop/reduced-motion-female.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/portal-results/body-fit-sheath-production-e9002-load-and-no-staging-overlay-desktop/reduced-motion-male.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/portal-results/e2e-equipment-portal-Arsen-0c08f-son-slots-filters-and-equip-desktop/cinematic-844x390.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/portal-results/e2e-equipment-portal-Arsen-0c08f-son-slots-filters-and-equip-desktop/portal-844x390.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/portal-results/e2e-equipment-portal-Arsen-35391-son-slots-filters-and-equip-desktop/cinematic-390x844.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/portal-results/e2e-equipment-portal-Arsen-35391-son-slots-filters-and-equip-desktop/portal-390x844.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/portal-results/e2e-equipment-portal-Arsen-5dc63-son-slots-filters-and-equip-desktop/cinematic-1920x1080.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/portal-results/e2e-equipment-portal-Arsen-5dc63-son-slots-filters-and-equip-desktop/portal-1920x1080.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/portal-results/e2e-equipment-portal-Arsen-8dd64-son-slots-filters-and-equip-desktop/cinematic-915x412.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/portal-results/e2e-equipment-portal-Arsen-8dd64-son-slots-filters-and-equip-desktop/portal-915x412.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/portal-results/e2e-equipment-portal-Arsen-c5af1-son-slots-filters-and-equip-desktop/cinematic-1440x900.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/portal-results/e2e-equipment-portal-Arsen-c5af1-son-slots-filters-and-equip-desktop/portal-1440x900.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/portal-results/e2e-equipment-portal-Arsen-db37f-son-slots-filters-and-equip-desktop/cinematic-412x915.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/portal-results/e2e-equipment-portal-Arsen-db37f-son-slots-filters-and-equip-desktop/portal-412x915.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/portal-results/e2e-equipment-portal-Missi-8ba0b-equip-action-and-comparison-desktop/fallback-art.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/portal-results.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/preservation-after.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/preservation-before.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/review/index.html",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_common_female_v2/alignment_guides.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_common_female_v2/avatar_base.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_common_female_v2/bake-metadata.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_common_female_v2/base_alignment_guides.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_common_female_v2/diagnostic_composition.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_common_female_v2/diagnostic_unsheathed_hip.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_common_female_v2/fit-report.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_common_female_v2/full_body_diagnostic.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_common_female_v2/receipt.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_common_female_v2/reviewed-metadata.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_common_female_v2/reviewed_alignment_guides.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_common_female_v2/reviewed_base_guides.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_common_female_v2/reviewed_waist_zoom_guides.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_common_female_v2/source_original.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_common_female_v2/task0056_candidate.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_common_female_v2/task0056_combined.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_common_female_v2/waist_zoom_base.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_common_female_v2/waist_zoom_diagnostic.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_common_female_v2/waist_zoom_guides.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_common_male_v2/alignment_guides.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_common_male_v2/avatar_base.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_common_male_v2/bake-metadata.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_common_male_v2/base_alignment_guides.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_common_male_v2/diagnostic_composition.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_common_male_v2/diagnostic_unsheathed_hip.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_common_male_v2/fit-report.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_common_male_v2/full_body_diagnostic.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_common_male_v2/receipt.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_common_male_v2/reviewed-metadata.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_common_male_v2/reviewed_alignment_guides.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_common_male_v2/reviewed_base_guides.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_common_male_v2/reviewed_waist_zoom_guides.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_common_male_v2/source_original.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_common_male_v2/task0056_candidate.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_common_male_v2/task0056_combined.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_common_male_v2/waist_zoom_base.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_common_male_v2/waist_zoom_diagnostic.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_common_male_v2/waist_zoom_guides.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_rare_female_v2/alignment_guides.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_rare_female_v2/avatar_base.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_rare_female_v2/bake-metadata.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_rare_female_v2/base_alignment_guides.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_rare_female_v2/diagnostic_composition.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_rare_female_v2/diagnostic_unsheathed_hip.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_rare_female_v2/fit-report.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_rare_female_v2/full_body_diagnostic.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_rare_female_v2/receipt.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_rare_female_v2/reviewed-metadata.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_rare_female_v2/reviewed_alignment_guides.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_rare_female_v2/reviewed_base_guides.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_rare_female_v2/reviewed_waist_zoom_guides.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_rare_female_v2/source_original.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_rare_female_v2/task0056_candidate.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_rare_female_v2/task0056_combined.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_rare_female_v2/waist_zoom_base.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_rare_female_v2/waist_zoom_diagnostic.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_rare_female_v2/waist_zoom_guides.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_rare_male_v2/alignment_guides.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_rare_male_v2/avatar_base.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_rare_male_v2/bake-metadata.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_rare_male_v2/base_alignment_guides.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_rare_male_v2/diagnostic_composition.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_rare_male_v2/diagnostic_unsheathed_hip.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_rare_male_v2/fit-report.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_rare_male_v2/full_body_diagnostic.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_rare_male_v2/receipt.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_rare_male_v2/reviewed-metadata.json",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_rare_male_v2/reviewed_alignment_guides.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_rare_male_v2/reviewed_base_guides.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_rare_male_v2/reviewed_waist_zoom_guides.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_rare_male_v2/source_original.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_rare_male_v2/task0056_candidate.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_rare_male_v2/task0056_combined.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_rare_male_v2/waist_zoom_base.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_rare_male_v2/waist_zoom_diagnostic.png",
+      "unchanged": true
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_rare_male_v2/waist_zoom_guides.png",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/body-fit-sheath-check.mjs",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/body-fit-sheath-diagnostic.mjs",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/body-fit-sheath-diagnostic.test.mjs",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/body-fit-sheath-pilot-prepare.mjs",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/body-fit-sheath-review.mjs",
+      "unchanged": true
+    },
+    {
+      "path": "tests/.gitkeep",
+      "unchanged": true
+    },
+    {
+      "path": "tests/body-fit-bake-lab/bake-review.spec.mjs",
+      "unchanged": true
+    },
+    {
+      "path": "tests/body-fit-bake-production/isolation.spec.mjs",
+      "unchanged": true
+    },
+    {
+      "path": "tests/body-fit-batch-lab/batch-review.spec.mjs",
+      "unchanged": true
+    },
+    {
+      "path": "tests/body-fit-sheath-lab/sheath-review.spec.mjs",
+      "unchanged": true
+    },
+    {
+      "path": "tests/body-fit-sheath-production/reduced-motion.spec.mjs",
+      "unchanged": true
+    },
+    {
+      "path": "tests/body-fit-source-lab/source-review.spec.mjs",
+      "unchanged": true
+    },
+    {
+      "path": "tests/body-fit-target-lab/target-review.spec.mjs",
+      "unchanged": true
+    },
+    {
+      "path": "tests/e2e/arena-audio-prototype.spec.ts",
+      "unchanged": true
+    },
+    {
+      "path": "tests/e2e/arena-audio-technical.spec.ts",
+      "unchanged": true
+    },
+    {
+      "path": "tests/e2e/arena-lab-production.spec.ts",
+      "unchanged": true
+    },
+    {
+      "path": "tests/e2e/arena-lab.spec.ts",
+      "unchanged": true
+    },
+    {
+      "path": "tests/e2e/arena-v2.spec.ts",
+      "unchanged": true
+    },
+    {
+      "path": "tests/e2e/arena.spec.ts",
+      "unchanged": true
+    },
+    {
+      "path": "tests/e2e/attributes.spec.ts",
+      "unchanged": true
+    },
+    {
+      "path": "tests/e2e/audit-corrections.spec.ts",
+      "unchanged": true
+    },
+    {
+      "path": "tests/e2e/avatar-hd-activation.spec.ts",
+      "unchanged": true
+    },
+    {
+      "path": "tests/e2e/avatar-hd-pilot.spec.ts",
+      "unchanged": true
+    },
+    {
+      "path": "tests/e2e/avatar-hd.spec.ts",
+      "unchanged": true
+    },
+    {
+      "path": "tests/e2e/avatar-runtime-lab.spec.ts",
+      "unchanged": true
+    },
+    {
+      "path": "tests/e2e/avatar-runtime.spec.ts",
+      "unchanged": true
+    },
+    {
+      "path": "tests/e2e/body-fit-lab.spec.ts",
+      "unchanged": true
+    },
+    {
+      "path": "tests/e2e/body-fit-source-production.spec.ts",
+      "unchanged": true
+    },
+    {
+      "path": "tests/e2e/body-fit-target-production.spec.ts",
+      "unchanged": true
+    },
+    {
+      "path": "tests/e2e/chests-responsive.spec.ts",
+      "unchanged": true
+    },
+    {
+      "path": "tests/e2e/diary-experience.spec.ts",
+      "unchanged": true
+    },
+    {
+      "path": "tests/e2e/equipment-animation-v2.spec.ts",
+      "unchanged": true
+    },
+    {
+      "path": "tests/e2e/equipment-cinematic.spec.ts",
+      "unchanged": true
+    },
+    {
+      "path": "tests/e2e/equipment-portal.spec.ts",
+      "unchanged": true
+    },
+    {
+      "path": "tests/e2e/equipment-v1-calibration.spec.ts",
+      "unchanged": true
+    },
+    {
+      "path": "tests/e2e/equipment-v1-hd.spec.ts",
+      "unchanged": true
+    },
+    {
+      "path": "tests/e2e/guild-experience-v2.spec.ts",
+      "unchanged": true
+    },
+    {
+      "path": "tests/e2e/hero-overlays.spec.ts",
+      "unchanged": true
+    },
+    {
+      "path": "tests/e2e/home.spec.ts",
+      "unchanged": true
+    },
+    {
+      "path": "tests/e2e/immersion-sprint.spec.ts",
+      "unchanged": true
+    },
+    {
+      "path": "tests/e2e/snake-playthrough.spec.ts",
+      "unchanged": true
+    },
+    {
+      "path": "tests/e2e/snake-responsive.spec.ts",
+      "unchanged": true
+    },
+    {
+      "path": "tests/e2e/supabase-auth.spec.ts",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/app/auth/page.tsx",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/app/globals.css",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/app/icon.svg",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/app/journey/acts/as-origens/page.tsx",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/app/journey/arena/page.tsx",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/app/journey/backpack/page.tsx",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/app/journey/collection/page.tsx",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/app/journey/create/page.tsx",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/app/journey/diary/page.tsx",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/app/journey/equipment/page.tsx",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/app/journey/guild/manage/page.tsx",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/app/journey/guild/page.tsx",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/app/journey/hero/page.tsx",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/app/journey/intro/page.tsx",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/app/journey/page.tsx",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/app/journey/phases/o-jardim-e-a-escolha/page.tsx",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/app/journey/phases/o-jardim-e-a-escolha/preview/page.tsx",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/app/journey/shop/page.tsx",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/app/layout.tsx",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/app/page.module.css",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/app/page.test.tsx",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/app/page.tsx",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/app/providers.tsx",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/auth/auth-screen.test.tsx",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/auth/auth-screen.tsx",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/features/auth/auth.module.css",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/lib/supabase/auth-context.test.tsx",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/lib/supabase/auth-context.tsx",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/lib/supabase/auth-diagnostics.ts",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/lib/supabase/auth.ts",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/lib/supabase/client.test.ts",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/lib/supabase/client.ts",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/lib/supabase/database.types.ts",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/lib/supabase/diagnostics.test.ts",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/lib/supabase/diagnostics.ts",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/lib/supabase/env.test.ts",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/lib/supabase/env.ts",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/lib/supabase/online-sync.test.ts",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/lib/supabase/online-sync.ts",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/lib/supabase/repositories/chest-repository.test.ts",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/lib/supabase/repositories/chest-repository.ts",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/lib/supabase/repositories/equipment-repository.ts",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/lib/supabase/repositories/errors.ts",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/lib/supabase/repositories/guild-admin-repository.ts",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/lib/supabase/repositories/guild-lesson-repository.ts",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/lib/supabase/repositories/guild-mission-repository.ts",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/lib/supabase/repositories/guild-repositories.test.ts",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/lib/supabase/repositories/guild-repository.ts",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/lib/supabase/repositories/inventory-repository.ts",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/lib/supabase/repositories/profile-repository.ts",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/lib/supabase/repositories/repositories.test.ts",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/lib/supabase/repositories/stats-repository.ts",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/lib/supabase/repositories/traveler-repository.ts",
+      "unchanged": true
+    },
+    {
+      "path": "apps/web/lib/supabase/repositories/wallet-repository.ts",
+      "unchanged": true
+    },
+    {
+      "path": "docs/architecture/TASK-0057-SWORD-SHEATH-REPORT.md",
+      "unchanged": true
+    },
+    {
+      "path": "docs/architecture/TASK-0057-SHEATH-ASSET-MANIFEST.json",
+      "unchanged": true
+    },
+    {
+      "path": "playwright.task-0057-lab.config.mjs",
+      "unchanged": true
+    },
+    {
+      "path": "playwright.task-0057-portal.config.mjs",
+      "unchanged": true
+    }
+  ]
+}

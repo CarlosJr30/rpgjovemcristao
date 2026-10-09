@@ -13,4 +13,4 @@ REQUEST → READ GLOBAL CONTEXT → READ CURRENT STATE → IDENTIFY TASK → SEL
 Nunca carregue todos os documentos, agentes, ADRs, tarefas ou RAG automaticamente. Perfis são contratos de trabalho; não registram nem executam subagentes automaticamente. Use somente os especialistas necessários, respeitando as capacidades e permissões reais do ambiente.
 
 ## Limite da fase
-A fundação contém apenas governança, documentação e diretórios reservados. Nenhuma implementação do jogo, instalação de dependências, serviço externo ou MCP está autorizada por estes documentos. O roadmap não → autorização para executar funcionalidades.
+A fundação contém governança, documentação e diretórios reservados. Implementações de jogo só ficam autorizadas quando um contrato ativo registra o escopo runtime específico e o usuário o autoriza explicitamente. TASK-0031 autoriza exclusivamente Avatar e overlays de equipamentos conforme seu contrato; fora desse escopo, nenhuma implementação, instalação de dependências, serviço externo ou MCP está autorizada por estes documentos. O roadmap não → autorização para executar funcionalidades.

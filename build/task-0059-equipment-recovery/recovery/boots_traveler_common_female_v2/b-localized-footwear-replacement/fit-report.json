@@ -1,0 +1,91 @@
+{
+  "task": "TASK-0059",
+  "id": "boots_traveler_common_female_v2",
+  "gender": "female",
+  "slot": "boots",
+  "attempt": "b-localized-footwear-replacement",
+  "status": "NEEDS_REWORK",
+  "selected": false,
+  "source": {
+    "path": "assets-source/body-fit-v2-targets/boots_traveler_common_female_v2.png",
+    "sha256": "dfc523cddaf71075163b30f3d92f80b7c6d723d013ada40d18b70de1dbd52277"
+  },
+  "avatar": {
+    "path": "apps/web/public/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+    "sha256": "f260cb9b053b35c328025f1bc7ee602cbb30e57c71ba1f2238a4b1519685f460",
+    "immutable": true
+  },
+  "output": {
+    "path": "build/task-0059-equipment-recovery/recovery/boots_traveler_common_female_v2/b-localized-footwear-replacement/boots_traveler_common_female_v2_baked.png",
+    "format": "png",
+    "width": 1024,
+    "height": 1536,
+    "channels": 4,
+    "hasAlpha": true,
+    "integrity": {
+      "status": "CRC_PASS",
+      "chunks": 40
+    },
+    "alpha128Bounds": {
+      "left": 206,
+      "top": 1117,
+      "right": 829,
+      "bottom": 1498,
+      "count": 83534
+    },
+    "alphaPositiveBoundsDiagnostic": {
+      "left": 205,
+      "top": 1022,
+      "right": 831,
+      "bottom": 1522,
+      "count": 87073
+    },
+    "transparentPixels": 1485791,
+    "sha256": "81608ac55e9f5594f8a46a754af7ece36130f56c5492ccc48a85de693ff3b51f",
+    "decode": "PASS"
+  },
+  "compositionPath": "build/task-0059-equipment-recovery/recovery/boots_traveler_common_female_v2/b-localized-footwear-replacement/combined.png",
+  "settings": {
+    "method": "Localized offline subtraction of precomposed original footwear in a derived base; same per-foot candidates, no original HD mutation",
+    "transforms": {
+      "left": {
+        "scale": 0.4,
+        "rotation": 0,
+        "translateX": 198.8,
+        "translateY": 975.4
+      },
+      "right": {
+        "scale": 0.4,
+        "rotation": 0,
+        "translateX": 428,
+        "translateY": 975.4
+      }
+    },
+    "polygons": [
+      "298,1250 385,1249 390,1295 377,1368 365,1410 386,1448 379,1495 242,1498 228,1480 235,1440 278,1392 296,1327",
+      "651,1250 730,1245 746,1299 744,1370 776,1407 812,1431 836,1462 827,1495 688,1499 650,1470 650,1426 660,1362"
+    ],
+    "base": "NONDESTRUCTIVE_DERIVED_BASE",
+    "mask": {
+      "path": "build/task-0059-equipment-recovery/recovery/boots_traveler_common_female_v2/b-localized-footwear-replacement/localized-mask.png",
+      "sha256": "526b5c56fb3736f9b19193f81a033c303d79d572c530d09776f801721d20c871"
+    }
+  },
+  "reportPath": "build/task-0059-equipment-recovery/recovery/boots_traveler_common_female_v2/b-localized-footwear-replacement/fit-report.json",
+  "ready": false,
+  "humanBodyFitApproved": false,
+  "runtimeActivated": false,
+  "coverage": {
+    "removedOriginalAlpha128Pixels": 51373,
+    "uncoveredReplacementPixels": 5124,
+    "ratio": 0.900258890857065,
+    "note": "An erased original area not covered by replacement exposes missing anatomy/background, not legitimate inpainting."
+  },
+  "review": {
+    "reviewer": "Codex — revisão técnica local, não humana",
+    "fullBodyInspected": true,
+    "zoomInspected": true,
+    "findings": "HD possui calçado pré-composto. Registro por pé ainda duplica couro/sola; subtração localizada deixa5124pixels sem cobertura (9.97% da área removida), lacunas e resíduos no tornozelo. Não reconstruir fundo apagando anatomia.",
+    "humanApproval": false
+  }
+}

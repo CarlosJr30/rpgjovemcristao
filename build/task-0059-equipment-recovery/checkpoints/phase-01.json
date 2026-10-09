@@ -1,0 +1,33 @@
+{
+  "phase": 1,
+  "status": "COMPLETE",
+  "counts": {
+    "targets": 16,
+    "FIT_PASS": 7,
+    "NEEDS_REWORK": 6,
+    "NEEDS_NEW_SHEATH_ART": 3,
+    "humanPending": 6,
+    "humanApproved": 1,
+    "READY_STAGING": 1,
+    "ACTIVE_RUNTIME_V2": 0
+  },
+  "runtimeItems": 6,
+  "actualSlots": [
+    "boots",
+    "helmet",
+    "amulet",
+    "weapon",
+    "armor",
+    "shield"
+  ],
+  "registeredRarities": {
+    "comum": 2,
+    "incomum": 1,
+    "raro": 3,
+    "épico": 0,
+    "lendário": 0
+  },
+  "protectedFiles": 10601,
+  "allArtFiles": 8852,
+  "inspection": "Source/public art inventoried, decoded current16 sources/staging; reports0051–0058 read, newest target assessments supersede historical failures. Visual contact sheets and failed-region inspection follow before rework."
+}

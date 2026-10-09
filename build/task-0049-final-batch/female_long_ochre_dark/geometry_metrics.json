@@ -1,0 +1,421 @@
+{
+  "at": "2026-10-07T21:32:41.351Z",
+  "gender": "female",
+  "tag": "current",
+  "legacyPath": "apps/web/public/assets/avatar/runtime/female/female_long_ochre_dark.png",
+  "candidatePath": "build/task-0049-final-batch/female_long_ochre_dark/attempt-1/hd_candidate.png",
+  "legacy": {
+    "width": 512,
+    "height": 768,
+    "bytes": 376704,
+    "hash": "85d27730bf6df1ed42f6481b2b0527af981b5a392388df715a12d03fbac7828e",
+    "format": "png",
+    "hasAlpha": true,
+    "alphaTotal": {
+      "left": 0,
+      "right": 486,
+      "top": 0,
+      "bottom": 752,
+      "width": 486,
+      "height": 752,
+      "centerX": 243,
+      "centerY": 376,
+      "feetBaseline": 752,
+      "hairTop": 0,
+      "maxSilhouetteWidth": 423,
+      "alphaCentroidX": 271.5055778496383,
+      "alphaCentroidY": 377.31346995493567
+    },
+    "alpha128": {
+      "left": 95,
+      "right": 481,
+      "top": 7,
+      "bottom": 748,
+      "width": 386,
+      "height": 741,
+      "centerX": 288,
+      "centerY": 377.5,
+      "feetBaseline": 748,
+      "hairTop": 7,
+      "maxSilhouetteWidth": 382,
+      "alphaCentroidX": 272.0373532513908,
+      "alphaCentroidY": 374.591430501651
+    }
+  },
+  "hd": {
+    "width": 1024,
+    "height": 1536,
+    "bytes": 2196172,
+    "hash": "24f0d3abfa9c0fd04670a98ea6e28354e8c6906232f25a1daf45df04d93b106c",
+    "format": "png",
+    "hasAlpha": true,
+    "alphaTotal": {
+      "left": 0,
+      "right": 1006,
+      "top": 4,
+      "bottom": 1504,
+      "width": 1006,
+      "height": 1500,
+      "centerX": 503,
+      "centerY": 754,
+      "feetBaseline": 1504,
+      "hairTop": 4,
+      "maxSilhouetteWidth": 933,
+      "alphaCentroidX": 543.5982199329906,
+      "alphaCentroidY": 754.6779397871185
+    },
+    "alpha128": {
+      "left": 187,
+      "right": 968,
+      "top": 14,
+      "bottom": 1496,
+      "width": 781,
+      "height": 1482,
+      "centerX": 577.5,
+      "centerY": 755,
+      "feetBaseline": 1496,
+      "hairTop": 14,
+      "maxSilhouetteWidth": 770,
+      "alphaCentroidX": 545.1260110985304,
+      "alphaCentroidY": 750.9941052849579
+    }
+  },
+  "tables": {
+    "alphaTotal": [
+      {
+        "metric": "left",
+        "legacy": 0,
+        "expectedHD": 0,
+        "currentHD": 0,
+        "delta": 0,
+        "toleranceHD": 6,
+        "result": "PASS"
+      },
+      {
+        "metric": "right",
+        "legacy": 486,
+        "expectedHD": 972,
+        "currentHD": 1006,
+        "delta": 34,
+        "toleranceHD": 6,
+        "result": "FAIL"
+      },
+      {
+        "metric": "top",
+        "legacy": 0,
+        "expectedHD": 0,
+        "currentHD": 4,
+        "delta": 4,
+        "toleranceHD": 6,
+        "result": "PASS"
+      },
+      {
+        "metric": "bottom",
+        "legacy": 752,
+        "expectedHD": 1504,
+        "currentHD": 1504,
+        "delta": 0,
+        "toleranceHD": 4,
+        "result": "PASS"
+      },
+      {
+        "metric": "width",
+        "legacy": 486,
+        "expectedHD": 972,
+        "currentHD": 1006,
+        "delta": 34,
+        "toleranceHD": 12,
+        "result": "FAIL"
+      },
+      {
+        "metric": "height",
+        "legacy": 752,
+        "expectedHD": 1504,
+        "currentHD": 1500,
+        "delta": -4,
+        "toleranceHD": 10,
+        "result": "PASS"
+      },
+      {
+        "metric": "centerX",
+        "legacy": 243,
+        "expectedHD": 486,
+        "currentHD": 503,
+        "delta": 17,
+        "toleranceHD": 4,
+        "result": "FAIL"
+      },
+      {
+        "metric": "centerY",
+        "legacy": 376,
+        "expectedHD": 752,
+        "currentHD": 754,
+        "delta": 2,
+        "toleranceHD": 4,
+        "result": "PASS"
+      },
+      {
+        "metric": "feetBaseline",
+        "legacy": 752,
+        "expectedHD": 1504,
+        "currentHD": 1504,
+        "delta": 0,
+        "toleranceHD": 4,
+        "result": "PASS"
+      },
+      {
+        "metric": "hairTop",
+        "legacy": 0,
+        "expectedHD": 0,
+        "currentHD": 4,
+        "delta": 4,
+        "toleranceHD": 6,
+        "result": "PASS"
+      },
+      {
+        "metric": "maxSilhouetteWidth",
+        "legacy": 423,
+        "expectedHD": 846,
+        "currentHD": 933,
+        "delta": 87,
+        "toleranceHD": 12,
+        "result": "FAIL"
+      },
+      {
+        "metric": "alphaCentroidX",
+        "legacy": 271.5055778496383,
+        "expectedHD": 543.0111556992766,
+        "currentHD": 543.5982199329906,
+        "delta": 0.5870642337139316,
+        "toleranceHD": 4,
+        "result": "PASS"
+      },
+      {
+        "metric": "alphaCentroidY",
+        "legacy": 377.31346995493567,
+        "expectedHD": 754.6269399098713,
+        "currentHD": 754.6779397871185,
+        "delta": 0.05099987724713628,
+        "toleranceHD": 4,
+        "result": "PASS"
+      }
+    ],
+    "alpha128": [
+      {
+        "metric": "left",
+        "legacy": 95,
+        "expectedHD": 190,
+        "currentHD": 187,
+        "delta": -3,
+        "toleranceHD": 6,
+        "result": "PASS"
+      },
+      {
+        "metric": "right",
+        "legacy": 481,
+        "expectedHD": 962,
+        "currentHD": 968,
+        "delta": 6,
+        "toleranceHD": 6,
+        "result": "PASS"
+      },
+      {
+        "metric": "top",
+        "legacy": 7,
+        "expectedHD": 14,
+        "currentHD": 14,
+        "delta": 0,
+        "toleranceHD": 6,
+        "result": "PASS"
+      },
+      {
+        "metric": "bottom",
+        "legacy": 748,
+        "expectedHD": 1496,
+        "currentHD": 1496,
+        "delta": 0,
+        "toleranceHD": 4,
+        "result": "PASS"
+      },
+      {
+        "metric": "width",
+        "legacy": 386,
+        "expectedHD": 772,
+        "currentHD": 781,
+        "delta": 9,
+        "toleranceHD": 12,
+        "result": "PASS"
+      },
+      {
+        "metric": "height",
+        "legacy": 741,
+        "expectedHD": 1482,
+        "currentHD": 1482,
+        "delta": 0,
+        "toleranceHD": 10,
+        "result": "PASS"
+      },
+      {
+        "metric": "centerX",
+        "legacy": 288,
+        "expectedHD": 576,
+        "currentHD": 577.5,
+        "delta": 1.5,
+        "toleranceHD": 4,
+        "result": "PASS"
+      },
+      {
+        "metric": "centerY",
+        "legacy": 377.5,
+        "expectedHD": 755,
+        "currentHD": 755,
+        "delta": 0,
+        "toleranceHD": 4,
+        "result": "PASS"
+      },
+      {
+        "metric": "feetBaseline",
+        "legacy": 748,
+        "expectedHD": 1496,
+        "currentHD": 1496,
+        "delta": 0,
+        "toleranceHD": 4,
+        "result": "PASS"
+      },
+      {
+        "metric": "hairTop",
+        "legacy": 7,
+        "expectedHD": 14,
+        "currentHD": 14,
+        "delta": 0,
+        "toleranceHD": 6,
+        "result": "PASS"
+      },
+      {
+        "metric": "maxSilhouetteWidth",
+        "legacy": 382,
+        "expectedHD": 764,
+        "currentHD": 770,
+        "delta": 6,
+        "toleranceHD": 12,
+        "result": "PASS"
+      },
+      {
+        "metric": "alphaCentroidX",
+        "legacy": 272.0373532513908,
+        "expectedHD": 544.0747065027816,
+        "currentHD": 545.1260110985304,
+        "delta": 1.0513045957487748,
+        "toleranceHD": 4,
+        "result": "PASS"
+      },
+      {
+        "metric": "alphaCentroidY",
+        "legacy": 374.591430501651,
+        "expectedHD": 749.182861003302,
+        "currentHD": 750.9941052849579,
+        "delta": 1.8112442816558314,
+        "toleranceHD": 4,
+        "result": "PASS"
+      }
+    ]
+  },
+  "dimensionsValid": true,
+  "alphaValid": true,
+  "silhouette": {
+    "iou": 0.9761860097243418,
+    "xorPixels": 14091,
+    "unionPixels": 591711,
+    "note": "Diagnostic only. No IoU threshold replaces visual review of anatomy/pose."
+  },
+  "geometryThreshold": 128,
+  "rawAlphaRole": "DIAGNOSTIC_ONLY; user confirmed 2026-10-06",
+  "automaticMetricsPass": true,
+  "visualReview": "PENDING",
+  "humanReview": "HUMAN_VISUAL_APPROVED",
+  "approved": true,
+  "assetValidator": {
+    "signature": true,
+    "format": "png",
+    "width": 1024,
+    "height": 1536,
+    "hasAlpha": true,
+    "transparentPixels": 945191,
+    "visibleAlpha128Pixels": 589087,
+    "maxAlpha": 254,
+    "bytes": 2196172,
+    "sha256": "24f0d3abfa9c0fd04670a98ea6e28354e8c6906232f25a1daf45df04d93b106c",
+    "sourcePath": "C:/Users/carlo/.codex/generated_images/01a10ddf-bdf6-7473-a73f-35a04d0aeb34/exec-53817762-88dd-458d-bb13-385dccdfd570.png",
+    "byteExactSource": true,
+    "result": "PASS"
+  },
+  "geometryLock": "GEOMETRY_PASS",
+  "precheck": {
+    "at": "2026-10-07T22:00:46.470Z",
+    "reviewer": "Primary agent; machine-assisted qualitative comparison with own source",
+    "humanApproval": false,
+    "bodyGender": "Corresponding female source/candidate",
+    "face": "Facial structure qualitatively corresponds; exact identity pending Carlos",
+    "hairstyle": "Corresponding long hairstyle and strand layout",
+    "fullBody": "Head, both hands, legs and boots visible",
+    "evidentArtifacts": "No obvious extra/missing limbs or opaque background in inspected QA images",
+    "transparency": "PASS: real alpha measured and QA light-background preview inspected",
+    "tonalCoherence": "Corresponding warm skin family, brown hair and blue/green/muted olive-brown cloak family",
+    "colorReview": "Local tone and highlight intensity differences are visible, particularly dark variants; exact skin/hair/lighting relationship requires Carlos review",
+    "evidence": "build/task-0049-final-batch/review/precheck-contact-[1-3]-QA-ONLY.png",
+    "limits": "Qualitative inspection by author, no dedicated classifier or independent QA reviewer. Not HUMAN_VISUAL_APPROVED."
+  },
+  "patternEvidence": null,
+  "reviewStatus": "HUMAN_VISUAL_APPROVED",
+  "reviewedBy": "Carlos Faustino",
+  "reviewedAt": "2026-10-07T23:07:36.485Z",
+  "approvedCriteria": [
+    "visual identity",
+    "face",
+    "hairstyle",
+    "pose",
+    "silhouette",
+    "proportions",
+    "feet baseline",
+    "framing",
+    "tone/lighting",
+    "overall appearance compared with legacy"
+  ],
+  "humanApproval": {
+    "task": "TASK-0049G",
+    "batch": "FINAL_PARTIAL",
+    "id": "female_long_ochre_dark",
+    "attempt": 1,
+    "candidatePath": "build/task-0049-final-batch/female_long_ochre_dark/hd_candidate.png",
+    "sha256": "24f0d3abfa9c0fd04670a98ea6e28354e8c6906232f25a1daf45df04d93b106c",
+    "geometryStatus": "GEOMETRY_PASS",
+    "geometryMetricsPassed": 13,
+    "width": 1024,
+    "height": 1536,
+    "hasAlpha": true,
+    "reviewedBy": "Carlos Faustino",
+    "reviewedAt": "2026-10-07T23:07:36.485Z",
+    "timestampMeaning": "Actual execution time when explicit user approval was recorded",
+    "reviewSource": "Explicit approval of all 14 valid Final Batch candidates currently in VISUAL_REVIEW_PENDING in this conversation",
+    "reviewStatus": "HUMAN_VISUAL_APPROVED",
+    "approvedCriteria": [
+      "visual identity",
+      "face",
+      "hairstyle",
+      "pose",
+      "silhouette",
+      "proportions",
+      "feet baseline",
+      "framing",
+      "tone/lighting",
+      "overall appearance compared with legacy"
+    ],
+    "usage": "DEV_ONLY",
+    "availability": "LOCAL_DEV_REVIEW_ONLY",
+    "runtimeIntegrationApproved": false,
+    "productionActivationApproved": false,
+    "bodyFitApprovalGranted": false,
+    "remainingGenerationAuthorized": false,
+    "pushDeployRemoteAuthorized": false
+  }
+}

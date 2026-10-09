@@ -1,0 +1,161 @@
+{
+  "attempt": 4,
+  "validatedAt": "2026-10-08T06:40:41.470Z",
+  "generatorFile": "C:\\Users\\carlo\\.codex\\generated_images\\01a10ddf-bdf6-7473-a73f-35a04d0aeb34\\exec-68ed5f4f-c6c1-4311-984b-efe65f6088e1.png",
+  "target": "armor_traveler_uncommon_female_v2.png",
+  "sha256": "6b49cff1e5209bfdb01f69a116932b029c8f848065c12fe8b309ed432a073900",
+  "format": "png",
+  "width": 1024,
+  "height": 1536,
+  "alpha": {
+    "channel": true,
+    "transparentPixels": 1421631,
+    "partialPixels": 151233,
+    "opaquePixels": 0
+  },
+  "integrity": {
+    "status": "CRC_PASS",
+    "chunks": 18
+  },
+  "bboxAlpha128": {
+    "left": 303,
+    "top": 337,
+    "right": 722,
+    "bottom": 858
+  },
+  "landmarkSamples": {
+    "neck_center": {
+      "x": 520,
+      "y": 302,
+      "alpha": 0
+    },
+    "left_shoulder": {
+      "x": 379,
+      "y": 346,
+      "alpha": 251
+    },
+    "right_shoulder": {
+      "x": 657,
+      "y": 352,
+      "alpha": 253
+    },
+    "chest_center": {
+      "x": 520,
+      "y": 455,
+      "alpha": 253
+    },
+    "left_armpit": {
+      "x": 391,
+      "y": 492,
+      "alpha": 253
+    },
+    "right_armpit": {
+      "x": 646,
+      "y": 499,
+      "alpha": 252
+    },
+    "waist_center": {
+      "x": 531,
+      "y": 579,
+      "alpha": 253
+    },
+    "left_hip": {
+      "x": 421,
+      "y": 705,
+      "alpha": 253
+    },
+    "right_hip": {
+      "x": 646,
+      "y": 711,
+      "alpha": 253
+    },
+    "left_hand_clearance": {
+      "x": 240,
+      "y": 799,
+      "alpha": 0
+    },
+    "right_hand_clearance": {
+      "x": 783,
+      "y": 810,
+      "alpha": 0
+    }
+  },
+  "status": "TECHNICALLY_VALIDATED",
+  "fitStatus": "FIT_FAIL",
+  "policy": {
+    "postprocessing": "NONE; byte copy only",
+    "humanBodyFitApproved": false,
+    "ready": false,
+    "devOnly": true
+  },
+  "finalStatus": "NEEDS_REWORK",
+  "mapping": {
+    "status": "MAPPED",
+    "target": {
+      "filename": "armor_traveler_uncommon_female_v2.png",
+      "itemId": "traveler-armor-uncommon",
+      "slot": "armor",
+      "gender": "female",
+      "equipable": true,
+      "status": "NEEDS_NEW_OVERLAY",
+      "priority": "P0",
+      "referenceAvatar": {
+        "id": "female_short_moss_medium",
+        "source": "/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+        "sha256": "f260cb9b053b35c328025f1bc7ee602cbb30e57c71ba1f2238a4b1519685f460",
+        "alphaThreshold": 128,
+        "bounds": {
+          "left": 187,
+          "top": 2,
+          "right": 964,
+          "bottom": 1495
+        },
+        "footBaseline": 1495,
+        "alphaPositiveBoundsDiagnostic": {
+          "left": 0,
+          "top": 0,
+          "right": 1001,
+          "bottom": 1504
+        }
+      },
+      "expectedLandmarks": [
+        "shoulders",
+        "chest",
+        "waist",
+        "hips",
+        "face/hands/legs exclusion"
+      ],
+      "reason": "No dedicated V2 body asset or human approval; V1 body fitting rejected.",
+      "resolution": {
+        "width": 1024,
+        "height": 1536
+      },
+      "format": "PNG",
+      "alpha": "REAL_TRANSPARENCY_REQUIRED",
+      "landmarkStatus": "ASSET_MISSING_NOT_MEASURED",
+      "validation": {
+        "correction": "NONE: inset 0; no offsets/crop/warp",
+        "geometry": "HD alpha ≥128 contour; alpha >0 diagnostic",
+        "requiredReview": "Same gender; all short/long/curly, outfits and skin variants before general compatibility",
+        "gripHairlineShouldersAnkles": "Measure on approved HD; historical anchors are guides, not validated HD anatomy"
+      }
+    }
+  },
+  "clearanceDiagnostics": {
+    "neck_center": {
+      "radius": 35,
+      "pixels": 3853,
+      "coveredAlpha128": 0
+    },
+    "left_hand_clearance": {
+      "radius": 45,
+      "pixels": 6361,
+      "coveredAlpha128": 0
+    },
+    "right_hand_clearance": {
+      "radius": 45,
+      "pixels": 6361,
+      "coveredAlpha128": 0
+    }
+  }
+}

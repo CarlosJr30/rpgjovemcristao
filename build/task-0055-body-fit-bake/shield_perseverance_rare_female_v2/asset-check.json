@@ -1,0 +1,21 @@
+{
+  "id": "shield_perseverance_rare_female_v2",
+  "status": "PASS",
+  "technical": "TECHNICALLY_VALIDATED",
+  "mapping": "MAPPED",
+  "fitStatus": "FIT_PASS",
+  "sha256": "1d0392230985f18b22ff043083af121fb9f276d526a3e8ecf4b9c93135dabe02",
+  "clippedAlpha128SourcePixels": 0,
+  "alpha128Bounds": {
+    "left": 642,
+    "top": 498,
+    "right": 927,
+    "bottom": 980,
+    "count": 82260
+  },
+  "footBaselineDelta": null,
+  "maxLandmarkResidual": 0.6304673533442489,
+  "humanBodyFitApproved": false,
+  "ready": false,
+  "runtimeActivated": false
+}

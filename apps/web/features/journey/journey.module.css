@@ -749,7 +749,7 @@
   width: 170px;
   height: 255px;
   object-fit: contain;
-  image-rendering: pixelated;
+  image-rendering: auto;
   filter: drop-shadow(0 8px 0 #23362908);
   z-index: 1;
   flex-shrink: 0;
@@ -758,7 +758,7 @@
   width: 33px;
   height: 44px;
   object-fit: contain;
-  image-rendering: pixelated;
+  image-rendering: auto;
   flex-shrink: 0;
 }
 .avatarHalo {
@@ -1578,7 +1578,7 @@
 .gardenBanner {
   background:
     linear-gradient(180deg, #173a2b22, #173a2bcc),
-    url('/assets/world/garden/garden_background_day.png') center / cover;
+    url('/assets/world/garden/garden_background_day_1600.webp') center / cover;
 }
 .gardenExploration {
   margin: -40px -25px;
@@ -1611,7 +1611,7 @@
   isolation: isolate;
   background:
     linear-gradient(180deg, rgba(10, 34, 24, 0.04), rgba(12, 31, 21, 0.5)),
-    url('/assets/world/garden/garden_background_day.png') center / cover;
+    url('/assets/world/garden/garden_background_day_1600.webp') center / cover;
   box-shadow: inset 0 0 80px rgba(8, 27, 18, 0.32);
 }
 .gardenScene::after {
@@ -2071,7 +2071,9 @@
   border-radius: 999px;
   color: #fff4c9;
   background: rgba(8, 28, 27, 0.78);
-  font: 700 0.72rem/1 system-ui, sans-serif;
+  font:
+    700 0.72rem/1 system-ui,
+    sans-serif;
   cursor: pointer;
   backdrop-filter: blur(8px);
 }
@@ -2264,6 +2266,50 @@
   user-select: none;
   -webkit-tap-highlight-color: transparent;
 }
+.arcadeTouchPad button[aria-pressed='true'] {
+  color: #17342f;
+  background: #ffe4a0;
+  box-shadow: inset 0 3px 4px #59482344;
+}
+.arcadeTouchPad button:disabled {
+  opacity: 0.55;
+}
+.arcadeTouchPad {
+  touch-action: none;
+  user-select: none;
+}
+.arcadeGameActive {
+  user-select: none;
+}
+.arcadeGameActive .arcadeCanvas {
+  touch-action: none;
+}
+.arcadeOverlay {
+  overflow-y: auto;
+  touch-action: pan-y;
+}
+.arcadeGame:fullscreen {
+  width: 100%;
+  height: 100dvh;
+  display: grid;
+  grid-template-rows: auto auto auto minmax(0, 1fr) auto;
+  margin: 0;
+  padding: max(8px, env(safe-area-inset-top))
+    max(8px, env(safe-area-inset-right)) max(8px, env(safe-area-inset-bottom))
+    max(8px, env(safe-area-inset-left));
+}
+.arcadeGame:fullscreen .arcadeTitle,
+.arcadeGame:fullscreen .arcadeHelp {
+  display: none;
+}
+.arcadeGame:fullscreen .arcadeGameActions {
+  position: static;
+  justify-self: end;
+}
+.arcadeGame:fullscreen .arcadeStage {
+  height: 100%;
+  min-height: 0;
+}
 .arcadeHelp {
   margin: 0.65rem 0 0;
   color: #aebda5;
@@ -2274,7 +2320,8 @@
   .arcadeGame {
     width: calc(100vw - 4px);
     margin-inline: calc(50% - 50vw + 2px);
-    padding: 0.5rem max(0.35rem, env(safe-area-inset-right)) 0.7rem max(0.35rem, env(safe-area-inset-left));
+    padding: 0.5rem max(0.35rem, env(safe-area-inset-right)) 0.7rem
+      max(0.35rem, env(safe-area-inset-left));
   }
   .arcadeTitle {
     margin-bottom: 0.55rem;
@@ -2358,11 +2405,12 @@
     margin-inline: calc(50% - 50vw + 12px);
   }
   .arcadeStage {
-    height: min(58dvh, 600px);
-    aspect-ratio: auto;
+    height: auto;
+    min-height: 0;
+    aspect-ratio: 12 / 7;
   }
 }
-@media (max-width: 900px) and (orientation: landscape) {
+@media (max-width: 1024px) and (orientation: landscape) {
   .arcadeGame {
     width: 100%;
     margin-inline: 0;
@@ -2392,14 +2440,19 @@
   }
 }
 @keyframes arcadeOverlayIn {
-  from { opacity: 0; transform: scale(0.985); }
-  to { opacity: 1; transform: scale(1); }
+  from {
+    opacity: 0;
+    transform: scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
-@media (max-width: 700px) {
+@media (max-width: 1024px) and (orientation: portrait) {
   :global(body[data-snake-game-active='true']) {
     overflow: hidden;
     overscroll-behavior: none;
-    touch-action: none;
   }
   :global(body[data-snake-game-active='true']) .header,
   :global(body[data-snake-game-active='true']) .footer,
@@ -2418,8 +2471,7 @@
     width: 100vw;
     height: 100dvh;
     margin: 0;
-    padding:
-      max(0.35rem, env(safe-area-inset-top))
+    padding: max(0.35rem, env(safe-area-inset-top))
       max(0.35rem, env(safe-area-inset-right))
       max(0.4rem, env(safe-area-inset-bottom))
       max(0.35rem, env(safe-area-inset-left));
@@ -2447,7 +2499,7 @@
     margin-right: 0;
     border-radius: 12px;
     background: rgba(5, 25, 24, 0.78);
-    backdrop-filter: blur(8px);
+    backdrop-filter: none;
   }
   .arcadeGameActive .arcadeMessage {
     margin: 0.3rem 0;
@@ -2456,6 +2508,8 @@
     width: 100%;
     height: auto;
     min-height: 0;
+    align-self: center;
+    aspect-ratio: 12 / 7;
     border-radius: 12px;
   }
   .arcadeGameActive .arcadeCanvas {
@@ -2475,11 +2529,10 @@
     box-shadow: 0 4px 12px rgba(3, 18, 17, 0.35);
   }
 }
-@media (max-width: 900px) and (orientation: landscape) {
+@media (max-width: 1024px) and (orientation: landscape) {
   :global(body[data-snake-game-active='true']) {
     overflow: hidden;
     overscroll-behavior: none;
-    touch-action: none;
   }
   :global(body[data-snake-game-active='true']) .header,
   :global(body[data-snake-game-active='true']) .footer,
@@ -2493,13 +2546,13 @@
     position: fixed;
     inset: 0;
     z-index: 1000;
-    grid-template-columns: minmax(0, 1fr);
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
     grid-template-rows: auto auto minmax(0, 1fr);
     width: 100vw;
     height: 100dvh;
     margin: 0;
-    padding:
-      max(0.3rem, env(safe-area-inset-top))
+    padding: max(0.3rem, env(safe-area-inset-top))
       max(0.35rem, env(safe-area-inset-right))
       max(0.3rem, env(safe-area-inset-bottom))
       max(0.35rem, env(safe-area-inset-left));
@@ -2509,60 +2562,359 @@
     box-shadow: none;
   }
   .arcadeGameActive .arcadeTitle,
-  .arcadeGameActive .arcadeHelp { display: none; }
+  .arcadeGameActive .arcadeHelp {
+    display: none;
+  }
   .arcadeGameActive .arcadeGameActions {
     position: absolute;
     top: max(0.3rem, env(safe-area-inset-top));
     right: max(0.35rem, env(safe-area-inset-right));
     margin: 0;
   }
-  .arcadeGameActive .arcadeHud { margin-right: 7rem; }
+  .arcadeGameActive .arcadeHud {
+    margin-right: 7rem;
+  }
   .arcadeGameActive .arcadeHud,
   .arcadeGameActive .arcadeMessage {
-    grid-column: 1;
+    grid-column: 1 / -1;
   }
-  .arcadeGameActive .arcadeHud { grid-row: 1; }
+  .arcadeGameActive .arcadeHud {
+    grid-row: 1;
+  }
   .arcadeGameActive .arcadeMessage {
     grid-row: 2;
     min-height: 2.6em;
     margin: 0.2rem 0;
   }
   .arcadeGameActive .arcadeStage {
-    grid-column: 1;
+    grid-column: 2;
     grid-row: 3;
     width: 100%;
     height: 100%;
     max-height: 100%;
     min-height: 0;
+    align-self: center;
   }
   .arcadeGameActive .arcadeTouchPad {
-    position: absolute;
-    bottom: max(0.65rem, env(safe-area-inset-bottom));
-    left: max(0.65rem, env(safe-area-inset-left));
-    z-index: 3;
+    position: static;
+    grid-column: 1;
+    grid-row: 3;
+    align-self: center;
     grid-template-columns: repeat(3, 52px);
     grid-template-areas: '. up .' 'left down right';
-    margin: 0;
+    margin: 0 0.55rem 0 0;
     padding: 0.35rem;
     border: 1px solid rgba(216, 183, 102, 0.2);
     border-radius: 16px;
     background: rgba(8, 28, 27, 0.38);
-    backdrop-filter: blur(4px);
+    backdrop-filter: none;
   }
   .arcadeGameActive .arcadeTouchPad button {
     min-width: 52px;
     min-height: 52px;
   }
-  .arcadeGameActive .arcadeTouchPad button:nth-child(1) { grid-area: up; }
-  .arcadeGameActive .arcadeTouchPad button:nth-child(2) { grid-area: left; }
-  .arcadeGameActive .arcadeTouchPad button:nth-child(3) { grid-area: down; }
-  .arcadeGameActive .arcadeTouchPad button:nth-child(4) { grid-area: right; }
+  .arcadeGameActive .arcadeTouchPad button:nth-child(1) {
+    grid-area: up;
+  }
+  .arcadeGameActive .arcadeTouchPad button:nth-child(2) {
+    grid-area: left;
+  }
+  .arcadeGameActive .arcadeTouchPad button:nth-child(3) {
+    grid-area: down;
+  }
+  .arcadeGameActive .arcadeTouchPad button:nth-child(4) {
+    grid-area: right;
+  }
 }
 @media (prefers-reduced-motion: reduce) {
   .arcadeGame {
     transition: none;
   }
-  .arcadeOverlay { animation: none; }
+  .arcadeOverlay {
+    animation: none;
+  }
+}
+
+.backpackTabs {
+  display: flex;
+  gap: 0.55rem;
+  margin: 1.25rem 0;
+  overflow-x: auto;
+}
+.backpackTabs button {
+  border: 1px solid rgba(151, 180, 139, 0.45);
+  border-radius: 999px;
+  background: rgba(18, 47, 36, 0.78);
+  color: #f6f0d5;
+  padding: 0.7rem 1rem;
+  white-space: nowrap;
+}
+.backpackTabs button[aria-selected='true'] {
+  border-color: #e2bd62;
+  background: #e2bd62;
+  color: #173526;
+  font-weight: 800;
+}
+.chestPanel {
+  display: grid;
+  gap: 2rem;
+}
+.chestPanel section > h2 {
+  margin-top: 0.15rem;
+}
+.chestGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 1rem;
+}
+.chestCard {
+  position: relative;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: 0.75rem;
+  min-width: 0;
+  padding: 1.1rem;
+  border: 1px solid rgba(226, 189, 98, 0.34);
+  border-radius: 18px;
+  background: linear-gradient(
+    155deg,
+    rgba(31, 64, 48, 0.98),
+    rgba(15, 39, 30, 0.98)
+  );
+  box-shadow: 0 14px 32px rgba(7, 22, 15, 0.2);
+}
+.chestCard[data-tier='rare'],
+.chestCard[data-tier='epic'],
+.chestCard[data-tier='extraordinary'] {
+  border-color: rgba(226, 189, 98, 0.72);
+  box-shadow: 0 14px 38px rgba(226, 189, 98, 0.12);
+}
+.chestCard img {
+  width: 112px;
+  height: 112px;
+  object-fit: contain;
+  justify-self: center;
+  filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.35));
+}
+.chestCard h3,
+.chestCard p {
+  margin: 0.25rem 0;
+}
+.chestCard small,
+.chestCard span {
+  color: #c7d5c8;
+}
+.chestCard button,
+.chestReveal button {
+  min-height: 44px;
+  border: 0;
+  border-radius: 10px;
+  background: #e2bd62;
+  color: #173526;
+  font-weight: 800;
+}
+.chestCard button:disabled {
+  opacity: 0.62;
+}
+.chestLocked {
+  align-self: end;
+  color: #e2bd62;
+}
+.chestEmpty {
+  display: grid;
+  gap: 0.35rem;
+  padding: 1.25rem;
+  border: 1px dashed rgba(151, 180, 139, 0.5);
+  border-radius: 14px;
+  color: #d8e1d8;
+}
+.chestRevealBackdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  background: rgba(4, 13, 9, 0.82);
+  backdrop-filter: blur(8px);
+}
+.chestReveal {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 0.75rem;
+  width: min(560px, 100%);
+  max-height: calc(100dvh - 2rem);
+  overflow-y: auto;
+  padding: 1.5rem;
+  border: 1px solid #e2bd62;
+  border-radius: 22px;
+  background:
+    radial-gradient(
+      circle at 50% 25%,
+      rgba(226, 189, 98, 0.32),
+      transparent 42%
+    ),
+    #173526;
+  box-shadow: 0 0 60px rgba(226, 189, 98, 0.28);
+  text-align: center;
+  animation: chestReveal 520ms ease-out both;
+}
+.chestRevealChest {
+  animation: chestGlow 900ms ease-in-out infinite alternate;
+}
+.chestRewardList {
+  display: grid;
+  gap: 0.75rem;
+  width: 100%;
+}
+.chestCoinReward,
+.chestEquipmentReward {
+  display: grid;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.85rem;
+  border: 1px solid rgba(226, 189, 98, 0.36);
+  border-radius: 16px;
+  background: rgba(8, 28, 20, 0.68);
+  animation: chestRewardEnter 420ms 260ms ease-out both;
+}
+.chestCoinReward {
+  grid-template-columns: 72px 1fr;
+}
+.chestCoinReward img,
+.chestEquipmentReward img {
+  object-fit: contain;
+  filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.34));
+}
+.chestEquipmentReward {
+  grid-template-columns: minmax(120px, 168px) 1fr;
+  text-align: left;
+}
+.chestEquipmentReward[data-rarity='comum'] {
+  border-color: #c8d1c8;
+}
+.chestEquipmentReward[data-rarity='incomum'] {
+  border-color: #75d792;
+  box-shadow: inset 0 0 24px rgba(71, 191, 106, 0.1);
+}
+.chestEquipmentReward[data-rarity='raro'] {
+  border-color: #71aef5;
+  box-shadow: inset 0 0 28px rgba(69, 139, 228, 0.14);
+}
+.chestEquipmentReward[data-rarity='épico'] {
+  border-color: #c28bff;
+  box-shadow: inset 0 0 30px rgba(151, 82, 222, 0.14);
+}
+.chestEquipmentReward[data-rarity='lendário'] {
+  border-color: #f0c65b;
+  box-shadow: inset 0 0 34px rgba(240, 198, 91, 0.17);
+}
+.chestEquipmentReward h3 {
+  margin: 0 0 0.35rem;
+  font-size: clamp(1.25rem, 5vw, 1.75rem);
+}
+.chestEquipmentReward div {
+  display: grid;
+  gap: 0.3rem;
+}
+.chestEquipmentReward strong {
+  font-size: 1.35rem;
+  color: #f7d87d;
+}
+.chestEquipmentReward span {
+  color: #d8e1d8;
+}
+.chestRewardRarity {
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #f6f0d5;
+}
+.chestRevealActions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.65rem;
+  width: 100%;
+}
+.chestRevealActions > button:only-child {
+  grid-column: 1 / -1;
+}
+.chestSecondaryAction {
+  border: 1px solid rgba(226, 189, 98, 0.72) !important;
+  background: transparent !important;
+  color: #f6f0d5 !important;
+}
+@keyframes chestReveal {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+@keyframes chestGlow {
+  from {
+    filter: drop-shadow(0 0 8px rgba(226, 189, 98, 0.35));
+    transform: scale(0.98);
+  }
+  to {
+    filter: drop-shadow(0 0 28px rgba(255, 220, 119, 0.9));
+    transform: scale(1.04);
+  }
+}
+@keyframes chestRewardEnter {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+@media (max-width: 520px) {
+  .chestGrid {
+    grid-template-columns: 1fr;
+  }
+  .chestCard {
+    grid-template-columns: 86px 1fr;
+    grid-template-rows: 1fr auto;
+  }
+  .chestCard img {
+    width: 82px;
+    height: 82px;
+  }
+  .chestCard button,
+  .chestLocked {
+    grid-column: 1 / -1;
+  }
+  .chestReveal {
+    padding: 1rem;
+  }
+  .chestRevealChest {
+    width: 112px;
+    height: 112px;
+  }
+  .chestEquipmentReward {
+    grid-template-columns: 104px 1fr;
+  }
+  .chestEquipmentReward img {
+    width: 104px;
+    height: 104px;
+  }
+  .chestRevealActions {
+    grid-template-columns: 1fr;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .chestReveal,
+  .chestRevealChest,
+  .chestCoinReward,
+  .chestEquipmentReward {
+    animation: none;
+  }
 }
 .guildCard,
 .leaderPanel {
@@ -2933,6 +3285,517 @@
   }
   .slotGrid {
     grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.guildAdmin {
+  max-width: 1180px;
+  margin-inline: auto;
+}
+.guildAdminHeader {
+  padding: clamp(1.3rem, 3vw, 2.5rem) 0 1.25rem;
+  border-bottom: 1px solid #cfc9ad;
+}
+.guildAdminHeader h1 {
+  margin: 0.25rem 0;
+  color: #173d32;
+  font-family: Georgia, serif;
+  font-size: clamp(2rem, 4vw, 3.25rem);
+  line-height: 1.1;
+}
+.guildAdminHeader > p:not(.eyebrow) {
+  max-width: 60ch;
+  color: #52665b;
+}
+.guildAdminHeader > a {
+  color: #235747;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+.guildAdmin .guildAdminMetrics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 1.15rem;
+  margin: 1.2rem 0;
+  padding: 0.65rem 0;
+  border-block: 1px solid #d9d4bf;
+}
+.guildAdmin .guildAdminMetrics span {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: baseline;
+  gap: 0.25rem;
+  color: #3b5347;
+  font-size: 0.9rem;
+}
+.guildAdmin .guildAdminMetrics b {
+  color: #173d32;
+  font:
+    700 1.15rem Georgia,
+    serif;
+}
+.guildAdminSection {
+  padding: 1.4rem 0;
+  border-bottom: 1px solid #d9d4bf;
+}
+.guildAdminSection h2 {
+  margin: 0 0 0.85rem;
+  color: #173d32;
+  font:
+    700 clamp(1.2rem, 2.5vw, 1.6rem) Georgia,
+    serif;
+}
+.guildAdminSection h2 small {
+  margin-left: 0.5rem;
+  color: #617166;
+  font: 500 0.85rem sans-serif;
+}
+.guildAdminList {
+  display: grid;
+  gap: 0.2rem;
+}
+.guildAdminList button {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  min-height: 48px;
+  padding: 0.55rem 0.7rem;
+  border: 0;
+  border-radius: 0.5rem;
+  background: transparent;
+  color: #183b30;
+  text-align: left;
+}
+.guildAdminList button:hover {
+  background: #e9eddf;
+}
+.guildAdminList button b,
+.guildAdminTextAction {
+  color: #28634c;
+  font-weight: 700;
+}
+.guildAdminQuickActions {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.6rem;
+}
+.guildAdminQuickActions button {
+  min-height: 48px;
+  border: 1px solid #bccab7;
+  border-radius: 0.65rem;
+  background: #f4f5ea;
+  color: #1d4c3b;
+  font-weight: 700;
+}
+.guildAdminQuickActions button:first-child {
+  background: #c7a65a;
+  border-color: #b48e3e;
+  color: #173323;
+}
+.guildAdminQuickActions button:hover {
+  filter: brightness(0.96);
+}
+.guildAdminTimeline {
+  display: grid;
+  gap: 0;
+}
+.guildAdminTimeline p,
+.guildAdminTimeline article {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  margin: 0;
+  padding: 0.65rem 0;
+  border-bottom: 1px solid #e2ddca;
+}
+.guildAdminTimeline time {
+  min-width: 6.5rem;
+  color: #637568;
+  font-size: 0.84rem;
+  text-transform: capitalize;
+}
+.guildAdminTextAction {
+  min-height: 44px;
+  padding: 0.4rem 0;
+  border: 0;
+  background: transparent;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+.guildAdminMobileNav {
+  display: none;
+}
+.guildAdminSubnav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #d9d4bf;
+}
+.guildAdminSubnav button {
+  min-height: 44px;
+  padding: 0.45rem 1rem;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: #245440;
+}
+.guildAdminSubnav button[aria-pressed='true'] {
+  background: #dfe9d8;
+  font-weight: 700;
+}
+.guildAdminMeta {
+  color: #66766a;
+  font-size: 0.87rem;
+}
+.guildAdminMissionList {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 270px), 1fr));
+  gap: 1rem;
+}
+.guildAdminMissionCard {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  padding: 1rem 1.1rem;
+  border-radius: 0.8rem;
+  background: #f2f2e6;
+}
+.guildAdminMissionCard h3 {
+  margin: 0.3rem 0;
+  color: #183d31;
+  font:
+    700 1.25rem Georgia,
+    serif;
+}
+.guildAdminMissionCard p {
+  margin: 0.2rem 0;
+  color: #42594b;
+}
+.guildAdminMissionCard > div:first-child {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.guildAdminMissionCard > button {
+  align-self: flex-start;
+  min-height: 44px;
+  margin-top: auto;
+  border: 0;
+  background: transparent;
+  color: #205b42;
+  font-weight: 700;
+}
+.guildAdminChip {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  background: #dfebd9;
+  color: #24543b;
+  font-size: 0.73rem;
+  font-weight: 700;
+}
+.guildAdminDetail {
+  margin: 1rem 0;
+  padding: 1.2rem;
+  border-left: 3px solid #b79a58;
+  border-radius: 0.2rem 0.7rem 0.7rem 0.2rem;
+  background: #f4f3e7;
+}
+.guildAdminDetail p {
+  max-width: 75ch;
+  overflow-wrap: anywhere;
+}
+.guildAdminDetail h2,
+.guildAdminDetail h3 {
+  color: #173d32;
+}
+.guildAdminInbox {
+  display: grid;
+  grid-template-columns: minmax(220px, 0.8fr) minmax(0, 1.2fr);
+  gap: 1.25rem;
+  align-items: start;
+}
+.guildAdminInboxList {
+  display: grid;
+  gap: 0.3rem;
+}
+.guildAdminInboxList button {
+  display: grid;
+  gap: 0.25rem;
+  min-height: 72px;
+  padding: 0.8rem;
+  border: 0;
+  border-radius: 0.55rem;
+  background: transparent;
+  color: #244939;
+  text-align: left;
+}
+.guildAdminInboxList button[aria-pressed='true'],
+.guildAdminInboxList button:hover {
+  background: #e7ebdd;
+}
+.guildAdminInboxList button small {
+  color: #637468;
+}
+.guildAdminInboxList button strong {
+  color: #205b42;
+  font-size: 0.82rem;
+}
+.guildAdminInboxList em {
+  color: #8c6d25;
+  font-style: normal;
+  font-weight: 700;
+}
+.guildAdminApprovalDetail {
+  padding: 1.15rem;
+  border-radius: 0.7rem;
+  background: #f0f1e4;
+}
+.guildAdminApprovalDetail h3 {
+  margin: 0.2rem 0;
+  font:
+    700 1.45rem Georgia,
+    serif;
+  color: #173d32;
+}
+.guildAdminApprovalDetail label {
+  display: grid;
+  gap: 0.35rem;
+  margin-top: 1rem;
+}
+.guildAdminReward {
+  padding: 0.8rem 0;
+  border-block: 1px solid #d4d1bc;
+}
+.guildAdminRequests {
+  margin-top: 1.5rem;
+  padding-top: 1.1rem;
+  border-top: 1px solid #d9d4bf;
+}
+.guildAdminMember details {
+  position: relative;
+}
+.guildAdminMember summary {
+  display: grid;
+  place-items: center;
+  min-width: 44px;
+  min-height: 44px;
+  cursor: pointer;
+  font-size: 1.4rem;
+  list-style: none;
+}
+.guildAdminMember details button {
+  display: block;
+  min-height: 44px;
+  width: 100%;
+  margin: 0.2rem 0;
+}
+.guildAdminWizard {
+  display: grid;
+  gap: 0.85rem;
+  max-width: 720px;
+  margin: 1rem 0;
+  padding: 1.25rem;
+  border-radius: 0.8rem;
+  background: #f0f1e5;
+}
+.guildAdminWizard label {
+  display: grid;
+  gap: 0.35rem;
+  color: #244738;
+  font-weight: 600;
+}
+.guildAdminWizard input,
+.guildAdminWizard select,
+.guildAdminWizard textarea,
+.guildAdminApprovalDetail textarea {
+  width: 100%;
+  min-height: 44px;
+}
+.guildAdminWizard textarea {
+  min-height: 100px;
+}
+.guildAdminWizard progress {
+  width: 100%;
+  accent-color: #496e4d;
+}
+.guildAdminWizardActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: flex-end;
+}
+.guildAdminWizardActions button {
+  min-height: 44px;
+}
+.guildAdmin button:focus-visible,
+.guildAdmin a:focus-visible,
+.guildAdmin select:focus-visible,
+.guildAdmin input:focus-visible,
+.guildAdmin textarea:focus-visible {
+  outline: 3px solid #916e22;
+  outline-offset: 2px;
+}
+@media (max-width: 700px) {
+  .guildAdminToolbar .guildTabs {
+    display: none;
+  }
+  .guildAdminMobileNav {
+    display: grid;
+    gap: 0.25rem;
+    min-width: 0;
+  }
+  .guildAdminMobileNav select {
+    width: 100%;
+    min-height: 44px;
+  }
+  .guildAdminQuickActions {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .guildAdminInbox {
+    grid-template-columns: 1fr;
+  }
+  .guildAdminTimeline p,
+  .guildAdminTimeline article {
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  .guildAdminTimeline time {
+    min-width: 4.8rem;
+  }
+  .guildAdminMissionList {
+    grid-template-columns: 1fr;
+  }
+  .guildAdminWizard {
+    padding: 0.9rem;
+  }
+  .guildAdminWizardActions {
+    position: sticky;
+    bottom: 0;
+    padding: 0.5rem 0;
+    background: #f0f1e5;
+  }
+}
+.guildAdminMetrics,
+.guildAdminCards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(155px, 1fr));
+  gap: 0.8rem;
+  margin: 1rem 0;
+}
+.guildAdminMetrics span,
+.guildAdminCards article {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+.guildAdminMetrics b,
+.guildAdminCards b {
+  color: #c6a756;
+  font-size: 1.7rem;
+  font-family: Georgia, serif;
+}
+.guildAdminToolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+.guildAdminToolbar .guildTabs {
+  flex: 1;
+  min-width: 0;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+.guildAdminToolbar > button {
+  flex: none;
+}
+.guildAdminFilters {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 0.75rem;
+  margin: 1rem 0;
+}
+.guildAdminFilters label,
+.guildAdminApprovalGroup label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+.guildAdminFilters input,
+.guildAdminFilters select,
+.guildAdminApprovalGroup textarea {
+  width: 100%;
+  min-width: 0;
+}
+.guildAdminActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+.guildAdminApprovalGroup {
+  border-top: 1px solid #d8d2bd;
+  padding: 1rem 0;
+}
+.guildAdminApprovalGroup .guildRequestCard {
+  margin: 0.75rem 0;
+}
+.guildAdminMember {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+.guildAdminMember > div {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+.guildAdminAvatar {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  color: #e9d28d;
+  background: #173d32;
+  font-family: Georgia, serif;
+}
+.guildAdminHistory {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #d8d2bd;
+}
+@media (max-width: 700px) {
+  .guildAdminToolbar {
+    align-items: stretch;
+    flex-direction: column-reverse;
+  }
+  .guildAdminToolbar > button {
+    min-height: 44px;
+  }
+  .guildAdminActions button {
+    min-height: 44px;
+  }
+  .guildAdminMember {
+    flex-wrap: wrap;
+  }
+  .guildAdminMember > button {
+    width: 100%;
+    min-height: 44px;
+  }
+  .guildAdminHistory {
+    flex-direction: column;
+    gap: 0.25rem;
   }
 }
 .arcadeTile {
@@ -4189,13 +5052,61 @@
   z-index: 60;
   object-fit: contain;
   pointer-events: none;
-  transition:
-    transform 0.62s ease-in-out,
-    opacity 0.62s ease-in-out;
+  image-rendering: auto;
+  transform-origin: center;
+  animation: equipIconFly var(--flight-duration, 560ms)
+    cubic-bezier(0.2, 0.7, 0.3, 1) both;
+}
+@keyframes equipIconFly {
+  0% {
+    transform: translate(0, 0) scale(1);
+    opacity: 1;
+  }
+  40% {
+    transform: translate(var(--flight-mid-dx), var(--flight-mid-dy)) scale(1.06);
+    opacity: 1;
+  }
+  78.571% {
+    transform: translate(var(--flight-dx), var(--flight-dy)) scale(0.55);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--flight-dx), var(--flight-dy)) scale(0.38);
+    opacity: 0;
+  }
+}
+.equipImpact {
+  position: fixed;
+  width: 32px;
+  height: 32px;
+  border: 1px solid #ecd590;
+  border-radius: 50%;
+  background: radial-gradient(circle, #ffe8a4a0, #d7b66700 72%);
+  box-shadow: 0 0 12px #e3c97688;
+  pointer-events: none;
+  z-index: 61;
+  animation-name: equipIconImpact;
+  animation-timing-function: ease-out;
+  animation-fill-mode: both;
+}
+@keyframes equipIconImpact {
+  from {
+    transform: scale(0.6);
+    opacity: 0;
+  }
+  25% {
+    opacity: 1;
+  }
+  to {
+    transform: scale(1.25);
+    opacity: 0;
+  }
 }
 @media (prefers-reduced-motion: reduce) {
-  .equipFlight {
-    transition: none;
+  .equipFlight,
+  .equipImpact {
+    display: none;
+    animation: none;
   }
 }
 
@@ -4303,81 +5214,28 @@
   height: 100%;
   object-fit: contain;
   position: relative;
-  z-index: 1;
+  z-index: var(--avatar-body-layer, 1);
 }
 .avatarEquipmentLayer {
   position: absolute;
   pointer-events: none;
   object-fit: contain;
+  image-rendering: auto;
   max-width: none;
-  transition: opacity 0.18s ease-out;
+  transition: opacity 0.12s ease-out;
 }
 .avatarEquipmentLeaving {
   opacity: 0;
 }
 .avatarEquipmentArrive {
-  animation: overlayArrive 0.5s ease-out both;
+  animation: overlayArrive 0.18s ease-out both;
 }
 @keyframes overlayArrive {
   from {
-    opacity: 0.94;
-    filter: brightness(1.2);
+    opacity: 0;
   }
   to {
     opacity: 1;
-    filter: none;
-  }
-}
-.avatarEquipmentArrive[data-overlay-slot='helmet'] {
-  animation: overlayFromAbove 0.5s ease-out both;
-}
-.avatarEquipmentArrive[data-overlay-slot='boots'] {
-  animation: overlayFromBelow 0.5s ease-out both;
-}
-.avatarEquipmentArrive[data-overlay-slot='weapon'] {
-  animation: overlayFromRight 0.5s ease-out both;
-}
-.avatarEquipmentArrive[data-overlay-slot='shield'] {
-  animation: overlayFromLeft 0.5s ease-out both;
-}
-@keyframes overlayFromAbove {
-  from {
-    opacity: 0.94;
-    filter: brightness(1.2);
-  }
-  to {
-    opacity: 1;
-    filter: none;
-  }
-}
-@keyframes overlayFromBelow {
-  from {
-    opacity: 0.94;
-    filter: brightness(1.2);
-  }
-  to {
-    opacity: 1;
-    filter: none;
-  }
-}
-@keyframes overlayFromRight {
-  from {
-    opacity: 0.94;
-    filter: brightness(1.2);
-  }
-  to {
-    opacity: 1;
-    filter: none;
-  }
-}
-@keyframes overlayFromLeft {
-  from {
-    opacity: 0.94;
-    filter: brightness(1.2);
-  }
-  to {
-    opacity: 1;
-    filter: none;
   }
 }
 .equipCommonEffect {
@@ -4676,11 +5534,11 @@
 }
 @media (prefers-reduced-motion: reduce) {
   .avatarEquipmentLayer {
-    transition: none;
+    transition: opacity 0.12s linear;
   }
   .avatarEquipmentArrive,
   .avatarEquipmentArrive[data-overlay-slot] {
-    animation: none;
+    animation: overlayArrive 0.12s linear both;
   }
   .primarySidebar {
     transition: none;
@@ -5013,9 +5871,10 @@
   border-radius: 18px;
   color: #f4efd9;
   background:
-    radial-gradient(ellipse at 50% 75%, #9e8a4a33, transparent 27%),
-    linear-gradient(#183a31dd, #0d2926ee),
-    url('/assets/world/garden/garden_background_tension.png') center/cover;
+    radial-gradient(ellipse at 24% 50%, #ffe6a85c, transparent 34%),
+    radial-gradient(ellipse at 76% 50%, #e9efbe50, transparent 34%),
+    linear-gradient(#24493745, #153a3166),
+    url('/assets/world/garden/garden_background_tension_1600.webp') center/cover;
   overflow: hidden;
 }
 .battleRound {
@@ -5040,13 +5899,15 @@
   display: grid;
   justify-items: center;
   min-width: 0;
+  position: relative;
+  color: #fff6da;
 }
 .battleFighter > div:first-child {
   width: min(100%, 330px);
   padding: 13px;
   border: 1px solid #bda76055;
   border-radius: 9px;
-  background: #0c2622cc;
+  background: #193b31f5;
 }
 .battleFighter h2 {
   margin: 3px 0;
@@ -5425,6 +6286,122 @@
   color: #704331;
   background: #f7e8df;
 }
+.guildOnboardingGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+.guildOnboardingGrid .guildJoinCard {
+  align-content: start;
+  margin: 20px 0 0;
+}
+.guildJoinCard label,
+.guildSpecialCard label {
+  display: grid;
+  gap: 6px;
+  color: #56614d;
+  font-size: 0.75rem;
+}
+.guildJoinCard textarea,
+.guildSpecialCard textarea {
+  width: 100%;
+  min-height: 88px;
+  padding: 9px;
+  border: 1px solid #c9cbb8;
+  background: #fffef7;
+  resize: vertical;
+}
+.guildRoleBadge {
+  display: inline-flex;
+  margin: 10px 0;
+  padding: 7px 11px;
+  border: 1px solid rgba(234, 213, 143, 0.55);
+  border-radius: 999px;
+  color: #fff3bd;
+  font-weight: 700;
+}
+.guildHeroBanner small {
+  display: block;
+  overflow-wrap: anywhere;
+}
+.guildHeroBanner code {
+  user-select: all;
+}
+.guildMemberList {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 10px;
+}
+.guildMemberList article,
+.guildRequestCard {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px;
+  border: 1px solid #dad7c1;
+  border-radius: 7px;
+  background: #fffef8;
+}
+.guildMemberList article > span,
+.guildRequestCard > div:first-child {
+  display: grid;
+  color: #6d765d;
+  font-size: 0.75rem;
+}
+.guildRequestCard > div:last-child,
+.guildFormActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.guildRequestCard button,
+.guildFormActions button {
+  min-height: 40px;
+  padding: 9px 14px;
+  border: 1px solid #b99b50;
+  border-radius: 5px;
+  color: #f9f2db;
+  background: #244c35;
+  cursor: pointer;
+}
+.guildRequestCard button:last-child {
+  color: #6d3e2d;
+  border-color: #b88465;
+  background: #f7ecdc;
+}
+.guildRewardPreview {
+  display: grid;
+  gap: 3px;
+  padding: 12px;
+  border-left: 3px solid #b99b50;
+  background: #f4f0dc;
+}
+.guildRewardPreview small {
+  color: #6d765d;
+}
+.guildRewardDetails {
+  display: grid;
+  gap: 4px;
+  margin: 12px 0;
+  padding: 12px;
+  border-left: 3px solid #b99b50;
+  background: #f4f0dc;
+  color: #42543d;
+}
+.guildRewardDetails b {
+  color: #705b27;
+  letter-spacing: 0.08em;
+}
+@media (max-width: 700px) {
+  .guildOnboardingGrid {
+    grid-template-columns: 1fr;
+  }
+  .guildRequestCard {
+    align-items: stretch;
+    flex-direction: column;
+  }
+}
 
 .combatPower {
   position: relative;
@@ -5509,6 +6486,119 @@
 .arenaEffects small {
   color: #aebeaa;
 }
+
+/* TASK-0037: event-driven combat presentation; no gameplay modifiers. */
+.combatAnnouncement {
+  display: grid;
+  gap: 4px;
+  min-height: 76px;
+  margin-top: 14px;
+  padding: 12px;
+  border: 1px solid #e2c587;
+  border-radius: 12px;
+  background: #f6ecd7;
+  color: #233b2b;
+  text-align: center;
+}
+.combatAnnouncement b {
+  font:
+    700 clamp(0.85rem, 2vw, 1.05rem)/1.3 Georgia,
+    serif;
+  letter-spacing: 0.06em;
+}
+.combatAnnouncement span {
+  font-size: 0.8rem;
+  line-height: 1.4;
+}
+.combatFloat {
+  position: absolute;
+  z-index: 4;
+  top: 26%;
+  left: 50%;
+  display: grid;
+  gap: 5px;
+  width: max-content;
+  max-width: 100%;
+  transform: translateX(-50%);
+  padding: 9px 12px;
+  border: 1px solid #edcf8f;
+  border-radius: 9px;
+  color: #fff9e1;
+  background: #203e31f2;
+  text-align: center;
+  pointer-events: none;
+  animation: combatNumber 650ms ease-out both;
+}
+.combatFloat b {
+  font-size: 0.65rem;
+}
+.combatFloat strong {
+  font-size: clamp(0.85rem, 2vw, 1.3rem);
+  line-height: 1.2;
+}
+.combatFloat[data-kind='attack'] {
+  color: #682e24;
+  background: #fff2d9;
+}
+.combatFloat[data-kind='dodge'],
+.combatFloat[data-kind='focus'] {
+  background: #e9f1d1;
+  color: #264430;
+}
+.guildEmpty {
+  padding: clamp(1.4rem, 4vw, 2.5rem);
+  border: 1px solid #a5b59a;
+  border-radius: 18px;
+  background: radial-gradient(ellipse at top, #e1d6b3, #f7f0df 65%);
+  color: #294733;
+  text-align: center;
+  grid-column: 1 / -1;
+}
+.guildEmpty > span {
+  display: block;
+  margin-bottom: 10px;
+  color: #8b682c;
+  font-size: 2rem;
+}
+.guildEmpty h3 {
+  margin: 0 0 8px;
+  font:
+    1.3rem Georgia,
+    serif;
+}
+.guildEmpty p {
+  margin: 0;
+}
+@keyframes combatNumber {
+  from {
+    opacity: 0;
+    translate: 0 12px;
+  }
+  20%,
+  80% {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+    translate: 0 -18px;
+  }
+}
+@media (max-width: 760px) {
+  .combatFloat {
+    padding: 6px;
+  }
+  .combatAnnouncement {
+    min-height: 84px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .combatFloat {
+    animation: none !important;
+  }
+  .combatFloat {
+    opacity: 1;
+  }
+}
 .battleLog li em {
   color: #e2c870;
   font-style: normal;
@@ -5574,5 +6664,870 @@
   }
   .snakeTutorial > div {
     grid-template-columns: 1fr;
+  }
+}
+
+/* TASK-0037 adventure design system */
+/* TASK-0040: Arena-only tactical presentation; existing art remains the fallback. */
+.battleActions {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.battleActions small {
+  color: #fff1bd;
+  font-size: 0.7rem;
+}
+.arenaFocus {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 7px;
+  color: #fff0b7;
+  font-size: 0.75rem;
+}
+.arenaFocus small {
+  width: 100%;
+  font-size: 12px;
+  color: #f8e7ad;
+}
+.arenaFocus[data-change='gain'] i[data-filled='true'] {
+  animation: arenaFocusGain var(--focus-pulse-duration) ease-out;
+}
+.arenaFocus[data-change='spend'] i[data-filled='false'] {
+  animation: arenaFocusSpend var(--focus-spend-duration) ease-out;
+}
+.battleActions button[data-special-ready='true'] {
+  border-color: #f2d484;
+  box-shadow: inset 0 0 0 1px #f2d48455;
+}
+@keyframes arenaFocusGain {
+  50% {
+    transform: scale(1.2);
+    color: #fff5bc;
+  }
+}
+@keyframes arenaFocusSpend {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0.35;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .arenaFocus i {
+    animation: none !important;
+  }
+}
+.arenaFocusHelp {
+  padding: 8px 12px;
+  background: #f8efda;
+  color: #26412f;
+  border-radius: 9px;
+  font-size: 0.72rem;
+  text-align: center;
+}
+.arenaFocus b {
+  display: flex;
+  gap: 4px;
+  font-size: 1rem;
+}
+.arenaFocus i {
+  color: #869485;
+  font-style: normal;
+}
+.arenaFocus i[data-filled='true'] {
+  color: #ffe3a0;
+  text-shadow: 0 0 5px #f2bf6540;
+}
+.arenaSpecials {
+  padding: 12px;
+  margin-top: 10px;
+  border: 1px solid #d2b678;
+  border-radius: 12px;
+  background: #f8f0db;
+  color: #243e30;
+}
+.arenaSpecials header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.arenaSpecials h3 {
+  margin: 0;
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+}
+.arenaSpecials header button {
+  min-width: 48px;
+  min-height: 48px;
+  border: 1px solid #9a8652;
+  border-radius: 8px;
+  background: #fffbed;
+  color: #294330;
+}
+.arenaSpecials > div {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+.arenaSpecials > div > button {
+  display: grid;
+  gap: 4px;
+  padding: 10px;
+  text-align: left;
+  border: 1px solid #b19c68;
+  border-radius: 9px;
+  color: #243e30;
+  background: #fffdf3;
+  min-height: 90px;
+  cursor: pointer;
+}
+.arenaSpecials button:focus-visible {
+  outline: 3px solid #ad7c2c;
+  outline-offset: 2px;
+}
+.arenaSpecials button[aria-disabled='true'] {
+  background: #e9e4d5;
+  border-style: dashed;
+  cursor: help;
+}
+.arenaSpecials button > b {
+  font-size: 0.85rem;
+}
+.arenaSpecials button > span {
+  font-size: 0.73rem;
+}
+.arenaSpecials button > span:first-child {
+  font-size: 1.1rem;
+}
+.arenaSpecials button small,
+.arenaSpecials button strong {
+  font-size: 0.67rem;
+}
+.arenaSpecials p {
+  margin: 8px 0 0;
+  min-height: 1.2em;
+  font-size: 0.75rem;
+}
+.arenaIntent {
+  background: #fff0c7;
+  color: #26432f;
+  padding: 10px;
+  border-radius: 8px;
+  text-align: center;
+}
+.arenaRewardSequence {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  list-style: none;
+  padding: 0;
+}
+.arenaRewardSequence li {
+  padding: 10px 15px;
+  border: 1px solid #b79952;
+  border-radius: 10px;
+  background: #fff9e7;
+  animation: arenaRewardEnter var(--reward-enter) ease-out both;
+}
+.arenaRewardSequence li:nth-child(2) {
+  animation-delay: var(--coin-delay);
+}
+.arenaLevelNotice {
+  color: #273e33;
+  margin: 16px 0;
+  padding: 18px;
+  border: 1px solid #c9a25a;
+  border-radius: 12px;
+  background: #f4e3ab;
+  animation: arenaRewardEnter var(--unlock-enter) var(--unlock-delay) ease-out
+    both;
+}
+.arenaLevelNotice > :not([aria-hidden='true']) {
+  position: relative;
+  z-index: var(--layer-hud);
+}
+.arenaLevelNotice > b {
+  font-size: 1.6rem;
+}
+.arenaLevelNotice strong {
+  display: block;
+  margin-top: 12px;
+  font-size: 0.75rem;
+}
+.arenaLevelNotice h3 {
+  font:
+    1.4rem Georgia,
+    serif;
+  margin: 8px 0;
+}
+.arenaLevelNotice details {
+  padding: 8px;
+  background: #fff5d7;
+  border-radius: 8px;
+}
+@keyframes arenaRewardEnter {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@media (max-width: 760px) {
+  .battleActions button {
+    padding: 9px 5px;
+    min-height: 76px;
+  }
+  .battleActions button b {
+    font-size: 0.77rem;
+  }
+  .arenaSpecials {
+    padding: 8px;
+  }
+  .arenaSpecials > div > button {
+    padding: 8px;
+  }
+  .arenaSpecials button > span:not(:first-child) {
+    display: none;
+  }
+  .arenaFocus {
+    gap: 4px;
+    font-size: 0.75rem;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .arenaRewardSequence li,
+  .arenaLevelNotice {
+    animation: none !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+.packArtwork {
+  position: absolute;
+  inset: 0;
+  display: block;
+  pointer-events: none;
+  overflow: hidden;
+  border-radius: inherit;
+  z-index: 0;
+}
+.packArtwork img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.battleArena {
+  position: relative;
+  isolation: isolate;
+}
+.battleArena > :not(.packArtwork),
+.adventurePortal > :not(.packArtwork) {
+  position: relative;
+  z-index: 1;
+}
+.arenaPortrait .packArtwork {
+  position: relative;
+  width: 100%;
+  height: 280px;
+}
+.arenaPortrait .packArtwork img {
+  object-fit: contain;
+}
+.adventurePortal .packArtwork::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #102d21bb, #102d2166);
+}
+.adventurePortal:has(.packArtwork),
+.adventurePortal:has(.packArtwork) h2,
+.adventurePortal:has(.packArtwork) p {
+  color: #fff1ce;
+}
+@media (max-width: 700px) {
+  .arenaPortrait .packArtwork {
+    height: 200px;
+  }
+}
+.diaryEntry .textLink {
+  color: #76551d;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+.areaArrival {
+  animation: areaArrival 220ms ease-out;
+}
+.audioLauncher {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  min-width: 48px;
+  min-height: 48px;
+  margin-left: 6px;
+  border: 1px solid #bfa778;
+  border-radius: 50%;
+  background: #f6edd9;
+  color: #2e4c38;
+  font-size: 1.3rem;
+}
+@media (max-width: 700px) {
+  .header {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 48px;
+    gap: 10px 12px;
+    padding-block: 12px;
+  }
+  .brand {
+    grid-column: 1;
+    grid-row: 1;
+    min-width: 0;
+  }
+  .audioLauncher {
+    grid-column: 2;
+    grid-row: 1;
+    margin: 0;
+  }
+  .headerActions,
+  .headerNote {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    min-width: 0;
+  }
+  .headerActions {
+    justify-content: space-between;
+  }
+  .hudValue {
+    display: none;
+  }
+}
+.audioBackdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1100;
+  display: grid;
+  place-items: center;
+  padding: max(16px, env(safe-area-inset-top))
+    max(16px, env(safe-area-inset-right)) max(16px, env(safe-area-inset-bottom))
+    max(16px, env(safe-area-inset-left));
+  background: #0c271bba;
+}
+.audioSettings {
+  width: min(100%, 430px);
+  max-height: calc(100dvh - 32px);
+  overflow-y: auto;
+  padding: 24px;
+  border: 1px solid #bea268;
+  border-radius: 22px;
+  background: #fbf3e0;
+  color: #294632;
+  box-shadow: 0 16px 40px #071b1644;
+}
+.audioSettings header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+.audioSettings h2 {
+  margin: 0;
+  font-size: 1.8rem;
+}
+.audioSettings header button {
+  min-width: 48px;
+  min-height: 48px;
+  border: 1px solid #beaa7a;
+  border-radius: 50%;
+  background: #efe4ca;
+  color: #294632;
+  font-size: 1.3rem;
+}
+.audioSettings label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  min-height: 48px;
+  margin: 12px 0;
+  font-weight: 700;
+}
+.audioSettings input[type='checkbox'] {
+  width: 24px;
+  height: 24px;
+  margin: 12px;
+  accent-color: #31573d;
+  cursor: pointer;
+}
+.audioSettings label.audioVolume {
+  display: grid;
+  gap: 4px;
+}
+.audioVolume > span {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  font-weight: 400;
+}
+.audioVolume input {
+  width: 100%;
+  min-height: 48px;
+  accent-color: #816428;
+}
+.audioNote {
+  padding-top: 12px;
+  border-top: 1px solid #cab78e;
+  margin-bottom: 0;
+  color: #5b6551;
+  font-size: 0.8rem;
+}
+.arenaAudioPrompt {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px;
+  margin-bottom: 16px;
+  border: 1px solid #cab78e;
+  border-radius: 16px;
+  background: #fbf3e0;
+  color: #294632;
+}
+.arenaAudioPrompt p {
+  display: grid;
+  gap: 4px;
+  margin: 0;
+  flex: 1 1 220px;
+}
+.arenaAudioPrompt span {
+  font-size: 0.85rem;
+}
+.gainNotice[data-level-up='true'] {
+  border-width: 2px;
+  box-shadow:
+    0 0 0 5px #dcb76c33,
+    0 16px 30px #173c2e55;
+}
+.quizFeedback,
+.guildSuccess,
+.guildEpicReward {
+  animation: objectiveReveal 220ms ease-out;
+}
+@keyframes objectiveReveal {
+  from {
+    opacity: 0;
+    translate: 0 5px;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+@keyframes areaArrival {
+  from {
+    opacity: 0.35;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.adventureHome {
+  padding: 30px 0 48px;
+}
+.adventureWelcome {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 18px;
+}
+.adventureWelcome h1 {
+  max-width: 780px;
+  margin: 0 0 14px;
+  font-size: clamp(1.8rem, 3vw, 2.8rem);
+}
+.adventureWelcome .avatarSmall {
+  flex-shrink: 0;
+}
+.adventureProgress {
+  display: flex;
+  gap: 12px 24px;
+  flex-wrap: wrap;
+  margin: 4px 0 24px;
+  padding: 12px 0;
+  border-block: 1px solid #bda56a66;
+  color: #42513c;
+  font-size: 0.8rem;
+}
+.journeySpotlight {
+  position: relative;
+  isolation: isolate;
+  min-height: 390px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  margin: 0 0 30px;
+  padding: clamp(24px, 4vw, 46px);
+  border: 1px solid #bd9e56;
+  border-radius: 24px;
+  background:
+    linear-gradient(90deg, #15392df5, #163b30b8 48%, #203e3625),
+    url('/assets/world/garden/garden_background_day_1600.webp') center / cover;
+  color: #fff3d3;
+  box-shadow:
+    0 16px 32px #19342825,
+    inset 0 0 0 5px #d9ba5b12;
+}
+.journeySpotlight::after {
+  content: '';
+  position: absolute;
+  inset: 8px;
+  z-index: -1;
+  border: 1px solid #dfbf7440;
+  border-radius: 18px;
+  pointer-events: none;
+}
+.spotlightCopy {
+  width: min(100%, 560px);
+}
+.spotlightCopy .eyebrow {
+  color: #f0d292;
+}
+.spotlightCopy h2 {
+  margin: 10px 0 8px;
+  font-size: clamp(1.8rem, 3.8vw, 3rem);
+  line-height: 1.15;
+}
+.spotlightReference {
+  color: #d7e2c4;
+  font-size: 0.9rem;
+}
+.spotlightObjective {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 22px 0 14px;
+}
+.spotlightObjective > svg {
+  color: #e7c36a;
+  flex-shrink: 0;
+}
+.spotlightObjective span {
+  display: grid;
+  gap: 5px;
+}
+.spotlightObjective small {
+  color: #d6d8b5;
+  font-size: 0.65rem;
+  letter-spacing: 0.14em;
+}
+.spotlightObjective strong {
+  font-size: 1rem;
+  line-height: 1.4;
+}
+.spotlightProgress {
+  display: grid;
+  gap: 7px;
+  width: min(100%, 340px);
+  margin-bottom: 24px;
+}
+.spotlightProgress progress {
+  width: 100%;
+  height: 9px;
+  border: 0;
+  border-radius: 8px;
+  background: #0d2920;
+  overflow: hidden;
+}
+.spotlightProgress progress::-webkit-progress-bar {
+  background: #0d2920;
+}
+.spotlightProgress progress::-webkit-progress-value {
+  background: linear-gradient(90deg, #b38b39, #f0d58d);
+  border-radius: 8px;
+}
+.spotlightProgress span {
+  color: #e0e7d0;
+  font-size: 0.75rem;
+}
+.spotlightCopy .primaryLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 18px;
+  border: 1px solid #f5d485;
+  color: #203b2c;
+  background: linear-gradient(#f3d99c, #d9b96d);
+  box-shadow: 0 4px 0 #785f2f;
+}
+.spotlightSeal {
+  position: absolute;
+  right: 8%;
+  top: 24%;
+  width: 140px;
+  height: 140px;
+  display: grid;
+  place-content: center;
+  border: 1px solid #f1d59b77;
+  border-radius: 50%;
+  color: #f1ddb1;
+  background: #25463655;
+  text-align: center;
+  font:
+    3rem Georgia,
+    serif;
+}
+.spotlightSeal span {
+  display: block;
+  margin-top: 8px;
+  font:
+    700 0.55rem system-ui,
+    sans-serif;
+  letter-spacing: 0.14em;
+}
+.adventurePortals {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  margin-bottom: 30px;
+}
+.adventurePortal {
+  position: relative;
+  display: block;
+  padding: 24px 18px 20px;
+  overflow: hidden;
+  min-width: 0;
+  min-height: 220px;
+  border: 1px solid #b6a376;
+  border-radius: 16px;
+  text-decoration: none;
+  background:
+    radial-gradient(ellipse at 10% 0, #d6bd7860, transparent 60%),
+    linear-gradient(135deg, #f9f0db, #e7dcc2);
+  box-shadow: 0 8px 18px #28432c14;
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    border-color 180ms ease;
+}
+.adventurePortal h2 {
+  margin: 18px 0 8px;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+.adventurePortal p {
+  margin: 0;
+  color: #526049;
+  font-size: 0.8rem;
+  line-height: 1.5;
+}
+.adventurePortal[data-area='arena'] {
+  background:
+    linear-gradient(#214632c9, #133a2ceb),
+    url('/assets/world/garden/garden_background_tension_1600.webp') center /
+      cover;
+  color: #fff0c8;
+}
+.adventurePortal[data-area='arena'] p {
+  color: #e0e6cf;
+}
+.adventurePortal[data-area='guild'] {
+  background:
+    radial-gradient(ellipse at top right, #a5bc8066, transparent 65%), #ede5ce;
+}
+.adventurePortal[data-area='equipment'] {
+  border-color: #b8974f;
+  background:
+    radial-gradient(ellipse at top, #e8cc8877, transparent 60%), #f4eddb;
+}
+.portalEmblem {
+  display: inline-grid;
+  padding: 10px;
+  border: 1px solid #bba06480;
+  border-radius: 50%;
+  color: #7b5e25;
+  background: #fff7df88;
+}
+.adventurePortal[data-area='arena'] .portalEmblem {
+  color: #f9db8e;
+  background: #1b3b2dd9;
+}
+.portalArrow {
+  position: absolute;
+  top: 22px;
+  right: 18px;
+  color: #a08851;
+}
+.adventurePortal:hover,
+.adventurePortal:focus-visible {
+  transform: translateY(-3px);
+  border-color: #977738;
+  box-shadow: 0 12px 24px #28432c25;
+}
+.primarySidebar a {
+  min-height: 48px;
+  transition:
+    background 180ms ease,
+    color 180ms ease;
+}
+.primarySidebar a i {
+  transition: transform 180ms ease;
+}
+.primarySidebar a:hover i,
+.primarySidebar a[aria-current='page'] i {
+  transform: translateY(-2px);
+}
+.primarySidebar a[aria-current='page'] {
+  background: linear-gradient(90deg, #c5a14d32, #b49a5311);
+}
+.heroArt {
+  background:
+    linear-gradient(#1c3d3420, #0d312b50),
+    url('/assets/world/garden/garden_background_day_1600.webp') center / cover;
+  border-radius: 45% 45% 18px 18px;
+}
+.heroArt > .landscape {
+  opacity: 0;
+}
+.phaseArt {
+  background: url('/assets/world/garden/garden_background_day_1600.webp')
+    center / cover;
+}
+.phaseArt > .landscape {
+  opacity: 0;
+}
+.itemCard,
+.guildSpecialCard,
+.chestCard {
+  border-radius: 16px;
+  box-shadow: 0 8px 20px #23432c16;
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease;
+}
+.itemCard:hover,
+.guildSpecialCard:hover,
+.chestCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 22px #23432c24;
+}
+.guildSpecialCard {
+  background:
+    radial-gradient(ellipse at top right, #e4d6ae88, transparent 65%),
+    var(--color-surface);
+  border-top: 3px solid #8f9f63;
+}
+.guildHeroBanner {
+  background:
+    radial-gradient(ellipse at top right, #b9c78944, transparent 60%),
+    linear-gradient(120deg, #1a4231, #31543b);
+  border: 1px solid #b99c5a;
+}
+.guildHeroBanner .eyebrow {
+  color: #ecd190;
+}
+.gainNotice {
+  max-width: calc(100vw - 32px);
+  border-radius: 16px;
+  border: 1px solid #f1d592;
+  padding: 16px 22px;
+  background: radial-gradient(ellipse at top, #557046, #193e2e);
+  box-shadow: 0 10px 26px #183d2d44;
+  font-weight: 700;
+}
+@media (max-width: 1024px) {
+  .adventurePortals {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .spotlightSeal {
+    display: none;
+  }
+}
+@media (max-width: 600px) {
+  .adventureHome {
+    padding-top: 22px;
+  }
+  .journeySpotlight {
+    min-height: 390px;
+    border-radius: 18px;
+    background-image:
+      linear-gradient(90deg, #15392df2, #163b30c7),
+      url('/assets/world/garden/garden_background_day_1600.webp');
+  }
+  .adventurePortal {
+    padding: 18px 14px;
+    min-height: 216px;
+  }
+  .adventurePortals {
+    gap: 10px;
+  }
+  .adventurePortal:hover {
+    transform: none;
+  }
+  .adventurePortal h2 {
+    font-size: 1.05rem;
+  }
+  .adventureProgress {
+    gap: 8px 16px;
+  }
+  .portalArrow {
+    right: 12px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .areaArrival {
+    animation: none;
+  }
+  .adventurePortal,
+  .primarySidebar a i,
+  .itemCard,
+  .guildSpecialCard,
+  .chestCard {
+    transition: none;
+    transform: none !important;
+  }
+}
+@media (max-width: 760px) {
+  .journeySpotlight,
+  .heroArt,
+  .phaseArt {
+    background-image:
+      linear-gradient(90deg, #15392dec, #163b30b8),
+      url('/assets/world/garden/garden_background_day_800.webp');
+  }
+  .battleArena {
+    background-image:
+      radial-gradient(ellipse at 24% 50%, #ffe6a85c, transparent 34%),
+      radial-gradient(ellipse at 76% 50%, #e9efbe50, transparent 34%),
+      linear-gradient(#24493745, #153a3166),
+      url('/assets/world/garden/garden_background_tension_800.webp');
+  }
+  .adventurePortal[data-area='arena'] {
+    background-image:
+      linear-gradient(#214632c9, #133a2ceb),
+      url('/assets/world/garden/garden_background_tension_800.webp');
+  }
+}
+.itemCard[data-rarity='raro'],
+.itemCard[data-rarity='épico'],
+.itemCard[data-rarity='lendário'] {
+  border-color: #b59553;
+  background:
+    radial-gradient(ellipse at top, #e5c77c33, transparent 65%),
+    var(--color-surface);
+}
+@media (max-width: 1024px) and (orientation: landscape) {
+  .arcadeGameActive:fullscreen {
+    grid-template-columns: auto minmax(0, 1fr);
+    grid-template-rows: auto auto minmax(0, 1fr);
+  }
+  .arcadeGameActive:fullscreen .arcadeGameActions {
+    position: absolute;
   }
 }

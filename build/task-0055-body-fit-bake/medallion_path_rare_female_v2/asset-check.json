@@ -1,0 +1,21 @@
+{
+  "id": "medallion_path_rare_female_v2",
+  "status": "PASS",
+  "technical": "TECHNICALLY_VALIDATED",
+  "mapping": "MAPPED",
+  "fitStatus": "NEEDS_REWORK",
+  "sha256": "74b84cdd74af6fb1d3df91c6fbf6f32e6cd05b08a5cd940d7ffb8bdf9f594f77",
+  "clippedAlpha128SourcePixels": 0,
+  "alpha128Bounds": {
+    "left": 460,
+    "top": 302,
+    "right": 579,
+    "bottom": 502,
+    "count": 9346
+  },
+  "footBaselineDelta": null,
+  "maxLandmarkResidual": 0.21360165114869092,
+  "humanBodyFitApproved": false,
+  "ready": false,
+  "runtimeActivated": false
+}

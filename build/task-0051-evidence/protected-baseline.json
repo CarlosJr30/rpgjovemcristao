@@ -1,0 +1,733 @@
+{
+  "at": "2026-10-08T00:41:11.783Z",
+  "files": [
+    {
+      "path": "apps/web/public/assets/avatar/base/hero_female_base.png",
+      "sha256": "36653e585cf2ace14593a528fcb7bdf918ad2e03957d4083ec1c57ac7c45f78a"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/base/hero_male_base.png",
+      "sha256": "4d95b9c25830ea17a342310756db2fe37f3ed344745504bc8db30825bbcd8b76"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/face/female_face_01.png",
+      "sha256": "db4054620146511a884fe41f98779a44acaac0aa141a71714f4b0649bf83e24b"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/face/female_face_02.png",
+      "sha256": "805db895c8290f7dbc1e6f7773b195de0dddaa2b03942dcbe2c9cc2ff4c9d703"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/face/female_face_03.png",
+      "sha256": "acb8e575595f2b379db73e73fbf43faa805fba4a88afa825c5108e69f99712fb"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/face/male_face_01.png",
+      "sha256": "27bb9009cf0f1db745f1119543ea2562bcc018531bda61971605cd85e3542632"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/face/male_face_02.png",
+      "sha256": "b16eaf3fecefbecfdcf1bbb4fc874d8266d0d469d69ac4813e34c4e83b2abf12"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/face/male_face_03.png",
+      "sha256": "1b097e114ef19bb41a9c60248dc3ab033e29d498f9ecdcddb84a357b031784dc"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hair/female_hair_01.png",
+      "sha256": "7b873d50208fc970819bb737547ae8167f03e05630424c9564c3a35520aabd52"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hair/female_hair_02.png",
+      "sha256": "13f20ca6976d5981e7782f8a2796eaa22d0339e672d0abc5a70d433ea3a2d37b"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hair/female_hair_03.png",
+      "sha256": "aedd5fe0765042a805c3374b98b2ebf105f5a1c19e9cc44d1967400d6085e81d"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hair/male_hair_01.png",
+      "sha256": "32d4b1ac8f99d654d9d1c5a494f2907869608b48cef6190830c6ff2c29ef0b90"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hair/male_hair_02.png",
+      "sha256": "38562539009fad8e8941ddfc7acbe45a576801d2b30c75f4a678f3d049b24015"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hair/male_hair_03.png",
+      "sha256": "2e641d94f636bd57f011647a0b0637187799e6ec56a119d9fc55e90b7324316d"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_curly_blue_dark_hd.png",
+      "sha256": "c96e8b93f23e732ead9f0243f7d390293e20ab6c2187f0e260dbc190872591c2"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_curly_blue_light_hd.png",
+      "sha256": "8dc450bdcb0730fca04571c9628b7c21807b6f63800eebfe11e2813ab806d0ac"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_curly_blue_medium_hd.png",
+      "sha256": "69ee723023e71d7eceeabbf6ff529bddbb4b45edbb6b2b9c2a863a5b9d2d2201"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_curly_moss_dark_hd.png",
+      "sha256": "8dc002903a6d817ed3e88bd074c2e4bdec29851012b2d54f59e395c217e4feef"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_curly_moss_light_hd.png",
+      "sha256": "9a3429cbf48879a4dce7d3c864efb0a96e046824e608c715868d73c6add0574a"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_curly_moss_medium_hd.png",
+      "sha256": "facd724c6cfba397ae2e5808e6c2f70bd47e98fe8ad4ea89e8e369615dbac339"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_curly_ochre_dark_hd.png",
+      "sha256": "4bad1dcd741d745b2fa66202814470bd59af3a22faa14d12851471262fa4fa31"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_curly_ochre_light_hd.png",
+      "sha256": "ed613e15a51bbcdae2a0d57eaa29b768501e25c8df3a8f9977540760e5655fa9"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_curly_ochre_medium_hd.png",
+      "sha256": "e0a0f6ff69aef40fc9cbcf0655e18962397e851ad9c173056882744aed25df67"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_long_blue_dark_hd.png",
+      "sha256": "8965ed75ea6fed37f0f20bda47d1e89cde09ef5bba38bcb977a8331cd2ce6e9a"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_long_blue_light_hd.png",
+      "sha256": "1d9ea6451ef5004b50eeaf3fe6f5ba0a4be7e9e5b9b792b08913b14347a6b62f"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_long_blue_medium_hd.png",
+      "sha256": "7cccad3f330823bf6172f482e19846aebeee7b4a63098a88e88b2033119478e7"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_long_moss_dark_hd.png",
+      "sha256": "af2a67a75c3f59c6f59c1595cc255174478e081652ec6cf661d63863bdd897b6"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_long_moss_light_hd.png",
+      "sha256": "b58b4eac65b271c8dd8c598d05ff05f0e8ab50936c2a6903cdaf47c40c0fe2f5"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_long_moss_medium_hd.png",
+      "sha256": "14a85fed5713caed593d151119231f9e6b477aeb503b6791f1bff800d489aae4"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_long_ochre_dark_hd.png",
+      "sha256": "24f0d3abfa9c0fd04670a98ea6e28354e8c6906232f25a1daf45df04d93b106c"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_long_ochre_light_hd.png",
+      "sha256": "8d8344f596c2819c97630cd1d6ad96a1823d2b2738ee2543021773765ee03d3f"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_long_ochre_medium_hd.png",
+      "sha256": "9a66160fe37601d540896b078619fb8d983b1432bb43300722713d09b2d66821"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_short_blue_dark_hd.png",
+      "sha256": "691d944d7eee8ef015f5427280b2b72379a2dfedfe20af61736ebad6d8598380"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_short_blue_light_hd.png",
+      "sha256": "f3a580c2305f3415ea5d01ed880ab9eda95ad20dd3c1ae572fec2cdee8cf14ac"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_short_blue_medium_hd.png",
+      "sha256": "3fb0c1fbf7991b717754f7a7c82c57014273fdbe3fea20df0103f034c2b0684f"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_short_moss_dark_hd.png",
+      "sha256": "65ae8c6308032994d7ac80d2d53503c6af4c12f92a4b1f266cba9480b02b1032"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_short_moss_light_hd.png",
+      "sha256": "ffa9d2698c7d1e67497cd7006d28294d2d17e31ed06e05b56e3bae1cf0a56162"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+      "sha256": "f260cb9b053b35c328025f1bc7ee602cbb30e57c71ba1f2238a4b1519685f460"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_short_ochre_dark_hd.png",
+      "sha256": "cf7fab4691bc7380d6e9304106900859da05838a0afbaf4428513ca542e1cd52"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_short_ochre_light_hd.png",
+      "sha256": "b0e475eb240f148e3b6ba6c60d2b53b62c153254b0151b11ff46d91d0edb81ff"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_short_ochre_medium_hd.png",
+      "sha256": "31117e2ae50cc207a02b4f65c70f97df37e82db54f8c70e35a8adade08e41ae2"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/male/male_curly_blue_dark_hd.png",
+      "sha256": "5ff01c5eb2aa68a3fa0ba3c8d3722c21a92861c442a5db4fdc32884e8c9793ae"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/male/male_curly_blue_light_hd.png",
+      "sha256": "f4a119053fe94850222d606ca7ab5907399fec28246b8700338893a25897713c"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/male/male_curly_blue_medium_hd.png",
+      "sha256": "65d4233a10037109e5dac652e607b87d9a7856d2e30ba8511bd8ff52d2f40758"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/male/male_curly_moss_dark_hd.png",
+      "sha256": "a414e8d6888aa147c9256a1cec04eac67c444a21d26ba0a09ff848a1feb6fd1c"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/male/male_curly_moss_light_hd.png",
+      "sha256": "4134196166b8578f87e445a5d19fc32f940137dd007942b94c811af6e8749ec4"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/male/male_curly_moss_medium_hd.png",
+      "sha256": "c2aaea7d357ef0aeec5bd5ebf9f0842e82b30d5605ccab9ad920b1fb50861afc"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/male/male_curly_ochre_dark_hd.png",
+      "sha256": "17cc19e6a3813277a844f46f684b9d4dd730270d5b709168c21f0e939dc9fb36"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/male/male_curly_ochre_light_hd.png",
+      "sha256": "8cff7e8e43d0f3372e7ac22663adfa7380cc27b87c5bac1332c4e4e01542141e"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/male/male_curly_ochre_medium_hd.png",
+      "sha256": "e58d45c166bf154c320d0a5cad530ccfe42a0bf8c6a093a050c66250329be8cd"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/male/male_long_blue_dark_hd.png",
+      "sha256": "9d243e0ce2f10ffb7cb2e86ef1cdaed6ded161b9d052e7611ef020a7956105df"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/male/male_long_blue_light_hd.png",
+      "sha256": "d7b69134b6429fe3d305380d39adf2149ff955782afba17cc563f0aded780191"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/male/male_long_blue_medium_hd.png",
+      "sha256": "e390217b97a4bf6dbb54b42e2b7b043d98184901cf164ab42ff6b9af83ec01a4"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/male/male_long_moss_dark_hd.png",
+      "sha256": "561c0da9f89bb56bebd4584a6750c977e5819c1fb503e7703610bcd7659ca9a1"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/male/male_long_moss_light_hd.png",
+      "sha256": "24bbc5a3ec9a4ccee28864dc6868de1e137a29575d34bda072c7298d8dd8b0dd"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/male/male_long_moss_medium_hd.png",
+      "sha256": "7105d9b86cd74645d2a9ad7fb65954e9b4764b5dc7972d3cf8bcc543f69565d0"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/male/male_long_ochre_dark_hd.png",
+      "sha256": "3ccee1a98a598903d47b351e62f4b3af505123711158fe6601054ee5cd40d3ad"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/male/male_long_ochre_light_hd.png",
+      "sha256": "e8548f8771dd172f55e456358ed99ed5423532cf1f0dfc3fb099451ba6ba2ad6"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/male/male_long_ochre_medium_hd.png",
+      "sha256": "bc0ab9ad75d36d038c20f352a3c50ec84eefe8bcd3910e7d7263c7bebd6ed285"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/male/male_short_blue_dark_hd.png",
+      "sha256": "8771935dcc7a529b5b0bfe958d6da38f70ef31c50f86655a97f2936eacadf8c3"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/male/male_short_blue_light_hd.png",
+      "sha256": "98b5e7c9d50151af6da95dd7a813f6f4304d7cd292a6c85ff7fa68b6e03bf302"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/male/male_short_blue_medium_hd.png",
+      "sha256": "6f732859e75bbdebb5b69120dc00e0d4342025cfed84a4106ab6d0ad9adaf224"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/male/male_short_moss_dark_hd.png",
+      "sha256": "b32dafb858dac73b8a49f4d7275b1a30806948db11cb8e958f8e9adfb9f3866f"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/male/male_short_moss_light_hd.png",
+      "sha256": "66f5dc34b6dc5c07c2a6dff581e60fa23f0e22bd10845c019bc2d42a8c365ce6"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/male/male_short_moss_medium_hd.png",
+      "sha256": "b182c2e29b512b337891716a413ab7efaad737e23c6354779fae17fe19b8af34"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/male/male_short_ochre_dark_hd.png",
+      "sha256": "b6b0c87a7fd62286fb17cc90e692a6cf09d8f06e031d7e0a3c1b38b841baaa94"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/male/male_short_ochre_light_hd.png",
+      "sha256": "15de9f313b5af24574854d16a85bec4be3569b29f502b578c2c0c3995a168d35"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/male/male_short_ochre_medium_hd.png",
+      "sha256": "00d5d22f7dae0fdbce82555797b902f26c590abadc9ae5579e0b4ffb2ad16d18"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/masks/hero_female_cloak_mask.png",
+      "sha256": "06b651091bb5c84d5ec9737be0ff875643c8d4b4055aed9c6d692d81ab9e61a6"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/masks/hero_female_skin_mask.png",
+      "sha256": "25ff2c40b94fff0d1a260e835cef8fc0fec639af35522ba8b7220391aec60481"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/masks/hero_male_cloak_mask.png",
+      "sha256": "bd191253df1ca1b51b4b78aa835e7d9bb705e1a879fd1c1f8e88ef67fbc7b4b8"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/masks/hero_male_skin_mask.png",
+      "sha256": "388071195ec0eac46d556ff13422825dae7c3b308bc4d1b584367b682ef794d1"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/avatarRuntimeAssets.json",
+      "sha256": "eb0875e39dff5ca3490a3130cd00562808207f11e0dc6d71143bbdc7e7de4024"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/female/female_curly_blue_dark.png",
+      "sha256": "2017bf26cdd89d4779d34a688687992c98276ddbe2cd4b6979bc3ad0976f1c98"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/female/female_curly_blue_light.png",
+      "sha256": "dc532e95789414ec9a3e95545de01a34d8277f01acfa95c01aa6637e13d22792"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/female/female_curly_blue_medium.png",
+      "sha256": "803264f9fb6d45cb66e06d41a1f0c64c223e8ee7ad47eff4e5399569a9e9a0d2"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/female/female_curly_moss_dark.png",
+      "sha256": "c803d842ea9e633b4ae4e9e7165269b7ae970449a7747ddc0ed15917ff0f9857"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/female/female_curly_moss_light.png",
+      "sha256": "baa360bf67ba1135eea7f70c9cee821fdd6ac2ee6a50ab5d0be233bf2026a328"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/female/female_curly_moss_medium.png",
+      "sha256": "55415e293fda7e5f3858676be107e4375d80396ac5bdaf38e456d1fc2475b771"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/female/female_curly_ochre_dark.png",
+      "sha256": "84725238574df3e169eba8d2e141195131b1a83523ce6ca2a780e32ca460d0d0"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/female/female_curly_ochre_light.png",
+      "sha256": "5aab4777a5d0d84e288eb7482909569e5dbb947d5d419bdf050766a651aa1048"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/female/female_curly_ochre_medium.png",
+      "sha256": "167d817c2cd531237ee2b5458fb7acb62ba66c21e74d625a06c834e9bdf4bb89"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/female/female_long_blue_dark.png",
+      "sha256": "1dc1a4d6a1db65b1d64a3c0025ba9cee1f3b5b9413aa6bd3b8761a1ae2afd0dc"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/female/female_long_blue_light.png",
+      "sha256": "95363555c7a324ab2d9a6469815e75fb29420c8e7f6914d9a1c40cc7bbbf96eb"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/female/female_long_blue_medium.png",
+      "sha256": "96a0dc1d82dfad258683714bc69c408e6bc71f98cf0b1962ce6081d7c0f23675"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/female/female_long_moss_dark.png",
+      "sha256": "f0ca78cc62be1b7270a47be74bb637874ebf9bd199b2a45af140e68719c87e55"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/female/female_long_moss_light.png",
+      "sha256": "dcff0d1a0d506b8ec78c57a9e13c5e3cd6f4f5077fe6958830bc1afbcd156e59"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/female/female_long_moss_medium.png",
+      "sha256": "4070946a7b42c2ce9057e84c908ba66029495f70bb2fbcc53168e4ed0e09e67b"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/female/female_long_ochre_dark.png",
+      "sha256": "85d27730bf6df1ed42f6481b2b0527af981b5a392388df715a12d03fbac7828e"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/female/female_long_ochre_light.png",
+      "sha256": "24d3f550b156f1729b9884032a00c0df1354146031ca34be2974396f2164b12a"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/female/female_long_ochre_medium.png",
+      "sha256": "bc94360266cd87b96275ec36148221f795c8092c5de8d69f228124c8db908bb8"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/female/female_short_blue_dark.png",
+      "sha256": "da90e71cec8c19006fab450b8b9f52c5061ba42ad241506bfda9afa375a4b959"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/female/female_short_blue_light.png",
+      "sha256": "12c5b826a9a9b2e5df72975f51feae021f3dee267baf21dab33f8441940ffc96"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/female/female_short_blue_medium.png",
+      "sha256": "d58fbd1849c5b5556db6a311ee92ad4e22c466797e8dbe133547b24b06077e1f"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/female/female_short_moss_dark.png",
+      "sha256": "71c2d7aaf3490011dec9baf4230e739d7810f1cb2c7407d3b932002bc6ab9d5b"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/female/female_short_moss_light.png",
+      "sha256": "beb75c61c775962c0ce5e1a416be5f1a509cc0caa5eb19d3a7b8bd39ba3ee45e"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/female/female_short_moss_medium.png",
+      "sha256": "3cd1d303462f627ecd90923ad8b5d82c4d2e4e2fc2ba1f3608f1b39da3cdb44d"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/female/female_short_ochre_dark.png",
+      "sha256": "653cf540099c5ecfa08e9dd980a4e924d2ac0041b9c3b2d0e3f6af1d19cfb609"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/female/female_short_ochre_light.png",
+      "sha256": "0f5ebf50e65bf62094e65a218657832e0050edd4ff16da95b14f0df364ca10a1"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/female/female_short_ochre_medium.png",
+      "sha256": "6c62121adbb864ade99101d4ed8688de9e18017ec6b70d4bdb661dd09b0c7f0e"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/male/male_curly_blue_dark.png",
+      "sha256": "fc97507a796cc4abf01998b2673b18b4101bbb2d1fe53986c5cf3d3839fe0950"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/male/male_curly_blue_light.png",
+      "sha256": "942513968f2f498bd46cfef920d329c7480f0c55515c3bf77c190ed2ffbd3ca1"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/male/male_curly_blue_medium.png",
+      "sha256": "4699e82a8edafe8f8d3db2505b7c1252b6b71e8ba407fdfe9e431070b2ead625"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/male/male_curly_moss_dark.png",
+      "sha256": "7d72e963f6228da5e24a678568059ae9775b764a2f2caa962e20e33b84b3281e"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/male/male_curly_moss_light.png",
+      "sha256": "63edc01849c73d61aadb824c345cbdc181afb1e7035e6c2570bff370e9179fe4"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/male/male_curly_moss_medium.png",
+      "sha256": "f4ecfd6beac4918a84296de268d1a10a2ce9631e0143e88f736b51fff721966c"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/male/male_curly_ochre_dark.png",
+      "sha256": "9c78e48f194487d5875d35d94b6dba98eff1e68c8e4f4c340a1dd0f514cc7f89"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/male/male_curly_ochre_light.png",
+      "sha256": "e8489cba1883a2904b2e5953a876fa3370719b0dba5806c45be8e26298b61b7e"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/male/male_curly_ochre_medium.png",
+      "sha256": "94b95c8248b3b698b9ece2dabb4a70b9301ff458b762ffd33cfbf6b5792a0cb2"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/male/male_long_blue_dark.png",
+      "sha256": "ef3281dcf100bda4f578ca963996cabe060c2acea5ddf65f5d85bdd423afa008"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/male/male_long_blue_light.png",
+      "sha256": "55c212e914dd9dbd3d1461028cf5bea2961964dc480190d149fd6ff16a67df1d"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/male/male_long_blue_medium.png",
+      "sha256": "74ed766373fe2016f0c728bb6ee54112a17710028098a6e8812ccc412f75c1aa"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/male/male_long_moss_dark.png",
+      "sha256": "65bd15d6e4208896b33a6165733e1f731d633ef9f2745be29e9dae3cc96b2f56"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/male/male_long_moss_light.png",
+      "sha256": "6ef0371c1cf04b0efd9a78fb42fac73d4f9cb7ee4cf58274d0020acbdc2142b4"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/male/male_long_moss_medium.png",
+      "sha256": "d0ed53a314b35db35f30d749c78df373885e31ae6123de73929771e9ccae9b57"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/male/male_long_ochre_dark.png",
+      "sha256": "52e9125efa4f5a029f0cdbda3cdd7956860f5fa8d3e479c13df731a968878467"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/male/male_long_ochre_light.png",
+      "sha256": "d864a2bab6e56858493e2ade4227aa5db0c7c364352b75ad49b4dad4855bae13"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/male/male_long_ochre_medium.png",
+      "sha256": "769973e7dc48227215e839b12cbfb5ccd5c1b0161d8758a7ebc9e62f4033e549"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/male/male_short_blue_dark.png",
+      "sha256": "0a55390cf9281a2fbfb22ee37a275fedf51e1430d67a5e3968cdace0ea2aeac5"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/male/male_short_blue_light.png",
+      "sha256": "5e1a96df08206ae21e6d3dd073fa50c22492f055dac33c60a67db0e260048ae6"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/male/male_short_blue_medium.png",
+      "sha256": "fa180a6c82c082109b20f90f5924d97cfd1907c42ed334f874d9e1be7cefea09"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/male/male_short_moss_dark.png",
+      "sha256": "ce20ad368ed7b83467ff013eeb3eba00a8f1aff73b9b8e17b983367df364d590"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/male/male_short_moss_light.png",
+      "sha256": "a33d6306209e6f9fe31a3fcfab142d95b58a41c9c7a57cbc0587205e2a5881fb"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/male/male_short_moss_medium.png",
+      "sha256": "f138e1a28bab2ef0ebdc7f6fff2463f66c3fa7b9121f22df9c997c3427b82652"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/male/male_short_ochre_dark.png",
+      "sha256": "f171adc495a410762b0509db5e64f46599e0635b70be99b68dc45183e63487de"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/male/male_short_ochre_light.png",
+      "sha256": "d4982365b012655501c1e2c50719169a0d47247f1e0237a6d17ae2182264d2c4"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/male/male_short_ochre_medium.png",
+      "sha256": "41db244f55cd345615f350054891ccff1eeb98cfc11a425e9b15c23a3f579d6c"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/states/female/hero_female_back.png",
+      "sha256": "0509ff76dca84e73a7f42002968c4a1e9f7d1c0bcafc99b1e2439d6cf01e3415"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/states/female/hero_female_idle.png",
+      "sha256": "d249eed019be54fa59152ee85b6c692f862681fd3ab1d34c19e51d97b2fb9058"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/states/female/hero_female_walk_01.png",
+      "sha256": "b195941bd48e4350c1c38dafbf53bcdff0cb6623a65815607fdbfed0f7a909b9"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/states/female/hero_female_walk_02.png",
+      "sha256": "2db0fb3ea22a21c4811d1e07c1a8c4ef14106d7b811ba6311bf0ebd7f2b3b704"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/states/male/hero_male_hurt.png",
+      "sha256": "a6fda03cdb063da0bf34e717d18408deb378f23412e3011108b53167171ae8b9"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/states/male/hero_male_idle.png",
+      "sha256": "eb5584bc481ab689e8f5e446d51736f072f7c8fa419982a4fc8e704667c9d8c1"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/states/male/hero_male_prayer.png",
+      "sha256": "1c8ba423641cdbb63471183f8afb36e5baefef2ce239f946b4d24fc489e161d8"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/states/male/hero_male_victory.png",
+      "sha256": "866219f11c88433d36f8ec5fb7d2deca4d07006ca69221de0ca72b32ff09f226"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/states/male/hero_male_walk_01.png",
+      "sha256": "0b871c1caf26fffdee59cd318574bfa2d13759087ef1619c45106383853bbdc7"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/states/male/hero_male_walk_02.png",
+      "sha256": "539765c1b2e1ab681093bd3775bda5626ce631330e1e71478cd2b566775f6e7f"
+    },
+    {
+      "path": "apps/web/public/assets/equipment/amulet/amulet_of_the_path_icon.png",
+      "sha256": "5a08e15d90a2f666fdcccd28685ba03d80b83b88d11057c1e9f93ea414a9a82e"
+    },
+    {
+      "path": "apps/web/public/assets/equipment/armor/traveler_armor_rare_icon.png",
+      "sha256": "b25fb938a263450a8c61d5e5e9d5a7af7b0bbfefeac34a729ec43e3a7dcc9be7"
+    },
+    {
+      "path": "apps/web/public/assets/equipment/boots/traveler_boots_common_icon.png",
+      "sha256": "469d17fc3b67bc05f9ca5c0fe735d66791f2231abecc4a36e6a72e7265c3022b"
+    },
+    {
+      "path": "apps/web/public/assets/equipment/helmet/traveler_helmet_rare_icon.png",
+      "sha256": "3f1ea0d90cde264ac3820c1487dd65c2d6e527b3ccad9060d033c6325f680d07"
+    },
+    {
+      "path": "apps/web/public/assets/equipment/overlays/v1/armor_traveler_rare_female.png",
+      "sha256": "383d43efc1a67bcbec85bbe2dbc59736d0b1bb2fbb18f5dc24a89679223f189e"
+    },
+    {
+      "path": "apps/web/public/assets/equipment/overlays/v1/armor_traveler_rare_male.png",
+      "sha256": "519cc41011f5869b2c2420fa058ade065c9e497e77a54cc16605b295606068db"
+    },
+    {
+      "path": "apps/web/public/assets/equipment/overlays/v1/armor_traveler_uncommon_female.png",
+      "sha256": "c369515f8e167f1cb7182e192023f4197193c225d29cb5662acebe89f046bca2"
+    },
+    {
+      "path": "apps/web/public/assets/equipment/overlays/v1/armor_traveler_uncommon_male.png",
+      "sha256": "f6fab7ea8d9fa2ad085ae9bfe7f74ce40af50220121d51645152777c0aa0b8f2"
+    },
+    {
+      "path": "apps/web/public/assets/equipment/overlays/v1/boots_traveler_common_left_female.png",
+      "sha256": "1995a1dc412fbb1902fef7967b5d159fed5eeafcc54bb17e4677bf5ec904e506"
+    },
+    {
+      "path": "apps/web/public/assets/equipment/overlays/v1/boots_traveler_common_left_male.png",
+      "sha256": "aa2dbee90f59dab9eec93360064e5545ca4160cd228ef14018ef3159f190942b"
+    },
+    {
+      "path": "apps/web/public/assets/equipment/overlays/v1/boots_traveler_common_right_female.png",
+      "sha256": "e555a6095fc0bb1882e591e240e1e0d3054b401255d350eb40762f0da1bd189c"
+    },
+    {
+      "path": "apps/web/public/assets/equipment/overlays/v1/boots_traveler_common_right_male.png",
+      "sha256": "7d9ca69fc985567364e798ee8592d3c485777001628d303e8ce977c1ea480489"
+    },
+    {
+      "path": "apps/web/public/assets/equipment/overlays/v1/helmet_traveler_rare_female.png",
+      "sha256": "809d2a2d587f285e2ba9e2898f2b495872d6c68cda5b5e43c9966c06632352c9"
+    },
+    {
+      "path": "apps/web/public/assets/equipment/overlays/v1/helmet_traveler_rare_male.png",
+      "sha256": "e3522c526e98b00378885bd26f52ddd29d470eca22685c2882f210052cde4874"
+    },
+    {
+      "path": "apps/web/public/assets/equipment/overlays/v1/MANIFEST.txt",
+      "sha256": "dfd4106b8529ab3601417a3ff328e1ec111cab5104bf6912e7ce7e8551633093"
+    },
+    {
+      "path": "apps/web/public/assets/equipment/overlays/v1/medallion_path_rare.png",
+      "sha256": "7b009cfd5efa85d3de565a17a7d532f6ad781e6b0733790330208a74fe56a732"
+    },
+    {
+      "path": "apps/web/public/assets/equipment/overlays/v1/shield_perseverance_rare.png",
+      "sha256": "62523e42ed6b2c7bc807527b6caad0ab71f429824131b1a153e4b4df46f59f55"
+    },
+    {
+      "path": "apps/web/public/assets/equipment/overlays/v1/sword_path_common.png",
+      "sha256": "cd2caa11876100fc7136f7f30d55efa41cff2e00eef3f2202a9ed354acf4ef22"
+    },
+    {
+      "path": "apps/web/public/assets/equipment/overlays/v1/sword_path_rare.png",
+      "sha256": "340c6ea989390e2f630ac97b1982d98a85e3983d185a2dee86f6eca12115e441"
+    },
+    {
+      "path": "apps/web/public/assets/equipment/shield/traveler_shield_rare_icon.png",
+      "sha256": "f7c1aae081b417f1f5466080eabf0a483dc4da94c279f22e40d7c7df1c662cab"
+    },
+    {
+      "path": "apps/web/public/assets/equipment/weapon/traveler_sword_rare_icon.png",
+      "sha256": "a64839a81665ceccbc6e266c85ca1b78036e7a259dd8b5d19420e4c2c2b6afe0"
+    },
+    {
+      "path": "packages/game-engine/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "packages/game-engine/package.json",
+      "sha256": "514f74cad405c9332429df90ee04adc41d0b2cf4e18e5926d5d7d8bbd624f125"
+    },
+    {
+      "path": "packages/game-engine/src/arena-combat-v2.test.ts",
+      "sha256": "3016cdc30b8222c49782817fc0b7d2ac9d16b9bcf1e7a400b4ea27e4920bd339"
+    },
+    {
+      "path": "packages/game-engine/src/arena-combat-v2.ts",
+      "sha256": "52f7cc34a1a86538670cff387f41f301ad954a0f0aa7710cad51e67505905c9a"
+    },
+    {
+      "path": "packages/game-engine/src/chests.test.ts",
+      "sha256": "26dd447dce8c6c8035ec5a5d5b13615b69b822ae20e464e9bfd3c80355e15be2"
+    },
+    {
+      "path": "packages/game-engine/src/guild-rewards.test.ts",
+      "sha256": "197d463411dfd8576efb4029cffc07d473c2a2a55019b16ade831f889995449e"
+    },
+    {
+      "path": "packages/game-engine/src/index.test.ts",
+      "sha256": "33ebf839f275ff36dfd4a72ff5b416c7f2c3e1f9078bcbdbb3b6f84166316183"
+    },
+    {
+      "path": "packages/game-engine/src/index.ts",
+      "sha256": "3fd75ae17c5c9267c287f1eb57c2f76d7f735f2242b903f0bba5634385c56ddb"
+    },
+    {
+      "path": "packages/game-engine/tsconfig.json",
+      "sha256": "88020c5d0c639e9fca3c8cc0425dc6233bbb30b14c5a0cb5dcb7d7530d4b788f"
+    },
+    {
+      "path": "apps/web/features/journey/domain/traveler.ts",
+      "sha256": "5d05b02b400966e2af374d53abf8deee774af61d2c211d86e290826fb223ff3c"
+    },
+    {
+      "path": "apps/web/features/journey/state/registration.test.ts",
+      "sha256": "f7ca171f0da7d6886a8b55d2d675f8bf372263afa7f5771d4d9f7097ec1df40f"
+    },
+    {
+      "path": "apps/web/features/journey/state/use-journey.ts",
+      "sha256": "64d6025d206cb6950f23298ac6d15829d5c9e10e8676ad3b3ad4b9164c38d56d"
+    },
+    {
+      "path": "apps/web/features/journey/persistence/arena-storage.ts",
+      "sha256": "009287adde0b58c053c0e58785982c00782d912f49e9d3a742039c2c1a1ad1ed"
+    },
+    {
+      "path": "apps/web/features/journey/persistence/journey-storage.ts",
+      "sha256": "9a64ed918c475d15ed7b4f98a9eea4ab9ccf1fc37180b37510a991ba5aa437ca"
+    },
+    {
+      "path": "apps/web/features/journey/data/bodyAnchors.ts",
+      "sha256": "4771c7f9c1e1fea400ee7a40597384c30f7dda695ddc34a82fd4f2dfcf3619f7"
+    },
+    {
+      "path": "apps/web/features/journey/data/equipmentCatalog.ts",
+      "sha256": "b249fddce0d7e65be140aff2369fea1d1d0fd6cf34452f798c2baf6ddcbb2032"
+    },
+    {
+      "path": "apps/web/features/journey/data/attributes.ts",
+      "sha256": "72b3c90d0ce57bd793ab518d7cd726b0b0ce6d857a5c6674a5d54649cfe0bb59"
+    },
+    {
+      "path": "apps/web/features/journey/data/avatarHDApproved.json",
+      "sha256": "31d4390eb29ccb5d5d6c02a60f32c967658d9693c239880fe6f5f7a051de1921"
+    },
+    {
+      "path": "apps/web/features/journey/data/avatarRuntime.ts",
+      "sha256": "aec128c17830a2fcd877ef88edcc726742db00a0a2362833b56db93f9cbb1e59"
+    },
+    {
+      "path": "apps/web/features/journey/data/avatarHDPack.ts",
+      "sha256": "40291e4dcec47cb4b41a2991ad1d9dd855e71a72a1dc46dea35a7b2eaf06ef73"
+    },
+    {
+      "path": "apps/web/features/journey/components/snake-chase-game.tsx",
+      "sha256": "1b6e6652264a939cc8e5dc6db5dfe826b9d66a6cdb006c69674e7c064428ef0f"
+    },
+    {
+      "path": "apps/web/features/journey/screens/arena.tsx",
+      "sha256": "2904f6bee1665aed47f77a81dcae170e385585ac10d4736e6a90e7938f3fb333"
+    },
+    {
+      "path": "apps/web/features/journey/screens/guild-hub.tsx",
+      "sha256": "f14be405e89cadfdbd058a125947a4e94b93c0b8242f552150f2fc5ff24051f7"
+    },
+    {
+      "path": "apps/web/features/journey/screens/diary.tsx",
+      "sha256": "d60fbf4bdb763d3e777ce6ed1038d5febc39438c4692419e03ce4a4682ef4d15"
+    }
+  ]
+}

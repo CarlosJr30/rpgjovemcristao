@@ -1,0 +1,21 @@
+{
+  "id": "boots_traveler_common_male_v2",
+  "status": "PASS",
+  "technical": "TECHNICALLY_VALIDATED",
+  "mapping": "MAPPED",
+  "fitStatus": "NEEDS_REWORK",
+  "sha256": "e0f392c934da8376e9ee4d5b54e31be1de1f2ab65dc3cb102bf8fce17a7c6049",
+  "clippedAlpha128SourcePixels": 80,
+  "alpha128Bounds": {
+    "left": 210,
+    "top": 922,
+    "right": 819,
+    "bottom": 1535,
+    "count": 226421
+  },
+  "footBaselineDelta": 22,
+  "maxLandmarkResidual": 206.30095924462137,
+  "humanBodyFitApproved": false,
+  "ready": false,
+  "runtimeActivated": false
+}

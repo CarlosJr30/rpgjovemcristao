@@ -1,0 +1,72 @@
+{
+  "task": "TASK-0057",
+  "technicalDiagnostic": "PASS",
+  "acceptance": "FAIL_NEEDS_NEW_SHEATH_ART",
+  "counts": {
+    "targets": 4,
+    "diagnosticOverlays": 4,
+    "sheathedOverlays": 0,
+    "FIT_PASS": 0,
+    "NEEDS_REWORK": 0,
+    "NEEDS_NEW_SHEATH_ART": 4,
+    "HUMAN_BODY_FIT_REVIEW_PENDING": 0,
+    "HUMAN_APPROVED": 0,
+    "READY": 0,
+    "runtimeActivated": 0
+  },
+  "checks": [
+    {
+      "id": "sword_path_common_female_v2",
+      "diagnosticPng": "PASS",
+      "diagnosticSha256": "5698df0343a9cebde08576577a04a30c371dfa42f97194b7c3b0d10a9e3b72bd",
+      "orientation": "DOWN_BLADE_UP_GRIP",
+      "clippedAlpha128SourcePixels": 0,
+      "fixation": "FAIL_MISSING_SUPPORT",
+      "sheath": "FAIL_MISSING_ART",
+      "status": "NEEDS_NEW_SHEATH_ART",
+      "finalSheathedSha256": null
+    },
+    {
+      "id": "sword_path_common_male_v2",
+      "diagnosticPng": "PASS",
+      "diagnosticSha256": "f408c2f6c6cfe4c68c967bd9bccbdf1cd68d7c39347bd3c38b8dc67ed88edc6c",
+      "orientation": "DOWN_BLADE_UP_GRIP",
+      "clippedAlpha128SourcePixels": 0,
+      "fixation": "FAIL_MISSING_SUPPORT",
+      "sheath": "FAIL_MISSING_ART",
+      "status": "NEEDS_NEW_SHEATH_ART",
+      "finalSheathedSha256": null
+    },
+    {
+      "id": "sword_path_rare_female_v2",
+      "diagnosticPng": "PASS",
+      "diagnosticSha256": "f1c7c3901bce263b7008db3935b3dc555f6c71b7a4dbc6dd2455c67d061cee7d",
+      "orientation": "DOWN_BLADE_UP_GRIP",
+      "clippedAlpha128SourcePixels": 0,
+      "fixation": "FAIL_MISSING_SUPPORT",
+      "sheath": "FAIL_MISSING_ART",
+      "status": "NEEDS_NEW_SHEATH_ART",
+      "finalSheathedSha256": null
+    },
+    {
+      "id": "sword_path_rare_male_v2",
+      "diagnosticPng": "PASS",
+      "diagnosticSha256": "6f23c869ebdf02981873f363ecef8b362d9c97825feba6867e0a70bd3023eee4",
+      "orientation": "DOWN_BLADE_UP_GRIP",
+      "clippedAlpha128SourcePixels": 0,
+      "fixation": "FAIL_MISSING_SUPPORT",
+      "sheath": "FAIL_MISSING_ART",
+      "status": "NEEDS_NEW_SHEATH_ART",
+      "finalSheathedSha256": null
+    }
+  ],
+  "preservation": {
+    "status": "PASS",
+    "unchanged": 864,
+    "total": 864,
+    "hd": 54,
+    "oldCandidates": true,
+    "otherEquipment": true,
+    "runtime": true
+  }
+}

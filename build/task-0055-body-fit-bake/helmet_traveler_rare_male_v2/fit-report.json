@@ -1,0 +1,177 @@
+{
+  "task": "TASK-0055",
+  "id": "helmet_traveler_rare_male_v2",
+  "itemId": "traveler-helmet-rare",
+  "gender": "male",
+  "slot": "helmet",
+  "assessedAt": "2026-10-08T20:27:47.229Z",
+  "assessedBy": "Codex / author visual QA (not Carlos Faustino)",
+  "outputSha256": "8fbbdf7afc106525713572b897edef3a3782eeb860eb40bab7606199c75c184e",
+  "sourceSha256": "c5e5a15cfeaa19c3ebff002480fa5f0c1b93b914c7c5604cc3b3d51d079590da",
+  "referenceAvatar": {
+    "id": "male_short_moss_medium",
+    "path": "apps/web/public/assets/avatar/hd/male/male_short_moss_medium_hd.png",
+    "sha256": "b182c2e29b512b337891716a413ab7efaad737e23c6354779fae17fe19b8af34",
+    "immutable": true,
+    "footBaseline": 1513
+  },
+  "technicalStatus": "TECHNICALLY_VALIDATED",
+  "mapping": "MAPPED",
+  "status": "NEEDS_REWORK",
+  "reviewStatus": "NEEDS_REWORK",
+  "humanBodyFitApproved": false,
+  "ready": false,
+  "runtimeActivated": false,
+  "observations": [
+    "A ponta da coroa sai do limite superior 0 do canvas e foi cortada pelo bake full-canvas.",
+    "A abertura enquadra o rosto, mas as bordas frontais encostam na linha das sobrancelhas/olhos; cabelos da base continuam aparecendo lateralmente.",
+    "Descer o elmo para recuperar a coroa agrava o contato com olhos; escala uniforme não resolve simultaneamente altura, têmporas e abertura."
+  ],
+  "regions": {
+    "crown": "FAIL_CANVAS_CLIPPING",
+    "hairline": "NEEDS_REVIEW",
+    "temples": "NEEDS_REWORK",
+    "eyes_face": "NEEDS_REWORK",
+    "proportion": "NEEDS_REWORK"
+  },
+  "reworkRecommendation": "Regenerar elmo sobre a referência HD male_short_moss_medium em canvas1024x1536, com coroa totalmente dentro do topo e abertura facial mais alta/larga; manter metal acima das sobrancelhas e olhos/nariz/boca livres. Encurtar altura da coroa e redesenhar abertura, sem deformar o avatar.",
+  "limits": "Only this derivative/hash and named reference; no cross-gender or 54-avatar compatibility claimed; landmark residuals are approximate diagnostics, not sufficient to prove fit.",
+  "landmarkMethod": "Male helmet asymmetric face-window opening; temple clearance priority; visual native grid measurements approximately ±12px avatar, ±20px source. No hidden anatomy certified.",
+  "landmarkResiduals": {
+    "crown": {
+      "source": [
+        512,
+        15
+      ],
+      "avatar": [
+        510,
+        3
+      ],
+      "weight": 1,
+      "kind": "anatomical garment proxy",
+      "projected": [
+        508.6324723382079,
+        -22.836866924695084
+      ],
+      "delta": [
+        -1.36752766179211,
+        -25.836866924695084
+      ],
+      "distance": 25.873032763674406
+    },
+    "hairline": {
+      "source": [
+        512,
+        530
+      ],
+      "avatar": [
+        510,
+        110
+      ],
+      "weight": 1,
+      "kind": "anatomical garment proxy",
+      "projected": [
+        508.6324723382079,
+        148.13632846511217
+      ],
+      "delta": [
+        -1.36752766179211,
+        38.13632846511217
+      ],
+      "distance": 38.16083962263791
+    },
+    "left_temple": {
+      "source": [
+        302,
+        583
+      ],
+      "avatar": [
+        428,
+        169
+      ],
+      "weight": 3,
+      "kind": "anatomical garment proxy",
+      "projected": [
+        438.9152470336263,
+        165.7316281848399
+      ],
+      "delta": [
+        10.915247033626315,
+        -3.2683718151600942
+      ],
+      "distance": 11.394071797527914
+    },
+    "right_temple": {
+      "source": [
+        728,
+        582
+      ],
+      "avatar": [
+        590,
+        169
+      ],
+      "weight": 3,
+      "kind": "anatomical garment proxy",
+      "projected": [
+        580.3416183657775,
+        165.39964139767523
+      ],
+      "delta": [
+        -9.65838163422245,
+        -3.600358602324775
+      ],
+      "distance": 10.307614557094166
+    },
+    "head_center": {
+      "source": [
+        513,
+        567
+      ],
+      "avatar": [
+        510,
+        151
+      ],
+      "weight": 0.5,
+      "kind": "anatomical garment proxy",
+      "projected": [
+        508.9644591253726,
+        160.41983959020513
+      ],
+      "delta": [
+        -1.0355408746273724,
+        9.419839590205129
+      ],
+      "distance": 9.476588141742784
+    },
+    "face_clearance": {
+      "source": [
+        513,
+        735
+      ],
+      "avatar": [
+        510,
+        209
+      ],
+      "weight": 0.5,
+      "kind": "face-window placement goal",
+      "projected": [
+        508.9644591253726,
+        216.1936198338704
+      ],
+      "delta": [
+        -1.0355408746273724,
+        7.1936198338704
+      ],
+      "distance": 7.267772094478309
+    }
+  },
+  "evidence": [
+    "build/task-0055-body-fit-bake/helmet_traveler_rare_male_v2/source.png",
+    "build/task-0055-body-fit-bake/helmet_traveler_rare_male_v2/avatar_base.png",
+    "build/task-0055-body-fit-bake/helmet_traveler_rare_male_v2/baked_overlay.png",
+    "build/task-0055-body-fit-bake/helmet_traveler_rare_male_v2/combined.png",
+    "build/task-0055-body-fit-bake/helmet_traveler_rare_male_v2/overlay_50_50.png",
+    "build/task-0055-body-fit-bake/helmet_traveler_rare_male_v2/alignment_guides.png",
+    "build/task-0055-body-fit-bake/helmet_traveler_rare_male_v2/before.png"
+  ]
+}

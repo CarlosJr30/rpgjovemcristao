@@ -1,0 +1,4 @@
+# TASK-0060: manter bytes de artefatos e receipts usados em verifica??es SHA.
+/build/** -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+/assets-source/** -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+/docs/architecture/** -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol

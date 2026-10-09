@@ -1,0 +1,156 @@
+{
+  "task": "TASK-0055",
+  "id": "shield_perseverance_rare_female_v2",
+  "itemId": "traveler-shield-rare",
+  "gender": "female",
+  "slot": "shield",
+  "assessedAt": "2026-10-08T20:27:47.229Z",
+  "assessedBy": "Codex / author visual QA (not Carlos Faustino)",
+  "outputSha256": "1d0392230985f18b22ff043083af121fb9f276d526a3e8ecf4b9c93135dabe02",
+  "sourceSha256": "2722949386d675b27337dfe67a295b7be217dd17881a68a84b84800a0dbeb117",
+  "referenceAvatar": {
+    "id": "female_short_moss_medium",
+    "path": "apps/web/public/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+    "sha256": "f260cb9b053b35c328025f1bc7ee602cbb30e57c71ba1f2238a4b1519685f460",
+    "immutable": true,
+    "footBaseline": 1495
+  },
+  "technicalStatus": "TECHNICALLY_VALIDATED",
+  "mapping": "MAPPED",
+  "status": "FIT_PASS",
+  "reviewStatus": "HUMAN_BODY_FIT_REVIEW_PENDING",
+  "humanBodyFitApproved": false,
+  "ready": false,
+  "runtimeActivated": false,
+  "observations": [
+    "Escudo ocupa região do antebraço direito da tela, oclui mão/bracelete frontalmente e mantém rosto livre.",
+    "Contorno lateral e ponta inferior ficam dentro do canvas, com proporção coerente com o avatar.",
+    "Montagem/pega traseira não está visível na source: alinhamento do antebraço é proxy visual; Carlos precisa confirmar leitura de escudo portado."
+  ],
+  "regions": {
+    "hand_forearm": "PASS_FRONT_OCCLUSION_PROXY",
+    "torso_clearance": "PASS",
+    "face_clearance": "PASS",
+    "lateral_extent": "PASS",
+    "proportion": "PASS"
+  },
+  "reworkRecommendation": "Sem regeneração obrigatória no candidato técnico; revisão humana deve confirmar porte/oclusão no hash e avatar indicados, sem presumir tira traseira ou compatibilidade geral.",
+  "limits": "Only this derivative/hash and named reference; no cross-gender or 54-avatar compatibility claimed; landmark residuals are approximate diagnostics, not sufficient to prove fit.",
+  "landmarkMethod": "Female shield front plate, own contour; screen-right forearm proxy and free-space goals, not measured rear grip; visual native grid measurements approximately ±12px avatar, ±20px source. No hidden anatomy certified.",
+  "landmarkResiduals": {
+    "hand_forearm": {
+      "source": [
+        512,
+        700
+      ],
+      "avatar": [
+        785,
+        720
+      ],
+      "weight": 3,
+      "kind": "rear mounting proxy, hidden strap unverified",
+      "projected": [
+        784.8073505252647,
+        720.119144222087
+      ],
+      "delta": [
+        -0.19264947473527627,
+        0.1191442220870158
+      ],
+      "distance": 0.22651526609148884
+    },
+    "torso_clearance": {
+      "source": [
+        100,
+        650
+      ],
+      "avatar": [
+        650,
+        704
+      ],
+      "weight": 1,
+      "kind": "inner edge placement goal",
+      "projected": [
+        650.6078930933941,
+        703.8328023007434
+      ],
+      "delta": [
+        0.6078930933940683,
+        -0.16719769925657602
+      ],
+      "distance": 0.6304673533442489
+    },
+    "face_clearance": {
+      "source": [
+        512,
+        24
+      ],
+      "avatar": [
+        785,
+        500
+      ],
+      "weight": 1,
+      "kind": "top placement goal below face",
+      "projected": [
+        784.8073505252647,
+        499.92780144552245
+      ],
+      "delta": [
+        -0.19264947473527627,
+        -0.07219855447755208
+      ],
+      "distance": 0.20573393347823277
+    },
+    "lateral_extent": {
+      "source": [
+        922,
+        650
+      ],
+      "avatar": [
+        918,
+        704
+      ],
+      "weight": 1,
+      "kind": "outer edge placement goal",
+      "projected": [
+        918.3553542802817,
+        703.8328023007434
+      ],
+      "delta": [
+        0.35535428028174465,
+        -0.16719769925657602
+      ],
+      "distance": 0.39272348433885285
+    },
+    "shield_tip": {
+      "source": [
+        512,
+        1498
+      ],
+      "avatar": [
+        785,
+        980
+      ],
+      "weight": 1,
+      "kind": "lower extent placement goal",
+      "projected": [
+        784.8073505252647,
+        980.0491612867297
+      ],
+      "delta": [
+        -0.19264947473527627,
+        0.04916128672971354
+      ],
+      "distance": 0.1988231682392647
+    }
+  },
+  "evidence": [
+    "build/task-0055-body-fit-bake/shield_perseverance_rare_female_v2/source.png",
+    "build/task-0055-body-fit-bake/shield_perseverance_rare_female_v2/avatar_base.png",
+    "build/task-0055-body-fit-bake/shield_perseverance_rare_female_v2/baked_overlay.png",
+    "build/task-0055-body-fit-bake/shield_perseverance_rare_female_v2/combined.png",
+    "build/task-0055-body-fit-bake/shield_perseverance_rare_female_v2/overlay_50_50.png",
+    "build/task-0055-body-fit-bake/shield_perseverance_rare_female_v2/alignment_guides.png",
+    "build/task-0055-body-fit-bake/shield_perseverance_rare_female_v2/before.png"
+  ]
+}

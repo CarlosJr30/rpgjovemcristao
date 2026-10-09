@@ -1,0 +1,7 @@
+{
+  "phase": 6,
+  "status": "LOCAL_OCCLUSION_REJECTED_NEW_CHAIN_ART_REQUIRED",
+  "targets": 2,
+  "reason": "Fonte termina no topo do canvas. Ocultar extremidades sob cachecol remove a continuidade visível da corrente; feminino parece broche flutuante, masculino tem corte na parte superior do medalhão. Não comprova suspensão pelo pescoço.",
+  "evidence": "amulet-experiments.json"
+}

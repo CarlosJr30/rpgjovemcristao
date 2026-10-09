@@ -1,0 +1,55 @@
+{
+  "baselineCount": 543,
+  "intact": 536,
+  "changed": [
+    {
+      "path": "tests/e2e/immersion-sprint.spec.ts",
+      "before": "96fdd8f9623b840bf80f0bd7c4d27f672049d5dbe688e5744340d8df7ab6ab1d",
+      "after": "a8da51be41c2bbf72364626744ffa1aa1e81b9230676c9fc6e8d8e774c4b7f46"
+    },
+    {
+      "path": "tests/e2e/home.spec.ts",
+      "before": "dbaf15843a581131c19c42b848099ee3c45ea17d4609b7fe8f6db88258d748ce",
+      "after": "27675d8ec1d352f910ac53547f759dcef15dd3595af399ccc78d644fd4addf4f"
+    },
+    {
+      "path": ".agent/memory/CURRENT_STATE.md",
+      "before": "b57f017301e094d09eaf134e528800d79db64671422cde28b19f4ee2df9cf4f9",
+      "after": "1a9d00619523a29e95d2ecaf87e43f91c2c64c4dd9bdc7998229b7905fe2f3f9"
+    },
+    {
+      "path": "apps/web/features/journey/online-guild-hub.test.tsx",
+      "before": "70d8a79f5462555591f69da8f4c0f45332904985f42072c5af999190e58d8a14",
+      "after": "9cd6668e4a23b90810e084c0142ded5362eb8a2a62971be657d1451720e2f7fa"
+    },
+    {
+      "path": "apps/web/features/journey/screens/guild-hub.tsx",
+      "before": "40981a5ac585d07575c2212b31a2c95015950fbd7f8172699189ff84e261c445",
+      "after": "fa3fe31e7d2546b6545ea85329b8303b92935d7a84fd1ba50bfed9b178cdb562"
+    },
+    {
+      "path": "apps/web/features/journey/components/guild-content-board.tsx",
+      "before": "41ceccc6c1dbb3313c0df2f8aad8bbf43de4932b3e3f54e9351ba19000c658a0",
+      "after": "9e022f2f28ae88e208d2699b9ace5402e8a41ea48199ac5a0cf94443aaa6fd65"
+    },
+    {
+      "path": "apps/web/features/journey/components/online-guild-hub.tsx",
+      "before": "22084ec6f7afe3cfddb3b0c8dacdc21934d08ea2334c991410690e46997a3792",
+      "after": "e574c2e8cb65ea827a0f44daa8dc8bf4f0f34c70c5c8e3b1a1ca8dceab39ccba"
+    }
+  ],
+  "unexpected": [],
+  "missing": [],
+  "added": [
+    "tests/e2e/guild-experience-v2.spec.ts",
+    "docs/security/GUILD-EXPERIENCE-V2-REVIEW.md",
+    "tasks/completed/TASK-0043-guild-experience-v2.md",
+    "docs/architecture/GUILD-EXPERIENCE-V2.md",
+    "apps/web/features/journey/guild-experience.test.tsx",
+    "apps/web/features/journey/data/guildPresentation.ts",
+    "apps/web/features/journey/data/guildExperienceAssets.ts",
+    "apps/web/features/journey/components/guild-experience.module.css",
+    "apps/web/features/journey/components/guild-hero.tsx"
+  ],
+  "status": "PASS"
+}

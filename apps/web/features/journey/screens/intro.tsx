@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import { Button } from '@rpg/ui';
 import { Shell, RequireTraveler } from '../components/shell';
 import { Landscape } from '../components/landscape';
-import { Avatar } from '../components/avatar';
+import { AvatarRuntime } from '../components/avatar-runtime';
 import { finishIntroduction } from '../state/use-journey';
 import { JOURNEY_ROUTES as routes } from '../data/campaign';
 import styles from '../journey.module.css';
@@ -27,7 +27,7 @@ export function IntroScreen() {
                 começa com o<br />
                 <em>primeiro passo.</em>
               </h1>
-              <Avatar appearance={traveler.appearance} avatar={traveler.avatar} />
+              <AvatarRuntime traveler={traveler} mode="card" className={styles.avatar} />
               <p>
                 Há histórias esperando para serem descobertas.
                 <br />O horizonte é só o começo.

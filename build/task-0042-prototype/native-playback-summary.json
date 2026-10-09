@@ -1,0 +1,17 @@
+{
+    "nativeSuccessfullyPlayedFiles":  [
+                                          "/assets/audio/effects/arena_attack.ogg",
+                                          "/assets/audio/effects/arena_defense.ogg",
+                                          "/assets/audio/effects/arena_dodge.ogg",
+                                          "/assets/audio/effects/arena_focus.ogg",
+                                          "/assets/audio/effects/defeat.ogg",
+                                          "/assets/audio/effects/player_hit.ogg",
+                                          "/assets/audio/effects/victory.ogg",
+                                          "/assets/audio/music/arena_training.ogg"
+                                      ],
+    "count":  8,
+    "evidenceFiles":  [
+                          "build/task-0042-prototype/dev-e2e-results/arena-audio-prototype-DEV--60549-nd-cleanup-in-six-viewports-prototype/prototype-playback.json",
+                          "build/task-0042-prototype/dev-e2e-results/arena-audio-prototype-DEV--6585d-dia-once-per-semantic-event-prototype/prototype-events-and-results.json"
+                      ]
+}

@@ -1,0 +1,140 @@
+{
+  "at": "2026-10-08T04:29:34.625Z",
+  "task": "TASK-0052",
+  "status": "BLOCKED",
+  "blocker": "MAPPING_REQUIRED",
+  "additionalWork": "DIAGNOSTIC_REWORK_REQUIRED",
+  "previousSourceAccessBlockerResolved": true,
+  "authorReview": true,
+  "independentReview": false,
+  "assetValidation": {
+    "status": "PASS",
+    "sourcesValidated": 12,
+    "manifest": "manifest.json",
+    "expectedManifestAbsent": true,
+    "dimensions": "1024x1536",
+    "format": "PNG/RGBA",
+    "alpha": "REAL",
+    "CRC": "PASS",
+    "fullDecode": "PASS",
+    "sha256": "12/12 actual hashes match manifest",
+    "evidence": "build/task-0052-body-fit-validation/delivery/source-inventory.json"
+  },
+  "bodyFitValidation": {
+    "status": "FIT_VALIDATION_PENDING_BY_TARGET",
+    "formalCounts": {
+      "sources": 12,
+      "uniqueHashes": 11,
+      "technicalPass": 12,
+      "mapped": 0,
+      "UNMAPPED_SOURCE_ART": 12,
+      "FIT_PASS": 0,
+      "FIT_FAIL": 0,
+      "NEEDS_REWORK": 0,
+      "FIT_VALIDATION_PENDING": 12,
+      "READY": 0
+    },
+    "diagnosticCounts": {
+      "NEEDS_REWORK": 12,
+      "uniqueArtworksNeedingRegeneration": 11,
+      "compositions": 24
+    },
+    "diagnosticDoesNotAssignTargets": true,
+    "evidence": "build/task-0052-body-fit-validation/delivery/visual-assessment.json"
+  },
+  "unit": {
+    "result": "PASS",
+    "validator": 7,
+    "runtimeEquipment": 94,
+    "total": 101,
+    "evidence": [
+      "build/task-0052-body-fit-validation/delivery/audit-unit.log",
+      "build/task-0052-body-fit-validation/delivery/unit.log"
+    ]
+  },
+  "e2e": {
+    "result": "PASS",
+    "sourceLab": 1,
+    "sourceLabSamples": 144,
+    "existingLab": 1,
+    "existingLabHDSelections": 54,
+    "existingLabSamples": 48,
+    "portalProduction": 11,
+    "productionIsolation": 2,
+    "totalPassed": 15,
+    "plannedSkips": 5,
+    "viewports": [
+      "390x844",
+      "412x915",
+      "844x390",
+      "915x412",
+      "1440x900",
+      "1920x1080"
+    ],
+    "reducedMotion": "PASS",
+    "evidence": [
+      "build/task-0052-body-fit-validation/delivery/source-lab.log",
+      "build/task-0052-body-fit-validation/delivery/existing-lab.log",
+      "build/task-0052-body-fit-validation/delivery/portal.log",
+      "build/task-0052-body-fit-validation/delivery/production-isolation.log",
+      "build/task-0052-body-fit-validation/delivery/lab-evidence.json"
+    ]
+  },
+  "lint": {
+    "result": "PASS",
+    "command": "npm run lint",
+    "evidence": "build/task-0052-body-fit-validation/delivery/lint.log"
+  },
+  "typecheck": {
+    "result": "PASS",
+    "command": "npm run typecheck; final root npx tsc --noEmit after new production test",
+    "evidence": [
+      "build/task-0052-body-fit-validation/delivery/typecheck.log",
+      "build/task-0052-body-fit-validation/delivery/root-typecheck.log"
+    ]
+  },
+  "build": {
+    "result": "PASS",
+    "command": "node scripts/avatar-hd-runtime-audit.mjs; npm exec --workspace=@rpg/web -- next build",
+    "HDIdentitiesAudited": 54,
+    "evidence": [
+      "build/task-0052-body-fit-validation/delivery/build.log",
+      "build/avatar-hd-runtime-audit/asset-audit.json"
+    ]
+  },
+  "security": {
+    "result": "PASS_AUTHOR_REVIEW",
+    "evidence": "docs/security/TASK-0052-body-fit-source-review.md"
+  },
+  "preservation": {
+    "result": "PASS",
+    "protected": 191,
+    "originalSources": 12,
+    "manifestUnchanged": true,
+    "evidence": "build/task-0052-body-fit-validation/delivery/preservation.json"
+  },
+  "review": {
+    "path": "build/task-0052-body-fit-validation/delivery/review/index.html",
+    "overviewPngs": 24,
+    "individualViewPngs": 144,
+    "totalPngs": 168
+  },
+  "acceptance": {
+    "result": "BLOCKED",
+    "missingTargets": 16,
+    "condition": "Supply unequivocal source hash/filename → target gender/item/rarity binding; then regenerate body-aligned assets where needed, repeat fit and obtain explicit human Body-Fit approval.",
+    "ready": 0,
+    "productionActivation": false
+  },
+  "sourcePNGsEdited": false,
+  "HDAnchorsIDsSavesProductionChanged": false,
+  "generatedImages": 0,
+  "remoteChanges": false,
+  "push": false,
+  "deploy": false,
+  "initialFailuresResolved": [
+    "Review long SHA text overflow at mobile width fixed; final 144-sample E2E PASS."
+  ],
+  "historicalEvidence": "build/task-0052-body-fit-validation/history/pre-delivery",
+  "testServers": "Exited via Playwright ownership; user processes untouched"
+}

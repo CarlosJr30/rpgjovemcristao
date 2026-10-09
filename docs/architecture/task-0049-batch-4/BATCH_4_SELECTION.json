@@ -1,0 +1,103 @@
+{
+  "task": "TASK-0049E",
+  "at": "2026-10-07T17:32:50.108Z",
+  "selectionRule": "First eight PENDING_HD in official queue order",
+  "items": [
+    {
+      "id": "female_curly_blue_light",
+      "gender": "female",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "curly",
+      "legacyPath": "/assets/avatar/runtime/female/female_curly_blue_light.png",
+      "hdPath": "/assets/avatar/hd/female/female_curly_blue_light_hd.png",
+      "combination": {
+        "outfit": "blue",
+        "skin": "light"
+      }
+    },
+    {
+      "id": "female_curly_blue_medium",
+      "gender": "female",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "curly",
+      "legacyPath": "/assets/avatar/runtime/female/female_curly_blue_medium.png",
+      "hdPath": "/assets/avatar/hd/female/female_curly_blue_medium_hd.png",
+      "combination": {
+        "outfit": "blue",
+        "skin": "medium"
+      }
+    },
+    {
+      "id": "male_short_blue_light",
+      "gender": "male",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "short",
+      "legacyPath": "/assets/avatar/runtime/male/male_short_blue_light.png",
+      "hdPath": "/assets/avatar/hd/male/male_short_blue_light_hd.png",
+      "combination": {
+        "outfit": "blue",
+        "skin": "light"
+      }
+    },
+    {
+      "id": "male_short_blue_dark",
+      "gender": "male",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "short",
+      "legacyPath": "/assets/avatar/runtime/male/male_short_blue_dark.png",
+      "hdPath": "/assets/avatar/hd/male/male_short_blue_dark_hd.png",
+      "combination": {
+        "outfit": "blue",
+        "skin": "dark"
+      }
+    },
+    {
+      "id": "male_short_blue_medium",
+      "gender": "male",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "short",
+      "legacyPath": "/assets/avatar/runtime/male/male_short_blue_medium.png",
+      "hdPath": "/assets/avatar/hd/male/male_short_blue_medium_hd.png",
+      "combination": {
+        "outfit": "blue",
+        "skin": "medium"
+      }
+    },
+    {
+      "id": "male_short_ochre_medium",
+      "gender": "male",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "short",
+      "legacyPath": "/assets/avatar/runtime/male/male_short_ochre_medium.png",
+      "hdPath": "/assets/avatar/hd/male/male_short_ochre_medium_hd.png",
+      "combination": {
+        "outfit": "ochre",
+        "skin": "medium"
+      }
+    },
+    {
+      "id": "male_short_ochre_light",
+      "gender": "male",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "short",
+      "legacyPath": "/assets/avatar/runtime/male/male_short_ochre_light.png",
+      "hdPath": "/assets/avatar/hd/male/male_short_ochre_light_hd.png",
+      "combination": {
+        "outfit": "ochre",
+        "skin": "light"
+      }
+    },
+    {
+      "id": "male_short_ochre_dark",
+      "gender": "male",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "short",
+      "legacyPath": "/assets/avatar/runtime/male/male_short_ochre_dark.png",
+      "hdPath": "/assets/avatar/hd/male/male_short_ochre_dark_hd.png",
+      "combination": {
+        "outfit": "ochre",
+        "skin": "dark"
+      }
+    }
+  ]
+}

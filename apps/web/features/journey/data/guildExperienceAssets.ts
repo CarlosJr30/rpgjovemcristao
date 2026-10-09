@@ -1,0 +1,51 @@
+/** Physical and human validation completed in TASK-0044. Runtime uses the audited visual catalog. */
+export const GUILD_EXPERIENCE_ASSETS = [
+  {
+    name: 'guild_hall',
+    path: '/assets/world/guild/guild_hall.webp',
+    resolution: '1920×1080',
+    transparent: false,
+    status: 'VALIDATED',
+    purpose: 'Salão acolhedor, fundo desktop; fallback CSS existente.',
+  },
+  {
+    name: 'guild_hall_mobile',
+    path: '/assets/world/guild/guild_hall_mobile.webp',
+    resolution: '960×1280',
+    transparent: false,
+    status: 'VALIDATED',
+    purpose: 'Composição própria para celular; sem texto embutido.',
+  },
+  {
+    name: 'guild_banner_neutral',
+    path: '/assets/world/guild/guild_banner_neutral.png',
+    resolution: '512×768',
+    transparent: true,
+    status: 'VALIDATED',
+    purpose: 'Estandarte neutro, sem identidade de célula inventada.',
+  },
+  {
+    name: 'guild_mission_parchment',
+    path: '/assets/world/guild/guild_mission_parchment.png',
+    resolution: '768×1024',
+    transparent: true,
+    status: 'VALIDATED',
+    purpose: 'Decoração discreta dos cards; texto permanece em HTML.',
+  },
+  {
+    name: 'guild_leader_table',
+    path: '/assets/world/guild/guild_leader_table.webp',
+    resolution: '1600×600',
+    transparent: false,
+    status: 'VALIDATED',
+    purpose: 'Ambiente de liderança, sem retrato pessoal fabricado.',
+  },
+  {
+    name: 'guild_reward_chest',
+    path: '/assets/world/guild/guild_reward_chest.png',
+    resolution: '512×512',
+    transparent: true,
+    status: 'VALIDATED',
+    purpose: 'Apresentação de baú somente quando o dado concede baú.',
+  },
+] as const;

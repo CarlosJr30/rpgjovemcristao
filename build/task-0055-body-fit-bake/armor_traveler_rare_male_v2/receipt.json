@@ -1,0 +1,44 @@
+{
+  "id": "armor_traveler_rare_male_v2",
+  "filename": "armor_traveler_rare_male_v2.png",
+  "itemId": "traveler-armor-rare",
+  "gender": "male",
+  "slot": "armor",
+  "avatar": {
+    "id": "male_short_moss_medium",
+    "path": "apps/web/public/assets/avatar/hd/male/male_short_moss_medium_hd.png",
+    "sha256": "b182c2e29b512b337891716a413ab7efaad737e23c6354779fae17fe19b8af34",
+    "immutable": true,
+    "footBaseline": 1513
+  },
+  "transform": {
+    "translateX": 274.24772341198104,
+    "translateY": 216.14934942243502,
+    "scale": 0.46776808469628645,
+    "rotation": 0
+  },
+  "sha256": "cc96ad925b3c298a0e85f2cfeda2f1171130d83f6bd7c71080e1b43c87e7f0dd",
+  "sourceSha256": "fb36c83cce93fc31b4871af4ea9e14597c5f7c5bb5167e2287c0928c96975e0f",
+  "technicalStatus": "TECHNICALLY_VALIDATED",
+  "mapping": "MAPPED",
+  "fitStatus": "FIT_PASS",
+  "humanBodyFitApproved": false,
+  "ready": false,
+  "runtimeActivated": false,
+  "reviewStatus": "HUMAN_BODY_FIT_REVIEW_PENDING",
+  "fitReport": "build/task-0055-body-fit-bake/armor_traveler_rare_male_v2/fit-report.json",
+  "metadata": "build/task-0055-body-fit-bake/armor_traveler_rare_male_v2/fit-metadata.json",
+  "metadataSha256": "a5100fab263fb88b2393455626dc8a9214832b70e15f8560a05ddb354a39e995",
+  "observations": [
+    "Peitoral, ombros e cinto acompanham a anatomia masculina; braços e mãos permanecem livres.",
+    "Base mantém pequenos trechos da roupa/pochete original nas laterais; composição de camadas, sem alteração da base.",
+    "Landmarks aproximados têm resíduos locais, registrados na metadata; não é encaixe pixel-perfect nem validação das demais variantes."
+  ],
+  "reworkRecommendation": "Sem regeneração obrigatória no candidato técnico; Carlos deve revisar este hash no avatar indicado antes de qualquer READY.",
+  "task": "TASK-0055",
+  "updatedAt": "2026-10-08T20:27:47.331Z",
+  "sourceApproval": "SOURCE_VISUAL_APPROVED (inherited)",
+  "runtimePath": null,
+  "stagingPath": "build/task-0055-body-fit-bake/armor_traveler_rare_male_v2/armor_traveler_rare_male_v2_baked.png",
+  "approvedBy": null
+}

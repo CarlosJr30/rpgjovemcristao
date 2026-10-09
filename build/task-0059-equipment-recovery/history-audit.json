@@ -1,0 +1,377 @@
+{
+  "reports": [
+    {
+      "path": "docs/architecture/TASK-0051-BODY-FIT-V2-REPORT.md",
+      "sha256": "9db74a36c0f99add02817a033431c9d73e18386af91a597f0f01f62c18661ccc",
+      "status": [
+        "Atualização vigente: fontes16 entregues/validadas/mapeadas; fit16FAIL/NEEDS_REWORK e0READY. ASSET_REWORK_REQUIRED; bloqueio antigo de acesso/mapping resolvido para o novo pack. Ver [relatório TASK-0052B](TASK-0052B-BODY-FIT-TARGET-VALIDATION-REPORT.md). Textos de estados anteriores abaixo são históricos.",
+        "Estado atual após TASK-0052B: BLOCKED / BODY_FIT_ARCHITECTURE_VALIDATED / TARGET_SOURCE_DELIVERY_REQUIRED / FIT_VALIDATION_REQUIRED; 0 READY. Ver [relatório TASK-0052B](TASK-0052B-BODY-FIT-TARGET-VALIDATION-REPORT.md). Histórico abaixo preservado.",
+        "Contrato: **BLOCKED**, não DONE. Nenhuma imagem gerada, nenhum READY promovido, nenhum push/deploy/serviço remoto.",
+        "| 3 | READY atuais | Zero definições, zero camadas corporais reais e zero novas aprovações. READY + APPROVED_BY_USER por gênero continuam obrigatórios. |",
+        "| 13 | Cinematic | PASS: ícone UI → apresentação → nome/raridade/stats → voo → confirmação; reduced motion preservado. Overlay full-canvas não viaja no voo. Arte real READY ausente; revelação READY validada por fixtures unitárias, não por novos assets. |",
+        "| 18 | Unit | PASS: seis arquivos, 94 testes. READY/gênero/layer order/NEEDS, mecânica/stats, cinematic/reduced motion, dimensão decodificada, erro, ícones e V1 preservado. |",
+        "| 26 | Pendências | Produção/fornecimento dos PNGs mediante nova autorização; validar alpha/medidas, shoulders/hairline/grip/ankles, oclusão, identidades e combinações no HD; aprovação visual humana por fonte/gênero; receipts e promoção READY somente depois. |",
+        "| 27 | Status final | TASK-0051 BLOCKED / BODY_FIT_ARCHITECTURE_VALIDATED / ASSET_GENERATION_REQUIRED. Não DONE. HD normal continua ativo, nenhum overlay pendente é exibido. |"
+      ]
+    },
+    {
+      "path": "docs/architecture/TASK-0051-FINAL-CHECKS.json",
+      "sha256": "aa7cfbf5e0f0b9e0695e8ab7635213012d851ce049aab6c6e8a2a9cf031c238a",
+      "status": "BLOCKED"
+    },
+    {
+      "path": "docs/architecture/TASK-0052-BODY-FIT-VALIDATION-REPORT.md",
+      "sha256": "30c5061d458f84cb2a25fb6bb4c7ec99756ea7912e4e76caa8b6957e77c7b584",
+      "status": [
+        "Atualização vigente: fontes16 entregues/validadas/mapeadas; fit16FAIL/NEEDS_REWORK e0READY. ASSET_REWORK_REQUIRED; bloqueio antigo de acesso/mapping resolvido para o novo pack. Ver [relatório TASK-0052B](TASK-0052B-BODY-FIT-TARGET-VALIDATION-REPORT.md). Textos de estados anteriores abaixo são históricos.",
+        "Estado atual após TASK-0052B: BLOCKED / MAPPING_REQUIRED / TARGET_SOURCE_DELIVERY_REQUIRED. As 12 fontes antigas permanecem auditadas; os 16 novos targets ainda não foram localizados. Ver [relatório TASK-0052B](TASK-0052B-BODY-FIT-TARGET-VALIDATION-REPORT.md). Histórico abaixo preservado.",
+        "Estado: **BLOCKED / MAPPING_REQUIRED**, com **DIAGNOSTIC_REWORK_REQUIRED**. Não cancelada e não DONE. A dependência anterior SOURCE_FILE_NOT_LOCATED foi resolvida. Auditoria e diagnóstico locais concluídos; integração por target permanece pendente.",
+        "| FIT_PASS por target | 0 |",
+        "| NEEDS_REWORK por target | 0 |",
+        "| READY | 0 |",
+        "**12 arquivos / 11 artes únicas receberam recomendação diagnóstica NEEDS_REWORK.** Essa contagem é separada dos estados formais de fit por target acima; não há FIT_FAIL por target inventado.",
+        "- Lab existente: 1 E2E PASS, 54 seleções HD e 48 amostras; gates continuam sem READY."
+      ]
+    },
+    {
+      "path": "docs/architecture/TASK-0052-FINAL-CHECKS.json",
+      "sha256": "f2bd6a7495ed123c840b85aeaf03895edb42e42bd0d0e7bd9ca2d051adf30a4d",
+      "status": "BLOCKED"
+    },
+    {
+      "path": "docs/architecture/TASK-0052-SOURCE-VALIDATION.json",
+      "sha256": "e6a0faaa28247a953bdf34bf7752be7b6614186c492bd14e6d6479628c0c5927",
+      "status": [
+        "    \"status\": \"PASS\",",
+        "    \"status\": \"MAPPING_REQUIRED / DIAGNOSTIC_REWORK_REQUIRED\",",
+        "      \"FIT_PASS\": 0,",
+        "      \"NEEDS_REWORK\": 0,",
+        "      \"READY\": 0",
+        "      \"NEEDS_REWORK\": 12,",
+        "    \"ready\": 0",
+        "        \"status\": \"CRC_PASS\","
+      ]
+    },
+    {
+      "path": "docs/architecture/TASK-0052B-BODY-FIT-TARGET-VALIDATION-REPORT.md",
+      "sha256": "f26e292d57f038162ac06c1f7231917d6186085c49dc240cbe1012669b54ba78",
+      "status": [
+        "Estado: **REWORK / FIT_VALIDATION_COMPLETE / ASSET_REWORK_REQUIRED**. As fontes foram entregues e o bloqueio de acesso/mapping está resolvido. 16 avaliações reais concluídas, nenhum candidato FIT_PASS e nenhum READY. Atualização: 2026-10-08T06:12:19.239Z.",
+        "| FIT_PASS | 0 |",
+        "| NEEDS_REWORK — estado final | 16 |",
+        "| HUMAN_BODY_FIT_APPROVED / READY | 0 / 0 |",
+        "FIT_FAIL e NEEDS_REWORK descrevem os **mesmos 16 assets**, como resultado e estado de trabalho; não são 32 fontes.",
+        "| armor_traveler_uncommon_female_v2.png | female | FIT_FAIL → NEEDS_REWORK | Rosto permanece visível, mas gola/ombros são altos e largos; cintura abaixo da cintura HD, saia invade coxas e abertura dos braços não segue o torso. |",
+        "| armor_traveler_uncommon_male_v2.png | male | FIT_FAIL → NEEDS_REWORK | Gola cobre parte inferior do rosto; ombreiras muito largas, peito/cintura/saia fora das posições reais do torso e quadril. |",
+        "| helmet_traveler_rare_female_v2.png | female | FIT_FAIL → NEEDS_REWORK | Elmo ocupa quase a altura do corpo; abertura facial está no torso/cintura, cobre rosto/cabelo e painéis descem pelas pernas. |"
+      ]
+    },
+    {
+      "path": "docs/architecture/TASK-0052B-FINAL-CHECKS.json",
+      "sha256": "ad9d887b31484f9657300826ad011677d8d7fdd62e9630b75057e6f43ba10147",
+      "status": "REWORK",
+      "counts": {
+        "expected": 16,
+        "found": 16,
+        "technicalValidated": 16,
+        "mapped": 16,
+        "mappingErrors": 0,
+        "missing": 0,
+        "FIT_PASS": 0,
+        "FIT_FAIL": 16,
+        "NEEDS_REWORK": 16,
+        "FIT_VALIDATION_PENDING": 0,
+        "HUMAN_BODY_FIT_REVIEW_PENDING": 0,
+        "HUMAN_BODY_FIT_APPROVED": 0,
+        "READY": 0
+      }
+    },
+    {
+      "path": "docs/architecture/TASK-0052B-TARGET-VALIDATION.json",
+      "sha256": "7285c9f70d8721159f9b21ee73f8673212e85ec14fbe081d4fb2991f1d9da93c",
+      "status": "FIT_VALIDATION_COMPLETE / REWORK_REQUIRED",
+      "counts": {
+        "expected": 16,
+        "found": 16,
+        "technicalValidated": 16,
+        "mapped": 16,
+        "mappingErrors": 0,
+        "missing": 0,
+        "FIT_PASS": 0,
+        "FIT_FAIL": 16,
+        "NEEDS_REWORK": 16,
+        "FIT_VALIDATION_PENDING": 0,
+        "HUMAN_BODY_FIT_REVIEW_PENDING": 0,
+        "HUMAN_BODY_FIT_APPROVED": 0,
+        "READY": 0
+      }
+    },
+    {
+      "path": "docs/architecture/TASK-0053-BODY-FIT-PILOT-REPORT.md",
+      "sha256": "d33e4d143402d0bf36fc7d9305766028a25e4c337460a450f64d0b75d592ac8d",
+      "status": [
+        "Estado: **REWORK / NEEDS_REWORK / GENERATION_LIMIT_REACHED / GEOMETRY_METHOD_NOT_VALIDATED**. Quatro tentativas do único target autorizado. Não DONE; nenhuma candidata habilitada para aprovação corporal, READY ou runtime. Revisão técnica/visual pelo autor, não aprovação humana nem revisão independente.",
+        "| 1 | HD e fonte estética como entradas, prompt de camada vestida | 134,252,892,1178 | PASS | FAIL / NEEDS_REWORK |",
+        "| 2 | HD como única imagem, estética verbal; coordenadas explícitas | 281,326,763,1011 | PASS | FAIL / NEEDS_REWORK |",
+        "| 3 | HD e contorno diagnóstico com linha do cinto/landmarks | 278,323,772,985 | PASS | FAIL / NEEDS_REWORK |",
+        "| 4 | Esquema separado em posição nativa; HD como anatomia/estilo | 303,337,722,858 | PASS | FAIL / NEEDS_REWORK |",
+        "Não ampliar tolerâncias para obter FIT_PASS. Análises das tentativas1–3 estão nos respectivos fit_report.json e no agregado.",
+        "| node scripts/body-fit-pilot-check.mjs | Pipeline PASS; asset4/4, classificações coerentes; fit do piloto FAIL, gate READY fechado |",
+        "| node --test scripts/body-fit-source-audit.test.mjs scripts/body-fit-target-audit.test.mjs | 15 PASS: CRC corrupção, mapping inequívoco, READY sem fit/sem aprovação rejeitado |"
+      ]
+    },
+    {
+      "path": "docs/architecture/TASK-0053-FINAL-CHECKS.json",
+      "sha256": "9d4b3d674b6a6e639c4db6ba47c93345f9663a89ffb6db56a554ea3caf6cee0b",
+      "status": "CHECKS_PASS / FIT_FAIL / REWORK"
+    },
+    {
+      "path": "docs/architecture/TASK-0054-BAKED-ASSET-MANIFEST.json",
+      "sha256": "ff9d70f25606132f95206b5e82bdeda8057cb41143403e4daef9552a0dcad7a8",
+      "status": "HUMAN_BODY_FIT_APPROVED / READY"
+    },
+    {
+      "path": "docs/architecture/TASK-0054-BODY-FIT-BAKE-PILOT-REPORT.md",
+      "sha256": "944c6e0227192c2dfaa7006d16fac7fc360ac0e004ef95e6bf3c262a5a086d43",
+      "status": [
+        "**DONE / PILOT_COMPLETE / FIT_PASS / HUMAN_BODY_FIT_APPROVED / READY (staging)**. Carlos Faustino aprovou explicitamente o piloto para seu hash e referência female_short_moss_mediumHD. Runtime não ativado; aprovação não se estende aos outros15 ou variantes HD. QA visual/técnico pelo autor, não revisão independente. Um único piloto e um único transform escolhido; geração de arte por IA zero e outros targets processados zero.",
+        "Comando: node scripts/body-fit-bake.mjs build/task-0054-body-fit-bake/pilot-settings.json. Recria apenas o derivado staging. Se o hash baked mudar, a avaliação anterior é invalidada para FIT_VALIDATION_PENDING; não herda FIT_PASS/aprovação. Não ajustar este candidato novamente nesta etapa após FIT_PASS.",
+        "A análise técnica FIT_PASS recebeu agora HUMAN_BODY_FIT_APPROVED de Carlos Faustino e READY exclusivamente em staging. A avaliação é válida somente para este output/hash e female_short_moss_medium; os outros53 variantes/15 targets não foram compositados ou aprovados aqui.",
+        "| Unit bake + validators | 23 PASS:8 bake e15 source/mapping/READY; inclui determinismo, source intacta, coordenadas, nonuniforme/hash falso rejeitados, fit antigo invalidado por hash novo |",
+        "Pipeline offline completo; tarefa DONE/PILOT_COMPLETE/FIT_PASS/HUMAN_BODY_FIT_APPROVED. READY1 somente em staging, aprovação corporal humana1, ativação0, outros15processados0. Fonte original mantém seu estado anterior; resultado novo é derivado staging, não substituição do original. TASK-0052B/0053 históricas não foram relabeladas.",
+        "## 2026-10-08T07:35:44.885Z — Human Body-Fit Approval / READY",
+        "HUMAN_BODY_FIT_APPROVED / READY somente em staging; runtimePath null/runtimeActivated false. Gate técnico revalidado antes e depois: CRC/PNG/RGBA/1024×1536/alpha/hashes/FIT_PASS/mapping/preservação285 PASS;24 unit/2 E2E Lab/lint PASS nesta confirmação. Aprovação inválida para outro hash/metadata/avatar/gênero/item. Não muda gates/arquitetura/runtime nem presume aprovação dos outros15.",
+        "Receipt persistente docs/architecture/TASK-0054-HUMAN-BODY-FIT-APPROVAL.json; manifest docs/architecture/TASK-0054-BAKED-ASSET-MANIFEST.json, exatamente1 asset READY compatível apenas com female_short_moss_medium. Metadata bake permanece byte idêntica (8511d318ac79a28f3c0813e2225d0ae5e4cd9d89a9964a3ea4a6dd1db38317fc); flags antigas false nessa metadata são histórico mecânico pré-aceite, não status atual. Estado atual vem do receipt humano, fit-report e manifest aprovado separados. Nenhum rebake/source/HD/saves/IDs/mecânica/runtime/produção/remoto alterado."
+      ]
+    },
+    {
+      "path": "docs/architecture/TASK-0054-FINAL-CHECKS.json",
+      "sha256": "2d30064bc2c9571a94458b362a9723dd1ceedd44affc20f4dfd86bf6bab35289",
+      "status": "DONE / PILOT_COMPLETE / HUMAN_BODY_FIT_APPROVED / READY_STAGING_ONLY"
+    },
+    {
+      "path": "docs/architecture/TASK-0054-HUMAN-BODY-FIT-APPROVAL.json",
+      "sha256": "6b6f16278d1e9362f66a166e5dea4bd89a34b20bb2f397cd93239b86ce6eb3e8",
+      "status": [
+        "  \"reviewStatus\": \"HUMAN_BODY_FIT_APPROVED\","
+      ]
+    },
+    {
+      "path": "docs/architecture/TASK-0055-BAKED-ASSET-MANIFEST.json",
+      "sha256": "851c74e5127ca4c571f21d5565957d9adc60e3c6dbc550cd41884beb97495f0f",
+      "status": "BAKE_BATCH_COMPLETE / FIT_VALIDATION_COMPLETE",
+      "counts": {
+        "processed": 15,
+        "TECHNICALLY_VALIDATED": 15,
+        "MAPPED": 15,
+        "MAPPING_ERROR": 0,
+        "FIT_PASS": 5,
+        "NEEDS_REWORK": 10,
+        "HUMAN_BODY_FIT_REVIEW_PENDING": 5,
+        "FIT_VALIDATION_PENDING": 0,
+        "HUMAN_BODY_FIT_APPROVED": 0,
+        "READY": 0,
+        "runtimeActivated": 0
+      }
+    },
+    {
+      "path": "docs/architecture/TASK-0055-BODY-FIT-BATCH-REPORT.md",
+      "sha256": "41acd975b84e9351fc149c1317b4200f5718f469152f585ee4745e205dd3e605",
+      "status": [
+        "Atualizado: 2026-10-08T23:47:33.260Z. Status: **DONE / BAKE_BATCH_COMPLETE / FIT_VALIDATION_COMPLETE**. Este status conclui somente o processamento/avaliação offline; não conclui integração runtime, aprovação humana nem rework das artes.",
+        "| FIT_PASS | 5 |",
+        "| NEEDS_REWORK | 10 |",
+        "| READY | 0 |",
+        "Os 5 FIT_PASS são candidatos técnicos **HUMAN_BODY_FIT_REVIEW_PENDING**. Carlos não aprovou nenhum dos15 nesta task. Os10 NEEDS_REWORK permanecem bloqueados para READY. O piloto TASK-0054 não foi reprocessado nem modificado.",
+        "Feminino: female_short_moss_medium HD, SHA f260cb9b053b35c328025f1bc7ee602cbb30e57c71ba1f2238a4b1519685f460;7 targets,2 PASS e5 rework. Masculino: male_short_moss_medium HD, SHA b182c2e29b512b337891716a413ab7efaad737e23c6354779fae17fe19b8af34;8 targets,3 PASS e5 rework. Sem compatibilidade cross-gender ou validação das54 variantes.",
+        "| armor_traveler_uncommon_male_v2 | male_short_moss_medium | FIT_PASS | 273.094238 | 214.180000 | 0.472208636 | 8ece1c5d4daad2b4b7b0a6d673eb3ad6e2d16a9bcc888082ee33a2bd71c928c2 |",
+        "| armor_traveler_rare_female_v2 | female_short_moss_medium | FIT_PASS | 295.623293 | 230.033625 | 0.446930504 | 58be3d1d95eeab11ac0a38d67f06ad88383d018e3720502d31dada7a9f2fc833 |"
+      ]
+    },
+    {
+      "path": "docs/architecture/TASK-0055-FINAL-CHECKS.json",
+      "sha256": "75f2f78eaa118275edcb35c8f5fac9e1344d814ef4840b41c07d11656b558109",
+      "status": "DONE / BAKE_BATCH_COMPLETE",
+      "counts": {
+        "processed": 15,
+        "TECHNICALLY_VALIDATED": 15,
+        "MAPPED": 15,
+        "MAPPING_ERROR": 0,
+        "FIT_PASS": 5,
+        "NEEDS_REWORK": 10,
+        "HUMAN_BODY_FIT_REVIEW_PENDING": 5,
+        "FIT_VALIDATION_PENDING": 0,
+        "HUMAN_BODY_FIT_APPROVED": 0,
+        "READY": 0,
+        "runtimeActivated": 0
+      }
+    },
+    {
+      "path": "docs/architecture/TASK-0056-BAKED-ASSET-MANIFEST.json",
+      "sha256": "de729d8d5aa066dfbb5821faf5ac3701f7a915875131d9e08432001ea45296ab",
+      "status": "REWORK",
+      "counts": {
+        "processedTargets": 4,
+        "attempts": 2,
+        "candidatePngs": 8,
+        "DOWNWARD": 4,
+        "FIT_PASS": 0,
+        "NEEDS_REWORK": 4,
+        "HUMAN_BODY_FIT_REVIEW_PENDING": 0,
+        "HUMAN_APPROVED": 0,
+        "READY": 0,
+        "runtimeActivated": 0
+      }
+    },
+    {
+      "path": "docs/architecture/TASK-0056-FINAL-CHECKS.json",
+      "sha256": "d12ba298ba65fb0d65dab3c98d0028a2d45b42fe7f384e1e9a4cf8af659ddf3a",
+      "status": [
+        "  \"taskStatus\": \"REWORK\",",
+        "  \"technicalStatus\": \"PASS\",",
+        "  \"acceptance\": \"FAIL_OPEN_HAND_REQUIRES_REWORK\",",
+        "    \"FIT_PASS\": 0,",
+        "    \"NEEDS_REWORK\": 4,",
+        "    \"READY\": 0,",
+        "    {\"name\":\"physical inventory\", \"command\":\"node scripts/body-fit-sword-inspect.mjs\", \"status\":\"PASS\", \"pngFiles\":4482, \"newMappedSwordArtLocated\":0, \"evidence\":\"build/task-0056-sword-downward/physical-png-inventory.json\"},",
+        "    {\"name\":\"PNG / CRC / decode / alpha / hashes / zero visible clipping / receipts\", \"command\":\"node scripts/body-fit-sword-check.mjs\", \"status\":\"PASS\", \"candidateChecks\":8, \"evidence\":\"build/task-0056-sword-downward/asset-validation.json\"},"
+      ],
+      "counts": {
+        "targets": 4,
+        "attemptsPerTarget": 2,
+        "bakedCandidatePngs": 8,
+        "downwardSelected": 4,
+        "FIT_PASS": 0,
+        "NEEDS_REWORK": 4,
+        "HUMAN_BODY_FIT_REVIEW_PENDING": 0,
+        "HUMAN_APPROVED": 0,
+        "READY": 0,
+        "runtimeActivated": 0
+      }
+    },
+    {
+      "path": "docs/architecture/TASK-0056-SWORD-DOWNWARD-REPORT.md",
+      "sha256": "12ead4ae40a2e923bb2b4a8b187d928a1f984038e272a883c9898ca37f1eab7c",
+      "status": [
+        "Data local: 08/10/2026 (America/Sao_Paulo). Estado: **REWORK**, não DONE. QA/Security pelo próprio autor; nenhuma revisão independente ou aprovação humana alegada.",
+        "Quatro targets processados, duas tentativas preservadas por target. Os quatro candidatos selecionados para revisão estão inteiramente orientados para baixo, mas **nenhum mostra uma empunhadura convincente**. FIT_PASS **0**, NEEDS_REWORK **4**, HUMAN_BODY_FIT_REVIEW_PENDING **0**, HUMAN_APPROVED **0**, READY **0**, ativação runtime **0**. Os oito PNGs produzidos não são oito targets.",
+        "| Target | Lâmina | Mão realmente segura? | Status | Oclusão / pendência |",
+        "| sword_path_common_female_v2 | Vertical para baixo | Não | NEEDS_REWORK | Cabo na frente dos dedos; polegar afastado; máscara recorta cabo e deixa abertura. |",
+        "| sword_path_common_male_v2 | Vertical para baixo | Não | NEEDS_REWORK | Cabo cobre dedos; máscara cria recorte anguloso; polegar aberto. Guarda próxima ao bolso. |",
+        "| sword_path_rare_female_v2 | Vertical para baixo | Não | NEEDS_REWORK | Máscara interrompe cabo e cria halo junto à guarda; polegar aberto; proporção menor exige revisão. |",
+        "| sword_path_rare_male_v2 | Vertical para baixo | Não | NEEDS_REWORK | Dedos revelados pela máscara, mas cabo recortado e polegar separado; guarda próxima do bolso. |",
+        "Inspeção do corpo inteiro da segunda tentativa: nenhuma lâmina atravessa torso, pernas ou botas. Isso não equivale a FIT_PASS: o equipamento ainda parece sobreposto na mão. As guardas das raras e comum masculina têm pequenas folgas/tangências próximas dos bolsos, que permanecem para revisão humana. Há sobreposição à capa e o pomo invade visualmente a região da luva; sem certificação de profundidade 3D. As raras ficam com proporção de espada curta para reduzir a invasão lateral da guarda; a adequação estética dessa proporção permanece pendente."
+      ]
+    },
+    {
+      "path": "docs/architecture/TASK-0057-FINAL-CHECKS.json",
+      "sha256": "a75616202ecf78f073af6a38688f8fb45ea9db2c9b71c871a95bb6fea5a8c815",
+      "status": [
+        "  \"taskStatus\":\"REWORK\",",
+        "  \"counts\":{\"targets\":4,\"diagnosticOverlays\":4,\"sheathedOverlays\":0,\"FIT_PASS\":0,\"NEEDS_REWORK\":0,\"NEEDS_NEW_SHEATH_ART\":4,\"HUMAN_BODY_FIT_REVIEW_PENDING\":0,\"HUMAN_APPROVED\":0,\"READY\":0,\"runtimeActivated\":0},",
+        "  \"countingRule\":\"Exclusive primary target classifications. Overall task REWORK; diagnostic fit errors recorded as secondary issues without counting each target twice.\",",
+        "    {\"name\":\"Initial source/candidate/pipeline/belt and local component inspection\",\"status\":\"PASS\",\"localArtFiles\":48,\"namedSheathMatches\":0,\"usableSheathComponents\":0,\"evidence\":\"build/task-0057-sword-sheath/local-art-inventory.json\"},",
+        "    {\"name\":\"PNG/alpha/CRC/decode/dimensions/hashes/orientation/zero visible clipping\",\"status\":\"PASS_DIAGNOSTIC_ONLY\",\"command\":\"node scripts/body-fit-sheath-check.mjs\",\"targets\":4,\"exitCode\":0,\"evidence\":\"build/task-0057-sword-sheath/asset-validation.json\"},",
+        "    {\"name\":\"Determinism/gates/invalid geometry/overwrite protection\",\"status\":\"PASS\",\"command\":\"node --test scripts/body-fit-sheath-diagnostic.test.mjs\",\"tests\":7,\"exitCode\":0},",
+        "    {\"name\":\"Review and Body-Fit Lab\",\"status\":\"PASS\",\"command\":\"npx playwright test --config=playwright.task-0057-lab.config.mjs\",\"tests\":2,\"exitCode\":0,\"evidence\":\"build/task-0057-sword-sheath/lab-results.json\",\"reviewSamples\":240,\"bodyFitLabSamples\":12,\"limitation\":\"Runtime Lab common sword only; rare archived targets inspected in the separate four-target review, not activated.\"},",
+        "    {\"name\":\"Equipment Portal and cinematic reduced motion\",\"status\":\"PASS\",\"command\":\"npx playwright test --config=playwright.task-0057-portal.config.mjs\",\"tests\":9,\"exitCode\":0,\"evidence\":\"build/task-0057-sword-sheath/portal-results.json\",\"scope\":\"Six viewport Portal matrix + fallback + female/male reduced motion. Isolated local-mode browser fixtures only.\"},"
+      ],
+      "counts": {
+        "targets": 4,
+        "diagnosticOverlays": 4,
+        "sheathedOverlays": 0,
+        "FIT_PASS": 0,
+        "NEEDS_REWORK": 0,
+        "NEEDS_NEW_SHEATH_ART": 4,
+        "HUMAN_BODY_FIT_REVIEW_PENDING": 0,
+        "HUMAN_APPROVED": 0,
+        "READY": 0,
+        "runtimeActivated": 0
+      }
+    },
+    {
+      "path": "docs/architecture/TASK-0057-SHEATH-ASSET-MANIFEST.json",
+      "sha256": "d872c99b82e94e6ff6bc68929f16b88f7f78f4e92613a9eaaf4bf98ffb278d1e",
+      "status": "REWORK",
+      "counts": {
+        "targets": 4,
+        "diagnosticOverlays": 4,
+        "sheathedOverlays": 0,
+        "FIT_PASS": 0,
+        "NEEDS_REWORK": 0,
+        "NEEDS_NEW_SHEATH_ART": 4,
+        "HUMAN_BODY_FIT_REVIEW_PENDING": 0,
+        "HUMAN_APPROVED": 0,
+        "READY": 0,
+        "runtimeActivated": 0
+      }
+    },
+    {
+      "path": "docs/architecture/TASK-0057-SWORD-SHEATH-REPORT.md",
+      "sha256": "fd3bc30f381608c395c4e704a78ffb791319f471e1f987f7c5207157635f9470",
+      "status": [
+        "08/10/2026, America/Sao_Paulo. **REWORK / NEEDS_NEW_SHEATH_ART**, não DONE. QA e Security pelo próprio autor, sem revisão independente ou aprovação humana presumida.",
+        "Contagens por target, mutuamente exclusivas: **FIT_PASS 0; NEEDS_REWORK 0; NEEDS_NEW_SHEATH_ART 4**. O status da tarefa é REWORK; erros de posição dos diagnósticos estão registrados como problemas secundários, sem contar novamente os mesmos targets. Overlay embainhado 0; diagnósticos 4; HUMAN_BODY_FIT_REVIEW_PENDING 0; HUMAN_APPROVED 0; READY 0; ativação runtime 0.",
+        "Review: `build/task-0057-sword-sheath/review/index.html`, com comparação das quatro, status e ausência de overlay final claramente indicados.",
+        "Seis viewports exatos: **390×844, 412×915, 844×390, 915×412, 1440×900, 1920×1080**. Review: quatro targets×seis viewports×dez vistas = 240 amostras, sem overflow horizontal, imagens ausentes, erros de página ou transforms corretivos CSS; reduced motion ativo. Body-Fit Lab: somente duas referências/common sword, 12 amostras de viewport, gate READY0/fallback preservado. A rara arquivada não é selecionável no catálogo runtime do Lab; as duas raras foram inspecionadas no review próprio, não ativadas para testar.",
+        "## Preservação, pendências e status final",
+        "864 arquivos protegidos permanecem byte a byte idênticos: **54 HD**, fontes, piloto0054 aprovado, lote0055 incluindo cinco FIT_PASS, todos os candidatos/evidências0056, V1 e demais equipamentos, scripts históricos e código runtime/saves/IDs/atributos/economia/progressão/combate/auth. Arquivos novos ficam somente nos caminhos da TASK-0057. Body-Fit Lab mantém textos históricos de mão porque o runtime/DEV existente não foi editado; a decisão visual vigente foi registrada em DEC-037 e no novo review. Cache/typegen locais não são novos assets nem alteração de produção.",
+        "Sem geração externa, instalações, operações remotas, Supabase, push, deploy, READY ou aprovação humana presumida.",
+        "**TASK-0057 permanece REWORK / NEEDS_NEW_SHEATH_ART em tasks/active.** Para avançar, falta disponibilizar arte local de bainha/suspensão adequada aos quatro targets ou autorizar explicitamente geração externa. Depois: bake por hash, correção real de oclusão/proporção, inspeção de cintura/quadril, regressões e aprovação corporal humana específica. Nenhum diagnóstico atual é elegível a FIT_PASS ou READY."
+      ]
+    },
+    {
+      "path": "docs/architecture/TASK-0058-FINAL-CHECKS.json",
+      "sha256": "c4f9ec76df2dae96f7e507661f8652ba5fc6dba2b8b0e58839ce9d91ec38038c",
+      "status": [
+        "  \"taskStatus\": \"PILOT_TECHNICALLY_COMPLETE\",",
+        "  \"workflowStatus\": \"BLOCKED\",",
+        "    \"result\": \"BLOCKED: no explicit visual approval by Carlos Faustino\",",
+        "  \"fitStatus\": \"FIT_PASS\",",
+        "  \"humanReviewStatus\": \"HUMAN_BODY_FIT_REVIEW_PENDING\",",
+        "    \"FIT_PASS\": 1,",
+        "    \"NEEDS_REWORK\": 0,",
+        "    \"READY\": 0,"
+      ],
+      "counts": {
+        "targets": 1,
+        "FIT_PASS": 1,
+        "NEEDS_REWORK": 0,
+        "historicalRejectedAttempts": 2,
+        "HUMAN_BODY_FIT_REVIEW_PENDING": 1,
+        "HUMAN_APPROVED": 0,
+        "READY": 0,
+        "runtimeActivated": 0
+      }
+    },
+    {
+      "path": "docs/architecture/TASK-0058-SHEATH-PILOT-MANIFEST.json",
+      "sha256": "a6d42181cf26a2cfc03cc1dd8e3fef077550109aac1ffb0c83f166b1338e690e",
+      "status": "PILOT_TECHNICALLY_COMPLETE",
+      "counts": {
+        "targets": 1,
+        "FIT_PASS": 1,
+        "NEEDS_REWORK": 0,
+        "historicalRejectedAttempts": 2,
+        "HUMAN_BODY_FIT_REVIEW_PENDING": 1,
+        "HUMAN_APPROVED": 0,
+        "READY": 0,
+        "runtimeActivated": 0
+      }
+    },
+    {
+      "path": "docs/architecture/TASK-0058-SWORD-SHEATH-PILOT-REPORT.md",
+      "sha256": "e7733f7b883da888bcde6f58b89871a4951de5cd15ab225e28b9461791252718",
+      "status": [
+        "08/10/2026, America/Sao_Paulo. **PILOT_TECHNICALLY_COMPLETE / FIT_PASS / HUMAN_BODY_FIT_REVIEW_PENDING**. Tarefa permanece em `tasks/active`, status de workflow BLOCKED por ausência de confirmação humana explícita; **não DONE**, não READY, não ativada. QA visual e Security pelo próprio autor, sem revisão independente ou aprovação de Carlos Faustino presumida.",
+        "`baked/attempt-03/sword_path_common_female_v2_sheathed_baked.png` é o candidato selecionado. Metadata é o registro inicial de bake `FIT_VALIDATION_PENDING`; o **fit-report** posterior, receipt e manifest vinculam a avaliação FIT_PASS ao mesmo hash. Um novo hash exigirá nova avaliação.",
+        "10. **Classificação.** Um target: **FIT_PASS1; NEEDS_REWORK0; HUMAN_BODY_FIT_REVIEW_PENDING1; HUMAN_APPROVED0; READY0; runtime0**. Duas tentativas históricas do mesmo target continuam NEEDS_REWORK: attempt01, correias fora do cinto; attempt02, trace apagava a guarda antes do braço. Attempt03 corrigiu a máscara. Não somar tentativas como três espadas ou três resultados de target. PNG válido não fundamentou sozinho o FIT_PASS.",
+        "Viewports exatos:390×844,412×915,844×390,915×412,1440×900,1920×1080. Review60amostras de imagem; Lab6amostras da referência feminina, gate NEEDS_NEW_OVERLAY/READY0 preservado. Portal testa seis viewports; cinematic reduced motion feminino/masculino testa ausência de flight/impact, equip/reload e ausência de staging. Fixtures isoladas de navegador, sem save real. Capturas desktop1440/mobile390 e zoom mobile inspecionados visualmente; não se alega revisão manual de todas as capturas. Lab repetido apenas para verificar a troca dos links absolutos por relativos; sem repetição global. Servidores locais de teste3109/3111 encerrados, preexistentes preservados.",
+        "13. **Preservação.**54HD,16sources, piloto de armadura aprovado0054, cinco FIT_PASS0055, espadas/candidatos/evidências anteriores, demais equipamentos e código de runtime/saves/IDs/atributos/economia/combate/progressão permanecem byte a byte iguais no baseline. Mudanças desta task restritas a staging, novos scripts/testes/configs, documentação, contrato e memória. Sampler compartilhado intacto. Nenhuma cópia para produção, operação Supabase, push, deploy, instalação ou Git destrutivo. Geração artística integrada foi a única capacidade externa explicitamente usada.",
+        "14. **Pendência humana.** Carlos Faustino precisa aprovar visualmente **este piloto, esta referência e este SHA**: proporção, contato das duas suspensões no cinto e profundidade guarda/braço/garganta. Nenhuma aprovação geral, READY ou autorização runtime inferida. Máscara específica exige reavaliação antes de extrapolar a outras roupas/identidades.",
+        "16. **Status final.** **PILOT_TECHNICALLY_COMPLETE / FIT_PASS / HUMAN_BODY_FIT_REVIEW_PENDING**. Workflow BLOCKED em `tasks/active/TASK-0058-sword-sheath-art-pilot.md`, aguardando confirmação humana explícita; **não DONE**.",
+        "O pedido de registrar aprovação é condicional e expressamente proíbe presumi-la. Nenhuma confirmação visual explícita de Carlos Faustino existe na conversa ou nos registros TASK-0058 inspecionados. Assim, não foram registrados HUMAN_BODY_FIT_APPROVED nem READY. O [receipt do gate](../../build/task-0058-sword-sheath-pilot/baked/attempt-03/human-approval-receipt.json) informa approver/approvedAt/evidência null e revisão pendente; receipt técnico original e candidatos não alterados."
+      ]
+    }
+  ]
+}

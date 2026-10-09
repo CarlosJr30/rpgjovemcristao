@@ -1,0 +1,29 @@
+{
+  "at": "2026-10-07T13:00:48.923Z",
+  "unit": {
+    "command": "npm run test -- apps/web/features/journey/avatar-geometry-audit.test.ts",
+    "result": "PASS",
+    "tests": 5
+  },
+  "e2e": {
+    "command": "npx playwright test --config playwright.avatar-hd-pilot.config.ts",
+    "result": "PASS",
+    "tests": 4,
+    "scope": "Existing approved pilot DEV lab; no TASK-0049 candidate is integrated"
+  },
+  "lint": {
+    "command": "npx eslint scripts/audit-avatar-geometry.mjs",
+    "result": "PASS"
+  },
+  "typecheck": {
+    "command": "npm run typecheck",
+    "result": "PASS",
+    "followup": "Restored apps/web/next-env.d.ts to saved pre-check hash; direct web and root tsc both PASS"
+  },
+  "build": {
+    "command": "npm run build",
+    "result": "PASS",
+    "routes": 20
+  },
+  "scopeLimit": "52-pack did not complete; checks do not imply generated candidate acceptance."
+}

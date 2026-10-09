@@ -1,0 +1,76 @@
+{
+  "at": "2026-10-08T04:00:11.115Z",
+  "task": "TASK-0052",
+  "status": "BLOCKED",
+  "blocker": "SOURCE_FILE_NOT_LOCATED",
+  "authorReview": true,
+  "independentReview": false,
+  "assetValidation": {
+    "status": "BLOCKED",
+    "sourcesValidated": 0,
+    "evidence": "build/task-0052-body-fit-validation/ASSET-VALIDATION.json"
+  },
+  "bodyFitValidation": {
+    "status": "BLOCKED",
+    "sourcesEvaluated": 0,
+    "evidence": "build/task-0052-body-fit-validation/BODY-FIT-VALIDATION.json"
+  },
+  "unit": {
+    "result": "PASS",
+    "files": 6,
+    "tests": 94,
+    "evidence": "build/task-0052-body-fit-validation/unit.log"
+  },
+  "e2e": {
+    "result": "PASS_REGRESSION_ONLY",
+    "portalProduction": 11,
+    "lab": 1,
+    "plannedSkips": 5,
+    "evidence": [
+      "build/task-0052-body-fit-validation/portal-regression.log",
+      "build/task-0052-body-fit-validation/lab-regression.log"
+    ]
+  },
+  "lint": {
+    "result": "PASS",
+    "command": "npm run lint",
+    "evidence": "build/task-0052-body-fit-validation/lint.log"
+  },
+  "typecheck": {
+    "result": "PASS",
+    "command": "npm run typecheck",
+    "evidence": "build/task-0052-body-fit-validation/typecheck.log"
+  },
+  "build": {
+    "result": "PASS",
+    "command": "npm run build",
+    "hdAssetsVerified": 54,
+    "evidence": "build/task-0052-body-fit-validation/build.log"
+  },
+  "preservation": {
+    "at": "2026-10-08T03:58:24.253Z",
+    "result": "PASS",
+    "files": 191,
+    "preserved": 191,
+    "hdIdentities": 54,
+    "centralRuntimeChanged": false,
+    "bodyFitArchitectureChanged": false,
+    "originalArtEdited": false,
+    "readyPromoted": 0
+  },
+  "acceptance": {
+    "visualAssetFit": "BLOCKED",
+    "done": false
+  },
+  "viewports": [
+    "390x844",
+    "412x915",
+    "844x390",
+    "915x412",
+    "1440x900",
+    "1920x1080"
+  ],
+  "generatedImages": 0,
+  "readyPromoted": 0,
+  "remoteActions": 0
+}

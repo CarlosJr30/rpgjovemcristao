@@ -1,0 +1,75 @@
+{
+  "at": "2026-10-07T23:33:54.040Z",
+  "result": "PASS",
+  "assetValidation": {
+    "result": "PASS",
+    "attempts": 4,
+    "results": [
+      {
+        "id": "female_short_ochre_dark",
+        "attempt": 1,
+        "asset": "PASS",
+        "geometry": "GEOMETRY_PASS",
+        "metricsPass": 13,
+        "sha256": "cf7fab4691bc7380d6e9304106900859da05838a0afbaf4428513ca542e1cd52"
+      },
+      {
+        "id": "female_short_moss_light",
+        "attempt": 1,
+        "asset": "PASS",
+        "geometry": "GEOMETRY_PASS",
+        "metricsPass": 13,
+        "sha256": "ffa9d2698c7d1e67497cd7006d28294d2d17e31ed06e05b56e3bae1cf0a56162"
+      },
+      {
+        "id": "female_short_moss_dark",
+        "attempt": 1,
+        "asset": "PASS",
+        "geometry": "REJECTED_GEOMETRY",
+        "metricsPass": 12,
+        "sha256": "17226d3835652f580925e9194f8d00e6efb9afac4148046bfefca5d79e553741"
+      },
+      {
+        "id": "female_short_moss_dark",
+        "attempt": 2,
+        "asset": "PASS",
+        "geometry": "GEOMETRY_PASS",
+        "metricsPass": 13,
+        "sha256": "65ae8c6308032994d7ac80d2d53503c6af4c12f92a4b1f266cba9480b02b1032"
+      }
+    ]
+  },
+  "geometry": {
+    "passedFinal": 3,
+    "criterion": "alpha>=128",
+    "allMetricsRecalculated": true
+  },
+  "queueValidation": {
+    "result": "PASS",
+    "selected": [
+      "female_short_ochre_dark",
+      "female_short_moss_light",
+      "female_short_moss_dark"
+    ],
+    "initialStates": [
+      "BLOCKED_PATTERN_FOR_ASSET",
+      "PENDING_HD",
+      "PENDING_HD"
+    ],
+    "unselected49Unchanged": true,
+    "maxAttempts": 4,
+    "noAttemptAfterPass": true,
+    "noOtherIdentityReferences": true,
+    "noPublicIntegration": true,
+    "rootCauseBeforeGeneration": true
+  },
+  "preservation": {
+    "result": "PASS",
+    "files": 815,
+    "changed": [],
+    "publicMedia": 165,
+    "humanApproved": 49,
+    "pilots": 2,
+    "allPreviousGPNGsPreserved": true
+  }
+}

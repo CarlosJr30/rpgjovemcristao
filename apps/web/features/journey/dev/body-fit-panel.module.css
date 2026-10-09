@@ -1,0 +1,92 @@
+.panel {
+  margin: 1rem 0;
+  padding: 1rem;
+  background: #faf4e4;
+  color: #283f31;
+  border: 1px solid #af955d;
+  border-radius: 12px;
+  overflow-wrap: anywhere;
+}
+.panel summary {
+  min-height: 44px;
+  cursor: pointer;
+  font-weight: 700;
+}
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+.controls label {
+  display: grid;
+  gap: 0.5rem;
+  max-width: 100%;
+}
+.controls :is(select, input) {
+  min-height: 44px;
+  max-width: 100%;
+}
+.panel :is(summary, select, input):focus-visible {
+  outline: 3px solid #315d3d;
+  outline-offset: 3px;
+}
+.scroll {
+  overflow: auto;
+  max-width: 100%;
+}
+.comparison {
+  display: flex;
+  gap: 1rem;
+  width: max-content;
+  position: relative;
+}
+.comparison[data-body-fit-comparison='split'] {
+  width: var(--body-fit-width);
+}
+.frame {
+  width: var(--body-fit-width);
+  flex: none;
+}
+.frame > span {
+  display: block;
+  height: 32px;
+  font-size: 0.8rem;
+}
+.canvas {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  background: repeating-conic-gradient(#e3e8df 0% 25%, #f9faf5 0% 50%) 0 / 16px
+    16px;
+}
+.canvas > [data-avatar-runtime] {
+  width: 100%;
+}
+.guides {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 20;
+  pointer-events: none;
+}
+.silhouette [data-avatar-runtime] {
+  filter: brightness(0);
+}
+.split {
+  position: absolute;
+  inset: 0;
+}
+.divider {
+  position: absolute;
+  top: 32px;
+  bottom: 0;
+  border-left: 2px solid #315d3d;
+  pointer-events: none;
+}
+@media (max-width: 600px) {
+  .comparison[data-body-fit-comparison='side'] {
+    flex-direction: column;
+  }
+}

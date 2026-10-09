@@ -1,0 +1,114 @@
+[
+  {
+    "file": "world/arena/arena_training_courtyard.webp",
+    "size": 618934,
+    "width": 1920,
+    "height": 1080,
+    "format": "webp",
+    "sha256": "d1a2c334c0eb08461447f1acf2f39fdd67d56a2a385bf7c7b370d6ac09200263",
+    "referenceMatches": true,
+    "dimensionsValid": true,
+    "hasAlpha": false,
+    "isOpaque": true
+  },
+  {
+    "file": "world/arena/arena_training_courtyard_960.webp",
+    "size": 200896,
+    "width": 960,
+    "height": 540,
+    "format": "webp",
+    "sha256": "4294088d0b16b7de28e61b1c7fafc05069c2dba137f369b4aa0415c6d3d3145b",
+    "referenceMatches": true,
+    "dimensionsValid": true,
+    "hasAlpha": false,
+    "isOpaque": true
+  },
+  {
+    "file": "characters/arena/arena_davi.png",
+    "size": 2249874,
+    "width": 1024,
+    "height": 1536,
+    "format": "png",
+    "sha256": "9ab5c7ff317434ff41bde172640f6d60426dbcfe09f878235aeaf7731dbcb5af",
+    "referenceMatches": true,
+    "dimensionsValid": true,
+    "hasAlpha": true,
+    "isOpaque": false,
+    "transparentPixels": 930149,
+    "partialAlphaPixels": 642715,
+    "opaquePixels": 0,
+    "visibleBounds": {
+      "minX": 28,
+      "minY": 72,
+      "maxX": 1009,
+      "maxY": 1466
+    },
+    "transparencyValid": true
+  },
+  {
+    "file": "characters/arena/arena_elias.png",
+    "size": 2434126,
+    "width": 1024,
+    "height": 1536,
+    "format": "png",
+    "sha256": "5363d3e92609128b7f31e1cd3d8ce65d1fbbba0c5fc0ad14d451c664991362ca",
+    "referenceMatches": true,
+    "dimensionsValid": true,
+    "hasAlpha": true,
+    "isOpaque": false,
+    "transparentPixels": 806241,
+    "partialAlphaPixels": 766623,
+    "opaquePixels": 0,
+    "visibleBounds": {
+      "minX": 43,
+      "minY": 3,
+      "maxX": 1023,
+      "maxY": 1525
+    },
+    "transparencyValid": true
+  },
+  {
+    "file": "characters/arena/arena_mara.png",
+    "size": 2750106,
+    "width": 1024,
+    "height": 1536,
+    "format": "png",
+    "sha256": "a8f3a68ddbed7eacbf57af9278cfb24922d7d06adc0f2eabe66d48e1663b034a",
+    "referenceMatches": true,
+    "dimensionsValid": true,
+    "hasAlpha": true,
+    "isOpaque": false,
+    "transparentPixels": 667479,
+    "partialAlphaPixels": 905385,
+    "opaquePixels": 0,
+    "visibleBounds": {
+      "minX": 9,
+      "minY": 47,
+      "maxX": 1023,
+      "maxY": 1530
+    },
+    "transparencyValid": true
+  },
+  {
+    "file": "characters/arena/arena_noemi.png",
+    "size": 2120453,
+    "width": 1024,
+    "height": 1536,
+    "format": "png",
+    "sha256": "f7e84ad1cb5762b9a7bee4dac32b6d7266928b76d0f4fb4c4c21b08c28b80755",
+    "referenceMatches": true,
+    "dimensionsValid": true,
+    "hasAlpha": true,
+    "isOpaque": false,
+    "transparentPixels": 832723,
+    "partialAlphaPixels": 740141,
+    "opaquePixels": 0,
+    "visibleBounds": {
+      "minX": 23,
+      "minY": 38,
+      "maxX": 1013,
+      "maxY": 1495
+    },
+    "transparencyValid": true
+  }
+]

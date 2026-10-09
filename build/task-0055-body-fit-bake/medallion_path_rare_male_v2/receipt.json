@@ -1,0 +1,44 @@
+{
+  "id": "medallion_path_rare_male_v2",
+  "filename": "medallion_path_rare_male_v2.png",
+  "itemId": "wisdom-amulet",
+  "gender": "male",
+  "slot": "amulet",
+  "avatar": {
+    "id": "male_short_moss_medium",
+    "path": "apps/web/public/assets/avatar/hd/male/male_short_moss_medium_hd.png",
+    "sha256": "b182c2e29b512b337891716a413ab7efaad737e23c6354779fae17fe19b8af34",
+    "immutable": true,
+    "footBaseline": 1513
+  },
+  "transform": {
+    "translateX": 432.0433697529211,
+    "translateY": 303.0333204740206,
+    "scale": 0.15197966905967214,
+    "rotation": 0
+  },
+  "sha256": "c51e2652cd4d8b69f583beb59a8efd2d8c159d2e15506b090c2cf281fb1e0996",
+  "sourceSha256": "2ef82d3b22ad557019f41529d6c7dcd155c641142f5012ac2dbf7b9bb58a4b8e",
+  "technicalStatus": "TECHNICALLY_VALIDATED",
+  "mapping": "MAPPED",
+  "fitStatus": "NEEDS_REWORK",
+  "humanBodyFitApproved": false,
+  "ready": false,
+  "runtimeActivated": false,
+  "reviewStatus": "NEEDS_REWORK",
+  "fitReport": "build/task-0055-body-fit-bake/medallion_path_rare_male_v2/fit-report.json",
+  "metadata": "build/task-0055-body-fit-bake/medallion_path_rare_male_v2/fit-metadata.json",
+  "metadataSha256": "410068b0a524ce820ff70fef841300c275e0474c5b2f40a95bed7d112da4513f",
+  "observations": [
+    "Pingente fica centralizado no peito, acima da cintura, e a sobreposição com armadura foi composta como diagnóstico.",
+    "Source tem as duas extremidades da corrente cortadas na borda superior; o bake deixa terminações abruptas visíveis sobre o cachecol/pescoço.",
+    "Sem corrente fechada/continuação ou desenho de oclusão no PNG, não é possível certificar aparência de colar vestido."
+  ],
+  "reworkRecommendation": "Regenerar corrente completa no pescoço de male_short_moss_medium com terminação/oclusão desenhada para o cachecol ou colar da referência, sem segmentos abruptamente cortados. Preservar escala e posição do pingente registradas como boa aproximação; testar novamente base e armor overlap. Não esconder falha com máscara ou alteração da base/runtime.",
+  "task": "TASK-0055",
+  "updatedAt": "2026-10-08T20:27:47.351Z",
+  "sourceApproval": "SOURCE_VISUAL_APPROVED (inherited)",
+  "runtimePath": null,
+  "stagingPath": "build/task-0055-body-fit-bake/medallion_path_rare_male_v2/medallion_path_rare_male_v2_baked.png",
+  "approvedBy": null
+}

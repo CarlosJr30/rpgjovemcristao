@@ -1,0 +1,58 @@
+{
+  "at": "2026-10-08T04:24:51.868Z",
+  "target": {
+    "filename": "sword_path_common_male_v2.png",
+    "itemId": "traveler-sword-common",
+    "slot": "weapon",
+    "gender": "male",
+    "equipable": true,
+    "status": "NEEDS_NEW_OVERLAY",
+    "priority": "P1",
+    "referenceAvatar": {
+      "id": "male_short_moss_medium",
+      "source": "/assets/avatar/hd/male/male_short_moss_medium_hd.png",
+      "sha256": "b182c2e29b512b337891716a413ab7efaad737e23c6354779fae17fe19b8af34",
+      "alphaThreshold": 128,
+      "bounds": {
+        "left": 169,
+        "top": 2,
+        "right": 933,
+        "bottom": 1513
+      },
+      "footBaseline": 1513,
+      "alphaPositiveBoundsDiagnostic": {
+        "left": 0,
+        "top": 0,
+        "right": 1003,
+        "bottom": 1521
+      }
+    },
+    "expectedLandmarks": [
+      "right hand/grip contact",
+      "blade angle/length",
+      "body distance",
+      "hand/arm depth and occlusion"
+    ],
+    "reason": "No dedicated V2 body asset or human approval; V1 body fitting rejected.",
+    "resolution": {
+      "width": 1024,
+      "height": 1536
+    },
+    "format": "PNG",
+    "alpha": "REAL_TRANSPARENCY_REQUIRED",
+    "landmarkStatus": "ASSET_MISSING_NOT_MEASURED",
+    "validation": {
+      "correction": "NONE: inset 0; no offsets/crop/warp",
+      "geometry": "HD alpha ≥128 contour; alpha >0 diagnostic",
+      "requiredReview": "Same gender; all short/long/curly, outfits and skin variants before general compatibility",
+      "gripHairlineShouldersAnkles": "Measure on approved HD; historical anchors are guides, not validated HD anatomy"
+    }
+  },
+  "source": null,
+  "status": "FIT_VALIDATION_PENDING",
+  "reason": "12 source files exist, but no unequivocal source → target mapping supplied; not SOURCE_FILE_NOT_LOCATED",
+  "sourceCandidatesAreUnmapped": true,
+  "humanBodyFitApproved": false,
+  "runtimeReady": false,
+  "diagnosticReview": "build/task-0052-body-fit-validation/delivery/review/index.html"
+}

@@ -62,11 +62,19 @@ describe('Loja visível e conteúdo local da Guilda', () => {
     expect(approveGuildActivity(secondId, missionId)).toBe(true);
     expect(approveGuildActivity(secondId, missionId)).toBe(false);
     journeyRepository.startSession(secondId);
-    expect(claimGuildActivity(missionId)).toBe(true);
     expect(claimGuildActivity(missionId)).toBe(false);
-    expect(journeyRepository.load()).toMatchObject({ status: 'ready', traveler: { id: secondId, xp: 80, coins: 25 } });
+    expect(journeyRepository.load()).toMatchObject({
+      status: 'ready',
+      traveler: {
+        id: secondId,
+        xp: 80,
+        coins: 25,
+        chests: { common: 1 },
+        progress: { guildActivities: { [missionId]: 'claimed' } },
+      },
+    });
     journeyRepository.startSession(firstId);
-    expect(journeyRepository.load()).toMatchObject({ status: 'ready', traveler: { id: firstId, xp: 0, coins: 0 } });
+    expect(journeyRepository.load()).toMatchObject({ status: 'ready', traveler: { id: firstId, xp: 0, coins: 0, chests: { common: 0 } } });
   });
 
   test('conteúdo inválido no storage não derruba a Guilda', () => {

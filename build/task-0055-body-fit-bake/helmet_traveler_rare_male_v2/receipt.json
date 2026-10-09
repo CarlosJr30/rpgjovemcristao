@@ -1,0 +1,44 @@
+{
+  "id": "helmet_traveler_rare_male_v2",
+  "filename": "helmet_traveler_rare_male_v2.png",
+  "itemId": "traveler-helmet-rare",
+  "gender": "male",
+  "slot": "helmet",
+  "avatar": {
+    "id": "male_short_moss_medium",
+    "path": "apps/web/public/assets/avatar/hd/male/male_short_moss_medium_hd.png",
+    "sha256": "b182c2e29b512b337891716a413ab7efaad737e23c6354779fae17fe19b8af34",
+    "immutable": true,
+    "footBaseline": 1513
+  },
+  "transform": {
+    "translateX": 338.6552373098947,
+    "translateY": -27.816668732165198,
+    "scale": 0.3319867871646743,
+    "rotation": 0
+  },
+  "sha256": "8fbbdf7afc106525713572b897edef3a3782eeb860eb40bab7606199c75c184e",
+  "sourceSha256": "c5e5a15cfeaa19c3ebff002480fa5f0c1b93b914c7c5604cc3b3d51d079590da",
+  "technicalStatus": "TECHNICALLY_VALIDATED",
+  "mapping": "MAPPED",
+  "fitStatus": "NEEDS_REWORK",
+  "humanBodyFitApproved": false,
+  "ready": false,
+  "runtimeActivated": false,
+  "reviewStatus": "NEEDS_REWORK",
+  "fitReport": "build/task-0055-body-fit-bake/helmet_traveler_rare_male_v2/fit-report.json",
+  "metadata": "build/task-0055-body-fit-bake/helmet_traveler_rare_male_v2/fit-metadata.json",
+  "metadataSha256": "2fce428e648a1fd171b1b7d6c9f6be6da321dafda6e033dd5b7f10fd375cd4c5",
+  "observations": [
+    "A ponta da coroa sai do limite superior 0 do canvas e foi cortada pelo bake full-canvas.",
+    "A abertura enquadra o rosto, mas as bordas frontais encostam na linha das sobrancelhas/olhos; cabelos da base continuam aparecendo lateralmente.",
+    "Descer o elmo para recuperar a coroa agrava o contato com olhos; escala uniforme não resolve simultaneamente altura, têmporas e abertura."
+  ],
+  "reworkRecommendation": "Regenerar elmo sobre a referência HD male_short_moss_medium em canvas1024x1536, com coroa totalmente dentro do topo e abertura facial mais alta/larga; manter metal acima das sobrancelhas e olhos/nariz/boca livres. Encurtar altura da coroa e redesenhar abertura, sem deformar o avatar.",
+  "task": "TASK-0055",
+  "updatedAt": "2026-10-08T20:27:47.335Z",
+  "sourceApproval": "SOURCE_VISUAL_APPROVED (inherited)",
+  "runtimePath": null,
+  "stagingPath": "build/task-0055-body-fit-bake/helmet_traveler_rare_male_v2/helmet_traveler_rare_male_v2_baked.png",
+  "approvedBy": null
+}

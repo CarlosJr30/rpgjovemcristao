@@ -1,0 +1,835 @@
+{
+  "at": "2026-10-08T05:32:38.095Z",
+  "sourceDirectoryExists": false,
+  "sourceDirectory": "assets-source/body-fit-v2-targets",
+  "manifestPath": "manifest.json",
+  "manifestSha256": "25594a3ca5a46164159ddee5ea137c7956d6e48acef9d981bf879d430afcadf4",
+  "manifestTargetEntries": 0,
+  "status": "BLOCKED_SOURCE_TARGET_FILES_NOT_LOCATED",
+  "counts": {
+    "expected": 16,
+    "found": 0,
+    "technicalValidated": 0,
+    "mapped": 0,
+    "mappingErrors": 0,
+    "missing": 16,
+    "FIT_PASS": 0,
+    "FIT_FAIL": 0,
+    "NEEDS_REWORK": 0,
+    "FIT_VALIDATION_PENDING": 16,
+    "HUMAN_BODY_FIT_REVIEW_PENDING": 0,
+    "HUMAN_BODY_FIT_APPROVED": 0,
+    "READY": 0
+  },
+  "assets": [
+    {
+      "filename": "armor_traveler_uncommon_female_v2.png",
+      "itemId": "traveler-armor-uncommon",
+      "gender": "female",
+      "slot": "armor",
+      "sourcePath": "assets-source/body-fit-v2-targets/armor_traveler_uncommon_female_v2.png",
+      "exists": false,
+      "sourceApproval": {
+        "declaredBy": "Carlos Faustino",
+        "declaration": "SOURCE_VISUAL_APPROVED",
+        "boundToFileHash": false
+      },
+      "technicalStatus": "BLOCKED_SOURCE_MISSING",
+      "mapping": {
+        "status": "NOT_EVALUATED_SOURCE_MISSING",
+        "errors": []
+      },
+      "fitStatus": "FIT_VALIDATION_PENDING",
+      "humanBodyFitApproved": false,
+      "runtimeReady": false,
+      "knownCorrectiveEditing": "NOT_VERIFIABLE_WITHOUT_SOURCE_AND_PROVENANCE",
+      "referenceAvatar": {
+        "id": "female_short_moss_medium",
+        "source": "/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+        "sha256": "f260cb9b053b35c328025f1bc7ee602cbb30e57c71ba1f2238a4b1519685f460",
+        "alphaThreshold": 128,
+        "bounds": {
+          "left": 187,
+          "top": 2,
+          "right": 964,
+          "bottom": 1495
+        },
+        "footBaseline": 1495,
+        "alphaPositiveBoundsDiagnostic": {
+          "left": 0,
+          "top": 0,
+          "right": 1001,
+          "bottom": 1504
+        }
+      },
+      "expectedLandmarks": [
+        "shoulders",
+        "chest",
+        "waist",
+        "hips",
+        "face/hands/legs exclusion"
+      ],
+      "evidenceLimit": "No source: no overlay/combined/50-50/fit evidence can be claimed",
+      "readyEligible": false
+    },
+    {
+      "filename": "armor_traveler_uncommon_male_v2.png",
+      "itemId": "traveler-armor-uncommon",
+      "gender": "male",
+      "slot": "armor",
+      "sourcePath": "assets-source/body-fit-v2-targets/armor_traveler_uncommon_male_v2.png",
+      "exists": false,
+      "sourceApproval": {
+        "declaredBy": "Carlos Faustino",
+        "declaration": "SOURCE_VISUAL_APPROVED",
+        "boundToFileHash": false
+      },
+      "technicalStatus": "BLOCKED_SOURCE_MISSING",
+      "mapping": {
+        "status": "NOT_EVALUATED_SOURCE_MISSING",
+        "errors": []
+      },
+      "fitStatus": "FIT_VALIDATION_PENDING",
+      "humanBodyFitApproved": false,
+      "runtimeReady": false,
+      "knownCorrectiveEditing": "NOT_VERIFIABLE_WITHOUT_SOURCE_AND_PROVENANCE",
+      "referenceAvatar": {
+        "id": "male_short_moss_medium",
+        "source": "/assets/avatar/hd/male/male_short_moss_medium_hd.png",
+        "sha256": "b182c2e29b512b337891716a413ab7efaad737e23c6354779fae17fe19b8af34",
+        "alphaThreshold": 128,
+        "bounds": {
+          "left": 169,
+          "top": 2,
+          "right": 933,
+          "bottom": 1513
+        },
+        "footBaseline": 1513,
+        "alphaPositiveBoundsDiagnostic": {
+          "left": 0,
+          "top": 0,
+          "right": 1003,
+          "bottom": 1521
+        }
+      },
+      "expectedLandmarks": [
+        "shoulders",
+        "chest",
+        "waist",
+        "hips",
+        "face/hands/legs exclusion"
+      ],
+      "evidenceLimit": "No source: no overlay/combined/50-50/fit evidence can be claimed",
+      "readyEligible": false
+    },
+    {
+      "filename": "helmet_traveler_rare_female_v2.png",
+      "itemId": "traveler-helmet-rare",
+      "gender": "female",
+      "slot": "helmet",
+      "sourcePath": "assets-source/body-fit-v2-targets/helmet_traveler_rare_female_v2.png",
+      "exists": false,
+      "sourceApproval": {
+        "declaredBy": "Carlos Faustino",
+        "declaration": "SOURCE_VISUAL_APPROVED",
+        "boundToFileHash": false
+      },
+      "technicalStatus": "BLOCKED_SOURCE_MISSING",
+      "mapping": {
+        "status": "NOT_EVALUATED_SOURCE_MISSING",
+        "errors": []
+      },
+      "fitStatus": "FIT_VALIDATION_PENDING",
+      "humanBodyFitApproved": false,
+      "runtimeReady": false,
+      "knownCorrectiveEditing": "NOT_VERIFIABLE_WITHOUT_SOURCE_AND_PROVENANCE",
+      "referenceAvatar": {
+        "id": "female_short_moss_medium",
+        "source": "/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+        "sha256": "f260cb9b053b35c328025f1bc7ee602cbb30e57c71ba1f2238a4b1519685f460",
+        "alphaThreshold": 128,
+        "bounds": {
+          "left": 187,
+          "top": 2,
+          "right": 964,
+          "bottom": 1495
+        },
+        "footBaseline": 1495,
+        "alphaPositiveBoundsDiagnostic": {
+          "left": 0,
+          "top": 0,
+          "right": 1001,
+          "bottom": 1504
+        }
+      },
+      "expectedLandmarks": [
+        "head center/top/width",
+        "hairline",
+        "short/long/curly hair occlusion",
+        "face remains visible"
+      ],
+      "evidenceLimit": "No source: no overlay/combined/50-50/fit evidence can be claimed",
+      "readyEligible": false
+    },
+    {
+      "filename": "helmet_traveler_rare_male_v2.png",
+      "itemId": "traveler-helmet-rare",
+      "gender": "male",
+      "slot": "helmet",
+      "sourcePath": "assets-source/body-fit-v2-targets/helmet_traveler_rare_male_v2.png",
+      "exists": false,
+      "sourceApproval": {
+        "declaredBy": "Carlos Faustino",
+        "declaration": "SOURCE_VISUAL_APPROVED",
+        "boundToFileHash": false
+      },
+      "technicalStatus": "BLOCKED_SOURCE_MISSING",
+      "mapping": {
+        "status": "NOT_EVALUATED_SOURCE_MISSING",
+        "errors": []
+      },
+      "fitStatus": "FIT_VALIDATION_PENDING",
+      "humanBodyFitApproved": false,
+      "runtimeReady": false,
+      "knownCorrectiveEditing": "NOT_VERIFIABLE_WITHOUT_SOURCE_AND_PROVENANCE",
+      "referenceAvatar": {
+        "id": "male_short_moss_medium",
+        "source": "/assets/avatar/hd/male/male_short_moss_medium_hd.png",
+        "sha256": "b182c2e29b512b337891716a413ab7efaad737e23c6354779fae17fe19b8af34",
+        "alphaThreshold": 128,
+        "bounds": {
+          "left": 169,
+          "top": 2,
+          "right": 933,
+          "bottom": 1513
+        },
+        "footBaseline": 1513,
+        "alphaPositiveBoundsDiagnostic": {
+          "left": 0,
+          "top": 0,
+          "right": 1003,
+          "bottom": 1521
+        }
+      },
+      "expectedLandmarks": [
+        "head center/top/width",
+        "hairline",
+        "short/long/curly hair occlusion",
+        "face remains visible"
+      ],
+      "evidenceLimit": "No source: no overlay/combined/50-50/fit evidence can be claimed",
+      "readyEligible": false
+    },
+    {
+      "filename": "boots_traveler_common_female_v2.png",
+      "itemId": "traveler-boots",
+      "gender": "female",
+      "slot": "boots",
+      "sourcePath": "assets-source/body-fit-v2-targets/boots_traveler_common_female_v2.png",
+      "exists": false,
+      "sourceApproval": {
+        "declaredBy": "Carlos Faustino",
+        "declaration": "SOURCE_VISUAL_APPROVED",
+        "boundToFileHash": false
+      },
+      "technicalStatus": "BLOCKED_SOURCE_MISSING",
+      "mapping": {
+        "status": "NOT_EVALUATED_SOURCE_MISSING",
+        "errors": []
+      },
+      "fitStatus": "FIT_VALIDATION_PENDING",
+      "humanBodyFitApproved": false,
+      "runtimeReady": false,
+      "knownCorrectiveEditing": "NOT_VERIFIABLE_WITHOUT_SOURCE_AND_PROVENANCE",
+      "referenceAvatar": {
+        "id": "female_short_moss_medium",
+        "source": "/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+        "sha256": "f260cb9b053b35c328025f1bc7ee602cbb30e57c71ba1f2238a4b1519685f460",
+        "alphaThreshold": 128,
+        "bounds": {
+          "left": 187,
+          "top": 2,
+          "right": 964,
+          "bottom": 1495
+        },
+        "footBaseline": 1495,
+        "alphaPositiveBoundsDiagnostic": {
+          "left": 0,
+          "top": 0,
+          "right": 1001,
+          "bottom": 1504
+        }
+      },
+      "expectedLandmarks": [
+        "left/right ankles",
+        "foot widths",
+        "HD alpha ≥128 foot baseline unchanged",
+        "no pixels outside canvas"
+      ],
+      "evidenceLimit": "No source: no overlay/combined/50-50/fit evidence can be claimed",
+      "readyEligible": false
+    },
+    {
+      "filename": "boots_traveler_common_male_v2.png",
+      "itemId": "traveler-boots",
+      "gender": "male",
+      "slot": "boots",
+      "sourcePath": "assets-source/body-fit-v2-targets/boots_traveler_common_male_v2.png",
+      "exists": false,
+      "sourceApproval": {
+        "declaredBy": "Carlos Faustino",
+        "declaration": "SOURCE_VISUAL_APPROVED",
+        "boundToFileHash": false
+      },
+      "technicalStatus": "BLOCKED_SOURCE_MISSING",
+      "mapping": {
+        "status": "NOT_EVALUATED_SOURCE_MISSING",
+        "errors": []
+      },
+      "fitStatus": "FIT_VALIDATION_PENDING",
+      "humanBodyFitApproved": false,
+      "runtimeReady": false,
+      "knownCorrectiveEditing": "NOT_VERIFIABLE_WITHOUT_SOURCE_AND_PROVENANCE",
+      "referenceAvatar": {
+        "id": "male_short_moss_medium",
+        "source": "/assets/avatar/hd/male/male_short_moss_medium_hd.png",
+        "sha256": "b182c2e29b512b337891716a413ab7efaad737e23c6354779fae17fe19b8af34",
+        "alphaThreshold": 128,
+        "bounds": {
+          "left": 169,
+          "top": 2,
+          "right": 933,
+          "bottom": 1513
+        },
+        "footBaseline": 1513,
+        "alphaPositiveBoundsDiagnostic": {
+          "left": 0,
+          "top": 0,
+          "right": 1003,
+          "bottom": 1521
+        }
+      },
+      "expectedLandmarks": [
+        "left/right ankles",
+        "foot widths",
+        "HD alpha ≥128 foot baseline unchanged",
+        "no pixels outside canvas"
+      ],
+      "evidenceLimit": "No source: no overlay/combined/50-50/fit evidence can be claimed",
+      "readyEligible": false
+    },
+    {
+      "filename": "sword_path_common_female_v2.png",
+      "itemId": "traveler-sword-common",
+      "gender": "female",
+      "slot": "weapon",
+      "sourcePath": "assets-source/body-fit-v2-targets/sword_path_common_female_v2.png",
+      "exists": false,
+      "sourceApproval": {
+        "declaredBy": "Carlos Faustino",
+        "declaration": "SOURCE_VISUAL_APPROVED",
+        "boundToFileHash": false
+      },
+      "technicalStatus": "BLOCKED_SOURCE_MISSING",
+      "mapping": {
+        "status": "NOT_EVALUATED_SOURCE_MISSING",
+        "errors": []
+      },
+      "fitStatus": "FIT_VALIDATION_PENDING",
+      "humanBodyFitApproved": false,
+      "runtimeReady": false,
+      "knownCorrectiveEditing": "NOT_VERIFIABLE_WITHOUT_SOURCE_AND_PROVENANCE",
+      "referenceAvatar": {
+        "id": "female_short_moss_medium",
+        "source": "/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+        "sha256": "f260cb9b053b35c328025f1bc7ee602cbb30e57c71ba1f2238a4b1519685f460",
+        "alphaThreshold": 128,
+        "bounds": {
+          "left": 187,
+          "top": 2,
+          "right": 964,
+          "bottom": 1495
+        },
+        "footBaseline": 1495,
+        "alphaPositiveBoundsDiagnostic": {
+          "left": 0,
+          "top": 0,
+          "right": 1001,
+          "bottom": 1504
+        }
+      },
+      "expectedLandmarks": [
+        "right hand/grip contact",
+        "blade angle/length",
+        "body distance",
+        "hand/arm depth and occlusion"
+      ],
+      "evidenceLimit": "No source: no overlay/combined/50-50/fit evidence can be claimed",
+      "readyEligible": false
+    },
+    {
+      "filename": "sword_path_common_male_v2.png",
+      "itemId": "traveler-sword-common",
+      "gender": "male",
+      "slot": "weapon",
+      "sourcePath": "assets-source/body-fit-v2-targets/sword_path_common_male_v2.png",
+      "exists": false,
+      "sourceApproval": {
+        "declaredBy": "Carlos Faustino",
+        "declaration": "SOURCE_VISUAL_APPROVED",
+        "boundToFileHash": false
+      },
+      "technicalStatus": "BLOCKED_SOURCE_MISSING",
+      "mapping": {
+        "status": "NOT_EVALUATED_SOURCE_MISSING",
+        "errors": []
+      },
+      "fitStatus": "FIT_VALIDATION_PENDING",
+      "humanBodyFitApproved": false,
+      "runtimeReady": false,
+      "knownCorrectiveEditing": "NOT_VERIFIABLE_WITHOUT_SOURCE_AND_PROVENANCE",
+      "referenceAvatar": {
+        "id": "male_short_moss_medium",
+        "source": "/assets/avatar/hd/male/male_short_moss_medium_hd.png",
+        "sha256": "b182c2e29b512b337891716a413ab7efaad737e23c6354779fae17fe19b8af34",
+        "alphaThreshold": 128,
+        "bounds": {
+          "left": 169,
+          "top": 2,
+          "right": 933,
+          "bottom": 1513
+        },
+        "footBaseline": 1513,
+        "alphaPositiveBoundsDiagnostic": {
+          "left": 0,
+          "top": 0,
+          "right": 1003,
+          "bottom": 1521
+        }
+      },
+      "expectedLandmarks": [
+        "right hand/grip contact",
+        "blade angle/length",
+        "body distance",
+        "hand/arm depth and occlusion"
+      ],
+      "evidenceLimit": "No source: no overlay/combined/50-50/fit evidence can be claimed",
+      "readyEligible": false
+    },
+    {
+      "filename": "shield_perseverance_rare_female_v2.png",
+      "itemId": "traveler-shield-rare",
+      "gender": "female",
+      "slot": "shield",
+      "sourcePath": "assets-source/body-fit-v2-targets/shield_perseverance_rare_female_v2.png",
+      "exists": false,
+      "sourceApproval": {
+        "declaredBy": "Carlos Faustino",
+        "declaration": "SOURCE_VISUAL_APPROVED",
+        "boundToFileHash": false
+      },
+      "technicalStatus": "BLOCKED_SOURCE_MISSING",
+      "mapping": {
+        "status": "NOT_EVALUATED_SOURCE_MISSING",
+        "errors": []
+      },
+      "fitStatus": "FIT_VALIDATION_PENDING",
+      "humanBodyFitApproved": false,
+      "runtimeReady": false,
+      "knownCorrectiveEditing": "NOT_VERIFIABLE_WITHOUT_SOURCE_AND_PROVENANCE",
+      "referenceAvatar": {
+        "id": "female_short_moss_medium",
+        "source": "/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+        "sha256": "f260cb9b053b35c328025f1bc7ee602cbb30e57c71ba1f2238a4b1519685f460",
+        "alphaThreshold": 128,
+        "bounds": {
+          "left": 187,
+          "top": 2,
+          "right": 964,
+          "bottom": 1495
+        },
+        "footBaseline": 1495,
+        "alphaPositiveBoundsDiagnostic": {
+          "left": 0,
+          "top": 0,
+          "right": 1001,
+          "bottom": 1504
+        }
+      },
+      "expectedLandmarks": [
+        "left hand/grip",
+        "forearm angle",
+        "body distance",
+        "occlusion"
+      ],
+      "evidenceLimit": "No source: no overlay/combined/50-50/fit evidence can be claimed",
+      "readyEligible": false
+    },
+    {
+      "filename": "shield_perseverance_rare_male_v2.png",
+      "itemId": "traveler-shield-rare",
+      "gender": "male",
+      "slot": "shield",
+      "sourcePath": "assets-source/body-fit-v2-targets/shield_perseverance_rare_male_v2.png",
+      "exists": false,
+      "sourceApproval": {
+        "declaredBy": "Carlos Faustino",
+        "declaration": "SOURCE_VISUAL_APPROVED",
+        "boundToFileHash": false
+      },
+      "technicalStatus": "BLOCKED_SOURCE_MISSING",
+      "mapping": {
+        "status": "NOT_EVALUATED_SOURCE_MISSING",
+        "errors": []
+      },
+      "fitStatus": "FIT_VALIDATION_PENDING",
+      "humanBodyFitApproved": false,
+      "runtimeReady": false,
+      "knownCorrectiveEditing": "NOT_VERIFIABLE_WITHOUT_SOURCE_AND_PROVENANCE",
+      "referenceAvatar": {
+        "id": "male_short_moss_medium",
+        "source": "/assets/avatar/hd/male/male_short_moss_medium_hd.png",
+        "sha256": "b182c2e29b512b337891716a413ab7efaad737e23c6354779fae17fe19b8af34",
+        "alphaThreshold": 128,
+        "bounds": {
+          "left": 169,
+          "top": 2,
+          "right": 933,
+          "bottom": 1513
+        },
+        "footBaseline": 1513,
+        "alphaPositiveBoundsDiagnostic": {
+          "left": 0,
+          "top": 0,
+          "right": 1003,
+          "bottom": 1521
+        }
+      },
+      "expectedLandmarks": [
+        "left hand/grip",
+        "forearm angle",
+        "body distance",
+        "occlusion"
+      ],
+      "evidenceLimit": "No source: no overlay/combined/50-50/fit evidence can be claimed",
+      "readyEligible": false
+    },
+    {
+      "filename": "medallion_path_rare_female_v2.png",
+      "itemId": "wisdom-amulet",
+      "gender": "female",
+      "slot": "amulet",
+      "sourcePath": "assets-source/body-fit-v2-targets/medallion_path_rare_female_v2.png",
+      "exists": false,
+      "sourceApproval": {
+        "declaredBy": "Carlos Faustino",
+        "declaration": "SOURCE_VISUAL_APPROVED",
+        "boundToFileHash": false
+      },
+      "technicalStatus": "BLOCKED_SOURCE_MISSING",
+      "mapping": {
+        "status": "NOT_EVALUATED_SOURCE_MISSING",
+        "errors": []
+      },
+      "fitStatus": "FIT_VALIDATION_PENDING",
+      "humanBodyFitApproved": false,
+      "runtimeReady": false,
+      "knownCorrectiveEditing": "NOT_VERIFIABLE_WITHOUT_SOURCE_AND_PROVENANCE",
+      "referenceAvatar": {
+        "id": "female_short_moss_medium",
+        "source": "/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+        "sha256": "f260cb9b053b35c328025f1bc7ee602cbb30e57c71ba1f2238a4b1519685f460",
+        "alphaThreshold": 128,
+        "bounds": {
+          "left": 187,
+          "top": 2,
+          "right": 964,
+          "bottom": 1495
+        },
+        "footBaseline": 1495,
+        "alphaPositiveBoundsDiagnostic": {
+          "left": 0,
+          "top": 0,
+          "right": 1001,
+          "bottom": 1504
+        }
+      },
+      "expectedLandmarks": [
+        "chest center",
+        "neckline",
+        "size relative to torso",
+        "occlusion"
+      ],
+      "evidenceLimit": "No source: no overlay/combined/50-50/fit evidence can be claimed",
+      "readyEligible": false
+    },
+    {
+      "filename": "medallion_path_rare_male_v2.png",
+      "itemId": "wisdom-amulet",
+      "gender": "male",
+      "slot": "amulet",
+      "sourcePath": "assets-source/body-fit-v2-targets/medallion_path_rare_male_v2.png",
+      "exists": false,
+      "sourceApproval": {
+        "declaredBy": "Carlos Faustino",
+        "declaration": "SOURCE_VISUAL_APPROVED",
+        "boundToFileHash": false
+      },
+      "technicalStatus": "BLOCKED_SOURCE_MISSING",
+      "mapping": {
+        "status": "NOT_EVALUATED_SOURCE_MISSING",
+        "errors": []
+      },
+      "fitStatus": "FIT_VALIDATION_PENDING",
+      "humanBodyFitApproved": false,
+      "runtimeReady": false,
+      "knownCorrectiveEditing": "NOT_VERIFIABLE_WITHOUT_SOURCE_AND_PROVENANCE",
+      "referenceAvatar": {
+        "id": "male_short_moss_medium",
+        "source": "/assets/avatar/hd/male/male_short_moss_medium_hd.png",
+        "sha256": "b182c2e29b512b337891716a413ab7efaad737e23c6354779fae17fe19b8af34",
+        "alphaThreshold": 128,
+        "bounds": {
+          "left": 169,
+          "top": 2,
+          "right": 933,
+          "bottom": 1513
+        },
+        "footBaseline": 1513,
+        "alphaPositiveBoundsDiagnostic": {
+          "left": 0,
+          "top": 0,
+          "right": 1003,
+          "bottom": 1521
+        }
+      },
+      "expectedLandmarks": [
+        "chest center",
+        "neckline",
+        "size relative to torso",
+        "occlusion"
+      ],
+      "evidenceLimit": "No source: no overlay/combined/50-50/fit evidence can be claimed",
+      "readyEligible": false
+    },
+    {
+      "filename": "armor_traveler_rare_female_v2.png",
+      "itemId": "traveler-armor-rare",
+      "gender": "female",
+      "slot": "armor",
+      "sourcePath": "assets-source/body-fit-v2-targets/armor_traveler_rare_female_v2.png",
+      "exists": false,
+      "sourceApproval": {
+        "declaredBy": "Carlos Faustino",
+        "declaration": "SOURCE_VISUAL_APPROVED",
+        "boundToFileHash": false
+      },
+      "technicalStatus": "BLOCKED_SOURCE_MISSING",
+      "mapping": {
+        "status": "NOT_EVALUATED_SOURCE_MISSING",
+        "errors": []
+      },
+      "fitStatus": "FIT_VALIDATION_PENDING",
+      "humanBodyFitApproved": false,
+      "runtimeReady": false,
+      "knownCorrectiveEditing": "NOT_VERIFIABLE_WITHOUT_SOURCE_AND_PROVENANCE",
+      "referenceAvatar": {
+        "id": "female_short_moss_medium",
+        "source": "/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+        "sha256": "f260cb9b053b35c328025f1bc7ee602cbb30e57c71ba1f2238a4b1519685f460",
+        "alphaThreshold": 128,
+        "bounds": {
+          "left": 187,
+          "top": 2,
+          "right": 964,
+          "bottom": 1495
+        },
+        "footBaseline": 1495,
+        "alphaPositiveBoundsDiagnostic": {
+          "left": 0,
+          "top": 0,
+          "right": 1001,
+          "bottom": 1504
+        }
+      },
+      "expectedLandmarks": [
+        "shoulders",
+        "chest",
+        "waist",
+        "hips",
+        "face/hands/legs exclusion"
+      ],
+      "evidenceLimit": "No source: no overlay/combined/50-50/fit evidence can be claimed",
+      "readyEligible": false
+    },
+    {
+      "filename": "armor_traveler_rare_male_v2.png",
+      "itemId": "traveler-armor-rare",
+      "gender": "male",
+      "slot": "armor",
+      "sourcePath": "assets-source/body-fit-v2-targets/armor_traveler_rare_male_v2.png",
+      "exists": false,
+      "sourceApproval": {
+        "declaredBy": "Carlos Faustino",
+        "declaration": "SOURCE_VISUAL_APPROVED",
+        "boundToFileHash": false
+      },
+      "technicalStatus": "BLOCKED_SOURCE_MISSING",
+      "mapping": {
+        "status": "NOT_EVALUATED_SOURCE_MISSING",
+        "errors": []
+      },
+      "fitStatus": "FIT_VALIDATION_PENDING",
+      "humanBodyFitApproved": false,
+      "runtimeReady": false,
+      "knownCorrectiveEditing": "NOT_VERIFIABLE_WITHOUT_SOURCE_AND_PROVENANCE",
+      "referenceAvatar": {
+        "id": "male_short_moss_medium",
+        "source": "/assets/avatar/hd/male/male_short_moss_medium_hd.png",
+        "sha256": "b182c2e29b512b337891716a413ab7efaad737e23c6354779fae17fe19b8af34",
+        "alphaThreshold": 128,
+        "bounds": {
+          "left": 169,
+          "top": 2,
+          "right": 933,
+          "bottom": 1513
+        },
+        "footBaseline": 1513,
+        "alphaPositiveBoundsDiagnostic": {
+          "left": 0,
+          "top": 0,
+          "right": 1003,
+          "bottom": 1521
+        }
+      },
+      "expectedLandmarks": [
+        "shoulders",
+        "chest",
+        "waist",
+        "hips",
+        "face/hands/legs exclusion"
+      ],
+      "evidenceLimit": "No source: no overlay/combined/50-50/fit evidence can be claimed",
+      "readyEligible": false
+    },
+    {
+      "filename": "sword_path_rare_female_v2.png",
+      "itemId": "traveler-sword-rare",
+      "gender": "female",
+      "slot": "weapon",
+      "sourcePath": "assets-source/body-fit-v2-targets/sword_path_rare_female_v2.png",
+      "exists": false,
+      "sourceApproval": {
+        "declaredBy": "Carlos Faustino",
+        "declaration": "SOURCE_VISUAL_APPROVED",
+        "boundToFileHash": false
+      },
+      "technicalStatus": "BLOCKED_SOURCE_MISSING",
+      "mapping": {
+        "status": "NOT_EVALUATED_SOURCE_MISSING",
+        "errors": []
+      },
+      "fitStatus": "FIT_VALIDATION_PENDING",
+      "humanBodyFitApproved": false,
+      "runtimeReady": false,
+      "knownCorrectiveEditing": "NOT_VERIFIABLE_WITHOUT_SOURCE_AND_PROVENANCE",
+      "referenceAvatar": {
+        "id": "female_short_moss_medium",
+        "source": "/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+        "sha256": "f260cb9b053b35c328025f1bc7ee602cbb30e57c71ba1f2238a4b1519685f460",
+        "alphaThreshold": 128,
+        "bounds": {
+          "left": 187,
+          "top": 2,
+          "right": 964,
+          "bottom": 1495
+        },
+        "footBaseline": 1495,
+        "alphaPositiveBoundsDiagnostic": {
+          "left": 0,
+          "top": 0,
+          "right": 1001,
+          "bottom": 1504
+        }
+      },
+      "expectedLandmarks": [
+        "right hand/grip contact",
+        "blade angle/length",
+        "body distance",
+        "hand/arm depth and occlusion"
+      ],
+      "evidenceLimit": "No source: no overlay/combined/50-50/fit evidence can be claimed",
+      "readyEligible": false
+    },
+    {
+      "filename": "sword_path_rare_male_v2.png",
+      "itemId": "traveler-sword-rare",
+      "gender": "male",
+      "slot": "weapon",
+      "sourcePath": "assets-source/body-fit-v2-targets/sword_path_rare_male_v2.png",
+      "exists": false,
+      "sourceApproval": {
+        "declaredBy": "Carlos Faustino",
+        "declaration": "SOURCE_VISUAL_APPROVED",
+        "boundToFileHash": false
+      },
+      "technicalStatus": "BLOCKED_SOURCE_MISSING",
+      "mapping": {
+        "status": "NOT_EVALUATED_SOURCE_MISSING",
+        "errors": []
+      },
+      "fitStatus": "FIT_VALIDATION_PENDING",
+      "humanBodyFitApproved": false,
+      "runtimeReady": false,
+      "knownCorrectiveEditing": "NOT_VERIFIABLE_WITHOUT_SOURCE_AND_PROVENANCE",
+      "referenceAvatar": {
+        "id": "male_short_moss_medium",
+        "source": "/assets/avatar/hd/male/male_short_moss_medium_hd.png",
+        "sha256": "b182c2e29b512b337891716a413ab7efaad737e23c6354779fae17fe19b8af34",
+        "alphaThreshold": 128,
+        "bounds": {
+          "left": 169,
+          "top": 2,
+          "right": 933,
+          "bottom": 1513
+        },
+        "footBaseline": 1513,
+        "alphaPositiveBoundsDiagnostic": {
+          "left": 0,
+          "top": 0,
+          "right": 1003,
+          "bottom": 1521
+        }
+      },
+      "expectedLandmarks": [
+        "right hand/grip contact",
+        "blade angle/length",
+        "body distance",
+        "hand/arm depth and occlusion"
+      ],
+      "evidenceLimit": "No source: no overlay/combined/50-50/fit evidence can be claimed",
+      "readyEligible": false
+    }
+  ],
+  "unexpectedPngs": [],
+  "missingFiles": [
+    "armor_traveler_uncommon_female_v2.png",
+    "armor_traveler_uncommon_male_v2.png",
+    "helmet_traveler_rare_female_v2.png",
+    "helmet_traveler_rare_male_v2.png",
+    "boots_traveler_common_female_v2.png",
+    "boots_traveler_common_male_v2.png",
+    "sword_path_common_female_v2.png",
+    "sword_path_common_male_v2.png",
+    "shield_perseverance_rare_female_v2.png",
+    "shield_perseverance_rare_male_v2.png",
+    "medallion_path_rare_female_v2.png",
+    "medallion_path_rare_male_v2.png",
+    "armor_traveler_rare_female_v2.png",
+    "armor_traveler_rare_male_v2.png",
+    "sword_path_rare_female_v2.png",
+    "sword_path_rare_male_v2.png"
+  ],
+  "readyPolicy": "No READY promotion in this task; even future FIT_PASS needs explicit human Body-Fit approval",
+  "userApprovalDoesNotProveFileDelivery": true
+}

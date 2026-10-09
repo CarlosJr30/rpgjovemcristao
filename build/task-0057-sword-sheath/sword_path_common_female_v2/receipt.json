@@ -1,0 +1,16 @@
+{
+  "task": "TASK-0057",
+  "id": "sword_path_common_female_v2",
+  "status": "NEEDS_NEW_SHEATH_ART",
+  "sourceSha256": "03e3edbcf9572fae0cafc46b0a02eda045cbcdfe855dfcdf808e4aa8a5401d29",
+  "avatarSha256": "f260cb9b053b35c328025f1bc7ee602cbb30e57c71ba1f2238a4b1519685f460",
+  "previousCandidateSha256": "14c11b9454113ffb5dca678234a0286315d36b81e91f816d9835d5b6fee54cf1",
+  "diagnosticSha256": "5698df0343a9cebde08576577a04a30c371dfa42f97194b7c3b0d10a9e3b72bd",
+  "metadataSha256": "dc2412d1def01c305be52bd533738d78710a61b6549f1918f8bb92bd3d3c0145",
+  "reportSha256": "bfc11d59883e9f1fa6c12d855c59035e17ad9690059698fff3533ccd61e41448",
+  "finalSheathedSha256": null,
+  "ready": false,
+  "humanBodyFitApproved": false,
+  "runtimeActivated": false,
+  "runtimePath": null
+}

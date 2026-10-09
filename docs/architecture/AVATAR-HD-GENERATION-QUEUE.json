@@ -1,0 +1,3816 @@
+{
+  "task": "TASK-0049",
+  "createdAt": "2026-10-07T12:53:28.147Z",
+  "expected": 52,
+  "source": "docs/architecture/avatar-runtime-hd-v1-assets.json",
+  "pilotsExcluded": [
+    "male_short_moss_medium",
+    "female_short_moss_medium"
+  ],
+  "geometryCriterion": "alpha>=128 gate; alpha>0 diagnostic only",
+  "items": [
+    {
+      "id": "male_curly_blue_light",
+      "gender": "male",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "curly",
+      "combination": {
+        "outfit": "blue",
+        "skin": "light"
+      },
+      "legacyPath": "/assets/avatar/runtime/male/male_curly_blue_light.png",
+      "hdPath": "/assets/avatar/hd/male/male_curly_blue_light_hd.png",
+      "status": "HUMAN_VISUAL_APPROVED",
+      "priority": "HIGH",
+      "attempts": [
+        {
+          "attempt": 1,
+          "qaCandidate": "build/task-0049-evidence/geometry/male_curly_blue_light/candidate.png",
+          "sha256": "966ff2e9988b89db3352e4f5a2d8073ba036b1f140ab8680f33b63f7481a52f2",
+          "bytes": 2176608,
+          "width": 1024,
+          "height": 1536,
+          "format": "png",
+          "hasAlpha": true,
+          "geometryStatus": "REJECTED_GEOMETRY",
+          "alpha128Failures": [
+            {
+              "metric": "right",
+              "legacy": 466,
+              "expectedHD": 932,
+              "currentHD": 946,
+              "delta": 14,
+              "toleranceHD": 6,
+              "result": "FAIL"
+            },
+            {
+              "metric": "bottom",
+              "legacy": 757,
+              "expectedHD": 1514,
+              "currentHD": 1488,
+              "delta": -26,
+              "toleranceHD": 4,
+              "result": "FAIL"
+            },
+            {
+              "metric": "width",
+              "legacy": 380,
+              "expectedHD": 760,
+              "currentHD": 775,
+              "delta": 15,
+              "toleranceHD": 12,
+              "result": "FAIL"
+            },
+            {
+              "metric": "height",
+              "legacy": 754,
+              "expectedHD": 1508,
+              "currentHD": 1486,
+              "delta": -22,
+              "toleranceHD": 10,
+              "result": "FAIL"
+            },
+            {
+              "metric": "centerX",
+              "legacy": 276,
+              "expectedHD": 552,
+              "currentHD": 558.5,
+              "delta": 6.5,
+              "toleranceHD": 4,
+              "result": "FAIL"
+            },
+            {
+              "metric": "centerY",
+              "legacy": 380,
+              "expectedHD": 760,
+              "currentHD": 745,
+              "delta": -15,
+              "toleranceHD": 4,
+              "result": "FAIL"
+            },
+            {
+              "metric": "feetBaseline",
+              "legacy": 757,
+              "expectedHD": 1514,
+              "currentHD": 1488,
+              "delta": -26,
+              "toleranceHD": 4,
+              "result": "FAIL"
+            },
+            {
+              "metric": "maxSilhouetteWidth",
+              "legacy": 379,
+              "expectedHD": 758,
+              "currentHD": 771,
+              "delta": 13,
+              "toleranceHD": 12,
+              "result": "FAIL"
+            },
+            {
+              "metric": "alphaCentroidY",
+              "legacy": 388.879080538414,
+              "expectedHD": 777.758161076828,
+              "currentHD": 770.2382008724591,
+              "delta": -7.519960204368886,
+              "toleranceHD": 4,
+              "result": "FAIL"
+            }
+          ],
+          "silhouetteIoU": 0.9084971692697353
+        },
+        {
+          "attempt": 2,
+          "qaCandidate": "build/task-0049-evidence/geometry/male_curly_blue_light/candidate-r2.png",
+          "sha256": "6b3ed4c9b9cd9a0b2aca6f799163d8d85af8a54cf359e8af474d1220b09f29ee",
+          "bytes": 2142807,
+          "width": 1024,
+          "height": 1536,
+          "format": "png",
+          "hasAlpha": true,
+          "geometryStatus": "REJECTED_GEOMETRY",
+          "alpha128Failures": [
+            {
+              "metric": "left",
+              "legacy": 86,
+              "expectedHD": 172,
+              "currentHD": 164,
+              "delta": -8,
+              "toleranceHD": 6,
+              "result": "FAIL"
+            },
+            {
+              "metric": "right",
+              "legacy": 466,
+              "expectedHD": 932,
+              "currentHD": 945,
+              "delta": 13,
+              "toleranceHD": 6,
+              "result": "FAIL"
+            },
+            {
+              "metric": "bottom",
+              "legacy": 757,
+              "expectedHD": 1514,
+              "currentHD": 1489,
+              "delta": -25,
+              "toleranceHD": 4,
+              "result": "FAIL"
+            },
+            {
+              "metric": "width",
+              "legacy": 380,
+              "expectedHD": 760,
+              "currentHD": 781,
+              "delta": 21,
+              "toleranceHD": 12,
+              "result": "FAIL"
+            },
+            {
+              "metric": "height",
+              "legacy": 754,
+              "expectedHD": 1508,
+              "currentHD": 1483,
+              "delta": -25,
+              "toleranceHD": 10,
+              "result": "FAIL"
+            },
+            {
+              "metric": "centerY",
+              "legacy": 380,
+              "expectedHD": 760,
+              "currentHD": 747.5,
+              "delta": -12.5,
+              "toleranceHD": 4,
+              "result": "FAIL"
+            },
+            {
+              "metric": "feetBaseline",
+              "legacy": 757,
+              "expectedHD": 1514,
+              "currentHD": 1489,
+              "delta": -25,
+              "toleranceHD": 4,
+              "result": "FAIL"
+            },
+            {
+              "metric": "maxSilhouetteWidth",
+              "legacy": 379,
+              "expectedHD": 758,
+              "currentHD": 773,
+              "delta": 15,
+              "toleranceHD": 12,
+              "result": "FAIL"
+            },
+            {
+              "metric": "alphaCentroidX",
+              "legacy": 263.78764753095356,
+              "expectedHD": 527.5752950619071,
+              "currentHD": 532.0282164301113,
+              "delta": 4.4529213682042155,
+              "toleranceHD": 4,
+              "result": "FAIL"
+            },
+            {
+              "metric": "alphaCentroidY",
+              "legacy": 388.879080538414,
+              "expectedHD": 777.758161076828,
+              "currentHD": 771.1060902932156,
+              "delta": -6.6520707836123165,
+              "toleranceHD": 4,
+              "result": "FAIL"
+            }
+          ],
+          "silhouetteIoU": 0.8970082401403545
+        }
+      ],
+      "latestGeometryStatus": "GEOMETRY_PASS",
+      "humanReview": "HUMAN_VISUAL_APPROVED",
+      "rework": {
+        "task": "TASK-0049R",
+        "methodStatus": "GEOMETRY_METHOD_VALIDATED",
+        "candidatePath": "build/task-0049r-evidence/attempt-2/hd_candidate.png",
+        "attempts": [
+          {
+            "attempt": 1,
+            "geometryStatus": "REJECTED_GEOMETRY",
+            "sha256": "14c988c25895789779a75a47ffa3fec7168cd665737ed556913804543f8ae23c",
+            "evidencePath": "build/task-0049r-evidence/attempt-1/geometry_metrics.json"
+          },
+          {
+            "attempt": 2,
+            "geometryStatus": "GEOMETRY_PASS",
+            "sha256": "f4a119053fe94850222d606ca7ab5907399fec28246b8700338893a25897713c",
+            "evidencePath": "build/task-0049r-evidence/attempt-2/geometry_metrics.json"
+          }
+        ],
+        "methodVisualStatus": "HUMAN_VISUAL_APPROVED",
+        "humanApprovalReceipt": "docs/architecture/task-0049r/HUMAN-VISUAL-APPROVAL.json"
+      },
+      "reviewedBy": "Carlos Faustino",
+      "reviewedAt": "2026-10-07T13:32:57.372Z",
+      "humanApprovalReceipt": "docs/architecture/task-0049r/HUMAN-VISUAL-APPROVAL.json",
+      "runtimeActivation": {
+        "task": "TASK-0050",
+        "source": "/assets/avatar/hd/male/male_curly_blue_light_hd.png",
+        "active": true,
+        "productionBuildEnabled": true,
+        "externalDeployPerformed": false
+      }
+    },
+    {
+      "id": "male_curly_blue_dark",
+      "gender": "male",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "curly",
+      "combination": {
+        "outfit": "blue",
+        "skin": "dark"
+      },
+      "legacyPath": "/assets/avatar/runtime/male/male_curly_blue_dark.png",
+      "hdPath": "/assets/avatar/hd/male/male_curly_blue_dark_hd.png",
+      "status": "HUMAN_VISUAL_APPROVED",
+      "priority": "HIGH",
+      "latestGeometryStatus": "GEOMETRY_PASS",
+      "humanReview": "HUMAN_VISUAL_APPROVED",
+      "bodyFitReview": "BODY_FIT_REVIEW_PENDING",
+      "batch": {
+        "task": "TASK-0049B",
+        "batch": 1,
+        "status": "BATCH_1_COMPLETE",
+        "candidatePath": "build/task-0049-batch-1/male_curly_blue_dark/hd_candidate.png",
+        "sha256": "5ff01c5eb2aa68a3fa0ba3c8d3722c21a92861c442a5db4fdc32884e8c9793ae",
+        "attempts": [
+          {
+            "attempt": 1,
+            "geometryStatus": "GEOMETRY_PASS",
+            "sha256": "5ff01c5eb2aa68a3fa0ba3c8d3722c21a92861c442a5db4fdc32884e8c9793ae",
+            "evidencePath": "build/task-0049-batch-1/male_curly_blue_dark/attempt-1"
+          }
+        ],
+        "availability": "LOCAL_DEV_REVIEW_ONLY",
+        "runtimeIntegrated": false,
+        "technicalStatus": "BATCH_1_TECHNICALLY_COMPLETE",
+        "humanReview": "HUMAN_VISUAL_APPROVED",
+        "humanApprovalReceipt": "docs/architecture/task-0049-batch-1/receipts/male_curly_blue_dark.json"
+      },
+      "reviewedBy": "Carlos Faustino",
+      "reviewedAt": "2026-10-07T14:40:52.377Z",
+      "humanApprovalReceipt": "docs/architecture/task-0049-batch-1/receipts/male_curly_blue_dark.json",
+      "runtimeActivation": {
+        "task": "TASK-0050",
+        "source": "/assets/avatar/hd/male/male_curly_blue_dark_hd.png",
+        "active": true,
+        "productionBuildEnabled": true,
+        "externalDeployPerformed": false
+      }
+    },
+    {
+      "id": "male_curly_blue_medium",
+      "gender": "male",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "curly",
+      "combination": {
+        "outfit": "blue",
+        "skin": "medium"
+      },
+      "legacyPath": "/assets/avatar/runtime/male/male_curly_blue_medium.png",
+      "hdPath": "/assets/avatar/hd/male/male_curly_blue_medium_hd.png",
+      "status": "HUMAN_VISUAL_APPROVED",
+      "priority": "HIGH",
+      "latestGeometryStatus": "GEOMETRY_PASS",
+      "humanReview": "HUMAN_VISUAL_APPROVED",
+      "bodyFitReview": "BODY_FIT_REVIEW_PENDING",
+      "batch": {
+        "task": "TASK-0049B",
+        "batch": 1,
+        "status": "BATCH_1_COMPLETE",
+        "candidatePath": "build/task-0049-batch-1/male_curly_blue_medium/hd_candidate.png",
+        "sha256": "65d4233a10037109e5dac652e607b87d9a7856d2e30ba8511bd8ff52d2f40758",
+        "attempts": [
+          {
+            "attempt": 1,
+            "geometryStatus": "GEOMETRY_PASS",
+            "sha256": "65d4233a10037109e5dac652e607b87d9a7856d2e30ba8511bd8ff52d2f40758",
+            "evidencePath": "build/task-0049-batch-1/male_curly_blue_medium/attempt-1"
+          }
+        ],
+        "availability": "LOCAL_DEV_REVIEW_ONLY",
+        "runtimeIntegrated": false,
+        "technicalStatus": "BATCH_1_TECHNICALLY_COMPLETE",
+        "humanReview": "HUMAN_VISUAL_APPROVED",
+        "humanApprovalReceipt": "docs/architecture/task-0049-batch-1/receipts/male_curly_blue_medium.json"
+      },
+      "reviewedBy": "Carlos Faustino",
+      "reviewedAt": "2026-10-07T14:40:52.377Z",
+      "humanApprovalReceipt": "docs/architecture/task-0049-batch-1/receipts/male_curly_blue_medium.json",
+      "runtimeActivation": {
+        "task": "TASK-0050",
+        "source": "/assets/avatar/hd/male/male_curly_blue_medium_hd.png",
+        "active": true,
+        "productionBuildEnabled": true,
+        "externalDeployPerformed": false
+      }
+    },
+    {
+      "id": "male_curly_moss_dark",
+      "gender": "male",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "curly",
+      "combination": {
+        "outfit": "moss",
+        "skin": "dark"
+      },
+      "legacyPath": "/assets/avatar/runtime/male/male_curly_moss_dark.png",
+      "hdPath": "/assets/avatar/hd/male/male_curly_moss_dark_hd.png",
+      "status": "HUMAN_VISUAL_APPROVED",
+      "priority": "HIGH",
+      "latestGeometryStatus": "GEOMETRY_PASS",
+      "humanReview": "HUMAN_VISUAL_APPROVED",
+      "bodyFitReview": "BODY_FIT_REVIEW_PENDING",
+      "batch": {
+        "task": "TASK-0049B",
+        "batch": 1,
+        "status": "BATCH_1_COMPLETE",
+        "candidatePath": "build/task-0049-batch-1/male_curly_moss_dark/hd_candidate.png",
+        "sha256": "a414e8d6888aa147c9256a1cec04eac67c444a21d26ba0a09ff848a1feb6fd1c",
+        "attempts": [
+          {
+            "attempt": 1,
+            "geometryStatus": "REJECTED_GEOMETRY",
+            "sha256": "263b2f4d9c16f79e7e8d164f5b7ecf8a97ab75ac93676c1c8c015c8bd385e175",
+            "evidencePath": "build/task-0049-batch-1/male_curly_moss_dark/attempt-1"
+          },
+          {
+            "attempt": 2,
+            "geometryStatus": "GEOMETRY_PASS",
+            "sha256": "a414e8d6888aa147c9256a1cec04eac67c444a21d26ba0a09ff848a1feb6fd1c",
+            "evidencePath": "build/task-0049-batch-1/male_curly_moss_dark/attempt-2"
+          }
+        ],
+        "availability": "LOCAL_DEV_REVIEW_ONLY",
+        "runtimeIntegrated": false,
+        "technicalStatus": "BATCH_1_TECHNICALLY_COMPLETE",
+        "humanReview": "HUMAN_VISUAL_APPROVED",
+        "humanApprovalReceipt": "docs/architecture/task-0049-batch-1/receipts/male_curly_moss_dark.json"
+      },
+      "reviewedBy": "Carlos Faustino",
+      "reviewedAt": "2026-10-07T14:40:52.377Z",
+      "humanApprovalReceipt": "docs/architecture/task-0049-batch-1/receipts/male_curly_moss_dark.json",
+      "runtimeActivation": {
+        "task": "TASK-0050",
+        "source": "/assets/avatar/hd/male/male_curly_moss_dark_hd.png",
+        "active": true,
+        "productionBuildEnabled": true,
+        "externalDeployPerformed": false
+      }
+    },
+    {
+      "id": "male_long_blue_light",
+      "gender": "male",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "long",
+      "combination": {
+        "outfit": "blue",
+        "skin": "light"
+      },
+      "legacyPath": "/assets/avatar/runtime/male/male_long_blue_light.png",
+      "hdPath": "/assets/avatar/hd/male/male_long_blue_light_hd.png",
+      "status": "HUMAN_VISUAL_APPROVED",
+      "priority": "HIGH",
+      "latestGeometryStatus": "GEOMETRY_PASS",
+      "humanReview": "HUMAN_VISUAL_APPROVED",
+      "bodyFitReview": "BODY_FIT_REVIEW_PENDING",
+      "batch": {
+        "task": "TASK-0049B",
+        "batch": 1,
+        "status": "BATCH_1_COMPLETE",
+        "candidatePath": "build/task-0049-batch-1/male_long_blue_light/hd_candidate.png",
+        "sha256": "d7b69134b6429fe3d305380d39adf2149ff955782afba17cc563f0aded780191",
+        "attempts": [
+          {
+            "attempt": 1,
+            "geometryStatus": "REJECTED_GEOMETRY",
+            "sha256": "4f2f5c99ba70e0fb6cb600c458328df916d9de1f1ccab1486a49092512e2d8a7",
+            "evidencePath": "build/task-0049-batch-1/male_long_blue_light/attempt-1"
+          },
+          {
+            "attempt": 2,
+            "geometryStatus": "GEOMETRY_PASS",
+            "sha256": "d7b69134b6429fe3d305380d39adf2149ff955782afba17cc563f0aded780191",
+            "evidencePath": "build/task-0049-batch-1/male_long_blue_light/attempt-2"
+          }
+        ],
+        "availability": "LOCAL_DEV_REVIEW_ONLY",
+        "runtimeIntegrated": false,
+        "technicalStatus": "BATCH_1_TECHNICALLY_COMPLETE",
+        "humanReview": "HUMAN_VISUAL_APPROVED",
+        "humanApprovalReceipt": "docs/architecture/task-0049-batch-1/receipts/male_long_blue_light.json"
+      },
+      "reviewedBy": "Carlos Faustino",
+      "reviewedAt": "2026-10-07T14:40:52.377Z",
+      "humanApprovalReceipt": "docs/architecture/task-0049-batch-1/receipts/male_long_blue_light.json",
+      "runtimeActivation": {
+        "task": "TASK-0050",
+        "source": "/assets/avatar/hd/male/male_long_blue_light_hd.png",
+        "active": true,
+        "productionBuildEnabled": true,
+        "externalDeployPerformed": false
+      }
+    },
+    {
+      "id": "male_long_blue_dark",
+      "gender": "male",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "long",
+      "combination": {
+        "outfit": "blue",
+        "skin": "dark"
+      },
+      "legacyPath": "/assets/avatar/runtime/male/male_long_blue_dark.png",
+      "hdPath": "/assets/avatar/hd/male/male_long_blue_dark_hd.png",
+      "status": "HUMAN_VISUAL_APPROVED",
+      "priority": "HIGH",
+      "latestGeometryStatus": "GEOMETRY_PASS",
+      "humanReview": "HUMAN_VISUAL_APPROVED",
+      "bodyFitReview": "BODY_FIT_REVIEW_PENDING",
+      "batch": {
+        "task": "TASK-0049C",
+        "batch": 2,
+        "status": "BATCH_2_COMPLETE",
+        "candidatePath": "build/task-0049-batch-2/male_long_blue_dark/hd_candidate.png",
+        "sha256": "9d243e0ce2f10ffb7cb2e86ef1cdaed6ded161b9d052e7611ef020a7956105df",
+        "attempts": [
+          {
+            "attempt": 1,
+            "geometryStatus": "GEOMETRY_PASS",
+            "sha256": "9d243e0ce2f10ffb7cb2e86ef1cdaed6ded161b9d052e7611ef020a7956105df",
+            "evidencePath": "build/task-0049-batch-2/male_long_blue_dark/attempt-1"
+          }
+        ],
+        "availability": "LOCAL_DEV_REVIEW_ONLY",
+        "runtimeIntegrated": false,
+        "technicalStatus": "BATCH_2_TECHNICALLY_COMPLETE",
+        "humanReview": "HUMAN_VISUAL_APPROVED",
+        "humanApprovalReceipt": "docs/architecture/task-0049-batch-2/receipts/male_long_blue_dark.json"
+      },
+      "reviewedBy": "Carlos Faustino",
+      "reviewedAt": "2026-10-07T16:33:08.337Z",
+      "humanApprovalReceipt": "docs/architecture/task-0049-batch-2/receipts/male_long_blue_dark.json",
+      "runtimeActivation": {
+        "task": "TASK-0050",
+        "source": "/assets/avatar/hd/male/male_long_blue_dark_hd.png",
+        "active": true,
+        "productionBuildEnabled": true,
+        "externalDeployPerformed": false
+      }
+    },
+    {
+      "id": "male_curly_ochre_medium",
+      "gender": "male",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "curly",
+      "combination": {
+        "outfit": "ochre",
+        "skin": "medium"
+      },
+      "legacyPath": "/assets/avatar/runtime/male/male_curly_ochre_medium.png",
+      "hdPath": "/assets/avatar/hd/male/male_curly_ochre_medium_hd.png",
+      "status": "HUMAN_VISUAL_APPROVED",
+      "priority": "HIGH",
+      "latestGeometryStatus": "GEOMETRY_PASS",
+      "humanReview": "HUMAN_VISUAL_APPROVED",
+      "bodyFitReview": "BODY_FIT_REVIEW_PENDING",
+      "batch": {
+        "task": "TASK-0049C",
+        "batch": 2,
+        "status": "BATCH_2_COMPLETE",
+        "candidatePath": "build/task-0049-batch-2/male_curly_ochre_medium/hd_candidate.png",
+        "sha256": "e58d45c166bf154c320d0a5cad530ccfe42a0bf8c6a093a050c66250329be8cd",
+        "attempts": [
+          {
+            "attempt": 1,
+            "geometryStatus": "GEOMETRY_PASS",
+            "sha256": "e58d45c166bf154c320d0a5cad530ccfe42a0bf8c6a093a050c66250329be8cd",
+            "evidencePath": "build/task-0049-batch-2/male_curly_ochre_medium/attempt-1"
+          }
+        ],
+        "availability": "LOCAL_DEV_REVIEW_ONLY",
+        "runtimeIntegrated": false,
+        "technicalStatus": "BATCH_2_TECHNICALLY_COMPLETE",
+        "humanReview": "HUMAN_VISUAL_APPROVED",
+        "humanApprovalReceipt": "docs/architecture/task-0049-batch-2/receipts/male_curly_ochre_medium.json"
+      },
+      "reviewedBy": "Carlos Faustino",
+      "reviewedAt": "2026-10-07T16:33:08.337Z",
+      "humanApprovalReceipt": "docs/architecture/task-0049-batch-2/receipts/male_curly_ochre_medium.json",
+      "runtimeActivation": {
+        "task": "TASK-0050",
+        "source": "/assets/avatar/hd/male/male_curly_ochre_medium_hd.png",
+        "active": true,
+        "productionBuildEnabled": true,
+        "externalDeployPerformed": false
+      }
+    },
+    {
+      "id": "male_curly_ochre_light",
+      "gender": "male",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "curly",
+      "combination": {
+        "outfit": "ochre",
+        "skin": "light"
+      },
+      "legacyPath": "/assets/avatar/runtime/male/male_curly_ochre_light.png",
+      "hdPath": "/assets/avatar/hd/male/male_curly_ochre_light_hd.png",
+      "status": "HUMAN_VISUAL_APPROVED",
+      "priority": "HIGH",
+      "latestGeometryStatus": "GEOMETRY_PASS",
+      "humanReview": "HUMAN_VISUAL_APPROVED",
+      "bodyFitReview": "BODY_FIT_REVIEW_PENDING",
+      "batch": {
+        "task": "TASK-0049C",
+        "batch": 2,
+        "status": "BATCH_2_COMPLETE",
+        "candidatePath": "build/task-0049-batch-2/male_curly_ochre_light/hd_candidate.png",
+        "sha256": "8cff7e8e43d0f3372e7ac22663adfa7380cc27b87c5bac1332c4e4e01542141e",
+        "attempts": [
+          {
+            "attempt": 1,
+            "geometryStatus": "REJECTED_GEOMETRY",
+            "sha256": "b85c9c5f31e8f4bb740f85e5c6fe97c1d8c92fd67738dbd70248e41b72ffb4ec",
+            "evidencePath": "build/task-0049-batch-2/male_curly_ochre_light/attempt-1"
+          },
+          {
+            "attempt": 2,
+            "geometryStatus": "GEOMETRY_PASS",
+            "sha256": "8cff7e8e43d0f3372e7ac22663adfa7380cc27b87c5bac1332c4e4e01542141e",
+            "evidencePath": "build/task-0049-batch-2/male_curly_ochre_light/attempt-2"
+          }
+        ],
+        "availability": "LOCAL_DEV_REVIEW_ONLY",
+        "runtimeIntegrated": false,
+        "technicalStatus": "BATCH_2_TECHNICALLY_COMPLETE",
+        "humanReview": "HUMAN_VISUAL_APPROVED",
+        "humanApprovalReceipt": "docs/architecture/task-0049-batch-2/receipts/male_curly_ochre_light.json"
+      },
+      "reviewedBy": "Carlos Faustino",
+      "reviewedAt": "2026-10-07T16:33:08.337Z",
+      "humanApprovalReceipt": "docs/architecture/task-0049-batch-2/receipts/male_curly_ochre_light.json",
+      "runtimeActivation": {
+        "task": "TASK-0050",
+        "source": "/assets/avatar/hd/male/male_curly_ochre_light_hd.png",
+        "active": true,
+        "productionBuildEnabled": true,
+        "externalDeployPerformed": false
+      }
+    },
+    {
+      "id": "male_curly_ochre_dark",
+      "gender": "male",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "curly",
+      "combination": {
+        "outfit": "ochre",
+        "skin": "dark"
+      },
+      "legacyPath": "/assets/avatar/runtime/male/male_curly_ochre_dark.png",
+      "hdPath": "/assets/avatar/hd/male/male_curly_ochre_dark_hd.png",
+      "status": "HUMAN_VISUAL_APPROVED",
+      "priority": "HIGH",
+      "latestGeometryStatus": "GEOMETRY_PASS",
+      "humanReview": "HUMAN_VISUAL_APPROVED",
+      "bodyFitReview": "BODY_FIT_REVIEW_PENDING",
+      "batch": {
+        "task": "TASK-0049C",
+        "batch": 2,
+        "status": "BATCH_2_COMPLETE",
+        "candidatePath": "build/task-0049-batch-2/male_curly_ochre_dark/hd_candidate.png",
+        "sha256": "17cc19e6a3813277a844f46f684b9d4dd730270d5b709168c21f0e939dc9fb36",
+        "attempts": [
+          {
+            "attempt": 1,
+            "geometryStatus": "GEOMETRY_PASS",
+            "sha256": "17cc19e6a3813277a844f46f684b9d4dd730270d5b709168c21f0e939dc9fb36",
+            "evidencePath": "build/task-0049-batch-2/male_curly_ochre_dark/attempt-1"
+          }
+        ],
+        "availability": "LOCAL_DEV_REVIEW_ONLY",
+        "runtimeIntegrated": false,
+        "technicalStatus": "BATCH_2_TECHNICALLY_COMPLETE",
+        "humanReview": "HUMAN_VISUAL_APPROVED",
+        "humanApprovalReceipt": "docs/architecture/task-0049-batch-2/receipts/male_curly_ochre_dark.json"
+      },
+      "reviewedBy": "Carlos Faustino",
+      "reviewedAt": "2026-10-07T16:33:08.337Z",
+      "humanApprovalReceipt": "docs/architecture/task-0049-batch-2/receipts/male_curly_ochre_dark.json",
+      "runtimeActivation": {
+        "task": "TASK-0050",
+        "source": "/assets/avatar/hd/male/male_curly_ochre_dark_hd.png",
+        "active": true,
+        "productionBuildEnabled": true,
+        "externalDeployPerformed": false
+      }
+    },
+    {
+      "id": "male_curly_moss_medium",
+      "gender": "male",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "curly",
+      "combination": {
+        "outfit": "moss",
+        "skin": "medium"
+      },
+      "legacyPath": "/assets/avatar/runtime/male/male_curly_moss_medium.png",
+      "hdPath": "/assets/avatar/hd/male/male_curly_moss_medium_hd.png",
+      "status": "HUMAN_VISUAL_APPROVED",
+      "priority": "HIGH",
+      "latestGeometryStatus": "GEOMETRY_PASS",
+      "humanReview": "HUMAN_VISUAL_APPROVED",
+      "bodyFitReview": "BODY_FIT_REVIEW_PENDING",
+      "batch": {
+        "task": "TASK-0049C",
+        "batch": 2,
+        "status": "BATCH_2_COMPLETE",
+        "candidatePath": "build/task-0049-batch-2/male_curly_moss_medium/hd_candidate.png",
+        "sha256": "c2aaea7d357ef0aeec5bd5ebf9f0842e82b30d5605ccab9ad920b1fb50861afc",
+        "attempts": [
+          {
+            "attempt": 1,
+            "geometryStatus": "GEOMETRY_PASS",
+            "sha256": "c2aaea7d357ef0aeec5bd5ebf9f0842e82b30d5605ccab9ad920b1fb50861afc",
+            "evidencePath": "build/task-0049-batch-2/male_curly_moss_medium/attempt-1"
+          }
+        ],
+        "availability": "LOCAL_DEV_REVIEW_ONLY",
+        "runtimeIntegrated": false,
+        "technicalStatus": "BATCH_2_TECHNICALLY_COMPLETE",
+        "humanReview": "HUMAN_VISUAL_APPROVED",
+        "humanApprovalReceipt": "docs/architecture/task-0049-batch-2/receipts/male_curly_moss_medium.json"
+      },
+      "reviewedBy": "Carlos Faustino",
+      "reviewedAt": "2026-10-07T16:33:08.337Z",
+      "humanApprovalReceipt": "docs/architecture/task-0049-batch-2/receipts/male_curly_moss_medium.json",
+      "runtimeActivation": {
+        "task": "TASK-0050",
+        "source": "/assets/avatar/hd/male/male_curly_moss_medium_hd.png",
+        "active": true,
+        "productionBuildEnabled": true,
+        "externalDeployPerformed": false
+      }
+    },
+    {
+      "id": "male_long_moss_light",
+      "gender": "male",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "long",
+      "combination": {
+        "outfit": "moss",
+        "skin": "light"
+      },
+      "legacyPath": "/assets/avatar/runtime/male/male_long_moss_light.png",
+      "hdPath": "/assets/avatar/hd/male/male_long_moss_light_hd.png",
+      "status": "HUMAN_VISUAL_APPROVED",
+      "priority": "HIGH",
+      "latestGeometryStatus": "GEOMETRY_PASS",
+      "humanReview": "HUMAN_VISUAL_APPROVED",
+      "bodyFitReview": "BODY_FIT_REVIEW_PENDING",
+      "batch": {
+        "task": "TASK-0049C",
+        "batch": 2,
+        "status": "BATCH_2_COMPLETE",
+        "candidatePath": "build/task-0049-batch-2/male_long_moss_light/hd_candidate.png",
+        "sha256": "24bbc5a3ec9a4ccee28864dc6868de1e137a29575d34bda072c7298d8dd8b0dd",
+        "attempts": [
+          {
+            "attempt": 1,
+            "geometryStatus": "GEOMETRY_PASS",
+            "sha256": "24bbc5a3ec9a4ccee28864dc6868de1e137a29575d34bda072c7298d8dd8b0dd",
+            "evidencePath": "build/task-0049-batch-2/male_long_moss_light/attempt-1"
+          }
+        ],
+        "availability": "LOCAL_DEV_REVIEW_ONLY",
+        "runtimeIntegrated": false,
+        "technicalStatus": "BATCH_2_TECHNICALLY_COMPLETE",
+        "humanReview": "HUMAN_VISUAL_APPROVED",
+        "humanApprovalReceipt": "docs/architecture/task-0049-batch-2/receipts/male_long_moss_light.json"
+      },
+      "reviewedBy": "Carlos Faustino",
+      "reviewedAt": "2026-10-07T16:33:08.337Z",
+      "humanApprovalReceipt": "docs/architecture/task-0049-batch-2/receipts/male_long_moss_light.json",
+      "runtimeActivation": {
+        "task": "TASK-0050",
+        "source": "/assets/avatar/hd/male/male_long_moss_light_hd.png",
+        "active": true,
+        "productionBuildEnabled": true,
+        "externalDeployPerformed": false
+      }
+    },
+    {
+      "id": "male_long_moss_dark",
+      "gender": "male",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "long",
+      "combination": {
+        "outfit": "moss",
+        "skin": "dark"
+      },
+      "legacyPath": "/assets/avatar/runtime/male/male_long_moss_dark.png",
+      "hdPath": "/assets/avatar/hd/male/male_long_moss_dark_hd.png",
+      "status": "HUMAN_VISUAL_APPROVED",
+      "priority": "HIGH",
+      "latestGeometryStatus": "GEOMETRY_PASS",
+      "humanReview": "HUMAN_VISUAL_APPROVED",
+      "bodyFitReview": "BODY_FIT_REVIEW_PENDING",
+      "batch": {
+        "task": "TASK-0049D",
+        "batch": 3,
+        "status": "BATCH_3_COMPLETE",
+        "candidatePath": "build/task-0049-batch-3/male_long_moss_dark/hd_candidate.png",
+        "sha256": "561c0da9f89bb56bebd4584a6750c977e5819c1fb503e7703610bcd7659ca9a1",
+        "attempts": [
+          {
+            "attempt": 1,
+            "geometryStatus": "GEOMETRY_PASS",
+            "sha256": "561c0da9f89bb56bebd4584a6750c977e5819c1fb503e7703610bcd7659ca9a1",
+            "evidencePath": "build/task-0049-batch-3/male_long_moss_dark/attempt-1"
+          }
+        ],
+        "availability": "LOCAL_DEV_REVIEW_ONLY",
+        "runtimeIntegrated": false,
+        "technicalStatus": "BATCH_3_TECHNICALLY_COMPLETE",
+        "humanReview": "HUMAN_VISUAL_APPROVED",
+        "humanApprovalReceipt": "docs/architecture/task-0049-batch-3/receipts/male_long_moss_dark.json"
+      },
+      "reviewedBy": "Carlos Faustino",
+      "reviewedAt": "2026-10-07T17:27:15.528Z",
+      "humanApprovalReceipt": "docs/architecture/task-0049-batch-3/receipts/male_long_moss_dark.json",
+      "runtimeActivation": {
+        "task": "TASK-0050",
+        "source": "/assets/avatar/hd/male/male_long_moss_dark_hd.png",
+        "active": true,
+        "productionBuildEnabled": true,
+        "externalDeployPerformed": false
+      }
+    },
+    {
+      "id": "male_long_blue_medium",
+      "gender": "male",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "long",
+      "combination": {
+        "outfit": "blue",
+        "skin": "medium"
+      },
+      "legacyPath": "/assets/avatar/runtime/male/male_long_blue_medium.png",
+      "hdPath": "/assets/avatar/hd/male/male_long_blue_medium_hd.png",
+      "status": "HUMAN_VISUAL_APPROVED",
+      "priority": "HIGH",
+      "latestGeometryStatus": "GEOMETRY_PASS",
+      "humanReview": "HUMAN_VISUAL_APPROVED",
+      "bodyFitReview": "BODY_FIT_REVIEW_PENDING",
+      "batch": {
+        "task": "TASK-0049D",
+        "batch": 3,
+        "status": "BATCH_3_COMPLETE",
+        "candidatePath": "build/task-0049-batch-3/male_long_blue_medium/hd_candidate.png",
+        "sha256": "e390217b97a4bf6dbb54b42e2b7b043d98184901cf164ab42ff6b9af83ec01a4",
+        "attempts": [
+          {
+            "attempt": 1,
+            "geometryStatus": "REJECTED_GEOMETRY",
+            "sha256": "07a4f588933e6d8e4ecd9ee93f601aa92b4dd1a715188eb58b70a3cbd56a968c",
+            "evidencePath": "build/task-0049-batch-3/male_long_blue_medium/attempt-1"
+          },
+          {
+            "attempt": 2,
+            "geometryStatus": "GEOMETRY_PASS",
+            "sha256": "e390217b97a4bf6dbb54b42e2b7b043d98184901cf164ab42ff6b9af83ec01a4",
+            "evidencePath": "build/task-0049-batch-3/male_long_blue_medium/attempt-2"
+          }
+        ],
+        "availability": "LOCAL_DEV_REVIEW_ONLY",
+        "runtimeIntegrated": false,
+        "technicalStatus": "BATCH_3_TECHNICALLY_COMPLETE",
+        "humanReview": "HUMAN_VISUAL_APPROVED",
+        "humanApprovalReceipt": "docs/architecture/task-0049-batch-3/receipts/male_long_blue_medium.json"
+      },
+      "reviewedBy": "Carlos Faustino",
+      "reviewedAt": "2026-10-07T17:27:15.528Z",
+      "humanApprovalReceipt": "docs/architecture/task-0049-batch-3/receipts/male_long_blue_medium.json",
+      "runtimeActivation": {
+        "task": "TASK-0050",
+        "source": "/assets/avatar/hd/male/male_long_blue_medium_hd.png",
+        "active": true,
+        "productionBuildEnabled": true,
+        "externalDeployPerformed": false
+      }
+    },
+    {
+      "id": "male_long_moss_medium",
+      "gender": "male",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "long",
+      "combination": {
+        "outfit": "moss",
+        "skin": "medium"
+      },
+      "legacyPath": "/assets/avatar/runtime/male/male_long_moss_medium.png",
+      "hdPath": "/assets/avatar/hd/male/male_long_moss_medium_hd.png",
+      "status": "HUMAN_VISUAL_APPROVED",
+      "priority": "HIGH",
+      "latestGeometryStatus": "GEOMETRY_PASS",
+      "humanReview": "HUMAN_VISUAL_APPROVED",
+      "bodyFitReview": "BODY_FIT_REVIEW_PENDING",
+      "batch": {
+        "task": "TASK-0049D",
+        "batch": 3,
+        "status": "BATCH_3_COMPLETE",
+        "candidatePath": "build/task-0049-batch-3/male_long_moss_medium/hd_candidate.png",
+        "sha256": "7105d9b86cd74645d2a9ad7fb65954e9b4764b5dc7972d3cf8bcc543f69565d0",
+        "attempts": [
+          {
+            "attempt": 1,
+            "geometryStatus": "REJECTED_GEOMETRY",
+            "sha256": "d79dd2a211c1a0e60c9f939c07d51e20ef5bbdf32c570db682bd7e0e38e47f03",
+            "evidencePath": "build/task-0049-batch-3/male_long_moss_medium/attempt-1"
+          },
+          {
+            "attempt": 2,
+            "geometryStatus": "REJECTED_GEOMETRY",
+            "sha256": "aac7ae4017f30307e88f2daa29150fe613bf0d71d9c326b3441945bcde0c4fec",
+            "evidencePath": "build/task-0049-batch-3/male_long_moss_medium/attempt-2"
+          },
+          {
+            "attempt": 3,
+            "geometryStatus": "GEOMETRY_PASS",
+            "sha256": "7105d9b86cd74645d2a9ad7fb65954e9b4764b5dc7972d3cf8bcc543f69565d0",
+            "evidencePath": "build/task-0049-batch-3/male_long_moss_medium/attempt-3"
+          }
+        ],
+        "availability": "LOCAL_DEV_REVIEW_ONLY",
+        "runtimeIntegrated": false,
+        "technicalStatus": "BATCH_3_TECHNICALLY_COMPLETE",
+        "humanReview": "HUMAN_VISUAL_APPROVED",
+        "humanApprovalReceipt": "docs/architecture/task-0049-batch-3/receipts/male_long_moss_medium.json"
+      },
+      "reviewedBy": "Carlos Faustino",
+      "reviewedAt": "2026-10-07T17:27:15.528Z",
+      "humanApprovalReceipt": "docs/architecture/task-0049-batch-3/receipts/male_long_moss_medium.json",
+      "runtimeActivation": {
+        "task": "TASK-0050",
+        "source": "/assets/avatar/hd/male/male_long_moss_medium_hd.png",
+        "active": true,
+        "productionBuildEnabled": true,
+        "externalDeployPerformed": false
+      }
+    },
+    {
+      "id": "male_long_ochre_dark",
+      "gender": "male",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "long",
+      "combination": {
+        "outfit": "ochre",
+        "skin": "dark"
+      },
+      "legacyPath": "/assets/avatar/runtime/male/male_long_ochre_dark.png",
+      "hdPath": "/assets/avatar/hd/male/male_long_ochre_dark_hd.png",
+      "status": "HUMAN_VISUAL_APPROVED",
+      "priority": "HIGH",
+      "latestGeometryStatus": "GEOMETRY_PASS",
+      "humanReview": "HUMAN_VISUAL_APPROVED",
+      "bodyFitReview": "BODY_FIT_REVIEW_PENDING",
+      "batch": {
+        "task": "TASK-0049D",
+        "batch": 3,
+        "status": "BATCH_3_COMPLETE",
+        "candidatePath": "build/task-0049-batch-3/male_long_ochre_dark/hd_candidate.png",
+        "sha256": "3ccee1a98a598903d47b351e62f4b3af505123711158fe6601054ee5cd40d3ad",
+        "attempts": [
+          {
+            "attempt": 1,
+            "geometryStatus": "GEOMETRY_PASS",
+            "sha256": "3ccee1a98a598903d47b351e62f4b3af505123711158fe6601054ee5cd40d3ad",
+            "evidencePath": "build/task-0049-batch-3/male_long_ochre_dark/attempt-1"
+          }
+        ],
+        "availability": "LOCAL_DEV_REVIEW_ONLY",
+        "runtimeIntegrated": false,
+        "technicalStatus": "BATCH_3_TECHNICALLY_COMPLETE",
+        "humanReview": "HUMAN_VISUAL_APPROVED",
+        "humanApprovalReceipt": "docs/architecture/task-0049-batch-3/receipts/male_long_ochre_dark.json"
+      },
+      "reviewedBy": "Carlos Faustino",
+      "reviewedAt": "2026-10-07T17:27:15.528Z",
+      "humanApprovalReceipt": "docs/architecture/task-0049-batch-3/receipts/male_long_ochre_dark.json",
+      "runtimeActivation": {
+        "task": "TASK-0050",
+        "source": "/assets/avatar/hd/male/male_long_ochre_dark_hd.png",
+        "active": true,
+        "productionBuildEnabled": true,
+        "externalDeployPerformed": false
+      }
+    },
+    {
+      "id": "male_curly_moss_light",
+      "gender": "male",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "curly",
+      "combination": {
+        "outfit": "moss",
+        "skin": "light"
+      },
+      "legacyPath": "/assets/avatar/runtime/male/male_curly_moss_light.png",
+      "hdPath": "/assets/avatar/hd/male/male_curly_moss_light_hd.png",
+      "status": "HUMAN_VISUAL_APPROVED",
+      "priority": "HIGH",
+      "latestGeometryStatus": "GEOMETRY_PASS",
+      "humanReview": "HUMAN_VISUAL_APPROVED",
+      "bodyFitReview": "BODY_FIT_REVIEW_PENDING",
+      "batch": {
+        "task": "TASK-0049D",
+        "batch": 3,
+        "status": "BATCH_3_COMPLETE",
+        "candidatePath": "build/task-0049-batch-3/male_curly_moss_light/hd_candidate.png",
+        "sha256": "4134196166b8578f87e445a5d19fc32f940137dd007942b94c811af6e8749ec4",
+        "attempts": [
+          {
+            "attempt": 1,
+            "geometryStatus": "GEOMETRY_PASS",
+            "sha256": "4134196166b8578f87e445a5d19fc32f940137dd007942b94c811af6e8749ec4",
+            "evidencePath": "build/task-0049-batch-3/male_curly_moss_light/attempt-1"
+          }
+        ],
+        "availability": "LOCAL_DEV_REVIEW_ONLY",
+        "runtimeIntegrated": false,
+        "technicalStatus": "BATCH_3_TECHNICALLY_COMPLETE",
+        "humanReview": "HUMAN_VISUAL_APPROVED",
+        "humanApprovalReceipt": "docs/architecture/task-0049-batch-3/receipts/male_curly_moss_light.json"
+      },
+      "reviewedBy": "Carlos Faustino",
+      "reviewedAt": "2026-10-07T17:27:15.528Z",
+      "humanApprovalReceipt": "docs/architecture/task-0049-batch-3/receipts/male_curly_moss_light.json",
+      "runtimeActivation": {
+        "task": "TASK-0050",
+        "source": "/assets/avatar/hd/male/male_curly_moss_light_hd.png",
+        "active": true,
+        "productionBuildEnabled": true,
+        "externalDeployPerformed": false
+      }
+    },
+    {
+      "id": "male_long_ochre_medium",
+      "gender": "male",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "long",
+      "combination": {
+        "outfit": "ochre",
+        "skin": "medium"
+      },
+      "legacyPath": "/assets/avatar/runtime/male/male_long_ochre_medium.png",
+      "hdPath": "/assets/avatar/hd/male/male_long_ochre_medium_hd.png",
+      "status": "HUMAN_VISUAL_APPROVED",
+      "priority": "HIGH",
+      "latestGeometryStatus": "GEOMETRY_PASS",
+      "humanReview": "HUMAN_VISUAL_APPROVED",
+      "bodyFitReview": "BODY_FIT_REVIEW_PENDING",
+      "batch": {
+        "task": "TASK-0049D",
+        "batch": 3,
+        "status": "BATCH_3_COMPLETE",
+        "candidatePath": "build/task-0049-batch-3/male_long_ochre_medium/hd_candidate.png",
+        "sha256": "bc0ab9ad75d36d038c20f352a3c50ec84eefe8bcd3910e7d7263c7bebd6ed285",
+        "attempts": [
+          {
+            "attempt": 1,
+            "geometryStatus": "REJECTED_GEOMETRY",
+            "sha256": "2264219821ea76662d7d2ce4a4783483b3829badc779d184df3504cf9b48bf9d",
+            "evidencePath": "build/task-0049-batch-3/male_long_ochre_medium/attempt-1"
+          },
+          {
+            "attempt": 2,
+            "geometryStatus": "GEOMETRY_PASS",
+            "sha256": "bc0ab9ad75d36d038c20f352a3c50ec84eefe8bcd3910e7d7263c7bebd6ed285",
+            "evidencePath": "build/task-0049-batch-3/male_long_ochre_medium/attempt-2"
+          }
+        ],
+        "availability": "LOCAL_DEV_REVIEW_ONLY",
+        "runtimeIntegrated": false,
+        "technicalStatus": "BATCH_3_TECHNICALLY_COMPLETE",
+        "humanReview": "HUMAN_VISUAL_APPROVED",
+        "humanApprovalReceipt": "docs/architecture/task-0049-batch-3/receipts/male_long_ochre_medium.json"
+      },
+      "reviewedBy": "Carlos Faustino",
+      "reviewedAt": "2026-10-07T17:27:15.528Z",
+      "humanApprovalReceipt": "docs/architecture/task-0049-batch-3/receipts/male_long_ochre_medium.json",
+      "runtimeActivation": {
+        "task": "TASK-0050",
+        "source": "/assets/avatar/hd/male/male_long_ochre_medium_hd.png",
+        "active": true,
+        "productionBuildEnabled": true,
+        "externalDeployPerformed": false
+      }
+    },
+    {
+      "id": "male_long_ochre_light",
+      "gender": "male",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "long",
+      "combination": {
+        "outfit": "ochre",
+        "skin": "light"
+      },
+      "legacyPath": "/assets/avatar/runtime/male/male_long_ochre_light.png",
+      "hdPath": "/assets/avatar/hd/male/male_long_ochre_light_hd.png",
+      "status": "HUMAN_VISUAL_APPROVED",
+      "priority": "HIGH",
+      "latestGeometryStatus": "GEOMETRY_PASS",
+      "humanReview": "HUMAN_VISUAL_APPROVED",
+      "bodyFitReview": "BODY_FIT_REVIEW_PENDING",
+      "batch": {
+        "task": "TASK-0049D",
+        "batch": 3,
+        "status": "BATCH_3_COMPLETE",
+        "candidatePath": "build/task-0049-batch-3/male_long_ochre_light/hd_candidate.png",
+        "sha256": "e8548f8771dd172f55e456358ed99ed5423532cf1f0dfc3fb099451ba6ba2ad6",
+        "attempts": [
+          {
+            "attempt": 1,
+            "geometryStatus": "GEOMETRY_PASS",
+            "sha256": "e8548f8771dd172f55e456358ed99ed5423532cf1f0dfc3fb099451ba6ba2ad6",
+            "evidencePath": "build/task-0049-batch-3/male_long_ochre_light/attempt-1"
+          }
+        ],
+        "availability": "LOCAL_DEV_REVIEW_ONLY",
+        "runtimeIntegrated": false,
+        "technicalStatus": "BATCH_3_TECHNICALLY_COMPLETE",
+        "humanReview": "HUMAN_VISUAL_APPROVED",
+        "humanApprovalReceipt": "docs/architecture/task-0049-batch-3/receipts/male_long_ochre_light.json"
+      },
+      "reviewedBy": "Carlos Faustino",
+      "reviewedAt": "2026-10-07T17:27:15.528Z",
+      "humanApprovalReceipt": "docs/architecture/task-0049-batch-3/receipts/male_long_ochre_light.json",
+      "runtimeActivation": {
+        "task": "TASK-0050",
+        "source": "/assets/avatar/hd/male/male_long_ochre_light_hd.png",
+        "active": true,
+        "productionBuildEnabled": true,
+        "externalDeployPerformed": false
+      }
+    },
+    {
+      "id": "female_curly_blue_dark",
+      "gender": "female",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "curly",
+      "combination": {
+        "outfit": "blue",
+        "skin": "dark"
+      },
+      "legacyPath": "/assets/avatar/runtime/female/female_curly_blue_dark.png",
+      "hdPath": "/assets/avatar/hd/female/female_curly_blue_dark_hd.png",
+      "status": "HUMAN_VISUAL_APPROVED",
+      "priority": "HIGH",
+      "latestGeometryStatus": "GEOMETRY_PASS",
+      "humanReview": "HUMAN_VISUAL_APPROVED",
+      "bodyFitReview": "BODY_FIT_REVIEW_PENDING",
+      "batch": {
+        "task": "TASK-0049D",
+        "batch": 3,
+        "status": "BATCH_3_COMPLETE",
+        "candidatePath": "build/task-0049-batch-3/female_curly_blue_dark/hd_candidate.png",
+        "sha256": "c96e8b93f23e732ead9f0243f7d390293e20ab6c2187f0e260dbc190872591c2",
+        "attempts": [
+          {
+            "attempt": 1,
+            "geometryStatus": "REJECTED_GEOMETRY",
+            "sha256": "d23d18d530dea5d5948f430db19c257aa634c6b370337f30d79377c709d75f57",
+            "evidencePath": "build/task-0049-batch-3/female_curly_blue_dark/attempt-1"
+          },
+          {
+            "attempt": 2,
+            "geometryStatus": "REJECTED_GEOMETRY",
+            "sha256": "d291a883a2018f0e420becce4a085a663772527c89a28d9f0783e70b12a655f3",
+            "evidencePath": "build/task-0049-batch-3/female_curly_blue_dark/attempt-2"
+          },
+          {
+            "attempt": 3,
+            "geometryStatus": "GEOMETRY_PASS",
+            "sha256": "c96e8b93f23e732ead9f0243f7d390293e20ab6c2187f0e260dbc190872591c2",
+            "evidencePath": "build/task-0049-batch-3/female_curly_blue_dark/attempt-3"
+          }
+        ],
+        "availability": "LOCAL_DEV_REVIEW_ONLY",
+        "runtimeIntegrated": false,
+        "technicalStatus": "BATCH_3_TECHNICALLY_COMPLETE",
+        "humanReview": "HUMAN_VISUAL_APPROVED",
+        "humanApprovalReceipt": "docs/architecture/task-0049-batch-3/receipts/female_curly_blue_dark.json"
+      },
+      "reviewedBy": "Carlos Faustino",
+      "reviewedAt": "2026-10-07T17:27:15.528Z",
+      "humanApprovalReceipt": "docs/architecture/task-0049-batch-3/receipts/female_curly_blue_dark.json",
+      "runtimeActivation": {
+        "task": "TASK-0050",
+        "source": "/assets/avatar/hd/female/female_curly_blue_dark_hd.png",
+        "active": true,
+        "productionBuildEnabled": true,
+        "externalDeployPerformed": false
+      }
+    },
+    {
+      "id": "female_curly_blue_light",
+      "gender": "female",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "curly",
+      "combination": {
+        "outfit": "blue",
+        "skin": "light"
+      },
+      "legacyPath": "/assets/avatar/runtime/female/female_curly_blue_light.png",
+      "hdPath": "/assets/avatar/hd/female/female_curly_blue_light_hd.png",
+      "status": "HUMAN_VISUAL_APPROVED",
+      "priority": "HIGH",
+      "latestGeometryStatus": "GEOMETRY_PASS",
+      "humanReview": "HUMAN_VISUAL_APPROVED",
+      "bodyFitReview": "BODY_FIT_REVIEW_PENDING",
+      "batch": {
+        "task": "TASK-0049E",
+        "batch": 4,
+        "status": "BATCH_4_COMPLETE",
+        "candidatePath": "build/task-0049-batch-4/female_curly_blue_light/hd_candidate.png",
+        "sha256": "8dc450bdcb0730fca04571c9628b7c21807b6f63800eebfe11e2813ab806d0ac",
+        "attempts": [
+          {
+            "attempt": 1,
+            "geometryStatus": "REJECTED_GEOMETRY",
+            "sha256": "94ebfe1a087c35e0fffa16f1616e41c6ba009b133d40c170195202e4e22a68cf",
+            "evidencePath": "build/task-0049-batch-4/female_curly_blue_light/attempt-1"
+          },
+          {
+            "attempt": 2,
+            "geometryStatus": "GEOMETRY_PASS",
+            "sha256": "8dc450bdcb0730fca04571c9628b7c21807b6f63800eebfe11e2813ab806d0ac",
+            "evidencePath": "build/task-0049-batch-4/female_curly_blue_light/attempt-2"
+          }
+        ],
+        "availability": "LOCAL_DEV_REVIEW_ONLY",
+        "runtimeIntegrated": false,
+        "humanReview": "HUMAN_VISUAL_APPROVED"
+      },
+      "humanApproval": {
+        "task": "TASK-0049E",
+        "batch": 4,
+        "id": "female_curly_blue_light",
+        "attempt": 2,
+        "candidatePath": "build/task-0049-batch-4/female_curly_blue_light/hd_candidate.png",
+        "sha256": "8dc450bdcb0730fca04571c9628b7c21807b6f63800eebfe11e2813ab806d0ac",
+        "geometryStatus": "GEOMETRY_PASS",
+        "geometryMetricsPassed": 13,
+        "width": 1024,
+        "height": 1536,
+        "hasAlpha": true,
+        "reviewedBy": "Carlos Faustino",
+        "reviewedAt": "2026-10-07T20:43:31.593Z",
+        "timestampMeaning": "Actual execution time when explicit user approval was recorded",
+        "reviewSource": "Explicit individual approval of all eight Batch 4 candidates in this conversation",
+        "reviewStatus": "HUMAN_VISUAL_APPROVED",
+        "approvedCriteria": [
+          "visual identity",
+          "face",
+          "hairstyle",
+          "pose",
+          "silhouette",
+          "proportions",
+          "feet baseline",
+          "framing",
+          "tone/lighting compared with legacy",
+          "overall appearance"
+        ],
+        "usage": "DEV_ONLY",
+        "availability": "LOCAL_DEV_REVIEW_ONLY",
+        "runtimeIntegrationApproved": false,
+        "productionActivationApproved": false,
+        "bodyFitApprovalGranted": false,
+        "batch5GenerationAuthorized": false,
+        "pushDeployRemoteAuthorized": false
+      },
+      "runtimeActivation": {
+        "task": "TASK-0050",
+        "source": "/assets/avatar/hd/female/female_curly_blue_light_hd.png",
+        "active": true,
+        "productionBuildEnabled": true,
+        "externalDeployPerformed": false
+      }
+    },
+    {
+      "id": "female_curly_blue_medium",
+      "gender": "female",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "curly",
+      "combination": {
+        "outfit": "blue",
+        "skin": "medium"
+      },
+      "legacyPath": "/assets/avatar/runtime/female/female_curly_blue_medium.png",
+      "hdPath": "/assets/avatar/hd/female/female_curly_blue_medium_hd.png",
+      "status": "HUMAN_VISUAL_APPROVED",
+      "priority": "HIGH",
+      "latestGeometryStatus": "GEOMETRY_PASS",
+      "humanReview": "HUMAN_VISUAL_APPROVED",
+      "bodyFitReview": "BODY_FIT_REVIEW_PENDING",
+      "batch": {
+        "task": "TASK-0049E",
+        "batch": 4,
+        "status": "BATCH_4_COMPLETE",
+        "candidatePath": "build/task-0049-batch-4/female_curly_blue_medium/hd_candidate.png",
+        "sha256": "69ee723023e71d7eceeabbf6ff529bddbb4b45edbb6b2b9c2a863a5b9d2d2201",
+        "attempts": [
+          {
+            "attempt": 1,
+            "geometryStatus": "REJECTED_GEOMETRY",
+            "sha256": "107e9c41887d77c8e8f4f7a83d2560efee111f6fd01dc21ce48b4ac765d8a13a",
+            "evidencePath": "build/task-0049-batch-4/female_curly_blue_medium/attempt-1"
+          },
+          {
+            "attempt": 2,
+            "geometryStatus": "GEOMETRY_PASS",
+            "sha256": "69ee723023e71d7eceeabbf6ff529bddbb4b45edbb6b2b9c2a863a5b9d2d2201",
+            "evidencePath": "build/task-0049-batch-4/female_curly_blue_medium/attempt-2"
+          }
+        ],
+        "availability": "LOCAL_DEV_REVIEW_ONLY",
+        "runtimeIntegrated": false,
+        "humanReview": "HUMAN_VISUAL_APPROVED"
+      },
+      "humanApproval": {
+        "task": "TASK-0049E",
+        "batch": 4,
+        "id": "female_curly_blue_medium",
+        "attempt": 2,
+        "candidatePath": "build/task-0049-batch-4/female_curly_blue_medium/hd_candidate.png",
+        "sha256": "69ee723023e71d7eceeabbf6ff529bddbb4b45edbb6b2b9c2a863a5b9d2d2201",
+        "geometryStatus": "GEOMETRY_PASS",
+        "geometryMetricsPassed": 13,
+        "width": 1024,
+        "height": 1536,
+        "hasAlpha": true,
+        "reviewedBy": "Carlos Faustino",
+        "reviewedAt": "2026-10-07T20:43:31.593Z",
+        "timestampMeaning": "Actual execution time when explicit user approval was recorded",
+        "reviewSource": "Explicit individual approval of all eight Batch 4 candidates in this conversation",
+        "reviewStatus": "HUMAN_VISUAL_APPROVED",
+        "approvedCriteria": [
+          "visual identity",
+          "face",
+          "hairstyle",
+          "pose",
+          "silhouette",
+          "proportions",
+          "feet baseline",
+          "framing",
+          "tone/lighting compared with legacy",
+          "overall appearance"
+        ],
+        "usage": "DEV_ONLY",
+        "availability": "LOCAL_DEV_REVIEW_ONLY",
+        "runtimeIntegrationApproved": false,
+        "productionActivationApproved": false,
+        "bodyFitApprovalGranted": false,
+        "batch5GenerationAuthorized": false,
+        "pushDeployRemoteAuthorized": false
+      },
+      "runtimeActivation": {
+        "task": "TASK-0050",
+        "source": "/assets/avatar/hd/female/female_curly_blue_medium_hd.png",
+        "active": true,
+        "productionBuildEnabled": true,
+        "externalDeployPerformed": false
+      }
+    },
+    {
+      "id": "male_short_blue_light",
+      "gender": "male",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "short",
+      "combination": {
+        "outfit": "blue",
+        "skin": "light"
+      },
+      "legacyPath": "/assets/avatar/runtime/male/male_short_blue_light.png",
+      "hdPath": "/assets/avatar/hd/male/male_short_blue_light_hd.png",
+      "status": "HUMAN_VISUAL_APPROVED",
+      "priority": "HIGH",
+      "latestGeometryStatus": "GEOMETRY_PASS",
+      "humanReview": "HUMAN_VISUAL_APPROVED",
+      "bodyFitReview": "BODY_FIT_REVIEW_PENDING",
+      "batch": {
+        "task": "TASK-0049E",
+        "batch": 4,
+        "status": "BATCH_4_COMPLETE",
+        "candidatePath": "build/task-0049-batch-4/male_short_blue_light/hd_candidate.png",
+        "sha256": "98b5e7c9d50151af6da95dd7a813f6f4304d7cd292a6c85ff7fa68b6e03bf302",
+        "attempts": [
+          {
+            "attempt": 1,
+            "geometryStatus": "GEOMETRY_PASS",
+            "sha256": "98b5e7c9d50151af6da95dd7a813f6f4304d7cd292a6c85ff7fa68b6e03bf302",
+            "evidencePath": "build/task-0049-batch-4/male_short_blue_light/attempt-1"
+          }
+        ],
+        "availability": "LOCAL_DEV_REVIEW_ONLY",
+        "runtimeIntegrated": false,
+        "humanReview": "HUMAN_VISUAL_APPROVED"
+      },
+      "humanApproval": {
+        "task": "TASK-0049E",
+        "batch": 4,
+        "id": "male_short_blue_light",
+        "attempt": 1,
+        "candidatePath": "build/task-0049-batch-4/male_short_blue_light/hd_candidate.png",
+        "sha256": "98b5e7c9d50151af6da95dd7a813f6f4304d7cd292a6c85ff7fa68b6e03bf302",
+        "geometryStatus": "GEOMETRY_PASS",
+        "geometryMetricsPassed": 13,
+        "width": 1024,
+        "height": 1536,
+        "hasAlpha": true,
+        "reviewedBy": "Carlos Faustino",
+        "reviewedAt": "2026-10-07T20:43:31.593Z",
+        "timestampMeaning": "Actual execution time when explicit user approval was recorded",
+        "reviewSource": "Explicit individual approval of all eight Batch 4 candidates in this conversation",
+        "reviewStatus": "HUMAN_VISUAL_APPROVED",
+        "approvedCriteria": [
+          "visual identity",
+          "face",
+          "hairstyle",
+          "pose",
+          "silhouette",
+          "proportions",
+          "feet baseline",
+          "framing",
+          "tone/lighting compared with legacy",
+          "overall appearance"
+        ],
+        "usage": "DEV_ONLY",
+        "availability": "LOCAL_DEV_REVIEW_ONLY",
+        "runtimeIntegrationApproved": false,
+        "productionActivationApproved": false,
+        "bodyFitApprovalGranted": false,
+        "batch5GenerationAuthorized": false,
+        "pushDeployRemoteAuthorized": false
+      },
+      "runtimeActivation": {
+        "task": "TASK-0050",
+        "source": "/assets/avatar/hd/male/male_short_blue_light_hd.png",
+        "active": true,
+        "productionBuildEnabled": true,
+        "externalDeployPerformed": false
+      }
+    },
+    {
+      "id": "male_short_blue_dark",
+      "gender": "male",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "short",
+      "combination": {
+        "outfit": "blue",
+        "skin": "dark"
+      },
+      "legacyPath": "/assets/avatar/runtime/male/male_short_blue_dark.png",
+      "hdPath": "/assets/avatar/hd/male/male_short_blue_dark_hd.png",
+      "status": "HUMAN_VISUAL_APPROVED",
+      "priority": "HIGH",
+      "latestGeometryStatus": "GEOMETRY_PASS",
+      "humanReview": "HUMAN_VISUAL_APPROVED",
+      "bodyFitReview": "BODY_FIT_REVIEW_PENDING",
+      "batch": {
+        "task": "TASK-0049E",
+        "batch": 4,
+        "status": "BATCH_4_COMPLETE",
+        "candidatePath": "build/task-0049-batch-4/male_short_blue_dark/hd_candidate.png",
+        "sha256": "8771935dcc7a529b5b0bfe958d6da38f70ef31c50f86655a97f2936eacadf8c3",
+        "attempts": [
+          {
+            "attempt": 1,
+            "geometryStatus": "REJECTED_GEOMETRY",
+            "sha256": "d84fa7a4d97e64fc1867983be4cbc359194c21a7268b5a2f57ae77115c698d1e",
+            "evidencePath": "build/task-0049-batch-4/male_short_blue_dark/attempt-1"
+          },
+          {
+            "attempt": 2,
+            "geometryStatus": "GEOMETRY_PASS",
+            "sha256": "8771935dcc7a529b5b0bfe958d6da38f70ef31c50f86655a97f2936eacadf8c3",
+            "evidencePath": "build/task-0049-batch-4/male_short_blue_dark/attempt-2"
+          }
+        ],
+        "availability": "LOCAL_DEV_REVIEW_ONLY",
+        "runtimeIntegrated": false,
+        "humanReview": "HUMAN_VISUAL_APPROVED"
+      },
+      "humanApproval": {
+        "task": "TASK-0049E",
+        "batch": 4,
+        "id": "male_short_blue_dark",
+        "attempt": 2,
+        "candidatePath": "build/task-0049-batch-4/male_short_blue_dark/hd_candidate.png",
+        "sha256": "8771935dcc7a529b5b0bfe958d6da38f70ef31c50f86655a97f2936eacadf8c3",
+        "geometryStatus": "GEOMETRY_PASS",
+        "geometryMetricsPassed": 13,
+        "width": 1024,
+        "height": 1536,
+        "hasAlpha": true,
+        "reviewedBy": "Carlos Faustino",
+        "reviewedAt": "2026-10-07T20:43:31.593Z",
+        "timestampMeaning": "Actual execution time when explicit user approval was recorded",
+        "reviewSource": "Explicit individual approval of all eight Batch 4 candidates in this conversation",
+        "reviewStatus": "HUMAN_VISUAL_APPROVED",
+        "approvedCriteria": [
+          "visual identity",
+          "face",
+          "hairstyle",
+          "pose",
+          "silhouette",
+          "proportions",
+          "feet baseline",
+          "framing",
+          "tone/lighting compared with legacy",
+          "overall appearance"
+        ],
+        "usage": "DEV_ONLY",
+        "availability": "LOCAL_DEV_REVIEW_ONLY",
+        "runtimeIntegrationApproved": false,
+        "productionActivationApproved": false,
+        "bodyFitApprovalGranted": false,
+        "batch5GenerationAuthorized": false,
+        "pushDeployRemoteAuthorized": false
+      },
+      "runtimeActivation": {
+        "task": "TASK-0050",
+        "source": "/assets/avatar/hd/male/male_short_blue_dark_hd.png",
+        "active": true,
+        "productionBuildEnabled": true,
+        "externalDeployPerformed": false
+      }
+    },
+    {
+      "id": "male_short_blue_medium",
+      "gender": "male",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "short",
+      "combination": {
+        "outfit": "blue",
+        "skin": "medium"
+      },
+      "legacyPath": "/assets/avatar/runtime/male/male_short_blue_medium.png",
+      "hdPath": "/assets/avatar/hd/male/male_short_blue_medium_hd.png",
+      "status": "HUMAN_VISUAL_APPROVED",
+      "priority": "HIGH",
+      "latestGeometryStatus": "GEOMETRY_PASS",
+      "humanReview": "HUMAN_VISUAL_APPROVED",
+      "bodyFitReview": "BODY_FIT_REVIEW_PENDING",
+      "batch": {
+        "task": "TASK-0049E",
+        "batch": 4,
+        "status": "BATCH_4_COMPLETE",
+        "candidatePath": "build/task-0049-batch-4/male_short_blue_medium/hd_candidate.png",
+        "sha256": "6f732859e75bbdebb5b69120dc00e0d4342025cfed84a4106ab6d0ad9adaf224",
+        "attempts": [
+          {
+            "attempt": 1,
+            "geometryStatus": "REJECTED_GEOMETRY",
+            "sha256": "a2b75052941c3e30c87efcf92ae198db87f53c7495414853968d13155f0434d3",
+            "evidencePath": "build/task-0049-batch-4/male_short_blue_medium/attempt-1"
+          },
+          {
+            "attempt": 2,
+            "geometryStatus": "GEOMETRY_PASS",
+            "sha256": "6f732859e75bbdebb5b69120dc00e0d4342025cfed84a4106ab6d0ad9adaf224",
+            "evidencePath": "build/task-0049-batch-4/male_short_blue_medium/attempt-2"
+          }
+        ],
+        "availability": "LOCAL_DEV_REVIEW_ONLY",
+        "runtimeIntegrated": false,
+        "humanReview": "HUMAN_VISUAL_APPROVED"
+      },
+      "humanApproval": {
+        "task": "TASK-0049E",
+        "batch": 4,
+        "id": "male_short_blue_medium",
+        "attempt": 2,
+        "candidatePath": "build/task-0049-batch-4/male_short_blue_medium/hd_candidate.png",
+        "sha256": "6f732859e75bbdebb5b69120dc00e0d4342025cfed84a4106ab6d0ad9adaf224",
+        "geometryStatus": "GEOMETRY_PASS",
+        "geometryMetricsPassed": 13,
+        "width": 1024,
+        "height": 1536,
+        "hasAlpha": true,
+        "reviewedBy": "Carlos Faustino",
+        "reviewedAt": "2026-10-07T20:43:31.593Z",
+        "timestampMeaning": "Actual execution time when explicit user approval was recorded",
+        "reviewSource": "Explicit individual approval of all eight Batch 4 candidates in this conversation",
+        "reviewStatus": "HUMAN_VISUAL_APPROVED",
+        "approvedCriteria": [
+          "visual identity",
+          "face",
+          "hairstyle",
+          "pose",
+          "silhouette",
+          "proportions",
+          "feet baseline",
+          "framing",
+          "tone/lighting compared with legacy",
+          "overall appearance"
+        ],
+        "usage": "DEV_ONLY",
+        "availability": "LOCAL_DEV_REVIEW_ONLY",
+        "runtimeIntegrationApproved": false,
+        "productionActivationApproved": false,
+        "bodyFitApprovalGranted": false,
+        "batch5GenerationAuthorized": false,
+        "pushDeployRemoteAuthorized": false
+      },
+      "runtimeActivation": {
+        "task": "TASK-0050",
+        "source": "/assets/avatar/hd/male/male_short_blue_medium_hd.png",
+        "active": true,
+        "productionBuildEnabled": true,
+        "externalDeployPerformed": false
+      }
+    },
+    {
+      "id": "male_short_ochre_medium",
+      "gender": "male",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "short",
+      "combination": {
+        "outfit": "ochre",
+        "skin": "medium"
+      },
+      "legacyPath": "/assets/avatar/runtime/male/male_short_ochre_medium.png",
+      "hdPath": "/assets/avatar/hd/male/male_short_ochre_medium_hd.png",
+      "status": "HUMAN_VISUAL_APPROVED",
+      "priority": "HIGH",
+      "latestGeometryStatus": "GEOMETRY_PASS",
+      "humanReview": "HUMAN_VISUAL_APPROVED",
+      "bodyFitReview": "BODY_FIT_REVIEW_PENDING",
+      "batch": {
+        "task": "TASK-0049E",
+        "batch": 4,
+        "status": "BATCH_4_COMPLETE",
+        "candidatePath": "build/task-0049-batch-4/male_short_ochre_medium/hd_candidate.png",
+        "sha256": "00d5d22f7dae0fdbce82555797b902f26c590abadc9ae5579e0b4ffb2ad16d18",
+        "attempts": [
+          {
+            "attempt": 1,
+            "geometryStatus": "GEOMETRY_PASS",
+            "sha256": "00d5d22f7dae0fdbce82555797b902f26c590abadc9ae5579e0b4ffb2ad16d18",
+            "evidencePath": "build/task-0049-batch-4/male_short_ochre_medium/attempt-1"
+          }
+        ],
+        "availability": "LOCAL_DEV_REVIEW_ONLY",
+        "runtimeIntegrated": false,
+        "humanReview": "HUMAN_VISUAL_APPROVED"
+      },
+      "humanApproval": {
+        "task": "TASK-0049E",
+        "batch": 4,
+        "id": "male_short_ochre_medium",
+        "attempt": 1,
+        "candidatePath": "build/task-0049-batch-4/male_short_ochre_medium/hd_candidate.png",
+        "sha256": "00d5d22f7dae0fdbce82555797b902f26c590abadc9ae5579e0b4ffb2ad16d18",
+        "geometryStatus": "GEOMETRY_PASS",
+        "geometryMetricsPassed": 13,
+        "width": 1024,
+        "height": 1536,
+        "hasAlpha": true,
+        "reviewedBy": "Carlos Faustino",
+        "reviewedAt": "2026-10-07T20:43:31.593Z",
+        "timestampMeaning": "Actual execution time when explicit user approval was recorded",
+        "reviewSource": "Explicit individual approval of all eight Batch 4 candidates in this conversation",
+        "reviewStatus": "HUMAN_VISUAL_APPROVED",
+        "approvedCriteria": [
+          "visual identity",
+          "face",
+          "hairstyle",
+          "pose",
+          "silhouette",
+          "proportions",
+          "feet baseline",
+          "framing",
+          "tone/lighting compared with legacy",
+          "overall appearance"
+        ],
+        "usage": "DEV_ONLY",
+        "availability": "LOCAL_DEV_REVIEW_ONLY",
+        "runtimeIntegrationApproved": false,
+        "productionActivationApproved": false,
+        "bodyFitApprovalGranted": false,
+        "batch5GenerationAuthorized": false,
+        "pushDeployRemoteAuthorized": false
+      },
+      "runtimeActivation": {
+        "task": "TASK-0050",
+        "source": "/assets/avatar/hd/male/male_short_ochre_medium_hd.png",
+        "active": true,
+        "productionBuildEnabled": true,
+        "externalDeployPerformed": false
+      }
+    },
+    {
+      "id": "male_short_ochre_light",
+      "gender": "male",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "short",
+      "combination": {
+        "outfit": "ochre",
+        "skin": "light"
+      },
+      "legacyPath": "/assets/avatar/runtime/male/male_short_ochre_light.png",
+      "hdPath": "/assets/avatar/hd/male/male_short_ochre_light_hd.png",
+      "status": "HUMAN_VISUAL_APPROVED",
+      "priority": "HIGH",
+      "latestGeometryStatus": "GEOMETRY_PASS",
+      "humanReview": "HUMAN_VISUAL_APPROVED",
+      "bodyFitReview": "BODY_FIT_REVIEW_PENDING",
+      "batch": {
+        "task": "TASK-0049E",
+        "batch": 4,
+        "status": "BATCH_4_COMPLETE",
+        "candidatePath": "build/task-0049-batch-4/male_short_ochre_light/hd_candidate.png",
+        "sha256": "15de9f313b5af24574854d16a85bec4be3569b29f502b578c2c0c3995a168d35",
+        "attempts": [
+          {
+            "attempt": 1,
+            "geometryStatus": "GEOMETRY_PASS",
+            "sha256": "15de9f313b5af24574854d16a85bec4be3569b29f502b578c2c0c3995a168d35",
+            "evidencePath": "build/task-0049-batch-4/male_short_ochre_light/attempt-1"
+          }
+        ],
+        "availability": "LOCAL_DEV_REVIEW_ONLY",
+        "runtimeIntegrated": false,
+        "humanReview": "HUMAN_VISUAL_APPROVED"
+      },
+      "humanApproval": {
+        "task": "TASK-0049E",
+        "batch": 4,
+        "id": "male_short_ochre_light",
+        "attempt": 1,
+        "candidatePath": "build/task-0049-batch-4/male_short_ochre_light/hd_candidate.png",
+        "sha256": "15de9f313b5af24574854d16a85bec4be3569b29f502b578c2c0c3995a168d35",
+        "geometryStatus": "GEOMETRY_PASS",
+        "geometryMetricsPassed": 13,
+        "width": 1024,
+        "height": 1536,
+        "hasAlpha": true,
+        "reviewedBy": "Carlos Faustino",
+        "reviewedAt": "2026-10-07T20:43:31.593Z",
+        "timestampMeaning": "Actual execution time when explicit user approval was recorded",
+        "reviewSource": "Explicit individual approval of all eight Batch 4 candidates in this conversation",
+        "reviewStatus": "HUMAN_VISUAL_APPROVED",
+        "approvedCriteria": [
+          "visual identity",
+          "face",
+          "hairstyle",
+          "pose",
+          "silhouette",
+          "proportions",
+          "feet baseline",
+          "framing",
+          "tone/lighting compared with legacy",
+          "overall appearance"
+        ],
+        "usage": "DEV_ONLY",
+        "availability": "LOCAL_DEV_REVIEW_ONLY",
+        "runtimeIntegrationApproved": false,
+        "productionActivationApproved": false,
+        "bodyFitApprovalGranted": false,
+        "batch5GenerationAuthorized": false,
+        "pushDeployRemoteAuthorized": false
+      },
+      "runtimeActivation": {
+        "task": "TASK-0050",
+        "source": "/assets/avatar/hd/male/male_short_ochre_light_hd.png",
+        "active": true,
+        "productionBuildEnabled": true,
+        "externalDeployPerformed": false
+      }
+    },
+    {
+      "id": "male_short_ochre_dark",
+      "gender": "male",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "short",
+      "combination": {
+        "outfit": "ochre",
+        "skin": "dark"
+      },
+      "legacyPath": "/assets/avatar/runtime/male/male_short_ochre_dark.png",
+      "hdPath": "/assets/avatar/hd/male/male_short_ochre_dark_hd.png",
+      "status": "HUMAN_VISUAL_APPROVED",
+      "priority": "HIGH",
+      "latestGeometryStatus": "GEOMETRY_PASS",
+      "humanReview": "HUMAN_VISUAL_APPROVED",
+      "bodyFitReview": "BODY_FIT_REVIEW_PENDING",
+      "batch": {
+        "task": "TASK-0049E",
+        "batch": 4,
+        "status": "BATCH_4_COMPLETE",
+        "candidatePath": "build/task-0049-batch-4/male_short_ochre_dark/hd_candidate.png",
+        "sha256": "b6b0c87a7fd62286fb17cc90e692a6cf09d8f06e031d7e0a3c1b38b841baaa94",
+        "attempts": [
+          {
+            "attempt": 1,
+            "geometryStatus": "REJECTED_GEOMETRY",
+            "sha256": "359f6139b6070f1da486d80df7ceea43f494e75558f270fc852eeee7264f90a8",
+            "evidencePath": "build/task-0049-batch-4/male_short_ochre_dark/attempt-1"
+          },
+          {
+            "attempt": 2,
+            "geometryStatus": "GEOMETRY_PASS",
+            "sha256": "b6b0c87a7fd62286fb17cc90e692a6cf09d8f06e031d7e0a3c1b38b841baaa94",
+            "evidencePath": "build/task-0049-batch-4/male_short_ochre_dark/attempt-2"
+          }
+        ],
+        "availability": "LOCAL_DEV_REVIEW_ONLY",
+        "runtimeIntegrated": false,
+        "humanReview": "HUMAN_VISUAL_APPROVED"
+      },
+      "humanApproval": {
+        "task": "TASK-0049E",
+        "batch": 4,
+        "id": "male_short_ochre_dark",
+        "attempt": 2,
+        "candidatePath": "build/task-0049-batch-4/male_short_ochre_dark/hd_candidate.png",
+        "sha256": "b6b0c87a7fd62286fb17cc90e692a6cf09d8f06e031d7e0a3c1b38b841baaa94",
+        "geometryStatus": "GEOMETRY_PASS",
+        "geometryMetricsPassed": 13,
+        "width": 1024,
+        "height": 1536,
+        "hasAlpha": true,
+        "reviewedBy": "Carlos Faustino",
+        "reviewedAt": "2026-10-07T20:43:31.593Z",
+        "timestampMeaning": "Actual execution time when explicit user approval was recorded",
+        "reviewSource": "Explicit individual approval of all eight Batch 4 candidates in this conversation",
+        "reviewStatus": "HUMAN_VISUAL_APPROVED",
+        "approvedCriteria": [
+          "visual identity",
+          "face",
+          "hairstyle",
+          "pose",
+          "silhouette",
+          "proportions",
+          "feet baseline",
+          "framing",
+          "tone/lighting compared with legacy",
+          "overall appearance"
+        ],
+        "usage": "DEV_ONLY",
+        "availability": "LOCAL_DEV_REVIEW_ONLY",
+        "runtimeIntegrationApproved": false,
+        "productionActivationApproved": false,
+        "bodyFitApprovalGranted": false,
+        "batch5GenerationAuthorized": false,
+        "pushDeployRemoteAuthorized": false
+      },
+      "runtimeActivation": {
+        "task": "TASK-0050",
+        "source": "/assets/avatar/hd/male/male_short_ochre_dark_hd.png",
+        "active": true,
+        "productionBuildEnabled": true,
+        "externalDeployPerformed": false
+      }
+    },
+    {
+      "id": "male_short_moss_light",
+      "gender": "male",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "short",
+      "combination": {
+        "outfit": "moss",
+        "skin": "light"
+      },
+      "legacyPath": "/assets/avatar/runtime/male/male_short_moss_light.png",
+      "hdPath": "/assets/avatar/hd/male/male_short_moss_light_hd.png",
+      "status": "HUMAN_VISUAL_APPROVED",
+      "priority": "HIGH",
+      "latestGeometryStatus": "GEOMETRY_PASS",
+      "humanReview": "HUMAN_VISUAL_APPROVED",
+      "bodyFitReview": "BODY_FIT_REVIEW_PENDING",
+      "batch": {
+        "task": "TASK-0049F",
+        "batch": 5,
+        "status": "BATCH_5_COMPLETE",
+        "candidatePath": "build/task-0049-batch-5/male_short_moss_light/hd_candidate.png",
+        "sha256": "66f5dc34b6dc5c07c2a6dff581e60fa23f0e22bd10845c019bc2d42a8c365ce6",
+        "attempts": [
+          {
+            "attempt": 1,
+            "geometryStatus": "GEOMETRY_PASS",
+            "sha256": "66f5dc34b6dc5c07c2a6dff581e60fa23f0e22bd10845c019bc2d42a8c365ce6",
+            "evidencePath": "build/task-0049-batch-5/male_short_moss_light/attempt-1"
+          }
+        ],
+        "availability": "LOCAL_DEV_REVIEW_ONLY",
+        "runtimeIntegrated": false,
+        "humanReview": "HUMAN_VISUAL_APPROVED"
+      },
+      "humanApproval": {
+        "task": "TASK-0049F",
+        "batch": 5,
+        "id": "male_short_moss_light",
+        "attempt": 1,
+        "candidatePath": "build/task-0049-batch-5/male_short_moss_light/hd_candidate.png",
+        "sha256": "66f5dc34b6dc5c07c2a6dff581e60fa23f0e22bd10845c019bc2d42a8c365ce6",
+        "geometryStatus": "GEOMETRY_PASS",
+        "geometryMetricsPassed": 13,
+        "width": 1024,
+        "height": 1536,
+        "hasAlpha": true,
+        "reviewedBy": "Carlos Faustino",
+        "reviewedAt": "2026-10-07T21:12:12.525Z",
+        "timestampMeaning": "Actual execution time when explicit user approval was recorded",
+        "reviewSource": "Explicit individual approval of all eight Batch 5 candidates in this conversation",
+        "reviewStatus": "HUMAN_VISUAL_APPROVED",
+        "approvedCriteria": [
+          "visual identity",
+          "face",
+          "hairstyle",
+          "pose",
+          "silhouette",
+          "proportions",
+          "feet baseline",
+          "framing",
+          "tone/lighting",
+          "overall appearance compared with legacy"
+        ],
+        "usage": "DEV_ONLY",
+        "availability": "LOCAL_DEV_REVIEW_ONLY",
+        "runtimeIntegrationApproved": false,
+        "productionActivationApproved": false,
+        "bodyFitApprovalGranted": false,
+        "batch6GenerationAuthorized": false,
+        "pushDeployRemoteAuthorized": false
+      },
+      "runtimeActivation": {
+        "task": "TASK-0050",
+        "source": "/assets/avatar/hd/male/male_short_moss_light_hd.png",
+        "active": true,
+        "productionBuildEnabled": true,
+        "externalDeployPerformed": false
+      }
+    },
+    {
+      "id": "male_short_moss_dark",
+      "gender": "male",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "short",
+      "combination": {
+        "outfit": "moss",
+        "skin": "dark"
+      },
+      "legacyPath": "/assets/avatar/runtime/male/male_short_moss_dark.png",
+      "hdPath": "/assets/avatar/hd/male/male_short_moss_dark_hd.png",
+      "status": "HUMAN_VISUAL_APPROVED",
+      "priority": "HIGH",
+      "latestGeometryStatus": "GEOMETRY_PASS",
+      "humanReview": "HUMAN_VISUAL_APPROVED",
+      "bodyFitReview": "BODY_FIT_REVIEW_PENDING",
+      "batch": {
+        "task": "TASK-0049F",
+        "batch": 5,
+        "status": "BATCH_5_COMPLETE",
+        "candidatePath": "build/task-0049-batch-5/male_short_moss_dark/hd_candidate.png",
+        "sha256": "b32dafb858dac73b8a49f4d7275b1a30806948db11cb8e958f8e9adfb9f3866f",
+        "attempts": [
+          {
+            "attempt": 1,
+            "geometryStatus": "REJECTED_GEOMETRY",
+            "sha256": "fb5bfb4e3a97c805c0db4ad265666626f18cad447d3ccfb58f2f3fa9a926f3e4",
+            "evidencePath": "build/task-0049-batch-5/male_short_moss_dark/attempt-1"
+          },
+          {
+            "attempt": 2,
+            "geometryStatus": "GEOMETRY_PASS",
+            "sha256": "b32dafb858dac73b8a49f4d7275b1a30806948db11cb8e958f8e9adfb9f3866f",
+            "evidencePath": "build/task-0049-batch-5/male_short_moss_dark/attempt-2"
+          }
+        ],
+        "availability": "LOCAL_DEV_REVIEW_ONLY",
+        "runtimeIntegrated": false,
+        "humanReview": "HUMAN_VISUAL_APPROVED"
+      },
+      "humanApproval": {
+        "task": "TASK-0049F",
+        "batch": 5,
+        "id": "male_short_moss_dark",
+        "attempt": 2,
+        "candidatePath": "build/task-0049-batch-5/male_short_moss_dark/hd_candidate.png",
+        "sha256": "b32dafb858dac73b8a49f4d7275b1a30806948db11cb8e958f8e9adfb9f3866f",
+        "geometryStatus": "GEOMETRY_PASS",
+        "geometryMetricsPassed": 13,
+        "width": 1024,
+        "height": 1536,
+        "hasAlpha": true,
+        "reviewedBy": "Carlos Faustino",
+        "reviewedAt": "2026-10-07T21:12:12.525Z",
+        "timestampMeaning": "Actual execution time when explicit user approval was recorded",
+        "reviewSource": "Explicit individual approval of all eight Batch 5 candidates in this conversation",
+        "reviewStatus": "HUMAN_VISUAL_APPROVED",
+        "approvedCriteria": [
+          "visual identity",
+          "face",
+          "hairstyle",
+          "pose",
+          "silhouette",
+          "proportions",
+          "feet baseline",
+          "framing",
+          "tone/lighting",
+          "overall appearance compared with legacy"
+        ],
+        "usage": "DEV_ONLY",
+        "availability": "LOCAL_DEV_REVIEW_ONLY",
+        "runtimeIntegrationApproved": false,
+        "productionActivationApproved": false,
+        "bodyFitApprovalGranted": false,
+        "batch6GenerationAuthorized": false,
+        "pushDeployRemoteAuthorized": false
+      },
+      "runtimeActivation": {
+        "task": "TASK-0050",
+        "source": "/assets/avatar/hd/male/male_short_moss_dark_hd.png",
+        "active": true,
+        "productionBuildEnabled": true,
+        "externalDeployPerformed": false
+      }
+    },
+    {
+      "id": "female_curly_ochre_dark",
+      "gender": "female",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "curly",
+      "combination": {
+        "outfit": "ochre",
+        "skin": "dark"
+      },
+      "legacyPath": "/assets/avatar/runtime/female/female_curly_ochre_dark.png",
+      "hdPath": "/assets/avatar/hd/female/female_curly_ochre_dark_hd.png",
+      "status": "HUMAN_VISUAL_APPROVED",
+      "priority": "HIGH",
+      "latestGeometryStatus": "GEOMETRY_PASS",
+      "humanReview": "HUMAN_VISUAL_APPROVED",
+      "bodyFitReview": "BODY_FIT_REVIEW_PENDING",
+      "batch": {
+        "task": "TASK-0049F",
+        "batch": 5,
+        "status": "BATCH_5_COMPLETE",
+        "candidatePath": "build/task-0049-batch-5/female_curly_ochre_dark/hd_candidate.png",
+        "sha256": "4bad1dcd741d745b2fa66202814470bd59af3a22faa14d12851471262fa4fa31",
+        "attempts": [
+          {
+            "attempt": 1,
+            "geometryStatus": "REJECTED_GEOMETRY",
+            "sha256": "2829bd569a1b8f129850861214b282ca70acb098c62ac466073893536e9e0046",
+            "evidencePath": "build/task-0049-batch-5/female_curly_ochre_dark/attempt-1"
+          },
+          {
+            "attempt": 2,
+            "geometryStatus": "GEOMETRY_PASS",
+            "sha256": "4bad1dcd741d745b2fa66202814470bd59af3a22faa14d12851471262fa4fa31",
+            "evidencePath": "build/task-0049-batch-5/female_curly_ochre_dark/attempt-2"
+          }
+        ],
+        "availability": "LOCAL_DEV_REVIEW_ONLY",
+        "runtimeIntegrated": false,
+        "humanReview": "HUMAN_VISUAL_APPROVED"
+      },
+      "humanApproval": {
+        "task": "TASK-0049F",
+        "batch": 5,
+        "id": "female_curly_ochre_dark",
+        "attempt": 2,
+        "candidatePath": "build/task-0049-batch-5/female_curly_ochre_dark/hd_candidate.png",
+        "sha256": "4bad1dcd741d745b2fa66202814470bd59af3a22faa14d12851471262fa4fa31",
+        "geometryStatus": "GEOMETRY_PASS",
+        "geometryMetricsPassed": 13,
+        "width": 1024,
+        "height": 1536,
+        "hasAlpha": true,
+        "reviewedBy": "Carlos Faustino",
+        "reviewedAt": "2026-10-07T21:12:12.525Z",
+        "timestampMeaning": "Actual execution time when explicit user approval was recorded",
+        "reviewSource": "Explicit individual approval of all eight Batch 5 candidates in this conversation",
+        "reviewStatus": "HUMAN_VISUAL_APPROVED",
+        "approvedCriteria": [
+          "visual identity",
+          "face",
+          "hairstyle",
+          "pose",
+          "silhouette",
+          "proportions",
+          "feet baseline",
+          "framing",
+          "tone/lighting",
+          "overall appearance compared with legacy"
+        ],
+        "usage": "DEV_ONLY",
+        "availability": "LOCAL_DEV_REVIEW_ONLY",
+        "runtimeIntegrationApproved": false,
+        "productionActivationApproved": false,
+        "bodyFitApprovalGranted": false,
+        "batch6GenerationAuthorized": false,
+        "pushDeployRemoteAuthorized": false
+      },
+      "runtimeActivation": {
+        "task": "TASK-0050",
+        "source": "/assets/avatar/hd/female/female_curly_ochre_dark_hd.png",
+        "active": true,
+        "productionBuildEnabled": true,
+        "externalDeployPerformed": false
+      }
+    },
+    {
+      "id": "female_curly_moss_medium",
+      "gender": "female",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "curly",
+      "combination": {
+        "outfit": "moss",
+        "skin": "medium"
+      },
+      "legacyPath": "/assets/avatar/runtime/female/female_curly_moss_medium.png",
+      "hdPath": "/assets/avatar/hd/female/female_curly_moss_medium_hd.png",
+      "status": "HUMAN_VISUAL_APPROVED",
+      "priority": "HIGH",
+      "latestGeometryStatus": "GEOMETRY_PASS",
+      "humanReview": "HUMAN_VISUAL_APPROVED",
+      "bodyFitReview": "BODY_FIT_REVIEW_PENDING",
+      "batch": {
+        "task": "TASK-0049F",
+        "batch": 5,
+        "status": "BATCH_5_COMPLETE",
+        "candidatePath": "build/task-0049-batch-5/female_curly_moss_medium/hd_candidate.png",
+        "sha256": "facd724c6cfba397ae2e5808e6c2f70bd47e98fe8ad4ea89e8e369615dbac339",
+        "attempts": [
+          {
+            "attempt": 1,
+            "geometryStatus": "REJECTED_GEOMETRY",
+            "sha256": "167cd8b7ba02bb46cb556e9513dce06dde6c5cee49792d1ba9819fb2e4e0a653",
+            "evidencePath": "build/task-0049-batch-5/female_curly_moss_medium/attempt-1"
+          },
+          {
+            "attempt": 2,
+            "geometryStatus": "GEOMETRY_PASS",
+            "sha256": "facd724c6cfba397ae2e5808e6c2f70bd47e98fe8ad4ea89e8e369615dbac339",
+            "evidencePath": "build/task-0049-batch-5/female_curly_moss_medium/attempt-2"
+          }
+        ],
+        "availability": "LOCAL_DEV_REVIEW_ONLY",
+        "runtimeIntegrated": false,
+        "humanReview": "HUMAN_VISUAL_APPROVED"
+      },
+      "humanApproval": {
+        "task": "TASK-0049F",
+        "batch": 5,
+        "id": "female_curly_moss_medium",
+        "attempt": 2,
+        "candidatePath": "build/task-0049-batch-5/female_curly_moss_medium/hd_candidate.png",
+        "sha256": "facd724c6cfba397ae2e5808e6c2f70bd47e98fe8ad4ea89e8e369615dbac339",
+        "geometryStatus": "GEOMETRY_PASS",
+        "geometryMetricsPassed": 13,
+        "width": 1024,
+        "height": 1536,
+        "hasAlpha": true,
+        "reviewedBy": "Carlos Faustino",
+        "reviewedAt": "2026-10-07T21:12:12.525Z",
+        "timestampMeaning": "Actual execution time when explicit user approval was recorded",
+        "reviewSource": "Explicit individual approval of all eight Batch 5 candidates in this conversation",
+        "reviewStatus": "HUMAN_VISUAL_APPROVED",
+        "approvedCriteria": [
+          "visual identity",
+          "face",
+          "hairstyle",
+          "pose",
+          "silhouette",
+          "proportions",
+          "feet baseline",
+          "framing",
+          "tone/lighting",
+          "overall appearance compared with legacy"
+        ],
+        "usage": "DEV_ONLY",
+        "availability": "LOCAL_DEV_REVIEW_ONLY",
+        "runtimeIntegrationApproved": false,
+        "productionActivationApproved": false,
+        "bodyFitApprovalGranted": false,
+        "batch6GenerationAuthorized": false,
+        "pushDeployRemoteAuthorized": false
+      },
+      "runtimeActivation": {
+        "task": "TASK-0050",
+        "source": "/assets/avatar/hd/female/female_curly_moss_medium_hd.png",
+        "active": true,
+        "productionBuildEnabled": true,
+        "externalDeployPerformed": false
+      }
+    },
+    {
+      "id": "female_curly_moss_light",
+      "gender": "female",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "curly",
+      "combination": {
+        "outfit": "moss",
+        "skin": "light"
+      },
+      "legacyPath": "/assets/avatar/runtime/female/female_curly_moss_light.png",
+      "hdPath": "/assets/avatar/hd/female/female_curly_moss_light_hd.png",
+      "status": "HUMAN_VISUAL_APPROVED",
+      "priority": "HIGH",
+      "latestGeometryStatus": "GEOMETRY_PASS",
+      "humanReview": "HUMAN_VISUAL_APPROVED",
+      "bodyFitReview": "BODY_FIT_REVIEW_PENDING",
+      "batch": {
+        "task": "TASK-0049F",
+        "batch": 5,
+        "status": "BATCH_5_COMPLETE",
+        "candidatePath": "build/task-0049-batch-5/female_curly_moss_light/hd_candidate.png",
+        "sha256": "9a3429cbf48879a4dce7d3c864efb0a96e046824e608c715868d73c6add0574a",
+        "attempts": [
+          {
+            "attempt": 1,
+            "geometryStatus": "GEOMETRY_PASS",
+            "sha256": "9a3429cbf48879a4dce7d3c864efb0a96e046824e608c715868d73c6add0574a",
+            "evidencePath": "build/task-0049-batch-5/female_curly_moss_light/attempt-1"
+          }
+        ],
+        "availability": "LOCAL_DEV_REVIEW_ONLY",
+        "runtimeIntegrated": false,
+        "humanReview": "HUMAN_VISUAL_APPROVED"
+      },
+      "humanApproval": {
+        "task": "TASK-0049F",
+        "batch": 5,
+        "id": "female_curly_moss_light",
+        "attempt": 1,
+        "candidatePath": "build/task-0049-batch-5/female_curly_moss_light/hd_candidate.png",
+        "sha256": "9a3429cbf48879a4dce7d3c864efb0a96e046824e608c715868d73c6add0574a",
+        "geometryStatus": "GEOMETRY_PASS",
+        "geometryMetricsPassed": 13,
+        "width": 1024,
+        "height": 1536,
+        "hasAlpha": true,
+        "reviewedBy": "Carlos Faustino",
+        "reviewedAt": "2026-10-07T21:12:12.525Z",
+        "timestampMeaning": "Actual execution time when explicit user approval was recorded",
+        "reviewSource": "Explicit individual approval of all eight Batch 5 candidates in this conversation",
+        "reviewStatus": "HUMAN_VISUAL_APPROVED",
+        "approvedCriteria": [
+          "visual identity",
+          "face",
+          "hairstyle",
+          "pose",
+          "silhouette",
+          "proportions",
+          "feet baseline",
+          "framing",
+          "tone/lighting",
+          "overall appearance compared with legacy"
+        ],
+        "usage": "DEV_ONLY",
+        "availability": "LOCAL_DEV_REVIEW_ONLY",
+        "runtimeIntegrationApproved": false,
+        "productionActivationApproved": false,
+        "bodyFitApprovalGranted": false,
+        "batch6GenerationAuthorized": false,
+        "pushDeployRemoteAuthorized": false
+      },
+      "runtimeActivation": {
+        "task": "TASK-0050",
+        "source": "/assets/avatar/hd/female/female_curly_moss_light_hd.png",
+        "active": true,
+        "productionBuildEnabled": true,
+        "externalDeployPerformed": false
+      }
+    },
+    {
+      "id": "female_curly_moss_dark",
+      "gender": "female",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "curly",
+      "combination": {
+        "outfit": "moss",
+        "skin": "dark"
+      },
+      "legacyPath": "/assets/avatar/runtime/female/female_curly_moss_dark.png",
+      "hdPath": "/assets/avatar/hd/female/female_curly_moss_dark_hd.png",
+      "status": "HUMAN_VISUAL_APPROVED",
+      "priority": "HIGH",
+      "latestGeometryStatus": "GEOMETRY_PASS",
+      "humanReview": "HUMAN_VISUAL_APPROVED",
+      "bodyFitReview": "BODY_FIT_REVIEW_PENDING",
+      "batch": {
+        "task": "TASK-0049F",
+        "batch": 5,
+        "status": "BATCH_5_COMPLETE",
+        "candidatePath": "build/task-0049-batch-5/female_curly_moss_dark/hd_candidate.png",
+        "sha256": "8dc002903a6d817ed3e88bd074c2e4bdec29851012b2d54f59e395c217e4feef",
+        "attempts": [
+          {
+            "attempt": 1,
+            "geometryStatus": "REJECTED_GEOMETRY",
+            "sha256": "536032291f49ca6c81c4ae848d58360bac3579ab8b3bcc2825116a9d4097564d",
+            "evidencePath": "build/task-0049-batch-5/female_curly_moss_dark/attempt-1"
+          },
+          {
+            "attempt": 2,
+            "geometryStatus": "GEOMETRY_PASS",
+            "sha256": "8dc002903a6d817ed3e88bd074c2e4bdec29851012b2d54f59e395c217e4feef",
+            "evidencePath": "build/task-0049-batch-5/female_curly_moss_dark/attempt-2"
+          }
+        ],
+        "availability": "LOCAL_DEV_REVIEW_ONLY",
+        "runtimeIntegrated": false,
+        "humanReview": "HUMAN_VISUAL_APPROVED"
+      },
+      "humanApproval": {
+        "task": "TASK-0049F",
+        "batch": 5,
+        "id": "female_curly_moss_dark",
+        "attempt": 2,
+        "candidatePath": "build/task-0049-batch-5/female_curly_moss_dark/hd_candidate.png",
+        "sha256": "8dc002903a6d817ed3e88bd074c2e4bdec29851012b2d54f59e395c217e4feef",
+        "geometryStatus": "GEOMETRY_PASS",
+        "geometryMetricsPassed": 13,
+        "width": 1024,
+        "height": 1536,
+        "hasAlpha": true,
+        "reviewedBy": "Carlos Faustino",
+        "reviewedAt": "2026-10-07T21:12:12.525Z",
+        "timestampMeaning": "Actual execution time when explicit user approval was recorded",
+        "reviewSource": "Explicit individual approval of all eight Batch 5 candidates in this conversation",
+        "reviewStatus": "HUMAN_VISUAL_APPROVED",
+        "approvedCriteria": [
+          "visual identity",
+          "face",
+          "hairstyle",
+          "pose",
+          "silhouette",
+          "proportions",
+          "feet baseline",
+          "framing",
+          "tone/lighting",
+          "overall appearance compared with legacy"
+        ],
+        "usage": "DEV_ONLY",
+        "availability": "LOCAL_DEV_REVIEW_ONLY",
+        "runtimeIntegrationApproved": false,
+        "productionActivationApproved": false,
+        "bodyFitApprovalGranted": false,
+        "batch6GenerationAuthorized": false,
+        "pushDeployRemoteAuthorized": false
+      },
+      "runtimeActivation": {
+        "task": "TASK-0050",
+        "source": "/assets/avatar/hd/female/female_curly_moss_dark_hd.png",
+        "active": true,
+        "productionBuildEnabled": true,
+        "externalDeployPerformed": false
+      }
+    },
+    {
+      "id": "female_curly_ochre_medium",
+      "gender": "female",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "curly",
+      "combination": {
+        "outfit": "ochre",
+        "skin": "medium"
+      },
+      "legacyPath": "/assets/avatar/runtime/female/female_curly_ochre_medium.png",
+      "hdPath": "/assets/avatar/hd/female/female_curly_ochre_medium_hd.png",
+      "status": "HUMAN_VISUAL_APPROVED",
+      "priority": "HIGH",
+      "latestGeometryStatus": "GEOMETRY_PASS",
+      "humanReview": "HUMAN_VISUAL_APPROVED",
+      "bodyFitReview": "BODY_FIT_REVIEW_PENDING",
+      "batch": {
+        "task": "TASK-0049F",
+        "batch": 5,
+        "status": "BATCH_5_COMPLETE",
+        "candidatePath": "build/task-0049-batch-5/female_curly_ochre_medium/hd_candidate.png",
+        "sha256": "e0a0f6ff69aef40fc9cbcf0655e18962397e851ad9c173056882744aed25df67",
+        "attempts": [
+          {
+            "attempt": 1,
+            "geometryStatus": "GEOMETRY_PASS",
+            "sha256": "e0a0f6ff69aef40fc9cbcf0655e18962397e851ad9c173056882744aed25df67",
+            "evidencePath": "build/task-0049-batch-5/female_curly_ochre_medium/attempt-1"
+          }
+        ],
+        "availability": "LOCAL_DEV_REVIEW_ONLY",
+        "runtimeIntegrated": false,
+        "humanReview": "HUMAN_VISUAL_APPROVED"
+      },
+      "humanApproval": {
+        "task": "TASK-0049F",
+        "batch": 5,
+        "id": "female_curly_ochre_medium",
+        "attempt": 1,
+        "candidatePath": "build/task-0049-batch-5/female_curly_ochre_medium/hd_candidate.png",
+        "sha256": "e0a0f6ff69aef40fc9cbcf0655e18962397e851ad9c173056882744aed25df67",
+        "geometryStatus": "GEOMETRY_PASS",
+        "geometryMetricsPassed": 13,
+        "width": 1024,
+        "height": 1536,
+        "hasAlpha": true,
+        "reviewedBy": "Carlos Faustino",
+        "reviewedAt": "2026-10-07T21:12:12.525Z",
+        "timestampMeaning": "Actual execution time when explicit user approval was recorded",
+        "reviewSource": "Explicit individual approval of all eight Batch 5 candidates in this conversation",
+        "reviewStatus": "HUMAN_VISUAL_APPROVED",
+        "approvedCriteria": [
+          "visual identity",
+          "face",
+          "hairstyle",
+          "pose",
+          "silhouette",
+          "proportions",
+          "feet baseline",
+          "framing",
+          "tone/lighting",
+          "overall appearance compared with legacy"
+        ],
+        "usage": "DEV_ONLY",
+        "availability": "LOCAL_DEV_REVIEW_ONLY",
+        "runtimeIntegrationApproved": false,
+        "productionActivationApproved": false,
+        "bodyFitApprovalGranted": false,
+        "batch6GenerationAuthorized": false,
+        "pushDeployRemoteAuthorized": false
+      },
+      "runtimeActivation": {
+        "task": "TASK-0050",
+        "source": "/assets/avatar/hd/female/female_curly_ochre_medium_hd.png",
+        "active": true,
+        "productionBuildEnabled": true,
+        "externalDeployPerformed": false
+      }
+    },
+    {
+      "id": "female_curly_ochre_light",
+      "gender": "female",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "curly",
+      "combination": {
+        "outfit": "ochre",
+        "skin": "light"
+      },
+      "legacyPath": "/assets/avatar/runtime/female/female_curly_ochre_light.png",
+      "hdPath": "/assets/avatar/hd/female/female_curly_ochre_light_hd.png",
+      "status": "HUMAN_VISUAL_APPROVED",
+      "priority": "HIGH",
+      "latestGeometryStatus": "GEOMETRY_PASS",
+      "humanReview": "HUMAN_VISUAL_APPROVED",
+      "bodyFitReview": "BODY_FIT_REVIEW_PENDING",
+      "batch": {
+        "task": "TASK-0049F",
+        "batch": 5,
+        "status": "BATCH_5_COMPLETE",
+        "candidatePath": "build/task-0049-batch-5/female_curly_ochre_light/hd_candidate.png",
+        "sha256": "ed613e15a51bbcdae2a0d57eaa29b768501e25c8df3a8f9977540760e5655fa9",
+        "attempts": [
+          {
+            "attempt": 1,
+            "geometryStatus": "REJECTED_GEOMETRY",
+            "sha256": "9444417d12af1db5a45eda260972626b7de4d5d8be85e084a3dd2f9880a08576",
+            "evidencePath": "build/task-0049-batch-5/female_curly_ochre_light/attempt-1"
+          },
+          {
+            "attempt": 2,
+            "geometryStatus": "GEOMETRY_PASS",
+            "sha256": "ed613e15a51bbcdae2a0d57eaa29b768501e25c8df3a8f9977540760e5655fa9",
+            "evidencePath": "build/task-0049-batch-5/female_curly_ochre_light/attempt-2"
+          }
+        ],
+        "availability": "LOCAL_DEV_REVIEW_ONLY",
+        "runtimeIntegrated": false,
+        "humanReview": "HUMAN_VISUAL_APPROVED"
+      },
+      "humanApproval": {
+        "task": "TASK-0049F",
+        "batch": 5,
+        "id": "female_curly_ochre_light",
+        "attempt": 2,
+        "candidatePath": "build/task-0049-batch-5/female_curly_ochre_light/hd_candidate.png",
+        "sha256": "ed613e15a51bbcdae2a0d57eaa29b768501e25c8df3a8f9977540760e5655fa9",
+        "geometryStatus": "GEOMETRY_PASS",
+        "geometryMetricsPassed": 13,
+        "width": 1024,
+        "height": 1536,
+        "hasAlpha": true,
+        "reviewedBy": "Carlos Faustino",
+        "reviewedAt": "2026-10-07T21:12:12.525Z",
+        "timestampMeaning": "Actual execution time when explicit user approval was recorded",
+        "reviewSource": "Explicit individual approval of all eight Batch 5 candidates in this conversation",
+        "reviewStatus": "HUMAN_VISUAL_APPROVED",
+        "approvedCriteria": [
+          "visual identity",
+          "face",
+          "hairstyle",
+          "pose",
+          "silhouette",
+          "proportions",
+          "feet baseline",
+          "framing",
+          "tone/lighting",
+          "overall appearance compared with legacy"
+        ],
+        "usage": "DEV_ONLY",
+        "availability": "LOCAL_DEV_REVIEW_ONLY",
+        "runtimeIntegrationApproved": false,
+        "productionActivationApproved": false,
+        "bodyFitApprovalGranted": false,
+        "batch6GenerationAuthorized": false,
+        "pushDeployRemoteAuthorized": false
+      },
+      "runtimeActivation": {
+        "task": "TASK-0050",
+        "source": "/assets/avatar/hd/female/female_curly_ochre_light_hd.png",
+        "active": true,
+        "productionBuildEnabled": true,
+        "externalDeployPerformed": false
+      }
+    },
+    {
+      "id": "female_long_blue_dark",
+      "gender": "female",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "long",
+      "combination": {
+        "outfit": "blue",
+        "skin": "dark"
+      },
+      "legacyPath": "/assets/avatar/runtime/female/female_long_blue_dark.png",
+      "hdPath": "/assets/avatar/hd/female/female_long_blue_dark_hd.png",
+      "status": "HUMAN_VISUAL_APPROVED",
+      "priority": "HIGH",
+      "latestGeometryStatus": "GEOMETRY_PASS",
+      "humanReview": "HUMAN_VISUAL_APPROVED",
+      "bodyFitReview": "BODY_FIT_REVIEW_PENDING",
+      "batch": {
+        "task": "TASK-0049G",
+        "batch": "FINAL",
+        "status": "FINAL_BATCH_BLOCKED_PATTERN",
+        "candidatePath": "build/task-0049-final-batch/female_long_blue_dark/hd_candidate.png",
+        "sha256": "8965ed75ea6fed37f0f20bda47d1e89cde09ef5bba38bcb977a8331cd2ce6e9a",
+        "attempts": [
+          {
+            "attempt": 1,
+            "geometryStatus": "GEOMETRY_PASS",
+            "sha256": "8965ed75ea6fed37f0f20bda47d1e89cde09ef5bba38bcb977a8331cd2ce6e9a",
+            "evidencePath": "build/task-0049-final-batch/female_long_blue_dark/attempt-1"
+          }
+        ],
+        "blockedPatternEncountered": false,
+        "availability": "LOCAL_DEV_REVIEW_ONLY",
+        "runtimeIntegrated": false,
+        "humanReview": "HUMAN_VISUAL_APPROVED",
+        "reviewedBy": "Carlos Faustino",
+        "reviewedAt": "2026-10-07T23:07:36.485Z",
+        "humanApprovalReceipt": "docs/architecture/task-0049-final-batch/HUMAN-VISUAL-APPROVAL.json"
+      },
+      "reviewedBy": "Carlos Faustino",
+      "reviewedAt": "2026-10-07T23:07:36.485Z",
+      "approvedCriteria": [
+        "visual identity",
+        "face",
+        "hairstyle",
+        "pose",
+        "silhouette",
+        "proportions",
+        "feet baseline",
+        "framing",
+        "tone/lighting",
+        "overall appearance compared with legacy"
+      ],
+      "humanApprovalReceipt": "docs/architecture/task-0049-final-batch/HUMAN-VISUAL-APPROVAL.json",
+      "runtimeActivation": {
+        "task": "TASK-0050",
+        "source": "/assets/avatar/hd/female/female_long_blue_dark_hd.png",
+        "active": true,
+        "productionBuildEnabled": true,
+        "externalDeployPerformed": false
+      }
+    },
+    {
+      "id": "female_long_blue_light",
+      "gender": "female",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "long",
+      "combination": {
+        "outfit": "blue",
+        "skin": "light"
+      },
+      "legacyPath": "/assets/avatar/runtime/female/female_long_blue_light.png",
+      "hdPath": "/assets/avatar/hd/female/female_long_blue_light_hd.png",
+      "status": "HUMAN_VISUAL_APPROVED",
+      "priority": "HIGH",
+      "latestGeometryStatus": "GEOMETRY_PASS",
+      "humanReview": "HUMAN_VISUAL_APPROVED",
+      "bodyFitReview": "BODY_FIT_REVIEW_PENDING",
+      "batch": {
+        "task": "TASK-0049G",
+        "batch": "FINAL",
+        "status": "FINAL_BATCH_BLOCKED_PATTERN",
+        "candidatePath": "build/task-0049-final-batch/female_long_blue_light/hd_candidate.png",
+        "sha256": "1d9ea6451ef5004b50eeaf3fe6f5ba0a4be7e9e5b9b792b08913b14347a6b62f",
+        "attempts": [
+          {
+            "attempt": 1,
+            "geometryStatus": "REJECTED_GEOMETRY",
+            "sha256": "9eda785a64b24d63972326e684c950e46008405838c22902a10b01b04ae98325",
+            "evidencePath": "build/task-0049-final-batch/female_long_blue_light/attempt-1"
+          },
+          {
+            "attempt": 2,
+            "geometryStatus": "REJECTED_GEOMETRY",
+            "sha256": "3b220905eaa68a2af3d7b0872eaef99cd80d04ff8eb87ed973d2ee606cc3fd93",
+            "evidencePath": "build/task-0049-final-batch/female_long_blue_light/attempt-2"
+          },
+          {
+            "attempt": 3,
+            "geometryStatus": "GEOMETRY_PASS",
+            "sha256": "1d9ea6451ef5004b50eeaf3fe6f5ba0a4be7e9e5b9b792b08913b14347a6b62f",
+            "evidencePath": "build/task-0049-final-batch/female_long_blue_light/attempt-3"
+          }
+        ],
+        "blockedPatternEncountered": false,
+        "availability": "LOCAL_DEV_REVIEW_ONLY",
+        "runtimeIntegrated": false,
+        "humanReview": "HUMAN_VISUAL_APPROVED",
+        "reviewedBy": "Carlos Faustino",
+        "reviewedAt": "2026-10-07T23:07:36.485Z",
+        "humanApprovalReceipt": "docs/architecture/task-0049-final-batch/HUMAN-VISUAL-APPROVAL.json"
+      },
+      "reviewedBy": "Carlos Faustino",
+      "reviewedAt": "2026-10-07T23:07:36.485Z",
+      "approvedCriteria": [
+        "visual identity",
+        "face",
+        "hairstyle",
+        "pose",
+        "silhouette",
+        "proportions",
+        "feet baseline",
+        "framing",
+        "tone/lighting",
+        "overall appearance compared with legacy"
+      ],
+      "humanApprovalReceipt": "docs/architecture/task-0049-final-batch/HUMAN-VISUAL-APPROVAL.json",
+      "runtimeActivation": {
+        "task": "TASK-0050",
+        "source": "/assets/avatar/hd/female/female_long_blue_light_hd.png",
+        "active": true,
+        "productionBuildEnabled": true,
+        "externalDeployPerformed": false
+      }
+    },
+    {
+      "id": "female_long_moss_dark",
+      "gender": "female",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "long",
+      "combination": {
+        "outfit": "moss",
+        "skin": "dark"
+      },
+      "legacyPath": "/assets/avatar/runtime/female/female_long_moss_dark.png",
+      "hdPath": "/assets/avatar/hd/female/female_long_moss_dark_hd.png",
+      "status": "HUMAN_VISUAL_APPROVED",
+      "priority": "HIGH",
+      "latestGeometryStatus": "GEOMETRY_PASS",
+      "humanReview": "HUMAN_VISUAL_APPROVED",
+      "bodyFitReview": "BODY_FIT_REVIEW_PENDING",
+      "batch": {
+        "task": "TASK-0049G",
+        "batch": "FINAL",
+        "status": "FINAL_BATCH_BLOCKED_PATTERN",
+        "candidatePath": "build/task-0049-final-batch/female_long_moss_dark/hd_candidate.png",
+        "sha256": "af2a67a75c3f59c6f59c1595cc255174478e081652ec6cf661d63863bdd897b6",
+        "attempts": [
+          {
+            "attempt": 1,
+            "geometryStatus": "GEOMETRY_PASS",
+            "sha256": "af2a67a75c3f59c6f59c1595cc255174478e081652ec6cf661d63863bdd897b6",
+            "evidencePath": "build/task-0049-final-batch/female_long_moss_dark/attempt-1"
+          }
+        ],
+        "blockedPatternEncountered": false,
+        "availability": "LOCAL_DEV_REVIEW_ONLY",
+        "runtimeIntegrated": false,
+        "humanReview": "HUMAN_VISUAL_APPROVED",
+        "reviewedBy": "Carlos Faustino",
+        "reviewedAt": "2026-10-07T23:07:36.485Z",
+        "humanApprovalReceipt": "docs/architecture/task-0049-final-batch/HUMAN-VISUAL-APPROVAL.json"
+      },
+      "reviewedBy": "Carlos Faustino",
+      "reviewedAt": "2026-10-07T23:07:36.485Z",
+      "approvedCriteria": [
+        "visual identity",
+        "face",
+        "hairstyle",
+        "pose",
+        "silhouette",
+        "proportions",
+        "feet baseline",
+        "framing",
+        "tone/lighting",
+        "overall appearance compared with legacy"
+      ],
+      "humanApprovalReceipt": "docs/architecture/task-0049-final-batch/HUMAN-VISUAL-APPROVAL.json",
+      "runtimeActivation": {
+        "task": "TASK-0050",
+        "source": "/assets/avatar/hd/female/female_long_moss_dark_hd.png",
+        "active": true,
+        "productionBuildEnabled": true,
+        "externalDeployPerformed": false
+      }
+    },
+    {
+      "id": "female_long_blue_medium",
+      "gender": "female",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "long",
+      "combination": {
+        "outfit": "blue",
+        "skin": "medium"
+      },
+      "legacyPath": "/assets/avatar/runtime/female/female_long_blue_medium.png",
+      "hdPath": "/assets/avatar/hd/female/female_long_blue_medium_hd.png",
+      "status": "HUMAN_VISUAL_APPROVED",
+      "priority": "HIGH",
+      "latestGeometryStatus": "GEOMETRY_PASS",
+      "humanReview": "HUMAN_VISUAL_APPROVED",
+      "bodyFitReview": "BODY_FIT_REVIEW_PENDING",
+      "batch": {
+        "task": "TASK-0049G",
+        "batch": "FINAL",
+        "status": "FINAL_BATCH_BLOCKED_PATTERN",
+        "candidatePath": "build/task-0049-final-batch/female_long_blue_medium/hd_candidate.png",
+        "sha256": "7cccad3f330823bf6172f482e19846aebeee7b4a63098a88e88b2033119478e7",
+        "attempts": [
+          {
+            "attempt": 1,
+            "geometryStatus": "REJECTED_GEOMETRY",
+            "sha256": "e1e44e8fb43e3ec218ddd3032ee687cbbb31b9b62df8b9af0dee8bbaca294782",
+            "evidencePath": "build/task-0049-final-batch/female_long_blue_medium/attempt-1"
+          },
+          {
+            "attempt": 2,
+            "geometryStatus": "GEOMETRY_PASS",
+            "sha256": "7cccad3f330823bf6172f482e19846aebeee7b4a63098a88e88b2033119478e7",
+            "evidencePath": "build/task-0049-final-batch/female_long_blue_medium/attempt-2"
+          }
+        ],
+        "blockedPatternEncountered": false,
+        "availability": "LOCAL_DEV_REVIEW_ONLY",
+        "runtimeIntegrated": false,
+        "humanReview": "HUMAN_VISUAL_APPROVED",
+        "reviewedBy": "Carlos Faustino",
+        "reviewedAt": "2026-10-07T23:07:36.485Z",
+        "humanApprovalReceipt": "docs/architecture/task-0049-final-batch/HUMAN-VISUAL-APPROVAL.json"
+      },
+      "reviewedBy": "Carlos Faustino",
+      "reviewedAt": "2026-10-07T23:07:36.485Z",
+      "approvedCriteria": [
+        "visual identity",
+        "face",
+        "hairstyle",
+        "pose",
+        "silhouette",
+        "proportions",
+        "feet baseline",
+        "framing",
+        "tone/lighting",
+        "overall appearance compared with legacy"
+      ],
+      "humanApprovalReceipt": "docs/architecture/task-0049-final-batch/HUMAN-VISUAL-APPROVAL.json",
+      "runtimeActivation": {
+        "task": "TASK-0050",
+        "source": "/assets/avatar/hd/female/female_long_blue_medium_hd.png",
+        "active": true,
+        "productionBuildEnabled": true,
+        "externalDeployPerformed": false
+      }
+    },
+    {
+      "id": "female_long_ochre_light",
+      "gender": "female",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "long",
+      "combination": {
+        "outfit": "ochre",
+        "skin": "light"
+      },
+      "legacyPath": "/assets/avatar/runtime/female/female_long_ochre_light.png",
+      "hdPath": "/assets/avatar/hd/female/female_long_ochre_light_hd.png",
+      "status": "HUMAN_VISUAL_APPROVED",
+      "priority": "HIGH",
+      "latestGeometryStatus": "GEOMETRY_PASS",
+      "humanReview": "HUMAN_VISUAL_APPROVED",
+      "bodyFitReview": "BODY_FIT_REVIEW_PENDING",
+      "batch": {
+        "task": "TASK-0049G",
+        "batch": "FINAL",
+        "status": "FINAL_BATCH_BLOCKED_PATTERN",
+        "candidatePath": "build/task-0049-final-batch/female_long_ochre_light/hd_candidate.png",
+        "sha256": "8d8344f596c2819c97630cd1d6ad96a1823d2b2738ee2543021773765ee03d3f",
+        "attempts": [
+          {
+            "attempt": 1,
+            "geometryStatus": "REJECTED_GEOMETRY",
+            "sha256": "87e19e205dc97460b074b5e16c4ca32c5d8769aa44409c24bef3be1ee13aab97",
+            "evidencePath": "build/task-0049-final-batch/female_long_ochre_light/attempt-1"
+          },
+          {
+            "attempt": 2,
+            "geometryStatus": "REJECTED_GEOMETRY",
+            "sha256": "f4805bb9902e2decaf91d3db586e8084555effb698f3d14b90836437fd78cb46",
+            "evidencePath": "build/task-0049-final-batch/female_long_ochre_light/attempt-2"
+          },
+          {
+            "attempt": 3,
+            "geometryStatus": "GEOMETRY_PASS",
+            "sha256": "8d8344f596c2819c97630cd1d6ad96a1823d2b2738ee2543021773765ee03d3f",
+            "evidencePath": "build/task-0049-final-batch/female_long_ochre_light/attempt-3"
+          }
+        ],
+        "blockedPatternEncountered": true,
+        "availability": "LOCAL_DEV_REVIEW_ONLY",
+        "runtimeIntegrated": false,
+        "humanReview": "HUMAN_VISUAL_APPROVED",
+        "reviewedBy": "Carlos Faustino",
+        "reviewedAt": "2026-10-07T23:07:36.485Z",
+        "humanApprovalReceipt": "docs/architecture/task-0049-final-batch/HUMAN-VISUAL-APPROVAL.json"
+      },
+      "reviewedBy": "Carlos Faustino",
+      "reviewedAt": "2026-10-07T23:07:36.485Z",
+      "approvedCriteria": [
+        "visual identity",
+        "face",
+        "hairstyle",
+        "pose",
+        "silhouette",
+        "proportions",
+        "feet baseline",
+        "framing",
+        "tone/lighting",
+        "overall appearance compared with legacy"
+      ],
+      "humanApprovalReceipt": "docs/architecture/task-0049-final-batch/HUMAN-VISUAL-APPROVAL.json",
+      "runtimeActivation": {
+        "task": "TASK-0050",
+        "source": "/assets/avatar/hd/female/female_long_ochre_light_hd.png",
+        "active": true,
+        "productionBuildEnabled": true,
+        "externalDeployPerformed": false
+      }
+    },
+    {
+      "id": "female_long_ochre_dark",
+      "gender": "female",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "long",
+      "combination": {
+        "outfit": "ochre",
+        "skin": "dark"
+      },
+      "legacyPath": "/assets/avatar/runtime/female/female_long_ochre_dark.png",
+      "hdPath": "/assets/avatar/hd/female/female_long_ochre_dark_hd.png",
+      "status": "HUMAN_VISUAL_APPROVED",
+      "priority": "HIGH",
+      "latestGeometryStatus": "GEOMETRY_PASS",
+      "humanReview": "HUMAN_VISUAL_APPROVED",
+      "bodyFitReview": "BODY_FIT_REVIEW_PENDING",
+      "batch": {
+        "task": "TASK-0049G",
+        "batch": "FINAL",
+        "status": "FINAL_BATCH_BLOCKED_PATTERN",
+        "candidatePath": "build/task-0049-final-batch/female_long_ochre_dark/hd_candidate.png",
+        "sha256": "24f0d3abfa9c0fd04670a98ea6e28354e8c6906232f25a1daf45df04d93b106c",
+        "attempts": [
+          {
+            "attempt": 1,
+            "geometryStatus": "GEOMETRY_PASS",
+            "sha256": "24f0d3abfa9c0fd04670a98ea6e28354e8c6906232f25a1daf45df04d93b106c",
+            "evidencePath": "build/task-0049-final-batch/female_long_ochre_dark/attempt-1"
+          }
+        ],
+        "blockedPatternEncountered": false,
+        "availability": "LOCAL_DEV_REVIEW_ONLY",
+        "runtimeIntegrated": false,
+        "humanReview": "HUMAN_VISUAL_APPROVED",
+        "reviewedBy": "Carlos Faustino",
+        "reviewedAt": "2026-10-07T23:07:36.485Z",
+        "humanApprovalReceipt": "docs/architecture/task-0049-final-batch/HUMAN-VISUAL-APPROVAL.json"
+      },
+      "reviewedBy": "Carlos Faustino",
+      "reviewedAt": "2026-10-07T23:07:36.485Z",
+      "approvedCriteria": [
+        "visual identity",
+        "face",
+        "hairstyle",
+        "pose",
+        "silhouette",
+        "proportions",
+        "feet baseline",
+        "framing",
+        "tone/lighting",
+        "overall appearance compared with legacy"
+      ],
+      "humanApprovalReceipt": "docs/architecture/task-0049-final-batch/HUMAN-VISUAL-APPROVAL.json",
+      "runtimeActivation": {
+        "task": "TASK-0050",
+        "source": "/assets/avatar/hd/female/female_long_ochre_dark_hd.png",
+        "active": true,
+        "productionBuildEnabled": true,
+        "externalDeployPerformed": false
+      }
+    },
+    {
+      "id": "female_long_moss_medium",
+      "gender": "female",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "long",
+      "combination": {
+        "outfit": "moss",
+        "skin": "medium"
+      },
+      "legacyPath": "/assets/avatar/runtime/female/female_long_moss_medium.png",
+      "hdPath": "/assets/avatar/hd/female/female_long_moss_medium_hd.png",
+      "status": "HUMAN_VISUAL_APPROVED",
+      "priority": "HIGH",
+      "latestGeometryStatus": "GEOMETRY_PASS",
+      "humanReview": "HUMAN_VISUAL_APPROVED",
+      "bodyFitReview": "BODY_FIT_REVIEW_PENDING",
+      "batch": {
+        "task": "TASK-0049G",
+        "batch": "FINAL",
+        "status": "FINAL_BATCH_BLOCKED_PATTERN",
+        "candidatePath": "build/task-0049-final-batch/female_long_moss_medium/hd_candidate.png",
+        "sha256": "14a85fed5713caed593d151119231f9e6b477aeb503b6791f1bff800d489aae4",
+        "attempts": [
+          {
+            "attempt": 1,
+            "geometryStatus": "REJECTED_GEOMETRY",
+            "sha256": "2dd764a7501030e2a13de26ac2db0f3356449425b1de310aede159dd3c95c08c",
+            "evidencePath": "build/task-0049-final-batch/female_long_moss_medium/attempt-1"
+          },
+          {
+            "attempt": 2,
+            "geometryStatus": "REJECTED_GEOMETRY",
+            "sha256": "7072e7f6e0a34f5c37fa083fd0795298f6b90943f2f40d588ab3c2d4553a65bb",
+            "evidencePath": "build/task-0049-final-batch/female_long_moss_medium/attempt-2"
+          },
+          {
+            "attempt": 3,
+            "geometryStatus": "GEOMETRY_PASS",
+            "sha256": "14a85fed5713caed593d151119231f9e6b477aeb503b6791f1bff800d489aae4",
+            "evidencePath": "build/task-0049-final-batch/female_long_moss_medium/attempt-3"
+          }
+        ],
+        "blockedPatternEncountered": false,
+        "availability": "LOCAL_DEV_REVIEW_ONLY",
+        "runtimeIntegrated": false,
+        "humanReview": "HUMAN_VISUAL_APPROVED",
+        "reviewedBy": "Carlos Faustino",
+        "reviewedAt": "2026-10-07T23:07:36.485Z",
+        "humanApprovalReceipt": "docs/architecture/task-0049-final-batch/HUMAN-VISUAL-APPROVAL.json"
+      },
+      "reviewedBy": "Carlos Faustino",
+      "reviewedAt": "2026-10-07T23:07:36.485Z",
+      "approvedCriteria": [
+        "visual identity",
+        "face",
+        "hairstyle",
+        "pose",
+        "silhouette",
+        "proportions",
+        "feet baseline",
+        "framing",
+        "tone/lighting",
+        "overall appearance compared with legacy"
+      ],
+      "humanApprovalReceipt": "docs/architecture/task-0049-final-batch/HUMAN-VISUAL-APPROVAL.json",
+      "runtimeActivation": {
+        "task": "TASK-0050",
+        "source": "/assets/avatar/hd/female/female_long_moss_medium_hd.png",
+        "active": true,
+        "productionBuildEnabled": true,
+        "externalDeployPerformed": false
+      }
+    },
+    {
+      "id": "female_long_moss_light",
+      "gender": "female",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "long",
+      "combination": {
+        "outfit": "moss",
+        "skin": "light"
+      },
+      "legacyPath": "/assets/avatar/runtime/female/female_long_moss_light.png",
+      "hdPath": "/assets/avatar/hd/female/female_long_moss_light_hd.png",
+      "status": "HUMAN_VISUAL_APPROVED",
+      "priority": "HIGH",
+      "latestGeometryStatus": "GEOMETRY_PASS",
+      "humanReview": "HUMAN_VISUAL_APPROVED",
+      "bodyFitReview": "BODY_FIT_REVIEW_PENDING",
+      "batch": {
+        "task": "TASK-0049G",
+        "batch": "FINAL",
+        "status": "FINAL_BATCH_BLOCKED_PATTERN",
+        "candidatePath": "build/task-0049-final-batch/female_long_moss_light/hd_candidate.png",
+        "sha256": "b58b4eac65b271c8dd8c598d05ff05f0e8ab50936c2a6903cdaf47c40c0fe2f5",
+        "attempts": [
+          {
+            "attempt": 1,
+            "geometryStatus": "GEOMETRY_PASS",
+            "sha256": "b58b4eac65b271c8dd8c598d05ff05f0e8ab50936c2a6903cdaf47c40c0fe2f5",
+            "evidencePath": "build/task-0049-final-batch/female_long_moss_light/attempt-1"
+          }
+        ],
+        "blockedPatternEncountered": false,
+        "availability": "LOCAL_DEV_REVIEW_ONLY",
+        "runtimeIntegrated": false,
+        "humanReview": "HUMAN_VISUAL_APPROVED",
+        "reviewedBy": "Carlos Faustino",
+        "reviewedAt": "2026-10-07T23:07:36.485Z",
+        "humanApprovalReceipt": "docs/architecture/task-0049-final-batch/HUMAN-VISUAL-APPROVAL.json"
+      },
+      "reviewedBy": "Carlos Faustino",
+      "reviewedAt": "2026-10-07T23:07:36.485Z",
+      "approvedCriteria": [
+        "visual identity",
+        "face",
+        "hairstyle",
+        "pose",
+        "silhouette",
+        "proportions",
+        "feet baseline",
+        "framing",
+        "tone/lighting",
+        "overall appearance compared with legacy"
+      ],
+      "humanApprovalReceipt": "docs/architecture/task-0049-final-batch/HUMAN-VISUAL-APPROVAL.json",
+      "runtimeActivation": {
+        "task": "TASK-0050",
+        "source": "/assets/avatar/hd/female/female_long_moss_light_hd.png",
+        "active": true,
+        "productionBuildEnabled": true,
+        "externalDeployPerformed": false
+      }
+    },
+    {
+      "id": "female_short_blue_dark",
+      "gender": "female",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "short",
+      "combination": {
+        "outfit": "blue",
+        "skin": "dark"
+      },
+      "legacyPath": "/assets/avatar/runtime/female/female_short_blue_dark.png",
+      "hdPath": "/assets/avatar/hd/female/female_short_blue_dark_hd.png",
+      "status": "HUMAN_VISUAL_APPROVED",
+      "priority": "HIGH",
+      "latestGeometryStatus": "GEOMETRY_PASS",
+      "humanReview": "HUMAN_VISUAL_APPROVED",
+      "bodyFitReview": "BODY_FIT_REVIEW_PENDING",
+      "batch": {
+        "task": "TASK-0049G",
+        "batch": "FINAL",
+        "status": "FINAL_BATCH_BLOCKED_PATTERN",
+        "candidatePath": "build/task-0049-final-batch/female_short_blue_dark/hd_candidate.png",
+        "sha256": "691d944d7eee8ef015f5427280b2b72379a2dfedfe20af61736ebad6d8598380",
+        "attempts": [
+          {
+            "attempt": 1,
+            "geometryStatus": "GEOMETRY_PASS",
+            "sha256": "691d944d7eee8ef015f5427280b2b72379a2dfedfe20af61736ebad6d8598380",
+            "evidencePath": "build/task-0049-final-batch/female_short_blue_dark/attempt-1"
+          }
+        ],
+        "blockedPatternEncountered": false,
+        "availability": "LOCAL_DEV_REVIEW_ONLY",
+        "runtimeIntegrated": false,
+        "humanReview": "HUMAN_VISUAL_APPROVED",
+        "reviewedBy": "Carlos Faustino",
+        "reviewedAt": "2026-10-07T23:07:36.485Z",
+        "humanApprovalReceipt": "docs/architecture/task-0049-final-batch/HUMAN-VISUAL-APPROVAL.json"
+      },
+      "reviewedBy": "Carlos Faustino",
+      "reviewedAt": "2026-10-07T23:07:36.485Z",
+      "approvedCriteria": [
+        "visual identity",
+        "face",
+        "hairstyle",
+        "pose",
+        "silhouette",
+        "proportions",
+        "feet baseline",
+        "framing",
+        "tone/lighting",
+        "overall appearance compared with legacy"
+      ],
+      "humanApprovalReceipt": "docs/architecture/task-0049-final-batch/HUMAN-VISUAL-APPROVAL.json",
+      "runtimeActivation": {
+        "task": "TASK-0050",
+        "source": "/assets/avatar/hd/female/female_short_blue_dark_hd.png",
+        "active": true,
+        "productionBuildEnabled": true,
+        "externalDeployPerformed": false
+      }
+    },
+    {
+      "id": "female_short_blue_light",
+      "gender": "female",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "short",
+      "combination": {
+        "outfit": "blue",
+        "skin": "light"
+      },
+      "legacyPath": "/assets/avatar/runtime/female/female_short_blue_light.png",
+      "hdPath": "/assets/avatar/hd/female/female_short_blue_light_hd.png",
+      "status": "HUMAN_VISUAL_APPROVED",
+      "priority": "HIGH",
+      "latestGeometryStatus": "GEOMETRY_PASS",
+      "humanReview": "HUMAN_VISUAL_APPROVED",
+      "bodyFitReview": "BODY_FIT_REVIEW_PENDING",
+      "batch": {
+        "task": "TASK-0049G",
+        "batch": "FINAL",
+        "status": "FINAL_BATCH_BLOCKED_PATTERN",
+        "candidatePath": "build/task-0049-final-batch/female_short_blue_light/hd_candidate.png",
+        "sha256": "f3a580c2305f3415ea5d01ed880ab9eda95ad20dd3c1ae572fec2cdee8cf14ac",
+        "attempts": [
+          {
+            "attempt": 1,
+            "geometryStatus": "GEOMETRY_PASS",
+            "sha256": "f3a580c2305f3415ea5d01ed880ab9eda95ad20dd3c1ae572fec2cdee8cf14ac",
+            "evidencePath": "build/task-0049-final-batch/female_short_blue_light/attempt-1"
+          }
+        ],
+        "blockedPatternEncountered": false,
+        "availability": "LOCAL_DEV_REVIEW_ONLY",
+        "runtimeIntegrated": false,
+        "humanReview": "HUMAN_VISUAL_APPROVED",
+        "reviewedBy": "Carlos Faustino",
+        "reviewedAt": "2026-10-07T23:07:36.485Z",
+        "humanApprovalReceipt": "docs/architecture/task-0049-final-batch/HUMAN-VISUAL-APPROVAL.json"
+      },
+      "reviewedBy": "Carlos Faustino",
+      "reviewedAt": "2026-10-07T23:07:36.485Z",
+      "approvedCriteria": [
+        "visual identity",
+        "face",
+        "hairstyle",
+        "pose",
+        "silhouette",
+        "proportions",
+        "feet baseline",
+        "framing",
+        "tone/lighting",
+        "overall appearance compared with legacy"
+      ],
+      "humanApprovalReceipt": "docs/architecture/task-0049-final-batch/HUMAN-VISUAL-APPROVAL.json",
+      "runtimeActivation": {
+        "task": "TASK-0050",
+        "source": "/assets/avatar/hd/female/female_short_blue_light_hd.png",
+        "active": true,
+        "productionBuildEnabled": true,
+        "externalDeployPerformed": false
+      }
+    },
+    {
+      "id": "female_long_ochre_medium",
+      "gender": "female",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "long",
+      "combination": {
+        "outfit": "ochre",
+        "skin": "medium"
+      },
+      "legacyPath": "/assets/avatar/runtime/female/female_long_ochre_medium.png",
+      "hdPath": "/assets/avatar/hd/female/female_long_ochre_medium_hd.png",
+      "status": "HUMAN_VISUAL_APPROVED",
+      "priority": "HIGH",
+      "latestGeometryStatus": "GEOMETRY_PASS",
+      "humanReview": "HUMAN_VISUAL_APPROVED",
+      "bodyFitReview": "BODY_FIT_REVIEW_PENDING",
+      "batch": {
+        "task": "TASK-0049G",
+        "batch": "FINAL",
+        "status": "FINAL_BATCH_BLOCKED_PATTERN",
+        "candidatePath": "build/task-0049-final-batch/female_long_ochre_medium/hd_candidate.png",
+        "sha256": "9a66160fe37601d540896b078619fb8d983b1432bb43300722713d09b2d66821",
+        "attempts": [
+          {
+            "attempt": 1,
+            "geometryStatus": "REJECTED_GEOMETRY",
+            "sha256": "4c9e44e54ca73334e5f97efb27fed1aa1b2120d10593068b98ef4937d66eeadd",
+            "evidencePath": "build/task-0049-final-batch/female_long_ochre_medium/attempt-1"
+          },
+          {
+            "attempt": 2,
+            "geometryStatus": "GEOMETRY_PASS",
+            "sha256": "9a66160fe37601d540896b078619fb8d983b1432bb43300722713d09b2d66821",
+            "evidencePath": "build/task-0049-final-batch/female_long_ochre_medium/attempt-2"
+          }
+        ],
+        "blockedPatternEncountered": false,
+        "availability": "LOCAL_DEV_REVIEW_ONLY",
+        "runtimeIntegrated": false,
+        "humanReview": "HUMAN_VISUAL_APPROVED",
+        "reviewedBy": "Carlos Faustino",
+        "reviewedAt": "2026-10-07T23:07:36.485Z",
+        "humanApprovalReceipt": "docs/architecture/task-0049-final-batch/HUMAN-VISUAL-APPROVAL.json"
+      },
+      "reviewedBy": "Carlos Faustino",
+      "reviewedAt": "2026-10-07T23:07:36.485Z",
+      "approvedCriteria": [
+        "visual identity",
+        "face",
+        "hairstyle",
+        "pose",
+        "silhouette",
+        "proportions",
+        "feet baseline",
+        "framing",
+        "tone/lighting",
+        "overall appearance compared with legacy"
+      ],
+      "humanApprovalReceipt": "docs/architecture/task-0049-final-batch/HUMAN-VISUAL-APPROVAL.json",
+      "runtimeActivation": {
+        "task": "TASK-0050",
+        "source": "/assets/avatar/hd/female/female_long_ochre_medium_hd.png",
+        "active": true,
+        "productionBuildEnabled": true,
+        "externalDeployPerformed": false
+      }
+    },
+    {
+      "id": "female_short_blue_medium",
+      "gender": "female",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "short",
+      "combination": {
+        "outfit": "blue",
+        "skin": "medium"
+      },
+      "legacyPath": "/assets/avatar/runtime/female/female_short_blue_medium.png",
+      "hdPath": "/assets/avatar/hd/female/female_short_blue_medium_hd.png",
+      "status": "HUMAN_VISUAL_APPROVED",
+      "priority": "HIGH",
+      "latestGeometryStatus": "GEOMETRY_PASS",
+      "humanReview": "HUMAN_VISUAL_APPROVED",
+      "bodyFitReview": "BODY_FIT_REVIEW_PENDING",
+      "batch": {
+        "task": "TASK-0049G",
+        "batch": "FINAL",
+        "status": "FINAL_BATCH_BLOCKED_PATTERN",
+        "candidatePath": "build/task-0049-final-batch/female_short_blue_medium/hd_candidate.png",
+        "sha256": "3fb0c1fbf7991b717754f7a7c82c57014273fdbe3fea20df0103f034c2b0684f",
+        "attempts": [
+          {
+            "attempt": 1,
+            "geometryStatus": "GEOMETRY_PASS",
+            "sha256": "3fb0c1fbf7991b717754f7a7c82c57014273fdbe3fea20df0103f034c2b0684f",
+            "evidencePath": "build/task-0049-final-batch/female_short_blue_medium/attempt-1"
+          }
+        ],
+        "blockedPatternEncountered": false,
+        "availability": "LOCAL_DEV_REVIEW_ONLY",
+        "runtimeIntegrated": false,
+        "humanReview": "HUMAN_VISUAL_APPROVED",
+        "reviewedBy": "Carlos Faustino",
+        "reviewedAt": "2026-10-07T23:07:36.485Z",
+        "humanApprovalReceipt": "docs/architecture/task-0049-final-batch/HUMAN-VISUAL-APPROVAL.json"
+      },
+      "reviewedBy": "Carlos Faustino",
+      "reviewedAt": "2026-10-07T23:07:36.485Z",
+      "approvedCriteria": [
+        "visual identity",
+        "face",
+        "hairstyle",
+        "pose",
+        "silhouette",
+        "proportions",
+        "feet baseline",
+        "framing",
+        "tone/lighting",
+        "overall appearance compared with legacy"
+      ],
+      "humanApprovalReceipt": "docs/architecture/task-0049-final-batch/HUMAN-VISUAL-APPROVAL.json",
+      "runtimeActivation": {
+        "task": "TASK-0050",
+        "source": "/assets/avatar/hd/female/female_short_blue_medium_hd.png",
+        "active": true,
+        "productionBuildEnabled": true,
+        "externalDeployPerformed": false
+      }
+    },
+    {
+      "id": "female_short_ochre_medium",
+      "gender": "female",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "short",
+      "combination": {
+        "outfit": "ochre",
+        "skin": "medium"
+      },
+      "legacyPath": "/assets/avatar/runtime/female/female_short_ochre_medium.png",
+      "hdPath": "/assets/avatar/hd/female/female_short_ochre_medium_hd.png",
+      "status": "HUMAN_VISUAL_APPROVED",
+      "priority": "HIGH",
+      "latestGeometryStatus": "GEOMETRY_PASS",
+      "humanReview": "HUMAN_VISUAL_APPROVED",
+      "bodyFitReview": "BODY_FIT_REVIEW_PENDING",
+      "batch": {
+        "task": "TASK-0049G",
+        "batch": "FINAL",
+        "status": "FINAL_BATCH_BLOCKED_PATTERN",
+        "candidatePath": "build/task-0049-final-batch/female_short_ochre_medium/hd_candidate.png",
+        "sha256": "31117e2ae50cc207a02b4f65c70f97df37e82db54f8c70e35a8adade08e41ae2",
+        "attempts": [
+          {
+            "attempt": 1,
+            "geometryStatus": "GEOMETRY_PASS",
+            "sha256": "31117e2ae50cc207a02b4f65c70f97df37e82db54f8c70e35a8adade08e41ae2",
+            "evidencePath": "build/task-0049-final-batch/female_short_ochre_medium/attempt-1"
+          }
+        ],
+        "blockedPatternEncountered": false,
+        "availability": "LOCAL_DEV_REVIEW_ONLY",
+        "runtimeIntegrated": false,
+        "humanReview": "HUMAN_VISUAL_APPROVED",
+        "reviewedBy": "Carlos Faustino",
+        "reviewedAt": "2026-10-07T23:07:36.485Z",
+        "humanApprovalReceipt": "docs/architecture/task-0049-final-batch/HUMAN-VISUAL-APPROVAL.json"
+      },
+      "reviewedBy": "Carlos Faustino",
+      "reviewedAt": "2026-10-07T23:07:36.485Z",
+      "approvedCriteria": [
+        "visual identity",
+        "face",
+        "hairstyle",
+        "pose",
+        "silhouette",
+        "proportions",
+        "feet baseline",
+        "framing",
+        "tone/lighting",
+        "overall appearance compared with legacy"
+      ],
+      "humanApprovalReceipt": "docs/architecture/task-0049-final-batch/HUMAN-VISUAL-APPROVAL.json",
+      "runtimeActivation": {
+        "task": "TASK-0050",
+        "source": "/assets/avatar/hd/female/female_short_ochre_medium_hd.png",
+        "active": true,
+        "productionBuildEnabled": true,
+        "externalDeployPerformed": false
+      }
+    },
+    {
+      "id": "female_short_ochre_light",
+      "gender": "female",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "short",
+      "combination": {
+        "outfit": "ochre",
+        "skin": "light"
+      },
+      "legacyPath": "/assets/avatar/runtime/female/female_short_ochre_light.png",
+      "hdPath": "/assets/avatar/hd/female/female_short_ochre_light_hd.png",
+      "status": "HUMAN_VISUAL_APPROVED",
+      "priority": "HIGH",
+      "latestGeometryStatus": "GEOMETRY_PASS",
+      "humanReview": "HUMAN_VISUAL_APPROVED",
+      "bodyFitReview": "BODY_FIT_REVIEW_PENDING",
+      "batch": {
+        "task": "TASK-0049G",
+        "batch": "FINAL",
+        "status": "FINAL_BATCH_BLOCKED_PATTERN",
+        "candidatePath": "build/task-0049-final-batch/female_short_ochre_light/hd_candidate.png",
+        "sha256": "b0e475eb240f148e3b6ba6c60d2b53b62c153254b0151b11ff46d91d0edb81ff",
+        "attempts": [
+          {
+            "attempt": 1,
+            "geometryStatus": "REJECTED_GEOMETRY",
+            "sha256": "8de19f896943bc852645fafa73a536b1ff2f894a7be29e45ab0f13f07a15d1f0",
+            "evidencePath": "build/task-0049-final-batch/female_short_ochre_light/attempt-1"
+          },
+          {
+            "attempt": 2,
+            "geometryStatus": "GEOMETRY_PASS",
+            "sha256": "b0e475eb240f148e3b6ba6c60d2b53b62c153254b0151b11ff46d91d0edb81ff",
+            "evidencePath": "build/task-0049-final-batch/female_short_ochre_light/attempt-2"
+          }
+        ],
+        "blockedPatternEncountered": false,
+        "availability": "LOCAL_DEV_REVIEW_ONLY",
+        "runtimeIntegrated": false,
+        "humanReview": "HUMAN_VISUAL_APPROVED",
+        "reviewedBy": "Carlos Faustino",
+        "reviewedAt": "2026-10-07T23:07:36.485Z",
+        "humanApprovalReceipt": "docs/architecture/task-0049-final-batch/HUMAN-VISUAL-APPROVAL.json"
+      },
+      "reviewedBy": "Carlos Faustino",
+      "reviewedAt": "2026-10-07T23:07:36.485Z",
+      "approvedCriteria": [
+        "visual identity",
+        "face",
+        "hairstyle",
+        "pose",
+        "silhouette",
+        "proportions",
+        "feet baseline",
+        "framing",
+        "tone/lighting",
+        "overall appearance compared with legacy"
+      ],
+      "humanApprovalReceipt": "docs/architecture/task-0049-final-batch/HUMAN-VISUAL-APPROVAL.json",
+      "runtimeActivation": {
+        "task": "TASK-0050",
+        "source": "/assets/avatar/hd/female/female_short_ochre_light_hd.png",
+        "active": true,
+        "productionBuildEnabled": true,
+        "externalDeployPerformed": false
+      }
+    },
+    {
+      "id": "female_short_ochre_dark",
+      "gender": "female",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "short",
+      "combination": {
+        "outfit": "ochre",
+        "skin": "dark"
+      },
+      "legacyPath": "/assets/avatar/runtime/female/female_short_ochre_dark.png",
+      "hdPath": "/assets/avatar/hd/female/female_short_ochre_dark_hd.png",
+      "status": "HUMAN_VISUAL_APPROVED",
+      "priority": "HIGH",
+      "latestGeometryStatus": "GEOMETRY_PASS",
+      "humanReview": "HUMAN_VISUAL_APPROVED",
+      "bodyFitReview": "BODY_FIT_REVIEW_PENDING",
+      "batch": {
+        "task": "TASK-0049H",
+        "batch": "FINAL_3_REWORK",
+        "status": "FINAL_3_COMPLETE",
+        "candidatePath": "build/task-0049-final-3-rework/female_short_ochre_dark/hd_candidate.png",
+        "sha256": "cf7fab4691bc7380d6e9304106900859da05838a0afbaf4428513ca542e1cd52",
+        "attempts": [
+          {
+            "attempt": 1,
+            "geometryStatus": "GEOMETRY_PASS",
+            "sha256": "cf7fab4691bc7380d6e9304106900859da05838a0afbaf4428513ca542e1cd52",
+            "evidencePath": "build/task-0049-final-3-rework/female_short_ochre_dark/attempt-1"
+          }
+        ],
+        "availability": "LOCAL_DEV_REVIEW_ONLY",
+        "runtimeIntegrated": false,
+        "humanReview": "HUMAN_VISUAL_APPROVED",
+        "reviewStatus": "HUMAN_VISUAL_APPROVED",
+        "approved": true,
+        "reviewedBy": "Carlos Faustino",
+        "reviewedAt": "2026-10-07T23:40:29.685Z",
+        "approvedCriteria": [
+          "visual identity",
+          "face",
+          "hairstyle",
+          "pose",
+          "silhouette",
+          "proportions",
+          "feet baseline",
+          "framing",
+          "tone/lighting",
+          "overall appearance compared with legacy"
+        ],
+        "humanApprovalReceipt": "docs/architecture/task-0049-final-3-rework/HUMAN-VISUAL-APPROVAL.json",
+        "usage": "DEV_ONLY",
+        "productionApproved": false
+      },
+      "previousBatches": [
+        {
+          "task": "TASK-0049G",
+          "batch": "FINAL",
+          "status": "FINAL_BATCH_BLOCKED_PATTERN",
+          "candidatePath": "build/task-0049-final-batch/female_short_ochre_dark/hd_candidate.png",
+          "sha256": "46059806ce01ae9c29f436df7bd1fbeced8a17f96ed549df345301c5109aaad4",
+          "attempts": [
+            {
+              "attempt": 1,
+              "geometryStatus": "REJECTED_GEOMETRY",
+              "sha256": "3b38249937829d6bcce8c85249aff4caddff90ea8a955fa24e18de305069de77",
+              "evidencePath": "build/task-0049-final-batch/female_short_ochre_dark/attempt-1"
+            },
+            {
+              "attempt": 2,
+              "geometryStatus": "REJECTED_GEOMETRY",
+              "sha256": "46059806ce01ae9c29f436df7bd1fbeced8a17f96ed549df345301c5109aaad4",
+              "evidencePath": "build/task-0049-final-batch/female_short_ochre_dark/attempt-2"
+            }
+          ],
+          "blockedPatternEncountered": true,
+          "availability": "LOCAL_DEV_REVIEW_ONLY",
+          "runtimeIntegrated": false
+        }
+      ],
+      "reviewStatus": "HUMAN_VISUAL_APPROVED",
+      "approved": true,
+      "reviewedBy": "Carlos Faustino",
+      "reviewedAt": "2026-10-07T23:40:29.685Z",
+      "approvedCriteria": [
+        "visual identity",
+        "face",
+        "hairstyle",
+        "pose",
+        "silhouette",
+        "proportions",
+        "feet baseline",
+        "framing",
+        "tone/lighting",
+        "overall appearance compared with legacy"
+      ],
+      "humanApprovalReceipt": "docs/architecture/task-0049-final-3-rework/HUMAN-VISUAL-APPROVAL.json",
+      "runtimeActivation": {
+        "task": "TASK-0050",
+        "source": "/assets/avatar/hd/female/female_short_ochre_dark_hd.png",
+        "active": true,
+        "productionBuildEnabled": true,
+        "externalDeployPerformed": false
+      }
+    },
+    {
+      "id": "female_short_moss_light",
+      "gender": "female",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "short",
+      "combination": {
+        "outfit": "moss",
+        "skin": "light"
+      },
+      "legacyPath": "/assets/avatar/runtime/female/female_short_moss_light.png",
+      "hdPath": "/assets/avatar/hd/female/female_short_moss_light_hd.png",
+      "status": "HUMAN_VISUAL_APPROVED",
+      "priority": "HIGH",
+      "latestGeometryStatus": "GEOMETRY_PASS",
+      "humanReview": "HUMAN_VISUAL_APPROVED",
+      "bodyFitReview": "BODY_FIT_REVIEW_PENDING",
+      "batch": {
+        "task": "TASK-0049H",
+        "batch": "FINAL_3_REWORK",
+        "status": "FINAL_3_COMPLETE",
+        "candidatePath": "build/task-0049-final-3-rework/female_short_moss_light/hd_candidate.png",
+        "sha256": "ffa9d2698c7d1e67497cd7006d28294d2d17e31ed06e05b56e3bae1cf0a56162",
+        "attempts": [
+          {
+            "attempt": 1,
+            "geometryStatus": "GEOMETRY_PASS",
+            "sha256": "ffa9d2698c7d1e67497cd7006d28294d2d17e31ed06e05b56e3bae1cf0a56162",
+            "evidencePath": "build/task-0049-final-3-rework/female_short_moss_light/attempt-1"
+          }
+        ],
+        "availability": "LOCAL_DEV_REVIEW_ONLY",
+        "runtimeIntegrated": false,
+        "humanReview": "HUMAN_VISUAL_APPROVED",
+        "reviewStatus": "HUMAN_VISUAL_APPROVED",
+        "approved": true,
+        "reviewedBy": "Carlos Faustino",
+        "reviewedAt": "2026-10-07T23:40:29.685Z",
+        "approvedCriteria": [
+          "visual identity",
+          "face",
+          "hairstyle",
+          "pose",
+          "silhouette",
+          "proportions",
+          "feet baseline",
+          "framing",
+          "tone/lighting",
+          "overall appearance compared with legacy"
+        ],
+        "humanApprovalReceipt": "docs/architecture/task-0049-final-3-rework/HUMAN-VISUAL-APPROVAL.json",
+        "usage": "DEV_ONLY",
+        "productionApproved": false
+      },
+      "previousBatches": [
+        {
+          "task": "TASK-0049G",
+          "batch": "FINAL",
+          "status": "FINAL_BATCH_BLOCKED_PATTERN",
+          "candidatePath": null,
+          "sha256": null,
+          "attempts": [],
+          "blockedPatternEncountered": false,
+          "availability": "NOT_GENERATED_GLOBAL_STOP",
+          "runtimeIntegrated": false
+        }
+      ],
+      "reviewStatus": "HUMAN_VISUAL_APPROVED",
+      "approved": true,
+      "reviewedBy": "Carlos Faustino",
+      "reviewedAt": "2026-10-07T23:40:29.685Z",
+      "approvedCriteria": [
+        "visual identity",
+        "face",
+        "hairstyle",
+        "pose",
+        "silhouette",
+        "proportions",
+        "feet baseline",
+        "framing",
+        "tone/lighting",
+        "overall appearance compared with legacy"
+      ],
+      "humanApprovalReceipt": "docs/architecture/task-0049-final-3-rework/HUMAN-VISUAL-APPROVAL.json",
+      "runtimeActivation": {
+        "task": "TASK-0050",
+        "source": "/assets/avatar/hd/female/female_short_moss_light_hd.png",
+        "active": true,
+        "productionBuildEnabled": true,
+        "externalDeployPerformed": false
+      }
+    },
+    {
+      "id": "female_short_moss_dark",
+      "gender": "female",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "short",
+      "combination": {
+        "outfit": "moss",
+        "skin": "dark"
+      },
+      "legacyPath": "/assets/avatar/runtime/female/female_short_moss_dark.png",
+      "hdPath": "/assets/avatar/hd/female/female_short_moss_dark_hd.png",
+      "status": "HUMAN_VISUAL_APPROVED",
+      "priority": "HIGH",
+      "latestGeometryStatus": "GEOMETRY_PASS",
+      "humanReview": "HUMAN_VISUAL_APPROVED",
+      "bodyFitReview": "BODY_FIT_REVIEW_PENDING",
+      "batch": {
+        "task": "TASK-0049H",
+        "batch": "FINAL_3_REWORK",
+        "status": "FINAL_3_COMPLETE",
+        "candidatePath": "build/task-0049-final-3-rework/female_short_moss_dark/hd_candidate.png",
+        "sha256": "65ae8c6308032994d7ac80d2d53503c6af4c12f92a4b1f266cba9480b02b1032",
+        "attempts": [
+          {
+            "attempt": 1,
+            "geometryStatus": "REJECTED_GEOMETRY",
+            "sha256": "17226d3835652f580925e9194f8d00e6efb9afac4148046bfefca5d79e553741",
+            "evidencePath": "build/task-0049-final-3-rework/female_short_moss_dark/attempt-1"
+          },
+          {
+            "attempt": 2,
+            "geometryStatus": "GEOMETRY_PASS",
+            "sha256": "65ae8c6308032994d7ac80d2d53503c6af4c12f92a4b1f266cba9480b02b1032",
+            "evidencePath": "build/task-0049-final-3-rework/female_short_moss_dark/attempt-2"
+          }
+        ],
+        "availability": "LOCAL_DEV_REVIEW_ONLY",
+        "runtimeIntegrated": false,
+        "humanReview": "HUMAN_VISUAL_APPROVED",
+        "reviewStatus": "HUMAN_VISUAL_APPROVED",
+        "approved": true,
+        "reviewedBy": "Carlos Faustino",
+        "reviewedAt": "2026-10-07T23:40:29.685Z",
+        "approvedCriteria": [
+          "visual identity",
+          "face",
+          "hairstyle",
+          "pose",
+          "silhouette",
+          "proportions",
+          "feet baseline",
+          "framing",
+          "tone/lighting",
+          "overall appearance compared with legacy"
+        ],
+        "humanApprovalReceipt": "docs/architecture/task-0049-final-3-rework/HUMAN-VISUAL-APPROVAL.json",
+        "usage": "DEV_ONLY",
+        "productionApproved": false
+      },
+      "previousBatches": [
+        {
+          "task": "TASK-0049G",
+          "batch": "FINAL",
+          "status": "FINAL_BATCH_BLOCKED_PATTERN",
+          "candidatePath": null,
+          "sha256": null,
+          "attempts": [],
+          "blockedPatternEncountered": false,
+          "availability": "NOT_GENERATED_GLOBAL_STOP",
+          "runtimeIntegrated": false
+        }
+      ],
+      "reviewStatus": "HUMAN_VISUAL_APPROVED",
+      "approved": true,
+      "reviewedBy": "Carlos Faustino",
+      "reviewedAt": "2026-10-07T23:40:29.685Z",
+      "approvedCriteria": [
+        "visual identity",
+        "face",
+        "hairstyle",
+        "pose",
+        "silhouette",
+        "proportions",
+        "feet baseline",
+        "framing",
+        "tone/lighting",
+        "overall appearance compared with legacy"
+      ],
+      "humanApprovalReceipt": "docs/architecture/task-0049-final-3-rework/HUMAN-VISUAL-APPROVAL.json",
+      "runtimeActivation": {
+        "task": "TASK-0050",
+        "source": "/assets/avatar/hd/female/female_short_moss_dark_hd.png",
+        "active": true,
+        "productionBuildEnabled": true,
+        "externalDeployPerformed": false
+      }
+    }
+  ],
+  "status": "DONE",
+  "blockedAt": "2026-10-07T12:57:56.959Z",
+  "generatedCount": 86,
+  "geometryPassCount": 52,
+  "geometryFailCount": 34,
+  "visualReviewPendingCount": 0,
+  "humanApprovedCount": 52,
+  "acceptedGeneratedAssetCount": 52,
+  "geometryRejectedIdentityCount": 0,
+  "generationMethodStatus": "GEOMETRY_METHOD_VALIDATED",
+  "previousBlocker": "TASK-0049 BLOCKED_PATTERN; superseded for male_curly_blue_light by TASK-0049R Geometry Lock PASS and explicit human visual approval.",
+  "generationMethodVisualStatus": "HUMAN_VISUAL_APPROVED",
+  "acceptedGeneratedAssetCountScope": "Human-approved local candidates; does not indicate runtime integration",
+  "runtimeIntegratedGeneratedAssetCount": 52,
+  "remaining51GenerationAuthorized": false,
+  "blocker": null,
+  "remainingPendingHDCount": 0,
+  "remaining47GenerationAuthorized": false,
+  "moreGenerationAllowed": false,
+  "latestBatch": {
+    "task": "TASK-0049H",
+    "batch": "FINAL_3_REWORK",
+    "completedAt": "2026-10-07T23:33:52.336Z",
+    "status": "FINAL_3_COMPLETE",
+    "humanReview": "HUMAN_VISUAL_APPROVED",
+    "selectedIds": [
+      "female_short_ochre_dark",
+      "female_short_moss_light",
+      "female_short_moss_dark"
+    ],
+    "newGenerationCount": 4,
+    "geometryPassCount": 3,
+    "geometryRejectedAttemptCount": 1,
+    "blockedPatternCount": 0,
+    "reviewPath": "build/task-0049-final-3-rework/review/index.html",
+    "reviewStatus": "HUMAN_VISUAL_APPROVED",
+    "approved": true,
+    "reviewedBy": "Carlos Faustino",
+    "reviewedAt": "2026-10-07T23:40:29.685Z",
+    "approvedCriteria": [
+      "visual identity",
+      "face",
+      "hairstyle",
+      "pose",
+      "silhouette",
+      "proportions",
+      "feet baseline",
+      "framing",
+      "tone/lighting",
+      "overall appearance compared with legacy"
+    ],
+    "humanApprovalReceipt": "docs/architecture/task-0049-final-3-rework/HUMAN-VISUAL-APPROVAL.json",
+    "taskStatus": "DONE",
+    "humanApprovedCount": 3
+  },
+  "batch2GenerationAuthorized": false,
+  "remaining41GenerationAuthorized": false,
+  "batch3GenerationAuthorized": false,
+  "remaining33GenerationAuthorized": false,
+  "batch4GenerationAuthorized": false,
+  "remaining25GenerationAuthorized": false,
+  "batch5GenerationAuthorized": false,
+  "remaining17GenerationAuthorized": false,
+  "batch6GenerationAuthorized": false,
+  "blockedPatternAssetCount": 0,
+  "finalBatchCumulativePatternOccurrences": 2,
+  "finalBatchGenerationAuthorized": false,
+  "previousFinalBatch": {
+    "task": "TASK-0049G",
+    "batch": "FINAL",
+    "registeredAt": "2026-10-07T22:00:46.470Z",
+    "stoppedAt": "2026-10-07T21:53:36.019Z",
+    "status": "FINAL_BATCH_BLOCKED_PATTERN",
+    "humanReview": "HUMAN_VISUAL_APPROVED",
+    "selectedIds": [
+      "female_long_blue_dark",
+      "female_long_blue_light",
+      "female_long_moss_dark",
+      "female_long_blue_medium",
+      "female_long_ochre_light",
+      "female_long_ochre_dark",
+      "female_long_moss_medium",
+      "female_long_moss_light",
+      "female_short_blue_dark",
+      "female_short_blue_light",
+      "female_long_ochre_medium",
+      "female_short_blue_medium",
+      "female_short_ochre_medium",
+      "female_short_ochre_light",
+      "female_short_ochre_dark",
+      "female_short_moss_light",
+      "female_short_moss_dark"
+    ],
+    "newGenerationCount": 25,
+    "geometryPassCount": 14,
+    "geometryRejectedAttemptCount": 11,
+    "blockedPatternCount": 2,
+    "blockedAssetIds": [
+      "female_short_ochre_dark"
+    ],
+    "notGeneratedIds": [
+      "female_short_moss_light",
+      "female_short_moss_dark"
+    ],
+    "reviewPath": "build/task-0049-final-batch/review/index.html",
+    "humanApprovedCount": 14,
+    "reviewedBy": "Carlos Faustino",
+    "reviewedAt": "2026-10-07T23:07:36.485Z",
+    "humanApprovalReceipt": "docs/architecture/task-0049-final-batch/HUMAN-VISUAL-APPROVAL.json"
+  },
+  "blockedFinalGeometryAssetCount": 0,
+  "final3ReworkGenerationAuthorized": false,
+  "taskStatus": "DONE",
+  "humanReview": "HUMAN_VISUAL_APPROVED",
+  "completedAt": "2026-10-07T23:40:29.685Z",
+  "usage": "NORMAL_RUNTIME_AND_LOCAL_PRODUCTION_BUILD",
+  "productionRuntime": "APPROVED_HD_WITH_LEGACY_FALLBACK",
+  "bodyFitReview": "BODY_FIT_REVIEW_PENDING",
+  "productionActivationApproved": false,
+  "runtimeActivation": {
+    "task": "TASK-0050",
+    "at": "2026-10-08T00:21:57.889Z",
+    "status": "ACTIVE_IN_NORMAL_RUNTIME",
+    "productionBuildEnabled": true,
+    "externalDeployPerformed": false,
+    "sourcePolicy": "HUMAN_VISUAL_APPROVED_HD_ELSE_LEGACY",
+    "catalog": "apps/web/features/journey/data/avatarHDApproved.json",
+    "proofManifest": "docs/architecture/AVATAR-HD-RUNTIME-ACTIVATION-MANIFEST.json",
+    "bodyFit": "PENDING_NO_READY"
+  },
+  "previousUsage": "DEV_ONLY (TASK-0049 generation/review stage; superseded for runtime by explicit TASK-0050 authorization)"
+}

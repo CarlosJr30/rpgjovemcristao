@@ -1,0 +1,53 @@
+{
+  "at": "2026-10-08T05:37:36.352Z",
+  "requestedDirectory": "D:/rpg-jovem-cristao/assets-source/body-fit-v2-targets",
+  "directoryExists": false,
+  "expectedFiles": [
+    "armor_traveler_uncommon_female_v2.png",
+    "armor_traveler_uncommon_male_v2.png",
+    "helmet_traveler_rare_female_v2.png",
+    "helmet_traveler_rare_male_v2.png",
+    "boots_traveler_common_female_v2.png",
+    "boots_traveler_common_male_v2.png",
+    "sword_path_common_female_v2.png",
+    "sword_path_common_male_v2.png",
+    "shield_perseverance_rare_female_v2.png",
+    "shield_perseverance_rare_male_v2.png",
+    "medallion_path_rare_female_v2.png",
+    "medallion_path_rare_male_v2.png",
+    "armor_traveler_rare_female_v2.png",
+    "armor_traveler_rare_male_v2.png",
+    "sword_path_rare_female_v2.png",
+    "sword_path_rare_male_v2.png"
+  ],
+  "found": 0,
+  "scopes": [
+    "Project (hidden/ignored files, excluding dependencies/cache/build)",
+    "Downloads",
+    "Desktop",
+    "Documents",
+    "Pictures",
+    "Current pasted attachment directory"
+  ],
+  "matchingTargetFiles": [],
+  "availableRelatedArchives": [
+    {
+      "path": "C:/Users/carlo/Downloads/RPG_Jovem_Cristao_BodyFit_Source_Art_V1.zip",
+      "sha256": "cb1cf7f734e4f5c6312e774056c679be2734cef81b5e88eb7a82f168bbd2a0c1",
+      "containsTargetFiles": false,
+      "description": "12 old source artworks under assets-source/body-fit-v2, not the 16 exact targets"
+    },
+    {
+      "path": "C:/Users/carlo/Downloads/RPG_Jovem_Cristao_Equipment_Overlays_V1_14_assets.zip",
+      "containsTargetFiles": false,
+      "description": "14 old cropped V1 overlays without _v2 target filenames"
+    }
+  ],
+  "rootManifest": {
+    "path": "manifest.json",
+    "sha256": "25594a3ca5a46164159ddee5ea137c7956d6e48acef9d981bf879d430afcadf4",
+    "assets": 12,
+    "matchingTargetEntries": 0
+  },
+  "clarificationRequested": "Full path to the new 16-target directory or archive; no answer received at this checkpoint"
+}

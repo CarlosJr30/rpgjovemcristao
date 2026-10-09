@@ -1,0 +1,511 @@
+.frame.frame {
+  --player-x: var(--desktop-player-x);
+  --opponent-x: var(--desktop-opponent-x);
+  --ground: var(--desktop-ground);
+  --hud-safe: var(--desktop-hud-safe);
+  --fighter-min: var(--desktop-fighter-min);
+  --fighter-max: var(--desktop-fighter-max);
+  --stage-height: var(--desktop-height);
+  --motion-scale: var(--desktop-motion-scale);
+  --attack-x: var(--desktop-attack-x);
+  --attack-y: var(--desktop-attack-y);
+  --impact-x: var(--desktop-impact-x);
+  --impact-y: var(--desktop-impact-y);
+  --special-x: var(--desktop-special-x);
+  --special-y: var(--desktop-special-y);
+  display: block;
+  position: relative;
+  isolation: isolate;
+  height: var(--stage-height);
+  min-height: 0;
+  width: 100%;
+  border-radius: 14px;
+  background:
+    radial-gradient(ellipse at 50% 25%, #d5b77a55, transparent 65%),
+    linear-gradient(#315443, #193a31);
+  animation: none;
+  transform: none;
+  overflow: hidden;
+}
+.background,
+.environment,
+.ground,
+.fx,
+.cinematic,
+.contact,
+.combatText,
+.focusText {
+  pointer-events: none;
+}
+.background {
+  position: absolute;
+  inset: 0;
+  z-index: var(--layer-background);
+}
+.background picture,
+.background img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.environment {
+  position: absolute;
+  inset: 0;
+  z-index: var(--layer-environment);
+  background: radial-gradient(ellipse at 30% 55%, #ffe1a324, transparent 40%);
+}
+.ground {
+  position: absolute;
+  inset: var(--ground) 0 0;
+  z-index: var(--layer-ground);
+  border-top: 1px solid #d8c38955;
+  background: linear-gradient(#bb966933, #0c261bcc);
+}
+.fighter.fighter {
+  position: absolute;
+  inset: 0;
+  display: block;
+  z-index: var(--layer-fighters);
+  pointer-events: none;
+}
+.fighter .hud.hud {
+  line-height: 1.25;
+  position: absolute;
+  top: 8px;
+  left: var(--player-x);
+  transform: translateX(-50%);
+  width: 43%;
+  max-width: 330px;
+  min-height: 98px;
+  z-index: var(--layer-hud);
+  padding: 9px;
+  background: #193b31fa;
+}
+.fighter[data-side='opponent'] .hud {
+  left: var(--opponent-x);
+}
+.hud h2 {
+  line-height: 1.2;
+  font-size: clamp(1rem, 2vw, 1.5rem);
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+.frame[data-layout='mobile'] .hud h2 {
+  font-size: 1rem;
+}
+.frame[data-layout='tablet'] .hud h2 {
+  font-size: 1.2rem;
+}
+.hud > span {
+  font-size: 12px !important;
+}
+.actor.actor {
+  --fighter-height: clamp(
+    var(--fighter-min),
+    calc(var(--stage-height) - var(--hud-safe) - 35px),
+    var(--fighter-max)
+  );
+  position: absolute;
+  bottom: calc(100% - var(--ground));
+  left: var(--player-x);
+  width: min(42%, calc(var(--fighter-height) * 2 / 3));
+  height: auto;
+  aspect-ratio: 2 / 3;
+  transform: translateX(-50%);
+  transition: transform var(--motion-recovery) ease-out;
+  animation: none !important;
+}
+.fighter[data-side='opponent'] .actor {
+  left: var(--opponent-x);
+}
+.actor::before,
+.actor::after {
+  display: none !important;
+}
+.actor > div:first-of-type {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  overflow: visible;
+  position: absolute;
+  inset: 0;
+}
+.facing {
+  height: 100%;
+  width: 100%;
+  display: grid;
+  place-items: end center;
+}
+.frame.frame .actor .facing > div,
+.frame.frame .actor .facing picture {
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  min-height: 0;
+}
+.frame.frame .actor .facing > div > div {
+  width: 100%;
+  height: 100%;
+}
+.actor .facing picture {
+  position: static;
+}
+.actor .facing img:not([data-overlay-slot]) {
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+  object-position: center bottom;
+}
+.actor .facing > div > img:not([data-overlay-slot]) {
+  width: 100%;
+  height: 100%;
+}
+.actor .facing {
+  filter: drop-shadow(0 1px 1px #ddbf7622);
+}
+.contact {
+  position: absolute;
+  bottom: -3%;
+  left: 10%;
+  width: 80%;
+  height: 9%;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, #061e18a6, transparent 72%);
+  z-index: var(--layer-ground);
+}
+.buffs.buffs {
+  position: static;
+  transform: none;
+  width: auto;
+  min-width: 0;
+  max-height: none;
+  overflow: visible;
+  align-content: start;
+}
+.summary {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 6px;
+  padding: 6px;
+  border-radius: 8px;
+  background: #18392f;
+}
+.summary:empty {
+  display: none;
+}
+.buffs[data-fighter-status='player'] {
+  grid-column: 1;
+}
+.buffs[data-fighter-status='opponent'] {
+  grid-column: 2;
+}
+.buffs.buffs span {
+  font-size: 12px;
+  overflow-wrap: anywhere;
+}
+.frame > div[aria-hidden='true']:not([data-layer]):not(.cinematic) {
+  position: absolute;
+  left: 50%;
+  top: var(--attack-y);
+  transform: translate(-50%, -50%);
+  z-index: var(--layer-environment);
+}
+.frame[data-phase='execution'] .fighter[data-motion='attack'] .actor,
+.frame[data-phase='impact'] .fighter[data-motion='attack'] .actor {
+  transform: translateX(
+    calc(-50% + var(--fighter-travel) * var(--motion-scale))
+  );
+}
+.frame[data-phase='anticipation'] .fighter[data-special] .actor {
+  transform: translateX(
+    calc(-50% - var(--fighter-travel) * var(--motion-scale) * 0.35)
+  );
+}
+.frame[data-phase='impact'] .fighter[data-motion='hit'] .actor {
+  transform: translateX(calc(-50% + var(--hit-reaction) * var(--motion-scale)));
+}
+.frame[data-phase='impact'] .fighter[data-motion='dodge'] .actor,
+.frame[data-phase='execution'] .fighter[data-special='pilgrim-step'] .actor {
+  transform: translateX(
+    calc(-50% + var(--hit-reaction) * var(--motion-scale) * 2)
+  );
+}
+.frame[data-phase='impact'][data-combat-kind='attack'] {
+  transform: scale(calc(1 + (var(--camera-zoom) - 1) * var(--motion-scale)))
+    translateX(calc(var(--shake-strength) * var(--motion-scale)));
+}
+.frame[data-special] .actor {
+  transition-duration: var(--cinematic-return);
+}
+.frame[data-special] .fx[data-fx='hit-flash'] {
+  filter: brightness(var(--cinematic-impact-strength));
+}
+.frame[data-special][data-phase='execution'] {
+  transform: scale(
+      calc(1 + (var(--cinematic-camera) - 1) * var(--motion-scale))
+    )
+    translateX(calc(var(--camera-pan) * var(--motion-scale)));
+}
+.fx {
+  display: block;
+  position: absolute;
+  inset: 12% 0 4%;
+  z-index: var(--layer-weaponEffect);
+  opacity: var(--fx-intensity);
+  animation: fxReveal var(--text-duration) ease-out both;
+}
+.fx[data-fx='hit-flash'] {
+  background: radial-gradient(
+    ellipse at var(--impact-x) var(--impact-y),
+    #fff7ceaa,
+    transparent 60%
+  );
+}
+.fx[data-fx='slash'] {
+  inset: 26% -4% 22%;
+  border-top: 5px solid #fff0b4;
+  border-radius: 50%;
+  transform: rotate(calc(-25deg * var(--facing)));
+  background: linear-gradient(160deg, #f7de8d33, transparent 70%);
+}
+.fx[data-fx='block-impact'] {
+  border: 2px solid #ead9a0;
+  border-radius: 45%;
+  background: linear-gradient(90deg, transparent, #d7e8b844, transparent);
+}
+.fx[data-fx='dodge-trail'] {
+  border-left: 8px double #d7efba88;
+  border-radius: 45%;
+  transform: translateX(calc(-12px * var(--facing)));
+  background: linear-gradient(90deg, #c9e0ba33, transparent);
+}
+.fx[data-fx='focus-pulse'],
+.fx[data-fx='special-reveal'] {
+  background: radial-gradient(
+    ellipse at var(--special-x) var(--special-y),
+    #ffe5a455,
+    transparent 68%
+  );
+}
+.fighter[data-special='discernment'] .fx[data-fx='special-reveal'] {
+  background: repeating-linear-gradient(
+    90deg,
+    transparent 0 28%,
+    #f2dea644 29% 30%,
+    transparent 31% 45%
+  );
+}
+.frame[data-special='discernment'] .fighter:not([data-special]) .actor {
+  outline: 1px solid #e9d59b77;
+  outline-offset: 3px;
+}
+.fx[data-fx='victory-glow'],
+.fx[data-fx='level-up-burst'] {
+  background: radial-gradient(ellipse, #f4d58166, transparent 70%);
+}
+.fx[data-fx='defeat-fade'] {
+  background: linear-gradient(transparent, #162e3688);
+}
+.fighter[data-outcome='defeat'] .facing {
+  opacity: 0.65;
+}
+.fighter[data-outcome='victory'] .facing {
+  filter: drop-shadow(0 0 5px #edd78855);
+}
+.feedback {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin: 8px 0;
+  pointer-events: none;
+}
+.feedback .combatText[data-feedback-side='opponent'] {
+  grid-column: 2;
+}
+.combatText.combatText {
+  position: relative;
+  transform: none;
+  inset: auto;
+  width: auto;
+  max-width: 100%;
+  font-size: 12px;
+  min-height: 48px;
+  z-index: var(--layer-combatText);
+  animation: fxReveal var(--text-duration) ease-out both;
+}
+.feedback[data-motion-preference='normal'] .combatText {
+  animation: fxReveal var(--text-duration) ease-out both !important;
+}
+.feedback[data-motion-preference='reduced'] .combatText {
+  animation: none !important;
+}
+.combatText b,
+.combatText strong {
+  display: block;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+.combatText b {
+  font-size: 12px;
+}
+.focusText {
+  position: absolute;
+  bottom: 14%;
+  left: 15%;
+  right: 15%;
+  text-align: center;
+  border-radius: 6px;
+  padding: 4px;
+  background: #16382df5;
+  color: #ebdfab;
+  font-size: 12px;
+  z-index: var(--layer-combatText);
+}
+.cinematic {
+  position: absolute;
+  inset: var(--hud-safe) 0 0;
+  z-index: var(--layer-cinematic);
+  text-align: center;
+  background: rgb(9 26 23 / var(--cinematic-opacity));
+}
+.cinematic b {
+  display: inline-block;
+  padding: 6px 12px;
+  color: #fff3c2;
+  background: #183b31ee;
+  border: 1px solid #e2c578;
+  border-radius: 8px;
+  font-size: clamp(12px, 2vw, 18px);
+  animation: fxReveal var(--cinematic-title-duration) ease-out both;
+}
+.frame[data-phase='impact'] .cinematic b,
+.frame[data-phase='recovery'] .cinematic b {
+  visibility: hidden;
+}
+@keyframes fxReveal {
+  from {
+    opacity: 0.1;
+  }
+  35% {
+    opacity: 1;
+  }
+  to {
+    opacity: 0.8;
+  }
+}
+@media (max-width: 1100px) {
+  .frame.frame {
+    --player-x: var(--tablet-player-x);
+    --opponent-x: var(--tablet-opponent-x);
+    --ground: var(--tablet-ground);
+    --hud-safe: var(--tablet-hud-safe);
+    --fighter-min: var(--tablet-fighter-min);
+    --fighter-max: var(--tablet-fighter-max);
+    --stage-height: var(--tablet-height);
+    --motion-scale: var(--tablet-motion-scale);
+    --attack-x: var(--tablet-attack-x);
+    --attack-y: var(--tablet-attack-y);
+    --impact-x: var(--tablet-impact-x);
+    --impact-y: var(--tablet-impact-y);
+    --special-x: var(--tablet-special-x);
+    --special-y: var(--tablet-special-y);
+  }
+}
+@media (max-width: 760px) {
+  .frame.frame {
+    --player-x: var(--mobile-player-x);
+    --opponent-x: var(--mobile-opponent-x);
+    --ground: var(--mobile-ground);
+    --hud-safe: var(--mobile-hud-safe);
+    --fighter-min: var(--mobile-fighter-min);
+    --fighter-max: var(--mobile-fighter-max);
+    --stage-height: var(--mobile-height);
+    --motion-scale: var(--mobile-motion-scale);
+    --attack-x: var(--mobile-attack-x);
+    --attack-y: var(--mobile-attack-y);
+    --impact-x: var(--mobile-impact-x);
+    --impact-y: var(--mobile-impact-y);
+    --special-x: var(--mobile-special-x);
+    --special-y: var(--mobile-special-y);
+  }
+}
+.frame[data-motion-preference='reduced'] {
+  transform: none !important;
+}
+.frame[data-motion-preference='normal'] .actor {
+  transform: translateX(-50%) !important;
+  transition: transform var(--motion-recovery) ease-out !important;
+}
+.frame[data-motion-preference='normal'] .fx,
+.frame[data-motion-preference='normal'] .combatText {
+  animation: fxReveal var(--text-duration) ease-out both !important;
+}
+.frame[data-motion-preference='normal'] .cinematic b {
+  animation: fxReveal var(--cinematic-title-duration) ease-out both !important;
+}
+.frame[data-motion-preference='normal'][data-phase='execution']
+  .fighter[data-motion='attack']
+  .actor,
+.frame[data-motion-preference='normal'][data-phase='impact']
+  .fighter[data-motion='attack']
+  .actor {
+  transform: translateX(
+    calc(-50% + var(--fighter-travel) * var(--motion-scale))
+  ) !important;
+}
+.frame[data-motion-preference='normal'][data-phase='anticipation']
+  .fighter[data-special]
+  .actor {
+  transform: translateX(
+    calc(-50% - var(--fighter-travel) * var(--motion-scale) * 0.35)
+  ) !important;
+}
+.frame[data-motion-preference='normal'][data-phase='impact']
+  .fighter[data-motion='hit']
+  .actor {
+  transform: translateX(
+    calc(-50% + var(--hit-reaction) * var(--motion-scale))
+  ) !important;
+}
+.frame[data-motion-preference='normal'][data-phase='impact']
+  .fighter[data-motion='dodge']
+  .actor,
+.frame[data-motion-preference='normal'][data-phase='execution']
+  .fighter[data-special='pilgrim-step']
+  .actor {
+  transform: translateX(
+    calc(-50% + var(--hit-reaction) * var(--motion-scale) * 2)
+  ) !important;
+}
+.frame[data-motion-preference='normal'][data-special][data-phase='execution'] {
+  transform: scale(
+      calc(1 + (var(--cinematic-camera) - 1) * var(--motion-scale))
+    )
+    translateX(calc(var(--camera-pan) * var(--motion-scale))) !important;
+}
+.frame[data-motion-preference='reduced'] .actor {
+  transform: translateX(-50%) !important;
+  transition: none !important;
+}
+.frame[data-motion-preference='reduced'] .fx,
+.frame[data-motion-preference='reduced'] .combatText,
+.frame[data-motion-preference='reduced'] .cinematic b {
+  animation: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .frame:not([data-motion-preference='normal']) {
+    transform: none !important;
+  }
+  .frame:not([data-motion-preference='normal']) .actor {
+    transform: translateX(-50%) !important;
+    transition: none !important;
+  }
+  .frame:not([data-motion-preference='normal']) .fx,
+  .frame:not([data-motion-preference='normal']) .combatText,
+  .frame:not([data-motion-preference='normal']) .cinematic b {
+    animation: none;
+  }
+}

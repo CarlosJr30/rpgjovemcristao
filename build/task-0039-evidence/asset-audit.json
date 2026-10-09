@@ -1,0 +1,57 @@
+{
+  "physical": [
+    {
+      "file": "world/arena/arena_training_courtyard.webp",
+      "present": false
+    },
+    {
+      "file": "world/arena/arena_training_courtyard_960.webp",
+      "present": false
+    },
+    {
+      "file": "characters/arena/arena_davi.png",
+      "present": false
+    },
+    {
+      "file": "characters/arena/arena_elias.png",
+      "present": false
+    },
+    {
+      "file": "characters/arena/arena_mara.png",
+      "present": false
+    },
+    {
+      "file": "characters/arena/arena_noemi.png",
+      "present": false
+    }
+  ],
+  "audit": {
+    "music": {},
+    "effects": {},
+    "visual": {},
+    "results": [
+      {
+        "file": "world/arena/arena_training_courtyard.webp",
+        "status": "MISSING"
+      },
+      {
+        "file": "characters/arena/arena_davi.png",
+        "status": "MISSING"
+      },
+      {
+        "file": "characters/arena/arena_elias.png",
+        "status": "MISSING"
+      },
+      {
+        "file": "characters/arena/arena_mara.png",
+        "status": "MISSING"
+      },
+      {
+        "file": "characters/arena/arena_noemi.png",
+        "status": "MISSING"
+      }
+    ],
+    "pass": true
+  },
+  "approvalEntries": 0
+}

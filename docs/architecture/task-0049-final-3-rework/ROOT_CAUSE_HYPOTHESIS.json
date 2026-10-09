@@ -1,0 +1,1168 @@
+{
+  "task": "TASK-0049H",
+  "at": "2026-10-07T23:20:14.020Z",
+  "asset": "female_short_ochre_dark",
+  "previousAttempts": [
+    {
+      "attempt": 1,
+      "geometryStatus": "REJECTED_GEOMETRY",
+      "assetValidator": {
+        "signature": true,
+        "format": "png",
+        "width": 1024,
+        "height": 1536,
+        "hasAlpha": true,
+        "transparentPixels": 942952,
+        "visibleAlpha128Pixels": 587596,
+        "maxAlpha": 254,
+        "bytes": 2163442,
+        "sha256": "3b38249937829d6bcce8c85249aff4caddff90ea8a955fa24e18de305069de77",
+        "sourcePath": "C:/Users/carlo/.codex/generated_images/01a10ddf-bdf6-7473-a73f-35a04d0aeb34/exec-44e9bc4e-7ab7-478b-8d0a-1e826eaedbdb.png",
+        "byteExactSource": true,
+        "result": "PASS"
+      },
+      "metrics": [
+        {
+          "metric": "left",
+          "legacy": 95,
+          "expectedHD": 190,
+          "currentHD": 184,
+          "delta": -6,
+          "toleranceHD": 6,
+          "result": "PASS"
+        },
+        {
+          "metric": "right",
+          "legacy": 481,
+          "expectedHD": 962,
+          "currentHD": 970,
+          "delta": 8,
+          "toleranceHD": 6,
+          "result": "FAIL"
+        },
+        {
+          "metric": "top",
+          "legacy": 1,
+          "expectedHD": 2,
+          "currentHD": 2,
+          "delta": 0,
+          "toleranceHD": 6,
+          "result": "PASS"
+        },
+        {
+          "metric": "bottom",
+          "legacy": 748,
+          "expectedHD": 1496,
+          "currentHD": 1498,
+          "delta": 2,
+          "toleranceHD": 4,
+          "result": "PASS"
+        },
+        {
+          "metric": "width",
+          "legacy": 386,
+          "expectedHD": 772,
+          "currentHD": 786,
+          "delta": 14,
+          "toleranceHD": 12,
+          "result": "FAIL"
+        },
+        {
+          "metric": "height",
+          "legacy": 747,
+          "expectedHD": 1494,
+          "currentHD": 1496,
+          "delta": 2,
+          "toleranceHD": 10,
+          "result": "PASS"
+        },
+        {
+          "metric": "centerX",
+          "legacy": 288,
+          "expectedHD": 576,
+          "currentHD": 577,
+          "delta": 1,
+          "toleranceHD": 4,
+          "result": "PASS"
+        },
+        {
+          "metric": "centerY",
+          "legacy": 374.5,
+          "expectedHD": 749,
+          "currentHD": 750,
+          "delta": 1,
+          "toleranceHD": 4,
+          "result": "PASS"
+        },
+        {
+          "metric": "feetBaseline",
+          "legacy": 748,
+          "expectedHD": 1496,
+          "currentHD": 1498,
+          "delta": 2,
+          "toleranceHD": 4,
+          "result": "PASS"
+        },
+        {
+          "metric": "hairTop",
+          "legacy": 1,
+          "expectedHD": 2,
+          "currentHD": 2,
+          "delta": 0,
+          "toleranceHD": 6,
+          "result": "PASS"
+        },
+        {
+          "metric": "maxSilhouetteWidth",
+          "legacy": 382,
+          "expectedHD": 764,
+          "currentHD": 772,
+          "delta": 8,
+          "toleranceHD": 12,
+          "result": "PASS"
+        },
+        {
+          "metric": "alphaCentroidX",
+          "legacy": 272.10102599083984,
+          "expectedHD": 544.2020519816797,
+          "currentHD": 545.1075943335217,
+          "delta": 0.905542351841973,
+          "toleranceHD": 4,
+          "result": "PASS"
+        },
+        {
+          "metric": "alphaCentroidY",
+          "legacy": 376.9654824384336,
+          "expectedHD": 753.9309648768672,
+          "currentHD": 757.7636096910122,
+          "delta": 3.8326448141450555,
+          "toleranceHD": 4,
+          "result": "PASS"
+        }
+      ],
+      "rawAlphaDiagnostics": [
+        {
+          "metric": "left",
+          "legacy": 0,
+          "expectedHD": 0,
+          "currentHD": 0,
+          "delta": 0,
+          "toleranceHD": 6,
+          "result": "PASS"
+        },
+        {
+          "metric": "right",
+          "legacy": 486,
+          "expectedHD": 972,
+          "currentHD": 1010,
+          "delta": 38,
+          "toleranceHD": 6,
+          "result": "FAIL"
+        },
+        {
+          "metric": "top",
+          "legacy": 0,
+          "expectedHD": 0,
+          "currentHD": 0,
+          "delta": 0,
+          "toleranceHD": 6,
+          "result": "PASS"
+        },
+        {
+          "metric": "bottom",
+          "legacy": 752,
+          "expectedHD": 1504,
+          "currentHD": 1506,
+          "delta": 2,
+          "toleranceHD": 4,
+          "result": "PASS"
+        },
+        {
+          "metric": "width",
+          "legacy": 486,
+          "expectedHD": 972,
+          "currentHD": 1010,
+          "delta": 38,
+          "toleranceHD": 12,
+          "result": "FAIL"
+        },
+        {
+          "metric": "height",
+          "legacy": 752,
+          "expectedHD": 1504,
+          "currentHD": 1506,
+          "delta": 2,
+          "toleranceHD": 10,
+          "result": "PASS"
+        },
+        {
+          "metric": "centerX",
+          "legacy": 243,
+          "expectedHD": 486,
+          "currentHD": 505,
+          "delta": 19,
+          "toleranceHD": 4,
+          "result": "FAIL"
+        },
+        {
+          "metric": "centerY",
+          "legacy": 376,
+          "expectedHD": 752,
+          "currentHD": 753,
+          "delta": 1,
+          "toleranceHD": 4,
+          "result": "PASS"
+        },
+        {
+          "metric": "feetBaseline",
+          "legacy": 752,
+          "expectedHD": 1504,
+          "currentHD": 1506,
+          "delta": 2,
+          "toleranceHD": 4,
+          "result": "PASS"
+        },
+        {
+          "metric": "hairTop",
+          "legacy": 0,
+          "expectedHD": 0,
+          "currentHD": 0,
+          "delta": 0,
+          "toleranceHD": 6,
+          "result": "PASS"
+        },
+        {
+          "metric": "maxSilhouetteWidth",
+          "legacy": 423,
+          "expectedHD": 846,
+          "currentHD": 983,
+          "delta": 137,
+          "toleranceHD": 12,
+          "result": "FAIL"
+        },
+        {
+          "metric": "alphaCentroidX",
+          "legacy": 271.38962333849844,
+          "expectedHD": 542.7792466769969,
+          "currentHD": 543.4171408069699,
+          "delta": 0.6378941299730059,
+          "toleranceHD": 4,
+          "result": "PASS"
+        },
+        {
+          "metric": "alphaCentroidY",
+          "legacy": 379.0325892944707,
+          "expectedHD": 758.0651785889414,
+          "currentHD": 758.8857713458387,
+          "delta": 0.8205927568973266,
+          "toleranceHD": 4,
+          "result": "PASS"
+        }
+      ],
+      "silhouette": {
+        "iou": 0.9674412227230946,
+        "xorPixels": 19234,
+        "unionPixels": 590747,
+        "note": "Diagnostic only. No IoU threshold replaces visual review of anatomy/pose."
+      },
+      "evidencePath": "build/task-0049-final-batch/female_short_ochre_dark/attempt-1",
+      "visualConsistency": "AUTHOR_INSPECTION_PENDING",
+      "humanReview": "NOT_ELIGIBLE_GEOMETRY_FAILED"
+    },
+    {
+      "attempt": 2,
+      "geometryStatus": "REJECTED_GEOMETRY",
+      "assetValidator": {
+        "signature": true,
+        "format": "png",
+        "width": 1024,
+        "height": 1536,
+        "hasAlpha": true,
+        "transparentPixels": 943045,
+        "visibleAlpha128Pixels": 585403,
+        "maxAlpha": 254,
+        "bytes": 2146258,
+        "sha256": "46059806ce01ae9c29f436df7bd1fbeced8a17f96ed549df345301c5109aaad4",
+        "sourcePath": "C:/Users/carlo/.codex/generated_images/01a10ddf-bdf6-7473-a73f-35a04d0aeb34/exec-69af6b52-af2a-4c3d-96b7-d28cc16d6607.png",
+        "byteExactSource": true,
+        "result": "PASS"
+      },
+      "metrics": [
+        {
+          "metric": "left",
+          "legacy": 95,
+          "expectedHD": 190,
+          "currentHD": 183,
+          "delta": -7,
+          "toleranceHD": 6,
+          "result": "FAIL"
+        },
+        {
+          "metric": "right",
+          "legacy": 481,
+          "expectedHD": 962,
+          "currentHD": 970,
+          "delta": 8,
+          "toleranceHD": 6,
+          "result": "FAIL"
+        },
+        {
+          "metric": "top",
+          "legacy": 1,
+          "expectedHD": 2,
+          "currentHD": 2,
+          "delta": 0,
+          "toleranceHD": 6,
+          "result": "PASS"
+        },
+        {
+          "metric": "bottom",
+          "legacy": 748,
+          "expectedHD": 1496,
+          "currentHD": 1495,
+          "delta": -1,
+          "toleranceHD": 4,
+          "result": "PASS"
+        },
+        {
+          "metric": "width",
+          "legacy": 386,
+          "expectedHD": 772,
+          "currentHD": 787,
+          "delta": 15,
+          "toleranceHD": 12,
+          "result": "FAIL"
+        },
+        {
+          "metric": "height",
+          "legacy": 747,
+          "expectedHD": 1494,
+          "currentHD": 1493,
+          "delta": -1,
+          "toleranceHD": 10,
+          "result": "PASS"
+        },
+        {
+          "metric": "centerX",
+          "legacy": 288,
+          "expectedHD": 576,
+          "currentHD": 576.5,
+          "delta": 0.5,
+          "toleranceHD": 4,
+          "result": "PASS"
+        },
+        {
+          "metric": "centerY",
+          "legacy": 374.5,
+          "expectedHD": 749,
+          "currentHD": 748.5,
+          "delta": -0.5,
+          "toleranceHD": 4,
+          "result": "PASS"
+        },
+        {
+          "metric": "feetBaseline",
+          "legacy": 748,
+          "expectedHD": 1496,
+          "currentHD": 1495,
+          "delta": -1,
+          "toleranceHD": 4,
+          "result": "PASS"
+        },
+        {
+          "metric": "hairTop",
+          "legacy": 1,
+          "expectedHD": 2,
+          "currentHD": 2,
+          "delta": 0,
+          "toleranceHD": 6,
+          "result": "PASS"
+        },
+        {
+          "metric": "maxSilhouetteWidth",
+          "legacy": 382,
+          "expectedHD": 764,
+          "currentHD": 772,
+          "delta": 8,
+          "toleranceHD": 12,
+          "result": "PASS"
+        },
+        {
+          "metric": "alphaCentroidX",
+          "legacy": 272.10102599083984,
+          "expectedHD": 544.2020519816797,
+          "currentHD": 546.3787928999338,
+          "delta": 2.176740918254154,
+          "toleranceHD": 4,
+          "result": "PASS"
+        },
+        {
+          "metric": "alphaCentroidY",
+          "legacy": 376.9654824384336,
+          "expectedHD": 753.9309648768672,
+          "currentHD": 756.5978505405678,
+          "delta": 2.6668856637006684,
+          "toleranceHD": 4,
+          "result": "PASS"
+        }
+      ],
+      "rawAlphaDiagnostics": [
+        {
+          "metric": "left",
+          "legacy": 0,
+          "expectedHD": 0,
+          "currentHD": 0,
+          "delta": 0,
+          "toleranceHD": 6,
+          "result": "PASS"
+        },
+        {
+          "metric": "right",
+          "legacy": 486,
+          "expectedHD": 972,
+          "currentHD": 1000,
+          "delta": 28,
+          "toleranceHD": 6,
+          "result": "FAIL"
+        },
+        {
+          "metric": "top",
+          "legacy": 0,
+          "expectedHD": 0,
+          "currentHD": 0,
+          "delta": 0,
+          "toleranceHD": 6,
+          "result": "PASS"
+        },
+        {
+          "metric": "bottom",
+          "legacy": 752,
+          "expectedHD": 1504,
+          "currentHD": 1504,
+          "delta": 0,
+          "toleranceHD": 4,
+          "result": "PASS"
+        },
+        {
+          "metric": "width",
+          "legacy": 486,
+          "expectedHD": 972,
+          "currentHD": 1000,
+          "delta": 28,
+          "toleranceHD": 12,
+          "result": "FAIL"
+        },
+        {
+          "metric": "height",
+          "legacy": 752,
+          "expectedHD": 1504,
+          "currentHD": 1504,
+          "delta": 0,
+          "toleranceHD": 10,
+          "result": "PASS"
+        },
+        {
+          "metric": "centerX",
+          "legacy": 243,
+          "expectedHD": 486,
+          "currentHD": 500,
+          "delta": 14,
+          "toleranceHD": 4,
+          "result": "FAIL"
+        },
+        {
+          "metric": "centerY",
+          "legacy": 376,
+          "expectedHD": 752,
+          "currentHD": 752,
+          "delta": 0,
+          "toleranceHD": 4,
+          "result": "PASS"
+        },
+        {
+          "metric": "feetBaseline",
+          "legacy": 752,
+          "expectedHD": 1504,
+          "currentHD": 1504,
+          "delta": 0,
+          "toleranceHD": 4,
+          "result": "PASS"
+        },
+        {
+          "metric": "hairTop",
+          "legacy": 0,
+          "expectedHD": 0,
+          "currentHD": 0,
+          "delta": 0,
+          "toleranceHD": 6,
+          "result": "PASS"
+        },
+        {
+          "metric": "maxSilhouetteWidth",
+          "legacy": 423,
+          "expectedHD": 846,
+          "currentHD": 974,
+          "delta": 128,
+          "toleranceHD": 12,
+          "result": "FAIL"
+        },
+        {
+          "metric": "alphaCentroidX",
+          "legacy": 271.38962333849844,
+          "expectedHD": 542.7792466769969,
+          "currentHD": 544.0786932436145,
+          "delta": 1.2994465666175756,
+          "toleranceHD": 4,
+          "result": "PASS"
+        },
+        {
+          "metric": "alphaCentroidY",
+          "legacy": 379.0325892944707,
+          "expectedHD": 758.0651785889414,
+          "currentHD": 760.8283927604598,
+          "delta": 2.7632141715183707,
+          "toleranceHD": 4,
+          "result": "PASS"
+        }
+      ],
+      "silhouette": {
+        "iou": 0.9691155277858405,
+        "xorPixels": 18195,
+        "unionPixels": 589131,
+        "note": "Diagnostic only. No IoU threshold replaces visual review of anatomy/pose."
+      },
+      "evidencePath": "build/task-0049-final-batch/female_short_ochre_dark/attempt-2",
+      "visualConsistency": "AUTHOR_INSPECTION_PENDING",
+      "humanReview": "NOT_ELIGIBLE_GEOMETRY_FAILED",
+      "similarErrorPatternToPrevious": true,
+      "patternEvidence": {
+        "repeated": true,
+        "repeatedMetrics": [
+          "right",
+          "width"
+        ],
+        "rule": "same single failure or >=2 matching failures covering >=2/3 of both failure sets; same direction and delta difference <=3px"
+      }
+    }
+  ],
+  "comparisons": [
+    {
+      "id": "female_short_ochre_light",
+      "role": "INSPECTION_ONLY_STYLE_TONE_NOT_GENERATION_GEOMETRY_REFERENCE",
+      "latest": [
+        {
+          "metric": "left",
+          "legacy": 95,
+          "expectedHD": 190,
+          "currentHD": 187,
+          "delta": -3,
+          "toleranceHD": 6,
+          "result": "PASS"
+        },
+        {
+          "metric": "right",
+          "legacy": 481,
+          "expectedHD": 962,
+          "currentHD": 964,
+          "delta": 2,
+          "toleranceHD": 6,
+          "result": "PASS"
+        },
+        {
+          "metric": "top",
+          "legacy": 1,
+          "expectedHD": 2,
+          "currentHD": 2,
+          "delta": 0,
+          "toleranceHD": 6,
+          "result": "PASS"
+        },
+        {
+          "metric": "bottom",
+          "legacy": 748,
+          "expectedHD": 1496,
+          "currentHD": 1496,
+          "delta": 0,
+          "toleranceHD": 4,
+          "result": "PASS"
+        },
+        {
+          "metric": "width",
+          "legacy": 386,
+          "expectedHD": 772,
+          "currentHD": 777,
+          "delta": 5,
+          "toleranceHD": 12,
+          "result": "PASS"
+        },
+        {
+          "metric": "height",
+          "legacy": 747,
+          "expectedHD": 1494,
+          "currentHD": 1494,
+          "delta": 0,
+          "toleranceHD": 10,
+          "result": "PASS"
+        },
+        {
+          "metric": "centerX",
+          "legacy": 288,
+          "expectedHD": 576,
+          "currentHD": 575.5,
+          "delta": -0.5,
+          "toleranceHD": 4,
+          "result": "PASS"
+        },
+        {
+          "metric": "centerY",
+          "legacy": 374.5,
+          "expectedHD": 749,
+          "currentHD": 749,
+          "delta": 0,
+          "toleranceHD": 4,
+          "result": "PASS"
+        },
+        {
+          "metric": "feetBaseline",
+          "legacy": 748,
+          "expectedHD": 1496,
+          "currentHD": 1496,
+          "delta": 0,
+          "toleranceHD": 4,
+          "result": "PASS"
+        },
+        {
+          "metric": "hairTop",
+          "legacy": 1,
+          "expectedHD": 2,
+          "currentHD": 2,
+          "delta": 0,
+          "toleranceHD": 6,
+          "result": "PASS"
+        },
+        {
+          "metric": "maxSilhouetteWidth",
+          "legacy": 382,
+          "expectedHD": 764,
+          "currentHD": 767,
+          "delta": 3,
+          "toleranceHD": 12,
+          "result": "PASS"
+        },
+        {
+          "metric": "alphaCentroidX",
+          "legacy": 272.10102599083984,
+          "expectedHD": 544.2020519816797,
+          "currentHD": 544.3618722996987,
+          "delta": 0.1598203180190012,
+          "toleranceHD": 4,
+          "result": "PASS"
+        },
+        {
+          "metric": "alphaCentroidY",
+          "legacy": 376.9654824384336,
+          "expectedHD": 753.9309648768672,
+          "currentHD": 755.3820816651141,
+          "delta": 1.4511167882469636,
+          "toleranceHD": 4,
+          "result": "PASS"
+        }
+      ]
+    },
+    {
+      "id": "female_short_ochre_medium",
+      "role": "INSPECTION_ONLY_STYLE_TONE_NOT_GENERATION_GEOMETRY_REFERENCE",
+      "latest": [
+        {
+          "metric": "left",
+          "legacy": 95,
+          "expectedHD": 190,
+          "currentHD": 186,
+          "delta": -4,
+          "toleranceHD": 6,
+          "result": "PASS"
+        },
+        {
+          "metric": "right",
+          "legacy": 481,
+          "expectedHD": 962,
+          "currentHD": 965,
+          "delta": 3,
+          "toleranceHD": 6,
+          "result": "PASS"
+        },
+        {
+          "metric": "top",
+          "legacy": 1,
+          "expectedHD": 2,
+          "currentHD": 2,
+          "delta": 0,
+          "toleranceHD": 6,
+          "result": "PASS"
+        },
+        {
+          "metric": "bottom",
+          "legacy": 748,
+          "expectedHD": 1496,
+          "currentHD": 1497,
+          "delta": 1,
+          "toleranceHD": 4,
+          "result": "PASS"
+        },
+        {
+          "metric": "width",
+          "legacy": 386,
+          "expectedHD": 772,
+          "currentHD": 779,
+          "delta": 7,
+          "toleranceHD": 12,
+          "result": "PASS"
+        },
+        {
+          "metric": "height",
+          "legacy": 747,
+          "expectedHD": 1494,
+          "currentHD": 1495,
+          "delta": 1,
+          "toleranceHD": 10,
+          "result": "PASS"
+        },
+        {
+          "metric": "centerX",
+          "legacy": 288,
+          "expectedHD": 576,
+          "currentHD": 575.5,
+          "delta": -0.5,
+          "toleranceHD": 4,
+          "result": "PASS"
+        },
+        {
+          "metric": "centerY",
+          "legacy": 374.5,
+          "expectedHD": 749,
+          "currentHD": 749.5,
+          "delta": 0.5,
+          "toleranceHD": 4,
+          "result": "PASS"
+        },
+        {
+          "metric": "feetBaseline",
+          "legacy": 748,
+          "expectedHD": 1496,
+          "currentHD": 1497,
+          "delta": 1,
+          "toleranceHD": 4,
+          "result": "PASS"
+        },
+        {
+          "metric": "hairTop",
+          "legacy": 1,
+          "expectedHD": 2,
+          "currentHD": 2,
+          "delta": 0,
+          "toleranceHD": 6,
+          "result": "PASS"
+        },
+        {
+          "metric": "maxSilhouetteWidth",
+          "legacy": 382,
+          "expectedHD": 764,
+          "currentHD": 770,
+          "delta": 6,
+          "toleranceHD": 12,
+          "result": "PASS"
+        },
+        {
+          "metric": "alphaCentroidX",
+          "legacy": 272.10102599083984,
+          "expectedHD": 544.2020519816797,
+          "currentHD": 544.2999274142431,
+          "delta": 0.09787543256345543,
+          "toleranceHD": 4,
+          "result": "PASS"
+        },
+        {
+          "metric": "alphaCentroidY",
+          "legacy": 376.9654824384336,
+          "expectedHD": 753.9309648768672,
+          "currentHD": 756.6896328455662,
+          "delta": 2.758667968699001,
+          "toleranceHD": 4,
+          "result": "PASS"
+        }
+      ]
+    },
+    {
+      "id": "female_short_blue_dark",
+      "role": "INSPECTION_ONLY_STYLE_TONE_NOT_GENERATION_GEOMETRY_REFERENCE",
+      "latest": [
+        {
+          "metric": "left",
+          "legacy": 95,
+          "expectedHD": 190,
+          "currentHD": 186,
+          "delta": -4,
+          "toleranceHD": 6,
+          "result": "PASS"
+        },
+        {
+          "metric": "right",
+          "legacy": 481,
+          "expectedHD": 962,
+          "currentHD": 966,
+          "delta": 4,
+          "toleranceHD": 6,
+          "result": "PASS"
+        },
+        {
+          "metric": "top",
+          "legacy": 1,
+          "expectedHD": 2,
+          "currentHD": 2,
+          "delta": 0,
+          "toleranceHD": 6,
+          "result": "PASS"
+        },
+        {
+          "metric": "bottom",
+          "legacy": 748,
+          "expectedHD": 1496,
+          "currentHD": 1497,
+          "delta": 1,
+          "toleranceHD": 4,
+          "result": "PASS"
+        },
+        {
+          "metric": "width",
+          "legacy": 386,
+          "expectedHD": 772,
+          "currentHD": 780,
+          "delta": 8,
+          "toleranceHD": 12,
+          "result": "PASS"
+        },
+        {
+          "metric": "height",
+          "legacy": 747,
+          "expectedHD": 1494,
+          "currentHD": 1495,
+          "delta": 1,
+          "toleranceHD": 10,
+          "result": "PASS"
+        },
+        {
+          "metric": "centerX",
+          "legacy": 288,
+          "expectedHD": 576,
+          "currentHD": 576,
+          "delta": 0,
+          "toleranceHD": 4,
+          "result": "PASS"
+        },
+        {
+          "metric": "centerY",
+          "legacy": 374.5,
+          "expectedHD": 749,
+          "currentHD": 749.5,
+          "delta": 0.5,
+          "toleranceHD": 4,
+          "result": "PASS"
+        },
+        {
+          "metric": "feetBaseline",
+          "legacy": 748,
+          "expectedHD": 1496,
+          "currentHD": 1497,
+          "delta": 1,
+          "toleranceHD": 4,
+          "result": "PASS"
+        },
+        {
+          "metric": "hairTop",
+          "legacy": 1,
+          "expectedHD": 2,
+          "currentHD": 2,
+          "delta": 0,
+          "toleranceHD": 6,
+          "result": "PASS"
+        },
+        {
+          "metric": "maxSilhouetteWidth",
+          "legacy": 382,
+          "expectedHD": 764,
+          "currentHD": 768,
+          "delta": 4,
+          "toleranceHD": 12,
+          "result": "PASS"
+        },
+        {
+          "metric": "alphaCentroidX",
+          "legacy": 272.10102599083984,
+          "expectedHD": 544.2020519816797,
+          "currentHD": 545.208869673082,
+          "delta": 1.0068176914022615,
+          "toleranceHD": 4,
+          "result": "PASS"
+        },
+        {
+          "metric": "alphaCentroidY",
+          "legacy": 376.9654824384336,
+          "expectedHD": 753.9309648768672,
+          "currentHD": 755.7895814879477,
+          "delta": 1.8586166110804925,
+          "toleranceHD": 4,
+          "result": "PASS"
+        }
+      ]
+    },
+    {
+      "id": "female_short_blue_light",
+      "role": "INSPECTION_ONLY_STYLE_TONE_NOT_GENERATION_GEOMETRY_REFERENCE",
+      "latest": [
+        {
+          "metric": "left",
+          "legacy": 95,
+          "expectedHD": 190,
+          "currentHD": 185,
+          "delta": -5,
+          "toleranceHD": 6,
+          "result": "PASS"
+        },
+        {
+          "metric": "right",
+          "legacy": 481,
+          "expectedHD": 962,
+          "currentHD": 964,
+          "delta": 2,
+          "toleranceHD": 6,
+          "result": "PASS"
+        },
+        {
+          "metric": "top",
+          "legacy": 1,
+          "expectedHD": 2,
+          "currentHD": 2,
+          "delta": 0,
+          "toleranceHD": 6,
+          "result": "PASS"
+        },
+        {
+          "metric": "bottom",
+          "legacy": 748,
+          "expectedHD": 1496,
+          "currentHD": 1496,
+          "delta": 0,
+          "toleranceHD": 4,
+          "result": "PASS"
+        },
+        {
+          "metric": "width",
+          "legacy": 386,
+          "expectedHD": 772,
+          "currentHD": 779,
+          "delta": 7,
+          "toleranceHD": 12,
+          "result": "PASS"
+        },
+        {
+          "metric": "height",
+          "legacy": 747,
+          "expectedHD": 1494,
+          "currentHD": 1494,
+          "delta": 0,
+          "toleranceHD": 10,
+          "result": "PASS"
+        },
+        {
+          "metric": "centerX",
+          "legacy": 288,
+          "expectedHD": 576,
+          "currentHD": 574.5,
+          "delta": -1.5,
+          "toleranceHD": 4,
+          "result": "PASS"
+        },
+        {
+          "metric": "centerY",
+          "legacy": 374.5,
+          "expectedHD": 749,
+          "currentHD": 749,
+          "delta": 0,
+          "toleranceHD": 4,
+          "result": "PASS"
+        },
+        {
+          "metric": "feetBaseline",
+          "legacy": 748,
+          "expectedHD": 1496,
+          "currentHD": 1496,
+          "delta": 0,
+          "toleranceHD": 4,
+          "result": "PASS"
+        },
+        {
+          "metric": "hairTop",
+          "legacy": 1,
+          "expectedHD": 2,
+          "currentHD": 2,
+          "delta": 0,
+          "toleranceHD": 6,
+          "result": "PASS"
+        },
+        {
+          "metric": "maxSilhouetteWidth",
+          "legacy": 382,
+          "expectedHD": 764,
+          "currentHD": 768,
+          "delta": 4,
+          "toleranceHD": 12,
+          "result": "PASS"
+        },
+        {
+          "metric": "alphaCentroidX",
+          "legacy": 272.10102599083984,
+          "expectedHD": 544.2020519816797,
+          "currentHD": 544.5291689748798,
+          "delta": 0.327116993200093,
+          "toleranceHD": 4,
+          "result": "PASS"
+        },
+        {
+          "metric": "alphaCentroidY",
+          "legacy": 376.9654824384336,
+          "expectedHD": 753.9309648768672,
+          "currentHD": 755.9454081946695,
+          "delta": 2.0144433178023746,
+          "toleranceHD": 4,
+          "result": "PASS"
+        }
+      ]
+    },
+    {
+      "id": "female_short_blue_medium",
+      "role": "INSPECTION_ONLY_STYLE_TONE_NOT_GENERATION_GEOMETRY_REFERENCE",
+      "latest": [
+        {
+          "metric": "left",
+          "legacy": 95,
+          "expectedHD": 190,
+          "currentHD": 187,
+          "delta": -3,
+          "toleranceHD": 6,
+          "result": "PASS"
+        },
+        {
+          "metric": "right",
+          "legacy": 481,
+          "expectedHD": 962,
+          "currentHD": 965,
+          "delta": 3,
+          "toleranceHD": 6,
+          "result": "PASS"
+        },
+        {
+          "metric": "top",
+          "legacy": 1,
+          "expectedHD": 2,
+          "currentHD": 2,
+          "delta": 0,
+          "toleranceHD": 6,
+          "result": "PASS"
+        },
+        {
+          "metric": "bottom",
+          "legacy": 748,
+          "expectedHD": 1496,
+          "currentHD": 1495,
+          "delta": -1,
+          "toleranceHD": 4,
+          "result": "PASS"
+        },
+        {
+          "metric": "width",
+          "legacy": 386,
+          "expectedHD": 772,
+          "currentHD": 778,
+          "delta": 6,
+          "toleranceHD": 12,
+          "result": "PASS"
+        },
+        {
+          "metric": "height",
+          "legacy": 747,
+          "expectedHD": 1494,
+          "currentHD": 1493,
+          "delta": -1,
+          "toleranceHD": 10,
+          "result": "PASS"
+        },
+        {
+          "metric": "centerX",
+          "legacy": 288,
+          "expectedHD": 576,
+          "currentHD": 576,
+          "delta": 0,
+          "toleranceHD": 4,
+          "result": "PASS"
+        },
+        {
+          "metric": "centerY",
+          "legacy": 374.5,
+          "expectedHD": 749,
+          "currentHD": 748.5,
+          "delta": -0.5,
+          "toleranceHD": 4,
+          "result": "PASS"
+        },
+        {
+          "metric": "feetBaseline",
+          "legacy": 748,
+          "expectedHD": 1496,
+          "currentHD": 1495,
+          "delta": -1,
+          "toleranceHD": 4,
+          "result": "PASS"
+        },
+        {
+          "metric": "hairTop",
+          "legacy": 1,
+          "expectedHD": 2,
+          "currentHD": 2,
+          "delta": 0,
+          "toleranceHD": 6,
+          "result": "PASS"
+        },
+        {
+          "metric": "maxSilhouetteWidth",
+          "legacy": 382,
+          "expectedHD": 764,
+          "currentHD": 767,
+          "delta": 3,
+          "toleranceHD": 12,
+          "result": "PASS"
+        },
+        {
+          "metric": "alphaCentroidX",
+          "legacy": 272.10102599083984,
+          "expectedHD": 544.2020519816797,
+          "currentHD": 545.0229538094162,
+          "delta": 0.8209018277365203,
+          "toleranceHD": 4,
+          "result": "PASS"
+        },
+        {
+          "metric": "alphaCentroidY",
+          "legacy": 376.9654824384336,
+          "expectedHD": 753.9309648768672,
+          "currentHD": 753.8787520898862,
+          "delta": -0.052212786980931014,
+          "toleranceHD": 4,
+          "result": "PASS"
+        }
+      ]
+    }
+  ],
+  "hypothesis": "Repeated cape expansion, not whole-body zoom/translation: right +8px twice, width +14/+15, left -6/-7; head/feet/centers valid. Fine folds/frayed cape edges were probabilistically redrawn beyond own footprint. Related approved short examples limit right to +2/+3/+4. No proof that dark tone causes geometry drift; tone-sensitive segmentation is possible but unconfirmed.",
+  "controlledChange": "For ochre_dark, replace third filled black silhouette reference with cyan one-pixel contour over own colored2x guide. Own original remains primary identity/geometric reference. Trace exact boundary points before cloth detail; keep source dark skin and muted ochre. No references of other identities sent to generator. Retry only with targeted measured correction or concrete reference/prompt change.",
+  "limits": "Tool has no hard-mask/seed exposed; contour is visual probabilistic control. Own alpha>=128 measurements unchanged, final PNG never transformed."
+}

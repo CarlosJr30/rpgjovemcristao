@@ -1,0 +1,15 @@
+{
+  "id": "male_long_moss_light",
+  "attempt": 1,
+  "tool": "imagegen built-in",
+  "prompt": "Use case: identity-preserve. TASK-0049C Batch2 male_long_moss_light attempt 1. Regenerate THIS EXACT SOURCE IMAGE in native high definition, not a similar new character. Image1 is the original512x768 legacy: sole source of identity, face, skin, hairstyle, pose and clothing. Image2 is this same legacy nearest2x on the exact target1024x1536 canvas: STRUCTURAL GUIDE ONLY, never the final enlarged asset. Image3 is this same target alpha>=128 silhouette on white: VISUAL FOOTPRINT CONSTRAINT ONLY. Black is the character footprint; white means transparent exterior in final PNG. These three references are the SAME identity. Draw new fine native detail INSIDE the same reference footprint. Preserve exact same pose as reference, exact same body placement, exact same feet baseline, exact same head position, exact same silhouette proportions, same framing. No zoom, no crop, no camera change, no pose reinterpretation, no limb repositioning. Preserve identity, hairstyle, facial structure/expression and clothing layout. Male youthful adventurer, light warm skin, long flowing brown hair reaching shoulders, with the exact same hairline, curls and framing as the source, moss green matching the source cloak. Retain every existing buckle, sleeve, glove, pouch, trouser patch and boot; no extra equipment. Canvas exactly1024x1536 RGBA PNG, real transparent background, full body entirely visible. Alpha128 geometry from THIS individual source: left172,right932,top14,bottom1514 (right/bottom exclusive pixel edges),width760,height1500,centerX552,centerY764,feet1514,hairTop14,maximum row span758; preserve22px transparent space below boots. Trace Image3 external boundary and Image2 internal body placement, especially cape tips, boots and head. Do not broaden cape/torso, shift head/body, move feet, shorten hair or change anatomy. Keep material style and warm lighting of original storybook RPG: native fine strands, cream cloth weave, moss green matching the source fabric detail and brown leather stitches, with clear crisp detail at1024, not interpolation or enlarged pixels. Only fine texture/material/edge detail may improve; geometry and identity override reinterpretation. Actual transparent exterior, no background/checkerboard/ground/shadow/scenery, no text, no watermark, no sheet. ",
+  "referenced_image_paths": [
+    "D:\\rpg-jovem-cristao\\apps\\web\\public\\assets\\avatar\\runtime\\male\\male_long_moss_light.png",
+    "D:\\rpg-jovem-cristao\\build\\task-0049-batch-2\\male_long_moss_light\\control\\legacy_2x.png",
+    "D:\\rpg-jovem-cristao\\build\\task-0049-batch-2\\male_long_moss_light\\control\\silhouette_control_on_white.png"
+  ],
+  "transparent_background": true,
+  "postProcessingFinal": "NONE; byte-exact copy only",
+  "outputPath": "C:\\Users\\carlo\\.codex\\generated_images\\01a10ddf-bdf6-7473-a73f-35a04d0aeb34\\exec-01c9aa89-3487-444b-a306-48ea6c7ce236.png",
+  "sha256": "24bbc5a3ec9a4ccee28864dc6868de1e137a29575d34bda072c7298d8dd8b0dd"
+}

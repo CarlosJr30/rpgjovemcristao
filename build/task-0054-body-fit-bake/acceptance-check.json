@@ -1,0 +1,19 @@
+{
+  "timestamp": "2026-10-08T07:37:58.775Z",
+  "technicalStatus": "PILOT_COMPLETE",
+  "taskStatus": "DONE",
+  "fitStatus": "FIT_PASS",
+  "reviewStatus": "HUMAN_BODY_FIT_APPROVED",
+  "humanBodyFitApproved": true,
+  "ready": true,
+  "readyScope": "STAGING_ONLY; exact hash and female_short_moss_medium reference",
+  "sha256": "ebee2f026c2dd6aac6b47850c8412f243cdc20c51a36d6f91e2d6cf3b46c20cb",
+  "runtimeActivated": false,
+  "otherTargetsProcessed": 0,
+  "bakeMetadataPreserved": true,
+  "requiredEvidence": 9,
+  "unit": 24,
+  "approvalE2e": 2,
+  "lint": "PASS",
+  "preservation": 285
+}

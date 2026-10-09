@@ -1,0 +1,82 @@
+{
+  "task": "TASK-0056",
+  "id": "sword_path_rare_female_v2",
+  "output": {
+    "path": "build/task-0056-sword-downward/attempt-02/sword_path_rare_female_v2/sword_path_rare_female_v2_downward_baked.png",
+    "format": "png",
+    "width": 1024,
+    "height": 1536,
+    "channels": 4,
+    "hasAlpha": true,
+    "integrity": {
+      "status": "CRC_PASS",
+      "chunks": 19
+    },
+    "alpha128Bounds": {
+      "left": 126,
+      "top": 728,
+      "right": 347,
+      "bottom": 1248,
+      "count": 28651
+    },
+    "alphaPositiveBoundsDiagnostic": {
+      "left": 85,
+      "top": 726,
+      "right": 392,
+      "bottom": 1250,
+      "count": 31679
+    },
+    "transparentPixels": 1541185,
+    "sha256": "213b5f5cf9bc7efb5fa1bdb85b053920452d41980784222e36829fb0c3acb2d4",
+    "decode": "PASS"
+  },
+  "source": {
+    "path": "assets-source/body-fit-v2-targets/sword_path_rare_female_v2.png",
+    "format": "png",
+    "width": 1024,
+    "height": 1536,
+    "channels": 4,
+    "hasAlpha": true,
+    "integrity": {
+      "status": "CRC_PASS",
+      "chunks": 26
+    },
+    "alpha128Bounds": {
+      "left": 191,
+      "top": 6,
+      "right": 833,
+      "bottom": 1519,
+      "count": 240565
+    },
+    "alphaPositiveBoundsDiagnostic": {
+      "left": 31,
+      "top": 0,
+      "right": 997,
+      "bottom": 1522,
+      "count": 265723
+    },
+    "transparentPixels": 1307141,
+    "sha256": "5b445879d181b54e7a4f22761f63602cce83b15341255df8409d5b6b2f8a6ab8",
+    "decode": "PASS"
+  },
+  "avatar": {
+    "path": "apps/web/public/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+    "sha256": "f260cb9b053b35c328025f1bc7ee602cbb30e57c71ba1f2238a4b1519685f460",
+    "id": "female_short_moss_medium",
+    "immutable": true,
+    "footBaseline": 1495
+  },
+  "transform": {
+    "scale": 0.345,
+    "rotation": 0,
+    "translateX": 60.015000000000015,
+    "translateY": 725.75
+  },
+  "status": "NEEDS_REWORK",
+  "metadataSha256": "e9af1606221611a0d7aecdfe1bee0c508ee7fdce377eb8c80f2042149aa90faa",
+  "reportSha256": "615a703cd0ea42107311d5d7877b8c1b8354de9cc0f522b59bfaa9b44dca1b98",
+  "runtimePath": null,
+  "humanBodyFitApproved": false,
+  "ready": false,
+  "runtimeActivated": false
+}

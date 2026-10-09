@@ -1,0 +1,42 @@
+{
+  "task": "TASK-0056",
+  "localDate": "2026-10-08",
+  "timezone": "America/Sao_Paulo",
+  "taskStatus": "REWORK",
+  "technicalStatus": "PASS",
+  "acceptance": "FAIL_OPEN_HAND_REQUIRES_REWORK",
+  "assessedBy": "Codex / author; not independent QA or Carlos Faustino approval",
+  "counts": {
+    "targets": 4,
+    "attemptsPerTarget": 2,
+    "bakedCandidatePngs": 8,
+    "downwardSelected": 4,
+    "FIT_PASS": 0,
+    "NEEDS_REWORK": 4,
+    "HUMAN_BODY_FIT_REVIEW_PENDING": 0,
+    "HUMAN_APPROVED": 0,
+    "READY": 0,
+    "runtimeActivated": 0
+  },
+  "checks": [
+    {"name":"physical inventory", "command":"node scripts/body-fit-sword-inspect.mjs", "status":"PASS", "pngFiles":4482, "newMappedSwordArtLocated":0, "evidence":"build/task-0056-sword-downward/physical-png-inventory.json"},
+    {"name":"PNG / CRC / decode / alpha / hashes / zero visible clipping / receipts", "command":"node scripts/body-fit-sword-check.mjs", "status":"PASS", "candidateChecks":8, "evidence":"build/task-0056-sword-downward/asset-validation.json"},
+    {"name":"unit / compatibility / determinism / alpha mask / approval gates", "command":"node --test scripts/body-fit-bake.test.mjs scripts/body-fit-batch-bake.test.mjs scripts/body-fit-sword-bake.test.mjs", "status":"PASS", "tests":40, "newTests":11, "exitCode":0},
+    {"name":"local browser review", "command":"node scripts/body-fit-sword-review-check.mjs", "status":"PASS", "viewports":6, "targetSamples":24, "viewSamples":240, "evidence":"build/task-0056-sword-downward/browser-check.json"},
+    {"name":"lint", "command":"npm run lint", "status":"PASS", "exitCode":0},
+    {"name":"typecheck", "command":"npm run typecheck", "status":"PASS", "exitCode":0},
+    {"name":"build", "command":"npm run build", "status":"PASS", "avatarAudit":54, "exitCode":0},
+    {"name":"gameplay / Portal E2E", "status":"N/A", "reason":"Offline artifact/script change only; runtime code byte-preserved. Local review tested, no runtime integration added."},
+    {"name":"visual fit acceptance", "status":"FAIL", "reason":"All four hands remain open; experimental mask has visible cuts/halo and cannot close the thumb."},
+    {"name":"Security review", "status":"PASS", "independent":false, "evidence":"docs/security/TASK-0056-sword-downward-review.md"},
+    {"name":"preservation", "status":"PASS", "checked":709, "unchanged":707, "authorizedChanges":["scripts/body-fit-bake.mjs","scripts/body-fit-sword-inspect.mjs"], "avatarHdIntact":54, "originalSourcesIntact":16, "remainingEquipmentTargetsUnchanged":12, "historicalCandidatesIntact":true, "runtimeIntact":true, "evidence":"build/task-0056-sword-downward/preservation-after.json"},
+    {"name":"memory / contract / documentation", "status":"PASS", "contract":"tasks/active/TASK-0056-body-fit-sword-downward.md", "report":"docs/architecture/TASK-0056-SWORD-DOWNWARD-REPORT.md"}
+  ],
+  "reviewPath":"build/task-0056-sword-downward/review/index.html",
+  "manifestPath":"docs/architecture/TASK-0056-BAKED-ASSET-MANIFEST.json",
+  "pendingHumanReview":["Inspect four hands and offline mask diagnostics by exact hash", "Evaluate rare short-sword proportion and guard/pocket clearance", "Evaluate precise offline mask plus compatible grip art; if open pose still prevents holding, consider separately authorized foreground hand layer preserving original HD"],
+  "noRemoteOperations":true,
+  "noDependenciesInstalled":true,
+  "noPushOrDeploy":true,
+  "noSupabaseOperations":true
+}

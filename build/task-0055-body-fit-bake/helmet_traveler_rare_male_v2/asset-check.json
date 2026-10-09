@@ -1,0 +1,21 @@
+{
+  "id": "helmet_traveler_rare_male_v2",
+  "status": "PASS",
+  "technical": "TECHNICALLY_VALIDATED",
+  "mapping": "MAPPED",
+  "fitStatus": "NEEDS_REWORK",
+  "sha256": "8fbbdf7afc106525713572b897edef3a3782eeb860eb40bab7606199c75c184e",
+  "clippedAlpha128SourcePixels": 4150,
+  "alpha128Bounds": {
+    "left": 339,
+    "top": 0,
+    "right": 678,
+    "bottom": 449,
+    "count": 79808
+  },
+  "footBaselineDelta": null,
+  "maxLandmarkResidual": 38.16083962263791,
+  "humanBodyFitApproved": false,
+  "ready": false,
+  "runtimeActivated": false
+}

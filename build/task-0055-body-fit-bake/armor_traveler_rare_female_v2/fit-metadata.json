@@ -1,0 +1,413 @@
+{
+  "task": "TASK-0055",
+  "id": "armor_traveler_rare_female_v2",
+  "itemId": "traveler-armor-rare",
+  "slot": "armor",
+  "gender": "female",
+  "at": "2026-10-08T20:23:12.588Z",
+  "source": {
+    "path": "assets-source/body-fit-v2-targets/armor_traveler_rare_female_v2.png",
+    "format": "png",
+    "width": 1024,
+    "height": 1536,
+    "channels": 4,
+    "hasAlpha": true,
+    "integrity": {
+      "status": "CRC_PASS",
+      "chunks": 50
+    },
+    "alpha128Bounds": {
+      "left": 9,
+      "top": 53,
+      "right": 1014,
+      "bottom": 1503,
+      "count": 1001905
+    },
+    "alphaPositiveBoundsDiagnostic": {
+      "left": 0,
+      "top": 31,
+      "right": 1023,
+      "bottom": 1535,
+      "count": 1052404
+    },
+    "transparentPixels": 520460,
+    "sha256": "dffb2c8c352f6b4ccd17049479d4d76917cac711c346c9ab685e57ac0434b209",
+    "decode": "PASS",
+    "approval": "SOURCE_VISUAL_APPROVED (inherited; not body-fit approval)"
+  },
+  "avatar": {
+    "id": "female_short_moss_medium",
+    "path": "apps/web/public/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+    "sha256": "f260cb9b053b35c328025f1bc7ee602cbb30e57c71ba1f2238a4b1519685f460",
+    "immutable": true,
+    "footBaseline": 1495
+  },
+  "mapping": {
+    "status": "MAPPED",
+    "errors": [],
+    "targetFilename": "armor_traveler_rare_female_v2.png",
+    "itemId": "traveler-armor-rare",
+    "gender": "female",
+    "slot": "armor"
+  },
+  "landmarks": {
+    "neck": {
+      "source": [
+        514,
+        95
+      ],
+      "avatar": [
+        520,
+        302
+      ],
+      "weight": 0.5,
+      "kind": "anatomical garment proxy"
+    },
+    "left_shoulder": {
+      "source": [
+        201,
+        293
+      ],
+      "avatar": [
+        379,
+        346
+      ],
+      "weight": 1,
+      "kind": "anatomical garment proxy"
+    },
+    "right_shoulder": {
+      "source": [
+        821,
+        294
+      ],
+      "avatar": [
+        657,
+        352
+      ],
+      "weight": 1,
+      "kind": "anatomical garment proxy"
+    },
+    "chest": {
+      "source": [
+        514,
+        430
+      ],
+      "avatar": [
+        520,
+        455
+      ],
+      "weight": 1,
+      "kind": "anatomical garment proxy"
+    },
+    "left_armpit": {
+      "source": [
+        275,
+        603
+      ],
+      "avatar": [
+        391,
+        492
+      ],
+      "weight": 1,
+      "kind": "anatomical garment proxy"
+    },
+    "right_armpit": {
+      "source": [
+        750,
+        603
+      ],
+      "avatar": [
+        646,
+        499
+      ],
+      "weight": 1,
+      "kind": "anatomical garment proxy"
+    },
+    "waist": {
+      "source": [
+        514,
+        775
+      ],
+      "avatar": [
+        531,
+        579
+      ],
+      "weight": 3,
+      "kind": "anatomical garment proxy"
+    },
+    "left_hip": {
+      "source": [
+        288,
+        1095
+      ],
+      "avatar": [
+        421,
+        705
+      ],
+      "weight": 1,
+      "kind": "anatomical garment proxy"
+    },
+    "right_hip": {
+      "source": [
+        742,
+        1095
+      ],
+      "avatar": [
+        646,
+        711
+      ],
+      "weight": 1,
+      "kind": "anatomical garment proxy"
+    }
+  },
+  "landmarkResiduals": {
+    "neck": {
+      "source": [
+        514,
+        95
+      ],
+      "avatar": [
+        520,
+        302
+      ],
+      "weight": 0.5,
+      "kind": "anatomical garment proxy",
+      "projected": [
+        525.3455727172652,
+        272.49202286969705
+      ],
+      "delta": [
+        5.345572717265213,
+        -29.507977130302947
+      ],
+      "distance": 29.988262070317642
+    },
+    "left_shoulder": {
+      "source": [
+        201,
+        293
+      ],
+      "avatar": [
+        379,
+        346
+      ],
+      "weight": 1,
+      "kind": "anatomical garment proxy",
+      "projected": [
+        385.4563248183812,
+        360.98426275461406
+      ],
+      "delta": [
+        6.4563248183811766,
+        14.984262754614065
+      ],
+      "distance": 16.316012394569913
+    },
+    "right_shoulder": {
+      "source": [
+        821,
+        294
+      ],
+      "avatar": [
+        657,
+        352
+      ],
+      "weight": 1,
+      "kind": "anatomical garment proxy",
+      "projected": [
+        662.5532375893335,
+        361.4311932590834
+      ],
+      "delta": [
+        5.553237589333548,
+        9.431193259083386
+      ],
+      "distance": 10.944672403218242
+    },
+    "chest": {
+      "source": [
+        514,
+        430
+      ],
+      "avatar": [
+        520,
+        455
+      ],
+      "weight": 1,
+      "kind": "anatomical garment proxy",
+      "projected": [
+        525.3455727172652,
+        422.2137418669052
+      ],
+      "delta": [
+        5.345572717265213,
+        -32.786258133094805
+      ],
+      "distance": 33.21917925002807
+    },
+    "left_armpit": {
+      "source": [
+        275,
+        603
+      ],
+      "avatar": [
+        391,
+        492
+      ],
+      "weight": 1,
+      "kind": "anatomical garment proxy",
+      "projected": [
+        418.5291821491077,
+        499.5327191400903
+      ],
+      "delta": [
+        27.529182149107726,
+        7.5327191400903075
+      ],
+      "distance": 28.541158481081915
+    },
+    "right_armpit": {
+      "source": [
+        750,
+        603
+      ],
+      "avatar": [
+        646,
+        499
+      ],
+      "weight": 1,
+      "kind": "anatomical garment proxy",
+      "projected": [
+        630.8211717720148,
+        499.5327191400903
+      ],
+      "delta": [
+        -15.17882822798515,
+        0.5327191400903075
+      ],
+      "distance": 15.188173558953604
+    },
+    "waist": {
+      "source": [
+        514,
+        775
+      ],
+      "avatar": [
+        531,
+        579
+      ],
+      "weight": 3,
+      "kind": "anatomical garment proxy",
+      "projected": [
+        525.3455727172652,
+        576.4047659088062
+      ],
+      "delta": [
+        -5.654427282734787,
+        -2.595234091193788
+      ],
+      "distance": 6.221558316356919
+    },
+    "left_hip": {
+      "source": [
+        288,
+        1095
+      ],
+      "avatar": [
+        421,
+        705
+      ],
+      "weight": 1,
+      "kind": "anatomical garment proxy",
+      "projected": [
+        424.33927870720834,
+        719.4225273389752
+      ],
+      "delta": [
+        3.3392787072083365,
+        14.422527338975215
+      ],
+      "distance": 14.804056103916336
+    },
+    "right_hip": {
+      "source": [
+        742,
+        1095
+      ],
+      "avatar": [
+        646,
+        711
+      ],
+      "weight": 1,
+      "kind": "anatomical garment proxy",
+      "projected": [
+        627.2457277362606,
+        719.4225273389752
+      ],
+      "delta": [
+        -18.75427226373938,
+        8.422527338975215
+      ],
+      "distance": 20.55873767813212
+    }
+  },
+  "landmarkMethod": "Rare female armor own curved breast/long skirt landmarks; not pilot source geometry; visual native grid measurements approximately ±12px avatar, ±20px source. No hidden anatomy certified.",
+  "transform": {
+    "translateX": 295.62329342005626,
+    "translateY": 230.0336249451156,
+    "scale": 0.4469305044692781,
+    "rotation": 0
+  },
+  "fittingMethod": "Per-source weighted least-squares uniform scale + translation; rotation0 preferred. Anatomy points and placement goals identified separately.",
+  "transformConvention": "Native top-left origin; x=tx+scale*x; y=ty+scale*y; offline only",
+  "pipeline": {
+    "version": 1,
+    "implementation": "TASK-0054 bakeBytes: inverse sampling / premultiplied-alpha bilinear",
+    "sharp": "0.35.4",
+    "vips": "8.18.6",
+    "mask": "NONE",
+    "warp": "NONE",
+    "uniform": true
+  },
+  "output": {
+    "path": "build/task-0055-body-fit-bake/armor_traveler_rare_female_v2/armor_traveler_rare_female_v2_baked.png",
+    "format": "png",
+    "width": 1024,
+    "height": 1536,
+    "channels": 4,
+    "hasAlpha": true,
+    "integrity": {
+      "status": "CRC_PASS",
+      "chunks": 92
+    },
+    "alpha128Bounds": {
+      "left": 300,
+      "top": 254,
+      "right": 748,
+      "bottom": 901,
+      "count": 200114
+    },
+    "alphaPositiveBoundsDiagnostic": {
+      "left": 296,
+      "top": 245,
+      "right": 752,
+      "bottom": 916,
+      "count": 210292
+    },
+    "transparentPixels": 1362572,
+    "sha256": "58be3d1d95eeab11ac0a38d67f06ad88383d018e3720502d31dada7a9f2fc833",
+    "decode": "PASS"
+  },
+  "runtime": {
+    "activated": false,
+    "render": {
+      "top": 0,
+      "left": 0,
+      "width": "100%",
+      "height": "100%",
+      "transform": "none"
+    }
+  },
+  "humanBodyFitApproved": false,
+  "ready": false
+}

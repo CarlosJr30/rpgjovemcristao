@@ -1,0 +1,389 @@
+{
+  "task": "TASK-0050",
+  "at": "2026-10-07T23:58:59.526Z",
+  "runtimeActivationAuthorization": "Explicit TASK-0050 local runtime and production build authorization; no deploy",
+  "total": 54,
+  "queue": 52,
+  "pilots": 2,
+  "totalBytes": 117434147,
+  "assets": [
+    {
+      "id": "male_curly_blue_light",
+      "sourceCandidate": "build/task-0049r-evidence/attempt-2/hd_candidate.png",
+      "approvalReceipt": "docs/architecture/task-0049r/HUMAN-VISUAL-APPROVAL.json",
+      "sha256": "f4a119053fe94850222d606ca7ab5907399fec28246b8700338893a25897713c",
+      "bytes": 2180157
+    },
+    {
+      "id": "male_curly_blue_dark",
+      "sourceCandidate": "build/task-0049-batch-1/male_curly_blue_dark/hd_candidate.png",
+      "approvalReceipt": "docs/architecture/task-0049-batch-1/receipts/male_curly_blue_dark.json",
+      "sha256": "5ff01c5eb2aa68a3fa0ba3c8d3722c21a92861c442a5db4fdc32884e8c9793ae",
+      "bytes": 2192022
+    },
+    {
+      "id": "male_curly_blue_medium",
+      "sourceCandidate": "build/task-0049-batch-1/male_curly_blue_medium/hd_candidate.png",
+      "approvalReceipt": "docs/architecture/task-0049-batch-1/receipts/male_curly_blue_medium.json",
+      "sha256": "65d4233a10037109e5dac652e607b87d9a7856d2e30ba8511bd8ff52d2f40758",
+      "bytes": 2193003
+    },
+    {
+      "id": "male_curly_moss_dark",
+      "sourceCandidate": "build/task-0049-batch-1/male_curly_moss_dark/hd_candidate.png",
+      "approvalReceipt": "docs/architecture/task-0049-batch-1/receipts/male_curly_moss_dark.json",
+      "sha256": "a414e8d6888aa147c9256a1cec04eac67c444a21d26ba0a09ff848a1feb6fd1c",
+      "bytes": 2149056
+    },
+    {
+      "id": "male_long_blue_light",
+      "sourceCandidate": "build/task-0049-batch-1/male_long_blue_light/hd_candidate.png",
+      "approvalReceipt": "docs/architecture/task-0049-batch-1/receipts/male_long_blue_light.json",
+      "sha256": "d7b69134b6429fe3d305380d39adf2149ff955782afba17cc563f0aded780191",
+      "bytes": 2203966
+    },
+    {
+      "id": "male_long_blue_dark",
+      "sourceCandidate": "build/task-0049-batch-2/male_long_blue_dark/hd_candidate.png",
+      "approvalReceipt": "docs/architecture/task-0049-batch-2/receipts/male_long_blue_dark.json",
+      "sha256": "9d243e0ce2f10ffb7cb2e86ef1cdaed6ded161b9d052e7611ef020a7956105df",
+      "bytes": 2254856
+    },
+    {
+      "id": "male_curly_ochre_medium",
+      "sourceCandidate": "build/task-0049-batch-2/male_curly_ochre_medium/hd_candidate.png",
+      "approvalReceipt": "docs/architecture/task-0049-batch-2/receipts/male_curly_ochre_medium.json",
+      "sha256": "e58d45c166bf154c320d0a5cad530ccfe42a0bf8c6a093a050c66250329be8cd",
+      "bytes": 2183742
+    },
+    {
+      "id": "male_curly_ochre_light",
+      "sourceCandidate": "build/task-0049-batch-2/male_curly_ochre_light/hd_candidate.png",
+      "approvalReceipt": "docs/architecture/task-0049-batch-2/receipts/male_curly_ochre_light.json",
+      "sha256": "8cff7e8e43d0f3372e7ac22663adfa7380cc27b87c5bac1332c4e4e01542141e",
+      "bytes": 2159298
+    },
+    {
+      "id": "male_curly_ochre_dark",
+      "sourceCandidate": "build/task-0049-batch-2/male_curly_ochre_dark/hd_candidate.png",
+      "approvalReceipt": "docs/architecture/task-0049-batch-2/receipts/male_curly_ochre_dark.json",
+      "sha256": "17cc19e6a3813277a844f46f684b9d4dd730270d5b709168c21f0e939dc9fb36",
+      "bytes": 2139463
+    },
+    {
+      "id": "male_curly_moss_medium",
+      "sourceCandidate": "build/task-0049-batch-2/male_curly_moss_medium/hd_candidate.png",
+      "approvalReceipt": "docs/architecture/task-0049-batch-2/receipts/male_curly_moss_medium.json",
+      "sha256": "c2aaea7d357ef0aeec5bd5ebf9f0842e82b30d5605ccab9ad920b1fb50861afc",
+      "bytes": 2195248
+    },
+    {
+      "id": "male_long_moss_light",
+      "sourceCandidate": "build/task-0049-batch-2/male_long_moss_light/hd_candidate.png",
+      "approvalReceipt": "docs/architecture/task-0049-batch-2/receipts/male_long_moss_light.json",
+      "sha256": "24bbc5a3ec9a4ccee28864dc6868de1e137a29575d34bda072c7298d8dd8b0dd",
+      "bytes": 2231350
+    },
+    {
+      "id": "male_long_moss_dark",
+      "sourceCandidate": "build/task-0049-batch-3/male_long_moss_dark/hd_candidate.png",
+      "approvalReceipt": "docs/architecture/task-0049-batch-3/receipts/male_long_moss_dark.json",
+      "sha256": "561c0da9f89bb56bebd4584a6750c977e5819c1fb503e7703610bcd7659ca9a1",
+      "bytes": 2215713
+    },
+    {
+      "id": "male_long_blue_medium",
+      "sourceCandidate": "build/task-0049-batch-3/male_long_blue_medium/hd_candidate.png",
+      "approvalReceipt": "docs/architecture/task-0049-batch-3/receipts/male_long_blue_medium.json",
+      "sha256": "e390217b97a4bf6dbb54b42e2b7b043d98184901cf164ab42ff6b9af83ec01a4",
+      "bytes": 2200236
+    },
+    {
+      "id": "male_long_moss_medium",
+      "sourceCandidate": "build/task-0049-batch-3/male_long_moss_medium/hd_candidate.png",
+      "approvalReceipt": "docs/architecture/task-0049-batch-3/receipts/male_long_moss_medium.json",
+      "sha256": "7105d9b86cd74645d2a9ad7fb65954e9b4764b5dc7972d3cf8bcc543f69565d0",
+      "bytes": 2147107
+    },
+    {
+      "id": "male_long_ochre_dark",
+      "sourceCandidate": "build/task-0049-batch-3/male_long_ochre_dark/hd_candidate.png",
+      "approvalReceipt": "docs/architecture/task-0049-batch-3/receipts/male_long_ochre_dark.json",
+      "sha256": "3ccee1a98a598903d47b351e62f4b3af505123711158fe6601054ee5cd40d3ad",
+      "bytes": 2197843
+    },
+    {
+      "id": "male_curly_moss_light",
+      "sourceCandidate": "build/task-0049-batch-3/male_curly_moss_light/hd_candidate.png",
+      "approvalReceipt": "docs/architecture/task-0049-batch-3/receipts/male_curly_moss_light.json",
+      "sha256": "4134196166b8578f87e445a5d19fc32f940137dd007942b94c811af6e8749ec4",
+      "bytes": 2265827
+    },
+    {
+      "id": "male_long_ochre_medium",
+      "sourceCandidate": "build/task-0049-batch-3/male_long_ochre_medium/hd_candidate.png",
+      "approvalReceipt": "docs/architecture/task-0049-batch-3/receipts/male_long_ochre_medium.json",
+      "sha256": "bc0ab9ad75d36d038c20f352a3c50ec84eefe8bcd3910e7d7263c7bebd6ed285",
+      "bytes": 2143431
+    },
+    {
+      "id": "male_long_ochre_light",
+      "sourceCandidate": "build/task-0049-batch-3/male_long_ochre_light/hd_candidate.png",
+      "approvalReceipt": "docs/architecture/task-0049-batch-3/receipts/male_long_ochre_light.json",
+      "sha256": "e8548f8771dd172f55e456358ed99ed5423532cf1f0dfc3fb099451ba6ba2ad6",
+      "bytes": 2208395
+    },
+    {
+      "id": "female_curly_blue_dark",
+      "sourceCandidate": "build/task-0049-batch-3/female_curly_blue_dark/hd_candidate.png",
+      "approvalReceipt": "docs/architecture/task-0049-batch-3/receipts/female_curly_blue_dark.json",
+      "sha256": "c96e8b93f23e732ead9f0243f7d390293e20ab6c2187f0e260dbc190872591c2",
+      "bytes": 2183745
+    },
+    {
+      "id": "female_curly_blue_light",
+      "sourceCandidate": "build/task-0049-batch-4/female_curly_blue_light/hd_candidate.png",
+      "approvalReceipt": "docs/architecture/task-0049-batch-4/HUMAN-VISUAL-APPROVAL.json",
+      "sha256": "8dc450bdcb0730fca04571c9628b7c21807b6f63800eebfe11e2813ab806d0ac",
+      "bytes": 2144963
+    },
+    {
+      "id": "female_curly_blue_medium",
+      "sourceCandidate": "build/task-0049-batch-4/female_curly_blue_medium/hd_candidate.png",
+      "approvalReceipt": "docs/architecture/task-0049-batch-4/HUMAN-VISUAL-APPROVAL.json",
+      "sha256": "69ee723023e71d7eceeabbf6ff529bddbb4b45edbb6b2b9c2a863a5b9d2d2201",
+      "bytes": 2192738
+    },
+    {
+      "id": "male_short_blue_light",
+      "sourceCandidate": "build/task-0049-batch-4/male_short_blue_light/hd_candidate.png",
+      "approvalReceipt": "docs/architecture/task-0049-batch-4/HUMAN-VISUAL-APPROVAL.json",
+      "sha256": "98b5e7c9d50151af6da95dd7a813f6f4304d7cd292a6c85ff7fa68b6e03bf302",
+      "bytes": 2142625
+    },
+    {
+      "id": "male_short_blue_dark",
+      "sourceCandidate": "build/task-0049-batch-4/male_short_blue_dark/hd_candidate.png",
+      "approvalReceipt": "docs/architecture/task-0049-batch-4/HUMAN-VISUAL-APPROVAL.json",
+      "sha256": "8771935dcc7a529b5b0bfe958d6da38f70ef31c50f86655a97f2936eacadf8c3",
+      "bytes": 2147071
+    },
+    {
+      "id": "male_short_blue_medium",
+      "sourceCandidate": "build/task-0049-batch-4/male_short_blue_medium/hd_candidate.png",
+      "approvalReceipt": "docs/architecture/task-0049-batch-4/HUMAN-VISUAL-APPROVAL.json",
+      "sha256": "6f732859e75bbdebb5b69120dc00e0d4342025cfed84a4106ab6d0ad9adaf224",
+      "bytes": 2207923
+    },
+    {
+      "id": "male_short_ochre_medium",
+      "sourceCandidate": "build/task-0049-batch-4/male_short_ochre_medium/hd_candidate.png",
+      "approvalReceipt": "docs/architecture/task-0049-batch-4/HUMAN-VISUAL-APPROVAL.json",
+      "sha256": "00d5d22f7dae0fdbce82555797b902f26c590abadc9ae5579e0b4ffb2ad16d18",
+      "bytes": 2239610
+    },
+    {
+      "id": "male_short_ochre_light",
+      "sourceCandidate": "build/task-0049-batch-4/male_short_ochre_light/hd_candidate.png",
+      "approvalReceipt": "docs/architecture/task-0049-batch-4/HUMAN-VISUAL-APPROVAL.json",
+      "sha256": "15de9f313b5af24574854d16a85bec4be3569b29f502b578c2c0c3995a168d35",
+      "bytes": 2174927
+    },
+    {
+      "id": "male_short_ochre_dark",
+      "sourceCandidate": "build/task-0049-batch-4/male_short_ochre_dark/hd_candidate.png",
+      "approvalReceipt": "docs/architecture/task-0049-batch-4/HUMAN-VISUAL-APPROVAL.json",
+      "sha256": "b6b0c87a7fd62286fb17cc90e692a6cf09d8f06e031d7e0a3c1b38b841baaa94",
+      "bytes": 2106497
+    },
+    {
+      "id": "male_short_moss_light",
+      "sourceCandidate": "build/task-0049-batch-5/male_short_moss_light/hd_candidate.png",
+      "approvalReceipt": "docs/architecture/task-0049-batch-5/HUMAN-VISUAL-APPROVAL.json",
+      "sha256": "66f5dc34b6dc5c07c2a6dff581e60fa23f0e22bd10845c019bc2d42a8c365ce6",
+      "bytes": 2213952
+    },
+    {
+      "id": "male_short_moss_dark",
+      "sourceCandidate": "build/task-0049-batch-5/male_short_moss_dark/hd_candidate.png",
+      "approvalReceipt": "docs/architecture/task-0049-batch-5/HUMAN-VISUAL-APPROVAL.json",
+      "sha256": "b32dafb858dac73b8a49f4d7275b1a30806948db11cb8e958f8e9adfb9f3866f",
+      "bytes": 2148771
+    },
+    {
+      "id": "female_curly_ochre_dark",
+      "sourceCandidate": "build/task-0049-batch-5/female_curly_ochre_dark/hd_candidate.png",
+      "approvalReceipt": "docs/architecture/task-0049-batch-5/HUMAN-VISUAL-APPROVAL.json",
+      "sha256": "4bad1dcd741d745b2fa66202814470bd59af3a22faa14d12851471262fa4fa31",
+      "bytes": 2071878
+    },
+    {
+      "id": "female_curly_moss_medium",
+      "sourceCandidate": "build/task-0049-batch-5/female_curly_moss_medium/hd_candidate.png",
+      "approvalReceipt": "docs/architecture/task-0049-batch-5/HUMAN-VISUAL-APPROVAL.json",
+      "sha256": "facd724c6cfba397ae2e5808e6c2f70bd47e98fe8ad4ea89e8e369615dbac339",
+      "bytes": 2136521
+    },
+    {
+      "id": "female_curly_moss_light",
+      "sourceCandidate": "build/task-0049-batch-5/female_curly_moss_light/hd_candidate.png",
+      "approvalReceipt": "docs/architecture/task-0049-batch-5/HUMAN-VISUAL-APPROVAL.json",
+      "sha256": "9a3429cbf48879a4dce7d3c864efb0a96e046824e608c715868d73c6add0574a",
+      "bytes": 2154942
+    },
+    {
+      "id": "female_curly_moss_dark",
+      "sourceCandidate": "build/task-0049-batch-5/female_curly_moss_dark/hd_candidate.png",
+      "approvalReceipt": "docs/architecture/task-0049-batch-5/HUMAN-VISUAL-APPROVAL.json",
+      "sha256": "8dc002903a6d817ed3e88bd074c2e4bdec29851012b2d54f59e395c217e4feef",
+      "bytes": 2137504
+    },
+    {
+      "id": "female_curly_ochre_medium",
+      "sourceCandidate": "build/task-0049-batch-5/female_curly_ochre_medium/hd_candidate.png",
+      "approvalReceipt": "docs/architecture/task-0049-batch-5/HUMAN-VISUAL-APPROVAL.json",
+      "sha256": "e0a0f6ff69aef40fc9cbcf0655e18962397e851ad9c173056882744aed25df67",
+      "bytes": 2173195
+    },
+    {
+      "id": "female_curly_ochre_light",
+      "sourceCandidate": "build/task-0049-batch-5/female_curly_ochre_light/hd_candidate.png",
+      "approvalReceipt": "docs/architecture/task-0049-batch-5/HUMAN-VISUAL-APPROVAL.json",
+      "sha256": "ed613e15a51bbcdae2a0d57eaa29b768501e25c8df3a8f9977540760e5655fa9",
+      "bytes": 2114670
+    },
+    {
+      "id": "female_long_blue_dark",
+      "sourceCandidate": "build/task-0049-final-batch/female_long_blue_dark/hd_candidate.png",
+      "approvalReceipt": "docs/architecture/task-0049-final-batch/HUMAN-VISUAL-APPROVAL.json",
+      "sha256": "8965ed75ea6fed37f0f20bda47d1e89cde09ef5bba38bcb977a8331cd2ce6e9a",
+      "bytes": 2180452
+    },
+    {
+      "id": "female_long_blue_light",
+      "sourceCandidate": "build/task-0049-final-batch/female_long_blue_light/hd_candidate.png",
+      "approvalReceipt": "docs/architecture/task-0049-final-batch/HUMAN-VISUAL-APPROVAL.json",
+      "sha256": "1d9ea6451ef5004b50eeaf3fe6f5ba0a4be7e9e5b9b792b08913b14347a6b62f",
+      "bytes": 2139135
+    },
+    {
+      "id": "female_long_moss_dark",
+      "sourceCandidate": "build/task-0049-final-batch/female_long_moss_dark/hd_candidate.png",
+      "approvalReceipt": "docs/architecture/task-0049-final-batch/HUMAN-VISUAL-APPROVAL.json",
+      "sha256": "af2a67a75c3f59c6f59c1595cc255174478e081652ec6cf661d63863bdd897b6",
+      "bytes": 2130431
+    },
+    {
+      "id": "female_long_blue_medium",
+      "sourceCandidate": "build/task-0049-final-batch/female_long_blue_medium/hd_candidate.png",
+      "approvalReceipt": "docs/architecture/task-0049-final-batch/HUMAN-VISUAL-APPROVAL.json",
+      "sha256": "7cccad3f330823bf6172f482e19846aebeee7b4a63098a88e88b2033119478e7",
+      "bytes": 2212590
+    },
+    {
+      "id": "female_long_ochre_light",
+      "sourceCandidate": "build/task-0049-final-batch/female_long_ochre_light/hd_candidate.png",
+      "approvalReceipt": "docs/architecture/task-0049-final-batch/HUMAN-VISUAL-APPROVAL.json",
+      "sha256": "8d8344f596c2819c97630cd1d6ad96a1823d2b2738ee2543021773765ee03d3f",
+      "bytes": 2155462
+    },
+    {
+      "id": "female_long_ochre_dark",
+      "sourceCandidate": "build/task-0049-final-batch/female_long_ochre_dark/hd_candidate.png",
+      "approvalReceipt": "docs/architecture/task-0049-final-batch/HUMAN-VISUAL-APPROVAL.json",
+      "sha256": "24f0d3abfa9c0fd04670a98ea6e28354e8c6906232f25a1daf45df04d93b106c",
+      "bytes": 2196172
+    },
+    {
+      "id": "female_long_moss_medium",
+      "sourceCandidate": "build/task-0049-final-batch/female_long_moss_medium/hd_candidate.png",
+      "approvalReceipt": "docs/architecture/task-0049-final-batch/HUMAN-VISUAL-APPROVAL.json",
+      "sha256": "14a85fed5713caed593d151119231f9e6b477aeb503b6791f1bff800d489aae4",
+      "bytes": 2220563
+    },
+    {
+      "id": "female_long_moss_light",
+      "sourceCandidate": "build/task-0049-final-batch/female_long_moss_light/hd_candidate.png",
+      "approvalReceipt": "docs/architecture/task-0049-final-batch/HUMAN-VISUAL-APPROVAL.json",
+      "sha256": "b58b4eac65b271c8dd8c598d05ff05f0e8ab50936c2a6903cdaf47c40c0fe2f5",
+      "bytes": 2214514
+    },
+    {
+      "id": "female_short_blue_dark",
+      "sourceCandidate": "build/task-0049-final-batch/female_short_blue_dark/hd_candidate.png",
+      "approvalReceipt": "docs/architecture/task-0049-final-batch/HUMAN-VISUAL-APPROVAL.json",
+      "sha256": "691d944d7eee8ef015f5427280b2b72379a2dfedfe20af61736ebad6d8598380",
+      "bytes": 2196916
+    },
+    {
+      "id": "female_short_blue_light",
+      "sourceCandidate": "build/task-0049-final-batch/female_short_blue_light/hd_candidate.png",
+      "approvalReceipt": "docs/architecture/task-0049-final-batch/HUMAN-VISUAL-APPROVAL.json",
+      "sha256": "f3a580c2305f3415ea5d01ed880ab9eda95ad20dd3c1ae572fec2cdee8cf14ac",
+      "bytes": 2192519
+    },
+    {
+      "id": "female_long_ochre_medium",
+      "sourceCandidate": "build/task-0049-final-batch/female_long_ochre_medium/hd_candidate.png",
+      "approvalReceipt": "docs/architecture/task-0049-final-batch/HUMAN-VISUAL-APPROVAL.json",
+      "sha256": "9a66160fe37601d540896b078619fb8d983b1432bb43300722713d09b2d66821",
+      "bytes": 2128141
+    },
+    {
+      "id": "female_short_blue_medium",
+      "sourceCandidate": "build/task-0049-final-batch/female_short_blue_medium/hd_candidate.png",
+      "approvalReceipt": "docs/architecture/task-0049-final-batch/HUMAN-VISUAL-APPROVAL.json",
+      "sha256": "3fb0c1fbf7991b717754f7a7c82c57014273fdbe3fea20df0103f034c2b0684f",
+      "bytes": 2163442
+    },
+    {
+      "id": "female_short_ochre_medium",
+      "sourceCandidate": "build/task-0049-final-batch/female_short_ochre_medium/hd_candidate.png",
+      "approvalReceipt": "docs/architecture/task-0049-final-batch/HUMAN-VISUAL-APPROVAL.json",
+      "sha256": "31117e2ae50cc207a02b4f65c70f97df37e82db54f8c70e35a8adade08e41ae2",
+      "bytes": 2122664
+    },
+    {
+      "id": "female_short_ochre_light",
+      "sourceCandidate": "build/task-0049-final-batch/female_short_ochre_light/hd_candidate.png",
+      "approvalReceipt": "docs/architecture/task-0049-final-batch/HUMAN-VISUAL-APPROVAL.json",
+      "sha256": "b0e475eb240f148e3b6ba6c60d2b53b62c153254b0151b11ff46d91d0edb81ff",
+      "bytes": 2134279
+    },
+    {
+      "id": "female_short_ochre_dark",
+      "sourceCandidate": "build/task-0049-final-3-rework/female_short_ochre_dark/hd_candidate.png",
+      "approvalReceipt": "docs/architecture/task-0049-final-3-rework/HUMAN-VISUAL-APPROVAL.json",
+      "sha256": "cf7fab4691bc7380d6e9304106900859da05838a0afbaf4428513ca542e1cd52",
+      "bytes": 2159702
+    },
+    {
+      "id": "female_short_moss_light",
+      "sourceCandidate": "build/task-0049-final-3-rework/female_short_moss_light/hd_candidate.png",
+      "approvalReceipt": "docs/architecture/task-0049-final-3-rework/HUMAN-VISUAL-APPROVAL.json",
+      "sha256": "ffa9d2698c7d1e67497cd7006d28294d2d17e31ed06e05b56e3bae1cf0a56162",
+      "bytes": 2148772
+    },
+    {
+      "id": "female_short_moss_dark",
+      "sourceCandidate": "build/task-0049-final-3-rework/female_short_moss_dark/hd_candidate.png",
+      "approvalReceipt": "docs/architecture/task-0049-final-3-rework/HUMAN-VISUAL-APPROVAL.json",
+      "sha256": "65ae8c6308032994d7ac80d2d53503c6af4c12f92a4b1f266cba9480b02b1032",
+      "bytes": 2190502
+    },
+    {
+      "id": "male_short_moss_medium",
+      "sourceCandidate": "apps/web/public/assets/avatar/hd/male/male_short_moss_medium_hd.png",
+      "approvalReceipt": "docs/architecture/TASK-0050-PILOT-HUMAN-APPROVAL.json",
+      "sha256": "b182c2e29b512b337891716a413ab7efaad737e23c6354779fae17fe19b8af34",
+      "bytes": 2238839
+    },
+    {
+      "id": "female_short_moss_medium",
+      "sourceCandidate": "apps/web/public/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+      "approvalReceipt": "docs/architecture/TASK-0050-PILOT-HUMAN-APPROVAL.json",
+      "sha256": "f260cb9b053b35c328025f1bc7ee602cbb30e57c71ba1f2238a4b1519685f460",
+      "bytes": 2156807
+    }
+  ]
+}

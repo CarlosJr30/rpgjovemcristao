@@ -1,0 +1,21 @@
+{
+  "id": "sword_path_common_male_v2",
+  "status": "PASS",
+  "technical": "TECHNICALLY_VALIDATED",
+  "mapping": "MAPPED",
+  "fitStatus": "NEEDS_REWORK",
+  "sha256": "4b7c2c3f6b1798413b1bc7c1c8d700a09cca5e5ab0301ac027276dd0396050e8",
+  "clippedAlpha128SourcePixels": 0,
+  "alpha128Bounds": {
+    "left": 147,
+    "top": 308,
+    "right": 527,
+    "bottom": 921,
+    "count": 34062
+  },
+  "footBaselineDelta": null,
+  "maxLandmarkResidual": 84.38655988986476,
+  "humanBodyFitApproved": false,
+  "ready": false,
+  "runtimeActivated": false
+}

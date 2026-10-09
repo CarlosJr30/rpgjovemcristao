@@ -1,0 +1,157 @@
+{
+  "task": "TASK-0055",
+  "id": "sword_path_rare_male_v2",
+  "itemId": "traveler-sword-rare",
+  "gender": "male",
+  "slot": "weapon",
+  "assessedAt": "2026-10-08T20:27:47.229Z",
+  "assessedBy": "Codex / author visual QA (not Carlos Faustino)",
+  "outputSha256": "283f40926d2c012ed8517c8c8187b2f49a7a7f71b78939b1efe9b27851ffd09f",
+  "sourceSha256": "89676a2f0f5b8ce73e25e6088ff52979115a11a091bbf25ce810b3c8488c96cb",
+  "referenceAvatar": {
+    "id": "male_short_moss_medium",
+    "path": "apps/web/public/assets/avatar/hd/male/male_short_moss_medium_hd.png",
+    "sha256": "b182c2e29b512b337891716a413ab7efaad737e23c6354779fae17fe19b8af34",
+    "immutable": true,
+    "footBaseline": 1513
+  },
+  "technicalStatus": "TECHNICALLY_VALIDATED",
+  "mapping": "MAPPED",
+  "status": "NEEDS_REWORK",
+  "reviewStatus": "NEEDS_REWORK",
+  "humanBodyFitApproved": false,
+  "ready": false,
+  "runtimeActivated": false,
+  "observations": [
+    "Centro do cabo foi aproximado da mão esquerda da tela; dedos continuam abertos na pose HD.",
+    "Overlay único desenha cabo sobre a mão sem a oclusão necessária dos dedos; arma parece sobreposta/solta.",
+    "Lâmina vertical fica em espaço lateral, porém a guarda/cabo ainda não reproduzem pega natural."
+  ],
+  "regions": {
+    "hand_center": "ALIGNED_PROXY_ONLY",
+    "grip": "FAIL_OPEN_HAND",
+    "wrist": "NEEDS_REWORK",
+    "blade_angle": "PLACEMENT_ONLY",
+    "blade_extent": "IN_CANVAS",
+    "occlusion": "FAIL_HANDLE_IN_FRONT_OF_FINGERS"
+  },
+  "reworkRecommendation": "Regenerar espada na orientação e posição da mão de male_short_moss_medium, com cabo desenhado para a pose existente e oclusão transparente específica dos dedos/área da mão. Não redesenhar mãos/HD nem adicionar máscara runtime. Se a mão aberta impedir uma pega convincente sem mudar a base, manter NEEDS_REWORK e registrar a limitação, sem promoção.",
+  "limits": "Only this derivative/hash and named reference; no cross-gender or 54-avatar compatibility claimed; landmark residuals are approximate diagnostics, not sufficient to prove fit.",
+  "landmarkMethod": "Male rare sword measured longer grip and different guard, distinct from female; visual native grid measurements approximately ±12px avatar, ±20px source. No hidden anatomy certified.",
+  "landmarkResiduals": {
+    "hand_center_grip": {
+      "source": [
+        511,
+        275
+      ],
+      "avatar": [
+        218,
+        819
+      ],
+      "weight": 8,
+      "kind": "grip to screen-left hand anatomy",
+      "projected": [
+        218.24285745497025,
+        818.8621703701747
+      ],
+      "delta": [
+        0.2428574549702489,
+        -0.137829629825319
+      ],
+      "distance": 0.27924317411963884
+    },
+    "grip_guard": {
+      "source": [
+        512,
+        393
+      ],
+      "avatar": [
+        218,
+        872
+      ],
+      "weight": 1,
+      "kind": "anatomical garment proxy",
+      "projected": [
+        218.69285417778244,
+        871.961783662012
+      ],
+      "delta": [
+        0.6928541777824364,
+        -0.03821633798804669
+      ],
+      "distance": 0.6939073426328567
+    },
+    "wrist_clearance": {
+      "source": [
+        511,
+        151
+      ],
+      "avatar": [
+        224,
+        761
+      ],
+      "weight": 0.5,
+      "kind": "pommel/wrist clearance goal",
+      "projected": [
+        218.24285745497025,
+        763.0625767414645
+      ],
+      "delta": [
+        -5.757142545029751,
+        2.0625767414644542
+      ],
+      "distance": 6.115465076199992
+    },
+    "blade_root": {
+      "source": [
+        512,
+        622
+      ],
+      "avatar": [
+        218,
+        975
+      ],
+      "weight": 0.5,
+      "kind": "blade placement goal",
+      "projected": [
+        218.69285417778244,
+        975.0110331860012
+      ],
+      "delta": [
+        0.6928541777824364,
+        0.011033186001213835
+      ],
+      "distance": 0.6929420198428677
+    },
+    "blade_extent": {
+      "source": [
+        510,
+        1518
+      ],
+      "avatar": [
+        218,
+        1378
+      ],
+      "weight": 0.5,
+      "kind": "blade tip placement goal",
+      "projected": [
+        217.7928607321581,
+        1378.2080968257146
+      ],
+      "delta": [
+        -0.20713926784191017,
+        0.20809682571461963
+      ],
+      "distance": 0.2936170382566097
+    }
+  },
+  "evidence": [
+    "build/task-0055-body-fit-bake/sword_path_rare_male_v2/source.png",
+    "build/task-0055-body-fit-bake/sword_path_rare_male_v2/avatar_base.png",
+    "build/task-0055-body-fit-bake/sword_path_rare_male_v2/baked_overlay.png",
+    "build/task-0055-body-fit-bake/sword_path_rare_male_v2/combined.png",
+    "build/task-0055-body-fit-bake/sword_path_rare_male_v2/overlay_50_50.png",
+    "build/task-0055-body-fit-bake/sword_path_rare_male_v2/alignment_guides.png",
+    "build/task-0055-body-fit-bake/sword_path_rare_male_v2/before.png"
+  ]
+}

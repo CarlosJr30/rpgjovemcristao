@@ -1,0 +1,179 @@
+{
+  "status": "PASS",
+  "samples": [
+    {
+      "width": 360,
+      "id": "sword_path_common_female_v2",
+      "views": 10,
+      "noTransform": true,
+      "noHorizontalOverflow": true
+    },
+    {
+      "width": 360,
+      "id": "sword_path_common_male_v2",
+      "views": 10,
+      "noTransform": true,
+      "noHorizontalOverflow": true
+    },
+    {
+      "width": 360,
+      "id": "sword_path_rare_female_v2",
+      "views": 10,
+      "noTransform": true,
+      "noHorizontalOverflow": true
+    },
+    {
+      "width": 360,
+      "id": "sword_path_rare_male_v2",
+      "views": 10,
+      "noTransform": true,
+      "noHorizontalOverflow": true
+    },
+    {
+      "width": 390,
+      "id": "sword_path_common_female_v2",
+      "views": 10,
+      "noTransform": true,
+      "noHorizontalOverflow": true
+    },
+    {
+      "width": 390,
+      "id": "sword_path_common_male_v2",
+      "views": 10,
+      "noTransform": true,
+      "noHorizontalOverflow": true
+    },
+    {
+      "width": 390,
+      "id": "sword_path_rare_female_v2",
+      "views": 10,
+      "noTransform": true,
+      "noHorizontalOverflow": true
+    },
+    {
+      "width": 390,
+      "id": "sword_path_rare_male_v2",
+      "views": 10,
+      "noTransform": true,
+      "noHorizontalOverflow": true
+    },
+    {
+      "width": 768,
+      "id": "sword_path_common_female_v2",
+      "views": 10,
+      "noTransform": true,
+      "noHorizontalOverflow": true
+    },
+    {
+      "width": 768,
+      "id": "sword_path_common_male_v2",
+      "views": 10,
+      "noTransform": true,
+      "noHorizontalOverflow": true
+    },
+    {
+      "width": 768,
+      "id": "sword_path_rare_female_v2",
+      "views": 10,
+      "noTransform": true,
+      "noHorizontalOverflow": true
+    },
+    {
+      "width": 768,
+      "id": "sword_path_rare_male_v2",
+      "views": 10,
+      "noTransform": true,
+      "noHorizontalOverflow": true
+    },
+    {
+      "width": 1024,
+      "id": "sword_path_common_female_v2",
+      "views": 10,
+      "noTransform": true,
+      "noHorizontalOverflow": true
+    },
+    {
+      "width": 1024,
+      "id": "sword_path_common_male_v2",
+      "views": 10,
+      "noTransform": true,
+      "noHorizontalOverflow": true
+    },
+    {
+      "width": 1024,
+      "id": "sword_path_rare_female_v2",
+      "views": 10,
+      "noTransform": true,
+      "noHorizontalOverflow": true
+    },
+    {
+      "width": 1024,
+      "id": "sword_path_rare_male_v2",
+      "views": 10,
+      "noTransform": true,
+      "noHorizontalOverflow": true
+    },
+    {
+      "width": 1366,
+      "id": "sword_path_common_female_v2",
+      "views": 10,
+      "noTransform": true,
+      "noHorizontalOverflow": true
+    },
+    {
+      "width": 1366,
+      "id": "sword_path_common_male_v2",
+      "views": 10,
+      "noTransform": true,
+      "noHorizontalOverflow": true
+    },
+    {
+      "width": 1366,
+      "id": "sword_path_rare_female_v2",
+      "views": 10,
+      "noTransform": true,
+      "noHorizontalOverflow": true
+    },
+    {
+      "width": 1366,
+      "id": "sword_path_rare_male_v2",
+      "views": 10,
+      "noTransform": true,
+      "noHorizontalOverflow": true
+    },
+    {
+      "width": 1920,
+      "id": "sword_path_common_female_v2",
+      "views": 10,
+      "noTransform": true,
+      "noHorizontalOverflow": true
+    },
+    {
+      "width": 1920,
+      "id": "sword_path_common_male_v2",
+      "views": 10,
+      "noTransform": true,
+      "noHorizontalOverflow": true
+    },
+    {
+      "width": 1920,
+      "id": "sword_path_rare_female_v2",
+      "views": 10,
+      "noTransform": true,
+      "noHorizontalOverflow": true
+    },
+    {
+      "width": 1920,
+      "id": "sword_path_rare_male_v2",
+      "views": 10,
+      "noTransform": true,
+      "noHorizontalOverflow": true
+    }
+  ],
+  "errors": [],
+  "viewports": 6,
+  "targetSamples": 24,
+  "viewSamples": 240,
+  "protocol": "local file only; no server/network",
+  "scope": "Review HTML only, runtime untouched"
+}

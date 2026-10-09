@@ -1,0 +1,344 @@
+{
+  "at": "2026-10-06T06:47:52.386Z",
+  "gender": "female",
+  "tag": "final",
+  "legacyPath": "apps/web/public/assets/avatar/runtime/female/female_short_moss_medium.png",
+  "candidatePath": "apps/web/public/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+  "legacy": {
+    "width": 512,
+    "height": 768,
+    "bytes": 385576,
+    "hash": "3cd1d303462f627ecd90923ad8b5d82c4d2e4e2fc2ba1f3608f1b39da3cdb44d",
+    "format": "png",
+    "hasAlpha": true,
+    "alphaTotal": {
+      "left": 0,
+      "right": 486,
+      "top": 0,
+      "bottom": 752,
+      "width": 486,
+      "height": 752,
+      "centerX": 243,
+      "centerY": 376,
+      "feetBaseline": 752,
+      "hairTop": 0,
+      "maxSilhouetteWidth": 423,
+      "alphaCentroidX": 271.38962333849844,
+      "alphaCentroidY": 379.0325892944707
+    },
+    "alpha128": {
+      "left": 95,
+      "right": 481,
+      "top": 1,
+      "bottom": 748,
+      "width": 386,
+      "height": 747,
+      "centerX": 288,
+      "centerY": 374.5,
+      "feetBaseline": 748,
+      "hairTop": 1,
+      "maxSilhouetteWidth": 382,
+      "alphaCentroidX": 272.10102599083984,
+      "alphaCentroidY": 376.9654824384336
+    }
+  },
+  "hd": {
+    "width": 1024,
+    "height": 1536,
+    "bytes": 2156807,
+    "hash": "f260cb9b053b35c328025f1bc7ee602cbb30e57c71ba1f2238a4b1519685f460",
+    "format": "png",
+    "hasAlpha": true,
+    "alphaTotal": {
+      "left": 0,
+      "right": 1002,
+      "top": 0,
+      "bottom": 1505,
+      "width": 1002,
+      "height": 1505,
+      "centerX": 501,
+      "centerY": 752.5,
+      "feetBaseline": 1505,
+      "hairTop": 0,
+      "maxSilhouetteWidth": 940,
+      "alphaCentroidX": 542.6108951329153,
+      "alphaCentroidY": 758.3145714364001
+    },
+    "alpha128": {
+      "left": 187,
+      "right": 965,
+      "top": 2,
+      "bottom": 1496,
+      "width": 778,
+      "height": 1494,
+      "centerX": 576,
+      "centerY": 749,
+      "feetBaseline": 1496,
+      "hairTop": 2,
+      "maxSilhouetteWidth": 770,
+      "alphaCentroidX": 544.437831103759,
+      "alphaCentroidY": 755.1120540566405
+    }
+  },
+  "tables": {
+    "alphaTotal": [
+      {
+        "metric": "left",
+        "legacy": 0,
+        "expectedHD": 0,
+        "currentHD": 0,
+        "delta": 0,
+        "toleranceHD": 6,
+        "result": "PASS"
+      },
+      {
+        "metric": "right",
+        "legacy": 486,
+        "expectedHD": 972,
+        "currentHD": 1002,
+        "delta": 30,
+        "toleranceHD": 6,
+        "result": "FAIL"
+      },
+      {
+        "metric": "top",
+        "legacy": 0,
+        "expectedHD": 0,
+        "currentHD": 0,
+        "delta": 0,
+        "toleranceHD": 6,
+        "result": "PASS"
+      },
+      {
+        "metric": "bottom",
+        "legacy": 752,
+        "expectedHD": 1504,
+        "currentHD": 1505,
+        "delta": 1,
+        "toleranceHD": 4,
+        "result": "PASS"
+      },
+      {
+        "metric": "width",
+        "legacy": 486,
+        "expectedHD": 972,
+        "currentHD": 1002,
+        "delta": 30,
+        "toleranceHD": 12,
+        "result": "FAIL"
+      },
+      {
+        "metric": "height",
+        "legacy": 752,
+        "expectedHD": 1504,
+        "currentHD": 1505,
+        "delta": 1,
+        "toleranceHD": 10,
+        "result": "PASS"
+      },
+      {
+        "metric": "centerX",
+        "legacy": 243,
+        "expectedHD": 486,
+        "currentHD": 501,
+        "delta": 15,
+        "toleranceHD": 4,
+        "result": "FAIL"
+      },
+      {
+        "metric": "centerY",
+        "legacy": 376,
+        "expectedHD": 752,
+        "currentHD": 752.5,
+        "delta": 0.5,
+        "toleranceHD": 4,
+        "result": "PASS"
+      },
+      {
+        "metric": "feetBaseline",
+        "legacy": 752,
+        "expectedHD": 1504,
+        "currentHD": 1505,
+        "delta": 1,
+        "toleranceHD": 4,
+        "result": "PASS"
+      },
+      {
+        "metric": "hairTop",
+        "legacy": 0,
+        "expectedHD": 0,
+        "currentHD": 0,
+        "delta": 0,
+        "toleranceHD": 6,
+        "result": "PASS"
+      },
+      {
+        "metric": "maxSilhouetteWidth",
+        "legacy": 423,
+        "expectedHD": 846,
+        "currentHD": 940,
+        "delta": 94,
+        "toleranceHD": 12,
+        "result": "FAIL"
+      },
+      {
+        "metric": "alphaCentroidX",
+        "legacy": 271.38962333849844,
+        "expectedHD": 542.7792466769969,
+        "currentHD": 542.6108951329153,
+        "delta": -0.16835154408158814,
+        "toleranceHD": 4,
+        "result": "PASS"
+      },
+      {
+        "metric": "alphaCentroidY",
+        "legacy": 379.0325892944707,
+        "expectedHD": 758.0651785889414,
+        "currentHD": 758.3145714364001,
+        "delta": 0.24939284745869372,
+        "toleranceHD": 4,
+        "result": "PASS"
+      }
+    ],
+    "alpha128": [
+      {
+        "metric": "left",
+        "legacy": 95,
+        "expectedHD": 190,
+        "currentHD": 187,
+        "delta": -3,
+        "toleranceHD": 6,
+        "result": "PASS"
+      },
+      {
+        "metric": "right",
+        "legacy": 481,
+        "expectedHD": 962,
+        "currentHD": 965,
+        "delta": 3,
+        "toleranceHD": 6,
+        "result": "PASS"
+      },
+      {
+        "metric": "top",
+        "legacy": 1,
+        "expectedHD": 2,
+        "currentHD": 2,
+        "delta": 0,
+        "toleranceHD": 6,
+        "result": "PASS"
+      },
+      {
+        "metric": "bottom",
+        "legacy": 748,
+        "expectedHD": 1496,
+        "currentHD": 1496,
+        "delta": 0,
+        "toleranceHD": 4,
+        "result": "PASS"
+      },
+      {
+        "metric": "width",
+        "legacy": 386,
+        "expectedHD": 772,
+        "currentHD": 778,
+        "delta": 6,
+        "toleranceHD": 12,
+        "result": "PASS"
+      },
+      {
+        "metric": "height",
+        "legacy": 747,
+        "expectedHD": 1494,
+        "currentHD": 1494,
+        "delta": 0,
+        "toleranceHD": 10,
+        "result": "PASS"
+      },
+      {
+        "metric": "centerX",
+        "legacy": 288,
+        "expectedHD": 576,
+        "currentHD": 576,
+        "delta": 0,
+        "toleranceHD": 4,
+        "result": "PASS"
+      },
+      {
+        "metric": "centerY",
+        "legacy": 374.5,
+        "expectedHD": 749,
+        "currentHD": 749,
+        "delta": 0,
+        "toleranceHD": 4,
+        "result": "PASS"
+      },
+      {
+        "metric": "feetBaseline",
+        "legacy": 748,
+        "expectedHD": 1496,
+        "currentHD": 1496,
+        "delta": 0,
+        "toleranceHD": 4,
+        "result": "PASS"
+      },
+      {
+        "metric": "hairTop",
+        "legacy": 1,
+        "expectedHD": 2,
+        "currentHD": 2,
+        "delta": 0,
+        "toleranceHD": 6,
+        "result": "PASS"
+      },
+      {
+        "metric": "maxSilhouetteWidth",
+        "legacy": 382,
+        "expectedHD": 764,
+        "currentHD": 770,
+        "delta": 6,
+        "toleranceHD": 12,
+        "result": "PASS"
+      },
+      {
+        "metric": "alphaCentroidX",
+        "legacy": 272.10102599083984,
+        "expectedHD": 544.2020519816797,
+        "currentHD": 544.437831103759,
+        "delta": 0.2357791220792933,
+        "toleranceHD": 4,
+        "result": "PASS"
+      },
+      {
+        "metric": "alphaCentroidY",
+        "legacy": 376.9654824384336,
+        "expectedHD": 753.9309648768672,
+        "currentHD": 755.1120540566405,
+        "delta": 1.1810891797733802,
+        "toleranceHD": 4,
+        "result": "PASS"
+      }
+    ]
+  },
+  "dimensionsValid": true,
+  "alphaValid": true,
+  "silhouette": {
+    "iou": 0.9786512809402035,
+    "xorPixels": 12514,
+    "unionPixels": 586171,
+    "note": "Diagnostic only. No IoU threshold replaces visual review of anatomy/pose."
+  },
+  "geometryThreshold": 128,
+  "rawAlphaRole": "DIAGNOSTIC_ONLY; user confirmed 2026-10-06",
+  "automaticMetricsPass": true,
+  "visualReview": "PASS_BY_AUTHOR_NOT_INDEPENDENT",
+  "humanReview": {
+    "reviewedBy": "Carlos Faustino",
+    "reviewedAt": "2026-10-07T12:46:52.119Z",
+    "reviewStatus": "HUMAN_VISUAL_APPROVED",
+    "usage": "DEV_PILOT_ONLY"
+  },
+  "approved": false,
+  "geometryLock": "PASS",
+  "humanVisualApproval": "HUMAN_VISUAL_APPROVED"
+}

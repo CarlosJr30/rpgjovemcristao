@@ -1,0 +1,1913 @@
+{
+  "at": "2026-10-06T06:30:18.400Z",
+  "rows": [
+    {
+      "id": "male_curly_blue_light",
+      "gender": "male",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "curly",
+      "outfit": "blue",
+      "skin": "light",
+      "file": "male_curly_blue_light.png",
+      "current": {
+        "path": "/assets/avatar/runtime/male/male_curly_blue_light.png",
+        "width": 512,
+        "height": 768,
+        "format": "png",
+        "bytes": 412362,
+        "sha256": "942513968f2f498bd46cfef920d329c7480f0c55515c3bf77c190ed2ffbd3ca1",
+        "hasAlpha": true,
+        "transparentFraction": 0.5916748046875,
+        "visibleFraction": 0.3865610758463542,
+        "centroid": {
+          "x": 0.5142336865838937,
+          "y": 0.5057019277843932
+        },
+        "bounds": {
+          "left": 0.16796875,
+          "top": 0.00390625,
+          "right": 0.91015625,
+          "bottom": 0.9856770833333334
+        },
+        "channels": 4
+      },
+      "expectedHDPath": "/assets/avatar/hd/male/male_curly_blue_light_hd.png",
+      "status": "PENDING_HD"
+    },
+    {
+      "id": "male_curly_blue_dark",
+      "gender": "male",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "curly",
+      "outfit": "blue",
+      "skin": "dark",
+      "file": "male_curly_blue_dark.png",
+      "current": {
+        "path": "/assets/avatar/runtime/male/male_curly_blue_dark.png",
+        "width": 512,
+        "height": 768,
+        "format": "png",
+        "bytes": 395119,
+        "sha256": "fc97507a796cc4abf01998b2673b18b4101bbb2d1fe53986c5cf3d3839fe0950",
+        "hasAlpha": true,
+        "transparentFraction": 0.5916748046875,
+        "visibleFraction": 0.3865610758463542,
+        "centroid": {
+          "x": 0.5142336865838937,
+          "y": 0.5057019277843932
+        },
+        "bounds": {
+          "left": 0.16796875,
+          "top": 0.00390625,
+          "right": 0.91015625,
+          "bottom": 0.9856770833333334
+        },
+        "channels": 4
+      },
+      "expectedHDPath": "/assets/avatar/hd/male/male_curly_blue_dark_hd.png",
+      "status": "PENDING_HD"
+    },
+    {
+      "id": "male_curly_blue_medium",
+      "gender": "male",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "curly",
+      "outfit": "blue",
+      "skin": "medium",
+      "file": "male_curly_blue_medium.png",
+      "current": {
+        "path": "/assets/avatar/runtime/male/male_curly_blue_medium.png",
+        "width": 512,
+        "height": 768,
+        "format": "png",
+        "bytes": 405389,
+        "sha256": "4699e82a8edafe8f8d3db2505b7c1252b6b71e8ba407fdfe9e431070b2ead625",
+        "hasAlpha": true,
+        "transparentFraction": 0.5916748046875,
+        "visibleFraction": 0.3865610758463542,
+        "centroid": {
+          "x": 0.5142336865838937,
+          "y": 0.5057019277843932
+        },
+        "bounds": {
+          "left": 0.16796875,
+          "top": 0.00390625,
+          "right": 0.91015625,
+          "bottom": 0.9856770833333334
+        },
+        "channels": 4
+      },
+      "expectedHDPath": "/assets/avatar/hd/male/male_curly_blue_medium_hd.png",
+      "status": "PENDING_HD"
+    },
+    {
+      "id": "male_curly_moss_dark",
+      "gender": "male",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "curly",
+      "outfit": "moss",
+      "skin": "dark",
+      "file": "male_curly_moss_dark.png",
+      "current": {
+        "path": "/assets/avatar/runtime/male/male_curly_moss_dark.png",
+        "width": 512,
+        "height": 768,
+        "format": "png",
+        "bytes": 390528,
+        "sha256": "7d72e963f6228da5e24a678568059ae9775b764a2f2caa962e20e33b84b3281e",
+        "hasAlpha": true,
+        "transparentFraction": 0.5916748046875,
+        "visibleFraction": 0.3865610758463542,
+        "centroid": {
+          "x": 0.5142336865838937,
+          "y": 0.5057019277843932
+        },
+        "bounds": {
+          "left": 0.16796875,
+          "top": 0.00390625,
+          "right": 0.91015625,
+          "bottom": 0.9856770833333334
+        },
+        "channels": 4
+      },
+      "expectedHDPath": "/assets/avatar/hd/male/male_curly_moss_dark_hd.png",
+      "status": "PENDING_HD"
+    },
+    {
+      "id": "male_long_blue_light",
+      "gender": "male",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "long",
+      "outfit": "blue",
+      "skin": "light",
+      "file": "male_long_blue_light.png",
+      "current": {
+        "path": "/assets/avatar/runtime/male/male_long_blue_light.png",
+        "width": 512,
+        "height": 768,
+        "format": "png",
+        "bytes": 419480,
+        "sha256": "55c212e914dd9dbd3d1461028cf5bea2961964dc480190d149fd6ff16a67df1d",
+        "hasAlpha": true,
+        "transparentFraction": 0.5861790974934896,
+        "visibleFraction": 0.3914947509765625,
+        "centroid": {
+          "x": 0.5141827588677879,
+          "y": 0.501575869144981
+        },
+        "bounds": {
+          "left": 0.16796875,
+          "top": 0.009114583333333334,
+          "right": 0.91015625,
+          "bottom": 0.9856770833333334
+        },
+        "channels": 4
+      },
+      "expectedHDPath": "/assets/avatar/hd/male/male_long_blue_light_hd.png",
+      "status": "PENDING_HD"
+    },
+    {
+      "id": "male_long_blue_dark",
+      "gender": "male",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "long",
+      "outfit": "blue",
+      "skin": "dark",
+      "file": "male_long_blue_dark.png",
+      "current": {
+        "path": "/assets/avatar/runtime/male/male_long_blue_dark.png",
+        "width": 512,
+        "height": 768,
+        "format": "png",
+        "bytes": 401880,
+        "sha256": "ef3281dcf100bda4f578ca963996cabe060c2acea5ddf65f5d85bdd423afa008",
+        "hasAlpha": true,
+        "transparentFraction": 0.5861790974934896,
+        "visibleFraction": 0.3914947509765625,
+        "centroid": {
+          "x": 0.5141827588677879,
+          "y": 0.501575869144981
+        },
+        "bounds": {
+          "left": 0.16796875,
+          "top": 0.009114583333333334,
+          "right": 0.91015625,
+          "bottom": 0.9856770833333334
+        },
+        "channels": 4
+      },
+      "expectedHDPath": "/assets/avatar/hd/male/male_long_blue_dark_hd.png",
+      "status": "PENDING_HD"
+    },
+    {
+      "id": "male_curly_ochre_medium",
+      "gender": "male",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "curly",
+      "outfit": "ochre",
+      "skin": "medium",
+      "file": "male_curly_ochre_medium.png",
+      "current": {
+        "path": "/assets/avatar/runtime/male/male_curly_ochre_medium.png",
+        "width": 512,
+        "height": 768,
+        "format": "png",
+        "bytes": 399320,
+        "sha256": "94b95c8248b3b698b9ece2dabb4a70b9301ff458b762ffd33cfbf6b5792a0cb2",
+        "hasAlpha": true,
+        "transparentFraction": 0.5916748046875,
+        "visibleFraction": 0.3865610758463542,
+        "centroid": {
+          "x": 0.5142336865838937,
+          "y": 0.5057019277843932
+        },
+        "bounds": {
+          "left": 0.16796875,
+          "top": 0.00390625,
+          "right": 0.91015625,
+          "bottom": 0.9856770833333334
+        },
+        "channels": 4
+      },
+      "expectedHDPath": "/assets/avatar/hd/male/male_curly_ochre_medium_hd.png",
+      "status": "PENDING_HD"
+    },
+    {
+      "id": "male_curly_ochre_light",
+      "gender": "male",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "curly",
+      "outfit": "ochre",
+      "skin": "light",
+      "file": "male_curly_ochre_light.png",
+      "current": {
+        "path": "/assets/avatar/runtime/male/male_curly_ochre_light.png",
+        "width": 512,
+        "height": 768,
+        "format": "png",
+        "bytes": 406096,
+        "sha256": "e8489cba1883a2904b2e5953a876fa3370719b0dba5806c45be8e26298b61b7e",
+        "hasAlpha": true,
+        "transparentFraction": 0.5916748046875,
+        "visibleFraction": 0.3865610758463542,
+        "centroid": {
+          "x": 0.5142336865838937,
+          "y": 0.5057019277843932
+        },
+        "bounds": {
+          "left": 0.16796875,
+          "top": 0.00390625,
+          "right": 0.91015625,
+          "bottom": 0.9856770833333334
+        },
+        "channels": 4
+      },
+      "expectedHDPath": "/assets/avatar/hd/male/male_curly_ochre_light_hd.png",
+      "status": "PENDING_HD"
+    },
+    {
+      "id": "male_curly_ochre_dark",
+      "gender": "male",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "curly",
+      "outfit": "ochre",
+      "skin": "dark",
+      "file": "male_curly_ochre_dark.png",
+      "current": {
+        "path": "/assets/avatar/runtime/male/male_curly_ochre_dark.png",
+        "width": 512,
+        "height": 768,
+        "format": "png",
+        "bytes": 388846,
+        "sha256": "9c78e48f194487d5875d35d94b6dba98eff1e68c8e4f4c340a1dd0f514cc7f89",
+        "hasAlpha": true,
+        "transparentFraction": 0.5916748046875,
+        "visibleFraction": 0.3865610758463542,
+        "centroid": {
+          "x": 0.5142336865838937,
+          "y": 0.5057019277843932
+        },
+        "bounds": {
+          "left": 0.16796875,
+          "top": 0.00390625,
+          "right": 0.91015625,
+          "bottom": 0.9856770833333334
+        },
+        "channels": 4
+      },
+      "expectedHDPath": "/assets/avatar/hd/male/male_curly_ochre_dark_hd.png",
+      "status": "PENDING_HD"
+    },
+    {
+      "id": "male_curly_moss_medium",
+      "gender": "male",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "curly",
+      "outfit": "moss",
+      "skin": "medium",
+      "file": "male_curly_moss_medium.png",
+      "current": {
+        "path": "/assets/avatar/runtime/male/male_curly_moss_medium.png",
+        "width": 512,
+        "height": 768,
+        "format": "png",
+        "bytes": 400838,
+        "sha256": "f4ecfd6beac4918a84296de268d1a10a2ce9631e0143e88f736b51fff721966c",
+        "hasAlpha": true,
+        "transparentFraction": 0.5916748046875,
+        "visibleFraction": 0.3865610758463542,
+        "centroid": {
+          "x": 0.5142336865838937,
+          "y": 0.5057019277843932
+        },
+        "bounds": {
+          "left": 0.16796875,
+          "top": 0.00390625,
+          "right": 0.91015625,
+          "bottom": 0.9856770833333334
+        },
+        "channels": 4
+      },
+      "expectedHDPath": "/assets/avatar/hd/male/male_curly_moss_medium_hd.png",
+      "status": "PENDING_HD"
+    },
+    {
+      "id": "male_long_moss_light",
+      "gender": "male",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "long",
+      "outfit": "moss",
+      "skin": "light",
+      "file": "male_long_moss_light.png",
+      "current": {
+        "path": "/assets/avatar/runtime/male/male_long_moss_light.png",
+        "width": 512,
+        "height": 768,
+        "format": "png",
+        "bytes": 415047,
+        "sha256": "6ef0371c1cf04b0efd9a78fb42fac73d4f9cb7ee4cf58274d0020acbdc2142b4",
+        "hasAlpha": true,
+        "transparentFraction": 0.5861790974934896,
+        "visibleFraction": 0.3914947509765625,
+        "centroid": {
+          "x": 0.5141827588677879,
+          "y": 0.501575869144981
+        },
+        "bounds": {
+          "left": 0.16796875,
+          "top": 0.009114583333333334,
+          "right": 0.91015625,
+          "bottom": 0.9856770833333334
+        },
+        "channels": 4
+      },
+      "expectedHDPath": "/assets/avatar/hd/male/male_long_moss_light_hd.png",
+      "status": "PENDING_HD"
+    },
+    {
+      "id": "male_long_moss_dark",
+      "gender": "male",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "long",
+      "outfit": "moss",
+      "skin": "dark",
+      "file": "male_long_moss_dark.png",
+      "current": {
+        "path": "/assets/avatar/runtime/male/male_long_moss_dark.png",
+        "width": 512,
+        "height": 768,
+        "format": "png",
+        "bytes": 397325,
+        "sha256": "65bd15d6e4208896b33a6165733e1f731d633ef9f2745be29e9dae3cc96b2f56",
+        "hasAlpha": true,
+        "transparentFraction": 0.5861790974934896,
+        "visibleFraction": 0.3914947509765625,
+        "centroid": {
+          "x": 0.5141827588677879,
+          "y": 0.501575869144981
+        },
+        "bounds": {
+          "left": 0.16796875,
+          "top": 0.009114583333333334,
+          "right": 0.91015625,
+          "bottom": 0.9856770833333334
+        },
+        "channels": 4
+      },
+      "expectedHDPath": "/assets/avatar/hd/male/male_long_moss_dark_hd.png",
+      "status": "PENDING_HD"
+    },
+    {
+      "id": "male_long_blue_medium",
+      "gender": "male",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "long",
+      "outfit": "blue",
+      "skin": "medium",
+      "file": "male_long_blue_medium.png",
+      "current": {
+        "path": "/assets/avatar/runtime/male/male_long_blue_medium.png",
+        "width": 512,
+        "height": 768,
+        "format": "png",
+        "bytes": 412673,
+        "sha256": "74ed766373fe2016f0c728bb6ee54112a17710028098a6e8812ccc412f75c1aa",
+        "hasAlpha": true,
+        "transparentFraction": 0.5861790974934896,
+        "visibleFraction": 0.3914947509765625,
+        "centroid": {
+          "x": 0.5141827588677879,
+          "y": 0.501575869144981
+        },
+        "bounds": {
+          "left": 0.16796875,
+          "top": 0.009114583333333334,
+          "right": 0.91015625,
+          "bottom": 0.9856770833333334
+        },
+        "channels": 4
+      },
+      "expectedHDPath": "/assets/avatar/hd/male/male_long_blue_medium_hd.png",
+      "status": "PENDING_HD"
+    },
+    {
+      "id": "male_long_moss_medium",
+      "gender": "male",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "long",
+      "outfit": "moss",
+      "skin": "medium",
+      "file": "male_long_moss_medium.png",
+      "current": {
+        "path": "/assets/avatar/runtime/male/male_long_moss_medium.png",
+        "width": 512,
+        "height": 768,
+        "format": "png",
+        "bytes": 407879,
+        "sha256": "d0ed53a314b35db35f30d749c78df373885e31ae6123de73929771e9ccae9b57",
+        "hasAlpha": true,
+        "transparentFraction": 0.5861790974934896,
+        "visibleFraction": 0.3914947509765625,
+        "centroid": {
+          "x": 0.5141827588677879,
+          "y": 0.501575869144981
+        },
+        "bounds": {
+          "left": 0.16796875,
+          "top": 0.009114583333333334,
+          "right": 0.91015625,
+          "bottom": 0.9856770833333334
+        },
+        "channels": 4
+      },
+      "expectedHDPath": "/assets/avatar/hd/male/male_long_moss_medium_hd.png",
+      "status": "PENDING_HD"
+    },
+    {
+      "id": "male_long_ochre_dark",
+      "gender": "male",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "long",
+      "outfit": "ochre",
+      "skin": "dark",
+      "file": "male_long_ochre_dark.png",
+      "current": {
+        "path": "/assets/avatar/runtime/male/male_long_ochre_dark.png",
+        "width": 512,
+        "height": 768,
+        "format": "png",
+        "bytes": 395705,
+        "sha256": "52e9125efa4f5a029f0cdbda3cdd7956860f5fa8d3e479c13df731a968878467",
+        "hasAlpha": true,
+        "transparentFraction": 0.5861790974934896,
+        "visibleFraction": 0.3914947509765625,
+        "centroid": {
+          "x": 0.5141827588677879,
+          "y": 0.501575869144981
+        },
+        "bounds": {
+          "left": 0.16796875,
+          "top": 0.009114583333333334,
+          "right": 0.91015625,
+          "bottom": 0.9856770833333334
+        },
+        "channels": 4
+      },
+      "expectedHDPath": "/assets/avatar/hd/male/male_long_ochre_dark_hd.png",
+      "status": "PENDING_HD"
+    },
+    {
+      "id": "male_curly_moss_light",
+      "gender": "male",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "curly",
+      "outfit": "moss",
+      "skin": "light",
+      "file": "male_curly_moss_light.png",
+      "current": {
+        "path": "/assets/avatar/runtime/male/male_curly_moss_light.png",
+        "width": 512,
+        "height": 768,
+        "format": "png",
+        "bytes": 407779,
+        "sha256": "63edc01849c73d61aadb824c345cbdc181afb1e7035e6c2570bff370e9179fe4",
+        "hasAlpha": true,
+        "transparentFraction": 0.5916748046875,
+        "visibleFraction": 0.3865610758463542,
+        "centroid": {
+          "x": 0.5142336865838937,
+          "y": 0.5057019277843932
+        },
+        "bounds": {
+          "left": 0.16796875,
+          "top": 0.00390625,
+          "right": 0.91015625,
+          "bottom": 0.9856770833333334
+        },
+        "channels": 4
+      },
+      "expectedHDPath": "/assets/avatar/hd/male/male_curly_moss_light_hd.png",
+      "status": "PENDING_HD"
+    },
+    {
+      "id": "male_long_ochre_medium",
+      "gender": "male",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "long",
+      "outfit": "ochre",
+      "skin": "medium",
+      "file": "male_long_ochre_medium.png",
+      "current": {
+        "path": "/assets/avatar/runtime/male/male_long_ochre_medium.png",
+        "width": 512,
+        "height": 768,
+        "format": "png",
+        "bytes": 406256,
+        "sha256": "769973e7dc48227215e839b12cbfb5ccd5c1b0161d8758a7ebc9e62f4033e549",
+        "hasAlpha": true,
+        "transparentFraction": 0.5861790974934896,
+        "visibleFraction": 0.3914947509765625,
+        "centroid": {
+          "x": 0.5141827588677879,
+          "y": 0.501575869144981
+        },
+        "bounds": {
+          "left": 0.16796875,
+          "top": 0.009114583333333334,
+          "right": 0.91015625,
+          "bottom": 0.9856770833333334
+        },
+        "channels": 4
+      },
+      "expectedHDPath": "/assets/avatar/hd/male/male_long_ochre_medium_hd.png",
+      "status": "PENDING_HD"
+    },
+    {
+      "id": "male_long_ochre_light",
+      "gender": "male",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "long",
+      "outfit": "ochre",
+      "skin": "light",
+      "file": "male_long_ochre_light.png",
+      "current": {
+        "path": "/assets/avatar/runtime/male/male_long_ochre_light.png",
+        "width": 512,
+        "height": 768,
+        "format": "png",
+        "bytes": 413376,
+        "sha256": "d864a2bab6e56858493e2ade4227aa5db0c7c364352b75ad49b4dad4855bae13",
+        "hasAlpha": true,
+        "transparentFraction": 0.5861790974934896,
+        "visibleFraction": 0.3914947509765625,
+        "centroid": {
+          "x": 0.5141827588677879,
+          "y": 0.501575869144981
+        },
+        "bounds": {
+          "left": 0.16796875,
+          "top": 0.009114583333333334,
+          "right": 0.91015625,
+          "bottom": 0.9856770833333334
+        },
+        "channels": 4
+      },
+      "expectedHDPath": "/assets/avatar/hd/male/male_long_ochre_light_hd.png",
+      "status": "PENDING_HD"
+    },
+    {
+      "id": "female_curly_blue_dark",
+      "gender": "female",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "curly",
+      "outfit": "blue",
+      "skin": "dark",
+      "file": "female_curly_blue_dark.png",
+      "current": {
+        "path": "/assets/avatar/runtime/female/female_curly_blue_dark.png",
+        "width": 512,
+        "height": 768,
+        "format": "png",
+        "bytes": 381349,
+        "sha256": "2017bf26cdd89d4779d34a688687992c98276ddbe2cd4b6979bc3ad0976f1c98",
+        "hasAlpha": true,
+        "transparentFraction": 0.6104456583658854,
+        "visibleFraction": 0.36670176188151044,
+        "centroid": {
+          "x": 0.530693549075718,
+          "y": 0.4891903234727067
+        },
+        "bounds": {
+          "left": 0.185546875,
+          "top": 0.005208333333333333,
+          "right": 0.939453125,
+          "bottom": 0.9739583333333334
+        },
+        "channels": 4
+      },
+      "expectedHDPath": "/assets/avatar/hd/female/female_curly_blue_dark_hd.png",
+      "status": "PENDING_HD"
+    },
+    {
+      "id": "female_curly_blue_light",
+      "gender": "female",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "curly",
+      "outfit": "blue",
+      "skin": "light",
+      "file": "female_curly_blue_light.png",
+      "current": {
+        "path": "/assets/avatar/runtime/female/female_curly_blue_light.png",
+        "width": 512,
+        "height": 768,
+        "format": "png",
+        "bytes": 397554,
+        "sha256": "dc532e95789414ec9a3e95545de01a34d8277f01acfa95c01aa6637e13d22792",
+        "hasAlpha": true,
+        "transparentFraction": 0.6104456583658854,
+        "visibleFraction": 0.36670176188151044,
+        "centroid": {
+          "x": 0.530693549075718,
+          "y": 0.4891903234727067
+        },
+        "bounds": {
+          "left": 0.185546875,
+          "top": 0.005208333333333333,
+          "right": 0.939453125,
+          "bottom": 0.9739583333333334
+        },
+        "channels": 4
+      },
+      "expectedHDPath": "/assets/avatar/hd/female/female_curly_blue_light_hd.png",
+      "status": "PENDING_HD"
+    },
+    {
+      "id": "female_curly_blue_medium",
+      "gender": "female",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "curly",
+      "outfit": "blue",
+      "skin": "medium",
+      "file": "female_curly_blue_medium.png",
+      "current": {
+        "path": "/assets/avatar/runtime/female/female_curly_blue_medium.png",
+        "width": 512,
+        "height": 768,
+        "format": "png",
+        "bytes": 391436,
+        "sha256": "803264f9fb6d45cb66e06d41a1f0c64c223e8ee7ad47eff4e5399569a9e9a0d2",
+        "hasAlpha": true,
+        "transparentFraction": 0.6104456583658854,
+        "visibleFraction": 0.36670176188151044,
+        "centroid": {
+          "x": 0.530693549075718,
+          "y": 0.4891903234727067
+        },
+        "bounds": {
+          "left": 0.185546875,
+          "top": 0.005208333333333333,
+          "right": 0.939453125,
+          "bottom": 0.9739583333333334
+        },
+        "channels": 4
+      },
+      "expectedHDPath": "/assets/avatar/hd/female/female_curly_blue_medium_hd.png",
+      "status": "PENDING_HD"
+    },
+    {
+      "id": "male_short_blue_light",
+      "gender": "male",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "short",
+      "outfit": "blue",
+      "skin": "light",
+      "file": "male_short_blue_light.png",
+      "current": {
+        "path": "/assets/avatar/runtime/male/male_short_blue_light.png",
+        "width": 512,
+        "height": 768,
+        "format": "png",
+        "bytes": 411097,
+        "sha256": "5e1a96df08206ae21e6d3dd073fa50c22492f055dac33c60a67db0e260048ae6",
+        "hasAlpha": true,
+        "transparentFraction": 0.5924504597981771,
+        "visibleFraction": 0.38526662190755206,
+        "centroid": {
+          "x": 0.5141616872355489,
+          "y": 0.5069983981658118
+        },
+        "bounds": {
+          "left": 0.16796875,
+          "top": 0.0013020833333333333,
+          "right": 0.91015625,
+          "bottom": 0.9856770833333334
+        },
+        "channels": 4
+      },
+      "expectedHDPath": "/assets/avatar/hd/male/male_short_blue_light_hd.png",
+      "status": "PENDING_HD"
+    },
+    {
+      "id": "male_short_blue_dark",
+      "gender": "male",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "short",
+      "outfit": "blue",
+      "skin": "dark",
+      "file": "male_short_blue_dark.png",
+      "current": {
+        "path": "/assets/avatar/runtime/male/male_short_blue_dark.png",
+        "width": 512,
+        "height": 768,
+        "format": "png",
+        "bytes": 393868,
+        "sha256": "0a55390cf9281a2fbfb22ee37a275fedf51e1430d67a5e3968cdace0ea2aeac5",
+        "hasAlpha": true,
+        "transparentFraction": 0.5924504597981771,
+        "visibleFraction": 0.38526662190755206,
+        "centroid": {
+          "x": 0.5141616872355489,
+          "y": 0.5069983981658118
+        },
+        "bounds": {
+          "left": 0.16796875,
+          "top": 0.0013020833333333333,
+          "right": 0.91015625,
+          "bottom": 0.9856770833333334
+        },
+        "channels": 4
+      },
+      "expectedHDPath": "/assets/avatar/hd/male/male_short_blue_dark_hd.png",
+      "status": "PENDING_HD"
+    },
+    {
+      "id": "male_short_blue_medium",
+      "gender": "male",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "short",
+      "outfit": "blue",
+      "skin": "medium",
+      "file": "male_short_blue_medium.png",
+      "current": {
+        "path": "/assets/avatar/runtime/male/male_short_blue_medium.png",
+        "width": 512,
+        "height": 768,
+        "format": "png",
+        "bytes": 404177,
+        "sha256": "fa180a6c82c082109b20f90f5924d97cfd1907c42ed334f874d9e1be7cefea09",
+        "hasAlpha": true,
+        "transparentFraction": 0.5924504597981771,
+        "visibleFraction": 0.38526662190755206,
+        "centroid": {
+          "x": 0.5141616872355489,
+          "y": 0.5069983981658118
+        },
+        "bounds": {
+          "left": 0.16796875,
+          "top": 0.0013020833333333333,
+          "right": 0.91015625,
+          "bottom": 0.9856770833333334
+        },
+        "channels": 4
+      },
+      "expectedHDPath": "/assets/avatar/hd/male/male_short_blue_medium_hd.png",
+      "status": "PENDING_HD"
+    },
+    {
+      "id": "male_short_ochre_medium",
+      "gender": "male",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "short",
+      "outfit": "ochre",
+      "skin": "medium",
+      "file": "male_short_ochre_medium.png",
+      "current": {
+        "path": "/assets/avatar/runtime/male/male_short_ochre_medium.png",
+        "width": 512,
+        "height": 768,
+        "format": "png",
+        "bytes": 398157,
+        "sha256": "41db244f55cd345615f350054891ccff1eeb98cfc11a425e9b15c23a3f579d6c",
+        "hasAlpha": true,
+        "transparentFraction": 0.5924504597981771,
+        "visibleFraction": 0.38526662190755206,
+        "centroid": {
+          "x": 0.5141616872355489,
+          "y": 0.5069983981658118
+        },
+        "bounds": {
+          "left": 0.16796875,
+          "top": 0.0013020833333333333,
+          "right": 0.91015625,
+          "bottom": 0.9856770833333334
+        },
+        "channels": 4
+      },
+      "expectedHDPath": "/assets/avatar/hd/male/male_short_ochre_medium_hd.png",
+      "status": "PENDING_HD"
+    },
+    {
+      "id": "male_short_ochre_light",
+      "gender": "male",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "short",
+      "outfit": "ochre",
+      "skin": "light",
+      "file": "male_short_ochre_light.png",
+      "current": {
+        "path": "/assets/avatar/runtime/male/male_short_ochre_light.png",
+        "width": 512,
+        "height": 768,
+        "format": "png",
+        "bytes": 404856,
+        "sha256": "d4982365b012655501c1e2c50719169a0d47247f1e0237a6d17ae2182264d2c4",
+        "hasAlpha": true,
+        "transparentFraction": 0.5924504597981771,
+        "visibleFraction": 0.38526662190755206,
+        "centroid": {
+          "x": 0.5141616872355489,
+          "y": 0.5069983981658118
+        },
+        "bounds": {
+          "left": 0.16796875,
+          "top": 0.0013020833333333333,
+          "right": 0.91015625,
+          "bottom": 0.9856770833333334
+        },
+        "channels": 4
+      },
+      "expectedHDPath": "/assets/avatar/hd/male/male_short_ochre_light_hd.png",
+      "status": "PENDING_HD"
+    },
+    {
+      "id": "male_short_ochre_dark",
+      "gender": "male",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "short",
+      "outfit": "ochre",
+      "skin": "dark",
+      "file": "male_short_ochre_dark.png",
+      "current": {
+        "path": "/assets/avatar/runtime/male/male_short_ochre_dark.png",
+        "width": 512,
+        "height": 768,
+        "format": "png",
+        "bytes": 387542,
+        "sha256": "f171adc495a410762b0509db5e64f46599e0635b70be99b68dc45183e63487de",
+        "hasAlpha": true,
+        "transparentFraction": 0.5924504597981771,
+        "visibleFraction": 0.38526662190755206,
+        "centroid": {
+          "x": 0.5141616872355489,
+          "y": 0.5069983981658118
+        },
+        "bounds": {
+          "left": 0.16796875,
+          "top": 0.0013020833333333333,
+          "right": 0.91015625,
+          "bottom": 0.9856770833333334
+        },
+        "channels": 4
+      },
+      "expectedHDPath": "/assets/avatar/hd/male/male_short_ochre_dark_hd.png",
+      "status": "PENDING_HD"
+    },
+    {
+      "id": "male_short_moss_medium",
+      "gender": "male",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "short",
+      "outfit": "moss",
+      "skin": "medium",
+      "file": "male_short_moss_medium.png",
+      "current": {
+        "path": "/assets/avatar/runtime/male/male_short_moss_medium.png",
+        "width": 512,
+        "height": 768,
+        "format": "png",
+        "bytes": 399651,
+        "sha256": "f138e1a28bab2ef0ebdc7f6fff2463f66c3fa7b9121f22df9c997c3427b82652",
+        "hasAlpha": true,
+        "transparentFraction": 0.5924504597981771,
+        "visibleFraction": 0.38526662190755206,
+        "centroid": {
+          "x": 0.5141616872355489,
+          "y": 0.5069983981658118
+        },
+        "bounds": {
+          "left": 0.16796875,
+          "top": 0.0013020833333333333,
+          "right": 0.91015625,
+          "bottom": 0.9856770833333334
+        },
+        "channels": 4
+      },
+      "expectedHDPath": "/assets/avatar/hd/male/male_short_moss_medium_hd.png",
+      "status": "REJECTED"
+    },
+    {
+      "id": "male_short_moss_light",
+      "gender": "male",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "short",
+      "outfit": "moss",
+      "skin": "light",
+      "file": "male_short_moss_light.png",
+      "current": {
+        "path": "/assets/avatar/runtime/male/male_short_moss_light.png",
+        "width": 512,
+        "height": 768,
+        "format": "png",
+        "bytes": 406409,
+        "sha256": "a33d6306209e6f9fe31a3fcfab142d95b58a41c9c7a57cbc0587205e2a5881fb",
+        "hasAlpha": true,
+        "transparentFraction": 0.5924504597981771,
+        "visibleFraction": 0.38526662190755206,
+        "centroid": {
+          "x": 0.5141616872355489,
+          "y": 0.5069983981658118
+        },
+        "bounds": {
+          "left": 0.16796875,
+          "top": 0.0013020833333333333,
+          "right": 0.91015625,
+          "bottom": 0.9856770833333334
+        },
+        "channels": 4
+      },
+      "expectedHDPath": "/assets/avatar/hd/male/male_short_moss_light_hd.png",
+      "status": "PENDING_HD"
+    },
+    {
+      "id": "male_short_moss_dark",
+      "gender": "male",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "short",
+      "outfit": "moss",
+      "skin": "dark",
+      "file": "male_short_moss_dark.png",
+      "current": {
+        "path": "/assets/avatar/runtime/male/male_short_moss_dark.png",
+        "width": 512,
+        "height": 768,
+        "format": "png",
+        "bytes": 389263,
+        "sha256": "ce20ad368ed7b83467ff013eeb3eba00a8f1aff73b9b8e17b983367df364d590",
+        "hasAlpha": true,
+        "transparentFraction": 0.5924504597981771,
+        "visibleFraction": 0.38526662190755206,
+        "centroid": {
+          "x": 0.5141616872355489,
+          "y": 0.5069983981658118
+        },
+        "bounds": {
+          "left": 0.16796875,
+          "top": 0.0013020833333333333,
+          "right": 0.91015625,
+          "bottom": 0.9856770833333334
+        },
+        "channels": 4
+      },
+      "expectedHDPath": "/assets/avatar/hd/male/male_short_moss_dark_hd.png",
+      "status": "PENDING_HD"
+    },
+    {
+      "id": "female_curly_ochre_dark",
+      "gender": "female",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "curly",
+      "outfit": "ochre",
+      "skin": "dark",
+      "file": "female_curly_ochre_dark.png",
+      "current": {
+        "path": "/assets/avatar/runtime/female/female_curly_ochre_dark.png",
+        "width": 512,
+        "height": 768,
+        "format": "png",
+        "bytes": 373930,
+        "sha256": "84725238574df3e169eba8d2e141195131b1a83523ce6ca2a780e32ca460d0d0",
+        "hasAlpha": true,
+        "transparentFraction": 0.6104456583658854,
+        "visibleFraction": 0.36670176188151044,
+        "centroid": {
+          "x": 0.530693549075718,
+          "y": 0.4891903234727067
+        },
+        "bounds": {
+          "left": 0.185546875,
+          "top": 0.005208333333333333,
+          "right": 0.939453125,
+          "bottom": 0.9739583333333334
+        },
+        "channels": 4
+      },
+      "expectedHDPath": "/assets/avatar/hd/female/female_curly_ochre_dark_hd.png",
+      "status": "PENDING_HD"
+    },
+    {
+      "id": "female_curly_moss_medium",
+      "gender": "female",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "curly",
+      "outfit": "moss",
+      "skin": "medium",
+      "file": "female_curly_moss_medium.png",
+      "current": {
+        "path": "/assets/avatar/runtime/female/female_curly_moss_medium.png",
+        "width": 512,
+        "height": 768,
+        "format": "png",
+        "bytes": 386466,
+        "sha256": "55415e293fda7e5f3858676be107e4375d80396ac5bdaf38e456d1fc2475b771",
+        "hasAlpha": true,
+        "transparentFraction": 0.6104456583658854,
+        "visibleFraction": 0.36670176188151044,
+        "centroid": {
+          "x": 0.530693549075718,
+          "y": 0.4891903234727067
+        },
+        "bounds": {
+          "left": 0.185546875,
+          "top": 0.005208333333333333,
+          "right": 0.939453125,
+          "bottom": 0.9739583333333334
+        },
+        "channels": 4
+      },
+      "expectedHDPath": "/assets/avatar/hd/female/female_curly_moss_medium_hd.png",
+      "status": "PENDING_HD"
+    },
+    {
+      "id": "female_curly_moss_light",
+      "gender": "female",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "curly",
+      "outfit": "moss",
+      "skin": "light",
+      "file": "female_curly_moss_light.png",
+      "current": {
+        "path": "/assets/avatar/runtime/female/female_curly_moss_light.png",
+        "width": 512,
+        "height": 768,
+        "format": "png",
+        "bytes": 392850,
+        "sha256": "baa360bf67ba1135eea7f70c9cee821fdd6ac2ee6a50ab5d0be233bf2026a328",
+        "hasAlpha": true,
+        "transparentFraction": 0.6104456583658854,
+        "visibleFraction": 0.36670176188151044,
+        "centroid": {
+          "x": 0.530693549075718,
+          "y": 0.4891903234727067
+        },
+        "bounds": {
+          "left": 0.185546875,
+          "top": 0.005208333333333333,
+          "right": 0.939453125,
+          "bottom": 0.9739583333333334
+        },
+        "channels": 4
+      },
+      "expectedHDPath": "/assets/avatar/hd/female/female_curly_moss_light_hd.png",
+      "status": "PENDING_HD"
+    },
+    {
+      "id": "female_curly_moss_dark",
+      "gender": "female",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "curly",
+      "outfit": "moss",
+      "skin": "dark",
+      "file": "female_curly_moss_dark.png",
+      "current": {
+        "path": "/assets/avatar/runtime/female/female_curly_moss_dark.png",
+        "width": 512,
+        "height": 768,
+        "format": "png",
+        "bytes": 376177,
+        "sha256": "c803d842ea9e633b4ae4e9e7165269b7ae970449a7747ddc0ed15917ff0f9857",
+        "hasAlpha": true,
+        "transparentFraction": 0.6104456583658854,
+        "visibleFraction": 0.36670176188151044,
+        "centroid": {
+          "x": 0.530693549075718,
+          "y": 0.4891903234727067
+        },
+        "bounds": {
+          "left": 0.185546875,
+          "top": 0.005208333333333333,
+          "right": 0.939453125,
+          "bottom": 0.9739583333333334
+        },
+        "channels": 4
+      },
+      "expectedHDPath": "/assets/avatar/hd/female/female_curly_moss_dark_hd.png",
+      "status": "PENDING_HD"
+    },
+    {
+      "id": "female_curly_ochre_medium",
+      "gender": "female",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "curly",
+      "outfit": "ochre",
+      "skin": "medium",
+      "file": "female_curly_ochre_medium.png",
+      "current": {
+        "path": "/assets/avatar/runtime/female/female_curly_ochre_medium.png",
+        "width": 512,
+        "height": 768,
+        "format": "png",
+        "bytes": 384240,
+        "sha256": "167d817c2cd531237ee2b5458fb7acb62ba66c21e74d625a06c834e9bdf4bb89",
+        "hasAlpha": true,
+        "transparentFraction": 0.6104456583658854,
+        "visibleFraction": 0.36670176188151044,
+        "centroid": {
+          "x": 0.530693549075718,
+          "y": 0.4891903234727067
+        },
+        "bounds": {
+          "left": 0.185546875,
+          "top": 0.005208333333333333,
+          "right": 0.939453125,
+          "bottom": 0.9739583333333334
+        },
+        "channels": 4
+      },
+      "expectedHDPath": "/assets/avatar/hd/female/female_curly_ochre_medium_hd.png",
+      "status": "PENDING_HD"
+    },
+    {
+      "id": "female_curly_ochre_light",
+      "gender": "female",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "curly",
+      "outfit": "ochre",
+      "skin": "light",
+      "file": "female_curly_ochre_light.png",
+      "current": {
+        "path": "/assets/avatar/runtime/female/female_curly_ochre_light.png",
+        "width": 512,
+        "height": 768,
+        "format": "png",
+        "bytes": 390539,
+        "sha256": "5aab4777a5d0d84e288eb7482909569e5dbb947d5d419bdf050766a651aa1048",
+        "hasAlpha": true,
+        "transparentFraction": 0.6104456583658854,
+        "visibleFraction": 0.36670176188151044,
+        "centroid": {
+          "x": 0.530693549075718,
+          "y": 0.4891903234727067
+        },
+        "bounds": {
+          "left": 0.185546875,
+          "top": 0.005208333333333333,
+          "right": 0.939453125,
+          "bottom": 0.9739583333333334
+        },
+        "channels": 4
+      },
+      "expectedHDPath": "/assets/avatar/hd/female/female_curly_ochre_light_hd.png",
+      "status": "PENDING_HD"
+    },
+    {
+      "id": "female_long_blue_dark",
+      "gender": "female",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "long",
+      "outfit": "blue",
+      "skin": "dark",
+      "file": "female_long_blue_dark.png",
+      "current": {
+        "path": "/assets/avatar/runtime/female/female_long_blue_dark.png",
+        "width": 512,
+        "height": 768,
+        "format": "png",
+        "bytes": 384068,
+        "sha256": "1dc1a4d6a1db65b1d64a3c0025ba9cee1f3b5b9413aa6bd3b8761a1ae2afd0dc",
+        "hasAlpha": true,
+        "transparentFraction": 0.6083526611328125,
+        "visibleFraction": 0.36890920003255206,
+        "centroid": {
+          "x": 0.5303463930691227,
+          "y": 0.48709821679902476
+        },
+        "bounds": {
+          "left": 0.185546875,
+          "top": 0.009114583333333334,
+          "right": 0.939453125,
+          "bottom": 0.9739583333333334
+        },
+        "channels": 4
+      },
+      "expectedHDPath": "/assets/avatar/hd/female/female_long_blue_dark_hd.png",
+      "status": "PENDING_HD"
+    },
+    {
+      "id": "female_long_blue_light",
+      "gender": "female",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "long",
+      "outfit": "blue",
+      "skin": "light",
+      "file": "female_long_blue_light.png",
+      "current": {
+        "path": "/assets/avatar/runtime/female/female_long_blue_light.png",
+        "width": 512,
+        "height": 768,
+        "format": "png",
+        "bytes": 400254,
+        "sha256": "95363555c7a324ab2d9a6469815e75fb29420c8e7f6914d9a1c40cc7bbbf96eb",
+        "hasAlpha": true,
+        "transparentFraction": 0.6083526611328125,
+        "visibleFraction": 0.36890920003255206,
+        "centroid": {
+          "x": 0.5303463930691227,
+          "y": 0.48709821679902476
+        },
+        "bounds": {
+          "left": 0.185546875,
+          "top": 0.009114583333333334,
+          "right": 0.939453125,
+          "bottom": 0.9739583333333334
+        },
+        "channels": 4
+      },
+      "expectedHDPath": "/assets/avatar/hd/female/female_long_blue_light_hd.png",
+      "status": "PENDING_HD"
+    },
+    {
+      "id": "female_long_moss_dark",
+      "gender": "female",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "long",
+      "outfit": "moss",
+      "skin": "dark",
+      "file": "female_long_moss_dark.png",
+      "current": {
+        "path": "/assets/avatar/runtime/female/female_long_moss_dark.png",
+        "width": 512,
+        "height": 768,
+        "format": "png",
+        "bytes": 378935,
+        "sha256": "f0ca78cc62be1b7270a47be74bb637874ebf9bd199b2a45af140e68719c87e55",
+        "hasAlpha": true,
+        "transparentFraction": 0.6083526611328125,
+        "visibleFraction": 0.36890920003255206,
+        "centroid": {
+          "x": 0.5303463930691227,
+          "y": 0.48709821679902476
+        },
+        "bounds": {
+          "left": 0.185546875,
+          "top": 0.009114583333333334,
+          "right": 0.939453125,
+          "bottom": 0.9739583333333334
+        },
+        "channels": 4
+      },
+      "expectedHDPath": "/assets/avatar/hd/female/female_long_moss_dark_hd.png",
+      "status": "PENDING_HD"
+    },
+    {
+      "id": "female_long_blue_medium",
+      "gender": "female",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "long",
+      "outfit": "blue",
+      "skin": "medium",
+      "file": "female_long_blue_medium.png",
+      "current": {
+        "path": "/assets/avatar/runtime/female/female_long_blue_medium.png",
+        "width": 512,
+        "height": 768,
+        "format": "png",
+        "bytes": 394099,
+        "sha256": "96a0dc1d82dfad258683714bc69c408e6bc71f98cf0b1962ce6081d7c0f23675",
+        "hasAlpha": true,
+        "transparentFraction": 0.6083526611328125,
+        "visibleFraction": 0.36890920003255206,
+        "centroid": {
+          "x": 0.5303463930691227,
+          "y": 0.48709821679902476
+        },
+        "bounds": {
+          "left": 0.185546875,
+          "top": 0.009114583333333334,
+          "right": 0.939453125,
+          "bottom": 0.9739583333333334
+        },
+        "channels": 4
+      },
+      "expectedHDPath": "/assets/avatar/hd/female/female_long_blue_medium_hd.png",
+      "status": "PENDING_HD"
+    },
+    {
+      "id": "female_long_ochre_light",
+      "gender": "female",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "long",
+      "outfit": "ochre",
+      "skin": "light",
+      "file": "female_long_ochre_light.png",
+      "current": {
+        "path": "/assets/avatar/runtime/female/female_long_ochre_light.png",
+        "width": 512,
+        "height": 768,
+        "format": "png",
+        "bytes": 393163,
+        "sha256": "24d3f550b156f1729b9884032a00c0df1354146031ca34be2974396f2164b12a",
+        "hasAlpha": true,
+        "transparentFraction": 0.6083526611328125,
+        "visibleFraction": 0.36890920003255206,
+        "centroid": {
+          "x": 0.5303463930691227,
+          "y": 0.48709821679902476
+        },
+        "bounds": {
+          "left": 0.185546875,
+          "top": 0.009114583333333334,
+          "right": 0.939453125,
+          "bottom": 0.9739583333333334
+        },
+        "channels": 4
+      },
+      "expectedHDPath": "/assets/avatar/hd/female/female_long_ochre_light_hd.png",
+      "status": "PENDING_HD"
+    },
+    {
+      "id": "female_long_ochre_dark",
+      "gender": "female",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "long",
+      "outfit": "ochre",
+      "skin": "dark",
+      "file": "female_long_ochre_dark.png",
+      "current": {
+        "path": "/assets/avatar/runtime/female/female_long_ochre_dark.png",
+        "width": 512,
+        "height": 768,
+        "format": "png",
+        "bytes": 376704,
+        "sha256": "85d27730bf6df1ed42f6481b2b0527af981b5a392388df715a12d03fbac7828e",
+        "hasAlpha": true,
+        "transparentFraction": 0.6083526611328125,
+        "visibleFraction": 0.36890920003255206,
+        "centroid": {
+          "x": 0.5303463930691227,
+          "y": 0.48709821679902476
+        },
+        "bounds": {
+          "left": 0.185546875,
+          "top": 0.009114583333333334,
+          "right": 0.939453125,
+          "bottom": 0.9739583333333334
+        },
+        "channels": 4
+      },
+      "expectedHDPath": "/assets/avatar/hd/female/female_long_ochre_dark_hd.png",
+      "status": "PENDING_HD"
+    },
+    {
+      "id": "female_long_moss_medium",
+      "gender": "female",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "long",
+      "outfit": "moss",
+      "skin": "medium",
+      "file": "female_long_moss_medium.png",
+      "current": {
+        "path": "/assets/avatar/runtime/female/female_long_moss_medium.png",
+        "width": 512,
+        "height": 768,
+        "format": "png",
+        "bytes": 389091,
+        "sha256": "4070946a7b42c2ce9057e84c908ba66029495f70bb2fbcc53168e4ed0e09e67b",
+        "hasAlpha": true,
+        "transparentFraction": 0.6083526611328125,
+        "visibleFraction": 0.36890920003255206,
+        "centroid": {
+          "x": 0.5303463930691227,
+          "y": 0.48709821679902476
+        },
+        "bounds": {
+          "left": 0.185546875,
+          "top": 0.009114583333333334,
+          "right": 0.939453125,
+          "bottom": 0.9739583333333334
+        },
+        "channels": 4
+      },
+      "expectedHDPath": "/assets/avatar/hd/female/female_long_moss_medium_hd.png",
+      "status": "PENDING_HD"
+    },
+    {
+      "id": "female_long_moss_light",
+      "gender": "female",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "long",
+      "outfit": "moss",
+      "skin": "light",
+      "file": "female_long_moss_light.png",
+      "current": {
+        "path": "/assets/avatar/runtime/female/female_long_moss_light.png",
+        "width": 512,
+        "height": 768,
+        "format": "png",
+        "bytes": 395503,
+        "sha256": "dcff0d1a0d506b8ec78c57a9e13c5e3cd6f4f5077fe6958830bc1afbcd156e59",
+        "hasAlpha": true,
+        "transparentFraction": 0.6083526611328125,
+        "visibleFraction": 0.36890920003255206,
+        "centroid": {
+          "x": 0.5303463930691227,
+          "y": 0.48709821679902476
+        },
+        "bounds": {
+          "left": 0.185546875,
+          "top": 0.009114583333333334,
+          "right": 0.939453125,
+          "bottom": 0.9739583333333334
+        },
+        "channels": 4
+      },
+      "expectedHDPath": "/assets/avatar/hd/female/female_long_moss_light_hd.png",
+      "status": "PENDING_HD"
+    },
+    {
+      "id": "female_short_blue_dark",
+      "gender": "female",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "short",
+      "outfit": "blue",
+      "skin": "dark",
+      "file": "female_short_blue_dark.png",
+      "current": {
+        "path": "/assets/avatar/runtime/female/female_short_blue_dark.png",
+        "width": 512,
+        "height": 768,
+        "format": "png",
+        "bytes": 380634,
+        "sha256": "da90e71cec8c19006fab450b8b9f52c5061ba42ad241506bfda9afa375a4b959",
+        "hasAlpha": true,
+        "transparentFraction": 0.6110305786132812,
+        "visibleFraction": 0.3653615315755208,
+        "centroid": {
+          "x": 0.5304707538883591,
+          "y": 0.4901894302583771
+        },
+        "bounds": {
+          "left": 0.185546875,
+          "top": 0.0013020833333333333,
+          "right": 0.939453125,
+          "bottom": 0.9739583333333334
+        },
+        "channels": 4
+      },
+      "expectedHDPath": "/assets/avatar/hd/female/female_short_blue_dark_hd.png",
+      "status": "PENDING_HD"
+    },
+    {
+      "id": "female_short_blue_light",
+      "gender": "female",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "short",
+      "outfit": "blue",
+      "skin": "light",
+      "file": "female_short_blue_light.png",
+      "current": {
+        "path": "/assets/avatar/runtime/female/female_short_blue_light.png",
+        "width": 512,
+        "height": 768,
+        "format": "png",
+        "bytes": 396493,
+        "sha256": "12c5b826a9a9b2e5df72975f51feae021f3dee267baf21dab33f8441940ffc96",
+        "hasAlpha": true,
+        "transparentFraction": 0.6110305786132812,
+        "visibleFraction": 0.3653615315755208,
+        "centroid": {
+          "x": 0.5304707538883591,
+          "y": 0.4901894302583771
+        },
+        "bounds": {
+          "left": 0.185546875,
+          "top": 0.0013020833333333333,
+          "right": 0.939453125,
+          "bottom": 0.9739583333333334
+        },
+        "channels": 4
+      },
+      "expectedHDPath": "/assets/avatar/hd/female/female_short_blue_light_hd.png",
+      "status": "PENDING_HD"
+    },
+    {
+      "id": "female_long_ochre_medium",
+      "gender": "female",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "long",
+      "outfit": "ochre",
+      "skin": "medium",
+      "file": "female_long_ochre_medium.png",
+      "current": {
+        "path": "/assets/avatar/runtime/female/female_long_ochre_medium.png",
+        "width": 512,
+        "height": 768,
+        "format": "png",
+        "bytes": 386926,
+        "sha256": "bc94360266cd87b96275ec36148221f795c8092c5de8d69f228124c8db908bb8",
+        "hasAlpha": true,
+        "transparentFraction": 0.6083526611328125,
+        "visibleFraction": 0.36890920003255206,
+        "centroid": {
+          "x": 0.5303463930691227,
+          "y": 0.48709821679902476
+        },
+        "bounds": {
+          "left": 0.185546875,
+          "top": 0.009114583333333334,
+          "right": 0.939453125,
+          "bottom": 0.9739583333333334
+        },
+        "channels": 4
+      },
+      "expectedHDPath": "/assets/avatar/hd/female/female_long_ochre_medium_hd.png",
+      "status": "PENDING_HD"
+    },
+    {
+      "id": "female_short_blue_medium",
+      "gender": "female",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "short",
+      "outfit": "blue",
+      "skin": "medium",
+      "file": "female_short_blue_medium.png",
+      "current": {
+        "path": "/assets/avatar/runtime/female/female_short_blue_medium.png",
+        "width": 512,
+        "height": 768,
+        "format": "png",
+        "bytes": 390458,
+        "sha256": "d58fbd1849c5b5556db6a311ee92ad4e22c466797e8dbe133547b24b06077e1f",
+        "hasAlpha": true,
+        "transparentFraction": 0.6110305786132812,
+        "visibleFraction": 0.3653615315755208,
+        "centroid": {
+          "x": 0.5304707538883591,
+          "y": 0.4901894302583771
+        },
+        "bounds": {
+          "left": 0.185546875,
+          "top": 0.0013020833333333333,
+          "right": 0.939453125,
+          "bottom": 0.9739583333333334
+        },
+        "channels": 4
+      },
+      "expectedHDPath": "/assets/avatar/hd/female/female_short_blue_medium_hd.png",
+      "status": "PENDING_HD"
+    },
+    {
+      "id": "female_short_ochre_medium",
+      "gender": "female",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "short",
+      "outfit": "ochre",
+      "skin": "medium",
+      "file": "female_short_ochre_medium.png",
+      "current": {
+        "path": "/assets/avatar/runtime/female/female_short_ochre_medium.png",
+        "width": 512,
+        "height": 768,
+        "format": "png",
+        "bytes": 383348,
+        "sha256": "6c62121adbb864ade99101d4ed8688de9e18017ec6b70d4bdb661dd09b0c7f0e",
+        "hasAlpha": true,
+        "transparentFraction": 0.6110305786132812,
+        "visibleFraction": 0.3653615315755208,
+        "centroid": {
+          "x": 0.5304707538883591,
+          "y": 0.4901894302583771
+        },
+        "bounds": {
+          "left": 0.185546875,
+          "top": 0.0013020833333333333,
+          "right": 0.939453125,
+          "bottom": 0.9739583333333334
+        },
+        "channels": 4
+      },
+      "expectedHDPath": "/assets/avatar/hd/female/female_short_ochre_medium_hd.png",
+      "status": "PENDING_HD"
+    },
+    {
+      "id": "female_short_moss_medium",
+      "gender": "female",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "short",
+      "outfit": "moss",
+      "skin": "medium",
+      "file": "female_short_moss_medium.png",
+      "current": {
+        "path": "/assets/avatar/runtime/female/female_short_moss_medium.png",
+        "width": 512,
+        "height": 768,
+        "format": "png",
+        "bytes": 385576,
+        "sha256": "3cd1d303462f627ecd90923ad8b5d82c4d2e4e2fc2ba1f3608f1b39da3cdb44d",
+        "hasAlpha": true,
+        "transparentFraction": 0.6110305786132812,
+        "visibleFraction": 0.3653615315755208,
+        "centroid": {
+          "x": 0.5304707538883591,
+          "y": 0.4901894302583771
+        },
+        "bounds": {
+          "left": 0.185546875,
+          "top": 0.0013020833333333333,
+          "right": 0.939453125,
+          "bottom": 0.9739583333333334
+        },
+        "channels": 4
+      },
+      "expectedHDPath": "/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+      "status": "REJECTED"
+    },
+    {
+      "id": "female_short_ochre_light",
+      "gender": "female",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "short",
+      "outfit": "ochre",
+      "skin": "light",
+      "file": "female_short_ochre_light.png",
+      "current": {
+        "path": "/assets/avatar/runtime/female/female_short_ochre_light.png",
+        "width": 512,
+        "height": 768,
+        "format": "png",
+        "bytes": 389546,
+        "sha256": "0f5ebf50e65bf62094e65a218657832e0050edd4ff16da95b14f0df364ca10a1",
+        "hasAlpha": true,
+        "transparentFraction": 0.6110305786132812,
+        "visibleFraction": 0.3653615315755208,
+        "centroid": {
+          "x": 0.5304707538883591,
+          "y": 0.4901894302583771
+        },
+        "bounds": {
+          "left": 0.185546875,
+          "top": 0.0013020833333333333,
+          "right": 0.939453125,
+          "bottom": 0.9739583333333334
+        },
+        "channels": 4
+      },
+      "expectedHDPath": "/assets/avatar/hd/female/female_short_ochre_light_hd.png",
+      "status": "PENDING_HD"
+    },
+    {
+      "id": "female_short_ochre_dark",
+      "gender": "female",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "short",
+      "outfit": "ochre",
+      "skin": "dark",
+      "file": "female_short_ochre_dark.png",
+      "current": {
+        "path": "/assets/avatar/runtime/female/female_short_ochre_dark.png",
+        "width": 512,
+        "height": 768,
+        "format": "png",
+        "bytes": 373247,
+        "sha256": "653cf540099c5ecfa08e9dd980a4e924d2ac0041b9c3b2d0e3f6af1d19cfb609",
+        "hasAlpha": true,
+        "transparentFraction": 0.6110305786132812,
+        "visibleFraction": 0.3653615315755208,
+        "centroid": {
+          "x": 0.5304707538883591,
+          "y": 0.4901894302583771
+        },
+        "bounds": {
+          "left": 0.185546875,
+          "top": 0.0013020833333333333,
+          "right": 0.939453125,
+          "bottom": 0.9739583333333334
+        },
+        "channels": 4
+      },
+      "expectedHDPath": "/assets/avatar/hd/female/female_short_ochre_dark_hd.png",
+      "status": "PENDING_HD"
+    },
+    {
+      "id": "female_short_moss_light",
+      "gender": "female",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "short",
+      "outfit": "moss",
+      "skin": "light",
+      "file": "female_short_moss_light.png",
+      "current": {
+        "path": "/assets/avatar/runtime/female/female_short_moss_light.png",
+        "width": 512,
+        "height": 768,
+        "format": "png",
+        "bytes": 391812,
+        "sha256": "beb75c61c775962c0ce5e1a416be5f1a509cc0caa5eb19d3a7b8bd39ba3ee45e",
+        "hasAlpha": true,
+        "transparentFraction": 0.6110305786132812,
+        "visibleFraction": 0.3653615315755208,
+        "centroid": {
+          "x": 0.5304707538883591,
+          "y": 0.4901894302583771
+        },
+        "bounds": {
+          "left": 0.185546875,
+          "top": 0.0013020833333333333,
+          "right": 0.939453125,
+          "bottom": 0.9739583333333334
+        },
+        "channels": 4
+      },
+      "expectedHDPath": "/assets/avatar/hd/female/female_short_moss_light_hd.png",
+      "status": "PENDING_HD"
+    },
+    {
+      "id": "female_short_moss_dark",
+      "gender": "female",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "short",
+      "outfit": "moss",
+      "skin": "dark",
+      "file": "female_short_moss_dark.png",
+      "current": {
+        "path": "/assets/avatar/runtime/female/female_short_moss_dark.png",
+        "width": 512,
+        "height": 768,
+        "format": "png",
+        "bytes": 375482,
+        "sha256": "71c2d7aaf3490011dec9baf4230e739d7810f1cb2c7407d3b932002bc6ab9d5b",
+        "hasAlpha": true,
+        "transparentFraction": 0.6110305786132812,
+        "visibleFraction": 0.3653615315755208,
+        "centroid": {
+          "x": 0.5304707538883591,
+          "y": 0.4901894302583771
+        },
+        "bounds": {
+          "left": 0.185546875,
+          "top": 0.0013020833333333333,
+          "right": 0.939453125,
+          "bottom": 0.9739583333333334
+        },
+        "channels": 4
+      },
+      "expectedHDPath": "/assets/avatar/hd/female/female_short_moss_dark_hd.png",
+      "status": "PENDING_HD"
+    }
+  ],
+  "pilots": [
+    {
+      "id": "male_short_moss_medium",
+      "legacy": {
+        "path": "/assets/avatar/runtime/male/male_short_moss_medium.png",
+        "width": 512,
+        "height": 768,
+        "format": "png",
+        "bytes": 399651,
+        "sha256": "f138e1a28bab2ef0ebdc7f6fff2463f66c3fa7b9121f22df9c997c3427b82652",
+        "hasAlpha": true,
+        "transparentFraction": 0.5924504597981771,
+        "visibleFraction": 0.38526662190755206,
+        "centroid": {
+          "x": 0.5141616872355489,
+          "y": 0.5069983981658118
+        },
+        "bounds": {
+          "left": 0.16796875,
+          "top": 0.0013020833333333333,
+          "right": 0.91015625,
+          "bottom": 0.9856770833333334
+        },
+        "channels": 4
+      },
+      "hd": {
+        "path": "/assets/avatar/hd/male/male_short_moss_medium_hd.png",
+        "width": 1024,
+        "height": 1536,
+        "format": "png",
+        "bytes": 2231509,
+        "sha256": "e7b90a04eb9071f5e1fe51d7d13d21ce7844da3ca5cf95419cc9741ce926a225",
+        "hasAlpha": true,
+        "transparentFraction": 0.5825951894124349,
+        "visibleFraction": 0.39972877502441406,
+        "centroid": {
+          "x": 0.5155150650941637,
+          "y": 0.5104514544570654
+        },
+        "bounds": {
+          "left": 0.1630859375,
+          "top": 0.0013020833333333333,
+          "right": 0.916015625,
+          "bottom": 0.98828125
+        },
+        "channels": 4
+      },
+      "boundsDelta": {
+        "left": -0.0048828125,
+        "top": 0,
+        "right": 0.005859375,
+        "bottom": 0.0026041666666666297
+      },
+      "centroidDelta": {
+        "x": 0.0013533778586147793,
+        "y": 0.0034530562912535867
+      },
+      "physicalValid": true,
+      "geometricValidation": "FAIL: native redraw changes silhouette/framing/baseline; no user exception supplied",
+      "humanReview": "PENDING",
+      "bodyFit": "NOT_APPROVED",
+      "source": "OpenAI built-in imagegen native redraw; male additionally alpha extraction; no resize/upscale"
+    },
+    {
+      "id": "female_short_moss_medium",
+      "legacy": {
+        "path": "/assets/avatar/runtime/female/female_short_moss_medium.png",
+        "width": 512,
+        "height": 768,
+        "format": "png",
+        "bytes": 385576,
+        "sha256": "3cd1d303462f627ecd90923ad8b5d82c4d2e4e2fc2ba1f3608f1b39da3cdb44d",
+        "hasAlpha": true,
+        "transparentFraction": 0.6110305786132812,
+        "visibleFraction": 0.3653615315755208,
+        "centroid": {
+          "x": 0.5304707538883591,
+          "y": 0.4901894302583771
+        },
+        "bounds": {
+          "left": 0.185546875,
+          "top": 0.0013020833333333333,
+          "right": 0.939453125,
+          "bottom": 0.9739583333333334
+        },
+        "channels": 4
+      },
+      "hd": {
+        "path": "/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+        "width": 1024,
+        "height": 1536,
+        "format": "png",
+        "bytes": 2229012,
+        "sha256": "2d91d015f3a84e61b785805fe37a191fb2fe5be7de45f5fb9d8e6d45894599f4",
+        "hasAlpha": true,
+        "transparentFraction": 0.5808404286702474,
+        "visibleFraction": 0.39274024963378906,
+        "centroid": {
+          "x": 0.5396398165547848,
+          "y": 0.5039418570605758
+        },
+        "bounds": {
+          "left": 0.177734375,
+          "top": 0.0013020833333333333,
+          "right": 0.9619140625,
+          "bottom": 0.9967447916666666
+        },
+        "channels": 4
+      },
+      "boundsDelta": {
+        "left": -0.0078125,
+        "top": 0,
+        "right": 0.0224609375,
+        "bottom": 0.02278645833333326
+      },
+      "centroidDelta": {
+        "x": 0.009169062666425698,
+        "y": 0.013752426802198736
+      },
+      "physicalValid": true,
+      "geometricValidation": "FAIL: native redraw changes silhouette/framing/baseline; no user exception supplied",
+      "humanReview": "PENDING",
+      "bodyFit": "NOT_APPROVED",
+      "source": "OpenAI built-in imagegen native redraw; male additionally alpha extraction; no resize/upscale"
+    }
+  ]
+}

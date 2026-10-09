@@ -1,0 +1,38 @@
+{
+  "task": "TASK-0054",
+  "updatedAt": "2026-10-08T07:31:46.510Z",
+  "status": "HUMAN_BODY_FIT_APPROVED / READY",
+  "scope": "STAGING_ONLY; exact approved avatar/hash",
+  "readyAssets": 1,
+  "productionRuntimeActivated": false,
+  "otherTargetsProcessed": 0,
+  "assets": [
+    {
+      "itemId": "traveler-armor-uncommon",
+      "gender": "female",
+      "filename": "armor_traveler_uncommon_female_v2_baked.png",
+      "status": "READY",
+      "technicalStatus": "TECHNICALLY_VALIDATED",
+      "fitStatus": "FIT_PASS",
+      "reviewStatus": "HUMAN_BODY_FIT_APPROVED",
+      "sha256": "ebee2f026c2dd6aac6b47850c8412f243cdc20c51a36d6f91e2d6cf3b46c20cb",
+      "stagingPath": "D:/rpg-jovem-cristao/build/task-0054-body-fit-bake/pilot/armor_traveler_uncommon_female_v2_baked.png",
+      "runtimePath": null,
+      "runtimeActivated": false,
+      "compatibleAvatarIds": [
+        "female_short_moss_medium"
+      ],
+      "referenceAvatar": {
+        "id": "female_short_moss_medium",
+        "gender": "female",
+        "path": "apps/web/public/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+        "sha256": "f260cb9b053b35c328025f1bc7ee602cbb30e57c71ba1f2238a4b1519685f460"
+      },
+      "bakeMetadataPath": "build/task-0054-body-fit-bake/fit-metadata.json",
+      "bakeMetadataSha256": "8511d318ac79a28f3c0813e2225d0ae5e4cd9d89a9964a3ea4a6dd1db38317fc",
+      "approvalReceipt": "docs/architecture/TASK-0054-HUMAN-BODY-FIT-APPROVAL.json",
+      "sourcePath": "assets-source/body-fit-v2-targets/armor_traveler_uncommon_female_v2.png",
+      "sourceSha256": "564e2a4ebeaf51c41fd32dd7dca311dcc6d9c7cb4015d579d4f3b7f9d98714d1"
+    }
+  ]
+}

@@ -1,0 +1,178 @@
+{
+  "task": "TASK-0055",
+  "id": "medallion_path_rare_female_v2",
+  "itemId": "wisdom-amulet",
+  "gender": "female",
+  "slot": "amulet",
+  "assessedAt": "2026-10-08T20:27:47.229Z",
+  "assessedBy": "Codex / author visual QA (not Carlos Faustino)",
+  "outputSha256": "74b84cdd74af6fb1d3df91c6fbf6f32e6cd05b08a5cd940d7ffb8bdf9f594f77",
+  "sourceSha256": "d4b114d305cb89901878a145f4c69745bcfd9c2b7683a7a123158758609e41f7",
+  "referenceAvatar": {
+    "id": "female_short_moss_medium",
+    "path": "apps/web/public/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+    "sha256": "f260cb9b053b35c328025f1bc7ee602cbb30e57c71ba1f2238a4b1519685f460",
+    "immutable": true,
+    "footBaseline": 1495
+  },
+  "technicalStatus": "TECHNICALLY_VALIDATED",
+  "mapping": "MAPPED",
+  "status": "NEEDS_REWORK",
+  "reviewStatus": "NEEDS_REWORK",
+  "humanBodyFitApproved": false,
+  "ready": false,
+  "runtimeActivated": false,
+  "observations": [
+    "Pingente fica centralizado no peito, acima da cintura, e a sobreposição com armadura foi composta como diagnóstico.",
+    "Source tem as duas extremidades da corrente cortadas na borda superior; o bake deixa terminações abruptas visíveis sobre o cachecol/pescoço.",
+    "Sem corrente fechada/continuação ou desenho de oclusão no PNG, não é possível certificar aparência de colar vestido."
+  ],
+  "regions": {
+    "chest_center": "PASS",
+    "pendant_bottom": "PASS",
+    "armor_overlap": "PASS_PLACEMENT_ONLY",
+    "neck_attachment": "FAIL_CLIPPED_CHAIN",
+    "occlusion": "FAIL_CHAIN_ENDS"
+  },
+  "reworkRecommendation": "Regenerar corrente completa no pescoço de female_short_moss_medium com terminação/oclusão desenhada para o cachecol ou colar da referência, sem segmentos abruptamente cortados. Preservar escala e posição do pingente registradas como boa aproximação; testar novamente base e armor overlap. Não esconder falha com máscara ou alteração da base/runtime.",
+  "limits": "Only this derivative/hash and named reference; no cross-gender or 54-avatar compatibility claimed; landmark residuals are approximate diagnostics, not sufficient to prove fit.",
+  "landmarkMethod": "Female chain/pendant measured; clipped source chain ends inspected against scarf and skin; armor overlap evidence; visual native grid measurements approximately ±12px avatar, ±20px source. No hidden anatomy certified.",
+  "landmarkResiduals": {
+    "neck_center": {
+      "source": [
+        512,
+        0
+      ],
+      "avatar": [
+        520,
+        302
+      ],
+      "weight": 2,
+      "kind": "open chain center at source top, neck attachment placement goal",
+      "projected": [
+        520.0329511696598,
+        301.9736702209552
+      ],
+      "delta": [
+        0.032951169659781954,
+        -0.026329779044772295
+      ],
+      "distance": 0.04217863021121318
+    },
+    "left_chain": {
+      "source": [
+        155,
+        0
+      ],
+      "avatar": [
+        470,
+        302
+      ],
+      "weight": 2,
+      "kind": "clipped chain endpoint",
+      "projected": [
+        470.0377890034466,
+        301.9736702209552
+      ],
+      "delta": [
+        0.03778900344661906,
+        -0.026329779044772295
+      ],
+      "distance": 0.046057204062286694
+    },
+    "right_chain": {
+      "source": [
+        868,
+        0
+      ],
+      "avatar": [
+        570,
+        302
+      ],
+      "weight": 2,
+      "kind": "clipped chain endpoint",
+      "projected": [
+        569.888070864819,
+        301.9736702209552
+      ],
+      "delta": [
+        -0.11192913518095793,
+        -0.026329779044772295
+      ],
+      "distance": 0.11498429704487341
+    },
+    "chest_center": {
+      "source": [
+        512,
+        880
+      ],
+      "avatar": [
+        520,
+        425
+      ],
+      "weight": 1,
+      "kind": "anatomical garment proxy",
+      "projected": [
+        520.0329511696598,
+        425.2110447483154
+      ],
+      "delta": [
+        0.032951169659781954,
+        0.21104474831537345
+      ],
+      "distance": 0.21360165114869092
+    },
+    "pendant_bottom": {
+      "source": [
+        512,
+        1435
+      ],
+      "avatar": [
+        520,
+        503
+      ],
+      "weight": 1,
+      "kind": "anatomical garment proxy",
+      "projected": [
+        520.0329511696598,
+        502.9346161831845
+      ],
+      "delta": [
+        0.032951169659781954,
+        -0.06538381681548344
+      ],
+      "distance": 0.07321764188573973
+    },
+    "armor_overlap": {
+      "source": [
+        512,
+        1200
+      ],
+      "avatar": [
+        520,
+        470
+      ],
+      "weight": 0.5,
+      "kind": "pendant over breastplate placement goal",
+      "projected": [
+        520.0329511696598,
+        470.02463548553726
+      ],
+      "delta": [
+        0.032951169659781954,
+        0.024635485537260138
+      ],
+      "distance": 0.04114227423957368
+    }
+  },
+  "evidence": [
+    "build/task-0055-body-fit-bake/medallion_path_rare_female_v2/source.png",
+    "build/task-0055-body-fit-bake/medallion_path_rare_female_v2/avatar_base.png",
+    "build/task-0055-body-fit-bake/medallion_path_rare_female_v2/baked_overlay.png",
+    "build/task-0055-body-fit-bake/medallion_path_rare_female_v2/combined.png",
+    "build/task-0055-body-fit-bake/medallion_path_rare_female_v2/overlay_50_50.png",
+    "build/task-0055-body-fit-bake/medallion_path_rare_female_v2/alignment_guides.png",
+    "build/task-0055-body-fit-bake/medallion_path_rare_female_v2/before.png",
+    "build/task-0055-body-fit-bake/medallion_path_rare_female_v2/armor_overlap.png"
+  ]
+}

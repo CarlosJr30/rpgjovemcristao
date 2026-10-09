@@ -1,0 +1,143 @@
+{
+  "task": "TASK-0056",
+  "technicalStatus": "PASS",
+  "acceptance": "FAIL_OPEN_HAND_REQUIRES_REWORK",
+  "counts": {
+    "processedTargets": 4,
+    "attempts": 2,
+    "candidatePngs": 8,
+    "DOWNWARD": 4,
+    "FIT_PASS": 0,
+    "NEEDS_REWORK": 4,
+    "HUMAN_BODY_FIT_REVIEW_PENDING": 0,
+    "HUMAN_APPROVED": 0,
+    "READY": 0,
+    "runtimeActivated": 0
+  },
+  "reports": [
+    {
+      "id": "sword_path_common_female_v2",
+      "attempt": 1,
+      "technical": "PASS",
+      "fit": "NEEDS_REWORK",
+      "sha256": "8aeff496080a6c54b28e6bda1919f801d9fca7f9babea5dab07aa265ea744caf",
+      "clippedAlpha128SourcePixels": 0,
+      "bladeAxisDeltaX": 2.842170943040401e-14,
+      "tip": [
+        232.3968244652782,
+        1399.3132809382407
+      ],
+      "evidenceFiles": 13
+    },
+    {
+      "id": "sword_path_common_male_v2",
+      "attempt": 1,
+      "technical": "PASS",
+      "fit": "NEEDS_REWORK",
+      "sha256": "2bfa0fcad5242a1f658950fb50dbe0b6e51e1fab7dde827c17c80a6e7ea8ee2c",
+      "clippedAlpha128SourcePixels": 0,
+      "bladeAxisDeltaX": -5.684341886080802e-14,
+      "tip": [
+        229.4019673344734,
+        1452.5181702989366
+      ],
+      "evidenceFiles": 13
+    },
+    {
+      "id": "sword_path_rare_female_v2",
+      "attempt": 1,
+      "technical": "PASS",
+      "fit": "NEEDS_REWORK",
+      "sha256": "c67f2efb40809c89ca8db6a343b6ff5a913757f588ecef7104c2613929fb4c7c",
+      "clippedAlpha128SourcePixels": 0,
+      "bladeAxisDeltaX": 0,
+      "tip": [
+        245,
+        1362.275
+      ],
+      "evidenceFiles": 13
+    },
+    {
+      "id": "sword_path_rare_male_v2",
+      "attempt": 1,
+      "technical": "PASS",
+      "fit": "NEEDS_REWORK",
+      "sha256": "068d9aab42b7c62335abf3f97eab4054fbd771a5f619b68f1c6e8ac47212c0fd",
+      "clippedAlpha128SourcePixels": 0,
+      "bladeAxisDeltaX": 5.684341886080802e-14,
+      "tip": [
+        236.80741986353334,
+        1399.5646066747493
+      ],
+      "evidenceFiles": 13
+    },
+    {
+      "id": "sword_path_common_female_v2",
+      "attempt": 2,
+      "technical": "PASS",
+      "fit": "NEEDS_REWORK",
+      "sha256": "14c11b9454113ffb5dca678234a0286315d36b81e91f816d9835d5b6fee54cf1",
+      "clippedAlpha128SourcePixels": 0,
+      "bladeAxisDeltaX": 0,
+      "tip": [
+        227.99697568121732,
+        1371.3459818459437
+      ],
+      "evidenceFiles": 13
+    },
+    {
+      "id": "sword_path_common_male_v2",
+      "attempt": 2,
+      "technical": "PASS",
+      "fit": "NEEDS_REWORK",
+      "sha256": "bdbf54e9c683cfbce31c9ab6f0b85ab1a9a0f4af6bdabdfe6feb92903bad6a2f",
+      "clippedAlpha128SourcePixels": 0,
+      "bladeAxisDeltaX": -5.684341886080802e-14,
+      "tip": [
+        222.06918412087504,
+        1389.971389032752
+      ],
+      "evidenceFiles": 13
+    },
+    {
+      "id": "sword_path_rare_female_v2",
+      "attempt": 2,
+      "technical": "PASS",
+      "fit": "NEEDS_REWORK",
+      "sha256": "213b5f5cf9bc7efb5fa1bdb85b053920452d41980784222e36829fb0c3acb2d4",
+      "clippedAlpha128SourcePixels": 0,
+      "bladeAxisDeltaX": 0,
+      "tip": [
+        237,
+        1248.425
+      ],
+      "evidenceFiles": 13
+    },
+    {
+      "id": "sword_path_rare_male_v2",
+      "attempt": 2,
+      "technical": "PASS",
+      "fit": "NEEDS_REWORK",
+      "sha256": "8e549def7ee66c9e9f3cd80e256b820e3fd889c99b0b9d05d738a62b2b657088",
+      "clippedAlpha128SourcePixels": 0,
+      "bladeAxisDeltaX": 2.842170943040401e-14,
+      "tip": [
+        225.5944739654586,
+        1248.4047104088813
+      ],
+      "evidenceFiles": 13
+    }
+  ],
+  "preservation": {
+    "checked": 709,
+    "unchanged": 707,
+    "authorizedChanged": [
+      "scripts/body-fit-bake.mjs",
+      "scripts/body-fit-sword-inspect.mjs"
+    ],
+    "avatars": 54,
+    "originalsPreserved": true,
+    "oldCandidatesPreserved": true,
+    "runtimePreserved": true
+  }
+}

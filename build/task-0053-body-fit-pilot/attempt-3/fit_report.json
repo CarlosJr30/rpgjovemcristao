@@ -1,0 +1,263 @@
+{
+  "attempt": 3,
+  "assessedAt": "2026-10-08T06:33:59.151Z",
+  "fitStatus": "FIT_FAIL",
+  "finalStatus": "NEEDS_REWORK",
+  "humanBodyFitApproved": false,
+  "ready": false,
+  "method": "Immutable HD + native diagnostic wearable outline/belt guide",
+  "regions": {
+    "shoulders": {
+      "status": "FAIL",
+      "reason": "Pauldrons still oversized x278..772, upper cap edges detached from actual shoulders."
+    },
+    "chest": {
+      "status": "FAIL",
+      "reason": "Torso length still too great; breastplate lower edge around y672 overruns original waist y579."
+    },
+    "armpits": {
+      "status": "FAIL",
+      "reason": "Side buckles/straps occupy sleeve edges, openings do not coincide with original axilla."
+    },
+    "waist": {
+      "status": "FAIL",
+      "reason": "Buckle center approx [544,710] vs [531,579], delta y~131px."
+    },
+    "hips": {
+      "status": "FAIL",
+      "reason": "Lower armor bottom985 vs intended815, approximately170px too long."
+    },
+    "faceNeck": {
+      "status": "PASS",
+      "reason": "Face and exposed neck clear; top323 around shoulders."
+    },
+    "handsArms": {
+      "status": "PASS",
+      "reason": "Forearms/hands stay unobstructed at actual composition."
+    },
+    "silhouette": {
+      "status": "FAIL",
+      "reason": "Still shows low second waist and long chest; diagnostic guide not obeyed tightly enough."
+    }
+  },
+  "recommendation": "Last allowed iteration changes reference method to a separate flat native layout schematic (not a full-character outline), retaining HD as anatomical/style reference. No output transformations.",
+  "technical": {
+    "attempt": 3,
+    "validatedAt": "2026-10-08T06:40:39.615Z",
+    "generatorFile": "C:\\Users\\carlo\\.codex\\generated_images\\01a10ddf-bdf6-7473-a73f-35a04d0aeb34\\exec-a6e632f5-1b0e-44bd-aaf7-41d3b8f12ed3.png",
+    "target": "armor_traveler_uncommon_female_v2.png",
+    "sha256": "3a25c5b95e97a819774a33fdcb5207fc679ac24b2bf2c10ec43715d2a7959a3d",
+    "format": "png",
+    "width": 1024,
+    "height": 1536,
+    "alpha": {
+      "channel": true,
+      "transparentPixels": 1351526,
+      "partialPixels": 221338,
+      "opaquePixels": 0
+    },
+    "integrity": {
+      "status": "CRC_PASS",
+      "chunks": 23
+    },
+    "bboxAlpha128": {
+      "left": 278,
+      "top": 323,
+      "right": 772,
+      "bottom": 985
+    },
+    "landmarkSamples": {
+      "neck_center": {
+        "x": 520,
+        "y": 302,
+        "alpha": 0
+      },
+      "left_shoulder": {
+        "x": 379,
+        "y": 346,
+        "alpha": 253
+      },
+      "right_shoulder": {
+        "x": 657,
+        "y": 352,
+        "alpha": 253
+      },
+      "chest_center": {
+        "x": 520,
+        "y": 455,
+        "alpha": 253
+      },
+      "left_armpit": {
+        "x": 391,
+        "y": 492,
+        "alpha": 253
+      },
+      "right_armpit": {
+        "x": 646,
+        "y": 499,
+        "alpha": 253
+      },
+      "waist_center": {
+        "x": 531,
+        "y": 579,
+        "alpha": 253
+      },
+      "left_hip": {
+        "x": 421,
+        "y": 705,
+        "alpha": 253
+      },
+      "right_hip": {
+        "x": 646,
+        "y": 711,
+        "alpha": 253
+      },
+      "left_hand_clearance": {
+        "x": 240,
+        "y": 799,
+        "alpha": 0
+      },
+      "right_hand_clearance": {
+        "x": 783,
+        "y": 810,
+        "alpha": 0
+      }
+    },
+    "status": "TECHNICALLY_VALIDATED",
+    "fitStatus": "FIT_FAIL",
+    "policy": {
+      "postprocessing": "NONE; byte copy only",
+      "humanBodyFitApproved": false,
+      "ready": false,
+      "devOnly": true
+    },
+    "finalStatus": "NEEDS_REWORK",
+    "mapping": {
+      "status": "MAPPED",
+      "target": {
+        "filename": "armor_traveler_uncommon_female_v2.png",
+        "itemId": "traveler-armor-uncommon",
+        "slot": "armor",
+        "gender": "female",
+        "equipable": true,
+        "status": "NEEDS_NEW_OVERLAY",
+        "priority": "P0",
+        "referenceAvatar": {
+          "id": "female_short_moss_medium",
+          "source": "/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+          "sha256": "f260cb9b053b35c328025f1bc7ee602cbb30e57c71ba1f2238a4b1519685f460",
+          "alphaThreshold": 128,
+          "bounds": {
+            "left": 187,
+            "top": 2,
+            "right": 964,
+            "bottom": 1495
+          },
+          "footBaseline": 1495,
+          "alphaPositiveBoundsDiagnostic": {
+            "left": 0,
+            "top": 0,
+            "right": 1001,
+            "bottom": 1504
+          }
+        },
+        "expectedLandmarks": [
+          "shoulders",
+          "chest",
+          "waist",
+          "hips",
+          "face/hands/legs exclusion"
+        ],
+        "reason": "No dedicated V2 body asset or human approval; V1 body fitting rejected.",
+        "resolution": {
+          "width": 1024,
+          "height": 1536
+        },
+        "format": "PNG",
+        "alpha": "REAL_TRANSPARENCY_REQUIRED",
+        "landmarkStatus": "ASSET_MISSING_NOT_MEASURED",
+        "validation": {
+          "correction": "NONE: inset 0; no offsets/crop/warp",
+          "geometry": "HD alpha ≥128 contour; alpha >0 diagnostic",
+          "requiredReview": "Same gender; all short/long/curly, outfits and skin variants before general compatibility",
+          "gripHairlineShouldersAnkles": "Measure on approved HD; historical anchors are guides, not validated HD anatomy"
+        }
+      }
+    },
+    "clearanceDiagnostics": {
+      "neck_center": {
+        "radius": 35,
+        "pixels": 3853,
+        "coveredAlpha128": 0
+      },
+      "left_hand_clearance": {
+        "radius": 45,
+        "pixels": 6361,
+        "coveredAlpha128": 0
+      },
+      "right_hand_clearance": {
+        "radius": 45,
+        "pixels": 6361,
+        "coveredAlpha128": 0
+      }
+    }
+  },
+  "landmarks": {
+    "reference": "female_short_moss_medium_hd.png",
+    "canvas": [
+      1024,
+      1536
+    ],
+    "coordinateSystem": "native pixels; x right/y down; left/right = screen side",
+    "method": "manual visual landmarks on immutable native HD; approximate ±12 px; diagnostic only, not central runtime anchors",
+    "points": {
+      "neck_center": [
+        520,
+        302
+      ],
+      "left_shoulder": [
+        379,
+        346
+      ],
+      "right_shoulder": [
+        657,
+        352
+      ],
+      "chest_center": [
+        520,
+        455
+      ],
+      "left_armpit": [
+        391,
+        492
+      ],
+      "right_armpit": [
+        646,
+        499
+      ],
+      "waist_center": [
+        531,
+        579
+      ],
+      "left_hip": [
+        421,
+        705
+      ],
+      "right_hip": [
+        646,
+        711
+      ],
+      "left_hand_clearance": [
+        240,
+        799
+      ],
+      "right_hand_clearance": [
+        783,
+        810
+      ]
+    },
+    "handClearanceRadius": 45,
+    "neckClearanceRadius": 35,
+    "footBaseline": 1495
+  }
+}

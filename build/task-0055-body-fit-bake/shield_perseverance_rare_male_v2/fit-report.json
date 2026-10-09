@@ -1,0 +1,156 @@
+{
+  "task": "TASK-0055",
+  "id": "shield_perseverance_rare_male_v2",
+  "itemId": "traveler-shield-rare",
+  "gender": "male",
+  "slot": "shield",
+  "assessedAt": "2026-10-08T20:27:47.229Z",
+  "assessedBy": "Codex / author visual QA (not Carlos Faustino)",
+  "outputSha256": "bf0785671741851d4e64402984309cfc30ff80313da98cf453b3e3a57b40e2a6",
+  "sourceSha256": "94632b12aeb02547dfd98453f58f7cf40c3d143c1bfcc9b19bae19f75244809d",
+  "referenceAvatar": {
+    "id": "male_short_moss_medium",
+    "path": "apps/web/public/assets/avatar/hd/male/male_short_moss_medium_hd.png",
+    "sha256": "b182c2e29b512b337891716a413ab7efaad737e23c6354779fae17fe19b8af34",
+    "immutable": true,
+    "footBaseline": 1513
+  },
+  "technicalStatus": "TECHNICALLY_VALIDATED",
+  "mapping": "MAPPED",
+  "status": "FIT_PASS",
+  "reviewStatus": "HUMAN_BODY_FIT_REVIEW_PENDING",
+  "humanBodyFitApproved": false,
+  "ready": false,
+  "runtimeActivated": false,
+  "observations": [
+    "Escudo ocupa região do antebraço direito da tela, oclui mão/bracelete frontalmente e mantém rosto livre.",
+    "Contorno lateral e ponta inferior ficam dentro do canvas, com proporção coerente com o avatar.",
+    "Montagem/pega traseira não está visível na source: alinhamento do antebraço é proxy visual; Carlos precisa confirmar leitura de escudo portado."
+  ],
+  "regions": {
+    "hand_forearm": "PASS_FRONT_OCCLUSION_PROXY",
+    "torso_clearance": "PASS",
+    "face_clearance": "PASS",
+    "lateral_extent": "PASS",
+    "proportion": "PASS"
+  },
+  "reworkRecommendation": "Sem regeneração obrigatória no candidato técnico; revisão humana deve confirmar porte/oclusão no hash e avatar indicados, sem presumir tira traseira ou compatibilidade geral.",
+  "limits": "Only this derivative/hash and named reference; no cross-gender or 54-avatar compatibility claimed; landmark residuals are approximate diagnostics, not sufficient to prove fit.",
+  "landmarkMethod": "Male shield wider angular contour independently measured, forearm mounting proxy; visual native grid measurements approximately ±12px avatar, ±20px source. No hidden anatomy certified.",
+  "landmarkResiduals": {
+    "hand_forearm": {
+      "source": [
+        512,
+        713
+      ],
+      "avatar": [
+        793,
+        739
+      ],
+      "weight": 3,
+      "kind": "rear mounting proxy, hidden strap unverified",
+      "projected": [
+        792.8571428571429,
+        739.8601657552034
+      ],
+      "delta": [
+        -0.14285714285711038,
+        0.8601657552034112
+      ],
+      "distance": 0.871947985656227
+    },
+    "torso_clearance": {
+      "source": [
+        75,
+        653
+      ],
+      "avatar": [
+        650,
+        719
+      ],
+      "weight": 1,
+      "kind": "inner edge placement goal",
+      "projected": [
+        646.9102627005601,
+        719.82169250716
+      ],
+      "delta": [
+        -3.0897372994398893,
+        0.8216925071600372
+      ],
+      "distance": 3.19713233318126
+    },
+    "face_clearance": {
+      "source": [
+        512,
+        24
+      ],
+      "avatar": [
+        793,
+        510
+      ],
+      "weight": 1,
+      "kind": "top placement goal below face",
+      "projected": [
+        792.8571428571429,
+        509.7516979568384
+      ],
+      "delta": [
+        -0.14285714285711038,
+        -0.24830204316157278
+      ],
+      "distance": 0.2864647760257941
+    },
+    "lateral_extent": {
+      "source": [
+        949,
+        653
+      ],
+      "avatar": [
+        935,
+        719
+      ],
+      "weight": 1,
+      "kind": "outer edge placement goal",
+      "projected": [
+        938.8040230137256,
+        719.82169250716
+      ],
+      "delta": [
+        3.804023013725555,
+        0.8216925071600372
+      ],
+      "distance": 3.8917566297594464
+    },
+    "shield_tip": {
+      "source": [
+        512,
+        1489
+      ],
+      "avatar": [
+        793,
+        1003
+      ],
+      "weight": 1,
+      "kind": "lower extent placement goal",
+      "projected": [
+        792.8571428571429,
+        999.0244197632314
+      ],
+      "delta": [
+        -0.14285714285711038,
+        -3.9755802367685646
+      ],
+      "distance": 3.9781460986557664
+    }
+  },
+  "evidence": [
+    "build/task-0055-body-fit-bake/shield_perseverance_rare_male_v2/source.png",
+    "build/task-0055-body-fit-bake/shield_perseverance_rare_male_v2/avatar_base.png",
+    "build/task-0055-body-fit-bake/shield_perseverance_rare_male_v2/baked_overlay.png",
+    "build/task-0055-body-fit-bake/shield_perseverance_rare_male_v2/combined.png",
+    "build/task-0055-body-fit-bake/shield_perseverance_rare_male_v2/overlay_50_50.png",
+    "build/task-0055-body-fit-bake/shield_perseverance_rare_male_v2/alignment_guides.png",
+    "build/task-0055-body-fit-bake/shield_perseverance_rare_male_v2/before.png"
+  ]
+}

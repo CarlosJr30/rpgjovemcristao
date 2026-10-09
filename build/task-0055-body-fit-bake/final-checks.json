@@ -1,0 +1,80 @@
+{
+  "task": "TASK-0055",
+  "at": "2026-10-08T23:47:33.260Z",
+  "status": "DONE / BAKE_BATCH_COMPLETE",
+  "counts": {
+    "processed": 15,
+    "TECHNICALLY_VALIDATED": 15,
+    "MAPPED": 15,
+    "MAPPING_ERROR": 0,
+    "FIT_PASS": 5,
+    "NEEDS_REWORK": 10,
+    "HUMAN_BODY_FIT_REVIEW_PENDING": 5,
+    "FIT_VALIDATION_PENDING": 0,
+    "HUMAN_BODY_FIT_APPROVED": 0,
+    "READY": 0,
+    "runtimeActivated": 0
+  },
+  "checks": {
+    "bakeAssetValidator": {
+      "status": "PASS",
+      "command": "node scripts/body-fit-batch-check.mjs",
+      "technicalValidated": 15,
+      "mapped": 15,
+      "meaning": "PNG integrity/mapping/preservation; does not infer fit or human approval"
+    },
+    "unit": {
+      "status": "PASS",
+      "command": "node --test scripts/body-fit-batch-bake.test.mjs scripts/body-fit-bake.test.mjs scripts/body-fit-target-audit.test.mjs scripts/body-fit-source-audit.test.mjs",
+      "passed": 44,
+      "failed": 0,
+      "deterministicTargetCases": 15
+    },
+    "lab": {
+      "status": "PASS",
+      "command": "npx playwright test --config playwright.body-fit-batch-lab.config.mjs",
+      "passed": 2,
+      "viewports": 6,
+      "views": 8
+    },
+    "equipmentPortal": {
+      "status": "PASS",
+      "command": "npx playwright test tests/e2e/equipment-portal.spec.ts --project=desktop --output=build/task-0055-body-fit-bake/portal-results",
+      "passed": 7,
+      "failed": 0,
+      "viewports": 6,
+      "fallback": "PASS"
+    },
+    "lint": {
+      "status": "PASS",
+      "command": "npm run lint"
+    },
+    "typecheck": {
+      "status": "PASS",
+      "command": "npm run typecheck"
+    },
+    "build": {
+      "status": "N/A",
+      "reason": "Explicit task contract requests build only if TS/runtime changed; no TS/runtime files changed."
+    },
+    "preservation": {
+      "status": "PASS",
+      "files": 315,
+      "pilotUnchanged": true
+    },
+    "qa": {
+      "status": "PASS",
+      "reviewedBy": "author (not independent)",
+      "method": "Individual native source/HD grids, combined PNGs, medallion armor overlap and browser screenshots; fits5/rework10 honest"
+    },
+    "security": {
+      "status": "PASS",
+      "reviewedBy": "author (not independent)",
+      "report": "docs/security/TASK-0055-body-fit-batch-review.md"
+    }
+  },
+  "humanApproval": 0,
+  "readyPromotions": 0,
+  "runtimeActivations": 0,
+  "remoteActions": 0
+}

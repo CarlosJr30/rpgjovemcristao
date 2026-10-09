@@ -1,0 +1,206 @@
+{
+  "task": "TASK-0058",
+  "id": "sword_path_common_female_v2",
+  "attempt": "attempt-03",
+  "status": "FIT_VALIDATION_PENDING",
+  "settings": {
+    "attempt": "attempt-03",
+    "sheathSource": "build/task-0058-sword-sheath-pilot/source/sheath-generated-v2.png",
+    "throatSource": [
+      406,
+      450
+    ],
+    "tipSource": [
+      878,
+      1428
+    ],
+    "anchorsSource": [
+      [
+        160,
+        102
+      ],
+      [
+        237,
+        153
+      ]
+    ],
+    "throatDestination": [
+      697,
+      745
+    ],
+    "guard": [
+      686,
+      690
+    ],
+    "scale": 0.46,
+    "rotation": 10,
+    "swordRotation": 17.93075306356095,
+    "hiltLimit": 55,
+    "maskMethod": "localized-avatar-colour-refinement"
+  },
+  "originalSword": {
+    "path": "assets-source/body-fit-v2-targets/sword_path_common_female_v2.png",
+    "format": "png",
+    "width": 1024,
+    "height": 1536,
+    "channels": 4,
+    "hasAlpha": true,
+    "integrity": {
+      "status": "CRC_PASS",
+      "chunks": 22
+    },
+    "alpha128Bounds": {
+      "left": 64,
+      "top": 97,
+      "right": 943,
+      "bottom": 1492,
+      "count": 143598
+    },
+    "alphaPositiveBoundsDiagnostic": {
+      "left": 59,
+      "top": 55,
+      "right": 947,
+      "bottom": 1495,
+      "count": 158270
+    },
+    "transparentPixels": 1414594,
+    "sha256": "03e3edbcf9572fae0cafc46b0a02eda045cbcdfe855dfcdf808e4aa8a5401d29",
+    "decode": "PASS",
+    "sheathPresent": false,
+    "supportPresent": false
+  },
+  "avatar": {
+    "path": "apps/web/public/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+    "sha256": "f260cb9b053b35c328025f1bc7ee602cbb30e57c71ba1f2238a4b1519685f460",
+    "id": "female_short_moss_medium",
+    "immutable": true,
+    "footBaseline": 1495
+  },
+  "sheathSource": {
+    "path": "build/task-0058-sword-sheath-pilot/source/sheath-generated-v2.png",
+    "format": "png",
+    "width": 1024,
+    "height": 1536,
+    "channels": 4,
+    "hasAlpha": true,
+    "integrity": {
+      "status": "CRC_PASS",
+      "chunks": 22
+    },
+    "alpha128Bounds": {
+      "left": 134,
+      "top": 98,
+      "right": 885,
+      "bottom": 1433,
+      "count": 141501
+    },
+    "alphaPositiveBoundsDiagnostic": {
+      "left": 39,
+      "top": 23,
+      "right": 993,
+      "bottom": 1509,
+      "count": 154117
+    },
+    "transparentPixels": 1418747,
+    "sha256": "b042739c4e179c504b33b0c50da710ae1c42edb7f67444f967264c8a219a9949",
+    "decode": "PASS"
+  },
+  "transforms": {
+    "sword": {
+      "scale": 0.4,
+      "rotation": 17.93075306356095,
+      "translateX": 633.254422103176,
+      "translateY": 503.5030723783095
+    },
+    "sheath": {
+      "scale": 0.46,
+      "rotation": 10,
+      "translateX": 549.0224768244946,
+      "translateY": 508.71426146539704
+    }
+  },
+  "landmarks": {
+    "throat": [
+      697,
+      745
+    ],
+    "sheathTip": [
+      832.700617165212,
+      1225.747804260176
+    ],
+    "beltLoops": [
+      [
+        613.3567549500607,
+        567.7019471130159
+      ],
+      [
+        644.164859313687,
+        596.956155451645
+      ]
+    ],
+    "swordGrip": [
+      674.3275442109492,
+      642.9197092632952
+    ],
+    "swordTipHidden": [
+      807.5029059311604,
+      1186.3130502518381
+    ]
+  },
+  "beltBox": [
+    410,
+    558,
+    655,
+    615
+  ],
+  "output": {
+    "path": "build/task-0058-sword-sheath-pilot/baked/attempt-03/sword_path_common_female_v2_sheathed_baked.png",
+    "format": "png",
+    "width": 1024,
+    "height": 1536,
+    "channels": 4,
+    "hasAlpha": true,
+    "integrity": {
+      "status": "CRC_PASS",
+      "chunks": 21
+    },
+    "alpha128Bounds": {
+      "left": 598,
+      "top": 554,
+      "right": 837,
+      "bottom": 1228,
+      "count": 35324
+    },
+    "alphaPositiveBoundsDiagnostic": {
+      "left": 531,
+      "top": 554,
+      "right": 923,
+      "bottom": 1233,
+      "count": 38538
+    },
+    "transparentPixels": 1534326,
+    "sha256": "735000c62ddaee5214cfb895deae17685a1f2e1c0c642f3557e09879d90524f2",
+    "decode": "PASS"
+  },
+  "mask": {
+    "path": "build/task-0058-sword-sheath-pilot/baked/attempt-03/foreground-arm-mask.png",
+    "sha256": "fc1373e65ade05466f9457a83f5cfadaa1786a02bd5d6be65c4d8e319f2e14a0",
+    "polygon": "659,539 671,550 684,568 696,589 706,611 715,641 724,669 734,698 741,718 751,742 759,764 757,781 752,800 747,819 751,835 764,851 790,842 807,818 818,796 812,773 799,742 789,713 781,683 773,654 765,623 748,593 736,566 732,541 712,518",
+    "intent": "Equipment behind precomposed foreground arm/hand; zero Avatar pixels copied or modified; author manual trace needs visual validation"
+  },
+  "hilt": {
+    "path": "build/task-0058-sword-sheath-pilot/baked/attempt-03/hilt-original-pixels.png",
+    "sha256": "e6afd1cc712f5aee43aecf0d0498e58c6761693a266211d65c1c3c6bcaa2e83c",
+    "removedBladePixels": 16352,
+    "cutAxialLimit": 55,
+    "sourceOnly": true
+  },
+  "pipeline": "Unmodified TASK0054/0056 inverse uniform similarity, premultiplied bilinear; localized equipment alpha subtraction; no anatomy warp",
+  "runtime": {
+    "activated": false,
+    "path": null,
+    "transform": "none"
+  },
+  "ready": false,
+  "humanBodyFitApproved": false
+}

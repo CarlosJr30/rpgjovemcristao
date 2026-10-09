@@ -1,0 +1,21 @@
+{
+  "id": "boots_traveler_common_female_v2",
+  "status": "PASS",
+  "technical": "TECHNICALLY_VALIDATED",
+  "mapping": "MAPPED",
+  "fitStatus": "NEEDS_REWORK",
+  "sha256": "ae56dd6d0b8e3d3dbbc126f7863736281cf2271734d434122733f1b14fc91dd6",
+  "clippedAlpha128SourcePixels": 0,
+  "alpha128Bounds": {
+    "left": 225,
+    "top": 952,
+    "right": 807,
+    "bottom": 1514,
+    "count": 182074
+  },
+  "footBaselineDelta": 19,
+  "maxLandmarkResidual": 186.77169410338095,
+  "humanBodyFitApproved": false,
+  "ready": false,
+  "runtimeActivated": false
+}

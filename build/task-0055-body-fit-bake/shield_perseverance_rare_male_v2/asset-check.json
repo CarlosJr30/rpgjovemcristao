@@ -1,0 +1,21 @@
+{
+  "id": "shield_perseverance_rare_male_v2",
+  "status": "PASS",
+  "technical": "TECHNICALLY_VALIDATED",
+  "mapping": "MAPPED",
+  "fitStatus": "FIT_PASS",
+  "sha256": "bf0785671741851d4e64402984309cfc30ff80313da98cf453b3e3a57b40e2a6",
+  "clippedAlpha128SourcePixels": 0,
+  "alpha128Bounds": {
+    "left": 638,
+    "top": 508,
+    "right": 947,
+    "bottom": 998,
+    "count": 96065
+  },
+  "footBaselineDelta": null,
+  "maxLandmarkResidual": 3.9781460986557664,
+  "humanBodyFitApproved": false,
+  "ready": false,
+  "runtimeActivated": false
+}

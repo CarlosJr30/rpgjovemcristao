@@ -1,0 +1,234 @@
+{
+  "at": "2026-10-07T22:00:48.762Z",
+  "result": "PASS",
+  "geometryOutcome": "14 passed; one blocked; two not generated",
+  "assetValidation": {
+    "result": "PASS",
+    "attempts": 25,
+    "results": [
+      {
+        "id": "female_long_blue_dark",
+        "attempt": 1,
+        "asset": "PASS",
+        "geometry": "GEOMETRY_PASS",
+        "passCount": 13,
+        "sha256": "8965ed75ea6fed37f0f20bda47d1e89cde09ef5bba38bcb977a8331cd2ce6e9a"
+      },
+      {
+        "id": "female_long_blue_light",
+        "attempt": 1,
+        "asset": "PASS",
+        "geometry": "REJECTED_GEOMETRY",
+        "passCount": 10,
+        "sha256": "9eda785a64b24d63972326e684c950e46008405838c22902a10b01b04ae98325"
+      },
+      {
+        "id": "female_long_blue_light",
+        "attempt": 2,
+        "asset": "PASS",
+        "geometry": "REJECTED_GEOMETRY",
+        "passCount": 12,
+        "sha256": "3b220905eaa68a2af3d7b0872eaef99cd80d04ff8eb87ed973d2ee606cc3fd93"
+      },
+      {
+        "id": "female_long_blue_light",
+        "attempt": 3,
+        "asset": "PASS",
+        "geometry": "GEOMETRY_PASS",
+        "passCount": 13,
+        "sha256": "1d9ea6451ef5004b50eeaf3fe6f5ba0a4be7e9e5b9b792b08913b14347a6b62f"
+      },
+      {
+        "id": "female_long_moss_dark",
+        "attempt": 1,
+        "asset": "PASS",
+        "geometry": "GEOMETRY_PASS",
+        "passCount": 13,
+        "sha256": "af2a67a75c3f59c6f59c1595cc255174478e081652ec6cf661d63863bdd897b6"
+      },
+      {
+        "id": "female_long_blue_medium",
+        "attempt": 1,
+        "asset": "PASS",
+        "geometry": "REJECTED_GEOMETRY",
+        "passCount": 10,
+        "sha256": "e1e44e8fb43e3ec218ddd3032ee687cbbb31b9b62df8b9af0dee8bbaca294782"
+      },
+      {
+        "id": "female_long_blue_medium",
+        "attempt": 2,
+        "asset": "PASS",
+        "geometry": "GEOMETRY_PASS",
+        "passCount": 13,
+        "sha256": "7cccad3f330823bf6172f482e19846aebeee7b4a63098a88e88b2033119478e7"
+      },
+      {
+        "id": "female_long_ochre_light",
+        "attempt": 1,
+        "asset": "PASS",
+        "geometry": "REJECTED_GEOMETRY",
+        "passCount": 10,
+        "sha256": "87e19e205dc97460b074b5e16c4ca32c5d8769aa44409c24bef3be1ee13aab97"
+      },
+      {
+        "id": "female_long_ochre_light",
+        "attempt": 2,
+        "asset": "PASS",
+        "geometry": "REJECTED_GEOMETRY",
+        "passCount": 10,
+        "sha256": "f4805bb9902e2decaf91d3db586e8084555effb698f3d14b90836437fd78cb46"
+      },
+      {
+        "id": "female_long_ochre_light",
+        "attempt": 3,
+        "asset": "PASS",
+        "geometry": "GEOMETRY_PASS",
+        "passCount": 13,
+        "sha256": "8d8344f596c2819c97630cd1d6ad96a1823d2b2738ee2543021773765ee03d3f"
+      },
+      {
+        "id": "female_long_ochre_dark",
+        "attempt": 1,
+        "asset": "PASS",
+        "geometry": "GEOMETRY_PASS",
+        "passCount": 13,
+        "sha256": "24f0d3abfa9c0fd04670a98ea6e28354e8c6906232f25a1daf45df04d93b106c"
+      },
+      {
+        "id": "female_long_moss_medium",
+        "attempt": 1,
+        "asset": "PASS",
+        "geometry": "REJECTED_GEOMETRY",
+        "passCount": 11,
+        "sha256": "2dd764a7501030e2a13de26ac2db0f3356449425b1de310aede159dd3c95c08c"
+      },
+      {
+        "id": "female_long_moss_medium",
+        "attempt": 2,
+        "asset": "PASS",
+        "geometry": "REJECTED_GEOMETRY",
+        "passCount": 12,
+        "sha256": "7072e7f6e0a34f5c37fa083fd0795298f6b90943f2f40d588ab3c2d4553a65bb"
+      },
+      {
+        "id": "female_long_moss_medium",
+        "attempt": 3,
+        "asset": "PASS",
+        "geometry": "GEOMETRY_PASS",
+        "passCount": 13,
+        "sha256": "14a85fed5713caed593d151119231f9e6b477aeb503b6791f1bff800d489aae4"
+      },
+      {
+        "id": "female_long_moss_light",
+        "attempt": 1,
+        "asset": "PASS",
+        "geometry": "GEOMETRY_PASS",
+        "passCount": 13,
+        "sha256": "b58b4eac65b271c8dd8c598d05ff05f0e8ab50936c2a6903cdaf47c40c0fe2f5"
+      },
+      {
+        "id": "female_short_blue_dark",
+        "attempt": 1,
+        "asset": "PASS",
+        "geometry": "GEOMETRY_PASS",
+        "passCount": 13,
+        "sha256": "691d944d7eee8ef015f5427280b2b72379a2dfedfe20af61736ebad6d8598380"
+      },
+      {
+        "id": "female_short_blue_light",
+        "attempt": 1,
+        "asset": "PASS",
+        "geometry": "GEOMETRY_PASS",
+        "passCount": 13,
+        "sha256": "f3a580c2305f3415ea5d01ed880ab9eda95ad20dd3c1ae572fec2cdee8cf14ac"
+      },
+      {
+        "id": "female_long_ochre_medium",
+        "attempt": 1,
+        "asset": "PASS",
+        "geometry": "REJECTED_GEOMETRY",
+        "passCount": 10,
+        "sha256": "4c9e44e54ca73334e5f97efb27fed1aa1b2120d10593068b98ef4937d66eeadd"
+      },
+      {
+        "id": "female_long_ochre_medium",
+        "attempt": 2,
+        "asset": "PASS",
+        "geometry": "GEOMETRY_PASS",
+        "passCount": 13,
+        "sha256": "9a66160fe37601d540896b078619fb8d983b1432bb43300722713d09b2d66821"
+      },
+      {
+        "id": "female_short_blue_medium",
+        "attempt": 1,
+        "asset": "PASS",
+        "geometry": "GEOMETRY_PASS",
+        "passCount": 13,
+        "sha256": "3fb0c1fbf7991b717754f7a7c82c57014273fdbe3fea20df0103f034c2b0684f"
+      },
+      {
+        "id": "female_short_ochre_medium",
+        "attempt": 1,
+        "asset": "PASS",
+        "geometry": "GEOMETRY_PASS",
+        "passCount": 13,
+        "sha256": "31117e2ae50cc207a02b4f65c70f97df37e82db54f8c70e35a8adade08e41ae2"
+      },
+      {
+        "id": "female_short_ochre_light",
+        "attempt": 1,
+        "asset": "PASS",
+        "geometry": "REJECTED_GEOMETRY",
+        "passCount": 11,
+        "sha256": "8de19f896943bc852645fafa73a536b1ff2f894a7be29e45ab0f13f07a15d1f0"
+      },
+      {
+        "id": "female_short_ochre_light",
+        "attempt": 2,
+        "asset": "PASS",
+        "geometry": "GEOMETRY_PASS",
+        "passCount": 13,
+        "sha256": "b0e475eb240f148e3b6ba6c60d2b53b62c153254b0151b11ff46d91d0edb81ff"
+      },
+      {
+        "id": "female_short_ochre_dark",
+        "attempt": 1,
+        "asset": "PASS",
+        "geometry": "REJECTED_GEOMETRY",
+        "passCount": 11,
+        "sha256": "3b38249937829d6bcce8c85249aff4caddff90ea8a955fa24e18de305069de77"
+      },
+      {
+        "id": "female_short_ochre_dark",
+        "attempt": 2,
+        "asset": "PASS",
+        "geometry": "REJECTED_GEOMETRY",
+        "passCount": 10,
+        "sha256": "46059806ce01ae9c29f436df7bd1fbeced8a17f96ed549df345301c5109aaad4"
+      }
+    ]
+  },
+  "queueBatchValidation": {
+    "result": "PASS",
+    "selectedCount": 17,
+    "order": "OFFICIAL_ALL17_PENDING",
+    "maxAttempts": 3,
+    "noAttemptAfterPass": true,
+    "noOutOfScopeIdentity": true,
+    "noPublicIntegration": true,
+    "unselected35ItemsUnchanged": true,
+    "globalSafetyStopEnforced": true,
+    "cumulativePatterns": 2,
+    "notGenerated": [
+      "female_short_moss_light",
+      "female_short_moss_dark"
+    ]
+  },
+  "preservation": {
+    "result": "PASS",
+    "files": 487,
+    "changed": [],
+    "publicFiles": 165,
+    "task0049rApprovedCandidate": "INTACT"
+  }
+}

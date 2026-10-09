@@ -1,0 +1,7 @@
+{
+  "phase": 5,
+  "status": "LOCAL_DERIVATIVES_REJECTED_NEW_ART_REQUIRED",
+  "targets": 2,
+  "reason": "Coroa agora dentro do canvas, porém cabelo excede o casco e janela facial permanece incompatível com olhos/testa. Escala uniforme não resolve simultaneamente largura, hairline e abertura; nenhuma edição do cabelo/HD.",
+  "evidence": "helmet-experiments.json"
+}

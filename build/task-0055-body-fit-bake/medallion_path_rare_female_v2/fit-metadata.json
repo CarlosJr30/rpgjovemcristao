@@ -1,0 +1,314 @@
+{
+  "task": "TASK-0055",
+  "id": "medallion_path_rare_female_v2",
+  "itemId": "wisdom-amulet",
+  "slot": "amulet",
+  "gender": "female",
+  "at": "2026-10-08T20:23:18.578Z",
+  "source": {
+    "path": "assets-source/body-fit-v2-targets/medallion_path_rare_female_v2.png",
+    "format": "png",
+    "width": 1024,
+    "height": 1536,
+    "channels": 4,
+    "hasAlpha": true,
+    "integrity": {
+      "status": "CRC_PASS",
+      "chunks": 35
+    },
+    "alpha128Bounds": {
+      "left": 85,
+      "top": 0,
+      "right": 939,
+      "bottom": 1438,
+      "count": 476031
+    },
+    "alphaPositiveBoundsDiagnostic": {
+      "left": 0,
+      "top": 0,
+      "right": 1011,
+      "bottom": 1517,
+      "count": 502459
+    },
+    "transparentPixels": 1070405,
+    "sha256": "d4b114d305cb89901878a145f4c69745bcfd9c2b7683a7a123158758609e41f7",
+    "decode": "PASS",
+    "approval": "SOURCE_VISUAL_APPROVED (inherited; not body-fit approval)"
+  },
+  "avatar": {
+    "id": "female_short_moss_medium",
+    "path": "apps/web/public/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+    "sha256": "f260cb9b053b35c328025f1bc7ee602cbb30e57c71ba1f2238a4b1519685f460",
+    "immutable": true,
+    "footBaseline": 1495
+  },
+  "mapping": {
+    "status": "MAPPED",
+    "errors": [],
+    "targetFilename": "medallion_path_rare_female_v2.png",
+    "itemId": "wisdom-amulet",
+    "gender": "female",
+    "slot": "amulet"
+  },
+  "landmarks": {
+    "neck_center": {
+      "source": [
+        512,
+        0
+      ],
+      "avatar": [
+        520,
+        302
+      ],
+      "weight": 2,
+      "kind": "open chain center at source top, neck attachment placement goal"
+    },
+    "left_chain": {
+      "source": [
+        155,
+        0
+      ],
+      "avatar": [
+        470,
+        302
+      ],
+      "weight": 2,
+      "kind": "clipped chain endpoint"
+    },
+    "right_chain": {
+      "source": [
+        868,
+        0
+      ],
+      "avatar": [
+        570,
+        302
+      ],
+      "weight": 2,
+      "kind": "clipped chain endpoint"
+    },
+    "chest_center": {
+      "source": [
+        512,
+        880
+      ],
+      "avatar": [
+        520,
+        425
+      ],
+      "weight": 1,
+      "kind": "anatomical garment proxy"
+    },
+    "pendant_bottom": {
+      "source": [
+        512,
+        1435
+      ],
+      "avatar": [
+        520,
+        503
+      ],
+      "weight": 1,
+      "kind": "anatomical garment proxy"
+    },
+    "armor_overlap": {
+      "source": [
+        512,
+        1200
+      ],
+      "avatar": [
+        520,
+        470
+      ],
+      "weight": 0.5,
+      "kind": "pendant over breastplate placement goal"
+    }
+  },
+  "landmarkResiduals": {
+    "neck_center": {
+      "source": [
+        512,
+        0
+      ],
+      "avatar": [
+        520,
+        302
+      ],
+      "weight": 2,
+      "kind": "open chain center at source top, neck attachment placement goal",
+      "projected": [
+        520.0329511696598,
+        301.9736702209552
+      ],
+      "delta": [
+        0.032951169659781954,
+        -0.026329779044772295
+      ],
+      "distance": 0.04217863021121318
+    },
+    "left_chain": {
+      "source": [
+        155,
+        0
+      ],
+      "avatar": [
+        470,
+        302
+      ],
+      "weight": 2,
+      "kind": "clipped chain endpoint",
+      "projected": [
+        470.0377890034466,
+        301.9736702209552
+      ],
+      "delta": [
+        0.03778900344661906,
+        -0.026329779044772295
+      ],
+      "distance": 0.046057204062286694
+    },
+    "right_chain": {
+      "source": [
+        868,
+        0
+      ],
+      "avatar": [
+        570,
+        302
+      ],
+      "weight": 2,
+      "kind": "clipped chain endpoint",
+      "projected": [
+        569.888070864819,
+        301.9736702209552
+      ],
+      "delta": [
+        -0.11192913518095793,
+        -0.026329779044772295
+      ],
+      "distance": 0.11498429704487341
+    },
+    "chest_center": {
+      "source": [
+        512,
+        880
+      ],
+      "avatar": [
+        520,
+        425
+      ],
+      "weight": 1,
+      "kind": "anatomical garment proxy",
+      "projected": [
+        520.0329511696598,
+        425.2110447483154
+      ],
+      "delta": [
+        0.032951169659781954,
+        0.21104474831537345
+      ],
+      "distance": 0.21360165114869092
+    },
+    "pendant_bottom": {
+      "source": [
+        512,
+        1435
+      ],
+      "avatar": [
+        520,
+        503
+      ],
+      "weight": 1,
+      "kind": "anatomical garment proxy",
+      "projected": [
+        520.0329511696598,
+        502.9346161831845
+      ],
+      "delta": [
+        0.032951169659781954,
+        -0.06538381681548344
+      ],
+      "distance": 0.07321764188573973
+    },
+    "armor_overlap": {
+      "source": [
+        512,
+        1200
+      ],
+      "avatar": [
+        520,
+        470
+      ],
+      "weight": 0.5,
+      "kind": "pendant over breastplate placement goal",
+      "projected": [
+        520.0329511696598,
+        470.02463548553726
+      ],
+      "delta": [
+        0.032951169659781954,
+        0.024635485537260138
+      ],
+      "distance": 0.04114227423957368
+    }
+  },
+  "landmarkMethod": "Female chain/pendant measured; clipped source chain ends inspected against scarf and skin; armor overlap evidence; visual native grid measurements approximately ±12px avatar, ±20px source. No hidden anatomy certified.",
+  "transform": {
+    "translateX": 448.33120599010476,
+    "translateY": 301.9736702209552,
+    "scale": 0.14004247105381834,
+    "rotation": 0
+  },
+  "fittingMethod": "Per-source weighted least-squares uniform scale + translation; rotation0 preferred. Anatomy points and placement goals identified separately.",
+  "transformConvention": "Native top-left origin; x=tx+scale*x; y=ty+scale*y; offline only",
+  "pipeline": {
+    "version": 1,
+    "implementation": "TASK-0054 bakeBytes: inverse sampling / premultiplied-alpha bilinear",
+    "sharp": "0.35.4",
+    "vips": "8.18.6",
+    "mask": "NONE",
+    "warp": "NONE",
+    "uniform": true
+  },
+  "output": {
+    "path": "build/task-0055-body-fit-bake/medallion_path_rare_female_v2/medallion_path_rare_female_v2_baked.png",
+    "format": "png",
+    "width": 1024,
+    "height": 1536,
+    "channels": 4,
+    "hasAlpha": true,
+    "integrity": {
+      "status": "CRC_PASS",
+      "chunks": 9
+    },
+    "alpha128Bounds": {
+      "left": 460,
+      "top": 302,
+      "right": 579,
+      "bottom": 502,
+      "count": 9346
+    },
+    "alphaPositiveBoundsDiagnostic": {
+      "left": 459,
+      "top": 302,
+      "right": 585,
+      "bottom": 514,
+      "count": 9885
+    },
+    "transparentPixels": 1562979,
+    "sha256": "74b84cdd74af6fb1d3df91c6fbf6f32e6cd05b08a5cd940d7ffb8bdf9f594f77",
+    "decode": "PASS"
+  },
+  "runtime": {
+    "activated": false,
+    "render": {
+      "top": 0,
+      "left": 0,
+      "width": "100%",
+      "height": "100%",
+      "transform": "none"
+    }
+  },
+  "humanBodyFitApproved": false,
+  "ready": false
+}

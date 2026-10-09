@@ -1,0 +1,58 @@
+{
+  "reference": "female_short_moss_medium_hd.png",
+  "canvas": [
+    1024,
+    1536
+  ],
+  "coordinateSystem": "native pixels; x right/y down; left/right = screen side",
+  "method": "manual visual landmarks on immutable native HD; approximate ±12 px; diagnostic only, not central runtime anchors",
+  "points": {
+    "neck_center": [
+      520,
+      302
+    ],
+    "left_shoulder": [
+      379,
+      346
+    ],
+    "right_shoulder": [
+      657,
+      352
+    ],
+    "chest_center": [
+      520,
+      455
+    ],
+    "left_armpit": [
+      391,
+      492
+    ],
+    "right_armpit": [
+      646,
+      499
+    ],
+    "waist_center": [
+      531,
+      579
+    ],
+    "left_hip": [
+      421,
+      705
+    ],
+    "right_hip": [
+      646,
+      711
+    ],
+    "left_hand_clearance": [
+      240,
+      799
+    ],
+    "right_hand_clearance": [
+      783,
+      810
+    ]
+  },
+  "handClearanceRadius": 45,
+  "neckClearanceRadius": 35,
+  "footBaseline": 1495
+}

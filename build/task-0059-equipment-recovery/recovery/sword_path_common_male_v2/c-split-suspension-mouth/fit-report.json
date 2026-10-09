@@ -1,0 +1,110 @@
+{
+  "task": "TASK-0059",
+  "id": "sword_path_common_male_v2",
+  "gender": "male",
+  "slot": "weapon",
+  "attempt": "c-split-suspension-mouth",
+  "status": "FIT_PASS",
+  "selected": true,
+  "source": {
+    "path": "assets-source/body-fit-v2-targets/sword_path_common_male_v2.png",
+    "sha256": "ef4ca354506a7da6a9c80dcbb2b4d5388af7d11bef98fce9a81d8de6b40e8818"
+  },
+  "avatar": {
+    "path": "apps/web/public/assets/avatar/hd/male/male_short_moss_medium_hd.png",
+    "sha256": "b182c2e29b512b337891716a413ab7efaad737e23c6354779fae17fe19b8af34",
+    "immutable": true
+  },
+  "output": {
+    "path": "build/task-0059-equipment-recovery/recovery/sword_path_common_male_v2/c-split-suspension-mouth/sword_path_common_male_v2_baked.png",
+    "format": "png",
+    "width": 1024,
+    "height": 1536,
+    "channels": 4,
+    "hasAlpha": true,
+    "integrity": {
+      "status": "CRC_PASS",
+      "chunks": 21
+    },
+    "alpha128Bounds": {
+      "left": 594,
+      "top": 557,
+      "right": 837,
+      "bottom": 1248,
+      "count": 36870
+    },
+    "alphaPositiveBoundsDiagnostic": {
+      "left": 417,
+      "top": 555,
+      "right": 923,
+      "bottom": 1253,
+      "count": 39869
+    },
+    "transparentPixels": 1532995,
+    "sha256": "73e29fafd9adec500978eae7bb35eca05e8b79d946862b98704f40e95964aec4",
+    "decode": "PASS"
+  },
+  "compositionPath": "build/task-0059-equipment-recovery/recovery/sword_path_common_male_v2/c-split-suspension-mouth/combined.png",
+  "settings": {
+    "method": "Suspensão atrás do cabo; faixa da boca y>=755 à frente da lâmina; guarda masculina reancorada; oclusão localizada do braço revisada",
+    "transforms": {
+      "sword": {
+        "scale": 0.4,
+        "rotation": 134.41414013616378,
+        "translateX": 1097.7964347811273,
+        "translateY": 941.9837235867077
+      },
+      "sheath": {
+        "scale": 0.46,
+        "rotation": 10,
+        "translateX": 549.0224768244946,
+        "translateY": 528.714261465397
+      }
+    },
+    "sheathSource": {
+      "path": "build/task-0058-sword-sheath-pilot/source/sheath-generated-v2.png",
+      "sha256": "b042739c4e179c504b33b0c50da710ae1c42edb7f67444f967264c8a219a9949"
+    },
+    "landmarks": {
+      "throat": [
+        697,
+        765
+      ],
+      "tip": [
+        832.700617165212,
+        1245.747804260176
+      ],
+      "beltLoops": [
+        [
+          613.3567549500607,
+          587.7019471130159
+        ],
+        [
+          644.164859313687,
+          616.956155451645
+        ]
+      ]
+    },
+    "hiltCutAxial": 55,
+    "mask": {
+      "path": "build/task-0059-equipment-recovery/recovery/sword_path_common_male_v2/c-split-suspension-mouth/localized-mask.png",
+      "sha256": "49a1ccbd536fa72596dca7e13031919c1bbb3d8df9de7691b10636a4590ee504"
+    },
+    "rotationBasis": "Independent original root-to-tip normalization from TASK0056, then lateral15degrees",
+    "armMaskRequiresIndividualReview": true,
+    "base": null
+  },
+  "reportPath": "build/task-0059-equipment-recovery/recovery/sword_path_common_male_v2/c-split-suspension-mouth/fit-report.json",
+  "ready": false,
+  "humanBodyFitApproved": false,
+  "runtimeActivated": false,
+  "review": {
+    "reviewer": "Codex — revisão técnica local, não humana",
+    "fullBodyInspected": true,
+    "zoomInspected": true,
+    "findings": "Cabo para cima, lâmina ocultada pela boca em primeiro plano, bainha lateral com ponta para baixo, suspensões no cinto masculino (landmarks aproximados), mão em primeiro plano preservada. Proporção e contorno lateral convincentes no HD de referência.",
+    "humanApproval": false
+  },
+  "dependency": "Revisão corporal humana por hash e compatibilidade com armaduras",
+  "nextAction": "Carlos revisar o novo candidato masculino e suas combinações; READY=false"
+}

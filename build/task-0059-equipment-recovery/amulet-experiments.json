@@ -1,0 +1,152 @@
+{
+  "assets": [
+    {
+      "task": "TASK-0059",
+      "id": "medallion_path_rare_female_v2",
+      "gender": "female",
+      "slot": "amulet",
+      "attempt": "a-chain-behind-scarf",
+      "status": "NEEDS_REWORK",
+      "selected": false,
+      "source": {
+        "path": "assets-source/body-fit-v2-targets/medallion_path_rare_female_v2.png",
+        "sha256": "d4b114d305cb89901878a145f4c69745bcfd9c2b7683a7a123158758609e41f7"
+      },
+      "avatar": {
+        "path": "apps/web/public/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+        "sha256": "f260cb9b053b35c328025f1bc7ee602cbb30e57c71ba1f2238a4b1519685f460",
+        "immutable": true
+      },
+      "output": {
+        "path": "build/task-0059-equipment-recovery/recovery/medallion_path_rare_female_v2/a-chain-behind-scarf/medallion_path_rare_female_v2_baked.png",
+        "format": "png",
+        "width": 1024,
+        "height": 1536,
+        "channels": 4,
+        "hasAlpha": true,
+        "integrity": {
+          "status": "CRC_PASS",
+          "chunks": 8
+        },
+        "alpha128Bounds": {
+          "left": 460,
+          "top": 372,
+          "right": 579,
+          "bottom": 502,
+          "count": 7555
+        },
+        "alphaPositiveBoundsDiagnostic": {
+          "left": 459,
+          "top": 371,
+          "right": 585,
+          "bottom": 514,
+          "count": 7811
+        },
+        "transparentPixels": 1565053,
+        "sha256": "de79f2e9a09af5c423b591c3eae822e79d37b56fa312f9aa42780e5c0bbd092a",
+        "decode": "PASS"
+      },
+      "compositionPath": "build/task-0059-equipment-recovery/recovery/medallion_path_rare_female_v2/a-chain-behind-scarf/combined.png",
+      "settings": {
+        "method": "Localized chain endpoint occlusion behind original precomposed scarf; no new chain or Avatar edit",
+        "transform": {
+          "translateX": 448.33120599010476,
+          "translateY": 301.9736702209552,
+          "scale": 0.14004247105381834,
+          "rotation": 0
+        },
+        "scarfPolygon": "351,270 429,254 495,286 556,289 603,267 651,279 678,317 630,341 590,347 552,356 525,374 495,370 453,365 407,354 358,340",
+        "mask": {
+          "path": "build/task-0059-equipment-recovery/recovery/medallion_path_rare_female_v2/a-chain-behind-scarf/localized-mask.png",
+          "sha256": "b2108f6113f9aac3f193b39145b2b87d1a6f4fbcbcbc1f3effaad22d2a00628b"
+        },
+        "base": null
+      },
+      "reportPath": "build/task-0059-equipment-recovery/recovery/medallion_path_rare_female_v2/a-chain-behind-scarf/fit-report.json",
+      "ready": false,
+      "humanBodyFitApproved": false,
+      "runtimeActivated": false,
+      "review": {
+        "reviewer": "Codex — revisão técnica local, não humana",
+        "fullBodyInspected": true,
+        "zoomInspected": true,
+        "findings": "Fonte termina no topo do canvas. Ocultar extremidades sob cachecol remove a continuidade visível da corrente; feminino parece broche flutuante, masculino tem corte na parte superior do medalhão. Não comprova suspensão pelo pescoço.",
+        "humanApproval": false
+      }
+    },
+    {
+      "task": "TASK-0059",
+      "id": "medallion_path_rare_male_v2",
+      "gender": "male",
+      "slot": "amulet",
+      "attempt": "a-chain-behind-scarf",
+      "status": "NEEDS_REWORK",
+      "selected": false,
+      "source": {
+        "path": "assets-source/body-fit-v2-targets/medallion_path_rare_male_v2.png",
+        "sha256": "2ef82d3b22ad557019f41529d6c7dcd155c641142f5012ac2dbf7b9bb58a4b8e"
+      },
+      "avatar": {
+        "path": "apps/web/public/assets/avatar/hd/male/male_short_moss_medium_hd.png",
+        "sha256": "b182c2e29b512b337891716a413ab7efaad737e23c6354779fae17fe19b8af34",
+        "immutable": true
+      },
+      "output": {
+        "path": "build/task-0059-equipment-recovery/recovery/medallion_path_rare_male_v2/a-chain-behind-scarf/medallion_path_rare_male_v2_baked.png",
+        "format": "png",
+        "width": 1024,
+        "height": 1536,
+        "channels": 4,
+        "hasAlpha": true,
+        "integrity": {
+          "status": "CRC_PASS",
+          "chunks": 9
+        },
+        "alpha128Bounds": {
+          "left": 439,
+          "top": 390,
+          "right": 580,
+          "bottom": 520,
+          "count": 10491
+        },
+        "alphaPositiveBoundsDiagnostic": {
+          "left": 438,
+          "top": 390,
+          "right": 581,
+          "bottom": 533,
+          "count": 10713
+        },
+        "transparentPixels": 1562151,
+        "sha256": "381cc1593896cedd300595d690a1b539b90ef8bcb76a4da76f58641e10c547fb",
+        "decode": "PASS"
+      },
+      "compositionPath": "build/task-0059-equipment-recovery/recovery/medallion_path_rare_male_v2/a-chain-behind-scarf/combined.png",
+      "settings": {
+        "method": "Localized chain endpoint occlusion behind original precomposed scarf; no new chain or Avatar edit",
+        "transform": {
+          "translateX": 432.0433697529211,
+          "translateY": 303.0333204740206,
+          "scale": 0.15197966905967214,
+          "rotation": 0
+        },
+        "scarfPolygon": "345,273 421,258 489,291 549,292 596,271 648,276 675,324 640,354 595,382 548,402 521,400 480,389 437,372 392,349 352,335",
+        "mask": {
+          "path": "build/task-0059-equipment-recovery/recovery/medallion_path_rare_male_v2/a-chain-behind-scarf/localized-mask.png",
+          "sha256": "78ddbc3cfd36d56d49aced3743f18e8a18025af8c8d33a37446b332027bc011c"
+        },
+        "base": null
+      },
+      "reportPath": "build/task-0059-equipment-recovery/recovery/medallion_path_rare_male_v2/a-chain-behind-scarf/fit-report.json",
+      "ready": false,
+      "humanBodyFitApproved": false,
+      "runtimeActivated": false,
+      "review": {
+        "reviewer": "Codex — revisão técnica local, não humana",
+        "fullBodyInspected": true,
+        "zoomInspected": true,
+        "findings": "Fonte termina no topo do canvas. Ocultar extremidades sob cachecol remove a continuidade visível da corrente; feminino parece broche flutuante, masculino tem corte na parte superior do medalhão. Não comprova suspensão pelo pescoço.",
+        "humanApproval": false
+      }
+    }
+  ]
+}

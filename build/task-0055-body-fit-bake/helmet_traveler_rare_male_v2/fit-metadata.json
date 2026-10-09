@@ -1,0 +1,314 @@
+{
+  "task": "TASK-0055",
+  "id": "helmet_traveler_rare_male_v2",
+  "itemId": "traveler-helmet-rare",
+  "slot": "helmet",
+  "gender": "male",
+  "at": "2026-10-08T20:23:14.340Z",
+  "source": {
+    "path": "assets-source/body-fit-v2-targets/helmet_traveler_rare_male_v2.png",
+    "format": "png",
+    "width": 1024,
+    "height": 1536,
+    "channels": 4,
+    "hasAlpha": true,
+    "integrity": {
+      "status": "CRC_PASS",
+      "chunks": 41
+    },
+    "alpha128Bounds": {
+      "left": 0,
+      "top": 11,
+      "right": 1023,
+      "bottom": 1437,
+      "count": 728409
+    },
+    "alphaPositiveBoundsDiagnostic": {
+      "left": 0,
+      "top": 8,
+      "right": 1023,
+      "bottom": 1511,
+      "count": 758807
+    },
+    "transparentPixels": 814057,
+    "sha256": "c5e5a15cfeaa19c3ebff002480fa5f0c1b93b914c7c5604cc3b3d51d079590da",
+    "decode": "PASS",
+    "approval": "SOURCE_VISUAL_APPROVED (inherited; not body-fit approval)"
+  },
+  "avatar": {
+    "id": "male_short_moss_medium",
+    "path": "apps/web/public/assets/avatar/hd/male/male_short_moss_medium_hd.png",
+    "sha256": "b182c2e29b512b337891716a413ab7efaad737e23c6354779fae17fe19b8af34",
+    "immutable": true,
+    "footBaseline": 1513
+  },
+  "mapping": {
+    "status": "MAPPED",
+    "errors": [],
+    "targetFilename": "helmet_traveler_rare_male_v2.png",
+    "itemId": "traveler-helmet-rare",
+    "gender": "male",
+    "slot": "helmet"
+  },
+  "landmarks": {
+    "crown": {
+      "source": [
+        512,
+        15
+      ],
+      "avatar": [
+        510,
+        3
+      ],
+      "weight": 1,
+      "kind": "anatomical garment proxy"
+    },
+    "hairline": {
+      "source": [
+        512,
+        530
+      ],
+      "avatar": [
+        510,
+        110
+      ],
+      "weight": 1,
+      "kind": "anatomical garment proxy"
+    },
+    "left_temple": {
+      "source": [
+        302,
+        583
+      ],
+      "avatar": [
+        428,
+        169
+      ],
+      "weight": 3,
+      "kind": "anatomical garment proxy"
+    },
+    "right_temple": {
+      "source": [
+        728,
+        582
+      ],
+      "avatar": [
+        590,
+        169
+      ],
+      "weight": 3,
+      "kind": "anatomical garment proxy"
+    },
+    "head_center": {
+      "source": [
+        513,
+        567
+      ],
+      "avatar": [
+        510,
+        151
+      ],
+      "weight": 0.5,
+      "kind": "anatomical garment proxy"
+    },
+    "face_clearance": {
+      "source": [
+        513,
+        735
+      ],
+      "avatar": [
+        510,
+        209
+      ],
+      "weight": 0.5,
+      "kind": "face-window placement goal"
+    }
+  },
+  "landmarkResiduals": {
+    "crown": {
+      "source": [
+        512,
+        15
+      ],
+      "avatar": [
+        510,
+        3
+      ],
+      "weight": 1,
+      "kind": "anatomical garment proxy",
+      "projected": [
+        508.6324723382079,
+        -22.836866924695084
+      ],
+      "delta": [
+        -1.36752766179211,
+        -25.836866924695084
+      ],
+      "distance": 25.873032763674406
+    },
+    "hairline": {
+      "source": [
+        512,
+        530
+      ],
+      "avatar": [
+        510,
+        110
+      ],
+      "weight": 1,
+      "kind": "anatomical garment proxy",
+      "projected": [
+        508.6324723382079,
+        148.13632846511217
+      ],
+      "delta": [
+        -1.36752766179211,
+        38.13632846511217
+      ],
+      "distance": 38.16083962263791
+    },
+    "left_temple": {
+      "source": [
+        302,
+        583
+      ],
+      "avatar": [
+        428,
+        169
+      ],
+      "weight": 3,
+      "kind": "anatomical garment proxy",
+      "projected": [
+        438.9152470336263,
+        165.7316281848399
+      ],
+      "delta": [
+        10.915247033626315,
+        -3.2683718151600942
+      ],
+      "distance": 11.394071797527914
+    },
+    "right_temple": {
+      "source": [
+        728,
+        582
+      ],
+      "avatar": [
+        590,
+        169
+      ],
+      "weight": 3,
+      "kind": "anatomical garment proxy",
+      "projected": [
+        580.3416183657775,
+        165.39964139767523
+      ],
+      "delta": [
+        -9.65838163422245,
+        -3.600358602324775
+      ],
+      "distance": 10.307614557094166
+    },
+    "head_center": {
+      "source": [
+        513,
+        567
+      ],
+      "avatar": [
+        510,
+        151
+      ],
+      "weight": 0.5,
+      "kind": "anatomical garment proxy",
+      "projected": [
+        508.9644591253726,
+        160.41983959020513
+      ],
+      "delta": [
+        -1.0355408746273724,
+        9.419839590205129
+      ],
+      "distance": 9.476588141742784
+    },
+    "face_clearance": {
+      "source": [
+        513,
+        735
+      ],
+      "avatar": [
+        510,
+        209
+      ],
+      "weight": 0.5,
+      "kind": "face-window placement goal",
+      "projected": [
+        508.9644591253726,
+        216.1936198338704
+      ],
+      "delta": [
+        -1.0355408746273724,
+        7.1936198338704
+      ],
+      "distance": 7.267772094478309
+    }
+  },
+  "landmarkMethod": "Male helmet asymmetric face-window opening; temple clearance priority; visual native grid measurements approximately ±12px avatar, ±20px source. No hidden anatomy certified.",
+  "transform": {
+    "translateX": 338.6552373098947,
+    "translateY": -27.816668732165198,
+    "scale": 0.3319867871646743,
+    "rotation": 0
+  },
+  "fittingMethod": "Per-source weighted least-squares uniform scale + translation; rotation0 preferred. Anatomy points and placement goals identified separately.",
+  "transformConvention": "Native top-left origin; x=tx+scale*x; y=ty+scale*y; offline only",
+  "pipeline": {
+    "version": 1,
+    "implementation": "TASK-0054 bakeBytes: inverse sampling / premultiplied-alpha bilinear",
+    "sharp": "0.35.4",
+    "vips": "8.18.6",
+    "mask": "NONE",
+    "warp": "NONE",
+    "uniform": true
+  },
+  "output": {
+    "path": "build/task-0055-body-fit-bake/helmet_traveler_rare_male_v2/helmet_traveler_rare_male_v2_baked.png",
+    "format": "png",
+    "width": 1024,
+    "height": 1536,
+    "channels": 4,
+    "hasAlpha": true,
+    "integrity": {
+      "status": "CRC_PASS",
+      "chunks": 38
+    },
+    "alpha128Bounds": {
+      "left": 339,
+      "top": 0,
+      "right": 678,
+      "bottom": 449,
+      "count": 79808
+    },
+    "alphaPositiveBoundsDiagnostic": {
+      "left": 338,
+      "top": 0,
+      "right": 678,
+      "bottom": 457,
+      "count": 83192
+    },
+    "transparentPixels": 1489672,
+    "sha256": "8fbbdf7afc106525713572b897edef3a3782eeb860eb40bab7606199c75c184e",
+    "decode": "PASS"
+  },
+  "runtime": {
+    "activated": false,
+    "render": {
+      "top": 0,
+      "left": 0,
+      "width": "100%",
+      "height": "100%",
+      "transform": "none"
+    }
+  },
+  "humanBodyFitApproved": false,
+  "ready": false
+}

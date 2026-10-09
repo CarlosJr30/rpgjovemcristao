@@ -1,0 +1,44 @@
+{
+  "id": "boots_traveler_common_female_v2",
+  "filename": "boots_traveler_common_female_v2.png",
+  "itemId": "traveler-boots",
+  "gender": "female",
+  "slot": "boots",
+  "avatar": {
+    "id": "female_short_moss_medium",
+    "path": "apps/web/public/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+    "sha256": "f260cb9b053b35c328025f1bc7ee602cbb30e57c71ba1f2238a4b1519685f460",
+    "immutable": true,
+    "footBaseline": 1495
+  },
+  "transform": {
+    "translateX": 214.3153098889792,
+    "translateY": 742.4239723439166,
+    "scale": 0.590524853110235,
+    "rotation": 0
+  },
+  "sha256": "ae56dd6d0b8e3d3dbbc126f7863736281cf2271734d434122733f1b14fc91dd6",
+  "sourceSha256": "dfc523cddaf71075163b30f3d92f80b7c6d723d013ada40d18b70de1dbd52277",
+  "technicalStatus": "TECHNICALLY_VALIDATED",
+  "mapping": "MAPPED",
+  "fitStatus": "NEEDS_REWORK",
+  "humanBodyFitApproved": false,
+  "ready": false,
+  "runtimeActivated": false,
+  "reviewStatus": "NEEDS_REWORK",
+  "fitReport": "build/task-0055-body-fit-bake/boots_traveler_common_female_v2/fit-report.json",
+  "metadata": "build/task-0055-body-fit-bake/boots_traveler_common_female_v2/fit-metadata.json",
+  "metadataSha256": "b09a4f7e77bdd550402dff41f9626476a70d628a6ced3ea463b2ac757bf749f0",
+  "observations": [
+    "O transform comum ao par aproxima a baseline, mas os pés não coincidem com a abertura da pose HD.",
+    "Botas originais continuam aparecendo externamente como pés/calcanhares duplicados; novos canos sobem excessivamente para o joelho.",
+    "Separação horizontal do par e altura vertical exigem escalas diferentes; splitting/non-uniform scale não autorizados."
+  ],
+  "reworkRecommendation": "Regenerar o par vestido diretamente sobre female_short_moss_medium usando os landmarks de tornozelo/pé/baseline registrados. Exportar somente as botas em full-canvas; cobrir os dois pés originais com as mesmas direções e distância. Não entregar par de inventário; não dividir/reescala cada pé para forçar fit.",
+  "task": "TASK-0055",
+  "updatedAt": "2026-10-08T20:27:47.336Z",
+  "sourceApproval": "SOURCE_VISUAL_APPROVED (inherited)",
+  "runtimePath": null,
+  "stagingPath": "build/task-0055-body-fit-bake/boots_traveler_common_female_v2/boots_traveler_common_female_v2_baked.png",
+  "approvedBy": null
+}

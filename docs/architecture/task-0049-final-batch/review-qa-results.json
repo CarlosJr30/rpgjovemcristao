@@ -1,0 +1,139 @@
+{
+  "at": "2026-10-07T21:59:44.717Z",
+  "lab": "standalone local DEV review; not game integration",
+  "viewports": [
+    {
+      "viewport": "390x844",
+      "result": "PASS",
+      "selected": 17,
+      "generatedCandidates": 15,
+      "validCandidates": 14,
+      "nativeDimensions": "1024x1536",
+      "ratio": "2:3",
+      "modes": [
+        "HD",
+        "legacy",
+        "overlay",
+        "diff"
+      ],
+      "keyboard": "PASS",
+      "genderFilter": "PASS including empty male state",
+      "statusFilters": "PASS",
+      "navigation": "PASS",
+      "honestPartialStates": true,
+      "bodyOverflow": false,
+      "errors": []
+    },
+    {
+      "viewport": "412x915",
+      "result": "PASS",
+      "selected": 17,
+      "generatedCandidates": 15,
+      "validCandidates": 14,
+      "nativeDimensions": "1024x1536",
+      "ratio": "2:3",
+      "modes": [
+        "HD",
+        "legacy",
+        "overlay",
+        "diff"
+      ],
+      "keyboard": "PASS",
+      "genderFilter": "PASS including empty male state",
+      "statusFilters": "PASS",
+      "navigation": "PASS",
+      "honestPartialStates": true,
+      "bodyOverflow": false,
+      "errors": []
+    },
+    {
+      "viewport": "844x390",
+      "result": "PASS",
+      "selected": 17,
+      "generatedCandidates": 15,
+      "validCandidates": 14,
+      "nativeDimensions": "1024x1536",
+      "ratio": "2:3",
+      "modes": [
+        "HD",
+        "legacy",
+        "overlay",
+        "diff"
+      ],
+      "keyboard": "PASS",
+      "genderFilter": "PASS including empty male state",
+      "statusFilters": "PASS",
+      "navigation": "PASS",
+      "honestPartialStates": true,
+      "bodyOverflow": false,
+      "errors": []
+    },
+    {
+      "viewport": "915x412",
+      "result": "PASS",
+      "selected": 17,
+      "generatedCandidates": 15,
+      "validCandidates": 14,
+      "nativeDimensions": "1024x1536",
+      "ratio": "2:3",
+      "modes": [
+        "HD",
+        "legacy",
+        "overlay",
+        "diff"
+      ],
+      "keyboard": "PASS",
+      "genderFilter": "PASS including empty male state",
+      "statusFilters": "PASS",
+      "navigation": "PASS",
+      "honestPartialStates": true,
+      "bodyOverflow": false,
+      "errors": []
+    },
+    {
+      "viewport": "1440x900",
+      "result": "PASS",
+      "selected": 17,
+      "generatedCandidates": 15,
+      "validCandidates": 14,
+      "nativeDimensions": "1024x1536",
+      "ratio": "2:3",
+      "modes": [
+        "HD",
+        "legacy",
+        "overlay",
+        "diff"
+      ],
+      "keyboard": "PASS",
+      "genderFilter": "PASS including empty male state",
+      "statusFilters": "PASS",
+      "navigation": "PASS",
+      "honestPartialStates": true,
+      "bodyOverflow": false,
+      "errors": []
+    },
+    {
+      "viewport": "1920x1080",
+      "result": "PASS",
+      "selected": 17,
+      "generatedCandidates": 15,
+      "validCandidates": 14,
+      "nativeDimensions": "1024x1536",
+      "ratio": "2:3",
+      "modes": [
+        "HD",
+        "legacy",
+        "overlay",
+        "diff"
+      ],
+      "keyboard": "PASS",
+      "genderFilter": "PASS including empty male state",
+      "statusFilters": "PASS",
+      "navigation": "PASS",
+      "honestPartialStates": true,
+      "bodyOverflow": false,
+      "errors": []
+    }
+  ],
+  "result": "PASS"
+}

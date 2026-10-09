@@ -1,4 +1,574 @@
-﻿# Estado atual
+## 2026-10-09 ? TASK-0060 DONE / GITHUB_NOTEBOOK_SYNC_PREPARED
+
+Prepara??o Git local somente: main/HEAD916c550, refer?ncia origin/main local 0/0 (sem fetch). 950 artefatos offline allowlisted com hashes/fontes/bakes/receipts, gates humanos/runtime intactos; caches/capturas transit?rias/.env.local ignorados. Build em snapshot sem ambiente privado PASS com depend?ncias locais reutilizadas; npm ci limpo pendente no notebook. Varredura heur?stica candidatos+882 blobs textuais locais sem achados; revis?o QA/Security pelo autor, n?o independente. Nenhum commit/push/deploy/install/Supabase/descarte. Relat?rio docs/architecture/TASK-0060-GITHUB-NOTEBOOK-SYNC.md e invent?rios0060. Pr?ximo passo: respons?vel revisar staged diff, fazer commit, conferir remoto e somente ent?o autorizar publica??o; recriar configura??o privada no notebook sem versionar valores.
+
+## 2026-10-08 — TASK-0058 PILOT_TECHNICALLY_COMPLETE / FIT_PASS / HUMAN_BODY_FIT_REVIEW_PENDING
+
+Gate humano verificado no pedido posterior: nenhuma confirmação visual explícita de Carlos na conversa/registros; STATUS BLOCKED, nãoDONE. SHA físico735000c62ddaee5214cfb895deae17685a1f2e1c0c642f3557e09879d90524f2 confere com pedido/manifest/receipt, PNG/CRC/decode/alpha e Avatar/metadata/fit-report íntegros;1.078/1.078 protegidos iguais. Novo human-approval-receipt.json registra somente gate pendente, approver/approvedAt/evidência null. FIT_PASS técnico mantido, humanapproved/READY/runtime false. Sem artes/bake/testes globais; só documentação/integridade. TASK-0059 preparada em backlog para outras3, não executada. Desbloqueio exige confirmação explícita de Carlos para este target/Avatar/hash e oito critérios; revalidar hash antes de aprovação/READY staging.
+
+Um piloto sword_path_common_female_v2 sobre female_short_moss_mediumHD. Gerador integrado autorizado criou bainha/correias em duas versões do mesmo piloto; cabo/guarda mantêm pixels originais.3bakes preservados, seleção attempt03: couro marrom/bronze, duas correias no cinto, cabo para cima/ponta para baixo, braço/mão em primeiro plano por máscara offline específica; sem duplicar lâmina/alterarHD. FIT_PASS1/NEEDS_REWORK0 por target,2tentativas históricas rejeitadas; HUMAN_APPROVED/READY/runtime0. SHA735000c62ddaee5214cfb895deae17685a1f2e1c0c642f3557e09879d90524f2. Outros3targets não processados.
+
+5unit/3PNG+reprodução bake/2reviewLab/9PortalReducedMotion/lint/typecheck PASS na etapa técnica;seisviewports exatos/60vistasreview.1.078/1.078 protegidos intactos,54HD/16sources/piloto0054/fiveFITPASS0055/históricos/runtime/saves/IDs. BuildN/A contrato sem produção alterada; QA/Security pelo autor. Gerador integrado foi única capacidade externa autorizada naquela etapa; nenhum install/Supabase/push/deploy/ativação. Review portátil build/task-0058-sword-sheath-pilot/review/index.html; relatório docs/architecture/TASK-0058-SWORD-SHEATH-PILOT-REPORT.md; manifest TASK-0058-SHEATH-PILOT-MANIFEST.json. Contrato em active STATUS BLOCKED, nãoDONE. Próxima ação: Carlos aprovar corporalmente este Avatar/hash e oito critérios. Não extrapolar máscara/transform a outras identidades nem executar as outras três automaticamente. DEC037 mantida.
+
+## 2026-10-08 — TASK-0057 REWORK / NEEDS_NEW_SHEATH_ART
+
+Decisão definitiva DEC-037: repouso corporal futuro com espada embainhada no quadril, cabo para cima/ponta para baixo; abordagem permanente de mão0056 superada como solução visual, histórico preservado. Runtime/cinematic intactos nesta task.48arteslocais inspecionadas, nenhuma bainha/suspensão adequada;4sources/candidatos0056/2HD hashes conferidos.4bakes somente diagnósticos de espada nua no quadril, não overlays embainhados; conflitos braço/luva/bolsa/perna e falta de fixação registrados. FIT_PASS0/NEEDS_REWORK0/NEEDS_NEW_SHEATH_ART4 por categoria exclusiva;taskREWORK, nãoDONE. Sheathedoutput/SHA/transformnull, humanapproved/READY/runtime0.
+
+7unit/4PNGchecks/2reviewBodyFitLab/9PortalReducedMotion/lint/typecheck PASS;seisviewports exatos/240vistasreview. BuildN/A contrato sem produçãoTS/runtime; buildlocal0056 usado paraPortal.864/864 protegidos intactos(54HD/piloto0054/fiveFITPASS0055/0056/outrosequip/runtime/saves/IDs/sistemas);sampler histórico não alterado. QA/Security pelo autor. Sem geraçãoexterna/install/remotos/Supabase/push/deploy. Servidoresdeteste3109/3111 encerrados.
+
+Relatório docs/architecture/TASK-0057-SWORD-SHEATH-REPORT.md; manifest TASK-0057-SHEATH-ASSET-MANIFEST.json; review build/task-0057-sword-sheath/review/index.html; contrato tasks/active/TASK-0057-sword-sheath-body-fit-v1.md. Próxima ação: arte local adequada de bainha/suspensão ou autorização explícita de geração externa; depois novo bake/fit por hash e aceite humano. Guias não são correias; diagnóstico não qualifica FIT_PASS.
+
+## 2026-10-08 — TASK-0056 REWORK / SWORDS_DOWNWARD / OPEN_GRIP_UNRESOLVED
+
+Quatro espadas Body-Fit V2 com duas tentativas offline preservadas (oito PNGs). Seleção attempt-02: quatro lâminas verticais para baixo; FIT_PASS0/NEEDS_REWORK4/READY0/humanapproved0/runtime0. Dedos/polegar HD abertos impedem pega convincente; máscara offline experimental melhora ordem, mas cria recortes/halo e não fecha mão, reprovada e não selecionada. Escalas menores das raras e folgas das guardas junto aos bolsos exigem revisão. Não DONE; contrato tasks/active/TASK-0056-body-fit-sword-downward.md.
+
+Fontes/candidatos0055 reais com hashes conferidos; inventário físico4.482 PNGs sem nova espada mapeada; nenhuma geração. Sampler0054 compartilhado com entrada específica de rotação±180°; entrada histórica±5°/saídas históricas determinísticas intactas. 40unit(11novos)/validator8/browser6viewports240vistas/lint/typecheck/build/HD54 PASS; aceite visual FAIL_OPEN_HAND. QA/Security pelo autor. Baseline709:707intactos/2mudançaspermitidas(bake+novoinspectorformatado);54HD/16sources/demais12/V1/piloto0054/lote0055/runtime/saves/IDs/sistemas preservados. Nenhum install/remoto/push/deploy/Supabase.
+
+Relatório docs/architecture/TASK-0056-SWORD-DOWNWARD-REPORT.md; manifest TASK-0056-BAKED-ASSET-MANIFEST.json; review build/task-0056-sword-downward/review/index.html. Próxima ação: Carlos revisar evidências e solução de cabo/máscara precisa; se pose exigir mão frontal independente, avaliar arte/escopo próprios preservando HD. Não aprovar por proximidade nem promover READY.
+
+## 2026-10-08 — TASK-0055 DONE / BAKE_BATCH_COMPLETE (somente offline)
+
+15 restantes processados individualmente sem reprocessar piloto:15 técnicos/mapped;5FIT_PASS/HUMAN_BODY_FIT_REVIEW_PENDING(armor uncommon male,rare female/male,shield female/male);10NEEDS_REWORK(helmet2,boots2,sword4,medallion2).0pending/0humanapproved/0READY/0runtimeactivation dos15. Referênciasfemale_short_moss_mediumHD7(2PASS5rework),male_short_moss_mediumHD8(3PASS5rework). Cada source com landmarks e solve uniform own, sem copiar transformpiloto/warp/masks/imagegen/sourceedit.
+
+Helmet coroa fora canvas/forehead;boots par altura vs separação/pésduplicados; swords cabo sobre dedos abertos (commonmale cruza torso);medallion corrente source cortada apesar de bom pingente. Rework explicitamente permitido como resultado da tarefa; nenhum fit forçado. Landmarks aproximados e escudorearmountproxy não comprovam anatomia oculta;5 candidatos precisam Carlos confirmar hash/ref antesREADY, sem extrapolar54variantes.
+
+Validator15/unit44(15determinismo)/lab2/Portal7/lint/typecheck PASS;buildN/A contrato semTS/runtime.315/315 protegidos intactos incl54HD/16sources/V1/saves/IDs/sistemas/pilotoTASK0054(todasmídias/metadados/receipt preservados). QA/Security pelo autor. Nenhum novo runtime/remoto/install/push/deploy/Supabase.
+
+Relatório docs/architecture/TASK-0055-BODY-FIT-BATCH-REPORT.md; manifest persistente hashes/transforms/landmarks/receipts TASK-0055-BAKED-ASSET-MANIFEST.json; review build/task-0055-body-fit-bake/review/index.html. TASK-0055completed:processamentoofflineDONE;5aguardamCarlos/10reworkemnovaautorização. PilotoTASK0054READY1staging(runtime0) permanece exatamente igual.
+
+## 2026-10-08 — TASK-0054 DONE / HUMAN_BODY_FIT_APPROVED / READY (staging somente)
+
+Carlos Faustino aprovou explicitamente todos os critérios corporais do piloto armor_traveler_uncommon_female_v2_baked.png. SHA ebee2f026c2dd6aac6b47850c8412f243cdc20c51a36d6f91e2d6cf3b46c20cb; válido exclusivamente para esse asset/hash e female_short_moss_mediumHD/female, avatar SHA f260cb9b053b35c328025f1bc7ee602cbb30e57c71ba1f2238a4b1519685f460. READY1 via manifest staging, runtimePathnull/ativação0. Nenhuma aprovação dos outros15/variantes presumida, nenhum outrotarget processado.
+
+Gates revalidados: asset CRC/PNG/RGBA1024×1536/alpha/SHA/FIT_PASS/mapping PASS;24unit/2E2ELab/lint PASS na confirmação. 285/285 protegidos intactos, fonte original/16sources/54HD/V1/saves/arquitetura/runtime/sistemas preservados. Metadata bake permanece byte a byte (8511d318ac79a28f3c0813e2225d0ae5e4cd9d89a9964a3ea4a6dd1db38317fc); estado humano atual separado da metadata mecânica histórica. Nenhum rebake, novos assets, código de produção, remotos, push/deploy.
+
+Receipt docs/architecture/TASK-0054-HUMAN-BODY-FIT-APPROVAL.json; manifest docs/architecture/TASK-0054-BAKED-ASSET-MANIFEST.json; fit-report/review/status/docs atualizados. Contrato movido para tasks/completed/TASK-0054-body-fit-offline-bake-pilot.md, sem duplicar. TASK-0054 DONE/PILOT_COMPLETE. Expansão dos15/integrar runtime exigem novo escopo; não realizados aqui.
+
+## 2026-10-08 — TASK-0054 PILOT_COMPLETE / FIT_PASS / HUMAN_BODY_FIT_REVIEW_PENDING
+
+Offline bake apenas traveler-armor-uncommon/female, source original preservada e molde female_short_moss_mediumHD. Uniform scale0.4535947236075799, tx292.35352583693054, ty197.66887904548992, rotation0; sem warp/máscara/novo imagegen. RGBA1024×1536 full-canvas/alpha/CRC/decode/SHA PASS; output SHA ebee2f026c2dd6aac6b47850c8412f243cdc20c51a36d6f91e2d6cf3b46c20cb. Candidato técnico parece vestido, com proxy-resíduos3.42–21.38px (cintura~14.66px baixa); sem alegar pixel-perfect ou aprovação humana. Gate humano pendente, READY0/ativação0/outros15processados0. Tarefa VALIDATING aguardando revisão humana do piloto, pipeline técnico completo.
+
+DEV review sete vistas/editor offline separado; baked top0/left0/100%/transform:none em6viewports. Export de rascunho JSON não altera PNG; re-bake com hash novo invalida avaliação anterior. Unit23/E2E5 (Lab2/isolation2/Portalfallback1)/lint/typecheck PASS; build N/A por contrato sem TS/runtime alterado. 285/285 hashes intactos:54HD/16sources/V1/runtime/saves/IDs/mecânicas e4 pilotos anteriores. QA/Security pelo autor. Sem instalação/remotos/push/deploy/READY. DEC-036 registra mudança autorizada de princípio offline, não runtime.
+
+Review build/task-0054-body-fit-bake/review/index.html; relatório docs/architecture/TASK-0054-BODY-FIT-BAKE-PILOT-REPORT.md; metadata/receipts/checks/evidências preservados. Parar para Carlos revisar fit; só depois novo escopo para15, com landmarks/transform próprios e gates por derivado. TASK-0052B/0053 e fontes antigas mantidas historicamente.
+
+## 2026-10-08 — TASK-0053 REWORK / NEEDS_REWORK / GENERATION_LIMIT_REACHED
+
+Piloto único armor_traveler_uncommon_female_v2 sobre female_short_moss_medium HD: quatro tentativas built-in imagegen, técnica4/4, FIT_PASS0/FIT_FAIL4/NEEDS_REWORK4 candidatos (1 target), humana pendente0/APPROVED0/READY0. Métodos concretos HD+estética → HD somente → guia no HD → esquema nativo separado+HD. Tentativa4 aproxima silhueta, mas peito plano e cinto~28px baixo/quadril~43px longo; GEOMETRY_METHOD_NOT_VALIDATED. Limite esgotado, sem quinta tentativa/outros15. Não DONE.
+
+Evidências/receipts/prompts/landmarks diagnósticos em build/task-0053-body-fit-pilot/review/index.html e fit_report.json. PNG4/4 nativos1024×1536, alpha/CRC/decode/SHA; cópias byte a byte, nenhum pós-processamento corretivo. Unit15/Portal mínimo1/lint/DEV24 amostras+24 vistas PASS. Typecheck/build N/A conforme contrato sem TS/runtime alterado. Preservação281/281 SHA PASS,54 HD/16 fontes originais intactos, arquitetura/anchors/produção/saves/IDs/mecânicas/V1 preservados; zero push/deploy/remotos/instalações/ativação. QA/Security pelo autor. Capturas inicialmente1537 linhas por arredondamento refeitas em viewport nativo sem modificar candidato; guia usada na tentativa3 preservada como entrada histórica, esquema tentativa4 e saídas finais1024×1536.
+
+Próximo rework: desenho real em camadas sobre HD imutável, cinto no landmark e peito com volume; exportar equipamento em posição original. Não extrapolar método aos outros15 antes de FIT_PASS e aprovação corporal humana específica do piloto. TASK-0052B e fontes originais não alteradas. Relatório docs/architecture/TASK-0053-BODY-FIT-PILOT-REPORT.md; FINAL-CHECKS e review local registrados.
+
+## 2026-10-08 — TASK-0052B FIT_VALIDATION_COMPLETE / REWORK
+
+16 fontes e novo manifest entregues: técnica 16/16, mapping 16/16, hashes 16/16, erros 0. Fit real por gênero sobre HD primário: PASS 0/FAIL 16; mesmos 16 em NEEDS_REWORK, pending 0. Nenhum candidato para revisão corporal humana; aprovação corporal/READY0. Bloqueio anterior de ausência/mapping resolvido. Ilustrações de inventário não acompanham anatomia/escala/pega; boots bottom1307/1370 contra baseline 1495/1513 (−188/−143 px). Nenhum PNG corrigido nem nova arte gerada.
+
+Review com seis vistas/zoom/filtros/observações/reports e128 PNGs. Unit 109 / E2E 15 + 5 skips / lint / typecheck / auditor HD 54 / build PASS. 281 arquivos da retomada,16 novas fontes/manifest,54 HD e 163 mídias históricas intactos (grupos se sobrepõem). Runtime/arquitetura/anchors/IDs/saves/mecânicas/cinematic/produção/remotos intactos. QA/Security pelo autor. TASK-0052 REWORK/ASSET_REWORK_REQUIRED; TASK-0051 BODY_FIT_ARCHITECTURE_VALIDATED/ASSET_REWORK_REQUIRED, sem integração corporal aprovada. Regenerar corretamente por referência, repetir fit e só depois aceite humano; geração não autorizada/executada aqui. Não DONE/canceladas.
+
+Relatório docs/architecture/TASK-0052B-BODY-FIT-TARGET-VALIDATION-REPORT.md; review build/task-0052b-body-fit-target-validation/review/index.html; inventário/receipts e FINAL-CHECKS atualizados. Histórico anterior preservado.
+
+## 2026-10-08 — TASK-0052B BLOCKED / SOURCE_TARGET_FILES_NOT_LOCATED
+
+A pasta assets-source/body-fit-v2-targets não existe; nenhum dos 16 PNGs exatos foi localizado. O manifest e o ZIP disponíveis ainda são das 12 fontes antigas. Caminho do pacote novo solicitado. Técnica e mapping: 0; fit: 0 PASS, 0 FAIL, 0 NEEDS_REWORK, 16 pendentes; 0 READY. Aprovação estética declarada não foi vinculada a hashes inexistentes. Não reutilizar nem renomear fontes antigas.
+
+Review local com filtros gênero/slot, bases HD reais, 16 reports de bloqueio e 12 screenshots; nenhuma composição de candidato. 108 unit e 15 E2E PASS, 5 skips previstos; seis viewports/reduced motion, lint, typecheck, auditor HD e build PASS. 265 arquivos, 54 HD e 163 mídias da baseline pública histórica preservados (grupos se sobrepõem em dois pilotos). Runtime, arquitetura, anchors, IDs/saves, mecânicas e produção intactos; sem geração, PNG editado, READY, instalação, remotos, push ou deploy. QA/Security pelo autor.
+
+TASK-0052 continua BLOCKED / MAPPING_REQUIRED / TARGET_SOURCE_DELIVERY_REQUIRED. TASK-0051: BLOCKED / BODY_FIT_ARCHITECTURE_VALIDATED / TARGET_SOURCE_DELIVERY_REQUIRED / FIT_VALIDATION_REQUIRED. Não DONE nem canceladas. Retomada exige os 16 originais acessíveis; depois técnica/mapping/fit e aceite humano corporal. Relatório: docs/architecture/TASK-0052B-BODY-FIT-TARGET-VALIDATION-REPORT.md. Review: build/task-0052b-body-fit-target-validation/review/index.html.
+
+## 2026-10-08 — TASK-0052 — SOURCE_DELIVERED / MAPPING_REQUIRED / DIAGNOSTIC_REWORK_REQUIRED
+
+12 PNGs reais em assets-source/body-fit-v2, 11 hashes únicos (imagegen.png duplica armadura_paladina_verde_e_dourada.png). Manifest da entrega está na raiz manifest.json; caminho anunciado dentro da pasta ausente. Todos PNG RGBA1024×1536/alpha/CRC/decode/SHA manifest12/12 PASS. SOURCE_VISUAL_APPROVED vinculada aos hashes reais, sem aceite corporal. 0 MAPPED /12 UNMAPPED_SOURCE_ART porque nenhuma entrada informa target/gênero/raridade. Fit formal PASS 0/FAIL0/NEEDS_REWORK0/PENDING12;16 targets sem binding. Diagnóstico separado: NEEDS_REWORK12 arquivos/11 artes sobre duas referências HD, sem atribuição de target; peças de inventário fora de escala/posição corporal.
+
+Review real: build/task-0052-body-fit-validation/delivery/review/index.html, 24 painéis+144 screenshots individuais, seis vistas por fonte/referência; visual-assessment.json e receipts individuais com recomendações de regeneração não executadas. Validator7+unit94 PASS; E2E fontes1/144 amostras+lab1/54IDs/48amostras+Portal11/5skips+isolamento2 PASS. Lint/typecheck/auditorHD 54/build PASS.191/191 protegidos,12/12 fontes e manifest intactos. Zero READY/edição de PNG/geração/centralruntime/arquitetura/anchors/IDs/saves/produção/remotos/push/deploy. Security/QA pelo autor. Tarefa BLOCKED por mapping indispensável, não cancelada/não DONE; dependência anterior SOURCE_FILE_NOT_LOCATED superada. Confirmar binding antes de fit formal e regeneração; READY exige FIT_PASS + aprovação humana Body-Fit. Relatório TASK-0052-BODY-FIT-VALIDATION-REPORT.md atualizado.
+
+## 2026-10-08 — TASK-0052 BLOCKED — SOURCE_FILE_NOT_LOCATED
+
+Continuação solicitada, sem cancelamento. Busca ampliada a Downloads/Pictures/Desktop e attachments/generated_images do Codex não identificou fontes; pedido contém apenas texto, sem PNG anexado. Os 14 V1 cropped antigos permanecem intactos, não tratados como V2. Entrada local: build/task-0052-body-fit-validation/source-art/. Fonte estética nominal continua SOURCE_VISUAL_APPROVED; provável NEEDS_REWORK é hipótese. Tarefa aberta, bloqueada até o original estar acessível; brief de regeneração condicional documentado, nenhuma geração/READY.
+
+2026-10-08T04:00:11.115Z: solicitação de validar novas fontes Body-Fit V2 recebida. Busca física de 7.919 imagens do workspace (hidden/ignored/evidências, sem caches/deps) encontrou zero novas fontes/zero matches dos 16 targets. Carlos nomeou armor_traveler_uncommon_female_v2: SOURCE_VISUAL_APPROVED, FIT_VALIDATION_PENDING, provável NEEDS_REWORK. Nome/status recebidos, sem caminho/PNG/hash; hipótese de rework não convertida em FIT_FAIL. Caminho completo solicitado e pendente.
+
+Zero FIT_PASS/FIT_FAIL/NEEDS_REWORK confirmado/revisão corporal elegível/READY. 16 targets aguardam fonte. Arquivo humano estético não substitui validação técnica + fit + aprovação corporal. Nenhum source mapping inferido de V1/ícones/personagens existentes. Asset/Body-Fit validation BLOCKED, sem alegar PASS. Review com bases HD reais e 16 fit reports de bloqueio; nenhuma composição fictícia.
+
+Regressões PASS: 94 unitários/6 arquivos; 11 E2E Portal/produção +5 skips previstos; 1 E2E lab; seis viewports/reduced motion; lint/typecheck/build e auditor HD 54. 191/191 arquivos protegidos intactos; runtime central/arquitetura Body-Fit/HD/legados/V1/saves/IDs/regras/engine preservados. Sem imagem gerada/editada, instalação, remotos/push/deploy. QA pelo autor, não independente. Servidores de teste encerrados.
+
+Relatório docs/architecture/TASK-0052-BODY-FIT-VALIDATION-REPORT.md; fontes docs/architecture/TASK-0052-SOURCE-VALIDATION.json; checks docs/architecture/TASK-0052-FINAL-CHECKS.json; review build/task-0052-body-fit-validation/review/index.html. Contrato tasks/active/TASK-0052-body-fit-v2-visual-asset-validation-integration.md BLOCKED, não DONE. TASK-0051 segue bloqueada; TASK-0050/0049 DONE preservados. Desbloqueio: disponibilizar PNG original/caminho local, então validar íntegro sobre HD no lab sem fitting corretivo nem READY automático.
+
+## 2026-10-07 — TASK-0051 BLOCKED — BODY_FIT_ARCHITECTURE_VALIDATED / ASSET_GENERATION_REQUIRED
+
+2026-10-08T00:54:54.170Z: arquitetura Body-Fit validada, conclusão visual bloqueada. Manifest 0 READY / 8 NEEDS_NEW_OVERLAY; 6 itens atuais e 2 definições raras arquivadas. Quatro protótipos femininos ausentes; plano de 16 assets por gênero (12 atuais + 4 arquivados), com referências HD/hashes/baselines/landmarks/prioridades. Nenhuma geração/aprovação Body-Fit. HD normal segue ativo; TASK-0050 e TASK-0049 continuam DONE.
+
+Corrigidos namespace corporal permissivo e ausência de validação da dimensão real full-canvas. Ordem global/anchors/V1 preservados. Lab Vite DEV: 54 identidades, gênero/item, overlay, comparação, zoom, 50/50, silhueta e guias; sem save, 404 em produção. Contorno/baseline HD alpha ≥128 medidos, alpha >0 diagnóstico; anchors históricos indicativos não são novos landmarks anatômicos validados. Cabelo/mãos pré-compostos podem exigir planos frontais dedicados, sem cortar base.
+
+PASS: 94 unitários/6 arquivos; 27 E2E únicos produção +13 skips previstos; 1 E2E lab/54 seleções/48 amostras; lint/typecheck/build/audit. Quatro falhas iniciais Herói por expectativa 512×768 corrigidas para HD e reexecutadas PASS. 182/182 hashes protegidos preservados, incluindo 54 HD, 14 V1, legados, engine, domínio/estado/saves/IDs. Audit permanente HD mantém PNG/hash/receipts no build; freeze histórico de código TASK-0050 opt-in, baseline TASK-0051 separada. QA/Security pelo autor, não independente. Sem push/deploy/remotos/imagem gerada.
+
+Relatório docs/architecture/TASK-0051-BODY-FIT-V2-REPORT.md; checks docs/architecture/TASK-0051-FINAL-CHECKS.json; evidências build/task-0051-evidence/index.html. Contrato em tasks/active/TASK-0051-body-fit-v2-hd-equipment-integration.md permanece BLOCKED, não DONE. Desbloqueio: nova autorização para fornecer/produzir PNGs, validação técnica e aprovação humana por gênero/composição. Não gerar automaticamente nem marcar READY.
+
+## 2026-10-07 — TASK-0050 DONE — Avatar HD no runtime normal
+
+Registro de conclusão: 2026-10-08T00:21:57.889Z (21:21:57 de 07/10 em São Paulo). TASK-0050 DONE. Runtime normal e build local de produção usam HD HUMAN_VISUAL_APPROVED: 54 identidades (52 da fila + 2 pilotos), sem pendências visuais ou bloqueios geométricos ativos. Catálogo central com hashes e receipts reais; 52 cópias PNG byte-exatas e dois pilotos preservados. Fallback legado → procedural, incluindo retrato com crop proporcional. Saves, IDs, engine, regras, Body-Fit, anchors e manifests preservados; nenhum READY promovido. Nenhum push, deploy ou serviço remoto.
+
+Audit PASS: 800/815 arquivos preservados; 15 alterações autorizadas de runtime, testes, build e tipos gerados. Todas as imagens, legados e Body-Fit intactos. Unit global: 62 arquivos / 393 testes PASS; arquivo final: 14/14 PASS com dois novos casos. E2E produção: 44 PASS e 16 skips previstos por projeto/viewport; build final: 6/6 PASS; lab: 3/3 PASS nos cinco modos, seis viewports e DPR 1/2/3. Lint, typecheck e build PASS. QA pelo autor, não independente. Performance: 48 amostras pareadas, LCP HD 120–408 ms no hardware local, canvas igual ao legado e uma identidade por página, sem preload do pacote. CLS global do Shell e layout estreito da Arena também reproduzidos com legado; permanecem para etapa própria. Celular físico/rede limitada não medidos.
+
+Relatório: docs/architecture/TASK-0050-AVATAR-HD-RUNTIME-ACTIVATION-REPORT.md. Evidências: docs/architecture/TASK-0050-FINAL-CHECKS.json e build/task-0050-evidence/index.html. Manifest: docs/architecture/AVATAR-HD-RUNTIME-ACTIVATION-MANIFEST.json. Fila registra 52 integrados, mais dois pilotos. Servidores de validação encerrados; nenhum servidor do usuário encerrado. Não gerar arte, promover Body-Fit ou publicar sem nova autorização. Estados DEV-only abaixo são históricos e supersedidos quanto ao runtime pela TASK-0050.
+
+## 2026-10-07 — TASK-0049 / TASK-0049H DONE — HUMAN_VISUAL_APPROVED
+
+2026-10-07T23:40:29.685Z: Carlos Faustino aprovou os três candidatos finais e os dez critérios visuais. TASK-0049H FINAL_3_COMPLETE / HUMAN_VISUAL_APPROVED / DONE. TASK-0049 DONE no escopo do pack DEV. Fila: 52 HUMAN_VISUAL_APPROVED, 0 VISUAL_REVIEW_PENDING, 0 PENDING_HD, 0 BLOCKED_PATTERN ativo. Dois pilotos aprovados fora da fila: 54 identidades aprovadas no total. HD continua DEV-only/review local; produção/fallback continua legado; Body-Fit continua pendente, sem READY. Nenhuma integração ou geração nova, push, deploy ou alteração remota. Aprovação vinculada aos três hashes em docs/architecture/task-0049-final-3-rework/HUMAN-VISUAL-APPROVAL.json.
+
+Conferência documental pelo autor: JSON/receipts/status, hashes e preservação dos outros 49 registros; evidência build/task-0049-final-3-rework/human-approval-verification.json. QA estrutural pelo autor, não independente. Checks técnicos anteriores preservados (geometry 5/5, detector 4/4, assets 4/4, lab 6/6, lint 8 PASS; TASK-0049 inicial E2E 4/4, typecheck/build PASS). Nesta confirmação lint/typecheck/build/unit/E2E N/A: somente metadados e textos, nenhum código runtime, imagem ou geometria alterados. Security adicional N/A: sem secrets/auth/dependências/permissões/infra alterados.
+
+Contratos em tasks/completed/. Histórico abaixo preservado e supersedido quanto aos estados agregados. Não executar helpers de geração/finalização antigos nem ativar produção/Body-Fit sem nova autorização.
+
+## 2026-10-07 — TASK-0049H TECHNICALLY_COMPLETE / VISUAL_REVIEW_PENDING
+
+2026-10-07T23:33:52.336Z: TASK-0049H TECHNICALLY_COMPLETE/VISUAL_REVIEW_PENDING. IDs female_short_ochre_dark, female_short_moss_light, female_short_moss_dark. TentativasH1/1/2,4gerações,1rejeição,3finais13/13. Ochre_darkGduasrejeições preservadas; hipótese de expansão local da capa, novo contorno sobre próprio2×, primeiraHpassou. Fila49HUMAN_VISUAL_APPROVED+3VISUAL_REVIEW_PENDING,0PENDING_HD,0BLOCKED_PATTERNativo. 815hashes e49itens aprovados preservados. DEV-only review, produção/fallback legado, Body-Fit semREADY. Carlos deve revisar3; TASK-0049 nãoDONE, geração encerrada. Relatório docs/architecture/TASK-0049H-FINAL-3-REWORK-REPORT.md; receipts docs/architecture/task-0049-final-3-rework/TECHNICAL-RECEIPTS.json; review build/task-0049-final-3-rework/review/index.html.
+
+- Aceite técnicoPASS;3humanos pendentes, sem HUMAN_VISUAL_APPROVED automático. Todas52identidades da fila tecnicamente válidas+2pilotos; históricoG preservado e supersedido tecnicamente apenas porHnestes3.
+- Geometry5/5,safety4/4,assets4/4,filaPASS,lab6/6,lint8PASS;815hashes e49itens aprovados intactos. QA/precheck pelo autor, nãoindependente; typecheck/buildN/A semTS/runtime.
+- Sem novas integrações ou alterações remotas. Não executar helpers antigosG/Hque possam sobrepor metadados; aguardar aprovação explícitaCarlos dos3.
+
+## 2026-10-07 — TASK-0049G Final Batch Partial HUMAN_VISUAL_APPROVED
+
+2026-10-07T23:07:36.485Z: Carlos Faustino aprovou explicitamente os14candidatos válidos da TASK-0049G em todos os10critérios, incluindo tonalidade/iluminação. HUMAN_VISUAL_APPROVED vinculado aos14hashes finais. Fila52:49 HUMAN_VISUAL_APPROVED,0 VISUAL_REVIEW_PENDING,2 PENDING_HD,1 BLOCKED_PATTERN_FOR_ASSET. Pilotos2 fora da fila (51aprovados contando pilotos). female_short_ochre_dark permanece bloqueado; female_short_moss_light/dark não gerados. FINAL_BATCH_BLOCKED_PATTERN/REWORK permanece; parcial aprovado não encerra a TASK-0049. DEV-only review, produção/fallback legado, Body-Fit semREADY. Zero novas gerações/correções, sem push/deploy/remotos. Aprovação docs/architecture/task-0049-final-batch/HUMAN-VISUAL-APPROVAL.json.
+
+- Os14IDs/hashes e10critérios em docs/architecture/task-0049-final-batch/HUMAN-VISUAL-APPROVAL.json e receipts individuais. Aprovação humana real; sem nova geração/correção ou mudança de método nesta confirmação.
+- TASK-0049G continua REWORK/FINAL_BATCH_BLOCKED_PATTERN; não mover para completed. TASK-0049 nãoDONE. Três restantes exigem nova etapa autorizada. Evidências técnicas anteriores preservadas; conferência documental/hashes pelo autor.
+
+## 2026-10-07 — TASK-0049G FINAL_BATCH_BLOCKED_PATTERN / REWORK
+
+2026-10-07T22:00:46.470Z: TASK-0049G FINAL_BATCH_BLOCKED_PATTERN; 17 selecionados, 25 gerações, 11 rejeições preservadas, 14 finais 13/13 VISUAL_REVIEW_PENDING, female_short_ochre_dark BLOCKED_PATTERN_FOR_ASSET (10/13), female_short_moss_light/dark não gerados PENDING_HD. Duas ocorrências cumulativas: long_ochre_light recuperado após terceira com mudança concreta; short_ochre_dark repetiu right/width, mesmo com left adicional. Parada global sem geração posterior. Fila52=35HVA+14VISUAL+1BLOCKED+2PENDING, mais2pilotos fora da fila. DEV/review somente; produção/fallback legado, Body-Fit sem READY. TASK-0049 incompleta/nãoDONE. Relatório docs/architecture/TASK-0049G-FINAL-BATCH-REPORT.md; receipts docs/architecture/task-0049-final-batch/TECHNICAL-RECEIPTS.json; review build/task-0049-final-batch/review/index.html. Retomada exige mudança concreta e nova instrução; Carlos deve revisar14válidos.
+
+- Checks afetados PASS: unit geometry5, safety4, assets25, fila/trava, lab6, lint9. 487arquivos protegidos e35itens prévios preservados; typecheck/build N/A sem TS/runtime. QA pelo autor, não independente.
+- Sem novo HUMAN_VISUAL_APPROVED; diferenças de intensidade tonal/realces aguardam Carlos. PNGs1024×1536/alpha real byte-exatos; sem correção artificial. Geração parada após segundo padrão, não executar helpers antigos nem gerar restantes sem nova instrução/mudança concreta.
+- TASK-0049 nãoDONE; produção legado, Body-Fit semREADY; sem push/deploy/remotos/instalações.
+
+## 2026-10-07 — TASK-0049F BATCH_5_COMPLETE / HUMAN_VISUAL_APPROVED
+
+- Carlos Faustino aprovou explicitamente os oito candidatos e os dez critérios, incluindo tonalidade/iluminação e aparência geral em relação ao legado. Registro real 2026-10-07T21:12:12.525Z; oito hashes vinculados em docs/architecture/task-0049-batch-5/HUMAN-VISUAL-APPROVAL.json e receipts individuais. BATCH_5_COMPLETE / HUMAN_VISUAL_APPROVED. Fila: 35 HUMAN_VISUAL_APPROVED, zero VISUAL_REVIEW_PENDING, 17 PENDING_HD. Produção/fallback legado, somente review DEV, Body-Fit sem READY. TASK-0049 continua VALIDATING, incompleta. Batch 6 exige nova instrução. Zero gerações nesta confirmação; sem push/deploy/remotos.
+- Oito aprovados: male_short_moss_light, male_short_moss_dark, female_curly_ochre_dark, female_curly_moss_medium, female_curly_moss_light, female_curly_moss_dark, female_curly_ochre_medium, female_curly_ochre_light. Aprovação vinculada a cada hash final e aos dez critérios; tonalidade/iluminação aceita explicitamente.
+- Contrato DONE: tasks/completed/TASK-0049F-avatar-hd-full-pack-batch-5.md; relatório docs/architecture/TASK-0049F-BATCH-5-REPORT.md; receipts docs/architecture/task-0049-batch-5/HUMAN-VISUAL-APPROVAL.json. Evidência técnica anterior preservada: unit 5/5, assets 13/13, fila/batch PASS, lab 6/6 e lint PASS. Conferência documental pelo autor; nenhuma suite repetida.
+- PNGs/métricas e 479 hashes protegidos preservados; outros 44 itens da fila intactos. Verificação build/task-0049-batch-5/human-approval-verification.json. Batch 6 não autorizado.
+
+## 2026-10-07 — TASK-0049F BATCH_5_TECHNICALLY_COMPLETE / VISUAL_REVIEW_PENDING
+
+2026-10-07T21:07:02.671Z: BATCH_5_TECHNICALLY_COMPLETE / VISUAL_REVIEW_PENDING. IDs: male_short_moss_light, male_short_moss_dark, female_curly_ochre_dark, female_curly_moss_medium, female_curly_moss_light, female_curly_moss_dark, female_curly_ochre_medium, female_curly_ochre_light. Tentativas 1/2/2/2/1/2/1/2; 13 gerações, 5 rejeições preservadas, oito finais 13/13. Sem BLOCKED_PATTERN/nono asset. 27 HUMAN_VISUAL_APPROVED, oito VISUAL_REVIEW_PENDING, 17 PENDING_HD. Somente review DEV local, produção/fallback legado e Body-Fit sem READY. TASK-0049 incompleta. Carlos deve revisar individualmente; Batch 6 exige nova instrução. Relatório docs/architecture/TASK-0049F-BATCH-5-REPORT.md; receipts docs/architecture/task-0049-batch-5/TECHNICAL-RECEIPTS.json; review build/task-0049-batch-5/review/index.html.
+
+- Unit 5/5, assets 13/13, fila/batch PASS, lab seis viewports PASS, lint sete helpers PASS. Typecheck/build N/A sem TS/runtime alterado. Preservados 479 hashes e 44 itens não selecionados, incluindo 163 legadas, dois pilotos, R e Batch 1/2/3/4.
+- Precheck qualitativo pelo autor; nenhuma aprovação humana nova. Diferenças visíveis de tonalidade/iluminação, especialmente dark, exigem avaliação de Carlos. PNG nativo 1024×1536 alpha real, cópia byte-exata, referências/medidas próprias.
+- Sem push/deploy/remotos/instalações. Geração do lote encerrada, Batch 6 não autorizado.
+
+## 2026-10-07 — TASK-0049E BATCH_4_COMPLETE / HUMAN_VISUAL_APPROVED
+
+- Carlos Faustino aprovou explicitamente os oito candidatos e dez critérios, incluindo tonalidade/iluminação em relação ao legado. Registro real 2026-10-07T20:43:31.593Z; oito hashes vinculados em docs/architecture/task-0049-batch-4/HUMAN-VISUAL-APPROVAL.json e receipts individuais. BATCH_4_COMPLETE / HUMAN_VISUAL_APPROVED. Fila: 27 HUMAN_VISUAL_APPROVED, zero VISUAL_REVIEW_PENDING, 25 PENDING_HD. Produção/fallback legado, somente review DEV, Body-Fit sem READY. TASK-0049 continua VALIDATING, incompleta. Batch 5 exige nova instrução. Zero gerações nesta confirmação; sem push/deploy/remotos.
+- Oito aprovados: female_curly_blue_light, female_curly_blue_medium, male_short_blue_light, male_short_blue_dark, male_short_blue_medium, male_short_ochre_medium, male_short_ochre_light, male_short_ochre_dark. Aprovação vinculada a cada hash final e aos dez critérios; diferenças de tonalidade/iluminação aceitas explicitamente.
+- Contrato DONE: tasks/completed/TASK-0049E-avatar-hd-full-pack-batch-4.md; relatório docs/architecture/TASK-0049E-BATCH-4-REPORT.md; receipts docs/architecture/task-0049-batch-4/HUMAN-VISUAL-APPROVAL.json. Evidência técnica anterior preservada; unit 5/5, assets 13/13, fila/batch PASS, lab 6/6, lint PASS. Conferência documental pelo autor; nenhuma suite repetida.
+- PNGs/métricas e 471 hashes protegidos preservados; outros 44 itens da fila intactos. Verificação build/task-0049-batch-4/human-approval-verification.json. Batch 5 não autorizado.
+
+## 2026-10-07 — TASK-0049E BATCH_4_TECHNICALLY_COMPLETE / VISUAL_REVIEW_PENDING
+
+2026-10-07T18:01:46.704Z: BATCH_4_TECHNICALLY_COMPLETE / VISUAL_REVIEW_PENDING. IDs: female_curly_blue_light, female_curly_blue_medium, male_short_blue_light, male_short_blue_dark, male_short_blue_medium, male_short_ochre_medium, male_short_ochre_light, male_short_ochre_dark. Tentativas 2/2/1/2/2/1/1/2; 13 gerações, 5 rejeições preservadas, oito finais 13/13. Sem BLOCKED_PATTERN/nono asset. 19 HUMAN_VISUAL_APPROVED, oito VISUAL_REVIEW_PENDING, 25 PENDING_HD. Somente review DEV local, produção/fallback legado e Body-Fit sem READY. TASK-0049 incompleta. Carlos deve revisar individualmente; Batch 5 exige nova instrução. Relatório docs/architecture/TASK-0049E-BATCH-4-REPORT.md; receipts docs/architecture/task-0049-batch-4/TECHNICAL-RECEIPTS.json; review build/task-0049-batch-4/review/index.html.
+
+- Unit 5/5, assets 13/13, fila/batch PASS, lab seis viewports PASS, lint sete helpers PASS. Typecheck/build N/A sem TS/runtime alterado. Preservados 471 hashes e 44 itens não selecionados, incluindo 163 legadas, dois pilotos, R e Batch 1/2/3.
+- Precheck qualitativo pelo autor; nenhuma aprovação humana nova. Diferenças visíveis de tonalidade/iluminação, especialmente dark, exigem avaliação de Carlos. PNG nativo 1024×1536 alpha real, cópia byte-exata, referências/medidas próprias.
+- Sem push/deploy/remotos/instalações. Geração do lote encerrada, Batch 5 não autorizado.
+
+## 2026-10-07 — TASK-0049D BATCH_3_COMPLETE / HUMAN_VISUAL_APPROVED
+
+- Carlos Faustino aprovou explicitamente male_long_moss_dark, male_long_blue_medium, male_long_moss_medium, male_long_ochre_dark, male_curly_moss_light, male_long_ochre_medium, male_long_ochre_light, female_curly_blue_dark e os nove critérios visuais. Registro real 2026-10-07T17:27:15.528Z; aprovação vinculada aos oito hashes finais em docs/architecture/task-0049-batch-3/HUMAN-VISUAL-APPROVAL.json e receipts/{assetId}.json.
+- TASK-0049D DONE: tasks/completed/TASK-0049D-avatar-hd-full-pack-batch-3.md; relatório docs/architecture/TASK-0049D-BATCH-3-REPORT.md. Evidências anteriores mantidas: tentativas 1/2/3/1/1/2/1/3, 14 gerações, oito finais 13/13 PASS e seis rejeições preservadas. Zero geração nesta confirmação.
+- DEV-only, review estático build/task-0049-batch-3/review/index.html; sem integração nova ao jogo/runtime/public/produção. Produção segue legado; Body-Fit sem READY.
+- Conferência documental pelo autor: JSON/status/receipts consistentes, oito hashes finais e 463 hashes protegidos intactos, 44 itens não selecionados preservados. Unit 5/5, assets 14/14, fila/batch PASS, lab 6/6 e lint PASS anteriores mantidos; nenhuma suite repetida. Lint/typecheck/build N/A nesta confirmação sem código alterado; Security adicional N/A. Evidência build/task-0049-batch-3/human-approval-verification.json.
+- TASK-0049 continua incompleta em VALIDATING: 19 HUMAN_VISUAL_APPROVED, zero VISUAL_REVIEW_PENDING, 33 PENDING_HD. Próximo passo: nova instrução explícita para Batch 4; nenhuma geração automática. Sem push/deploy/remotos/instalações.
+
+## 2026-10-07 — TASK-0049D BATCH_3_TECHNICALLY_COMPLETE / VISUAL_REVIEW_PENDING
+
+- Primeiros oito PENDING_HD oficiais: male_long_moss_dark, male_long_blue_medium, male_long_moss_medium, male_long_ochre_dark, male_curly_moss_light, male_long_ochre_medium, male_long_ochre_light, female_curly_blue_dark. Tentativas 1/2/3/1/1/2/1/3, 14 gerações; oito finais 13/13 PASS, seis rejeições preservadas. Nenhum BLOCKED_PATTERN ou asset 9.
+- Receita validada: original individual + próprio guia nearest 2× + própria silhueta; coordenadas próprias, inclusive feminino com laterais/centros/pés diferentes. PNG nativo 1024×1536 alpha real; final byte-exato sem transformar. Precheck qualitativo pelo autor, nenhum HUMAN_VISUAL_APPROVED novo.
+- Uso somente review DEV estático build/task-0049-batch-3/review/index.html; sem integração ao jogo/public/runtime/produção. Produção/fallback legado, Body-Fit intacto e sem READY.
+- Unit 5/5, assets 14/14, fila/batch PASS, lab seis viewports PASS, ESLint sete helpers PASS. Typecheck/build N/A sem TS/runtime alterado. 463 hashes e 44 itens não selecionados intactos, incluindo 163 legadas, dois pilotos, TASK-0049R e Batch 1/2 aprovados. QA pelo autor, não independente.
+- Contrato tasks/active/TASK-0049D-avatar-hd-full-pack-batch-3.md VALIDATING; relatório docs/architecture/TASK-0049D-BATCH-3-REPORT.md; seleção docs/architecture/task-0049-batch-3/BATCH_3_SELECTION.json; receipts docs/architecture/task-0049-batch-3/TECHNICAL-RECEIPTS.json. TASK-0049 incompleta: 11 HUMAN_VISUAL_APPROVED, oito VISUAL_REVIEW_PENDING, 33 PENDING_HD.
+- Próximo: Carlos aprovar/rejeitar individualmente os oito; Batch 4 exige nova instrução, nenhuma geração adicional autorizada. Sem push/deploy/remotos/instalações. Registro real 2026-10-07T17:04:51.907Z.
+
+## 2026-10-07 — TASK-0049C BATCH_2_COMPLETE / HUMAN_VISUAL_APPROVED
+
+- Carlos Faustino aprovou explicitamente male_long_blue_dark, male_curly_ochre_medium, male_curly_ochre_light, male_curly_ochre_dark, male_curly_moss_medium, male_long_moss_light e os nove critérios visuais. Registro real 2026-10-07T16:33:08.337Z; aprovação vinculada aos seis hashes finais em docs/architecture/task-0049-batch-2/HUMAN-VISUAL-APPROVAL.json e receipts/{assetId}.json.
+- TASK-0049C DONE: tasks/completed/TASK-0049C-avatar-hd-full-pack-batch-2.md; relatório docs/architecture/TASK-0049C-BATCH-2-REPORT.md. Evidências anteriores mantidas: tentativas 1/1/2/1/1/1, sete gerações, seis finais 13/13 PASS; primeira ochre_light 11/13 rejeitada. Zero geração nesta confirmação.
+- DEV-only, review estático build/task-0049-batch-2/review/index.html; sem integração nova ao jogo/runtime/public/produção. Produção segue legado; Body-Fit sem READY.
+- Conferência documental pelo autor: JSON/status/receipts consistentes, seis hashes finais e 457 hashes protegidos intactos, 46 itens não selecionados preservados. Unit 5/5, assets 7/7, fila/batch PASS, lab 6/6 e lint PASS anteriores mantidos; nenhuma suite repetida. Lint/typecheck/build N/A nesta confirmação sem código alterado; Security adicional N/A. Evidência build/task-0049-batch-2/human-approval-verification.json.
+- TASK-0049 continua incompleta em VALIDATING: onze HUMAN_VISUAL_APPROVED, zero VISUAL_REVIEW_PENDING, 41 PENDING_HD. Próximo passo: nova instrução explícita para Batch 3; nenhuma geração automática. Sem push/deploy/remotos/instalações.
+
+## 2026-10-07 — TASK-0049C BATCH_2_TECHNICALLY_COMPLETE / VISUAL_REVIEW_PENDING
+
+- Primeiros seis PENDING_HD oficiais: male_long_blue_dark, male_curly_ochre_medium, male_curly_ochre_light, male_curly_ochre_dark, male_curly_moss_medium, male_long_moss_light. Tentativas 1/1/2/1/1/1, sete gerações; seis finais 13/13 PASS. Ochre_light tentativa 1 bottom/feet +5 px rejeitada; tentativa 2 ambos 0. Sem BLOCKED_PATTERN ou asset 7.
+- Receita validada: original individual + próprio guia nearest 2× + própria silhueta; coordenadas individuais, PNG nativo 1024×1536 alpha real, final byte-exato sem transformação. Precheck qualitativo pelo autor; nenhum novo HUMAN_VISUAL_APPROVED.
+- Uso somente review DEV estático build/task-0049-batch-2/review/index.html; sem integração ao jogo/public/runtime/produção. Body-Fit intacto, apenas BODY_FIT_REVIEW_PENDING nos seis.
+- Unit 5/5, asset 7/7, fila/batch PASS, lab seis viewports PASS, ESLint sete helpers PASS; typecheck/build N/A sem TS/runtime alterado. 457 hashes e 46 itens não selecionados intactos, incluindo 163 legadas, dois pilotos, TASK-0049R e quatro Batch 1 aprovados. QA pelo autor, não independente.
+- Contrato tasks/active/TASK-0049C-avatar-hd-full-pack-batch-2.md VALIDATING; relatório docs/architecture/TASK-0049C-BATCH-2-REPORT.md; seleção docs/architecture/task-0049-batch-2/BATCH_2_SELECTION.json; receipts docs/architecture/task-0049-batch-2/TECHNICAL-RECEIPTS.json. TASK-0049 incompleta: cinco HUMAN_VISUAL_APPROVED, seis VISUAL_REVIEW_PENDING, 41 PENDING_HD.
+- Próximo: Carlos aprovar/rejeitar individualmente os seis; Batch 3 exige nova instrução, nenhuma geração adicional autorizada. Sem push/deploy/remotos/instalações. Registro real 2026-10-07T16:27:39.810Z.
+
+## 2026-10-07 — TASK-0049B BATCH_1_COMPLETE / HUMAN_VISUAL_APPROVED
+
+- Carlos Faustino aprovou explicitamente male_curly_blue_dark, male_curly_blue_medium, male_curly_moss_dark e male_long_blue_light: identidade visual, rosto, cabelo, pose, silhueta, proporções, linha dos pés, enquadramento e aparência geral em relação ao legado. HUMAN_VISUAL_APPROVED registrado em 2026-10-07T14:40:52.377Z, vinculado a cada hash final.
+- Receipts consolidados e individuais: docs/architecture/task-0049-batch-1/HUMAN-VISUAL-APPROVAL.json e receipts/{assetId}.json. TASK-0049B DONE / BATCH_1_COMPLETE: tasks/completed/TASK-0049B-avatar-hd-full-pack-batch-1.md. Relatório docs/architecture/TASK-0049B-BATCH-1-REPORT.md.
+- Evidência técnica preservada: tentativas 1/1/2/2, seis gerações na fase anterior, quatro finais 13/13 Geometry PASS; PNGs nativos 1024×1536 alpha, byte-exatos. Zero geração nesta confirmação e nenhuma mudança de métricas ou tentativas rejeitadas.
+- DEV-only: review local build/task-0049-batch-1/review/index.html, sem integração ao jogo/catalog/runtime/public/produção. Produção segue legado; Body-Fit sem promoção READY, mantém BODY_FIT_REVIEW_PENDING nos metadados.
+- Verificação desta confirmação: JSON/status/receipts consistentes, quatro PNGs finais e 453 hashes protegidos intactos; 48 itens não selecionados da fila preservados. QA documental pelo autor; Security adicional N/A, sem novo gatilho. Testes anteriores mantidos: unit 5/5, asset 6/6, fila/batch PASS, lab 6/6 e lint PASS. Nenhuma suite repetida; lint/typecheck/build N/A nesta alteração documental sem código.
+- TASK-0049 ainda incompleta: cinco HUMAN_VISUAL_APPROVED na fila (TASK-0049R + Batch 1), 47 PENDING_HD e zero VISUAL_REVIEW_PENDING. Próximo passo: nova instrução explícita para Batch 2; nenhuma geração automática autorizada. Sem push, deploy, remotos ou instalações.
+
+## 2026-10-07 — TASK-0049R GEOMETRY_METHOD_VALIDATED / HUMAN_VISUAL_APPROVED
+
+- Carlos Faustino aprovou explicitamente male_curly_blue_light (tentativa 2): identidade visual, cabelo, pose, silhueta, proporções, linha dos pés, enquadramento e aparência geral em relação ao legado. Registro em 2026-10-07T13:32:57.372Z: docs/architecture/task-0049r/HUMAN-VISUAL-APPROVAL.json. Método visualmente validado como referência para futura retomada da TASK-0049.
+- Duas novas tentativas na geração; segunda com 13/13 métricas PASS, pés 0 px, centro X +0,5 px e centro Y −0,5 px. PNG nativo 1024×1536 com alpha, sem transformação final; SHA-256 f4a119053fe94850222d606ca7ab5907399fec28246b8700338893a25897713c. Mantido somente em evidências locais, fora do catálogo e renderer públicos. Nenhuma geração nesta confirmação.
+- TASK-0049R DONE: tasks/completed/TASK-0049R-avatar-hd-geometry-controlled-generation-rework.md. Relatório: docs/architecture/TASK-0049R-GEOMETRY-CONTROLLED-GENERATION-REPORT.md. TASK-0049 ainda incompleta, BLOCKED aguardando instrução explícita de retomada; 51 restantes PENDING_HD e não autorizados nesta confirmação.
+- Verificação desta confirmação: hash do candidato e 452 arquivos protegidos intactos; registros JSON consistentes e outros 51 itens da fila inalterados. Apenas documentação e metadados, sem código alterado; suites não repetidas. Evidências anteriores: unit 5/5, asset 2/2, lab 6/6 e lint PASS. QA estrutural pelo autor; Security adicional N/A, sem novo gatilho.
+- Body-Fit, anchors, IDs, saves, renderer, 163 mídias legadas, dois pilotos e produção preservados. Sem push, deploy ou operações remotas. Próximo passo exige nova instrução do usuário para retomada; a aprovação atual não autoriza geração dos 51.
+
+## 2026-10-07 — TASK-0049 BLOCKED_PATTERN
+
+- Fila auditada:52 combinações únicas, pilotos excluídos. male_curly_blue_light foi gerado duas vezes nativamente em PNG1024×1536 alpha; ambos candidatos falharam Geometry Lock (baseline -25/-26px, lateral direita +13/+14px, centro/largura fora do limite). Alpha≥128 é gate, alpha>0 diagnóstico. Nenhum HD foi aceito/copied ao runtime. Por regra de lote, interrupção após padrão repetido; outros51 PENDING_HD.
+- Nenhum runtime/catalog/ID/save/anchor/Body-Fit/produção alterado. Baseline SHA-256 preserva mídias legadas e dois pilotos TASK-0048. Unit5/5; E2E4/4; ESLint, typecheck e build PASS. Auditoria geométrica impede continuação.
+- Contrato ativo tasks/active/TASK-0049-avatar-hd-full-asset-pack-v1.md; fila docs/architecture/AVATAR-HD-GENERATION-QUEUE.json; relatório docs/architecture/TASK-0049-AVATAR-HD-FULL-ASSET-PACK-REPORT.md; evidências build/task-0049-evidence. Desbloqueio: abordagem de geração nativa capaz de atender geometry sem manipular final. Sem push/deploy/remoto.
+
+# Estado atual
+
+## REWORK-1 — estado atual: PILOT_COMPLETE
+
+Dois pilotos HD_READY passaram Geometry Lock alpha ≥128 (critério confirmado pelo usuário); alpha >0 é diagnóstico e seus FAIL permanecem registrados. Artes nativas1024×1536 copiadas sem transformação final. Aprovação visual humana dos DOIS pilotos: HUMAN_VISUAL_APPROVED por Carlos Faustino, registrada em 2026-10-07T12:46:52.119Z. Identidade, pose, silhueta, proporções, linha dos pés, enquadramento e aparência geral do legado aprovados explicitamente. Nenhum outro52gerado, nunca DONE nesta fase.
+
+Runtime real e cinco modos DEV aprovados; produção/jogo normal permanecem legados. Laboratório Next isolado: node scripts/avatar-hd-pilot-lab.mjs, http://127.0.0.1:3112. Override recusa production mesmo com flag. Renderer/anchors/Body-Fit/save/domínio inalterados. 16comparações de overlays V1 apenas QA; zero READY/aprovações Body-Fit.
+
+Unit109PASS; E2E56PASS (49produção+3Vite+4NextHD),19skips históricos; lint/typecheck/buildPASS. DPR180amostras lab+84telas reais, trêsDPR. QA/Security pelo autor, não independentes. Sem instalação/push/deploy/Supabase real. [Medidas, deltas, tolerâncias, fontes, diferenças e evidências](../../docs/architecture/AVATAR-HD-PILOT-GEOMETRY-LOCK-REWORK-1.md).
+
+Aceite final: PILOT_COMPLETE, uso restrito DEV. Os outros52assets permanecem PENDING_HD e sua geração não está autorizada. Nenhuma promoção de overlays Body-Fit para READY; sem push/deploy/alterações remotas. TASK permanece em active por não ser DONE do pack integral.
+
+
+## Atualização 2026-10-06 — Avatar HD Asset Pack V1 (TASK-0048, REWORK)
+
+- Auditadas54fontes512×768;52PENDING_HD,2candidatos1024×1536PNG RGBA gerados nativamente com imagegen, ambos REJECTED por silhueta/baseline/centro visual divergentes. Male/female short_moss_medium em public/assets/avatar/hd; nenhum legado removido/modificado, nenhuma produção em massa.
+- Catálogo/resolver central prefere somente VALIDATED; jogo normal continua legado. Revisão opt-in dos candidatos apenas no lab DEV existente3109, guard false em produção; rollback erro/dimensões inválidas→legado→procedural e recuperação por fonte. Sem segundo compositor/paths HD em telas/IDs/saves/domínio/mecânicas/Body-Fit alterados; zero READY/aprovações reais.
+- Unit104PASS/13arquivos (93+11); E2E49produção+3DEV=52PASS/19skips históricos; lint/typecheck/buildPASS/20rotas.180amostras candidatos nos cinco modos, seis viewports e DPR1/2/3; portrait estrutural, fallback e source recover PASS. Telas reais regressão com LEGADOS; HD em todas as telas/minigame/fitting real NÃO aprovado. REWORK import teste browser corrigido; evidencia build/task-0048-evidence.
+- TASK em tasks/active/TASK-0048-avatar-hd-asset-pack-v1.md; docs/architecture/AVATAR-HD-ASSET-PACK-V1.md contém54linhas, pesos/proveniência/medidas de reprovação; inventário atualizado e Security pelo autor. Não PILOT_COMPLETE/DONE: primeiro corrigir alinhamento e validar pilotos/telas/Body-Fit; depois aprovação humana dos DOIS antes dos52restantes. Não dispensar requisito de framing silenciosamente. Sem instalação/push/deploy/Supabase real.
+
+## Atualização 2026-10-06 — Avatar Runtime HD V1 (TASK-0047, DONE local; arte HD pendente)
+
+- Auditoria prévia CURRENT_AVATAR_PIPELINE: 82 PNG, sendo 54 runtime 512x768 USABLE_BUT_LOW_RES, 28 LEGACY_ONLY e zero READY_HD. Bases legadas 1024x1536 têm enquadramento/fundo diferentes; face/hair pequenos não são layers alinhadas. Nenhuma mídia/identidade/save/ID/aprovação alterada.
+- AvatarRuntime e resolver único de identidade/fonte/portrait/layers, canvas lógico 512x768/alvo 1024x1536, ordem e gate Body-Fit existentes intactos. Avatar/EquippedAvatar são adapters; Arena/Shell/Home/Intro/Garden centralizados, Herói/Equipment via adapter, Guilda/Diário via Shell. Face IDs 1/2/3 e hair IDs numéricos preservados; rosto independente historicamente inativo não recebe recorte incompatível. Cabelos curto/longo/cacheado e 54 combinações existentes preservados.
+- Fallback persistente corrigido por chave da fonte; base procedural 2:3 visível com tom/roupa/cabelo, sem overlays incompatíveis em falha; overlay quebrado remove só imagem. Mesma URL/nó da base ao equipar, memo/cache do browser/decoding async/prioridade opcional, miniaturas decorativas junto ao nome. Retrato Snake normalizado pelo resolver; engine/cache/drawImage intocados.
+- Visual Lab Arena existente estendido DEV com 18 combinações corpo/cabelo/face ID, cinco modos, cores e gate real (zero READY em produção); sem store/escrita, nenhuma página Next nova. Unit 12 arquivos/93 PASS; E2E 49 produção +1 DEV =50 PASS/19 skips duplicados/DPR mobile. Lint/typecheck/build PASS/20 rotas; DPR 1/2/3, seis viewports, cinematic/cinco raridades/Arena/keyboard/reduced/fallback/save. REWORK de CSS que expandia Herói para 684px corrigido e suite repetida; next-env restaurado/tsc web e raiz PASS; Herói dev3000 HTTP200.
+- QA/Security pelo autor, não independentes. Evidências build/task-0047-evidence; docs/architecture/AVATAR-RUNTIME-HD-V1.md, avatar-runtime-hd-v1-assets.json e docs/security/AVATAR-RUNTIME-HD-V1-REVIEW.md; contrato tasks/completed/TASK-0047-avatar-runtime-hd-v1.md. Baseline 578 arquivos, 163 mídias/82 avatar PNG intactos; zero perdas/mudanças inesperadas. Regras/save/conteúdo/Body-Fit/catálogos/Auth/Supabase preservados; sem mídia externa/instalação/push/deploy.
+- NEXT_ACTION: substituir 54 fontes por HD nativo 1024x1536 preservando identidade/canvas/silhueta, depois auditar/revisar integrações reais. Quatorze layers independentes condicionais (2 corpos neutros/6 faces/6 cabelos) somente se contrato futuro optar por modularização. Face independente/encaixe real de capacete e overlays aguardam artes/aprovação próprias; nenhuma pendência bloqueante deste runtime HD-ready. Não declarar pack HD físico entregue.
+
+## Atualização 2026-10-06 — Diário / Jornada Devocional V2 (TASK-0046, DONE local)
+
+- Diário como caderno pessoal CSS (capa/lombada/marcador/páginas), nome/nível/ato/fase, progresso e próximo objetivo pelo JourneySpotlight/resolveGardenStep existentes, sem fórmula paralela. Leituras com links/estado existentes, eventos datados reais ordenados e marcos sem data separados, sem duplicidade/cronologia fabricada.
+- Reflexão real devotionalReflection privada/recolhida por padrão, teclado/foco e troca de viajante; formulário persistente permanece na fase. Quiz somente estado real + tentativas iniciadas, sem pontuação/respostas/datas inventadas ou avaliação de fé. Códice preservado/recolhido. Antigo formulário não guardava texto: removido e contador rotulado participação, sem falsa sequência ou devocionais concluídos; feedback e bloqueio após sucesso por visita.
+- Unit 5 arquivos/61 PASS; E2E 9 novos +4 regressão=13 PASS/5 skips duplicados mobile; lint/typecheck/build PASS/20 rotas. Seis viewports vazio/registros/texto longo, sem overflow, alvos >=44, teclado/reduced/privacidade/persistência/contraste >=4.5 no próximo objetivo. QA/Security pelo autor, não independentes. REWORK de estado submitted/contraste/NodeList corrigido e checks repetidos; next-env restaurado e tsc direto revalidado.
+- Evidências/screenshots/preservação SHA-256 em build/task-0046-evidence; docs/architecture/DIARY-DEVOTIONAL-V2.md e docs/security/DIARY-DEVOTIONAL-V2-REVIEW.md; contrato tasks/completed/TASK-0046-diary-devotional-v2.md. Sem alteração de stores/domínio/save/Auth/Supabase/progressão/economia/conteúdo/mídia/catálogos/áudio/outras telas; sem instalação/push/deploy.
+- NEXT_ACTION: nenhuma pendência bloqueante local ou NEEDS_NEW_ASSET necessário. Datas de confirmação/reflexão/quiz/recompensas, resultados por tentativa e diário livre não existem no modelo atual; eventual ampliação exige contrato próprio. Pendências comerciais de áudio Arena permanecem na TASK-0042.
+- Preservação final PASS: 571 baseline/567 íntegros/163 mídias íntegras; zero divergências inesperadas ou perda. Rota Diário dev local 127.0.0.1:3000 HTTP 200.
+
+## Atualização 2026-10-06 — Equipment Portal Experience V2 (TASK-0045, DONE local)
+
+- Arsenal existente refinado com moldura arquitetônica CSS clara/iluminação quente, avatar completo 2:3, nome/nível/poder total e contador real. Seis slots com item/raridade/bônus/vazio/ação, filtros locais disponibilidade+raridade e cards com estado textual, bônus, referências/links existentes e visual corporal em preparação.
+- Comparação nativa details/table Atual/Novo/Diferença usa somente equipmentReward/travelerBattleSnapshot e calculateTotalAttributes/equipmentSwapDelta; ganhos/perdas/zero. Equipar/desequipar informa poder antes → depois + sinal. Sem mudar fórmulas, economia, inventário/save/Auth/Supabase/manifest/Body-Fit/catálogos/áudio/Guilda/Arena ou outras telas.
+- Cinematic/hook/commits e tempos 1600/1800/2000/2200/2400ms/reduced preservados; apenas painel de recompensa lateral em landscape baixo corrige corte, sem alterar voo. Ícones ausentes ocultam decoração, avatar usa fallback procedural existente; equip mecânico continua. Nenhum overlay novo READY ou ícone no corpo, mídia/áudio novo ou Arena reutilizada.
+- Unit 8 arquivos/83 PASS; E2E 9 portal+23 regressão=32 PASS/18 skips históricos/duplicações; lint/typecheck/build PASS/20 rotas. Seis viewports com QA visual, bounds/targets/foco/keyboard/fallback/equip/remove/power/persistência/reduced. QA/Security pelo autor, não independentes, sem acesso remoto. Interrupções recuperadas com CSS baseline SHA-256 exato, testes/checks repetidos; next-env restaurado e tsc rechecado.
+- Preservação baseline 564 arquivos/163 mídias íntegras, nenhuma mudança inesperada/perda. Evidências build/task-0045-evidence; relatório docs/architecture/EQUIPMENT-PORTAL-EXPERIENCE-V2.md; Security docs/security/EQUIPMENT-PORTAL-EXPERIENCE-V2-REVIEW.md; contrato tasks/completed/TASK-0045-equipment-portal-experience-v2.md. Dev local 127.0.0.1:3000 retomado após interrupção, rota equipamentos HTTP 200. Sem instalações, mídia externa, push/deploy ou Git destrutivo.
+- NEXT_ACTION: revisão humana opcional da composição. Dois fundos arquitetônicos opcionais somente NEEDS_NEW_ASSET documentados, sem criação/READY. Aprovação Body-Fit real e substituição/licença comercial do áudio Arena continuam nas tarefas próprias; nenhuma pendência bloqueante da UI local.
+
+## Atualização 2026-10-06 — Guild Visual Pack Integration V1 (TASK-0044, DONE local)
+
+- Seis visuais reais Guilda íntegros: dimensões/formato/decode/hash/alpha/opacidade PASS; Carlos Faustino aprova, autoria OpenAI image generation via ChatGPT, original/origem fornecidos pelo usuário; reviewedAt real registrado. Bytes preservados, inventário passou a VALIDATED.
+- GuildHall responsivo <=760px com source mobile sem solicitar desktop; banner no hero, pergaminho decorativo/cards, mesa contextual líder e baú somente recompensa existente + contexto especial/aprovado/concluído. CSS fallback restaura conteúdo/ações em erro; decoração next/image unoptimized/lazy; nenhum domínio/economia/filtro/workflow/save/Auth/Supabase/Arena/áudio alterado.
+- Pipeline: cinco slots/seis arquivos, manifest/receipts completos. Auditor --visual-only --write PASS, somente catálogo visual atualizado; global exit 1 por oito Suno Free, gate e catálogos de áudio preservados. Lançamento comercial com esses áudios continua bloqueado.
+- Unit 7 arquivos/26 PASS; E2E Guilda 14 PASS (12 integração/regressão +2 nomes longos/fora da Guilda), seis viewports Player/Leader, keyboard/reduced/overflow/fallback total/ações/reward once. Lint/typecheck/build PASS, 20 rotas. QA/Security pelo autor, não independentes; online mockado, sem sessão visual autenticada/RLS remoto. next-env restaurado ao baseline; evidência/preservação build/task-0044-evidence.
+- Contrato tasks/completed/TASK-0044-guild-visual-pack-integration-v1.md; relatório docs/architecture/GUILD-VISUAL-PACK-INTEGRATION-V1.md; Security docs/security/GUILD-VISUAL-PACK-INTEGRATION-V1-REVIEW.md. Nenhuma geração/conversão de mídia, dependência, push/deploy/publicação ou operação destrutiva.
+- NEXT_ACTION: revisão humana opcional da composição final; validação remota prévia Guilda exige autorização própria. Antes de publicação comercial, resolver substituição/licença do áudio Arena e repetir gates conforme TASK-0042.
+
+## Atualização 2026-10-05 — Guild Experience V2 (TASK-0043, DONE local)
+
+- Guilda existente local/online aprimorada: salão CSS acolhedor, brasão neutro, hero com líder/participação/contadores das atividades carregadas, cards com estados/recompensas oficiais/details por teclado, pendências/histórico separados. Filtros/domínio/repos/saves/economia/Auth/Supabase/Arena intactos; sem ranking espiritual.
+- Fila local antes da criação, recompensa já processada na aprovação conforme domínio existente; revisão online bloqueia duplo envio concorrente e mostra feedback real. collectiveTarget usa dados existentes; não inventa progresso coletivo online ausente. Sem mídia/áudio novo ou reutilização Arena.
+- Unit 7 arquivos/27 PASS; E2E 10 PASS, jogador/líder local nos seis viewports 390/412/844/915/1440/1920, reduced/keyboard/targets/overflow/reward once/reload/history. Lint/typecheck/build PASS. QA/Security pelo autor, não independente; online unit mockado, sem teste visual autenticado/RLS remoto. Evidências/preservação build/task-0043-evidence.
+- Contrato tasks/completed/TASK-0043-guild-experience-v2.md; relatório docs/architecture/GUILD-EXPERIENCE-V2.md; Security docs/security/GUILD-EXPERIENCE-V2-REVIEW.md. Seis assets opcionais NEEDS_NEW_ASSET no inventário guildExperienceAssets.ts, sem loader/READY ou mídia gerada.
+- NEXT_ACTION: revisão humana visual e geração/aprovação separada dos assets opcionais; entrega real/receipts/licença/hash/audit antes de binding aprovado. Validação remota anterior Guild Leader V2 continua pendente, exige escopo/autorização próprios; nenhuma migração ou escrita Supabase real executada.
+
+## Atualização 2026-10-05 — TASK-0042 (PROTOTYPE_COMPLETE; comercial BLOCKED)
+
+- Reteste no servidor pessoal 127.0.0.1:3000: reprodução nativa PASS e usuário confirmou funcionamento. Arena DEV agora oferece “Ativar e testar som”, por clique explícito, inclusive recuperando mute/volumes zero; padrão global permanece desligado. Novo E2E no servidor 3000 PASS, unit 3 arquivos/21 PASS, lint/typecheck/build PASS. Evidência build/task-0042-prototype/live-server-results. Licença/catálogos de produção intactos.
+
+- Oito OGG/Vorbis 48 kHz estéreo/hash/ffprobe válidos; Carlos Faustino confirmou audição/apresentação/níveis/ausência percebida de clipping/distorção e loop da música. reviewedAt real registrado. Origem Suno Free + edição/conversão local; licenseId SUNO_FREE_NON_COMMERCIAL, usageScope NON_COMMERCIAL_PROTOTYPE_DEVELOPMENT_ONLY, commercialProductionApproved=false. Sem original comercial/CC0/CC-BY/ownership exclusivo.
+- Auditor produção intacto: exit 1 por licença dos oito; seis visuais VALIDATED/22 outros MISSING; --write produção não executado, APPROVED_MUSIC/EFFECTS vazios/intactos. Manifesto identifica os oito bloqueios comerciais.
+- Auditor/generator separados DEV com hash/realpath/ffprobe/review/escopo completos, fail-closed para pack incompleto e recusa --write em production. Catálogo protótipo guardado NODE_ENV===development; mesma música Arena e sete SFX, somente contexto Arena no singleton. Outros contextos/defaults/prefs/mix/650 ms/pools/timing/motor/saves preservados.
+- Reprodução real native play dos oito PASS via manager no dev, seis viewports, gesture/mute/sliders/prefs/reload/cleanup/events/reduced/dodge/especial/vitória/derrota/falha mídia. Usar npm run dev e ativar Música/Efeitos sem mute; npm run start continua silencioso para esse pack. Interface dev identifica restrição não comercial.
+- Checks afetados: unit 7 arquivos/41 PASS; E2E produção 10 PASS, dev 3 PASS; lint/typecheck/build PASS. Bundles JS produção sem bindings Suno Free. QA/Security pelo autor, sem independência. next-env/web tsconfig restaurados; evidência em build/task-0042-prototype. Preservação final PASS: 576 baseline, 564 intactos, 12 alterações autorizadas e 6 arquivos novos, zero divergências inesperadas; build/task-0042-prototype/preservation.json.
+- Contrato único tasks/active/TASK-0042-arena-audio-pack-v1.md registra PROTOTYPE_COMPLETE, não production-ready; relatório docs/architecture/ARENA-AUDIO-PACK-V1.md; Security docs/security/ARENA-AUDIO-PACK-V1-REVIEW.md. Relatos/pendências anteriores da TASK-0042 superados estão no contrato e em build/task-0042-prototype/memory-before-human-approval.md / report-before-human-approval.md.
+- NEXT_ACTION comercial: Antes de publicação comercial, substituir os 8 áudios por assets com licença comercial válida ou regerar sob plano/licença apropriada, depois repetir auditor, receipts, catalog write e audição final. Representar licença verdadeira e tratar incompatibilidade de schema sem relabelar. Não herdar aprovação de outro hash. Sem push/deploy/Supabase/Git destrutivo/instalação.
+
+## Atualização 2026-10-05 — Arena visual pack V1 (TASK-0039, DONE)
+
+- Seis assets reais ativos, hashes físicos e dimensões corretos; quatro PNG com transparência real. Receipts completas com Carlos Faustino, autoria OpenAI image generation via ChatGPT, original/origem documental fornecidas pelo usuário e reviewedAt 2026-10-05T15:44:02.187Z. Audit/--write PASS; catálogo tipado: cenário desktop/mobile e Davi/Elias/Mara/Noemi nos IDs corretos. Outros 30 itens seguem MISSING, sem fabricação.
+- Avatar real e combate TASK-0040 preservados; Lab TASK-0041 permanece DEV isolado. Único ajuste visual: feedback de impacto abaixo do palco na coluna do alvo, para não cobrir rosto/armas/HUD. PNG/WebP não editados. Mobile/desktop, contain/cover/facing/grounding, oito estados e fallback controlado no Lab/normal validados.
+- Unit 53 arquivos/324 PASS; Lab E2E 3 PASS e produção 27 PASS/1 skip preexistente; lint/typecheck/build PASS. 73 capturas Lab; QA/Security pelo autor, sem independência. Baseline/preservação em build/task-0039-resume, next-env restaurado.
+- Relatório 23 itens: docs/architecture/ARENA-VISUAL-PACK-V1.md; Security: docs/security/ARENA-VISUAL-PACK-V1-REVIEW.md; contrato: tasks/completed/TASK-0039-arena-visual-pack-v1.md. Sem push/deploy/Supabase/dependências novas/Git destrutivo.
+- NEXT_ACTION: nenhuma pendência da TASK-0039; outros pacotes ausentes/contratos continuam nos estados anteriores. Nova mídia exige origem/revisão/hash/audit reais; roadmap não amplia autorização.
+
+
+## Confirmação de autoria e receipts parciais — 2026-10-05
+
+- Usuário forneceu autoria literal `OpenAI image generation via ChatGPT`, licença `original` e origem `Original asset generated for RPG Jovem Cristão`; confirmou aprovação visual dos seis arquivos.
+- Seis registros gravados em audiovisual-pack-approvals.json com hashes físicos rechecados, esses dados e presentationApproved=true. reviewedAt real UTC: 2026-10-05T15:31:40.070Z.
+- `reviewedBy` não consta: reviewedBy requires user-provided reviewer name. Campo omitido, sem nome derivado de diretório/login, placeholder ou revisão inventada. Esclarecimento solicitado. Registro parcial explicitamente autorizado pelo pedido atual.
+- Audit reexecutado: exit 1 por nome de revisor ausente; catálogos permanecem intactos, --write não executado. Assets preservados. Integração, Lab com mídia real e gates finais pendentes até receipt válida. TASK-0039 continua BLOCKED apenas por reviewedBy, sem mudar os demais fatos registrados.
+
+
+## Retomada 2026-10-05 — TASK-0039 (BLOCKED por identidade de receipt)
+
+- Pedido atual confirma aprovação visual e origem original para o projeto; permite integração local/audit/--write condicionado a gates válidos. Faltam autoria (`author`) e nome responsável pela revisão (`reviewedBy`), exigidos pelo auditor; esclarecimento solicitado, sem falsificar nem preencher receipt incompleta.
+- Seis arquivos presentes, dimensões corretas, hashes físicos coincidentes com manifest.json; quatro PNG realmente transparentes (alpha=0). Inspeção local dos quatro retratos e evidência em build/task-0039-resume/physical-validation.json.
+- Audit exit 1 por receipts ausentes; approvals/catálogos/assets/runtime intactos. --write/ativação/Lab com pixels reais/testes/gates pendentes. Não reaproveitar PASS da TASK-0041 como aceite da integração. Baseline 562 arquivos; preservação em build/task-0039-resume/preservation.json.
+- NEXT_ACTION: obter author/reviewedBy reais; registrar origem documental e instante real da confirmação, auditar/gerar catálogo, validar composição/ações/mobile/desktop/reduced/fallback e gates; só então concluir TASK-0039. Relatório 24 itens: docs/architecture/ARENA-VISUAL-PACK-V1.md. Sem ações externas/dependências novas.
+
+
+## Atualização 2026-10-05 — Arena Integration Lab & Polish Prep (TASK-0041, DONE)
+
+- Lab DEV independente, sem Providers/Auth/stores/settlement/playback ou escrita persistida. Acesso: node scripts/arena-lab.mjs → http://127.0.0.1:3109/tools/arena-lab/. Produção não inclui entrada/rotas/menu do Lab.
+- Palco compartilhado, tokens de composição/facing/escala/grounding/layers/timing/cinematic, nove FX CSS, Foco/turnos/especiais/recompensas/unlock e rodapé fluido de buffs; engine/IA/custos/rewards/saves/Avatar/equipamentos preservados. NORMAL/REDUCED e cancelamento/cleanup testados.
+- Seis assets chegaram externamente durante a validação: dimensões e hashes lidos, bytes preservados. Todos REJECTED; receipts e catálogos intactos/vazios. TASK-0039 permanece BLOCKED, agora por aprovação humana/proveniência/licença/receipts, sem bypass ou --write.
+- Unit 53 arquivos/324 PASS; E2E Lab 2 PASS e Arena/produção 25 PASS/1 skip preexistente; lint/typecheck/build PASS. Matriz 11×5 e buffs empilhados: 56 capturas. QA/Security pelo autor, sem independência. Preservação final: build/task-0041-evidence/preservation.json; next-env restaurado.
+- Relatório 22 itens/handoff: docs/architecture/ARENA-VISUAL-INTEGRATION-LAB-V1.md; Security: docs/security/ARENA-VISUAL-INTEGRATION-LAB-V1-REVIEW.md; contrato: tasks/completed/TASK-0041-arena-integration-lab.md. Sem dependências novas/downloads/push/deploy.
+- NEXT_ACTION: revisão humana dos seis arquivos e receipts reais; seguir audit/--write/Lab/cinco viewports/testes/aceite na TASK-0039. Não aprovar automaticamente a mídia recebida.
+
+
+
+## Atualização 2026-10-05 — Arena combat system V2 (TASK-0040, DONE)
+
+- Autorização explícita para motor/IA/apresentação locais da Arena, sem global/Auth/Supabase/RLS/migrations/Guilda/Jornada/Fuga/narrativa/assets TASK-0039/dependências/remoto. API legada createBattle/resolveRound e fórmulas/XP/moedas/anti-farm preservados; novos módulos createArenaBattle/resolveArenaRound.
+- Foco mecânico 0–3, básico/defesa +1; próximo golpe reduzido, guardas persistem até consumo. Catálogo central: Golpe do Caminho nível 2/custo 2/multiplicador 1,45; Guarda nível 4/custo 2/25% do dano; Discernimento nível 6/custo 2/Sabedoria e intenção provável; Passo nível 8/custo 3/esquiva de um golpe. Até quatro slots, defaults por nível e extensão opcional sem atribuir bônus novos a itens.
+- Davi ágil (2/1/1/1 nível 1, esquiva 12%); Elias ofensivo (3/4/2/4 nível 2); Mara guardiã (5/2/5/3 nível 4); Noemi tática (4/3/3/8 nível 6). IDs/nome/ordem preservados, IA lê somente estado comprometido. Guardrail 30 seeds/build real por adversário: todos vencíveis com básico/especial; não prova balanceamento universal.
+- UI três escolhas e painel compacto de quatro especiais/locks/custo insuficiente; HP/Foco por evento e Foco >=12 px. Antecipação/execução/impacto/recuperação: básico 520–760 ms, especial 1500 ms, reduced motion 450 ms; câmera menor mobile, alvo esquiva/atacante continua golpe, guarda prepara/consome, timers/lock limpos. Vitória/XP/moedas/level-up/unlock reais, derrota respeitosa/retry. Som semântico via AudioManager único, sem mídia nova.
+- Saves/Traveler/histórico sem campos obrigatórios novos; recursos efêmeros/defaults, validadores originais mantidos. Unit 51 arquivos/315 PASS; E2E final 23 PASS/1 skip preexistente, níveis 1/2/4/6/8/quatro adversários/quatro viewports/reduced motion/KO/level-up/unlock/reload. Lint/typecheck/build PASS. Falhas de teste/balanceamento corrigidas com REWORK e evidências, sem relaxar aceite.
+- QA/Security pelo autor, sem independência; 45 capturas finais em build/task-0040-evidence/e2e-final. Baseline 180: 170 intactos/10 edições autorizadas incluindo memória, zero divergência inesperada; next-env restaurado. Relatório 27 itens: docs/game-design/ARENA-COMBAT-V2.md; revisão: docs/security/ARENA-COMBAT-V2-REVIEW.md; contrato: tasks/completed/TASK-0040-arena-combat-system-v2.md.
+- NEXT_ACTION: revisão humana de sensação/ritmo e futura entrega/revisão de mídia real conforme TASK-0039 (continua BLOCKED); não gerar/registrar ou aprovar ausentes. Outros contratos/overlays permanecem nos estados anteriores. Sem push/deploy.
+
+## Atualização 2026-10-05 — Arena visual pack V1 (TASK-0039, BLOCKED)
+
+- Pedido autoriza apresentação/integração local somente Arena, sem gameplay ou ações externas. Auditor TASK-0038 e inspeção física: 0/6 arquivos presentes; approvals vazio. Ausentes em apps/web/public/assets: world/arena/arena_training_courtyard.webp (1920×1080), arena_training_courtyard_960.webp (960×540), characters/arena/arena_davi.png, arena_elias.png, arena_mara.png e arena_noemi.png (cada PNG 1024×1536 transparente).
+- Integração interrompida por instrução explícita de parar se mídia ausente; nenhum asset/approval/código/CSS/catálogo alterado. Audit sem rejeições não significa aceite da integração. Unit/E2E/lint/typecheck/build da TASK-0039 pendentes após mídia/integração; não reutilizados como PASS os resultados antigos.
+- NEXT_ACTION: entregar os seis arquivos físicos e registro humano de aprovação/hash/origem/licença conforme TASK-0038; auditar e retomar composição/testes autorizados. Relatório dos 16 itens: docs/architecture/ARENA-VISUAL-PACK-V1.md. Contrato ativo BLOCKED: tasks/active/TASK-0039-arena-visual-pack-v1.md. Evidência: build/task-0039-evidence/asset-audit.json. TASK-0038 segue DONE; demais mudanças preservadas.
+
+## Atualização 2026-10-05 — audiovisual immersion pack V1 (TASK-0038, DONE)
+
+- Pedido explícito autoriza preparação audiovisual local reversível, Arena primeiro. Sem download/geração de mídia, dependência, MCP, push/deploy, Auth/RLS/Supabase/backend/saves/economia/balanceamento/motor/progressão/raridades. Mudanças preexistentes preservadas.
+- AudioManager único: fallback MP3 local opcional validado, recusa de autoplay sem segunda tentativa, continuidade/crossfade entre Shells, suspensão após saída real; gesto, mute/volumes/persistência/limites existentes preservados. Teste do ciclo percorre sete contextos.
+- Manifesto sete músicas/vinte efeitos/oito artes; receipts e validador local de existência/hash/licença/revisão/path/realpath/metadados. Audit: 35 principais MISSING, zero REJECTED/registrados; catálogos vazios. ffprobe ausente; audição/decoder/arte real não validados. Não baixar/instalar automaticamente.
+- Arena: cenário e quatro retratos opcionais pelos IDs estáveis, com fallback CSS/monogramas/Avatar; impacto sonoro em 120 ms somente com dano positivo. Home/Jornada: slots dos quatro portais. Fuga: aproximação sonora no alcance visual <75, mínimo quatro segundos, sem alterar gameplay. Demais bindings/contextos preservados.
+- Unit 49 arquivos/292 PASS; conferência dirigida final 18/18 PASS. Lint/typecheck/build PASS. E2E 17 PASS/1 skip preexistente de duplicação desktop/mobile; cinco viewports, reduced motion, áudio/reload, Arena e Fuga/input. 111 capturas em build/task-0038-evidence. Inspeção de batalha mobile/Arena desktop/Home mobile, QA/Security pelo autor, sem independência.
+- Baseline 165 arquivos: 154 intactos/11 edições autorizadas (incluindo memória), zero divergência inesperada; next-env restaurado byte a byte. Relatório de 17 itens/procedimento: docs/architecture/AUDIOVISUAL-IMMERSION-PACK-V1.md. Security: docs/security/AUDIOVISUAL-PACK-V1-REVIEW.md. Contrato: tasks/completed/TASK-0038-audiovisual-immersion-pack-v1.md.
+- NEXT_ACTION: entregar/licenciar/audicionar/aprovar mídia real e executar audit antes de gerar catálogos. Avatar HD preservando referência/anatomia/pose/perspectiva; quatro protótipos femininos V2 pendentes. Oito IDs continuam NEEDS_NEW_OVERLAY, sem READY ou aprovação humana inventada. Roadmap/outros contratos não ampliados.
+
+## Atualização 2026-10-05 — polish, playability & immersion (TASK-0037, DONE)
+
+- Pedido explícito autorizou mudanças locais reversíveis de UX/UI/motion/áudio, filtragem da Guilda e apresentação da Arena. Não amplia roadmap, Auth/RLS/Supabase/saves/economia/motor/dependências ou escopo remoto. Contrato registra a exceção runtime específica; demais tarefas mantêm seus estados.
+- Fuga: landscape até 1024 px (corrige 915×412), mapa/HUD/direcional separados, targets >=48 px, safe areas/viewport-fit=cover, input por teclado/pointer independente, capture/slide/release/cancel/multitouch, blur/visibilidade e fullscreen do próprio jogo. Quatro orientações com touch/CDP, sem afirmar teste físico/Safari iOS.
+- Guilda jogador: publicadas/ativas, vigentes e realizáveis na área principal; concluídas em Histórico, envios/aprovações/recompensas em área própria; datas inválidas fechadas e reavaliação por relógio/foco. Online/local e desafios legados cobertos, gestão do líder preservada.
+- Arena: iluminação mais clara, atacante/alvo/ação/dano reais em sequência, avanço/impacto/defesa/foco/esquiva, movimento menor mobile e reduced motion. HP por evento, trava de rodada e settlement após sequência; motor/RNG/recompensas intactos. Não inventados crítico/cura.
+- Equipamentos: arquitetura TASK-0036 preservada; totais 1600/1800/2000/2200/2400 ms por raridade. Stats ao fim do reveal; toque/Escape uma vez, reduced motion 560 ms. Oito IDs continuam NEEDS_NEW_OVERLAY, sem novo aceite corporal.
+- Home/Jornada com fase/objetivo/progresso/CTA real e arte existente; dez ícones SVG, portais/cards/raridade, microinterações/recompensas e cabeçalho mobile em duas linhas. Quatro WebPs derivados otimizados, fontes PNG intactas.
+- AudioManager central com volumes independentes/mute/persistência, gesture unlock, fades/crossfade, contextos/efeitos semânticos, limites de players e limpeza. Catálogos vazios: nenhum áudio licenciado encontrado, nenhuma URL fictícia. AUDIOS_PENDENTES e ASSETS_VISUAIS_PENDENTES no relatório.
+- Unit 46 arquivos/282 testes PASS; lint/typecheck/build PASS. E2E completo 72 PASS/4 FAIL/16 skips; quatro cenários corrigidos e reexecutados 4/4 PASS: 76 aplicáveis validados. Matriz visual/Fuga final 14/14 PASS; capturas em build/task-0037-evidence. Skips anteriores discriminados, nenhum novo caso TASK-0037 pulado. QA/Security pelo autor, sem revisão independente.
+- Última matriz com contraste do Diário 2/2 PASS; links >=4,5:1. Preservação: 130 preexistentes, 112 hashes intactos/18 edições autorizadas, zero divergência inesperada; next-env restaurado. Relatório: docs/architecture/POLISH-PLAYABILITY-IMMERSION-SPRINT.md; Security: docs/security/POLISH-PLAYABILITY-IMMERSION-REVIEW.md. Contrato: tasks/completed/TASK-0037-polish-playability-immersion.md. NEXT_ACTION: produzir/licenciar/aprovar áudios/artes em tarefa própria; overlays V2 exigem aprovação humana por corpo. Sem push/deploy/migration real.
+
+## Histórico — cerimônia de equipamento V1 (TASK-0036, DONE; tempos supersedidos pela TASK-0037)
+
+- Apresentação vigente: PREPARE → FOCUS → REWARD_REVEAL → FLY_TO_TARGET → EQUIP_CONFIRM → DONE, em portal de UI. Configuração central: comum 760 ms, incomum 860, raro 1020, épico 1220 e lendário/Extraordinário 1440. Escape/toque concluem uma única vez; reduced motion mantém texto/fade em 560 ms.
+- Recompensa e swap usam atributos/deltas e modelo de poder existentes, incluindo efeitos; negativos/zero preservados. Voo do iconAsset central até anchors, impacto/halo/check e feedback próximo ao Avatar; corpo full-canvas permanece imóvel. Desequipar fade 120 ms; timers/portal limpos.
+- Unit 40 arquivos/261 testes PASS; E2E 20 PASS/8 skips de duplicação mobile, cinco viewports e ambos corpos, 60 medidas de revelação, seis slots, swap/remover/reload, toque/Escape e reduced motion. Lint/typecheck/build PASS. QA e inspeção de capturas pelo autor, sem revisão independente.
+- Contrato `tasks/completed/TASK-0036-equipment-cinematic-v1.md`; arquitetura `docs/architecture/EQUIPMENT-CINEMATIC-V1.md` substitui a apresentação da TASK-0035. 116 hashes preexistentes fora das seis edições autorizadas preservados, incluindo 14 PNGs, CSS global e runtime; next-env restaurado.
+- Oito IDs reais continuam NEEDS_NEW_OVERLAY; READY/full-canvas só em fixtures sintéticas, sem aprovação de arte. NEXT_ACTION: produzir os quatro protótipos femininos da TASK-0034 e obter aprovação humana por corpo antes de READY. Nenhuma integração de Baús/áudio, mecânica ou ação externa.
+
+## Histórico — animação híbrida V2 (TASK-0035, DONE; apresentação supersedida pela TASK-0036)
+
+- Clone temporário de iconAsset via portal de UI: voo curvo de 440 ms, impacto de 120 ms e reveal corporal alinhado de 180 ms. Full-canvas não se desloca; nenhum ícone entra no corpo. Camadas pendentes voam sem fingir visual corporal.
+- Destinos por corpo: cabeça, torso, mãos, centro dos pés e tórax. Arco máximo 64 px desktop/28 px mobile; endpoints fora da tela projetados à borda visível. Fade anterior/remover em 120 ms; reduced motion usa fade sem voo/impacto; timer e portal limpos ao desmontar.
+- Unit 39 arquivos/241 testes PASS; E2E 8/8 para seis slots, ambos corpos, 1440×900/390×844, troca, remoção e reduced motion; lint/typecheck/build PASS. Capturas do voo visível desktop/mobile inspecionadas. QA pelo autor.
+- Contrato `tasks/completed/TASK-0035-equipment-animation-v2.md`; documentação `docs/architecture/EQUIPMENT-ANIMATION-V2.md` vinculada ao Body-fit V2. 111 hashes preexistentes fora das seis edições autorizadas preservados, incluindo PNGs V1; next-env restaurado.
+- Arte V2 ausente; oito IDs continuam NEEDS_NEW_OVERLAY. Fixtures full-canvas são sintéticas, sem aprovação de arte. NEXT_ACTION: produzir os quatro protótipos femininos da TASK-0034 e obter aprovação humana antes de READY corporal.
+
+## Histórico — Body-fit V2 (TASK-0034, DONE: preparação técnica)
+
+- Usuário REPROVOU visual corporal V1: peças cropped não correspondem à anatomia/perspectiva do Avatar precomposto; offsets não resolvem a causa. Avaliação anterior pelo autor foi supersedida. Oito IDs agora NEEDS_NEW_OVERLAY, sem camadas corporais; equipabilidade, UI e atributos preservados.
+- 14 PNGs V1 intactos; fontes/calibração cropped arquivadas, iconAssetHighQuality disponível como metadado UI. Ícones atuais não substituídos; nenhuma tela fora do escopo alterada.
+- Renderer aceita overlayMode full-canvas: PNG 1024×1536 em canvas lógico 512×768, inset 0/100%, sem transform/offsets de encaixe. Camadas centralizadas e modo cropped compatíveis. V2 equipa em lugar com efeito de chegada, sem voo em miniatura.
+- READY exige aprovação humana explícita por corpo em bodyOverlayApproval; nenhuma definição real aprovada. Nenhuma arte V2 produzida, copiada ou integrada. Primeiro produzir somente armor_traveler_uncommon_female_v2.png, helmet_traveler_rare_female_v2.png, boots_traveler_common_female_v2.png, sword_path_common_female_v2.png e submeter ao usuário antes do restante.
+- Unit: 38 arquivos/224 testes PASS. E2E: 6 PASS/6 skips explicados (4 prévias V1 rejeitadas; 2 duplicações DPR mobile); 120 cenórios fallback e 60 medidas base. Lint/typecheck/build PASS; QA pelo autor, sem alegar revisão independente ou aceite visual V2.
+- Documento vigente: docs/architecture/EQUIPMENT-BODY-FIT-OVERLAYS-V2.md. Contrato: tasks/completed/TASK-0034-equipment-body-fit-v2.md. Históricos V1 sinalizados como supersedidos. 99 hashes preexistentes fora das edições autorizadas preservados, incluindo 14 PNGs; next-env restaurado aos bytes originais.
+- NEXT_ACTION: produção dos quatro protótipos femininos e aprovação visual humana explícita, em etapa futura. Nenhum novo BODY OVERLAY READY antes desse aceite. áreas externas e mecânicas não foram alteradas nesta tarefa.
+
+## Histórico 2026-10-02 — integração técnica V1 (TASK-0033; visual posteriormente reprovado)
+
+- Os 14 PNGs externos já presentes foram auditados em dimensões/alpha e conectados sem modificar seus bytes. Oito IDs visuais READY após calibração female/male, peças isoladas/combos, três cabelos e inspeção real. Ícones, catálogo, stats e gameplay preservados; duas variantes raras seguem legadas apenas no registro visual, sem novos itens/loot.
+- Configuração central em equipmentAssets.ts: registro de espadas corrigido pela margem alpha, rosto dos elmos aberto, botas por pé/corpo com mirrorX explícito e par masculino ajustado contra sobra da base pintada, medalhão pequeno acima da armadura. Voo usa PNG dedicado, mantém orientação e base; troca não duplica camada.
+- Unit 38 arquivos/220 testes PASS; E2E 8 PASS/4 skips intencionais; 840 medições de overlays e 60 da base nas cinco viewports e DPR 1/2/3. Maior escala efetiva dos overlays 0,967×, sem upscale físico; lint/typecheck/build PASS. QA pelo autor, não independente.
+- Relatório `docs/architecture/EQUIPMENT-OVERLAY-V1-INTEGRATION.md` contém todos os arquivos/IDs, source/display CSS, anchors, calibração e limites. Avatar 512×768 continua limitado em alta densidade; recomendação futura 1024×1536, sem regeneração. Nenhuma ação manual restante para integrar os assets.
+- Preservação: 99 hashes fora do escopo documental/runtime autorizado inalterados, incluindo os 14 PNGs; next-env restaurado após build. Contrato único novamente em `tasks/completed/TASK-0033-equipment-overlays-hd.md`. NEXT_ACTION: melhorias futuras de Avatar HD exigem tarefa própria; nenhuma ampliação de mecânica nesta entrega.
+
+## Atualização 2026-10-01 — auditoria Avatar/overlays HD (TASK-0033, DONE apenas auditoria, registro histórico)
+
+- Usuário confirmou 14 PNGs finais ainda externos e orientou continuar apenas auditoria, sem READY. Integração/alpha/encaixe/performance do pacote permanecem pendentes; oito IDs continuam NEEDS_NEW_OVERLAY.
+- Relatório `docs/architecture/EQUIPMENT-OVERLAY-HD-AUDIT-V1.md`: 54 bases 512×768; 60 medições nos dois corpos/telas, cinco viewports, DPR 1/2/3. Sem upscale CSS, Next/Image ou canvas; fonte limitada em DPR 3 e Herói desktop DPR 2. Avatar Runtime HD recomendado 1024×1536 com detalhe real, sem regeneração.
+- Antes do ajuste de escopo, Avatar/AvatarSmall receberam image-rendering auto, img intrínseco 512×768 e overlay auto explícito. Sem ampliação de layout ou alteração de arte/resolver; quatro pares controlados mostram redução de serrilhado, sem criar detalhes na fonte.
+- Unit 37 arquivos/204 testes, E2E 5 PASS/1 skip intencional, lint/typecheck/build PASS. 85 hashes preexistentes preservados fora do CSS autorizado; next-env restaurado aos bytes anteriores. Contrato `tasks/completed/TASK-0033-equipment-overlays-hd.md`.
+- NEXT_ACTION: organizar os 14 arquivos externos conforme manifesto V1; depois integrar/calibrar/medir e aprovar cada overlay antes de READY.
+
+## Atualização 2026-10-01 — manifesto de produção de arte (TASK-0032, DONE)
+
+- Criado `docs/architecture/EQUIPMENT-OVERLAY-ASSET-MANIFEST-V1.md`: oito IDs pendentes → 14 arquivos PNG isolados, 10 específicos de corpo e 4 compartilhados; destino futuro `apps/web/public/assets/equipment/overlays/v1/`.
+- Couraças incomum/rara, elmo e botas por pé têm female/male; espadas comum/rara, escudo e medalhão compartilham arte. Prioridades, nomes, crops, resolução 2×, anchors, registro/rotação, alpha, zIndex, oclusão e checklist por asset documentados.
+- Auditoria confirmou 54 sprites 512×768, 27 por corpo. Caixas são envelopes de produção, não calibração aprovada. Limites da base indivisível e aliases de variantes raras legadas estão explícitos.
+- Revisão documental/editorial pelo autor; 14 nomes/destinos únicos, geometria/registro consistentes; 86 hashes preexistentes conferidos sem alteração fora da documentação autorizada. Sem runtime, nova arte ou mudança de stats/READY; testes/build N/A nesta entrega documental.
+- Contrato: `tasks/completed/TASK-0032-equipment-overlay-art-specification.md`. NEXT_ACTION: produzir e aprovar os 14 assets individualmente conforme o manifesto; todos os oito IDs continuam NEEDS_NEW_OVERLAY.
+
+## Atualização 2026-10-01 — Avatar e overlays V2 (TASK-0031, DONE)
+
+- Removidos ícones como camadas corporais e como voo de equipar. Resolver central usa EquipmentDefinition, iconAsset separado, overlayAsset dedicado, visualConfig base + overrides male/female, qualidade efetiva e fallback sem corpo.
+- Torso, ordem de composição, registro/rotação e peças independentes das botas estão centralizados. Base memoizada preserva o nó; atributos, inventário e mecânica não foram modificados.
+- Auditoria: nenhum overlay real READY; oito IDs (Couraças, espadas, elmo, botas, escudo, medalhão) são NEEDS_NEW_OVERLAY. Itens continuam equipáveis com bônus e ícones na UI; Couraça não adiciona adesivo sobre o corpo. Pacote de arte em `docs/architecture/EQUIPMENT-OVERLAY-ASSETS.md`.
+- QA: 37 arquivos/204 testes, 20 dirigidos, E2E 4/4 desktop/mobile, lint/typecheck/build PASS. Matrizes female/male e páginas completas em 390×844, 768×1024 e 1440×900 inspecionadas; sem deformação ou ícone corporal. Security pelo próprio autor, sem achado crítico/alto no escopo.
+- Contrato/evidências: `tasks/completed/TASK-0031-avatar-equipment-overlays.md`. NEXT_ACTION: produzir e aprovar arte corporal dedicada antes de marcar itens READY; demais tarefas preservam seus estados anteriores.
+
+## Atualização 2026-10-01 — autorização Avatar e overlays (registro anterior)
+
+- O usuário autorizou explicitamente implementação visual/estrutural de Avatar e equipamentos overlays; contrato agora em `tasks/completed/TASK-0031-avatar-equipment-overlays.md`.
+- `AGENTS.md` e `.agent/RULES.md` reconhecem exceção de runtime somente para esse escopo contratado. IconAsset é exclusivo de UI; ausência de overlay dedicado exige fallback sem camada corporal e status `NEEDS_NEW_OVERLAY`.
+- Arena, Guilda, Supabase, Auth, Jornada, Fuga, economia, balanceamento e conteúdo bíblico permanecem fora de escopo. Nenhuma funcionalidade foi implementada nesta atualização de governança.
+- A implementação autorizada foi concluída acima; alterações preexistentes não commitadas foram preservadas nas edições manuais.
+
+## Atualização 2026-09-30 — Painel do Líder V2 (TASK-0030, BLOCKED remoto)
+
+- Painel autenticado agora organiza Início, Conteúdo (Missões/Aulas/Desafios), Aprovações, Membros, Agenda e Histórico; mobile usa seletor compacto. Missões têm filtros, detalhe, modelos e criação em etapas. Aulas têm criação/edição/publicação, visualização do membro e agenda derivada. Aprovações mostram recompensa; perfil público usa RPC mínima.
+- Migration incremental `0005_guild_lessons_and_schedule.sql` e rollback foram preparados, sem aplicação real. RLS e RPCs exigem Guilda ativa, ownership e líder para escrita. `docs/architecture/GUILD-LEADER-V2.md` contém o roteiro remoto; `docs/security/GUILD-LEADER-V2-REVIEW.md` registra a revisão local.
+- QA: 36 arquivos/192 testes, typecheck, lint, build e `git diff --check` PASS. Aceite integral pendente de 0005 aplicada manualmente, RLS com duas contas e inspeção nas cinco larguras autenticadas. Não afirmar DONE antes dessas provas.
+
+## Atualização 2026-09-30 — Baús nas recompensas da Guilda (TASK-0016)
+
+- `guildMissionRewards` agora é a fonte compartilhada de XP, moedas, `chestType`, `chestQuantity` e rótulo. Tiers: Normal→Comum, Grande→Incomum, Épica→Raro, Extraordinária→Épico; Missões nunca concedem Baú Extraordinário.
+- Preview do líder e cards do membro mostram a recompensa completa sem campos econômicos editáveis. Aprovação local concede XP/moedas/Baú imediatamente e uma única vez; `self_complete` online recarrega o cache do Viajante.
+- Migration incremental `0003_guild_mission_chest_rewards.sql` substitui somente a função autoritativa: ledger único por missão/Traveler + chave determinística no `grant_traveler_chest`, tudo na mesma transação, sem alterar RLS, loot ou RNG.
+- QA: build/lint/typecheck PASS; 36 arquivos/179 testes PASS; 25 dirigidos PASS; E2E Guilda desktop/mobile 2/2 PASS, incluindo preview, dois tiers, Mochila imediata e reload sem duplicação; `git diff --check` PASS.
+- BLOCKED remoto: aplicar `0003` após a `0002` já confirmada e executar o roteiro de duas contas para comprovar aprovação, concorrência/idempotência e isolamento.
+
+## Atualização 2026-09-30 — revelação de recompensa dos Baús (TASK-0015)
+
+- Auditoria confirmou que equipamento já era concedido de forma atômica: Supabase usa `INSERT ... ON CONFLICT ... quantity + 1` no `inventory`, e o modo local também insere/incrementa com retry idempotente. O bug corrigido era de UI, não de persistência.
+- O modal “VOCÊ RECEBEU” agora resolve `itemId` pelo catálogo/manifesto e mostra ícone grande, nome oficial, raridade, `+1`, duplicado com nova quantidade e moedas como recompensa separada. Inclui animação curta, Escape/Continuar, movimento reduzido e “Ver na Mochila”.
+- Fechar o modal preserva o snapshot; abertura atualiza Baús, moedas e inventário imediatamente pelo store local ou `reloadOnlineTraveler`, sem F5 no fluxo normal.
+- QA: build/lint/typecheck PASS; 36 arquivos/176 testes PASS; 12 testes dirigidos PASS; E2E Baús desktop/mobile 4/4 PASS, com modal medido em 390×844 e 1440×900; `git diff --check` PASS. Nenhuma migration, RLS, RNG, preço ou chance foi alterada.
+- O usuário confirmou que a migration `0002` está aplicada no Supabase real. TASK-0015 ampla permanece BLOCKED somente até concluir o roteiro remoto de duas contas (ownership, concorrência/retry e isolamento); a correção de revelação está concluída localmente.
+
+## Atualização 2026-09-29 — Sistema de Baús (TASK-0015, BLOCKED)
+
+- Mochila ganhou abas Itens/Equipamentos/Baús, badge, estado vazio, cards de posse/loja e abertura em modal curto. Layout foi validado em 360×800, 390×844, 412×915, 768×1024 e 1440×900.
+- Catálogo compartilhado possui Comum/Incomum/Raro/Épico/Extraordinário, preços e requisitos centralizados. Épico/Extraordinário não são compráveis; loot não concede XP e a UI não usa `Math.random()`.
+- Local mode persiste pilhas, origem, operações e histórico no save validado. Compra/abertura são idempotentes; equipamento repetido incrementa quantidade. Conclusão da fase e claims locais da Guilda concedem Baú real.
+- Migration `0002_traveler_chests.sql` cria `traveler_chests` e `chest_operations`, RLS read-only no browser e RPCs atômicas de claim/compra/abertura. Guild mission reward agora grava um Baú pelo tier no mesmo processamento.
+- QA local: build/lint/typecheck PASS; 36 arquivos/172 testes PASS; 4 E2E funcionais/responsivos de Baús PASS somando desktop/mobile; Drizzle confirmou 15 tabelas sem divergência. Security revisto pelo autor, sem secret ou achado crítico local.
+- A aplicação da `0002` foi confirmada pelo usuário em 2026-09-30. BLOCKED somente pelo roteiro de duas contas em `docs/architecture/CHESTS-SUPABASE-V1.md`, validando RLS, locks, retries e persistência remota antes de DONE.
+
+## Atualização 2026-09-29 — Guilda/Célula Supabase V1 (TASK-0016, BLOCKED)
+
+- Guilda autenticada agora possui modelo remoto versionado para Guildas, membros, pedidos de entrada, missões, progresso e ledger idempotente de recompensas. Auth/Travelers existentes são reutilizados; o modo local explícito permanece isolado.
+- RLS limita leitura à própria Guilda e ownership por `travelers.user_id = auth.uid()`. Escritas usam RPCs específicas; liderança vem da membership ativa, e XP/moedas são calculados no SQL pelo tier, nunca enviados pelo browser.
+- `/journey/guild` usa `OnlineGuildHub` quando `signedIn`, com criação/entrada, tabs, painel de líder, drafts/publicação, conclusão direta ou por aprovação, estados de loading/erro/vazio/expirado e layout mobile.
+- QA local: build/lint/typecheck PASS; 32 arquivos/158 unitários PASS; 4 E2E dirigidos da Guilda desktop/mobile PASS; Drizzle confirmou schema/journal/snapshots consistentes. Revisão Security pelo próprio autor, sem secret ou achado crítico no diff.
+- A migration `0001_guild_supabase_v1.sql` não foi aplicada automaticamente. BLOCKED até aplicação manual e teste real com duas contas comprovarem RLS, papéis e recompensa única. Risco médio preexistente da migration 0000 (`add_coins` e updates diretos) permanece documentado e não é usado pelo fluxo da Guilda.
+- NEXT_ACTION: seguir `docs/architecture/GUILD-SUPABASE-V1.md`, aplicar `0001` no projeto correto e executar integralmente o roteiro de aceite real antes de mover TASK-0016 para DONE.
+
+## Atualização 2026-09-29 — mapa completo da Fuga em mobile/tablet (TASK-0029, DONE)
+
+- Removidos zooms fixos 1,4×/1,25×/1,3× e camera follow responsivo. O mundo 864×504 agora usa fit-to-view dinâmico, aspect ratio preservado, offsets centrais e nenhuma oscilação global em mobile/tablet.
+- Atores preservam piso visual de 24 px e pickups de 14 px sem mudar colliders. Portrait/tablet mantêm HUD, mapa 12:7 e controles separados; landscape usa direcional lateral, sem sobreposição.
+- E2E mede `mapRect` contra viewport, HUD/mensagem e controles em 360×800, 390×844, 412×915, 844×390, 768×1024 e 1440×900. Capturas inspecionadas confirmam o mapa inteiro; desktop não regrediu.
+- QA: lint/typecheck/build PASS; 29 arquivos/148 unitários PASS; E2E responsivo 2/2 PASS; playthrough mobile PASS (3/3, Portal, vitória, reinício e saída); `git diff --check` PASS. Gameplay, Auth, Supabase e persistência não foram alterados.
+
+## Atualização 2026-09-29 — correções pós-playtest da Fuga (TASK-0028, DONE)
+
+- Landscape 844×390 agora usa grade de três faixas e direcional em overlay no canto inferior esquerdo; HUD, Sair, canvas e quatro botões permanecem dentro de 100dvh. E2E confere cada bounding box contra a viewport nas seis resoluções.
+- Serpente recebeu um único fator mobile de 90%, independente do desktop: curva nominal mobile 69,3%→79,2%→86,4%; desktop preserva 77%→88%→96%. Grace 2,3 s, respawn 1,35 s e assistência existente não mudaram.
+- Mensagens mobile aceitam duas linhas; sondas E2E confirmaram que respawn, escudo quebrado, portal e Fragmento cabem em portrait/landscape. Obstáculos ganharam variação discreta de forma e sombra sem alterar colisores.
+- Playthrough mobile por entradas reais venceu na primeira tentativa eficiente: 3/3, Portal aberto, vitória em 10 s, 3 vidas, reinício 0/3 e saída sem request de logout, preservando o Viajante local.
+- QA: lint/typecheck/build PASS; 29 arquivos/147 unitários PASS; E2E responsivo e playthrough 3 PASS + 1 skip intencional; capturas das seis viewports e vitória inspecionadas; `git diff --check` PASS. Auth/Supabase/persistência não foram alterados.
+
+## Atualização 2026-09-29 — Fuga da Serpente mobile premium (TASK-0027, DONE)
+
+- Gameplay mobile agora usa 100vw × 100dvh, safe areas, scroll/overscroll bloqueados e oculta header/sidebar/footer/breadcrumbs enquanto ativo; “Sair” restaura a página. Fullscreen API é opcional.
+- Canvas acompanha tamanho CSS e DPR até 2. Câmera suave/clamp usa zoom portrait 1,4×, landscape 1,25×, tablet 1,3× e desktop 1×. Mundo passou a 864×504; células 30→36 aumentaram a largura útil dos corredores de 18→24 (+33,3%) sem ampliar colliders.
+- Curva vigente da Serpente permanece 77%→88%→96%, cap efetivo de 100%, grace period 2,3 s, respawn 1,35 s, três vidas e assistência opcional de -10% após derrotas repetidas.
+- Maçã removida integralmente do minigame. Seis Fragmentos de Luz dourados preservam spawn/colisão/100 pontos; três Fragmentos de Sabedoria azuis continuam distintos e são o único gate do Portal. Asset novo em `assets/minigame/pickups/light_fragment.png`; asset antigo e componente legado removidos.
+- HUD mobile mostra vidas, Sabedoria, pontos e objetivo; controles têm 56×52 px em portrait e 52×52 px em landscape. Efeitos existentes foram refinados e partículas limitadas a 80.
+- QA: lint/typecheck/build PASS; 29 arquivos/146 unitários PASS; E2E responsivo desktop/mobile 2/2 cobrindo seis viewports e restauração ao sair PASS; capturas inspecionadas. Security revisto pelo autor, sem mudanças em Auth/Supabase/persistência.
+- TASK-0014 continua REWORK somente pelo playtest manual completo até vitória/derrota herdado; o pacote mobile/visual/semântico solicitado foi concluído em TASK-0027.
+
+## Atualização 2026-09-27 — responsividade real da Fuga da Serpente (TASK-0014, REWORK)
+
+- Causa corrigida: canvas fixo `720 × 420` com `height:auto` reduzia a cena inteira no celular; o zoom `1,45×` era aplicado antes dessa redução. O canvas agora acompanha o tamanho CSS real, usa DPR limitado a 2 e a câmera calcula a área visível pelo viewport renderizado.
+- Perfil central: retrato mobile `1,5×`, landscape `1,25×`, tablet `1,4×`, desktop preservado em `1×`. Retrato do Viajante, Serpente e pickups têm escala visual adicional sem mudança nos colisores ou regras.
+- Mobile usa quase toda a largura, palco de `68dvh` (máximo 630 px), HUD em duas faixas compactas e controles de 52 × 48 px. Tablet expande para a largura útil; landscape respeita a navegação lateral e mantém controles em linha.
+- QA: lint/typecheck/build PASS; Vitest 145/145 PASS; E2E responsivo PASS em 360 × 800, 390 × 844, 412 × 915, 844 × 390, 768 × 1024 e 1440 × 900; capturas inspecionadas sem faixa vazia da câmera e sem regressão visual desktop. `git diff --check` PASS.
+- Os E2E antigos da Fuga em `home.spec.ts` e `audit-corrections.spec.ts` continuam falhando antes do minigame porque o setup não escolhe o novo modo local explícito e “Criar Viajante” permanece corretamente desabilitado; o novo teste escolhe modo local sem alterar Auth. TASK-0014 permanece REWORK apenas pelo playtest completo até vitória/derrota já pendente.
+
+## Atualização 2026-09-27 — contraste do modal de troca (TASK-0026, ACTIVE)
+
+- Ajuste exclusivamente visual em `journey.module.css`: Cancelar agora é secundário com borda/texto verde; Trocar Viajante é dourado com texto escuro; ambos têm dimensões iguais e estados hover/focus/disabled explícitos.
+- Nenhuma lógica, navegação, Auth, Supabase ou comportamento foi alterado. Lint/build PASS, Shell 2/2 e E2E do modal desktop/mobile 2/2 PASS.
+
+## Atualização 2026-09-27 — troca de Viajante separada do logout da conta (TASK-0026, ACTIVE)
+
+- Causa confirmada: o botão ambíguo “Sair” chamava `logout()`, que executava `supabase.auth.signOut()` antes de limpar o Viajante local; por isso emitia `SIGNED_OUT`.
+- Persistência agora usa `clearActiveTraveler`; `switchTraveler()` limpa somente o ativo local e preserva Travelers/Auth, enquanto `signOutAccount()` é a única ação que chama Supabase `signOut`. O cabeçalho oferece “Trocar Viajante”, “Criar novo Viajante” e “Sair da conta”.
+- Hidratação autenticada nunca autoentra, inclusive com um único Traveler; zero Travelers redireciona para criação e um ou mais abre o seletor, preservando o destaque `ATIVO`.
+- QA: lint/typecheck/build PASS, 29 arquivos/144 unitários PASS, 21/21 focados e E2E Auth/criação/troca desktop+mobile 6/6 PASS. Security pelo autor sem achado crítico/alto; nenhum banco/RLS/RPC/migration foi alterado.
+- Aceite real ainda pendente: Computer Use retornou `apps=[]`, `browsers=[]` e Edge indisponível. NEXT_ACTION: na conta atual, comprovar que “Trocar Viajante” mantém session/user e não emite `SIGNED_OUT`; criar `TesteWorkLocal`; confirmar `create_traveler`/`set_active_traveler`; depois validar que somente “Sair da conta” emite `SIGNED_OUT`.
+
+## Atualização 2026-09-27 — múltiplos Viajantes por conta (TASK-0026, ACTIVE)
+
+- `/journey/create` permite continuar com o Viajante atual ou criar outro sem apagar o primeiro. Contas com dois ou mais Viajantes recebem seleção explícita; o `is_active` remoto é destacado, mas nenhum primeiro registro é autoescolhido.
+- Criação online usa `create_traveler`, confirma o agregado essencial, chama `set_active_traveler` e ativa o novo. Trocas aguardam `set_active_traveler` antes da sessão local. Cache/ownership e dados continuam isolados por Viajante.
+- Nenhum SQL/schema/RLS/migration ou sistema fora de criação/seleção foi alterado. Lint/typecheck/build PASS, 137 unitários PASS, focados 14/14 PASS e E2E dirigido desktop/mobile 6/6 PASS. Security pelo autor sem achado crítico/alto.
+- O navegador real permaneceu indisponível (`apps=[]`, `browsers=[]`, IAB/Chrome indisponíveis). NEXT_ACTION: na conta atual, criar `TesteWorkLocal`; confirmar 2 travelers com mesmo `user_id`, somente um `is_active`, stats/wallet, F5, storage isolado, troca nos dois sentidos e isolamento de XP/moedas/inventário/equipamentos.
+
+## Atualização 2026-09-27 — guard da criação autenticada (TASK-0026, ACTIVE)
+
+- Auth real foi confirmado pelo usuário sem `SIGNED_OUT`: signIn/session/storage/getUser válidos e `/auth/v1/user` HTTP 200. O foco deixou de ser o SDK e passou ao guard da criação.
+- `CreateScreen` separa `loading`, `signedIn`, `local` e `signedOut`; somente `signedIn || local` habilita “Criar Viajante”. Loading mostra “Verificando sessão…”, online passa UUID, local explícito passa `null`, e nenhuma falha online cai para local.
+- Log `[CREATE SCREEN AUTH]` é redigido e não imprime tokens. Testes completos 134/134, focados 10/10, E2E Auth/local desktop+mobile 4/4, lint/typecheck/build PASS. Banco/RLS/RPC/Guilda/Arena/Jornada não foram alterados.
+- NEXT_ACTION: em navegador real autenticado, criar `TesteSupabaseFinal` e confirmar `AUTH USER PRESENT: true`, RPC e linhas em `travelers`, `traveler_stats`, `wallets`; Computer Use permanece sem apps/browsers, então o aceite remoto ainda está pendente.
+
+## Atualização 2026-09-27 — diagnóstico do `SIGNED_OUT` (TASK-0026, ACTIVE)
+
+- O SDK instalado confirma que `getUser()` remove a sessão e emite `SIGNED_OUT` quando `/auth/v1/user` retorna `session_not_found`; `getSession()` pode fazer o mesmo para storage estruturalmente inválido. A causa remota exata ainda precisa ser capturada.
+- URL/chave publicável responderam HTTP 200 em `/auth/v1/settings`, descartando configuração básica inválida. Banco, RLS, RPC, Guilda, Arena e Jornada não foram alterados.
+- Instrumentação redigida agora ordena `signIn/getSession/getUser`, eventos, requests `/user`/`/token` e contagem de clientes sem registrar credenciais/tokens. Testes focados 6/6, typecheck e lint PASS.
+- NEXT_ACTION: executar um login real e fornecer as linhas `[AUTH TRACE]`, `[AUTH STATE]` e `[AUTH BOOT]` desde `signIn:start` até `SIGNED_OUT`; corrigir somente a causa comprovada e então repetir o aceite completo solicitado.
+
+## Atualização 2026-09-26 — correção da criação remota (TASK-0026, ACTIVE)
+
+- Drizzle agora modela `profiles`, `travelers`, `traveler_stats`, `wallets`, `inventory` e `equipped_items`; migration versionada inclui RLS por ownership, grants, triggers, RPCs `SECURITY INVOKER`, índices e rollback destrutivo separado.
+- App ganhou Auth email/senha mínimo em `/auth`, repositories centrais e sync remoto-first dos dados essenciais. Cache local é separado por owner, preservado em falhas e saves legados não são enviados automaticamente. Jornada/Guilda/Arena continuam locais.
+- Migration aplicada manualmente no projeto real. Diagnóstico Auth HTTP 200; as seis tabelas e quatro RPCs foram reconhecidas pelo PostgREST e negaram o papel anônimo com HTTP 401 / PostgreSQL `42501`; nenhum `PGRST205` ou `PGRST202` permaneceu nas chamadas corretas.
+- Causa Auth confirmada: `/auth` navegava após `signInWithPassword` apenas por ausência de `error`, sem exigir user/session. Só existe um `createClient`; Auth, Provider, repositories e sync já compartilham o mesmo singleton.
+- Login agora exige user + session, revalida `getSession()`/`getUser()`, confirma presença do storage e só então navega. Cliente explicita persistência, auto-refresh e detecção de URL. AuthProvider guarda session/user/isAuthenticated, serializa bootstrap/eventos e mantém loading até a decisão final.
+- Modo local virou escolha explícita “Continuar somente neste navegador”; ausência de sessão ou authLoading nunca ativa local automaticamente. Criação autenticada continua sem fallback e sem navegação em erro. SQL/RLS/RPC não foram alterados.
+- QA: lint/typecheck/build (19 rotas) PASS, 129 unitários PASS, focados 9/9 PASS e E2E Auth/falha local desktop/mobile 4/4 PASS.
+- Aceite real permanece pendente: a skill de computador segue sem navegador/sessão. Repetir login e confirmar logs de session/user/storage, navegação, F5 e nova aba; depois criar `TesteOnlineAuth` e validar banco/RLS antes de DONE.
+
+## Atualização 2026-09-26 — conexão inicial segura com Supabase (TASK-0025, DONE)
+
+- `@supabase/supabase-js` 2.117.2 foi instalado somente no workspace web; `@supabase/ssr` não foi adicionado porque ainda não existe Auth ou sessão server-side.
+- `apps/web/lib/supabase/` centraliza validação das duas variáveis públicas, cliente browser singleton e diagnóstico redigido pelo endpoint `/auth/v1/settings`, sem depender de tabela.
+- Conexão real retornou `CONNECTED`. `.env.local` continua ignorado e não rastreado; nenhuma chave foi registrada. Vercel requer `NEXT_PUBLIC_SUPABASE_URL` e `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` em Project Settings → Environment Variables.
+- QA: lint/typecheck/build PASS; 106 testes unitários PASS; `npm audit --omit=dev` sem vulnerabilidades. Security revisado pelo próprio autor, sem achado crítico/alto. Nenhuma tabela, migration, Auth, RLS, persistência ou funcionalidade do jogo foi alterada.
 
 ## Atualização 2026-09-24 — Arena dos Viajantes (TASK-0023, DONE)
 
@@ -59,15 +629,21 @@
 
 PROJECT: RPG Jovem Cristão
 CURRENT_PHASE: Fase 1.1 jogável com exploração, leitura, Devocional, perseguição, Quiz e gate da Guilda; Hero/equipamentos/mochila/diário locais
-ACTIVE_TASK: TASK-0012, TASK-0013, TASK-0014 e TASK-0018 — qualidade da Fuga e sistemas visíveis (REWORK; ver tarefas ativas)
-LAST_COMPLETED: TASK-0022 — tasks/completed/TASK-0022-real-attribute-system.md; atributos totais derivados de base/equipamento/progressão/temporário; lint/typecheck/build/test/E2E PASS
+ACTIVE_TASK: TASK-0026 — schema/Auth/sync Supabase (ACTIVE; contrato de sessão corrigido localmente, reteste real pendente); TASK-0024 — correções da auditoria (ACTIVE); TASK-0012, TASK-0013, TASK-0014 e TASK-0018 — qualidade da Fuga e sistemas visíveis (REWORK; ver tarefas ativas)
+LAST_COMPLETED: TASK-0025 — tasks/completed/TASK-0025-supabase-initial-connection.md; cliente browser e diagnóstico Supabase centralizados; conexão real, lint/typecheck/build/test/security PASS
 CURRENT_VERTICAL_SLICE: ATO I — AS ORIGENS / FASE 1.1 — O JARDIM E A ESCOLHA; Gênesis 2–3, fluxo local completo até o gate da Guilda
 PRODUCT_SOURCE: docs/game-design/MVP.md; implementação temporária em docs/architecture/LOCAL-JOURNEY.md
 LOCAL_RUNTIME: http://127.0.0.1:3000, servidor dev preexistente preservado; E2E isolado em 3108
 SUPERSEDED: Neemias como início; classes iniciais; exclusão de Quiz; recomendação documental anterior de TASK-0008 substituída pelo pedido de implementação
-BLOCKERS: revisão automática bloqueou exclusão das cópias de inspeção em %TEMP%; navegador integrado indisponível para playtest visual completo da Fuga da Serpente
+BLOCKERS: TASK-0026 requer sessão autenticada manual para comprovar INSERT/F5/outro navegador/RLS; não há credencial de teste configurada e a skill de computador não disponibilizou navegador; revisão automática bloqueou exclusão das cópias de inspeção em %TEMP%; navegador integrado indisponível para playtest visual completo da Fuga da Serpente
 KNOWN_ISSUES: storage local por origem sem conta/sincronização/autoridade de servidor; atributos 1 são protótipo; minigame ainda se beneficiará de sprites 3/4 dedicados e tiles orgânicos; riscos de privacidade/licença continuam pendentes
-NEXT_ACTION: executar playtest manual da partida completa da Fuga da Serpente e produzir sprites dedicados às poses do Avatar/overlays antes de iniciar a Fase 1.2
+NEXT_ACTION: repetir login real e confirmar signIn/getSession/getUser/storage após navegação, F5 e nova aba; então criar `TesteOnlineAuth` e validar traveler/stats/wallet/RLS antes de concluir TASK-0026.
+
+## Atualização 2026-09-30 — Painel do Líder da Guilda (TASK-0016)
+
+- Implementada rota `/journey/guild/manage`, acessível pela Guilda autenticada somente ao líder; membro recebe a Guilda comum. Dashboard, missões/rascunhos/relatório, aprovações, membros e histórico reutilizam repositories e formulário existente.
+- Migração incremental `0004_guild_leader_panel.sql` (após `0003`) inclui log com RLS leader-only, triggers e RPCs administrativas; rollback entregue. Não aplicada remotamente.
+- Lint, typecheck, build e 186 testes PASS. RLS em Supabase real, idempotência concorrente e QA visual autenticado nos viewports solicitados pendentes de migração/duas contas. TASK-0016 permanece BLOCKED para aceite remoto. Detalhes em `docs/architecture/GUILD-LEADER-PANEL.md`.
 
 ## Atualização 2026-09-23 — Passe de imersão da Fase 1.1 (TASK-0013)
 
@@ -129,3 +705,5 @@ NEXT_ACTION: executar playtest manual da partida completa da Fuga da Serpente e 
 - Sem Guilda não existe fallback solo; o conteúdo concluído não é apagado.
 - Documentos CORE-GAMEPLAY-LOOP, MISSION-SYSTEM, MVP e DECISIONS atualizados; DEC-020 superada pelo gate da DEC-033.
 - Validação: lint/typecheck/build aprovados, suíte completa 43/43 e rota `/journey/guild` HTTP 200.
+
+Preservação final comprovada: baseline 192 arquivos, 180 intactos e 12 alterações autorizadas; zero divergências inesperadas. Os seis arquivos recebidos mantêm os hashes medidos. next-env restaurado byte a byte.

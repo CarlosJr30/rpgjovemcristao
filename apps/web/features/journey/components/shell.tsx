@@ -2,6 +2,7 @@
 import Link from 'next/link';
 import {
   useEffect,
+  useCallback,
   useRef,
   useState,
   useSyncExternalStore,
@@ -9,7 +10,7 @@ import {
 } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import { GAME_NAME } from '@rpg/shared';
-import { Avatar } from './avatar';
+import { AvatarRuntime } from './avatar-runtime';
 import {
   signOutAccount,
   switchTraveler,
@@ -18,17 +19,31 @@ import {
 import { JOURNEY_ROUTES as routes } from '../data/campaign';
 import type { Traveler } from '../domain/traveler';
 import styles from '../journey.module.css';
-import { MAX_LEVEL, TRAVELER_CURRENCY_NAME, xpForLevel } from '../data/progression';
+import {
+  MAX_LEVEL,
+  TRAVELER_CURRENCY_NAME,
+  xpForLevel,
+} from '../data/progression';
 import {
   getOnlineSyncStatus,
   subscribeOnlineSync,
 } from '../../../lib/supabase/online-sync';
 import { useAuth } from '../../../lib/supabase/auth-context';
+import { JourneyIcon } from './journey-icon';
+import { AudioSettings } from './audio-settings';
+import { useGameAudio } from '../hooks/use-game-audio';
+import { DEFAULT_AUDIO_PREFERENCES, gameAudio } from '../audio/audio-manager';
+import { MUSIC_ASSETS } from '../audio/audio-assets';
 const primaryLinks = [
-  ['hero', 'Herói', '✦'], ['map', 'Jornada', '⌁'], ['garden', 'Missões', '◇'],
-  ['equipment', 'Equipamentos', '◈'], ['backpack', 'Mochila', '▱'],
-  ['shop', 'Loja', '◈'], ['collection', 'Coleção', '◇'],
-  ['diary', 'Diário', '☼'], ['guild', 'Guilda', '⚑'],
+  ['hero', 'Herói', '✦'],
+  ['map', 'Jornada', '⌁'],
+  ['garden', 'Missões', '◇'],
+  ['equipment', 'Equipamentos', '◈'],
+  ['backpack', 'Mochila', '▱'],
+  ['shop', 'Loja', '◈'],
+  ['collection', 'Coleção', '◇'],
+  ['diary', 'Diário', '☼'],
+  ['guild', 'Guilda', '⚑'],
   ['arena', 'Arena', '⚔'],
 ] as const;
 
@@ -45,6 +60,12 @@ export function Shell({
   const auth = useAuth();
   const router = useRouter();
   const pathname = usePathname();
+  const audioPreferences = useGameAudio(
+    pathname ?? '/',
+    state.status === 'ready' ? state.traveler.progress?.gardenStep : undefined,
+  );
+  const [audioOpen, setAudioOpen] = useState(false);
+  const closeAudio = useCallback(() => setAudioOpen(false), []);
   const [profileOpen, setProfileOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [confirmingTravelerSwitch, setConfirmingTravelerSwitch] =
@@ -55,23 +76,58 @@ export function Shell({
     getOnlineSyncStatus,
     getOnlineSyncStatus,
   );
-  const previous = useRef<{ id: string; level: number; coins: number } | null>(null);
+  const previous = useRef<{
+    id: string;
+    level: number;
+    coins: number;
+    xp: number;
+  } | null>(null);
+  const noticeTimers = useRef<number[]>([]);
+  useEffect(() => () => noticeTimers.current.forEach(window.clearTimeout), []);
   useEffect(() => {
-    if (state.status !== 'ready') { previous.current = null; return; }
-    const current = { id: state.traveler.id, level: state.traveler.level, coins: state.traveler.coins };
+    if (state.status !== 'ready') {
+      previous.current = null;
+      return;
+    }
+    const current = {
+      id: state.traveler.id,
+      level: state.traveler.level,
+      coins: state.traveler.coins,
+      xp: state.traveler.xp,
+    };
     const before = previous.current;
     previous.current = current;
     if (!before || before.id !== current.id) return;
-    const notice = current.level > before.level
-      ? `NÍVEL ${current.level}! ${current.coins > before.coins ? `+${current.coins - before.coins} moedas` : 'Novo marco alcançado'}`
-      : current.coins > before.coins ? `+${current.coins - before.coins} ${TRAVELER_CURRENCY_NAME}` : '';
+    const rewards = [
+      current.xp > before.xp ? `+${current.xp - before.xp} XP` : '',
+      current.coins > before.coins
+        ? `+${current.coins - before.coins} ${TRAVELER_CURRENCY_NAME}`
+        : '',
+    ].filter(Boolean);
+    const notice = [
+      current.level > before.level ? `NÍVEL ${current.level}!` : '',
+      ...rewards,
+    ]
+      .filter(Boolean)
+      .join(' · ');
     if (!notice) return;
+    gameAudio.playEffect(current.level > before.level ? 'levelUp' : 'reward');
+    noticeTimers.current.forEach(window.clearTimeout);
     const show = window.setTimeout(() => setGainNotice(notice), 0);
     const hide = window.setTimeout(() => setGainNotice(''), 3200);
-    return () => { window.clearTimeout(show); window.clearTimeout(hide); };
+    noticeTimers.current = [show, hide];
   }, [state]);
   return (
-    <div className={styles.shell}>
+    <div
+      className={styles.shell}
+      onClickCapture={(event) => {
+        if (
+          event.target instanceof HTMLElement &&
+          event.target.closest('button:not(:disabled), a')
+        )
+          gameAudio.playEffect('ui');
+      }}
+    >
       <a className={styles.skip} href="#main">
         Pular para o conteúdo
       </a>
@@ -90,66 +146,247 @@ export function Shell({
         </Link>
         {state.status === 'ready' ? (
           <div className={styles.headerActions}>
-          <div className={styles.profileMenu}>
-          <button
-            className={styles.hud}
-            onClick={() => setProfileOpen((open) => !open)}
-            aria-label="Abrir Herói"
-          >
-            <Avatar appearance={state.traveler.appearance} avatar={state.traveler.avatar} small />
-            <span className={styles.hudIdentity}>
-              <strong>{state.traveler.name}</strong>
-              <span>Viajante · Nível {state.traveler.level}</span>
-            </span>
-            <span className={styles.hudValue}>
-              {state.traveler.xp} XP<span>{state.traveler.level < MAX_LEVEL ? `${xpForLevel(state.traveler.level + 1) - state.traveler.xp} até nível ${state.traveler.level + 1}` : 'Nível máximo'}</span>
-            </span>
-            <span
-              className={styles.coins}
-              aria-label={`${state.traveler.coins} ${TRAVELER_CURRENCY_NAME}`}
+            <div className={styles.profileMenu}>
+              <button
+                className={styles.hud}
+                onClick={() => setProfileOpen((open) => !open)}
+                aria-label="Abrir Herói"
+              >
+                <AvatarRuntime traveler={state.traveler} mode="thumbnail" decorative />
+                <span className={styles.hudIdentity}>
+                  <strong>{state.traveler.name}</strong>
+                  <span>Viajante · Nível {state.traveler.level}</span>
+                </span>
+                <span className={styles.hudValue}>
+                  {state.traveler.xp} XP
+                  <span>
+                    {state.traveler.level < MAX_LEVEL
+                      ? `${xpForLevel(state.traveler.level + 1) - state.traveler.xp} até nível ${state.traveler.level + 1}`
+                      : 'Nível máximo'}
+                  </span>
+                </span>
+                <span
+                  className={styles.coins}
+                  aria-label={`${state.traveler.coins} ${TRAVELER_CURRENCY_NAME}`}
+                >
+                  ◈ {state.traveler.coins}
+                </span>
+                <span className={styles.profileChevron} aria-hidden="true">
+                  ▼
+                </span>
+              </button>
+              {profileOpen && (
+                <div className={styles.profilePopover} role="menu">
+                  <Link
+                    href={routes.hero}
+                    role="menuitem"
+                    onClick={() => setProfileOpen(false)}
+                  >
+                    Meu Herói
+                  </Link>
+                  {(auth.status === 'signedOut' || auth.status === 'local') && (
+                    <Link
+                      href="/auth"
+                      role="menuitem"
+                      onClick={() => setProfileOpen(false)}
+                    >
+                      Sincronizar conta
+                    </Link>
+                  )}
+                  <button
+                    role="menuitem"
+                    onClick={() => {
+                      setProfileOpen(false);
+                      setConfirmingTravelerSwitch(true);
+                    }}
+                  >
+                    Trocar Viajante
+                  </button>
+                  <Link
+                    href={routes.create}
+                    role="menuitem"
+                    onClick={() => setProfileOpen(false)}
+                  >
+                    Criar novo Viajante
+                  </Link>
+                  {auth.status === 'signedIn' && (
+                    <button
+                      role="menuitem"
+                      onClick={async () => {
+                        setProfileOpen(false);
+                        if (await signOutAccount()) router.replace('/auth');
+                      }}
+                    >
+                      Sair da conta
+                    </button>
+                  )}
+                  <button role="menuitem" disabled>
+                    Configurações
+                  </button>
+                </div>
+              )}
+            </div>
+            <button
+              className={styles.headerLogout}
+              onClick={() => setConfirmingTravelerSwitch(true)}
             >
-              ◈ {state.traveler.coins}
-            </span>
-            <span className={styles.profileChevron} aria-hidden="true">▼</span>
-          </button>
-          {profileOpen && <div className={styles.profilePopover} role="menu">
-            <Link href={routes.hero} role="menuitem" onClick={() => setProfileOpen(false)}>Meu Herói</Link>
-            {(auth.status === 'signedOut' || auth.status === 'local') && <Link href="/auth" role="menuitem" onClick={() => setProfileOpen(false)}>Sincronizar conta</Link>}
-            <button role="menuitem" onClick={() => { setProfileOpen(false); setConfirmingTravelerSwitch(true); }}>Trocar Viajante</button>
-            <Link href={routes.create} role="menuitem" onClick={() => setProfileOpen(false)}>Criar novo Viajante</Link>
-            {auth.status === 'signedIn' && <button role="menuitem" onClick={async () => { setProfileOpen(false); if (await signOutAccount()) router.replace('/auth'); }}>Sair da conta</button>}
-            <button role="menuitem" disabled>Configurações</button>
-          </div>}
-          </div>
-          <button className={styles.headerLogout} onClick={() => setConfirmingTravelerSwitch(true)}>Trocar Viajante</button>
+              Trocar Viajante
+            </button>
           </div>
         ) : (
           <span className={styles.headerNote}>
             UMA HISTÓRIA. MUITOS CAMINHOS.
           </span>
         )}
+        <button
+          className={styles.audioLauncher}
+          aria-label="Configurações de áudio"
+          aria-haspopup="dialog"
+          onClick={() => setAudioOpen(true)}
+        >
+          <span aria-hidden="true">♫</span>
+        </button>
       </header>
-      {gainNotice && <p className={styles.gainNotice} role="status">{gainNotice}</p>}
-      {confirmingTravelerSwitch && <div className={styles.dialogBackdrop} role="presentation">
-        <section className={styles.logoutDialog} role="dialog" aria-modal="true" aria-labelledby="traveler-switch-title">
-          <h2 id="traveler-switch-title">Trocar de Viajante?</h2>
-          <p>Sua conta continuará conectada e nenhum Viajante será apagado.</p>
-          <div><button onClick={() => setConfirmingTravelerSwitch(false)}>Cancelar</button><button className={styles.primaryLink} onClick={() => { if (switchTraveler()) router.replace('/'); }}>Trocar Viajante</button></div>
-        </section>
-      </div>}
-      {onlineSync.message && <p className={styles.notice} role="status">{onlineSync.message}</p>}
-      {state.status === 'ready' && <button className={styles.mobileMenuButton} aria-expanded={menuOpen} aria-controls="journey-sidebar" onClick={() => setMenuOpen((open) => !open)}>{menuOpen ? 'Fechar menu' : 'Abrir menu'}</button>}
-      {menuOpen && state.status === 'ready' && <button className={styles.sidebarScrim} aria-label="Fechar menu" onClick={() => setMenuOpen(false)} />}
-      <div className={state.status === 'ready' ? styles.appLayout : styles.plainLayout}>
-        {state.status === 'ready' && <aside id="journey-sidebar" className={`${styles.primarySidebar} ${menuOpen ? styles.primarySidebarOpen : ''}`}>
-          <div className={styles.sidebarBrand}>RPG<span>JOVEM</span></div>
-          <nav aria-label="Navegação principal">
-            {primaryLinks.map(([id, label, icon]) => <Link key={id} href={routes[id]} aria-current={pathname === routes[id] ? 'page' : undefined} onClick={() => setMenuOpen(false)}><i aria-hidden="true">{icon}</i>{label}</Link>)}
-          </nav>
-        </aside>}
+      {audioOpen && (
+        <AudioSettings preferences={audioPreferences} onClose={closeAudio} />
+      )}
+      {gainNotice && (
+        <p
+          key={gainNotice}
+          className={styles.gainNotice}
+          data-level-up={gainNotice.startsWith('NÍVEL')}
+          role="status"
+        >
+          {gainNotice}
+        </p>
+      )}
+      {confirmingTravelerSwitch && (
+        <div className={styles.dialogBackdrop} role="presentation">
+          <section
+            className={styles.logoutDialog}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="traveler-switch-title"
+          >
+            <h2 id="traveler-switch-title">Trocar de Viajante?</h2>
+            <p>
+              Sua conta continuará conectada e nenhum Viajante será apagado.
+            </p>
+            <div>
+              <button onClick={() => setConfirmingTravelerSwitch(false)}>
+                Cancelar
+              </button>
+              <button
+                className={styles.primaryLink}
+                onClick={() => {
+                  if (switchTraveler()) router.replace('/');
+                }}
+              >
+                Trocar Viajante
+              </button>
+            </div>
+          </section>
+        </div>
+      )}
+      {onlineSync.message && (
+        <p className={styles.notice} role="status">
+          {onlineSync.message}
+        </p>
+      )}
+      {state.status === 'ready' && (
+        <button
+          className={styles.mobileMenuButton}
+          aria-expanded={menuOpen}
+          aria-controls="journey-sidebar"
+          onClick={() => setMenuOpen((open) => !open)}
+        >
+          {menuOpen ? 'Fechar menu' : 'Abrir menu'}
+        </button>
+      )}
+      {menuOpen && state.status === 'ready' && (
+        <button
+          className={styles.sidebarScrim}
+          aria-label="Fechar menu"
+          onClick={() => setMenuOpen(false)}
+        />
+      )}
+      <div
+        className={
+          state.status === 'ready' ? styles.appLayout : styles.plainLayout
+        }
+      >
+        {state.status === 'ready' && (
+          <aside
+            id="journey-sidebar"
+            className={`${styles.primarySidebar} ${menuOpen ? styles.primarySidebarOpen : ''}`}
+          >
+            <div className={styles.sidebarBrand}>
+              RPG<span>JOVEM</span>
+            </div>
+            <nav aria-label="Navegação principal">
+              {primaryLinks.map(([id, label]) => (
+                <Link
+                  key={id}
+                  href={routes[id]}
+                  aria-current={pathname === routes[id] ? 'page' : undefined}
+                  onClick={() => setMenuOpen(false)}
+                >
+                  <i aria-hidden="true">
+                    <JourneyIcon name={id} />
+                  </i>
+                  {label}
+                </Link>
+              ))}
+            </nav>
+          </aside>
+        )}
         <div className={styles.appContent}>
-          {back && state.status !== 'ready' && <nav className={styles.backNav} aria-label="Navegação da jornada"><Link href={back}>← {backLabel}</Link></nav>}
-          <main id="main" tabIndex={-1} className={styles.main}>{children}</main>
+          {back && state.status !== 'ready' && (
+            <nav className={styles.backNav} aria-label="Navegação da jornada">
+              <Link href={back}>← {backLabel}</Link>
+            </nav>
+          )}
+          <main id="main" tabIndex={-1} className={styles.main}>
+            {process.env.NODE_ENV === 'development' &&
+              MUSIC_ASSETS.arena &&
+              pathname?.startsWith('/journey/arena') && (
+                <section
+                  className={styles.arenaAudioPrompt}
+                  aria-label="Som da Arena"
+                >
+                  <p>
+                    <strong>Som da Arena</strong>
+                    <span>
+                      Protótipo não comercial. Clique para ouvir a música e um
+                      efeito de teste.
+                    </span>
+                  </p>
+                  <button
+                    className={styles.primaryLink}
+                    onClick={() => {
+                      gameAudio.updatePreferences({
+                        music: true,
+                        effects: true,
+                        muted: false,
+                        musicVolume:
+                          audioPreferences.musicVolume ||
+                          DEFAULT_AUDIO_PREFERENCES.musicVolume,
+                        effectsVolume:
+                          audioPreferences.effectsVolume ||
+                          DEFAULT_AUDIO_PREFERENCES.effectsVolume,
+                      });
+                      gameAudio.unlock();
+                      gameAudio.playEffect('attack');
+                    }}
+                  >
+                    Ativar e testar som
+                  </button>
+                </section>
+              )}
+            <div key={pathname} className={styles.areaArrival}>
+              {children}
+            </div>
+          </main>
         </div>
       </div>
       <footer className={styles.footer}>

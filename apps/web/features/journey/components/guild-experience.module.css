@@ -1,0 +1,344 @@
+.hall {
+  position: relative;
+  isolation: isolate;
+  --guild-ink: #243c32;
+  --guild-gold: #87652d;
+  color: var(--guild-ink);
+  padding: clamp(12px, 2vw, 24px);
+  border: 1px solid #c9b78b;
+  border-radius: 26px;
+  background:
+    radial-gradient(ellipse at 80% 0%, #fff4ce 0%, transparent 45%),
+    linear-gradient(145deg, #e4d7bb, #f7efdd 48%, #ddd0b3);
+  box-shadow:
+    inset 0 0 0 5px #ffffff38,
+    0 12px 28px #233c3212;
+  min-width: 0;
+}
+.hall[data-guild-scene='active'] {
+  padding-top: clamp(150px, 18vw, 240px);
+}
+.hallScene {
+  position: absolute;
+  inset: 0 0 auto;
+  height: min(740px, 100%);
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+  border-radius: 26px 26px 0 0;
+  mask-image: linear-gradient(#000 65%, transparent);
+}
+.hallScene img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 35%;
+}
+.banner {
+  position: absolute;
+  top: 18px;
+  left: 20px;
+  width: 80px;
+  height: 120px;
+  object-fit: contain;
+  pointer-events: none;
+}
+.hero:has(.banner) .emblem {
+  visibility: hidden;
+}
+.leaderScene {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 55%;
+  border-radius: inherit;
+  opacity: 0.22;
+  z-index: -1;
+  pointer-events: none;
+}
+.hero {
+  isolation: isolate;
+}
+.localLeaderScene {
+  display: block;
+  width: 100%;
+  height: 130px;
+  object-fit: cover;
+  object-position: center 55%;
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+.hall article:has(.parchment) {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+.parchment {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  opacity: 0.14;
+  z-index: -1;
+  pointer-events: none;
+}
+.rewardChest {
+  width: 76px;
+  height: 76px;
+  object-fit: contain;
+  flex: 0 0 76px;
+  pointer-events: none;
+}
+@media (max-width: 760px) {
+  .hallScene {
+    height: 700px;
+  }
+  .hallScene img {
+    object-position: center 25%;
+  }
+}
+@media (max-width: 600px) {
+  .banner {
+    width: 44px;
+    height: 66px;
+    left: 14px;
+    top: 18px;
+  }
+}
+.hero {
+  position: relative;
+  display: grid;
+  grid-template-columns: 86px minmax(0, 1fr);
+  gap: 20px;
+  padding: clamp(20px, 3vw, 36px);
+  margin-bottom: 24px;
+  border: 1px solid #b69b62;
+  border-radius: 20px;
+  background:
+    radial-gradient(ellipse at 90% 0%, #f6dd9840, transparent 60%),
+    linear-gradient(120deg, #254a3b, #19382e);
+  color: #fff5df;
+  box-shadow: 0 7px 0 #ad86543b;
+  overflow-wrap: anywhere;
+}
+.emblem {
+  display: grid;
+  place-items: center;
+  width: 80px;
+  height: 100px;
+  border: 2px solid #ddbc74;
+  border-radius: 8px 8px 40px 40px;
+  background: linear-gradient(135deg, #476c52, #284d3c);
+  color: #ffe5a5;
+  font-size: 2rem;
+  font-weight: 800;
+}
+.hero h1 {
+  margin: 8px 0 12px;
+  font-size: clamp(1.8rem, 4vw, 3.2rem);
+  line-height: 1.12;
+  color: #fff5df;
+}
+.hero p {
+  margin: 8px 0;
+}
+.eyebrow {
+  font-size: 0.73rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  color: #eed398;
+}
+.identity {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 24px;
+  font-size: 0.9rem;
+}
+.identity span {
+  border-left: 2px solid #dfbb76;
+  padding-left: 10px;
+}
+.metrics {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin: 0;
+}
+.metrics div {
+  padding: 14px;
+  border: 1px solid #ffffff30;
+  border-radius: 12px;
+  background: #ffffff0c;
+}
+.metrics dt {
+  font-size: 0.73rem;
+  line-height: 1.5;
+  color: #f4e1b8;
+}
+.metrics dd {
+  font-size: 1.8rem;
+  font-weight: 800;
+  margin: 4px 0 0;
+}
+.scope {
+  grid-column: 1 / -1;
+  font-size: 0.75rem;
+  color: #f4e1b8;
+}
+.hero [aria-label='Resumo da Guilda'] :is(span, b),
+.hero a {
+  color: #fff0c7;
+}
+.hall article > span {
+  font-size: 0.72rem;
+  color: #70501f;
+}
+.hall [aria-label='Recompensa'] {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 12px;
+  border: 1px solid #c9b78b;
+  border-radius: 12px;
+  background: #f6edda;
+}
+.hall [aria-label='Recompensa'] b {
+  flex-basis: 100%;
+  color: #70501f;
+  font-size: 0.75rem;
+}
+.hall [aria-label='Recompensa'] span {
+  padding: 6px 8px;
+  border-radius: 8px;
+  background: #e9dec0;
+  color: #294632;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+.hall :is(button, summary, input, select) {
+  min-height: 48px;
+}
+.hall :is(button, a, input, textarea, select, summary):focus-visible {
+  outline: 3px solid #87652d;
+  outline-offset: 4px;
+}
+.hall :is(button, input, select, textarea) {
+  max-width: 100%;
+}
+.hall :is(h2, h3, p, code, b, span) {
+  overflow-wrap: anywhere;
+}
+.hall article {
+  border-radius: 16px;
+  border: 1px solid #bca77d;
+  background: linear-gradient(145deg, #fffaf0, #f2e6cc);
+  box-shadow: 0 5px 12px #51412a12;
+  animation: arrive 240ms ease-out both;
+  transition:
+    transform 180ms,
+    box-shadow 180ms;
+}
+.hall article[data-special='true'] {
+  border-top: 4px solid #87652d;
+}
+.hall article:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 9px 18px #51412a20;
+}
+.hall details {
+  margin: 12px 0;
+  border-top: 1px solid #c9b78b;
+}
+.hall summary {
+  display: list-item;
+  padding: 12px 4px;
+  cursor: pointer;
+  font-weight: 700;
+}
+.hall [role='status']:not(:empty) {
+  padding: 14px;
+  border: 1px solid #a99565;
+  border-radius: 12px;
+  background: #fff4d7;
+  animation: arrive 240ms ease-out;
+}
+.status {
+  display: inline-flex;
+  align-items: center;
+  min-height: 30px;
+  padding: 5px 10px;
+  border: 1px solid #bda574;
+  border-radius: 8px;
+  background: #e9dec0;
+  color: #294632;
+  font-size: 0.72rem;
+  font-weight: 800;
+}
+.excerpt {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.attention {
+  padding: 18px;
+  border: 2px solid #9e7634;
+  border-radius: 16px;
+  background: #fff1c9;
+  margin: 16px 0;
+}
+@keyframes arrive {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@media (max-width: 600px) {
+  .hall {
+    padding: 10px;
+    border-radius: 18px;
+  }
+  .hero {
+    grid-template-columns: 48px minmax(0, 1fr);
+    gap: 12px;
+    padding: 18px 14px;
+  }
+  .emblem {
+    width: 44px;
+    height: 60px;
+    font-size: 1.2rem;
+  }
+  .metrics {
+    gap: 6px;
+  }
+  .metrics div {
+    padding: 10px 7px;
+  }
+  .metrics dt {
+    font-size: 0.65rem;
+  }
+  .metrics dd {
+    font-size: 1.5rem;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hall *,
+  .hall *::before,
+  .hall *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+  .hall article:hover {
+    transform: none;
+  }
+}

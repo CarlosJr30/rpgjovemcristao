@@ -1,0 +1,78 @@
+{
+  "task": "TASK-0053",
+  "executedAt": "2026-10-08T06:45:22.018Z",
+  "status": "CHECKS_PASS / FIT_FAIL / REWORK",
+  "asset": {
+    "status": "PASS",
+    "command": "node scripts/body-fit-pilot-check.mjs",
+    "pngs": 4,
+    "nativeDimensions": [
+      1024,
+      1536
+    ],
+    "crc": true,
+    "decode": true,
+    "alpha": true,
+    "generatedAndCopiedHashesMatch": true
+  },
+  "bodyFit": {
+    "status": "FAIL",
+    "fitPass": 0,
+    "fitFail": 4,
+    "needsRework": 4,
+    "targets": 1,
+    "assessment": "Visual QA by author; no human Body-Fit approval"
+  },
+  "unit": {
+    "status": "PASS",
+    "command": "node --test scripts/body-fit-source-audit.test.mjs scripts/body-fit-target-audit.test.mjs",
+    "passed": 15,
+    "failed": 0
+  },
+  "devLab": {
+    "status": "PASS",
+    "viewportSamples": 24,
+    "views": 24,
+    "integerNativeScreenshots": true
+  },
+  "portal": {
+    "status": "PASS",
+    "command": "npm exec -- playwright test tests/e2e/equipment-portal.spec.ts --project=desktop -g 'Missing artwork' --output=build/task-0053-body-fit-pilot/portal-regression",
+    "passed": 1,
+    "failed": 0,
+    "coverage": [
+      "avatar fallback",
+      "equip action",
+      "comparison"
+    ]
+  },
+  "lint": {
+    "status": "PASS",
+    "command": "npm run lint"
+  },
+  "typecheck": {
+    "status": "N/A",
+    "reason": "No TS/runtime changed; explicit user task only requires this if changed"
+  },
+  "build": {
+    "status": "N/A",
+    "reason": "No TS/runtime changed; Portal verified on existing production build"
+  },
+  "security": {
+    "status": "PASS",
+    "reviewer": "author; not independent",
+    "file": "docs/security/TASK-0053-body-fit-pilot-review.md"
+  },
+  "preservation": {
+    "status": "PASS",
+    "files": 281,
+    "hdPngs": 54,
+    "originalTargetPngs": 16
+  },
+  "ready": 0,
+  "humanBodyFitApproved": 0,
+  "otherAssetsGenerated": 0,
+  "postprocessing": "NONE",
+  "productionChanges": false,
+  "remoteChanges": false
+}

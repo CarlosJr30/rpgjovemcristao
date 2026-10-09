@@ -1,62 +1,120 @@
-# Calibração frontal de equipamentos — 2026-09-24
+# Avatar e Equipment Overlays V2 — TASK-0031
 
-## Referência medida
+> **Estado vigente — 2026-10-02 / TASK-0034:** o usuário reprovou o encaixe corporal V1. Os oito IDs estão `NEEDS_NEW_OVERLAY`, sem aprovação corporal; os 14 PNGs permanecem preservados para UI/arquivo. Resultados técnicos abaixo são históricos e não representam aprovação visual humana. Ver [contrato Body-fit V2](EQUIPMENT-BODY-FIT-OVERLAYS-V2.md).
 
-- Os sprites frontais de Avatar têm canvas PNG RGBA **512 × 768 px**. A caixa de pixels visíveis (alpha > 16) no exemplar masculino é `(85,1)–(466,757)` e no feminino `(94,1)–(481,748)`. O canvas permanece fixo como referência.
-- A composição no Herói mede **264 × 396 CSS px** no desktop e **195 × 292,5 CSS px** no mobile, preservando 2:3. Cada coordenada de overlay é convertida para percentual do mesmo container.
-- Os seis objetos fonte são PNG RGBA transparentes **1254 × 1254 px**, maiores que seu uso visual máximo atual (cerca de 281 px lógicos para a couraça). Nenhum requer mais resolução para esta tela; a pendência é de desenho, perspectiva e separação de planos.
-- O Avatar base já traz cabelo, roupa, capa, calçado e peça no peito. A composição atual cobre somente a **pose frontal estática** de Herói/Equipamentos.
 
-## Âncoras normalizadas
+Especificação de produção: [Equipment Overlay Asset Manifest V1](EQUIPMENT-OVERLAY-ASSET-MANIFEST-V1.md). Estado vigente em 2026-10-02: [integração V1](EQUIPMENT-OVERLAY-V1-INTEGRATION.md), com 14 PNGs e oito IDs visuais READY. A auditoria abaixo é o registro histórico da TASK-0031, anterior aos novos assets.
 
-Fonte única: `apps/web/features/journey/data/bodyAnchors.ts`. Os números são frações de largura/altura do canvas, não da página.
+## Auditoria de assets — 2026-10-01
 
-| Âncora | Masculino `(x, y)` | Feminino `(x, y)` |
-| --- | --- | --- |
-| head | `(0.500, 0.102)` | `(0.496, 0.100)` |
-| neck | `(0.526, 0.197)` | `(0.515, 0.202)` |
-| chest | `(0.500, 0.339)` | `(0.496, 0.338)` |
-| rightHand | `(0.762, 0.548)` | `(0.752, 0.542)` |
-| leftHand | `(0.242, 0.545)` | `(0.251, 0.542)` |
-| leftFoot | `(0.320, 0.933)` | `(0.326, 0.925)` |
-| rightFoot | `(0.690, 0.933)` | `(0.686, 0.925)` |
-| back | `(0.580, 0.380)` | `(0.590, 0.380)` |
+Existem somente seis PNGs de equipamentos em `apps/web/public/assets/equipment/`, todos **1254 × 1254, RGBA**. A inspeção visual confirmou ilustrações isoladas para cards, sem exportação corporal calibrada para os sprites male/female de **512 × 768**. Nenhum overlay dedicado está disponível ou foi produzido nesta tarefa.
 
-`equipmentAssets.ts` centraliza, por peça e corpo, `anchor`, ponto de registro dentro da imagem, `offset`, `size`, `scale`, `rotation`, `zIndex`, recorte e máscara. `resolveOverlayPlacement` calcula a caixa final. Na espada, o registro `(0.28, 0.73)` marca a empunhadura, que cai na âncora `rightHand` com desvio vertical de apenas 1–2 px lógicos. As botas registram cada metade na base de `leftFoot` e `rightFoot`, em `(0.25, 0.88)` e `(0.75, 0.88)`: base 200 px × escala masculina `0.84` e feminina `0.82`, com rotações independentes `-2°/+2°` e `-1.5°/+1.5°`. O elmo usa escala `0.94` e máscara para mostrar o rosto. Escudo gira `-7°`; medalhão usa base 57 px × escala `0.84`/`0.82`.
+| Slot                            | iconAsset existente (sob /assets/equipment/) | Diagnóstico                                                                                             | Compatibilidade corporal            | Qualidade         |
+| ------------------------------- | -------------------------------------------- | ------------------------------------------------------------------------------------------------------- | ----------------------------------- | ----------------- |
+| helmet                          | helmet/traveler_helmet_rare_icon.png         | Capuz isolado; interior opaco; exigia máscara artificial para mostrar rosto                             | Nenhum overlay male/female aprovado | NEEDS_NEW_OVERLAY |
+| armor                           | armor/traveler_armor_rare_icon.png           | Túnica vazia com ombros, mangas e cachecol; era aplicada como adesivo de aproximadamente 281 px lógicos | Nenhum overlay male/female aprovado | NEEDS_NEW_OVERLAY |
+| weapon                          | weapon/traveler_sword_rare_icon.png          | Ilustração de espada; ajuste anterior de cabo não constitui exportação corporal aprovada                | Nenhum overlay male/female aprovado | NEEDS_NEW_OVERLAY |
+| shield                          | shield/traveler_shield_rare_icon.png         | Escudo frontal isolado, sem relação de oclusão com mão/braço                                            | Nenhum overlay male/female aprovado | NEEDS_NEW_OVERLAY |
+| boots                           | boots/traveler_boots_common_icon.png         | Par em perspectiva de objeto; era dividido com clipPath e ocultação da canela por máscara               | Nenhum overlay male/female aprovado | NEEDS_NEW_OVERLAY |
+| medallion (slot técnico amulet) | amulet/amulet_of_the_path_icon.png           | Medalhão com corrente truncada; o sprite base já traz ornamentos no peito                               | Nenhum overlay male/female aprovado | NEEDS_NEW_OVERLAY |
 
-Camadas atuais: Avatar base → couraça (`z5`) → botas/medalhão (`z6`) → espada (`z7`) → escudo (`z8`) → elmo (`z9`). A arte base não contém camadas separadas de mão/cabelo para intercalação perfeita. `iconAsset` e `overlayAsset` são campos independentes, embora algumas entradas apontem ao mesmo PNG de alta resolução; o tamanho do card não determina o do overlay.
+Causa removida: as configurações antigas usavam `icons.*` como arte corporal. A Couraça tinha tamanho-base 296 × 296 com escala .95/.94, sem respeitar a anatomia da roupa já pintada no sprite. Além disso, `status: ready` autorizava renderização mesmo quando `visualQuality` exigia nova arte. O voo de equipar tinha outro fallback de ícone até o corpo.
 
-O voo de equipar usa a **mesma caixa, ângulo, recorte e máscara** da camada persistente. Cada metade das botas voa para seu próprio pé. A transição dura 620 ms e o estado persistido é alterado após 660 ms, para a imagem chegar antes da troca; a camada nova só suaviza opacidade. O resolver ainda exige item possuído, equipado e `status: ready`. Nenhum campo de save foi acrescentado. Movimento reduzido continua respeitado.
+## Contrato visual e resolver
 
-## Classificação visual por item
+`equipmentAssets.ts` é a fonte única de `EquipmentDefinition` e do manifesto visual. Não altera o catálogo mecânico, inventário ou atributos.
 
-`status: ready` significa que a camada é exibida hoje; `visualQuality` indica se a arte é final. Nenhum item está em `NEEDS_HIGHER_RESOLUTION` ou `NEEDS_POSITION_ADJUSTMENT` após este passe.
+- `iconAsset`: somente UI, cards, loja e inventário.
+- `overlayAsset`: arte corporal dedicada, uma string ou mapa male/female; `null` quando ausente.
+- `visualQuality`: apenas READY permite composição; disponibilidade efetiva vem do mesmo resolver usado pela UI.
+- `visualConfig`: configuração base compartilhada com overrides male/female, incluindo anchor, x, y, scale, rotation, mirrorX explícito, zIndex, size e registration.
+- `additionalOverlays`: peças independentes, como bota direita, planos da mão ou detalhes frontais. Não ativa slots novos.
 
-| Item | Qualidade | Resultado frontal e pendência de arte |
-| --- | --- | --- |
-| Espada do Caminho (comum) | `NEEDS_NEW_OVERLAY` | Cabo na palma após calibração; usa a mesma ilustração da espada rara, inadequada para identidade da versão comum. |
-| Espada rara | `READY` | Cabo na palma e lâmina diagonal na pose frontal atual. Nova pose exigirá outra projeção. |
-| Botas do Viajante | `NEEDS_NEW_OVERLAY` | Menores, baixas e alinhadas por pé; a fonte é um par único recortado e mascarado, sobre sapatos já desenhados. |
-| Elmo do Viajante | `NEEDS_NEW_OVERLAY` | Centrado e rosto livre; a abertura é simulada por máscara, com bordas e cabelo dependentes do sprite base. |
-| Couraça comum/rara | `NEEDS_NEW_OVERLAY` | Torso alinhado; a fonte não separa ombros, mangas e roupa base por planos. |
-| Escudo da Perseverança | `NEEDS_NEW_OVERLAY` | Alinhado à mão esquerda, com ângulo ajustado; falta separar frente e verso da mão. |
-| Medalhão do Caminho | `NEEDS_NEW_OVERLAY` | Pequeno no pescoço/peito; compete com peça já pintada no corpo base. |
+Fluxo: `itemId → resolveEquipmentDefinition → resolveEquipmentVisual → camadas resolvidas`. A definição combina metadados visuais com a referência ao equipamento existente no catálogo. IDs legados do manifesto podem não ter entrada mecânica no catálogo; isso não cria novo item.
 
-## Arte dedicada necessária
+`equipmentAssetForItem`, `equipmentVisualForItem` e `equipmentOverlayForItem` são adaptadores do mesmo contrato. `equippedOverlayLayers` exige posse, ID equipado e slot correspondente, e ordena todas as peças. Não há switch por item no componente.
 
-Os arquivos abaixo **ainda não existem**. Para cada corpo, exportar overlay frontal no canvas transparente **1024 × 1536 px** (2× o sprite lógico), alinhado ao Avatar correspondente, com bordas limpas, iluminação e perspectiva compatíveis. PNG RGBA ou WebP com alpha após revisão visual. A troca da fonte pode ocorrer no manifesto sem mover o Avatar ou alterar o save.
+O resolver rejeita ícone atribuído explicitamente, inclusive ícone de outro slot, fontes externas, URL com query/hash, ausência de variante corporal/configuração e dimensões inválidas. Um par incompleto de botas é suprimido integralmente. Sem arte aprovada, o item permanece equipável, com ícone no card e atributos intactos, mas sem imagem nem voo até o corpo.
 
-| Prioridade | Arquivo sugerido com `{body}` = `male`/`female` | Requisito |
-| --- | --- | --- |
-| Alta | `equipment/overlays/weapon_sword_path_common_{body}.webp` | Variante comum própria; cabo registrado na mão direita. |
-| Alta | `equipment/overlays/boots_traveler_left_{body}.webp` e `...right_{body}.webp` | Botas independentes, sem máscara para remover canela, desenhadas para cada pé. |
-| Alta | `equipment/overlays/helmet_traveler_{body}.webp` | Abertura realmente transparente, contorno de cabelo/testa próprio. |
-| Média | `equipment/overlays/armor_traveler_{body}.webp` | Torso, ombros e mangas ajustados à roupa base. |
-| Média | `equipment/overlays/shield_perseverance_{body}.webp` | Frente e trás da mão/escudo em subcamadas. |
-| Baixa | `equipment/overlays/medallion_path_{body}.webp` | Corrente/peça alinhadas sem duplicar o ornamento da base. |
+Exemplo de definição para **arte futura**, após inspeção e calibração:
 
-Caminhada, dano, vitória, oração e costas exigem arte por pose antes de aplicar equipamentos nessas cenas. A cabeça da Fuga da Serpente continua usando o retrato runtime, sem estes overlays corporais.
+```ts
+{
+  slot: 'weapon',
+  iconAsset: '/assets/equipment/weapon/item_icon.png',
+  overlayAsset: {
+    male: '/assets/equipment/overlays/item_male.webp',
+    female: '/assets/equipment/overlays/item_female.webp',
+  },
+  visualQuality: 'READY',
+  visualConfig: {
+    base: {
+      anchor: 'rightHand',
+      registration: { x: 0.25, y: 0.75 },
+      size: { width: 100, height: 200 },
+      x: 0, y: 0, scale: 1, rotation: 15,
+      zIndex: EQUIPMENT_COMPOSITION_LAYERS.weapon,
+    },
+    female: { scale: 0.9, x: 2, y: -1 },
+  },
+}
+```
 
-## Verificação
+Esses valores são conceituais e usados em fixtures de testes, sem arquivo de arte correspondente. Não são calibração de item de produção.
 
-As capturas E2E foram inspecionadas em desktop e mobile para corpo masculino com seis slots e feminino com espada, escudo, elmo e botas. Espada, botas e elmo foram comparados visualmente com as capturas anteriores. Playwright cobriu 90%, 100% e 110% de `zoom` CSS, larguras 360/390/1024 px, reload, isolamento entre Viajantes e desequipar. O zoom CSS testa o redimensionamento do container; não equivale integralmente ao controle de zoom da interface do navegador. A checagem é visual da pose frontal, não uma prova de encaixe em animações ou em todos os cabelos/roupas possíveis.
+## Anchors e composição
+
+Fonte: `bodyAnchors.ts`, coordenadas normalizadas no canvas 512 × 768.
+
+| Anchor            | Male         | Female       |
+| ----------------- | ------------ | ------------ |
+| head              | (.500, .102) | (.496, .100) |
+| torso             | (.500, .380) | (.496, .380) |
+| chest             | (.500, .339) | (.496, .338) |
+| rightHand         | (.762, .548) | (.752, .542) |
+| leftHand          | (.242, .545) | (.251, .542) |
+| leftFoot          | (.320, .933) | (.326, .925) |
+| rightFoot         | (.690, .933) | (.686, .925) |
+| back              | (.580, .380) | (.590, .380) |
+| neck (preservado) | (.526, .197) | (.515, .202) |
+
+Padrões semânticos de slot: elmo→head; Couraça→torso; arma→rightHand; escudo→leftHand; botas→leftFoot/rightFoot; medalhão→chest. A configuração pode selecionar a mão/lado apropriado ao item. Back prepara capa/mochila/acessórios sem ativar novos slots.
+
+Ordem central em `EQUIPMENT_COMPOSITION_LAYERS`: background (-1), back (0), body (1), armor (2), boots (3), medallion (4), hands (5), weapon (6), shield (7), helmet (8), frontDetails (9), effects (10).
+
+O sprite base é uma única imagem com roupas, capa, braços, cabelo, calçados e ornamentos já pintados. Esses planos não são inventados nem separados nesta tarefa. As camadas hands/frontDetails estão disponíveis para arte dedicada futura; zIndex sozinho não resolve oclusão dentro de um bitmap indivisível.
+
+`resolveOverlayPlacement` aplica offsets e registro da fonte sobre o anchor. Rotação ocorre em `transformOrigin` correspondente ao registro, preservando o contato da empunhadura com a mão. O renderer converte a caixa lógica para percentuais de um container 2:3.
+
+## Animações e legado consolidado
+
+Somente overlay aprovado pode voar do card ao corpo, com proporção preservada e mesmo ponto de registro da camada final: 620 ms de transição e commit ao equipar após 660 ms. O anterior faz fade curto; a camada nova recebe brilho discreto. Movimento reduzido continua sem voo. Sem overlay, o item equipa diretamente, com feedback no card/slot e atributos.
+
+O Avatar base é memoizado e mantém o mesmo nó durante equipar/trocar/desequipar. Removidos: `status` conflitante, arrays duplicados maleOverlay/femaleOverlay, calibrações artificiais de ícones, máscaras de elmo/botas, fallback de voo de ícone e quatro animações de overlay idênticas. Reexports de ícones em `avatarAssets.ts` foram mantidos porque ainda têm consumidores de UI.
+
+## READY e pacote de arte pendente
+
+**READY: nenhum equipamento.** Isso descreve o catálogo de arte auditado, não uma falha de equipar.
+
+**NEEDS_NEW_OVERLAY:**
+
+| ItemId                  | Item                   | Arte corporal futura                                                  |
+| ----------------------- | ---------------------- | --------------------------------------------------------------------- |
+| traveler-armor-uncommon | Couraça do Viajante    | Torso/ombros/cintura male/female; prioridade feminina                 |
+| traveler-armor-rare     | Variante rara legada   | Arte própria ou reutilização explicitamente aprovada da Couraça       |
+| traveler-helmet-rare    | Elmo do Viajante       | Abertura transparente e encaixe na testa/cabelo male/female           |
+| traveler-boots          | Botas do Viajante      | Peças esquerda/direita compatíveis com a pose e cada pé               |
+| traveler-sword-common   | Espada do Caminho      | Arte da variante comum com cabo registrado na mão                     |
+| traveler-sword-rare     | Espada rara legada     | Arte/calibração corporal própria da variante rara                     |
+| traveler-shield-rare    | Escudo da Perseverança | Planos adequados de braço/mão e escudo, por lado/corpo                |
+| wisdom-amulet           | Medalhão do Caminho    | Corrente/peça alinhadas ao peito, sem competir com ornamentos da base |
+
+Produzir PNG RGBA ou WebP com alpha, iluminação/perspectiva compatíveis e registro documentado. Exportações alinhadas podem usar canvas 1024 × 1536 (2× o lógico); peças recortadas devem declarar size e registration correspondentes. Não renomear/copiar os ícones como se fossem overlays. Inspecionar com a base feminina e masculina antes de marcar READY.
+
+Caminhada, dano, vitória, oração e costas precisam de arte específica para cada pose antes de receber equipamentos nessas cenas. TASK-0031 não modifica essas cenas.
+
+## Validação
+
+Testes unitários/componentes usam definições dedicadas de teste para validar resolução de arte aprovada, variantes, registro/rotação, ordem, peças de botas, equipar, trocar, remover, fallback e não mutação de atributos. Fixtures não são assets READY de produção.
+
+E2E valida o catálogo real com fallback nas configurações base, seis slots individuais e conjunto completo para male/female em 390×844, 768×1024 e 1440×900, além de contexto mobile real de 390×844. Confere geometria 2:3, imagem carregada, UI dos atributos, ícones nos cards, equipar/desequipar/trocar, reload e ausência de voo de ícone. Resultados e evidências finais ficam no contrato TASK-0031.

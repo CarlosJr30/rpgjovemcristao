@@ -1,0 +1,37 @@
+{
+  "at": "2026-10-07T21:13:03.484Z",
+  "result": "PASS",
+  "reviewedAt": "2026-10-07T21:12:12.525Z",
+  "assetsApproved": 8,
+  "criteriaPerAsset": 10,
+  "finalHashes": "8/8 unchanged",
+  "allBatchPNGs": {
+    "count": 167,
+    "result": "UNCHANGED"
+  },
+  "geometryFiles": {
+    "count": 21,
+    "result": "MEASUREMENTS_UNCHANGED"
+  },
+  "protectedFiles": {
+    "count": 479,
+    "result": "UNCHANGED"
+  },
+  "unselectedQueueItems": {
+    "count": 44,
+    "result": "UNCHANGED"
+  },
+  "queue": {
+    "humanVisualApproved": 35,
+    "visualReviewPending": 0,
+    "pendingHD": 17
+  },
+  "task": "DONE / BATCH_5_COMPLETE / HUMAN_VISUAL_APPROVED",
+  "parentTask": "VALIDATING / NOT_DONE",
+  "newGenerations": 0,
+  "runtimeIntegration": false,
+  "production": "LEGACY",
+  "bodyFit": "NO_READY_PROMOTION",
+  "batch6Authorized": false,
+  "validation": "Documentary consistency and preservation by primary author; prior technical tests retained, no suites repeated"
+}

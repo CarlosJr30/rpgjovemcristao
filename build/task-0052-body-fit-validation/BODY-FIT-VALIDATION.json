@@ -1,0 +1,42 @@
+{
+  "at": "2026-10-08T04:24:51.868Z",
+  "status": "MAPPING_REQUIRED / DIAGNOSTIC_REWORK_REQUIRED",
+  "counts": {
+    "sources": 12,
+    "uniqueHashes": 11,
+    "technicalPass": 12,
+    "mapped": 0,
+    "UNMAPPED_SOURCE_ART": 12,
+    "FIT_PASS": 0,
+    "FIT_FAIL": 0,
+    "NEEDS_REWORK": 0,
+    "FIT_VALIDATION_PENDING": 12,
+    "READY": 0
+  },
+  "diagnosticCounts": {
+    "NEEDS_REWORK": 12,
+    "uniqueArtworksNeedingRegeneration": 11,
+    "compositions": 24
+  },
+  "missingTargets": [
+    "armor_traveler_uncommon_female_v2.png",
+    "armor_traveler_uncommon_male_v2.png",
+    "helmet_traveler_rare_female_v2.png",
+    "helmet_traveler_rare_male_v2.png",
+    "boots_traveler_common_female_v2.png",
+    "boots_traveler_common_male_v2.png",
+    "sword_path_common_female_v2.png",
+    "sword_path_common_male_v2.png",
+    "shield_perseverance_rare_female_v2.png",
+    "shield_perseverance_rare_male_v2.png",
+    "medallion_path_rare_female_v2.png",
+    "medallion_path_rare_male_v2.png",
+    "armor_traveler_rare_female_v2.png",
+    "armor_traveler_rare_male_v2.png",
+    "sword_path_rare_female_v2.png",
+    "sword_path_rare_male_v2.png"
+  ],
+  "targetValidation": "0 mapped candidates; 12 formal pending; 16 targets without an unequivocally linked source",
+  "assessments": "build/task-0052-body-fit-validation/delivery/visual-assessment.json",
+  "ready": 0
+}

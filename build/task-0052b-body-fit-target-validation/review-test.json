@@ -1,0 +1,128 @@
+{
+  "at": "2026-10-08T05:33:12.092Z",
+  "samples": [
+    {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "gender": "female",
+      "targetsVisible": 8,
+      "sourceTargetsPresent": 0,
+      "fitEvidence": false
+    },
+    {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "gender": "male",
+      "targetsVisible": 8,
+      "sourceTargetsPresent": 0,
+      "fitEvidence": false
+    },
+    {
+      "viewport": {
+        "width": 412,
+        "height": 915
+      },
+      "gender": "female",
+      "targetsVisible": 8,
+      "sourceTargetsPresent": 0,
+      "fitEvidence": false
+    },
+    {
+      "viewport": {
+        "width": 412,
+        "height": 915
+      },
+      "gender": "male",
+      "targetsVisible": 8,
+      "sourceTargetsPresent": 0,
+      "fitEvidence": false
+    },
+    {
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "gender": "female",
+      "targetsVisible": 8,
+      "sourceTargetsPresent": 0,
+      "fitEvidence": false
+    },
+    {
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "gender": "male",
+      "targetsVisible": 8,
+      "sourceTargetsPresent": 0,
+      "fitEvidence": false
+    },
+    {
+      "viewport": {
+        "width": 915,
+        "height": 412
+      },
+      "gender": "female",
+      "targetsVisible": 8,
+      "sourceTargetsPresent": 0,
+      "fitEvidence": false
+    },
+    {
+      "viewport": {
+        "width": 915,
+        "height": 412
+      },
+      "gender": "male",
+      "targetsVisible": 8,
+      "sourceTargetsPresent": 0,
+      "fitEvidence": false
+    },
+    {
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "gender": "female",
+      "targetsVisible": 8,
+      "sourceTargetsPresent": 0,
+      "fitEvidence": false
+    },
+    {
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "gender": "male",
+      "targetsVisible": 8,
+      "sourceTargetsPresent": 0,
+      "fitEvidence": false
+    },
+    {
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "gender": "female",
+      "targetsVisible": 8,
+      "sourceTargetsPresent": 0,
+      "fitEvidence": false
+    },
+    {
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "gender": "male",
+      "targetsVisible": 8,
+      "sourceTargetsPresent": 0,
+      "fitEvidence": false
+    }
+  ],
+  "reducedMotion": true,
+  "fitEvidence": false,
+  "filterChecks": "PASS"
+}

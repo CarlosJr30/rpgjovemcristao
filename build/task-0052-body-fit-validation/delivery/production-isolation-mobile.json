@@ -1,0 +1,22 @@
+{
+  "at": "2026-10-08T04:23:26.547Z",
+  "results": [
+    {
+      "route": "/assets-source/body-fit-v2/armadura_paladina_verde_e_dourada.png",
+      "status": 404
+    },
+    {
+      "route": "/build/task-0052-body-fit-validation/delivery/review/index.html",
+      "status": 404
+    },
+    {
+      "route": "/build/task-0052-body-fit-validation/delivery/review/source/armadura_paladina_verde_e_dourada.png",
+      "status": 404
+    },
+    {
+      "route": "/tools/arena-lab/",
+      "status": 404
+    }
+  ],
+  "pass": true
+}

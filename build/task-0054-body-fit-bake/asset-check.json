@@ -1,0 +1,28 @@
+{
+  "timestamp": "2026-10-08T07:33:06.426Z",
+  "assetStatus": "TECHNICALLY_VALIDATED",
+  "integrity": {
+    "status": "CRC_PASS",
+    "chunks": 67
+  },
+  "output": {
+    "path": "D:/rpg-jovem-cristao/build/task-0054-body-fit-bake/pilot/armor_traveler_uncommon_female_v2_baked.png",
+    "width": 1024,
+    "height": 1536,
+    "format": "png",
+    "channels": 4,
+    "sha256": "ebee2f026c2dd6aac6b47850c8412f243cdc20c51a36d6f91e2d6cf3b46c20cb"
+  },
+  "fitStatus": "FIT_PASS",
+  "reviewStatus": "HUMAN_BODY_FIT_APPROVED",
+  "humanBodyFitApproved": true,
+  "ready": true,
+  "runtime": {
+    "activated": false,
+    "correctiveTransform": false
+  },
+  "sourcePreserved": true,
+  "avatarPreserved": true,
+  "protectedFiles": 285,
+  "otherTargetsProcessed": 0
+}

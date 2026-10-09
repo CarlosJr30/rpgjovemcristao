@@ -1,37 +1,120 @@
 import type { Equipment, EquipmentSlot, Traveler } from '../domain/traveler';
-import { bodyAnchorPoint, type BodyAnchor, type BodyType } from './bodyAnchors';
+import { EQUIPMENT_CATALOG } from './equipmentCatalog';
+import {
+  AVATAR_CANVAS,
+  bodyAnchorPoint,
+  type BodyAnchor,
+  type BodyType,
+} from './bodyAnchors';
 
 export type { BodyType } from './bodyAnchors';
-export type OverlayPlacement = {
-  x: number; y: number; width: number; height: number;
-  rotation: number; zIndex: number; anchorX: number; anchorY: number;
-  clipPath?: string;
-  maskImage?: string;
-};
-export type OverlayCalibration = {
-  anchor: BodyAnchor;
-  // The image registration point is a fraction of the full source image.
-  // For a sword it marks the leather grip, rather than the icon center.
-  registration: { x: number; y: number };
-  offset: { x: number; y: number };
-  size: { width: number; height: number };
-  scale: number;
-  rotation: number;
-  zIndex: number;
-  clipPath?: string;
-  maskImage?: string;
-};
-export type OverlayLayer = { asset: string; male: OverlayCalibration; female: OverlayCalibration };
-export type EquipmentAssetEntry = {
-  iconAsset: string;
-  overlayAsset: string | null;
-  maleOverlay: readonly OverlayLayer[];
-  femaleOverlay: readonly OverlayLayer[];
-  status: 'ready' | 'missing' | 'needs-review';
-  visualQuality: 'READY' | 'NEEDS_POSITION_ADJUSTMENT' | 'NEEDS_HIGHER_RESOLUTION' | 'NEEDS_NEW_OVERLAY';
+export type VisualQuality =
+  | 'READY'
+  | 'NEEDS_POSITION_ADJUSTMENT'
+  | 'NEEDS_HIGHER_RESOLUTION'
+  | 'NEEDS_NEW_OVERLAY';
+
+// The base sprite includes clothes, arms, head and hair. Dedicated art may add
+// independent planes when it supports occlusion; no new equipment slots are enabled.
+export const EQUIPMENT_COMPOSITION_LAYERS = {
+  background: -1,
+  back: 0,
+  body: 1,
+  armor: 2,
+  boots: 3,
+  medallion: 4,
+  hands: 5,
+  weapon: 6,
+  shield: 7,
+  helmet: 8,
+  frontDetails: 9,
+  effects: 10,
+} as const;
+export const EQUIPMENT_SLOT_ANCHORS: Readonly<
+  Record<EquipmentSlot, readonly BodyAnchor[]>
+> = {
+  helmet: ['head'],
+  armor: ['torso'],
+  weapon: ['rightHand'],
+  shield: ['leftHand'],
+  boots: ['leftFoot', 'rightFoot'],
+  amulet: ['chest'],
 };
 
-const icons: Record<EquipmentSlot, string> = {
+export type OverlayCalibration = {
+  anchor: BodyAnchor;
+  // Fraction of the source image that touches the anchor (e.g. sword grip).
+  registration: { x: number; y: number };
+  size: { width: number; height: number };
+  x: number;
+  y: number;
+  scale: number;
+  rotation: number;
+  mirrorX?: boolean;
+  zIndex: number;
+};
+export type OverlayVisualConfig = {
+  base: OverlayCalibration;
+  male?: Partial<OverlayCalibration>;
+  female?: Partial<OverlayCalibration>;
+};
+export type OverlayAssetSource = string | Partial<Record<BodyType, string>>;
+export type OverlayMode = 'cropped' | 'full-canvas';
+export const FULL_CANVAS_OVERLAY_SOURCE = {
+  width: 1024,
+  height: 1536,
+} as const;
+export type FullCanvasOverlayConfig = {
+  sourceSize: { width: number; height: number };
+  zIndex: number;
+};
+export type EquipmentOverlayDefinition = {
+  // Omitted mode retains the legacy anchor contract.
+  overlayMode?: OverlayMode;
+  overlayAsset: OverlayAssetSource | null;
+  visualConfig: OverlayVisualConfig | null;
+  fullCanvasConfig?: FullCanvasOverlayConfig;
+};
+export type EquipmentAssetEntry = EquipmentOverlayDefinition & {
+  slot: EquipmentSlot;
+  iconAsset: string;
+  visualQuality: VisualQuality;
+  // Record only after the user approves the actual composition for this body.
+  bodyOverlayApproval?: Partial<Record<BodyType, 'APPROVED_BY_USER'>>;
+  iconAssetHighQuality?: OverlayAssetSource;
+  // Boots may supply an independent right-foot layer; hands can be separate too.
+  additionalOverlays?: readonly EquipmentOverlayDefinition[];
+};
+export type EquipmentDefinition = EquipmentAssetEntry & {
+  itemId: string;
+  equipment?: Equipment;
+};
+export type OverlayPlacement = {
+  anchor: BodyAnchor | 'canvas';
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+  rotation: number;
+  mirrorX: boolean;
+  zIndex: number;
+  anchorX: number;
+  anchorY: number;
+  transformOrigin: string;
+};
+export type ResolvedOverlayLayer = {
+  overlayMode: OverlayMode;
+  asset: string;
+  placement: OverlayPlacement;
+};
+export type ResolvedEquipmentVisual = {
+  iconAsset: string;
+  visualQuality: VisualQuality;
+  visualOverlayUnavailable: boolean;
+  layers: readonly ResolvedOverlayLayer[];
+};
+
+export const equipmentIcons: Readonly<Record<EquipmentSlot, string>> = {
   helmet: '/assets/equipment/helmet/traveler_helmet_rare_icon.png',
   armor: '/assets/equipment/armor/traveler_armor_rare_icon.png',
   weapon: '/assets/equipment/weapon/traveler_sword_rare_icon.png',
@@ -39,83 +122,406 @@ const icons: Record<EquipmentSlot, string> = {
   boots: '/assets/equipment/boots/traveler_boots_common_icon.png',
   amulet: '/assets/equipment/amulet/amulet_of_the_path_icon.png',
 };
-export const equipmentIcons = icons;
-
-const layer = (asset: string, male: OverlayCalibration, female: OverlayCalibration = male): OverlayLayer => ({ asset, male, female });
-const sword = layer(icons.weapon,
-  { anchor: 'rightHand', registration: { x: .28, y: .73 }, offset: { x: 0, y: -2 }, size: { width: 178, height: 178 }, scale: .96, rotation: 0, zIndex: 7 },
-  { anchor: 'rightHand', registration: { x: .28, y: .73 }, offset: { x: 1, y: -1 }, size: { width: 178, height: 178 }, scale: .94, rotation: 0, zIndex: 7 });
-const shield = layer(icons.shield,
-  { anchor: 'leftHand', registration: { x: .52, y: .50 }, offset: { x: 0, y: -5 }, size: { width: 151, height: 151 }, scale: .96, rotation: -7, zIndex: 8 },
-  { anchor: 'leftHand', registration: { x: .52, y: .50 }, offset: { x: 0, y: -4 }, size: { width: 151, height: 151 }, scale: .94, rotation: -7, zIndex: 8 });
-const medallion = layer(icons.amulet,
-  { anchor: 'neck', registration: { x: .50, y: .34 }, offset: { x: 0, y: 0 }, size: { width: 57, height: 57 }, scale: .84, rotation: 0, zIndex: 6 },
-  { anchor: 'neck', registration: { x: .50, y: .34 }, offset: { x: 0, y: 0 }, size: { width: 57, height: 57 }, scale: .82, rotation: 0, zIndex: 6 });
-const helmet = layer(icons.helmet,
-  { anchor: 'head', registration: { x: .50, y: .50 }, offset: { x: 0, y: 0 }, size: { width: 175, height: 175 }, scale: .94, rotation: 0, zIndex: 9, maskImage: 'radial-gradient(ellipse 32% 27% at 50% 54%, transparent 85%, black 100%)' },
-  { anchor: 'head', registration: { x: .50, y: .50 }, offset: { x: 0, y: 0 }, size: { width: 177, height: 177 }, scale: .94, rotation: 0, zIndex: 9, maskImage: 'radial-gradient(ellipse 32% 27% at 50% 54%, transparent 85%, black 100%)' });
-const armor = layer(icons.armor,
-  { anchor: 'chest', registration: { x: .50, y: .47 }, offset: { x: 0, y: 0 }, size: { width: 296, height: 296 }, scale: .95, rotation: 0, zIndex: 5 },
-  { anchor: 'chest', registration: { x: .50, y: .47 }, offset: { x: 0, y: 0 }, size: { width: 296, height: 296 }, scale: .94, rotation: 0, zIndex: 5 });
-const leftBoot = layer(icons.boots,
-  { anchor: 'leftFoot', registration: { x: .25, y: .88 }, offset: { x: -18, y: 28 }, size: { width: 200, height: 200 }, scale: .84, rotation: -2, zIndex: 6, clipPath: 'inset(0 50% 0 0)', maskImage: 'linear-gradient(to bottom, transparent 0 34%, black 45%)' },
-  { anchor: 'leftFoot', registration: { x: .25, y: .88 }, offset: { x: -5, y: 31 }, size: { width: 200, height: 200 }, scale: .82, rotation: -1.5, zIndex: 6, clipPath: 'inset(0 50% 0 0)', maskImage: 'linear-gradient(to bottom, transparent 0 34%, black 45%)' });
-const rightBoot = layer(icons.boots,
-  { anchor: 'rightFoot', registration: { x: .75, y: .88 }, offset: { x: 12, y: 28 }, size: { width: 200, height: 200 }, scale: .84, rotation: 2, zIndex: 6, clipPath: 'inset(0 0 0 50%)', maskImage: 'linear-gradient(to bottom, transparent 0 34%, black 45%)' },
-  { anchor: 'rightFoot', registration: { x: .75, y: .88 }, offset: { x: 14, y: 31 }, size: { width: 200, height: 200 }, scale: .82, rotation: 1.5, zIndex: 6, clipPath: 'inset(0 0 0 50%)', maskImage: 'linear-gradient(to bottom, transparent 0 34%, black 45%)' });
-
-export function resolveOverlayPlacement(bodyType: BodyType, calibration: OverlayCalibration): OverlayPlacement {
-  const anchor = bodyAnchorPoint(bodyType, calibration.anchor);
-  const anchorX = anchor.x + calibration.offset.x;
-  const anchorY = anchor.y + calibration.offset.y;
-  const width = calibration.size.width * calibration.scale;
-  const height = calibration.size.height * calibration.scale;
-  return {
-    x: anchorX - calibration.registration.x * width,
-    y: anchorY - calibration.registration.y * height,
-    width, height, anchorX, anchorY,
-    rotation: calibration.rotation, zIndex: calibration.zIndex,
-    clipPath: calibration.clipPath, maskImage: calibration.maskImage,
-  };
-}
-
-const entry = (slot: EquipmentSlot, overlays: readonly OverlayLayer[], visualQuality: EquipmentAssetEntry['visualQuality']): EquipmentAssetEntry => ({
-  iconAsset: icons[slot], overlayAsset: overlays[0]?.asset ?? null,
-  maleOverlay: overlays, femaleOverlay: overlays, status: 'ready', visualQuality,
+const missingOverlay = (slot: EquipmentSlot): EquipmentAssetEntry => ({
+  slot,
+  iconAsset: equipmentIcons[slot],
+  overlayAsset: null,
+  visualConfig: null,
+  visualQuality: 'NEEDS_NEW_OVERLAY',
 });
 
-export const EQUIPMENT_ASSET_MANIFEST: Readonly<Record<string, EquipmentAssetEntry>> = {
-  'traveler-sword-common': entry('weapon', [sword], 'NEEDS_NEW_OVERLAY'),
-  'traveler-sword-rare': entry('weapon', [sword], 'READY'),
-  'traveler-shield-rare': entry('shield', [shield], 'NEEDS_NEW_OVERLAY'),
-  'wisdom-amulet': entry('amulet', [medallion], 'NEEDS_NEW_OVERLAY'),
-  'traveler-helmet-rare': entry('helmet', [helmet], 'NEEDS_NEW_OVERLAY'),
-  'traveler-armor-uncommon': entry('armor', [armor], 'NEEDS_NEW_OVERLAY'),
-  'traveler-armor-rare': entry('armor', [armor], 'NEEDS_NEW_OVERLAY'),
-  'traveler-boots': entry('boots', [leftBoot, rightBoot], 'NEEDS_NEW_OVERLAY'),
+const v1 = (file: string) => `/assets/equipment/overlays/v1/${file}.png`;
+const bodies = (family: string): OverlayAssetSource => ({
+  female: v1(`${family}_female`),
+  male: v1(`${family}_male`),
+});
+const calibration = (
+  anchor: BodyAnchor,
+  width: number,
+  height: number,
+  rx: number,
+  ry: number,
+  zIndex: number,
+): OverlayCalibration => ({
+  anchor,
+  size: { width, height },
+  registration: { x: rx, y: ry },
+  x: 0,
+  y: 0,
+  scale: 1,
+  rotation: 0,
+  zIndex,
+});
+const archivedOverlay = (
+  slot: EquipmentSlot,
+  overlayAsset: OverlayAssetSource,
+  visualConfig: OverlayVisualConfig,
+): EquipmentAssetEntry => ({
+  slot,
+  iconAsset: equipmentIcons[slot],
+  iconAssetHighQuality: overlayAsset,
+  overlayMode: 'cropped',
+  overlayAsset,
+  visualConfig,
+  // TASK-0034: user rejected body fit. Preserve V1 art/calibration for UI/archive.
+  visualQuality: 'NEEDS_NEW_OVERLAY',
+});
+const armorConfig: OverlayVisualConfig = {
+  base: calibration(
+    'torso',
+    196,
+    216,
+    0.499755,
+    0.582593,
+    EQUIPMENT_COMPOSITION_LAYERS.armor,
+  ),
+  male: {
+    size: { width: 208, height: 220 },
+    registration: { x: 0.509615, y: 0.572 },
+  },
+};
+const swordConfig: OverlayVisualConfig = {
+  // Final PNG grip is around y=339; alpha padding invalidates the original 85% brief.
+  base: {
+    ...calibration(
+      'rightHand',
+      48,
+      240,
+      0.5,
+      0.705,
+      EQUIPMENT_COMPOSITION_LAYERS.weapon,
+    ),
+    rotation: 28,
+    scale: 1.15,
+  },
+};
+// Original UI icons are preserved; anatomy and dedicated PNGs remain centralized.
+export const EQUIPMENT_ASSET_MANIFEST: Readonly<
+  Record<string, EquipmentAssetEntry>
+> = {
+  'traveler-sword-common': archivedOverlay(
+    'weapon',
+    v1('sword_path_common'),
+    swordConfig,
+  ),
+  'traveler-sword-rare': archivedOverlay(
+    'weapon',
+    v1('sword_path_rare'),
+    swordConfig,
+  ),
+  'traveler-shield-rare': archivedOverlay(
+    'shield',
+    v1('shield_perseverance_rare'),
+    {
+      base: {
+        ...calibration(
+          'leftHand',
+          108,
+          152,
+          0.7,
+          0.48,
+          EQUIPMENT_COMPOSITION_LAYERS.shield,
+        ),
+        rotation: -8,
+      },
+    },
+  ),
+  'wisdom-amulet': archivedOverlay('amulet', v1('medallion_path_rare'), {
+    base: calibration(
+      'chest',
+      22,
+      36,
+      0.5,
+      0.6,
+      EQUIPMENT_COMPOSITION_LAYERS.medallion,
+    ),
+  }),
+  'traveler-helmet-rare': archivedOverlay(
+    'helmet',
+    bodies('helmet_traveler_rare'),
+    {
+      base: calibration(
+        'head',
+        142,
+        170,
+        0.5,
+        0.555,
+        EQUIPMENT_COMPOSITION_LAYERS.helmet,
+      ),
+      female: {
+        size: { width: 144, height: 174 },
+        registration: { x: 0.499667, y: 0.63 },
+      },
+    },
+  ),
+  'traveler-armor-uncommon': archivedOverlay(
+    'armor',
+    bodies('armor_traveler_uncommon'),
+    {
+      ...armorConfig,
+      base: { ...armorConfig.base, scale: 1.25 },
+      male: { ...armorConfig.male, scale: 1.15 },
+    },
+  ),
+  'traveler-armor-rare': archivedOverlay(
+    'armor',
+    bodies('armor_traveler_rare'),
+    {
+      ...armorConfig,
+      base: { ...armorConfig.base, scale: 1.15 },
+      male: { ...armorConfig.male, scale: 1.1 },
+    },
+  ),
+  'traveler-boots': {
+    ...archivedOverlay('boots', bodies('boots_traveler_common_left'), {
+      base: {
+        ...calibration(
+          'leftFoot',
+          108,
+          166,
+          0.5,
+          0.58,
+          EQUIPMENT_COMPOSITION_LAYERS.boots,
+        ),
+        mirrorX: true,
+        x: -15,
+        y: -14,
+        scale: 1.1,
+      },
+      female: {
+        size: { width: 100, height: (328 * 100) / 176 },
+        registration: { x: 0.5, y: 0.633 },
+        x: -14,
+        y: 0,
+        scale: 1,
+      },
+    }),
+    additionalOverlays: [
+      {
+        overlayAsset: bodies('boots_traveler_common_right'),
+        visualConfig: {
+          base: {
+            ...calibration(
+              'rightFoot',
+              128,
+              166,
+              0.5,
+              0.78,
+              EQUIPMENT_COMPOSITION_LAYERS.boots,
+            ),
+            scale: 1.1,
+            x: 17,
+            y: 6,
+          },
+          female: {
+            size: { width: 116, height: 164 },
+            registration: { x: 0.5, y: 0.74 },
+            x: 15,
+            y: 0,
+            scale: 1,
+            mirrorX: true,
+          },
+        },
+      },
+    ],
+  },
 };
 
-export function equipmentAssetForItem(item: Pick<Equipment, 'id' | 'slot'>): string {
-  return EQUIPMENT_ASSET_MANIFEST[item.id]?.iconAsset ?? icons[item.slot];
+export function resolveEquipmentDefinition(
+  itemId: string,
+): EquipmentDefinition | undefined {
+  const equipment = EQUIPMENT_CATALOG.find((item) => item.id === itemId);
+  const assets =
+    EQUIPMENT_ASSET_MANIFEST[itemId] ??
+    (equipment ? missingOverlay(equipment.slot) : undefined);
+  return assets ? { ...assets, itemId, equipment } : undefined;
 }
-export function equipmentOverlayForItem(item: Pick<Equipment, 'id' | 'slot'>, bodyType: BodyType): readonly { asset: string; placement: OverlayPlacement }[] {
-  const manifest = EQUIPMENT_ASSET_MANIFEST[item.id];
-  if (!manifest || manifest.status !== 'ready' || !manifest.overlayAsset) return [];
-  return (bodyType === 'female' ? manifest.femaleOverlay : manifest.maleOverlay).map((piece) => ({ asset: piece.asset, placement: resolveOverlayPlacement(bodyType, piece[bodyType]) }));
-}
-export function equippedOverlayLayers(traveler: Traveler) {
-  const bodyType = traveler.avatar.gender;
-  const slots: EquipmentSlot[] = ['boots', 'armor', 'amulet', 'weapon', 'shield', 'helmet'];
-  return slots.flatMap((slot) => {
-    const item = traveler.inventory.find((owned) => owned.id === traveler.equipped[slot] && owned.slot === slot);
-    return item ? equipmentOverlayForItem(item, bodyType).map((piece) => ({ ...piece, itemId: item.id, slot })) : [];
-  });
-}
-export function equipmentAnchor(item: Pick<Equipment, 'id' | 'slot'>, bodyType: BodyType): { x: number; y: number } {
-  const piece = equipmentOverlayForItem(item, bodyType)[0];
-  if (piece) return { x: piece.placement.anchorX, y: piece.placement.anchorY };
-  const fallback: Record<EquipmentSlot, BodyAnchor> = {
-    helmet: 'head', armor: 'chest', weapon: 'rightHand', shield: 'leftHand', boots: 'leftFoot', amulet: 'neck',
+
+export function resolveOverlayPlacement(
+  bodyType: BodyType,
+  config: OverlayCalibration,
+): OverlayPlacement {
+  const anchor = bodyAnchorPoint(bodyType, config.anchor);
+  const anchorX = anchor.x + config.x;
+  const anchorY = anchor.y + config.y;
+  const width = config.size.width * config.scale;
+  const height = config.size.height * config.scale;
+  return {
+    anchor: config.anchor,
+    x: anchorX - config.registration.x * width,
+    y: anchorY - config.registration.y * height,
+    width,
+    height,
+    anchorX,
+    anchorY,
+    rotation: config.rotation,
+    mirrorX: config.mirrorX ?? false,
+    zIndex: config.zIndex,
+    // Rotation around the registration point preserves contact with the hand.
+    transformOrigin: `${config.registration.x * 100}% ${config.registration.y * 100}%`,
   };
-  return bodyAnchorPoint(bodyType, fallback[item.slot]);
+}
+
+function validCalibration(config: OverlayCalibration): boolean {
+  const numbers = [
+    config.x,
+    config.y,
+    config.scale,
+    config.rotation,
+    config.zIndex,
+    config.registration.x,
+    config.registration.y,
+    config.size.width,
+    config.size.height,
+  ];
+  return (
+    numbers.every(Number.isFinite) &&
+    config.scale > 0 &&
+    config.size.width > 0 &&
+    config.size.height > 0 &&
+    config.registration.x >= 0 &&
+    config.registration.x <= 1 &&
+    config.registration.y >= 0 &&
+    config.registration.y <= 1 &&
+    (config.mirrorX === undefined || typeof config.mirrorX === 'boolean')
+  );
+}
+
+export function resolveEquipmentVisual(
+  definition: EquipmentDefinition,
+  bodyType: BodyType,
+): ResolvedEquipmentVisual {
+  const unavailable = (): ResolvedEquipmentVisual => ({
+    iconAsset: definition.iconAsset,
+    layers: [],
+    visualOverlayUnavailable: true,
+    visualQuality:
+      definition.visualQuality === 'READY'
+        ? 'NEEDS_NEW_OVERLAY'
+        : definition.visualQuality,
+  });
+  if (
+    definition.visualQuality !== 'READY' ||
+    definition.bodyOverlayApproval?.[bodyType] !== 'APPROVED_BY_USER' ||
+    !definition.overlayAsset
+  )
+    return unavailable();
+  const layers: ResolvedOverlayLayer[] = [];
+  for (const piece of [definition, ...(definition.additionalOverlays ?? [])]) {
+    const asset =
+      typeof piece.overlayAsset === 'string'
+        ? piece.overlayAsset
+        : piece.overlayAsset?.[bodyType];
+    // Reject even an explicit mistaken icon assignment; never infer body art from UI art.
+    if (
+      !asset ||
+      asset === definition.iconAsset ||
+      Object.values(equipmentIcons).includes(asset) ||
+      /_icon\.(png|webp|svg)$/i.test(asset) ||
+      /[?#]/.test(asset) ||
+      // Dedicated overlay namespace only; reject traversal, aliases and UI art.
+      !/^\/assets\/equipment\/overlays\/(?:[a-zA-Z0-9_-]+\/)*[a-zA-Z0-9_-]+\.(png|webp|svg)$/.test(
+        asset,
+      )
+    )
+      return unavailable();
+    if (piece.overlayMode === 'full-canvas') {
+      const config = piece.fullCanvasConfig;
+      if (
+        !asset.endsWith('.png') ||
+        !config ||
+        config.sourceSize?.width !== FULL_CANVAS_OVERLAY_SOURCE.width ||
+        config.sourceSize?.height !== FULL_CANVAS_OVERLAY_SOURCE.height ||
+        !Number.isFinite(config.zIndex)
+      )
+        return unavailable();
+      // Logical geometry only; renderer uses inset/100%, never anchor calibration.
+      layers.push({
+        asset,
+        overlayMode: 'full-canvas',
+        placement: {
+          anchor: 'canvas',
+          x: 0,
+          y: 0,
+          width: AVATAR_CANVAS.width,
+          height: AVATAR_CANVAS.height,
+          anchorX: 0,
+          anchorY: 0,
+          rotation: 0,
+          mirrorX: false,
+          transformOrigin: '50% 50%',
+          zIndex: config.zIndex,
+        },
+      });
+      continue;
+    }
+    if (
+      (piece.overlayMode !== undefined && piece.overlayMode !== 'cropped') ||
+      !piece.visualConfig
+    )
+      return unavailable();
+    const config = {
+      ...piece.visualConfig.base,
+      ...piece.visualConfig[bodyType],
+    };
+    if (!validCalibration(config)) return unavailable();
+    layers.push({
+      asset,
+      overlayMode: 'cropped',
+      placement: resolveOverlayPlacement(bodyType, config),
+    });
+  }
+  return {
+    iconAsset: definition.iconAsset,
+    layers: layers.sort((a, b) => a.placement.zIndex - b.placement.zIndex),
+    visualQuality: 'READY',
+    visualOverlayUnavailable: false,
+  };
+}
+
+export function equipmentAssetForItem(
+  item: Pick<Equipment, 'id' | 'slot'>,
+): string {
+  const definition = resolveEquipmentDefinition(item.id);
+  return definition?.slot === item.slot
+    ? definition.iconAsset
+    : equipmentIcons[item.slot];
+}
+export function equipmentVisualForItem(
+  item: Pick<Equipment, 'id' | 'slot'>,
+  bodyType: BodyType,
+): ResolvedEquipmentVisual {
+  const definition = resolveEquipmentDefinition(item.id);
+  return definition?.slot === item.slot
+    ? resolveEquipmentVisual(definition, bodyType)
+    : {
+        iconAsset: equipmentIcons[item.slot],
+        layers: [],
+        visualQuality: 'NEEDS_NEW_OVERLAY',
+        visualOverlayUnavailable: true,
+      };
+}
+export function equipmentOverlayForItem(
+  item: Pick<Equipment, 'id' | 'slot'>,
+  bodyType: BodyType,
+): readonly ResolvedOverlayLayer[] {
+  return equipmentVisualForItem(item, bodyType).layers;
+}
+export function equippedOverlayLayers(
+  traveler: Traveler,
+  resolveDefinition = resolveEquipmentDefinition,
+) {
+  return Object.entries(traveler.equipped)
+    .flatMap(([slot, itemId]) => {
+      const item = traveler.inventory.find(
+        (owned) => owned.id === itemId && owned.slot === slot,
+      );
+      const definition = item ? resolveDefinition(item.id) : undefined;
+      return item && definition?.slot === slot
+        ? resolveEquipmentVisual(definition, traveler.avatar.gender).layers.map(
+            (piece) => ({ ...piece, itemId: item.id, slot: item.slot }),
+          )
+        : [];
+    })
+    .sort((a, b) => a.placement.zIndex - b.placement.zIndex);
 }

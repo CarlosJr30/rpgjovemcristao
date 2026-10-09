@@ -1,0 +1,157 @@
+{
+  "task": "TASK-0055",
+  "id": "sword_path_common_male_v2",
+  "itemId": "traveler-sword-common",
+  "gender": "male",
+  "slot": "weapon",
+  "assessedAt": "2026-10-08T20:27:47.229Z",
+  "assessedBy": "Codex / author visual QA (not Carlos Faustino)",
+  "outputSha256": "4b7c2c3f6b1798413b1bc7c1c8d700a09cca5e5ab0301ac027276dd0396050e8",
+  "sourceSha256": "ef4ca354506a7da6a9c80dcbb2b4d5388af7d11bef98fce9a81d8de6b40e8818",
+  "referenceAvatar": {
+    "id": "male_short_moss_medium",
+    "path": "apps/web/public/assets/avatar/hd/male/male_short_moss_medium_hd.png",
+    "sha256": "b182c2e29b512b337891716a413ab7efaad737e23c6354779fae17fe19b8af34",
+    "immutable": true,
+    "footBaseline": 1513
+  },
+  "technicalStatus": "TECHNICALLY_VALIDATED",
+  "mapping": "MAPPED",
+  "status": "NEEDS_REWORK",
+  "reviewStatus": "NEEDS_REWORK",
+  "humanBodyFitApproved": false,
+  "ready": false,
+  "runtimeActivated": false,
+  "observations": [
+    "Centro do cabo foi aproximado da mão esquerda da tela; dedos continuam abertos na pose HD.",
+    "Overlay único desenha cabo sobre a mão sem a oclusão necessária dos dedos; arma parece sobreposta/solta.",
+    "Lâmina diagonal sobe atravessando o tronco e termina próxima do pescoço; rotação ≤5° não reorienta a arte suficientemente."
+  ],
+  "regions": {
+    "hand_center": "ALIGNED_PROXY_ONLY",
+    "grip": "FAIL_OPEN_HAND",
+    "wrist": "NEEDS_REWORK",
+    "blade_angle": "FAIL_TORSO_CROSSING",
+    "blade_extent": "IN_CANVAS",
+    "occlusion": "FAIL_HANDLE_IN_FRONT_OF_FINGERS"
+  },
+  "reworkRecommendation": "Regenerar espada na orientação e posição da mão de male_short_moss_medium, com cabo desenhado para a pose existente e oclusão transparente específica dos dedos/área da mão. Não redesenhar mãos/HD nem adicionar máscara runtime. Se a mão aberta impedir uma pega convincente sem mudar a base, manter NEEDS_REWORK e registrar a limitação, sem promoção.",
+  "limits": "Only this derivative/hash and named reference; no cross-gender or 54-avatar compatibility claimed; landmark residuals are approximate diagnostics, not sufficient to prove fit.",
+  "landmarkMethod": "Male common sword diagonal up-right; no flip/large rotation; face/torso intersection checked visually; visual native grid measurements approximately ±12px avatar, ±20px source. No hidden anatomy certified.",
+  "landmarkResiduals": {
+    "hand_center_grip": {
+      "source": [
+        265,
+        1235
+      ],
+      "avatar": [
+        218,
+        819
+      ],
+      "weight": 8,
+      "kind": "grip to screen-left hand anatomy",
+      "projected": [
+        219.9208304373612,
+        814.0618138184868
+      ],
+      "delta": [
+        1.9208304373611895,
+        -4.938186181513174
+      ],
+      "distance": 5.298610415229718
+    },
+    "grip_guard": {
+      "source": [
+        333,
+        1115
+      ],
+      "avatar": [
+        247,
+        766
+      ],
+      "weight": 1,
+      "kind": "anatomical garment proxy",
+      "projected": [
+        248.8746536890679,
+        762.9668316095925
+      ],
+      "delta": [
+        1.8746536890679124,
+        -3.033168390407468
+      ],
+      "distance": 3.5657309122398684
+    },
+    "wrist_clearance": {
+      "source": [
+        200,
+        1340
+      ],
+      "avatar": [
+        225,
+        781
+      ],
+      "weight": 0.5,
+      "kind": "pommel/wrist clearance goal",
+      "projected": [
+        192.2443817408768,
+        858.7699232512693
+      ],
+      "delta": [
+        -32.755618259123196,
+        77.76992325126935
+      ],
+      "distance": 84.38655988986476
+    },
+    "blade_root": {
+      "source": [
+        469,
+        919
+      ],
+      "avatar": [
+        305,
+        680
+      ],
+      "weight": 0.5,
+      "kind": "blade placement goal",
+      "projected": [
+        306.7823001924814,
+        679.5116940017319
+      ],
+      "delta": [
+        1.7823001924813866,
+        -0.48830599826806065
+      ],
+      "distance": 1.8479817975466521
+    },
+    "blade_extent": {
+      "source": [
+        985,
+        46
+      ],
+      "avatar": [
+        530,
+        300
+      ],
+      "weight": 0.5,
+      "kind": "blade tip placement goal",
+      "projected": [
+        526.4907236907266,
+        307.79569843202637
+      ],
+      "delta": [
+        -3.509276309273446,
+        7.79569843202637
+      ],
+      "distance": 8.549148159783304
+    }
+  },
+  "evidence": [
+    "build/task-0055-body-fit-bake/sword_path_common_male_v2/source.png",
+    "build/task-0055-body-fit-bake/sword_path_common_male_v2/avatar_base.png",
+    "build/task-0055-body-fit-bake/sword_path_common_male_v2/baked_overlay.png",
+    "build/task-0055-body-fit-bake/sword_path_common_male_v2/combined.png",
+    "build/task-0055-body-fit-bake/sword_path_common_male_v2/overlay_50_50.png",
+    "build/task-0055-body-fit-bake/sword_path_common_male_v2/alignment_guides.png",
+    "build/task-0055-body-fit-bake/sword_path_common_male_v2/before.png"
+  ]
+}

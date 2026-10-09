@@ -1,0 +1,80 @@
+[
+  {
+    "name": "guild_hall.webp",
+    "path": "apps/web/public/assets/world/guild/guild_hall.webp",
+    "bytes": 566510,
+    "width": 1920,
+    "height": 1080,
+    "format": "webp",
+    "hasAlpha": false,
+    "isOpaque": true,
+    "sha256": "b467a75dc1cfbcdefe9b81b0b2f729ab62d1535bf9cd8967a34d154481ff2b9d",
+    "decoded": true,
+    "status": "PASS"
+  },
+  {
+    "name": "guild_hall_mobile.webp",
+    "path": "apps/web/public/assets/world/guild/guild_hall_mobile.webp",
+    "bytes": 458092,
+    "width": 960,
+    "height": 1280,
+    "format": "webp",
+    "hasAlpha": false,
+    "isOpaque": true,
+    "sha256": "b9542d6a5025f3a10f9e81c5717aee808438a80557bc34856cb63b8967e086af",
+    "decoded": true,
+    "status": "PASS"
+  },
+  {
+    "name": "guild_banner_neutral.png",
+    "path": "apps/web/public/assets/world/guild/guild_banner_neutral.png",
+    "bytes": 359534,
+    "width": 512,
+    "height": 768,
+    "format": "png",
+    "hasAlpha": true,
+    "isOpaque": false,
+    "sha256": "6ae520dfbff59f665bd594fc140561d042e58da4f035023fc7a313825c8c3c54",
+    "decoded": true,
+    "status": "PASS"
+  },
+  {
+    "name": "guild_mission_parchment.png",
+    "path": "apps/web/public/assets/world/guild/guild_mission_parchment.png",
+    "bytes": 1290720,
+    "width": 768,
+    "height": 1024,
+    "format": "png",
+    "hasAlpha": true,
+    "isOpaque": false,
+    "sha256": "88a57d9cc19b0df3e8de04ccd76217de5aa051fafb7ebe60aaa86ab0d47f4a15",
+    "decoded": true,
+    "status": "PASS"
+  },
+  {
+    "name": "guild_leader_table.webp",
+    "path": "apps/web/public/assets/world/guild/guild_leader_table.webp",
+    "bytes": 338332,
+    "width": 1600,
+    "height": 600,
+    "format": "webp",
+    "hasAlpha": false,
+    "isOpaque": true,
+    "sha256": "212c13d32b03b5411381d7978cea3686701a9d7c8ab4baa85b1a2b8cb192fcb0",
+    "decoded": true,
+    "status": "PASS"
+  },
+  {
+    "name": "guild_reward_chest.png",
+    "path": "apps/web/public/assets/world/guild/guild_reward_chest.png",
+    "bytes": 412383,
+    "width": 512,
+    "height": 512,
+    "format": "png",
+    "hasAlpha": true,
+    "isOpaque": false,
+    "sha256": "bb426e6859540734f689f92b6eb66c96e0bc6ade419a5d94e322ea159e93e897",
+    "decoded": true,
+    "status": "PASS"
+  }
+]

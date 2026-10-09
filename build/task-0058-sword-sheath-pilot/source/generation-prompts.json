@@ -1,0 +1,14 @@
+{
+  "task": "TASK-0058",
+  "tool": "built-in image_gen",
+  "authorizedTargets": [
+    "sword_path_common_female_v2"
+  ],
+  "iterations": [
+    {
+      "version": 1,
+      "source": "sheath-generated-v1.png",
+      "result": "Usable sheath body; source re-centered by generator; suspension top anchors outside actual belt after uniform bake. NEEDS_REWORK."
+    }
+  ]
+}

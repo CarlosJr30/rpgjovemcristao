@@ -1,0 +1,21 @@
+{
+  "id": "armor_traveler_rare_male_v2",
+  "status": "PASS",
+  "technical": "TECHNICALLY_VALIDATED",
+  "mapping": "MAPPED",
+  "fitStatus": "FIT_PASS",
+  "sha256": "cc96ad925b3c298a0e85f2cfeda2f1171130d83f6bd7c71080e1b43c87e7f0dd",
+  "clippedAlpha128SourcePixels": 0,
+  "alpha128Bounds": {
+    "left": 277,
+    "top": 242,
+    "right": 750,
+    "bottom": 911,
+    "count": 202130
+  },
+  "footBaselineDelta": null,
+  "maxLandmarkResidual": 32.86711991426206,
+  "humanBodyFitApproved": false,
+  "ready": false,
+  "runtimeActivated": false
+}

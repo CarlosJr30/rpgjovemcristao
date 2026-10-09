@@ -8,6 +8,41 @@
       "when": 1790398576912,
       "tag": "0000_initial_supabase_gameplay",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1790668800000,
+      "tag": "0001_guild_supabase_v1",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1790669400000,
+      "tag": "0002_traveler_chests",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1790755200000,
+      "tag": "0003_guild_mission_chest_rewards",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1790812800000,
+      "tag": "0004_guild_leader_panel",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1790816400000,
+      "tag": "0005_guild_lessons_and_schedule",
+      "breakpoints": true
     }
   ]
 }

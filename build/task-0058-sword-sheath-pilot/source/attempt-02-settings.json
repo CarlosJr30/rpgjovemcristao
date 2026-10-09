@@ -1,0 +1,13 @@
+{
+  "attempt": "attempt-02",
+  "sheathSource": "build/task-0058-sword-sheath-pilot/source/sheath-generated-v2.png",
+  "throatSource": [406, 450],
+  "tipSource": [878, 1428],
+  "anchorsSource": [[160, 102], [237, 153]],
+  "throatDestination": [697, 745],
+  "guard": [686, 690],
+  "scale": 0.46,
+  "rotation": 10,
+  "swordRotation": 17.93075306356095,
+  "hiltLimit": 55
+}

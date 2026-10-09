@@ -1,0 +1,79 @@
+{
+  "task": "TASK-0059",
+  "id": "boots_traveler_common_female_v2",
+  "gender": "female",
+  "slot": "boots",
+  "attempt": "a-per-foot-uniform",
+  "status": "NEEDS_REWORK",
+  "selected": false,
+  "source": {
+    "path": "assets-source/body-fit-v2-targets/boots_traveler_common_female_v2.png",
+    "sha256": "dfc523cddaf71075163b30f3d92f80b7c6d723d013ada40d18b70de1dbd52277"
+  },
+  "avatar": {
+    "path": "apps/web/public/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+    "sha256": "f260cb9b053b35c328025f1bc7ee602cbb30e57c71ba1f2238a4b1519685f460",
+    "immutable": true
+  },
+  "output": {
+    "path": "build/task-0059-equipment-recovery/recovery/boots_traveler_common_female_v2/a-per-foot-uniform/boots_traveler_common_female_v2_baked.png",
+    "format": "png",
+    "width": 1024,
+    "height": 1536,
+    "channels": 4,
+    "hasAlpha": true,
+    "integrity": {
+      "status": "CRC_PASS",
+      "chunks": 40
+    },
+    "alpha128Bounds": {
+      "left": 206,
+      "top": 1117,
+      "right": 829,
+      "bottom": 1498,
+      "count": 83534
+    },
+    "alphaPositiveBoundsDiagnostic": {
+      "left": 205,
+      "top": 1022,
+      "right": 831,
+      "bottom": 1522,
+      "count": 87073
+    },
+    "transparentPixels": 1485791,
+    "sha256": "81608ac55e9f5594f8a46a754af7ece36130f56c5492ccc48a85de693ff3b51f",
+    "decode": "PASS"
+  },
+  "compositionPath": "build/task-0059-equipment-recovery/recovery/boots_traveler_common_female_v2/a-per-foot-uniform/combined.png",
+  "settings": {
+    "method": "Independent uniform similarity per foot, original baseline1495, no original shoe removal",
+    "transforms": {
+      "left": {
+        "scale": 0.4,
+        "rotation": 0,
+        "translateX": 198.8,
+        "translateY": 975.4
+      },
+      "right": {
+        "scale": 0.4,
+        "rotation": 0,
+        "translateX": 428,
+        "translateY": 975.4
+      }
+    },
+    "splitX": 512,
+    "base": null,
+    "mask": null
+  },
+  "reportPath": "build/task-0059-equipment-recovery/recovery/boots_traveler_common_female_v2/a-per-foot-uniform/fit-report.json",
+  "ready": false,
+  "humanBodyFitApproved": false,
+  "runtimeActivated": false,
+  "review": {
+    "reviewer": "Codex — revisão técnica local, não humana",
+    "fullBodyInspected": true,
+    "zoomInspected": true,
+    "findings": "HD possui calçado pré-composto. Registro por pé ainda duplica couro/sola; subtração localizada deixa5124pixels sem cobertura (9.97% da área removida), lacunas e resíduos no tornozelo. Não reconstruir fundo apagando anatomia.",
+    "humanApproval": false
+  }
+}

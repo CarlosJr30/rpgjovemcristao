@@ -1,0 +1,82 @@
+{
+  "task": "TASK-0056",
+  "id": "sword_path_common_female_v2",
+  "output": {
+    "path": "build/task-0056-sword-downward/sword_path_common_female_v2/sword_path_common_female_v2_downward_baked.png",
+    "format": "png",
+    "width": 1024,
+    "height": 1536,
+    "channels": 4,
+    "hasAlpha": true,
+    "integrity": {
+      "status": "CRC_PASS",
+      "chunks": 17
+    },
+    "alpha128Bounds": {
+      "left": 141,
+      "top": 719,
+      "right": 325,
+      "bottom": 1399,
+      "count": 25341
+    },
+    "alphaPositiveBoundsDiagnostic": {
+      "left": 137,
+      "top": 718,
+      "right": 332,
+      "bottom": 1401,
+      "count": 28079
+    },
+    "transparentPixels": 1544785,
+    "sha256": "8aeff496080a6c54b28e6bda1919f801d9fca7f9babea5dab07aa265ea744caf",
+    "decode": "PASS"
+  },
+  "source": {
+    "path": "assets-source/body-fit-v2-targets/sword_path_common_female_v2.png",
+    "format": "png",
+    "width": 1024,
+    "height": 1536,
+    "channels": 4,
+    "hasAlpha": true,
+    "integrity": {
+      "status": "CRC_PASS",
+      "chunks": 22
+    },
+    "alpha128Bounds": {
+      "left": 64,
+      "top": 97,
+      "right": 943,
+      "bottom": 1492,
+      "count": 143598
+    },
+    "alphaPositiveBoundsDiagnostic": {
+      "left": 59,
+      "top": 55,
+      "right": 947,
+      "bottom": 1495,
+      "count": 158270
+    },
+    "transparentPixels": 1414594,
+    "sha256": "03e3edbcf9572fae0cafc46b0a02eda045cbcdfe855dfcdf808e4aa8a5401d29",
+    "decode": "PASS"
+  },
+  "avatar": {
+    "path": "apps/web/public/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+    "sha256": "f260cb9b053b35c328025f1bc7ee602cbb30e57c71ba1f2238a4b1519685f460",
+    "id": "female_short_moss_medium",
+    "immutable": true,
+    "footBaseline": 1495
+  },
+  "transform": {
+    "scale": 0.42,
+    "rotation": 32.93075306356095,
+    "translateX": 241.2305959907419,
+    "translateY": 659.4385317538698
+  },
+  "status": "NEEDS_REWORK",
+  "metadataSha256": "2520922de23388a68f5bb84beefe49364f4a0a28d7a5bf376f1974a90ee6fc67",
+  "reportSha256": "d393f9122d9b7c49abe2f88d26808ad7e156d2acc7fb340c12ae1b68bb8231d9",
+  "runtimePath": null,
+  "humanBodyFitApproved": false,
+  "ready": false,
+  "runtimeActivated": false
+}

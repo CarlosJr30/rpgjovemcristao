@@ -1,5 +1,88 @@
 export type BattleAttributes = Readonly<{ life: number; strength: number; defense: number; wisdom: number }>;
+export type GuildRewardTier = 'normal' | 'great' | 'epic' | 'extraordinary';
+export type ChestType = 'common' | 'uncommon' | 'rare' | 'epic' | 'extraordinary';
+export type ChestReward = Readonly<{
+  coins: number;
+  itemId: string | null;
+  itemName: string | null;
+}>;
+export type ChestDefinition = Readonly<{
+  type: ChestType;
+  name: string;
+  rarityLabel: string;
+  description: string;
+  image: string;
+  price: number | null;
+  minimumLevel: number;
+  availability: 'always' | 'level' | 'event' | 'guild';
+  possibleRewards: readonly string[];
+}>;
+
+export const chestCatalog: Readonly<Record<ChestType, ChestDefinition>> = Object.freeze({
+  common: Object.freeze({ type: 'common', name: 'Baú Comum', rarityLabel: 'Comum', description: 'Suprimentos simples para continuar a jornada.', image: '/assets/items/reward_chest.png', price: 40, minimumLevel: 1, availability: 'always', possibleRewards: ['Moedas', 'Equipamento comum'] }),
+  uncommon: Object.freeze({ type: 'uncommon', name: 'Baú Incomum', rarityLabel: 'Incomum', description: 'Uma seleção melhor de moedas e equipamentos.', image: '/assets/items/reward_chest.png', price: 90, minimumLevel: 1, availability: 'always', possibleRewards: ['Moedas', 'Equipamento incomum'] }),
+  rare: Object.freeze({ type: 'rare', name: 'Baú Raro', rarityLabel: 'Raro', description: 'Recompensas raras para Viajantes experientes.', image: '/assets/items/reward_chest.png', price: 180, minimumLevel: 3, availability: 'level', possibleRewards: ['Moedas', 'Equipamento raro'] }),
+  epic: Object.freeze({ type: 'epic', name: 'Baú Épico', rarityLabel: 'Épico', description: 'Tesouro reservado a eventos e grandes desafios.', image: '/assets/items/reward_chest.png', price: null, minimumLevel: 5, availability: 'event', possibleRewards: ['Muitas moedas', 'Equipamento raro'] }),
+  extraordinary: Object.freeze({ type: 'extraordinary', name: 'Baú Extraordinário', rarityLabel: 'Extraordinário', description: 'A recompensa mais especial da Célula.', image: '/assets/items/reward_chest.png', price: null, minimumLevel: 10, availability: 'guild', possibleRewards: ['Grande quantidade de moedas', 'Equipamento especial'] }),
+});
+
+const chestLootTables: Readonly<Record<ChestType, readonly Readonly<{ weight: number; reward: ChestReward }>[]>> = Object.freeze({
+  common: Object.freeze([
+    Object.freeze({ weight: 80, reward: Object.freeze({ coins: 25, itemId: null, itemName: null }) }),
+    Object.freeze({ weight: 20, reward: Object.freeze({ coins: 10, itemId: 'traveler-sword-common', itemName: 'Espada do Caminho' }) }),
+  ]),
+  uncommon: Object.freeze([
+    Object.freeze({ weight: 70, reward: Object.freeze({ coins: 55, itemId: null, itemName: null }) }),
+    Object.freeze({ weight: 30, reward: Object.freeze({ coins: 20, itemId: 'traveler-armor-uncommon', itemName: 'Couraça do Viajante' }) }),
+  ]),
+  rare: Object.freeze([
+    Object.freeze({ weight: 65, reward: Object.freeze({ coins: 105, itemId: null, itemName: null }) }),
+    Object.freeze({ weight: 35, reward: Object.freeze({ coins: 35, itemId: 'traveler-shield-rare', itemName: 'Escudo da Perseverança' }) }),
+  ]),
+  epic: Object.freeze([
+    Object.freeze({ weight: 55, reward: Object.freeze({ coins: 190, itemId: null, itemName: null }) }),
+    Object.freeze({ weight: 45, reward: Object.freeze({ coins: 70, itemId: 'traveler-helmet-rare', itemName: 'Elmo do Viajante' }) }),
+  ]),
+  extraordinary: Object.freeze([
+    Object.freeze({ weight: 50, reward: Object.freeze({ coins: 360, itemId: null, itemName: null }) }),
+    Object.freeze({ weight: 50, reward: Object.freeze({ coins: 120, itemId: 'wisdom-amulet', itemName: 'Medalhão do Caminho' }) }),
+  ]),
+});
+
+export function selectChestReward(type: ChestType, roll: number): ChestReward {
+  if (!Number.isFinite(roll) || roll < 0 || roll >= 1) throw new Error('Chest roll must be between 0 and 1.');
+  const table = chestLootTables[type];
+  const target = roll * table.reduce((sum, entry) => sum + entry.weight, 0);
+  let cursor = 0;
+  for (const entry of table) {
+    cursor += entry.weight;
+    if (target < cursor) return entry.reward;
+  }
+  return table[table.length - 1].reward;
+}
+
+export type GuildMissionRewardDefinition = Readonly<{
+  xp: number;
+  coins: number;
+  chestType: ChestType;
+  chestQuantity: 1;
+  chestLabel: string;
+}>;
+export const guildMissionRewards: Readonly<Record<GuildRewardTier, GuildMissionRewardDefinition>> = Object.freeze({
+  normal: Object.freeze({ xp: 80, coins: 25, chestType: 'common', chestQuantity: 1, chestLabel: 'Baú Comum' }),
+  great: Object.freeze({ xp: 240, coins: 100, chestType: 'uncommon', chestQuantity: 1, chestLabel: 'Baú Incomum' }),
+  epic: Object.freeze({ xp: 480, coins: 220, chestType: 'rare', chestQuantity: 1, chestLabel: 'Baú Raro' }),
+  extraordinary: Object.freeze({ xp: 720, coins: 360, chestType: 'epic', chestQuantity: 1, chestLabel: 'Baú Épico' }),
+});
+export const guildTierChest: Readonly<Record<GuildRewardTier, ChestType>> = Object.freeze({
+  normal: guildMissionRewards.normal.chestType,
+  great: guildMissionRewards.great.chestType,
+  epic: guildMissionRewards.epic.chestType,
+  extraordinary: guildMissionRewards.extraordinary.chestType,
+});
 export type BattleAction = 'attack' | 'defend' | 'focus' | 'equipment';
+export type ArenaSpecialId = 'path-strike' | 'steadfast-guard' | 'discernment' | 'pilgrim-step';
+export type ArenaProfile = 'agile' | 'offensive' | 'guardian' | 'tactical';
 export type BattleStatus = 'pending' | 'ready' | 'in_progress' | 'finished' | 'cancelled';
 export type BattleEffectTrigger = 'onBattleStart' | 'onRoundStart' | 'onAttack' | 'onDefend' | 'onDamageTaken' | 'onLowHealth' | 'onFocus' | 'onVictory';
 export type BattleEffectId = 'path-sword' | 'steadfast-shield' | 'pilgrim-boots' | 'prudence-amulet' | 'traveler-helmet' | 'traveler-armor';
@@ -7,18 +90,24 @@ export type BattleEquipmentSnapshot = Readonly<{ id: string; name: string; power
 export type BattleParticipantSnapshot = Readonly<{
   id: string; name: string; level: number; attributes: BattleAttributes;
   equipment: readonly BattleEquipmentSnapshot[]; combatPower: number; avatarKey?: string;
+  arenaProfile?: ArenaProfile;
+  specialLoadout?: readonly ArenaSpecialId[];
+  specialModifiers?: Readonly<Partial<Record<ArenaSpecialId, Readonly<{ focusDiscount?: number; powerMultiplier?: number }>>>>;
 }>;
 export type BattleChallengeContract = Readonly<{
   id: string; challengerId: string; challengedId: string; status: BattleStatus; seed: number;
   challengerSnapshot: BattleParticipantSnapshot; challengedSnapshot: BattleParticipantSnapshot; createdAt: string;
 }>;
 export type EquipmentEffectType = 'ACTIVE' | 'PASSIVE' | 'TRIGGERED';
-export type BattleLogEntry = Readonly<{ round: number; actorId: string; kind: 'action' | 'damage' | 'effect' | 'result'; message: string; amount?: number; effectType?: EquipmentEffectType }>;
+export type BattlePresentationState = Readonly<{ focusPoints: number; guard: 'basic' | 'fortified' | null; tacticalMultiplier: number; mobilityReady: boolean }>;
+export type BattleLogEntry = Readonly<{ round: number; actorId: string; kind: 'action' | 'damage' | 'effect' | 'result'; message: string; amount?: number; effectType?: EquipmentEffectType; targetId?: string; specialId?: ArenaSpecialId; presentation?: 'attack' | 'defend' | 'focus' | 'dodge' | 'effect'; defended?: boolean; focusAfter?: number; focusDelta?: number; fighterState?: BattlePresentationState; targetState?: BattlePresentationState }>;
 export type BattleFighterState = Readonly<{
   snapshot: BattleParticipantSnapshot; hp: number; maxHp: number; focusMultiplier: number;
   defendedLastRound: boolean; usedEffects: readonly BattleEffectId[];
   cooldowns: Readonly<Partial<Record<BattleEffectId, number>>>;
   damageDealt: number; damageTaken: number; abilitiesUsed: number;
+  focusPoints?: number; guard?: 'basic' | 'fortified' | null;
+  tacticalMultiplier?: number; mobilityReady?: boolean; lastSpecial?: ArenaSpecialId | null;
 }>;
 export type BattleState = Readonly<{
   id: string; seed: number; status: Extract<BattleStatus, 'in_progress' | 'finished'>; round: number;
@@ -85,7 +174,7 @@ export function calculateDamage(attacker: BattleParticipantSnapshot, defender: B
   if (modifiers.defending && modifiers.armored) damage = Math.max(battleBalanceConfig.minimumDamage, Math.ceil(damage * battleBalanceConfig.armorDefendDamageMultiplier));
   return damage;
 }
-function seededUnit(seed: number, round: number, salt: string): number {
+export function seededUnit(seed: number, round: number, salt: string): number {
   let value = (seed ^ (round * 2654435761)) >>> 0;
   for (let i = 0; i < salt.length; i += 1) value = Math.imul(value ^ salt.charCodeAt(i), 2246822519) >>> 0;
   value ^= value >>> 13;
@@ -184,3 +273,4 @@ export function calculateTrainingReward(won: boolean, rewardedBattlesToday: numb
   return { xp: battleBalanceConfig.trainingRewardXp, coins: battleBalanceConfig.trainingRewardCoins, rewarded: true, reason: 'victory' };
 }
 export function getEngineStatus(): { readonly gameplayAvailable: true } { return { gameplayAvailable: true }; }
+export * from './arena-combat-v2';

@@ -1,0 +1,146 @@
+{
+  "assets": [
+    {
+      "task": "TASK-0059",
+      "id": "helmet_traveler_rare_female_v2",
+      "gender": "female",
+      "slot": "helmet",
+      "attempt": "a-crown-in-canvas",
+      "status": "NEEDS_REWORK",
+      "selected": false,
+      "source": {
+        "path": "assets-source/body-fit-v2-targets/helmet_traveler_rare_female_v2.png",
+        "sha256": "49a8a293aafae600a9e5bb4feddbf17b0a68572b6c8876aaab3ea22d4804d037"
+      },
+      "avatar": {
+        "path": "apps/web/public/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+        "sha256": "f260cb9b053b35c328025f1bc7ee602cbb30e57c71ba1f2238a4b1519685f460",
+        "immutable": true
+      },
+      "output": {
+        "path": "build/task-0059-equipment-recovery/recovery/helmet_traveler_rare_female_v2/a-crown-in-canvas/helmet_traveler_rare_female_v2_baked.png",
+        "format": "png",
+        "width": 1024,
+        "height": 1536,
+        "channels": 4,
+        "hasAlpha": true,
+        "integrity": {
+          "status": "CRC_PASS",
+          "chunks": 27
+        },
+        "alpha128Bounds": {
+          "left": 378,
+          "top": 19,
+          "right": 661,
+          "bottom": 408,
+          "count": 52548
+        },
+        "alphaPositiveBoundsDiagnostic": {
+          "left": 377,
+          "top": 18,
+          "right": 662,
+          "bottom": 410,
+          "count": 54567
+        },
+        "transparentPixels": 1518297,
+        "sha256": "0896335cd7e310538f09f8aa09669146de8ca1334ba102a1932ed34dc78ae9f4",
+        "decode": "PASS"
+      },
+      "compositionPath": "build/task-0059-equipment-recovery/recovery/helmet_traveler_rare_female_v2/a-crown-in-canvas/combined.png",
+      "settings": {
+        "method": "Uniform smaller helmet with crown safely in canvas; no Avatar/hair edit",
+        "transform": {
+          "scale": 0.28,
+          "rotation": 0,
+          "translateX": 376.64,
+          "translateY": 5
+        },
+        "crownMargin": 5,
+        "base": null,
+        "mask": null
+      },
+      "reportPath": "build/task-0059-equipment-recovery/recovery/helmet_traveler_rare_female_v2/a-crown-in-canvas/fit-report.json",
+      "ready": false,
+      "humanBodyFitApproved": false,
+      "runtimeActivated": false,
+      "review": {
+        "reviewer": "Codex — revisão técnica local, não humana",
+        "fullBodyInspected": true,
+        "zoomInspected": true,
+        "findings": "Coroa agora dentro do canvas, porém cabelo excede o casco e janela facial permanece incompatível com olhos/testa. Escala uniforme não resolve simultaneamente largura, hairline e abertura; nenhuma edição do cabelo/HD.",
+        "humanApproval": false
+      }
+    },
+    {
+      "task": "TASK-0059",
+      "id": "helmet_traveler_rare_male_v2",
+      "gender": "male",
+      "slot": "helmet",
+      "attempt": "a-crown-in-canvas",
+      "status": "NEEDS_REWORK",
+      "selected": false,
+      "source": {
+        "path": "assets-source/body-fit-v2-targets/helmet_traveler_rare_male_v2.png",
+        "sha256": "c5e5a15cfeaa19c3ebff002480fa5f0c1b93b914c7c5604cc3b3d51d079590da"
+      },
+      "avatar": {
+        "path": "apps/web/public/assets/avatar/hd/male/male_short_moss_medium_hd.png",
+        "sha256": "b182c2e29b512b337891716a413ab7efaad737e23c6354779fae17fe19b8af34",
+        "immutable": true
+      },
+      "output": {
+        "path": "build/task-0059-equipment-recovery/recovery/helmet_traveler_rare_male_v2/a-crown-in-canvas/helmet_traveler_rare_male_v2_baked.png",
+        "format": "png",
+        "width": 1024,
+        "height": 1536,
+        "channels": 4,
+        "hasAlpha": true,
+        "integrity": {
+          "status": "CRC_PASS",
+          "chunks": 29
+        },
+        "alpha128Bounds": {
+          "left": 367,
+          "top": 8,
+          "right": 652,
+          "bottom": 407,
+          "count": 57087
+        },
+        "alphaPositiveBoundsDiagnostic": {
+          "left": 367,
+          "top": 7,
+          "right": 652,
+          "bottom": 414,
+          "count": 59517
+        },
+        "transparentPixels": 1513347,
+        "sha256": "a5ed12e9de23a9ff8b1ea54eba0b9590e82015c947e591274434df8c827049dd",
+        "decode": "PASS"
+      },
+      "compositionPath": "build/task-0059-equipment-recovery/recovery/helmet_traveler_rare_male_v2/a-crown-in-canvas/combined.png",
+      "settings": {
+        "method": "Uniform smaller helmet with crown safely in canvas; no Avatar/hair edit",
+        "transform": {
+          "scale": 0.28,
+          "rotation": 0,
+          "translateX": 366.64,
+          "translateY": 5
+        },
+        "crownMargin": 5,
+        "base": null,
+        "mask": null
+      },
+      "reportPath": "build/task-0059-equipment-recovery/recovery/helmet_traveler_rare_male_v2/a-crown-in-canvas/fit-report.json",
+      "ready": false,
+      "humanBodyFitApproved": false,
+      "runtimeActivated": false,
+      "review": {
+        "reviewer": "Codex — revisão técnica local, não humana",
+        "fullBodyInspected": true,
+        "zoomInspected": true,
+        "findings": "Coroa agora dentro do canvas, porém cabelo excede o casco e janela facial permanece incompatível com olhos/testa. Escala uniforme não resolve simultaneamente largura, hairline e abertura; nenhuma edição do cabelo/HD.",
+        "humanApproval": false
+      }
+    }
+  ]
+}

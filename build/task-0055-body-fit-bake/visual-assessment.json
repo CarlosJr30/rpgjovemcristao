@@ -1,0 +1,291 @@
+{
+  "task": "TASK-0055",
+  "at": "2026-10-08T20:27:47.229Z",
+  "assessedBy": "Codex / author visual QA; not human approval",
+  "method": "Individual native source/reference grids and full combined1024x1536 viewed, contact sheets, medal armor overlaps; exact hashes bound",
+  "assets": [
+    {
+      "id": "armor_traveler_uncommon_male_v2",
+      "sha256": "8ece1c5d4daad2b4b7b0a6d673eb3ad6e2d16a9bcc888082ee33a2bd71c928c2",
+      "status": "FIT_PASS",
+      "observations": [
+        "Peitoral, ombros e cinto acompanham a anatomia masculina; braços e mãos permanecem livres.",
+        "Base mantém pequenos trechos da roupa/pochete original nas laterais; composição de camadas, sem alteração da base.",
+        "Landmarks aproximados têm resíduos locais, registrados na metadata; não é encaixe pixel-perfect nem validação das demais variantes."
+      ],
+      "regions": {
+        "neck_face": "PASS",
+        "shoulders": "PASS",
+        "chest": "PASS",
+        "armpits": "PASS",
+        "waist": "PASS",
+        "hips": "PASS",
+        "free_hands_forearms": "PASS",
+        "proportion": "PASS"
+      },
+      "reworkRecommendation": "Sem regeneração obrigatória no candidato técnico; Carlos deve revisar este hash no avatar indicado antes de qualquer READY."
+    },
+    {
+      "id": "armor_traveler_rare_female_v2",
+      "sha256": "58be3d1d95eeab11ac0a38d67f06ad88383d018e3720502d31dada7a9f2fc833",
+      "status": "FIT_PASS",
+      "observations": [
+        "Peitoral feminino acompanha o tronco; cintura e saia têm leitura de armadura vestida.",
+        "Base mantém pequenos trechos da roupa/pochete original nas laterais; composição de camadas, sem alteração da base.",
+        "Landmarks aproximados têm resíduos locais, registrados na metadata; não é encaixe pixel-perfect nem validação das demais variantes."
+      ],
+      "regions": {
+        "neck_face": "PASS",
+        "shoulders": "PASS",
+        "chest": "PASS",
+        "armpits": "PASS",
+        "waist": "PASS",
+        "hips": "PASS",
+        "free_hands_forearms": "PASS",
+        "proportion": "PASS"
+      },
+      "reworkRecommendation": "Sem regeneração obrigatória no candidato técnico; Carlos deve revisar este hash no avatar indicado antes de qualquer READY."
+    },
+    {
+      "id": "armor_traveler_rare_male_v2",
+      "sha256": "cc96ad925b3c298a0e85f2cfeda2f1171130d83f6bd7c71080e1b43c87e7f0dd",
+      "status": "FIT_PASS",
+      "observations": [
+        "Peitoral, ombros e cinto acompanham a anatomia masculina; braços e mãos permanecem livres.",
+        "Base mantém pequenos trechos da roupa/pochete original nas laterais; composição de camadas, sem alteração da base.",
+        "Landmarks aproximados têm resíduos locais, registrados na metadata; não é encaixe pixel-perfect nem validação das demais variantes."
+      ],
+      "regions": {
+        "neck_face": "PASS",
+        "shoulders": "PASS",
+        "chest": "PASS",
+        "armpits": "PASS",
+        "waist": "PASS",
+        "hips": "PASS",
+        "free_hands_forearms": "PASS",
+        "proportion": "PASS"
+      },
+      "reworkRecommendation": "Sem regeneração obrigatória no candidato técnico; Carlos deve revisar este hash no avatar indicado antes de qualquer READY."
+    },
+    {
+      "id": "helmet_traveler_rare_female_v2",
+      "sha256": "8ab265af7625024d18b9bce371aea993eaa378c4d641127930228882813144ef",
+      "status": "NEEDS_REWORK",
+      "observations": [
+        "A ponta da coroa sai do limite superior 0 do canvas e foi cortada pelo bake full-canvas.",
+        "A abertura enquadra o rosto, mas as bordas frontais encostam na linha das sobrancelhas/olhos; cabelos da base continuam aparecendo lateralmente.",
+        "Descer o elmo para recuperar a coroa agrava o contato com olhos; escala uniforme não resolve simultaneamente altura, têmporas e abertura."
+      ],
+      "regions": {
+        "crown": "FAIL_CANVAS_CLIPPING",
+        "hairline": "NEEDS_REVIEW",
+        "temples": "NEEDS_REWORK",
+        "eyes_face": "NEEDS_REWORK",
+        "proportion": "NEEDS_REWORK"
+      },
+      "reworkRecommendation": "Regenerar elmo sobre a referência HD female_short_moss_medium em canvas1024x1536, com coroa totalmente dentro do topo e abertura facial mais alta/larga; manter metal acima das sobrancelhas e olhos/nariz/boca livres. Encurtar altura da coroa e redesenhar abertura, sem deformar o avatar."
+    },
+    {
+      "id": "helmet_traveler_rare_male_v2",
+      "sha256": "8fbbdf7afc106525713572b897edef3a3782eeb860eb40bab7606199c75c184e",
+      "status": "NEEDS_REWORK",
+      "observations": [
+        "A ponta da coroa sai do limite superior 0 do canvas e foi cortada pelo bake full-canvas.",
+        "A abertura enquadra o rosto, mas as bordas frontais encostam na linha das sobrancelhas/olhos; cabelos da base continuam aparecendo lateralmente.",
+        "Descer o elmo para recuperar a coroa agrava o contato com olhos; escala uniforme não resolve simultaneamente altura, têmporas e abertura."
+      ],
+      "regions": {
+        "crown": "FAIL_CANVAS_CLIPPING",
+        "hairline": "NEEDS_REVIEW",
+        "temples": "NEEDS_REWORK",
+        "eyes_face": "NEEDS_REWORK",
+        "proportion": "NEEDS_REWORK"
+      },
+      "reworkRecommendation": "Regenerar elmo sobre a referência HD male_short_moss_medium em canvas1024x1536, com coroa totalmente dentro do topo e abertura facial mais alta/larga; manter metal acima das sobrancelhas e olhos/nariz/boca livres. Encurtar altura da coroa e redesenhar abertura, sem deformar o avatar."
+    },
+    {
+      "id": "boots_traveler_common_female_v2",
+      "sha256": "ae56dd6d0b8e3d3dbbc126f7863736281cf2271734d434122733f1b14fc91dd6",
+      "status": "NEEDS_REWORK",
+      "observations": [
+        "O transform comum ao par aproxima a baseline, mas os pés não coincidem com a abertura da pose HD.",
+        "Botas originais continuam aparecendo externamente como pés/calcanhares duplicados; novos canos sobem excessivamente para o joelho.",
+        "Separação horizontal do par e altura vertical exigem escalas diferentes; splitting/non-uniform scale não autorizados."
+      ],
+      "regions": {
+        "ankles": "FAIL",
+        "feet": "FAIL_DOUBLE_FOOT",
+        "baseline": "FAIL",
+        "occlusion": "FAIL_ORIGINAL_BOOTS_VISIBLE",
+        "proportion": "FAIL_PAIR_SPACING_HEIGHT"
+      },
+      "reworkRecommendation": "Regenerar o par vestido diretamente sobre female_short_moss_medium usando os landmarks de tornozelo/pé/baseline registrados. Exportar somente as botas em full-canvas; cobrir os dois pés originais com as mesmas direções e distância. Não entregar par de inventário; não dividir/reescala cada pé para forçar fit."
+    },
+    {
+      "id": "boots_traveler_common_male_v2",
+      "sha256": "e0f392c934da8376e9ee4d5b54e31be1de1f2ab65dc3cb102bf8fce17a7c6049",
+      "status": "NEEDS_REWORK",
+      "observations": [
+        "O transform comum ao par aproxima a baseline, mas os pés não coincidem com a abertura da pose HD.",
+        "Botas originais continuam aparecendo externamente como pés/calcanhares duplicados; novos canos sobem excessivamente para o joelho.",
+        "Separação horizontal do par e altura vertical exigem escalas diferentes; splitting/non-uniform scale não autorizados."
+      ],
+      "regions": {
+        "ankles": "FAIL",
+        "feet": "FAIL_DOUBLE_FOOT",
+        "baseline": "FAIL",
+        "occlusion": "FAIL_ORIGINAL_BOOTS_VISIBLE",
+        "proportion": "FAIL_PAIR_SPACING_HEIGHT"
+      },
+      "reworkRecommendation": "Regenerar o par vestido diretamente sobre male_short_moss_medium usando os landmarks de tornozelo/pé/baseline registrados. Exportar somente as botas em full-canvas; cobrir os dois pés originais com as mesmas direções e distância. Não entregar par de inventário; não dividir/reescala cada pé para forçar fit."
+    },
+    {
+      "id": "sword_path_common_female_v2",
+      "sha256": "2ce38d3ac68ac259cffa59e6067eefc2272486691d0eedd2a531d17ed4360d11",
+      "status": "NEEDS_REWORK",
+      "observations": [
+        "Centro do cabo foi aproximado da mão esquerda da tela; dedos continuam abertos na pose HD.",
+        "Overlay único desenha cabo sobre a mão sem a oclusão necessária dos dedos; arma parece sobreposta/solta.",
+        "Lâmina diagonal atravessa a região da perna; posição coincide com o cabo mas não estabelece pega."
+      ],
+      "regions": {
+        "hand_center": "ALIGNED_PROXY_ONLY",
+        "grip": "FAIL_OPEN_HAND",
+        "wrist": "NEEDS_REWORK",
+        "blade_angle": "PLACEMENT_ONLY",
+        "blade_extent": "IN_CANVAS",
+        "occlusion": "FAIL_HANDLE_IN_FRONT_OF_FINGERS"
+      },
+      "reworkRecommendation": "Regenerar espada na orientação e posição da mão de female_short_moss_medium, com cabo desenhado para a pose existente e oclusão transparente específica dos dedos/área da mão. Não redesenhar mãos/HD nem adicionar máscara runtime. Se a mão aberta impedir uma pega convincente sem mudar a base, manter NEEDS_REWORK e registrar a limitação, sem promoção."
+    },
+    {
+      "id": "sword_path_common_male_v2",
+      "sha256": "4b7c2c3f6b1798413b1bc7c1c8d700a09cca5e5ab0301ac027276dd0396050e8",
+      "status": "NEEDS_REWORK",
+      "observations": [
+        "Centro do cabo foi aproximado da mão esquerda da tela; dedos continuam abertos na pose HD.",
+        "Overlay único desenha cabo sobre a mão sem a oclusão necessária dos dedos; arma parece sobreposta/solta.",
+        "Lâmina diagonal sobe atravessando o tronco e termina próxima do pescoço; rotação ≤5° não reorienta a arte suficientemente."
+      ],
+      "regions": {
+        "hand_center": "ALIGNED_PROXY_ONLY",
+        "grip": "FAIL_OPEN_HAND",
+        "wrist": "NEEDS_REWORK",
+        "blade_angle": "FAIL_TORSO_CROSSING",
+        "blade_extent": "IN_CANVAS",
+        "occlusion": "FAIL_HANDLE_IN_FRONT_OF_FINGERS"
+      },
+      "reworkRecommendation": "Regenerar espada na orientação e posição da mão de male_short_moss_medium, com cabo desenhado para a pose existente e oclusão transparente específica dos dedos/área da mão. Não redesenhar mãos/HD nem adicionar máscara runtime. Se a mão aberta impedir uma pega convincente sem mudar a base, manter NEEDS_REWORK e registrar a limitação, sem promoção."
+    },
+    {
+      "id": "sword_path_rare_female_v2",
+      "sha256": "b15f0d965098256c51557c3c00418b1bfe5bfb29260475c912f176ddad736965",
+      "status": "NEEDS_REWORK",
+      "observations": [
+        "Centro do cabo foi aproximado da mão esquerda da tela; dedos continuam abertos na pose HD.",
+        "Overlay único desenha cabo sobre a mão sem a oclusão necessária dos dedos; arma parece sobreposta/solta.",
+        "Lâmina vertical fica em espaço lateral, porém a guarda/cabo ainda não reproduzem pega natural."
+      ],
+      "regions": {
+        "hand_center": "ALIGNED_PROXY_ONLY",
+        "grip": "FAIL_OPEN_HAND",
+        "wrist": "NEEDS_REWORK",
+        "blade_angle": "PLACEMENT_ONLY",
+        "blade_extent": "IN_CANVAS",
+        "occlusion": "FAIL_HANDLE_IN_FRONT_OF_FINGERS"
+      },
+      "reworkRecommendation": "Regenerar espada na orientação e posição da mão de female_short_moss_medium, com cabo desenhado para a pose existente e oclusão transparente específica dos dedos/área da mão. Não redesenhar mãos/HD nem adicionar máscara runtime. Se a mão aberta impedir uma pega convincente sem mudar a base, manter NEEDS_REWORK e registrar a limitação, sem promoção."
+    },
+    {
+      "id": "sword_path_rare_male_v2",
+      "sha256": "283f40926d2c012ed8517c8c8187b2f49a7a7f71b78939b1efe9b27851ffd09f",
+      "status": "NEEDS_REWORK",
+      "observations": [
+        "Centro do cabo foi aproximado da mão esquerda da tela; dedos continuam abertos na pose HD.",
+        "Overlay único desenha cabo sobre a mão sem a oclusão necessária dos dedos; arma parece sobreposta/solta.",
+        "Lâmina vertical fica em espaço lateral, porém a guarda/cabo ainda não reproduzem pega natural."
+      ],
+      "regions": {
+        "hand_center": "ALIGNED_PROXY_ONLY",
+        "grip": "FAIL_OPEN_HAND",
+        "wrist": "NEEDS_REWORK",
+        "blade_angle": "PLACEMENT_ONLY",
+        "blade_extent": "IN_CANVAS",
+        "occlusion": "FAIL_HANDLE_IN_FRONT_OF_FINGERS"
+      },
+      "reworkRecommendation": "Regenerar espada na orientação e posição da mão de male_short_moss_medium, com cabo desenhado para a pose existente e oclusão transparente específica dos dedos/área da mão. Não redesenhar mãos/HD nem adicionar máscara runtime. Se a mão aberta impedir uma pega convincente sem mudar a base, manter NEEDS_REWORK e registrar a limitação, sem promoção."
+    },
+    {
+      "id": "shield_perseverance_rare_female_v2",
+      "sha256": "1d0392230985f18b22ff043083af121fb9f276d526a3e8ecf4b9c93135dabe02",
+      "status": "FIT_PASS",
+      "observations": [
+        "Escudo ocupa região do antebraço direito da tela, oclui mão/bracelete frontalmente e mantém rosto livre.",
+        "Contorno lateral e ponta inferior ficam dentro do canvas, com proporção coerente com o avatar.",
+        "Montagem/pega traseira não está visível na source: alinhamento do antebraço é proxy visual; Carlos precisa confirmar leitura de escudo portado."
+      ],
+      "regions": {
+        "hand_forearm": "PASS_FRONT_OCCLUSION_PROXY",
+        "torso_clearance": "PASS",
+        "face_clearance": "PASS",
+        "lateral_extent": "PASS",
+        "proportion": "PASS"
+      },
+      "reworkRecommendation": "Sem regeneração obrigatória no candidato técnico; revisão humana deve confirmar porte/oclusão no hash e avatar indicados, sem presumir tira traseira ou compatibilidade geral."
+    },
+    {
+      "id": "shield_perseverance_rare_male_v2",
+      "sha256": "bf0785671741851d4e64402984309cfc30ff80313da98cf453b3e3a57b40e2a6",
+      "status": "FIT_PASS",
+      "observations": [
+        "Escudo ocupa região do antebraço direito da tela, oclui mão/bracelete frontalmente e mantém rosto livre.",
+        "Contorno lateral e ponta inferior ficam dentro do canvas, com proporção coerente com o avatar.",
+        "Montagem/pega traseira não está visível na source: alinhamento do antebraço é proxy visual; Carlos precisa confirmar leitura de escudo portado."
+      ],
+      "regions": {
+        "hand_forearm": "PASS_FRONT_OCCLUSION_PROXY",
+        "torso_clearance": "PASS",
+        "face_clearance": "PASS",
+        "lateral_extent": "PASS",
+        "proportion": "PASS"
+      },
+      "reworkRecommendation": "Sem regeneração obrigatória no candidato técnico; revisão humana deve confirmar porte/oclusão no hash e avatar indicados, sem presumir tira traseira ou compatibilidade geral."
+    },
+    {
+      "id": "medallion_path_rare_female_v2",
+      "sha256": "74b84cdd74af6fb1d3df91c6fbf6f32e6cd05b08a5cd940d7ffb8bdf9f594f77",
+      "status": "NEEDS_REWORK",
+      "observations": [
+        "Pingente fica centralizado no peito, acima da cintura, e a sobreposição com armadura foi composta como diagnóstico.",
+        "Source tem as duas extremidades da corrente cortadas na borda superior; o bake deixa terminações abruptas visíveis sobre o cachecol/pescoço.",
+        "Sem corrente fechada/continuação ou desenho de oclusão no PNG, não é possível certificar aparência de colar vestido."
+      ],
+      "regions": {
+        "chest_center": "PASS",
+        "pendant_bottom": "PASS",
+        "armor_overlap": "PASS_PLACEMENT_ONLY",
+        "neck_attachment": "FAIL_CLIPPED_CHAIN",
+        "occlusion": "FAIL_CHAIN_ENDS"
+      },
+      "reworkRecommendation": "Regenerar corrente completa no pescoço de female_short_moss_medium com terminação/oclusão desenhada para o cachecol ou colar da referência, sem segmentos abruptamente cortados. Preservar escala e posição do pingente registradas como boa aproximação; testar novamente base e armor overlap. Não esconder falha com máscara ou alteração da base/runtime."
+    },
+    {
+      "id": "medallion_path_rare_male_v2",
+      "sha256": "c51e2652cd4d8b69f583beb59a8efd2d8c159d2e15506b090c2cf281fb1e0996",
+      "status": "NEEDS_REWORK",
+      "observations": [
+        "Pingente fica centralizado no peito, acima da cintura, e a sobreposição com armadura foi composta como diagnóstico.",
+        "Source tem as duas extremidades da corrente cortadas na borda superior; o bake deixa terminações abruptas visíveis sobre o cachecol/pescoço.",
+        "Sem corrente fechada/continuação ou desenho de oclusão no PNG, não é possível certificar aparência de colar vestido."
+      ],
+      "regions": {
+        "chest_center": "PASS",
+        "pendant_bottom": "PASS",
+        "armor_overlap": "PASS_PLACEMENT_ONLY",
+        "neck_attachment": "FAIL_CLIPPED_CHAIN",
+        "occlusion": "FAIL_CHAIN_ENDS"
+      },
+      "reworkRecommendation": "Regenerar corrente completa no pescoço de male_short_moss_medium com terminação/oclusão desenhada para o cachecol ou colar da referência, sem segmentos abruptamente cortados. Preservar escala e posição do pingente registradas como boa aproximação; testar novamente base e armor overlap. Não esconder falha com máscara ou alteração da base/runtime."
+    }
+  ]
+}

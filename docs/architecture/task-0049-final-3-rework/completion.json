@@ -1,0 +1,21 @@
+{
+  "at": "2026-10-07T23:33:52.336Z",
+  "status": "TECHNICALLY_COMPLETE",
+  "taskStatus": "VALIDATING",
+  "humanReview": "VISUAL_REVIEW_PENDING",
+  "selectedIds": [
+    "female_short_ochre_dark",
+    "female_short_moss_light",
+    "female_short_moss_dark"
+  ],
+  "newGenerationCount": 4,
+  "rejections": 1,
+  "counts": {
+    "HUMAN_VISUAL_APPROVED": 49,
+    "VISUAL_REVIEW_PENDING": 3,
+    "PENDING_HD": 0,
+    "BLOCKED_PATTERN": 0
+  },
+  "moreGenerationAllowed": false,
+  "technicalQueueComplete": true
+}

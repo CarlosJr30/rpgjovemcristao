@@ -1,0 +1,219 @@
+{
+  "task": "TASK-0055",
+  "id": "boots_traveler_common_female_v2",
+  "itemId": "traveler-boots",
+  "gender": "female",
+  "slot": "boots",
+  "assessedAt": "2026-10-08T20:27:47.229Z",
+  "assessedBy": "Codex / author visual QA (not Carlos Faustino)",
+  "outputSha256": "ae56dd6d0b8e3d3dbbc126f7863736281cf2271734d434122733f1b14fc91dd6",
+  "sourceSha256": "dfc523cddaf71075163b30f3d92f80b7c6d723d013ada40d18b70de1dbd52277",
+  "referenceAvatar": {
+    "id": "female_short_moss_medium",
+    "path": "apps/web/public/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+    "sha256": "f260cb9b053b35c328025f1bc7ee602cbb30e57c71ba1f2238a4b1519685f460",
+    "immutable": true,
+    "footBaseline": 1495
+  },
+  "technicalStatus": "TECHNICALLY_VALIDATED",
+  "mapping": "MAPPED",
+  "status": "NEEDS_REWORK",
+  "reviewStatus": "NEEDS_REWORK",
+  "humanBodyFitApproved": false,
+  "ready": false,
+  "runtimeActivated": false,
+  "observations": [
+    "O transform comum ao par aproxima a baseline, mas os pés não coincidem com a abertura da pose HD.",
+    "Botas originais continuam aparecendo externamente como pés/calcanhares duplicados; novos canos sobem excessivamente para o joelho.",
+    "Separação horizontal do par e altura vertical exigem escalas diferentes; splitting/non-uniform scale não autorizados."
+  ],
+  "regions": {
+    "ankles": "FAIL",
+    "feet": "FAIL_DOUBLE_FOOT",
+    "baseline": "FAIL",
+    "occlusion": "FAIL_ORIGINAL_BOOTS_VISIBLE",
+    "proportion": "FAIL_PAIR_SPACING_HEIGHT"
+  },
+  "reworkRecommendation": "Regenerar o par vestido diretamente sobre female_short_moss_medium usando os landmarks de tornozelo/pé/baseline registrados. Exportar somente as botas em full-canvas; cobrir os dois pés originais com as mesmas direções e distância. Não entregar par de inventário; não dividir/reescala cada pé para forçar fit.",
+  "limits": "Only this derivative/hash and named reference; no cross-gender or 54-avatar compatibility claimed; landmark residuals are approximate diagnostics, not sufficient to prove fit.",
+  "landmarkMethod": "Both boots remain one source; joint baseline/separation/height compromise; no splitting or independent transforms; visual native grid measurements approximately ±12px avatar, ±20px source. No hidden anatomy certified.",
+  "landmarkResiduals": {
+    "left_ankle": {
+      "source": [
+        340,
+        1040
+      ],
+      "avatar": [
+        345,
+        1300
+      ],
+      "weight": 1,
+      "kind": "anatomical garment proxy",
+      "projected": [
+        415.09375994645904,
+        1356.5698195785608
+      ],
+      "delta": [
+        70.09375994645904,
+        56.56981957856078
+      ],
+      "distance": 90.07374573416354
+    },
+    "right_ankle": {
+      "source": [
+        683,
+        1040
+      ],
+      "avatar": [
+        687,
+        1300
+      ],
+      "weight": 1,
+      "kind": "anatomical garment proxy",
+      "projected": [
+        617.6437845632697,
+        1356.5698195785608
+      ],
+      "delta": [
+        -69.35621543673028,
+        56.56981957856078
+      ],
+      "distance": 89.50100059137364
+    },
+    "left_foot": {
+      "source": [
+        244,
+        1195
+      ],
+      "avatar": [
+        290,
+        1443
+      ],
+      "weight": 1,
+      "kind": "anatomical garment proxy",
+      "projected": [
+        358.4033740478765,
+        1448.1011718106474
+      ],
+      "delta": [
+        68.40337404787653,
+        5.101171810647429
+      ],
+      "distance": 68.59331990052276
+    },
+    "right_foot": {
+      "source": [
+        791,
+        1195
+      ],
+      "avatar": [
+        742,
+        1443
+      ],
+      "weight": 1,
+      "kind": "anatomical garment proxy",
+      "projected": [
+        681.420468699175,
+        1448.1011718106474
+      ],
+      "delta": [
+        -60.57953130082501,
+        5.101171810647429
+      ],
+      "distance": 60.79392705253857
+    },
+    "left_baseline": {
+      "source": [
+        228,
+        1299
+      ],
+      "avatar": [
+        290,
+        1495
+      ],
+      "weight": 2,
+      "kind": "anatomical garment proxy",
+      "projected": [
+        348.95497639811276,
+        1509.515756534112
+      ],
+      "delta": [
+        58.95497639811276,
+        14.515756534111915
+      ],
+      "distance": 60.71570167476982
+    },
+    "right_baseline": {
+      "source": [
+        790,
+        1299
+      ],
+      "avatar": [
+        744,
+        1495
+      ],
+      "weight": 2,
+      "kind": "anatomical garment proxy",
+      "projected": [
+        680.8299438460648,
+        1509.515756534112
+      ],
+      "delta": [
+        -63.17005615393521,
+        14.515756534111915
+      ],
+      "distance": 64.81638050870274
+    },
+    "left_cuff": {
+      "source": [
+        330,
+        383
+      ],
+      "avatar": [
+        365,
+        1150
+      ],
+      "weight": 0.5,
+      "kind": "anatomical garment proxy",
+      "projected": [
+        409.18851141535674,
+        968.5949910851366
+      ],
+      "delta": [
+        44.18851141535674,
+        -181.4050089148634
+      ],
+      "distance": 186.7094046921761
+    },
+    "right_cuff": {
+      "source": [
+        693,
+        383
+      ],
+      "avatar": [
+        668,
+        1150
+      ],
+      "weight": 0.5,
+      "kind": "anatomical garment proxy",
+      "projected": [
+        623.549033094372,
+        968.5949910851366
+      ],
+      "delta": [
+        -44.45096690562798,
+        -181.4050089148634
+      ],
+      "distance": 186.77169410338095
+    }
+  },
+  "evidence": [
+    "build/task-0055-body-fit-bake/boots_traveler_common_female_v2/source.png",
+    "build/task-0055-body-fit-bake/boots_traveler_common_female_v2/avatar_base.png",
+    "build/task-0055-body-fit-bake/boots_traveler_common_female_v2/baked_overlay.png",
+    "build/task-0055-body-fit-bake/boots_traveler_common_female_v2/combined.png",
+    "build/task-0055-body-fit-bake/boots_traveler_common_female_v2/overlay_50_50.png",
+    "build/task-0055-body-fit-bake/boots_traveler_common_female_v2/alignment_guides.png",
+    "build/task-0055-body-fit-bake/boots_traveler_common_female_v2/before.png"
+  ]
+}

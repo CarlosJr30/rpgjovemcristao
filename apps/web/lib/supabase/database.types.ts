@@ -69,6 +69,67 @@ export type EquippedItemRow = {
   equipped_at: string;
 };
 
+export type GuildRow = {
+  id: string; name: string; description: string | null; created_by_user_id: string;
+  leader_traveler_id: string; status: string; created_at: string; updated_at: string;
+};
+export type GuildMemberRow = {
+  id: string; guild_id: string; traveler_id: string; role: string; status: string;
+  joined_at: string; updated_at: string;
+};
+export type GuildInviteRow = {
+  id: string; guild_id: string; invited_traveler_id: string | null; invited_by_traveler_id: string;
+  status: string; expires_at: string | null; created_at: string; updated_at: string;
+};
+export type GuildJoinRequestRow = {
+  id: string; guild_id: string; traveler_id: string; status: string;
+  reviewed_by_traveler_id: string | null; reviewed_at: string | null; created_at: string; updated_at: string;
+};
+export type GuildMissionRow = {
+  id: string; guild_id: string; created_by_traveler_id: string; title: string; description: string | null;
+  mission_type: string; bible_reference: string | null; bible_url: string | null; completion_mode: string;
+  requires_leader_approval: boolean; reward_tier: string; status: string; starts_at: string | null;
+  due_at: string | null; metadata: Json | null; published_at: string | null; closed_at: string | null;
+  created_at: string; updated_at: string;
+};
+export type GuildLessonRow = {
+  id: string; guild_id: string; created_by_traveler_id: string; related_mission_id: string | null;
+  title: string; theme: string; bible_reference: string; bible_url: string | null;
+  introduction: string; content: string; main_points: Json; discussion_questions: Json;
+  activity_text: string | null; status: string; scheduled_at: string | null;
+  published_at: string | null; completed_at: string | null; created_at: string; updated_at: string;
+};
+export type GuildMissionProgressRow = {
+  id: string; mission_id: string; traveler_id: string; status: string; started_at: string | null;
+  submitted_at: string | null; completed_at: string | null; approved_at: string | null;
+  approved_by_traveler_id: string | null; completion_note: string | null; review_note: string | null; reward_claimed_at: string | null;
+  created_at: string; updated_at: string;
+};
+export type GuildRewardClaimRow = {
+  id: string; mission_id: string; traveler_id: string; reward_tier: string;
+  xp_awarded: number; coins_awarded: number; created_at: string;
+};
+export type GuildActivityRow = {
+  id: string; guild_id: string; actor_traveler_id: string | null; event_type: string;
+  entity_type: string | null; entity_id: string | null; metadata: Json; created_at: string;
+};
+export type GuildAdminMissionStats = {
+  mission_id: string; participants: number; completed: number; pending: number; completed_recent: number;
+};
+export type TravelerChestRow = {
+  traveler_id: string; chest_type: string; quantity: number; sources: Json;
+  created_at: string; updated_at: string;
+};
+export type ChestOperationRow = {
+  id: string; traveler_id: string; operation_key: string; operation_type: string;
+  chest_type: string; source: string; price_paid: number | null; rewards: Json | null; created_at: string;
+};
+export type ChestPurchaseResult = { chestType: string; quantityAdded: number; coins: number; pricePaid: number; duplicate: boolean };
+export type ChestOpenResult = { chestType: string; coins: number; itemId: string | null; itemName: string | null; source: string; remainingQuantity: number; duplicate: boolean };
+export type GuildMemberSummary = { traveler_id: string; traveler_name: string; role: string; member_status: string; joined_at: string };
+export type GuildJoinRequestSummary = { request_id: string; traveler_id: string; traveler_name: string; request_status: string; created_at: string };
+export type GuildMissionProgressSummary = { traveler_id: string; traveler_name: string; progress_status: string; completion_note: string | null; submitted_at: string | null; completed_at: string | null };
+
 export type Database = {
   public: {
     Tables: {
@@ -117,6 +178,17 @@ export type Database = {
         Pick<EquippedItemRow, 'traveler_id' | 'slot' | 'item_id'>,
         Pick<EquippedItemRow, 'item_id'>
       >;
+      guilds: TableDefinition<GuildRow, never, never>;
+      guild_members: TableDefinition<GuildMemberRow, never, never>;
+      guild_invites: TableDefinition<GuildInviteRow, never, never>;
+      guild_join_requests: TableDefinition<GuildJoinRequestRow, never, never>;
+      guild_missions: TableDefinition<GuildMissionRow, never, never>;
+      guild_lessons: TableDefinition<GuildLessonRow, never, never>;
+      guild_mission_progress: TableDefinition<GuildMissionProgressRow, never, never>;
+      guild_reward_claims: TableDefinition<GuildRewardClaimRow, never, never>;
+      guild_activity_log: TableDefinition<GuildActivityRow, never, never>;
+      traveler_chests: TableDefinition<TravelerChestRow, never, never>;
+      chest_operations: TableDefinition<ChestOperationRow, never, never>;
     };
     Views: Record<string, never>;
     Functions: {
@@ -144,6 +216,39 @@ export type Database = {
         Args: { p_traveler_id: string; p_amount: number };
         Returns: number;
       };
+      create_guild: { Args: { p_leader_traveler_id: string; p_name: string; p_description?: string | null }; Returns: string };
+      request_join_guild: { Args: { p_guild_id: string; p_traveler_id: string }; Returns: string };
+      review_guild_join_request: { Args: { p_request_id: string; p_reviewer_traveler_id: string; p_approve: boolean }; Returns: undefined };
+      leave_guild: { Args: { p_traveler_id: string }; Returns: undefined };
+      create_guild_mission: { Args: {
+        p_creator_traveler_id: string; p_title: string; p_description: string | null; p_mission_type: string;
+        p_bible_reference: string | null; p_bible_url: string | null; p_completion_mode: string; p_reward_tier: string;
+        p_starts_at: string | null; p_due_at: string | null; p_publish?: boolean; p_metadata?: Json | null;
+      }; Returns: string };
+      publish_guild_mission: { Args: { p_mission_id: string; p_leader_traveler_id: string }; Returns: undefined };
+      start_guild_mission: { Args: { p_mission_id: string; p_traveler_id: string }; Returns: string };
+      submit_guild_mission: { Args: { p_mission_id: string; p_traveler_id: string; p_completion_note?: string | null }; Returns: string };
+      review_guild_mission: { Args: { p_mission_id: string; p_member_traveler_id: string; p_reviewer_traveler_id: string; p_approve: boolean }; Returns: string };
+      list_guild_members: { Args: { p_requester_traveler_id: string }; Returns: GuildMemberSummary[] };
+      list_guild_join_requests: { Args: { p_leader_traveler_id: string }; Returns: GuildJoinRequestSummary[] };
+      list_guild_mission_progress: { Args: { p_mission_id: string; p_leader_traveler_id: string }; Returns: GuildMissionProgressSummary[] };
+      update_guild_mission_draft: { Args: { p_mission_id: string; p_leader_traveler_id: string; p_title: string; p_description: string | null; p_mission_type: string; p_bible_reference: string | null; p_bible_url: string | null; p_completion_mode: string; p_reward_tier: string; p_starts_at: string | null; p_due_at: string | null }; Returns: undefined };
+      delete_guild_mission_draft: { Args: { p_mission_id: string; p_leader_traveler_id: string }; Returns: undefined };
+      close_guild_mission: { Args: { p_mission_id: string; p_leader_traveler_id: string }; Returns: undefined };
+      remove_guild_member: { Args: { p_member_traveler_id: string; p_leader_traveler_id: string }; Returns: undefined };
+      review_guild_mission_with_guidance: { Args: { p_mission_id: string; p_member_traveler_id: string; p_reviewer_traveler_id: string; p_approve: boolean; p_guidance: string | null }; Returns: string };
+      guild_admin_stats: { Args: { p_leader_traveler_id: string }; Returns: GuildAdminMissionStats[] };
+      save_guild_lesson: { Args: {
+        p_lesson_id: string | null; p_leader_traveler_id: string; p_title: string; p_theme: string;
+        p_bible_reference: string; p_bible_url: string | null; p_introduction: string; p_content: string;
+        p_main_points: Json; p_discussion_questions: Json; p_activity_text: string | null;
+        p_scheduled_at: string | null; p_related_mission_id: string | null; p_publish: boolean;
+      }; Returns: string };
+      set_guild_lesson_status: { Args: { p_lesson_id: string; p_leader_traveler_id: string; p_status: string }; Returns: undefined };
+      guild_public_member_profile: { Args: { p_requester_traveler_id: string; p_member_traveler_id: string }; Returns: { level: number; completed_missions: number }[] };
+      purchase_chest: { Args: { p_traveler_id: string; p_chest_type: string; p_operation_id: string }; Returns: ChestPurchaseResult };
+      open_chest: { Args: { p_traveler_id: string; p_chest_type: string; p_operation_id: string }; Returns: ChestOpenResult };
+      claim_chest_reward: { Args: { p_traveler_id: string; p_reward_key: string }; Returns: boolean };
     };
     Enums: Record<string, never>;
     CompositeTypes: Record<string, never>;

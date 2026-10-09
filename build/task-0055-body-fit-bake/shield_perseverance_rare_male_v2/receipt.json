@@ -1,0 +1,44 @@
+{
+  "id": "shield_perseverance_rare_male_v2",
+  "filename": "shield_perseverance_rare_male_v2.png",
+  "itemId": "traveler-shield-rare",
+  "gender": "male",
+  "slot": "shield",
+  "avatar": {
+    "id": "male_short_moss_medium",
+    "path": "apps/web/public/assets/avatar/hd/male/male_short_moss_medium_hd.png",
+    "sha256": "b182c2e29b512b337891716a413ab7efaad737e23c6354779fae17fe19b8af34",
+    "immutable": true,
+    "footBaseline": 1513
+  },
+  "transform": {
+    "translateX": 621.8621711405059,
+    "translateY": 501.73630865762107,
+    "scale": 0.33397455413405663,
+    "rotation": 0
+  },
+  "sha256": "bf0785671741851d4e64402984309cfc30ff80313da98cf453b3e3a57b40e2a6",
+  "sourceSha256": "94632b12aeb02547dfd98453f58f7cf40c3d143c1bfcc9b19bae19f75244809d",
+  "technicalStatus": "TECHNICALLY_VALIDATED",
+  "mapping": "MAPPED",
+  "fitStatus": "FIT_PASS",
+  "humanBodyFitApproved": false,
+  "ready": false,
+  "runtimeActivated": false,
+  "reviewStatus": "HUMAN_BODY_FIT_REVIEW_PENDING",
+  "fitReport": "build/task-0055-body-fit-bake/shield_perseverance_rare_male_v2/fit-report.json",
+  "metadata": "build/task-0055-body-fit-bake/shield_perseverance_rare_male_v2/fit-metadata.json",
+  "metadataSha256": "a8ba409dc9fd4f870688cee7210c6ad270d92dce8f374ca1b414764650724030",
+  "observations": [
+    "Escudo ocupa região do antebraço direito da tela, oclui mão/bracelete frontalmente e mantém rosto livre.",
+    "Contorno lateral e ponta inferior ficam dentro do canvas, com proporção coerente com o avatar.",
+    "Montagem/pega traseira não está visível na source: alinhamento do antebraço é proxy visual; Carlos precisa confirmar leitura de escudo portado."
+  ],
+  "reworkRecommendation": "Sem regeneração obrigatória no candidato técnico; revisão humana deve confirmar porte/oclusão no hash e avatar indicados, sem presumir tira traseira ou compatibilidade geral.",
+  "task": "TASK-0055",
+  "updatedAt": "2026-10-08T20:27:47.348Z",
+  "sourceApproval": "SOURCE_VISUAL_APPROVED (inherited)",
+  "runtimePath": null,
+  "stagingPath": "build/task-0055-body-fit-bake/shield_perseverance_rare_male_v2/shield_perseverance_rare_male_v2_baked.png",
+  "approvedBy": null
+}

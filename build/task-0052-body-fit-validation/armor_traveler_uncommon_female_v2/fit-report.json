@@ -1,0 +1,59 @@
+{
+  "at": "2026-10-08T04:24:51.868Z",
+  "target": {
+    "filename": "armor_traveler_uncommon_female_v2.png",
+    "itemId": "traveler-armor-uncommon",
+    "slot": "armor",
+    "gender": "female",
+    "equipable": true,
+    "status": "NEEDS_NEW_OVERLAY",
+    "priority": "P0",
+    "referenceAvatar": {
+      "id": "female_short_moss_medium",
+      "source": "/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+      "sha256": "f260cb9b053b35c328025f1bc7ee602cbb30e57c71ba1f2238a4b1519685f460",
+      "alphaThreshold": 128,
+      "bounds": {
+        "left": 187,
+        "top": 2,
+        "right": 964,
+        "bottom": 1495
+      },
+      "footBaseline": 1495,
+      "alphaPositiveBoundsDiagnostic": {
+        "left": 0,
+        "top": 0,
+        "right": 1001,
+        "bottom": 1504
+      }
+    },
+    "expectedLandmarks": [
+      "shoulders",
+      "chest",
+      "waist",
+      "hips",
+      "face/hands/legs exclusion"
+    ],
+    "reason": "No dedicated V2 body asset or human approval; V1 body fitting rejected.",
+    "resolution": {
+      "width": 1024,
+      "height": 1536
+    },
+    "format": "PNG",
+    "alpha": "REAL_TRANSPARENCY_REQUIRED",
+    "landmarkStatus": "ASSET_MISSING_NOT_MEASURED",
+    "validation": {
+      "correction": "NONE: inset 0; no offsets/crop/warp",
+      "geometry": "HD alpha ≥128 contour; alpha >0 diagnostic",
+      "requiredReview": "Same gender; all short/long/curly, outfits and skin variants before general compatibility",
+      "gripHairlineShouldersAnkles": "Measure on approved HD; historical anchors are guides, not validated HD anatomy"
+    }
+  },
+  "source": null,
+  "status": "FIT_VALIDATION_PENDING",
+  "reason": "12 source files exist, but no unequivocal source → target mapping supplied; not SOURCE_FILE_NOT_LOCATED",
+  "sourceCandidatesAreUnmapped": true,
+  "humanBodyFitApproved": false,
+  "runtimeReady": false,
+  "diagnosticReview": "build/task-0052-body-fit-validation/delivery/review/index.html"
+}

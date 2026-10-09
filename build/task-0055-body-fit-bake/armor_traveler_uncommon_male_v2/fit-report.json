@@ -1,0 +1,243 @@
+{
+  "task": "TASK-0055",
+  "id": "armor_traveler_uncommon_male_v2",
+  "itemId": "traveler-armor-uncommon",
+  "gender": "male",
+  "slot": "armor",
+  "assessedAt": "2026-10-08T20:27:47.229Z",
+  "assessedBy": "Codex / author visual QA (not Carlos Faustino)",
+  "outputSha256": "8ece1c5d4daad2b4b7b0a6d673eb3ad6e2d16a9bcc888082ee33a2bd71c928c2",
+  "sourceSha256": "7172c482d49902d1c268a98c3b5339950f7e5340c6c4e0e54bdbea42ffe80b32",
+  "referenceAvatar": {
+    "id": "male_short_moss_medium",
+    "path": "apps/web/public/assets/avatar/hd/male/male_short_moss_medium_hd.png",
+    "sha256": "b182c2e29b512b337891716a413ab7efaad737e23c6354779fae17fe19b8af34",
+    "immutable": true,
+    "footBaseline": 1513
+  },
+  "technicalStatus": "TECHNICALLY_VALIDATED",
+  "mapping": "MAPPED",
+  "status": "FIT_PASS",
+  "reviewStatus": "HUMAN_BODY_FIT_REVIEW_PENDING",
+  "humanBodyFitApproved": false,
+  "ready": false,
+  "runtimeActivated": false,
+  "observations": [
+    "Peitoral, ombros e cinto acompanham a anatomia masculina; braços e mãos permanecem livres.",
+    "Base mantém pequenos trechos da roupa/pochete original nas laterais; composição de camadas, sem alteração da base.",
+    "Landmarks aproximados têm resíduos locais, registrados na metadata; não é encaixe pixel-perfect nem validação das demais variantes."
+  ],
+  "regions": {
+    "neck_face": "PASS",
+    "shoulders": "PASS",
+    "chest": "PASS",
+    "armpits": "PASS",
+    "waist": "PASS",
+    "hips": "PASS",
+    "free_hands_forearms": "PASS",
+    "proportion": "PASS"
+  },
+  "reworkRecommendation": "Sem regeneração obrigatória no candidato técnico; Carlos deve revisar este hash no avatar indicado antes de qualquer READY.",
+  "limits": "Only this derivative/hash and named reference; no cross-gender or 54-avatar compatibility claimed; landmark residuals are approximate diagnostics, not sufficient to prove fit.",
+  "landmarkMethod": "Armor-specific shoulders/chest/waist/hips; waist priority3; visual native grid measurements approximately ±12px avatar, ±20px source. No hidden anatomy certified.",
+  "landmarkResiduals": {
+    "neck": {
+      "source": [
+        514,
+        205
+      ],
+      "avatar": [
+        510,
+        303
+      ],
+      "weight": 0.5,
+      "kind": "anatomical garment proxy",
+      "projected": [
+        515.8094772273521,
+        310.9827702079414
+      ],
+      "delta": [
+        5.80947722735209,
+        7.982770207941428
+      ],
+      "distance": 9.872924888193962
+    },
+    "left_shoulder": {
+      "source": [
+        208,
+        270
+      ],
+      "avatar": [
+        366,
+        355
+      ],
+      "weight": 1,
+      "kind": "anatomical garment proxy",
+      "projected": [
+        371.3136346861753,
+        341.6763315320476
+      ],
+      "delta": [
+        5.313634686175305,
+        -13.323668467952416
+      ],
+      "distance": 14.34415752221213
+    },
+    "right_shoulder": {
+      "source": [
+        815,
+        270
+      ],
+      "avatar": [
+        646,
+        355
+      ],
+      "weight": 1,
+      "kind": "anatomical garment proxy",
+      "projected": [
+        657.9442765897516,
+        341.6763315320476
+      ],
+      "delta": [
+        11.944276589751553,
+        -13.323668467952416
+      ],
+      "distance": 17.893738700908663
+    },
+    "chest": {
+      "source": [
+        514,
+        510
+      ],
+      "avatar": [
+        510,
+        470
+      ],
+      "weight": 1,
+      "kind": "anatomical garment proxy",
+      "projected": [
+        515.8094772273521,
+        455.00640411336275
+      ],
+      "delta": [
+        5.80947722735209,
+        -14.993595886637252
+      ],
+      "distance": 16.07973703973134
+    },
+    "left_armpit": {
+      "source": [
+        263,
+        635
+      ],
+      "avatar": [
+        380,
+        500
+      ],
+      "weight": 1,
+      "kind": "anatomical garment proxy",
+      "projected": [
+        397.2851096527267,
+        514.0324835827978
+      ],
+      "delta": [
+        17.285109652726703,
+        14.032483582797795
+      ],
+      "distance": 22.263998095766077
+    },
+    "right_armpit": {
+      "source": [
+        763,
+        635
+      ],
+      "avatar": [
+        643,
+        505
+      ],
+      "weight": 1,
+      "kind": "anatomical garment proxy",
+      "projected": [
+        633.3894275304665,
+        514.0324835827978
+      ],
+      "delta": [
+        -9.610572469533508,
+        9.032483582797795
+      ],
+      "distance": 13.188967467761342
+    },
+    "waist": {
+      "source": [
+        504,
+        865
+      ],
+      "avatar": [
+        518,
+        620
+      ],
+      "weight": 3,
+      "kind": "anatomical garment proxy",
+      "projected": [
+        511.08739086979733,
+        622.640469806558
+      ],
+      "delta": [
+        -6.912609130202668,
+        2.6404698065580305
+      ],
+      "distance": 7.39974633256478
+    },
+    "left_hip": {
+      "source": [
+        294,
+        1110
+      ],
+      "avatar": [
+        395,
+        735
+      ],
+      "weight": 1,
+      "kind": "anatomical garment proxy",
+      "projected": [
+        411.92357736114656,
+        738.3315855666506
+      ],
+      "delta": [
+        16.923577361146556,
+        3.331585566650574
+      ],
+      "distance": 17.248389289630108
+    },
+    "right_hip": {
+      "source": [
+        735,
+        1110
+      ],
+      "avatar": [
+        650,
+        735
+      ],
+      "weight": 1,
+      "kind": "anatomical garment proxy",
+      "projected": [
+        620.167585729313,
+        738.3315855666506
+      ],
+      "delta": [
+        -29.832414270686968,
+        3.331585566650574
+      ],
+      "distance": 30.01786807229657
+    }
+  },
+  "evidence": [
+    "build/task-0055-body-fit-bake/armor_traveler_uncommon_male_v2/source.png",
+    "build/task-0055-body-fit-bake/armor_traveler_uncommon_male_v2/avatar_base.png",
+    "build/task-0055-body-fit-bake/armor_traveler_uncommon_male_v2/baked_overlay.png",
+    "build/task-0055-body-fit-bake/armor_traveler_uncommon_male_v2/combined.png",
+    "build/task-0055-body-fit-bake/armor_traveler_uncommon_male_v2/overlay_50_50.png",
+    "build/task-0055-body-fit-bake/armor_traveler_uncommon_male_v2/alignment_guides.png",
+    "build/task-0055-body-fit-bake/armor_traveler_uncommon_male_v2/before.png"
+  ]
+}

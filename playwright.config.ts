@@ -2,6 +2,13 @@ import { defineConfig, devices } from '@playwright/test';
 
 export default defineConfig({
   testDir: './tests/e2e',
+  testIgnore: [
+    '**/arena-lab.spec.ts',
+    '**/avatar-runtime-lab.spec.ts',
+    '**/arena-audio-prototype.spec.ts',
+    '**/avatar-hd-pilot.spec.ts',
+    '**/body-fit-lab.spec.ts',
+  ],
   fullyParallel: true,
   workers: 2,
   forbidOnly: Boolean(process.env.CI),

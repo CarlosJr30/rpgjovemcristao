@@ -1,5 +1,6 @@
 export const HAIR = ['curto', 'longo', 'cacheado'] as const;
 import { levelForXp } from '../data/progression';
+import type { ChestReward, ChestType } from '@rpg/game-engine';
 export const OUTFITS = ['musgo', 'ocre', 'azul'] as const;
 export const SKIN = ['claro', 'medio', 'escuro'] as const;
 export type Appearance = {
@@ -34,6 +35,7 @@ export type Equipment = {
   rarity: 'comum' | 'incomum' | 'raro' | 'épico' | 'lendário';
   power: number;
   stats: EquipmentStats;
+  quantity?: number;
   isNew?: boolean;
 };
 const EQUIPMENT_SLOTS: readonly EquipmentSlot[] = ['helmet', 'armor', 'weapon', 'shield', 'boots', 'amulet'];
@@ -48,8 +50,16 @@ function isEquipment(value: unknown): value is Equipment {
     ['comum', 'incomum', 'raro', 'épico', 'lendário'].includes(String(value.rarity)) &&
     typeof value.power === 'number' && Number.isInteger(value.power) && value.power >= 0 && value.power <= 1000 &&
     isEquipmentStats(value.stats) &&
+    (value.quantity === undefined || (typeof value.quantity === 'number' && Number.isInteger(value.quantity) && value.quantity > 0 && value.quantity <= 999)) &&
     (value.isNew === undefined || typeof value.isNew === 'boolean');
 }
+export type ChestOpening = {
+  operationId: string;
+  chestType: ChestType;
+  source: string;
+  reward: ChestReward;
+  openedAt: string;
+};
 export type GuildChallengeStatus =
   | 'locked'
   | 'available'
@@ -131,6 +141,10 @@ export type Traveler = {
   coins: number;
   attributes: AttributeValues;
   inventory: Equipment[];
+  chests: Record<ChestType, number>;
+  chestSources: Record<ChestType, string[]>;
+  chestHistory: ChestOpening[];
+  chestOperationIds: string[];
   equipped: Partial<Record<EquipmentSlot, string>>;
   appearance: Appearance;
   avatar: AvatarConfig;
@@ -193,6 +207,10 @@ export function createTraveler(
     coins: 0,
     attributes: { ...BASE_ATTRIBUTES },
     inventory: STARTER_EQUIPMENT.map((item) => ({ ...item })),
+    chests: { common: 0, uncommon: 0, rare: 0, epic: 0, extraordinary: 0 },
+    chestSources: { common: [], uncommon: [], rare: [], epic: [], extraordinary: [] },
+    chestHistory: [],
+    chestOperationIds: [],
     equipped: { boots: 'traveler-boots' },
     appearance: { ...appearance },
     avatar: {
@@ -281,6 +299,10 @@ export function parseTraveler(value: unknown): Traveler | null {
       'progress',
       'createdAt',
       'inventory',
+      'chests',
+      'chestSources',
+      'chestHistory',
+      'chestOperationIds',
       'equipped',
     ])
   )
@@ -297,6 +319,14 @@ export function parseTraveler(value: unknown): Traveler | null {
     !record(value.avatar.equippedItems) || !record(value.avatar.portraitConfig) ||
     value.avatar.portraitConfig.state !== 'idle') return null;
   const inventory = value.inventory;
+  const chestTypes: readonly ChestType[] = ['common', 'uncommon', 'rare', 'epic', 'extraordinary'];
+  const chests = record(value.chests) ? value.chests : null;
+  const chestSources = record(value.chestSources) ? value.chestSources : null;
+  if (!chests || !exactKeys(chests, [...chestTypes]) || !chestSources || !exactKeys(chestSources, [...chestTypes]) || !chestTypes.every((type) => {
+    const quantity = chests[type];
+    const sources = chestSources[type];
+    return typeof quantity === 'number' && Number.isInteger(quantity) && quantity >= 0 && quantity <= 9999 && Array.isArray(sources) && sources.length === quantity && sources.every((source) => typeof source === 'string' && source.length > 0 && source.length <= 120);
+  }) || !Array.isArray(value.chestOperationIds) || value.chestOperationIds.length > 200 || !value.chestOperationIds.every((id) => typeof id === 'string' && id.length > 0 && id.length <= 160) || !Array.isArray(value.chestHistory) || value.chestHistory.length > 100 || !value.chestHistory.every((entry) => record(entry) && typeof entry.operationId === 'string' && chestTypes.includes(entry.chestType as ChestType) && typeof entry.source === 'string' && entry.source.length <= 120 && typeof entry.openedAt === 'string' && record(entry.reward) && typeof entry.reward.coins === 'number' && Number.isInteger(entry.reward.coins) && entry.reward.coins >= 0 && (entry.reward.itemId === null || typeof entry.reward.itemId === 'string') && (entry.reward.itemName === null || typeof entry.reward.itemName === 'string'))) return null;
   if (!Array.isArray(inventory) || !inventory.every(isEquipment) || !record(value.equipped) ||
     !Object.entries(value.equipped).every(([slot, id]) => EQUIPMENT_SLOTS.includes(slot as EquipmentSlot) &&
       typeof id === 'string' && inventory.some((item: Equipment) => item.id === id && item.slot === slot)) ||

@@ -32,3 +32,12 @@ DEFINITION_OF_DONE:
 - NO SECRETS PASS: varredura dos arquivos de código alterados sem padrão de credencial; NO KNOWN CRITICAL REGRESSIONS PASS nos checks executados.
 
 Condição de aceite pendente: jogar a Fuga em mobile e desktop até vitória/derrota, verificando curva, colisão, Serpente, pickups e portal. Manter REWORK até esse passe. Lint/typecheck/build e E2E 14/14 foram repetidos após a câmera; Vitest 73/73 após correção da soma entre moedas de recompensa e bônus do nível 2.
+
+## Correção responsiva — 2026-09-27
+
+- ROOT CAUSE: o buffer fixo `720 × 420` era reduzido por `width: 100%; height: auto`; o zoom móvel interno de `1,45×` não aumentava a área física do jogo.
+- IMPLEMENTAÇÃO: buffer sincronizado ao tamanho CSS e DPR (máximo 2), viewport real para a câmera, limites iniciais corrigidos e perfis centralizados: portrait `1,5×`, landscape `1,25×`, tablet `1,4×`, desktop `1×`.
+- LEGIBILIDADE: escala visual independente para Viajante/Serpente/pickups; colisores, movimento, regras, mapa, progressão e persistência não mudaram. HUD mobile compacto e touch 52 × 48 px.
+- VISUAL QA PASS: capturas inspecionadas em 360 × 800, 390 × 844, 412 × 915, 844 × 390, 768 × 1024 e 1440 × 900. Mobile acompanha o Viajante sem mostrar o mapa inteiro; tablet/landscape adaptam; desktop mantém o enquadramento completo.
+- AUTOMATED QA PASS: lint, typecheck, build (19 páginas), Vitest 145/145 e E2E responsivo. A execução agrupada dos E2E antigos encontrou quatro falhas anteriores ao minigame: helpers desatualizados não escolhem o modo local explícito e o botão de criação fica corretamente desabilitado.
+- STATUS: REWORK mantido somente pela partida manual completa até vitória/derrota, pendência herdada; o aceite responsivo deste pedido está comprovado.

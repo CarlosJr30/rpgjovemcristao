@@ -1,0 +1,14 @@
+DROP TRIGGER IF EXISTS guild_activity_reward ON public.guild_reward_claims;
+DROP TRIGGER IF EXISTS guild_activity_progress ON public.guild_mission_progress;
+DROP TRIGGER IF EXISTS guild_activity_mission ON public.guild_missions;
+DROP TRIGGER IF EXISTS guild_activity_member ON public.guild_members;
+DROP TRIGGER IF EXISTS guild_activity_guild ON public.guilds;
+DROP FUNCTION IF EXISTS public.guild_activity_capture();
+DROP FUNCTION IF EXISTS public.guild_admin_stats(uuid);
+DROP FUNCTION IF EXISTS public.review_guild_mission_with_guidance(uuid,uuid,uuid,boolean,text);
+DROP FUNCTION IF EXISTS public.remove_guild_member(uuid,uuid);
+DROP FUNCTION IF EXISTS public.close_guild_mission(uuid,uuid);
+DROP FUNCTION IF EXISTS public.delete_guild_mission_draft(uuid,uuid);
+DROP FUNCTION IF EXISTS public.update_guild_mission_draft(uuid,uuid,text,text,text,text,text,text,text,timestamptz,timestamptz);
+ALTER TABLE public.guild_mission_progress DROP COLUMN IF EXISTS review_note;
+DROP TABLE IF EXISTS public.guild_activity_log;

@@ -1,0 +1,44 @@
+{
+  "id": "sword_path_rare_male_v2",
+  "filename": "sword_path_rare_male_v2.png",
+  "itemId": "traveler-sword-rare",
+  "gender": "male",
+  "slot": "weapon",
+  "avatar": {
+    "id": "male_short_moss_medium",
+    "path": "apps/web/public/assets/avatar/hd/male/male_short_moss_medium_hd.png",
+    "sha256": "b182c2e29b512b337891716a413ab7efaad737e23c6354779fae17fe19b8af34",
+    "immutable": true,
+    "footBaseline": 1513
+  },
+  "transform": {
+    "translateX": -11.705467902053783,
+    "translateY": 695.1130715968252,
+    "scale": 0.4499967228121801,
+    "rotation": 0
+  },
+  "sha256": "283f40926d2c012ed8517c8c8187b2f49a7a7f71b78939b1efe9b27851ffd09f",
+  "sourceSha256": "89676a2f0f5b8ce73e25e6088ff52979115a11a091bbf25ce810b3c8488c96cb",
+  "technicalStatus": "TECHNICALLY_VALIDATED",
+  "mapping": "MAPPED",
+  "fitStatus": "NEEDS_REWORK",
+  "humanBodyFitApproved": false,
+  "ready": false,
+  "runtimeActivated": false,
+  "reviewStatus": "NEEDS_REWORK",
+  "fitReport": "build/task-0055-body-fit-bake/sword_path_rare_male_v2/fit-report.json",
+  "metadata": "build/task-0055-body-fit-bake/sword_path_rare_male_v2/fit-metadata.json",
+  "metadataSha256": "84675aab6d4f9e54b6ab91e481b740b4a6472600c6be7f19d1639872b18ca474",
+  "observations": [
+    "Centro do cabo foi aproximado da mão esquerda da tela; dedos continuam abertos na pose HD.",
+    "Overlay único desenha cabo sobre a mão sem a oclusão necessária dos dedos; arma parece sobreposta/solta.",
+    "Lâmina vertical fica em espaço lateral, porém a guarda/cabo ainda não reproduzem pega natural."
+  ],
+  "reworkRecommendation": "Regenerar espada na orientação e posição da mão de male_short_moss_medium, com cabo desenhado para a pose existente e oclusão transparente específica dos dedos/área da mão. Não redesenhar mãos/HD nem adicionar máscara runtime. Se a mão aberta impedir uma pega convincente sem mudar a base, manter NEEDS_REWORK e registrar a limitação, sem promoção.",
+  "task": "TASK-0055",
+  "updatedAt": "2026-10-08T20:27:47.344Z",
+  "sourceApproval": "SOURCE_VISUAL_APPROVED (inherited)",
+  "runtimePath": null,
+  "stagingPath": "build/task-0055-body-fit-bake/sword_path_rare_male_v2/sword_path_rare_male_v2_baked.png",
+  "approvedBy": null
+}

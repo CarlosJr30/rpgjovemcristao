@@ -1,0 +1,145 @@
+{
+  "filename": "shield_perseverance_rare_male_v2.png",
+  "itemId": "traveler-shield-rare",
+  "gender": "male",
+  "slot": "shield",
+  "sourcePath": "assets-source/body-fit-v2-targets/shield_perseverance_rare_male_v2.png",
+  "exists": true,
+  "sourceApproval": {
+    "declaredBy": "Carlos Faustino",
+    "declaration": "SOURCE_VISUAL_APPROVED",
+    "boundToFileHash": true
+  },
+  "technicalStatus": "TECHNICALLY_VALIDATED",
+  "mapping": {
+    "status": "MAPPED",
+    "errors": [],
+    "targetFilename": "shield_perseverance_rare_male_v2.png",
+    "itemId": "traveler-shield-rare",
+    "gender": "male",
+    "slot": "shield"
+  },
+  "fitStatus": "NEEDS_REWORK",
+  "humanBodyFitApproved": false,
+  "runtimeReady": false,
+  "knownCorrectiveEditing": "Prior resize/crop not established by metadata; no corrective processing performed by this task",
+  "referenceAvatar": {
+    "id": "male_short_moss_medium",
+    "source": "/assets/avatar/hd/male/male_short_moss_medium_hd.png",
+    "sha256": "b182c2e29b512b337891716a413ab7efaad737e23c6354779fae17fe19b8af34",
+    "alphaThreshold": 128,
+    "bounds": {
+      "left": 169,
+      "top": 2,
+      "right": 933,
+      "bottom": 1513
+    },
+    "footBaseline": 1513,
+    "alphaPositiveBoundsDiagnostic": {
+      "left": 0,
+      "top": 0,
+      "right": 1003,
+      "bottom": 1521
+    }
+  },
+  "expectedLandmarks": [
+    "left hand/grip",
+    "forearm angle",
+    "body distance",
+    "occlusion"
+  ],
+  "evidenceLimit": "Technical/mapping checks do not establish fit; visual lab review required",
+  "sha256": "94632b12aeb02547dfd98453f58f7cf40c3d143c1bfcc9b19bae19f75244809d",
+  "integrity": {
+    "status": "CRC_PASS",
+    "chunks": 44
+  },
+  "manifestHash": "94632b12aeb02547dfd98453f58f7cf40c3d143c1bfcc9b19bae19f75244809d",
+  "manifestHashMatches": true,
+  "metadata": {
+    "format": "png",
+    "width": 1024,
+    "height": 1536,
+    "hasAlpha": true,
+    "transparentPixels": 698243,
+    "alpha128Pixels": 861592,
+    "fullNativeCanvas": true,
+    "decode": "PASS"
+  },
+  "readyEligible": false,
+  "sourceBoundsAlpha128": {
+    "left": 48,
+    "top": 18,
+    "right": 976,
+    "bottom": 1490
+  },
+  "geometry": {
+    "nativeCanvas": {
+      "width": 1024,
+      "height": 1536
+    },
+    "sourceWidth": 929,
+    "sourceHeight": 1473,
+    "sourceBottomMinusHDFootBaseline": -23,
+    "correction": "NONE: full canvas inset 0; no crop/warp/stretch/offset",
+    "guideMeaning": "Pixel bounds and foot baseline, not new anatomy anchors"
+  },
+  "manifestSourceFile": "escudo_sagrado_esmeralda_com_cruz_dourada.png",
+  "provenance": "User supplied target PNG and hash-bound manifest; original authoring/crop history cannot be proven from PNG metadata. No corrective editing performed here.",
+  "reviewedBy": "Codex author fit QA; no human Body-Fit approval",
+  "fitResult": "FIT_FAIL",
+  "finalStatus": "NEEDS_REWORK",
+  "observations": "Escudo ocupa quase todo corpo, cobre rosto e torso; não fica lateral ao braço. Escala e profundidade incompatíveis com postura.",
+  "criteria": [
+    {
+      "criterion": "handArmRelation",
+      "result": "NOT_CONFIRMED",
+      "evidence": "Not claimed as validated; decisive failures already require rework"
+    },
+    {
+      "criterion": "depth",
+      "result": "NOT_CONFIRMED",
+      "evidence": "Not claimed as validated; decisive failures already require rework"
+    },
+    {
+      "criterion": "lateralPosition",
+      "result": "FAIL",
+      "evidence": "Visible mismatch in correct-gender full-canvas comparison; see observations"
+    },
+    {
+      "criterion": "scale",
+      "result": "FAIL",
+      "evidence": "Visible mismatch in correct-gender full-canvas comparison; see observations"
+    },
+    {
+      "criterion": "faceExclusion",
+      "result": "FAIL",
+      "evidence": "Visible mismatch in correct-gender full-canvas comparison; see observations"
+    },
+    {
+      "criterion": "torsoIntersection",
+      "result": "FAIL",
+      "evidence": "Visible mismatch in correct-gender full-canvas comparison; see observations"
+    },
+    {
+      "criterion": "posture",
+      "result": "FAIL",
+      "evidence": "Visible mismatch in correct-gender full-canvas comparison; see observations"
+    }
+  ],
+  "regenerationRecommendation": "Regenerar escudo na escala antebraço/torso e posição lateral da mão/braço corretos. Demonstrar pega/profundidade sem cobrir rosto ou pés. Preservar pose e ordem global.",
+  "assessedAt": "2026-10-08T06:04:18.570Z",
+  "humanBodyFitReviewStatus": "NOT_ELIGIBLE_FIT_FAILED",
+  "evidence": [
+    "shield_perseverance_rare_male_v2/comparison.png",
+    "shield_perseverance_rare_male_v2/base.png",
+    "shield_perseverance_rare_male_v2/overlay.png",
+    "shield_perseverance_rare_male_v2/combined.png",
+    "shield_perseverance_rare_male_v2/blend.png",
+    "shield_perseverance_rare_male_v2/split.png",
+    "shield_perseverance_rare_male_v2/guides.png",
+    "shield_perseverance_rare_male_v2/zoom-combined.png"
+  ],
+  "correctionApplied": false,
+  "scope": "Primary same-gender HD reference only; failed primary fit, therefore no broader compatibility claim or 27-variant PASS"
+}

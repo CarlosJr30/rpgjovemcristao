@@ -1,0 +1,12 @@
+{
+  "at": "2026-10-08T04:24:51.868Z",
+  "status": "PASS",
+  "checkedSources": 12,
+  "technicalPass": 12,
+  "crc": "PASS",
+  "fullDecode": "PASS",
+  "actualSha256MatchesManifest": "12/12",
+  "inventory": "build/task-0052-body-fit-validation/delivery/source-inventory.json",
+  "manifestPath": "manifest.json",
+  "expectedManifestAbsent": true
+}

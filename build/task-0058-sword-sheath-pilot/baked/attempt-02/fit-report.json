@@ -1,0 +1,10 @@
+{
+  "task": "TASK-0058",
+  "id": "sword_path_common_female_v2",
+  "status": "NEEDS_REWORK",
+  "outputSha256": "f0b935d2844546485917cea006d6e01ef0b60233a854acdc3609ba9a738f754c",
+  "reason": "Suspensão corrigida, mas trace manual apagava guarda sobre a capa antes do contorno real do braço.",
+  "ready": false,
+  "humanBodyFitApproved": false,
+  "runtimeActivated": false
+}

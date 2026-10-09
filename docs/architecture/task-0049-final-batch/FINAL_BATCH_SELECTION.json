@@ -1,0 +1,228 @@
+{
+  "task": "TASK-0049G",
+  "at": "2026-10-07T21:17:00.578Z",
+  "selectionRule": "All17 PENDING_HD in official queue order",
+  "items": [
+    {
+      "id": "female_long_blue_dark",
+      "gender": "female",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "long",
+      "legacyPath": "/assets/avatar/runtime/female/female_long_blue_dark.png",
+      "hdPath": "/assets/avatar/hd/female/female_long_blue_dark_hd.png",
+      "combination": {
+        "outfit": "blue",
+        "skin": "dark"
+      },
+      "queuePosition": 36
+    },
+    {
+      "id": "female_long_blue_light",
+      "gender": "female",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "long",
+      "legacyPath": "/assets/avatar/runtime/female/female_long_blue_light.png",
+      "hdPath": "/assets/avatar/hd/female/female_long_blue_light_hd.png",
+      "combination": {
+        "outfit": "blue",
+        "skin": "light"
+      },
+      "queuePosition": 37
+    },
+    {
+      "id": "female_long_moss_dark",
+      "gender": "female",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "long",
+      "legacyPath": "/assets/avatar/runtime/female/female_long_moss_dark.png",
+      "hdPath": "/assets/avatar/hd/female/female_long_moss_dark_hd.png",
+      "combination": {
+        "outfit": "moss",
+        "skin": "dark"
+      },
+      "queuePosition": 38
+    },
+    {
+      "id": "female_long_blue_medium",
+      "gender": "female",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "long",
+      "legacyPath": "/assets/avatar/runtime/female/female_long_blue_medium.png",
+      "hdPath": "/assets/avatar/hd/female/female_long_blue_medium_hd.png",
+      "combination": {
+        "outfit": "blue",
+        "skin": "medium"
+      },
+      "queuePosition": 39
+    },
+    {
+      "id": "female_long_ochre_light",
+      "gender": "female",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "long",
+      "legacyPath": "/assets/avatar/runtime/female/female_long_ochre_light.png",
+      "hdPath": "/assets/avatar/hd/female/female_long_ochre_light_hd.png",
+      "combination": {
+        "outfit": "ochre",
+        "skin": "light"
+      },
+      "queuePosition": 40
+    },
+    {
+      "id": "female_long_ochre_dark",
+      "gender": "female",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "long",
+      "legacyPath": "/assets/avatar/runtime/female/female_long_ochre_dark.png",
+      "hdPath": "/assets/avatar/hd/female/female_long_ochre_dark_hd.png",
+      "combination": {
+        "outfit": "ochre",
+        "skin": "dark"
+      },
+      "queuePosition": 41
+    },
+    {
+      "id": "female_long_moss_medium",
+      "gender": "female",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "long",
+      "legacyPath": "/assets/avatar/runtime/female/female_long_moss_medium.png",
+      "hdPath": "/assets/avatar/hd/female/female_long_moss_medium_hd.png",
+      "combination": {
+        "outfit": "moss",
+        "skin": "medium"
+      },
+      "queuePosition": 42
+    },
+    {
+      "id": "female_long_moss_light",
+      "gender": "female",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "long",
+      "legacyPath": "/assets/avatar/runtime/female/female_long_moss_light.png",
+      "hdPath": "/assets/avatar/hd/female/female_long_moss_light_hd.png",
+      "combination": {
+        "outfit": "moss",
+        "skin": "light"
+      },
+      "queuePosition": 43
+    },
+    {
+      "id": "female_short_blue_dark",
+      "gender": "female",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "short",
+      "legacyPath": "/assets/avatar/runtime/female/female_short_blue_dark.png",
+      "hdPath": "/assets/avatar/hd/female/female_short_blue_dark_hd.png",
+      "combination": {
+        "outfit": "blue",
+        "skin": "dark"
+      },
+      "queuePosition": 44
+    },
+    {
+      "id": "female_short_blue_light",
+      "gender": "female",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "short",
+      "legacyPath": "/assets/avatar/runtime/female/female_short_blue_light.png",
+      "hdPath": "/assets/avatar/hd/female/female_short_blue_light_hd.png",
+      "combination": {
+        "outfit": "blue",
+        "skin": "light"
+      },
+      "queuePosition": 45
+    },
+    {
+      "id": "female_long_ochre_medium",
+      "gender": "female",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "long",
+      "legacyPath": "/assets/avatar/runtime/female/female_long_ochre_medium.png",
+      "hdPath": "/assets/avatar/hd/female/female_long_ochre_medium_hd.png",
+      "combination": {
+        "outfit": "ochre",
+        "skin": "medium"
+      },
+      "queuePosition": 46
+    },
+    {
+      "id": "female_short_blue_medium",
+      "gender": "female",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "short",
+      "legacyPath": "/assets/avatar/runtime/female/female_short_blue_medium.png",
+      "hdPath": "/assets/avatar/hd/female/female_short_blue_medium_hd.png",
+      "combination": {
+        "outfit": "blue",
+        "skin": "medium"
+      },
+      "queuePosition": 47
+    },
+    {
+      "id": "female_short_ochre_medium",
+      "gender": "female",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "short",
+      "legacyPath": "/assets/avatar/runtime/female/female_short_ochre_medium.png",
+      "hdPath": "/assets/avatar/hd/female/female_short_ochre_medium_hd.png",
+      "combination": {
+        "outfit": "ochre",
+        "skin": "medium"
+      },
+      "queuePosition": 48
+    },
+    {
+      "id": "female_short_ochre_light",
+      "gender": "female",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "short",
+      "legacyPath": "/assets/avatar/runtime/female/female_short_ochre_light.png",
+      "hdPath": "/assets/avatar/hd/female/female_short_ochre_light_hd.png",
+      "combination": {
+        "outfit": "ochre",
+        "skin": "light"
+      },
+      "queuePosition": 49
+    },
+    {
+      "id": "female_short_ochre_dark",
+      "gender": "female",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "short",
+      "legacyPath": "/assets/avatar/runtime/female/female_short_ochre_dark.png",
+      "hdPath": "/assets/avatar/hd/female/female_short_ochre_dark_hd.png",
+      "combination": {
+        "outfit": "ochre",
+        "skin": "dark"
+      },
+      "queuePosition": 50
+    },
+    {
+      "id": "female_short_moss_light",
+      "gender": "female",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "short",
+      "legacyPath": "/assets/avatar/runtime/female/female_short_moss_light.png",
+      "hdPath": "/assets/avatar/hd/female/female_short_moss_light_hd.png",
+      "combination": {
+        "outfit": "moss",
+        "skin": "light"
+      },
+      "queuePosition": 51
+    },
+    {
+      "id": "female_short_moss_dark",
+      "gender": "female",
+      "face": "precomposed; legacy face IDs 1/2/3 preserved, not independently selectable",
+      "hair": "short",
+      "legacyPath": "/assets/avatar/runtime/female/female_short_moss_dark.png",
+      "hdPath": "/assets/avatar/hd/female/female_short_moss_dark_hd.png",
+      "combination": {
+        "outfit": "moss",
+        "skin": "dark"
+      },
+      "queuePosition": 52
+    }
+  ]
+}

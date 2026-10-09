@@ -1,0 +1,120 @@
+{
+  "task": "TASK-0054",
+  "itemId": "traveler-armor-uncommon",
+  "gender": "female",
+  "source": {
+    "path": "assets-source/body-fit-v2-targets/armor_traveler_uncommon_female_v2.png",
+    "sha256": "564e2a4ebeaf51c41fd32dd7dca311dcc6d9c7cb4015d579d4f3b7f9d98714d1",
+    "approval": "SOURCE_VISUAL_APPROVED; original receipt unchanged"
+  },
+  "avatar": {
+    "path": "apps/web/public/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+    "sha256": "f260cb9b053b35c328025f1bc7ee602cbb30e57c71ba1f2238a4b1519685f460",
+    "immutable": true
+  },
+  "landmarks": {
+    "neck_center": {
+      "source": [
+        513,
+        252
+      ],
+      "avatar": [
+        520,
+        302
+      ],
+      "weight": 0.5
+    },
+    "left_shoulder": {
+      "source": [
+        210,
+        310
+      ],
+      "avatar": [
+        379,
+        346
+      ]
+    },
+    "right_shoulder": {
+      "source": [
+        813,
+        312
+      ],
+      "avatar": [
+        657,
+        352
+      ]
+    },
+    "chest_center": {
+      "source": [
+        513,
+        548
+      ],
+      "avatar": [
+        520,
+        455
+      ]
+    },
+    "left_armpit": {
+      "source": [
+        263,
+        640
+      ],
+      "avatar": [
+        391,
+        492
+      ]
+    },
+    "right_armpit": {
+      "source": [
+        764,
+        640
+      ],
+      "avatar": [
+        646,
+        499
+      ]
+    },
+    "waist_center": {
+      "source": [
+        514,
+        873
+      ],
+      "avatar": [
+        531,
+        579
+      ],
+      "weight": 3
+    },
+    "left_hip": {
+      "source": [
+        291,
+        1120
+      ],
+      "avatar": [
+        421,
+        705
+      ]
+    },
+    "right_hip": {
+      "source": [
+        734,
+        1120
+      ],
+      "avatar": [
+        646,
+        711
+      ]
+    }
+  },
+  "landmarkMethod": "Visual observations on native references; approximate ±12px HD, ±20px empty source clothing; source points are garment anatomical proxies, no hidden body can be certified",
+  "transform": {
+    "translateX": 292.35352583693054,
+    "translateY": 197.66887904548992,
+    "scale": 0.4535947236075799,
+    "rotation": 0
+  },
+  "transformConvention": "origin at native top-left; x forward=tx+s*(cosθ*x−sinθ*y), y forward=ty+s*(sinθ*x+cosθ*y), degrees; offline only",
+  "fittingMethod": "Least-squares uniform scale+translation, waist weight3, neck .5, others1, zero rotation preferred",
+  "deformation": "NONE",
+  "mask": "NONE"
+}

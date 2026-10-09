@@ -1,0 +1,167 @@
+{
+  "task": "TASK-0057",
+  "id": "sword_path_rare_male_v2",
+  "gender": "male",
+  "status": "NEEDS_NEW_SHEATH_ART",
+  "technicalStatus": "DIAGNOSTIC_PNG_VALID_ONLY",
+  "observations": [
+    "Lâmina exposta, sem material de bainha ou suporte local.",
+    "Guarda ornamental cobre luva/bolsa; corpo da arma avança no contorno lateral da perna no diagnóstico.",
+    "Suspensão e profundidade precisam de arte dedicada; máscaras anteriores da mão não se aplicam à nova abordagem."
+  ],
+  "sheathPresent": false,
+  "supportPresent": false,
+  "fixationVerified": false,
+  "finalSheathedOutput": null,
+  "finalSheathedSha256": null,
+  "finalSheathedTransform": null,
+  "diagnosticOutput": {
+    "path": "build/task-0057-sword-sheath/sword_path_rare_male_v2/diagnostic_unsheathed_hip.png",
+    "format": "png",
+    "width": 1024,
+    "height": 1536,
+    "channels": 4,
+    "hasAlpha": true,
+    "integrity": {
+      "status": "CRC_PASS",
+      "chunks": 17
+    },
+    "alpha128Bounds": {
+      "left": 192,
+      "top": 563,
+      "right": 417,
+      "bottom": 1097,
+      "count": 23702
+    },
+    "alphaPositiveBoundsDiagnostic": {
+      "left": 152,
+      "top": 562,
+      "right": 474,
+      "bottom": 1099,
+      "count": 27076
+    },
+    "transparentPixels": 1545788,
+    "sha256": "6f23c869ebdf02981873f363ecef8b362d9c97825feba6867e0a70bd3023eee4",
+    "decode": "PASS"
+  },
+  "diagnosticTransform": {
+    "scale": 0.355,
+    "rotation": -0.1278921525789331,
+    "translateX": 122.92903616952586,
+    "translateY": 559.8910608377658
+  },
+  "diagnosticOrientation": "BLADE_DOWN_GRIP_UP",
+  "finalOrientation": "NOT_ASSESSABLE_NO_SHEATH_OVERLAY",
+  "secondaryFitIssues": [
+    "FOREARM_GUARD_OVERLAP",
+    "POUCH_OVERLAP",
+    "LEG_CONTOUR_CONTACT",
+    "NO_VISUAL_SUPPORT_FLOATING"
+  ],
+  "occlusion": "No mask produced; anatomy unchanged. Future suspension must pass behind belt/pouch and avoid foreground arm/hand. Missing art prevents final occlusion validation.",
+  "belt": {
+    "measuredBox": [
+      398,
+      590,
+      648,
+      650
+    ],
+    "attachmentProposal": [
+      446,
+      618
+    ],
+    "approximation": "Refined manual belt-body bounds +/-12px; historical broad search box preserved in bake-metadata.json; attachment point is guide only"
+  },
+  "hip": {
+    "guardProxy": [
+      305,
+      699
+    ],
+    "fixationVerified": false,
+    "supportArt": null
+  },
+  "requiredArt": {
+    "sheath": "Coherent ornamented sheath with covered blade",
+    "support": "Belt-attached suspension strap/holder compatible with this reference; no painted guide used as art",
+    "preserve": "Avatar original/pose/hands/face and existing pouch; transparent full-canvas1024x1536"
+  },
+  "evidence": [
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_rare_male_v2/avatar_base.png",
+      "sha256": "b182c2e29b512b337891716a413ab7efaad737e23c6354779fae17fe19b8af34",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_rare_male_v2/source_original.png",
+      "sha256": "89676a2f0f5b8ce73e25e6088ff52979115a11a091bbf25ce810b3c8488c96cb",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_rare_male_v2/task0056_candidate.png",
+      "sha256": "8e549def7ee66c9e9f3cd80e256b820e3fd889c99b0b9d05d738a62b2b657088",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_rare_male_v2/task0056_combined.png",
+      "sha256": "2ba0e11299254514c81606bac4175920fef3718c3c346370921c6251312a1eec",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_rare_male_v2/diagnostic_unsheathed_hip.png",
+      "sha256": "6f23c869ebdf02981873f363ecef8b362d9c97825feba6867e0a70bd3023eee4",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_rare_male_v2/diagnostic_composition.png",
+      "sha256": "d1f90a0ece559dd41a42d48ae0a3e60fa31c8a99011e6509ca47a4a37833d9a0",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_rare_male_v2/full_body_diagnostic.png",
+      "sha256": "d1f90a0ece559dd41a42d48ae0a3e60fa31c8a99011e6509ca47a4a37833d9a0",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_rare_male_v2/waist_zoom_base.png",
+      "sha256": "4ebaf9a07fa97b634e98ff33b8084c28bf9b51244d2a9c98d3dc07995e572674",
+      "width": 1080,
+      "height": 760
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_rare_male_v2/waist_zoom_diagnostic.png",
+      "sha256": "f5a3135aab02d8600dbf2644a7428aa13fc38b601165aac369a19346d019aaee",
+      "width": 1080,
+      "height": 760
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_rare_male_v2/reviewed_base_guides.png",
+      "sha256": "4f3605a00c6f1745bbcc2f7dca72042ee5cad15197dc3cd3d71fe791c9aec94a",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_rare_male_v2/reviewed_alignment_guides.png",
+      "sha256": "13060e79bcfb4a7a219344134241c9d292c0a2f31426dcc67b8b2207efcc5f20",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_rare_male_v2/reviewed_waist_zoom_guides.png",
+      "sha256": "24324a169dc9fa263c1dd73bc8557245391bfc2d2b009e4c2e6496a9cbace7b3",
+      "width": 1080,
+      "height": 760
+    }
+  ],
+  "assessedBy": "Codex author visual QA, not independent review or human approval",
+  "ready": false,
+  "humanBodyFitApproved": false,
+  "runtimeActivated": false,
+  "runtimePath": null
+}

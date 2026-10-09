@@ -1,0 +1,161 @@
+{
+  "filename": "armor_traveler_rare_male_v2.png",
+  "itemId": "traveler-armor-rare",
+  "gender": "male",
+  "slot": "armor",
+  "sourcePath": "assets-source/body-fit-v2-targets/armor_traveler_rare_male_v2.png",
+  "exists": true,
+  "sourceApproval": {
+    "declaredBy": "Carlos Faustino",
+    "declaration": "SOURCE_VISUAL_APPROVED",
+    "boundToFileHash": true
+  },
+  "technicalStatus": "TECHNICALLY_VALIDATED",
+  "mapping": {
+    "status": "MAPPED",
+    "errors": [],
+    "targetFilename": "armor_traveler_rare_male_v2.png",
+    "itemId": "traveler-armor-rare",
+    "gender": "male",
+    "slot": "armor"
+  },
+  "fitStatus": "NEEDS_REWORK",
+  "humanBodyFitApproved": false,
+  "runtimeReady": false,
+  "knownCorrectiveEditing": "Prior resize/crop not established by metadata; no corrective processing performed by this task",
+  "referenceAvatar": {
+    "id": "male_short_moss_medium",
+    "source": "/assets/avatar/hd/male/male_short_moss_medium_hd.png",
+    "sha256": "b182c2e29b512b337891716a413ab7efaad737e23c6354779fae17fe19b8af34",
+    "alphaThreshold": 128,
+    "bounds": {
+      "left": 169,
+      "top": 2,
+      "right": 933,
+      "bottom": 1513
+    },
+    "footBaseline": 1513,
+    "alphaPositiveBoundsDiagnostic": {
+      "left": 0,
+      "top": 0,
+      "right": 1003,
+      "bottom": 1521
+    }
+  },
+  "expectedLandmarks": [
+    "shoulders",
+    "chest",
+    "waist",
+    "hips",
+    "face/hands/legs exclusion"
+  ],
+  "evidenceLimit": "Technical/mapping checks do not establish fit; visual lab review required",
+  "sha256": "fb36c83cce93fc31b4871af4ea9e14597c5f7c5bb5167e2287c0928c96975e0f",
+  "integrity": {
+    "status": "CRC_PASS",
+    "chunks": 48
+  },
+  "manifestHash": "fb36c83cce93fc31b4871af4ea9e14597c5f7c5bb5167e2287c0928c96975e0f",
+  "manifestHashMatches": true,
+  "metadata": {
+    "format": "png",
+    "width": 1024,
+    "height": 1536,
+    "hasAlpha": true,
+    "transparentPixels": 615451,
+    "alpha128Pixels": 923815,
+    "fullNativeCanvas": true,
+    "decode": "PASS"
+  },
+  "readyEligible": false,
+  "sourceBoundsAlpha128": {
+    "left": 6,
+    "top": 55,
+    "right": 1018,
+    "bottom": 1486
+  },
+  "geometry": {
+    "nativeCanvas": {
+      "width": 1024,
+      "height": 1536
+    },
+    "sourceWidth": 1013,
+    "sourceHeight": 1432,
+    "sourceBottomMinusHDFootBaseline": -27,
+    "correction": "NONE: full canvas inset 0; no crop/warp/stretch/offset",
+    "guideMeaning": "Pixel bounds and foot baseline, not new anatomy anchors"
+  },
+  "manifestSourceFile": "armadura_de_paladino_esmeralda_celestial.png",
+  "provenance": "User supplied target PNG and hash-bound manifest; original authoring/crop history cannot be proven from PNG metadata. No corrective editing performed here.",
+  "reviewedBy": "Codex author fit QA; no human Body-Fit approval",
+  "fitResult": "FIT_FAIL",
+  "finalStatus": "NEEDS_REWORK",
+  "observations": "Gola cobre rosto; ombreiras e laterais excedem torso; cintura abaixo do corpo, saia invade pernas e não acompanha postura.",
+  "criteria": [
+    {
+      "criterion": "shoulders",
+      "result": "FAIL",
+      "evidence": "Visible mismatch in correct-gender full-canvas comparison; see observations"
+    },
+    {
+      "criterion": "chest",
+      "result": "FAIL",
+      "evidence": "Visible mismatch in correct-gender full-canvas comparison; see observations"
+    },
+    {
+      "criterion": "waist",
+      "result": "FAIL",
+      "evidence": "Visible mismatch in correct-gender full-canvas comparison; see observations"
+    },
+    {
+      "criterion": "hips",
+      "result": "FAIL",
+      "evidence": "Visible mismatch in correct-gender full-canvas comparison; see observations"
+    },
+    {
+      "criterion": "armOpening",
+      "result": "FAIL",
+      "evidence": "Visible mismatch in correct-gender full-canvas comparison; see observations"
+    },
+    {
+      "criterion": "lateralContour",
+      "result": "FAIL",
+      "evidence": "Visible mismatch in correct-gender full-canvas comparison; see observations"
+    },
+    {
+      "criterion": "occlusion",
+      "result": "FAIL",
+      "evidence": "Visible mismatch in correct-gender full-canvas comparison; see observations"
+    },
+    {
+      "criterion": "faceExclusion",
+      "result": "FAIL",
+      "evidence": "Visible mismatch in correct-gender full-canvas comparison; see observations"
+    },
+    {
+      "criterion": "handsExclusion",
+      "result": "NOT_CONFIRMED",
+      "evidence": "Not claimed as validated; decisive failures already require rework"
+    },
+    {
+      "criterion": "torsoSilhouette",
+      "result": "FAIL",
+      "evidence": "Visible mismatch in correct-gender full-canvas comparison; see observations"
+    }
+  ],
+  "regenerationRecommendation": "Regenerar uma camada somente sobre ombros/peito/cintura/quadril da referência HD exata. Medir os contornos e aberturas dos braços no HD; rosto, mãos e pernas transparentes. Preservar pose e canvas; não ampliar a arte para preencher a imagem.",
+  "assessedAt": "2026-10-08T06:04:18.570Z",
+  "humanBodyFitReviewStatus": "NOT_ELIGIBLE_FIT_FAILED",
+  "evidence": [
+    "armor_traveler_rare_male_v2/comparison.png",
+    "armor_traveler_rare_male_v2/base.png",
+    "armor_traveler_rare_male_v2/overlay.png",
+    "armor_traveler_rare_male_v2/combined.png",
+    "armor_traveler_rare_male_v2/blend.png",
+    "armor_traveler_rare_male_v2/split.png",
+    "armor_traveler_rare_male_v2/guides.png",
+    "armor_traveler_rare_male_v2/zoom-combined.png"
+  ],
+  "correctionApplied": false,
+  "scope": "Primary same-gender HD reference only; failed primary fit, therefore no broader compatibility claim or 27-variant PASS"
+}

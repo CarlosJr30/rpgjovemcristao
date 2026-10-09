@@ -4,6 +4,10 @@ import { useState, type CSSProperties } from 'react';
 import { Shell, RequireTraveler } from '../components/shell';
 import { CAMPAIGN, JOURNEY_ROUTES as routes } from '../data/campaign';
 import styles from '../journey.module.css';
+import {
+  JourneySpotlight,
+  AdventurePortals,
+} from '../components/journey-spotlight';
 const positions = [
   { x: 13, y: 72 },
   { x: 32, y: 55 },
@@ -35,6 +39,7 @@ export function MapScreen() {
                 {list ? '⌁ Ver mapa' : '☷ Ver em lista'}
               </button>
             </div>
+            <JourneySpotlight traveler={traveler} />
             <div className={list ? styles.listMap : styles.journeyMap}>
               {!list && (
                 <>
@@ -129,15 +134,27 @@ export function MapScreen() {
                 </p>
               )}
             </div>
+            <AdventurePortals />
             <div className={styles.mapFoot}>
               <span>SEU PRÓXIMO PASSO</span>
               <p>
-                {traveler.progress.gardenCompleted && !traveler.progress.nextPhaseUnlocked
+                {traveler.progress.gardenCompleted &&
+                !traveler.progress.nextPhaseUnlocked
                   ? `${traveler.name}, a próxima fase aguarda o Desafio da Célula.`
                   : `${traveler.name}, as primeiras histórias esperam por você.`}
               </p>
-              <Link href={traveler.progress.gardenCompleted && !traveler.progress.nextPhaseUnlocked ? routes.guild : routes.origins}>
-                {traveler.progress.gardenCompleted && !traveler.progress.nextPhaseUnlocked ? 'Ver gate da Guilda →' : 'Explorar As Origens →'}
+              <Link
+                href={
+                  traveler.progress.gardenCompleted &&
+                  !traveler.progress.nextPhaseUnlocked
+                    ? routes.guild
+                    : routes.origins
+                }
+              >
+                {traveler.progress.gardenCompleted &&
+                !traveler.progress.nextPhaseUnlocked
+                  ? 'Ver gate da Guilda →'
+                  : 'Explorar As Origens →'}
               </Link>
             </div>
           </section>

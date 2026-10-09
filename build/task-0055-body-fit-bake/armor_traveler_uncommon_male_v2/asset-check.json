@@ -1,0 +1,21 @@
+{
+  "id": "armor_traveler_uncommon_male_v2",
+  "status": "PASS",
+  "technical": "TECHNICALLY_VALIDATED",
+  "mapping": "MAPPED",
+  "fitStatus": "FIT_PASS",
+  "sha256": "8ece1c5d4daad2b4b7b0a6d673eb3ad6e2d16a9bcc888082ee33a2bd71c928c2",
+  "clippedAlpha128SourcePixels": 0,
+  "alpha128Bounds": {
+    "left": 274,
+    "top": 252,
+    "right": 755,
+    "bottom": 892,
+    "count": 186301
+  },
+  "footBaselineDelta": null,
+  "maxLandmarkResidual": 30.01786807229657,
+  "humanBodyFitApproved": false,
+  "ready": false,
+  "runtimeActivated": false
+}

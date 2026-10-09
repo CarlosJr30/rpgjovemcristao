@@ -1,0 +1,281 @@
+{
+  "task": "TASK-0055",
+  "id": "sword_path_common_female_v2",
+  "itemId": "traveler-sword-common",
+  "slot": "weapon",
+  "gender": "female",
+  "at": "2026-10-08T20:23:15.844Z",
+  "source": {
+    "path": "assets-source/body-fit-v2-targets/sword_path_common_female_v2.png",
+    "format": "png",
+    "width": 1024,
+    "height": 1536,
+    "channels": 4,
+    "hasAlpha": true,
+    "integrity": {
+      "status": "CRC_PASS",
+      "chunks": 22
+    },
+    "alpha128Bounds": {
+      "left": 64,
+      "top": 97,
+      "right": 943,
+      "bottom": 1492,
+      "count": 143598
+    },
+    "alphaPositiveBoundsDiagnostic": {
+      "left": 59,
+      "top": 55,
+      "right": 947,
+      "bottom": 1495,
+      "count": 158270
+    },
+    "transparentPixels": 1414594,
+    "sha256": "03e3edbcf9572fae0cafc46b0a02eda045cbcdfe855dfcdf808e4aa8a5401d29",
+    "decode": "PASS",
+    "approval": "SOURCE_VISUAL_APPROVED (inherited; not body-fit approval)"
+  },
+  "avatar": {
+    "id": "female_short_moss_medium",
+    "path": "apps/web/public/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+    "sha256": "f260cb9b053b35c328025f1bc7ee602cbb30e57c71ba1f2238a4b1519685f460",
+    "immutable": true,
+    "footBaseline": 1495
+  },
+  "mapping": {
+    "status": "MAPPED",
+    "errors": [],
+    "targetFilename": "sword_path_common_female_v2.png",
+    "itemId": "traveler-sword-common",
+    "gender": "female",
+    "slot": "weapon"
+  },
+  "landmarks": {
+    "hand_center_grip": {
+      "source": [
+        205,
+        300
+      ],
+      "avatar": [
+        231,
+        803
+      ],
+      "weight": 8,
+      "kind": "grip to screen-left hand anatomy"
+    },
+    "grip_guard": {
+      "source": [
+        269,
+        403
+      ],
+      "avatar": [
+        260,
+        851
+      ],
+      "weight": 1,
+      "kind": "anatomical garment proxy"
+    },
+    "wrist_clearance": {
+      "source": [
+        165,
+        225
+      ],
+      "avatar": [
+        240,
+        750
+      ],
+      "weight": 0.5,
+      "kind": "pommel/wrist clearance goal, hand remains unchanged"
+    },
+    "blade_root": {
+      "source": [
+        337,
+        559
+      ],
+      "avatar": [
+        293,
+        919
+      ],
+      "weight": 0.5,
+      "kind": "blade placement goal"
+    },
+    "blade_extent": {
+      "source": [
+        940,
+        1490
+      ],
+      "avatar": [
+        557,
+        1330
+      ],
+      "weight": 0.5,
+      "kind": "blade tip placement goal"
+    }
+  },
+  "landmarkResiduals": {
+    "hand_center_grip": {
+      "source": [
+        205,
+        300
+      ],
+      "avatar": [
+        231,
+        803
+      ],
+      "weight": 8,
+      "kind": "grip to screen-left hand anatomy",
+      "projected": [
+        232.48598566392016,
+        802.2787336987719
+      ],
+      "delta": [
+        1.485985663920161,
+        -0.72126630122807
+      ],
+      "distance": 1.6517803941999865
+    },
+    "grip_guard": {
+      "source": [
+        269,
+        403
+      ],
+      "avatar": [
+        260,
+        851
+      ],
+      "weight": 1,
+      "kind": "anatomical garment proxy",
+      "projected": [
+        260.8868602897749,
+        847.986391299757
+      ],
+      "delta": [
+        0.8868602897749156,
+        -3.013608700243026
+      ],
+      "distance": 3.1413943674362352
+    },
+    "wrist_clearance": {
+      "source": [
+        165,
+        225
+      ],
+      "avatar": [
+        240,
+        750
+      ],
+      "weight": 0.5,
+      "kind": "pommel/wrist clearance goal, hand remains unchanged",
+      "projected": [
+        214.73543902276094,
+        768.9964587465984
+      ],
+      "delta": [
+        -25.264560977239057,
+        18.996458746598364
+      ],
+      "distance": 31.60954739131587
+    },
+    "blade_root": {
+      "source": [
+        337,
+        559
+      ],
+      "avatar": [
+        293,
+        919
+      ],
+      "weight": 0.5,
+      "kind": "blade placement goal",
+      "projected": [
+        291.06278957974564,
+        917.2135232002779
+      ],
+      "delta": [
+        -1.9372104202543596,
+        -1.7864767997220952
+      ],
+      "distance": 2.635200859192212
+    },
+    "blade_extent": {
+      "source": [
+        940,
+        1490
+      ],
+      "avatar": [
+        557,
+        1330
+      ],
+      "weight": 0.5,
+      "kind": "blade tip placement goal",
+      "projected": [
+        558.652280195221,
+        1330.3574962732591
+      ],
+      "delta": [
+        1.6522801952210102,
+        0.35749627325913025
+      ],
+      "distance": 1.6905127709998962
+    }
+  },
+  "landmarkMethod": "Female common sword diagonal down-right; weighted real hand center, blade/free-space goals; no hand pose change; visual native grid measurements approximately ±12px avatar, ±20px source. No hidden anatomy certified.",
+  "transform": {
+    "translateX": 141.5144341279791,
+    "translateY": 669.1496338900777,
+    "scale": 0.4437636660289808,
+    "rotation": 0
+  },
+  "fittingMethod": "Per-source weighted least-squares uniform scale + translation; rotation0 preferred. Anatomy points and placement goals identified separately.",
+  "transformConvention": "Native top-left origin; x=tx+scale*x; y=ty+scale*y; offline only",
+  "pipeline": {
+    "version": 1,
+    "implementation": "TASK-0054 bakeBytes: inverse sampling / premultiplied-alpha bilinear",
+    "sharp": "0.35.4",
+    "vips": "8.18.6",
+    "mask": "NONE",
+    "warp": "NONE",
+    "uniform": true
+  },
+  "output": {
+    "path": "build/task-0055-body-fit-bake/sword_path_common_female_v2/sword_path_common_female_v2_baked.png",
+    "format": "png",
+    "width": 1024,
+    "height": 1536,
+    "channels": 4,
+    "hasAlpha": true,
+    "integrity": {
+      "status": "CRC_PASS",
+      "chunks": 19
+    },
+    "alpha128Bounds": {
+      "left": 170,
+      "top": 712,
+      "right": 559,
+      "bottom": 1330,
+      "count": 28269
+    },
+    "alphaPositiveBoundsDiagnostic": {
+      "left": 169,
+      "top": 694,
+      "right": 561,
+      "bottom": 1332,
+      "count": 31352
+    },
+    "transparentPixels": 1541512,
+    "sha256": "2ce38d3ac68ac259cffa59e6067eefc2272486691d0eedd2a531d17ed4360d11",
+    "decode": "PASS"
+  },
+  "runtime": {
+    "activated": false,
+    "render": {
+      "top": 0,
+      "left": 0,
+      "width": "100%",
+      "height": "100%",
+      "transform": "none"
+    }
+  },
+  "humanBodyFitApproved": false,
+  "ready": false
+}

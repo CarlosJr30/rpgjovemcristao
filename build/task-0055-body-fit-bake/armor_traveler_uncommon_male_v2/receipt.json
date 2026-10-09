@@ -1,0 +1,44 @@
+{
+  "id": "armor_traveler_uncommon_male_v2",
+  "filename": "armor_traveler_uncommon_male_v2.png",
+  "itemId": "traveler-armor-uncommon",
+  "gender": "male",
+  "slot": "armor",
+  "avatar": {
+    "id": "male_short_moss_medium",
+    "path": "apps/web/public/assets/avatar/hd/male/male_short_moss_medium_hd.png",
+    "sha256": "b182c2e29b512b337891716a413ab7efaad737e23c6354779fae17fe19b8af34",
+    "immutable": true,
+    "footBaseline": 1513
+  },
+  "transform": {
+    "translateX": 273.0942384490355,
+    "translateY": 214.1799998780681,
+    "scale": 0.4722086357554797,
+    "rotation": 0
+  },
+  "sha256": "8ece1c5d4daad2b4b7b0a6d673eb3ad6e2d16a9bcc888082ee33a2bd71c928c2",
+  "sourceSha256": "7172c482d49902d1c268a98c3b5339950f7e5340c6c4e0e54bdbea42ffe80b32",
+  "technicalStatus": "TECHNICALLY_VALIDATED",
+  "mapping": "MAPPED",
+  "fitStatus": "FIT_PASS",
+  "humanBodyFitApproved": false,
+  "ready": false,
+  "runtimeActivated": false,
+  "reviewStatus": "HUMAN_BODY_FIT_REVIEW_PENDING",
+  "fitReport": "build/task-0055-body-fit-bake/armor_traveler_uncommon_male_v2/fit-report.json",
+  "metadata": "build/task-0055-body-fit-bake/armor_traveler_uncommon_male_v2/fit-metadata.json",
+  "metadataSha256": "36a4c07153e3af3f1d98f73f973b7427a9527b7b00714161d78c7cf720ca2bf3",
+  "observations": [
+    "Peitoral, ombros e cinto acompanham a anatomia masculina; braços e mãos permanecem livres.",
+    "Base mantém pequenos trechos da roupa/pochete original nas laterais; composição de camadas, sem alteração da base.",
+    "Landmarks aproximados têm resíduos locais, registrados na metadata; não é encaixe pixel-perfect nem validação das demais variantes."
+  ],
+  "reworkRecommendation": "Sem regeneração obrigatória no candidato técnico; Carlos deve revisar este hash no avatar indicado antes de qualquer READY.",
+  "task": "TASK-0055",
+  "updatedAt": "2026-10-08T20:27:47.326Z",
+  "sourceApproval": "SOURCE_VISUAL_APPROVED (inherited)",
+  "runtimePath": null,
+  "stagingPath": "build/task-0055-body-fit-bake/armor_traveler_uncommon_male_v2/armor_traveler_uncommon_male_v2_baked.png",
+  "approvedBy": null
+}

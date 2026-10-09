@@ -1,0 +1,503 @@
+{
+  "items": [
+    {
+      "id": "traveler-boots",
+      "name": "Botas do Viajante",
+      "slot": "boots",
+      "rarity": "comum",
+      "power": 1,
+      "stats": {
+        "life": 1
+      }
+    },
+    {
+      "id": "traveler-helmet-rare",
+      "name": "Elmo do Viajante",
+      "slot": "helmet",
+      "rarity": "raro",
+      "power": 2,
+      "stats": {
+        "defense": 1
+      }
+    },
+    {
+      "id": "wisdom-amulet",
+      "name": "Medalhão do Caminho",
+      "slot": "amulet",
+      "rarity": "raro",
+      "power": 2,
+      "stats": {
+        "wisdom": 2
+      }
+    },
+    {
+      "id": "traveler-sword-common",
+      "name": "Espada do Caminho",
+      "slot": "weapon",
+      "rarity": "comum",
+      "power": 1,
+      "stats": {
+        "strength": 2
+      }
+    },
+    {
+      "id": "traveler-armor-uncommon",
+      "name": "Couraça do Viajante",
+      "slot": "armor",
+      "rarity": "incomum",
+      "power": 2,
+      "stats": {
+        "life": 1,
+        "defense": 1
+      }
+    },
+    {
+      "id": "traveler-shield-rare",
+      "name": "Escudo da Perseverança",
+      "slot": "shield",
+      "rarity": "raro",
+      "power": 3,
+      "stats": {
+        "life": 1,
+        "defense": 2
+      }
+    }
+  ],
+  "offers": [
+    {
+      "equipment": {
+        "id": "traveler-sword-common",
+        "name": "Espada do Caminho",
+        "slot": "weapon",
+        "rarity": "comum",
+        "power": 1,
+        "stats": {
+          "strength": 2
+        }
+      },
+      "price": 35,
+      "description": "Arma fictícia inicial para a jornada."
+    },
+    {
+      "equipment": {
+        "id": "traveler-armor-uncommon",
+        "name": "Couraça do Viajante",
+        "slot": "armor",
+        "rarity": "incomum",
+        "power": 2,
+        "stats": {
+          "life": 1,
+          "defense": 1
+        }
+      },
+      "price": 65,
+      "description": "Armadura fictícia inspirada na firmeza de caráter."
+    },
+    {
+      "equipment": {
+        "id": "traveler-shield-rare",
+        "name": "Escudo da Perseverança",
+        "slot": "shield",
+        "rarity": "raro",
+        "power": 3,
+        "stats": {
+          "life": 1,
+          "defense": 2
+        }
+      },
+      "price": 115,
+      "description": "Escudo fictício para quem explorou e poupou moedas."
+    }
+  ],
+  "rarities": [
+    "comum",
+    "incomum",
+    "raro",
+    "épico",
+    "lendário"
+  ],
+  "assets": {
+    "traveler-sword-common": {
+      "slot": "weapon",
+      "iconAsset": "/assets/equipment/weapon/traveler_sword_rare_icon.png",
+      "iconAssetHighQuality": "/assets/equipment/overlays/v1/sword_path_common.png",
+      "overlayMode": "cropped",
+      "overlayAsset": "/assets/equipment/overlays/v1/sword_path_common.png",
+      "visualConfig": {
+        "base": {
+          "anchor": "rightHand",
+          "size": {
+            "width": 48,
+            "height": 240
+          },
+          "registration": {
+            "x": 0.5,
+            "y": 0.705
+          },
+          "x": 0,
+          "y": 0,
+          "scale": 1.15,
+          "rotation": 28,
+          "zIndex": 6
+        }
+      },
+      "visualQuality": "NEEDS_NEW_OVERLAY"
+    },
+    "traveler-sword-rare": {
+      "slot": "weapon",
+      "iconAsset": "/assets/equipment/weapon/traveler_sword_rare_icon.png",
+      "iconAssetHighQuality": "/assets/equipment/overlays/v1/sword_path_rare.png",
+      "overlayMode": "cropped",
+      "overlayAsset": "/assets/equipment/overlays/v1/sword_path_rare.png",
+      "visualConfig": {
+        "base": {
+          "anchor": "rightHand",
+          "size": {
+            "width": 48,
+            "height": 240
+          },
+          "registration": {
+            "x": 0.5,
+            "y": 0.705
+          },
+          "x": 0,
+          "y": 0,
+          "scale": 1.15,
+          "rotation": 28,
+          "zIndex": 6
+        }
+      },
+      "visualQuality": "NEEDS_NEW_OVERLAY"
+    },
+    "traveler-shield-rare": {
+      "slot": "shield",
+      "iconAsset": "/assets/equipment/shield/traveler_shield_rare_icon.png",
+      "iconAssetHighQuality": "/assets/equipment/overlays/v1/shield_perseverance_rare.png",
+      "overlayMode": "cropped",
+      "overlayAsset": "/assets/equipment/overlays/v1/shield_perseverance_rare.png",
+      "visualConfig": {
+        "base": {
+          "anchor": "leftHand",
+          "size": {
+            "width": 108,
+            "height": 152
+          },
+          "registration": {
+            "x": 0.7,
+            "y": 0.48
+          },
+          "x": 0,
+          "y": 0,
+          "scale": 1,
+          "rotation": -8,
+          "zIndex": 7
+        }
+      },
+      "visualQuality": "NEEDS_NEW_OVERLAY"
+    },
+    "wisdom-amulet": {
+      "slot": "amulet",
+      "iconAsset": "/assets/equipment/amulet/amulet_of_the_path_icon.png",
+      "iconAssetHighQuality": "/assets/equipment/overlays/v1/medallion_path_rare.png",
+      "overlayMode": "cropped",
+      "overlayAsset": "/assets/equipment/overlays/v1/medallion_path_rare.png",
+      "visualConfig": {
+        "base": {
+          "anchor": "chest",
+          "size": {
+            "width": 22,
+            "height": 36
+          },
+          "registration": {
+            "x": 0.5,
+            "y": 0.6
+          },
+          "x": 0,
+          "y": 0,
+          "scale": 1,
+          "rotation": 0,
+          "zIndex": 4
+        }
+      },
+      "visualQuality": "NEEDS_NEW_OVERLAY"
+    },
+    "traveler-helmet-rare": {
+      "slot": "helmet",
+      "iconAsset": "/assets/equipment/helmet/traveler_helmet_rare_icon.png",
+      "iconAssetHighQuality": {
+        "female": "/assets/equipment/overlays/v1/helmet_traveler_rare_female.png",
+        "male": "/assets/equipment/overlays/v1/helmet_traveler_rare_male.png"
+      },
+      "overlayMode": "cropped",
+      "overlayAsset": {
+        "female": "/assets/equipment/overlays/v1/helmet_traveler_rare_female.png",
+        "male": "/assets/equipment/overlays/v1/helmet_traveler_rare_male.png"
+      },
+      "visualConfig": {
+        "base": {
+          "anchor": "head",
+          "size": {
+            "width": 142,
+            "height": 170
+          },
+          "registration": {
+            "x": 0.5,
+            "y": 0.555
+          },
+          "x": 0,
+          "y": 0,
+          "scale": 1,
+          "rotation": 0,
+          "zIndex": 8
+        },
+        "female": {
+          "size": {
+            "width": 144,
+            "height": 174
+          },
+          "registration": {
+            "x": 0.499667,
+            "y": 0.63
+          }
+        }
+      },
+      "visualQuality": "NEEDS_NEW_OVERLAY"
+    },
+    "traveler-armor-uncommon": {
+      "slot": "armor",
+      "iconAsset": "/assets/equipment/armor/traveler_armor_rare_icon.png",
+      "iconAssetHighQuality": {
+        "female": "/assets/equipment/overlays/v1/armor_traveler_uncommon_female.png",
+        "male": "/assets/equipment/overlays/v1/armor_traveler_uncommon_male.png"
+      },
+      "overlayMode": "cropped",
+      "overlayAsset": {
+        "female": "/assets/equipment/overlays/v1/armor_traveler_uncommon_female.png",
+        "male": "/assets/equipment/overlays/v1/armor_traveler_uncommon_male.png"
+      },
+      "visualConfig": {
+        "base": {
+          "anchor": "torso",
+          "size": {
+            "width": 196,
+            "height": 216
+          },
+          "registration": {
+            "x": 0.499755,
+            "y": 0.582593
+          },
+          "x": 0,
+          "y": 0,
+          "scale": 1.25,
+          "rotation": 0,
+          "zIndex": 2
+        },
+        "male": {
+          "size": {
+            "width": 208,
+            "height": 220
+          },
+          "registration": {
+            "x": 0.509615,
+            "y": 0.572
+          },
+          "scale": 1.15
+        }
+      },
+      "visualQuality": "NEEDS_NEW_OVERLAY"
+    },
+    "traveler-armor-rare": {
+      "slot": "armor",
+      "iconAsset": "/assets/equipment/armor/traveler_armor_rare_icon.png",
+      "iconAssetHighQuality": {
+        "female": "/assets/equipment/overlays/v1/armor_traveler_rare_female.png",
+        "male": "/assets/equipment/overlays/v1/armor_traveler_rare_male.png"
+      },
+      "overlayMode": "cropped",
+      "overlayAsset": {
+        "female": "/assets/equipment/overlays/v1/armor_traveler_rare_female.png",
+        "male": "/assets/equipment/overlays/v1/armor_traveler_rare_male.png"
+      },
+      "visualConfig": {
+        "base": {
+          "anchor": "torso",
+          "size": {
+            "width": 196,
+            "height": 216
+          },
+          "registration": {
+            "x": 0.499755,
+            "y": 0.582593
+          },
+          "x": 0,
+          "y": 0,
+          "scale": 1.15,
+          "rotation": 0,
+          "zIndex": 2
+        },
+        "male": {
+          "size": {
+            "width": 208,
+            "height": 220
+          },
+          "registration": {
+            "x": 0.509615,
+            "y": 0.572
+          },
+          "scale": 1.1
+        }
+      },
+      "visualQuality": "NEEDS_NEW_OVERLAY"
+    },
+    "traveler-boots": {
+      "slot": "boots",
+      "iconAsset": "/assets/equipment/boots/traveler_boots_common_icon.png",
+      "iconAssetHighQuality": {
+        "female": "/assets/equipment/overlays/v1/boots_traveler_common_left_female.png",
+        "male": "/assets/equipment/overlays/v1/boots_traveler_common_left_male.png"
+      },
+      "overlayMode": "cropped",
+      "overlayAsset": {
+        "female": "/assets/equipment/overlays/v1/boots_traveler_common_left_female.png",
+        "male": "/assets/equipment/overlays/v1/boots_traveler_common_left_male.png"
+      },
+      "visualConfig": {
+        "base": {
+          "anchor": "leftFoot",
+          "size": {
+            "width": 108,
+            "height": 166
+          },
+          "registration": {
+            "x": 0.5,
+            "y": 0.58
+          },
+          "x": -15,
+          "y": -14,
+          "scale": 1.1,
+          "rotation": 0,
+          "zIndex": 3,
+          "mirrorX": true
+        },
+        "female": {
+          "size": {
+            "width": 100,
+            "height": 186.36363636363637
+          },
+          "registration": {
+            "x": 0.5,
+            "y": 0.633
+          },
+          "x": -14,
+          "y": 0,
+          "scale": 1
+        }
+      },
+      "visualQuality": "NEEDS_NEW_OVERLAY",
+      "additionalOverlays": [
+        {
+          "overlayAsset": {
+            "female": "/assets/equipment/overlays/v1/boots_traveler_common_right_female.png",
+            "male": "/assets/equipment/overlays/v1/boots_traveler_common_right_male.png"
+          },
+          "visualConfig": {
+            "base": {
+              "anchor": "rightFoot",
+              "size": {
+                "width": 128,
+                "height": 166
+              },
+              "registration": {
+                "x": 0.5,
+                "y": 0.78
+              },
+              "x": 17,
+              "y": 6,
+              "scale": 1.1,
+              "rotation": 0,
+              "zIndex": 3
+            },
+            "female": {
+              "size": {
+                "width": 116,
+                "height": 164
+              },
+              "registration": {
+                "x": 0.5,
+                "y": 0.74
+              },
+              "x": 15,
+              "y": 0,
+              "scale": 1,
+              "mirrorX": true
+            }
+          }
+        }
+      ]
+    }
+  },
+  "bible": {
+    "traveler-boots": {
+      "biblicalReference": "Efésios 6:15",
+      "bibleUrl": "https://www.bible.com/pt/bible/129/EPH.6.14-17.NVI",
+      "biblicalTheme": "Prontidão do evangelho da paz",
+      "biblicalDescription": "Botas fictícias de jogo inspiradas na imagem de prontidão. O texto bíblico não descreve estas botas nem concede bônus de jogo.",
+      "biblicalClassification": "thematic",
+      "foundAt": "Equipamento inicial"
+    },
+    "traveler-helmet-rare": {
+      "biblicalReference": "Efésios 6:17",
+      "bibleUrl": "https://www.bible.com/pt/bible/129/EPH.6.14-17.NVI",
+      "biblicalTheme": "Capacete da salvação",
+      "biblicalDescription": "Elmo fictício de jogo inspirado na imagem do capacete da salvação. Não é uma relíquia bíblica; seu poder é uma regra de gameplay.",
+      "biblicalClassification": "thematic",
+      "foundAt": "Baú do Jardim"
+    },
+    "wisdom-amulet": {
+      "biblicalReference": "Provérbios 3:5–6",
+      "bibleUrl": "https://www.bible.com/pt/bible/129/PRO.3.5-6.NVI",
+      "biblicalTheme": "Confiança e direção",
+      "biblicalDescription": "Medalhão fictício de jogo inspirado no tema de confiar em Deus ao seguir um caminho. Provérbios não menciona um medalhão.",
+      "biblicalClassification": "thematic",
+      "foundAt": "Conclusão da Fase 1.1"
+    },
+    "traveler-sword-common": {
+      "biblicalReference": "Efésios 6:17",
+      "bibleUrl": "https://www.bible.com/pt/bible/129/EPH.6.14-17.NVI",
+      "biblicalTheme": "Espada do Espírito e Palavra de Deus",
+      "biblicalDescription": "Espada fictícia de jogo inspirada na metáfora da Palavra em Efésios. Não representa objeto bíblico real nem poder espiritual.",
+      "biblicalClassification": "thematic",
+      "foundAt": "Loja do Viajante"
+    },
+    "traveler-armor-uncommon": {
+      "biblicalReference": "Efésios 6:14",
+      "bibleUrl": "https://www.bible.com/pt/bible/129/EPH.6.14-17.NVI",
+      "biblicalTheme": "Couraça da justiça",
+      "biblicalDescription": "Couraça fictícia de jogo inspirada na imagem da justiça. O bônus pertence somente às regras do RPG.",
+      "biblicalClassification": "thematic",
+      "foundAt": "Loja do Viajante"
+    },
+    "traveler-shield-rare": {
+      "biblicalReference": "Efésios 6:16",
+      "bibleUrl": "https://www.bible.com/pt/bible/129/EPH.6.14-17.NVI",
+      "biblicalTheme": "Escudo da fé",
+      "biblicalDescription": "Escudo fictício de jogo inspirado na metáfora da fé em Efésios. Não é relíquia nem possui poder espiritual real.",
+      "biblicalClassification": "thematic",
+      "foundAt": "Loja do Viajante"
+    }
+  },
+  "layers": {
+    "background": -1,
+    "back": 0,
+    "body": 1,
+    "armor": 2,
+    "boots": 3,
+    "medallion": 4,
+    "hands": 5,
+    "weapon": 6,
+    "shield": 7,
+    "helmet": 8,
+    "frontDetails": 9,
+    "effects": 10
+  }
+}

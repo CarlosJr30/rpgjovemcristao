@@ -1,0 +1,108 @@
+{
+  "task": "TASK-0059",
+  "id": "sword_path_common_male_v2",
+  "gender": "male",
+  "slot": "weapon",
+  "attempt": "b-mouth-front-plane",
+  "status": "NEEDS_REWORK",
+  "selected": false,
+  "source": {
+    "path": "assets-source/body-fit-v2-targets/sword_path_common_male_v2.png",
+    "sha256": "ef4ca354506a7da6a9c80dcbb2b4d5388af7d11bef98fce9a81d8de6b40e8818"
+  },
+  "avatar": {
+    "path": "apps/web/public/assets/avatar/hd/male/male_short_moss_medium_hd.png",
+    "sha256": "b182c2e29b512b337891716a413ab7efaad737e23c6354779fae17fe19b8af34",
+    "immutable": true
+  },
+  "output": {
+    "path": "build/task-0059-equipment-recovery/recovery/sword_path_common_male_v2/b-mouth-front-plane/sword_path_common_male_v2_baked.png",
+    "format": "png",
+    "width": 1024,
+    "height": 1536,
+    "channels": 4,
+    "hasAlpha": true,
+    "integrity": {
+      "status": "CRC_PASS",
+      "chunks": 22
+    },
+    "alpha128Bounds": {
+      "left": 594,
+      "top": 557,
+      "right": 837,
+      "bottom": 1248,
+      "count": 36729
+    },
+    "alphaPositiveBoundsDiagnostic": {
+      "left": 417,
+      "top": 555,
+      "right": 923,
+      "bottom": 1253,
+      "count": 39869
+    },
+    "transparentPixels": 1532995,
+    "sha256": "559bad0373b8f91ca5abc1a3b68f0cc552b285ed7e8bcbd2af3ac13dde57aaf6",
+    "decode": "PASS"
+  },
+  "compositionPath": "build/task-0059-equipment-recovery/recovery/sword_path_common_male_v2/b-mouth-front-plane/combined.png",
+  "settings": {
+    "method": "Mouth front plane occludes inserted blade; male guard independently lowered15px",
+    "transforms": {
+      "sword": {
+        "scale": 0.4,
+        "rotation": 134.41414013616378,
+        "translateX": 1097.7964347811273,
+        "translateY": 941.9837235867077
+      },
+      "sheath": {
+        "scale": 0.46,
+        "rotation": 10,
+        "translateX": 549.0224768244946,
+        "translateY": 528.714261465397
+      }
+    },
+    "sheathSource": {
+      "path": "build/task-0058-sword-sheath-pilot/source/sheath-generated-v2.png",
+      "sha256": "b042739c4e179c504b33b0c50da710ae1c42edb7f67444f967264c8a219a9949"
+    },
+    "landmarks": {
+      "throat": [
+        697,
+        765
+      ],
+      "tip": [
+        832.700617165212,
+        1245.747804260176
+      ],
+      "beltLoops": [
+        [
+          613.3567549500607,
+          587.7019471130159
+        ],
+        [
+          644.164859313687,
+          616.956155451645
+        ]
+      ]
+    },
+    "hiltCutAxial": 55,
+    "mask": {
+      "path": "build/task-0059-equipment-recovery/recovery/sword_path_common_male_v2/b-mouth-front-plane/localized-mask.png",
+      "sha256": "49a1ccbd536fa72596dca7e13031919c1bbb3d8df9de7691b10636a4590ee504"
+    },
+    "rotationBasis": "Independent original root-to-tip normalization from TASK0056, then lateral15degrees",
+    "armMaskRequiresIndividualReview": true,
+    "base": null
+  },
+  "reportPath": "build/task-0059-equipment-recovery/recovery/sword_path_common_male_v2/b-mouth-front-plane/fit-report.json",
+  "ready": false,
+  "humanBodyFitApproved": false,
+  "runtimeActivated": false,
+  "review": {
+    "reviewer": "Codex — revisão técnica local, não humana",
+    "fullBodyInspected": true,
+    "zoomInspected": true,
+    "findings": "Suspensão de couro passou à frente do cabo; plano incompatível.",
+    "humanApproval": false
+  }
+}

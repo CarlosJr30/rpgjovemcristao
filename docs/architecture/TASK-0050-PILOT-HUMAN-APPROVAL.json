@@ -1,0 +1,41 @@
+{
+  "task": "TASK-0048",
+  "round": "REWORK-1",
+  "reviewedBy": "Carlos Faustino",
+  "reviewedAt": "2026-10-07T12:46:52.119Z",
+  "reviewStatus": "HUMAN_VISUAL_APPROVED",
+  "usage": "DEV_PILOT_ONLY",
+  "approvedCriteria": [
+    "visual identity",
+    "pose",
+    "silhouette",
+    "proportions",
+    "feet baseline",
+    "framing",
+    "overall legacy appearance"
+  ],
+  "productionActivationApproved": false,
+  "bodyFitApprovalGranted": false,
+  "remaining52GenerationAuthorized": false,
+  "pushDeployRemoteAuthorized": false,
+  "pilots": [
+    {
+      "id": "male_short_moss_medium",
+      "path": "/assets/avatar/hd/male/male_short_moss_medium_hd.png",
+      "sha256": "b182c2e29b512b337891716a413ab7efaad737e23c6354779fae17fe19b8af34",
+      "reviewedBy": "Carlos Faustino",
+      "reviewedAt": "2026-10-07T12:46:52.119Z",
+      "reviewStatus": "HUMAN_VISUAL_APPROVED",
+      "usage": "DEV_PILOT_ONLY"
+    },
+    {
+      "id": "female_short_moss_medium",
+      "path": "/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+      "sha256": "f260cb9b053b35c328025f1bc7ee602cbb30e57c71ba1f2238a4b1519685f460",
+      "reviewedBy": "Carlos Faustino",
+      "reviewedAt": "2026-10-07T12:46:52.119Z",
+      "reviewStatus": "HUMAN_VISUAL_APPROVED",
+      "usage": "DEV_PILOT_ONLY"
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "task": "TASK-0054",
+  "recordedAt": "2026-10-08T07:31:46.510Z",
+  "reviewedAt": "2026-10-08T07:31:46.510Z",
+  "reviewedBy": "Carlos Faustino",
+  "reviewStatus": "HUMAN_BODY_FIT_APPROVED",
+  "humanBodyFitApproved": true,
+  "itemId": "traveler-armor-uncommon",
+  "gender": "female",
+  "assetFilename": "armor_traveler_uncommon_female_v2_baked.png",
+  "sha256": "ebee2f026c2dd6aac6b47850c8412f243cdc20c51a36d6f91e2d6cf3b46c20cb",
+  "bakeMetadataSha256": "8511d318ac79a28f3c0813e2225d0ae5e4cd9d89a9964a3ea4a6dd1db38317fc",
+  "sourceSha256": "564e2a4ebeaf51c41fd32dd7dca311dcc6d9c7cb4015d579d4f3b7f9d98714d1",
+  "referenceAvatar": {
+    "id": "female_short_moss_medium",
+    "gender": "female",
+    "path": "apps/web/public/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+    "sha256": "f260cb9b053b35c328025f1bc7ee602cbb30e57c71ba1f2238a4b1519685f460"
+  },
+  "criteria": [
+    "shoulders",
+    "chest",
+    "armpits",
+    "waist",
+    "hips",
+    "neck/face",
+    "hands/arms clear",
+    "silhouette",
+    "proportion",
+    "overall worn armor appearance"
+  ],
+  "scope": "ONLY this baked hash and this avatar/gender reference; no other15 targets or avatar variants",
+  "evidence": "Explicit human approval supplied by user in this session",
+  "runtimeActivated": false
+}

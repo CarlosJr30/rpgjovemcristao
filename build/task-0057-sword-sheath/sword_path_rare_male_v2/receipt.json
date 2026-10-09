@@ -1,0 +1,16 @@
+{
+  "task": "TASK-0057",
+  "id": "sword_path_rare_male_v2",
+  "status": "NEEDS_NEW_SHEATH_ART",
+  "sourceSha256": "89676a2f0f5b8ce73e25e6088ff52979115a11a091bbf25ce810b3c8488c96cb",
+  "avatarSha256": "b182c2e29b512b337891716a413ab7efaad737e23c6354779fae17fe19b8af34",
+  "previousCandidateSha256": "8e549def7ee66c9e9f3cd80e256b820e3fd889c99b0b9d05d738a62b2b657088",
+  "diagnosticSha256": "6f23c869ebdf02981873f363ecef8b362d9c97825feba6867e0a70bd3023eee4",
+  "metadataSha256": "0ea69cea0f38a160e3052d9c011ba7f067ad4ed555431b6f9d7c963d728038a1",
+  "reportSha256": "de6af83819fab3a17cd36bafe1e98326f96b16ce73237660e15fe288209a16f8",
+  "finalSheathedSha256": null,
+  "ready": false,
+  "humanBodyFitApproved": false,
+  "runtimeActivated": false,
+  "runtimePath": null
+}

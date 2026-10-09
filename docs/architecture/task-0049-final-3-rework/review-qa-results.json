@@ -1,0 +1,103 @@
+{
+  "at": "2026-10-07T23:28:48.889Z",
+  "lab": "standalone local DEV review; not game integration",
+  "viewports": [
+    {
+      "viewport": "390x844",
+      "result": "PASS",
+      "candidates": 3,
+      "nativeDimensions": "1024x1536",
+      "ratio": "2:3",
+      "modes": [
+        "HD",
+        "legacy",
+        "overlay",
+        "diff"
+      ],
+      "keyboard": "PASS",
+      "bodyOverflow": false,
+      "errors": []
+    },
+    {
+      "viewport": "412x915",
+      "result": "PASS",
+      "candidates": 3,
+      "nativeDimensions": "1024x1536",
+      "ratio": "2:3",
+      "modes": [
+        "HD",
+        "legacy",
+        "overlay",
+        "diff"
+      ],
+      "keyboard": "PASS",
+      "bodyOverflow": false,
+      "errors": []
+    },
+    {
+      "viewport": "844x390",
+      "result": "PASS",
+      "candidates": 3,
+      "nativeDimensions": "1024x1536",
+      "ratio": "2:3",
+      "modes": [
+        "HD",
+        "legacy",
+        "overlay",
+        "diff"
+      ],
+      "keyboard": "PASS",
+      "bodyOverflow": false,
+      "errors": []
+    },
+    {
+      "viewport": "915x412",
+      "result": "PASS",
+      "candidates": 3,
+      "nativeDimensions": "1024x1536",
+      "ratio": "2:3",
+      "modes": [
+        "HD",
+        "legacy",
+        "overlay",
+        "diff"
+      ],
+      "keyboard": "PASS",
+      "bodyOverflow": false,
+      "errors": []
+    },
+    {
+      "viewport": "1440x900",
+      "result": "PASS",
+      "candidates": 3,
+      "nativeDimensions": "1024x1536",
+      "ratio": "2:3",
+      "modes": [
+        "HD",
+        "legacy",
+        "overlay",
+        "diff"
+      ],
+      "keyboard": "PASS",
+      "bodyOverflow": false,
+      "errors": []
+    },
+    {
+      "viewport": "1920x1080",
+      "result": "PASS",
+      "candidates": 3,
+      "nativeDimensions": "1024x1536",
+      "ratio": "2:3",
+      "modes": [
+        "HD",
+        "legacy",
+        "overlay",
+        "diff"
+      ],
+      "keyboard": "PASS",
+      "bodyOverflow": false,
+      "errors": []
+    }
+  ],
+  "result": "PASS"
+}

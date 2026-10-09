@@ -1,0 +1,30 @@
+{
+  "at": "2026-10-08T00:21:59.272Z",
+  "result": "PASS",
+  "identities": 54,
+  "queue": 52,
+  "pilots": 2,
+  "bytes": 117434147,
+  "decodedBytesPerHD": 6291456,
+  "protectedBaseline": 815,
+  "preserved": 800,
+  "authorizedChanged": [
+    "tests/e2e/avatar-runtime.spec.ts",
+    "tests/e2e/avatar-runtime-lab.spec.ts",
+    "apps/web/package.json",
+    "apps/web/next-env.d.ts",
+    "apps/web/features/journey/avatar-runtime.test.tsx",
+    "apps/web/features/journey/avatar-hd-pack.test.tsx",
+    "apps/web/features/journey/equipment-overlays.test.tsx",
+    "apps/web/features/journey/dev/avatar-runtime-panel.tsx",
+    "apps/web/features/journey/snake-chase-game.test.tsx",
+    "apps/web/features/journey/data/avatarRuntime.ts",
+    "apps/web/features/journey/data/avatarHDPack.ts",
+    "apps/web/features/journey/components/avatar-runtime.tsx",
+    "apps/web/features/journey/data/gameplayAvatarPortrait.ts",
+    "apps/web/features/journey/progression.test.ts",
+    "apps/web/features/journey/components/snake-chase-game.tsx"
+  ],
+  "nativeCopyHashApprovalPaths": "PASS",
+  "legacyBodyFitAnchorsSaves": "PRESERVED"
+}

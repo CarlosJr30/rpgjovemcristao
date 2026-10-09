@@ -1,0 +1,1028 @@
+[
+  {
+    "id": "female_curly_blue_dark",
+    "source": "/assets/avatar/hd/female/female_curly_blue_dark_hd.png",
+    "sha256": "c96e8b93f23e732ead9f0243f7d390293e20ab6c2187f0e260dbc190872591c2",
+    "alphaThreshold": 128,
+    "bounds": {
+      "left": 184,
+      "top": 9,
+      "right": 967,
+      "bottom": 1496
+    },
+    "footBaseline": 1496,
+    "alphaPositiveBoundsDiagnostic": {
+      "left": 0,
+      "top": 0,
+      "right": 975,
+      "bottom": 1505
+    }
+  },
+  {
+    "id": "female_curly_blue_light",
+    "source": "/assets/avatar/hd/female/female_curly_blue_light_hd.png",
+    "sha256": "8dc450bdcb0730fca04571c9628b7c21807b6f63800eebfe11e2813ab806d0ac",
+    "alphaThreshold": 128,
+    "bounds": {
+      "left": 184,
+      "top": 8,
+      "right": 963,
+      "bottom": 1494
+    },
+    "footBaseline": 1494,
+    "alphaPositiveBoundsDiagnostic": {
+      "left": 0,
+      "top": 0,
+      "right": 970,
+      "bottom": 1503
+    }
+  },
+  {
+    "id": "female_curly_blue_medium",
+    "source": "/assets/avatar/hd/female/female_curly_blue_medium_hd.png",
+    "sha256": "69ee723023e71d7eceeabbf6ff529bddbb4b45edbb6b2b9c2a863a5b9d2d2201",
+    "alphaThreshold": 128,
+    "bounds": {
+      "left": 186,
+      "top": 7,
+      "right": 965,
+      "bottom": 1495
+    },
+    "footBaseline": 1495,
+    "alphaPositiveBoundsDiagnostic": {
+      "left": 105,
+      "top": 0,
+      "right": 1003,
+      "bottom": 1511
+    }
+  },
+  {
+    "id": "female_curly_moss_dark",
+    "source": "/assets/avatar/hd/female/female_curly_moss_dark_hd.png",
+    "sha256": "8dc002903a6d817ed3e88bd074c2e4bdec29851012b2d54f59e395c217e4feef",
+    "alphaThreshold": 128,
+    "bounds": {
+      "left": 188,
+      "top": 8,
+      "right": 963,
+      "bottom": 1496
+    },
+    "footBaseline": 1496,
+    "alphaPositiveBoundsDiagnostic": {
+      "left": 0,
+      "top": 0,
+      "right": 1009,
+      "bottom": 1535
+    }
+  },
+  {
+    "id": "female_curly_moss_light",
+    "source": "/assets/avatar/hd/female/female_curly_moss_light_hd.png",
+    "sha256": "9a3429cbf48879a4dce7d3c864efb0a96e046824e608c715868d73c6add0574a",
+    "alphaThreshold": 128,
+    "bounds": {
+      "left": 185,
+      "top": 9,
+      "right": 964,
+      "bottom": 1496
+    },
+    "footBaseline": 1496,
+    "alphaPositiveBoundsDiagnostic": {
+      "left": 0,
+      "top": 0,
+      "right": 1011,
+      "bottom": 1504
+    }
+  },
+  {
+    "id": "female_curly_moss_medium",
+    "source": "/assets/avatar/hd/female/female_curly_moss_medium_hd.png",
+    "sha256": "facd724c6cfba397ae2e5808e6c2f70bd47e98fe8ad4ea89e8e369615dbac339",
+    "alphaThreshold": 128,
+    "bounds": {
+      "left": 185,
+      "top": 9,
+      "right": 966,
+      "bottom": 1494
+    },
+    "footBaseline": 1494,
+    "alphaPositiveBoundsDiagnostic": {
+      "left": 0,
+      "top": 0,
+      "right": 995,
+      "bottom": 1503
+    }
+  },
+  {
+    "id": "female_curly_ochre_dark",
+    "source": "/assets/avatar/hd/female/female_curly_ochre_dark_hd.png",
+    "sha256": "4bad1dcd741d745b2fa66202814470bd59af3a22faa14d12851471262fa4fa31",
+    "alphaThreshold": 128,
+    "bounds": {
+      "left": 190,
+      "top": 9,
+      "right": 961,
+      "bottom": 1495
+    },
+    "footBaseline": 1495,
+    "alphaPositiveBoundsDiagnostic": {
+      "left": 0,
+      "top": 0,
+      "right": 993,
+      "bottom": 1503
+    }
+  },
+  {
+    "id": "female_curly_ochre_light",
+    "source": "/assets/avatar/hd/female/female_curly_ochre_light_hd.png",
+    "sha256": "ed613e15a51bbcdae2a0d57eaa29b768501e25c8df3a8f9977540760e5655fa9",
+    "alphaThreshold": 128,
+    "bounds": {
+      "left": 184,
+      "top": 8,
+      "right": 967,
+      "bottom": 1497
+    },
+    "footBaseline": 1497,
+    "alphaPositiveBoundsDiagnostic": {
+      "left": 0,
+      "top": 0,
+      "right": 1007,
+      "bottom": 1511
+    }
+  },
+  {
+    "id": "female_curly_ochre_medium",
+    "source": "/assets/avatar/hd/female/female_curly_ochre_medium_hd.png",
+    "sha256": "e0a0f6ff69aef40fc9cbcf0655e18962397e851ad9c173056882744aed25df67",
+    "alphaThreshold": 128,
+    "bounds": {
+      "left": 186,
+      "top": 8,
+      "right": 966,
+      "bottom": 1496
+    },
+    "footBaseline": 1496,
+    "alphaPositiveBoundsDiagnostic": {
+      "left": 0,
+      "top": 0,
+      "right": 1013,
+      "bottom": 1535
+    }
+  },
+  {
+    "id": "female_long_blue_dark",
+    "source": "/assets/avatar/hd/female/female_long_blue_dark_hd.png",
+    "sha256": "8965ed75ea6fed37f0f20bda47d1e89cde09ef5bba38bcb977a8331cd2ce6e9a",
+    "alphaThreshold": 128,
+    "bounds": {
+      "left": 184,
+      "top": 13,
+      "right": 966,
+      "bottom": 1496
+    },
+    "footBaseline": 1496,
+    "alphaPositiveBoundsDiagnostic": {
+      "left": 0,
+      "top": 0,
+      "right": 995,
+      "bottom": 1503
+    }
+  },
+  {
+    "id": "female_long_blue_light",
+    "source": "/assets/avatar/hd/female/female_long_blue_light_hd.png",
+    "sha256": "1d9ea6451ef5004b50eeaf3fe6f5ba0a4be7e9e5b9b792b08913b14347a6b62f",
+    "alphaThreshold": 128,
+    "bounds": {
+      "left": 188,
+      "top": 14,
+      "right": 965,
+      "bottom": 1496
+    },
+    "footBaseline": 1496,
+    "alphaPositiveBoundsDiagnostic": {
+      "left": 0,
+      "top": 0,
+      "right": 1009,
+      "bottom": 1505
+    }
+  },
+  {
+    "id": "female_long_blue_medium",
+    "source": "/assets/avatar/hd/female/female_long_blue_medium_hd.png",
+    "sha256": "7cccad3f330823bf6172f482e19846aebeee7b4a63098a88e88b2033119478e7",
+    "alphaThreshold": 128,
+    "bounds": {
+      "left": 189,
+      "top": 13,
+      "right": 961,
+      "bottom": 1495
+    },
+    "footBaseline": 1495,
+    "alphaPositiveBoundsDiagnostic": {
+      "left": 0,
+      "top": 5,
+      "right": 1007,
+      "bottom": 1520
+    }
+  },
+  {
+    "id": "female_long_moss_dark",
+    "source": "/assets/avatar/hd/female/female_long_moss_dark_hd.png",
+    "sha256": "af2a67a75c3f59c6f59c1595cc255174478e081652ec6cf661d63863bdd897b6",
+    "alphaThreshold": 128,
+    "bounds": {
+      "left": 188,
+      "top": 14,
+      "right": 964,
+      "bottom": 1496
+    },
+    "footBaseline": 1496,
+    "alphaPositiveBoundsDiagnostic": {
+      "left": 0,
+      "top": 0,
+      "right": 1005,
+      "bottom": 1503
+    }
+  },
+  {
+    "id": "female_long_moss_light",
+    "source": "/assets/avatar/hd/female/female_long_moss_light_hd.png",
+    "sha256": "b58b4eac65b271c8dd8c598d05ff05f0e8ab50936c2a6903cdaf47c40c0fe2f5",
+    "alphaThreshold": 128,
+    "bounds": {
+      "left": 185,
+      "top": 12,
+      "right": 965,
+      "bottom": 1494
+    },
+    "footBaseline": 1494,
+    "alphaPositiveBoundsDiagnostic": {
+      "left": 0,
+      "top": 0,
+      "right": 1013,
+      "bottom": 1535
+    }
+  },
+  {
+    "id": "female_long_moss_medium",
+    "source": "/assets/avatar/hd/female/female_long_moss_medium_hd.png",
+    "sha256": "14a85fed5713caed593d151119231f9e6b477aeb503b6791f1bff800d489aae4",
+    "alphaThreshold": 128,
+    "bounds": {
+      "left": 186,
+      "top": 12,
+      "right": 962,
+      "bottom": 1495
+    },
+    "footBaseline": 1495,
+    "alphaPositiveBoundsDiagnostic": {
+      "left": 0,
+      "top": 0,
+      "right": 1005,
+      "bottom": 1507
+    }
+  },
+  {
+    "id": "female_long_ochre_dark",
+    "source": "/assets/avatar/hd/female/female_long_ochre_dark_hd.png",
+    "sha256": "24f0d3abfa9c0fd04670a98ea6e28354e8c6906232f25a1daf45df04d93b106c",
+    "alphaThreshold": 128,
+    "bounds": {
+      "left": 187,
+      "top": 14,
+      "right": 967,
+      "bottom": 1495
+    },
+    "footBaseline": 1495,
+    "alphaPositiveBoundsDiagnostic": {
+      "left": 0,
+      "top": 4,
+      "right": 1005,
+      "bottom": 1503
+    }
+  },
+  {
+    "id": "female_long_ochre_light",
+    "source": "/assets/avatar/hd/female/female_long_ochre_light_hd.png",
+    "sha256": "8d8344f596c2819c97630cd1d6ad96a1823d2b2738ee2543021773765ee03d3f",
+    "alphaThreshold": 128,
+    "bounds": {
+      "left": 186,
+      "top": 14,
+      "right": 964,
+      "bottom": 1494
+    },
+    "footBaseline": 1494,
+    "alphaPositiveBoundsDiagnostic": {
+      "left": 0,
+      "top": 5,
+      "right": 1003,
+      "bottom": 1511
+    }
+  },
+  {
+    "id": "female_long_ochre_medium",
+    "source": "/assets/avatar/hd/female/female_long_ochre_medium_hd.png",
+    "sha256": "9a66160fe37601d540896b078619fb8d983b1432bb43300722713d09b2d66821",
+    "alphaThreshold": 128,
+    "bounds": {
+      "left": 189,
+      "top": 13,
+      "right": 955,
+      "bottom": 1494
+    },
+    "footBaseline": 1494,
+    "alphaPositiveBoundsDiagnostic": {
+      "left": 0,
+      "top": 0,
+      "right": 999,
+      "bottom": 1503
+    }
+  },
+  {
+    "id": "female_short_blue_dark",
+    "source": "/assets/avatar/hd/female/female_short_blue_dark_hd.png",
+    "sha256": "691d944d7eee8ef015f5427280b2b72379a2dfedfe20af61736ebad6d8598380",
+    "alphaThreshold": 128,
+    "bounds": {
+      "left": 186,
+      "top": 2,
+      "right": 965,
+      "bottom": 1496
+    },
+    "footBaseline": 1496,
+    "alphaPositiveBoundsDiagnostic": {
+      "left": 0,
+      "top": 0,
+      "right": 977,
+      "bottom": 1503
+    }
+  },
+  {
+    "id": "female_short_blue_light",
+    "source": "/assets/avatar/hd/female/female_short_blue_light_hd.png",
+    "sha256": "f3a580c2305f3415ea5d01ed880ab9eda95ad20dd3c1ae572fec2cdee8cf14ac",
+    "alphaThreshold": 128,
+    "bounds": {
+      "left": 185,
+      "top": 2,
+      "right": 963,
+      "bottom": 1495
+    },
+    "footBaseline": 1495,
+    "alphaPositiveBoundsDiagnostic": {
+      "left": 0,
+      "top": 0,
+      "right": 1003,
+      "bottom": 1511
+    }
+  },
+  {
+    "id": "female_short_blue_medium",
+    "source": "/assets/avatar/hd/female/female_short_blue_medium_hd.png",
+    "sha256": "3fb0c1fbf7991b717754f7a7c82c57014273fdbe3fea20df0103f034c2b0684f",
+    "alphaThreshold": 128,
+    "bounds": {
+      "left": 187,
+      "top": 2,
+      "right": 964,
+      "bottom": 1494
+    },
+    "footBaseline": 1494,
+    "alphaPositiveBoundsDiagnostic": {
+      "left": 0,
+      "top": 0,
+      "right": 1005,
+      "bottom": 1519
+    }
+  },
+  {
+    "id": "female_short_moss_dark",
+    "source": "/assets/avatar/hd/female/female_short_moss_dark_hd.png",
+    "sha256": "65ae8c6308032994d7ac80d2d53503c6af4c12f92a4b1f266cba9480b02b1032",
+    "alphaThreshold": 128,
+    "bounds": {
+      "left": 190,
+      "top": 2,
+      "right": 964,
+      "bottom": 1494
+    },
+    "footBaseline": 1494,
+    "alphaPositiveBoundsDiagnostic": {
+      "left": 0,
+      "top": 0,
+      "right": 1009,
+      "bottom": 1515
+    }
+  },
+  {
+    "id": "female_short_moss_light",
+    "source": "/assets/avatar/hd/female/female_short_moss_light_hd.png",
+    "sha256": "ffa9d2698c7d1e67497cd7006d28294d2d17e31ed06e05b56e3bae1cf0a56162",
+    "alphaThreshold": 128,
+    "bounds": {
+      "left": 186,
+      "top": 2,
+      "right": 964,
+      "bottom": 1495
+    },
+    "footBaseline": 1495,
+    "alphaPositiveBoundsDiagnostic": {
+      "left": 0,
+      "top": 0,
+      "right": 1009,
+      "bottom": 1503
+    }
+  },
+  {
+    "id": "female_short_moss_medium",
+    "source": "/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+    "sha256": "f260cb9b053b35c328025f1bc7ee602cbb30e57c71ba1f2238a4b1519685f460",
+    "alphaThreshold": 128,
+    "bounds": {
+      "left": 187,
+      "top": 2,
+      "right": 964,
+      "bottom": 1495
+    },
+    "footBaseline": 1495,
+    "alphaPositiveBoundsDiagnostic": {
+      "left": 0,
+      "top": 0,
+      "right": 1001,
+      "bottom": 1504
+    }
+  },
+  {
+    "id": "female_short_ochre_dark",
+    "source": "/assets/avatar/hd/female/female_short_ochre_dark_hd.png",
+    "sha256": "cf7fab4691bc7380d6e9304106900859da05838a0afbaf4428513ca542e1cd52",
+    "alphaThreshold": 128,
+    "bounds": {
+      "left": 186,
+      "top": 2,
+      "right": 967,
+      "bottom": 1496
+    },
+    "footBaseline": 1496,
+    "alphaPositiveBoundsDiagnostic": {
+      "left": 25,
+      "top": 0,
+      "right": 987,
+      "bottom": 1505
+    }
+  },
+  {
+    "id": "female_short_ochre_light",
+    "source": "/assets/avatar/hd/female/female_short_ochre_light_hd.png",
+    "sha256": "b0e475eb240f148e3b6ba6c60d2b53b62c153254b0151b11ff46d91d0edb81ff",
+    "alphaThreshold": 128,
+    "bounds": {
+      "left": 187,
+      "top": 2,
+      "right": 963,
+      "bottom": 1495
+    },
+    "footBaseline": 1495,
+    "alphaPositiveBoundsDiagnostic": {
+      "left": 0,
+      "top": 0,
+      "right": 1009,
+      "bottom": 1511
+    }
+  },
+  {
+    "id": "female_short_ochre_medium",
+    "source": "/assets/avatar/hd/female/female_short_ochre_medium_hd.png",
+    "sha256": "31117e2ae50cc207a02b4f65c70f97df37e82db54f8c70e35a8adade08e41ae2",
+    "alphaThreshold": 128,
+    "bounds": {
+      "left": 186,
+      "top": 2,
+      "right": 964,
+      "bottom": 1496
+    },
+    "footBaseline": 1496,
+    "alphaPositiveBoundsDiagnostic": {
+      "left": 0,
+      "top": 0,
+      "right": 1015,
+      "bottom": 1519
+    }
+  },
+  {
+    "id": "male_curly_blue_dark",
+    "source": "/assets/avatar/hd/male/male_curly_blue_dark_hd.png",
+    "sha256": "5ff01c5eb2aa68a3fa0ba3c8d3722c21a92861c442a5db4fdc32884e8c9793ae",
+    "alphaThreshold": 128,
+    "bounds": {
+      "left": 170,
+      "top": 5,
+      "right": 936,
+      "bottom": 1515
+    },
+    "footBaseline": 1515,
+    "alphaPositiveBoundsDiagnostic": {
+      "left": 0,
+      "top": 0,
+      "right": 1003,
+      "bottom": 1521
+    }
+  },
+  {
+    "id": "male_curly_blue_light",
+    "source": "/assets/avatar/hd/male/male_curly_blue_light_hd.png",
+    "sha256": "f4a119053fe94850222d606ca7ab5907399fec28246b8700338893a25897713c",
+    "alphaThreshold": 128,
+    "bounds": {
+      "left": 170,
+      "top": 5,
+      "right": 934,
+      "bottom": 1513
+    },
+    "footBaseline": 1513,
+    "alphaPositiveBoundsDiagnostic": {
+      "left": 0,
+      "top": 0,
+      "right": 1001,
+      "bottom": 1519
+    }
+  },
+  {
+    "id": "male_curly_blue_medium",
+    "source": "/assets/avatar/hd/male/male_curly_blue_medium_hd.png",
+    "sha256": "65d4233a10037109e5dac652e607b87d9a7856d2e30ba8511bd8ff52d2f40758",
+    "alphaThreshold": 128,
+    "bounds": {
+      "left": 171,
+      "top": 5,
+      "right": 936,
+      "bottom": 1514
+    },
+    "footBaseline": 1514,
+    "alphaPositiveBoundsDiagnostic": {
+      "left": 0,
+      "top": 0,
+      "right": 1003,
+      "bottom": 1520
+    }
+  },
+  {
+    "id": "male_curly_moss_dark",
+    "source": "/assets/avatar/hd/male/male_curly_moss_dark_hd.png",
+    "sha256": "a414e8d6888aa147c9256a1cec04eac67c444a21d26ba0a09ff848a1feb6fd1c",
+    "alphaThreshold": 128,
+    "bounds": {
+      "left": 170,
+      "top": 5,
+      "right": 932,
+      "bottom": 1512
+    },
+    "footBaseline": 1512,
+    "alphaPositiveBoundsDiagnostic": {
+      "left": 0,
+      "top": 0,
+      "right": 1003,
+      "bottom": 1519
+    }
+  },
+  {
+    "id": "male_curly_moss_light",
+    "source": "/assets/avatar/hd/male/male_curly_moss_light_hd.png",
+    "sha256": "4134196166b8578f87e445a5d19fc32f940137dd007942b94c811af6e8749ec4",
+    "alphaThreshold": 128,
+    "bounds": {
+      "left": 169,
+      "top": 4,
+      "right": 934,
+      "bottom": 1513
+    },
+    "footBaseline": 1513,
+    "alphaPositiveBoundsDiagnostic": {
+      "left": 0,
+      "top": 0,
+      "right": 1009,
+      "bottom": 1520
+    }
+  },
+  {
+    "id": "male_curly_moss_medium",
+    "source": "/assets/avatar/hd/male/male_curly_moss_medium_hd.png",
+    "sha256": "c2aaea7d357ef0aeec5bd5ebf9f0842e82b30d5605ccab9ad920b1fb50861afc",
+    "alphaThreshold": 128,
+    "bounds": {
+      "left": 170,
+      "top": 5,
+      "right": 933,
+      "bottom": 1513
+    },
+    "footBaseline": 1513,
+    "alphaPositiveBoundsDiagnostic": {
+      "left": 25,
+      "top": 0,
+      "right": 1005,
+      "bottom": 1521
+    }
+  },
+  {
+    "id": "male_curly_ochre_dark",
+    "source": "/assets/avatar/hd/male/male_curly_ochre_dark_hd.png",
+    "sha256": "17cc19e6a3813277a844f46f684b9d4dd730270d5b709168c21f0e939dc9fb36",
+    "alphaThreshold": 128,
+    "bounds": {
+      "left": 169,
+      "top": 5,
+      "right": 937,
+      "bottom": 1516
+    },
+    "footBaseline": 1516,
+    "alphaPositiveBoundsDiagnostic": {
+      "left": 0,
+      "top": 0,
+      "right": 1009,
+      "bottom": 1521
+    }
+  },
+  {
+    "id": "male_curly_ochre_light",
+    "source": "/assets/avatar/hd/male/male_curly_ochre_light_hd.png",
+    "sha256": "8cff7e8e43d0f3372e7ac22663adfa7380cc27b87c5bac1332c4e4e01542141e",
+    "alphaThreshold": 128,
+    "bounds": {
+      "left": 170,
+      "top": 5,
+      "right": 933,
+      "bottom": 1513
+    },
+    "footBaseline": 1513,
+    "alphaPositiveBoundsDiagnostic": {
+      "left": 0,
+      "top": 0,
+      "right": 969,
+      "bottom": 1521
+    }
+  },
+  {
+    "id": "male_curly_ochre_medium",
+    "source": "/assets/avatar/hd/male/male_curly_ochre_medium_hd.png",
+    "sha256": "e58d45c166bf154c320d0a5cad530ccfe42a0bf8c6a093a050c66250329be8cd",
+    "alphaThreshold": 128,
+    "bounds": {
+      "left": 169,
+      "top": 5,
+      "right": 933,
+      "bottom": 1516
+    },
+    "footBaseline": 1516,
+    "alphaPositiveBoundsDiagnostic": {
+      "left": 0,
+      "top": 0,
+      "right": 1003,
+      "bottom": 1521
+    }
+  },
+  {
+    "id": "male_long_blue_dark",
+    "source": "/assets/avatar/hd/male/male_long_blue_dark_hd.png",
+    "sha256": "9d243e0ce2f10ffb7cb2e86ef1cdaed6ded161b9d052e7611ef020a7956105df",
+    "alphaThreshold": 128,
+    "bounds": {
+      "left": 169,
+      "top": 14,
+      "right": 934,
+      "bottom": 1514
+    },
+    "footBaseline": 1514,
+    "alphaPositiveBoundsDiagnostic": {
+      "left": 0,
+      "top": 0,
+      "right": 951,
+      "bottom": 1521
+    }
+  },
+  {
+    "id": "male_long_blue_light",
+    "source": "/assets/avatar/hd/male/male_long_blue_light_hd.png",
+    "sha256": "d7b69134b6429fe3d305380d39adf2149ff955782afba17cc563f0aded780191",
+    "alphaThreshold": 128,
+    "bounds": {
+      "left": 169,
+      "top": 13,
+      "right": 934,
+      "bottom": 1513
+    },
+    "footBaseline": 1513,
+    "alphaPositiveBoundsDiagnostic": {
+      "left": 0,
+      "top": 0,
+      "right": 1003,
+      "bottom": 1520
+    }
+  },
+  {
+    "id": "male_long_blue_medium",
+    "source": "/assets/avatar/hd/male/male_long_blue_medium_hd.png",
+    "sha256": "e390217b97a4bf6dbb54b42e2b7b043d98184901cf164ab42ff6b9af83ec01a4",
+    "alphaThreshold": 128,
+    "bounds": {
+      "left": 169,
+      "top": 12,
+      "right": 932,
+      "bottom": 1513
+    },
+    "footBaseline": 1513,
+    "alphaPositiveBoundsDiagnostic": {
+      "left": 51,
+      "top": 0,
+      "right": 1003,
+      "bottom": 1521
+    }
+  },
+  {
+    "id": "male_long_moss_dark",
+    "source": "/assets/avatar/hd/male/male_long_moss_dark_hd.png",
+    "sha256": "561c0da9f89bb56bebd4584a6750c977e5819c1fb503e7703610bcd7659ca9a1",
+    "alphaThreshold": 128,
+    "bounds": {
+      "left": 169,
+      "top": 12,
+      "right": 935,
+      "bottom": 1513
+    },
+    "footBaseline": 1513,
+    "alphaPositiveBoundsDiagnostic": {
+      "left": 0,
+      "top": 0,
+      "right": 1009,
+      "bottom": 1521
+    }
+  },
+  {
+    "id": "male_long_moss_light",
+    "source": "/assets/avatar/hd/male/male_long_moss_light_hd.png",
+    "sha256": "24bbc5a3ec9a4ccee28864dc6868de1e137a29575d34bda072c7298d8dd8b0dd",
+    "alphaThreshold": 128,
+    "bounds": {
+      "left": 168,
+      "top": 12,
+      "right": 935,
+      "bottom": 1514
+    },
+    "footBaseline": 1514,
+    "alphaPositiveBoundsDiagnostic": {
+      "left": 0,
+      "top": 0,
+      "right": 1003,
+      "bottom": 1520
+    }
+  },
+  {
+    "id": "male_long_moss_medium",
+    "source": "/assets/avatar/hd/male/male_long_moss_medium_hd.png",
+    "sha256": "7105d9b86cd74645d2a9ad7fb65954e9b4764b5dc7972d3cf8bcc543f69565d0",
+    "alphaThreshold": 128,
+    "bounds": {
+      "left": 170,
+      "top": 13,
+      "right": 935,
+      "bottom": 1514
+    },
+    "footBaseline": 1514,
+    "alphaPositiveBoundsDiagnostic": {
+      "left": 0,
+      "top": 0,
+      "right": 987,
+      "bottom": 1521
+    }
+  },
+  {
+    "id": "male_long_ochre_dark",
+    "source": "/assets/avatar/hd/male/male_long_ochre_dark_hd.png",
+    "sha256": "3ccee1a98a598903d47b351e62f4b3af505123711158fe6601054ee5cd40d3ad",
+    "alphaThreshold": 128,
+    "bounds": {
+      "left": 169,
+      "top": 13,
+      "right": 937,
+      "bottom": 1515
+    },
+    "footBaseline": 1515,
+    "alphaPositiveBoundsDiagnostic": {
+      "left": 0,
+      "top": 0,
+      "right": 1013,
+      "bottom": 1521
+    }
+  },
+  {
+    "id": "male_long_ochre_light",
+    "source": "/assets/avatar/hd/male/male_long_ochre_light_hd.png",
+    "sha256": "e8548f8771dd172f55e456358ed99ed5423532cf1f0dfc3fb099451ba6ba2ad6",
+    "alphaThreshold": 128,
+    "bounds": {
+      "left": 168,
+      "top": 12,
+      "right": 937,
+      "bottom": 1514
+    },
+    "footBaseline": 1514,
+    "alphaPositiveBoundsDiagnostic": {
+      "left": 25,
+      "top": 0,
+      "right": 1003,
+      "bottom": 1521
+    }
+  },
+  {
+    "id": "male_long_ochre_medium",
+    "source": "/assets/avatar/hd/male/male_long_ochre_medium_hd.png",
+    "sha256": "bc0ab9ad75d36d038c20f352a3c50ec84eefe8bcd3910e7d7263c7bebd6ed285",
+    "alphaThreshold": 128,
+    "bounds": {
+      "left": 171,
+      "top": 13,
+      "right": 934,
+      "bottom": 1514
+    },
+    "footBaseline": 1514,
+    "alphaPositiveBoundsDiagnostic": {
+      "left": 0,
+      "top": 0,
+      "right": 1004,
+      "bottom": 1521
+    }
+  },
+  {
+    "id": "male_short_blue_dark",
+    "source": "/assets/avatar/hd/male/male_short_blue_dark_hd.png",
+    "sha256": "8771935dcc7a529b5b0bfe958d6da38f70ef31c50f86655a97f2936eacadf8c3",
+    "alphaThreshold": 128,
+    "bounds": {
+      "left": 170,
+      "top": 3,
+      "right": 933,
+      "bottom": 1513
+    },
+    "footBaseline": 1513,
+    "alphaPositiveBoundsDiagnostic": {
+      "left": 0,
+      "top": 0,
+      "right": 971,
+      "bottom": 1521
+    }
+  },
+  {
+    "id": "male_short_blue_light",
+    "source": "/assets/avatar/hd/male/male_short_blue_light_hd.png",
+    "sha256": "98b5e7c9d50151af6da95dd7a813f6f4304d7cd292a6c85ff7fa68b6e03bf302",
+    "alphaThreshold": 128,
+    "bounds": {
+      "left": 169,
+      "top": 1,
+      "right": 935,
+      "bottom": 1514
+    },
+    "footBaseline": 1514,
+    "alphaPositiveBoundsDiagnostic": {
+      "left": 0,
+      "top": 0,
+      "right": 955,
+      "bottom": 1521
+    }
+  },
+  {
+    "id": "male_short_blue_medium",
+    "source": "/assets/avatar/hd/male/male_short_blue_medium_hd.png",
+    "sha256": "6f732859e75bbdebb5b69120dc00e0d4342025cfed84a4106ab6d0ad9adaf224",
+    "alphaThreshold": 128,
+    "bounds": {
+      "left": 170,
+      "top": 2,
+      "right": 933,
+      "bottom": 1514
+    },
+    "footBaseline": 1514,
+    "alphaPositiveBoundsDiagnostic": {
+      "left": 0,
+      "top": 0,
+      "right": 943,
+      "bottom": 1521
+    }
+  },
+  {
+    "id": "male_short_moss_dark",
+    "source": "/assets/avatar/hd/male/male_short_moss_dark_hd.png",
+    "sha256": "b32dafb858dac73b8a49f4d7275b1a30806948db11cb8e958f8e9adfb9f3866f",
+    "alphaThreshold": 128,
+    "bounds": {
+      "left": 171,
+      "top": 2,
+      "right": 932,
+      "bottom": 1515
+    },
+    "footBaseline": 1515,
+    "alphaPositiveBoundsDiagnostic": {
+      "left": 0,
+      "top": 0,
+      "right": 1019,
+      "bottom": 1535
+    }
+  },
+  {
+    "id": "male_short_moss_light",
+    "source": "/assets/avatar/hd/male/male_short_moss_light_hd.png",
+    "sha256": "66f5dc34b6dc5c07c2a6dff581e60fa23f0e22bd10845c019bc2d42a8c365ce6",
+    "alphaThreshold": 128,
+    "bounds": {
+      "left": 169,
+      "top": 1,
+      "right": 935,
+      "bottom": 1516
+    },
+    "footBaseline": 1516,
+    "alphaPositiveBoundsDiagnostic": {
+      "left": 0,
+      "top": 0,
+      "right": 1003,
+      "bottom": 1519
+    }
+  },
+  {
+    "id": "male_short_moss_medium",
+    "source": "/assets/avatar/hd/male/male_short_moss_medium_hd.png",
+    "sha256": "b182c2e29b512b337891716a413ab7efaad737e23c6354779fae17fe19b8af34",
+    "alphaThreshold": 128,
+    "bounds": {
+      "left": 169,
+      "top": 2,
+      "right": 933,
+      "bottom": 1513
+    },
+    "footBaseline": 1513,
+    "alphaPositiveBoundsDiagnostic": {
+      "left": 0,
+      "top": 0,
+      "right": 1003,
+      "bottom": 1521
+    }
+  },
+  {
+    "id": "male_short_ochre_dark",
+    "source": "/assets/avatar/hd/male/male_short_ochre_dark_hd.png",
+    "sha256": "b6b0c87a7fd62286fb17cc90e692a6cf09d8f06e031d7e0a3c1b38b841baaa94",
+    "alphaThreshold": 128,
+    "bounds": {
+      "left": 171,
+      "top": 2,
+      "right": 932,
+      "bottom": 1514
+    },
+    "footBaseline": 1514,
+    "alphaPositiveBoundsDiagnostic": {
+      "left": 0,
+      "top": 0,
+      "right": 971,
+      "bottom": 1535
+    }
+  },
+  {
+    "id": "male_short_ochre_light",
+    "source": "/assets/avatar/hd/male/male_short_ochre_light_hd.png",
+    "sha256": "15de9f313b5af24574854d16a85bec4be3569b29f502b578c2c0c3995a168d35",
+    "alphaThreshold": 128,
+    "bounds": {
+      "left": 170,
+      "top": 2,
+      "right": 934,
+      "bottom": 1515
+    },
+    "footBaseline": 1515,
+    "alphaPositiveBoundsDiagnostic": {
+      "left": 0,
+      "top": 0,
+      "right": 991,
+      "bottom": 1521
+    }
+  },
+  {
+    "id": "male_short_ochre_medium",
+    "source": "/assets/avatar/hd/male/male_short_ochre_medium_hd.png",
+    "sha256": "00d5d22f7dae0fdbce82555797b902f26c590abadc9ae5579e0b4ffb2ad16d18",
+    "alphaThreshold": 128,
+    "bounds": {
+      "left": 169,
+      "top": 2,
+      "right": 935,
+      "bottom": 1513
+    },
+    "footBaseline": 1513,
+    "alphaPositiveBoundsDiagnostic": {
+      "left": 121,
+      "top": 0,
+      "right": 1009,
+      "bottom": 1522
+    }
+  }
+]

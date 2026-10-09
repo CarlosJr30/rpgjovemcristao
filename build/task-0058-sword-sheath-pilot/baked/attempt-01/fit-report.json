@@ -1,0 +1,10 @@
+{
+  "task": "TASK-0058",
+  "id": "sword_path_common_female_v2",
+  "status": "NEEDS_REWORK",
+  "outputSha256": "cbe4f3052bb55e47318d346dfd431938d43e05de25b4fcfba04a63a867ed9046",
+  "reason": "Correias fora do cinto; recorte grosseiro da guarda.",
+  "ready": false,
+  "humanBodyFitApproved": false,
+  "runtimeActivated": false
+}

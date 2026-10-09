@@ -1,0 +1,21 @@
+{
+  "id": "helmet_traveler_rare_female_v2",
+  "status": "PASS",
+  "technical": "TECHNICALLY_VALIDATED",
+  "mapping": "MAPPED",
+  "fitStatus": "NEEDS_REWORK",
+  "sha256": "8ab265af7625024d18b9bce371aea993eaa378c4d641127930228882813144ef",
+  "clippedAlpha128SourcePixels": 2715,
+  "alpha128Bounds": {
+    "left": 338,
+    "top": 0,
+    "right": 694,
+    "bottom": 468,
+    "count": 82707
+  },
+  "footBaselineDelta": null,
+  "maxLandmarkResidual": 31.83552536253833,
+  "humanBodyFitApproved": false,
+  "ready": false,
+  "runtimeActivated": false
+}

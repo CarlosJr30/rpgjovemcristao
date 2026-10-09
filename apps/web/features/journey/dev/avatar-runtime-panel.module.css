@@ -1,0 +1,64 @@
+.panel {
+  margin: 1rem 0;
+  padding: 1rem;
+  color: #283f31;
+  background: #faf4e4;
+  border: 1px solid #af955d;
+  border-radius: 12px;
+}
+.panel summary {
+  min-height: 44px;
+  cursor: pointer;
+  font-weight: 700;
+}
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+.controls label {
+  display: grid;
+  gap: 0.5rem;
+}
+.controls select,
+.controls input {
+  min-height: 44px;
+}
+.matrix {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 1rem;
+}
+.sample {
+  min-width: 0;
+  display: grid;
+  justify-items: center;
+  align-content: start;
+  padding: 1rem;
+  background: #ede3c7;
+  border: 1px solid #ad9967;
+  border-radius: 8px;
+  overflow-wrap: anywhere;
+}
+.sample p {
+  font-size: 0.8rem;
+  line-height: 1.5;
+}
+.variants {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 1rem 0;
+  align-items: flex-start;
+}
+.variant {
+  width: 170px;
+}
+.variant h4 {
+  margin: 0.5rem 0;
+}
+.panel :is(summary, select, input):focus-visible {
+  outline: 3px solid #315d3d;
+  outline-offset: 3px;
+}

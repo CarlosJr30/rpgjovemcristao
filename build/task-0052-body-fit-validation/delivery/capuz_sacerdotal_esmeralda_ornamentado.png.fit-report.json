@@ -1,0 +1,75 @@
+{
+  "at": "2026-10-08T04:24:51.868Z",
+  "file": "capuz_sacerdotal_esmeralda_ornamentado.png",
+  "sha256": "423263e6c83941156517f3e461abbd7f8dc2cec57697236935ac1d4d3e6eaf5d",
+  "bytes": 2408724,
+  "width": 1024,
+  "height": 1536,
+  "format": "png",
+  "hasAlpha": true,
+  "alpha": {
+    "zero": 850455,
+    "partial": 722409,
+    "opaque": 0,
+    "max": 254,
+    "atLeast128": 690177
+  },
+  "bounds": {
+    "left": 2,
+    "top": 16,
+    "right": 1021,
+    "bottom": 1505
+  },
+  "integrity": {
+    "status": "CRC_PASS",
+    "chunks": 40,
+    "decode": "DECODE_PASS"
+  },
+  "technicalStatus": "TECHNICAL_PASS",
+  "sourceStatus": "SOURCE_VISUAL_APPROVED",
+  "approvalEvidence": "Carlos Faustino: source-art delivery instruction, confirmed by delivered manifest and actual hash",
+  "manifestPath": "manifest.json",
+  "manifestHashMatches": true,
+  "mapping": {
+    "status": "UNMAPPED_SOURCE_ART",
+    "target": null,
+    "reason": "No single explicit, valid target binding"
+  },
+  "fitStatus": "FIT_VALIDATION_PENDING",
+  "humanBodyFitApproved": false,
+  "runtimeReady": false,
+  "observedFamily": "helmet",
+  "observedFamilyIsNotMapping": true,
+  "diagnosticStatus": "NEEDS_REWORK",
+  "diagnosticScope": "Full-canvas comparison over both HD reference bodies; no target assignment or compatibility approval",
+  "observations": "Peça ocupa quase a altura inteira do corpo. Abertura facial fica na altura do torso; ornamentos escondem o rosto e descem até pernas.",
+  "regeneration": "Após confirmar target, gerar elmo/capuz dedicado à cabeça real do HD. Medir topo, linha do cabelo, largura da cabeça e abertura facial na referência; preservar rosto e não estender tecido/metal até torso/pernas. Transparência fora da peça.",
+  "evidence": [
+    {
+      "reference": "female_short_moss_medium",
+      "overview": "screenshots/source-06-female_short_moss_medium.png",
+      "views": [
+        "screenshots/source-06-female_short_moss_medium-base.png",
+        "screenshots/source-06-female_short_moss_medium-source.png",
+        "screenshots/source-06-female_short_moss_medium-combined.png",
+        "screenshots/source-06-female_short_moss_medium-blend.png",
+        "screenshots/source-06-female_short_moss_medium-split.png",
+        "screenshots/source-06-female_short_moss_medium-guides.png"
+      ]
+    },
+    {
+      "reference": "male_short_moss_medium",
+      "overview": "screenshots/source-06-male_short_moss_medium.png",
+      "views": [
+        "screenshots/source-06-male_short_moss_medium-base.png",
+        "screenshots/source-06-male_short_moss_medium-source.png",
+        "screenshots/source-06-male_short_moss_medium-combined.png",
+        "screenshots/source-06-male_short_moss_medium-blend.png",
+        "screenshots/source-06-male_short_moss_medium-split.png",
+        "screenshots/source-06-male_short_moss_medium-guides.png"
+      ]
+    }
+  ],
+  "duplicateOf": null,
+  "correction": "NONE"
+}

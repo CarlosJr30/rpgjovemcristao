@@ -1,0 +1,1256 @@
+[
+  {
+    "filename": "armor_traveler_uncommon_male_v2.png",
+    "landmarks": {
+      "neck": {
+        "source": [
+          514,
+          205
+        ],
+        "avatar": [
+          510,
+          303
+        ],
+        "weight": 0.5,
+        "kind": "anatomical garment proxy"
+      },
+      "left_shoulder": {
+        "source": [
+          208,
+          270
+        ],
+        "avatar": [
+          366,
+          355
+        ],
+        "weight": 1,
+        "kind": "anatomical garment proxy"
+      },
+      "right_shoulder": {
+        "source": [
+          815,
+          270
+        ],
+        "avatar": [
+          646,
+          355
+        ],
+        "weight": 1,
+        "kind": "anatomical garment proxy"
+      },
+      "chest": {
+        "source": [
+          514,
+          510
+        ],
+        "avatar": [
+          510,
+          470
+        ],
+        "weight": 1,
+        "kind": "anatomical garment proxy"
+      },
+      "left_armpit": {
+        "source": [
+          263,
+          635
+        ],
+        "avatar": [
+          380,
+          500
+        ],
+        "weight": 1,
+        "kind": "anatomical garment proxy"
+      },
+      "right_armpit": {
+        "source": [
+          763,
+          635
+        ],
+        "avatar": [
+          643,
+          505
+        ],
+        "weight": 1,
+        "kind": "anatomical garment proxy"
+      },
+      "waist": {
+        "source": [
+          504,
+          865
+        ],
+        "avatar": [
+          518,
+          620
+        ],
+        "weight": 3,
+        "kind": "anatomical garment proxy"
+      },
+      "left_hip": {
+        "source": [
+          294,
+          1110
+        ],
+        "avatar": [
+          395,
+          735
+        ],
+        "weight": 1,
+        "kind": "anatomical garment proxy"
+      },
+      "right_hip": {
+        "source": [
+          735,
+          1110
+        ],
+        "avatar": [
+          650,
+          735
+        ],
+        "weight": 1,
+        "kind": "anatomical garment proxy"
+      }
+    },
+    "method": "Armor-specific shoulders/chest/waist/hips; waist priority3; visual native grid measurements approximately ±12px avatar, ±20px source. No hidden anatomy certified."
+  },
+  {
+    "filename": "armor_traveler_rare_female_v2.png",
+    "landmarks": {
+      "neck": {
+        "source": [
+          514,
+          95
+        ],
+        "avatar": [
+          520,
+          302
+        ],
+        "weight": 0.5,
+        "kind": "anatomical garment proxy"
+      },
+      "left_shoulder": {
+        "source": [
+          201,
+          293
+        ],
+        "avatar": [
+          379,
+          346
+        ],
+        "weight": 1,
+        "kind": "anatomical garment proxy"
+      },
+      "right_shoulder": {
+        "source": [
+          821,
+          294
+        ],
+        "avatar": [
+          657,
+          352
+        ],
+        "weight": 1,
+        "kind": "anatomical garment proxy"
+      },
+      "chest": {
+        "source": [
+          514,
+          430
+        ],
+        "avatar": [
+          520,
+          455
+        ],
+        "weight": 1,
+        "kind": "anatomical garment proxy"
+      },
+      "left_armpit": {
+        "source": [
+          275,
+          603
+        ],
+        "avatar": [
+          391,
+          492
+        ],
+        "weight": 1,
+        "kind": "anatomical garment proxy"
+      },
+      "right_armpit": {
+        "source": [
+          750,
+          603
+        ],
+        "avatar": [
+          646,
+          499
+        ],
+        "weight": 1,
+        "kind": "anatomical garment proxy"
+      },
+      "waist": {
+        "source": [
+          514,
+          775
+        ],
+        "avatar": [
+          531,
+          579
+        ],
+        "weight": 3,
+        "kind": "anatomical garment proxy"
+      },
+      "left_hip": {
+        "source": [
+          288,
+          1095
+        ],
+        "avatar": [
+          421,
+          705
+        ],
+        "weight": 1,
+        "kind": "anatomical garment proxy"
+      },
+      "right_hip": {
+        "source": [
+          742,
+          1095
+        ],
+        "avatar": [
+          646,
+          711
+        ],
+        "weight": 1,
+        "kind": "anatomical garment proxy"
+      }
+    },
+    "method": "Rare female armor own curved breast/long skirt landmarks; not pilot source geometry; visual native grid measurements approximately ±12px avatar, ±20px source. No hidden anatomy certified."
+  },
+  {
+    "filename": "armor_traveler_rare_male_v2.png",
+    "landmarks": {
+      "neck": {
+        "source": [
+          514,
+          148
+        ],
+        "avatar": [
+          510,
+          303
+        ],
+        "weight": 0.5,
+        "kind": "anatomical garment proxy"
+      },
+      "left_shoulder": {
+        "source": [
+          200,
+          293
+        ],
+        "avatar": [
+          366,
+          355
+        ],
+        "weight": 1,
+        "kind": "anatomical garment proxy"
+      },
+      "right_shoulder": {
+        "source": [
+          826,
+          294
+        ],
+        "avatar": [
+          646,
+          355
+        ],
+        "weight": 1,
+        "kind": "anatomical garment proxy"
+      },
+      "chest": {
+        "source": [
+          514,
+          505
+        ],
+        "avatar": [
+          510,
+          470
+        ],
+        "weight": 1,
+        "kind": "anatomical garment proxy"
+      },
+      "left_armpit": {
+        "source": [
+          272,
+          660
+        ],
+        "avatar": [
+          380,
+          500
+        ],
+        "weight": 1,
+        "kind": "anatomical garment proxy"
+      },
+      "right_armpit": {
+        "source": [
+          747,
+          660
+        ],
+        "avatar": [
+          643,
+          505
+        ],
+        "weight": 1,
+        "kind": "anatomical garment proxy"
+      },
+      "waist": {
+        "source": [
+          516,
+          832
+        ],
+        "avatar": [
+          518,
+          620
+        ],
+        "weight": 3,
+        "kind": "anatomical garment proxy"
+      },
+      "left_hip": {
+        "source": [
+          280,
+          1140
+        ],
+        "avatar": [
+          395,
+          735
+        ],
+        "weight": 1,
+        "kind": "anatomical garment proxy"
+      },
+      "right_hip": {
+        "source": [
+          742,
+          1140
+        ],
+        "avatar": [
+          650,
+          735
+        ],
+        "weight": 1,
+        "kind": "anatomical garment proxy"
+      }
+    },
+    "method": "Rare male chest plate, shoulder, belt and skirt separately measured; visual native grid measurements approximately ±12px avatar, ±20px source. No hidden anatomy certified."
+  },
+  {
+    "filename": "helmet_traveler_rare_female_v2.png",
+    "landmarks": {
+      "crown": {
+        "source": [
+          514,
+          55
+        ],
+        "avatar": [
+          520,
+          4
+        ],
+        "weight": 1,
+        "kind": "anatomical garment proxy"
+      },
+      "hairline": {
+        "source": [
+          513,
+          514
+        ],
+        "avatar": [
+          520,
+          110
+        ],
+        "weight": 1,
+        "kind": "anatomical garment proxy"
+      },
+      "left_temple": {
+        "source": [
+          296,
+          590
+        ],
+        "avatar": [
+          430,
+          172
+        ],
+        "weight": 3,
+        "kind": "anatomical garment proxy"
+      },
+      "right_temple": {
+        "source": [
+          735,
+          590
+        ],
+        "avatar": [
+          602,
+          172
+        ],
+        "weight": 3,
+        "kind": "anatomical garment proxy"
+      },
+      "head_center": {
+        "source": [
+          514,
+          575
+        ],
+        "avatar": [
+          520,
+          151
+        ],
+        "weight": 0.5,
+        "kind": "anatomical garment proxy"
+      },
+      "face_clearance": {
+        "source": [
+          514,
+          752
+        ],
+        "avatar": [
+          520,
+          210
+        ],
+        "weight": 0.5,
+        "kind": "face-window placement goal"
+      }
+    },
+    "method": "Helmet crown/face-window boundary; temples weighted to preserve face width; visual native grid measurements approximately ±12px avatar, ±20px source. No hidden anatomy certified."
+  },
+  {
+    "filename": "helmet_traveler_rare_male_v2.png",
+    "landmarks": {
+      "crown": {
+        "source": [
+          512,
+          15
+        ],
+        "avatar": [
+          510,
+          3
+        ],
+        "weight": 1,
+        "kind": "anatomical garment proxy"
+      },
+      "hairline": {
+        "source": [
+          512,
+          530
+        ],
+        "avatar": [
+          510,
+          110
+        ],
+        "weight": 1,
+        "kind": "anatomical garment proxy"
+      },
+      "left_temple": {
+        "source": [
+          302,
+          583
+        ],
+        "avatar": [
+          428,
+          169
+        ],
+        "weight": 3,
+        "kind": "anatomical garment proxy"
+      },
+      "right_temple": {
+        "source": [
+          728,
+          582
+        ],
+        "avatar": [
+          590,
+          169
+        ],
+        "weight": 3,
+        "kind": "anatomical garment proxy"
+      },
+      "head_center": {
+        "source": [
+          513,
+          567
+        ],
+        "avatar": [
+          510,
+          151
+        ],
+        "weight": 0.5,
+        "kind": "anatomical garment proxy"
+      },
+      "face_clearance": {
+        "source": [
+          513,
+          735
+        ],
+        "avatar": [
+          510,
+          209
+        ],
+        "weight": 0.5,
+        "kind": "face-window placement goal"
+      }
+    },
+    "method": "Male helmet asymmetric face-window opening; temple clearance priority; visual native grid measurements approximately ±12px avatar, ±20px source. No hidden anatomy certified."
+  },
+  {
+    "filename": "boots_traveler_common_female_v2.png",
+    "landmarks": {
+      "left_ankle": {
+        "source": [
+          340,
+          1040
+        ],
+        "avatar": [
+          345,
+          1300
+        ],
+        "weight": 1,
+        "kind": "anatomical garment proxy"
+      },
+      "right_ankle": {
+        "source": [
+          683,
+          1040
+        ],
+        "avatar": [
+          687,
+          1300
+        ],
+        "weight": 1,
+        "kind": "anatomical garment proxy"
+      },
+      "left_foot": {
+        "source": [
+          244,
+          1195
+        ],
+        "avatar": [
+          290,
+          1443
+        ],
+        "weight": 1,
+        "kind": "anatomical garment proxy"
+      },
+      "right_foot": {
+        "source": [
+          791,
+          1195
+        ],
+        "avatar": [
+          742,
+          1443
+        ],
+        "weight": 1,
+        "kind": "anatomical garment proxy"
+      },
+      "left_baseline": {
+        "source": [
+          228,
+          1299
+        ],
+        "avatar": [
+          290,
+          1495
+        ],
+        "weight": 2,
+        "kind": "anatomical garment proxy"
+      },
+      "right_baseline": {
+        "source": [
+          790,
+          1299
+        ],
+        "avatar": [
+          744,
+          1495
+        ],
+        "weight": 2,
+        "kind": "anatomical garment proxy"
+      },
+      "left_cuff": {
+        "source": [
+          330,
+          383
+        ],
+        "avatar": [
+          365,
+          1150
+        ],
+        "weight": 0.5,
+        "kind": "anatomical garment proxy"
+      },
+      "right_cuff": {
+        "source": [
+          693,
+          383
+        ],
+        "avatar": [
+          668,
+          1150
+        ],
+        "weight": 0.5,
+        "kind": "anatomical garment proxy"
+      }
+    },
+    "method": "Both boots remain one source; joint baseline/separation/height compromise; no splitting or independent transforms; visual native grid measurements approximately ±12px avatar, ±20px source. No hidden anatomy certified."
+  },
+  {
+    "filename": "boots_traveler_common_male_v2.png",
+    "landmarks": {
+      "left_ankle": {
+        "source": [
+          325,
+          1070
+        ],
+        "avatar": [
+          327,
+          1310
+        ],
+        "weight": 1,
+        "kind": "anatomical garment proxy"
+      },
+      "right_ankle": {
+        "source": [
+          703,
+          1070
+        ],
+        "avatar": [
+          699,
+          1310
+        ],
+        "weight": 1,
+        "kind": "anatomical garment proxy"
+      },
+      "left_foot": {
+        "source": [
+          229,
+          1270
+        ],
+        "avatar": [
+          260,
+          1458
+        ],
+        "weight": 1,
+        "kind": "anatomical garment proxy"
+      },
+      "right_foot": {
+        "source": [
+          799,
+          1270
+        ],
+        "avatar": [
+          769,
+          1458
+        ],
+        "weight": 1,
+        "kind": "anatomical garment proxy"
+      },
+      "left_baseline": {
+        "source": [
+          220,
+          1366
+        ],
+        "avatar": [
+          260,
+          1513
+        ],
+        "weight": 2,
+        "kind": "anatomical garment proxy"
+      },
+      "right_baseline": {
+        "source": [
+          800,
+          1366
+        ],
+        "avatar": [
+          769,
+          1513
+        ],
+        "weight": 2,
+        "kind": "anatomical garment proxy"
+      },
+      "left_cuff": {
+        "source": [
+          313,
+          413
+        ],
+        "avatar": [
+          356,
+          1150
+        ],
+        "weight": 0.5,
+        "kind": "anatomical garment proxy"
+      },
+      "right_cuff": {
+        "source": [
+          711,
+          413
+        ],
+        "avatar": [
+          669,
+          1150
+        ],
+        "weight": 0.5,
+        "kind": "anatomical garment proxy"
+      }
+    },
+    "method": "Male pair geometry measured independently; unsplittable separation vs cuff/height; visual native grid measurements approximately ±12px avatar, ±20px source. No hidden anatomy certified."
+  },
+  {
+    "filename": "sword_path_common_female_v2.png",
+    "landmarks": {
+      "hand_center_grip": {
+        "source": [
+          205,
+          300
+        ],
+        "avatar": [
+          231,
+          803
+        ],
+        "weight": 8,
+        "kind": "grip to screen-left hand anatomy"
+      },
+      "grip_guard": {
+        "source": [
+          269,
+          403
+        ],
+        "avatar": [
+          260,
+          851
+        ],
+        "weight": 1,
+        "kind": "anatomical garment proxy"
+      },
+      "wrist_clearance": {
+        "source": [
+          165,
+          225
+        ],
+        "avatar": [
+          240,
+          750
+        ],
+        "weight": 0.5,
+        "kind": "pommel/wrist clearance goal, hand remains unchanged"
+      },
+      "blade_root": {
+        "source": [
+          337,
+          559
+        ],
+        "avatar": [
+          293,
+          919
+        ],
+        "weight": 0.5,
+        "kind": "blade placement goal"
+      },
+      "blade_extent": {
+        "source": [
+          940,
+          1490
+        ],
+        "avatar": [
+          557,
+          1330
+        ],
+        "weight": 0.5,
+        "kind": "blade tip placement goal"
+      }
+    },
+    "method": "Female common sword diagonal down-right; weighted real hand center, blade/free-space goals; no hand pose change; visual native grid measurements approximately ±12px avatar, ±20px source. No hidden anatomy certified."
+  },
+  {
+    "filename": "sword_path_common_male_v2.png",
+    "landmarks": {
+      "hand_center_grip": {
+        "source": [
+          265,
+          1235
+        ],
+        "avatar": [
+          218,
+          819
+        ],
+        "weight": 8,
+        "kind": "grip to screen-left hand anatomy"
+      },
+      "grip_guard": {
+        "source": [
+          333,
+          1115
+        ],
+        "avatar": [
+          247,
+          766
+        ],
+        "weight": 1,
+        "kind": "anatomical garment proxy"
+      },
+      "wrist_clearance": {
+        "source": [
+          200,
+          1340
+        ],
+        "avatar": [
+          225,
+          781
+        ],
+        "weight": 0.5,
+        "kind": "pommel/wrist clearance goal"
+      },
+      "blade_root": {
+        "source": [
+          469,
+          919
+        ],
+        "avatar": [
+          305,
+          680
+        ],
+        "weight": 0.5,
+        "kind": "blade placement goal"
+      },
+      "blade_extent": {
+        "source": [
+          985,
+          46
+        ],
+        "avatar": [
+          530,
+          300
+        ],
+        "weight": 0.5,
+        "kind": "blade tip placement goal"
+      }
+    },
+    "method": "Male common sword diagonal up-right; no flip/large rotation; face/torso intersection checked visually; visual native grid measurements approximately ±12px avatar, ±20px source. No hidden anatomy certified."
+  },
+  {
+    "filename": "sword_path_rare_female_v2.png",
+    "landmarks": {
+      "hand_center_grip": {
+        "source": [
+          513,
+          250
+        ],
+        "avatar": [
+          231,
+          803
+        ],
+        "weight": 8,
+        "kind": "grip to screen-left hand anatomy"
+      },
+      "grip_guard": {
+        "source": [
+          513,
+          350
+        ],
+        "avatar": [
+          231,
+          848
+        ],
+        "weight": 1,
+        "kind": "anatomical garment proxy"
+      },
+      "wrist_clearance": {
+        "source": [
+          513,
+          145
+        ],
+        "avatar": [
+          235,
+          756
+        ],
+        "weight": 0.5,
+        "kind": "pommel/wrist clearance goal"
+      },
+      "blade_root": {
+        "source": [
+          513,
+          580
+        ],
+        "avatar": [
+          231,
+          952
+        ],
+        "weight": 0.5,
+        "kind": "blade placement goal"
+      },
+      "blade_extent": {
+        "source": [
+          513,
+          1515
+        ],
+        "avatar": [
+          231,
+          1373
+        ],
+        "weight": 0.5,
+        "kind": "blade tip placement goal"
+      }
+    },
+    "method": "Female rare downward sword own handle length and blade extent; original fingers immutable; visual native grid measurements approximately ±12px avatar, ±20px source. No hidden anatomy certified."
+  },
+  {
+    "filename": "sword_path_rare_male_v2.png",
+    "landmarks": {
+      "hand_center_grip": {
+        "source": [
+          511,
+          275
+        ],
+        "avatar": [
+          218,
+          819
+        ],
+        "weight": 8,
+        "kind": "grip to screen-left hand anatomy"
+      },
+      "grip_guard": {
+        "source": [
+          512,
+          393
+        ],
+        "avatar": [
+          218,
+          872
+        ],
+        "weight": 1,
+        "kind": "anatomical garment proxy"
+      },
+      "wrist_clearance": {
+        "source": [
+          511,
+          151
+        ],
+        "avatar": [
+          224,
+          761
+        ],
+        "weight": 0.5,
+        "kind": "pommel/wrist clearance goal"
+      },
+      "blade_root": {
+        "source": [
+          512,
+          622
+        ],
+        "avatar": [
+          218,
+          975
+        ],
+        "weight": 0.5,
+        "kind": "blade placement goal"
+      },
+      "blade_extent": {
+        "source": [
+          510,
+          1518
+        ],
+        "avatar": [
+          218,
+          1378
+        ],
+        "weight": 0.5,
+        "kind": "blade tip placement goal"
+      }
+    },
+    "method": "Male rare sword measured longer grip and different guard, distinct from female; visual native grid measurements approximately ±12px avatar, ±20px source. No hidden anatomy certified."
+  },
+  {
+    "filename": "shield_perseverance_rare_female_v2.png",
+    "landmarks": {
+      "hand_forearm": {
+        "source": [
+          512,
+          700
+        ],
+        "avatar": [
+          785,
+          720
+        ],
+        "weight": 3,
+        "kind": "rear mounting proxy, hidden strap unverified"
+      },
+      "torso_clearance": {
+        "source": [
+          100,
+          650
+        ],
+        "avatar": [
+          650,
+          704
+        ],
+        "weight": 1,
+        "kind": "inner edge placement goal"
+      },
+      "face_clearance": {
+        "source": [
+          512,
+          24
+        ],
+        "avatar": [
+          785,
+          500
+        ],
+        "weight": 1,
+        "kind": "top placement goal below face"
+      },
+      "lateral_extent": {
+        "source": [
+          922,
+          650
+        ],
+        "avatar": [
+          918,
+          704
+        ],
+        "weight": 1,
+        "kind": "outer edge placement goal"
+      },
+      "shield_tip": {
+        "source": [
+          512,
+          1498
+        ],
+        "avatar": [
+          785,
+          980
+        ],
+        "weight": 1,
+        "kind": "lower extent placement goal"
+      }
+    },
+    "method": "Female shield front plate, own contour; screen-right forearm proxy and free-space goals, not measured rear grip; visual native grid measurements approximately ±12px avatar, ±20px source. No hidden anatomy certified."
+  },
+  {
+    "filename": "shield_perseverance_rare_male_v2.png",
+    "landmarks": {
+      "hand_forearm": {
+        "source": [
+          512,
+          713
+        ],
+        "avatar": [
+          793,
+          739
+        ],
+        "weight": 3,
+        "kind": "rear mounting proxy, hidden strap unverified"
+      },
+      "torso_clearance": {
+        "source": [
+          75,
+          653
+        ],
+        "avatar": [
+          650,
+          719
+        ],
+        "weight": 1,
+        "kind": "inner edge placement goal"
+      },
+      "face_clearance": {
+        "source": [
+          512,
+          24
+        ],
+        "avatar": [
+          793,
+          510
+        ],
+        "weight": 1,
+        "kind": "top placement goal below face"
+      },
+      "lateral_extent": {
+        "source": [
+          949,
+          653
+        ],
+        "avatar": [
+          935,
+          719
+        ],
+        "weight": 1,
+        "kind": "outer edge placement goal"
+      },
+      "shield_tip": {
+        "source": [
+          512,
+          1489
+        ],
+        "avatar": [
+          793,
+          1003
+        ],
+        "weight": 1,
+        "kind": "lower extent placement goal"
+      }
+    },
+    "method": "Male shield wider angular contour independently measured, forearm mounting proxy; visual native grid measurements approximately ±12px avatar, ±20px source. No hidden anatomy certified."
+  },
+  {
+    "filename": "medallion_path_rare_female_v2.png",
+    "landmarks": {
+      "neck_center": {
+        "source": [
+          512,
+          0
+        ],
+        "avatar": [
+          520,
+          302
+        ],
+        "weight": 2,
+        "kind": "open chain center at source top, neck attachment placement goal"
+      },
+      "left_chain": {
+        "source": [
+          155,
+          0
+        ],
+        "avatar": [
+          470,
+          302
+        ],
+        "weight": 2,
+        "kind": "clipped chain endpoint"
+      },
+      "right_chain": {
+        "source": [
+          868,
+          0
+        ],
+        "avatar": [
+          570,
+          302
+        ],
+        "weight": 2,
+        "kind": "clipped chain endpoint"
+      },
+      "chest_center": {
+        "source": [
+          512,
+          880
+        ],
+        "avatar": [
+          520,
+          425
+        ],
+        "weight": 1,
+        "kind": "anatomical garment proxy"
+      },
+      "pendant_bottom": {
+        "source": [
+          512,
+          1435
+        ],
+        "avatar": [
+          520,
+          503
+        ],
+        "weight": 1,
+        "kind": "anatomical garment proxy"
+      },
+      "armor_overlap": {
+        "source": [
+          512,
+          1200
+        ],
+        "avatar": [
+          520,
+          470
+        ],
+        "weight": 0.5,
+        "kind": "pendant over breastplate placement goal"
+      }
+    },
+    "method": "Female chain/pendant measured; clipped source chain ends inspected against scarf and skin; armor overlap evidence; visual native grid measurements approximately ±12px avatar, ±20px source. No hidden anatomy certified."
+  },
+  {
+    "filename": "medallion_path_rare_male_v2.png",
+    "landmarks": {
+      "neck_center": {
+        "source": [
+          511,
+          0
+        ],
+        "avatar": [
+          510,
+          303
+        ],
+        "weight": 2,
+        "kind": "open chain center at source top, neck attachment placement goal"
+      },
+      "left_chain": {
+        "source": [
+          202,
+          0
+        ],
+        "avatar": [
+          463,
+          303
+        ],
+        "weight": 2,
+        "kind": "clipped chain endpoint"
+      },
+      "right_chain": {
+        "source": [
+          827,
+          0
+        ],
+        "avatar": [
+          557,
+          303
+        ],
+        "weight": 2,
+        "kind": "clipped chain endpoint"
+      },
+      "chest_center": {
+        "source": [
+          512,
+          890
+        ],
+        "avatar": [
+          510,
+          438
+        ],
+        "weight": 1,
+        "kind": "anatomical garment proxy"
+      },
+      "pendant_bottom": {
+        "source": [
+          512,
+          1433
+        ],
+        "avatar": [
+          510,
+          522
+        ],
+        "weight": 1,
+        "kind": "anatomical garment proxy"
+      },
+      "armor_overlap": {
+        "source": [
+          512,
+          1180
+        ],
+        "avatar": [
+          510,
+          481
+        ],
+        "weight": 0.5,
+        "kind": "pendant over breastplate placement goal"
+      }
+    },
+    "method": "Male heavy chain measured separately, width/pendant proportions and source clipping recorded; visual native grid measurements approximately ±12px avatar, ±20px source. No hidden anatomy certified."
+  }
+]

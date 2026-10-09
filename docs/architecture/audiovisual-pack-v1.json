@@ -1,0 +1,287 @@
+{
+  "version": 1,
+  "items": [
+    {
+      "kind": "music",
+      "key": "journey",
+      "file": "audio/music/journey_ambient.ogg"
+    },
+    {
+      "kind": "music",
+      "key": "exploration",
+      "file": "audio/music/garden_exploration.ogg"
+    },
+    {
+      "kind": "music",
+      "key": "snake",
+      "file": "audio/music/serpent_chase.ogg"
+    },
+    {
+      "kind": "music",
+      "key": "arena",
+      "file": "audio/music/arena_training.ogg",
+      "prototypeLicenseId": "SUNO_FREE_NON_COMMERCIAL",
+      "usageScope": "NON_COMMERCIAL_PROTOTYPE_DEVELOPMENT_ONLY",
+      "commercialProductionApproved": false,
+      "commercialReleaseStatus": "BLOCKED_PENDING_AUDIO_REPLACEMENT"
+    },
+    {
+      "kind": "music",
+      "key": "guild",
+      "file": "audio/music/guild_community.ogg"
+    },
+    {
+      "kind": "music",
+      "key": "devotional",
+      "file": "audio/music/devotional_reflection.ogg"
+    },
+    {
+      "kind": "music",
+      "key": "quiz",
+      "file": "audio/music/quiz_focus.ogg"
+    },
+    {
+      "kind": "effect",
+      "key": "ui",
+      "file": "audio/effects/ui_select.ogg"
+    },
+    {
+      "kind": "effect",
+      "key": "attack",
+      "file": "audio/effects/arena_attack.ogg",
+      "prototypeLicenseId": "SUNO_FREE_NON_COMMERCIAL",
+      "usageScope": "NON_COMMERCIAL_PROTOTYPE_DEVELOPMENT_ONLY",
+      "commercialProductionApproved": false,
+      "commercialReleaseStatus": "BLOCKED_PENDING_AUDIO_REPLACEMENT"
+    },
+    {
+      "kind": "effect",
+      "key": "defense",
+      "file": "audio/effects/arena_defense.ogg",
+      "prototypeLicenseId": "SUNO_FREE_NON_COMMERCIAL",
+      "usageScope": "NON_COMMERCIAL_PROTOTYPE_DEVELOPMENT_ONLY",
+      "commercialProductionApproved": false,
+      "commercialReleaseStatus": "BLOCKED_PENDING_AUDIO_REPLACEMENT"
+    },
+    {
+      "kind": "effect",
+      "key": "focus",
+      "file": "audio/effects/arena_focus.ogg",
+      "prototypeLicenseId": "SUNO_FREE_NON_COMMERCIAL",
+      "usageScope": "NON_COMMERCIAL_PROTOTYPE_DEVELOPMENT_ONLY",
+      "commercialProductionApproved": false,
+      "commercialReleaseStatus": "BLOCKED_PENDING_AUDIO_REPLACEMENT"
+    },
+    {
+      "kind": "effect",
+      "key": "dodge",
+      "file": "audio/effects/arena_dodge.ogg",
+      "prototypeLicenseId": "SUNO_FREE_NON_COMMERCIAL",
+      "usageScope": "NON_COMMERCIAL_PROTOTYPE_DEVELOPMENT_ONLY",
+      "commercialProductionApproved": false,
+      "commercialReleaseStatus": "BLOCKED_PENDING_AUDIO_REPLACEMENT"
+    },
+    {
+      "kind": "effect",
+      "key": "reward",
+      "file": "audio/effects/reward_receive.ogg"
+    },
+    {
+      "kind": "effect",
+      "key": "levelUp",
+      "file": "audio/effects/level_up.ogg"
+    },
+    {
+      "kind": "effect",
+      "key": "chest",
+      "file": "audio/effects/chest_open.ogg"
+    },
+    {
+      "kind": "effect",
+      "key": "equipment",
+      "file": "audio/effects/equipment_confirm.ogg"
+    },
+    {
+      "kind": "effect",
+      "key": "objective",
+      "file": "audio/effects/objective_complete.ogg"
+    },
+    {
+      "kind": "effect",
+      "key": "guildApproval",
+      "file": "audio/effects/guild_approval.ogg"
+    },
+    {
+      "kind": "effect",
+      "key": "serpent_near",
+      "file": "audio/effects/serpent_near.ogg"
+    },
+    {
+      "kind": "effect",
+      "key": "serpent_attack",
+      "file": "audio/effects/serpent_attack.ogg"
+    },
+    {
+      "kind": "effect",
+      "key": "player_hit",
+      "file": "audio/effects/player_hit.ogg",
+      "prototypeLicenseId": "SUNO_FREE_NON_COMMERCIAL",
+      "usageScope": "NON_COMMERCIAL_PROTOTYPE_DEVELOPMENT_ONLY",
+      "commercialProductionApproved": false,
+      "commercialReleaseStatus": "BLOCKED_PENDING_AUDIO_REPLACEMENT"
+    },
+    {
+      "kind": "effect",
+      "key": "pickup_light",
+      "file": "audio/effects/pickup_light.ogg"
+    },
+    {
+      "kind": "effect",
+      "key": "pickup_fragment",
+      "file": "audio/effects/pickup_fragment.ogg"
+    },
+    {
+      "kind": "effect",
+      "key": "pickup_powerup",
+      "file": "audio/effects/pickup_powerup.ogg"
+    },
+    {
+      "kind": "effect",
+      "key": "portal_open",
+      "file": "audio/effects/portal_open.ogg"
+    },
+    {
+      "kind": "effect",
+      "key": "victory",
+      "file": "audio/effects/victory.ogg",
+      "prototypeLicenseId": "SUNO_FREE_NON_COMMERCIAL",
+      "usageScope": "NON_COMMERCIAL_PROTOTYPE_DEVELOPMENT_ONLY",
+      "commercialProductionApproved": false,
+      "commercialReleaseStatus": "BLOCKED_PENDING_AUDIO_REPLACEMENT"
+    },
+    {
+      "kind": "effect",
+      "key": "defeat",
+      "file": "audio/effects/defeat.ogg",
+      "prototypeLicenseId": "SUNO_FREE_NON_COMMERCIAL",
+      "usageScope": "NON_COMMERCIAL_PROTOTYPE_DEVELOPMENT_ONLY",
+      "commercialProductionApproved": false,
+      "commercialReleaseStatus": "BLOCKED_PENDING_AUDIO_REPLACEMENT"
+    },
+    {
+      "kind": "visual",
+      "key": "arenaBackground",
+      "file": "world/arena/arena_training_courtyard.webp",
+      "width": 1920,
+      "height": 1080,
+      "mobileFile": "world/arena/arena_training_courtyard_960.webp",
+      "mobileWidth": 960,
+      "mobileHeight": 540
+    },
+    {
+      "kind": "visual",
+      "key": "arenaDavi",
+      "file": "characters/arena/arena_davi.png",
+      "width": 1024,
+      "height": 1536,
+      "transparent": true
+    },
+    {
+      "kind": "visual",
+      "key": "arenaElias",
+      "file": "characters/arena/arena_elias.png",
+      "width": 1024,
+      "height": 1536,
+      "transparent": true
+    },
+    {
+      "kind": "visual",
+      "key": "arenaMara",
+      "file": "characters/arena/arena_mara.png",
+      "width": 1024,
+      "height": 1536,
+      "transparent": true
+    },
+    {
+      "kind": "visual",
+      "key": "arenaNoemi",
+      "file": "characters/arena/arena_noemi.png",
+      "width": 1024,
+      "height": 1536,
+      "transparent": true
+    },
+    {
+      "kind": "visual",
+      "key": "guildPortal",
+      "file": "world/guild/guild_community_hall.webp",
+      "width": 1600,
+      "height": 900,
+      "mobileFile": "world/guild/guild_community_hall_800.webp",
+      "mobileWidth": 800,
+      "mobileHeight": 450
+    },
+    {
+      "kind": "visual",
+      "key": "equipmentPortal",
+      "file": "world/equipment/equipment_workbench.webp",
+      "width": 1200,
+      "height": 900,
+      "mobileFile": "world/equipment/equipment_workbench_600.webp",
+      "mobileWidth": 600,
+      "mobileHeight": 450
+    },
+    {
+      "kind": "visual",
+      "key": "diaryPortal",
+      "file": "world/diary/diary_parchment_scene.webp",
+      "width": 1200,
+      "height": 900,
+      "mobileFile": "world/diary/diary_parchment_scene_600.webp",
+      "mobileWidth": 600,
+      "mobileHeight": 450
+    },
+    {
+      "kind": "visual",
+      "key": "guildHall",
+      "file": "world/guild/guild_hall.webp",
+      "width": 1920,
+      "height": 1080,
+      "transparent": false,
+      "mobileFile": "world/guild/guild_hall_mobile.webp",
+      "mobileWidth": 960,
+      "mobileHeight": 1280
+    },
+    {
+      "kind": "visual",
+      "key": "guildBanner",
+      "file": "world/guild/guild_banner_neutral.png",
+      "width": 512,
+      "height": 768,
+      "transparent": true
+    },
+    {
+      "kind": "visual",
+      "key": "guildMissionParchment",
+      "file": "world/guild/guild_mission_parchment.png",
+      "width": 768,
+      "height": 1024,
+      "transparent": true
+    },
+    {
+      "kind": "visual",
+      "key": "guildLeaderTable",
+      "file": "world/guild/guild_leader_table.webp",
+      "width": 1600,
+      "height": 600,
+      "transparent": false
+    },
+    {
+      "kind": "visual",
+      "key": "guildRewardChest",
+      "file": "world/guild/guild_reward_chest.png",
+      "width": 512,
+      "height": 512,
+      "transparent": true
+    }
+  ]
+}

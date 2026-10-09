@@ -1,0 +1,12 @@
+{
+  "phase": 9,
+  "status": "COMPLETE_WITH_REJECTED_COMBINATIONS",
+  "counts": {
+    "referenceNoNewConflict": 8,
+    "needsRework": 6,
+    "notTested": 2
+  },
+  "evidence": "compatibility/manifest.json",
+  "humanApproval": false,
+  "readyPromotions": 0
+}

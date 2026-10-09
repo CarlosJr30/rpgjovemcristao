@@ -1,0 +1,143 @@
+{
+  "at": "2026-10-08T06:12:19.239Z",
+  "task": "TASK-0052B",
+  "status": "REWORK",
+  "phase": "FIT_VALIDATION_COMPLETE",
+  "counts": {
+    "expected": 16,
+    "found": 16,
+    "technicalValidated": 16,
+    "mapped": 16,
+    "mappingErrors": 0,
+    "missing": 0,
+    "FIT_PASS": 0,
+    "FIT_FAIL": 16,
+    "NEEDS_REWORK": 16,
+    "FIT_VALIDATION_PENDING": 0,
+    "HUMAN_BODY_FIT_REVIEW_PENDING": 0,
+    "HUMAN_BODY_FIT_APPROVED": 0,
+    "READY": 0
+  },
+  "countSemantics": "FIT_FAIL is the assessment verdict; NEEDS_REWORK is final workflow state of the same 16 assets, not an additional set.",
+  "assetValidator": {
+    "result": "PASS",
+    "sources": 16,
+    "native": "PNG/RGBA1024x1536",
+    "realAlpha": true,
+    "CRC": "PASS",
+    "fullDecode": "PASS",
+    "manifestSHA256Matches": 16,
+    "evidence": "build/task-0052b-body-fit-target-validation/target-inventory.json"
+  },
+  "mappingValidator": {
+    "result": "PASS",
+    "mapped": 16,
+    "errors": 0,
+    "manifestTargetEntries": 16,
+    "binding": "exact target filename + explicit manifest target + actual SHA256",
+    "evidence": "build/task-0052b-body-fit-target-validation/ASSET-MAPPING-VALIDATION.json"
+  },
+  "bodyFit": {
+    "result": "ASSESSMENT_COMPLETE_WITH_REWORK",
+    "evaluated": 16,
+    "FIT_PASS": 0,
+    "FIT_FAIL": 16,
+    "NEEDS_REWORK": 16,
+    "pending": 0,
+    "primaryReferences": [
+      "female_short_moss_medium",
+      "male_short_moss_medium"
+    ],
+    "broaderVariantCompatibilityClaimed": false,
+    "evidence": [
+      "build/task-0052b-body-fit-target-validation/BODY-FIT-VALIDATION.json",
+      "build/task-0052b-body-fit-target-validation/FIT-CHECK.json"
+    ]
+  },
+  "unit": {
+    "result": "PASS",
+    "validatorTests": 15,
+    "runtimeEquipmentTests": 94,
+    "total": 109,
+    "evidence": [
+      "build/task-0052b-body-fit-target-validation/validators-unit-resume.log",
+      "build/task-0052b-body-fit-target-validation/unit-resume.log"
+    ]
+  },
+  "e2e": {
+    "result": "PASS",
+    "actualFitReview": 1,
+    "sourceViewportSamples": 96,
+    "existingLab": 1,
+    "HDSelections": 54,
+    "existingLabSamples": 48,
+    "portalProduction": 13,
+    "total": 15,
+    "plannedSkips": 5,
+    "reducedMotion": true,
+    "viewports": [
+      "390x844",
+      "412x915",
+      "844x390",
+      "915x412",
+      "1440x900",
+      "1920x1080"
+    ],
+    "evidence": [
+      "build/task-0052b-body-fit-target-validation/actual-fit-lab.log",
+      "build/task-0052b-body-fit-target-validation/actual-fit-lab-evidence.json",
+      "build/task-0052b-body-fit-target-validation/existing-lab-resume.log",
+      "build/task-0052b-body-fit-target-validation/portal-resume.log"
+    ]
+  },
+  "lint": {
+    "result": "PASS",
+    "evidence": [
+      "build/task-0052b-body-fit-target-validation/lint-resume.log",
+      "build/task-0052b-body-fit-target-validation/lint-fit-check.log"
+    ]
+  },
+  "typecheck": {
+    "result": "PASS",
+    "evidence": "build/task-0052b-body-fit-target-validation/typecheck-resume.log"
+  },
+  "build": {
+    "result": "PASS",
+    "auditHD": 54,
+    "evidence": "build/task-0052b-body-fit-target-validation/build-resume.log"
+  },
+  "security": {
+    "result": "PASS_AUTHOR_REVIEW",
+    "independent": false,
+    "evidence": "docs/security/TASK-0052B-body-fit-target-review.md"
+  },
+  "preservation": {
+    "result": "PASS",
+    "files": 281,
+    "newSources": 16,
+    "HD": 54,
+    "historicalPublicMedia": 163,
+    "evidence": "build/task-0052b-body-fit-target-validation/preservation-resume.json"
+  },
+  "visualEvidence": {
+    "perTargetFitReports": 16,
+    "perTargetViews": 8,
+    "totalPNGs": 128,
+    "review": "build/task-0052b-body-fit-target-validation/review/index.html",
+    "fullCanvasNoCorrection": true,
+    "zoom200": true
+  },
+  "humanReviewCandidates": [],
+  "humanBodyFitApproved": 0,
+  "READY": 0,
+  "originalPNGsEdited": false,
+  "generatedSourceArt": 0,
+  "productionChanged": false,
+  "remoteChanges": false,
+  "push": false,
+  "deploy": false,
+  "resolvedPreviousBlockers": [
+    "All 16 target sources delivered; exact mapping validated. SOURCE_TARGET_FILES_NOT_LOCATED and MAPPING_REQUIRED no longer apply to this pack."
+  ],
+  "nextStep": "Regenerate body-aligned source art using the unchanged same-gender HD reference; repeat technical/mapping/fit, same-gender variant checks and explicit human Body-Fit review. No generation authorized/performed in this task."
+}

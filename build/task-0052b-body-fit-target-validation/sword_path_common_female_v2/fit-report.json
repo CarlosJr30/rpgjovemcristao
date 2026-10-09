@@ -1,0 +1,150 @@
+{
+  "filename": "sword_path_common_female_v2.png",
+  "itemId": "traveler-sword-common",
+  "gender": "female",
+  "slot": "weapon",
+  "sourcePath": "assets-source/body-fit-v2-targets/sword_path_common_female_v2.png",
+  "exists": true,
+  "sourceApproval": {
+    "declaredBy": "Carlos Faustino",
+    "declaration": "SOURCE_VISUAL_APPROVED",
+    "boundToFileHash": true
+  },
+  "technicalStatus": "TECHNICALLY_VALIDATED",
+  "mapping": {
+    "status": "MAPPED",
+    "errors": [],
+    "targetFilename": "sword_path_common_female_v2.png",
+    "itemId": "traveler-sword-common",
+    "gender": "female",
+    "slot": "weapon"
+  },
+  "fitStatus": "NEEDS_REWORK",
+  "humanBodyFitApproved": false,
+  "runtimeReady": false,
+  "knownCorrectiveEditing": "Prior resize/crop not established by metadata; no corrective processing performed by this task",
+  "referenceAvatar": {
+    "id": "female_short_moss_medium",
+    "source": "/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+    "sha256": "f260cb9b053b35c328025f1bc7ee602cbb30e57c71ba1f2238a4b1519685f460",
+    "alphaThreshold": 128,
+    "bounds": {
+      "left": 187,
+      "top": 2,
+      "right": 964,
+      "bottom": 1495
+    },
+    "footBaseline": 1495,
+    "alphaPositiveBoundsDiagnostic": {
+      "left": 0,
+      "top": 0,
+      "right": 1001,
+      "bottom": 1504
+    }
+  },
+  "expectedLandmarks": [
+    "right hand/grip contact",
+    "blade angle/length",
+    "body distance",
+    "hand/arm depth and occlusion"
+  ],
+  "evidenceLimit": "Technical/mapping checks do not establish fit; visual lab review required",
+  "sha256": "03e3edbcf9572fae0cafc46b0a02eda045cbcdfe855dfcdf808e4aa8a5401d29",
+  "integrity": {
+    "status": "CRC_PASS",
+    "chunks": 22
+  },
+  "manifestHash": "03e3edbcf9572fae0cafc46b0a02eda045cbcdfe855dfcdf808e4aa8a5401d29",
+  "manifestHashMatches": true,
+  "metadata": {
+    "format": "png",
+    "width": 1024,
+    "height": 1536,
+    "hasAlpha": true,
+    "transparentPixels": 1414594,
+    "alpha128Pixels": 143598,
+    "fullNativeCanvas": true,
+    "decode": "PASS"
+  },
+  "readyEligible": false,
+  "sourceBoundsAlpha128": {
+    "left": 64,
+    "top": 97,
+    "right": 943,
+    "bottom": 1492
+  },
+  "geometry": {
+    "nativeCanvas": {
+      "width": 1024,
+      "height": 1536
+    },
+    "sourceWidth": 880,
+    "sourceHeight": 1396,
+    "sourceBottomMinusHDFootBaseline": -3,
+    "correction": "NONE: full canvas inset 0; no crop/warp/stretch/offset",
+    "guideMeaning": "Pixel bounds and foot baseline, not new anatomy anchors"
+  },
+  "manifestSourceFile": "espada_fantasia_esmeralda_e_dourada.png",
+  "provenance": "User supplied target PNG and hash-bound manifest; original authoring/crop history cannot be proven from PNG metadata. No corrective editing performed here.",
+  "reviewedBy": "Codex author fit QA; no human Body-Fit approval",
+  "fitResult": "FIT_FAIL",
+  "finalStatus": "NEEDS_REWORK",
+  "observations": "Punho junto à cabeça/ombro, muito acima da mão. Lâmina cruza torso/pernas em diagonal sem pega, posição/ângulo/profundidade incoerentes.",
+  "criteria": [
+    {
+      "criterion": "handContact",
+      "result": "FAIL",
+      "evidence": "Visible mismatch in correct-gender full-canvas comparison; see observations"
+    },
+    {
+      "criterion": "grip",
+      "result": "FAIL",
+      "evidence": "Visible mismatch in correct-gender full-canvas comparison; see observations"
+    },
+    {
+      "criterion": "position",
+      "result": "FAIL",
+      "evidence": "Visible mismatch in correct-gender full-canvas comparison; see observations"
+    },
+    {
+      "criterion": "angle",
+      "result": "NOT_CONFIRMED",
+      "evidence": "Not claimed as validated; decisive failures already require rework"
+    },
+    {
+      "criterion": "depth",
+      "result": "NOT_CONFIRMED",
+      "evidence": "Not claimed as validated; decisive failures already require rework"
+    },
+    {
+      "criterion": "length",
+      "result": "NOT_CONFIRMED",
+      "evidence": "Not claimed as validated; decisive failures already require rework"
+    },
+    {
+      "criterion": "armRelation",
+      "result": "FAIL",
+      "evidence": "Visible mismatch in correct-gender full-canvas comparison; see observations"
+    },
+    {
+      "criterion": "bodyIntersection",
+      "result": "FAIL",
+      "evidence": "Visible mismatch in correct-gender full-canvas comparison; see observations"
+    }
+  ],
+  "regenerationRecommendation": "Regenerar a empunhadura no contato real com os dedos da mão correta e orientar lâmina/guarda à postura existente. Corrigir escala/ângulo no novo desenho, preservando avatar, canvas e anchors; não mover a arte atual.",
+  "assessedAt": "2026-10-08T06:04:18.570Z",
+  "humanBodyFitReviewStatus": "NOT_ELIGIBLE_FIT_FAILED",
+  "evidence": [
+    "sword_path_common_female_v2/comparison.png",
+    "sword_path_common_female_v2/base.png",
+    "sword_path_common_female_v2/overlay.png",
+    "sword_path_common_female_v2/combined.png",
+    "sword_path_common_female_v2/blend.png",
+    "sword_path_common_female_v2/split.png",
+    "sword_path_common_female_v2/guides.png",
+    "sword_path_common_female_v2/zoom-combined.png"
+  ],
+  "correctionApplied": false,
+  "scope": "Primary same-gender HD reference only; failed primary fit, therefore no broader compatibility claim or 27-variant PASS"
+}

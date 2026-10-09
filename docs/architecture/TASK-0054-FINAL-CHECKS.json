@@ -1,0 +1,72 @@
+{
+  "task": "TASK-0054",
+  "executedAt": "2026-10-08T07:17:56.358Z",
+  "status": "DONE / PILOT_COMPLETE / HUMAN_BODY_FIT_APPROVED / READY_STAGING_ONLY",
+  "asset": {
+    "status": "PASS",
+    "command": "node scripts/body-fit-bake-check.mjs",
+    "output": {
+      "path": "D:/rpg-jovem-cristao/build/task-0054-body-fit-bake/pilot/armor_traveler_uncommon_female_v2_baked.png",
+      "width": 1024,
+      "height": 1536,
+      "format": "png",
+      "channels": 4,
+      "sha256": "ebee2f026c2dd6aac6b47850c8412f243cdc20c51a36d6f91e2d6cf3b46c20cb"
+    },
+    "sourcePreserved": true,
+    "avatarPreserved": true
+  },
+  "unit": {
+    "status": "PASS",
+    "passed": 24,
+    "failed": 0,
+    "command": "node --test scripts/body-fit-bake.test.mjs scripts/body-fit-source-audit.test.mjs scripts/body-fit-target-audit.test.mjs"
+  },
+  "e2e": {
+    "status": "PASS",
+    "lab": 2,
+    "isolation": 2,
+    "portalFallback": 1,
+    "total": 5,
+    "viewports": 6
+  },
+  "lint": {
+    "status": "PASS",
+    "command": "npm run lint"
+  },
+  "typecheck": {
+    "status": "PASS",
+    "command": "npm run typecheck"
+  },
+  "build": {
+    "status": "N/A",
+    "reason": "No TS/production runtime changed; per contract"
+  },
+  "preservation": {
+    "status": "PASS",
+    "files": 285,
+    "hd": 54,
+    "sources": 16,
+    "previousPilots": 4
+  },
+  "humanBodyFitApproved": true,
+  "ready": true,
+  "runtimeActivated": false,
+  "otherTargetsProcessed": 0,
+  "aiImagesGenerated": 0,
+  "security": {
+    "status": "PASS",
+    "reviewer": "author; not independent"
+  },
+  "approvalRevalidatedAt": "2026-10-08T07:35:44.885Z",
+  "approvalChecks": {
+    "asset": "PASS",
+    "unit": 24,
+    "labE2E": 2,
+    "lint": "PASS",
+    "bakeMetadataPreserved": true
+  },
+  "readyScope": "Only approved hash and female_short_moss_mediumHD; staging only",
+  "approvalReceipt": "docs/architecture/TASK-0054-HUMAN-BODY-FIT-APPROVAL.json",
+  "manifest": "docs/architecture/TASK-0054-BAKED-ASSET-MANIFEST.json"
+}

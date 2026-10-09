@@ -1,0 +1,590 @@
+{
+  "task": "TASK-0055",
+  "at": "2026-10-08T20:23:19.332Z",
+  "assets": [
+    {
+      "id": "armor_traveler_uncommon_male_v2",
+      "filename": "armor_traveler_uncommon_male_v2.png",
+      "itemId": "traveler-armor-uncommon",
+      "gender": "male",
+      "slot": "armor",
+      "avatar": {
+        "id": "male_short_moss_medium",
+        "path": "apps/web/public/assets/avatar/hd/male/male_short_moss_medium_hd.png",
+        "sha256": "b182c2e29b512b337891716a413ab7efaad737e23c6354779fae17fe19b8af34",
+        "immutable": true,
+        "footBaseline": 1513
+      },
+      "transform": {
+        "translateX": 273.0942384490355,
+        "translateY": 214.1799998780681,
+        "scale": 0.4722086357554797,
+        "rotation": 0
+      },
+      "sha256": "8ece1c5d4daad2b4b7b0a6d673eb3ad6e2d16a9bcc888082ee33a2bd71c928c2",
+      "sourceSha256": "7172c482d49902d1c268a98c3b5339950f7e5340c6c4e0e54bdbea42ffe80b32",
+      "technicalStatus": "TECHNICALLY_VALIDATED",
+      "mapping": "MAPPED",
+      "fitStatus": "FIT_PASS",
+      "humanBodyFitApproved": false,
+      "ready": false,
+      "runtimeActivated": false,
+      "reviewStatus": "HUMAN_BODY_FIT_REVIEW_PENDING",
+      "fitReport": "build/task-0055-body-fit-bake/armor_traveler_uncommon_male_v2/fit-report.json",
+      "metadata": "build/task-0055-body-fit-bake/armor_traveler_uncommon_male_v2/fit-metadata.json",
+      "metadataSha256": "36a4c07153e3af3f1d98f73f973b7427a9527b7b00714161d78c7cf720ca2bf3",
+      "observations": [
+        "Peitoral, ombros e cinto acompanham a anatomia masculina; braços e mãos permanecem livres.",
+        "Base mantém pequenos trechos da roupa/pochete original nas laterais; composição de camadas, sem alteração da base.",
+        "Landmarks aproximados têm resíduos locais, registrados na metadata; não é encaixe pixel-perfect nem validação das demais variantes."
+      ],
+      "reworkRecommendation": "Sem regeneração obrigatória no candidato técnico; Carlos deve revisar este hash no avatar indicado antes de qualquer READY."
+    },
+    {
+      "id": "armor_traveler_rare_female_v2",
+      "filename": "armor_traveler_rare_female_v2.png",
+      "itemId": "traveler-armor-rare",
+      "gender": "female",
+      "slot": "armor",
+      "avatar": {
+        "id": "female_short_moss_medium",
+        "path": "apps/web/public/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+        "sha256": "f260cb9b053b35c328025f1bc7ee602cbb30e57c71ba1f2238a4b1519685f460",
+        "immutable": true,
+        "footBaseline": 1495
+      },
+      "transform": {
+        "translateX": 295.62329342005626,
+        "translateY": 230.0336249451156,
+        "scale": 0.4469305044692781,
+        "rotation": 0
+      },
+      "sha256": "58be3d1d95eeab11ac0a38d67f06ad88383d018e3720502d31dada7a9f2fc833",
+      "sourceSha256": "dffb2c8c352f6b4ccd17049479d4d76917cac711c346c9ab685e57ac0434b209",
+      "technicalStatus": "TECHNICALLY_VALIDATED",
+      "mapping": "MAPPED",
+      "fitStatus": "FIT_PASS",
+      "humanBodyFitApproved": false,
+      "ready": false,
+      "runtimeActivated": false,
+      "reviewStatus": "HUMAN_BODY_FIT_REVIEW_PENDING",
+      "fitReport": "build/task-0055-body-fit-bake/armor_traveler_rare_female_v2/fit-report.json",
+      "metadata": "build/task-0055-body-fit-bake/armor_traveler_rare_female_v2/fit-metadata.json",
+      "metadataSha256": "ebaaa78b79aa1d780d8ab3f8dae17067eb91e84f497bce4aedfb6b6c66a40afc",
+      "observations": [
+        "Peitoral feminino acompanha o tronco; cintura e saia têm leitura de armadura vestida.",
+        "Base mantém pequenos trechos da roupa/pochete original nas laterais; composição de camadas, sem alteração da base.",
+        "Landmarks aproximados têm resíduos locais, registrados na metadata; não é encaixe pixel-perfect nem validação das demais variantes."
+      ],
+      "reworkRecommendation": "Sem regeneração obrigatória no candidato técnico; Carlos deve revisar este hash no avatar indicado antes de qualquer READY."
+    },
+    {
+      "id": "armor_traveler_rare_male_v2",
+      "filename": "armor_traveler_rare_male_v2.png",
+      "itemId": "traveler-armor-rare",
+      "gender": "male",
+      "slot": "armor",
+      "avatar": {
+        "id": "male_short_moss_medium",
+        "path": "apps/web/public/assets/avatar/hd/male/male_short_moss_medium_hd.png",
+        "sha256": "b182c2e29b512b337891716a413ab7efaad737e23c6354779fae17fe19b8af34",
+        "immutable": true,
+        "footBaseline": 1513
+      },
+      "transform": {
+        "translateX": 274.24772341198104,
+        "translateY": 216.14934942243502,
+        "scale": 0.46776808469628645,
+        "rotation": 0
+      },
+      "sha256": "cc96ad925b3c298a0e85f2cfeda2f1171130d83f6bd7c71080e1b43c87e7f0dd",
+      "sourceSha256": "fb36c83cce93fc31b4871af4ea9e14597c5f7c5bb5167e2287c0928c96975e0f",
+      "technicalStatus": "TECHNICALLY_VALIDATED",
+      "mapping": "MAPPED",
+      "fitStatus": "FIT_PASS",
+      "humanBodyFitApproved": false,
+      "ready": false,
+      "runtimeActivated": false,
+      "reviewStatus": "HUMAN_BODY_FIT_REVIEW_PENDING",
+      "fitReport": "build/task-0055-body-fit-bake/armor_traveler_rare_male_v2/fit-report.json",
+      "metadata": "build/task-0055-body-fit-bake/armor_traveler_rare_male_v2/fit-metadata.json",
+      "metadataSha256": "a5100fab263fb88b2393455626dc8a9214832b70e15f8560a05ddb354a39e995",
+      "observations": [
+        "Peitoral, ombros e cinto acompanham a anatomia masculina; braços e mãos permanecem livres.",
+        "Base mantém pequenos trechos da roupa/pochete original nas laterais; composição de camadas, sem alteração da base.",
+        "Landmarks aproximados têm resíduos locais, registrados na metadata; não é encaixe pixel-perfect nem validação das demais variantes."
+      ],
+      "reworkRecommendation": "Sem regeneração obrigatória no candidato técnico; Carlos deve revisar este hash no avatar indicado antes de qualquer READY."
+    },
+    {
+      "id": "helmet_traveler_rare_female_v2",
+      "filename": "helmet_traveler_rare_female_v2.png",
+      "itemId": "traveler-helmet-rare",
+      "gender": "female",
+      "slot": "helmet",
+      "avatar": {
+        "id": "female_short_moss_medium",
+        "path": "apps/web/public/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+        "sha256": "f260cb9b053b35c328025f1bc7ee602cbb30e57c71ba1f2238a4b1519685f460",
+        "immutable": true,
+        "footBaseline": 1495
+      },
+      "transform": {
+        "translateX": 336.14407708209944,
+        "translateY": -39.21571306601268,
+        "scale": 0.35189972081594845,
+        "rotation": 0
+      },
+      "sha256": "8ab265af7625024d18b9bce371aea993eaa378c4d641127930228882813144ef",
+      "sourceSha256": "49a8a293aafae600a9e5bb4feddbf17b0a68572b6c8876aaab3ea22d4804d037",
+      "technicalStatus": "TECHNICALLY_VALIDATED",
+      "mapping": "MAPPED",
+      "fitStatus": "NEEDS_REWORK",
+      "humanBodyFitApproved": false,
+      "ready": false,
+      "runtimeActivated": false,
+      "reviewStatus": "NEEDS_REWORK",
+      "fitReport": "build/task-0055-body-fit-bake/helmet_traveler_rare_female_v2/fit-report.json",
+      "metadata": "build/task-0055-body-fit-bake/helmet_traveler_rare_female_v2/fit-metadata.json",
+      "metadataSha256": "b299a3e9b04c4690d8fe45a17f3ffbe8b16d0fe9295e1ccdf86889494d56f840",
+      "observations": [
+        "A ponta da coroa sai do limite superior 0 do canvas e foi cortada pelo bake full-canvas.",
+        "A abertura enquadra o rosto, mas as bordas frontais encostam na linha das sobrancelhas/olhos; cabelos da base continuam aparecendo lateralmente.",
+        "Descer o elmo para recuperar a coroa agrava o contato com olhos; escala uniforme não resolve simultaneamente altura, têmporas e abertura."
+      ],
+      "reworkRecommendation": "Regenerar elmo sobre a referência HD female_short_moss_medium em canvas1024x1536, com coroa totalmente dentro do topo e abertura facial mais alta/larga; manter metal acima das sobrancelhas e olhos/nariz/boca livres. Encurtar altura da coroa e redesenhar abertura, sem deformar o avatar."
+    },
+    {
+      "id": "helmet_traveler_rare_male_v2",
+      "filename": "helmet_traveler_rare_male_v2.png",
+      "itemId": "traveler-helmet-rare",
+      "gender": "male",
+      "slot": "helmet",
+      "avatar": {
+        "id": "male_short_moss_medium",
+        "path": "apps/web/public/assets/avatar/hd/male/male_short_moss_medium_hd.png",
+        "sha256": "b182c2e29b512b337891716a413ab7efaad737e23c6354779fae17fe19b8af34",
+        "immutable": true,
+        "footBaseline": 1513
+      },
+      "transform": {
+        "translateX": 338.6552373098947,
+        "translateY": -27.816668732165198,
+        "scale": 0.3319867871646743,
+        "rotation": 0
+      },
+      "sha256": "8fbbdf7afc106525713572b897edef3a3782eeb860eb40bab7606199c75c184e",
+      "sourceSha256": "c5e5a15cfeaa19c3ebff002480fa5f0c1b93b914c7c5604cc3b3d51d079590da",
+      "technicalStatus": "TECHNICALLY_VALIDATED",
+      "mapping": "MAPPED",
+      "fitStatus": "NEEDS_REWORK",
+      "humanBodyFitApproved": false,
+      "ready": false,
+      "runtimeActivated": false,
+      "reviewStatus": "NEEDS_REWORK",
+      "fitReport": "build/task-0055-body-fit-bake/helmet_traveler_rare_male_v2/fit-report.json",
+      "metadata": "build/task-0055-body-fit-bake/helmet_traveler_rare_male_v2/fit-metadata.json",
+      "metadataSha256": "2fce428e648a1fd171b1b7d6c9f6be6da321dafda6e033dd5b7f10fd375cd4c5",
+      "observations": [
+        "A ponta da coroa sai do limite superior 0 do canvas e foi cortada pelo bake full-canvas.",
+        "A abertura enquadra o rosto, mas as bordas frontais encostam na linha das sobrancelhas/olhos; cabelos da base continuam aparecendo lateralmente.",
+        "Descer o elmo para recuperar a coroa agrava o contato com olhos; escala uniforme não resolve simultaneamente altura, têmporas e abertura."
+      ],
+      "reworkRecommendation": "Regenerar elmo sobre a referência HD male_short_moss_medium em canvas1024x1536, com coroa totalmente dentro do topo e abertura facial mais alta/larga; manter metal acima das sobrancelhas e olhos/nariz/boca livres. Encurtar altura da coroa e redesenhar abertura, sem deformar o avatar."
+    },
+    {
+      "id": "boots_traveler_common_female_v2",
+      "filename": "boots_traveler_common_female_v2.png",
+      "itemId": "traveler-boots",
+      "gender": "female",
+      "slot": "boots",
+      "avatar": {
+        "id": "female_short_moss_medium",
+        "path": "apps/web/public/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+        "sha256": "f260cb9b053b35c328025f1bc7ee602cbb30e57c71ba1f2238a4b1519685f460",
+        "immutable": true,
+        "footBaseline": 1495
+      },
+      "transform": {
+        "translateX": 214.3153098889792,
+        "translateY": 742.4239723439166,
+        "scale": 0.590524853110235,
+        "rotation": 0
+      },
+      "sha256": "ae56dd6d0b8e3d3dbbc126f7863736281cf2271734d434122733f1b14fc91dd6",
+      "sourceSha256": "dfc523cddaf71075163b30f3d92f80b7c6d723d013ada40d18b70de1dbd52277",
+      "technicalStatus": "TECHNICALLY_VALIDATED",
+      "mapping": "MAPPED",
+      "fitStatus": "NEEDS_REWORK",
+      "humanBodyFitApproved": false,
+      "ready": false,
+      "runtimeActivated": false,
+      "reviewStatus": "NEEDS_REWORK",
+      "fitReport": "build/task-0055-body-fit-bake/boots_traveler_common_female_v2/fit-report.json",
+      "metadata": "build/task-0055-body-fit-bake/boots_traveler_common_female_v2/fit-metadata.json",
+      "metadataSha256": "b09a4f7e77bdd550402dff41f9626476a70d628a6ced3ea463b2ac757bf749f0",
+      "observations": [
+        "O transform comum ao par aproxima a baseline, mas os pés não coincidem com a abertura da pose HD.",
+        "Botas originais continuam aparecendo externamente como pés/calcanhares duplicados; novos canos sobem excessivamente para o joelho.",
+        "Separação horizontal do par e altura vertical exigem escalas diferentes; splitting/non-uniform scale não autorizados."
+      ],
+      "reworkRecommendation": "Regenerar o par vestido diretamente sobre female_short_moss_medium usando os landmarks de tornozelo/pé/baseline registrados. Exportar somente as botas em full-canvas; cobrir os dois pés originais com as mesmas direções e distância. Não entregar par de inventário; não dividir/reescala cada pé para forçar fit."
+    },
+    {
+      "id": "boots_traveler_common_male_v2",
+      "filename": "boots_traveler_common_male_v2.png",
+      "itemId": "traveler-boots",
+      "gender": "male",
+      "slot": "boots",
+      "avatar": {
+        "id": "male_short_moss_medium",
+        "path": "apps/web/public/assets/avatar/hd/male/male_short_moss_medium_hd.png",
+        "sha256": "b182c2e29b512b337891716a413ab7efaad737e23c6354779fae17fe19b8af34",
+        "immutable": true,
+        "footBaseline": 1513
+      },
+      "transform": {
+        "translateX": 198.25511810343568,
+        "translateY": 692.084154040358,
+        "scale": 0.6165807155097828,
+        "rotation": 0
+      },
+      "sha256": "e0f392c934da8376e9ee4d5b54e31be1de1f2ab65dc3cb102bf8fce17a7c6049",
+      "sourceSha256": "bbfb5cfb3045181340daaedb5bdd87600190af8f11963de72f08ef9608fa8371",
+      "technicalStatus": "TECHNICALLY_VALIDATED",
+      "mapping": "MAPPED",
+      "fitStatus": "NEEDS_REWORK",
+      "humanBodyFitApproved": false,
+      "ready": false,
+      "runtimeActivated": false,
+      "reviewStatus": "NEEDS_REWORK",
+      "fitReport": "build/task-0055-body-fit-bake/boots_traveler_common_male_v2/fit-report.json",
+      "metadata": "build/task-0055-body-fit-bake/boots_traveler_common_male_v2/fit-metadata.json",
+      "metadataSha256": "cd6228a3938d03c6dbc95366ed066c1da372f661106a48d7da4e0bb152977bce",
+      "observations": [
+        "O transform comum ao par aproxima a baseline, mas os pés não coincidem com a abertura da pose HD.",
+        "Botas originais continuam aparecendo externamente como pés/calcanhares duplicados; novos canos sobem excessivamente para o joelho.",
+        "Separação horizontal do par e altura vertical exigem escalas diferentes; splitting/non-uniform scale não autorizados."
+      ],
+      "reworkRecommendation": "Regenerar o par vestido diretamente sobre male_short_moss_medium usando os landmarks de tornozelo/pé/baseline registrados. Exportar somente as botas em full-canvas; cobrir os dois pés originais com as mesmas direções e distância. Não entregar par de inventário; não dividir/reescala cada pé para forçar fit."
+    },
+    {
+      "id": "sword_path_common_female_v2",
+      "filename": "sword_path_common_female_v2.png",
+      "itemId": "traveler-sword-common",
+      "gender": "female",
+      "slot": "weapon",
+      "avatar": {
+        "id": "female_short_moss_medium",
+        "path": "apps/web/public/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+        "sha256": "f260cb9b053b35c328025f1bc7ee602cbb30e57c71ba1f2238a4b1519685f460",
+        "immutable": true,
+        "footBaseline": 1495
+      },
+      "transform": {
+        "translateX": 141.5144341279791,
+        "translateY": 669.1496338900777,
+        "scale": 0.4437636660289808,
+        "rotation": 0
+      },
+      "sha256": "2ce38d3ac68ac259cffa59e6067eefc2272486691d0eedd2a531d17ed4360d11",
+      "sourceSha256": "03e3edbcf9572fae0cafc46b0a02eda045cbcdfe855dfcdf808e4aa8a5401d29",
+      "technicalStatus": "TECHNICALLY_VALIDATED",
+      "mapping": "MAPPED",
+      "fitStatus": "NEEDS_REWORK",
+      "humanBodyFitApproved": false,
+      "ready": false,
+      "runtimeActivated": false,
+      "reviewStatus": "NEEDS_REWORK",
+      "fitReport": "build/task-0055-body-fit-bake/sword_path_common_female_v2/fit-report.json",
+      "metadata": "build/task-0055-body-fit-bake/sword_path_common_female_v2/fit-metadata.json",
+      "metadataSha256": "ef99090d8ec2b57702be2aa76cfac384f47427529e0c57b9760f83f38eeea97f",
+      "observations": [
+        "Centro do cabo foi aproximado da mão esquerda da tela; dedos continuam abertos na pose HD.",
+        "Overlay único desenha cabo sobre a mão sem a oclusão necessária dos dedos; arma parece sobreposta/solta.",
+        "Lâmina diagonal atravessa a região da perna; posição coincide com o cabo mas não estabelece pega."
+      ],
+      "reworkRecommendation": "Regenerar espada na orientação e posição da mão de female_short_moss_medium, com cabo desenhado para a pose existente e oclusão transparente específica dos dedos/área da mão. Não redesenhar mãos/HD nem adicionar máscara runtime. Se a mão aberta impedir uma pega convincente sem mudar a base, manter NEEDS_REWORK e registrar a limitação, sem promoção."
+    },
+    {
+      "id": "sword_path_common_male_v2",
+      "filename": "sword_path_common_male_v2.png",
+      "itemId": "traveler-sword-common",
+      "gender": "male",
+      "slot": "weapon",
+      "avatar": {
+        "id": "male_short_moss_medium",
+        "path": "apps/web/public/assets/avatar/hd/male/male_short_moss_medium_hd.png",
+        "sha256": "b182c2e29b512b337891716a413ab7efaad737e23c6354779fae17fe19b8af34",
+        "immutable": true,
+        "footBaseline": 1513
+      },
+      "transform": {
+        "translateX": 107.08607805938641,
+        "translateY": 288.20928858528356,
+        "scale": 0.425791518407452,
+        "rotation": 0
+      },
+      "sha256": "4b7c2c3f6b1798413b1bc7c1c8d700a09cca5e5ab0301ac027276dd0396050e8",
+      "sourceSha256": "ef4ca354506a7da6a9c80dcbb2b4d5388af7d11bef98fce9a81d8de6b40e8818",
+      "technicalStatus": "TECHNICALLY_VALIDATED",
+      "mapping": "MAPPED",
+      "fitStatus": "NEEDS_REWORK",
+      "humanBodyFitApproved": false,
+      "ready": false,
+      "runtimeActivated": false,
+      "reviewStatus": "NEEDS_REWORK",
+      "fitReport": "build/task-0055-body-fit-bake/sword_path_common_male_v2/fit-report.json",
+      "metadata": "build/task-0055-body-fit-bake/sword_path_common_male_v2/fit-metadata.json",
+      "metadataSha256": "3750e9326ad41cd961cfcef54e4d753d5f4921c95159400a9498320151d794db",
+      "observations": [
+        "Centro do cabo foi aproximado da mão esquerda da tela; dedos continuam abertos na pose HD.",
+        "Overlay único desenha cabo sobre a mão sem a oclusão necessária dos dedos; arma parece sobreposta/solta.",
+        "Lâmina diagonal sobe atravessando o tronco e termina próxima do pescoço; rotação ≤5° não reorienta a arte suficientemente."
+      ],
+      "reworkRecommendation": "Regenerar espada na orientação e posição da mão de male_short_moss_medium, com cabo desenhado para a pose existente e oclusão transparente específica dos dedos/área da mão. Não redesenhar mãos/HD nem adicionar máscara runtime. Se a mão aberta impedir uma pega convincente sem mudar a base, manter NEEDS_REWORK e registrar a limitação, sem promoção."
+    },
+    {
+      "id": "sword_path_rare_female_v2",
+      "filename": "sword_path_rare_female_v2.png",
+      "itemId": "traveler-sword-rare",
+      "gender": "female",
+      "slot": "weapon",
+      "avatar": {
+        "id": "female_short_moss_medium",
+        "path": "apps/web/public/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+        "sha256": "f260cb9b053b35c328025f1bc7ee602cbb30e57c71ba1f2238a4b1519685f460",
+        "immutable": true,
+        "footBaseline": 1495
+      },
+      "transform": {
+        "translateX": 0.031301522465810194,
+        "translateY": 690.3722572917486,
+        "scale": 0.4506026796647376,
+        "rotation": 0
+      },
+      "sha256": "b15f0d965098256c51557c3c00418b1bfe5bfb29260475c912f176ddad736965",
+      "sourceSha256": "5b445879d181b54e7a4f22761f63602cce83b15341255df8409d5b6b2f8a6ab8",
+      "technicalStatus": "TECHNICALLY_VALIDATED",
+      "mapping": "MAPPED",
+      "fitStatus": "NEEDS_REWORK",
+      "humanBodyFitApproved": false,
+      "ready": false,
+      "runtimeActivated": false,
+      "reviewStatus": "NEEDS_REWORK",
+      "fitReport": "build/task-0055-body-fit-bake/sword_path_rare_female_v2/fit-report.json",
+      "metadata": "build/task-0055-body-fit-bake/sword_path_rare_female_v2/fit-metadata.json",
+      "metadataSha256": "24ceef9120b3e92d10f22f0ed34136e0a3bbc55523a07b42687e7ffd9629e406",
+      "observations": [
+        "Centro do cabo foi aproximado da mão esquerda da tela; dedos continuam abertos na pose HD.",
+        "Overlay único desenha cabo sobre a mão sem a oclusão necessária dos dedos; arma parece sobreposta/solta.",
+        "Lâmina vertical fica em espaço lateral, porém a guarda/cabo ainda não reproduzem pega natural."
+      ],
+      "reworkRecommendation": "Regenerar espada na orientação e posição da mão de female_short_moss_medium, com cabo desenhado para a pose existente e oclusão transparente específica dos dedos/área da mão. Não redesenhar mãos/HD nem adicionar máscara runtime. Se a mão aberta impedir uma pega convincente sem mudar a base, manter NEEDS_REWORK e registrar a limitação, sem promoção."
+    },
+    {
+      "id": "sword_path_rare_male_v2",
+      "filename": "sword_path_rare_male_v2.png",
+      "itemId": "traveler-sword-rare",
+      "gender": "male",
+      "slot": "weapon",
+      "avatar": {
+        "id": "male_short_moss_medium",
+        "path": "apps/web/public/assets/avatar/hd/male/male_short_moss_medium_hd.png",
+        "sha256": "b182c2e29b512b337891716a413ab7efaad737e23c6354779fae17fe19b8af34",
+        "immutable": true,
+        "footBaseline": 1513
+      },
+      "transform": {
+        "translateX": -11.705467902053783,
+        "translateY": 695.1130715968252,
+        "scale": 0.4499967228121801,
+        "rotation": 0
+      },
+      "sha256": "283f40926d2c012ed8517c8c8187b2f49a7a7f71b78939b1efe9b27851ffd09f",
+      "sourceSha256": "89676a2f0f5b8ce73e25e6088ff52979115a11a091bbf25ce810b3c8488c96cb",
+      "technicalStatus": "TECHNICALLY_VALIDATED",
+      "mapping": "MAPPED",
+      "fitStatus": "NEEDS_REWORK",
+      "humanBodyFitApproved": false,
+      "ready": false,
+      "runtimeActivated": false,
+      "reviewStatus": "NEEDS_REWORK",
+      "fitReport": "build/task-0055-body-fit-bake/sword_path_rare_male_v2/fit-report.json",
+      "metadata": "build/task-0055-body-fit-bake/sword_path_rare_male_v2/fit-metadata.json",
+      "metadataSha256": "84675aab6d4f9e54b6ab91e481b740b4a6472600c6be7f19d1639872b18ca474",
+      "observations": [
+        "Centro do cabo foi aproximado da mão esquerda da tela; dedos continuam abertos na pose HD.",
+        "Overlay único desenha cabo sobre a mão sem a oclusão necessária dos dedos; arma parece sobreposta/solta.",
+        "Lâmina vertical fica em espaço lateral, porém a guarda/cabo ainda não reproduzem pega natural."
+      ],
+      "reworkRecommendation": "Regenerar espada na orientação e posição da mão de male_short_moss_medium, com cabo desenhado para a pose existente e oclusão transparente específica dos dedos/área da mão. Não redesenhar mãos/HD nem adicionar máscara runtime. Se a mão aberta impedir uma pega convincente sem mudar a base, manter NEEDS_REWORK e registrar a limitação, sem promoção."
+    },
+    {
+      "id": "shield_perseverance_rare_female_v2",
+      "filename": "shield_perseverance_rare_female_v2.png",
+      "itemId": "traveler-shield-rare",
+      "gender": "female",
+      "slot": "shield",
+      "avatar": {
+        "id": "female_short_moss_medium",
+        "path": "apps/web/public/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+        "sha256": "f260cb9b053b35c328025f1bc7ee602cbb30e57c71ba1f2238a4b1519685f460",
+        "immutable": true,
+        "footBaseline": 1495
+      },
+      "transform": {
+        "translateX": 618.035209250707,
+        "translateY": 492.1103573232775,
+        "scale": 0.3257268384268706,
+        "rotation": 0
+      },
+      "sha256": "1d0392230985f18b22ff043083af121fb9f276d526a3e8ecf4b9c93135dabe02",
+      "sourceSha256": "2722949386d675b27337dfe67a295b7be217dd17881a68a84b84800a0dbeb117",
+      "technicalStatus": "TECHNICALLY_VALIDATED",
+      "mapping": "MAPPED",
+      "fitStatus": "FIT_PASS",
+      "humanBodyFitApproved": false,
+      "ready": false,
+      "runtimeActivated": false,
+      "reviewStatus": "HUMAN_BODY_FIT_REVIEW_PENDING",
+      "fitReport": "build/task-0055-body-fit-bake/shield_perseverance_rare_female_v2/fit-report.json",
+      "metadata": "build/task-0055-body-fit-bake/shield_perseverance_rare_female_v2/fit-metadata.json",
+      "metadataSha256": "33d379d9e37714ef664ee2364f915455fe5262dd684d1061213ae1b1db26f0d3",
+      "observations": [
+        "Escudo ocupa região do antebraço direito da tela, oclui mão/bracelete frontalmente e mantém rosto livre.",
+        "Contorno lateral e ponta inferior ficam dentro do canvas, com proporção coerente com o avatar.",
+        "Montagem/pega traseira não está visível na source: alinhamento do antebraço é proxy visual; Carlos precisa confirmar leitura de escudo portado."
+      ],
+      "reworkRecommendation": "Sem regeneração obrigatória no candidato técnico; revisão humana deve confirmar porte/oclusão no hash e avatar indicados, sem presumir tira traseira ou compatibilidade geral."
+    },
+    {
+      "id": "shield_perseverance_rare_male_v2",
+      "filename": "shield_perseverance_rare_male_v2.png",
+      "itemId": "traveler-shield-rare",
+      "gender": "male",
+      "slot": "shield",
+      "avatar": {
+        "id": "male_short_moss_medium",
+        "path": "apps/web/public/assets/avatar/hd/male/male_short_moss_medium_hd.png",
+        "sha256": "b182c2e29b512b337891716a413ab7efaad737e23c6354779fae17fe19b8af34",
+        "immutable": true,
+        "footBaseline": 1513
+      },
+      "transform": {
+        "translateX": 621.8621711405059,
+        "translateY": 501.73630865762107,
+        "scale": 0.33397455413405663,
+        "rotation": 0
+      },
+      "sha256": "bf0785671741851d4e64402984309cfc30ff80313da98cf453b3e3a57b40e2a6",
+      "sourceSha256": "94632b12aeb02547dfd98453f58f7cf40c3d143c1bfcc9b19bae19f75244809d",
+      "technicalStatus": "TECHNICALLY_VALIDATED",
+      "mapping": "MAPPED",
+      "fitStatus": "FIT_PASS",
+      "humanBodyFitApproved": false,
+      "ready": false,
+      "runtimeActivated": false,
+      "reviewStatus": "HUMAN_BODY_FIT_REVIEW_PENDING",
+      "fitReport": "build/task-0055-body-fit-bake/shield_perseverance_rare_male_v2/fit-report.json",
+      "metadata": "build/task-0055-body-fit-bake/shield_perseverance_rare_male_v2/fit-metadata.json",
+      "metadataSha256": "a8ba409dc9fd4f870688cee7210c6ad270d92dce8f374ca1b414764650724030",
+      "observations": [
+        "Escudo ocupa região do antebraço direito da tela, oclui mão/bracelete frontalmente e mantém rosto livre.",
+        "Contorno lateral e ponta inferior ficam dentro do canvas, com proporção coerente com o avatar.",
+        "Montagem/pega traseira não está visível na source: alinhamento do antebraço é proxy visual; Carlos precisa confirmar leitura de escudo portado."
+      ],
+      "reworkRecommendation": "Sem regeneração obrigatória no candidato técnico; revisão humana deve confirmar porte/oclusão no hash e avatar indicados, sem presumir tira traseira ou compatibilidade geral."
+    },
+    {
+      "id": "medallion_path_rare_female_v2",
+      "filename": "medallion_path_rare_female_v2.png",
+      "itemId": "wisdom-amulet",
+      "gender": "female",
+      "slot": "amulet",
+      "avatar": {
+        "id": "female_short_moss_medium",
+        "path": "apps/web/public/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+        "sha256": "f260cb9b053b35c328025f1bc7ee602cbb30e57c71ba1f2238a4b1519685f460",
+        "immutable": true,
+        "footBaseline": 1495
+      },
+      "transform": {
+        "translateX": 448.33120599010476,
+        "translateY": 301.9736702209552,
+        "scale": 0.14004247105381834,
+        "rotation": 0
+      },
+      "sha256": "74b84cdd74af6fb1d3df91c6fbf6f32e6cd05b08a5cd940d7ffb8bdf9f594f77",
+      "sourceSha256": "d4b114d305cb89901878a145f4c69745bcfd9c2b7683a7a123158758609e41f7",
+      "technicalStatus": "TECHNICALLY_VALIDATED",
+      "mapping": "MAPPED",
+      "fitStatus": "NEEDS_REWORK",
+      "humanBodyFitApproved": false,
+      "ready": false,
+      "runtimeActivated": false,
+      "reviewStatus": "NEEDS_REWORK",
+      "fitReport": "build/task-0055-body-fit-bake/medallion_path_rare_female_v2/fit-report.json",
+      "metadata": "build/task-0055-body-fit-bake/medallion_path_rare_female_v2/fit-metadata.json",
+      "metadataSha256": "8cc2fb11fbc520e259c58f7594533be330b42de463583d5b878f00b7165c745d",
+      "observations": [
+        "Pingente fica centralizado no peito, acima da cintura, e a sobreposição com armadura foi composta como diagnóstico.",
+        "Source tem as duas extremidades da corrente cortadas na borda superior; o bake deixa terminações abruptas visíveis sobre o cachecol/pescoço.",
+        "Sem corrente fechada/continuação ou desenho de oclusão no PNG, não é possível certificar aparência de colar vestido."
+      ],
+      "reworkRecommendation": "Regenerar corrente completa no pescoço de female_short_moss_medium com terminação/oclusão desenhada para o cachecol ou colar da referência, sem segmentos abruptamente cortados. Preservar escala e posição do pingente registradas como boa aproximação; testar novamente base e armor overlap. Não esconder falha com máscara ou alteração da base/runtime."
+    },
+    {
+      "id": "medallion_path_rare_male_v2",
+      "filename": "medallion_path_rare_male_v2.png",
+      "itemId": "wisdom-amulet",
+      "gender": "male",
+      "slot": "amulet",
+      "avatar": {
+        "id": "male_short_moss_medium",
+        "path": "apps/web/public/assets/avatar/hd/male/male_short_moss_medium_hd.png",
+        "sha256": "b182c2e29b512b337891716a413ab7efaad737e23c6354779fae17fe19b8af34",
+        "immutable": true,
+        "footBaseline": 1513
+      },
+      "transform": {
+        "translateX": 432.0433697529211,
+        "translateY": 303.0333204740206,
+        "scale": 0.15197966905967214,
+        "rotation": 0
+      },
+      "sha256": "c51e2652cd4d8b69f583beb59a8efd2d8c159d2e15506b090c2cf281fb1e0996",
+      "sourceSha256": "2ef82d3b22ad557019f41529d6c7dcd155c641142f5012ac2dbf7b9bb58a4b8e",
+      "technicalStatus": "TECHNICALLY_VALIDATED",
+      "mapping": "MAPPED",
+      "fitStatus": "NEEDS_REWORK",
+      "humanBodyFitApproved": false,
+      "ready": false,
+      "runtimeActivated": false,
+      "reviewStatus": "NEEDS_REWORK",
+      "fitReport": "build/task-0055-body-fit-bake/medallion_path_rare_male_v2/fit-report.json",
+      "metadata": "build/task-0055-body-fit-bake/medallion_path_rare_male_v2/fit-metadata.json",
+      "metadataSha256": "410068b0a524ce820ff70fef841300c275e0474c5b2f40a95bed7d112da4513f",
+      "observations": [
+        "Pingente fica centralizado no peito, acima da cintura, e a sobreposição com armadura foi composta como diagnóstico.",
+        "Source tem as duas extremidades da corrente cortadas na borda superior; o bake deixa terminações abruptas visíveis sobre o cachecol/pescoço.",
+        "Sem corrente fechada/continuação ou desenho de oclusão no PNG, não é possível certificar aparência de colar vestido."
+      ],
+      "reworkRecommendation": "Regenerar corrente completa no pescoço de male_short_moss_medium com terminação/oclusão desenhada para o cachecol ou colar da referência, sem segmentos abruptamente cortados. Preservar escala e posição do pingente registradas como boa aproximação; testar novamente base e armor overlap. Não esconder falha com máscara ou alteração da base/runtime."
+    }
+  ],
+  "counts": {
+    "processed": 15,
+    "TECHNICALLY_VALIDATED": 15,
+    "MAPPED": 15,
+    "MAPPING_ERROR": 0,
+    "FIT_PASS": 5,
+    "NEEDS_REWORK": 10,
+    "HUMAN_BODY_FIT_REVIEW_PENDING": 5,
+    "FIT_VALIDATION_PENDING": 0,
+    "HUMAN_BODY_FIT_APPROVED": 0,
+    "READY": 0,
+    "runtimeActivated": 0
+  },
+  "status": "BAKE_BATCH_COMPLETE / FIT_VALIDATION_COMPLETE / HUMAN_REVIEW_AND_REWORK_REQUIRED"
+}

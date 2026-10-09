@@ -1,0 +1,10 @@
+{
+    "roots":  [
+                  "apps/web/.next/static",
+                  "apps/web/.next/server"
+              ],
+    "prohibitedPrototypeBindingsFound":  [
+
+                                         ],
+    "pass":  true
+}

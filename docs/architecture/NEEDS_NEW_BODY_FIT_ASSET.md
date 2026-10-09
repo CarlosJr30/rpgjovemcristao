@@ -1,0 +1,24 @@
+# NEEDS_NEW_BODY_FIT_ASSET
+
+Nenhuma geração autorizada nesta tarefa. Todos os 16 alvos estão NEEDS_NEW_OVERLAY. P0: quatro protótipos femininos; P1: quatro masculinos; P2: escudo/medalhão em ambos; P3: definições raras arquivadas, somente após aceite dos protótipos e novo escopo. Não copiar entre gêneros.
+
+Todos: PNG 1024×1536, alpha real, canvas integral, sem offsets/crop/warp. JSON companheiro contém referência HD com hash/baseline real e landmarks exigidos por asset. Compatibilidade deve ser revisada nas 27 identidades por gênero; não está aprovada agora.
+
+| filename | itemId | gender | slot | reference avatar | priority | expected landmarks | reason |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| armor_traveler_uncommon_female_v2.png | traveler-armor-uncommon | female | armor | female_short_moss_medium | P0 | shoulders; chest; waist; hips; face/hands/legs exclusion | No dedicated V2 body asset or human approval; V1 body fitting rejected. |
+| armor_traveler_uncommon_male_v2.png | traveler-armor-uncommon | male | armor | male_short_moss_medium | P1 | shoulders; chest; waist; hips; face/hands/legs exclusion | No dedicated V2 body asset or human approval; V1 body fitting rejected. |
+| helmet_traveler_rare_female_v2.png | traveler-helmet-rare | female | helmet | female_short_moss_medium | P0 | head center/top/width; hairline; short/long/curly hair occlusion; face remains visible | No dedicated V2 body asset or human approval; V1 body fitting rejected. |
+| helmet_traveler_rare_male_v2.png | traveler-helmet-rare | male | helmet | male_short_moss_medium | P1 | head center/top/width; hairline; short/long/curly hair occlusion; face remains visible | No dedicated V2 body asset or human approval; V1 body fitting rejected. |
+| boots_traveler_common_female_v2.png | traveler-boots | female | boots | female_short_moss_medium | P0 | left/right ankles; foot widths; HD alpha ≥128 foot baseline unchanged; no pixels outside canvas | No dedicated V2 body asset or human approval; V1 body fitting rejected. |
+| boots_traveler_common_male_v2.png | traveler-boots | male | boots | male_short_moss_medium | P1 | left/right ankles; foot widths; HD alpha ≥128 foot baseline unchanged; no pixels outside canvas | No dedicated V2 body asset or human approval; V1 body fitting rejected. |
+| sword_path_common_female_v2.png | traveler-sword-common | female | weapon | female_short_moss_medium | P0 | right hand/grip contact; blade angle/length; body distance; hand/arm depth and occlusion | No dedicated V2 body asset or human approval; V1 body fitting rejected. |
+| sword_path_common_male_v2.png | traveler-sword-common | male | weapon | male_short_moss_medium | P1 | right hand/grip contact; blade angle/length; body distance; hand/arm depth and occlusion | No dedicated V2 body asset or human approval; V1 body fitting rejected. |
+| shield_perseverance_rare_female_v2.png | traveler-shield-rare | female | shield | female_short_moss_medium | P2 | left hand/grip; forearm angle; body distance; occlusion | No dedicated V2 body asset or human approval; V1 body fitting rejected. |
+| shield_perseverance_rare_male_v2.png | traveler-shield-rare | male | shield | male_short_moss_medium | P2 | left hand/grip; forearm angle; body distance; occlusion | No dedicated V2 body asset or human approval; V1 body fitting rejected. |
+| medallion_path_rare_female_v2.png | wisdom-amulet | female | amulet | female_short_moss_medium | P2 | chest center; neckline; size relative to torso; occlusion | No dedicated V2 body asset or human approval; V1 body fitting rejected. |
+| medallion_path_rare_male_v2.png | wisdom-amulet | male | amulet | male_short_moss_medium | P2 | chest center; neckline; size relative to torso; occlusion | No dedicated V2 body asset or human approval; V1 body fitting rejected. |
+| armor_traveler_rare_female_v2.png | traveler-armor-rare | female | armor | female_short_moss_medium | P3 | shoulders; chest; waist; hips; face/hands/legs exclusion | No dedicated V2 body asset or human approval; V1 body fitting rejected. |
+| armor_traveler_rare_male_v2.png | traveler-armor-rare | male | armor | male_short_moss_medium | P3 | shoulders; chest; waist; hips; face/hands/legs exclusion | No dedicated V2 body asset or human approval; V1 body fitting rejected. |
+| sword_path_rare_female_v2.png | traveler-sword-rare | female | weapon | female_short_moss_medium | P3 | right hand/grip contact; blade angle/length; body distance; hand/arm depth and occlusion | No dedicated V2 body asset or human approval; V1 body fitting rejected. |
+| sword_path_rare_male_v2.png | traveler-sword-rare | male | weapon | male_short_moss_medium | P3 | right hand/grip contact; blade angle/length; body distance; hand/arm depth and occlusion | No dedicated V2 body asset or human approval; V1 body fitting rejected. |

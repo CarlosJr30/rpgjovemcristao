@@ -1,0 +1,16 @@
+{
+  "task": "TASK-0057",
+  "id": "sword_path_common_male_v2",
+  "status": "NEEDS_NEW_SHEATH_ART",
+  "sourceSha256": "ef4ca354506a7da6a9c80dcbb2b4d5388af7d11bef98fce9a81d8de6b40e8818",
+  "avatarSha256": "b182c2e29b512b337891716a413ab7efaad737e23c6354779fae17fe19b8af34",
+  "previousCandidateSha256": "bdbf54e9c683cfbce31c9ab6f0b85ab1a9a0f4af6bdabdfe6feb92903bad6a2f",
+  "diagnosticSha256": "f408c2f6c6cfe4c68c967bd9bccbdf1cd68d7c39347bd3c38b8dc67ed88edc6c",
+  "metadataSha256": "6950b3e1d3aa73c7b9ea58810344f593c278de08fc56db52fca1bd9705cf438d",
+  "reportSha256": "861e90a269e21790a6be6e4ca63f8772ad4b2074694cddbb5d9120159a5c567e",
+  "finalSheathedSha256": null,
+  "ready": false,
+  "humanBodyFitApproved": false,
+  "runtimeActivated": false,
+  "runtimePath": null
+}

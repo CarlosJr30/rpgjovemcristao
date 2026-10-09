@@ -1,0 +1,44 @@
+{
+  "id": "sword_path_rare_female_v2",
+  "filename": "sword_path_rare_female_v2.png",
+  "itemId": "traveler-sword-rare",
+  "gender": "female",
+  "slot": "weapon",
+  "avatar": {
+    "id": "female_short_moss_medium",
+    "path": "apps/web/public/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+    "sha256": "f260cb9b053b35c328025f1bc7ee602cbb30e57c71ba1f2238a4b1519685f460",
+    "immutable": true,
+    "footBaseline": 1495
+  },
+  "transform": {
+    "translateX": 0.031301522465810194,
+    "translateY": 690.3722572917486,
+    "scale": 0.4506026796647376,
+    "rotation": 0
+  },
+  "sha256": "b15f0d965098256c51557c3c00418b1bfe5bfb29260475c912f176ddad736965",
+  "sourceSha256": "5b445879d181b54e7a4f22761f63602cce83b15341255df8409d5b6b2f8a6ab8",
+  "technicalStatus": "TECHNICALLY_VALIDATED",
+  "mapping": "MAPPED",
+  "fitStatus": "NEEDS_REWORK",
+  "humanBodyFitApproved": false,
+  "ready": false,
+  "runtimeActivated": false,
+  "reviewStatus": "NEEDS_REWORK",
+  "fitReport": "build/task-0055-body-fit-bake/sword_path_rare_female_v2/fit-report.json",
+  "metadata": "build/task-0055-body-fit-bake/sword_path_rare_female_v2/fit-metadata.json",
+  "metadataSha256": "24ceef9120b3e92d10f22f0ed34136e0a3bbc55523a07b42687e7ffd9629e406",
+  "observations": [
+    "Centro do cabo foi aproximado da mão esquerda da tela; dedos continuam abertos na pose HD.",
+    "Overlay único desenha cabo sobre a mão sem a oclusão necessária dos dedos; arma parece sobreposta/solta.",
+    "Lâmina vertical fica em espaço lateral, porém a guarda/cabo ainda não reproduzem pega natural."
+  ],
+  "reworkRecommendation": "Regenerar espada na orientação e posição da mão de female_short_moss_medium, com cabo desenhado para a pose existente e oclusão transparente específica dos dedos/área da mão. Não redesenhar mãos/HD nem adicionar máscara runtime. Se a mão aberta impedir uma pega convincente sem mudar a base, manter NEEDS_REWORK e registrar a limitação, sem promoção.",
+  "task": "TASK-0055",
+  "updatedAt": "2026-10-08T20:27:47.343Z",
+  "sourceApproval": "SOURCE_VISUAL_APPROVED (inherited)",
+  "runtimePath": null,
+  "stagingPath": "build/task-0055-body-fit-bake/sword_path_rare_female_v2/sword_path_rare_female_v2_baked.png",
+  "approvedBy": null
+}

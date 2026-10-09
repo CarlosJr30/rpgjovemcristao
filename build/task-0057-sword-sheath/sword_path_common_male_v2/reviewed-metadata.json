@@ -1,0 +1,200 @@
+{
+  "task": "TASK-0057",
+  "id": "sword_path_common_male_v2",
+  "gender": "male",
+  "itemId": "traveler-sword-common",
+  "source": {
+    "path": "assets-source/body-fit-v2-targets/sword_path_common_male_v2.png",
+    "format": "png",
+    "width": 1024,
+    "height": 1536,
+    "channels": 4,
+    "hasAlpha": true,
+    "integrity": {
+      "status": "CRC_PASS",
+      "chunks": 24
+    },
+    "alpha128Bounds": {
+      "left": 93,
+      "top": 46,
+      "right": 987,
+      "bottom": 1487,
+      "count": 187874
+    },
+    "alphaPositiveBoundsDiagnostic": {
+      "left": 65,
+      "top": 36,
+      "right": 1001,
+      "bottom": 1510,
+      "count": 200972
+    },
+    "transparentPixels": 1371892,
+    "sha256": "ef4ca354506a7da6a9c80dcbb2b4d5388af7d11bef98fce9a81d8de6b40e8818",
+    "decode": "PASS",
+    "sheathPresent": false,
+    "supportPresent": false
+  },
+  "avatar": {
+    "path": "apps/web/public/assets/avatar/hd/male/male_short_moss_medium_hd.png",
+    "sha256": "b182c2e29b512b337891716a413ab7efaad737e23c6354779fae17fe19b8af34",
+    "id": "male_short_moss_medium",
+    "immutable": true,
+    "footBaseline": 1513
+  },
+  "previousCandidate": {
+    "path": "build/task-0056-sword-downward/attempt-02/sword_path_common_male_v2/sword_path_common_male_v2_downward_baked.png",
+    "format": "png",
+    "width": 1024,
+    "height": 1536,
+    "channels": 4,
+    "hasAlpha": true,
+    "integrity": {
+      "status": "CRC_PASS",
+      "chunks": 19
+    },
+    "alpha128Bounds": {
+      "left": 126,
+      "top": 715,
+      "right": 324,
+      "bottom": 1389,
+      "count": 30059
+    },
+    "alphaPositiveBoundsDiagnostic": {
+      "left": 25,
+      "top": 714,
+      "right": 487,
+      "bottom": 1390,
+      "count": 32330
+    },
+    "transparentPixels": 1540534,
+    "sha256": "bdbf54e9c683cfbce31c9ab6f0b85ab1a9a0f4af6bdabdfe6feb92903bad6a2f",
+    "decode": "PASS"
+  },
+  "belt": {
+    "measuredBox": [
+      398,
+      590,
+      648,
+      650
+    ],
+    "attachmentProposal": [
+      446,
+      618
+    ],
+    "approximation": "Refined manual belt-body bounds +/-12px; historical broad search box preserved in bake-metadata.json; attachment point is guide only"
+  },
+  "hip": {
+    "guardProxy": [
+      302,
+      696
+    ],
+    "fixationVerified": false,
+    "supportArt": null
+  },
+  "diagnostic": {
+    "kind": "UNSHEATHED_HIP_PLACEMENT_ONLY",
+    "output": {
+      "path": "build/task-0057-sword-sheath/sword_path_common_male_v2/diagnostic_unsheathed_hip.png",
+      "format": "png",
+      "width": 1024,
+      "height": 1536,
+      "channels": 4,
+      "hasAlpha": true,
+      "integrity": {
+        "status": "CRC_PASS",
+        "chunks": 20
+      },
+      "alpha128Bounds": {
+        "left": 195,
+        "top": 515,
+        "right": 401,
+        "bottom": 1215,
+        "count": 32334
+      },
+      "alphaPositiveBoundsDiagnostic": {
+        "left": 23,
+        "top": 514,
+        "right": 499,
+        "bottom": 1216,
+        "count": 34803
+      },
+      "transparentPixels": 1538061,
+      "sha256": "f408c2f6c6cfe4c68c967bd9bccbdf1cd68d7c39347bd3c38b8dc67ed88edc6c",
+      "decode": "PASS"
+    },
+    "transform": {
+      "scale": 0.415,
+      "rotation": 149.41414013616378,
+      "translateX": 656.4154898143775,
+      "translateY": 1024.0273528680723
+    },
+    "landmarks": {
+      "guard": {
+        "source": [
+          333,
+          1115
+        ],
+        "projected": [
+          302,
+          696
+        ]
+      },
+      "grip": {
+        "source": [
+          265,
+          1235
+        ],
+        "projected": [
+          300.95400145723215,
+          638.7696384158851
+        ]
+      },
+      "root": {
+        "source": [
+          469,
+          919
+        ],
+        "projected": [
+          294.80077998264005,
+          794.7412802790284
+        ]
+      },
+      "tip": {
+        "source": [
+          985,
+          46
+        ],
+        "projected": [
+          294.80077998264,
+          1215.5899545373654
+        ]
+      }
+    },
+    "render": {
+      "top": 0,
+      "left": 0,
+      "width": "100%",
+      "height": "100%",
+      "transform": "none"
+    },
+    "intendedDepth": "Future sheath behind belt/pouch and clear of arm/hand; diagnostic foreground only, depth not validated",
+    "occlusion": "NONE; no mask or copied HD pixels"
+  },
+  "finalSheathedOutput": null,
+  "finalSheathedSha256": null,
+  "finalSheathedTransform": null,
+  "pipeline": {
+    "implementation": "Existing TASK-0054/0056 inverse similarity sampler, premultiplied-alpha bilinear",
+    "uniformScale": true,
+    "offlineOnly": true,
+    "mask": "NONE",
+    "sharp": "0.35.4"
+  },
+  "status": "NEEDS_NEW_SHEATH_ART",
+  "runtimeActivated": false,
+  "runtimePath": null,
+  "ready": false,
+  "humanBodyFitApproved": false,
+  "diagnosticsAreFinalCandidates": false,
+  "reviewedAtLocalDate": "2026-10-08"
+}

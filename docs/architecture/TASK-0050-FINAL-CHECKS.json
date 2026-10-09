@@ -1,0 +1,126 @@
+{
+  "task": "TASK-0050",
+  "status": "DONE",
+  "at": "2026-10-08T00:19:24.230Z",
+  "assets": {
+    "approved": 54,
+    "queue": 52,
+    "pilots": 2,
+    "nativeCopies": 52,
+    "bytes": 117434147,
+    "proof": "HUMAN_VISUAL_APPROVED receipts, actual SHA, dimensions and paths"
+  },
+  "runtime": {
+    "normal": "HD_APPROVED",
+    "productionLocal": "HD_APPROVED",
+    "fallback": "LEGACY_THEN_EXISTING_PROCEDURAL",
+    "logicalCanvas": "512x768",
+    "physicalCanvas": "1024x1536",
+    "preloadAll": false,
+    "bodyFitPromotion": false,
+    "savesChanged": false,
+    "deploy": false,
+    "generatedCandidatesIntegrated": 52,
+    "pilotsIntegrated": 2,
+    "queueActivationRecordedAt": "2026-10-08T00:21:57.889Z"
+  },
+  "checks": {
+    "audit": "PASS",
+    "unitFull": {
+      "files": 62,
+      "tests": 393,
+      "result": "PASS",
+      "workers": 2
+    },
+    "unitFinal": {
+      "tests": 14,
+      "result": "PASS",
+      "additionalTests": 2
+    },
+    "productionE2E": {
+      "pass": 44,
+      "result": "PASS",
+      "skippedByProjectViewportPolicy": 16
+    },
+    "productionFinalE2E": {
+      "pass": 6,
+      "result": "PASS"
+    },
+    "devLab": {
+      "pass": 3,
+      "result": "PASS",
+      "DPR": [
+        1,
+        2,
+        3
+      ]
+    },
+    "lint": "PASS",
+    "typecheck": "PASS",
+    "build": "PASS",
+    "diffWhitespace": "PASS"
+  },
+  "viewports": [
+    "390x844",
+    "412x915",
+    "844x390",
+    "915x412",
+    "1440x900",
+    "1920x1080"
+  ],
+  "screenshots": 249,
+  "preservation": {
+    "at": "2026-10-08T00:18:37.550Z",
+    "result": "PASS",
+    "identities": 54,
+    "queue": 52,
+    "pilots": 2,
+    "bytes": 117434147,
+    "decodedBytesPerHD": 6291456,
+    "protectedBaseline": 815,
+    "preserved": 800,
+    "authorizedChanged": [
+      "tests/e2e/avatar-runtime.spec.ts",
+      "tests/e2e/avatar-runtime-lab.spec.ts",
+      "apps/web/package.json",
+      "apps/web/next-env.d.ts",
+      "apps/web/features/journey/avatar-runtime.test.tsx",
+      "apps/web/features/journey/avatar-hd-pack.test.tsx",
+      "apps/web/features/journey/equipment-overlays.test.tsx",
+      "apps/web/features/journey/dev/avatar-runtime-panel.tsx",
+      "apps/web/features/journey/snake-chase-game.test.tsx",
+      "apps/web/features/journey/data/avatarRuntime.ts",
+      "apps/web/features/journey/data/avatarHDPack.ts",
+      "apps/web/features/journey/components/avatar-runtime.tsx",
+      "apps/web/features/journey/data/gameplayAvatarPortrait.ts",
+      "apps/web/features/journey/progression.test.ts",
+      "apps/web/features/journey/components/snake-chase-game.tsx"
+    ],
+    "nativeCopyHashApprovalPaths": "PASS",
+    "legacyBodyFitAnchorsSaves": "PRESERVED"
+  },
+  "performance": {
+    "pairedSamples": 48,
+    "HDLcpMinMs": 120,
+    "HDLcpMaxMs": 408,
+    "decodedBytesPerHD": 6291456,
+    "decodedBytesPerLegacy": 1572864,
+    "catalogBytes": 24519,
+    "avatarCanvasDifferences": 0,
+    "cache": {
+      "at": "2026-10-08T00:18:02.556Z",
+      "headStatus": 200,
+      "cacheControl": "public, max-age=0",
+      "etag": "W/\"222977-1a10ff31224\"",
+      "bytes": "2238839",
+      "conditionalStatus": 200
+    },
+    "limitations": "Local desktop hardware with emulated viewports; no physical mobile/throttled network. Global hydration CLS up to0.956 also reproduced with legacy up to0.878 in Shell/footer; not an image-size change and remains a separate optimization."
+  },
+  "QA": "Author review; not independent",
+  "pending": [
+    "Body-Fit validation remains pending; no READY promotion",
+    "Existing Shell hydration CLS and cramped Arena landscape layout reproduced with legacy; not changed by this task",
+    "Physical mobile and constrained network performance before external publication"
+  ]
+}

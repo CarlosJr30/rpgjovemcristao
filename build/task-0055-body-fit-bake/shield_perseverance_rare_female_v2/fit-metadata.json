@@ -1,0 +1,281 @@
+{
+  "task": "TASK-0055",
+  "id": "shield_perseverance_rare_female_v2",
+  "itemId": "traveler-shield-rare",
+  "slot": "shield",
+  "gender": "female",
+  "at": "2026-10-08T20:23:17.599Z",
+  "source": {
+    "path": "assets-source/body-fit-v2-targets/shield_perseverance_rare_female_v2.png",
+    "format": "png",
+    "width": 1024,
+    "height": 1536,
+    "channels": 4,
+    "hasAlpha": true,
+    "integrity": {
+      "status": "CRC_PASS",
+      "chunks": 42
+    },
+    "alpha128Bounds": {
+      "left": 74,
+      "top": 18,
+      "right": 951,
+      "bottom": 1499,
+      "count": 775415
+    },
+    "alphaPositiveBoundsDiagnostic": {
+      "left": 65,
+      "top": 15,
+      "right": 959,
+      "bottom": 1503,
+      "count": 788190
+    },
+    "transparentPixels": 784674,
+    "sha256": "2722949386d675b27337dfe67a295b7be217dd17881a68a84b84800a0dbeb117",
+    "decode": "PASS",
+    "approval": "SOURCE_VISUAL_APPROVED (inherited; not body-fit approval)"
+  },
+  "avatar": {
+    "id": "female_short_moss_medium",
+    "path": "apps/web/public/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+    "sha256": "f260cb9b053b35c328025f1bc7ee602cbb30e57c71ba1f2238a4b1519685f460",
+    "immutable": true,
+    "footBaseline": 1495
+  },
+  "mapping": {
+    "status": "MAPPED",
+    "errors": [],
+    "targetFilename": "shield_perseverance_rare_female_v2.png",
+    "itemId": "traveler-shield-rare",
+    "gender": "female",
+    "slot": "shield"
+  },
+  "landmarks": {
+    "hand_forearm": {
+      "source": [
+        512,
+        700
+      ],
+      "avatar": [
+        785,
+        720
+      ],
+      "weight": 3,
+      "kind": "rear mounting proxy, hidden strap unverified"
+    },
+    "torso_clearance": {
+      "source": [
+        100,
+        650
+      ],
+      "avatar": [
+        650,
+        704
+      ],
+      "weight": 1,
+      "kind": "inner edge placement goal"
+    },
+    "face_clearance": {
+      "source": [
+        512,
+        24
+      ],
+      "avatar": [
+        785,
+        500
+      ],
+      "weight": 1,
+      "kind": "top placement goal below face"
+    },
+    "lateral_extent": {
+      "source": [
+        922,
+        650
+      ],
+      "avatar": [
+        918,
+        704
+      ],
+      "weight": 1,
+      "kind": "outer edge placement goal"
+    },
+    "shield_tip": {
+      "source": [
+        512,
+        1498
+      ],
+      "avatar": [
+        785,
+        980
+      ],
+      "weight": 1,
+      "kind": "lower extent placement goal"
+    }
+  },
+  "landmarkResiduals": {
+    "hand_forearm": {
+      "source": [
+        512,
+        700
+      ],
+      "avatar": [
+        785,
+        720
+      ],
+      "weight": 3,
+      "kind": "rear mounting proxy, hidden strap unverified",
+      "projected": [
+        784.8073505252647,
+        720.119144222087
+      ],
+      "delta": [
+        -0.19264947473527627,
+        0.1191442220870158
+      ],
+      "distance": 0.22651526609148884
+    },
+    "torso_clearance": {
+      "source": [
+        100,
+        650
+      ],
+      "avatar": [
+        650,
+        704
+      ],
+      "weight": 1,
+      "kind": "inner edge placement goal",
+      "projected": [
+        650.6078930933941,
+        703.8328023007434
+      ],
+      "delta": [
+        0.6078930933940683,
+        -0.16719769925657602
+      ],
+      "distance": 0.6304673533442489
+    },
+    "face_clearance": {
+      "source": [
+        512,
+        24
+      ],
+      "avatar": [
+        785,
+        500
+      ],
+      "weight": 1,
+      "kind": "top placement goal below face",
+      "projected": [
+        784.8073505252647,
+        499.92780144552245
+      ],
+      "delta": [
+        -0.19264947473527627,
+        -0.07219855447755208
+      ],
+      "distance": 0.20573393347823277
+    },
+    "lateral_extent": {
+      "source": [
+        922,
+        650
+      ],
+      "avatar": [
+        918,
+        704
+      ],
+      "weight": 1,
+      "kind": "outer edge placement goal",
+      "projected": [
+        918.3553542802817,
+        703.8328023007434
+      ],
+      "delta": [
+        0.35535428028174465,
+        -0.16719769925657602
+      ],
+      "distance": 0.39272348433885285
+    },
+    "shield_tip": {
+      "source": [
+        512,
+        1498
+      ],
+      "avatar": [
+        785,
+        980
+      ],
+      "weight": 1,
+      "kind": "lower extent placement goal",
+      "projected": [
+        784.8073505252647,
+        980.0491612867297
+      ],
+      "delta": [
+        -0.19264947473527627,
+        0.04916128672971354
+      ],
+      "distance": 0.1988231682392647
+    }
+  },
+  "landmarkMethod": "Female shield front plate, own contour; screen-right forearm proxy and free-space goals, not measured rear grip; visual native grid measurements approximately ±12px avatar, ±20px source. No hidden anatomy certified.",
+  "transform": {
+    "translateX": 618.035209250707,
+    "translateY": 492.1103573232775,
+    "scale": 0.3257268384268706,
+    "rotation": 0
+  },
+  "fittingMethod": "Per-source weighted least-squares uniform scale + translation; rotation0 preferred. Anatomy points and placement goals identified separately.",
+  "transformConvention": "Native top-left origin; x=tx+scale*x; y=ty+scale*y; offline only",
+  "pipeline": {
+    "version": 1,
+    "implementation": "TASK-0054 bakeBytes: inverse sampling / premultiplied-alpha bilinear",
+    "sharp": "0.35.4",
+    "vips": "8.18.6",
+    "mask": "NONE",
+    "warp": "NONE",
+    "uniform": true
+  },
+  "output": {
+    "path": "build/task-0055-body-fit-bake/shield_perseverance_rare_female_v2/shield_perseverance_rare_female_v2_baked.png",
+    "format": "png",
+    "width": 1024,
+    "height": 1536,
+    "channels": 4,
+    "hasAlpha": true,
+    "integrity": {
+      "status": "CRC_PASS",
+      "chunks": 40
+    },
+    "alpha128Bounds": {
+      "left": 642,
+      "top": 498,
+      "right": 927,
+      "bottom": 980,
+      "count": 82260
+    },
+    "alphaPositiveBoundsDiagnostic": {
+      "left": 639,
+      "top": 497,
+      "right": 929,
+      "bottom": 981,
+      "count": 83757
+    },
+    "transparentPixels": 1489107,
+    "sha256": "1d0392230985f18b22ff043083af121fb9f276d526a3e8ecf4b9c93135dabe02",
+    "decode": "PASS"
+  },
+  "runtime": {
+    "activated": false,
+    "render": {
+      "top": 0,
+      "left": 0,
+      "width": "100%",
+      "height": "100%",
+      "transform": "none"
+    }
+  },
+  "humanBodyFitApproved": false,
+  "ready": false
+}

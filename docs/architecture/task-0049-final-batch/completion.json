@@ -1,0 +1,42 @@
+{
+  "at": "2026-10-07T22:00:46.470Z",
+  "status": "FINAL_BATCH_BLOCKED_PATTERN",
+  "taskStatus": "REWORK",
+  "humanReview": "HUMAN_VISUAL_APPROVED",
+  "newGenerationCount": 25,
+  "rejected": 11,
+  "selectedIds": [
+    "female_long_blue_dark",
+    "female_long_blue_light",
+    "female_long_moss_dark",
+    "female_long_blue_medium",
+    "female_long_ochre_light",
+    "female_long_ochre_dark",
+    "female_long_moss_medium",
+    "female_long_moss_light",
+    "female_short_blue_dark",
+    "female_short_blue_light",
+    "female_long_ochre_medium",
+    "female_short_blue_medium",
+    "female_short_ochre_medium",
+    "female_short_ochre_light",
+    "female_short_ochre_dark",
+    "female_short_moss_light",
+    "female_short_moss_dark"
+  ],
+  "valid": 14,
+  "blocked": [
+    "female_short_ochre_dark"
+  ],
+  "notGenerated": [
+    "female_short_moss_light",
+    "female_short_moss_dark"
+  ],
+  "cumulativePatternOccurrences": 2,
+  "moreGenerationAllowed": false,
+  "remainingPendingHDCount": 2,
+  "humanApprovedCount": 14,
+  "reviewedBy": "Carlos Faustino",
+  "reviewedAt": "2026-10-07T23:07:36.485Z",
+  "humanApprovalReceipt": "docs/architecture/task-0049-final-batch/HUMAN-VISUAL-APPROVAL.json"
+}

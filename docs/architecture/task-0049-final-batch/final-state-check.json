@@ -1,0 +1,26 @@
+{
+  "at": "2026-10-07T22:01:25.484Z",
+  "result": "PASS",
+  "queueCounts": {
+    "HUMAN_VISUAL_APPROVED": 35,
+    "VISUAL_REVIEW_PENDING": 14,
+    "BLOCKED_PATTERN_FOR_ASSET": 1,
+    "PENDING_HD": 2
+  },
+  "queueIdentities": 52,
+  "pilots": 2,
+  "generatedAttempts": 82,
+  "geometryPassed": 49,
+  "geometryRejectedAttempts": 33,
+  "protectedFiles": 487,
+  "allProtectedHashesIntact": true,
+  "prior35ItemsUnchanged": true,
+  "receipts": 17,
+  "prompts": 25,
+  "reportFields": 23,
+  "newHumanApproval": false,
+  "publicIntegration": false,
+  "bodyFitPromotion": false,
+  "task0049GStatus": "REWORK",
+  "outcome": "FINAL_BATCH_BLOCKED_PATTERN"
+}

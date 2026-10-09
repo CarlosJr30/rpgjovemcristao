@@ -1,0 +1,89 @@
+{
+  "pass": true,
+  "music": {
+    "arena": {
+      "src": "/assets/audio/music/arena_training.ogg",
+      "license": "SUNO_FREE_NON_COMMERCIAL · NON_COMMERCIAL_PROTOTYPE_DEVELOPMENT_ONLY · COMMERCIAL PRODUCTION NOT APPROVED"
+    }
+  },
+  "effects": {
+    "attack": {
+      "src": "/assets/audio/effects/arena_attack.ogg",
+      "license": "SUNO_FREE_NON_COMMERCIAL · NON_COMMERCIAL_PROTOTYPE_DEVELOPMENT_ONLY · COMMERCIAL PRODUCTION NOT APPROVED"
+    },
+    "defense": {
+      "src": "/assets/audio/effects/arena_defense.ogg",
+      "license": "SUNO_FREE_NON_COMMERCIAL · NON_COMMERCIAL_PROTOTYPE_DEVELOPMENT_ONLY · COMMERCIAL PRODUCTION NOT APPROVED"
+    },
+    "focus": {
+      "src": "/assets/audio/effects/arena_focus.ogg",
+      "license": "SUNO_FREE_NON_COMMERCIAL · NON_COMMERCIAL_PROTOTYPE_DEVELOPMENT_ONLY · COMMERCIAL PRODUCTION NOT APPROVED"
+    },
+    "dodge": {
+      "src": "/assets/audio/effects/arena_dodge.ogg",
+      "license": "SUNO_FREE_NON_COMMERCIAL · NON_COMMERCIAL_PROTOTYPE_DEVELOPMENT_ONLY · COMMERCIAL PRODUCTION NOT APPROVED"
+    },
+    "player_hit": {
+      "src": "/assets/audio/effects/player_hit.ogg",
+      "license": "SUNO_FREE_NON_COMMERCIAL · NON_COMMERCIAL_PROTOTYPE_DEVELOPMENT_ONLY · COMMERCIAL PRODUCTION NOT APPROVED"
+    },
+    "victory": {
+      "src": "/assets/audio/effects/victory.ogg",
+      "license": "SUNO_FREE_NON_COMMERCIAL · NON_COMMERCIAL_PROTOTYPE_DEVELOPMENT_ONLY · COMMERCIAL PRODUCTION NOT APPROVED"
+    },
+    "defeat": {
+      "src": "/assets/audio/effects/defeat.ogg",
+      "license": "SUNO_FREE_NON_COMMERCIAL · NON_COMMERCIAL_PROTOTYPE_DEVELOPMENT_ONLY · COMMERCIAL PRODUCTION NOT APPROVED"
+    }
+  },
+  "results": [
+    {
+      "file": "audio/music/arena_training.ogg",
+      "status": "APPROVED_FOR_PROTOTYPE",
+      "sha256": "9fd927742b21cbfc397a4b4b9fa85a988a07777d60b7d6b932b67aa949fab8bf",
+      "duration": 74.8
+    },
+    {
+      "file": "audio/effects/arena_attack.ogg",
+      "status": "APPROVED_FOR_PROTOTYPE",
+      "sha256": "c0d9c0b7e6816704622ec70211d1d3c82b0b0a9efd0b5fa947218d647a38b484",
+      "duration": 0.593333
+    },
+    {
+      "file": "audio/effects/arena_defense.ogg",
+      "status": "APPROVED_FOR_PROTOTYPE",
+      "sha256": "12bffebca55bbfef7333534206c71e373270bc5de85970553f2bd63161b1027f",
+      "duration": 0.742667
+    },
+    {
+      "file": "audio/effects/arena_focus.ogg",
+      "status": "APPROVED_FOR_PROTOTYPE",
+      "sha256": "e186d41474f14690af308c197c734ecaf1d7bee7912b7e325cf3baeac8030203",
+      "duration": 0.78
+    },
+    {
+      "file": "audio/effects/arena_dodge.ogg",
+      "status": "APPROVED_FOR_PROTOTYPE",
+      "sha256": "5f32b1b09a21c72ac89de150b65a3503554174440cff2033d5b36c959af4ffb8",
+      "duration": 0.42
+    },
+    {
+      "file": "audio/effects/player_hit.ogg",
+      "status": "APPROVED_FOR_PROTOTYPE",
+      "sha256": "f95d37ed16d56f278a5d592317c6539efa9a0dc08441e5a830d46f80b97e892b",
+      "duration": 0.58
+    },
+    {
+      "file": "audio/effects/victory.ogg",
+      "status": "APPROVED_FOR_PROTOTYPE",
+      "sha256": "7c18cc1013e887e37980f6c9c199fda1626a7f1cca0e688ff621c3330ef0d945",
+      "duration": 2
+    },
+    {
+      "file": "audio/effects/defeat.ogg",
+      "status": "APPROVED_FOR_PROTOTYPE",
+      "sha256": "90ade25672796deab35fde94cbf824a1b3f7cb9b2f69cb7308e8dec2914718ff",
+      "duration": 1.814313
+    }
+  ]
+}

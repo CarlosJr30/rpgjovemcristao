@@ -1,0 +1,34 @@
+{
+  "results": [
+    {
+      "attempt": "attempt-01",
+      "png": "PASS",
+      "reproducedBakeSha": "PASS",
+      "alpha128SourceClipping": 0,
+      "fit": "NEEDS_REWORK",
+      "sha256": "cbe4f3052bb55e47318d346dfd431938d43e05de25b4fcfba04a63a867ed9046"
+    },
+    {
+      "attempt": "attempt-02",
+      "png": "PASS",
+      "reproducedBakeSha": "PASS",
+      "alpha128SourceClipping": 0,
+      "fit": "NEEDS_REWORK",
+      "sha256": "f0b935d2844546485917cea006d6e01ef0b60233a854acdc3609ba9a738f754c"
+    },
+    {
+      "attempt": "attempt-03",
+      "png": "PASS",
+      "reproducedBakeSha": "PASS",
+      "alpha128SourceClipping": 0,
+      "fit": "FIT_PASS",
+      "sha256": "735000c62ddaee5214cfb895deae17685a1f2e1c0c642f3557e09879d90524f2"
+    }
+  ],
+  "evidence": 13,
+  "preserved": 1078,
+  "hdFiles": 54,
+  "technical": "PASS",
+  "visualClassificationByAuthor": "FIT_PASS",
+  "runtimeActivated": false
+}

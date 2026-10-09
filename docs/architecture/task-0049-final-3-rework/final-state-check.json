@@ -1,0 +1,35 @@
+{
+  "at": "2026-10-07T23:34:45.656Z",
+  "result": "PASS",
+  "queueCounts": {
+    "HUMAN_VISUAL_APPROVED": 49,
+    "VISUAL_REVIEW_PENDING": 3,
+    "PENDING_HD": 0,
+    "BLOCKED_PATTERN_FOR_ASSET": 0,
+    "BLOCKED_FINAL_GEOMETRY": 0
+  },
+  "queueItems": 52,
+  "pilots": 2,
+  "generationCount": 86,
+  "geometryPassCount": 52,
+  "geometryFailCount": 34,
+  "preservation": {
+    "result": "PASS",
+    "files": 815,
+    "changed": [],
+    "publicMedia": 165,
+    "humanApproved": 49,
+    "pilots": 2,
+    "allPreviousGPNGsPreserved": true
+  },
+  "unselected49Unchanged": true,
+  "receipts": 3,
+  "reportFields": 20,
+  "task0049H": "TECHNICALLY_COMPLETE / VALIDATING",
+  "newHumanApproval": false,
+  "technicalQueueComplete": true,
+  "moreGenerationAllowed": false,
+  "publicIntegration": false,
+  "bodyFitPromotion": false,
+  "task0049Done": false
+}

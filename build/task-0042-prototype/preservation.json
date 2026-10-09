@@ -1,0 +1,81 @@
+{
+    "baselineCount":  576,
+    "intact":  564,
+    "authorizedChanges":  [
+                              {
+                                  "file":  "playwright.config.ts",
+                                  "before":  "55e61fbcee4f13112393d3130190996ec9a5673b78a01a0ba0f1be1311fea51c",
+                                  "after":  "6f164c75469f1be7dbce3377f4ecf242c079f2a3ff9fc3db996c329638e874d1"
+                              },
+                              {
+                                  "file":  "apps/web/features/journey/audio/audio-manager.ts",
+                                  "before":  "57cc972f069ce3d59d821d5f6c2a5b099359c89412d4f96eacb6b6df7ae5e56f",
+                                  "after":  "c9208f494cb486d0ff653c7bcabf3b3c98f86c7a81d3ae7edad01e80ba3afdcc"
+                              },
+                              {
+                                  "file":  ".agent/memory/CURRENT_STATE.md",
+                                  "before":  "177206f6605c6a90a4fe1025ae4b1881dcf2289f2a0d43b101abc594346188df",
+                                  "after":  "7d3cc6d947316ac739321f0acec0b0f3ef2f659502f8ffd72448713b62af15be"
+                              },
+                              {
+                                  "file":  "docs/architecture/audiovisual-pack-approvals.json",
+                                  "before":  "d635b07ffb127c5d2257b9b089a04f2d5b2c6cc70cd8e5f6cead412a700a7669",
+                                  "after":  "0be0eae51410a53779a4a938f6afc8cfedb9c07d7e40b3daafe749c6ebdf12a3"
+                              },
+                              {
+                                  "file":  "apps/web/next.config.ts",
+                                  "before":  "3872a84f7625b50fcf51616ab5b62d041261236a06ef0108dce5eba96a64e7ea",
+                                  "after":  "8348405d205a8aba40b07c255490b4223feb1f3138b64bddda860498c6411cfe"
+                              },
+                              {
+                                  "file":  "docs/security/ARENA-AUDIO-PACK-V1-REVIEW.md",
+                                  "before":  "48b802d387c1723c711d73bb8999baf9bd8d1a88c28a2a05113b551a771132a1",
+                                  "after":  "bd835ba7a9c24f391101cba7845dc290fbafb6b065e0116a77a4d213e1f5c69b"
+                              },
+                              {
+                                  "file":  "apps/web/features/journey/audio/audio-assets.ts",
+                                  "before":  "e0180bb1e99aa60a2caaadc3894199fcf00f06b272be025cd227248e7a8ffdbc",
+                                  "after":  "dc2f4c98cb5ae9244f55fe03c029f03e9d4f335dcbcca8b37a619f0cad2db293"
+                              },
+                              {
+                                  "file":  "tsconfig.json",
+                                  "before":  "a0c5fb462e65aff57831896e1538ae834e6888056d37f5ee9b1e21bc1bb198e7",
+                                  "after":  "92decad150a24b776a33016f659cf36fe47436da71b809f218203052ed6f5974"
+                              },
+                              {
+                                  "file":  "docs/architecture/audiovisual-pack-v1.json",
+                                  "before":  "841d68d0e454531a4f83160cd13705f0a860bc249f4cacfde14c716d0481f01a",
+                                  "after":  "96125808f0841d9907baa9679e3766642d854b5375525bd46c0b8b18e79e8fe9"
+                              },
+                              {
+                                  "file":  "tasks/active/TASK-0042-arena-audio-pack-v1.md",
+                                  "before":  "be44d70f7da9409ee6725a17048b3a9d39ab54a86fb6bab26709087fdd94b8ec",
+                                  "after":  "bdfa48d47198587839406c5c7b28054d8831ccb40d08fa92fe7f71a3121a2531"
+                              },
+                              {
+                                  "file":  "docs/architecture/ARENA-AUDIO-PACK-V1.md",
+                                  "before":  "8bfd7e8885d902df8f3dbc1b4b161a268d0baa8fa6cefaaf35ad9b04ac4760f7",
+                                  "after":  "53ef4e78edfc050a8b27d6ab650208084149f38963eb0ae628d59fc99cfab74e"
+                              },
+                              {
+                                  "file":  "apps/web/features/journey/components/audio-settings.tsx",
+                                  "before":  "60df507bc7a6132fdf50e8d071dc937ea1e3c28891c0f5deef7b44fe9cabbfd6",
+                                  "after":  "40dd7cf9d702bebdae16428086577f2e0103951de265d174a9ff4ebae45f9fd6"
+                              }
+                          ],
+    "newFiles":  [
+                     "apps/web/features/journey/arena-audio-prototype.test.ts",
+                     "apps/web/features/journey/dev/prototype-arena-audio-assets.ts",
+                     "playwright.arena-audio-prototype.config.ts",
+                     "scripts/arena-audio-prototype.d.mts",
+                     "scripts/arena-audio-prototype.mjs",
+                     "tests/e2e/arena-audio-prototype.spec.ts"
+                 ],
+    "unexpected":  [
+
+                   ],
+    "allBaselineMediaIntact":  true,
+    "visualReceiptsIntact":  true,
+    "productionPipelineAndCatalogsIntact":  true,
+    "pass":  true
+}

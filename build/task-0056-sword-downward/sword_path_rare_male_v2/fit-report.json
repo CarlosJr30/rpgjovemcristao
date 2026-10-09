@@ -1,0 +1,187 @@
+{
+  "task": "TASK-0056",
+  "id": "sword_path_rare_male_v2",
+  "gender": "male",
+  "itemId": "traveler-sword-rare",
+  "assessedBy": "Codex / QA visual pelo autor; não revisão independente nem aprovação de Carlos Faustino",
+  "outputSha256": "068d9aab42b7c62335abf3f97eab4054fbd771a5f619b68f1c6e8ac47212c0fd",
+  "sourceSha256": "89676a2f0f5b8ce73e25e6088ff52979115a11a091bbf25ce810b3c8488c96cb",
+  "avatar": {
+    "path": "apps/web/public/assets/avatar/hd/male/male_short_moss_medium_hd.png",
+    "sha256": "b182c2e29b512b337891716a413ab7efaad737e23c6354779fae17fe19b8af34",
+    "id": "male_short_moss_medium",
+    "immutable": true,
+    "footBaseline": 1513
+  },
+  "selectedForReview": false,
+  "attempt": 1,
+  "status": "NEEDS_REWORK",
+  "reviewStatus": "NEEDS_REWORK",
+  "technicalStatus": "TECHNICALLY_VALIDATED",
+  "orientation": "DOWNWARD_VERTICAL",
+  "grip": "FAIL_OPEN_HAND",
+  "actualHandHoldsGrip": false,
+  "floatingOrDisconnectedGrip": "VISUAL_GRIP_NOT_CONVINCING",
+  "observations": [
+    "Tentativa diagnóstica preservada; pega aberta permanece nas quatro.",
+    "Guarda muito larga avança na região da coxa; segunda tentativa reduz escala."
+  ],
+  "regions": {
+    "bladeDirection": "PASS_DOWNWARD",
+    "tipTowardsGround": "PASS",
+    "gripRegistration": "PALM_PROXY_ALIGNED_ONLY",
+    "fingersOcclusion": "FAIL_HANDLE_FOREGROUND",
+    "thumbClosure": "FAIL_OPEN_THUMB",
+    "torsoBladeCrossing": "NOT_OBSERVED",
+    "legBladeCrossing": "SEE_ATTEMPT_LIMITS",
+    "proportion": "VISUAL_REVIEW_PENDING"
+  },
+  "occlusion": {
+    "path": "build/task-0056-sword-downward/sword_path_rare_male_v2/masked_overlay_diagnostic.png",
+    "sha256": "b460c386e69794ab1ea8703dd05b44368f0bd51a1a3708b62c93d5c70083d112",
+    "maskPath": "build/task-0056-sword-downward/sword_path_rare_male_v2/offline_hand_occlusion_mask.png",
+    "maskSha256": "f1f478890c7f29167d68b5296531cb12bad7eba919512d0421aadb4e2ead94e0",
+    "frontHandPolygon": [
+      [
+        195,
+        819
+      ],
+      [
+        214,
+        814
+      ],
+      [
+        224,
+        832
+      ],
+      [
+        224,
+        851
+      ],
+      [
+        240,
+        862
+      ],
+      [
+        250,
+        872
+      ],
+      [
+        245,
+        885
+      ],
+      [
+        231,
+        887
+      ],
+      [
+        215,
+        876
+      ],
+      [
+        199,
+        852
+      ],
+      [
+        193,
+        833
+      ]
+    ],
+    "handCrop": {
+      "left": 150,
+      "top": 750,
+      "width": 165,
+      "height": 190
+    },
+    "removedPixels": 994,
+    "method": "Offline alpha subtraction only from sword; no HD pixels edited, added, copied or redrawn",
+    "selectedAsFinal": false,
+    "status": "NEEDS_REWORK",
+    "observations": "Máscara experimental offline melhora ordem dos dedos/cabo, mas não muda a pose aberta; bordas poligonais introduzem recortes/halo. Não selecionada como PNG final."
+  },
+  "reworkRecommendation": "Contornar precisamente os dedos e polegar em máscara offline própria por referência, testar perfil mais estreito e menor comprimento da empunhadura. A máscara não fecha os dedos: se continuar aberta, manter NEEDS_REWORK. Alternativa a avaliar por Carlos: camada frontal independente de mão em pose de pega, sem sobrescrever HD, exigindo escopo/arte e aceite específicos antes de qualquer runtime.",
+  "limits": "Somente este hash sobre female_short_moss_medium ou male_short_moss_medium. Nenhuma compatibilidade com os outros 52 HD presumida. Registro matemático e direção vertical não provam pega real. Avaliação da capa/guarda é 2D; anatomia oculta não certificada.",
+  "evidence": [
+    {
+      "path": "build/task-0056-sword-downward/sword_path_rare_male_v2/avatar_base.png",
+      "sha256": "b182c2e29b512b337891716a413ab7efaad737e23c6354779fae17fe19b8af34",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_rare_male_v2/source.png",
+      "sha256": "89676a2f0f5b8ce73e25e6088ff52979115a11a091bbf25ce810b3c8488c96cb",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_rare_male_v2/combined.png",
+      "sha256": "6299bd5c3763ec2ea499d7884ddd1fb2efbc5f8e541e45794b4e7f31f042583d",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_rare_male_v2/full_body.png",
+      "sha256": "6299bd5c3763ec2ea499d7884ddd1fb2efbc5f8e541e45794b4e7f31f042583d",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_rare_male_v2/hand_zoom.png",
+      "sha256": "546d581e79286c291538ad8f87f75f2572c1cfa22e16f036f18e952d1e44fa8b",
+      "width": 660,
+      "height": 760
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_rare_male_v2/hand_zoom_base.png",
+      "sha256": "09baf241cd72ef13feaa8802adf7cc15bd97058a0539ea5115f1b9c9238ba3d2",
+      "width": 660,
+      "height": 760
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_rare_male_v2/alignment_guides.png",
+      "sha256": "6a189b3a21c39447b8ff843e2d00c9508411017c1ebd0e65a19ba6fbba7db041",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_rare_male_v2/offline_hand_occlusion_mask.png",
+      "sha256": "f1f478890c7f29167d68b5296531cb12bad7eba919512d0421aadb4e2ead94e0",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_rare_male_v2/masked_overlay_diagnostic.png",
+      "sha256": "b460c386e69794ab1ea8703dd05b44368f0bd51a1a3708b62c93d5c70083d112",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_rare_male_v2/masked_combined_diagnostic.png",
+      "sha256": "f038f93d1b2ca09249813837db3067ec105780007cca285144e40e88b782030b",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_rare_male_v2/hand_zoom_masked.png",
+      "sha256": "e7c74dea1ac27cdfd37515875dfd7348f7c0afb781cd3908723839f00069fb85",
+      "width": 660,
+      "height": 760
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_rare_male_v2/previous_combined.png",
+      "sha256": "8304c82a62355d635bd08c6859c7bc0398eef4cf6e7809a060f94a5761f3cb5b",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_rare_male_v2/sword_path_rare_male_v2_downward_baked.png",
+      "sha256": "068d9aab42b7c62335abf3f97eab4054fbd771a5f619b68f1c6e8ac47212c0fd",
+      "width": 1024,
+      "height": 1536
+    }
+  ],
+  "humanBodyFitApproved": false,
+  "ready": false,
+  "runtimeActivated": false
+}

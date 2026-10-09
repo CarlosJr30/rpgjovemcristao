@@ -1,0 +1,380 @@
+{
+  "task": "TASK-0055",
+  "id": "boots_traveler_common_female_v2",
+  "itemId": "traveler-boots",
+  "slot": "boots",
+  "gender": "female",
+  "at": "2026-10-08T20:23:14.846Z",
+  "source": {
+    "path": "assets-source/body-fit-v2-targets/boots_traveler_common_female_v2.png",
+    "format": "png",
+    "width": 1024,
+    "height": 1536,
+    "channels": 4,
+    "hasAlpha": true,
+    "integrity": {
+      "status": "CRC_PASS",
+      "chunks": 34
+    },
+    "alpha128Bounds": {
+      "left": 19,
+      "top": 354,
+      "right": 1005,
+      "bottom": 1307,
+      "count": 522169
+    },
+    "alphaPositiveBoundsDiagnostic": {
+      "left": 0,
+      "top": 83,
+      "right": 1009,
+      "bottom": 1493,
+      "count": 542377
+    },
+    "transparentPixels": 1030487,
+    "sha256": "dfc523cddaf71075163b30f3d92f80b7c6d723d013ada40d18b70de1dbd52277",
+    "decode": "PASS",
+    "approval": "SOURCE_VISUAL_APPROVED (inherited; not body-fit approval)"
+  },
+  "avatar": {
+    "id": "female_short_moss_medium",
+    "path": "apps/web/public/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+    "sha256": "f260cb9b053b35c328025f1bc7ee602cbb30e57c71ba1f2238a4b1519685f460",
+    "immutable": true,
+    "footBaseline": 1495
+  },
+  "mapping": {
+    "status": "MAPPED",
+    "errors": [],
+    "targetFilename": "boots_traveler_common_female_v2.png",
+    "itemId": "traveler-boots",
+    "gender": "female",
+    "slot": "boots"
+  },
+  "landmarks": {
+    "left_ankle": {
+      "source": [
+        340,
+        1040
+      ],
+      "avatar": [
+        345,
+        1300
+      ],
+      "weight": 1,
+      "kind": "anatomical garment proxy"
+    },
+    "right_ankle": {
+      "source": [
+        683,
+        1040
+      ],
+      "avatar": [
+        687,
+        1300
+      ],
+      "weight": 1,
+      "kind": "anatomical garment proxy"
+    },
+    "left_foot": {
+      "source": [
+        244,
+        1195
+      ],
+      "avatar": [
+        290,
+        1443
+      ],
+      "weight": 1,
+      "kind": "anatomical garment proxy"
+    },
+    "right_foot": {
+      "source": [
+        791,
+        1195
+      ],
+      "avatar": [
+        742,
+        1443
+      ],
+      "weight": 1,
+      "kind": "anatomical garment proxy"
+    },
+    "left_baseline": {
+      "source": [
+        228,
+        1299
+      ],
+      "avatar": [
+        290,
+        1495
+      ],
+      "weight": 2,
+      "kind": "anatomical garment proxy"
+    },
+    "right_baseline": {
+      "source": [
+        790,
+        1299
+      ],
+      "avatar": [
+        744,
+        1495
+      ],
+      "weight": 2,
+      "kind": "anatomical garment proxy"
+    },
+    "left_cuff": {
+      "source": [
+        330,
+        383
+      ],
+      "avatar": [
+        365,
+        1150
+      ],
+      "weight": 0.5,
+      "kind": "anatomical garment proxy"
+    },
+    "right_cuff": {
+      "source": [
+        693,
+        383
+      ],
+      "avatar": [
+        668,
+        1150
+      ],
+      "weight": 0.5,
+      "kind": "anatomical garment proxy"
+    }
+  },
+  "landmarkResiduals": {
+    "left_ankle": {
+      "source": [
+        340,
+        1040
+      ],
+      "avatar": [
+        345,
+        1300
+      ],
+      "weight": 1,
+      "kind": "anatomical garment proxy",
+      "projected": [
+        415.09375994645904,
+        1356.5698195785608
+      ],
+      "delta": [
+        70.09375994645904,
+        56.56981957856078
+      ],
+      "distance": 90.07374573416354
+    },
+    "right_ankle": {
+      "source": [
+        683,
+        1040
+      ],
+      "avatar": [
+        687,
+        1300
+      ],
+      "weight": 1,
+      "kind": "anatomical garment proxy",
+      "projected": [
+        617.6437845632697,
+        1356.5698195785608
+      ],
+      "delta": [
+        -69.35621543673028,
+        56.56981957856078
+      ],
+      "distance": 89.50100059137364
+    },
+    "left_foot": {
+      "source": [
+        244,
+        1195
+      ],
+      "avatar": [
+        290,
+        1443
+      ],
+      "weight": 1,
+      "kind": "anatomical garment proxy",
+      "projected": [
+        358.4033740478765,
+        1448.1011718106474
+      ],
+      "delta": [
+        68.40337404787653,
+        5.101171810647429
+      ],
+      "distance": 68.59331990052276
+    },
+    "right_foot": {
+      "source": [
+        791,
+        1195
+      ],
+      "avatar": [
+        742,
+        1443
+      ],
+      "weight": 1,
+      "kind": "anatomical garment proxy",
+      "projected": [
+        681.420468699175,
+        1448.1011718106474
+      ],
+      "delta": [
+        -60.57953130082501,
+        5.101171810647429
+      ],
+      "distance": 60.79392705253857
+    },
+    "left_baseline": {
+      "source": [
+        228,
+        1299
+      ],
+      "avatar": [
+        290,
+        1495
+      ],
+      "weight": 2,
+      "kind": "anatomical garment proxy",
+      "projected": [
+        348.95497639811276,
+        1509.515756534112
+      ],
+      "delta": [
+        58.95497639811276,
+        14.515756534111915
+      ],
+      "distance": 60.71570167476982
+    },
+    "right_baseline": {
+      "source": [
+        790,
+        1299
+      ],
+      "avatar": [
+        744,
+        1495
+      ],
+      "weight": 2,
+      "kind": "anatomical garment proxy",
+      "projected": [
+        680.8299438460648,
+        1509.515756534112
+      ],
+      "delta": [
+        -63.17005615393521,
+        14.515756534111915
+      ],
+      "distance": 64.81638050870274
+    },
+    "left_cuff": {
+      "source": [
+        330,
+        383
+      ],
+      "avatar": [
+        365,
+        1150
+      ],
+      "weight": 0.5,
+      "kind": "anatomical garment proxy",
+      "projected": [
+        409.18851141535674,
+        968.5949910851366
+      ],
+      "delta": [
+        44.18851141535674,
+        -181.4050089148634
+      ],
+      "distance": 186.7094046921761
+    },
+    "right_cuff": {
+      "source": [
+        693,
+        383
+      ],
+      "avatar": [
+        668,
+        1150
+      ],
+      "weight": 0.5,
+      "kind": "anatomical garment proxy",
+      "projected": [
+        623.549033094372,
+        968.5949910851366
+      ],
+      "delta": [
+        -44.45096690562798,
+        -181.4050089148634
+      ],
+      "distance": 186.77169410338095
+    }
+  },
+  "landmarkMethod": "Both boots remain one source; joint baseline/separation/height compromise; no splitting or independent transforms; visual native grid measurements approximately ±12px avatar, ±20px source. No hidden anatomy certified.",
+  "transform": {
+    "translateX": 214.3153098889792,
+    "translateY": 742.4239723439166,
+    "scale": 0.590524853110235,
+    "rotation": 0
+  },
+  "fittingMethod": "Per-source weighted least-squares uniform scale + translation; rotation0 preferred. Anatomy points and placement goals identified separately.",
+  "transformConvention": "Native top-left origin; x=tx+scale*x; y=ty+scale*y; offline only",
+  "pipeline": {
+    "version": 1,
+    "implementation": "TASK-0054 bakeBytes: inverse sampling / premultiplied-alpha bilinear",
+    "sharp": "0.35.4",
+    "vips": "8.18.6",
+    "mask": "NONE",
+    "warp": "NONE",
+    "uniform": true
+  },
+  "output": {
+    "path": "build/task-0055-body-fit-bake/boots_traveler_common_female_v2/boots_traveler_common_female_v2_baked.png",
+    "format": "png",
+    "width": 1024,
+    "height": 1536,
+    "channels": 4,
+    "hasAlpha": true,
+    "integrity": {
+      "status": "CRC_PASS",
+      "chunks": 79
+    },
+    "alpha128Bounds": {
+      "left": 225,
+      "top": 952,
+      "right": 807,
+      "bottom": 1514,
+      "count": 182074
+    },
+    "alphaPositiveBoundsDiagnostic": {
+      "left": 214,
+      "top": 792,
+      "right": 810,
+      "bottom": 1517,
+      "count": 189648
+    },
+    "transparentPixels": 1383216,
+    "sha256": "ae56dd6d0b8e3d3dbbc126f7863736281cf2271734d434122733f1b14fc91dd6",
+    "decode": "PASS"
+  },
+  "runtime": {
+    "activated": false,
+    "render": {
+      "top": 0,
+      "left": 0,
+      "width": "100%",
+      "height": "100%",
+      "transform": "none"
+    }
+  },
+  "humanBodyFitApproved": false,
+  "ready": false
+}

@@ -1,0 +1,12 @@
+{
+  "task": "TASK-0058",
+  "outputSha256": "735000c62ddaee5214cfb895deae17685a1f2e1c0c642f3557e09879d90524f2",
+  "metadataSha256": "3ed509d49f1d0c9ac700aab8ca217f8a0e7cf6e3bccaacaca16c9c211f800140",
+  "reportSha256": "4c7c0edaa965d6de50a7747f440c518cc2bb12eec7384e5d50615e3127dc691b",
+  "sourceSha256": "b042739c4e179c504b33b0c50da710ae1c42edb7f67444f967264c8a219a9949",
+  "originalSwordSha256": "03e3edbcf9572fae0cafc46b0a02eda045cbcdfe855dfcdf808e4aa8a5401d29",
+  "avatarSha256": "f260cb9b053b35c328025f1bc7ee602cbb30e57c71ba1f2238a4b1519685f460",
+  "ready": false,
+  "humanBodyFitApproved": false,
+  "runtimeActivated": false
+}

@@ -1,0 +1,75 @@
+{
+  "at": "2026-10-08T04:24:51.868Z",
+  "file": "escudo_esmeralda_do_sol_dourado.png",
+  "sha256": "8eb0e54307ea52fbd97438667e6b88b3f4d01ca34df133fc8a740462a855e49f",
+  "bytes": 2038644,
+  "width": 1024,
+  "height": 1536,
+  "format": "png",
+  "hasAlpha": true,
+  "alpha": {
+    "zero": 946988,
+    "partial": 625876,
+    "opaque": 0,
+    "max": 254,
+    "atLeast128": 616185
+  },
+  "bounds": {
+    "left": 304,
+    "top": 29,
+    "right": 1011,
+    "bottom": 1472
+  },
+  "integrity": {
+    "status": "CRC_PASS",
+    "chunks": 34,
+    "decode": "DECODE_PASS"
+  },
+  "technicalStatus": "TECHNICAL_PASS",
+  "sourceStatus": "SOURCE_VISUAL_APPROVED",
+  "approvalEvidence": "Carlos Faustino: source-art delivery instruction, confirmed by delivered manifest and actual hash",
+  "manifestPath": "manifest.json",
+  "manifestHashMatches": true,
+  "mapping": {
+    "status": "UNMAPPED_SOURCE_ART",
+    "target": null,
+    "reason": "No single explicit, valid target binding"
+  },
+  "fitStatus": "FIT_VALIDATION_PENDING",
+  "humanBodyFitApproved": false,
+  "runtimeReady": false,
+  "observedFamily": "shield",
+  "observedFamilyIsNotMapping": true,
+  "diagnosticStatus": "NEEDS_REWORK",
+  "diagnosticScope": "Full-canvas comparison over both HD reference bodies; no target assignment or compatibility approval",
+  "observations": "Escudo vai da cabeça até o pé; largura cobre grande parte do corpo. Nenhum contato de pega demonstrado com a mão real.",
+  "regeneration": "Após confirmar target, gerar escudo na escala do antebraço/torso e com pega centrada na mão correta da pose HD. Preservar limites do rosto/pés e direção esperada da peça. Validar contato real, não apenas proximidade em bounding box.",
+  "evidence": [
+    {
+      "reference": "female_short_moss_medium",
+      "overview": "screenshots/source-08-female_short_moss_medium.png",
+      "views": [
+        "screenshots/source-08-female_short_moss_medium-base.png",
+        "screenshots/source-08-female_short_moss_medium-source.png",
+        "screenshots/source-08-female_short_moss_medium-combined.png",
+        "screenshots/source-08-female_short_moss_medium-blend.png",
+        "screenshots/source-08-female_short_moss_medium-split.png",
+        "screenshots/source-08-female_short_moss_medium-guides.png"
+      ]
+    },
+    {
+      "reference": "male_short_moss_medium",
+      "overview": "screenshots/source-08-male_short_moss_medium.png",
+      "views": [
+        "screenshots/source-08-male_short_moss_medium-base.png",
+        "screenshots/source-08-male_short_moss_medium-source.png",
+        "screenshots/source-08-male_short_moss_medium-combined.png",
+        "screenshots/source-08-male_short_moss_medium-blend.png",
+        "screenshots/source-08-male_short_moss_medium-split.png",
+        "screenshots/source-08-male_short_moss_medium-guides.png"
+      ]
+    }
+  ],
+  "duplicateOf": null,
+  "correction": "NONE"
+}

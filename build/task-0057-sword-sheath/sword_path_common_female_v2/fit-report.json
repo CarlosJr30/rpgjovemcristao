@@ -1,0 +1,167 @@
+{
+  "task": "TASK-0057",
+  "id": "sword_path_common_female_v2",
+  "gender": "female",
+  "status": "NEEDS_NEW_SHEATH_ART",
+  "technicalStatus": "DIAGNOSTIC_PNG_VALID_ONLY",
+  "observations": [
+    "Fonte é lâmina exposta, sem bainha ou correia.",
+    "Estudo no quadril cobre parte do antebraço/luva com o cabo/guarda e aproxima a ponta da perna; reprovado como encaixe.",
+    "Fixação física ausente; uma linha pontilhada de guia não é correia. Acabamento verde/dourado do cabo existente precisa ser avaliado para a comum simples."
+  ],
+  "sheathPresent": false,
+  "supportPresent": false,
+  "fixationVerified": false,
+  "finalSheathedOutput": null,
+  "finalSheathedSha256": null,
+  "finalSheathedTransform": null,
+  "diagnosticOutput": {
+    "path": "build/task-0057-sword-sheath/sword_path_common_female_v2/diagnostic_unsheathed_hip.png",
+    "format": "png",
+    "width": 1024,
+    "height": 1536,
+    "channels": 4,
+    "hasAlpha": true,
+    "integrity": {
+      "status": "CRC_PASS",
+      "chunks": 16
+    },
+    "alpha128Bounds": {
+      "left": 215,
+      "top": 529,
+      "right": 390,
+      "bottom": 1177,
+      "count": 22971
+    },
+    "alphaPositiveBoundsDiagnostic": {
+      "left": 213,
+      "top": 528,
+      "right": 400,
+      "bottom": 1179,
+      "count": 25463
+    },
+    "transparentPixels": 1547401,
+    "sha256": "5698df0343a9cebde08576577a04a30c371dfa42f97194b7c3b0d10a9e3b72bd",
+    "decode": "PASS"
+  },
+  "diagnosticTransform": {
+    "scale": 0.4,
+    "rotation": 32.93075306356095,
+    "translateX": 310.3206408085157,
+    "translateY": 472.2062409820094
+  },
+  "diagnosticOrientation": "BLADE_DOWN_GRIP_UP",
+  "finalOrientation": "NOT_ASSESSABLE_NO_SHEATH_OVERLAY",
+  "secondaryFitIssues": [
+    "FOREARM_GUARD_OVERLAP",
+    "POUCH_OVERLAP",
+    "LEG_CONTOUR_CONTACT",
+    "NO_VISUAL_SUPPORT_FLOATING"
+  ],
+  "occlusion": "No mask produced; anatomy unchanged. Future suspension must pass behind belt/pouch and avoid foreground arm/hand. Missing art prevents final occlusion validation.",
+  "belt": {
+    "measuredBox": [
+      410,
+      558,
+      655,
+      615
+    ],
+    "attachmentProposal": [
+      455,
+      581
+    ],
+    "approximation": "Refined manual belt-body bounds +/-12px; historical broad search box preserved in bake-metadata.json; attachment point is guide only"
+  },
+  "hip": {
+    "guardProxy": [
+      313,
+      666
+    ],
+    "fixationVerified": false,
+    "supportArt": null
+  },
+  "requiredArt": {
+    "sheath": "Simple leather sheath with throat and chape",
+    "support": "Belt-attached suspension strap/holder compatible with this reference; no painted guide used as art",
+    "preserve": "Avatar original/pose/hands/face and existing pouch; transparent full-canvas1024x1536"
+  },
+  "evidence": [
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_common_female_v2/avatar_base.png",
+      "sha256": "f260cb9b053b35c328025f1bc7ee602cbb30e57c71ba1f2238a4b1519685f460",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_common_female_v2/source_original.png",
+      "sha256": "03e3edbcf9572fae0cafc46b0a02eda045cbcdfe855dfcdf808e4aa8a5401d29",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_common_female_v2/task0056_candidate.png",
+      "sha256": "14c11b9454113ffb5dca678234a0286315d36b81e91f816d9835d5b6fee54cf1",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_common_female_v2/task0056_combined.png",
+      "sha256": "92eb8eadb398fcbc936ea9e8e3ac4f61c52f39214396392b5c46beb22a534c6b",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_common_female_v2/diagnostic_unsheathed_hip.png",
+      "sha256": "5698df0343a9cebde08576577a04a30c371dfa42f97194b7c3b0d10a9e3b72bd",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_common_female_v2/diagnostic_composition.png",
+      "sha256": "ef40d7f7bb585bd051ef005aa96f374600dd545126831180fb6d9b9bc0662e86",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_common_female_v2/full_body_diagnostic.png",
+      "sha256": "ef40d7f7bb585bd051ef005aa96f374600dd545126831180fb6d9b9bc0662e86",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_common_female_v2/waist_zoom_base.png",
+      "sha256": "676c3c28e09f90e5a5016aa3b86f09a126b38e685ee585715898d57c29ea9da5",
+      "width": 1080,
+      "height": 760
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_common_female_v2/waist_zoom_diagnostic.png",
+      "sha256": "2cf4a9d0c250ead19bb4f1a2ed1f631167cfea4e881949b3b9de626ea6a67bb4",
+      "width": 1080,
+      "height": 760
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_common_female_v2/reviewed_base_guides.png",
+      "sha256": "4e5915dabcfafce6e51a23c3de8d524d5276f6944512b167916f173b00a7d296",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_common_female_v2/reviewed_alignment_guides.png",
+      "sha256": "8138e2d7b313a770edd7b2b40cc28247788d8076dd2e6d963e547a2fc15f4238",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_common_female_v2/reviewed_waist_zoom_guides.png",
+      "sha256": "b3fdb1c431759199fe32aff9b6a7c674efc8e4a2212fc86b11181b470b341f67",
+      "width": 1080,
+      "height": 760
+    }
+  ],
+  "assessedBy": "Codex author visual QA, not independent review or human approval",
+  "ready": false,
+  "humanBodyFitApproved": false,
+  "runtimeActivated": false,
+  "runtimePath": null
+}

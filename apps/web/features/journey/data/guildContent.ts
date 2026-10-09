@@ -23,12 +23,7 @@ export type GuildContent = {
 };
 
 export const GUILD_CONTENT_KEY = 'rpg-jovem-cristao:guild-content:v1';
-export const GUILD_REWARDS: Record<GuildContentTier, { xp: number; coins: number }> = {
-  normal: { xp: 80, coins: 25 },
-  great: { xp: 240, coins: 100 },
-  epic: { xp: 480, coins: 220 },
-  extraordinary: { xp: 720, coins: 360 },
-};
+export { guildMissionRewards as GUILD_REWARDS } from '@rpg/game-engine';
 
 const validUrl = (url: string) => url === '' || /^https:\/\/www\.bible\.com\/[A-Za-z0-9/._-]{1,180}$/.test(url);
 export function validGuildContent(value: unknown): value is GuildContent {

@@ -1,0 +1,274 @@
+{
+  "task": "TASK-0054",
+  "assessedAt": "2026-10-08T07:02:24.817Z",
+  "status": "FIT_PASS",
+  "reviewStatus": "HUMAN_BODY_FIT_APPROVED",
+  "reviewer": "author visual QA; not Carlos approval, not independent",
+  "humanBodyFitApproved": true,
+  "ready": true,
+  "devOnly": true,
+  "source": {
+    "path": "assets-source/body-fit-v2-targets/armor_traveler_uncommon_female_v2.png",
+    "sha256": "564e2a4ebeaf51c41fd32dd7dca311dcc6d9c7cb4015d579d4f3b7f9d98714d1",
+    "approval": "SOURCE_VISUAL_APPROVED; original receipt unchanged"
+  },
+  "avatar": {
+    "path": "apps/web/public/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+    "sha256": "f260cb9b053b35c328025f1bc7ee602cbb30e57c71ba1f2238a4b1519685f460",
+    "immutable": true
+  },
+  "transform": {
+    "translateX": 292.35352583693054,
+    "translateY": 197.66887904548992,
+    "scale": 0.4535947236075799,
+    "rotation": 0
+  },
+  "output": {
+    "path": "D:/rpg-jovem-cristao/build/task-0054-body-fit-bake/pilot/armor_traveler_uncommon_female_v2_baked.png",
+    "width": 1024,
+    "height": 1536,
+    "format": "png",
+    "channels": 4,
+    "sha256": "ebee2f026c2dd6aac6b47850c8412f243cdc20c51a36d6f91e2d6cf3b46c20cb"
+  },
+  "technical": {
+    "status": "TECHNICALLY_VALIDATED",
+    "width": 1024,
+    "height": 1536,
+    "channels": 4,
+    "alpha": {
+      "zero": 1417832,
+      "partial": 155032,
+      "opaque": 0
+    },
+    "bboxAlpha128": {
+      "left": 304,
+      "top": 256,
+      "right": 744,
+      "bottom": 817
+    }
+  },
+  "landmarks": {
+    "neck_center": {
+      "source": [
+        513,
+        252
+      ],
+      "avatar": [
+        520,
+        302
+      ],
+      "weight": 0.5,
+      "projected": [
+        525.047619047619,
+        311.97474939460005
+      ],
+      "delta": [
+        5.047619047619037,
+        9.974749394600053
+      ],
+      "distance": 11.17918080786605
+    },
+    "left_shoulder": {
+      "source": [
+        210,
+        310
+      ],
+      "avatar": [
+        379,
+        346
+      ],
+      "projected": [
+        387.6084177945223,
+        338.2832433638397
+      ],
+      "delta": [
+        8.608417794522325,
+        -7.716756636160312
+      ],
+      "distance": 11.560847283256225
+    },
+    "right_shoulder": {
+      "source": [
+        813,
+        312
+      ],
+      "avatar": [
+        657,
+        352
+      ],
+      "projected": [
+        661.126036129893,
+        339.19043281105485
+      ],
+      "delta": [
+        4.126036129893009,
+        -12.809567188945152
+      ],
+      "distance": 13.45768129037401
+    },
+    "chest_center": {
+      "source": [
+        513,
+        548
+      ],
+      "avatar": [
+        520,
+        455
+      ],
+      "projected": [
+        525.047619047619,
+        446.2387875824437
+      ],
+      "delta": [
+        5.047619047619037,
+        -8.761212417556294
+      ],
+      "distance": 10.111246267173454
+    },
+    "left_armpit": {
+      "source": [
+        263,
+        640
+      ],
+      "avatar": [
+        391,
+        492
+      ],
+      "projected": [
+        411.64893814572406,
+        487.96950215434106
+      ],
+      "delta": [
+        20.64893814572406,
+        -4.030497845658942
+      ],
+      "distance": 21.038620663669935
+    },
+    "right_armpit": {
+      "source": [
+        764,
+        640
+      ],
+      "avatar": [
+        646,
+        499
+      ],
+      "projected": [
+        638.8998946731216,
+        487.96950215434106
+      ],
+      "delta": [
+        -7.100105326878406,
+        -11.030497845658942
+      ],
+      "distance": 13.11805543424229
+    },
+    "waist_center": {
+      "source": [
+        514,
+        873
+      ],
+      "avatar": [
+        531,
+        579
+      ],
+      "weight": 3,
+      "projected": [
+        525.5012137712266,
+        593.6570727549072
+      ],
+      "delta": [
+        -5.498786228773383,
+        14.657072754907176
+      ],
+      "distance": 15.654597782517126
+    },
+    "left_hip": {
+      "source": [
+        291,
+        1120
+      ],
+      "avatar": [
+        421,
+        705
+      ],
+      "projected": [
+        424.3495904067363,
+        705.6949694859794
+      ],
+      "delta": [
+        3.349590406736297,
+        0.6949694859794135
+      ],
+      "distance": 3.420926552754725
+    },
+    "right_hip": {
+      "source": [
+        734,
+        1120
+      ],
+      "avatar": [
+        646,
+        711
+      ],
+      "projected": [
+        625.2920529648942,
+        705.6949694859794
+      ],
+      "delta": [
+        -20.707947035105803,
+        -5.3050305140205865
+      ],
+      "distance": 21.376679329667567
+    }
+  },
+  "regions": {
+    "shoulders": {
+      "status": "PASS",
+      "reason": "Scaled shoulder caps follow native shoulder line with modest equipment bulk, no floating giant pauldrons."
+    },
+    "chest": {
+      "status": "PASS",
+      "reason": "Curved ornamental plate volume aligns chest rather than extending through abdomen; original materials/cross retained."
+    },
+    "armpits": {
+      "status": "PASS",
+      "reason": "Short shoulder/sleeve equipment overlays upper fabric coherently; open lower arm articulation, no forearm coverage."
+    },
+    "waist": {
+      "status": "PASS",
+      "reason": "Source belt projects to native waist region; landmark residual15.7px, original central buckle covered by baked leather belt, no second waist displaced to hands."
+    },
+    "hips": {
+      "status": "PASS",
+      "reason": "Tassets follow hip/tunic region, final bottom approx817; no inappropriate leg armor."
+    },
+    "faceNeck": {
+      "status": "PASS",
+      "reason": "Face/chin clear; high source collar wraps neck base naturally without invading face. Not a requirement for all lower neck pixels to remain uncovered."
+    },
+    "handsLegs": {
+      "status": "PASS",
+      "reason": "Both hands/forearms and lower legs/feet untouched; equipment restricted to upper body and hip tabs."
+    },
+    "identity": {
+      "status": "PASS",
+      "reason": "Original source details preserved: green/cream/gold, cross, leaf ornament, leather belt and asymmetrical pouches; no parts removed or redrawn."
+    },
+    "silhouette": {
+      "status": "PASS",
+      "reason": "In native combined evidence, reads as worn armor with chest curvature, shoulders and a coherent waist, rather than a giant inventory illustration."
+    }
+  },
+  "limitations": [
+    "Manual anatomical garment proxies ±12px HD/±20px source; residuals are diagnostic, not pixel-perfect certification",
+    "Approved only as technical FIT_PASS candidate, human Body-Fit review required",
+    "One pilot does not prove transfer to other avatar variants or other15 targets"
+  ],
+  "stop": "Human-approved READY staging pilot; no runtime activation or other targets processed",
+  "reviewedBy": "Carlos Faustino",
+  "reviewedAt": "2026-10-08T07:31:46.510Z",
+  "approvalReceipt": "docs/architecture/TASK-0054-HUMAN-BODY-FIT-APPROVAL.json",
+  "approvalScope": "ONLY this baked hash and this avatar/gender reference; no other15 targets or avatar variants"
+}

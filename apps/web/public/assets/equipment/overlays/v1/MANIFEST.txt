@@ -1,0 +1,17 @@
+RPG Jovem Cristão — Equipment Overlays V1
+14 final PNG assets
+
+armor_traveler_uncommon_female.png | 392x432 | 187.4 KB
+armor_traveler_uncommon_male.png | 416x440 | 239.4 KB
+armor_traveler_rare_female.png | 392x432 | 215.6 KB
+armor_traveler_rare_male.png | 416x440 | 295.1 KB
+sword_path_common.png | 96x480 | 16.1 KB
+sword_path_rare.png | 96x480 | 21.4 KB
+helmet_traveler_rare_female.png | 288x348 | 129.9 KB
+helmet_traveler_rare_male.png | 284x340 | 109.4 KB
+boots_traveler_common_left_female.png | 176x328 | 51.1 KB
+boots_traveler_common_right_female.png | 232x328 | 85.7 KB
+boots_traveler_common_left_male.png | 216x332 | 73.1 KB
+boots_traveler_common_right_male.png | 256x332 | 94.2 KB
+shield_perseverance_rare.png | 216x304 | 103.9 KB
+medallion_path_rare.png | 88x144 | 21.4 KB

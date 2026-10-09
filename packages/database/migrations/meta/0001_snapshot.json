@@ -1,0 +1,1722 @@
+{
+  "id": "0bb429d7-ee02-4715-81e9-dfb43a381be8",
+  "prevId": "3846bae5-5ed3-4355-9137-36f7ee426304",
+  "version": "7",
+  "dialect": "postgresql",
+  "tables": {
+    "public.equipped_items": {
+      "name": "equipped_items",
+      "schema": "",
+      "columns": {
+        "traveler_id": {
+          "name": "traveler_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "slot": {
+          "name": "slot",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "item_id": {
+          "name": "item_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "equipped_at": {
+          "name": "equipped_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "equipped_items_traveler_id_travelers_id_fk": {
+          "name": "equipped_items_traveler_id_travelers_id_fk",
+          "tableFrom": "equipped_items",
+          "tableTo": "travelers",
+          "columnsFrom": ["traveler_id"],
+          "columnsTo": ["id"],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "equipped_items_owned_item_fk": {
+          "name": "equipped_items_owned_item_fk",
+          "tableFrom": "equipped_items",
+          "tableTo": "inventory",
+          "columnsFrom": ["traveler_id", "item_id"],
+          "columnsTo": ["traveler_id", "item_id"],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "equipped_items_traveler_id_slot_pk": {
+          "name": "equipped_items_traveler_id_slot_pk",
+          "columns": ["traveler_id", "slot"]
+        }
+      },
+      "uniqueConstraints": {},
+      "policies": {
+        "equipped_items_select_own": {
+          "name": "equipped_items_select_own",
+          "as": "PERMISSIVE",
+          "for": "SELECT",
+          "to": ["authenticated"],
+          "using": "exists (\n    select 1 from \"travelers\"\n    where \"travelers\".\"id\" = \"equipped_items\".\"traveler_id\"\n      and \"travelers\".\"user_id\" = (select auth.uid())\n  )"
+        },
+        "equipped_items_insert_own": {
+          "name": "equipped_items_insert_own",
+          "as": "PERMISSIVE",
+          "for": "INSERT",
+          "to": ["authenticated"],
+          "withCheck": "exists (\n    select 1 from \"travelers\"\n    where \"travelers\".\"id\" = \"equipped_items\".\"traveler_id\"\n      and \"travelers\".\"user_id\" = (select auth.uid())\n  )"
+        },
+        "equipped_items_update_own": {
+          "name": "equipped_items_update_own",
+          "as": "PERMISSIVE",
+          "for": "UPDATE",
+          "to": ["authenticated"],
+          "using": "exists (\n    select 1 from \"travelers\"\n    where \"travelers\".\"id\" = \"equipped_items\".\"traveler_id\"\n      and \"travelers\".\"user_id\" = (select auth.uid())\n  )",
+          "withCheck": "exists (\n    select 1 from \"travelers\"\n    where \"travelers\".\"id\" = \"equipped_items\".\"traveler_id\"\n      and \"travelers\".\"user_id\" = (select auth.uid())\n  )"
+        },
+        "equipped_items_delete_own": {
+          "name": "equipped_items_delete_own",
+          "as": "PERMISSIVE",
+          "for": "DELETE",
+          "to": ["authenticated"],
+          "using": "exists (\n    select 1 from \"travelers\"\n    where \"travelers\".\"id\" = \"equipped_items\".\"traveler_id\"\n      and \"travelers\".\"user_id\" = (select auth.uid())\n  )"
+        }
+      },
+      "checkConstraints": {
+        "equipped_items_slot_check": {
+          "name": "equipped_items_slot_check",
+          "value": "\"equipped_items\".\"slot\" in (\u0027helmet\u0027, \u0027armor\u0027, \u0027weapon\u0027, \u0027shield\u0027, \u0027boots\u0027, \u0027amulet\u0027)"
+        }
+      },
+      "isRLSEnabled": true
+    },
+    "public.guild_invites": {
+      "name": "guild_invites",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "guild_id": {
+          "name": "guild_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "invited_traveler_id": {
+          "name": "invited_traveler_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "invited_by_traveler_id": {
+          "name": "invited_by_traveler_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "status": {
+          "name": "status",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "\u0027pending\u0027"
+        },
+        "expires_at": {
+          "name": "expires_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "guild_invites_guild_status_idx": {
+          "name": "guild_invites_guild_status_idx",
+          "columns": [
+            {
+              "expression": "guild_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "status",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "guild_invites_guild_id_guilds_id_fk": {
+          "name": "guild_invites_guild_id_guilds_id_fk",
+          "tableFrom": "guild_invites",
+          "tableTo": "guilds",
+          "columnsFrom": ["guild_id"],
+          "columnsTo": ["id"],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "guild_invites_invited_traveler_id_travelers_id_fk": {
+          "name": "guild_invites_invited_traveler_id_travelers_id_fk",
+          "tableFrom": "guild_invites",
+          "tableTo": "travelers",
+          "columnsFrom": ["invited_traveler_id"],
+          "columnsTo": ["id"],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "guild_invites_invited_by_traveler_id_travelers_id_fk": {
+          "name": "guild_invites_invited_by_traveler_id_travelers_id_fk",
+          "tableFrom": "guild_invites",
+          "tableTo": "travelers",
+          "columnsFrom": ["invited_by_traveler_id"],
+          "columnsTo": ["id"],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {
+        "guild_invites_select_participant": {
+          "name": "guild_invites_select_participant",
+          "as": "PERMISSIVE",
+          "for": "SELECT",
+          "to": ["authenticated"],
+          "using": "public.is_active_guild_member(\"guild_invites\".\"guild_id\") or public.owns_traveler(\"guild_invites\".\"invited_traveler_id\")"
+        }
+      },
+      "checkConstraints": {
+        "guild_invites_status_check": {
+          "name": "guild_invites_status_check",
+          "value": "\"guild_invites\".\"status\" in (\u0027pending\u0027, \u0027accepted\u0027, \u0027declined\u0027, \u0027expired\u0027, \u0027cancelled\u0027)"
+        }
+      },
+      "isRLSEnabled": true
+    },
+    "public.guild_join_requests": {
+      "name": "guild_join_requests",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "guild_id": {
+          "name": "guild_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "traveler_id": {
+          "name": "traveler_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "status": {
+          "name": "status",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "\u0027pending\u0027"
+        },
+        "reviewed_by_traveler_id": {
+          "name": "reviewed_by_traveler_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "reviewed_at": {
+          "name": "reviewed_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "guild_join_requests_one_pending_idx": {
+          "name": "guild_join_requests_one_pending_idx",
+          "columns": [
+            {
+              "expression": "guild_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "traveler_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "where": "\"guild_join_requests\".\"status\" = \u0027pending\u0027",
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "guild_join_requests_guild_status_idx": {
+          "name": "guild_join_requests_guild_status_idx",
+          "columns": [
+            {
+              "expression": "guild_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "status",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "guild_join_requests_guild_id_guilds_id_fk": {
+          "name": "guild_join_requests_guild_id_guilds_id_fk",
+          "tableFrom": "guild_join_requests",
+          "tableTo": "guilds",
+          "columnsFrom": ["guild_id"],
+          "columnsTo": ["id"],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "guild_join_requests_traveler_id_travelers_id_fk": {
+          "name": "guild_join_requests_traveler_id_travelers_id_fk",
+          "tableFrom": "guild_join_requests",
+          "tableTo": "travelers",
+          "columnsFrom": ["traveler_id"],
+          "columnsTo": ["id"],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "guild_join_requests_reviewed_by_traveler_id_travelers_id_fk": {
+          "name": "guild_join_requests_reviewed_by_traveler_id_travelers_id_fk",
+          "tableFrom": "guild_join_requests",
+          "tableTo": "travelers",
+          "columnsFrom": ["reviewed_by_traveler_id"],
+          "columnsTo": ["id"],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {
+        "guild_join_requests_select_participant": {
+          "name": "guild_join_requests_select_participant",
+          "as": "PERMISSIVE",
+          "for": "SELECT",
+          "to": ["authenticated"],
+          "using": "public.owns_traveler(\"guild_join_requests\".\"traveler_id\") or public.is_guild_leader(\"guild_join_requests\".\"guild_id\")"
+        }
+      },
+      "checkConstraints": {
+        "guild_join_requests_status_check": {
+          "name": "guild_join_requests_status_check",
+          "value": "\"guild_join_requests\".\"status\" in (\u0027pending\u0027, \u0027accepted\u0027, \u0027rejected\u0027, \u0027cancelled\u0027)"
+        }
+      },
+      "isRLSEnabled": true
+    },
+    "public.guild_members": {
+      "name": "guild_members",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "guild_id": {
+          "name": "guild_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "traveler_id": {
+          "name": "traveler_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "role": {
+          "name": "role",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "\u0027member\u0027"
+        },
+        "status": {
+          "name": "status",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "\u0027active\u0027"
+        },
+        "joined_at": {
+          "name": "joined_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "guild_members_one_active_guild_per_traveler_idx": {
+          "name": "guild_members_one_active_guild_per_traveler_idx",
+          "columns": [
+            {
+              "expression": "traveler_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "where": "\"guild_members\".\"status\" = \u0027active\u0027",
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "guild_members_guild_status_idx": {
+          "name": "guild_members_guild_status_idx",
+          "columns": [
+            {
+              "expression": "guild_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "status",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "guild_members_guild_id_guilds_id_fk": {
+          "name": "guild_members_guild_id_guilds_id_fk",
+          "tableFrom": "guild_members",
+          "tableTo": "guilds",
+          "columnsFrom": ["guild_id"],
+          "columnsTo": ["id"],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "guild_members_traveler_id_travelers_id_fk": {
+          "name": "guild_members_traveler_id_travelers_id_fk",
+          "tableFrom": "guild_members",
+          "tableTo": "travelers",
+          "columnsFrom": ["traveler_id"],
+          "columnsTo": ["id"],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "guild_members_guild_traveler_unique": {
+          "name": "guild_members_guild_traveler_unique",
+          "nullsNotDistinct": false,
+          "columns": ["guild_id", "traveler_id"]
+        }
+      },
+      "policies": {
+        "guild_members_select_same_guild": {
+          "name": "guild_members_select_same_guild",
+          "as": "PERMISSIVE",
+          "for": "SELECT",
+          "to": ["authenticated"],
+          "using": "public.is_active_guild_member(\"guild_members\".\"guild_id\")"
+        }
+      },
+      "checkConstraints": {
+        "guild_members_role_check": {
+          "name": "guild_members_role_check",
+          "value": "\"guild_members\".\"role\" in (\u0027leader\u0027, \u0027co_leader\u0027, \u0027moderator\u0027, \u0027member\u0027)"
+        },
+        "guild_members_status_check": {
+          "name": "guild_members_status_check",
+          "value": "\"guild_members\".\"status\" in (\u0027active\u0027, \u0027pending\u0027, \u0027left\u0027, \u0027removed\u0027)"
+        }
+      },
+      "isRLSEnabled": true
+    },
+    "public.guild_mission_progress": {
+      "name": "guild_mission_progress",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "mission_id": {
+          "name": "mission_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "traveler_id": {
+          "name": "traveler_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "status": {
+          "name": "status",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "\u0027available\u0027"
+        },
+        "started_at": {
+          "name": "started_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "submitted_at": {
+          "name": "submitted_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "completed_at": {
+          "name": "completed_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "approved_at": {
+          "name": "approved_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "approved_by_traveler_id": {
+          "name": "approved_by_traveler_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "completion_note": {
+          "name": "completion_note",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "reward_claimed_at": {
+          "name": "reward_claimed_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "guild_mission_progress_traveler_status_idx": {
+          "name": "guild_mission_progress_traveler_status_idx",
+          "columns": [
+            {
+              "expression": "traveler_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "status",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "guild_mission_progress_mission_id_guild_missions_id_fk": {
+          "name": "guild_mission_progress_mission_id_guild_missions_id_fk",
+          "tableFrom": "guild_mission_progress",
+          "tableTo": "guild_missions",
+          "columnsFrom": ["mission_id"],
+          "columnsTo": ["id"],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "guild_mission_progress_traveler_id_travelers_id_fk": {
+          "name": "guild_mission_progress_traveler_id_travelers_id_fk",
+          "tableFrom": "guild_mission_progress",
+          "tableTo": "travelers",
+          "columnsFrom": ["traveler_id"],
+          "columnsTo": ["id"],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "guild_mission_progress_approved_by_traveler_id_travelers_id_fk": {
+          "name": "guild_mission_progress_approved_by_traveler_id_travelers_id_fk",
+          "tableFrom": "guild_mission_progress",
+          "tableTo": "travelers",
+          "columnsFrom": ["approved_by_traveler_id"],
+          "columnsTo": ["id"],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "guild_mission_progress_mission_traveler_unique": {
+          "name": "guild_mission_progress_mission_traveler_unique",
+          "nullsNotDistinct": false,
+          "columns": ["mission_id", "traveler_id"]
+        }
+      },
+      "policies": {
+        "guild_mission_progress_select_participant": {
+          "name": "guild_mission_progress_select_participant",
+          "as": "PERMISSIVE",
+          "for": "SELECT",
+          "to": ["authenticated"],
+          "using": "public.owns_traveler(\"guild_mission_progress\".\"traveler_id\") or public.can_lead_mission(\"guild_mission_progress\".\"mission_id\")"
+        }
+      },
+      "checkConstraints": {
+        "guild_mission_progress_status_check": {
+          "name": "guild_mission_progress_status_check",
+          "value": "\"guild_mission_progress\".\"status\" in (\u0027available\u0027, \u0027started\u0027, \u0027pending_approval\u0027, \u0027completed\u0027, \u0027rejected\u0027)"
+        },
+        "guild_mission_progress_note_length_check": {
+          "name": "guild_mission_progress_note_length_check",
+          "value": "\"guild_mission_progress\".\"completion_note\" is null or char_length(\"guild_mission_progress\".\"completion_note\") \u003c= 500"
+        }
+      },
+      "isRLSEnabled": true
+    },
+    "public.guild_missions": {
+      "name": "guild_missions",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "guild_id": {
+          "name": "guild_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_by_traveler_id": {
+          "name": "created_by_traveler_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "title": {
+          "name": "title",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "mission_type": {
+          "name": "mission_type",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "bible_reference": {
+          "name": "bible_reference",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "bible_url": {
+          "name": "bible_url",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "completion_mode": {
+          "name": "completion_mode",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "requires_leader_approval": {
+          "name": "requires_leader_approval",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        },
+        "reward_tier": {
+          "name": "reward_tier",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "status": {
+          "name": "status",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "\u0027draft\u0027"
+        },
+        "starts_at": {
+          "name": "starts_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "due_at": {
+          "name": "due_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "metadata": {
+          "name": "metadata",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "published_at": {
+          "name": "published_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "closed_at": {
+          "name": "closed_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "guild_missions_guild_status_idx": {
+          "name": "guild_missions_guild_status_idx",
+          "columns": [
+            {
+              "expression": "guild_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "status",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "guild_missions_guild_id_guilds_id_fk": {
+          "name": "guild_missions_guild_id_guilds_id_fk",
+          "tableFrom": "guild_missions",
+          "tableTo": "guilds",
+          "columnsFrom": ["guild_id"],
+          "columnsTo": ["id"],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "guild_missions_created_by_traveler_id_travelers_id_fk": {
+          "name": "guild_missions_created_by_traveler_id_travelers_id_fk",
+          "tableFrom": "guild_missions",
+          "tableTo": "travelers",
+          "columnsFrom": ["created_by_traveler_id"],
+          "columnsTo": ["id"],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {
+        "guild_missions_select_member": {
+          "name": "guild_missions_select_member",
+          "as": "PERMISSIVE",
+          "for": "SELECT",
+          "to": ["authenticated"],
+          "using": "public.is_active_guild_member(\"guild_missions\".\"guild_id\") and (\"guild_missions\".\"status\" = \u0027published\u0027 or public.is_guild_leader(\"guild_missions\".\"guild_id\"))"
+        }
+      },
+      "checkConstraints": {
+        "guild_missions_title_length_check": {
+          "name": "guild_missions_title_length_check",
+          "value": "char_length(btrim(\"guild_missions\".\"title\")) between 2 and 100"
+        },
+        "guild_missions_description_length_check": {
+          "name": "guild_missions_description_length_check",
+          "value": "\"guild_missions\".\"description\" is null or char_length(\"guild_missions\".\"description\") \u003c= 1000"
+        },
+        "guild_missions_reference_length_check": {
+          "name": "guild_missions_reference_length_check",
+          "value": "\"guild_missions\".\"bible_reference\" is null or char_length(\"guild_missions\".\"bible_reference\") \u003c= 100"
+        },
+        "guild_missions_bible_url_check": {
+          "name": "guild_missions_bible_url_check",
+          "value": "\"guild_missions\".\"bible_url\" is null or \"guild_missions\".\"bible_url\" ~ \u0027^https://www\\.bible\\.com/[A-Za-z0-9/._?=\u0026%-]{1,240}$\u0027"
+        },
+        "guild_missions_type_check": {
+          "name": "guild_missions_type_check",
+          "value": "\"guild_missions\".\"mission_type\" in (\u0027bible_reading\u0027, \u0027lesson\u0027, \u0027quiz\u0027, \u0027practical_activity\u0027, \u0027individual_challenge\u0027, \u0027collective_challenge\u0027, \u0027special_mission\u0027, \u0027journey_gate\u0027)"
+        },
+        "guild_missions_completion_mode_check": {
+          "name": "guild_missions_completion_mode_check",
+          "value": "\"guild_missions\".\"completion_mode\" in (\u0027self_complete\u0027, \u0027leader_approval\u0027)"
+        },
+        "guild_missions_reward_tier_check": {
+          "name": "guild_missions_reward_tier_check",
+          "value": "\"guild_missions\".\"reward_tier\" in (\u0027normal\u0027, \u0027great\u0027, \u0027epic\u0027, \u0027extraordinary\u0027)"
+        },
+        "guild_missions_status_check": {
+          "name": "guild_missions_status_check",
+          "value": "\"guild_missions\".\"status\" in (\u0027draft\u0027, \u0027published\u0027, \u0027closed\u0027, \u0027cancelled\u0027)"
+        },
+        "guild_missions_dates_check": {
+          "name": "guild_missions_dates_check",
+          "value": "\"guild_missions\".\"due_at\" is null or \"guild_missions\".\"starts_at\" is null or \"guild_missions\".\"due_at\" \u003e \"guild_missions\".\"starts_at\""
+        },
+        "guild_missions_metadata_size_check": {
+          "name": "guild_missions_metadata_size_check",
+          "value": "\"guild_missions\".\"metadata\" is null or octet_length(\"guild_missions\".\"metadata\"::text) \u003c= 2048"
+        }
+      },
+      "isRLSEnabled": true
+    },
+    "public.guild_reward_claims": {
+      "name": "guild_reward_claims",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "mission_id": {
+          "name": "mission_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "traveler_id": {
+          "name": "traveler_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "reward_tier": {
+          "name": "reward_tier",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "xp_awarded": {
+          "name": "xp_awarded",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "coins_awarded": {
+          "name": "coins_awarded",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "guild_reward_claims_mission_id_guild_missions_id_fk": {
+          "name": "guild_reward_claims_mission_id_guild_missions_id_fk",
+          "tableFrom": "guild_reward_claims",
+          "tableTo": "guild_missions",
+          "columnsFrom": ["mission_id"],
+          "columnsTo": ["id"],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "guild_reward_claims_traveler_id_travelers_id_fk": {
+          "name": "guild_reward_claims_traveler_id_travelers_id_fk",
+          "tableFrom": "guild_reward_claims",
+          "tableTo": "travelers",
+          "columnsFrom": ["traveler_id"],
+          "columnsTo": ["id"],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "guild_reward_claims_mission_traveler_unique": {
+          "name": "guild_reward_claims_mission_traveler_unique",
+          "nullsNotDistinct": false,
+          "columns": ["mission_id", "traveler_id"]
+        }
+      },
+      "policies": {
+        "guild_reward_claims_select_participant": {
+          "name": "guild_reward_claims_select_participant",
+          "as": "PERMISSIVE",
+          "for": "SELECT",
+          "to": ["authenticated"],
+          "using": "public.owns_traveler(\"guild_reward_claims\".\"traveler_id\") or public.can_lead_mission(\"guild_reward_claims\".\"mission_id\")"
+        }
+      },
+      "checkConstraints": {
+        "guild_reward_claims_tier_check": {
+          "name": "guild_reward_claims_tier_check",
+          "value": "\"guild_reward_claims\".\"reward_tier\" in (\u0027normal\u0027, \u0027great\u0027, \u0027epic\u0027, \u0027extraordinary\u0027)"
+        },
+        "guild_reward_claims_values_check": {
+          "name": "guild_reward_claims_values_check",
+          "value": "\"guild_reward_claims\".\"xp_awarded\" \u003e= 0 and \"guild_reward_claims\".\"coins_awarded\" \u003e= 0"
+        }
+      },
+      "isRLSEnabled": true
+    },
+    "public.guilds": {
+      "name": "guilds",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_by_user_id": {
+          "name": "created_by_user_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "leader_traveler_id": {
+          "name": "leader_traveler_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "status": {
+          "name": "status",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "\u0027active\u0027"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "guilds_leader_traveler_id_idx": {
+          "name": "guilds_leader_traveler_id_idx",
+          "columns": [
+            {
+              "expression": "leader_traveler_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "guilds_created_by_user_id_users_id_fk": {
+          "name": "guilds_created_by_user_id_users_id_fk",
+          "tableFrom": "guilds",
+          "tableTo": "users",
+          "schemaTo": "auth",
+          "columnsFrom": ["created_by_user_id"],
+          "columnsTo": ["id"],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        },
+        "guilds_leader_traveler_id_travelers_id_fk": {
+          "name": "guilds_leader_traveler_id_travelers_id_fk",
+          "tableFrom": "guilds",
+          "tableTo": "travelers",
+          "columnsFrom": ["leader_traveler_id"],
+          "columnsTo": ["id"],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {
+        "guilds_select_member": {
+          "name": "guilds_select_member",
+          "as": "PERMISSIVE",
+          "for": "SELECT",
+          "to": ["authenticated"],
+          "using": "public.is_active_guild_member(\"guilds\".\"id\")"
+        }
+      },
+      "checkConstraints": {
+        "guilds_name_length_check": {
+          "name": "guilds_name_length_check",
+          "value": "char_length(btrim(\"guilds\".\"name\")) between 2 and 60"
+        },
+        "guilds_description_length_check": {
+          "name": "guilds_description_length_check",
+          "value": "\"guilds\".\"description\" is null or char_length(\"guilds\".\"description\") \u003c= 500"
+        },
+        "guilds_status_check": {
+          "name": "guilds_status_check",
+          "value": "\"guilds\".\"status\" in (\u0027active\u0027, \u0027archived\u0027)"
+        }
+      },
+      "isRLSEnabled": true
+    },
+    "public.inventory": {
+      "name": "inventory",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "traveler_id": {
+          "name": "traveler_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "item_id": {
+          "name": "item_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "quantity": {
+          "name": "quantity",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 1
+        },
+        "acquired_at": {
+          "name": "acquired_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "metadata": {
+          "name": "metadata",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {
+        "inventory_traveler_id_idx": {
+          "name": "inventory_traveler_id_idx",
+          "columns": [
+            {
+              "expression": "traveler_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "inventory_traveler_id_travelers_id_fk": {
+          "name": "inventory_traveler_id_travelers_id_fk",
+          "tableFrom": "inventory",
+          "tableTo": "travelers",
+          "columnsFrom": ["traveler_id"],
+          "columnsTo": ["id"],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "inventory_traveler_item_unique": {
+          "name": "inventory_traveler_item_unique",
+          "nullsNotDistinct": false,
+          "columns": ["traveler_id", "item_id"]
+        }
+      },
+      "policies": {
+        "inventory_select_own": {
+          "name": "inventory_select_own",
+          "as": "PERMISSIVE",
+          "for": "SELECT",
+          "to": ["authenticated"],
+          "using": "exists (\n    select 1 from \"travelers\"\n    where \"travelers\".\"id\" = \"inventory\".\"traveler_id\"\n      and \"travelers\".\"user_id\" = (select auth.uid())\n  )"
+        },
+        "inventory_insert_own": {
+          "name": "inventory_insert_own",
+          "as": "PERMISSIVE",
+          "for": "INSERT",
+          "to": ["authenticated"],
+          "withCheck": "exists (\n    select 1 from \"travelers\"\n    where \"travelers\".\"id\" = \"inventory\".\"traveler_id\"\n      and \"travelers\".\"user_id\" = (select auth.uid())\n  )"
+        },
+        "inventory_update_own": {
+          "name": "inventory_update_own",
+          "as": "PERMISSIVE",
+          "for": "UPDATE",
+          "to": ["authenticated"],
+          "using": "exists (\n    select 1 from \"travelers\"\n    where \"travelers\".\"id\" = \"inventory\".\"traveler_id\"\n      and \"travelers\".\"user_id\" = (select auth.uid())\n  )",
+          "withCheck": "exists (\n    select 1 from \"travelers\"\n    where \"travelers\".\"id\" = \"inventory\".\"traveler_id\"\n      and \"travelers\".\"user_id\" = (select auth.uid())\n  )"
+        },
+        "inventory_delete_own": {
+          "name": "inventory_delete_own",
+          "as": "PERMISSIVE",
+          "for": "DELETE",
+          "to": ["authenticated"],
+          "using": "exists (\n    select 1 from \"travelers\"\n    where \"travelers\".\"id\" = \"inventory\".\"traveler_id\"\n      and \"travelers\".\"user_id\" = (select auth.uid())\n  )"
+        }
+      },
+      "checkConstraints": {
+        "inventory_item_id_length_check": {
+          "name": "inventory_item_id_length_check",
+          "value": "char_length(\"inventory\".\"item_id\") between 1 and 64"
+        },
+        "inventory_quantity_check": {
+          "name": "inventory_quantity_check",
+          "value": "\"inventory\".\"quantity\" \u003e 0"
+        }
+      },
+      "isRLSEnabled": true
+    },
+    "public.profiles": {
+      "name": "profiles",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "display_name": {
+          "name": "display_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "profiles_id_users_id_fk": {
+          "name": "profiles_id_users_id_fk",
+          "tableFrom": "profiles",
+          "tableTo": "users",
+          "schemaTo": "auth",
+          "columnsFrom": ["id"],
+          "columnsTo": ["id"],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {
+        "profiles_select_own": {
+          "name": "profiles_select_own",
+          "as": "PERMISSIVE",
+          "for": "SELECT",
+          "to": ["authenticated"],
+          "using": "(select auth.uid()) = \"profiles\".\"id\""
+        },
+        "profiles_insert_own": {
+          "name": "profiles_insert_own",
+          "as": "PERMISSIVE",
+          "for": "INSERT",
+          "to": ["authenticated"],
+          "withCheck": "(select auth.uid()) = \"profiles\".\"id\""
+        },
+        "profiles_update_own": {
+          "name": "profiles_update_own",
+          "as": "PERMISSIVE",
+          "for": "UPDATE",
+          "to": ["authenticated"],
+          "using": "(select auth.uid()) = \"profiles\".\"id\"",
+          "withCheck": "(select auth.uid()) = \"profiles\".\"id\""
+        }
+      },
+      "checkConstraints": {
+        "profiles_display_name_length_check": {
+          "name": "profiles_display_name_length_check",
+          "value": "\"profiles\".\"display_name\" is null or char_length(\"profiles\".\"display_name\") between 2 and 50"
+        }
+      },
+      "isRLSEnabled": true
+    },
+    "public.traveler_stats": {
+      "name": "traveler_stats",
+      "schema": "",
+      "columns": {
+        "traveler_id": {
+          "name": "traveler_id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "base_life": {
+          "name": "base_life",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 1
+        },
+        "base_strength": {
+          "name": "base_strength",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 1
+        },
+        "base_defense": {
+          "name": "base_defense",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 1
+        },
+        "base_wisdom": {
+          "name": "base_wisdom",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 1
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "traveler_stats_traveler_id_travelers_id_fk": {
+          "name": "traveler_stats_traveler_id_travelers_id_fk",
+          "tableFrom": "traveler_stats",
+          "tableTo": "travelers",
+          "columnsFrom": ["traveler_id"],
+          "columnsTo": ["id"],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {
+        "traveler_stats_select_own": {
+          "name": "traveler_stats_select_own",
+          "as": "PERMISSIVE",
+          "for": "SELECT",
+          "to": ["authenticated"],
+          "using": "exists (\n    select 1 from \"travelers\"\n    where \"travelers\".\"id\" = \"traveler_stats\".\"traveler_id\"\n      and \"travelers\".\"user_id\" = (select auth.uid())\n  )"
+        },
+        "traveler_stats_insert_own": {
+          "name": "traveler_stats_insert_own",
+          "as": "PERMISSIVE",
+          "for": "INSERT",
+          "to": ["authenticated"],
+          "withCheck": "exists (\n    select 1 from \"travelers\"\n    where \"travelers\".\"id\" = \"traveler_stats\".\"traveler_id\"\n      and \"travelers\".\"user_id\" = (select auth.uid())\n  )"
+        },
+        "traveler_stats_update_own": {
+          "name": "traveler_stats_update_own",
+          "as": "PERMISSIVE",
+          "for": "UPDATE",
+          "to": ["authenticated"],
+          "using": "exists (\n    select 1 from \"travelers\"\n    where \"travelers\".\"id\" = \"traveler_stats\".\"traveler_id\"\n      and \"travelers\".\"user_id\" = (select auth.uid())\n  )",
+          "withCheck": "exists (\n    select 1 from \"travelers\"\n    where \"travelers\".\"id\" = \"traveler_stats\".\"traveler_id\"\n      and \"travelers\".\"user_id\" = (select auth.uid())\n  )"
+        }
+      },
+      "checkConstraints": {
+        "traveler_stats_life_check": {
+          "name": "traveler_stats_life_check",
+          "value": "\"traveler_stats\".\"base_life\" \u003e= 0"
+        },
+        "traveler_stats_strength_check": {
+          "name": "traveler_stats_strength_check",
+          "value": "\"traveler_stats\".\"base_strength\" \u003e= 0"
+        },
+        "traveler_stats_defense_check": {
+          "name": "traveler_stats_defense_check",
+          "value": "\"traveler_stats\".\"base_defense\" \u003e= 0"
+        },
+        "traveler_stats_wisdom_check": {
+          "name": "traveler_stats_wisdom_check",
+          "value": "\"traveler_stats\".\"base_wisdom\" \u003e= 0"
+        }
+      },
+      "isRLSEnabled": true
+    },
+    "public.travelers": {
+      "name": "travelers",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "body_type": {
+          "name": "body_type",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "skin_tone": {
+          "name": "skin_tone",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "hair_style": {
+          "name": "hair_style",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "hair_color": {
+          "name": "hair_color",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "avatar_variant": {
+          "name": "avatar_variant",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "level": {
+          "name": "level",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 1
+        },
+        "xp": {
+          "name": "xp",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "is_active": {
+          "name": "is_active",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "travelers_user_id_idx": {
+          "name": "travelers_user_id_idx",
+          "columns": [
+            {
+              "expression": "user_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "travelers_one_active_per_user_idx": {
+          "name": "travelers_one_active_per_user_idx",
+          "columns": [
+            {
+              "expression": "user_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "where": "\"travelers\".\"is_active\" = true",
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "travelers_user_id_users_id_fk": {
+          "name": "travelers_user_id_users_id_fk",
+          "tableFrom": "travelers",
+          "tableTo": "users",
+          "schemaTo": "auth",
+          "columnsFrom": ["user_id"],
+          "columnsTo": ["id"],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {
+        "travelers_select_own": {
+          "name": "travelers_select_own",
+          "as": "PERMISSIVE",
+          "for": "SELECT",
+          "to": ["authenticated"],
+          "using": "\"travelers\".\"user_id\" = (select auth.uid())"
+        },
+        "travelers_insert_own": {
+          "name": "travelers_insert_own",
+          "as": "PERMISSIVE",
+          "for": "INSERT",
+          "to": ["authenticated"],
+          "withCheck": "\"travelers\".\"user_id\" = (select auth.uid())"
+        },
+        "travelers_update_own": {
+          "name": "travelers_update_own",
+          "as": "PERMISSIVE",
+          "for": "UPDATE",
+          "to": ["authenticated"],
+          "using": "\"travelers\".\"user_id\" = (select auth.uid())",
+          "withCheck": "\"travelers\".\"user_id\" = (select auth.uid())"
+        },
+        "travelers_delete_own": {
+          "name": "travelers_delete_own",
+          "as": "PERMISSIVE",
+          "for": "DELETE",
+          "to": ["authenticated"],
+          "using": "\"travelers\".\"user_id\" = (select auth.uid())"
+        }
+      },
+      "checkConstraints": {
+        "travelers_name_length_check": {
+          "name": "travelers_name_length_check",
+          "value": "char_length(\"travelers\".\"name\") between 2 and 24"
+        },
+        "travelers_body_type_check": {
+          "name": "travelers_body_type_check",
+          "value": "\"travelers\".\"body_type\" in (\u0027male\u0027, \u0027female\u0027)"
+        },
+        "travelers_level_check": {
+          "name": "travelers_level_check",
+          "value": "\"travelers\".\"level\" \u003e= 1"
+        },
+        "travelers_xp_check": {
+          "name": "travelers_xp_check",
+          "value": "\"travelers\".\"xp\" \u003e= 0"
+        }
+      },
+      "isRLSEnabled": true
+    },
+    "public.wallets": {
+      "name": "wallets",
+      "schema": "",
+      "columns": {
+        "traveler_id": {
+          "name": "traveler_id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "coins": {
+          "name": "coins",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "wallets_traveler_id_travelers_id_fk": {
+          "name": "wallets_traveler_id_travelers_id_fk",
+          "tableFrom": "wallets",
+          "tableTo": "travelers",
+          "columnsFrom": ["traveler_id"],
+          "columnsTo": ["id"],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {
+        "wallets_select_own": {
+          "name": "wallets_select_own",
+          "as": "PERMISSIVE",
+          "for": "SELECT",
+          "to": ["authenticated"],
+          "using": "exists (\n    select 1 from \"travelers\"\n    where \"travelers\".\"id\" = \"wallets\".\"traveler_id\"\n      and \"travelers\".\"user_id\" = (select auth.uid())\n  )"
+        },
+        "wallets_insert_own": {
+          "name": "wallets_insert_own",
+          "as": "PERMISSIVE",
+          "for": "INSERT",
+          "to": ["authenticated"],
+          "withCheck": "exists (\n    select 1 from \"travelers\"\n    where \"travelers\".\"id\" = \"wallets\".\"traveler_id\"\n      and \"travelers\".\"user_id\" = (select auth.uid())\n  )"
+        },
+        "wallets_update_own": {
+          "name": "wallets_update_own",
+          "as": "PERMISSIVE",
+          "for": "UPDATE",
+          "to": ["authenticated"],
+          "using": "exists (\n    select 1 from \"travelers\"\n    where \"travelers\".\"id\" = \"wallets\".\"traveler_id\"\n      and \"travelers\".\"user_id\" = (select auth.uid())\n  )",
+          "withCheck": "exists (\n    select 1 from \"travelers\"\n    where \"travelers\".\"id\" = \"wallets\".\"traveler_id\"\n      and \"travelers\".\"user_id\" = (select auth.uid())\n  )"
+        }
+      },
+      "checkConstraints": {
+        "wallets_coins_check": {
+          "name": "wallets_coins_check",
+          "value": "\"wallets\".\"coins\" \u003e= 0"
+        }
+      },
+      "isRLSEnabled": true
+    }
+  },
+  "enums": {},
+  "schemas": {},
+  "sequences": {},
+  "roles": {},
+  "policies": {},
+  "views": {},
+  "_meta": {
+    "columns": {},
+    "schemas": {},
+    "tables": {}
+  }
+}

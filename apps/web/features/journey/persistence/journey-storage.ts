@@ -55,6 +55,10 @@ function migrateTravelerCandidate(candidate: unknown): unknown {
     : null;
   return {
     ...candidate,
+    chests: record(candidate.chests) ? candidate.chests : { common: 0, uncommon: 0, rare: 0, epic: 0, extraordinary: 0 },
+    chestSources: record(candidate.chestSources) ? candidate.chestSources : { common: [], uncommon: [], rare: [], epic: [], extraordinary: [] },
+    chestHistory: Array.isArray(candidate.chestHistory) ? candidate.chestHistory : [],
+    chestOperationIds: Array.isArray(candidate.chestOperationIds) ? candidate.chestOperationIds : [],
     attributes: migrateBaseAttributes(candidate.attributes),
     level: typeof candidate.xp === 'number' && Number.isSafeInteger(candidate.xp) && candidate.xp >= 0 ? levelForXp(candidate.xp) : candidate.level,
     inventory: Array.isArray(candidate.inventory) ? candidate.inventory.map((item) => {

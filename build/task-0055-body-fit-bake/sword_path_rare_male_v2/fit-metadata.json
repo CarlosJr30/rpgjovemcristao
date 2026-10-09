@@ -1,0 +1,281 @@
+{
+  "task": "TASK-0055",
+  "id": "sword_path_rare_male_v2",
+  "itemId": "traveler-sword-rare",
+  "slot": "weapon",
+  "gender": "male",
+  "at": "2026-10-08T20:23:17.089Z",
+  "source": {
+    "path": "assets-source/body-fit-v2-targets/sword_path_rare_male_v2.png",
+    "format": "png",
+    "width": 1024,
+    "height": 1536,
+    "channels": 4,
+    "hasAlpha": true,
+    "integrity": {
+      "status": "CRC_PASS",
+      "chunks": 24
+    },
+    "alpha128Bounds": {
+      "left": 194,
+      "top": 8,
+      "right": 830,
+      "bottom": 1518,
+      "count": 188126
+    },
+    "alphaPositiveBoundsDiagnostic": {
+      "left": 33,
+      "top": 6,
+      "right": 991,
+      "bottom": 1521,
+      "count": 214286
+    },
+    "transparentPixels": 1358578,
+    "sha256": "89676a2f0f5b8ce73e25e6088ff52979115a11a091bbf25ce810b3c8488c96cb",
+    "decode": "PASS",
+    "approval": "SOURCE_VISUAL_APPROVED (inherited; not body-fit approval)"
+  },
+  "avatar": {
+    "id": "male_short_moss_medium",
+    "path": "apps/web/public/assets/avatar/hd/male/male_short_moss_medium_hd.png",
+    "sha256": "b182c2e29b512b337891716a413ab7efaad737e23c6354779fae17fe19b8af34",
+    "immutable": true,
+    "footBaseline": 1513
+  },
+  "mapping": {
+    "status": "MAPPED",
+    "errors": [],
+    "targetFilename": "sword_path_rare_male_v2.png",
+    "itemId": "traveler-sword-rare",
+    "gender": "male",
+    "slot": "weapon"
+  },
+  "landmarks": {
+    "hand_center_grip": {
+      "source": [
+        511,
+        275
+      ],
+      "avatar": [
+        218,
+        819
+      ],
+      "weight": 8,
+      "kind": "grip to screen-left hand anatomy"
+    },
+    "grip_guard": {
+      "source": [
+        512,
+        393
+      ],
+      "avatar": [
+        218,
+        872
+      ],
+      "weight": 1,
+      "kind": "anatomical garment proxy"
+    },
+    "wrist_clearance": {
+      "source": [
+        511,
+        151
+      ],
+      "avatar": [
+        224,
+        761
+      ],
+      "weight": 0.5,
+      "kind": "pommel/wrist clearance goal"
+    },
+    "blade_root": {
+      "source": [
+        512,
+        622
+      ],
+      "avatar": [
+        218,
+        975
+      ],
+      "weight": 0.5,
+      "kind": "blade placement goal"
+    },
+    "blade_extent": {
+      "source": [
+        510,
+        1518
+      ],
+      "avatar": [
+        218,
+        1378
+      ],
+      "weight": 0.5,
+      "kind": "blade tip placement goal"
+    }
+  },
+  "landmarkResiduals": {
+    "hand_center_grip": {
+      "source": [
+        511,
+        275
+      ],
+      "avatar": [
+        218,
+        819
+      ],
+      "weight": 8,
+      "kind": "grip to screen-left hand anatomy",
+      "projected": [
+        218.24285745497025,
+        818.8621703701747
+      ],
+      "delta": [
+        0.2428574549702489,
+        -0.137829629825319
+      ],
+      "distance": 0.27924317411963884
+    },
+    "grip_guard": {
+      "source": [
+        512,
+        393
+      ],
+      "avatar": [
+        218,
+        872
+      ],
+      "weight": 1,
+      "kind": "anatomical garment proxy",
+      "projected": [
+        218.69285417778244,
+        871.961783662012
+      ],
+      "delta": [
+        0.6928541777824364,
+        -0.03821633798804669
+      ],
+      "distance": 0.6939073426328567
+    },
+    "wrist_clearance": {
+      "source": [
+        511,
+        151
+      ],
+      "avatar": [
+        224,
+        761
+      ],
+      "weight": 0.5,
+      "kind": "pommel/wrist clearance goal",
+      "projected": [
+        218.24285745497025,
+        763.0625767414645
+      ],
+      "delta": [
+        -5.757142545029751,
+        2.0625767414644542
+      ],
+      "distance": 6.115465076199992
+    },
+    "blade_root": {
+      "source": [
+        512,
+        622
+      ],
+      "avatar": [
+        218,
+        975
+      ],
+      "weight": 0.5,
+      "kind": "blade placement goal",
+      "projected": [
+        218.69285417778244,
+        975.0110331860012
+      ],
+      "delta": [
+        0.6928541777824364,
+        0.011033186001213835
+      ],
+      "distance": 0.6929420198428677
+    },
+    "blade_extent": {
+      "source": [
+        510,
+        1518
+      ],
+      "avatar": [
+        218,
+        1378
+      ],
+      "weight": 0.5,
+      "kind": "blade tip placement goal",
+      "projected": [
+        217.7928607321581,
+        1378.2080968257146
+      ],
+      "delta": [
+        -0.20713926784191017,
+        0.20809682571461963
+      ],
+      "distance": 0.2936170382566097
+    }
+  },
+  "landmarkMethod": "Male rare sword measured longer grip and different guard, distinct from female; visual native grid measurements approximately ±12px avatar, ±20px source. No hidden anatomy certified.",
+  "transform": {
+    "translateX": -11.705467902053783,
+    "translateY": 695.1130715968252,
+    "scale": 0.4499967228121801,
+    "rotation": 0
+  },
+  "fittingMethod": "Per-source weighted least-squares uniform scale + translation; rotation0 preferred. Anatomy points and placement goals identified separately.",
+  "transformConvention": "Native top-left origin; x=tx+scale*x; y=ty+scale*y; offline only",
+  "pipeline": {
+    "version": 1,
+    "implementation": "TASK-0054 bakeBytes: inverse sampling / premultiplied-alpha bilinear",
+    "sharp": "0.35.4",
+    "vips": "8.18.6",
+    "mask": "NONE",
+    "warp": "NONE",
+    "uniform": true
+  },
+  "output": {
+    "path": "build/task-0055-body-fit-bake/sword_path_rare_male_v2/sword_path_rare_male_v2_baked.png",
+    "format": "png",
+    "width": 1024,
+    "height": 1536,
+    "channels": 4,
+    "hasAlpha": true,
+    "integrity": {
+      "status": "CRC_PASS",
+      "chunks": 24
+    },
+    "alpha128Bounds": {
+      "left": 76,
+      "top": 699,
+      "right": 361,
+      "bottom": 1377,
+      "count": 38059
+    },
+    "alphaPositiveBoundsDiagnostic": {
+      "left": 3,
+      "top": 698,
+      "right": 417,
+      "bottom": 1378,
+      "count": 43534
+    },
+    "transparentPixels": 1529330,
+    "sha256": "283f40926d2c012ed8517c8c8187b2f49a7a7f71b78939b1efe9b27851ffd09f",
+    "decode": "PASS"
+  },
+  "runtime": {
+    "activated": false,
+    "render": {
+      "top": 0,
+      "left": 0,
+      "width": "100%",
+      "height": "100%",
+      "transform": "none"
+    }
+  },
+  "humanBodyFitApproved": false,
+  "ready": false
+}

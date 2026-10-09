@@ -1,0 +1,340 @@
+{
+  "task": "TASK-0055",
+  "at": "2026-10-08T23:47:37.217Z",
+  "status": "PASS",
+  "technicalValidated": 15,
+  "mapped": 15,
+  "counts": {
+    "processed": 15,
+    "TECHNICALLY_VALIDATED": 15,
+    "MAPPED": 15,
+    "MAPPING_ERROR": 0,
+    "FIT_PASS": 5,
+    "NEEDS_REWORK": 10,
+    "HUMAN_BODY_FIT_REVIEW_PENDING": 5,
+    "FIT_VALIDATION_PENDING": 0,
+    "HUMAN_BODY_FIT_APPROVED": 0,
+    "READY": 0,
+    "runtimeActivated": 0
+  },
+  "reports": [
+    {
+      "id": "armor_traveler_uncommon_male_v2",
+      "status": "PASS",
+      "technical": "TECHNICALLY_VALIDATED",
+      "mapping": "MAPPED",
+      "fitStatus": "FIT_PASS",
+      "sha256": "8ece1c5d4daad2b4b7b0a6d673eb3ad6e2d16a9bcc888082ee33a2bd71c928c2",
+      "clippedAlpha128SourcePixels": 0,
+      "alpha128Bounds": {
+        "left": 274,
+        "top": 252,
+        "right": 755,
+        "bottom": 892,
+        "count": 186301
+      },
+      "footBaselineDelta": null,
+      "maxLandmarkResidual": 30.01786807229657,
+      "humanBodyFitApproved": false,
+      "ready": false,
+      "runtimeActivated": false
+    },
+    {
+      "id": "armor_traveler_rare_female_v2",
+      "status": "PASS",
+      "technical": "TECHNICALLY_VALIDATED",
+      "mapping": "MAPPED",
+      "fitStatus": "FIT_PASS",
+      "sha256": "58be3d1d95eeab11ac0a38d67f06ad88383d018e3720502d31dada7a9f2fc833",
+      "clippedAlpha128SourcePixels": 0,
+      "alpha128Bounds": {
+        "left": 300,
+        "top": 254,
+        "right": 748,
+        "bottom": 901,
+        "count": 200114
+      },
+      "footBaselineDelta": null,
+      "maxLandmarkResidual": 33.21917925002807,
+      "humanBodyFitApproved": false,
+      "ready": false,
+      "runtimeActivated": false
+    },
+    {
+      "id": "armor_traveler_rare_male_v2",
+      "status": "PASS",
+      "technical": "TECHNICALLY_VALIDATED",
+      "mapping": "MAPPED",
+      "fitStatus": "FIT_PASS",
+      "sha256": "cc96ad925b3c298a0e85f2cfeda2f1171130d83f6bd7c71080e1b43c87e7f0dd",
+      "clippedAlpha128SourcePixels": 0,
+      "alpha128Bounds": {
+        "left": 277,
+        "top": 242,
+        "right": 750,
+        "bottom": 911,
+        "count": 202130
+      },
+      "footBaselineDelta": null,
+      "maxLandmarkResidual": 32.86711991426206,
+      "humanBodyFitApproved": false,
+      "ready": false,
+      "runtimeActivated": false
+    },
+    {
+      "id": "helmet_traveler_rare_female_v2",
+      "status": "PASS",
+      "technical": "TECHNICALLY_VALIDATED",
+      "mapping": "MAPPED",
+      "fitStatus": "NEEDS_REWORK",
+      "sha256": "8ab265af7625024d18b9bce371aea993eaa378c4d641127930228882813144ef",
+      "clippedAlpha128SourcePixels": 2715,
+      "alpha128Bounds": {
+        "left": 338,
+        "top": 0,
+        "right": 694,
+        "bottom": 468,
+        "count": 82707
+      },
+      "footBaselineDelta": null,
+      "maxLandmarkResidual": 31.83552536253833,
+      "humanBodyFitApproved": false,
+      "ready": false,
+      "runtimeActivated": false
+    },
+    {
+      "id": "helmet_traveler_rare_male_v2",
+      "status": "PASS",
+      "technical": "TECHNICALLY_VALIDATED",
+      "mapping": "MAPPED",
+      "fitStatus": "NEEDS_REWORK",
+      "sha256": "8fbbdf7afc106525713572b897edef3a3782eeb860eb40bab7606199c75c184e",
+      "clippedAlpha128SourcePixels": 4150,
+      "alpha128Bounds": {
+        "left": 339,
+        "top": 0,
+        "right": 678,
+        "bottom": 449,
+        "count": 79808
+      },
+      "footBaselineDelta": null,
+      "maxLandmarkResidual": 38.16083962263791,
+      "humanBodyFitApproved": false,
+      "ready": false,
+      "runtimeActivated": false
+    },
+    {
+      "id": "boots_traveler_common_female_v2",
+      "status": "PASS",
+      "technical": "TECHNICALLY_VALIDATED",
+      "mapping": "MAPPED",
+      "fitStatus": "NEEDS_REWORK",
+      "sha256": "ae56dd6d0b8e3d3dbbc126f7863736281cf2271734d434122733f1b14fc91dd6",
+      "clippedAlpha128SourcePixels": 0,
+      "alpha128Bounds": {
+        "left": 225,
+        "top": 952,
+        "right": 807,
+        "bottom": 1514,
+        "count": 182074
+      },
+      "footBaselineDelta": 19,
+      "maxLandmarkResidual": 186.77169410338095,
+      "humanBodyFitApproved": false,
+      "ready": false,
+      "runtimeActivated": false
+    },
+    {
+      "id": "boots_traveler_common_male_v2",
+      "status": "PASS",
+      "technical": "TECHNICALLY_VALIDATED",
+      "mapping": "MAPPED",
+      "fitStatus": "NEEDS_REWORK",
+      "sha256": "e0f392c934da8376e9ee4d5b54e31be1de1f2ab65dc3cb102bf8fce17a7c6049",
+      "clippedAlpha128SourcePixels": 80,
+      "alpha128Bounds": {
+        "left": 210,
+        "top": 922,
+        "right": 819,
+        "bottom": 1535,
+        "count": 226421
+      },
+      "footBaselineDelta": 22,
+      "maxLandmarkResidual": 206.30095924462137,
+      "humanBodyFitApproved": false,
+      "ready": false,
+      "runtimeActivated": false
+    },
+    {
+      "id": "sword_path_common_female_v2",
+      "status": "PASS",
+      "technical": "TECHNICALLY_VALIDATED",
+      "mapping": "MAPPED",
+      "fitStatus": "NEEDS_REWORK",
+      "sha256": "2ce38d3ac68ac259cffa59e6067eefc2272486691d0eedd2a531d17ed4360d11",
+      "clippedAlpha128SourcePixels": 0,
+      "alpha128Bounds": {
+        "left": 170,
+        "top": 712,
+        "right": 559,
+        "bottom": 1330,
+        "count": 28269
+      },
+      "footBaselineDelta": null,
+      "maxLandmarkResidual": 31.60954739131587,
+      "humanBodyFitApproved": false,
+      "ready": false,
+      "runtimeActivated": false
+    },
+    {
+      "id": "sword_path_common_male_v2",
+      "status": "PASS",
+      "technical": "TECHNICALLY_VALIDATED",
+      "mapping": "MAPPED",
+      "fitStatus": "NEEDS_REWORK",
+      "sha256": "4b7c2c3f6b1798413b1bc7c1c8d700a09cca5e5ab0301ac027276dd0396050e8",
+      "clippedAlpha128SourcePixels": 0,
+      "alpha128Bounds": {
+        "left": 147,
+        "top": 308,
+        "right": 527,
+        "bottom": 921,
+        "count": 34062
+      },
+      "footBaselineDelta": null,
+      "maxLandmarkResidual": 84.38655988986476,
+      "humanBodyFitApproved": false,
+      "ready": false,
+      "runtimeActivated": false
+    },
+    {
+      "id": "sword_path_rare_female_v2",
+      "status": "PASS",
+      "technical": "TECHNICALLY_VALIDATED",
+      "mapping": "MAPPED",
+      "fitStatus": "NEEDS_REWORK",
+      "sha256": "b15f0d965098256c51557c3c00418b1bfe5bfb29260475c912f176ddad736965",
+      "clippedAlpha128SourcePixels": 0,
+      "alpha128Bounds": {
+        "left": 86,
+        "top": 693,
+        "right": 375,
+        "bottom": 1374,
+        "count": 48833
+      },
+      "footBaselineDelta": null,
+      "maxLandmarkResidual": 3.820572887897459,
+      "humanBodyFitApproved": false,
+      "ready": false,
+      "runtimeActivated": false
+    },
+    {
+      "id": "sword_path_rare_male_v2",
+      "status": "PASS",
+      "technical": "TECHNICALLY_VALIDATED",
+      "mapping": "MAPPED",
+      "fitStatus": "NEEDS_REWORK",
+      "sha256": "283f40926d2c012ed8517c8c8187b2f49a7a7f71b78939b1efe9b27851ffd09f",
+      "clippedAlpha128SourcePixels": 0,
+      "alpha128Bounds": {
+        "left": 76,
+        "top": 699,
+        "right": 361,
+        "bottom": 1377,
+        "count": 38059
+      },
+      "footBaselineDelta": null,
+      "maxLandmarkResidual": 6.115465076199992,
+      "humanBodyFitApproved": false,
+      "ready": false,
+      "runtimeActivated": false
+    },
+    {
+      "id": "shield_perseverance_rare_female_v2",
+      "status": "PASS",
+      "technical": "TECHNICALLY_VALIDATED",
+      "mapping": "MAPPED",
+      "fitStatus": "FIT_PASS",
+      "sha256": "1d0392230985f18b22ff043083af121fb9f276d526a3e8ecf4b9c93135dabe02",
+      "clippedAlpha128SourcePixels": 0,
+      "alpha128Bounds": {
+        "left": 642,
+        "top": 498,
+        "right": 927,
+        "bottom": 980,
+        "count": 82260
+      },
+      "footBaselineDelta": null,
+      "maxLandmarkResidual": 0.6304673533442489,
+      "humanBodyFitApproved": false,
+      "ready": false,
+      "runtimeActivated": false
+    },
+    {
+      "id": "shield_perseverance_rare_male_v2",
+      "status": "PASS",
+      "technical": "TECHNICALLY_VALIDATED",
+      "mapping": "MAPPED",
+      "fitStatus": "FIT_PASS",
+      "sha256": "bf0785671741851d4e64402984309cfc30ff80313da98cf453b3e3a57b40e2a6",
+      "clippedAlpha128SourcePixels": 0,
+      "alpha128Bounds": {
+        "left": 638,
+        "top": 508,
+        "right": 947,
+        "bottom": 998,
+        "count": 96065
+      },
+      "footBaselineDelta": null,
+      "maxLandmarkResidual": 3.9781460986557664,
+      "humanBodyFitApproved": false,
+      "ready": false,
+      "runtimeActivated": false
+    },
+    {
+      "id": "medallion_path_rare_female_v2",
+      "status": "PASS",
+      "technical": "TECHNICALLY_VALIDATED",
+      "mapping": "MAPPED",
+      "fitStatus": "NEEDS_REWORK",
+      "sha256": "74b84cdd74af6fb1d3df91c6fbf6f32e6cd05b08a5cd940d7ffb8bdf9f594f77",
+      "clippedAlpha128SourcePixels": 0,
+      "alpha128Bounds": {
+        "left": 460,
+        "top": 302,
+        "right": 579,
+        "bottom": 502,
+        "count": 9346
+      },
+      "footBaselineDelta": null,
+      "maxLandmarkResidual": 0.21360165114869092,
+      "humanBodyFitApproved": false,
+      "ready": false,
+      "runtimeActivated": false
+    },
+    {
+      "id": "medallion_path_rare_male_v2",
+      "status": "PASS",
+      "technical": "TECHNICALLY_VALIDATED",
+      "mapping": "MAPPED",
+      "fitStatus": "NEEDS_REWORK",
+      "sha256": "c51e2652cd4d8b69f583beb59a8efd2d8c159d2e15506b090c2cf281fb1e0996",
+      "clippedAlpha128SourcePixels": 0,
+      "alpha128Bounds": {
+        "left": 439,
+        "top": 303,
+        "right": 580,
+        "bottom": 520,
+        "count": 14279
+      },
+      "footBaselineDelta": null,
+      "maxLandmarkResidual": 1.3767806303075136,
+      "humanBodyFitApproved": false,
+      "ready": false,
+      "runtimeActivated": false
+    }
+  ],
+  "preservation": 315,
+  "pilotUnchanged": true,
+  "scope": "STAGING_ONLY; no READY, human approval or runtime activation"
+}

@@ -1,0 +1,56 @@
+[
+  {
+    "file": "world/arena/arena_training_courtyard.webp",
+    "size": 618934,
+    "sha256": "d1a2c334c0eb08461447f1acf2f39fdd67d56a2a385bf7c7b370d6ac09200263",
+    "width": 1920,
+    "height": 1080,
+    "hasAlpha": false,
+    "origin": "Arrived externally during TASK-0041; not approved or modified by this task"
+  },
+  {
+    "file": "world/arena/arena_training_courtyard_960.webp",
+    "size": 200896,
+    "sha256": "4294088d0b16b7de28e61b1c7fafc05069c2dba137f369b4aa0415c6d3d3145b",
+    "width": 960,
+    "height": 540,
+    "hasAlpha": false,
+    "origin": "Arrived externally during TASK-0041; not approved or modified by this task"
+  },
+  {
+    "file": "characters/arena/arena_davi.png",
+    "size": 2249874,
+    "sha256": "9ab5c7ff317434ff41bde172640f6d60426dbcfe09f878235aeaf7731dbcb5af",
+    "width": 1024,
+    "height": 1536,
+    "hasAlpha": true,
+    "origin": "Arrived externally during TASK-0041; not approved or modified by this task"
+  },
+  {
+    "file": "characters/arena/arena_elias.png",
+    "size": 2434126,
+    "sha256": "5363d3e92609128b7f31e1cd3d8ce65d1fbbba0c5fc0ad14d451c664991362ca",
+    "width": 1024,
+    "height": 1536,
+    "hasAlpha": true,
+    "origin": "Arrived externally during TASK-0041; not approved or modified by this task"
+  },
+  {
+    "file": "characters/arena/arena_mara.png",
+    "size": 2750106,
+    "sha256": "a8f3a68ddbed7eacbf57af9278cfb24922d7d06adc0f2eabe66d48e1663b034a",
+    "width": 1024,
+    "height": 1536,
+    "hasAlpha": true,
+    "origin": "Arrived externally during TASK-0041; not approved or modified by this task"
+  },
+  {
+    "file": "characters/arena/arena_noemi.png",
+    "size": 2120453,
+    "sha256": "f7e84ad1cb5762b9a7bee4dac32b6d7266928b76d0f4fb4c4c21b08c28b80755",
+    "width": 1024,
+    "height": 1536,
+    "hasAlpha": true,
+    "origin": "Arrived externally during TASK-0041; not approved or modified by this task"
+  }
+]

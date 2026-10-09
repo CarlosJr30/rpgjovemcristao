@@ -1,0 +1,4316 @@
+{
+  "files": [
+    {
+      "path": "apps/web/features/journey/components/avatar-runtime.tsx",
+      "sha256": "082e450dcf153d8f3a4b5c9f2d7002f28cd6a0d5149731e37788ae6599a66908"
+    },
+    {
+      "path": "apps/web/features/journey/components/snake-chase-game.tsx",
+      "sha256": "1b6e6652264a939cc8e5dc6db5dfe826b9d66a6cdb006c69674e7c064428ef0f"
+    },
+    {
+      "path": "apps/web/features/journey/data/attributes.ts",
+      "sha256": "72b3c90d0ce57bd793ab518d7cd726b0b0ce6d857a5c6674a5d54649cfe0bb59"
+    },
+    {
+      "path": "apps/web/features/journey/data/avatarHDApproved.json",
+      "sha256": "31d4390eb29ccb5d5d6c02a60f32c967658d9693c239880fe6f5f7a051de1921"
+    },
+    {
+      "path": "apps/web/features/journey/data/avatarHDPack.ts",
+      "sha256": "40291e4dcec47cb4b41a2991ad1d9dd855e71a72a1dc46dea35a7b2eaf06ef73"
+    },
+    {
+      "path": "apps/web/features/journey/data/avatarRuntime.ts",
+      "sha256": "aec128c17830a2fcd877ef88edcc726742db00a0a2362833b56db93f9cbb1e59"
+    },
+    {
+      "path": "apps/web/features/journey/data/bodyAnchors.ts",
+      "sha256": "4771c7f9c1e1fea400ee7a40597384c30f7dda695ddc34a82fd4f2dfcf3619f7"
+    },
+    {
+      "path": "apps/web/features/journey/data/bodyFitV2Plan.ts",
+      "sha256": "a9e646fd8af62bbecceb4be0cfa44b4c5cb9340bf041986f5fc652f0d266b889"
+    },
+    {
+      "path": "apps/web/features/journey/data/equipmentAssets.ts",
+      "sha256": "51d7dca8ddf6d4999036f60a906ef1512481bda0605c88cf4eb49a49fe7cd58c"
+    },
+    {
+      "path": "apps/web/features/journey/data/equipmentCatalog.ts",
+      "sha256": "b249fddce0d7e65be140aff2369fea1d1d0fd6cf34452f798c2baf6ddcbb2032"
+    },
+    {
+      "path": "apps/web/features/journey/dev/body-fit-panel.module.css",
+      "sha256": "a84d4f77fd81092b4292d9e828412a961f7712b79335094e834c3816f42115c9"
+    },
+    {
+      "path": "apps/web/features/journey/dev/body-fit-panel.tsx",
+      "sha256": "d482683383e6377c9d42b7aa188b8deca3dda9b3c1db62eb89ac57d4ebaf7b12"
+    },
+    {
+      "path": "apps/web/features/journey/domain/traveler.ts",
+      "sha256": "5d05b02b400966e2af374d53abf8deee774af61d2c211d86e290826fb223ff3c"
+    },
+    {
+      "path": "apps/web/features/journey/persistence/arena-storage.ts",
+      "sha256": "009287adde0b58c053c0e58785982c00782d912f49e9d3a742039c2c1a1ad1ed"
+    },
+    {
+      "path": "apps/web/features/journey/persistence/journey-storage.ts",
+      "sha256": "9a64ed918c475d15ed7b4f98a9eea4ab9ccf1fc37180b37510a991ba5aa437ca"
+    },
+    {
+      "path": "apps/web/features/journey/screens/arena.tsx",
+      "sha256": "2904f6bee1665aed47f77a81dcae170e385585ac10d4736e6a90e7938f3fb333"
+    },
+    {
+      "path": "apps/web/features/journey/screens/diary.tsx",
+      "sha256": "d60fbf4bdb763d3e777ce6ed1038d5febc39438c4692419e03ce4a4682ef4d15"
+    },
+    {
+      "path": "apps/web/features/journey/screens/guild-hub.tsx",
+      "sha256": "f14be405e89cadfdbd058a125947a4e94b93c0b8242f552150f2fc5ff24051f7"
+    },
+    {
+      "path": "apps/web/features/journey/state/registration.test.ts",
+      "sha256": "f7ca171f0da7d6886a8b55d2d675f8bf372263afa7f5771d4d9f7097ec1df40f"
+    },
+    {
+      "path": "apps/web/features/journey/state/use-journey.ts",
+      "sha256": "64d6025d206cb6950f23298ac6d15829d5c9e10e8676ad3b3ad4b9164c38d56d"
+    },
+    {
+      "path": "apps/web/package.json",
+      "sha256": "fa10e93e559cc6b193874295874fcba047b8636d597319f6b588e2bfd300d10b"
+    },
+    {
+      "path": "apps/web/public/assets/audio/effects/arena_attack.ogg",
+      "sha256": "c0d9c0b7e6816704622ec70211d1d3c82b0b0a9efd0b5fa947218d647a38b484"
+    },
+    {
+      "path": "apps/web/public/assets/audio/effects/arena_defense.ogg",
+      "sha256": "12bffebca55bbfef7333534206c71e373270bc5de85970553f2bd63161b1027f"
+    },
+    {
+      "path": "apps/web/public/assets/audio/effects/arena_dodge.ogg",
+      "sha256": "5f32b1b09a21c72ac89de150b65a3503554174440cff2033d5b36c959af4ffb8"
+    },
+    {
+      "path": "apps/web/public/assets/audio/effects/arena_focus.ogg",
+      "sha256": "e186d41474f14690af308c197c734ecaf1d7bee7912b7e325cf3baeac8030203"
+    },
+    {
+      "path": "apps/web/public/assets/audio/effects/defeat.ogg",
+      "sha256": "90ade25672796deab35fde94cbf824a1b3f7cb9b2f69cb7308e8dec2914718ff"
+    },
+    {
+      "path": "apps/web/public/assets/audio/effects/player_hit.ogg",
+      "sha256": "f95d37ed16d56f278a5d592317c6539efa9a0dc08441e5a830d46f80b97e892b"
+    },
+    {
+      "path": "apps/web/public/assets/audio/effects/victory.ogg",
+      "sha256": "7c18cc1013e887e37980f6c9c199fda1626a7f1cca0e688ff621c3330ef0d945"
+    },
+    {
+      "path": "apps/web/public/assets/audio/music/arena_training.ogg",
+      "sha256": "9fd927742b21cbfc397a4b4b9fa85a988a07777d60b7d6b932b67aa949fab8bf"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/base/hero_female_base.png",
+      "sha256": "36653e585cf2ace14593a528fcb7bdf918ad2e03957d4083ec1c57ac7c45f78a"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/base/hero_male_base.png",
+      "sha256": "4d95b9c25830ea17a342310756db2fe37f3ed344745504bc8db30825bbcd8b76"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/face/female_face_01.png",
+      "sha256": "db4054620146511a884fe41f98779a44acaac0aa141a71714f4b0649bf83e24b"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/face/female_face_02.png",
+      "sha256": "805db895c8290f7dbc1e6f7773b195de0dddaa2b03942dcbe2c9cc2ff4c9d703"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/face/female_face_03.png",
+      "sha256": "acb8e575595f2b379db73e73fbf43faa805fba4a88afa825c5108e69f99712fb"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/face/male_face_01.png",
+      "sha256": "27bb9009cf0f1db745f1119543ea2562bcc018531bda61971605cd85e3542632"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/face/male_face_02.png",
+      "sha256": "b16eaf3fecefbecfdcf1bbb4fc874d8266d0d469d69ac4813e34c4e83b2abf12"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/face/male_face_03.png",
+      "sha256": "1b097e114ef19bb41a9c60248dc3ab033e29d498f9ecdcddb84a357b031784dc"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hair/female_hair_01.png",
+      "sha256": "7b873d50208fc970819bb737547ae8167f03e05630424c9564c3a35520aabd52"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hair/female_hair_02.png",
+      "sha256": "13f20ca6976d5981e7782f8a2796eaa22d0339e672d0abc5a70d433ea3a2d37b"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hair/female_hair_03.png",
+      "sha256": "aedd5fe0765042a805c3374b98b2ebf105f5a1c19e9cc44d1967400d6085e81d"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hair/male_hair_01.png",
+      "sha256": "32d4b1ac8f99d654d9d1c5a494f2907869608b48cef6190830c6ff2c29ef0b90"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hair/male_hair_02.png",
+      "sha256": "38562539009fad8e8941ddfc7acbe45a576801d2b30c75f4a678f3d049b24015"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hair/male_hair_03.png",
+      "sha256": "2e641d94f636bd57f011647a0b0637187799e6ec56a119d9fc55e90b7324316d"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_curly_blue_dark_hd.png",
+      "sha256": "c96e8b93f23e732ead9f0243f7d390293e20ab6c2187f0e260dbc190872591c2"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_curly_blue_light_hd.png",
+      "sha256": "8dc450bdcb0730fca04571c9628b7c21807b6f63800eebfe11e2813ab806d0ac"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_curly_blue_medium_hd.png",
+      "sha256": "69ee723023e71d7eceeabbf6ff529bddbb4b45edbb6b2b9c2a863a5b9d2d2201"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_curly_moss_dark_hd.png",
+      "sha256": "8dc002903a6d817ed3e88bd074c2e4bdec29851012b2d54f59e395c217e4feef"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_curly_moss_light_hd.png",
+      "sha256": "9a3429cbf48879a4dce7d3c864efb0a96e046824e608c715868d73c6add0574a"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_curly_moss_medium_hd.png",
+      "sha256": "facd724c6cfba397ae2e5808e6c2f70bd47e98fe8ad4ea89e8e369615dbac339"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_curly_ochre_dark_hd.png",
+      "sha256": "4bad1dcd741d745b2fa66202814470bd59af3a22faa14d12851471262fa4fa31"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_curly_ochre_light_hd.png",
+      "sha256": "ed613e15a51bbcdae2a0d57eaa29b768501e25c8df3a8f9977540760e5655fa9"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_curly_ochre_medium_hd.png",
+      "sha256": "e0a0f6ff69aef40fc9cbcf0655e18962397e851ad9c173056882744aed25df67"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_long_blue_dark_hd.png",
+      "sha256": "8965ed75ea6fed37f0f20bda47d1e89cde09ef5bba38bcb977a8331cd2ce6e9a"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_long_blue_light_hd.png",
+      "sha256": "1d9ea6451ef5004b50eeaf3fe6f5ba0a4be7e9e5b9b792b08913b14347a6b62f"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_long_blue_medium_hd.png",
+      "sha256": "7cccad3f330823bf6172f482e19846aebeee7b4a63098a88e88b2033119478e7"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_long_moss_dark_hd.png",
+      "sha256": "af2a67a75c3f59c6f59c1595cc255174478e081652ec6cf661d63863bdd897b6"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_long_moss_light_hd.png",
+      "sha256": "b58b4eac65b271c8dd8c598d05ff05f0e8ab50936c2a6903cdaf47c40c0fe2f5"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_long_moss_medium_hd.png",
+      "sha256": "14a85fed5713caed593d151119231f9e6b477aeb503b6791f1bff800d489aae4"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_long_ochre_dark_hd.png",
+      "sha256": "24f0d3abfa9c0fd04670a98ea6e28354e8c6906232f25a1daf45df04d93b106c"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_long_ochre_light_hd.png",
+      "sha256": "8d8344f596c2819c97630cd1d6ad96a1823d2b2738ee2543021773765ee03d3f"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_long_ochre_medium_hd.png",
+      "sha256": "9a66160fe37601d540896b078619fb8d983b1432bb43300722713d09b2d66821"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_short_blue_dark_hd.png",
+      "sha256": "691d944d7eee8ef015f5427280b2b72379a2dfedfe20af61736ebad6d8598380"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_short_blue_light_hd.png",
+      "sha256": "f3a580c2305f3415ea5d01ed880ab9eda95ad20dd3c1ae572fec2cdee8cf14ac"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_short_blue_medium_hd.png",
+      "sha256": "3fb0c1fbf7991b717754f7a7c82c57014273fdbe3fea20df0103f034c2b0684f"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_short_moss_dark_hd.png",
+      "sha256": "65ae8c6308032994d7ac80d2d53503c6af4c12f92a4b1f266cba9480b02b1032"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_short_moss_light_hd.png",
+      "sha256": "ffa9d2698c7d1e67497cd7006d28294d2d17e31ed06e05b56e3bae1cf0a56162"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+      "sha256": "f260cb9b053b35c328025f1bc7ee602cbb30e57c71ba1f2238a4b1519685f460"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_short_ochre_dark_hd.png",
+      "sha256": "cf7fab4691bc7380d6e9304106900859da05838a0afbaf4428513ca542e1cd52"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_short_ochre_light_hd.png",
+      "sha256": "b0e475eb240f148e3b6ba6c60d2b53b62c153254b0151b11ff46d91d0edb81ff"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_short_ochre_medium_hd.png",
+      "sha256": "31117e2ae50cc207a02b4f65c70f97df37e82db54f8c70e35a8adade08e41ae2"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/male/male_curly_blue_dark_hd.png",
+      "sha256": "5ff01c5eb2aa68a3fa0ba3c8d3722c21a92861c442a5db4fdc32884e8c9793ae"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/male/male_curly_blue_light_hd.png",
+      "sha256": "f4a119053fe94850222d606ca7ab5907399fec28246b8700338893a25897713c"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/male/male_curly_blue_medium_hd.png",
+      "sha256": "65d4233a10037109e5dac652e607b87d9a7856d2e30ba8511bd8ff52d2f40758"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/male/male_curly_moss_dark_hd.png",
+      "sha256": "a414e8d6888aa147c9256a1cec04eac67c444a21d26ba0a09ff848a1feb6fd1c"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/male/male_curly_moss_light_hd.png",
+      "sha256": "4134196166b8578f87e445a5d19fc32f940137dd007942b94c811af6e8749ec4"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/male/male_curly_moss_medium_hd.png",
+      "sha256": "c2aaea7d357ef0aeec5bd5ebf9f0842e82b30d5605ccab9ad920b1fb50861afc"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/male/male_curly_ochre_dark_hd.png",
+      "sha256": "17cc19e6a3813277a844f46f684b9d4dd730270d5b709168c21f0e939dc9fb36"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/male/male_curly_ochre_light_hd.png",
+      "sha256": "8cff7e8e43d0f3372e7ac22663adfa7380cc27b87c5bac1332c4e4e01542141e"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/male/male_curly_ochre_medium_hd.png",
+      "sha256": "e58d45c166bf154c320d0a5cad530ccfe42a0bf8c6a093a050c66250329be8cd"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/male/male_long_blue_dark_hd.png",
+      "sha256": "9d243e0ce2f10ffb7cb2e86ef1cdaed6ded161b9d052e7611ef020a7956105df"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/male/male_long_blue_light_hd.png",
+      "sha256": "d7b69134b6429fe3d305380d39adf2149ff955782afba17cc563f0aded780191"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/male/male_long_blue_medium_hd.png",
+      "sha256": "e390217b97a4bf6dbb54b42e2b7b043d98184901cf164ab42ff6b9af83ec01a4"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/male/male_long_moss_dark_hd.png",
+      "sha256": "561c0da9f89bb56bebd4584a6750c977e5819c1fb503e7703610bcd7659ca9a1"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/male/male_long_moss_light_hd.png",
+      "sha256": "24bbc5a3ec9a4ccee28864dc6868de1e137a29575d34bda072c7298d8dd8b0dd"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/male/male_long_moss_medium_hd.png",
+      "sha256": "7105d9b86cd74645d2a9ad7fb65954e9b4764b5dc7972d3cf8bcc543f69565d0"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/male/male_long_ochre_dark_hd.png",
+      "sha256": "3ccee1a98a598903d47b351e62f4b3af505123711158fe6601054ee5cd40d3ad"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/male/male_long_ochre_light_hd.png",
+      "sha256": "e8548f8771dd172f55e456358ed99ed5423532cf1f0dfc3fb099451ba6ba2ad6"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/male/male_long_ochre_medium_hd.png",
+      "sha256": "bc0ab9ad75d36d038c20f352a3c50ec84eefe8bcd3910e7d7263c7bebd6ed285"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/male/male_short_blue_dark_hd.png",
+      "sha256": "8771935dcc7a529b5b0bfe958d6da38f70ef31c50f86655a97f2936eacadf8c3"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/male/male_short_blue_light_hd.png",
+      "sha256": "98b5e7c9d50151af6da95dd7a813f6f4304d7cd292a6c85ff7fa68b6e03bf302"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/male/male_short_blue_medium_hd.png",
+      "sha256": "6f732859e75bbdebb5b69120dc00e0d4342025cfed84a4106ab6d0ad9adaf224"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/male/male_short_moss_dark_hd.png",
+      "sha256": "b32dafb858dac73b8a49f4d7275b1a30806948db11cb8e958f8e9adfb9f3866f"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/male/male_short_moss_light_hd.png",
+      "sha256": "66f5dc34b6dc5c07c2a6dff581e60fa23f0e22bd10845c019bc2d42a8c365ce6"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/male/male_short_moss_medium_hd.png",
+      "sha256": "b182c2e29b512b337891716a413ab7efaad737e23c6354779fae17fe19b8af34"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/male/male_short_ochre_dark_hd.png",
+      "sha256": "b6b0c87a7fd62286fb17cc90e692a6cf09d8f06e031d7e0a3c1b38b841baaa94"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/male/male_short_ochre_light_hd.png",
+      "sha256": "15de9f313b5af24574854d16a85bec4be3569b29f502b578c2c0c3995a168d35"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/male/male_short_ochre_medium_hd.png",
+      "sha256": "00d5d22f7dae0fdbce82555797b902f26c590abadc9ae5579e0b4ffb2ad16d18"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/masks/hero_female_cloak_mask.png",
+      "sha256": "06b651091bb5c84d5ec9737be0ff875643c8d4b4055aed9c6d692d81ab9e61a6"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/masks/hero_female_skin_mask.png",
+      "sha256": "25ff2c40b94fff0d1a260e835cef8fc0fec639af35522ba8b7220391aec60481"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/masks/hero_male_cloak_mask.png",
+      "sha256": "bd191253df1ca1b51b4b78aa835e7d9bb705e1a879fd1c1f8e88ef67fbc7b4b8"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/masks/hero_male_skin_mask.png",
+      "sha256": "388071195ec0eac46d556ff13422825dae7c3b308bc4d1b584367b682ef794d1"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/avatarRuntimeAssets.json",
+      "sha256": "eb0875e39dff5ca3490a3130cd00562808207f11e0dc6d71143bbdc7e7de4024"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/female/female_curly_blue_dark.png",
+      "sha256": "2017bf26cdd89d4779d34a688687992c98276ddbe2cd4b6979bc3ad0976f1c98"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/female/female_curly_blue_light.png",
+      "sha256": "dc532e95789414ec9a3e95545de01a34d8277f01acfa95c01aa6637e13d22792"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/female/female_curly_blue_medium.png",
+      "sha256": "803264f9fb6d45cb66e06d41a1f0c64c223e8ee7ad47eff4e5399569a9e9a0d2"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/female/female_curly_moss_dark.png",
+      "sha256": "c803d842ea9e633b4ae4e9e7165269b7ae970449a7747ddc0ed15917ff0f9857"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/female/female_curly_moss_light.png",
+      "sha256": "baa360bf67ba1135eea7f70c9cee821fdd6ac2ee6a50ab5d0be233bf2026a328"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/female/female_curly_moss_medium.png",
+      "sha256": "55415e293fda7e5f3858676be107e4375d80396ac5bdaf38e456d1fc2475b771"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/female/female_curly_ochre_dark.png",
+      "sha256": "84725238574df3e169eba8d2e141195131b1a83523ce6ca2a780e32ca460d0d0"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/female/female_curly_ochre_light.png",
+      "sha256": "5aab4777a5d0d84e288eb7482909569e5dbb947d5d419bdf050766a651aa1048"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/female/female_curly_ochre_medium.png",
+      "sha256": "167d817c2cd531237ee2b5458fb7acb62ba66c21e74d625a06c834e9bdf4bb89"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/female/female_long_blue_dark.png",
+      "sha256": "1dc1a4d6a1db65b1d64a3c0025ba9cee1f3b5b9413aa6bd3b8761a1ae2afd0dc"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/female/female_long_blue_light.png",
+      "sha256": "95363555c7a324ab2d9a6469815e75fb29420c8e7f6914d9a1c40cc7bbbf96eb"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/female/female_long_blue_medium.png",
+      "sha256": "96a0dc1d82dfad258683714bc69c408e6bc71f98cf0b1962ce6081d7c0f23675"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/female/female_long_moss_dark.png",
+      "sha256": "f0ca78cc62be1b7270a47be74bb637874ebf9bd199b2a45af140e68719c87e55"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/female/female_long_moss_light.png",
+      "sha256": "dcff0d1a0d506b8ec78c57a9e13c5e3cd6f4f5077fe6958830bc1afbcd156e59"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/female/female_long_moss_medium.png",
+      "sha256": "4070946a7b42c2ce9057e84c908ba66029495f70bb2fbcc53168e4ed0e09e67b"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/female/female_long_ochre_dark.png",
+      "sha256": "85d27730bf6df1ed42f6481b2b0527af981b5a392388df715a12d03fbac7828e"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/female/female_long_ochre_light.png",
+      "sha256": "24d3f550b156f1729b9884032a00c0df1354146031ca34be2974396f2164b12a"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/female/female_long_ochre_medium.png",
+      "sha256": "bc94360266cd87b96275ec36148221f795c8092c5de8d69f228124c8db908bb8"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/female/female_short_blue_dark.png",
+      "sha256": "da90e71cec8c19006fab450b8b9f52c5061ba42ad241506bfda9afa375a4b959"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/female/female_short_blue_light.png",
+      "sha256": "12c5b826a9a9b2e5df72975f51feae021f3dee267baf21dab33f8441940ffc96"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/female/female_short_blue_medium.png",
+      "sha256": "d58fbd1849c5b5556db6a311ee92ad4e22c466797e8dbe133547b24b06077e1f"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/female/female_short_moss_dark.png",
+      "sha256": "71c2d7aaf3490011dec9baf4230e739d7810f1cb2c7407d3b932002bc6ab9d5b"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/female/female_short_moss_light.png",
+      "sha256": "beb75c61c775962c0ce5e1a416be5f1a509cc0caa5eb19d3a7b8bd39ba3ee45e"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/female/female_short_moss_medium.png",
+      "sha256": "3cd1d303462f627ecd90923ad8b5d82c4d2e4e2fc2ba1f3608f1b39da3cdb44d"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/female/female_short_ochre_dark.png",
+      "sha256": "653cf540099c5ecfa08e9dd980a4e924d2ac0041b9c3b2d0e3f6af1d19cfb609"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/female/female_short_ochre_light.png",
+      "sha256": "0f5ebf50e65bf62094e65a218657832e0050edd4ff16da95b14f0df364ca10a1"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/female/female_short_ochre_medium.png",
+      "sha256": "6c62121adbb864ade99101d4ed8688de9e18017ec6b70d4bdb661dd09b0c7f0e"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/male/male_curly_blue_dark.png",
+      "sha256": "fc97507a796cc4abf01998b2673b18b4101bbb2d1fe53986c5cf3d3839fe0950"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/male/male_curly_blue_light.png",
+      "sha256": "942513968f2f498bd46cfef920d329c7480f0c55515c3bf77c190ed2ffbd3ca1"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/male/male_curly_blue_medium.png",
+      "sha256": "4699e82a8edafe8f8d3db2505b7c1252b6b71e8ba407fdfe9e431070b2ead625"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/male/male_curly_moss_dark.png",
+      "sha256": "7d72e963f6228da5e24a678568059ae9775b764a2f2caa962e20e33b84b3281e"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/male/male_curly_moss_light.png",
+      "sha256": "63edc01849c73d61aadb824c345cbdc181afb1e7035e6c2570bff370e9179fe4"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/male/male_curly_moss_medium.png",
+      "sha256": "f4ecfd6beac4918a84296de268d1a10a2ce9631e0143e88f736b51fff721966c"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/male/male_curly_ochre_dark.png",
+      "sha256": "9c78e48f194487d5875d35d94b6dba98eff1e68c8e4f4c340a1dd0f514cc7f89"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/male/male_curly_ochre_light.png",
+      "sha256": "e8489cba1883a2904b2e5953a876fa3370719b0dba5806c45be8e26298b61b7e"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/male/male_curly_ochre_medium.png",
+      "sha256": "94b95c8248b3b698b9ece2dabb4a70b9301ff458b762ffd33cfbf6b5792a0cb2"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/male/male_long_blue_dark.png",
+      "sha256": "ef3281dcf100bda4f578ca963996cabe060c2acea5ddf65f5d85bdd423afa008"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/male/male_long_blue_light.png",
+      "sha256": "55c212e914dd9dbd3d1461028cf5bea2961964dc480190d149fd6ff16a67df1d"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/male/male_long_blue_medium.png",
+      "sha256": "74ed766373fe2016f0c728bb6ee54112a17710028098a6e8812ccc412f75c1aa"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/male/male_long_moss_dark.png",
+      "sha256": "65bd15d6e4208896b33a6165733e1f731d633ef9f2745be29e9dae3cc96b2f56"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/male/male_long_moss_light.png",
+      "sha256": "6ef0371c1cf04b0efd9a78fb42fac73d4f9cb7ee4cf58274d0020acbdc2142b4"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/male/male_long_moss_medium.png",
+      "sha256": "d0ed53a314b35db35f30d749c78df373885e31ae6123de73929771e9ccae9b57"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/male/male_long_ochre_dark.png",
+      "sha256": "52e9125efa4f5a029f0cdbda3cdd7956860f5fa8d3e479c13df731a968878467"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/male/male_long_ochre_light.png",
+      "sha256": "d864a2bab6e56858493e2ade4227aa5db0c7c364352b75ad49b4dad4855bae13"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/male/male_long_ochre_medium.png",
+      "sha256": "769973e7dc48227215e839b12cbfb5ccd5c1b0161d8758a7ebc9e62f4033e549"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/male/male_short_blue_dark.png",
+      "sha256": "0a55390cf9281a2fbfb22ee37a275fedf51e1430d67a5e3968cdace0ea2aeac5"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/male/male_short_blue_light.png",
+      "sha256": "5e1a96df08206ae21e6d3dd073fa50c22492f055dac33c60a67db0e260048ae6"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/male/male_short_blue_medium.png",
+      "sha256": "fa180a6c82c082109b20f90f5924d97cfd1907c42ed334f874d9e1be7cefea09"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/male/male_short_moss_dark.png",
+      "sha256": "ce20ad368ed7b83467ff013eeb3eba00a8f1aff73b9b8e17b983367df364d590"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/male/male_short_moss_light.png",
+      "sha256": "a33d6306209e6f9fe31a3fcfab142d95b58a41c9c7a57cbc0587205e2a5881fb"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/male/male_short_moss_medium.png",
+      "sha256": "f138e1a28bab2ef0ebdc7f6fff2463f66c3fa7b9121f22df9c997c3427b82652"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/male/male_short_ochre_dark.png",
+      "sha256": "f171adc495a410762b0509db5e64f46599e0635b70be99b68dc45183e63487de"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/male/male_short_ochre_light.png",
+      "sha256": "d4982365b012655501c1e2c50719169a0d47247f1e0237a6d17ae2182264d2c4"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/runtime/male/male_short_ochre_medium.png",
+      "sha256": "41db244f55cd345615f350054891ccff1eeb98cfc11a425e9b15c23a3f579d6c"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/states/female/hero_female_back.png",
+      "sha256": "0509ff76dca84e73a7f42002968c4a1e9f7d1c0bcafc99b1e2439d6cf01e3415"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/states/female/hero_female_idle.png",
+      "sha256": "d249eed019be54fa59152ee85b6c692f862681fd3ab1d34c19e51d97b2fb9058"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/states/female/hero_female_walk_01.png",
+      "sha256": "b195941bd48e4350c1c38dafbf53bcdff0cb6623a65815607fdbfed0f7a909b9"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/states/female/hero_female_walk_02.png",
+      "sha256": "2db0fb3ea22a21c4811d1e07c1a8c4ef14106d7b811ba6311bf0ebd7f2b3b704"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/states/male/hero_male_hurt.png",
+      "sha256": "a6fda03cdb063da0bf34e717d18408deb378f23412e3011108b53167171ae8b9"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/states/male/hero_male_idle.png",
+      "sha256": "eb5584bc481ab689e8f5e446d51736f072f7c8fa419982a4fc8e704667c9d8c1"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/states/male/hero_male_prayer.png",
+      "sha256": "1c8ba423641cdbb63471183f8afb36e5baefef2ce239f946b4d24fc489e161d8"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/states/male/hero_male_victory.png",
+      "sha256": "866219f11c88433d36f8ec5fb7d2deca4d07006ca69221de0ca72b32ff09f226"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/states/male/hero_male_walk_01.png",
+      "sha256": "0b871c1caf26fffdee59cd318574bfa2d13759087ef1619c45106383853bbdc7"
+    },
+    {
+      "path": "apps/web/public/assets/avatar/states/male/hero_male_walk_02.png",
+      "sha256": "539765c1b2e1ab681093bd3775bda5626ce631330e1e71478cd2b566775f6e7f"
+    },
+    {
+      "path": "apps/web/public/assets/characters/arena/arena_davi.png",
+      "sha256": "9ab5c7ff317434ff41bde172640f6d60426dbcfe09f878235aeaf7731dbcb5af"
+    },
+    {
+      "path": "apps/web/public/assets/characters/arena/arena_elias.png",
+      "sha256": "5363d3e92609128b7f31e1cd3d8ce65d1fbbba0c5fc0ad14d451c664991362ca"
+    },
+    {
+      "path": "apps/web/public/assets/characters/arena/arena_mara.png",
+      "sha256": "a8f3a68ddbed7eacbf57af9278cfb24922d7d06adc0f2eabe66d48e1663b034a"
+    },
+    {
+      "path": "apps/web/public/assets/characters/arena/arena_noemi.png",
+      "sha256": "f7e84ad1cb5762b9a7bee4dac32b6d7266928b76d0f4fb4c4c21b08c28b80755"
+    },
+    {
+      "path": "apps/web/public/assets/equipment/amulet/amulet_of_the_path_icon.png",
+      "sha256": "5a08e15d90a2f666fdcccd28685ba03d80b83b88d11057c1e9f93ea414a9a82e"
+    },
+    {
+      "path": "apps/web/public/assets/equipment/armor/traveler_armor_rare_icon.png",
+      "sha256": "b25fb938a263450a8c61d5e5e9d5a7af7b0bbfefeac34a729ec43e3a7dcc9be7"
+    },
+    {
+      "path": "apps/web/public/assets/equipment/boots/traveler_boots_common_icon.png",
+      "sha256": "469d17fc3b67bc05f9ca5c0fe735d66791f2231abecc4a36e6a72e7265c3022b"
+    },
+    {
+      "path": "apps/web/public/assets/equipment/helmet/traveler_helmet_rare_icon.png",
+      "sha256": "3f1ea0d90cde264ac3820c1487dd65c2d6e527b3ccad9060d033c6325f680d07"
+    },
+    {
+      "path": "apps/web/public/assets/equipment/overlays/v1/MANIFEST.txt",
+      "sha256": "dfd4106b8529ab3601417a3ff328e1ec111cab5104bf6912e7ce7e8551633093"
+    },
+    {
+      "path": "apps/web/public/assets/equipment/overlays/v1/armor_traveler_rare_female.png",
+      "sha256": "383d43efc1a67bcbec85bbe2dbc59736d0b1bb2fbb18f5dc24a89679223f189e"
+    },
+    {
+      "path": "apps/web/public/assets/equipment/overlays/v1/armor_traveler_rare_male.png",
+      "sha256": "519cc41011f5869b2c2420fa058ade065c9e497e77a54cc16605b295606068db"
+    },
+    {
+      "path": "apps/web/public/assets/equipment/overlays/v1/armor_traveler_uncommon_female.png",
+      "sha256": "c369515f8e167f1cb7182e192023f4197193c225d29cb5662acebe89f046bca2"
+    },
+    {
+      "path": "apps/web/public/assets/equipment/overlays/v1/armor_traveler_uncommon_male.png",
+      "sha256": "f6fab7ea8d9fa2ad085ae9bfe7f74ce40af50220121d51645152777c0aa0b8f2"
+    },
+    {
+      "path": "apps/web/public/assets/equipment/overlays/v1/boots_traveler_common_left_female.png",
+      "sha256": "1995a1dc412fbb1902fef7967b5d159fed5eeafcc54bb17e4677bf5ec904e506"
+    },
+    {
+      "path": "apps/web/public/assets/equipment/overlays/v1/boots_traveler_common_left_male.png",
+      "sha256": "aa2dbee90f59dab9eec93360064e5545ca4160cd228ef14018ef3159f190942b"
+    },
+    {
+      "path": "apps/web/public/assets/equipment/overlays/v1/boots_traveler_common_right_female.png",
+      "sha256": "e555a6095fc0bb1882e591e240e1e0d3054b401255d350eb40762f0da1bd189c"
+    },
+    {
+      "path": "apps/web/public/assets/equipment/overlays/v1/boots_traveler_common_right_male.png",
+      "sha256": "7d9ca69fc985567364e798ee8592d3c485777001628d303e8ce977c1ea480489"
+    },
+    {
+      "path": "apps/web/public/assets/equipment/overlays/v1/helmet_traveler_rare_female.png",
+      "sha256": "809d2a2d587f285e2ba9e2898f2b495872d6c68cda5b5e43c9966c06632352c9"
+    },
+    {
+      "path": "apps/web/public/assets/equipment/overlays/v1/helmet_traveler_rare_male.png",
+      "sha256": "e3522c526e98b00378885bd26f52ddd29d470eca22685c2882f210052cde4874"
+    },
+    {
+      "path": "apps/web/public/assets/equipment/overlays/v1/medallion_path_rare.png",
+      "sha256": "7b009cfd5efa85d3de565a17a7d532f6ad781e6b0733790330208a74fe56a732"
+    },
+    {
+      "path": "apps/web/public/assets/equipment/overlays/v1/shield_perseverance_rare.png",
+      "sha256": "62523e42ed6b2c7bc807527b6caad0ab71f429824131b1a153e4b4df46f59f55"
+    },
+    {
+      "path": "apps/web/public/assets/equipment/overlays/v1/sword_path_common.png",
+      "sha256": "cd2caa11876100fc7136f7f30d55efa41cff2e00eef3f2202a9ed354acf4ef22"
+    },
+    {
+      "path": "apps/web/public/assets/equipment/overlays/v1/sword_path_rare.png",
+      "sha256": "340c6ea989390e2f630ac97b1982d98a85e3983d185a2dee86f6eca12115e441"
+    },
+    {
+      "path": "apps/web/public/assets/equipment/shield/traveler_shield_rare_icon.png",
+      "sha256": "f7c1aae081b417f1f5466080eabf0a483dc4da94c279f22e40d7c7df1c662cab"
+    },
+    {
+      "path": "apps/web/public/assets/equipment/weapon/traveler_sword_rare_icon.png",
+      "sha256": "a64839a81665ceccbc6e266c85ca1b78036e7a259dd8b5d19420e4c2c2b6afe0"
+    },
+    {
+      "path": "apps/web/public/assets/items/coin_pouch.png",
+      "sha256": "827f8e2cbd3f6902211f6d06c4005e09ae1aebbc248cb8798373818d27ed4209"
+    },
+    {
+      "path": "apps/web/public/assets/items/quest_scroll.png",
+      "sha256": "90557e1615113fb3eade1a3cff7fc215baaae013217faed44a1009559ba931e0"
+    },
+    {
+      "path": "apps/web/public/assets/items/reward_chest.png",
+      "sha256": "08673cf6eb1e559cf74ab9eedafc158e6d752cc0f574aaadf35fd8bc77155508"
+    },
+    {
+      "path": "apps/web/public/assets/journey/act_01_journey_map.png",
+      "sha256": "c2470f92f1362a9ac848d1f646ccd34b51ec55aad5f1e20d0232b9d039b3319c"
+    },
+    {
+      "path": "apps/web/public/assets/minigame/effects/alert_icon.png",
+      "sha256": "5aa76de5485a4ab854263b009ca24bb9e26a9f941930789ecccb7f8cc0184373"
+    },
+    {
+      "path": "apps/web/public/assets/minigame/effects/collect_effect.png",
+      "sha256": "d1b7e1a5cd86300dcbcc9ed42cee9d4b93ca1ce323cb36166d77b711fd4bbdcc"
+    },
+    {
+      "path": "apps/web/public/assets/minigame/effects/dust_effect.png",
+      "sha256": "34e4c37d8b6204595e9fb3a76b82c47314f3b873e5386669f5de21f7e60ee938"
+    },
+    {
+      "path": "apps/web/public/assets/minigame/effects/victory_effect.png",
+      "sha256": "0fefbf45d8de43891649237c791880dfe366049a3a05a11363cad0399e3202a1"
+    },
+    {
+      "path": "apps/web/public/assets/minigame/obstacles/hedge_cluster_v2.png",
+      "sha256": "44286c3f0d3d03bd9cd8c3db066b87f79e3d6d3b21c9b585050386b1d002faa7"
+    },
+    {
+      "path": "apps/web/public/assets/minigame/obstacles/obstacle_boulder.png",
+      "sha256": "c35801dd71cc6f9dcbbd38c71c80cfc0e7aca75ac20457a4d679e1d671a511f6"
+    },
+    {
+      "path": "apps/web/public/assets/minigame/obstacles/obstacle_log.png",
+      "sha256": "45d9824bd7cd3bd2e7ea358b912a3631451c1a6ce51201a3ead5caa19be0db0d"
+    },
+    {
+      "path": "apps/web/public/assets/minigame/obstacles/obstacle_pit.png",
+      "sha256": "212ed0eb365c8c9c89b6e8d97a02f36bc3ce6e19e9f8726729bae5f9c913d92b"
+    },
+    {
+      "path": "apps/web/public/assets/minigame/obstacles/obstacle_rock.png",
+      "sha256": "4d8f920fa64b55a32d0c312fcbd912f4a41c99e7fd775da42e176dc77769f345"
+    },
+    {
+      "path": "apps/web/public/assets/minigame/obstacles/obstacle_spikes.png",
+      "sha256": "24e08621a9753637b9e71ee11e89a7e667bfb550f75702bda1982825c96aa29b"
+    },
+    {
+      "path": "apps/web/public/assets/minigame/obstacles/obstacle_thorns.png",
+      "sha256": "aeef968b360a334f22c50283eb325049ccd6a459e3a7291c0c86b4159d2b19f6"
+    },
+    {
+      "path": "apps/web/public/assets/minigame/pickups/light_fragment.png",
+      "sha256": "9f8eab67bbd8a078ec1ff143eff616d1d588af997de10d34799c009ef1e23f31"
+    },
+    {
+      "path": "apps/web/public/assets/minigame/pickups/wisdom_fragment.png",
+      "sha256": "b2db321dd372f940a1c00dad811e44beecc4a0f161b97c77e63ba3e23be84c72"
+    },
+    {
+      "path": "apps/web/public/assets/minigame/portal/exit_portal.png",
+      "sha256": "e2894e434720378f0ad1a56d16c3280ce4b651d0e27b5d5c637a87ddf602a017"
+    },
+    {
+      "path": "apps/web/public/assets/minigame/powerups/powerup_heal.png",
+      "sha256": "4226c0bc705817e744dbdefb16fe5f5ff7ddd90b9dd814f2003d96b49464159a"
+    },
+    {
+      "path": "apps/web/public/assets/minigame/powerups/powerup_shield.png",
+      "sha256": "563d1240a38fa6bb3c839dad700c4f282a306e23c1fbf1c0b94cba9346c5379b"
+    },
+    {
+      "path": "apps/web/public/assets/minigame/powerups/powerup_speed.png",
+      "sha256": "3c8266b7be7a6b269e9f09add129b47648d4700dfb9b6446abbc987153560309"
+    },
+    {
+      "path": "apps/web/public/assets/minigame/serpent/serpent_attack.png",
+      "sha256": "f096ab7be40e264661f6c00b1240759129706aa995873020fa671d378dfbf743"
+    },
+    {
+      "path": "apps/web/public/assets/minigame/serpent/serpent_idle.png",
+      "sha256": "2342f31f67ea4cefbaf51a02a9ee3a1236278842c433a9d7b42428afd475583b"
+    },
+    {
+      "path": "apps/web/public/assets/minigame/serpent/serpent_move_01.png",
+      "sha256": "4de68d903a1032dd99d922203493d8801db460b354f76e32306b2d591f89f838"
+    },
+    {
+      "path": "apps/web/public/assets/minigame/serpent/serpent_move_02.png",
+      "sha256": "9bb0e6d84a4b9735268de4907654f45a83cd0f1a5728f1ecba44ef85c34f5658"
+    },
+    {
+      "path": "apps/web/public/assets/minigame/tiles/tile_bridge.png",
+      "sha256": "5d9d3e62df0a8c9729d0bbe63d911172202aa7b0b1dace175da325eb3a0abd22"
+    },
+    {
+      "path": "apps/web/public/assets/minigame/tiles/tile_bush.png",
+      "sha256": "b9a6127784c3f5073a13cbf56085c62aaa48c917bf5ecf71537c4976c5715ee7"
+    },
+    {
+      "path": "apps/web/public/assets/minigame/tiles/tile_grass.png",
+      "sha256": "04afca8a2917b300f893bf581cc22099153244c481473abe979ea22af5df4259"
+    },
+    {
+      "path": "apps/web/public/assets/minigame/tiles/tile_path.png",
+      "sha256": "ddf680bc52eb10ce908f1da6367f2be88f6af979aad72d3056f91f40ab885958"
+    },
+    {
+      "path": "apps/web/public/assets/minigame/tiles/tile_stone.png",
+      "sha256": "f2d8b4f519eec59e056b37efac8149a1ee31ad5024736194ef5db05ed9b6fee5"
+    },
+    {
+      "path": "apps/web/public/assets/minigame/tiles/tile_tree.png",
+      "sha256": "60daaa5297560d62b9a415ca9906160ab5cb8d6424353f2854feaae984bfe147"
+    },
+    {
+      "path": "apps/web/public/assets/minigame/tiles/tile_wall.png",
+      "sha256": "fc813c7a3cfdbe2483dd673a10560ccd3109dc972477504b2dc1856f279d3797"
+    },
+    {
+      "path": "apps/web/public/assets/minigame/tiles/tile_water.png",
+      "sha256": "8fcf10762600c2b2e3725e53d0f02beda302f132216d91cd00aa86c87dd593a9"
+    },
+    {
+      "path": "apps/web/public/assets/world/arena/arena_training_courtyard.webp",
+      "sha256": "d1a2c334c0eb08461447f1acf2f39fdd67d56a2a385bf7c7b370d6ac09200263"
+    },
+    {
+      "path": "apps/web/public/assets/world/arena/arena_training_courtyard_960.webp",
+      "sha256": "4294088d0b16b7de28e61b1c7fafc05069c2dba137f369b4aa0415c6d3d3145b"
+    },
+    {
+      "path": "apps/web/public/assets/world/garden/garden_background_day.png",
+      "sha256": "7c211bae55a3a396ff00203b000d58a54c76cbe3836f0ac12b9e9fb8a3689f1e"
+    },
+    {
+      "path": "apps/web/public/assets/world/garden/garden_background_day_1600.webp",
+      "sha256": "db1c3bb9e652e2fb3885b1784293488848a8b7b592788be603f5a218a9722a9d"
+    },
+    {
+      "path": "apps/web/public/assets/world/garden/garden_background_day_800.webp",
+      "sha256": "33353c3a7d3befc3e159a8142fdc97cd963f4132263372e94c820bd4ecf025fb"
+    },
+    {
+      "path": "apps/web/public/assets/world/garden/garden_background_tension.png",
+      "sha256": "aef135e919fb7ee1aa4c08c29c9f8bd7c1ddf6aae0fcaa250bc7dbdbc3f81e9d"
+    },
+    {
+      "path": "apps/web/public/assets/world/garden/garden_background_tension_1600.webp",
+      "sha256": "92b8e02f5ce02deae73ae88e932d3349b07f127d02020fe913fd8364a32e418e"
+    },
+    {
+      "path": "apps/web/public/assets/world/garden/garden_background_tension_800.webp",
+      "sha256": "5c02107975c5245d73fd17939feb84728edf033d5afb33a0c95b5434a4346d50"
+    },
+    {
+      "path": "apps/web/public/assets/world/guild/guild_banner_neutral.png",
+      "sha256": "6ae520dfbff59f665bd594fc140561d042e58da4f035023fc7a313825c8c3c54"
+    },
+    {
+      "path": "apps/web/public/assets/world/guild/guild_hall.webp",
+      "sha256": "b467a75dc1cfbcdefe9b81b0b2f729ab62d1535bf9cd8967a34d154481ff2b9d"
+    },
+    {
+      "path": "apps/web/public/assets/world/guild/guild_hall_mobile.webp",
+      "sha256": "b9542d6a5025f3a10f9e81c5717aee808438a80557bc34856cb63b8967e086af"
+    },
+    {
+      "path": "apps/web/public/assets/world/guild/guild_leader_table.webp",
+      "sha256": "212c13d32b03b5411381d7978cea3686701a9d7c8ab4baa85b1a2b8cb192fcb0"
+    },
+    {
+      "path": "apps/web/public/assets/world/guild/guild_mission_parchment.png",
+      "sha256": "88a57d9cc19b0df3e8de04ccd76217de5aa051fafb7ebe60aaa86ab0d47f4a15"
+    },
+    {
+      "path": "apps/web/public/assets/world/guild/guild_reward_chest.png",
+      "sha256": "bb426e6859540734f689f92b6eb66c96e0bc6ade419a5d94e322ea159e93e897"
+    },
+    {
+      "path": "assets-source/body-fit-v2-targets/armor_traveler_rare_female_v2.png",
+      "sha256": "dffb2c8c352f6b4ccd17049479d4d76917cac711c346c9ab685e57ac0434b209"
+    },
+    {
+      "path": "assets-source/body-fit-v2-targets/armor_traveler_rare_male_v2.png",
+      "sha256": "fb36c83cce93fc31b4871af4ea9e14597c5f7c5bb5167e2287c0928c96975e0f"
+    },
+    {
+      "path": "assets-source/body-fit-v2-targets/armor_traveler_uncommon_female_v2.png",
+      "sha256": "564e2a4ebeaf51c41fd32dd7dca311dcc6d9c7cb4015d579d4f3b7f9d98714d1"
+    },
+    {
+      "path": "assets-source/body-fit-v2-targets/armor_traveler_uncommon_male_v2.png",
+      "sha256": "7172c482d49902d1c268a98c3b5339950f7e5340c6c4e0e54bdbea42ffe80b32"
+    },
+    {
+      "path": "assets-source/body-fit-v2-targets/boots_traveler_common_female_v2.png",
+      "sha256": "dfc523cddaf71075163b30f3d92f80b7c6d723d013ada40d18b70de1dbd52277"
+    },
+    {
+      "path": "assets-source/body-fit-v2-targets/boots_traveler_common_male_v2.png",
+      "sha256": "bbfb5cfb3045181340daaedb5bdd87600190af8f11963de72f08ef9608fa8371"
+    },
+    {
+      "path": "assets-source/body-fit-v2-targets/helmet_traveler_rare_female_v2.png",
+      "sha256": "49a8a293aafae600a9e5bb4feddbf17b0a68572b6c8876aaab3ea22d4804d037"
+    },
+    {
+      "path": "assets-source/body-fit-v2-targets/helmet_traveler_rare_male_v2.png",
+      "sha256": "c5e5a15cfeaa19c3ebff002480fa5f0c1b93b914c7c5604cc3b3d51d079590da"
+    },
+    {
+      "path": "assets-source/body-fit-v2-targets/medallion_path_rare_female_v2.png",
+      "sha256": "d4b114d305cb89901878a145f4c69745bcfd9c2b7683a7a123158758609e41f7"
+    },
+    {
+      "path": "assets-source/body-fit-v2-targets/medallion_path_rare_male_v2.png",
+      "sha256": "2ef82d3b22ad557019f41529d6c7dcd155c641142f5012ac2dbf7b9bb58a4b8e"
+    },
+    {
+      "path": "assets-source/body-fit-v2-targets/shield_perseverance_rare_female_v2.png",
+      "sha256": "2722949386d675b27337dfe67a295b7be217dd17881a68a84b84800a0dbeb117"
+    },
+    {
+      "path": "assets-source/body-fit-v2-targets/shield_perseverance_rare_male_v2.png",
+      "sha256": "94632b12aeb02547dfd98453f58f7cf40c3d143c1bfcc9b19bae19f75244809d"
+    },
+    {
+      "path": "assets-source/body-fit-v2-targets/sword_path_common_female_v2.png",
+      "sha256": "03e3edbcf9572fae0cafc46b0a02eda045cbcdfe855dfcdf808e4aa8a5401d29"
+    },
+    {
+      "path": "assets-source/body-fit-v2-targets/sword_path_common_male_v2.png",
+      "sha256": "ef4ca354506a7da6a9c80dcbb2b4d5388af7d11bef98fce9a81d8de6b40e8818"
+    },
+    {
+      "path": "assets-source/body-fit-v2-targets/sword_path_rare_female_v2.png",
+      "sha256": "5b445879d181b54e7a4f22761f63602cce83b15341255df8409d5b6b2f8a6ab8"
+    },
+    {
+      "path": "assets-source/body-fit-v2-targets/sword_path_rare_male_v2.png",
+      "sha256": "89676a2f0f5b8ce73e25e6088ff52979115a11a091bbf25ce810b3c8488c96cb"
+    },
+    {
+      "path": "assets-source/body-fit-v2/armadura_paladina_verde_e_dourada.png",
+      "sha256": "db27038c0fc35bf6181254bdebafdd60c4c6fe53a2cd536a7784e8cc8e054d20"
+    },
+    {
+      "path": "assets-source/body-fit-v2/armadura_templária_verde_e_dourada.png",
+      "sha256": "738373adc4d937a7093926547981064b8ec9aae8678a318c1b89c323c3850f5b"
+    },
+    {
+      "path": "assets-source/body-fit-v2/armadura_torácica_de_paladina_verde.png",
+      "sha256": "342b18088660cea7f0b0b16d7e49ff43e3224e2a0370a7515da494497567e84a"
+    },
+    {
+      "path": "assets-source/body-fit-v2/armadura_verde_e_dourada_de_paladina.png",
+      "sha256": "373e21a047ccfc75b310516892eb4fa03c351d6d7b04889dd7887781bfa1713d"
+    },
+    {
+      "path": "assets-source/body-fit-v2/botas_de_paladino_verde_e_dourado.png",
+      "sha256": "0463b90885cd8408bab5cf33022046d61a51a2ce18f9c3696b793d99fd4e7924"
+    },
+    {
+      "path": "assets-source/body-fit-v2/botas_élficas_de_esmeralda_e_ouro.png",
+      "sha256": "ceb48f8d50bf9627f4e627c49e0368a3b351b3801bd092baf9c168fd9e7ff61a"
+    },
+    {
+      "path": "assets-source/body-fit-v2/capuz_sacerdotal_esmeralda_ornamentado.png",
+      "sha256": "423263e6c83941156517f3e461abbd7f8dc2cec57697236935ac1d4d3e6eaf5d"
+    },
+    {
+      "path": "assets-source/body-fit-v2/elmo_paladino_esmeralda_ornado.png",
+      "sha256": "0391e073c3fe6941ec645fe9e6a03404a393050400eb15b9e1fa5bc71cd968f2"
+    },
+    {
+      "path": "assets-source/body-fit-v2/escudo_esmeralda_do_sol_dourado.png",
+      "sha256": "8eb0e54307ea52fbd97438667e6b88b3f4d01ca34df133fc8a740462a855e49f"
+    },
+    {
+      "path": "assets-source/body-fit-v2/espada_esmeralda_de_aço_e_ouro.png",
+      "sha256": "a8320b614e4694e0b018e31bf65ad58b4e2723d25b40a28853ff7a16c6139f7b"
+    },
+    {
+      "path": "assets-source/body-fit-v2/espada_real_de_esmeralda_e_ouro.png",
+      "sha256": "7b6c7cb984b42d9c45b9c58e258f3597963a14f89671c5dd573d92437e041f83"
+    },
+    {
+      "path": "assets-source/body-fit-v2/imagegen.png",
+      "sha256": "db27038c0fc35bf6181254bdebafdd60c4c6fe53a2cd536a7784e8cc8e054d20"
+    },
+    {
+      "path": "build/task-0053-body-fit-pilot/attempt-1/overlay_candidate.png",
+      "sha256": "ec2ea0368b4f2b4b61c2b93629020e1ffae8fe1928acb4731f161d4101cfc00e"
+    },
+    {
+      "path": "build/task-0053-body-fit-pilot/attempt-2/overlay_candidate.png",
+      "sha256": "244742a8bbdfbbb6d037073a0fa0b59e3ad978d4b030c435ca052372b47878fd"
+    },
+    {
+      "path": "build/task-0053-body-fit-pilot/attempt-3/overlay_candidate.png",
+      "sha256": "3a25c5b95e97a819774a33fdcb5207fc679ac24b2bf2c10ec43715d2a7959a3d"
+    },
+    {
+      "path": "build/task-0053-body-fit-pilot/attempt-4/overlay_candidate.png",
+      "sha256": "6b49cff1e5209bfdb01f69a116932b029c8f848065c12fe8b309ed432a073900"
+    },
+    {
+      "path": "build/task-0054-body-fit-bake/acceptance-check.json",
+      "sha256": "9b0db08120aea69d67b4793d3ef0609ace04a6c5e6415ca5f899ad87980ba14f"
+    },
+    {
+      "path": "build/task-0054-body-fit-bake/alignment_guides.png",
+      "sha256": "102968422a25e37d058a4b2208f9a4f2bbfc90fd94e7cfda6e72fa26e858a4db"
+    },
+    {
+      "path": "build/task-0054-body-fit-bake/approved-manifest.json",
+      "sha256": "ff9d70f25606132f95206b5e82bdeda8057cb41143403e4daef9552a0dcad7a8"
+    },
+    {
+      "path": "build/task-0054-body-fit-bake/asset-check.json",
+      "sha256": "8ffeb1ebfce1166cbc78a15cf9d948e378b201a209681bb5bc7e1431f29b9ca9"
+    },
+    {
+      "path": "build/task-0054-body-fit-bake/avatar_base.png",
+      "sha256": "f260cb9b053b35c328025f1bc7ee602cbb30e57c71ba1f2238a4b1519685f460"
+    },
+    {
+      "path": "build/task-0054-body-fit-bake/baked_overlay.png",
+      "sha256": "ebee2f026c2dd6aac6b47850c8412f243cdc20c51a36d6f91e2d6cf3b46c20cb"
+    },
+    {
+      "path": "build/task-0054-body-fit-bake/before.png",
+      "sha256": "7783bb1b73f6230527d9bc14f50d4a22a3de6ed3c82051b46173fd3a1474c1b0"
+    },
+    {
+      "path": "build/task-0054-body-fit-bake/combined.png",
+      "sha256": "280a7bdacd2f3deb56d656134e87ad79f0dcfa89a4a91083ce92658f8bd62ac8"
+    },
+    {
+      "path": "build/task-0054-body-fit-bake/final-checks.json",
+      "sha256": "2d30064bc2c9571a94458b362a9723dd1ceedd44affc20f4dfd86bf6bab35289"
+    },
+    {
+      "path": "build/task-0054-body-fit-bake/fit-metadata.json",
+      "sha256": "8511d318ac79a28f3c0813e2225d0ae5e4cd9d89a9964a3ea4a6dd1db38317fc"
+    },
+    {
+      "path": "build/task-0054-body-fit-bake/fit-report.json",
+      "sha256": "92f80c0744e8dce7b5eb5b703a57f557a65cc4640474d23d8163df933f0a6259"
+    },
+    {
+      "path": "build/task-0054-body-fit-bake/human-approval-receipt.json",
+      "sha256": "6b6f16278d1e9362f66a166e5dea4bd89a34b20bb2f397cd93239b86ce6eb3e8"
+    },
+    {
+      "path": "build/task-0054-body-fit-bake/lab-checks.json",
+      "sha256": "a1ed9361cc4eeb16d1aea04238e5c07b461ca4b47afe440dd10698f9889b1259"
+    },
+    {
+      "path": "build/task-0054-body-fit-bake/lab-results/.last-run.json",
+      "sha256": "91d1c43004802cd49950d78eb11c8fa7d05da8ffffe219a8b13b2f561bc00903"
+    },
+    {
+      "path": "build/task-0054-body-fit-bake/overlay_50_50.png",
+      "sha256": "4c164ffd22ef5c2075f5a9c37a5ba0d482f4f133d0485ab707efac84cbe6a498"
+    },
+    {
+      "path": "build/task-0054-body-fit-bake/pilot-settings.json",
+      "sha256": "94d28f013040b5d1dc3d3d6394e4e68057f4d34b2c10d05cfa59f594012f99d5"
+    },
+    {
+      "path": "build/task-0054-body-fit-bake/pilot/armor_traveler_uncommon_female_v2_baked.png",
+      "sha256": "ebee2f026c2dd6aac6b47850c8412f243cdc20c51a36d6f91e2d6cf3b46c20cb"
+    },
+    {
+      "path": "build/task-0054-body-fit-bake/portal-regression/.last-run.json",
+      "sha256": "91d1c43004802cd49950d78eb11c8fa7d05da8ffffe219a8b13b2f561bc00903"
+    },
+    {
+      "path": "build/task-0054-body-fit-bake/portal-regression/equipment-portal-Missing-a-e3e70-equip-action-and-comparison-desktop/fallback-art.png",
+      "sha256": "6ecba7c968bf2d1027cc0b98175715c4751f3ab447e515e009e8f12a6cf56b1f"
+    },
+    {
+      "path": "build/task-0054-body-fit-bake/preservation-after.json",
+      "sha256": "8088ad2c0a0a348f599c4108ee05fd14bd386508c9d341de6956c5f14b3801c4"
+    },
+    {
+      "path": "build/task-0054-body-fit-bake/preservation-before.json",
+      "sha256": "a7f3c5285a4d6a1e4c629bc10a2337a94ab6e9bfdda18b7e71e7113c742e444f"
+    },
+    {
+      "path": "build/task-0054-body-fit-bake/production-results/.last-run.json",
+      "sha256": "91d1c43004802cd49950d78eb11c8fa7d05da8ffffe219a8b13b2f561bc00903"
+    },
+    {
+      "path": "build/task-0054-body-fit-bake/review/index.html",
+      "sha256": "6cad562a14fa6f5e49e6eb46a5255d22fa33f5e049235539def7a6a9519c63d0"
+    },
+    {
+      "path": "build/task-0054-body-fit-bake/review/review-desktop.png",
+      "sha256": "8e9884087c3647fbd0ea1ec0550963bd9962322420c5d0026982293efd8a6bf0"
+    },
+    {
+      "path": "build/task-0054-body-fit-bake/source.png",
+      "sha256": "564e2a4ebeaf51c41fd32dd7dca311dcc6d9c7cb4015d579d4f3b7f9d98714d1"
+    },
+    {
+      "path": "docs/architecture/EQUIPMENT-BODY-FIT-OVERLAYS-V2.md",
+      "sha256": "666d2d89796521ae73abc63ab6fb09154d6405947a7d69926b36df44f5a6830e"
+    },
+    {
+      "path": "docs/architecture/NEEDS_NEW_BODY_FIT_ASSET.json",
+      "sha256": "761c7cd5d0d2293c211b1ff6a955d7bd0561dd65bdc9f39f30342cec608b50f9"
+    },
+    {
+      "path": "docs/architecture/TASK-0054-BAKED-ASSET-MANIFEST.json",
+      "sha256": "ff9d70f25606132f95206b5e82bdeda8057cb41143403e4daef9552a0dcad7a8"
+    },
+    {
+      "path": "docs/architecture/TASK-0054-BODY-FIT-BAKE-PILOT-REPORT.md",
+      "sha256": "944c6e0227192c2dfaa7006d16fac7fc360ac0e004ef95e6bf3c262a5a086d43"
+    },
+    {
+      "path": "docs/architecture/TASK-0054-FINAL-CHECKS.json",
+      "sha256": "2d30064bc2c9571a94458b362a9723dd1ceedd44affc20f4dfd86bf6bab35289"
+    },
+    {
+      "path": "docs/architecture/TASK-0054-HUMAN-BODY-FIT-APPROVAL.json",
+      "sha256": "6b6f16278d1e9362f66a166e5dea4bd89a34b20bb2f397cd93239b86ce6eb3e8"
+    },
+    {
+      "path": "manifest.json",
+      "sha256": "d4273faa775136c3bd292057b77a9f3089163812d5717b1f728246bc5e587804"
+    },
+    {
+      "path": "package-lock.json",
+      "sha256": "517178d4b362a6e63a8893ff4c641cfd4210a0c0e4b030eba097bb8277d5ad87"
+    },
+    {
+      "path": "package.json",
+      "sha256": "6990573f688b1df1554381978e044fa05b9e6ced1bab76570d2fa3cc70ea9aae"
+    },
+    {
+      "path": "packages/game-engine/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "packages/game-engine/package.json",
+      "sha256": "514f74cad405c9332429df90ee04adc41d0b2cf4e18e5926d5d7d8bbd624f125"
+    },
+    {
+      "path": "packages/game-engine/src/arena-combat-v2.test.ts",
+      "sha256": "3016cdc30b8222c49782817fc0b7d2ac9d16b9bcf1e7a400b4ea27e4920bd339"
+    },
+    {
+      "path": "packages/game-engine/src/arena-combat-v2.ts",
+      "sha256": "52f7cc34a1a86538670cff387f41f301ad954a0f0aa7710cad51e67505905c9a"
+    },
+    {
+      "path": "packages/game-engine/src/chests.test.ts",
+      "sha256": "26dd447dce8c6c8035ec5a5d5b13615b69b822ae20e464e9bfd3c80355e15be2"
+    },
+    {
+      "path": "packages/game-engine/src/guild-rewards.test.ts",
+      "sha256": "197d463411dfd8576efb4029cffc07d473c2a2a55019b16ade831f889995449e"
+    },
+    {
+      "path": "packages/game-engine/src/index.test.ts",
+      "sha256": "33ebf839f275ff36dfd4a72ff5b416c7f2c3e1f9078bcbdbb3b6f84166316183"
+    },
+    {
+      "path": "packages/game-engine/src/index.ts",
+      "sha256": "3fd75ae17c5c9267c287f1eb57c2f76d7f735f2242b903f0bba5634385c56ddb"
+    },
+    {
+      "path": "packages/game-engine/tsconfig.json",
+      "sha256": "88020c5d0c639e9fca3c8cc0425dc6233bbb30b14c5a0cb5dcb7d7530d4b788f"
+    },
+    {
+      "path": "scripts/arena-lab.mjs",
+      "sha256": "907632c74ecd280fdef2564b08dca6ad9bd32128382e650ffb58b54d74d1f9ee"
+    },
+    {
+      "path": "tasks/completed/TASK-0054-body-fit-offline-bake-pilot.md",
+      "sha256": "e7eea401c7cab214777bfeb28094620f1191263795d82942b0b455bfea1aaf75"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/acceptance-check.json",
+      "sha256": "76175829d2650da9d0caa6d2412b678796ae728495a000440cb88f0519495b67"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/armor_traveler_rare_female_v2/alignment_guides.png",
+      "sha256": "28512e0dfb7efafcf13a6327c78453e0b0c2dfd63ac2d5353793e48bcdf3466e"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/armor_traveler_rare_female_v2/armor_traveler_rare_female_v2_baked.png",
+      "sha256": "58be3d1d95eeab11ac0a38d67f06ad88383d018e3720502d31dada7a9f2fc833"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/armor_traveler_rare_female_v2/asset-check.json",
+      "sha256": "01b6256803fe2b1732691e98d4d354f0ee3c36f496035de46e590799ea3c21ae"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/armor_traveler_rare_female_v2/avatar_base.png",
+      "sha256": "f260cb9b053b35c328025f1bc7ee602cbb30e57c71ba1f2238a4b1519685f460"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/armor_traveler_rare_female_v2/baked_overlay.png",
+      "sha256": "58be3d1d95eeab11ac0a38d67f06ad88383d018e3720502d31dada7a9f2fc833"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/armor_traveler_rare_female_v2/before.png",
+      "sha256": "4d6d4ce249f6e30fed0662e3df44132eaf443d456e8a2d57e28b3127a700bb55"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/armor_traveler_rare_female_v2/combined.png",
+      "sha256": "6f9eb77ce3fff90b27f38f46bce47c2b3b0bfd238c59a71489f80723097c7623"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/armor_traveler_rare_female_v2/fit-metadata.json",
+      "sha256": "ebaaa78b79aa1d780d8ab3f8dae17067eb91e84f497bce4aedfb6b6c66a40afc"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/armor_traveler_rare_female_v2/fit-report.json",
+      "sha256": "bf314b45436c4c7f5c5a09f3fec5533ee38258cc88626284e7788dc1380c1f9c"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/armor_traveler_rare_female_v2/overlay_50_50.png",
+      "sha256": "1cb8c6c9c413e76ef9242240002e09abf0d08283f8d2be5e681ea4404ba8a1af"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/armor_traveler_rare_female_v2/receipt.json",
+      "sha256": "4a820adc7896e394df119afe11797246c3be424a9ff5972b75a650d50df0112e"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/armor_traveler_rare_female_v2/source.png",
+      "sha256": "dffb2c8c352f6b4ccd17049479d4d76917cac711c346c9ab685e57ac0434b209"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/armor_traveler_rare_male_v2/alignment_guides.png",
+      "sha256": "f417578b500b844db320fbbcf64818c00712153b050d1e0e007cc25699af04c7"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/armor_traveler_rare_male_v2/armor_traveler_rare_male_v2_baked.png",
+      "sha256": "cc96ad925b3c298a0e85f2cfeda2f1171130d83f6bd7c71080e1b43c87e7f0dd"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/armor_traveler_rare_male_v2/asset-check.json",
+      "sha256": "7bc82a5df731d9e841d55b63e1e9e697a36ecd3193f50f7daf5f2460376234ee"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/armor_traveler_rare_male_v2/avatar_base.png",
+      "sha256": "b182c2e29b512b337891716a413ab7efaad737e23c6354779fae17fe19b8af34"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/armor_traveler_rare_male_v2/baked_overlay.png",
+      "sha256": "cc96ad925b3c298a0e85f2cfeda2f1171130d83f6bd7c71080e1b43c87e7f0dd"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/armor_traveler_rare_male_v2/before.png",
+      "sha256": "62b6bdd07a8791088f53de46285f5809511922c59905c23e4d33d7b624d05e66"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/armor_traveler_rare_male_v2/combined.png",
+      "sha256": "f771f984c7cbaef7cc4d408c2cb8d12a034566659bccb103ca5f36ea086cba8a"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/armor_traveler_rare_male_v2/fit-metadata.json",
+      "sha256": "a5100fab263fb88b2393455626dc8a9214832b70e15f8560a05ddb354a39e995"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/armor_traveler_rare_male_v2/fit-report.json",
+      "sha256": "99e63f8b67edfed85d570ee3c7fd492d38e1b02e0a91823eead063085642601a"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/armor_traveler_rare_male_v2/overlay_50_50.png",
+      "sha256": "dec69b230551eb89fd06330b4955046a396f6552422030c146bbfb757a947e9e"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/armor_traveler_rare_male_v2/receipt.json",
+      "sha256": "009e30609f8faf594640330cd9530cf4904c4112b32e1653072d879204ab9d01"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/armor_traveler_rare_male_v2/source.png",
+      "sha256": "fb36c83cce93fc31b4871af4ea9e14597c5f7c5bb5167e2287c0928c96975e0f"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/armor_traveler_uncommon_male_v2/alignment_guides.png",
+      "sha256": "43a509805a701e68db029dde86a8d5a34431f69c8c3b9594c2fb74733a4c8a09"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/armor_traveler_uncommon_male_v2/armor_traveler_uncommon_male_v2_baked.png",
+      "sha256": "8ece1c5d4daad2b4b7b0a6d673eb3ad6e2d16a9bcc888082ee33a2bd71c928c2"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/armor_traveler_uncommon_male_v2/asset-check.json",
+      "sha256": "496ab8ca396583c9c78f77900929b0dff991e1f6e6f5ee86d016c6b22f44975c"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/armor_traveler_uncommon_male_v2/avatar_base.png",
+      "sha256": "b182c2e29b512b337891716a413ab7efaad737e23c6354779fae17fe19b8af34"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/armor_traveler_uncommon_male_v2/baked_overlay.png",
+      "sha256": "8ece1c5d4daad2b4b7b0a6d673eb3ad6e2d16a9bcc888082ee33a2bd71c928c2"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/armor_traveler_uncommon_male_v2/before.png",
+      "sha256": "7b05022bdffdd06067e881f2a95367663d35911a0904e13f29d61a94f93d95ee"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/armor_traveler_uncommon_male_v2/combined.png",
+      "sha256": "67a3ca2bd15eab5077c894489b5e8628eefb9979034e2d63803cf7de1f9e78ec"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/armor_traveler_uncommon_male_v2/fit-metadata.json",
+      "sha256": "36a4c07153e3af3f1d98f73f973b7427a9527b7b00714161d78c7cf720ca2bf3"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/armor_traveler_uncommon_male_v2/fit-report.json",
+      "sha256": "676a4a48469ee3ffcb684c0d8d46b9c9d5ddea344dbaff4fbc0b1e2512aea2a8"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/armor_traveler_uncommon_male_v2/overlay_50_50.png",
+      "sha256": "49b4fd584662e087395d833dff2c786f6e7a06f74ff0f8db32b2ee318c820917"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/armor_traveler_uncommon_male_v2/receipt.json",
+      "sha256": "f0f735bbad01deb771d1cd74a1fe5bf87a237e19b3fa5ea76833a9d1e1e62670"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/armor_traveler_uncommon_male_v2/source.png",
+      "sha256": "7172c482d49902d1c268a98c3b5339950f7e5340c6c4e0e54bdbea42ffe80b32"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/asset-validation.json",
+      "sha256": "df362c5a33cd9db27b94bd91970dee2727c70c37a32b042910e06345fbb64032"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/boots_traveler_common_female_v2/alignment_guides.png",
+      "sha256": "8266bf35c23a31533fa68072593f7dd4faf2e202d4a5d9374757708c1f50653f"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/boots_traveler_common_female_v2/asset-check.json",
+      "sha256": "78771fe25111a8d3dcc450c4e1c9fdcb78fb8e3ebe38fd1d8fbadb4adea3923b"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/boots_traveler_common_female_v2/avatar_base.png",
+      "sha256": "f260cb9b053b35c328025f1bc7ee602cbb30e57c71ba1f2238a4b1519685f460"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/boots_traveler_common_female_v2/baked_overlay.png",
+      "sha256": "ae56dd6d0b8e3d3dbbc126f7863736281cf2271734d434122733f1b14fc91dd6"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/boots_traveler_common_female_v2/before.png",
+      "sha256": "ce3cc3b56802ffd4099ed592d4576d6bb44ff9527e115932500b0e57bb9d561c"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/boots_traveler_common_female_v2/boots_traveler_common_female_v2_baked.png",
+      "sha256": "ae56dd6d0b8e3d3dbbc126f7863736281cf2271734d434122733f1b14fc91dd6"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/boots_traveler_common_female_v2/combined.png",
+      "sha256": "236ee97e64a3b9b68d4d3e330e2672a55b65d6e52fc2275aaf368b2f07944774"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/boots_traveler_common_female_v2/fit-metadata.json",
+      "sha256": "b09a4f7e77bdd550402dff41f9626476a70d628a6ced3ea463b2ac757bf749f0"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/boots_traveler_common_female_v2/fit-report.json",
+      "sha256": "ada3bbf6945020aaa23637b3069367156c5c8f0ef285aee0a949973ccd6a5768"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/boots_traveler_common_female_v2/overlay_50_50.png",
+      "sha256": "6d2c5fa365e86555e65f1f9c4bd05a62dba08de95e8e8c94d3d27fabd0b9d661"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/boots_traveler_common_female_v2/receipt.json",
+      "sha256": "473e15c96a7a9ac8ddea087e9922dc25ac932f5a83742519a875c37ee43ed853"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/boots_traveler_common_female_v2/source.png",
+      "sha256": "dfc523cddaf71075163b30f3d92f80b7c6d723d013ada40d18b70de1dbd52277"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/boots_traveler_common_male_v2/alignment_guides.png",
+      "sha256": "b9f1310747ed8b1d169d2b1e67f71154f0bd9f620d66b0cbd3b3a2d07d484b55"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/boots_traveler_common_male_v2/asset-check.json",
+      "sha256": "61174781d9b4a94e5f026ccdb77fcbacd6e2dd18a33a70169349a5b9b09073b7"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/boots_traveler_common_male_v2/avatar_base.png",
+      "sha256": "b182c2e29b512b337891716a413ab7efaad737e23c6354779fae17fe19b8af34"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/boots_traveler_common_male_v2/baked_overlay.png",
+      "sha256": "e0f392c934da8376e9ee4d5b54e31be1de1f2ab65dc3cb102bf8fce17a7c6049"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/boots_traveler_common_male_v2/before.png",
+      "sha256": "124520eaeaf933312e6274580d3afb80b52d3d2df01a3c69d35be13a5667fd00"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/boots_traveler_common_male_v2/boots_traveler_common_male_v2_baked.png",
+      "sha256": "e0f392c934da8376e9ee4d5b54e31be1de1f2ab65dc3cb102bf8fce17a7c6049"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/boots_traveler_common_male_v2/combined.png",
+      "sha256": "db5eef88bfac4076a207d5886a37affd908c2b9f91176889ce8ff8d8de4be710"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/boots_traveler_common_male_v2/fit-metadata.json",
+      "sha256": "cd6228a3938d03c6dbc95366ed066c1da372f661106a48d7da4e0bb152977bce"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/boots_traveler_common_male_v2/fit-report.json",
+      "sha256": "e8d8394f7a5fb6a2cb09bbfac5b72c8e07bae66ebd03d83a36af032d5ea4cefd"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/boots_traveler_common_male_v2/overlay_50_50.png",
+      "sha256": "4cd9a164b4bf27e6848bdecd3a2dfec61db1e731600820a0c248ea717e4e73b2"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/boots_traveler_common_male_v2/receipt.json",
+      "sha256": "0509c65981dcbc3a99ee57999fc7d17da9b02ca2dd2fd5912e80659a73defe1a"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/boots_traveler_common_male_v2/source.png",
+      "sha256": "bbfb5cfb3045181340daaedb5bdd87600190af8f11963de72f08ef9608fa8371"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/final-checks.json",
+      "sha256": "75f2f78eaa118275edcb35c8f5fac9e1344d814ef4840b41c07d11656b558109"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/helmet_traveler_rare_female_v2/alignment_guides.png",
+      "sha256": "e898db80871aecd1c99930b7dd496e874f98c5dbc358643f6e5ea9769f5cb672"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/helmet_traveler_rare_female_v2/asset-check.json",
+      "sha256": "b991b2d5752d36cfb452337fd7c6f9c246d8671b622cc1d145089f94a0431948"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/helmet_traveler_rare_female_v2/avatar_base.png",
+      "sha256": "f260cb9b053b35c328025f1bc7ee602cbb30e57c71ba1f2238a4b1519685f460"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/helmet_traveler_rare_female_v2/baked_overlay.png",
+      "sha256": "8ab265af7625024d18b9bce371aea993eaa378c4d641127930228882813144ef"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/helmet_traveler_rare_female_v2/before.png",
+      "sha256": "a854075e8f4fededf3036dcc802a583683e0616091fbe0fceb7d2c4acd76e9f5"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/helmet_traveler_rare_female_v2/combined.png",
+      "sha256": "3006d87c6926881168b112e9d24125fc5b81e6fcff2a49178191b04e751ca82b"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/helmet_traveler_rare_female_v2/fit-metadata.json",
+      "sha256": "b299a3e9b04c4690d8fe45a17f3ffbe8b16d0fe9295e1ccdf86889494d56f840"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/helmet_traveler_rare_female_v2/fit-report.json",
+      "sha256": "64aa785a8ff81915e86d5883aa7435c51b617364ea19c9985abbc3aa39906014"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/helmet_traveler_rare_female_v2/helmet_traveler_rare_female_v2_baked.png",
+      "sha256": "8ab265af7625024d18b9bce371aea993eaa378c4d641127930228882813144ef"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/helmet_traveler_rare_female_v2/overlay_50_50.png",
+      "sha256": "df84b97a62abcc2ca3b7431cf67a980a0866139de9790f01056c0460b6b5b7c3"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/helmet_traveler_rare_female_v2/receipt.json",
+      "sha256": "f8531e571b29ad8838c36153176f89b089d57f4097bbb3e3e1dddbb86289de39"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/helmet_traveler_rare_female_v2/source.png",
+      "sha256": "49a8a293aafae600a9e5bb4feddbf17b0a68572b6c8876aaab3ea22d4804d037"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/helmet_traveler_rare_male_v2/alignment_guides.png",
+      "sha256": "12bce4def3f9ea7fa664014a95746efc5ae962d78164fdcca2798d8ab0c83b6e"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/helmet_traveler_rare_male_v2/asset-check.json",
+      "sha256": "595e68e0043c9879ea4d955e9600ec5f4a0d5ae29176d9d81eddffa73b7295aa"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/helmet_traveler_rare_male_v2/avatar_base.png",
+      "sha256": "b182c2e29b512b337891716a413ab7efaad737e23c6354779fae17fe19b8af34"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/helmet_traveler_rare_male_v2/baked_overlay.png",
+      "sha256": "8fbbdf7afc106525713572b897edef3a3782eeb860eb40bab7606199c75c184e"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/helmet_traveler_rare_male_v2/before.png",
+      "sha256": "25c964bcabfac47c2419f14e7e745dc7ef7fd0aaa03c358e03507d4c32c7b27a"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/helmet_traveler_rare_male_v2/combined.png",
+      "sha256": "f5021fa2f3a52c807e16b8120f0746c4bbca40d76be44a544f6884836535808e"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/helmet_traveler_rare_male_v2/fit-metadata.json",
+      "sha256": "2fce428e648a1fd171b1b7d6c9f6be6da321dafda6e033dd5b7f10fd375cd4c5"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/helmet_traveler_rare_male_v2/fit-report.json",
+      "sha256": "164b1c0fb78822c7f252f4a67d0c4df290061b45e96d4de7456f44f1011c41f4"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/helmet_traveler_rare_male_v2/helmet_traveler_rare_male_v2_baked.png",
+      "sha256": "8fbbdf7afc106525713572b897edef3a3782eeb860eb40bab7606199c75c184e"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/helmet_traveler_rare_male_v2/overlay_50_50.png",
+      "sha256": "1ba5f0537a4dda189589c83fe4df167daea4848502abd29407ecedb316f5f268"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/helmet_traveler_rare_male_v2/receipt.json",
+      "sha256": "1298cf99a99ab034d06f737f4b7d8a9a68b594d442c3fc334cfede01cda63f25"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/helmet_traveler_rare_male_v2/source.png",
+      "sha256": "c5e5a15cfeaa19c3ebff002480fa5f0c1b93b914c7c5604cc3b3d51d079590da"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/inspection/armor_traveler_rare_female_v2.png",
+      "sha256": "b797e23dcb4f61ebc50af2835888cee5c6c3bfc269e4abdac12be1742c0c635a"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/inspection/armor_traveler_rare_male_v2.png",
+      "sha256": "dcc68a1fc19e469cbe9c957175f3f4349d9e37664e7cad02b4ad8a554e7f5fd5"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/inspection/armor_traveler_uncommon_male_v2.png",
+      "sha256": "8e4862e547197a8d67443c246d07196dc536655b556a3d17f962b32d1533c183"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/inspection/boots_traveler_common_female_v2.png",
+      "sha256": "512f717465ec48024050f2411875ce91f8ac94f0f444936a33d7bd397772c74f"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/inspection/boots_traveler_common_male_v2.png",
+      "sha256": "8f74714e63b0793abd9f101bb9237dcba3759f2e751bdd70fc30562607f2e3df"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/inspection/combined-0.png",
+      "sha256": "50e60b1e15f4c764919de1d5ec4e058d4b17e3a74e957b9ff2cbc21204a3d311"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/inspection/combined-10.png",
+      "sha256": "7e8f162f9a0e8a3435b1f650a3096a5b1f022d89b9dbb7b368b14471faa2d016"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/inspection/combined-5.png",
+      "sha256": "e10f9b3d610522e0ded3e3857bc9c40d5cda54597f354ff84e61a1d2802f60de"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/inspection/female-grid.png",
+      "sha256": "e2c0e4bfcef67769d5f1b609a763e811be3e0231b0b1f8fcb35d9878d601909c"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/inspection/helmet_traveler_rare_female_v2.png",
+      "sha256": "b757d1f2b6f89d9bb6220ec5136b5600096a8c82d408d20fee69f60eaeb2d3aa"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/inspection/helmet_traveler_rare_male_v2.png",
+      "sha256": "051a118a36d184f57884d3f995bb14f4d0bd6ae5e555f4d16a947a0467cb6c20"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/inspection/male-grid.png",
+      "sha256": "34817651ab2776e4e491fb2c8dd12120605e41deb40067472e9a5df90db4a3b8"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/inspection/medallion_path_rare_female_v2.png",
+      "sha256": "fb5bb75290d31b3e5c668ae9a8a57384f5fbf7871fe4311988f4f2553586ee1e"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/inspection/medallion_path_rare_male_v2.png",
+      "sha256": "70f5823e2f544a3749ba798560e3a33257b8e36d2ef14bc6d1d2f97f7adcbbbd"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/inspection/shield_perseverance_rare_female_v2.png",
+      "sha256": "17f52831d70080b61d98ec896d6c680dccac0899195e09bbce29655766877011"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/inspection/shield_perseverance_rare_male_v2.png",
+      "sha256": "28393401c29f42f74db52d01d7accb3f5b213f9f3f1b7c397b54d1ed00bb4d9e"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/inspection/sources-0.png",
+      "sha256": "3c37e0e388f0e3f31a759f4b4d335261f9d6c7573cf3120ceae2de332ec98e21"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/inspection/sources-10.png",
+      "sha256": "980d1bcafac0df37b99fac1ebab28e81c67621755a1098e123c15f84cfefcad7"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/inspection/sources-5.png",
+      "sha256": "e015f403a7e922c04ea6847b36896f81d6ea4550a081ea6c330e33b3260fdd63"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/inspection/sword_path_common_female_v2.png",
+      "sha256": "91a88b4063cd77ae5464e0227302cf303468960fef16f7f0109c3bf9b4a1c5aa"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/inspection/sword_path_common_male_v2.png",
+      "sha256": "fe36e7e8084940f7908198390f2c1e59e45bd4d7c16e43258b50a330997ea6c1"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/inspection/sword_path_rare_female_v2.png",
+      "sha256": "61426a080396c5bc4b1ccd60311d15b8ba115f67d7e6a2092e3fb80ac6f955eb"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/inspection/sword_path_rare_male_v2.png",
+      "sha256": "8aba69e49c3fab3e7563a8c51c9ea1e04ae5c6d71f24c259f8c7bee5d679f865"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/inventory.json",
+      "sha256": "7773dc4ca32d9a65013771119ba744252d49aa98eb0c00ef0e6f33014d427f49"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/lab-checks.json",
+      "sha256": "7d32417665358b8c718bbb054cf1e92a833163b08fcc0a4b49ab06d09c169e8f"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/lab-results/.last-run.json",
+      "sha256": "91d1c43004802cd49950d78eb11c8fa7d05da8ffffe219a8b13b2f561bc00903"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/manifest.json",
+      "sha256": "851c74e5127ca4c571f21d5565957d9adc60e3c6dbc550cd41884beb97495f0f"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/medallion_path_rare_female_v2/alignment_guides.png",
+      "sha256": "05968be789fb83cbc87054409bef08bec2fef5444f68d7f578b2887fe6355f09"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/medallion_path_rare_female_v2/armor_overlap.png",
+      "sha256": "48d25ffd625f65244b14215e4cf09d06ba16d8c12842e3643f322e8120b735cf"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/medallion_path_rare_female_v2/asset-check.json",
+      "sha256": "f40281cec4a7cd37886951ff0cb1dab398554083c4502e5c860336d72f952189"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/medallion_path_rare_female_v2/avatar_base.png",
+      "sha256": "f260cb9b053b35c328025f1bc7ee602cbb30e57c71ba1f2238a4b1519685f460"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/medallion_path_rare_female_v2/baked_overlay.png",
+      "sha256": "74b84cdd74af6fb1d3df91c6fbf6f32e6cd05b08a5cd940d7ffb8bdf9f594f77"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/medallion_path_rare_female_v2/before.png",
+      "sha256": "6707349dcd14e75a8aa08276bef2ab745237645e67b3fd65209f4bbd4a990535"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/medallion_path_rare_female_v2/combined.png",
+      "sha256": "a2c16bdfcf6c0185c0de5b2032e0713f285d858ce60be284a7f423fcfc550081"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/medallion_path_rare_female_v2/fit-metadata.json",
+      "sha256": "8cc2fb11fbc520e259c58f7594533be330b42de463583d5b878f00b7165c745d"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/medallion_path_rare_female_v2/fit-report.json",
+      "sha256": "ce6657a9223923a76dcdbf1bf61b8212b355135ce2f5a37f19a69152c84b8ca3"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/medallion_path_rare_female_v2/medallion_path_rare_female_v2_baked.png",
+      "sha256": "74b84cdd74af6fb1d3df91c6fbf6f32e6cd05b08a5cd940d7ffb8bdf9f594f77"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/medallion_path_rare_female_v2/overlay_50_50.png",
+      "sha256": "03e771323535a34e80d2be53441014be6c9a4b0bd6685e5def6dd5903ae683fc"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/medallion_path_rare_female_v2/receipt.json",
+      "sha256": "eca10a8e5465038f20381af7617b076b1b218bab058510580eae505917510b4c"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/medallion_path_rare_female_v2/source.png",
+      "sha256": "d4b114d305cb89901878a145f4c69745bcfd9c2b7683a7a123158758609e41f7"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/medallion_path_rare_male_v2/alignment_guides.png",
+      "sha256": "f97ee256145ffc8bcfac510c7c93b0dfbd5afdb727f438fea128b169b45bce2e"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/medallion_path_rare_male_v2/armor_overlap.png",
+      "sha256": "cdafda32df0cefc43dcc13874e893e659403b1eecb90f9102b67c958d4361cf8"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/medallion_path_rare_male_v2/asset-check.json",
+      "sha256": "bab38d38838d7cdf10ac05585a6a46f13ee4e6cba7b3edfebeac783130006e62"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/medallion_path_rare_male_v2/avatar_base.png",
+      "sha256": "b182c2e29b512b337891716a413ab7efaad737e23c6354779fae17fe19b8af34"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/medallion_path_rare_male_v2/baked_overlay.png",
+      "sha256": "c51e2652cd4d8b69f583beb59a8efd2d8c159d2e15506b090c2cf281fb1e0996"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/medallion_path_rare_male_v2/before.png",
+      "sha256": "29d326b30bdb3cac96bebe4d6f60370723ff65f4114b17dc7f4766214caf71d8"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/medallion_path_rare_male_v2/combined.png",
+      "sha256": "db6b26f2ce862912021a45253941b79be92f0c3f46272d568992ff883c8791e7"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/medallion_path_rare_male_v2/fit-metadata.json",
+      "sha256": "410068b0a524ce820ff70fef841300c275e0474c5b2f40a95bed7d112da4513f"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/medallion_path_rare_male_v2/fit-report.json",
+      "sha256": "5a14d165475e910c3f91463b14aaa9bbf69b16700c777aa7e6af17bf29561dfe"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/medallion_path_rare_male_v2/medallion_path_rare_male_v2_baked.png",
+      "sha256": "c51e2652cd4d8b69f583beb59a8efd2d8c159d2e15506b090c2cf281fb1e0996"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/medallion_path_rare_male_v2/overlay_50_50.png",
+      "sha256": "c15cf01d91964d0fa490bc6a190e89563fef1b7e4134e4f318f7c0221924e007"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/medallion_path_rare_male_v2/receipt.json",
+      "sha256": "9035c71f7c6bc38cb3774a5a67e4e4c9a70639e5ca5f5d0f408fcd5967387acf"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/medallion_path_rare_male_v2/source.png",
+      "sha256": "2ef82d3b22ad557019f41529d6c7dcd155c641142f5012ac2dbf7b9bb58a4b8e"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/portal-results/.last-run.json",
+      "sha256": "91d1c43004802cd49950d78eb11c8fa7d05da8ffffe219a8b13b2f561bc00903"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/portal-results/equipment-portal-Arsenal-1-588cb-son-slots-filters-and-equip-desktop/cinematic-1440x900.png",
+      "sha256": "669f24a20b27d8ef21416f5750d7ac32fa22bea4af2c8e4fa1b98706ca32c2de"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/portal-results/equipment-portal-Arsenal-1-588cb-son-slots-filters-and-equip-desktop/portal-1440x900.png",
+      "sha256": "072f8f43133e407a1a5df2b1e1a7b7652446d9e29ba6de94f7a4a1db25c02593"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/portal-results/equipment-portal-Arsenal-1-b7467-son-slots-filters-and-equip-desktop/cinematic-1920x1080.png",
+      "sha256": "459c0e470e12302c7ca0b34062386712c08206d8f1009c52b5bf11e302066929"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/portal-results/equipment-portal-Arsenal-1-b7467-son-slots-filters-and-equip-desktop/portal-1920x1080.png",
+      "sha256": "78aae9eff176e1b56d3db6030ba675115b65596882fbaf153a8e2d1bcdefd210"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/portal-results/equipment-portal-Arsenal-3-66b23-son-slots-filters-and-equip-desktop/cinematic-390x844.png",
+      "sha256": "b7e61ec5e61102e684b983dca25377d21f2dbee6f597dfa7f19a673ba1d09d14"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/portal-results/equipment-portal-Arsenal-3-66b23-son-slots-filters-and-equip-desktop/portal-390x844.png",
+      "sha256": "01bd293eab9b1d2e57a214e445cd2435374d4e879d71c56d4b36de09be8f1d23"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/portal-results/equipment-portal-Arsenal-4-f723e-son-slots-filters-and-equip-desktop/cinematic-412x915.png",
+      "sha256": "e8cd717af172cefeda29fa9eebcd89940e05349151de979a8b0dd3fa18cda8b0"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/portal-results/equipment-portal-Arsenal-4-f723e-son-slots-filters-and-equip-desktop/portal-412x915.png",
+      "sha256": "2410b35243f13cd0309a48a6f329cfd3113174831cc344316198a9fe29ce4381"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/portal-results/equipment-portal-Arsenal-8-b98fb-son-slots-filters-and-equip-desktop/cinematic-844x390.png",
+      "sha256": "840018f1313fb7515bba671dee157bc79d55469b852b0cc946447626df3601a6"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/portal-results/equipment-portal-Arsenal-8-b98fb-son-slots-filters-and-equip-desktop/portal-844x390.png",
+      "sha256": "dab86e9ddd0f65594a50f8cd6ef496a1ec14d0de818f676f3e84f1ca47bcba67"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/portal-results/equipment-portal-Arsenal-9-a0d17-son-slots-filters-and-equip-desktop/cinematic-915x412.png",
+      "sha256": "0f5dae26fd7b9bbefba1d03975f208ad75b6752fb0611a85ff7da07217604896"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/portal-results/equipment-portal-Arsenal-9-a0d17-son-slots-filters-and-equip-desktop/portal-915x412.png",
+      "sha256": "b874b6b57c8a2c876180ce91ea361287575c174df23472ced59835b29295eafa"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/portal-results/equipment-portal-Missing-a-e3e70-equip-action-and-comparison-desktop/fallback-art.png",
+      "sha256": "84b63cac631eb83ebf6a70c21b58b75d7e10491d0553da448b07fd29d0963baa"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/preservation-after.json",
+      "sha256": "9caf837628aa4cede8315b3246b1e88b8834a367bae3d178f1d3386dd0f1a43e"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/preservation-before.json",
+      "sha256": "c54db09df9faaaa9e9305499becd764bab730d03a83b1dcc3d2706a6befd3e68"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/review/index.html",
+      "sha256": "7ddc3f82d7c716db443ec05fe1b7dda67ffdbd8305e4e95188d1b03d9cb03ed4"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/review/review-desktop.png",
+      "sha256": "b66ab73758aa3801c88d0f32abcd140eac136117348c5f4d5282d4090ac9b747"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/review/review-mobile.png",
+      "sha256": "6fb2b04f9c375f1f789c1f6870bda8c7d4fcf59b0214c2ea7a86077aee43cd31"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/settings.json",
+      "sha256": "0ca02a018b7840b785b878c46e6b0cb0e14ff5dccbf0b95d2d4281b601942589"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/shield_perseverance_rare_female_v2/alignment_guides.png",
+      "sha256": "48d4b414b5fb795376c35ff91505c0a57c87864b5ab1a333527027056e2c936d"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/shield_perseverance_rare_female_v2/asset-check.json",
+      "sha256": "2104a19db4fefcf6ac6c61105b046dfa1f297bd88993c2aa7c71c338e6e1372a"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/shield_perseverance_rare_female_v2/avatar_base.png",
+      "sha256": "f260cb9b053b35c328025f1bc7ee602cbb30e57c71ba1f2238a4b1519685f460"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/shield_perseverance_rare_female_v2/baked_overlay.png",
+      "sha256": "1d0392230985f18b22ff043083af121fb9f276d526a3e8ecf4b9c93135dabe02"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/shield_perseverance_rare_female_v2/before.png",
+      "sha256": "203ccfd599cce85ad9735a41c33b3d3b1a7863ed7337e5123ba55d171ad450ef"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/shield_perseverance_rare_female_v2/combined.png",
+      "sha256": "67f07141d8df1c7d70cc900c6e2c6f8369773f170098773c6386ff642b30a735"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/shield_perseverance_rare_female_v2/fit-metadata.json",
+      "sha256": "33d379d9e37714ef664ee2364f915455fe5262dd684d1061213ae1b1db26f0d3"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/shield_perseverance_rare_female_v2/fit-report.json",
+      "sha256": "df714d0c35096863b81b79b43f5fe454c67b5665cc05a209feec41ff9baa9220"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/shield_perseverance_rare_female_v2/overlay_50_50.png",
+      "sha256": "1ca823d6fed65ef7ddcb341307c0cd300613241d47a1af2c6e5b4e8e11de01a3"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/shield_perseverance_rare_female_v2/receipt.json",
+      "sha256": "0bf364b4901f52c555a84defded1a564772ef6112f9fb110d34ba6490d2cee7d"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/shield_perseverance_rare_female_v2/shield_perseverance_rare_female_v2_baked.png",
+      "sha256": "1d0392230985f18b22ff043083af121fb9f276d526a3e8ecf4b9c93135dabe02"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/shield_perseverance_rare_female_v2/source.png",
+      "sha256": "2722949386d675b27337dfe67a295b7be217dd17881a68a84b84800a0dbeb117"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/shield_perseverance_rare_male_v2/alignment_guides.png",
+      "sha256": "cd205f74edc5c4391a1b9a704f6bd1bd2c85a296c37c9a4d23e41049e7b721dd"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/shield_perseverance_rare_male_v2/asset-check.json",
+      "sha256": "786a1e04a3ff5068ff3fd5a7d4d01198270a3a3fede0354e50c40d12bdca1259"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/shield_perseverance_rare_male_v2/avatar_base.png",
+      "sha256": "b182c2e29b512b337891716a413ab7efaad737e23c6354779fae17fe19b8af34"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/shield_perseverance_rare_male_v2/baked_overlay.png",
+      "sha256": "bf0785671741851d4e64402984309cfc30ff80313da98cf453b3e3a57b40e2a6"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/shield_perseverance_rare_male_v2/before.png",
+      "sha256": "600f347495be0fc804bf70a6c7a17e1d0ab86cd15468f5aec5c9ad2fa33b772f"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/shield_perseverance_rare_male_v2/combined.png",
+      "sha256": "9a3779cf12fffec00e083049f7124039929722d64a622c6f820909cbe1468397"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/shield_perseverance_rare_male_v2/fit-metadata.json",
+      "sha256": "a8ba409dc9fd4f870688cee7210c6ad270d92dce8f374ca1b414764650724030"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/shield_perseverance_rare_male_v2/fit-report.json",
+      "sha256": "7d7792ce7db4cb95652f191aaa066ce87ca385614d515492ce02e44614a600ca"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/shield_perseverance_rare_male_v2/overlay_50_50.png",
+      "sha256": "050113f031515d2d929544a9369a2bbe0cc150f2e3ad64024e4a28881b786517"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/shield_perseverance_rare_male_v2/receipt.json",
+      "sha256": "0f3b190a399932ef71e452c687be9d00901a486e7ae6519609eabf458da51999"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/shield_perseverance_rare_male_v2/shield_perseverance_rare_male_v2_baked.png",
+      "sha256": "bf0785671741851d4e64402984309cfc30ff80313da98cf453b3e3a57b40e2a6"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/shield_perseverance_rare_male_v2/source.png",
+      "sha256": "94632b12aeb02547dfd98453f58f7cf40c3d143c1bfcc9b19bae19f75244809d"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/sword_path_common_female_v2/alignment_guides.png",
+      "sha256": "b2e01c84321ed11cf0b5696546c0daaed66956d87a153a3f38140ea9941dd015"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/sword_path_common_female_v2/asset-check.json",
+      "sha256": "3af3cd090811b11afc6c836ad95c5b18093a44a692f075bf480ba7c5ad1db860"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/sword_path_common_female_v2/avatar_base.png",
+      "sha256": "f260cb9b053b35c328025f1bc7ee602cbb30e57c71ba1f2238a4b1519685f460"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/sword_path_common_female_v2/baked_overlay.png",
+      "sha256": "2ce38d3ac68ac259cffa59e6067eefc2272486691d0eedd2a531d17ed4360d11"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/sword_path_common_female_v2/before.png",
+      "sha256": "510c6edb1e9982f56e43115571b78017f7abb375bc7bd14507f4f671120aaca0"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/sword_path_common_female_v2/combined.png",
+      "sha256": "baee9dfb530ab97c7dfcd88b8dcaf9e5aa1853d88d41f25ca887f06065ce0dc2"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/sword_path_common_female_v2/fit-metadata.json",
+      "sha256": "ef99090d8ec2b57702be2aa76cfac384f47427529e0c57b9760f83f38eeea97f"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/sword_path_common_female_v2/fit-report.json",
+      "sha256": "93ebfbc204f2e72884a902cab82a1433eff947795121ea7b17c790456d402c7c"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/sword_path_common_female_v2/overlay_50_50.png",
+      "sha256": "3a0547d00c34015239f597c62c428707376e01c028a3d517ca33e03ffca3b210"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/sword_path_common_female_v2/receipt.json",
+      "sha256": "ceff0c312cdae9c8f18a8f8d618f3e7b37caaa57c25a919574e9c1322efed7db"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/sword_path_common_female_v2/source.png",
+      "sha256": "03e3edbcf9572fae0cafc46b0a02eda045cbcdfe855dfcdf808e4aa8a5401d29"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/sword_path_common_female_v2/sword_path_common_female_v2_baked.png",
+      "sha256": "2ce38d3ac68ac259cffa59e6067eefc2272486691d0eedd2a531d17ed4360d11"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/sword_path_common_male_v2/alignment_guides.png",
+      "sha256": "7cf2f817fc64d275ca21051501306e475e2117c77d956c3e7c12da5e4966853a"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/sword_path_common_male_v2/asset-check.json",
+      "sha256": "f8c0678551fe3f60dfb9295e95f9975f1fbb40ba4c5e9021901b1571b8bebb6a"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/sword_path_common_male_v2/avatar_base.png",
+      "sha256": "b182c2e29b512b337891716a413ab7efaad737e23c6354779fae17fe19b8af34"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/sword_path_common_male_v2/baked_overlay.png",
+      "sha256": "4b7c2c3f6b1798413b1bc7c1c8d700a09cca5e5ab0301ac027276dd0396050e8"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/sword_path_common_male_v2/before.png",
+      "sha256": "febf163a8558c67f5efb364d7bec256dcf8c0f6165e5cc8e9eb28c159d5b2173"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/sword_path_common_male_v2/combined.png",
+      "sha256": "cbf69c84d602374ba434586e1e8c805dac6424d3075b6c973cb12b81a55f5f90"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/sword_path_common_male_v2/fit-metadata.json",
+      "sha256": "3750e9326ad41cd961cfcef54e4d753d5f4921c95159400a9498320151d794db"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/sword_path_common_male_v2/fit-report.json",
+      "sha256": "2824a082eebe745bebe10f5bc52d87b981e020f070eb34062408cefa69aabb42"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/sword_path_common_male_v2/overlay_50_50.png",
+      "sha256": "f8800863ddbc87a96239732e8d1dc5c80f2c61017646c37faa49398281a3db89"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/sword_path_common_male_v2/receipt.json",
+      "sha256": "fe6a68b6f61d9a22b83f7364e5e3c982c7b7541d7d10f37de3056c8a91b9b1b6"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/sword_path_common_male_v2/source.png",
+      "sha256": "ef4ca354506a7da6a9c80dcbb2b4d5388af7d11bef98fce9a81d8de6b40e8818"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/sword_path_common_male_v2/sword_path_common_male_v2_baked.png",
+      "sha256": "4b7c2c3f6b1798413b1bc7c1c8d700a09cca5e5ab0301ac027276dd0396050e8"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/sword_path_rare_female_v2/alignment_guides.png",
+      "sha256": "482be1957cd8732120998ae3cfde370bc0ae17b88db4fe2f9082dcddb7676778"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/sword_path_rare_female_v2/asset-check.json",
+      "sha256": "402ffcbd53f157f8646e8ad9bae6f9e664acbb151c1cafb7bf82030835055894"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/sword_path_rare_female_v2/avatar_base.png",
+      "sha256": "f260cb9b053b35c328025f1bc7ee602cbb30e57c71ba1f2238a4b1519685f460"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/sword_path_rare_female_v2/baked_overlay.png",
+      "sha256": "b15f0d965098256c51557c3c00418b1bfe5bfb29260475c912f176ddad736965"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/sword_path_rare_female_v2/before.png",
+      "sha256": "2fdd7351e53690616933622f76d21ba9e091dc6afc88e93603c4efa8e934e5c0"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/sword_path_rare_female_v2/combined.png",
+      "sha256": "67223db8712b38f1a8932376f4bd0d6557c06faf1494fa5caef2ddbfd5d7fab5"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/sword_path_rare_female_v2/fit-metadata.json",
+      "sha256": "24ceef9120b3e92d10f22f0ed34136e0a3bbc55523a07b42687e7ffd9629e406"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/sword_path_rare_female_v2/fit-report.json",
+      "sha256": "95626816a95fea6ed6cc8aea28df777259790116589f7d56501650d9a979f1b2"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/sword_path_rare_female_v2/overlay_50_50.png",
+      "sha256": "b08502a4486e00319f1ca2bf1d52a8840fd5a9c0bd9e7f9e7c2e382485b748ca"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/sword_path_rare_female_v2/receipt.json",
+      "sha256": "b49f660488965649e9421569374d0229d83919c8a22eb4ed4431151ffb4d6533"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/sword_path_rare_female_v2/source.png",
+      "sha256": "5b445879d181b54e7a4f22761f63602cce83b15341255df8409d5b6b2f8a6ab8"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/sword_path_rare_female_v2/sword_path_rare_female_v2_baked.png",
+      "sha256": "b15f0d965098256c51557c3c00418b1bfe5bfb29260475c912f176ddad736965"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/sword_path_rare_male_v2/alignment_guides.png",
+      "sha256": "378ee4db4de4637f0037453712867bac817d65b164f891d290d6711e3b23c448"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/sword_path_rare_male_v2/asset-check.json",
+      "sha256": "f6b7165d6a3352d6d236afd5db741fca73b6723680b3f374e889f9707b9aea98"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/sword_path_rare_male_v2/avatar_base.png",
+      "sha256": "b182c2e29b512b337891716a413ab7efaad737e23c6354779fae17fe19b8af34"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/sword_path_rare_male_v2/baked_overlay.png",
+      "sha256": "283f40926d2c012ed8517c8c8187b2f49a7a7f71b78939b1efe9b27851ffd09f"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/sword_path_rare_male_v2/before.png",
+      "sha256": "4fb89a0aa61917a6248b6ce85a3f3c6d5ec8f4bc19bd1adb1bfb8a6debff7220"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/sword_path_rare_male_v2/combined.png",
+      "sha256": "8304c82a62355d635bd08c6859c7bc0398eef4cf6e7809a060f94a5761f3cb5b"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/sword_path_rare_male_v2/fit-metadata.json",
+      "sha256": "84675aab6d4f9e54b6ab91e481b740b4a6472600c6be7f19d1639872b18ca474"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/sword_path_rare_male_v2/fit-report.json",
+      "sha256": "4299390568f9f8efe9a7f6b1766c9d7773f873432a154099592d64b44af1fadc"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/sword_path_rare_male_v2/overlay_50_50.png",
+      "sha256": "2ed5b753f001a9948eae0e813946b65280588c6220719eb08eaa9b78b6106aba"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/sword_path_rare_male_v2/receipt.json",
+      "sha256": "0f18617bbb12dae666ddf583fc254a1d7b663ddd1e03b1d5275f1ea1ac3513cc"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/sword_path_rare_male_v2/source.png",
+      "sha256": "89676a2f0f5b8ce73e25e6088ff52979115a11a091bbf25ce810b3c8488c96cb"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/sword_path_rare_male_v2/sword_path_rare_male_v2_baked.png",
+      "sha256": "283f40926d2c012ed8517c8c8187b2f49a7a7f71b78939b1efe9b27851ffd09f"
+    },
+    {
+      "path": "build/task-0055-body-fit-bake/visual-assessment.json",
+      "sha256": "a2e932727b4f0fd52396ac80ab8e5e85886e8248eafec28ccf2adfae1e6c058d"
+    },
+    {
+      "path": "scripts/arena-audio-prototype.d.mts",
+      "sha256": "cbc77d4c26e369fcf9d1d6cc4cbcfd294ce6ab153a42f51dc4749ec4217ed117"
+    },
+    {
+      "path": "scripts/arena-audio-prototype.mjs",
+      "sha256": "80a5264509779b4a0fbd181bd1780dd43a7974bef238b1bbf5aa1b43b9e8c31d"
+    },
+    {
+      "path": "scripts/audiovisual-pack.d.mts",
+      "sha256": "c4074ed9a26bb4834ff4b86a3f01f8f62172144e02bef466b41741bdd54c7169"
+    },
+    {
+      "path": "scripts/audiovisual-pack.mjs",
+      "sha256": "ad76d13e97b772ccfece9939e17eeacb1b638bb8bf69dc508b9f91f3d20ced38"
+    },
+    {
+      "path": "scripts/audit-avatar-geometry.mjs",
+      "sha256": "ee454254885b7f3dc4987e206fa9b86bc4535e6a75f97210dda965600220db71"
+    },
+    {
+      "path": "scripts/avatar-hd-pilot-lab.mjs",
+      "sha256": "3f6fac94937a9cc688630002f198fb4e4ffa156e1af4dce9143a4943e4940382"
+    },
+    {
+      "path": "scripts/avatar-hd-runtime-audit.mjs",
+      "sha256": "58933e1a80055aefa35a137ca9b2414c6e86f359e5cfc33aca9875fee7370905"
+    },
+    {
+      "path": "scripts/body-fit-bake-approval.mjs",
+      "sha256": "ea68a02e80e1a268dd5d9d4b289dc753d958ac8be4162ee7740cb39e2f3a7cb7"
+    },
+    {
+      "path": "scripts/body-fit-bake-check.mjs",
+      "sha256": "d3116d4179a9aa3ec37729eb06bb8cc0d68a0ce6080232d8dd4297dd17c79d47"
+    },
+    {
+      "path": "scripts/body-fit-bake-review.mjs",
+      "sha256": "0999ca3c31cd33950d595d6f939e32f4686de44bcbe1c3d583f781203ed49f34"
+    },
+    {
+      "path": "scripts/body-fit-bake.mjs",
+      "sha256": "cc7e2ef465425c51382a8ac6e78d007d516ead38881250bcdccaa9dc3c643459"
+    },
+    {
+      "path": "scripts/body-fit-bake.test.mjs",
+      "sha256": "693741f8e087c3d4ffc4220b9a41748941471acb8b0d04cb4b975d5b1b3bdce9"
+    },
+    {
+      "path": "scripts/body-fit-batch-bake.mjs",
+      "sha256": "f2db568774c6ce98c393d8f29f65b576b6f067700a42ae83cc74f9ff0448b563"
+    },
+    {
+      "path": "scripts/body-fit-batch-bake.test.mjs",
+      "sha256": "159581ca9ac2139af77d7d185d5f651cf1d99ea20c5ae2aa0d7ca7a28e0e6532"
+    },
+    {
+      "path": "scripts/body-fit-batch-check.mjs",
+      "sha256": "c6e33ee97d1c88b8b34a94aba72fc7e5316571a38e318274654055fb1f0ba23a"
+    },
+    {
+      "path": "scripts/body-fit-batch-review.mjs",
+      "sha256": "8cafdd85cf8c54236db446668d07d39d1f2a2a2bc84156a336071813a68f1955"
+    },
+    {
+      "path": "scripts/body-fit-pilot-check.mjs",
+      "sha256": "86f04d22576ca20f9d9e9188ec0f6d09604dc5c1a6fb9761aae568ee5ce35536"
+    },
+    {
+      "path": "scripts/body-fit-pilot-review.mjs",
+      "sha256": "fd020670361711d9c1b33b7e95d5e92772face31312ee03fec3f895fed774840"
+    },
+    {
+      "path": "scripts/body-fit-source-audit.mjs",
+      "sha256": "38e29da16eba354ddf5e42872dde2421758a4e905576a4cadf46fa7dbbf0bb4b"
+    },
+    {
+      "path": "scripts/body-fit-source-audit.test.mjs",
+      "sha256": "f61f88378fc30035f73f8e5e5062425d39917ca6fe678d0dbbaf18f7239f2d82"
+    },
+    {
+      "path": "scripts/body-fit-sword-inspect.mjs",
+      "sha256": "2afa468bec3d50b662f92d72c872e180b3c254f35e9843cfcfa874e3570840a7"
+    },
+    {
+      "path": "scripts/body-fit-target-audit.mjs",
+      "sha256": "c00c15efe0438a06dd7ed4cc104b16aee974361016521fc300f906a31ce1155c"
+    },
+    {
+      "path": "scripts/body-fit-target-audit.test.mjs",
+      "sha256": "d274a95a6dcde227131f24835c93029d085a9e8c9d2f3ce8f0a5e97c6c8a193f"
+    },
+    {
+      "path": "scripts/body-fit-target-fit-check.mjs",
+      "sha256": "2703e182c203aaea73652e69487f8e676781a98281c4eb3d4bfc68f78511eb70"
+    },
+    {
+      "path": "scripts/body-fit-target-review.mjs",
+      "sha256": "e1982e8310d0161dd68507a0bd3f31d0992fa99946681c39003456650149b9db"
+    },
+    {
+      "path": "scripts/body-fit-v2-audit.mjs",
+      "sha256": "2babd719e2a5d04dc467740fbb374909df7b96ed592f500d54dbe236eb26f519"
+    },
+    {
+      "path": "apps/web/features/journey/arena-asset-status.test.ts",
+      "sha256": "252367c624631cb4fa6e09fba9ba413be0a0e10a1956191d3a63108ba3ce6f81"
+    },
+    {
+      "path": "apps/web/features/journey/arena-audio-prototype.test.ts",
+      "sha256": "4b6551d2095bf7510fe5d32d8d22c7ad6b577003b4de4a0c9d6e7967fd658b3f"
+    },
+    {
+      "path": "apps/web/features/journey/arena-audio.test.ts",
+      "sha256": "08b92a6379ccf7ddfc1caa4daecce4fb5bdaac14511ade18f9323d07ebf75ce5"
+    },
+    {
+      "path": "apps/web/features/journey/arena-lab.test.tsx",
+      "sha256": "0f11dbd7942e84af4b6c571b573f6d31e235c0b661e6bec2ae26b4557feb1912"
+    },
+    {
+      "path": "apps/web/features/journey/arena-specials.test.tsx",
+      "sha256": "27ca1af1f6c53dda9cce7ff05f57df4b17828f9582f8dab9c5e9f593bcf18a80"
+    },
+    {
+      "path": "apps/web/features/journey/arena.test.ts",
+      "sha256": "bc26637535b252538359ce674888fdb32ee901c9e6d45c9a1ffa53c6e1532d90"
+    },
+    {
+      "path": "apps/web/features/journey/attributes.test.ts",
+      "sha256": "da503e3ef886eeb6b3a8fe6d8546915f594155501a947530ab885b6468a7cfef"
+    },
+    {
+      "path": "apps/web/features/journey/audio/approved-audio-assets.ts",
+      "sha256": "bdf00e3d8f21933d2b26edb8ccbcb668ae5e3290e6794fcc371909fcebafd4cd"
+    },
+    {
+      "path": "apps/web/features/journey/audio/arena-audio.ts",
+      "sha256": "6a36c29ed9e9ca371f29fa2a08b7d8a8c2b250b35163cda50f55a379d88618cf"
+    },
+    {
+      "path": "apps/web/features/journey/audio/arena-mix.ts",
+      "sha256": "fb380458dc8b47601fc120b83a52f5c3afabe934039f5f17b2ceffcb1d7ed88b"
+    },
+    {
+      "path": "apps/web/features/journey/audio/audio-assets.ts",
+      "sha256": "dc2f4c98cb5ae9244f55fe03c029f03e9d4f335dcbcca8b37a619f0cad2db293"
+    },
+    {
+      "path": "apps/web/features/journey/audio/audio-manager.ts",
+      "sha256": "c9208f494cb486d0ff653c7bcabf3b3c98f86c7a81d3ae7edad01e80ba3afdcc"
+    },
+    {
+      "path": "apps/web/features/journey/audio-manager.test.ts",
+      "sha256": "7f9425a35a47f22a10007476b98cab7a19608eb8be0675a565081406edb7f2db"
+    },
+    {
+      "path": "apps/web/features/journey/audiovisual-pack.test.ts",
+      "sha256": "50a35a051ca7c3e12d172e7bc5bcdabee5c2f85d76d0287755ca0c8330d87bab"
+    },
+    {
+      "path": "apps/web/features/journey/avatar-geometry-audit.test.ts",
+      "sha256": "6d9c8cfbd54ef12ac32f0d7612c977bb16f9b8858cdd7631aee920a5beaaeaf5"
+    },
+    {
+      "path": "apps/web/features/journey/avatar-hd-pack.test.tsx",
+      "sha256": "135eb9d080deb621b8846804bf73e53484c67344862f3b6e8e7ac8aa8e354768"
+    },
+    {
+      "path": "apps/web/features/journey/avatar-runtime.test.tsx",
+      "sha256": "9d6b8481da1b7e5112fbd239477f827dfc4258b4cc5f7bdfb10de8d8c9d59402"
+    },
+    {
+      "path": "apps/web/features/journey/backpack-chests.test.tsx",
+      "sha256": "7f46aef31c92cd89b60d25f1f42a38079ae5a3a0ec35d57c4d3aa82991d3f5d4"
+    },
+    {
+      "path": "apps/web/features/journey/battle-presentation-hook.test.tsx",
+      "sha256": "2e630256f18003c060fd986baf5d9d72ae3660f4549b36f479aee4bba2f6456e"
+    },
+    {
+      "path": "apps/web/features/journey/battle-presentation.test.ts",
+      "sha256": "9c102cfc0682fa58adb80b509d55a3a9d69792c0af93a5ec9fcd5a32da5ffef6"
+    },
+    {
+      "path": "apps/web/features/journey/chests.test.ts",
+      "sha256": "92b5e4a10810a9d8d3602370f95cd4b53fe7cda11588aea36d9cfd7924e43836"
+    },
+    {
+      "path": "apps/web/features/journey/components/arena-specials.tsx",
+      "sha256": "bb02455f145fe2170a43833f715f3e3cdba9cd50c3bf98369aef50d6808c8ce1"
+    },
+    {
+      "path": "apps/web/features/journey/components/arena-stage.module.css",
+      "sha256": "2f49089bbaa9cd00fe7afb7ebe25d2ce4c182d889c8626cc594fc7a8dcc90000"
+    },
+    {
+      "path": "apps/web/features/journey/components/arena-stage.tsx",
+      "sha256": "9043b09d009696614fb46fbc03db1e93b3994e3838aab54f6f1d461f5a3ddd59"
+    },
+    {
+      "path": "apps/web/features/journey/components/arena-unlock-notice.tsx",
+      "sha256": "4588744a785ed0add4f6bde3741b7414739628307a1923a6914bbb6d58a31d75"
+    },
+    {
+      "path": "apps/web/features/journey/components/audio-settings.tsx",
+      "sha256": "40dd7cf9d702bebdae16428086577f2e0103951de265d174a9ff4ebae45f9fd6"
+    },
+    {
+      "path": "apps/web/features/journey/components/avatar-runtime.module.css",
+      "sha256": "9e076437dbc455e3ead0ac1a4e01ef5730b57292b214ba226a177bf834126333"
+    },
+    {
+      "path": "apps/web/features/journey/components/avatar.tsx",
+      "sha256": "43aa851d2baa8b8f52487cf3a44476394dee5e9a81d5d68bdaa145234782e531"
+    },
+    {
+      "path": "apps/web/features/journey/components/bible-reading.tsx",
+      "sha256": "b7ded074993a7a7d653f9b443852fe1e30349d0e70c37d7b8aab2522822fed5a"
+    },
+    {
+      "path": "apps/web/features/journey/components/chest-panel.tsx",
+      "sha256": "063e241fc36f972c5c52bac35ad7773f5d12d21ccec5c7be5d8f476a612fb08c"
+    },
+    {
+      "path": "apps/web/features/journey/components/devotional.tsx",
+      "sha256": "50b78b1ba7de1fff920b1ab853783b009bb7573f4f83f605d0ec4f04af557d0e"
+    },
+    {
+      "path": "apps/web/features/journey/components/diary-experience.module.css",
+      "sha256": "9456f17005f1848deac930d52a123ac74c57fafda4a11089008e82256f365655"
+    },
+    {
+      "path": "apps/web/features/journey/components/equipment-bible-details.tsx",
+      "sha256": "812b1a013f46eba561ad485f9a7e3ecb7a8f81a7da0fd5b2f6b5aefbbdf0af18"
+    },
+    {
+      "path": "apps/web/features/journey/components/equipment-cinematic.module.css",
+      "sha256": "ab1230848532fad59869570d5cd15cea8853ad301b718a3b14ad2092337da1f2"
+    },
+    {
+      "path": "apps/web/features/journey/components/equipment-comparison.tsx",
+      "sha256": "edba0ecc3e35838cbcb476a9c99327a1f734e7db26e72cf5608bcfb65bbe5c2f"
+    },
+    {
+      "path": "apps/web/features/journey/components/equipment-equip-cinematic.tsx",
+      "sha256": "afbca9e1d7440e10025d6b223abeba63b2718802b48a6c7ebb27afddead1d234"
+    },
+    {
+      "path": "apps/web/features/journey/components/equipment-portal.module.css",
+      "sha256": "a594da6227bad0b8fdf95331fbe89fdf5b75c45fd9eb2024148c420da4ac3cc0"
+    },
+    {
+      "path": "apps/web/features/journey/components/equipment-stat-bonuses.tsx",
+      "sha256": "55ec2ea4465a0c2d3fceeb1db7ae830faa2f16f5c2bb563ef92252dcea39e03c"
+    },
+    {
+      "path": "apps/web/features/journey/components/equipment-status.tsx",
+      "sha256": "d1d877e911232171c2745ebff99ae324fa1cd2c04a314f39cc65a32bbac3a245"
+    },
+    {
+      "path": "apps/web/features/journey/components/equipped-avatar.tsx",
+      "sha256": "a76999c8abe01058c9e9fa97ead06b83c50bccfe457513e60d38215c22c3a102"
+    },
+    {
+      "path": "apps/web/features/journey/components/garden-exploration.tsx",
+      "sha256": "529df2507723773e147d054425db4e0404e5483f67788b4513c1f5925c457b12"
+    },
+    {
+      "path": "apps/web/features/journey/components/guild-artwork.tsx",
+      "sha256": "b9fae8e92bdcd5b0bbf2a1d614cff65516f42a2621fd0ec7e1ea8c86e2d1b086"
+    },
+    {
+      "path": "apps/web/features/journey/components/guild-content-board.tsx",
+      "sha256": "454b8bcbc25c9fe6c6988dfef3f57c10ed82cb63b8a658f3cc8e62b6b3f23942"
+    },
+    {
+      "path": "apps/web/features/journey/components/guild-experience.module.css",
+      "sha256": "e907658c3b3d798094e150415c6845311755a1ea698f038566731c8f56a2e29e"
+    },
+    {
+      "path": "apps/web/features/journey/components/guild-hero.tsx",
+      "sha256": "2313f8c57128d331dc5f09737eb44b9e7d4073b97847fd487e2af0a26ce63240"
+    },
+    {
+      "path": "apps/web/features/journey/components/guild-reward-summary.tsx",
+      "sha256": "72a2264add7f235471842863621d251e311b3c06cff7ac2c7426e067d57405ed"
+    },
+    {
+      "path": "apps/web/features/journey/components/journey-icon.tsx",
+      "sha256": "b92b1f80abfc122fb9fed485ff4e0646bb5c5af68a78064eec06232123fcfb66"
+    },
+    {
+      "path": "apps/web/features/journey/components/journey-spotlight.tsx",
+      "sha256": "fecf2a9147886c6be226dbc857f7c926c4bad8ff5fd4c995f42358e9e0752c48"
+    },
+    {
+      "path": "apps/web/features/journey/components/landscape.tsx",
+      "sha256": "3acffe9870f5884824916fbb3daea1d62070ea3e13923779de984a4334ffb10b"
+    },
+    {
+      "path": "apps/web/features/journey/components/online-guild-hub.tsx",
+      "sha256": "f6c49fd8a2ea60c88026e240ea3b09303291f3c699e3598675567717c9d1441d"
+    },
+    {
+      "path": "apps/web/features/journey/components/pack-artwork.tsx",
+      "sha256": "c90f2c582260e83f29a5a18072166cf69466763205dbdf2a769ebfe60c24ad01"
+    },
+    {
+      "path": "apps/web/features/journey/components/shell.test.tsx",
+      "sha256": "7b8652e96a882e0fed1c8a677e317de8d548ab069c8d04ac2eeaff714b68d44e"
+    },
+    {
+      "path": "apps/web/features/journey/components/shell.tsx",
+      "sha256": "dafd2627b9221a429658671b2676d348b1326879a82035a715527368ebdfbea1"
+    },
+    {
+      "path": "apps/web/features/journey/components/snake-game-engine.ts",
+      "sha256": "5f0fe1f2aa6c67c728828885d983205bd605e24a1c9cc1182cdafabb2692ec68"
+    },
+    {
+      "path": "apps/web/features/journey/components/snake-input.ts",
+      "sha256": "918fbbc9c781662c7baee4c5166f360b2c83aaf73aa70b3f59b1b15790021dce"
+    },
+    {
+      "path": "apps/web/features/journey/data/approved-visual-assets.ts",
+      "sha256": "3c2a82b39d1bb259b22acdfbe8f7d711281581f9a9fb0eaeb55e5dbd75746ddc"
+    },
+    {
+      "path": "apps/web/features/journey/data/arena.ts",
+      "sha256": "b7ed32184d12596365aa400f9414246760cd48bebef48c9992073696afdf0d5c"
+    },
+    {
+      "path": "apps/web/features/journey/data/arenaPresentation.ts",
+      "sha256": "693305a01d55594cfe1c65ddebfbed117061852c7d4f5460ffe09125da66cc38"
+    },
+    {
+      "path": "apps/web/features/journey/data/audiovisualAssets.ts",
+      "sha256": "89ecab72fc48b212710b42860eb89218ca4b9a4cc4765ae610dfb496c864ef5d"
+    },
+    {
+      "path": "apps/web/features/journey/data/avatarAssets.ts",
+      "sha256": "5002bbf0ccac93c8455a8374eb74545808e538ec22dd779f4a13c0088f919417"
+    },
+    {
+      "path": "apps/web/features/journey/data/battlePresentation.ts",
+      "sha256": "7da7bb05b48f53a347b057028a439c62591b26426f82083770b029407ab0b9c1"
+    },
+    {
+      "path": "apps/web/features/journey/data/bibleLinks.ts",
+      "sha256": "17d1d0519c2f2b50aa161d1afb7f88884fc2ca7f44e1730c0d571181c14cc9e6"
+    },
+    {
+      "path": "apps/web/features/journey/data/campaign.ts",
+      "sha256": "f63804481e3c306262ebaf7112a95793c01abf51f65b0622b62b7698832dfc41"
+    },
+    {
+      "path": "apps/web/features/journey/data/chests.ts",
+      "sha256": "36cd4c8830c809b4ac74b8a34af4afac6885aeb610324057ab4bed8b5f51e6cb"
+    },
+    {
+      "path": "apps/web/features/journey/data/diaryView.ts",
+      "sha256": "68bac3803faf775d44bfb3c79fa7b46ab3ae6ebe183e08e431082b89f3d1a5dc"
+    },
+    {
+      "path": "apps/web/features/journey/data/equipmentAnimation.ts",
+      "sha256": "a0e3c352736e2a75b987f87a0786eb41d6836b10b99a8bb25e4575da00172570"
+    },
+    {
+      "path": "apps/web/features/journey/data/equipmentBible.ts",
+      "sha256": "53d36dc9f7dd8c014b574a153ebe154772d43fbcc204e7f6a98b1f3d624cd5e8"
+    },
+    {
+      "path": "apps/web/features/journey/data/equipmentCinematic.ts",
+      "sha256": "61fee7a1645df59685fc948f71b321d7f1954e58615eceff5a6ea630c4d23977"
+    },
+    {
+      "path": "apps/web/features/journey/data/gameplayAvatarPortrait.ts",
+      "sha256": "31cd8dcfd71d4fcd68183bd7d2b9251e16d867bcea0c8c26c1d49c11f267d5b4"
+    },
+    {
+      "path": "apps/web/features/journey/data/gardenQuiz.ts",
+      "sha256": "85f4d171c9de7a2b4d4998a17235f1c0fe1a6e523db9d5a5c700d38613a5306d"
+    },
+    {
+      "path": "apps/web/features/journey/data/guildContent.ts",
+      "sha256": "830d19de9197e5eda11c7824a3f7c4ab52664a8472beb44eae831e5bc241782c"
+    },
+    {
+      "path": "apps/web/features/journey/data/guildExperienceAssets.ts",
+      "sha256": "2eda459990c284619570e2ef3b93e74e491786fbc26cc9b4853aab8cf6ee7457"
+    },
+    {
+      "path": "apps/web/features/journey/data/guildPlayerVisibility.ts",
+      "sha256": "2195b42ccb65e3b31dc814cfa6141c7f1bccee426f2e0cb724e13692b8e902c0"
+    },
+    {
+      "path": "apps/web/features/journey/data/guildPresentation.ts",
+      "sha256": "0beffc42ddf200105042a92f079015191aec24f6da2707e84c40ed3e6ac47f4e"
+    },
+    {
+      "path": "apps/web/features/journey/data/guildRewards.ts",
+      "sha256": "1b09c44e48fe0311d79dfa2ef46c24aee1245b20f8ea7ec493b5626c7f5d478a"
+    },
+    {
+      "path": "apps/web/features/journey/data/localGuilds.ts",
+      "sha256": "a413a11e226506db3ee671a87399d16e1285b1fa840d3d5893f6ebfe0e191d01"
+    },
+    {
+      "path": "apps/web/features/journey/data/phaseProgress.ts",
+      "sha256": "b8d81b9536d28f703964828ab19a0e916e3914d8cb0aaf0c6f57ac528b6431e5"
+    },
+    {
+      "path": "apps/web/features/journey/data/progression.ts",
+      "sha256": "d279a67d2a65e5bc6e67c4dc8590e1bf70ee80cdbec305f9c85219ac9ec58f1a"
+    },
+    {
+      "path": "apps/web/features/journey/data/shop.ts",
+      "sha256": "f4aeaf31ee54f7a696e6d817aa4128e0fd70b531a59d5b0bbc7d51ec86ce896b"
+    },
+    {
+      "path": "apps/web/features/journey/dev/arena-asset-status.ts",
+      "sha256": "b6cf833dd8bbc407294b12be3672c7442bdaf7aa4fb23605fea8b2c50d1005c6"
+    },
+    {
+      "path": "apps/web/features/journey/dev/arena-lab-entry.tsx",
+      "sha256": "ea0ed0db14720b6bc8de2638703be9187ef92106cb2607fec96f11e5399b4cef"
+    },
+    {
+      "path": "apps/web/features/journey/dev/arena-lab-fixtures.ts",
+      "sha256": "66c9cfa1db4125a832505850ee9cb4888f2d547dcad03b743f638ab6f71b9d0e"
+    },
+    {
+      "path": "apps/web/features/journey/dev/arena-visual-lab.module.css",
+      "sha256": "d8b36bb67642ec14c56cbd14f2ceb6613e36f662be83f9fbb59626cc01bfcbec"
+    },
+    {
+      "path": "apps/web/features/journey/dev/arena-visual-lab.tsx",
+      "sha256": "e0d1112c625cfa964c0e7fb5102b5af99197dfb7a3dc4169f2af9d00164eef5f"
+    },
+    {
+      "path": "apps/web/features/journey/dev/avatar-runtime-panel.module.css",
+      "sha256": "ef30af947311fa8a81956ac541fae37140ae9164ca30dbe74ed71a8833a776f2"
+    },
+    {
+      "path": "apps/web/features/journey/dev/avatar-runtime-panel.tsx",
+      "sha256": "75fc5d5103996337b41fed270f928e1cc9aaf90dd627778748a6759572378b74"
+    },
+    {
+      "path": "apps/web/features/journey/dev/body-fit-reference-metrics.json",
+      "sha256": "8c4bf01fb8de64ba787e8d289715001ca166ae014022589391e8a4e7added8c1"
+    },
+    {
+      "path": "apps/web/features/journey/dev/prototype-arena-audio-assets.ts",
+      "sha256": "d211f1814451a953a96f01ebbae64d70188a844c37aece6556c6ddae952872b8"
+    },
+    {
+      "path": "apps/web/features/journey/dev/vite-env.d.ts",
+      "sha256": "5670e68b6d294941f95df8d1884edcee3c4f38f4b0c306bc19fcb249e7feae60"
+    },
+    {
+      "path": "apps/web/features/journey/diary-experience.test.tsx",
+      "sha256": "c0182522ef6db9995d17480da66d746fb72125bf4b20237012a68d4be14ebbfe"
+    },
+    {
+      "path": "apps/web/features/journey/equipment-animation.test.ts",
+      "sha256": "4d5a786a476baeabb5bca92cee627d047381f6ca1bf0d8ae73e0f2d7859081d6"
+    },
+    {
+      "path": "apps/web/features/journey/equipment-assets.test.ts",
+      "sha256": "1789786068c35e77f6ba11a079d51d63b1b7ac99ff9e5684fee777630226cc19"
+    },
+    {
+      "path": "apps/web/features/journey/equipment-bible.test.ts",
+      "sha256": "e9296c3cab4fffe977101ffc225a8f8a092900105eb3eb375108820c696d5c69"
+    },
+    {
+      "path": "apps/web/features/journey/equipment-cinematic.test.tsx",
+      "sha256": "808ab07e6f557be529023070361174a82cc58e38efc30eb546765367f9be25aa"
+    },
+    {
+      "path": "apps/web/features/journey/equipment-overlays.test.tsx",
+      "sha256": "f4a8fb37b920a1fae09836d66884b5b68de73293f0c0a5759f285b2055810659"
+    },
+    {
+      "path": "apps/web/features/journey/equipment-portal.test.tsx",
+      "sha256": "2221b189c84a3ded050ff96e518e5fb5504ec2b069633800a7db061a22f0ea6c"
+    },
+    {
+      "path": "apps/web/features/journey/equipment-v1-files.test.ts",
+      "sha256": "505efb0dcc60d00da408d3b2013c251d48895e53612b0a8c896e6c17ea1e3c65"
+    },
+    {
+      "path": "apps/web/features/journey/game-audio-hook.test.tsx",
+      "sha256": "dca048d37445bd5c8e244ad97df360ad12f809120a140073c22399bbabf57a4d"
+    },
+    {
+      "path": "apps/web/features/journey/garden-quiz.test.ts",
+      "sha256": "5799a019389b251f943534b6cd4f29ee4e22a68793f645e9554a8ce8db2bcdc6"
+    },
+    {
+      "path": "apps/web/features/journey/guild-clock.test.tsx",
+      "sha256": "0f70bdb34ff89e2b82ef31e1f0cc99fbe0a875c83ef773a5beeb7aba3bec8af6"
+    },
+    {
+      "path": "apps/web/features/journey/guild-experience.test.tsx",
+      "sha256": "8d11b3bd98156e8d4d605dc7ddd5aa306f5992b3e7f4e253474e0e9ae5d9b184"
+    },
+    {
+      "path": "apps/web/features/journey/guild-gate.test.ts",
+      "sha256": "5fda70cd934e4c697bab676c5e79a0571beefbc9c8280d1e39ee36e9367047f7"
+    },
+    {
+      "path": "apps/web/features/journey/guild-player-visibility.test.ts",
+      "sha256": "133887eb4565bd053663fb8f8c45363f3b77d5903e18806cd901b6ee4e2f42e4"
+    },
+    {
+      "path": "apps/web/features/journey/guild-visual-pack.test.tsx",
+      "sha256": "31ef029c77121188277079127c7df618d85c578aab3f8c6d9170bc6b9b5304a0"
+    },
+    {
+      "path": "apps/web/features/journey/hooks/use-battle-presentation.ts",
+      "sha256": "2a5741010eb1a32aa2ba56f716b15380b91647b9932a14b4af0d810063356a53"
+    },
+    {
+      "path": "apps/web/features/journey/hooks/use-equipment-cinematic.ts",
+      "sha256": "8be99bbb4d023e65d8e664a428ed4e1a2c7cb8a1047a870827f4fd01af6fa99f"
+    },
+    {
+      "path": "apps/web/features/journey/hooks/use-game-audio.ts",
+      "sha256": "aeddb76cbd7d302e81802a115122648d7c88cb662bba652716fc3a88b225f290"
+    },
+    {
+      "path": "apps/web/features/journey/hooks/use-guild-clock.ts",
+      "sha256": "bbb45a077aab0fea9728ffc58cb71bea31e0426b6c28679a9185bbb41bdcb369"
+    },
+    {
+      "path": "apps/web/features/journey/journey.module.css",
+      "sha256": "f7772ac377852e82e71cdf77a7b2887374b64cad63a4bdbcecdfcfe09afefc6e"
+    },
+    {
+      "path": "apps/web/features/journey/journey.test.tsx",
+      "sha256": "94b0e4ba31b818473cdb54c3e80ce4ca41c1ab756e0a6728507d6a9bdd887dc6"
+    },
+    {
+      "path": "apps/web/features/journey/online-guild-hub.test.tsx",
+      "sha256": "9cd6668e4a23b90810e084c0142ded5362eb8a2a62971be657d1451720e2f7fa"
+    },
+    {
+      "path": "apps/web/features/journey/pack-artwork.test.tsx",
+      "sha256": "8cdfa50b7c3885f2b4640eaf97af1f76ad383229e3728ea69560ca1b296460fa"
+    },
+    {
+      "path": "apps/web/features/journey/phase-progress.test.ts",
+      "sha256": "ab06100251d8bb89d17eaed4a1929996601ebdf26bed2f0bd2c9f428395d9b6b"
+    },
+    {
+      "path": "apps/web/features/journey/progression.test.ts",
+      "sha256": "798bdbb875053018b35521c0c4afed78ed6e820d24aa7d6c7d359cb2e74995eb"
+    },
+    {
+      "path": "apps/web/features/journey/screens/act.tsx",
+      "sha256": "16c152ab7f0c38dc6032337901338fbd3644f946d4be5e914c870c68f5ce48b7"
+    },
+    {
+      "path": "apps/web/features/journey/screens/backpack.tsx",
+      "sha256": "4ad2d1167d4ef816dc204754481776d90a7119435e8d8abad498bbb24dbc9656"
+    },
+    {
+      "path": "apps/web/features/journey/screens/collection.tsx",
+      "sha256": "0e7234ba7e9f2ea387a3a462d7ebb4e3798987b1c58088a2f30a996359859162"
+    },
+    {
+      "path": "apps/web/features/journey/screens/create.test.tsx",
+      "sha256": "b03f56c2c60fda33380fd4268bedd96d40dd6fe2a509ebfed7e9856c36890350"
+    },
+    {
+      "path": "apps/web/features/journey/screens/create.tsx",
+      "sha256": "a8b680304c573d0c707c807fdfa91998924674a643a14c803bac31e234cf37a7"
+    },
+    {
+      "path": "apps/web/features/journey/screens/equipment.tsx",
+      "sha256": "09309b42800db61ef9402168ba8a8fe0da0ffd7acc8f10abab832bcca8707b29"
+    },
+    {
+      "path": "apps/web/features/journey/screens/guild-manage.tsx",
+      "sha256": "9cb6a4b43b31004fb2259f92c48ac027585d31644575fe2865af89c004814ad3"
+    },
+    {
+      "path": "apps/web/features/journey/screens/guild.tsx",
+      "sha256": "37d353b286589d3474395b061abef0c62463e669ed18be1551a23ea975bf27f9"
+    },
+    {
+      "path": "apps/web/features/journey/screens/hero.tsx",
+      "sha256": "e35e7c48407c21a4153ed4d37fa7a1b7ee317e7be43a0409ddf72e3ea3e6c552"
+    },
+    {
+      "path": "apps/web/features/journey/screens/home.test.tsx",
+      "sha256": "777a24e785c58583f5b39f375116849c41ccb89b0aefab4899bebbfd1847a893"
+    },
+    {
+      "path": "apps/web/features/journey/screens/home.tsx",
+      "sha256": "709454aa4418a5b546542dc2804a27ea43a6ce099c12b2a38810615941fa2342"
+    },
+    {
+      "path": "apps/web/features/journey/screens/intro.tsx",
+      "sha256": "5844797afba9c949f73b0141aceed95cecb33d18ce15267fd41dafe812745fce"
+    },
+    {
+      "path": "apps/web/features/journey/screens/map.tsx",
+      "sha256": "8da6ecc65a33767b216c435a1831e55636e5487b9420f9950b4580710c5a94bb"
+    },
+    {
+      "path": "apps/web/features/journey/screens/phase.tsx",
+      "sha256": "5582312d8eedc32044befb4973676f319b66a1dc448496c169015f078c5c971c"
+    },
+    {
+      "path": "apps/web/features/journey/screens/shop.tsx",
+      "sha256": "7b4eaeae7c49e6098f07fe77798307151d834358a0212f9b64862a7587530569"
+    },
+    {
+      "path": "apps/web/features/journey/snake-chase-game.test.tsx",
+      "sha256": "e7371017eb6d347a812e85644f8ebb67ff0322ceeb77b7f16d43420ed50f0183"
+    },
+    {
+      "path": "apps/web/features/journey/snake-game-engine.test.ts",
+      "sha256": "634b2e8be9a5d1a9bae4d54f2ad578964f715db41b11a9a84b6776e9509ebcbb"
+    },
+    {
+      "path": "apps/web/features/journey/snake-input.test.ts",
+      "sha256": "62972a911f991ddb18bcb05e48c744977237851283e6f9c3f3a25fbe887fe345"
+    },
+    {
+      "path": "apps/web/features/journey/testing/equipment-overlay-fixtures.ts",
+      "sha256": "9ceee5cdfd540cd8a66f86606dd057427e93c29b69dd36078d394664ed70e883"
+    },
+    {
+      "path": "apps/web/features/journey/visible-systems.test.ts",
+      "sha256": "ca5084ab8ea3567e5db8e4fea53a45d68c2648ba3f7a688e4e3db24189194e05"
+    },
+    {
+      "path": "docs/architecture/TASK-0055-BAKED-ASSET-MANIFEST.json",
+      "sha256": "851c74e5127ca4c571f21d5565957d9adc60e3c6dbc550cd41884beb97495f0f"
+    },
+    {
+      "path": "build/task-0056-sword-downward/asset-validation.json",
+      "sha256": "09461375ce84e37f6fa93f1602ff371143a30d23aef9bd57ff6105ec7e68cd79"
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/inventory.json",
+      "sha256": "fedf4af5c626214d56ffe57a89dce5119973b93381fa884a763ebec7c904ac39"
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/settings.json",
+      "sha256": "dfc4a43f7f4f4b2824d72b2e33ffecfd591005d81a87f7dd2a20dccecef4066f"
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_common_female_v2/alignment_guides.png",
+      "sha256": "0e02e7cf88f7e0f0ef8b09279ebcd659e81475878644df56f2ef25ea7e5f1f99"
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_common_female_v2/avatar_base.png",
+      "sha256": "f260cb9b053b35c328025f1bc7ee602cbb30e57c71ba1f2238a4b1519685f460"
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_common_female_v2/combined.png",
+      "sha256": "92eb8eadb398fcbc936ea9e8e3ac4f61c52f39214396392b5c46beb22a534c6b"
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_common_female_v2/fit-metadata.json",
+      "sha256": "88fb59b9bc7c052f44a200b216ed670388f44432dff14e1e46a778d97b93edc6"
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_common_female_v2/fit-report.json",
+      "sha256": "0ea23fc939ad47397b31e1cd71befc69547689178951bf424042fb3aa4a00597"
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_common_female_v2/full_body.png",
+      "sha256": "92eb8eadb398fcbc936ea9e8e3ac4f61c52f39214396392b5c46beb22a534c6b"
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_common_female_v2/hand_zoom.png",
+      "sha256": "c9308eec46831b761b0bb1a2d578147e7e7c33c3342bd099ae4723ea4e331a9e"
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_common_female_v2/hand_zoom_base.png",
+      "sha256": "25995b20bdfc636c0636ed6deee8c44fc0b3335af0e27f16914639fb8906ed96"
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_common_female_v2/hand_zoom_masked.png",
+      "sha256": "cb27d1057bc173bfcccd23f880d997c171f1007c3ec6628943941416b758d721"
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_common_female_v2/masked_combined_diagnostic.png",
+      "sha256": "63fbb8b98541c3dcd39f7f24c4121ccbbd400754643d549fc9bc4533b9181fe9"
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_common_female_v2/masked_overlay_diagnostic.png",
+      "sha256": "ed9a9a82917c1262a4e23c5806c41b1eae65573bd56a287d7a612b7721621d75"
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_common_female_v2/offline_hand_occlusion_mask.png",
+      "sha256": "b5ab39efd6930bf17f9526ee42f839ed44dfabcf7320b95ae0e8e230f0cfefc0"
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_common_female_v2/previous_combined.png",
+      "sha256": "baee9dfb530ab97c7dfcd88b8dcaf9e5aa1853d88d41f25ca887f06065ce0dc2"
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_common_female_v2/receipt.json",
+      "sha256": "53864f371bb840ff28333b60855eb702ba607d9cb5a5aad2edecdab896539aeb"
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_common_female_v2/source.png",
+      "sha256": "03e3edbcf9572fae0cafc46b0a02eda045cbcdfe855dfcdf808e4aa8a5401d29"
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_common_female_v2/sword_path_common_female_v2_downward_baked.png",
+      "sha256": "14c11b9454113ffb5dca678234a0286315d36b81e91f816d9835d5b6fee54cf1"
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_common_male_v2/alignment_guides.png",
+      "sha256": "fada366792255f5898ac671740b0973575ee7ff3d6cf3d21683fee530b42d4cb"
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_common_male_v2/avatar_base.png",
+      "sha256": "b182c2e29b512b337891716a413ab7efaad737e23c6354779fae17fe19b8af34"
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_common_male_v2/combined.png",
+      "sha256": "258973404f4adde5483cc03de3bc2ab0d7e02e217b5509d03a026c9b07d1b45c"
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_common_male_v2/fit-metadata.json",
+      "sha256": "d0ffa200307723536a3265e30b61f5525cf19addb7e31c7c87cac0a86fb0be9c"
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_common_male_v2/fit-report.json",
+      "sha256": "b14468cbf5a6b9cf2f2a0fcf018876d07271babe10823ec3d18173543022f1d0"
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_common_male_v2/full_body.png",
+      "sha256": "258973404f4adde5483cc03de3bc2ab0d7e02e217b5509d03a026c9b07d1b45c"
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_common_male_v2/hand_zoom.png",
+      "sha256": "c5115c5af337586a5ee9b55f6425512ac4b9cea9f23d81867991b232736b9f72"
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_common_male_v2/hand_zoom_base.png",
+      "sha256": "09baf241cd72ef13feaa8802adf7cc15bd97058a0539ea5115f1b9c9238ba3d2"
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_common_male_v2/hand_zoom_masked.png",
+      "sha256": "eab057862765e8f137f485c1ebad101de91b13475d9b9ddc2d267f4252696283"
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_common_male_v2/masked_combined_diagnostic.png",
+      "sha256": "bdcdd583009544083987ba0aeaf8034c21530382d8e604bf56e9532bef9744d8"
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_common_male_v2/masked_overlay_diagnostic.png",
+      "sha256": "c3aec3e934920f18985d264ac9c2d34295245bf4094d7bbe68d4812f28c3b69c"
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_common_male_v2/offline_hand_occlusion_mask.png",
+      "sha256": "f1f478890c7f29167d68b5296531cb12bad7eba919512d0421aadb4e2ead94e0"
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_common_male_v2/previous_combined.png",
+      "sha256": "cbf69c84d602374ba434586e1e8c805dac6424d3075b6c973cb12b81a55f5f90"
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_common_male_v2/receipt.json",
+      "sha256": "3703d0417cd585ff0838c872b3146d5f816265b9e09392eeca33de90fa821dbc"
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_common_male_v2/source.png",
+      "sha256": "ef4ca354506a7da6a9c80dcbb2b4d5388af7d11bef98fce9a81d8de6b40e8818"
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_common_male_v2/sword_path_common_male_v2_downward_baked.png",
+      "sha256": "bdbf54e9c683cfbce31c9ab6f0b85ab1a9a0f4af6bdabdfe6feb92903bad6a2f"
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_rare_female_v2/alignment_guides.png",
+      "sha256": "65eb1695435f3735ae7494fad0dfcd1170fb9e559a7b169c129edffc417cface"
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_rare_female_v2/avatar_base.png",
+      "sha256": "f260cb9b053b35c328025f1bc7ee602cbb30e57c71ba1f2238a4b1519685f460"
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_rare_female_v2/combined.png",
+      "sha256": "66a96a279ed647775832859980a3cdc5facade3a6a22d407340161df05e90a1e"
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_rare_female_v2/fit-metadata.json",
+      "sha256": "e9af1606221611a0d7aecdfe1bee0c508ee7fdce377eb8c80f2042149aa90faa"
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_rare_female_v2/fit-report.json",
+      "sha256": "615a703cd0ea42107311d5d7877b8c1b8354de9cc0f522b59bfaa9b44dca1b98"
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_rare_female_v2/full_body.png",
+      "sha256": "66a96a279ed647775832859980a3cdc5facade3a6a22d407340161df05e90a1e"
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_rare_female_v2/hand_zoom.png",
+      "sha256": "36fffd8a97ffd818227b7485e5c763c3478cdcaffa4b7df019f7006ef667442f"
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_rare_female_v2/hand_zoom_base.png",
+      "sha256": "25995b20bdfc636c0636ed6deee8c44fc0b3335af0e27f16914639fb8906ed96"
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_rare_female_v2/hand_zoom_masked.png",
+      "sha256": "87695e53fb9b44cbda6633a2435f20a5569beb51406117f66aa14bcc50b9e7e0"
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_rare_female_v2/masked_combined_diagnostic.png",
+      "sha256": "c777a2bed67e7fce4438d66c3cb0679a80e519c23e1522a805561661a4a7cad7"
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_rare_female_v2/masked_overlay_diagnostic.png",
+      "sha256": "dcac4d507621f2b7e2ab2c47b492c9e515dc7e4a6f04ec4cd0d7b306559e5182"
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_rare_female_v2/offline_hand_occlusion_mask.png",
+      "sha256": "b5ab39efd6930bf17f9526ee42f839ed44dfabcf7320b95ae0e8e230f0cfefc0"
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_rare_female_v2/previous_combined.png",
+      "sha256": "67223db8712b38f1a8932376f4bd0d6557c06faf1494fa5caef2ddbfd5d7fab5"
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_rare_female_v2/receipt.json",
+      "sha256": "9148b99dc3c95cff5e1d80718249c12e47cb3a562f048547ab2ea6bb6f51b511"
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_rare_female_v2/source.png",
+      "sha256": "5b445879d181b54e7a4f22761f63602cce83b15341255df8409d5b6b2f8a6ab8"
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_rare_female_v2/sword_path_rare_female_v2_downward_baked.png",
+      "sha256": "213b5f5cf9bc7efb5fa1bdb85b053920452d41980784222e36829fb0c3acb2d4"
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_rare_male_v2/alignment_guides.png",
+      "sha256": "32c6a5ddcb759dfb8a1bcd6e97b741ac8962d5293bb712099c584620b54387a2"
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_rare_male_v2/avatar_base.png",
+      "sha256": "b182c2e29b512b337891716a413ab7efaad737e23c6354779fae17fe19b8af34"
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_rare_male_v2/combined.png",
+      "sha256": "2ba0e11299254514c81606bac4175920fef3718c3c346370921c6251312a1eec"
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_rare_male_v2/fit-metadata.json",
+      "sha256": "e099c1f61d17130ec0659b7b89c4db9b1d82d6cc73b170c91605fd9c738e200b"
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_rare_male_v2/fit-report.json",
+      "sha256": "559a5f142bfbf83c0a1c6cfeed2e16a248f044b250d89e3069197f7986e806dd"
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_rare_male_v2/full_body.png",
+      "sha256": "2ba0e11299254514c81606bac4175920fef3718c3c346370921c6251312a1eec"
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_rare_male_v2/hand_zoom.png",
+      "sha256": "30bc413f287c0a70d4008df1fb338d7768c22cb817f35b3bbfa51446e83f7849"
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_rare_male_v2/hand_zoom_base.png",
+      "sha256": "09baf241cd72ef13feaa8802adf7cc15bd97058a0539ea5115f1b9c9238ba3d2"
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_rare_male_v2/hand_zoom_masked.png",
+      "sha256": "e1a639183fc14692ef2ea71f9c82cec82594e37e9fbef12bd20ac5f06781005d"
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_rare_male_v2/masked_combined_diagnostic.png",
+      "sha256": "cb3727c27969b444984b3d2059e36e8c2e8940952b1ea7f95e5544a803175bd6"
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_rare_male_v2/masked_overlay_diagnostic.png",
+      "sha256": "b5f4e4880238cec8ce75cb66f33f7bd7819918e2166109dd36bfa1075ffcbb0e"
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_rare_male_v2/offline_hand_occlusion_mask.png",
+      "sha256": "f1f478890c7f29167d68b5296531cb12bad7eba919512d0421aadb4e2ead94e0"
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_rare_male_v2/previous_combined.png",
+      "sha256": "8304c82a62355d635bd08c6859c7bc0398eef4cf6e7809a060f94a5761f3cb5b"
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_rare_male_v2/receipt.json",
+      "sha256": "63663b9e42f099b917b582a25d842f52dda4fd2876b5e37e3eb44e84019343fe"
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_rare_male_v2/source.png",
+      "sha256": "89676a2f0f5b8ce73e25e6088ff52979115a11a091bbf25ce810b3c8488c96cb"
+    },
+    {
+      "path": "build/task-0056-sword-downward/attempt-02/sword_path_rare_male_v2/sword_path_rare_male_v2_downward_baked.png",
+      "sha256": "8e549def7ee66c9e9f3cd80e256b820e3fd889c99b0b9d05d738a62b2b657088"
+    },
+    {
+      "path": "build/task-0056-sword-downward/browser-check.json",
+      "sha256": "7435da87ae14b68f2258f00fd68cca623cf6bcca3fa5fbf93eef41f3f6cb848a"
+    },
+    {
+      "path": "build/task-0056-sword-downward/browser-evidence/review-1366.png",
+      "sha256": "a24c4420276197dbf7df67da24ed4dbfbac1a27a545a729f81f56c46afe2c1a2"
+    },
+    {
+      "path": "build/task-0056-sword-downward/browser-evidence/review-390.png",
+      "sha256": "e1dfe1e4c53d07781e8676af8690f63ed6fbf017688d5703ccc60ba7c0b2212d"
+    },
+    {
+      "path": "build/task-0056-sword-downward/hand_sword_path_common_female_v2.png",
+      "sha256": "043cc0b8a16d5edf056df9d70aec99eb49a403e8bbc6f205bfcf9ca2acd5ead5"
+    },
+    {
+      "path": "build/task-0056-sword-downward/hand_sword_path_common_male_v2.png",
+      "sha256": "4c397f9c086018892303a799e15e3178f4521ff0e1d4d2ec40bb2e0a82a7ba56"
+    },
+    {
+      "path": "build/task-0056-sword-downward/hand_sword_path_rare_female_v2.png",
+      "sha256": "043cc0b8a16d5edf056df9d70aec99eb49a403e8bbc6f205bfcf9ca2acd5ead5"
+    },
+    {
+      "path": "build/task-0056-sword-downward/hand_sword_path_rare_male_v2.png",
+      "sha256": "4c397f9c086018892303a799e15e3178f4521ff0e1d4d2ec40bb2e0a82a7ba56"
+    },
+    {
+      "path": "build/task-0056-sword-downward/inventory.json",
+      "sha256": "d5e1e2903c29e845ebc9e9cdef25614be847ee95c1f3252d5d80edd5f4a78050"
+    },
+    {
+      "path": "build/task-0056-sword-downward/physical-png-inventory.json",
+      "sha256": "606a7d9eb399f4e94937487f08073d5786943120a89c0fd27ad13327f246fb95"
+    },
+    {
+      "path": "build/task-0056-sword-downward/preservation-after.json",
+      "sha256": "26914e7e0cec4362ac7ee3886aa506443158e65d2726bba21296b036495e5ab4"
+    },
+    {
+      "path": "build/task-0056-sword-downward/preservation-before.json",
+      "sha256": "756ec07ee9ff1ae5f54459281af45cff2862f908186b10f81f46e1223ba1197c"
+    },
+    {
+      "path": "build/task-0056-sword-downward/previous-and-sources.png",
+      "sha256": "13e3671d83bb46515b9f9cdaf56583e537e38771878e59de6a324349157f3a00"
+    },
+    {
+      "path": "build/task-0056-sword-downward/review/index.html",
+      "sha256": "fcc990cddfb901e37c388d3f41decbf5a387dedcb58289324e568441a0d55968"
+    },
+    {
+      "path": "build/task-0056-sword-downward/settings.json",
+      "sha256": "ab0527d4f16c80bd59eeb900548e02e7a6a90442b7a15c9a12101645c16256d4"
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_common_female_v2/alignment_guides.png",
+      "sha256": "bfe0d2a04e1b99a1cc414f61cfcb6f858a5b413d5f8014bd8874e351741e40e9"
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_common_female_v2/avatar_base.png",
+      "sha256": "f260cb9b053b35c328025f1bc7ee602cbb30e57c71ba1f2238a4b1519685f460"
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_common_female_v2/combined.png",
+      "sha256": "ccb758405884e249a3a78db60325361df8f1f12fc4e0c54b7ced9520bbb939ab"
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_common_female_v2/fit-metadata.json",
+      "sha256": "2520922de23388a68f5bb84beefe49364f4a0a28d7a5bf376f1974a90ee6fc67"
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_common_female_v2/fit-report.json",
+      "sha256": "d393f9122d9b7c49abe2f88d26808ad7e156d2acc7fb340c12ae1b68bb8231d9"
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_common_female_v2/full_body.png",
+      "sha256": "ccb758405884e249a3a78db60325361df8f1f12fc4e0c54b7ced9520bbb939ab"
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_common_female_v2/hand_zoom.png",
+      "sha256": "21d59b38189c387521277b9d8b5e6c7dae8f81b6a27bfcfaea5ed69efdc865cc"
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_common_female_v2/hand_zoom_base.png",
+      "sha256": "25995b20bdfc636c0636ed6deee8c44fc0b3335af0e27f16914639fb8906ed96"
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_common_female_v2/hand_zoom_masked.png",
+      "sha256": "7fb0fef920a41bd8fc8e4ae778e3d64c73d7a539497e2a98c50afd1446461133"
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_common_female_v2/masked_combined_diagnostic.png",
+      "sha256": "4c5b192abeb2b55c3d1daa3ae145f776a95ee52770e0dcf4392ccc2fbec6b8b4"
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_common_female_v2/masked_overlay_diagnostic.png",
+      "sha256": "c981c1f08f62bf3ca8f8246383816b9bf040e01346c6e9436426f138b57ed625"
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_common_female_v2/offline_hand_occlusion_mask.png",
+      "sha256": "b5ab39efd6930bf17f9526ee42f839ed44dfabcf7320b95ae0e8e230f0cfefc0"
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_common_female_v2/previous_combined.png",
+      "sha256": "baee9dfb530ab97c7dfcd88b8dcaf9e5aa1853d88d41f25ca887f06065ce0dc2"
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_common_female_v2/receipt.json",
+      "sha256": "6293dc53af9e0f7cc277730d1a203aee0f5df686f9dd9545a6c3e602e578b800"
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_common_female_v2/source.png",
+      "sha256": "03e3edbcf9572fae0cafc46b0a02eda045cbcdfe855dfcdf808e4aa8a5401d29"
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_common_female_v2/sword_path_common_female_v2_downward_baked.png",
+      "sha256": "8aeff496080a6c54b28e6bda1919f801d9fca7f9babea5dab07aa265ea744caf"
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_common_male_v2/alignment_guides.png",
+      "sha256": "5c546b691b08c49eef80bdb51bdbd199b8eb6ca6aa4034f16f0a43940f069b9c"
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_common_male_v2/avatar_base.png",
+      "sha256": "b182c2e29b512b337891716a413ab7efaad737e23c6354779fae17fe19b8af34"
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_common_male_v2/combined.png",
+      "sha256": "733c471cd78c02519b75f9dff6337a1ebabf15c5a061d78a8e310c0215eb113a"
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_common_male_v2/fit-metadata.json",
+      "sha256": "7470ae4c1a99d56acfd7dcf409c915346c465ad732bb6168f0106e43ab1189dd"
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_common_male_v2/fit-report.json",
+      "sha256": "e6445c377af4cd206d20743b1ddb68982587f558658a9e6b30561bb6d81d89e8"
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_common_male_v2/full_body.png",
+      "sha256": "733c471cd78c02519b75f9dff6337a1ebabf15c5a061d78a8e310c0215eb113a"
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_common_male_v2/hand_zoom.png",
+      "sha256": "5dcfe6baf366bdc7149f93cf2e890ea01ab13b426be4a1a7100c7bf78ecc2d58"
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_common_male_v2/hand_zoom_base.png",
+      "sha256": "09baf241cd72ef13feaa8802adf7cc15bd97058a0539ea5115f1b9c9238ba3d2"
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_common_male_v2/hand_zoom_masked.png",
+      "sha256": "1eabd98c299cf36c8da32155f47fa1ba3572d947d21b696cee7bb5360b0ba629"
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_common_male_v2/masked_combined_diagnostic.png",
+      "sha256": "0fdcc2163e71fac851eb856473c6bb05fcd0b72837cd183a86eabf7fa8da325d"
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_common_male_v2/masked_overlay_diagnostic.png",
+      "sha256": "b7576ceffd8300a8ad469c4e971a42fa721b7436172c062f622c5878fada9a58"
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_common_male_v2/offline_hand_occlusion_mask.png",
+      "sha256": "f1f478890c7f29167d68b5296531cb12bad7eba919512d0421aadb4e2ead94e0"
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_common_male_v2/previous_combined.png",
+      "sha256": "cbf69c84d602374ba434586e1e8c805dac6424d3075b6c973cb12b81a55f5f90"
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_common_male_v2/receipt.json",
+      "sha256": "e26140eaa22ba306046fa54047cd7a43d89c86f92ddc167642bcf0e9cc8138f7"
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_common_male_v2/source.png",
+      "sha256": "ef4ca354506a7da6a9c80dcbb2b4d5388af7d11bef98fce9a81d8de6b40e8818"
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_common_male_v2/sword_path_common_male_v2_downward_baked.png",
+      "sha256": "2bfa0fcad5242a1f658950fb50dbe0b6e51e1fab7dde827c17c80a6e7ea8ee2c"
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_rare_female_v2/alignment_guides.png",
+      "sha256": "ad7e98037bfefde266b558f3f4a0c43c153bb7a2b927a87e8e68ce3905acc0ef"
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_rare_female_v2/avatar_base.png",
+      "sha256": "f260cb9b053b35c328025f1bc7ee602cbb30e57c71ba1f2238a4b1519685f460"
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_rare_female_v2/combined.png",
+      "sha256": "a227d6a26f50fc12b594b9bb8d7aefadb281bc2e79133c8d16198b1676b64efb"
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_rare_female_v2/fit-metadata.json",
+      "sha256": "f36585bbd93f5e7b7031e1b5f743849b0548939a859ba08cb5d45262f15a664f"
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_rare_female_v2/fit-report.json",
+      "sha256": "ae4ab3dbd7be774521ae699aa2168f5dff5912a6aa077e8af9f406888050d806"
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_rare_female_v2/full_body.png",
+      "sha256": "a227d6a26f50fc12b594b9bb8d7aefadb281bc2e79133c8d16198b1676b64efb"
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_rare_female_v2/hand_zoom.png",
+      "sha256": "26d3d3ca081a606f744b1afd11ed2b687b2118cd71db6d9c0f8be069f1b0a682"
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_rare_female_v2/hand_zoom_base.png",
+      "sha256": "25995b20bdfc636c0636ed6deee8c44fc0b3335af0e27f16914639fb8906ed96"
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_rare_female_v2/hand_zoom_masked.png",
+      "sha256": "b3ebd59a67aa5053313344f1caaa138790ee6c1e39ba105baae1b39b05259c68"
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_rare_female_v2/masked_combined_diagnostic.png",
+      "sha256": "d3f29da5341853b66384c53b19c9e81a2b00aed8758f78a4161a3d4a309e5534"
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_rare_female_v2/masked_overlay_diagnostic.png",
+      "sha256": "5137ef62826f87adf9cf2bba1d62e9c12f6b9ba86c100804dbc903235e1c2354"
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_rare_female_v2/offline_hand_occlusion_mask.png",
+      "sha256": "b5ab39efd6930bf17f9526ee42f839ed44dfabcf7320b95ae0e8e230f0cfefc0"
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_rare_female_v2/previous_combined.png",
+      "sha256": "67223db8712b38f1a8932376f4bd0d6557c06faf1494fa5caef2ddbfd5d7fab5"
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_rare_female_v2/receipt.json",
+      "sha256": "ce8ad32e096007104fbd497a658ec8912247588d91350c3f853e4799872cb64d"
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_rare_female_v2/source.png",
+      "sha256": "5b445879d181b54e7a4f22761f63602cce83b15341255df8409d5b6b2f8a6ab8"
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_rare_female_v2/sword_path_rare_female_v2_downward_baked.png",
+      "sha256": "c67f2efb40809c89ca8db6a343b6ff5a913757f588ecef7104c2613929fb4c7c"
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_rare_male_v2/alignment_guides.png",
+      "sha256": "6a189b3a21c39447b8ff843e2d00c9508411017c1ebd0e65a19ba6fbba7db041"
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_rare_male_v2/avatar_base.png",
+      "sha256": "b182c2e29b512b337891716a413ab7efaad737e23c6354779fae17fe19b8af34"
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_rare_male_v2/combined.png",
+      "sha256": "6299bd5c3763ec2ea499d7884ddd1fb2efbc5f8e541e45794b4e7f31f042583d"
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_rare_male_v2/fit-metadata.json",
+      "sha256": "1438589727f12f54c41c077be0a84bba3927453c2d4463046db38ff56e4f7a47"
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_rare_male_v2/fit-report.json",
+      "sha256": "45d96c557381cabcb4e48b4351f2052cd06d70ef06b602b4a9bfa2eb1d400726"
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_rare_male_v2/full_body.png",
+      "sha256": "6299bd5c3763ec2ea499d7884ddd1fb2efbc5f8e541e45794b4e7f31f042583d"
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_rare_male_v2/hand_zoom.png",
+      "sha256": "546d581e79286c291538ad8f87f75f2572c1cfa22e16f036f18e952d1e44fa8b"
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_rare_male_v2/hand_zoom_base.png",
+      "sha256": "09baf241cd72ef13feaa8802adf7cc15bd97058a0539ea5115f1b9c9238ba3d2"
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_rare_male_v2/hand_zoom_masked.png",
+      "sha256": "e7c74dea1ac27cdfd37515875dfd7348f7c0afb781cd3908723839f00069fb85"
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_rare_male_v2/masked_combined_diagnostic.png",
+      "sha256": "f038f93d1b2ca09249813837db3067ec105780007cca285144e40e88b782030b"
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_rare_male_v2/masked_overlay_diagnostic.png",
+      "sha256": "b460c386e69794ab1ea8703dd05b44368f0bd51a1a3708b62c93d5c70083d112"
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_rare_male_v2/offline_hand_occlusion_mask.png",
+      "sha256": "f1f478890c7f29167d68b5296531cb12bad7eba919512d0421aadb4e2ead94e0"
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_rare_male_v2/previous_combined.png",
+      "sha256": "8304c82a62355d635bd08c6859c7bc0398eef4cf6e7809a060f94a5761f3cb5b"
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_rare_male_v2/receipt.json",
+      "sha256": "18a54f0821a148ed55fc5b4b240929fafe78ea820640aa686c6301cf3e391355"
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_rare_male_v2/source.png",
+      "sha256": "89676a2f0f5b8ce73e25e6088ff52979115a11a091bbf25ce810b3c8488c96cb"
+    },
+    {
+      "path": "build/task-0056-sword-downward/sword_path_rare_male_v2/sword_path_rare_male_v2_downward_baked.png",
+      "sha256": "068d9aab42b7c62335abf3f97eab4054fbd771a5f619b68f1c6e8ac47212c0fd"
+    },
+    {
+      "path": "scripts/body-fit-sheath-inspect.mjs",
+      "sha256": "7f7ba399c2de70cfd03f6d06d05f0f938a9de5b4c02f403cd1cbe679b8f259ab"
+    },
+    {
+      "path": "scripts/body-fit-sword-bake.mjs",
+      "sha256": "481a471a09a21497ab65bc88d3090be2621bc1955bf4b58bba218584322c99e4"
+    },
+    {
+      "path": "scripts/body-fit-sword-bake.test.mjs",
+      "sha256": "836ecbeddd908c4fa532a94ce697f850160cb95fa18ec2e9647b2f6edfc2ae89"
+    },
+    {
+      "path": "scripts/body-fit-sword-check.mjs",
+      "sha256": "30202654345939ca17db800231fc4b85889ea8dc4ab345d29a027718e676d364"
+    },
+    {
+      "path": "scripts/body-fit-sword-review-check.mjs",
+      "sha256": "2f32bbe520971f9867c5af13fad8b50b5c77ab5bbb3215bcc6dc7efad8904056"
+    },
+    {
+      "path": "scripts/body-fit-sword-review.mjs",
+      "sha256": "41a84f6e041ec03f89c93f1dfbd2882260b8bf65a59eadf62e9bdc289384d068"
+    },
+    {
+      "path": "docs/architecture/TASK-0056-BAKED-ASSET-MANIFEST.json",
+      "sha256": "de729d8d5aa066dfbb5821faf5ac3701f7a915875131d9e08432001ea45296ab"
+    },
+    {
+      "path": "docs/architecture/TASK-0056-SWORD-DOWNWARD-REPORT.md",
+      "sha256": "12ead4ae40a2e923bb2b4a8b187d928a1f984038e272a883c9898ca37f1eab7c"
+    },
+    {
+      "path": "docs/architecture/TASK-0056-FINAL-CHECKS.json",
+      "sha256": "d12ba298ba65fb0d65dab3c98d0028a2d45b42fe7f384e1e9a4cf8af659ddf3a"
+    },
+    {
+      "path": "tasks/active/TASK-0056-body-fit-sword-downward.md",
+      "sha256": "742f5dcabde294a7a6ec833422456afda9cca4933fb1aeb1f48414f1aac74da2"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/asset-validation.json",
+      "sha256": "9673ae471f6827e0e81b2c391e97226419ba071734a2ca23b3c5bdcbaeb2016b"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/belt-hip-female.png",
+      "sha256": "473f4c222315aab07d6fedb64147ba9938cdc1dac1b7afac9a9396980281f34b"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/belt-hip-male.png",
+      "sha256": "5b2e812c48e0d97c642a54e2578a1637fe673d651b312677f2e121b01fc7a80f"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/diagnostic-inventory.json",
+      "sha256": "ec412b48a636d1acb9bbff708443faac744ad6651996a5ed5c5173764bc01435"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/lab-results/.last-run.json",
+      "sha256": "91d1c43004802cd49950d78eb11c8fa7d05da8ffffe219a8b13b2f561bc00903"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/lab-results/sheath-review-Existing-Bod-35024-art-gate-and-reduced-motion-sheath-lab/body-fit-matrix.json",
+      "sha256": "d04f486ec81ab0e45a5e167ad89f9f3ed319344e881ee219346f2da86d82d6af"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/lab-results/sheath-review-Existing-Bod-35024-art-gate-and-reduced-motion-sheath-lab/body-fit-unchanged.png",
+      "sha256": "95aaa6717527b22a695d925897dbc2aa553a048bc4356b0d84557ea847e4b795"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/lab-results/sheath-review-Four-target--f5293-ix-viewports-reduced-motion-sheath-lab/review-1440x900.png",
+      "sha256": "d4e63189d6ba981f7cd27113fc4e7916d7cac4d8275cc7480fe42ecae26f1f65"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/lab-results/sheath-review-Four-target--f5293-ix-viewports-reduced-motion-sheath-lab/review-1920x1080.png",
+      "sha256": "52baddc315229ba34b94b4673e3becb07af811d0bfd1bcb5521f9c9e2edcc6b5"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/lab-results/sheath-review-Four-target--f5293-ix-viewports-reduced-motion-sheath-lab/review-390x844.png",
+      "sha256": "49a664189d6ac6a4a5bf8d1d6e2b78c518ac641b741d9c6efc4d7cda145ef7b0"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/lab-results/sheath-review-Four-target--f5293-ix-viewports-reduced-motion-sheath-lab/review-412x915.png",
+      "sha256": "c6984d577f1ff7fc11f806a3b5f09b34bfd9eba190cd945369cff1a1f2875273"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/lab-results/sheath-review-Four-target--f5293-ix-viewports-reduced-motion-sheath-lab/review-844x390.png",
+      "sha256": "f3d7fc012881758b6bb71975366ca770859ebb09d2d1dac6f1e0ba4819fa5802"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/lab-results/sheath-review-Four-target--f5293-ix-viewports-reduced-motion-sheath-lab/review-915x412.png",
+      "sha256": "711d54cd20bf36a3a6d6e19d136ff9de22de2afaec914047ddd242cc7f468d0c"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/lab-results/sheath-review-Four-target--f5293-ix-viewports-reduced-motion-sheath-lab/review-matrix.json",
+      "sha256": "4dd568042a3bc4a928e37a9048a3e0e3e68acad6ca8e08e607434cc78b9354db"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/lab-results.json",
+      "sha256": "eafdfa13eab0e602a4be21e16782bb55ec08478920c2080076e365dfa50e7c0f"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/local-art-inventory.json",
+      "sha256": "035d6063bad67d20b830dccab44afa100dd42b43ad7a45d7b9ca75480ca2ed89"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/local-equipment-contact-sheet.png",
+      "sha256": "0d8bc968f329d49f4e8c84a67a56543fcddb247d72a56651f7bef477ae1f48ab"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/portal-results/.last-run.json",
+      "sha256": "91d1c43004802cd49950d78eb11c8fa7d05da8ffffe219a8b13b2f561bc00903"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/portal-results/body-fit-sheath-production-6252b-load-and-no-staging-overlay-desktop/reduced-motion-female.png",
+      "sha256": "eb918afc2c48acc41a3ec7ce02b648ad7f1e147bbcb2efbb8d1a1b4cdf09d08a"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/portal-results/body-fit-sheath-production-e9002-load-and-no-staging-overlay-desktop/reduced-motion-male.png",
+      "sha256": "eb918afc2c48acc41a3ec7ce02b648ad7f1e147bbcb2efbb8d1a1b4cdf09d08a"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/portal-results/e2e-equipment-portal-Arsen-0c08f-son-slots-filters-and-equip-desktop/cinematic-844x390.png",
+      "sha256": "840018f1313fb7515bba671dee157bc79d55469b852b0cc946447626df3601a6"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/portal-results/e2e-equipment-portal-Arsen-0c08f-son-slots-filters-and-equip-desktop/portal-844x390.png",
+      "sha256": "8e12ea0f289dc112b8b6f8ee477f3b50f97a47aec7bbbfa45b2cd16e66911b20"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/portal-results/e2e-equipment-portal-Arsen-35391-son-slots-filters-and-equip-desktop/cinematic-390x844.png",
+      "sha256": "b7e61ec5e61102e684b983dca25377d21f2dbee6f597dfa7f19a673ba1d09d14"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/portal-results/e2e-equipment-portal-Arsen-35391-son-slots-filters-and-equip-desktop/portal-390x844.png",
+      "sha256": "01bd293eab9b1d2e57a214e445cd2435374d4e879d71c56d4b36de09be8f1d23"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/portal-results/e2e-equipment-portal-Arsen-5dc63-son-slots-filters-and-equip-desktop/cinematic-1920x1080.png",
+      "sha256": "459c0e470e12302c7ca0b34062386712c08206d8f1009c52b5bf11e302066929"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/portal-results/e2e-equipment-portal-Arsen-5dc63-son-slots-filters-and-equip-desktop/portal-1920x1080.png",
+      "sha256": "78aae9eff176e1b56d3db6030ba675115b65596882fbaf153a8e2d1bcdefd210"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/portal-results/e2e-equipment-portal-Arsen-8dd64-son-slots-filters-and-equip-desktop/cinematic-915x412.png",
+      "sha256": "0f5dae26fd7b9bbefba1d03975f208ad75b6752fb0611a85ff7da07217604896"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/portal-results/e2e-equipment-portal-Arsen-8dd64-son-slots-filters-and-equip-desktop/portal-915x412.png",
+      "sha256": "b874b6b57c8a2c876180ce91ea361287575c174df23472ced59835b29295eafa"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/portal-results/e2e-equipment-portal-Arsen-c5af1-son-slots-filters-and-equip-desktop/cinematic-1440x900.png",
+      "sha256": "fc538fc78a83f0d5ac920da4ee9a8d7d4938638a8d2d7843570de81ed4883e05"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/portal-results/e2e-equipment-portal-Arsen-c5af1-son-slots-filters-and-equip-desktop/portal-1440x900.png",
+      "sha256": "585841713a0ffbe26e105c2c9d05289d63098de0e6a50da4ab143abe35ac2606"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/portal-results/e2e-equipment-portal-Arsen-db37f-son-slots-filters-and-equip-desktop/cinematic-412x915.png",
+      "sha256": "e8cd717af172cefeda29fa9eebcd89940e05349151de979a8b0dd3fa18cda8b0"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/portal-results/e2e-equipment-portal-Arsen-db37f-son-slots-filters-and-equip-desktop/portal-412x915.png",
+      "sha256": "6780c27316b55cbcaa55c55119050c6da81208753538439bf071a42e16ad8daa"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/portal-results/e2e-equipment-portal-Missi-8ba0b-equip-action-and-comparison-desktop/fallback-art.png",
+      "sha256": "a48a16106774fe74c958dabb611a1d4508d384f2aa8dc3b0960bf357e511d882"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/portal-results.json",
+      "sha256": "48ecc645496a058ab1854f059fe6fed350fcb03fcee2c112ebda2e5ab038365c"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/preservation-after.json",
+      "sha256": "1cdd059a44f44ac02fb8105672283339b33db3438557d80a36b2755d2d3d0dcc"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/preservation-before.json",
+      "sha256": "cd3a81379324e1df514a01a4df706d59477e1620c5e16194ce2678116d581202"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/review/index.html",
+      "sha256": "e0a9c37149f992edd875702f66044d3d6de3e4eb5b061744f32e010593daff02"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_common_female_v2/alignment_guides.png",
+      "sha256": "d7d16d0cf93268c9403a531cbc6c711e5a3fb700508d751aafc84fc9bbfac5d5"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_common_female_v2/avatar_base.png",
+      "sha256": "f260cb9b053b35c328025f1bc7ee602cbb30e57c71ba1f2238a4b1519685f460"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_common_female_v2/bake-metadata.json",
+      "sha256": "0feb54077a13a28ac2596e48159dd0309d4ef79d9e597b4ef10b380de7a4ad7d"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_common_female_v2/base_alignment_guides.png",
+      "sha256": "19e0d2f4fcf4ab0ddc7d9cf1dfaaad9addc5bb56f5a16da63e7de20db71f0ecf"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_common_female_v2/diagnostic_composition.png",
+      "sha256": "ef40d7f7bb585bd051ef005aa96f374600dd545126831180fb6d9b9bc0662e86"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_common_female_v2/diagnostic_unsheathed_hip.png",
+      "sha256": "5698df0343a9cebde08576577a04a30c371dfa42f97194b7c3b0d10a9e3b72bd"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_common_female_v2/fit-report.json",
+      "sha256": "bfc11d59883e9f1fa6c12d855c59035e17ad9690059698fff3533ccd61e41448"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_common_female_v2/full_body_diagnostic.png",
+      "sha256": "ef40d7f7bb585bd051ef005aa96f374600dd545126831180fb6d9b9bc0662e86"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_common_female_v2/receipt.json",
+      "sha256": "20426a3736accbb9795040e8af47eecda2c0045c3925a11c3685e1f5499b063d"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_common_female_v2/reviewed-metadata.json",
+      "sha256": "dc2412d1def01c305be52bd533738d78710a61b6549f1918f8bb92bd3d3c0145"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_common_female_v2/reviewed_alignment_guides.png",
+      "sha256": "8138e2d7b313a770edd7b2b40cc28247788d8076dd2e6d963e547a2fc15f4238"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_common_female_v2/reviewed_base_guides.png",
+      "sha256": "4e5915dabcfafce6e51a23c3de8d524d5276f6944512b167916f173b00a7d296"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_common_female_v2/reviewed_waist_zoom_guides.png",
+      "sha256": "b3fdb1c431759199fe32aff9b6a7c674efc8e4a2212fc86b11181b470b341f67"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_common_female_v2/source_original.png",
+      "sha256": "03e3edbcf9572fae0cafc46b0a02eda045cbcdfe855dfcdf808e4aa8a5401d29"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_common_female_v2/task0056_candidate.png",
+      "sha256": "14c11b9454113ffb5dca678234a0286315d36b81e91f816d9835d5b6fee54cf1"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_common_female_v2/task0056_combined.png",
+      "sha256": "92eb8eadb398fcbc936ea9e8e3ac4f61c52f39214396392b5c46beb22a534c6b"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_common_female_v2/waist_zoom_base.png",
+      "sha256": "676c3c28e09f90e5a5016aa3b86f09a126b38e685ee585715898d57c29ea9da5"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_common_female_v2/waist_zoom_diagnostic.png",
+      "sha256": "2cf4a9d0c250ead19bb4f1a2ed1f631167cfea4e881949b3b9de626ea6a67bb4"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_common_female_v2/waist_zoom_guides.png",
+      "sha256": "f6407ad8aeff084838eed656794007ec45c858361a09f7ebefcd729951f25304"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_common_male_v2/alignment_guides.png",
+      "sha256": "69676fa0416f6870d24a823a4c2da220cc4da827702a91004eeb02d65d556be2"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_common_male_v2/avatar_base.png",
+      "sha256": "b182c2e29b512b337891716a413ab7efaad737e23c6354779fae17fe19b8af34"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_common_male_v2/bake-metadata.json",
+      "sha256": "d20514b3507dceb103234ebd7d1206fd3bd6012389a5dc97973d443c49672193"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_common_male_v2/base_alignment_guides.png",
+      "sha256": "8fb1d01c09aacc11fc0ade005730be7864e39a568c2ba4dfb1ac2e6c469c6a9a"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_common_male_v2/diagnostic_composition.png",
+      "sha256": "bc53355c593ca293755de341627a244ccf81fcb77ce45ad16d19340447504814"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_common_male_v2/diagnostic_unsheathed_hip.png",
+      "sha256": "f408c2f6c6cfe4c68c967bd9bccbdf1cd68d7c39347bd3c38b8dc67ed88edc6c"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_common_male_v2/fit-report.json",
+      "sha256": "861e90a269e21790a6be6e4ca63f8772ad4b2074694cddbb5d9120159a5c567e"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_common_male_v2/full_body_diagnostic.png",
+      "sha256": "bc53355c593ca293755de341627a244ccf81fcb77ce45ad16d19340447504814"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_common_male_v2/receipt.json",
+      "sha256": "3d9e90e715bee2f9684a9e899ba48baa342e4a4f74da391057c31cec902b7d3e"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_common_male_v2/reviewed-metadata.json",
+      "sha256": "6950b3e1d3aa73c7b9ea58810344f593c278de08fc56db52fca1bd9705cf438d"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_common_male_v2/reviewed_alignment_guides.png",
+      "sha256": "5b323026fbd972c5f10313c38c307dff419a3a385c8f33d09466f25f1bb3f73f"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_common_male_v2/reviewed_base_guides.png",
+      "sha256": "fa35bd820bfc223ae5fd68d35cc8c5bb456247cb7d61f6449a66b631211a6429"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_common_male_v2/reviewed_waist_zoom_guides.png",
+      "sha256": "5698076bd608e81ad39bd62116f9934f2c4f7e64d03a3e6c6bba45fabfb1d017"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_common_male_v2/source_original.png",
+      "sha256": "ef4ca354506a7da6a9c80dcbb2b4d5388af7d11bef98fce9a81d8de6b40e8818"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_common_male_v2/task0056_candidate.png",
+      "sha256": "bdbf54e9c683cfbce31c9ab6f0b85ab1a9a0f4af6bdabdfe6feb92903bad6a2f"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_common_male_v2/task0056_combined.png",
+      "sha256": "258973404f4adde5483cc03de3bc2ab0d7e02e217b5509d03a026c9b07d1b45c"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_common_male_v2/waist_zoom_base.png",
+      "sha256": "4ebaf9a07fa97b634e98ff33b8084c28bf9b51244d2a9c98d3dc07995e572674"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_common_male_v2/waist_zoom_diagnostic.png",
+      "sha256": "33fb272f8c455c9e3d69098736af020d4bafabd303a613809e66469eca33a433"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_common_male_v2/waist_zoom_guides.png",
+      "sha256": "865d3deed2083d566923c1a6d84728b6616c60e02ecb8e443fcaeb304bff83de"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_rare_female_v2/alignment_guides.png",
+      "sha256": "4ba7b6f6b1ee6476758fccff8fba425880e0bdf77427bd1312bdb0cefa8f1682"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_rare_female_v2/avatar_base.png",
+      "sha256": "f260cb9b053b35c328025f1bc7ee602cbb30e57c71ba1f2238a4b1519685f460"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_rare_female_v2/bake-metadata.json",
+      "sha256": "48cdd8de6301f4c85e480145f53939dc402e847b29dae197ad798602c1f37ac2"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_rare_female_v2/base_alignment_guides.png",
+      "sha256": "0a260f0cac420e7035ca591a3a95694505a4bf0fe0f269ba5143b38b4b0800a3"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_rare_female_v2/diagnostic_composition.png",
+      "sha256": "7f13e95dfc50f3b56d15984dd3877b657e89f2dbac8e3cb520361afbc01c3b10"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_rare_female_v2/diagnostic_unsheathed_hip.png",
+      "sha256": "f1c7c3901bce263b7008db3935b3dc555f6c71b7a4dbc6dd2455c67d061cee7d"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_rare_female_v2/fit-report.json",
+      "sha256": "5f773bf6e54cf36f17e8320af8204ac4df3734e916190d2563ea33b8dc4e7eec"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_rare_female_v2/full_body_diagnostic.png",
+      "sha256": "7f13e95dfc50f3b56d15984dd3877b657e89f2dbac8e3cb520361afbc01c3b10"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_rare_female_v2/receipt.json",
+      "sha256": "896b4d613a13c421dfbfb0f32f2a285e605fa99172d81868db0c3848ebc71c4c"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_rare_female_v2/reviewed-metadata.json",
+      "sha256": "a4b595bda672d0c492853a599973272b32469ec4c8b3c63da55412755f53db3a"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_rare_female_v2/reviewed_alignment_guides.png",
+      "sha256": "a07c66d73e1444290f1de773c0612fd16a346c1d63f298cf42109ae046e1174c"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_rare_female_v2/reviewed_base_guides.png",
+      "sha256": "89612282055f922cae80f7945b871fd185e20628965ec4b149e80ad08645e05d"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_rare_female_v2/reviewed_waist_zoom_guides.png",
+      "sha256": "967074dccd7e1233a9335838c59854a5da3ab28f6004ec956dc9283ae06a1338"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_rare_female_v2/source_original.png",
+      "sha256": "5b445879d181b54e7a4f22761f63602cce83b15341255df8409d5b6b2f8a6ab8"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_rare_female_v2/task0056_candidate.png",
+      "sha256": "213b5f5cf9bc7efb5fa1bdb85b053920452d41980784222e36829fb0c3acb2d4"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_rare_female_v2/task0056_combined.png",
+      "sha256": "66a96a279ed647775832859980a3cdc5facade3a6a22d407340161df05e90a1e"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_rare_female_v2/waist_zoom_base.png",
+      "sha256": "676c3c28e09f90e5a5016aa3b86f09a126b38e685ee585715898d57c29ea9da5"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_rare_female_v2/waist_zoom_diagnostic.png",
+      "sha256": "74c59422b283025794a8fa6e5bf08c8eeed0de38e9673543403a2164e1266e43"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_rare_female_v2/waist_zoom_guides.png",
+      "sha256": "501ba4e565f472f9d5b88c9070085535cd9351eb45ff0910251b9386cca8e389"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_rare_male_v2/alignment_guides.png",
+      "sha256": "a2b8f44d35a5f042dfd8bb86ce316d205062a3fdd485d9fc1c8951ac1d798994"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_rare_male_v2/avatar_base.png",
+      "sha256": "b182c2e29b512b337891716a413ab7efaad737e23c6354779fae17fe19b8af34"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_rare_male_v2/bake-metadata.json",
+      "sha256": "d3f5548c8e3d03273cf94a8ad36585b1836697b8b539660e67336d2713753b88"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_rare_male_v2/base_alignment_guides.png",
+      "sha256": "ae601d9bfd15c8186be03a6d7b8a67097c2c895c3fce5316482e85fae766beb5"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_rare_male_v2/diagnostic_composition.png",
+      "sha256": "d1f90a0ece559dd41a42d48ae0a3e60fa31c8a99011e6509ca47a4a37833d9a0"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_rare_male_v2/diagnostic_unsheathed_hip.png",
+      "sha256": "6f23c869ebdf02981873f363ecef8b362d9c97825feba6867e0a70bd3023eee4"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_rare_male_v2/fit-report.json",
+      "sha256": "de6af83819fab3a17cd36bafe1e98326f96b16ce73237660e15fe288209a16f8"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_rare_male_v2/full_body_diagnostic.png",
+      "sha256": "d1f90a0ece559dd41a42d48ae0a3e60fa31c8a99011e6509ca47a4a37833d9a0"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_rare_male_v2/receipt.json",
+      "sha256": "a41a3e70886b1354a0890c04127868b275eaa1d5f95e061fe64b85c335ab5474"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_rare_male_v2/reviewed-metadata.json",
+      "sha256": "0ea69cea0f38a160e3052d9c011ba7f067ad4ed555431b6f9d7c963d728038a1"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_rare_male_v2/reviewed_alignment_guides.png",
+      "sha256": "13060e79bcfb4a7a219344134241c9d292c0a2f31426dcc67b8b2207efcc5f20"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_rare_male_v2/reviewed_base_guides.png",
+      "sha256": "4f3605a00c6f1745bbcc2f7dca72042ee5cad15197dc3cd3d71fe791c9aec94a"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_rare_male_v2/reviewed_waist_zoom_guides.png",
+      "sha256": "24324a169dc9fa263c1dd73bc8557245391bfc2d2b009e4c2e6496a9cbace7b3"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_rare_male_v2/source_original.png",
+      "sha256": "89676a2f0f5b8ce73e25e6088ff52979115a11a091bbf25ce810b3c8488c96cb"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_rare_male_v2/task0056_candidate.png",
+      "sha256": "8e549def7ee66c9e9f3cd80e256b820e3fd889c99b0b9d05d738a62b2b657088"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_rare_male_v2/task0056_combined.png",
+      "sha256": "2ba0e11299254514c81606bac4175920fef3718c3c346370921c6251312a1eec"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_rare_male_v2/waist_zoom_base.png",
+      "sha256": "4ebaf9a07fa97b634e98ff33b8084c28bf9b51244d2a9c98d3dc07995e572674"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_rare_male_v2/waist_zoom_diagnostic.png",
+      "sha256": "f5a3135aab02d8600dbf2644a7428aa13fc38b601165aac369a19346d019aaee"
+    },
+    {
+      "path": "build/task-0057-sword-sheath/sword_path_rare_male_v2/waist_zoom_guides.png",
+      "sha256": "7f875dd489a59784c7dd8aa2c5b7cd07c756bf446adfe0fa73d0aad4b56e2c7b"
+    },
+    {
+      "path": "scripts/body-fit-sheath-check.mjs",
+      "sha256": "9ed430cca6f09637ab904b2739af31b7218a7444af8cc9e48c668b563672b32a"
+    },
+    {
+      "path": "scripts/body-fit-sheath-diagnostic.mjs",
+      "sha256": "8f854d403018d833b7a851bde2ef35f6f58cdd0329d65c10ca70ce776299f3eb"
+    },
+    {
+      "path": "scripts/body-fit-sheath-diagnostic.test.mjs",
+      "sha256": "21e94dfc7cbefd4f2d8b0f8756fda1449e18745890eb3a9bc0851f3fb8d02487"
+    },
+    {
+      "path": "scripts/body-fit-sheath-pilot-prepare.mjs",
+      "sha256": "5c6961ae6f783ec28620a75bff8e29893eb2e8a77d9984d931f7ce9384a0e68e"
+    },
+    {
+      "path": "scripts/body-fit-sheath-review.mjs",
+      "sha256": "24cbb028b468cc547400b4b7e667d61073b44d5908cae154e80152d3d82114e5"
+    },
+    {
+      "path": "tests/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "tests/body-fit-bake-lab/bake-review.spec.mjs",
+      "sha256": "e07caa0c78867fa3e57e30d62c7221ab0184e7e4abd797069f113ec9488aa8e6"
+    },
+    {
+      "path": "tests/body-fit-bake-production/isolation.spec.mjs",
+      "sha256": "0d1892b2d8c3cbebdc4978bb539c2d3cc72513ee5b1954b4dbd0c4215d554d7b"
+    },
+    {
+      "path": "tests/body-fit-batch-lab/batch-review.spec.mjs",
+      "sha256": "cc44d215ac069241f3d4e70f16d9f2c426609c1822983ee9c7469a475e047e0c"
+    },
+    {
+      "path": "tests/body-fit-sheath-lab/sheath-review.spec.mjs",
+      "sha256": "25acd6166a974a692e76248e3195eb38db0b0fa0418ba0470b9ac753b8f5c5b0"
+    },
+    {
+      "path": "tests/body-fit-sheath-production/reduced-motion.spec.mjs",
+      "sha256": "0c5567bf146050bf19e35c8dee3b8f8c21f9cedfd6124096b0bbbd7053ff575b"
+    },
+    {
+      "path": "tests/body-fit-source-lab/source-review.spec.mjs",
+      "sha256": "aa2f8eea9449f7fd895e81b74048bb349e94e6404bf3b0e3e714a1e2dd7c4942"
+    },
+    {
+      "path": "tests/body-fit-target-lab/target-review.spec.mjs",
+      "sha256": "1c9fdf11c6d7e2fcea2cb2380fe72df14bc6e9b4cc327ecbcb18d416571b8d12"
+    },
+    {
+      "path": "tests/e2e/arena-audio-prototype.spec.ts",
+      "sha256": "00214ae51173ff2058d9fa74aaf37ecd50adedbd2be042397bf9fc32ad4379be"
+    },
+    {
+      "path": "tests/e2e/arena-audio-technical.spec.ts",
+      "sha256": "9d62505a3f9c36e1d459e3bde14f577fdb736954ef2994034f26f66e79d53f7b"
+    },
+    {
+      "path": "tests/e2e/arena-lab-production.spec.ts",
+      "sha256": "0c5b5eb423d1b43a5eb190148ff7383a1392413c10176a2fa3b7ed5335ae9065"
+    },
+    {
+      "path": "tests/e2e/arena-lab.spec.ts",
+      "sha256": "6cc592ab3f6b63f3b16e1ed82f7c0a8814b237425c3f44a1b2c4e439d2143ff5"
+    },
+    {
+      "path": "tests/e2e/arena-v2.spec.ts",
+      "sha256": "dcdb1a53ceb1355bb15d22d31e431fb3b868221e6310d92579d65e210838f261"
+    },
+    {
+      "path": "tests/e2e/arena.spec.ts",
+      "sha256": "68b0841fb412a2a0474400cbf1712ba3dbf7626f86fc51da38cfa807b26e08a0"
+    },
+    {
+      "path": "tests/e2e/attributes.spec.ts",
+      "sha256": "570de16641e92e7a55aa89cc989cc7f33c09fe33caac72ffbfe9adfb9fe57bad"
+    },
+    {
+      "path": "tests/e2e/audit-corrections.spec.ts",
+      "sha256": "bb4f584c83ff751ab2c6d8acc7290ddfae80e99f239812370325ef37bba63d4a"
+    },
+    {
+      "path": "tests/e2e/avatar-hd-activation.spec.ts",
+      "sha256": "0ad3765cb28650108fc991b8d6118a463f55d45db87cbad20ed92d844b214535"
+    },
+    {
+      "path": "tests/e2e/avatar-hd-pilot.spec.ts",
+      "sha256": "906380d02fbdecc45828da1984968374e3cae5e389bda0866b5a616663eb7762"
+    },
+    {
+      "path": "tests/e2e/avatar-hd.spec.ts",
+      "sha256": "fe607fc5bb920fe68f13b534ef27663b24f8e73b2bb5be0d4a81b6dc38900ee8"
+    },
+    {
+      "path": "tests/e2e/avatar-runtime-lab.spec.ts",
+      "sha256": "34b645ad1b03d9d594a5bd5e2aacbaf56f113147d8e493f445c18e49edb15a1b"
+    },
+    {
+      "path": "tests/e2e/avatar-runtime.spec.ts",
+      "sha256": "add27325eab5518c86c0a78e7fc83f4fb913a68b7d9dacbbfd7954af3d7bb32f"
+    },
+    {
+      "path": "tests/e2e/body-fit-lab.spec.ts",
+      "sha256": "b08d30e3ad4ae5255a3719a313f92bfd56e6237635d1931a0b643006bcf72605"
+    },
+    {
+      "path": "tests/e2e/body-fit-source-production.spec.ts",
+      "sha256": "4228eecce080d44c21ebbce0addc8193e97e1ee306ae4ab4b121eecc00bb524b"
+    },
+    {
+      "path": "tests/e2e/body-fit-target-production.spec.ts",
+      "sha256": "03471d9a127f5020d04e6d1ea9ae2018a420d09f0e1f2efb18ec54fd2f07cb83"
+    },
+    {
+      "path": "tests/e2e/chests-responsive.spec.ts",
+      "sha256": "d6ce95a04faa44ecc3edf2132a0be899b8b340c48887fb349942e5366c720625"
+    },
+    {
+      "path": "tests/e2e/diary-experience.spec.ts",
+      "sha256": "32ae9ea7833894eaafb8620d3c2b3733559226e643f6fc495cdad990725874a7"
+    },
+    {
+      "path": "tests/e2e/equipment-animation-v2.spec.ts",
+      "sha256": "4069b4963f1cb625d8e5784279bac8c19025a0ba223afeab7b3af01b572c3c81"
+    },
+    {
+      "path": "tests/e2e/equipment-cinematic.spec.ts",
+      "sha256": "2c46b4bf4e2b7b2c60f96fcf14b7f517ab3e9df4cc851618c4c61b4091fcbf04"
+    },
+    {
+      "path": "tests/e2e/equipment-portal.spec.ts",
+      "sha256": "fb02278a6990d2976e375e9dd93ffbb6ba4f59e9b507c94065636a9b8190ea37"
+    },
+    {
+      "path": "tests/e2e/equipment-v1-calibration.spec.ts",
+      "sha256": "dcc34085c604efb9aaa9c1a212e226c1999f8f5c19e30bdce09c1c48c41fa214"
+    },
+    {
+      "path": "tests/e2e/equipment-v1-hd.spec.ts",
+      "sha256": "4d0b42880012d564aee40a5e893f1489b04a098b6356c08258070993d3d5678f"
+    },
+    {
+      "path": "tests/e2e/guild-experience-v2.spec.ts",
+      "sha256": "4af0d6d5f8849438e6e30ac31f1e60ae021bcca30d3fdc81dee011afe1fa9fdd"
+    },
+    {
+      "path": "tests/e2e/hero-overlays.spec.ts",
+      "sha256": "19cd9bfa18e7097347adbe5dc167cacd46481b79f20db645aea23a4f1d3eaba7"
+    },
+    {
+      "path": "tests/e2e/home.spec.ts",
+      "sha256": "88fde37d4aa426407d715446afee24d302dec5729b49446b663f5abccfb5c099"
+    },
+    {
+      "path": "tests/e2e/immersion-sprint.spec.ts",
+      "sha256": "a8da51be41c2bbf72364626744ffa1aa1e81b9230676c9fc6e8d8e774c4b7f46"
+    },
+    {
+      "path": "tests/e2e/snake-playthrough.spec.ts",
+      "sha256": "4a6a978a33f57fac4860d556d589b76af7481c5feac3fedd78735bda95b5b6b0"
+    },
+    {
+      "path": "tests/e2e/snake-responsive.spec.ts",
+      "sha256": "5d9c98962d3060270004f233e9cad0bcacf02dc03625cc4366cf42fe1c6a4e65"
+    },
+    {
+      "path": "tests/e2e/supabase-auth.spec.ts",
+      "sha256": "3cb95bf0f3d77af0507a752cd6569a11c435cf85f6693fe99432a58686fb5cd3"
+    },
+    {
+      "path": "apps/web/app/auth/page.tsx",
+      "sha256": "f082cc0c99f8f872bedcad77f329a99e94f8b60a213c390310d794d0c212c3e7"
+    },
+    {
+      "path": "apps/web/app/globals.css",
+      "sha256": "3faa40d4111ffcaf4c0e7983d698d9000e5e33e3a130ba871931e09e6a990d9f"
+    },
+    {
+      "path": "apps/web/app/icon.svg",
+      "sha256": "36137dab3827443735188b9476a1049a8f81b5a10df25225d9e1bd47e537cc5c"
+    },
+    {
+      "path": "apps/web/app/journey/acts/as-origens/page.tsx",
+      "sha256": "f490c697bd074a9651c21f45e3ee39e2100d9019e59f363e88e123fadad089ce"
+    },
+    {
+      "path": "apps/web/app/journey/arena/page.tsx",
+      "sha256": "c0b7f61c35615733b58ac289870b7f92052e677c8254cdc00115f943043b8242"
+    },
+    {
+      "path": "apps/web/app/journey/backpack/page.tsx",
+      "sha256": "a84ae0ddfc7a59fa3727d11bfc560304ba90b0443a1f384b95329a708fc89c96"
+    },
+    {
+      "path": "apps/web/app/journey/collection/page.tsx",
+      "sha256": "52ca36a2be233d26f51a3248c08e78bef93a1f5068169926d380bca6cde04b4e"
+    },
+    {
+      "path": "apps/web/app/journey/create/page.tsx",
+      "sha256": "4ebeb4a4177ee386bd4cb8081b0074993d6423407d98dbe9babaed5ad8cd00a4"
+    },
+    {
+      "path": "apps/web/app/journey/diary/page.tsx",
+      "sha256": "5b0b314daefee7635aad9195a44aa401a279eec6fff7da5da2104d332b7352d4"
+    },
+    {
+      "path": "apps/web/app/journey/equipment/page.tsx",
+      "sha256": "955cbd0380189d0b28ba2a74f87e150d4790ce0ff24cfc92c371805334dd7e78"
+    },
+    {
+      "path": "apps/web/app/journey/guild/manage/page.tsx",
+      "sha256": "c1d22c50f5fb9ed36662b29ab5847d9ed9ec23ebcfd2edd9571e63f1ac608fe4"
+    },
+    {
+      "path": "apps/web/app/journey/guild/page.tsx",
+      "sha256": "1ca95299714803048f79fbd70e159b054287075d1a5e5c2e6d4a9969df24f9e0"
+    },
+    {
+      "path": "apps/web/app/journey/hero/page.tsx",
+      "sha256": "2c9c0fa884f60a9ada332b88ed05cd3e38172740703d3bc0fec65ede457018cd"
+    },
+    {
+      "path": "apps/web/app/journey/intro/page.tsx",
+      "sha256": "78b8a04ff2ae696c83c001a30455e67ff6982d6a6ee80db3f737ee0dce804d08"
+    },
+    {
+      "path": "apps/web/app/journey/page.tsx",
+      "sha256": "ea2b6a239b80cb352437887637a38f79f6d3fdfea1a2f3979f438211d3c7d690"
+    },
+    {
+      "path": "apps/web/app/journey/phases/o-jardim-e-a-escolha/page.tsx",
+      "sha256": "d7f583ac439533bdc06cec6af97bb0f87d13807b5f1269210360f40b11e93494"
+    },
+    {
+      "path": "apps/web/app/journey/phases/o-jardim-e-a-escolha/preview/page.tsx",
+      "sha256": "1750a3d73d9e4d42b8c11a2ce7267d8eb6ff40045aea37c006e1c482f6902dff"
+    },
+    {
+      "path": "apps/web/app/journey/shop/page.tsx",
+      "sha256": "432eb6c6c79cb443cd433efb9a613b05ceefa811e648e6caa2764ccac28eba07"
+    },
+    {
+      "path": "apps/web/app/layout.tsx",
+      "sha256": "6b338dbb0301562b9eed6d1160577286e6f8dde2bcb2b2c986164024adca7e6c"
+    },
+    {
+      "path": "apps/web/app/page.module.css",
+      "sha256": "8c64c81ee43264cfbe32c1a45917812885cb96fde3f31dee1b26252a7e718751"
+    },
+    {
+      "path": "apps/web/app/page.test.tsx",
+      "sha256": "1a85f2ff9687e6ed1feda31742cf24d6c7e722710ba99d41099cd4e2201b17fa"
+    },
+    {
+      "path": "apps/web/app/page.tsx",
+      "sha256": "b259b9909d6502eabfd241c16f5f7e7e766ed93837744803a7cff4f8a0e80610"
+    },
+    {
+      "path": "apps/web/app/providers.tsx",
+      "sha256": "a4ae1457540054f04b84632e8f5f2eb2e5f56c2017fedb5a68a4714cd810f592"
+    },
+    {
+      "path": "apps/web/features/auth/auth-screen.test.tsx",
+      "sha256": "b3c4620db906332915e796336c13bb789f0d0d6e2dd494c0a4838621641f4617"
+    },
+    {
+      "path": "apps/web/features/auth/auth-screen.tsx",
+      "sha256": "38dc3bada34f579fda081c654fad9e1322fb581a787f6ada459921552f4b4b21"
+    },
+    {
+      "path": "apps/web/features/auth/auth.module.css",
+      "sha256": "b7131e99badf3321f5d7500dbba6c777f7bc58d94a8cc7949c21dcfaab42308c"
+    },
+    {
+      "path": "apps/web/lib/supabase/auth-context.test.tsx",
+      "sha256": "b76826ac0b41edbc0e90e5c77951bd9ef3f8d6ccf3ad25d0294661071695c956"
+    },
+    {
+      "path": "apps/web/lib/supabase/auth-context.tsx",
+      "sha256": "ac8dd90e58b4dc0542ccf79aaa391320fdb9ee5b335fa7e364b7d4151fd070c0"
+    },
+    {
+      "path": "apps/web/lib/supabase/auth-diagnostics.ts",
+      "sha256": "51b0a906b3da85c5b638ffe479fd1c1c082a2471d70acbb96f1580436b113843"
+    },
+    {
+      "path": "apps/web/lib/supabase/auth.ts",
+      "sha256": "8f4919e6df1fc14b7cdf0f4dbc401813a69fd89562baf3719e7c96b84a8a37dc"
+    },
+    {
+      "path": "apps/web/lib/supabase/client.test.ts",
+      "sha256": "a77b86fb54b323fc3a5432e1dabc2165dc4f0523c5ac97649aa03c9433ca525a"
+    },
+    {
+      "path": "apps/web/lib/supabase/client.ts",
+      "sha256": "028d2cc3fbc6218ebb41699b49899d7e9da728733109b5a09d568776c4032641"
+    },
+    {
+      "path": "apps/web/lib/supabase/database.types.ts",
+      "sha256": "21097b902cbb3e0006bea35a31bca51d63213bfea14841a1ae9a1250a78ba9ab"
+    },
+    {
+      "path": "apps/web/lib/supabase/diagnostics.test.ts",
+      "sha256": "966ca30dfa723f896bf060f8dc6139ab331859fe3fa99346769b06ce7e975314"
+    },
+    {
+      "path": "apps/web/lib/supabase/diagnostics.ts",
+      "sha256": "4e15e8e6f0ae7b2a7c93aae3eaf1539166b7e6beb75c6fe9c01408e1a6407e36"
+    },
+    {
+      "path": "apps/web/lib/supabase/env.test.ts",
+      "sha256": "020696a62f4c02216848d2555b058fab2dc8d1b7849ae4c6b5b10cf20d3d53e4"
+    },
+    {
+      "path": "apps/web/lib/supabase/env.ts",
+      "sha256": "c8b330abe962609418270f30501d2a5abbc70ad01c3a014f1cd16b54ffe497c1"
+    },
+    {
+      "path": "apps/web/lib/supabase/online-sync.test.ts",
+      "sha256": "1c0a84b57b487bdecddff23752c94f1aa5807b1e4cc1db0501efea789ece3df5"
+    },
+    {
+      "path": "apps/web/lib/supabase/online-sync.ts",
+      "sha256": "4f33953dceaa2c9933a464d7b69b1c819a8d4aef810ef21a092419db82555170"
+    },
+    {
+      "path": "apps/web/lib/supabase/repositories/chest-repository.test.ts",
+      "sha256": "f39a025a77ad0d1014014fca7f7e2c46477916a728cbf7a0ed3ad3be4fd8e8a6"
+    },
+    {
+      "path": "apps/web/lib/supabase/repositories/chest-repository.ts",
+      "sha256": "0ee72c47e755866818f7b4e449b0f8a511e362a6748d247a4322bca3da19318f"
+    },
+    {
+      "path": "apps/web/lib/supabase/repositories/equipment-repository.ts",
+      "sha256": "1844d4da3c10f1530948ac3e1e5eda47a8ab1bdbb7c847f3ddf1342effc5ee4b"
+    },
+    {
+      "path": "apps/web/lib/supabase/repositories/errors.ts",
+      "sha256": "8525637cad25c4eb532778d2fb15eadaa5070feeef849d7b173ab8c96a6e2fa9"
+    },
+    {
+      "path": "apps/web/lib/supabase/repositories/guild-admin-repository.ts",
+      "sha256": "0d58fdbcf9723e15cf47b9cc68fdb3c12ed8b3898136a3820c487ab69e667284"
+    },
+    {
+      "path": "apps/web/lib/supabase/repositories/guild-lesson-repository.ts",
+      "sha256": "613c66590466b431a725afa50037b43d074822783d289dddf7839d105209b1c6"
+    },
+    {
+      "path": "apps/web/lib/supabase/repositories/guild-mission-repository.ts",
+      "sha256": "52a5793d63ed0948a34531caccf6229e85e5579776c28117513cf70076a76dda"
+    },
+    {
+      "path": "apps/web/lib/supabase/repositories/guild-repositories.test.ts",
+      "sha256": "1b950ede9cd58134b64ae024c9092c9aa7277226bea2bbe3af9fa16ebbe53419"
+    },
+    {
+      "path": "apps/web/lib/supabase/repositories/guild-repository.ts",
+      "sha256": "29aecceb59c9c32bfaae91398994b5366403446396ca65ac70ece1b40db873b3"
+    },
+    {
+      "path": "apps/web/lib/supabase/repositories/inventory-repository.ts",
+      "sha256": "289d020c2ab688757c7af4bc90984977fa898d0f94ccfe940f8cca2c6479f781"
+    },
+    {
+      "path": "apps/web/lib/supabase/repositories/profile-repository.ts",
+      "sha256": "831dc474d5883b300e410dea961590a27e1954d2856b4aa064d7aad80fdcb131"
+    },
+    {
+      "path": "apps/web/lib/supabase/repositories/repositories.test.ts",
+      "sha256": "f29184291a678160120f261c8c3a71fc9662a27b9d6a94831d3e324b943c88a6"
+    },
+    {
+      "path": "apps/web/lib/supabase/repositories/stats-repository.ts",
+      "sha256": "252b418e4154df08879d3984216568d8d29748d6f353fec8033596dceee77b84"
+    },
+    {
+      "path": "apps/web/lib/supabase/repositories/traveler-repository.ts",
+      "sha256": "284b7e5d5b7f44fd5ba6ad2497edf21b93f16376472a22517036c6d2d06b7e10"
+    },
+    {
+      "path": "apps/web/lib/supabase/repositories/wallet-repository.ts",
+      "sha256": "90cec8f174e990e581d9d9b4cd94f9106a0c5ea40e3036fcfad238671e61a1d9"
+    },
+    {
+      "path": "docs/architecture/TASK-0057-SWORD-SHEATH-REPORT.md",
+      "sha256": "fd3bc30f381608c395c4e704a78ffb791319f471e1f987f7c5207157635f9470"
+    },
+    {
+      "path": "docs/architecture/TASK-0057-SHEATH-ASSET-MANIFEST.json",
+      "sha256": "d872c99b82e94e6ff6bc68929f16b88f7f78f4e92613a9eaaf4bf98ffb278d1e"
+    },
+    {
+      "path": "playwright.task-0057-lab.config.mjs",
+      "sha256": "ed55016ac611008e84237969f17619ae4496ad8d1492ada79e697745e53d75aa"
+    },
+    {
+      "path": "playwright.task-0057-portal.config.mjs",
+      "sha256": "142e0a334f1457e96030da3a1ce50e72931cb6f0aa51d20b71f4dce04c4fe5d0"
+    }
+  ]
+}

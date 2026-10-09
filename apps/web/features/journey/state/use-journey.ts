@@ -12,6 +12,13 @@ import {
   specialChallengeRewardTables,
 } from '../data/guildRewards';
 import { addGameplayReward } from '../data/progression';
+import type { ChestType } from '@rpg/game-engine';
+import {
+  grantChest,
+  openChestLocal,
+  purchaseChestLocal,
+  type ChestReward,
+} from '../data/chests';
 import { purchaseFromShop, type PurchaseResult } from '../data/shop';
 import {
   guildContentRepository,
@@ -227,6 +234,36 @@ export function buyEquipment(
   return 'purchased';
 }
 
+export function buyChest(
+  type: ChestType,
+  operationId: string,
+): 'purchased' | 'duplicate' | 'unavailable' | 'level-required' | 'insufficient' | 'save-failed' {
+  const current = journeyRepository.load();
+  if (current.status !== 'ready') return 'unavailable';
+  const result = purchaseChestLocal(current.traveler, type, operationId);
+  if (result.status !== 'purchased' && result.status !== 'duplicate') return result.status;
+  if (result.status === 'duplicate') return 'duplicate';
+  if (!journeyRepository.save(result.traveler)) return 'save-failed';
+  refresh();
+  return 'purchased';
+}
+
+export function openOwnedChest(
+  type: ChestType,
+  operationId: string,
+): { status: 'opened' | 'duplicate'; reward: ChestReward } | { status: 'empty' | 'save-failed' } {
+  const current = journeyRepository.load();
+  if (current.status !== 'ready') return { status: 'empty' };
+  const random = new Uint32Array(1);
+  crypto.getRandomValues(random);
+  const result = openChestLocal(current.traveler, type, operationId, random[0] / 2 ** 32, new Date().toISOString());
+  if (result.status === 'empty') return result;
+  if (result.status === 'duplicate') return { status: result.status, reward: result.reward };
+  if (!journeyRepository.save(result.traveler)) return { status: 'save-failed' };
+  refresh();
+  return { status: 'opened', reward: result.reward };
+}
+
 export function publishGuildContent(
   input: Omit<GuildContent, 'id' | 'guildId' | 'createdAt' | 'status'>,
 ): boolean {
@@ -296,10 +333,10 @@ function reviewGuildActivity(
   if (current.status !== 'ready' || !current.traveler.progress.guildId)
     return false;
   const guildId = current.traveler.progress.guildId;
-  if (
-    !guildContentRepository.list(guildId).some((item) => item.id === contentId)
-  )
-    return false;
+  const content = guildContentRepository
+    .list(guildId)
+    .find((item) => item.id === contentId);
+  if (!content) return false;
   const member = journeyRepository
     .listSaved()
     .find(
@@ -307,13 +344,22 @@ function reviewGuildActivity(
     );
   if (!member || member.progress.guildActivities[contentId] !== 'submitted')
     return false;
+  const reward = GUILD_REWARDS[content.tier];
+  const reviewed = decision === 'approved'
+    ? grantChest(
+        addGameplayReward(member, reward.xp, reward.coins),
+        reward.chestType,
+        'guild_activity',
+        `guild_activity:${contentId}`,
+      )
+    : member;
   const saved = journeyRepository.save({
-    ...member,
+    ...reviewed,
     progress: {
-      ...member.progress,
+      ...reviewed.progress,
       guildActivities: {
-        ...member.progress.guildActivities,
-        [contentId]: decision,
+        ...reviewed.progress.guildActivities,
+        [contentId]: decision === 'approved' ? 'claimed' : decision,
       },
     },
   });
@@ -335,7 +381,7 @@ export function claimGuildActivity(contentId: string): boolean {
     return false;
   const reward = GUILD_REWARDS[content.tier];
   return updateTraveler((traveler) => ({
-    ...addGameplayReward(traveler, reward.xp, reward.coins),
+    ...grantChest(addGameplayReward(traveler, reward.xp, reward.coins), reward.chestType, 'guild_activity', `guild_activity:${contentId}`),
     progress: {
       ...traveler.progress,
       guildActivities: {
@@ -449,11 +495,11 @@ export function claimPhaseGuildReward(): boolean {
     )
       return traveler;
     return {
-      ...addGameplayReward(
+      ...grantChest(addGameplayReward(
         traveler,
         PHASE_GUILD_REWARD.xp,
         PHASE_GUILD_REWARD.coins,
-      ),
+      ), 'epic', 'guild_phase', 'guild_phase:share-learning'),
       progress: {
         ...traveler.progress,
         guildChallengeStatus: 'completed',
@@ -553,7 +599,7 @@ export function claimSpecialChallengeReward(challengeId: string): boolean {
         challenge.rewardTier as SpecialChallengeRewardTier
       ];
     return {
-      ...addGameplayReward(traveler, reward.xp, reward.coins),
+      ...grantChest(addGameplayReward(traveler, reward.xp, reward.coins), reward.chestType, 'guild_special_challenge', `guild_special:${challengeId}`),
       progress: {
         ...traveler.progress,
         specialChallenges: traveler.progress.specialChallenges.map((item) =>

@@ -1,0 +1,145 @@
+{
+  "filename": "boots_traveler_common_female_v2.png",
+  "itemId": "traveler-boots",
+  "gender": "female",
+  "slot": "boots",
+  "sourcePath": "assets-source/body-fit-v2-targets/boots_traveler_common_female_v2.png",
+  "exists": true,
+  "sourceApproval": {
+    "declaredBy": "Carlos Faustino",
+    "declaration": "SOURCE_VISUAL_APPROVED",
+    "boundToFileHash": true
+  },
+  "technicalStatus": "TECHNICALLY_VALIDATED",
+  "mapping": {
+    "status": "MAPPED",
+    "errors": [],
+    "targetFilename": "boots_traveler_common_female_v2.png",
+    "itemId": "traveler-boots",
+    "gender": "female",
+    "slot": "boots"
+  },
+  "fitStatus": "NEEDS_REWORK",
+  "humanBodyFitApproved": false,
+  "runtimeReady": false,
+  "knownCorrectiveEditing": "Prior resize/crop not established by metadata; no corrective processing performed by this task",
+  "referenceAvatar": {
+    "id": "female_short_moss_medium",
+    "source": "/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+    "sha256": "f260cb9b053b35c328025f1bc7ee602cbb30e57c71ba1f2238a4b1519685f460",
+    "alphaThreshold": 128,
+    "bounds": {
+      "left": 187,
+      "top": 2,
+      "right": 964,
+      "bottom": 1495
+    },
+    "footBaseline": 1495,
+    "alphaPositiveBoundsDiagnostic": {
+      "left": 0,
+      "top": 0,
+      "right": 1001,
+      "bottom": 1504
+    }
+  },
+  "expectedLandmarks": [
+    "left/right ankles",
+    "foot widths",
+    "HD alpha ≥128 foot baseline unchanged",
+    "no pixels outside canvas"
+  ],
+  "evidenceLimit": "Technical/mapping checks do not establish fit; visual lab review required",
+  "sha256": "dfc523cddaf71075163b30f3d92f80b7c6d723d013ada40d18b70de1dbd52277",
+  "integrity": {
+    "status": "CRC_PASS",
+    "chunks": 34
+  },
+  "manifestHash": "dfc523cddaf71075163b30f3d92f80b7c6d723d013ada40d18b70de1dbd52277",
+  "manifestHashMatches": true,
+  "metadata": {
+    "format": "png",
+    "width": 1024,
+    "height": 1536,
+    "hasAlpha": true,
+    "transparentPixels": 1030487,
+    "alpha128Pixels": 522169,
+    "fullNativeCanvas": true,
+    "decode": "PASS"
+  },
+  "readyEligible": false,
+  "sourceBoundsAlpha128": {
+    "left": 19,
+    "top": 354,
+    "right": 1005,
+    "bottom": 1307
+  },
+  "geometry": {
+    "nativeCanvas": {
+      "width": 1024,
+      "height": 1536
+    },
+    "sourceWidth": 987,
+    "sourceHeight": 954,
+    "sourceBottomMinusHDFootBaseline": -188,
+    "correction": "NONE: full canvas inset 0; no crop/warp/stretch/offset",
+    "guideMeaning": "Pixel bounds and foot baseline, not new anatomy anchors"
+  },
+  "manifestSourceFile": "botas_gêmeas_de_clérigo_esmeralda.png",
+  "provenance": "User supplied target PNG and hash-bound manifest; original authoring/crop history cannot be proven from PNG metadata. No corrective editing performed here.",
+  "reviewedBy": "Codex author fit QA; no human Body-Fit approval",
+  "fitResult": "FIT_FAIL",
+  "finalStatus": "NEEDS_REWORK",
+  "observations": "Canos na altura do peito/braços e solas sobre canelas; largura/direção/distância dos pés não seguem HD. Bottom alpha≥128=1307; baseline HD=1495; delta=-188px.",
+  "criteria": [
+    {
+      "criterion": "footLine",
+      "result": "FAIL",
+      "evidence": "Visible mismatch in correct-gender full-canvas comparison; see observations"
+    },
+    {
+      "criterion": "ankles",
+      "result": "FAIL",
+      "evidence": "Visible mismatch in correct-gender full-canvas comparison; see observations"
+    },
+    {
+      "criterion": "width",
+      "result": "FAIL",
+      "evidence": "Visible mismatch in correct-gender full-canvas comparison; see observations"
+    },
+    {
+      "criterion": "poseSymmetry",
+      "result": "FAIL",
+      "evidence": "Visible mismatch in correct-gender full-canvas comparison; see observations"
+    },
+    {
+      "criterion": "baseline",
+      "result": "FAIL",
+      "evidence": "Visible mismatch in correct-gender full-canvas comparison; see observations"
+    },
+    {
+      "criterion": "legExclusion",
+      "result": "FAIL",
+      "evidence": "Visible mismatch in correct-gender full-canvas comparison; see observations"
+    },
+    {
+      "criterion": "footPosition",
+      "result": "FAIL",
+      "evidence": "Visible mismatch in correct-gender full-canvas comparison; see observations"
+    }
+  ],
+  "regenerationRecommendation": "Regenerar nos tornozelos/pés reais, com largura, direção e separação da pose HD; baseline alpha≥128=1495 female ou1513 male. Transparência acima/fora das botas; não deslocar os pés nem o PNG atual.",
+  "assessedAt": "2026-10-08T06:04:18.570Z",
+  "humanBodyFitReviewStatus": "NOT_ELIGIBLE_FIT_FAILED",
+  "evidence": [
+    "boots_traveler_common_female_v2/comparison.png",
+    "boots_traveler_common_female_v2/base.png",
+    "boots_traveler_common_female_v2/overlay.png",
+    "boots_traveler_common_female_v2/combined.png",
+    "boots_traveler_common_female_v2/blend.png",
+    "boots_traveler_common_female_v2/split.png",
+    "boots_traveler_common_female_v2/guides.png",
+    "boots_traveler_common_female_v2/zoom-combined.png"
+  ],
+  "correctionApplied": false,
+  "scope": "Primary same-gender HD reference only; failed primary fit, therefore no broader compatibility claim or 27-variant PASS"
+}

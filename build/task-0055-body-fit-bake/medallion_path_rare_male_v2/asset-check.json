@@ -1,0 +1,21 @@
+{
+  "id": "medallion_path_rare_male_v2",
+  "status": "PASS",
+  "technical": "TECHNICALLY_VALIDATED",
+  "mapping": "MAPPED",
+  "fitStatus": "NEEDS_REWORK",
+  "sha256": "c51e2652cd4d8b69f583beb59a8efd2d8c159d2e15506b090c2cf281fb1e0996",
+  "clippedAlpha128SourcePixels": 0,
+  "alpha128Bounds": {
+    "left": 439,
+    "top": 303,
+    "right": 580,
+    "bottom": 520,
+    "count": 14279
+  },
+  "footBaselineDelta": null,
+  "maxLandmarkResidual": 1.3767806303075136,
+  "humanBodyFitApproved": false,
+  "ready": false,
+  "runtimeActivated": false
+}

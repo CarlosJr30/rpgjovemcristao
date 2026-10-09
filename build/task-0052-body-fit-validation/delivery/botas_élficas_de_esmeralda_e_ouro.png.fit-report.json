@@ -1,0 +1,75 @@
+{
+  "at": "2026-10-08T04:24:51.868Z",
+  "file": "botas_élficas_de_esmeralda_e_ouro.png",
+  "sha256": "ceb48f8d50bf9627f4e627c49e0368a3b351b3801bd092baf9c168fd9e7ff61a",
+  "bytes": 2012963,
+  "width": 1024,
+  "height": 1536,
+  "format": "png",
+  "hasAlpha": true,
+  "alpha": {
+    "zero": 1050317,
+    "partial": 522547,
+    "opaque": 0,
+    "max": 254,
+    "atLeast128": 502021
+  },
+  "bounds": {
+    "left": 18,
+    "top": 512,
+    "right": 1011,
+    "bottom": 1454
+  },
+  "integrity": {
+    "status": "CRC_PASS",
+    "chunks": 34,
+    "decode": "DECODE_PASS"
+  },
+  "technicalStatus": "TECHNICAL_PASS",
+  "sourceStatus": "SOURCE_VISUAL_APPROVED",
+  "approvalEvidence": "Carlos Faustino: source-art delivery instruction, confirmed by delivered manifest and actual hash",
+  "manifestPath": "manifest.json",
+  "manifestHashMatches": true,
+  "mapping": {
+    "status": "UNMAPPED_SOURCE_ART",
+    "target": null,
+    "reason": "No single explicit, valid target binding"
+  },
+  "fitStatus": "FIT_VALIDATION_PENDING",
+  "humanBodyFitApproved": false,
+  "runtimeReady": false,
+  "observedFamily": "boots",
+  "observedFamilyIsNotMapping": true,
+  "diagnosticStatus": "NEEDS_REWORK",
+  "diagnosticScope": "Full-canvas comparison over both HD reference bodies; no target assignment or compatibility approval",
+  "observations": "Cano começa junto à cintura/mãos e atravessa coxas; botas e solas ficam largas, afastadas e não acompanham os pés reais.",
+  "regeneration": "Após confirmar target, gerar somente botas sobre tornozelos e pés reais da referência, preservando separação, ângulo e contorno dos dois pés. Conferir baseline alpha ≥128 de 1495 (female) ou 1513 (male), conforme target confirmado. Manter toda região fora das botas transparente.",
+  "evidence": [
+    {
+      "reference": "female_short_moss_medium",
+      "overview": "screenshots/source-05-female_short_moss_medium.png",
+      "views": [
+        "screenshots/source-05-female_short_moss_medium-base.png",
+        "screenshots/source-05-female_short_moss_medium-source.png",
+        "screenshots/source-05-female_short_moss_medium-combined.png",
+        "screenshots/source-05-female_short_moss_medium-blend.png",
+        "screenshots/source-05-female_short_moss_medium-split.png",
+        "screenshots/source-05-female_short_moss_medium-guides.png"
+      ]
+    },
+    {
+      "reference": "male_short_moss_medium",
+      "overview": "screenshots/source-05-male_short_moss_medium.png",
+      "views": [
+        "screenshots/source-05-male_short_moss_medium-base.png",
+        "screenshots/source-05-male_short_moss_medium-source.png",
+        "screenshots/source-05-male_short_moss_medium-combined.png",
+        "screenshots/source-05-male_short_moss_medium-blend.png",
+        "screenshots/source-05-male_short_moss_medium-split.png",
+        "screenshots/source-05-male_short_moss_medium-guides.png"
+      ]
+    }
+  ],
+  "duplicateOf": null,
+  "correction": "NONE"
+}

@@ -168,7 +168,7 @@ const toLocalTraveler = (
       (item) => item.id === entry.item_id,
     );
     return catalogItem
-      ? [{ ...catalogItem, stats: { ...catalogItem.stats }, isNew: false }]
+      ? [{ ...catalogItem, stats: { ...catalogItem.stats }, quantity: entry.quantity, isNew: false }]
       : [];
   });
   const equippedSlots = Object.fromEntries(
@@ -260,12 +260,26 @@ export const hydrateOnlineTravelers = async (userId: string): Promise<void> => {
   }
 };
 
+export const reloadOnlineTraveler = async (travelerId: string): Promise<boolean> => {
+  if (!currentOnlineUserId) return false;
+  try {
+    const row = await travelerRepository.getTravelerById(travelerId, currentOnlineUserId);
+    if (!row) return false;
+    const traveler = await loadRemoteTraveler(currentOnlineUserId, row);
+    if (!journeyRepository.save(traveler)) return false;
+    notifyCacheChanged();
+    return true;
+  } catch {
+    return false;
+  }
+};
+
 const reconcileInventory = async (traveler: Traveler) => {
   const remote = await inventoryRepository.getInventory(traveler.id);
   const desired = new Set(traveler.inventory.map((item) => item.id));
   await Promise.all(
     traveler.inventory.map((item) =>
-      inventoryRepository.setQuantity(traveler.id, item.id, 1),
+      inventoryRepository.setQuantity(traveler.id, item.id, item.quantity ?? 1),
     ),
   );
   await Promise.all(

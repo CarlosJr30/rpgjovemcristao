@@ -1,0 +1,75 @@
+{
+  "at": "2026-10-08T04:24:51.868Z",
+  "file": "espada_esmeralda_de_aço_e_ouro.png",
+  "sha256": "a8320b614e4694e0b018e31bf65ad58b4e2723d25b40a28853ff7a16c6139f7b",
+  "bytes": 1346728,
+  "width": 1024,
+  "height": 1536,
+  "format": "png",
+  "hasAlpha": true,
+  "alpha": {
+    "zero": 1372635,
+    "partial": 200229,
+    "opaque": 0,
+    "max": 254,
+    "atLeast128": 186061
+  },
+  "bounds": {
+    "left": 93,
+    "top": 46,
+    "right": 987,
+    "bottom": 1486
+  },
+  "integrity": {
+    "status": "CRC_PASS",
+    "chunks": 24,
+    "decode": "DECODE_PASS"
+  },
+  "technicalStatus": "TECHNICAL_PASS",
+  "sourceStatus": "SOURCE_VISUAL_APPROVED",
+  "approvalEvidence": "Carlos Faustino: source-art delivery instruction, confirmed by delivered manifest and actual hash",
+  "manifestPath": "manifest.json",
+  "manifestHashMatches": true,
+  "mapping": {
+    "status": "UNMAPPED_SOURCE_ART",
+    "target": null,
+    "reason": "No single explicit, valid target binding"
+  },
+  "fitStatus": "FIT_VALIDATION_PENDING",
+  "humanBodyFitApproved": false,
+  "runtimeReady": false,
+  "observedFamily": "sword",
+  "observedFamilyIsNotMapping": true,
+  "diagnosticStatus": "NEEDS_REWORK",
+  "diagnosticScope": "Full-canvas comparison over both HD reference bodies; no target assignment or compatibility approval",
+  "observations": "Punho e guarda ficam abaixo da mão, sobre coxa/joelho; espada diagonal cruza o corpo e não possui contato com dedos. Escala e orientação não correspondem à pose.",
+  "regeneration": "Após confirmar target, medir a posição real dos dedos/mão e orientar a empunhadura nessa pega; ajustar no novo desenho a escala/ângulo da lâmina à pose existente. Não deslocar o avatar, anchors ou PNG atual para encaixar.",
+  "evidence": [
+    {
+      "reference": "female_short_moss_medium",
+      "overview": "screenshots/source-09-female_short_moss_medium.png",
+      "views": [
+        "screenshots/source-09-female_short_moss_medium-base.png",
+        "screenshots/source-09-female_short_moss_medium-source.png",
+        "screenshots/source-09-female_short_moss_medium-combined.png",
+        "screenshots/source-09-female_short_moss_medium-blend.png",
+        "screenshots/source-09-female_short_moss_medium-split.png",
+        "screenshots/source-09-female_short_moss_medium-guides.png"
+      ]
+    },
+    {
+      "reference": "male_short_moss_medium",
+      "overview": "screenshots/source-09-male_short_moss_medium.png",
+      "views": [
+        "screenshots/source-09-male_short_moss_medium-base.png",
+        "screenshots/source-09-male_short_moss_medium-source.png",
+        "screenshots/source-09-male_short_moss_medium-combined.png",
+        "screenshots/source-09-male_short_moss_medium-blend.png",
+        "screenshots/source-09-male_short_moss_medium-split.png",
+        "screenshots/source-09-male_short_moss_medium-guides.png"
+      ]
+    }
+  ],
+  "duplicateOf": null,
+  "correction": "NONE"
+}

@@ -1,0 +1,246 @@
+{
+  "at": "2026-10-08T00:46:22.371Z",
+  "audit": {
+    "at": "2026-10-08T00:46:22.371Z",
+    "result": "PASS",
+    "readyDefinitions": 0,
+    "needsDefinitions": 8,
+    "equipableItems": 6,
+    "archivedDefinitions": [
+      "traveler-sword-rare",
+      "traveler-armor-rare"
+    ],
+    "v2FilesPresent": 0,
+    "hdIdentitiesHashVerified": 54,
+    "protectedFiles": 182,
+    "preservation": "PASS",
+    "layers": {
+      "background": -1,
+      "back": 0,
+      "body": 1,
+      "armor": 2,
+      "boots": 3,
+      "medallion": 4,
+      "hands": 5,
+      "weapon": 6,
+      "shield": 7,
+      "helmet": 8,
+      "frontDetails": 9,
+      "effects": 10
+    },
+    "visualAlignment": "BLOCKED_MISSING_ASSETS",
+    "generation": "NOT_PERFORMED"
+  },
+  "items": [
+    {
+      "itemId": "traveler-armor-uncommon",
+      "slot": "armor",
+      "overlayV1": [
+        "/assets/equipment/overlays/v1/armor_traveler_uncommon_female.png"
+      ],
+      "overlayV2": "/assets/equipment/overlays/v2/armor_traveler_uncommon_female_v2.png",
+      "v2Exists": false,
+      "currentStatus": "NEEDS_NEW_OVERLAY",
+      "gender": "female",
+      "runtimeUsage": "MECHANICS_UI_CINEMATIC_ONLY",
+      "issue": "No dedicated V2 body asset or human approval; V1 body fitting rejected."
+    },
+    {
+      "itemId": "traveler-armor-uncommon",
+      "slot": "armor",
+      "overlayV1": [
+        "/assets/equipment/overlays/v1/armor_traveler_uncommon_male.png"
+      ],
+      "overlayV2": "/assets/equipment/overlays/v2/armor_traveler_uncommon_male_v2.png",
+      "v2Exists": false,
+      "currentStatus": "NEEDS_NEW_OVERLAY",
+      "gender": "male",
+      "runtimeUsage": "MECHANICS_UI_CINEMATIC_ONLY",
+      "issue": "No dedicated V2 body asset or human approval; V1 body fitting rejected."
+    },
+    {
+      "itemId": "traveler-helmet-rare",
+      "slot": "helmet",
+      "overlayV1": [
+        "/assets/equipment/overlays/v1/helmet_traveler_rare_female.png"
+      ],
+      "overlayV2": "/assets/equipment/overlays/v2/helmet_traveler_rare_female_v2.png",
+      "v2Exists": false,
+      "currentStatus": "NEEDS_NEW_OVERLAY",
+      "gender": "female",
+      "runtimeUsage": "MECHANICS_UI_CINEMATIC_ONLY",
+      "issue": "No dedicated V2 body asset or human approval; V1 body fitting rejected."
+    },
+    {
+      "itemId": "traveler-helmet-rare",
+      "slot": "helmet",
+      "overlayV1": [
+        "/assets/equipment/overlays/v1/helmet_traveler_rare_male.png"
+      ],
+      "overlayV2": "/assets/equipment/overlays/v2/helmet_traveler_rare_male_v2.png",
+      "v2Exists": false,
+      "currentStatus": "NEEDS_NEW_OVERLAY",
+      "gender": "male",
+      "runtimeUsage": "MECHANICS_UI_CINEMATIC_ONLY",
+      "issue": "No dedicated V2 body asset or human approval; V1 body fitting rejected."
+    },
+    {
+      "itemId": "traveler-boots",
+      "slot": "boots",
+      "overlayV1": [
+        "/assets/equipment/overlays/v1/boots_traveler_common_left_female.png",
+        "/assets/equipment/overlays/v1/boots_traveler_common_right_female.png"
+      ],
+      "overlayV2": "/assets/equipment/overlays/v2/boots_traveler_common_female_v2.png",
+      "v2Exists": false,
+      "currentStatus": "NEEDS_NEW_OVERLAY",
+      "gender": "female",
+      "runtimeUsage": "MECHANICS_UI_CINEMATIC_ONLY",
+      "issue": "No dedicated V2 body asset or human approval; V1 body fitting rejected."
+    },
+    {
+      "itemId": "traveler-boots",
+      "slot": "boots",
+      "overlayV1": [
+        "/assets/equipment/overlays/v1/boots_traveler_common_left_male.png",
+        "/assets/equipment/overlays/v1/boots_traveler_common_right_male.png"
+      ],
+      "overlayV2": "/assets/equipment/overlays/v2/boots_traveler_common_male_v2.png",
+      "v2Exists": false,
+      "currentStatus": "NEEDS_NEW_OVERLAY",
+      "gender": "male",
+      "runtimeUsage": "MECHANICS_UI_CINEMATIC_ONLY",
+      "issue": "No dedicated V2 body asset or human approval; V1 body fitting rejected."
+    },
+    {
+      "itemId": "traveler-sword-common",
+      "slot": "weapon",
+      "overlayV1": [
+        "/assets/equipment/overlays/v1/sword_path_common.png"
+      ],
+      "overlayV2": "/assets/equipment/overlays/v2/sword_path_common_female_v2.png",
+      "v2Exists": false,
+      "currentStatus": "NEEDS_NEW_OVERLAY",
+      "gender": "female",
+      "runtimeUsage": "MECHANICS_UI_CINEMATIC_ONLY",
+      "issue": "No dedicated V2 body asset or human approval; V1 body fitting rejected."
+    },
+    {
+      "itemId": "traveler-sword-common",
+      "slot": "weapon",
+      "overlayV1": [
+        "/assets/equipment/overlays/v1/sword_path_common.png"
+      ],
+      "overlayV2": "/assets/equipment/overlays/v2/sword_path_common_male_v2.png",
+      "v2Exists": false,
+      "currentStatus": "NEEDS_NEW_OVERLAY",
+      "gender": "male",
+      "runtimeUsage": "MECHANICS_UI_CINEMATIC_ONLY",
+      "issue": "No dedicated V2 body asset or human approval; V1 body fitting rejected."
+    },
+    {
+      "itemId": "traveler-shield-rare",
+      "slot": "shield",
+      "overlayV1": [
+        "/assets/equipment/overlays/v1/shield_perseverance_rare.png"
+      ],
+      "overlayV2": "/assets/equipment/overlays/v2/shield_perseverance_rare_female_v2.png",
+      "v2Exists": false,
+      "currentStatus": "NEEDS_NEW_OVERLAY",
+      "gender": "female",
+      "runtimeUsage": "MECHANICS_UI_CINEMATIC_ONLY",
+      "issue": "No dedicated V2 body asset or human approval; V1 body fitting rejected."
+    },
+    {
+      "itemId": "traveler-shield-rare",
+      "slot": "shield",
+      "overlayV1": [
+        "/assets/equipment/overlays/v1/shield_perseverance_rare.png"
+      ],
+      "overlayV2": "/assets/equipment/overlays/v2/shield_perseverance_rare_male_v2.png",
+      "v2Exists": false,
+      "currentStatus": "NEEDS_NEW_OVERLAY",
+      "gender": "male",
+      "runtimeUsage": "MECHANICS_UI_CINEMATIC_ONLY",
+      "issue": "No dedicated V2 body asset or human approval; V1 body fitting rejected."
+    },
+    {
+      "itemId": "wisdom-amulet",
+      "slot": "amulet",
+      "overlayV1": [
+        "/assets/equipment/overlays/v1/medallion_path_rare.png"
+      ],
+      "overlayV2": "/assets/equipment/overlays/v2/medallion_path_rare_female_v2.png",
+      "v2Exists": false,
+      "currentStatus": "NEEDS_NEW_OVERLAY",
+      "gender": "female",
+      "runtimeUsage": "MECHANICS_UI_CINEMATIC_ONLY",
+      "issue": "No dedicated V2 body asset or human approval; V1 body fitting rejected."
+    },
+    {
+      "itemId": "wisdom-amulet",
+      "slot": "amulet",
+      "overlayV1": [
+        "/assets/equipment/overlays/v1/medallion_path_rare.png"
+      ],
+      "overlayV2": "/assets/equipment/overlays/v2/medallion_path_rare_male_v2.png",
+      "v2Exists": false,
+      "currentStatus": "NEEDS_NEW_OVERLAY",
+      "gender": "male",
+      "runtimeUsage": "MECHANICS_UI_CINEMATIC_ONLY",
+      "issue": "No dedicated V2 body asset or human approval; V1 body fitting rejected."
+    },
+    {
+      "itemId": "traveler-armor-rare",
+      "slot": "armor",
+      "overlayV1": [
+        "/assets/equipment/overlays/v1/armor_traveler_rare_female.png"
+      ],
+      "overlayV2": "/assets/equipment/overlays/v2/armor_traveler_rare_female_v2.png",
+      "v2Exists": false,
+      "currentStatus": "NEEDS_NEW_OVERLAY",
+      "gender": "female",
+      "runtimeUsage": "ARCHIVED_DEFINITION",
+      "issue": "No dedicated V2 body asset or human approval; V1 body fitting rejected."
+    },
+    {
+      "itemId": "traveler-armor-rare",
+      "slot": "armor",
+      "overlayV1": [
+        "/assets/equipment/overlays/v1/armor_traveler_rare_male.png"
+      ],
+      "overlayV2": "/assets/equipment/overlays/v2/armor_traveler_rare_male_v2.png",
+      "v2Exists": false,
+      "currentStatus": "NEEDS_NEW_OVERLAY",
+      "gender": "male",
+      "runtimeUsage": "ARCHIVED_DEFINITION",
+      "issue": "No dedicated V2 body asset or human approval; V1 body fitting rejected."
+    },
+    {
+      "itemId": "traveler-sword-rare",
+      "slot": "weapon",
+      "overlayV1": [
+        "/assets/equipment/overlays/v1/sword_path_rare.png"
+      ],
+      "overlayV2": "/assets/equipment/overlays/v2/sword_path_rare_female_v2.png",
+      "v2Exists": false,
+      "currentStatus": "NEEDS_NEW_OVERLAY",
+      "gender": "female",
+      "runtimeUsage": "ARCHIVED_DEFINITION",
+      "issue": "No dedicated V2 body asset or human approval; V1 body fitting rejected."
+    },
+    {
+      "itemId": "traveler-sword-rare",
+      "slot": "weapon",
+      "overlayV1": [
+        "/assets/equipment/overlays/v1/sword_path_rare.png"
+      ],
+      "overlayV2": "/assets/equipment/overlays/v2/sword_path_rare_male_v2.png",
+      "v2Exists": false,
+      "currentStatus": "NEEDS_NEW_OVERLAY",
+      "gender": "male",
+      "runtimeUsage": "ARCHIVED_DEFINITION",
+      "issue": "No dedicated V2 body asset or human approval; V1 body fitting rejected."
+    }
+  ]
+}

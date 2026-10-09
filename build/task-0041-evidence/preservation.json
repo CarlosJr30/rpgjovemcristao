@@ -1,0 +1,55 @@
+{
+  "baselineCount": 192,
+  "intactCount": 180,
+  "authorizedChangedCount": 12,
+  "authorizedChanged": [
+    ".agent/memory/CURRENT_STATE.md",
+    "apps/web/features/journey/journey.module.css",
+    "apps/web/features/journey/screens/arena.tsx",
+    "apps/web/features/journey/audiovisual-pack.test.ts",
+    "apps/web/features/journey/components/arena-specials.tsx",
+    "apps/web/features/journey/components/pack-artwork.tsx",
+    "apps/web/features/journey/data/battlePresentation.ts",
+    "apps/web/features/journey/hooks/use-battle-presentation.ts",
+    "apps/web/features/journey/pack-artwork.test.tsx",
+    "tasks/active/TASK-0039-arena-visual-pack-v1.md",
+    "tasks/active/TASK-0041-arena-integration-lab.md",
+    "tests/e2e/arena-v2.spec.ts"
+  ],
+  "unexpected": [],
+  "incomingAssets": [
+    {
+      "file": "world/arena/arena_training_courtyard.webp",
+      "sha256": "d1a2c334c0eb08461447f1acf2f39fdd67d56a2a385bf7c7b370d6ac09200263",
+      "preserved": true
+    },
+    {
+      "file": "world/arena/arena_training_courtyard_960.webp",
+      "sha256": "4294088d0b16b7de28e61b1c7fafc05069c2dba137f369b4aa0415c6d3d3145b",
+      "preserved": true
+    },
+    {
+      "file": "characters/arena/arena_davi.png",
+      "sha256": "9ab5c7ff317434ff41bde172640f6d60426dbcfe09f878235aeaf7731dbcb5af",
+      "preserved": true
+    },
+    {
+      "file": "characters/arena/arena_elias.png",
+      "sha256": "5363d3e92609128b7f31e1cd3d8ce65d1fbbba0c5fc0ad14d451c664991362ca",
+      "preserved": true
+    },
+    {
+      "file": "characters/arena/arena_mara.png",
+      "sha256": "a8f3a68ddbed7eacbf57af9278cfb24922d7d06adc0f2eabe66d48e1663b034a",
+      "preserved": true
+    },
+    {
+      "file": "characters/arena/arena_noemi.png",
+      "sha256": "f7e84ad1cb5762b9a7bee4dac32b6d7266928b76d0f4fb4c4c21b08c28b80755",
+      "preserved": true
+    }
+  ],
+  "nextEnvRestored": true,
+  "contractMoved": true,
+  "pass": true
+}

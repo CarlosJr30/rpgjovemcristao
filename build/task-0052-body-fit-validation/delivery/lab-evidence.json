@@ -1,0 +1,1450 @@
+{
+  "at": "2026-10-08T04:28:12.127Z",
+  "samples": 144,
+  "matrix": [
+    {
+      "source": "armadura_paladina_verde_e_dourada.png",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "armadura_paladina_verde_e_dourada.png",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "armadura_templária_verde_e_dourada.png",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "armadura_templária_verde_e_dourada.png",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "armadura_torácica_de_paladina_verde.png",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "armadura_torácica_de_paladina_verde.png",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "armadura_verde_e_dourada_de_paladina.png",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "armadura_verde_e_dourada_de_paladina.png",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "botas_de_paladino_verde_e_dourado.png",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "botas_de_paladino_verde_e_dourado.png",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "botas_élficas_de_esmeralda_e_ouro.png",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "botas_élficas_de_esmeralda_e_ouro.png",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "capuz_sacerdotal_esmeralda_ornamentado.png",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "capuz_sacerdotal_esmeralda_ornamentado.png",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "elmo_paladino_esmeralda_ornado.png",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "elmo_paladino_esmeralda_ornado.png",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "escudo_esmeralda_do_sol_dourado.png",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "escudo_esmeralda_do_sol_dourado.png",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "espada_esmeralda_de_aço_e_ouro.png",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "espada_esmeralda_de_aço_e_ouro.png",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "espada_real_de_esmeralda_e_ouro.png",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "espada_real_de_esmeralda_e_ouro.png",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "imagegen.png",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "imagegen.png",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "armadura_paladina_verde_e_dourada.png",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 412,
+        "height": 915
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "armadura_paladina_verde_e_dourada.png",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 412,
+        "height": 915
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "armadura_templária_verde_e_dourada.png",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 412,
+        "height": 915
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "armadura_templária_verde_e_dourada.png",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 412,
+        "height": 915
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "armadura_torácica_de_paladina_verde.png",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 412,
+        "height": 915
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "armadura_torácica_de_paladina_verde.png",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 412,
+        "height": 915
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "armadura_verde_e_dourada_de_paladina.png",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 412,
+        "height": 915
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "armadura_verde_e_dourada_de_paladina.png",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 412,
+        "height": 915
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "botas_de_paladino_verde_e_dourado.png",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 412,
+        "height": 915
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "botas_de_paladino_verde_e_dourado.png",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 412,
+        "height": 915
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "botas_élficas_de_esmeralda_e_ouro.png",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 412,
+        "height": 915
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "botas_élficas_de_esmeralda_e_ouro.png",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 412,
+        "height": 915
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "capuz_sacerdotal_esmeralda_ornamentado.png",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 412,
+        "height": 915
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "capuz_sacerdotal_esmeralda_ornamentado.png",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 412,
+        "height": 915
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "elmo_paladino_esmeralda_ornado.png",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 412,
+        "height": 915
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "elmo_paladino_esmeralda_ornado.png",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 412,
+        "height": 915
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "escudo_esmeralda_do_sol_dourado.png",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 412,
+        "height": 915
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "escudo_esmeralda_do_sol_dourado.png",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 412,
+        "height": 915
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "espada_esmeralda_de_aço_e_ouro.png",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 412,
+        "height": 915
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "espada_esmeralda_de_aço_e_ouro.png",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 412,
+        "height": 915
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "espada_real_de_esmeralda_e_ouro.png",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 412,
+        "height": 915
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "espada_real_de_esmeralda_e_ouro.png",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 412,
+        "height": 915
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "imagegen.png",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 412,
+        "height": 915
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "imagegen.png",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 412,
+        "height": 915
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "armadura_paladina_verde_e_dourada.png",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "armadura_paladina_verde_e_dourada.png",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "armadura_templária_verde_e_dourada.png",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "armadura_templária_verde_e_dourada.png",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "armadura_torácica_de_paladina_verde.png",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "armadura_torácica_de_paladina_verde.png",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "armadura_verde_e_dourada_de_paladina.png",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "armadura_verde_e_dourada_de_paladina.png",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "botas_de_paladino_verde_e_dourado.png",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "botas_de_paladino_verde_e_dourado.png",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "botas_élficas_de_esmeralda_e_ouro.png",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "botas_élficas_de_esmeralda_e_ouro.png",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "capuz_sacerdotal_esmeralda_ornamentado.png",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "capuz_sacerdotal_esmeralda_ornamentado.png",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "elmo_paladino_esmeralda_ornado.png",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "elmo_paladino_esmeralda_ornado.png",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "escudo_esmeralda_do_sol_dourado.png",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "escudo_esmeralda_do_sol_dourado.png",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "espada_esmeralda_de_aço_e_ouro.png",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "espada_esmeralda_de_aço_e_ouro.png",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "espada_real_de_esmeralda_e_ouro.png",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "espada_real_de_esmeralda_e_ouro.png",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "imagegen.png",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "imagegen.png",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "armadura_paladina_verde_e_dourada.png",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 915,
+        "height": 412
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "armadura_paladina_verde_e_dourada.png",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 915,
+        "height": 412
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "armadura_templária_verde_e_dourada.png",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 915,
+        "height": 412
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "armadura_templária_verde_e_dourada.png",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 915,
+        "height": 412
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "armadura_torácica_de_paladina_verde.png",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 915,
+        "height": 412
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "armadura_torácica_de_paladina_verde.png",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 915,
+        "height": 412
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "armadura_verde_e_dourada_de_paladina.png",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 915,
+        "height": 412
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "armadura_verde_e_dourada_de_paladina.png",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 915,
+        "height": 412
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "botas_de_paladino_verde_e_dourado.png",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 915,
+        "height": 412
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "botas_de_paladino_verde_e_dourado.png",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 915,
+        "height": 412
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "botas_élficas_de_esmeralda_e_ouro.png",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 915,
+        "height": 412
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "botas_élficas_de_esmeralda_e_ouro.png",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 915,
+        "height": 412
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "capuz_sacerdotal_esmeralda_ornamentado.png",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 915,
+        "height": 412
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "capuz_sacerdotal_esmeralda_ornamentado.png",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 915,
+        "height": 412
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "elmo_paladino_esmeralda_ornado.png",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 915,
+        "height": 412
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "elmo_paladino_esmeralda_ornado.png",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 915,
+        "height": 412
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "escudo_esmeralda_do_sol_dourado.png",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 915,
+        "height": 412
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "escudo_esmeralda_do_sol_dourado.png",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 915,
+        "height": 412
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "espada_esmeralda_de_aço_e_ouro.png",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 915,
+        "height": 412
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "espada_esmeralda_de_aço_e_ouro.png",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 915,
+        "height": 412
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "espada_real_de_esmeralda_e_ouro.png",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 915,
+        "height": 412
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "espada_real_de_esmeralda_e_ouro.png",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 915,
+        "height": 412
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "imagegen.png",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 915,
+        "height": 412
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "imagegen.png",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 915,
+        "height": 412
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "armadura_paladina_verde_e_dourada.png",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "armadura_paladina_verde_e_dourada.png",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "armadura_templária_verde_e_dourada.png",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "armadura_templária_verde_e_dourada.png",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "armadura_torácica_de_paladina_verde.png",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "armadura_torácica_de_paladina_verde.png",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "armadura_verde_e_dourada_de_paladina.png",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "armadura_verde_e_dourada_de_paladina.png",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "botas_de_paladino_verde_e_dourado.png",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "botas_de_paladino_verde_e_dourado.png",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "botas_élficas_de_esmeralda_e_ouro.png",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "botas_élficas_de_esmeralda_e_ouro.png",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "capuz_sacerdotal_esmeralda_ornamentado.png",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "capuz_sacerdotal_esmeralda_ornamentado.png",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "elmo_paladino_esmeralda_ornado.png",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "elmo_paladino_esmeralda_ornado.png",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "escudo_esmeralda_do_sol_dourado.png",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "escudo_esmeralda_do_sol_dourado.png",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "espada_esmeralda_de_aço_e_ouro.png",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "espada_esmeralda_de_aço_e_ouro.png",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "espada_real_de_esmeralda_e_ouro.png",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "espada_real_de_esmeralda_e_ouro.png",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "imagegen.png",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "imagegen.png",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "armadura_paladina_verde_e_dourada.png",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "armadura_paladina_verde_e_dourada.png",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "armadura_templária_verde_e_dourada.png",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "armadura_templária_verde_e_dourada.png",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "armadura_torácica_de_paladina_verde.png",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "armadura_torácica_de_paladina_verde.png",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "armadura_verde_e_dourada_de_paladina.png",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "armadura_verde_e_dourada_de_paladina.png",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "botas_de_paladino_verde_e_dourado.png",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "botas_de_paladino_verde_e_dourado.png",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "botas_élficas_de_esmeralda_e_ouro.png",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "botas_élficas_de_esmeralda_e_ouro.png",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "capuz_sacerdotal_esmeralda_ornamentado.png",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "capuz_sacerdotal_esmeralda_ornamentado.png",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "elmo_paladino_esmeralda_ornado.png",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "elmo_paladino_esmeralda_ornado.png",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "escudo_esmeralda_do_sol_dourado.png",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "escudo_esmeralda_do_sol_dourado.png",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "espada_esmeralda_de_aço_e_ouro.png",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "espada_esmeralda_de_aço_e_ouro.png",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "espada_real_de_esmeralda_e_ouro.png",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "espada_real_de_esmeralda_e_ouro.png",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "imagegen.png",
+      "reference": "female_short_moss_medium",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    },
+    {
+      "source": "imagegen.png",
+      "reference": "male_short_moss_medium",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "fullCanvas": true,
+      "fitApproval": false
+    }
+  ],
+  "reducedMotion": true,
+  "originalAndCopyHashes": "PASS",
+  "consoleErrors": [],
+  "fitApproval": false
+}

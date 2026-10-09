@@ -1,0 +1,117 @@
+{
+  "at": "2026-10-08T00:54:54.170Z",
+  "task": "TASK-0051",
+  "status": "BLOCKED",
+  "technicalStatus": "BODY_FIT_ARCHITECTURE_VALIDATED",
+  "assetStatus": "ASSET_GENERATION_REQUIRED",
+  "reviewer": "Implementation author; not independent",
+  "checks": {
+    "unit": {
+      "result": "PASS",
+      "files": 6,
+      "tests": 94,
+      "command": "npm run test -- --maxWorkers=2 apps/web/features/journey/equipment-assets.test.ts apps/web/features/journey/equipment-overlays.test.tsx apps/web/features/journey/equipment-portal.test.tsx apps/web/features/journey/equipment-cinematic.test.tsx apps/web/features/journey/avatar-runtime.test.tsx apps/web/features/journey/equipment-v1-files.test.ts",
+      "evidence": "build/task-0051-evidence/unit.log"
+    },
+    "e2eProduction": {
+      "result": "PASS_AFTER_REWORK",
+      "uniquePassed": 27,
+      "plannedSkips": 13,
+      "initial": {
+        "passed": 23,
+        "failed": 4,
+        "evidence": "build/task-0051-evidence/e2e.log"
+      },
+      "correctedHero": {
+        "passed": 4,
+        "evidence": "build/task-0051-evidence/hero-final.log"
+      },
+      "reason": "Historical 512x768 expectation updated to require approved 1024x1536 HD; added landscapes",
+      "commands": [
+        "npx playwright test tests/e2e/equipment-portal.spec.ts tests/e2e/equipment-cinematic.spec.ts tests/e2e/hero-overlays.spec.ts tests/e2e/arena-lab-production.spec.ts --output=build/task-0051-evidence/production-test-results",
+        "npx playwright test tests/e2e/hero-overlays.spec.ts --output=build/task-0051-evidence/hero-final-test-results"
+      ]
+    },
+    "e2eLab": {
+      "result": "PASS",
+      "tests": 1,
+      "identities": 54,
+      "itemGenderViewportSamples": 48,
+      "evidence": "build/task-0051-evidence/lab-final.log",
+      "command": "npx playwright test --config=playwright.body-fit-lab.config.ts"
+    },
+    "lint": {
+      "result": "PASS",
+      "command": "npm run lint",
+      "evidence": "build/task-0051-evidence/lint-final.log"
+    },
+    "typecheck": {
+      "result": "PASS",
+      "command": "npm run typecheck",
+      "evidence": "build/task-0051-evidence/typecheck-final.log"
+    },
+    "build": {
+      "result": "PASS",
+      "command": "npm run build",
+      "evidence": "build/task-0051-evidence/build.log"
+    },
+    "bodyFitAudit": {
+      "result": "PASS",
+      "command": "node scripts/body-fit-v2-audit.mjs --write-docs",
+      "evidence": "build/task-0051-evidence/body-fit-audit.json"
+    },
+    "preservation": {
+      "at": "2026-10-08T00:51:08.301Z",
+      "result": "PASS",
+      "protectedFiles": 182,
+      "preserved": 182,
+      "hdIdentities": 54,
+      "v1PNG": 14,
+      "requiredTargets": 16,
+      "currentCatalogTargets": 12,
+      "archivedTargets": 4,
+      "ready": 0,
+      "generated": 0
+    },
+    "security": {
+      "result": "PASS",
+      "evidence": "docs/security/TASK-0051-body-fit-v2-review.md"
+    },
+    "realOverlayAlignment": {
+      "result": "BLOCKED_MISSING_ASSETS",
+      "ready": 0,
+      "requiredTargets": 16,
+      "prototypesPresent": 0
+    },
+    "acceptance": {
+      "architecture": "PASS",
+      "visualIntegration": "BLOCKED",
+      "humanBodyFitApproval": "NONE",
+      "done": false
+    }
+  },
+  "viewports": [
+    "390x844",
+    "412x915",
+    "844x390",
+    "915x412",
+    "1440x900",
+    "1920x1080"
+  ],
+  "generatedImages": 0,
+  "remoteActions": 0,
+  "hdImagesChanged": 0,
+  "latestFollowUp": {
+    "at": "2026-10-08T06:12:19.239Z",
+    "task": "TASK-0052B",
+    "status": "REWORK",
+    "phase": "FIT_VALIDATION_COMPLETE",
+    "technical": 16,
+    "mapped": 16,
+    "fitFail": 16,
+    "needsRework": 16,
+    "pending": 0,
+    "ready": 0,
+    "report": "docs/architecture/TASK-0052B-BODY-FIT-TARGET-VALIDATION-REPORT.md"
+  }
+}

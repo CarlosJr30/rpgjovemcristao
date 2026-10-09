@@ -7,14 +7,13 @@ import { resumeJourney, useJourney } from '../state/use-journey';
 import { JOURNEY_ROUTES as routes } from '../data/campaign';
 import { Shell } from '../components/shell';
 import { Landscape } from '../components/landscape';
-import { Avatar } from '../components/avatar';
-import styles from '../journey.module.css';
+import { AvatarRuntime } from '../components/avatar-runtime';
 import {
-  MAX_LEVEL,
-  TRAVELER_CURRENCY_NAME,
-  nextUnlock,
-  xpForLevel,
-} from '../data/progression';
+  JourneySpotlight,
+  AdventurePortals,
+} from '../components/journey-spotlight';
+import styles from '../journey.module.css';
+import { TRAVELER_CURRENCY_NAME, nextUnlock } from '../data/progression';
 import { useAuth } from '../../../lib/supabase/auth-context';
 import {
   getCurrentRemoteActiveTravelerId,
@@ -49,10 +48,7 @@ export function Home() {
             <p className={styles.eyebrow}>SEUS VIAJANTES</p>
             {savedTravelers.map((traveler) => (
               <article key={traveler.id} className={styles.savedTravelerOption}>
-                <Avatar
-                  appearance={traveler.appearance}
-                  avatar={traveler.avatar}
-                />
+                <AvatarRuntime traveler={traveler} mode="card" decorative className={styles.avatar} />
                 <h2>{traveler.name}</h2>
                 <p>
                   Viajante · Nível {traveler.level}
@@ -72,9 +68,9 @@ export function Home() {
                       );
                     setSelectingId(null);
                   }}
-              >
-                {selectingId === traveler.id ? 'Selecionando…' : 'Entrar'}
-              </Button>
+                >
+                  {selectingId === traveler.id ? 'Selecionando…' : 'Entrar'}
+                </Button>
               </article>
             ))}
           </div>
@@ -93,58 +89,44 @@ export function Home() {
       </Shell>
     );
   }
+  if (state.status === 'ready')
+    return (
+      <Shell>
+        <section className={styles.adventureHome} aria-labelledby="home-title">
+          <header className={styles.adventureWelcome}>
+            <div>
+              <p className={styles.eyebrow}>SEU CAMINHO CONTINUA</p>
+              <h1 id="home-title">
+                Bem-vindo à jornada, {state.traveler.name}.
+              </h1>
+            </div>
+            <AvatarRuntime traveler={state.traveler} mode="thumbnail" decorative className={styles.avatarSmall} />
+          </header>
+          <div className={styles.adventureProgress}>
+            <span>Nível {state.traveler.level}</span>
+            <span>{state.traveler.xp} XP</span>
+            <span>
+              ◈ {state.traveler.coins} {TRAVELER_CURRENCY_NAME}
+            </span>
+            <span>
+              {nextUnlock(state.traveler.level)?.label ??
+                'Marcos de nível alcançados'}
+            </span>
+          </div>
+          <JourneySpotlight traveler={state.traveler} />
+          <AdventurePortals />
+          <Button
+            className={styles.primary}
+            onClick={() => router.push(routes.map)}
+          >
+            Iniciar Jornada <span aria-hidden="true">↗</span>
+          </Button>
+        </section>
+      </Shell>
+    );
   return (
     <Shell>
       <section className={styles.hero} aria-labelledby="home-title">
-        {state.status === 'ready' && (
-          <div className={styles.heroCharacter}>
-            <p className={styles.eyebrow}>
-              SEU HERÓI · NÍVEL {state.traveler.level}
-            </p>
-            <Avatar
-              appearance={state.traveler.appearance}
-              avatar={state.traveler.avatar}
-            />
-            <h2>{state.traveler.name}</h2>
-            <div className={styles.xpBar}>
-              <span
-                style={{
-                  width:
-                    String(
-                      state.traveler.level >= MAX_LEVEL
-                        ? 100
-                        : Math.min(
-                            100,
-                            ((state.traveler.xp -
-                              xpForLevel(state.traveler.level)) /
-                              (xpForLevel(state.traveler.level + 1) -
-                                xpForLevel(state.traveler.level))) *
-                              100,
-                          ),
-                    ) + '%',
-                }}
-              />
-            </div>
-            <p>
-              {state.traveler.xp} /{' '}
-              {state.traveler.level < MAX_LEVEL
-                ? xpForLevel(state.traveler.level + 1)
-                : 'MÁX.'}{' '}
-              XP · ◈ {state.traveler.coins} {TRAVELER_CURRENCY_NAME}
-            </p>
-            <p>
-              {nextUnlock(state.traveler.level)
-                ? `Próximo desbloqueio: nível ${nextUnlock(state.traveler.level)?.level} · ${nextUnlock(state.traveler.level)?.label}`
-                : 'Todos os marcos de nível alcançados'}
-            </p>
-            <div className={styles.equipment}>
-              <span>⚔ arma</span>
-              <span>🛡 escudo</span>
-              <span>✦ amuleto</span>
-              <span>◈ mochila</span>
-            </div>
-          </div>
-        )}
         <div className={styles.heroCopy}>
           <p className={styles.eyebrow}>
             <span /> A AVENTURA ESTÁ APENAS COMEÇANDO
@@ -176,22 +158,17 @@ export function Home() {
             className={styles.primary}
             disabled={state.status === 'loading'}
             onClick={() => {
-              if (state.status === 'ready') router.push(routes.map);
-              else if (auth.status === 'signedOut') router.push('/auth');
+              if (auth.status === 'signedOut') router.push('/auth');
               else router.push(routes.create);
             }}
           >
-            {state.status === 'ready'
-              ? 'Iniciar Jornada'
-              : auth.status === 'signedOut'
-                ? 'Entrar ou continuar localmente'
-                : 'Criar Viajante'}{' '}
+            {auth.status === 'signedOut'
+              ? 'Entrar ou continuar localmente'
+              : 'Criar Viajante'}{' '}
             <span aria-hidden="true">↗</span>
           </Button>
           <p className={styles.micro}>
-            {state.status === 'ready'
-              ? `Seu caminho espera por você, ${state.traveler.name}.`
-              : 'Comece como Viajante. Descubra quem você se torna.'}
+            Comece como Viajante. Descubra quem você se torna.
           </p>
           <div className={styles.heroTraits}>
             <span>◇ EXPLORAÇÃO</span>
