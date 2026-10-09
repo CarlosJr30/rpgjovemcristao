@@ -3,7 +3,7 @@ ID: TASK-0061
 TITLE: Sincronização segura para notebook
 OBJECTIVE: Publicar o estado auditado em origin/main e verificar a versão remota.
 PRIORITY: P1 High
-STATUS: VALIDATING
+STATUS: DONE
 SCOPE: Fetch, auditoria local/staged, revisão de duplicações offline, staging explícito, commit com mensagem autorizada, push normal e verificação remota; guia notebook, evidências, contrato e memória. Orquestrador amplia DEVOPS/SECURITY locais a esses arquivos e operações conforme autorização explícita da TASK-0061.
 OUT_OF_SCOPE: force push, reset, rebase automático, exclusão destrutiva, instalação, deploy, Supabase/migrations, alteração de gameplay e credenciais versionadas.
 DEPENDENCIES: TASK-0060; remoto compatível e revisão segura antes de publicar.
@@ -29,3 +29,9 @@ Fetch PASS: 0/0 em main/origin/main. Duas remoções anteriores confirmadas como
 ## Gate do commit
 
 Staging explícito1.559 alterações/index1.888 arquivos; inventário/tamanhos/diff/duas remoções PASS. Varredura textual de bytes do index sem achados, exemplos vazios e54HD/16sources/882artefatos/68originais canônicos PASS. Whitespace padrão PASS após reconhecer CRLF histórico por atributos, sem mudar os bytes dos artefatos. Snapshot do index restaurou68cópias e build54HD/TypeScript/20páginas PASS; dependências locais reutilizadas, instalação limpa não executada. Lint do script novo e fixture comportamental PASS. E2E global N/A: não houve alteração runtime; aceite online/visual das tasks antigas permanece separado. Commit/push/verificação remota pendentes.
+
+## Aceite remoto — 2026-10-09
+
+GITHUB_SYNC_COMPLETE: commit principal ef042ba8c23b3b340b5daee5386715e7fe3430b4 publicado por push normal após novo fetch/ancestralidade PASS. SHA local/remoto/clone remoto completo coincidem, árvore ccd53a1c69bad6c6e712f6fbb9f21a62e84f8124.1.888 arquivos,54HD/16sources/882artefatos e68originais canônicos confirmados com hashes; nenhum ambiente privado/cache/trace/save pessoal na árvore. Pack495,41MiB. Working tree limpa após publicação principal. Guia notebook e receipt disponíveis. Status/memória/receipt seguem em commit documental de encerramento; verificar hash final depois do push.
+
+SELF VALIDATE/QA PASS pelo autor: clone/árvore/objetos/hashes, staging e whitespace. SECURITY PASS pelo autor, não independente, limites heurísticos registrados. BUILD/TYPECHECK PASS no snapshot sem ambiente privado; LINT/fixture comportamental PASS para script operacional. UNIT/gameplay/INTEGRATION/E2E globais N/A para esta sincronização sem runtime alterado. ACCEPTANCE PASS para publicação principal verificada. DOCUMENTATION UPDATED e NO KNOWN CRITICAL REGRESSIONS PASS no escopo; NO SECRETS PASS no escopo heurístico. Instalação limpa/configuração privada e gates antigos continuam pendências explícitas, não bloqueiam o aceite da sincronização. Sem deploy/install/Supabase/migrations/descarte.

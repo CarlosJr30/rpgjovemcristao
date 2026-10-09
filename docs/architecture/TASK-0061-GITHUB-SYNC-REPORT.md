@@ -30,7 +30,7 @@ Revisão pelo autor, sem independência. Nova varredura heurística de textos ca
 - Staging explícito: PASS, 1.559 caminhos alterados e 1.888 arquivos no index completo. Lista integral e diff stat inspecionados; 54HD/16 fontes target presentes. Varredura dos próprios blobs staged: zero achados; 882 artefatos e 68 fontes canônicas com SHA-256 conferidos.
 - Whitespace: PASS com `git diff --cached --check`. Primeira execução identificou somente CRLF preservado em recibos; atributos `cr-at-eol` reconhecem esses finais sem desativar verificação de espaços reais nem alterar os bytes históricos.
 - Snapshot do index sem ambiente privado: PASS, restauração das 68 cópias e build (54HD, TypeScript,20 páginas). Dependências locais reutilizadas; nenhum install ou Supabase.
-- Commit/push: pendentes neste registro anterior à publicação; só confirmar remoto após executar e comparar hashes.
+- Commit/push principal: PASS, `ef042ba8c23b3b340b5daee5386715e7fe3430b4`, mensagem autorizada. Novo fetch anterior ao push confirmou remoto original compatível; push normal `916c550..ef042ba main -> main`, sem força e sem alterar histórico. Pack enviado495,41MiB.
 
 O maior arquivo candidato tem 3.506.369 bytes (~3,34 MiB). Nenhum acima de 10 MiB. LFS não configurado; tamanho lógico não é tamanho do pack Git, que deduplica/comprime objetos. O volume ainda demanda tempo de transferência.
 
@@ -38,6 +38,12 @@ Medição do index antes dos últimos textos de evidência: 672.985.770 bytes l�
 
 ## Publicação e aceite
 
-Commit principal deve usar `chore: sync RPG Jovem Cristao development state for notebook`. Antes do push normal: novo fetch e confirmação de ancestralidade do remoto, sem commits inesperados. Após push: comparar SHA local/remoto e validar árvore remota via clone sem checkout. Registrar os resultados reais e atualizar status/memória; um commit documental posterior registra a verificação sem alterar o histórico publicado.
+**GITHUB_SYNC_COMPLETE** para a publicação principal. SHA local e `git ls-remote origin refs/heads/main` coincidem: `ef042ba8c23b3b340b5daee5386715e7fe3430b4`. Clone completo de objetos via GitHub, sem checkout, concluído; HEAD/árvore do clone iguais aos locais. Árvore: `ccd53a1c69bad6c6e712f6fbb9f21a62e84f8124`.
+
+Verificação no clone:1.888 arquivos,54PNGHD/16fontes target,882artefatos offline e68originais canônicos com SHA-256 PASS; ambientes privados/caches/traces/saves privados ausentes, exemplos com valores vazios. Working tree original limpa após publicação principal. O notebook consegue clonar essa versão usando acesso GitHub autorizado; `npm ci` e configuração privada ainda precisam ocorrer lá.
+
+Receipt durável: `TASK-0061-REMOTE-VERIFICATION.json`. Este registro/status/memória seguem em um commit documental posterior, sem alterar o commit principal; a verificação do hash desse último commit ocorre depois do seu push normal. A árvore final terá1.889 arquivos com o receipt novo. O hash final não é escrito dentro do próprio commit que o gera: consulte `git rev-parse HEAD` e `git ls-remote origin refs/heads/main`.
+
+Pendências: instalação limpa no notebook, recriação privada de `.env.local` e testes de uso online; gates humanos/visuais/online de tarefas antigas permanecem em seus contratos. Ferramentas não foram instaladas, Supabase/migrations/deploy/gameplay não foram alterados.
 
 Guia: [NOTEBOOK-SETUP-GUIDE.md](NOTEBOOK-SETUP-GUIDE.md). Parecer: [revisão de segurança](../security/TASK-0061-GITHUB-SYNC-REVIEW.md).

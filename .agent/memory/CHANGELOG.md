@@ -1,3 +1,7 @@
+## 2026-10-09 → TASK-0061
+
+Sincronização GitHub principal concluída e verificada: ef042ba8c23b3b340b5daee5386715e7fe3430b4 em main, push normal495,41MiB, clone remoto completo/hash/árvore PASS.882artefatos offline publicados;68cópias canônicas reconstruíveis excluídas sem apagar arquivos. Novo restore-script, manifesto de cópias, atributos CRLF, guia notebook e receipt. Segurança staged, hashes e build do index sem ambiente privado PASS pelo autor. Registro de encerramento segue em commit documental; sem Supabase/deploy/install/gameplay/descarte. Instalação limpa e configuração privada pendentes no notebook.
+
 ## 2026-10-09 ? TASK-0060
 
 Preparada sincroniza??o segura para notebook: invent?rio Git, allowlist exata de 950 artefatos offline, atributos de preserva??o de bytes, exemplo web vazio, revis?o heur?stica de secrets/hist?rico local, build de snapshot sem ambiente privado e plano de publica??o. C?digo/arte intactos; nenhum commit/push/deploy/install/Supabase/descarte. Evid?ncias/limites no relat?rio TASK-0060-GITHUB-NOTEBOOK-SYNC.md.

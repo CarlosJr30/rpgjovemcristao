@@ -1,0 +1,21 @@
+{
+  "task": "TASK-0061",
+  "status": "PRIMARY_REMOTE_VERIFIED",
+  "date": "2026-10-09",
+  "branch": "main",
+  "remote": "https://github.com/CarlosJr30/rpgjovemcristao.git",
+  "primaryCommit": "ef042ba8c23b3b340b5daee5386715e7fe3430b4",
+  "remotePrimaryCommit": "ef042ba8c23b3b340b5daee5386715e7fe3430b4",
+  "tree": "ccd53a1c69bad6c6e712f6fbb9f21a62e84f8124",
+  "remoteClone": "PASS - full remote objects, no checkout",
+  "files": 1888,
+  "avatarHDPngs": 54,
+  "bodyFitTargetPngs": 16,
+  "retainedOfflineArtifactsHashPass": 882,
+  "canonicalCopiesHashPass": 68,
+  "privateFilePathsFound": 0,
+  "examplesOnlyEmptyValues": true,
+  "primaryPushPackMiB": 495.41,
+  "primaryWorktreeClean": true,
+  "followup": "A documentation-only commit records this primary publication receipt; verify its remote SHA after normal push."
+}
