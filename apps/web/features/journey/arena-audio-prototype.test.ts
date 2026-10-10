@@ -49,7 +49,7 @@ async function fixture() {
     const bytes = Buffer.from(
       'OggS synthetic prototype unit fixture; never runtime',
     );
-    const target = path.join(root, 'apps/web/public/assets', file);
+    const target = path.join(root, 'assets-source/arena-audio-prototype', file);
     await fs.mkdir(path.dirname(target), { recursive: true });
     await fs.writeFile(target, bytes);
     files[file] = {
@@ -62,14 +62,16 @@ async function fixture() {
   return { root, approvals: { version: 1, files } };
 }
 
-test('Suno Free prototype receipts pass DEV audit and remain rejected by unchanged production policy', async () => {
+test('Suno Free sources pass DEV audit, are absent from public and remain rejected by production policy', async () => {
   const approvals = JSON.parse(
     await fs.readFile(
       'docs/architecture/audiovisual-pack-approvals.json',
       'utf8',
     ),
   );
-  const actual = await auditArenaPrototype(process.cwd(), approvals);
+  // Unit scope: hash/receipt/isolation contracts. Native browser decoding is
+  // verified separately by arena-audio-technical E2E; ffprobe is not required.
+  const actual = await auditArenaPrototype(process.cwd(), approvals, probe);
   expect(actual.pass).toBe(true);
   expect(Object.keys(actual.music)).toEqual(['arena']);
   expect(Object.keys(actual.effects)).toHaveLength(7);
@@ -77,11 +79,40 @@ test('Suno Free prototype receipts pass DEV audit and remain rejected by unchang
     await fs.readFile('docs/architecture/audiovisual-pack-v1.json', 'utf8'),
   );
   const production = await auditPack(process.cwd(), manifest, approvals);
-  expect(production.pass).toBe(false);
+  expect(production.pass).toBe(true); // Missing audio never registers assets.
   expect(production.music).toEqual({});
   expect(production.effects).toEqual({});
   expect(
     production.results.filter((result) => result.status === 'REJECTED'),
+  ).toHaveLength(0);
+  const prototypeFiles = Object.keys(approvals.files).filter((file) =>
+    file.startsWith('audio/'),
+  );
+  const absent = production.results.filter((result) =>
+    prototypeFiles.includes(result.file),
+  );
+  expect(absent).toHaveLength(8);
+  expect(absent.every((result) => result.status === 'MISSING')).toBe(true);
+  // Keep the negative commercial-license check using disposable synthetic
+  // public copies; never copy the actual originals back into real public.
+  const synthetic = await fixture();
+  for (const file of prototypeFiles) {
+    const target = path.join(synthetic.root, 'apps/web/public/assets', file);
+    await fs.mkdir(path.dirname(target), { recursive: true });
+    await fs.copyFile(
+      path.join(synthetic.root, 'assets-source/arena-audio-prototype', file),
+      target,
+    );
+  }
+  const rejected = await auditPack(
+    synthetic.root,
+    manifest,
+    synthetic.approvals,
+    () => ({ sampleRate: 48000, channels: 2, duration: 1 }),
+  );
+  expect(rejected.pass).toBe(false);
+  expect(
+    rejected.results.filter((result) => result.status === 'REJECTED'),
   ).toHaveLength(8);
 });
 

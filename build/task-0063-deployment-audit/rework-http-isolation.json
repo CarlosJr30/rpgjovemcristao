@@ -1,0 +1,40 @@
+{
+  "at": "2026-10-10T15:09:30.199Z",
+  "scope": "LOCAL_PRODUCTION_ONLY",
+  "baseURL": "http://127.0.0.1:3162",
+  "restricted": [
+    {
+      "route": "/assets/audio/effects/arena_attack.ogg",
+      "status": 404
+    },
+    {
+      "route": "/assets/audio/effects/arena_defense.ogg",
+      "status": 404
+    },
+    {
+      "route": "/assets/audio/effects/arena_dodge.ogg",
+      "status": 404
+    },
+    {
+      "route": "/assets/audio/effects/arena_focus.ogg",
+      "status": 404
+    },
+    {
+      "route": "/assets/audio/effects/defeat.ogg",
+      "status": 404
+    },
+    {
+      "route": "/assets/audio/effects/player_hit.ogg",
+      "status": 404
+    },
+    {
+      "route": "/assets/audio/effects/victory.ogg",
+      "status": 404
+    },
+    {
+      "route": "/assets/audio/music/arena_training.ogg",
+      "status": 404
+    }
+  ],
+  "pass": true
+}

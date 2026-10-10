@@ -48,7 +48,8 @@ export async function auditArenaPrototype(root, approvals, probe = probeAudio) {
     typeof approvals.files !== 'object'
   )
     throw new Error('Invalid approval schema');
-  const base = path.resolve(root, 'apps/web/public/assets');
+  // Receipt keys stay historical; prototype bytes now live outside public.
+  const base = path.resolve(root, 'assets-source/arena-audio-prototype');
   const results = [],
     music = {},
     effects = {};

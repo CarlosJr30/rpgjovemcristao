@@ -1,0 +1,56 @@
+{
+  "version": 1,
+  "scope": "NON_COMMERCIAL_PROTOTYPE_DEVELOPMENT_ONLY",
+  "receipts": "docs/architecture/audiovisual-pack-approvals.json",
+  "sourceRoot": "assets-source/arena-audio-prototype",
+  "items": [
+    {
+      "receiptKey": "audio/effects/arena_attack.ogg",
+      "originalPath": "apps/web/public/assets/audio/effects/arena_attack.ogg",
+      "sourcePath": "assets-source/arena-audio-prototype/audio/effects/arena_attack.ogg",
+      "sha256": "c0d9c0b7e6816704622ec70211d1d3c82b0b0a9efd0b5fa947218d647a38b484"
+    },
+    {
+      "receiptKey": "audio/effects/arena_defense.ogg",
+      "originalPath": "apps/web/public/assets/audio/effects/arena_defense.ogg",
+      "sourcePath": "assets-source/arena-audio-prototype/audio/effects/arena_defense.ogg",
+      "sha256": "12bffebca55bbfef7333534206c71e373270bc5de85970553f2bd63161b1027f"
+    },
+    {
+      "receiptKey": "audio/effects/arena_dodge.ogg",
+      "originalPath": "apps/web/public/assets/audio/effects/arena_dodge.ogg",
+      "sourcePath": "assets-source/arena-audio-prototype/audio/effects/arena_dodge.ogg",
+      "sha256": "5f32b1b09a21c72ac89de150b65a3503554174440cff2033d5b36c959af4ffb8"
+    },
+    {
+      "receiptKey": "audio/effects/arena_focus.ogg",
+      "originalPath": "apps/web/public/assets/audio/effects/arena_focus.ogg",
+      "sourcePath": "assets-source/arena-audio-prototype/audio/effects/arena_focus.ogg",
+      "sha256": "e186d41474f14690af308c197c734ecaf1d7bee7912b7e325cf3baeac8030203"
+    },
+    {
+      "receiptKey": "audio/effects/defeat.ogg",
+      "originalPath": "apps/web/public/assets/audio/effects/defeat.ogg",
+      "sourcePath": "assets-source/arena-audio-prototype/audio/effects/defeat.ogg",
+      "sha256": "90ade25672796deab35fde94cbf824a1b3f7cb9b2f69cb7308e8dec2914718ff"
+    },
+    {
+      "receiptKey": "audio/effects/player_hit.ogg",
+      "originalPath": "apps/web/public/assets/audio/effects/player_hit.ogg",
+      "sourcePath": "assets-source/arena-audio-prototype/audio/effects/player_hit.ogg",
+      "sha256": "f95d37ed16d56f278a5d592317c6539efa9a0dc08441e5a830d46f80b97e892b"
+    },
+    {
+      "receiptKey": "audio/effects/victory.ogg",
+      "originalPath": "apps/web/public/assets/audio/effects/victory.ogg",
+      "sourcePath": "assets-source/arena-audio-prototype/audio/effects/victory.ogg",
+      "sha256": "7c18cc1013e887e37980f6c9c199fda1626a7f1cca0e688ff621c3330ef0d945"
+    },
+    {
+      "receiptKey": "audio/music/arena_training.ogg",
+      "originalPath": "apps/web/public/assets/audio/music/arena_training.ogg",
+      "sourcePath": "assets-source/arena-audio-prototype/audio/music/arena_training.ogg",
+      "sha256": "9fd927742b21cbfc397a4b4b9fa85a988a07777d60b7d6b932b67aa949fab8bf"
+    }
+  ]
+}

@@ -203,10 +203,10 @@
   font-weight: 700;
   color: #465d3c;
 }
-.visualNote {
+.card .visualNote {
   padding: 0.5rem 0;
   color: #596349;
-  font-size: 0.75rem !important;
+  font-size: 0.75rem;
 }
 .comparison {
   margin: 0.8rem 0;
@@ -295,5 +295,45 @@
   .portal *::after {
     animation: none !important;
     transition: none !important;
+  }
+}
+
+@media (max-width: 800px), (max-width: 1024px) and (pointer: coarse) {
+  .portal {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .hero {
+    padding: 20px 14px;
+  }
+  .stage {
+    width: min(240px, 100%);
+  }
+  .kicker,
+  .hero small,
+  .slot small,
+  .slot em,
+  .card small,
+  .available,
+  .comparison table,
+  .comparison small {
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+  .slot span,
+  .filters label,
+  .card p,
+  .comparison summary {
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+  .card .visualNote {
+    font-size: 0.875rem;
+  }
+  .comparison table {
+    table-layout: fixed;
+    overflow-wrap: anywhere;
+  }
+  .slot {
+    padding: 12px 8px;
   }
 }

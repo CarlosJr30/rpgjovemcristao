@@ -342,3 +342,21 @@
     transform: none;
   }
 }
+
+@media (max-width: 800px), (max-width: 1024px) and (pointer: coarse) {
+  .eyebrow,
+  .scope,
+  .metrics dt {
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+  .metrics div {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+}
+@media (max-width: 480px) {
+  .metrics {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

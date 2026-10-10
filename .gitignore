@@ -1141,3 +1141,30 @@ secrets/
 !/build/task-0059-equipment-recovery/sword-experiments.json
 
 # TASK-0061: 68 duplicate offline PNGs remain ignored; restore from canonical sources via hash manifest.
+# TASK-0062: isolated QA evidence only (no browser profiles, traces, caches or private env).
+!/build/task-0062-mobile-experience/
+/build/task-0062-mobile-experience/*
+!/build/task-0062-mobile-experience/before/
+/build/task-0062-mobile-experience/before/*
+!/build/task-0062-mobile-experience/before/*.png
+!/build/task-0062-mobile-experience/before/metrics.json
+!/build/task-0062-mobile-experience/after/
+/build/task-0062-mobile-experience/after/*
+!/build/task-0062-mobile-experience/after/*.png
+!/build/task-0062-mobile-experience/after/metrics.json
+!/build/task-0062-mobile-experience/review/
+/build/task-0062-mobile-experience/review/*
+!/build/task-0062-mobile-experience/review/index.html
+!/build/task-0062-mobile-experience/comparison.json
+!/build/task-0062-mobile-experience/preservation-before.json
+!/build/task-0062-mobile-experience/preservation-final.json
+!/build/task-0062-mobile-experience/qa-summary.json
+
+# TASK-0063: redacted release evidence; browser profiles, traces and caches stay ignored.
+!/build/task-0063-deployment-audit/
+/build/task-0063-deployment-audit/*
+!/build/task-0063-deployment-audit/rework-http-isolation.json
+!/build/task-0063-deployment-audit/rework-artifact-audit.json
+!/build/task-0063-deployment-audit/rework-qa-summary.json
+!/build/task-0063-deployment-audit/rework-preservation-final.json
+!/build/task-0063-deployment-audit/release-plan.json

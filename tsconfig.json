@@ -6,6 +6,8 @@
     "playwright.config.ts",
     "playwright.arena-lab.config.ts",
     "playwright.arena-audio-prototype.config.ts",
+    "playwright.mobile.config.ts",
+    "playwright.media-isolation.config.ts",
     "tests/e2e/**/*.ts"
   ]
 }

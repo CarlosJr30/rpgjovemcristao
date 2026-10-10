@@ -1,0 +1,359 @@
+{
+  "result": "PASS",
+  "at": "2026-10-10T00:45:05.227Z",
+  "unit": {
+    "files": 8,
+    "passed": 41
+  },
+  "e2e": {
+    "uniqueAccepted": 72,
+    "skippedByExistingMatrixDesign": 10,
+    "unresolvedFailures": 0,
+    "finalTargetedRunPassed": 2
+  },
+  "gates": {
+    "lint": "PASS",
+    "typecheck": "PASS",
+    "build": "PASS",
+    "matrix": "PASS",
+    "gallery": "PASS",
+    "security": "PASS_AUTHOR_REVIEW"
+  },
+  "performance": [
+    {
+      "project": "desktop",
+      "name": "CPU 4x, HD e layout shifts 390 — emulação",
+      "cls": 0.04317406446482472,
+      "hdIdentities": 1,
+      "hdBytes": 2238839,
+      "images": [
+        {
+          "loaded": true,
+          "fit": "contain",
+          "width": 33,
+          "height": 50
+        },
+        {
+          "loaded": true,
+          "fit": "contain",
+          "width": 195,
+          "height": 293
+        }
+      ],
+      "shifts": [
+        {
+          "value": 0.04317406446482472,
+          "sources": [
+            {
+              "node": "journey-module__K9AjHa__areaArrival",
+              "previous": {
+                "x": 12,
+                "y": 254,
+                "width": 366,
+                "height": 26.390625,
+                "top": 254,
+                "right": 378,
+                "bottom": 280.390625,
+                "left": 12
+              },
+              "current": {
+                "x": 12,
+                "y": 202.875,
+                "width": 366,
+                "height": 641.125,
+                "top": 202.875,
+                "right": 378,
+                "bottom": 844,
+                "left": 12
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "project": "desktop",
+      "name": "CPU 4x, HD e layout shifts 1440 — emulação",
+      "cls": 0.05074759945130315,
+      "hdIdentities": 1,
+      "hdBytes": 2238839,
+      "images": [
+        {
+          "loaded": true,
+          "fit": "contain",
+          "width": 33,
+          "height": 50
+        },
+        {
+          "loaded": true,
+          "fit": "contain",
+          "width": 264,
+          "height": 396
+        }
+      ],
+      "shifts": [
+        {
+          "value": 0.05074759945130315,
+          "sources": [
+            {
+              "node": "journey-module__K9AjHa__main",
+              "previous": {
+                "x": 326,
+                "y": 100,
+                "width": 1114,
+                "height": 700,
+                "top": 100,
+                "right": 1440,
+                "bottom": 800,
+                "left": 326
+              },
+              "current": {
+                "x": 228,
+                "y": 100,
+                "width": 1180,
+                "height": 800,
+                "top": 100,
+                "right": 1408,
+                "bottom": 900,
+                "left": 228
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "project": "mobile",
+      "name": "CPU 4x, HD e layout shifts 390 — emulação",
+      "cls": 0,
+      "hdIdentities": 1,
+      "hdBytes": 2238839,
+      "images": [
+        {
+          "loaded": true,
+          "fit": "contain",
+          "width": 33,
+          "height": 50
+        },
+        {
+          "loaded": true,
+          "fit": "contain",
+          "width": 195,
+          "height": 293
+        }
+      ],
+      "shifts": []
+    },
+    {
+      "project": "mobile",
+      "name": "CPU 4x, HD e layout shifts 1440 — emulação",
+      "cls": 0,
+      "hdIdentities": 1,
+      "hdBytes": 2238839,
+      "images": [
+        {
+          "loaded": true,
+          "fit": "contain",
+          "width": 33,
+          "height": 50
+        },
+        {
+          "loaded": true,
+          "fit": "contain",
+          "width": 264,
+          "height": 396
+        }
+      ],
+      "shifts": []
+    }
+  ],
+  "history": [
+    {
+      "run": "e2e",
+      "stats": {
+        "startTime": "2026-10-09T21:29:41.316Z",
+        "duration": 563906.034,
+        "expected": 71,
+        "skipped": 10,
+        "unexpected": 1,
+        "flaky": 0
+      },
+      "failures": [
+        {
+          "test": "TASK-0062: criação sem sobreposição, toque, teclado e modal em dez viewports",
+          "project": "desktop",
+          "message": "Error: expect(locator).toBeVisible() failed\n\nLocator: getByRole('heading', { name: 'Meu Diário de Jornada', exact: true })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeVisible\" getByRole('heading', { name: 'Meu Diário de Jornada', exact: true }) with timeout 5000ms\n  - waiting for getByRole('heading', { name: 'Meu Diário de Jornada', exact: true })\n"
+        }
+      ]
+    },
+    {
+      "run": "followup",
+      "stats": {
+        "startTime": "2026-10-09T21:36:21.282Z",
+        "duration": 24560.61,
+        "expected": 1,
+        "skipped": 0,
+        "unexpected": 1,
+        "flaky": 0
+      },
+      "failures": [
+        {
+          "test": "TASK-0062: criação sem sobreposição, toque, teclado e modal em dez viewports",
+          "project": "desktop",
+          "message": "Error: expect(received).toBeLessThanOrEqual(expected)\n\nExpected: <= 0.1\nReceived:    0.8815165876777251"
+        }
+      ]
+    },
+    {
+      "run": "cls-probe",
+      "stats": {
+        "startTime": "2026-10-09T21:38:18.809Z",
+        "duration": 11986.753,
+        "expected": 0,
+        "skipped": 0,
+        "unexpected": 1,
+        "flaky": 0
+      },
+      "failures": [
+        {
+          "test": "TASK-0062: criação sem sobreposição, toque, teclado e modal em dez viewports",
+          "project": "desktop",
+          "message": "Error: expect(received).toBeLessThanOrEqual(expected)\n\nExpected: <= 0.1\nReceived:    0.8815165876777251"
+        }
+      ]
+    },
+    {
+      "run": "final",
+      "stats": {
+        "startTime": "2026-10-09T21:40:54.600Z",
+        "duration": 47034.661,
+        "expected": 10,
+        "skipped": 5,
+        "unexpected": 1,
+        "flaky": 0
+      },
+      "failures": [
+        {
+          "test": "TASK-0062: criação sem sobreposição, toque, teclado e modal em dez viewports",
+          "project": "desktop",
+          "message": "Error: expect(received).toBeLessThanOrEqual(expected)\n\nExpected: <= 0.1\nReceived:    0.11524510958959731"
+        }
+      ]
+    },
+    {
+      "run": "cls-final-probe",
+      "stats": {
+        "startTime": "2026-10-09T21:42:33.769Z",
+        "duration": 11903.702000000001,
+        "expected": 0,
+        "skipped": 0,
+        "unexpected": 1,
+        "flaky": 0
+      },
+      "failures": [
+        {
+          "test": "TASK-0062: criação sem sobreposição, toque, teclado e modal em dez viewports",
+          "project": "desktop",
+          "message": "Error: expect(received).toBeLessThanOrEqual(expected)\n\nExpected: <= 0.1\nReceived:    0.11524510958959731"
+        }
+      ]
+    },
+    {
+      "run": "acceptance",
+      "stats": {
+        "startTime": "2026-10-09T21:44:47.419Z",
+        "duration": 10096916.872,
+        "expected": 27,
+        "skipped": 5,
+        "unexpected": 2,
+        "flaky": 0
+      },
+      "failures": [
+        {
+          "test": "equipamento mostra inspiração bíblica, animação e persiste no Códice",
+          "project": "mobile",
+          "message": "Test timeout of 90000ms exceeded."
+        },
+        {
+          "test": "TASK-0062: criação sem sobreposição, toque, teclado e modal em dez viewports",
+          "project": "desktop",
+          "message": "Error: expect(received).toBeLessThanOrEqual(expected)\n\nExpected: <= 0.1\nReceived:    0.12149024477213001"
+        }
+      ]
+    },
+    {
+      "run": "closure",
+      "stats": {
+        "startTime": "2026-10-10T00:34:42.195Z",
+        "duration": 50431.031,
+        "expected": 3,
+        "skipped": 0,
+        "unexpected": 1,
+        "flaky": 0
+      },
+      "failures": [
+        {
+          "test": "TASK-0062: criação sem sobreposição, toque, teclado e modal em dez viewports",
+          "project": "desktop",
+          "message": "Error: expect(received).toBeLessThanOrEqual(expected)\n\nExpected: <= 0.1\nReceived:    0.11889350671593181"
+        }
+      ]
+    },
+    {
+      "run": "verified",
+      "stats": {
+        "startTime": "2026-10-10T00:37:13.070Z",
+        "duration": 45952.630000000005,
+        "expected": 3,
+        "skipped": 0,
+        "unexpected": 1,
+        "flaky": 0
+      },
+      "failures": [
+        {
+          "test": "TASK-0062: criação sem sobreposição, toque, teclado e modal em dez viewports",
+          "project": "desktop",
+          "message": "Error: expect(received).toBeLessThanOrEqual(expected)\n\nExpected: <= 0.1\nReceived:    0.11889350671593181"
+        }
+      ]
+    },
+    {
+      "run": "resolved",
+      "stats": {
+        "startTime": "2026-10-10T00:39:48.756Z",
+        "duration": 115806.413,
+        "expected": 28,
+        "skipped": 5,
+        "unexpected": 1,
+        "flaky": 0
+      },
+      "failures": [
+        {
+          "test": "TASK-0062: criação sem sobreposição, toque, teclado e modal em dez viewports",
+          "project": "desktop",
+          "message": "Error: expect(received).toBeLessThanOrEqual(expected)\n\nExpected: <= 0.1\nReceived:    0.10861710625322882"
+        }
+      ]
+    },
+    {
+      "run": "gate",
+      "stats": {
+        "startTime": "2026-10-10T00:43:41.750Z",
+        "duration": 23701.13,
+        "expected": 2,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "failures": []
+    }
+  ],
+  "physicalDevice": false,
+  "limitations": [
+    "Edge emulation, no physical phone",
+    "No Safari/iOS, screen reader or full WCAG audit",
+    "Loopback/cache and CPU emulation are not a field benchmark",
+    "Login/signup presentation only; no Supabase calls",
+    "Failed/interrupted exploratory rounds retained; later fixes were retested"
+  ]
+}

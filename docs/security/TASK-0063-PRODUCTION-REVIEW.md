@@ -1,0 +1,34 @@
+# TASK-0063 — Security review de produção
+
+Release2026-10-10: **PASS para commit/push após revisão final do remoto; deploy ainda pendente de verificação**. CLI63.1.2 autenticado confirmou projeto/equipe, apps/web/Next.js/Node24.x, GitHub correto e productionBranch main. Somente nomes de variáveis Production verificados; valores não exibidos. Fetch confirmou ausência de divergência. O bloqueio histórico do conector403 não impede o CLI autorizado.
+
+Revisão real do index:133 caminhos no diff,43 textuais examinados, zero achados;16 registros excluídos preservados. Git reconhece os oito áudios como renomes100% para fontes privadas, sem áudioSunoFree empublic. Config/receipts/equipmentCatalog protegidos; nenhuma alteração de autenticação, Supabase ou gameplay. Mudanças0059 e documentos mistos não entraram no staging. Gates públicos209 e físicos723 arquivos PASS também no snapshot do staging sem.env; unit56/lint/typecheck/build PASS, DEV5 e produção33 casos aceitos após followups/5skips. Erros intermediários de transporte JSON preservados e aceitos somente após reexecuções isoladas PASS, sem mudar critérios.
+
+Publicação condicionada a remoto fresco, commit/push normal, READY do novo hash e smoke publicado com oitoURLs404. Build QA fictício não pode ser enviado comoprebuilt. Gates Body-Fit/comercial0042 seguem próprios; revisão pelo autor, sem independência. Varredura é heurística e não certifica todos os formatos possíveis; arquivos privados de ambiente não foram lidos. Relatório e release-plan.json registram seleção e limites.
+
+## Histórico — rework local e bloqueio do conector, antes da retomada pelo CLI
+
+Checkpoint atual:2026-10-10, **PASS no escopo local; publicação BLOCKED por acesso Vercel**. Reviewer:Codex/autor, sem independência. Nenhum commit/push/deployment novo; não DEPLOY_COMPLETE. A falha inicial de distribuição SunoFree foi corrigida fisicamente, sem alterar o histórico abaixo.
+
+- Os oito OGG originais estão em `assets-source/arena-audio-prototype/audio/`, com SHA idênticos às receipts; public não contém cópias. Licenças/escopo/commercialProductionApproved=false preservados.
+- DEV serve somente a whitelist aprovada via loopback, verifica hash e recusa produção; não cria cópias em public. Música/sete efeitos reproduzidos pelo navegador; preferências e falhas testadas.
+- Gate negativo antes da relocação rejeitou os oito arquivos; gate público final209 arquivos PASS. Scanner físico de723 arquivos PASS, sem nomes/SHA/assinaturas de mídia indevida, cópias renomeadas, URLs concretas ou fontes privadas em traces. Fixtures exercitam tentativas de contorno.
+- Oito URLs antigas404 em produção local; os oito caminhos privados e rotas DEV/laboratórios/galerias também404 em E2E. Nenhum overlay Body-Fit ativado; sete gates humanos e1 READY staging preservados.
+- Candidatos0062/0063 e texto rastreado revisados por padrões de chaves/tokens/conexões/JWT privilegiado. Resultado sem achados no [release-plan.json](../../build/task-0063-deployment-audit/release-plan.json); varredura heurística, não garantia contra todos os formatos. Arquivos privados de ambiente não lidos e excluídos do plano; valores reais não impressos. Fixtures QA fictícias não são credenciais de produção. Index continua vazio; a revisão final do staged diff continua necessária antes de commit.
+- Preservação dos2.002 registros comparada por hash, separando oito relocations e mudanças autorizadas, sem mudanças inesperadas: [receipt final](../../build/task-0063-deployment-audit/rework-preservation-final.json). Nenhuma alteração emSupabase, autenticação, saves, mecânicas, imagens HD ou approvals/receipts Body-Fit.
+
+Evidências: [HTTP](../../build/task-0063-deployment-audit/rework-http-isolation.json), [artefato](../../build/task-0063-deployment-audit/rework-artifact-audit.json), [QA](../../build/task-0063-deployment-audit/rework-qa-summary.json) e [relatório](../architecture/TASK-0063-VERCEL-PUBLISH-REPORT.md). Lint/typecheck/build/testes locais PASS após rework; falhas intermediárias mantidas no relatório.
+
+Gate externo não validado:consultas detalhadas ao projeto/equipe e aos arquivos de deployment continuamHTTP403 após reconexão confirmada. Root Directory e productionBranch atuais desconhecidos; não há CLI autenticado disponível. Artefatos Vercel, smoke do novo deployment, variáveis funcionalmente corretas e autenticação real não verificados. Suspenso push que poderia disparar publicação automática. O build local usa ambiente fictício QA e não é candidato a deployprebuilt; exigir build no projeto existente comProduction confirmado. Liberação exige acesso efetivo, gates externos e revisão final do diff/index/remoto; não exige licença comercial para áudio que foi excluído da distribuição. Gate comercial0042 permanece próprio e pendente.
+
+## Histórico — auditoria inicial de 2026-10-09, antes do isolamento
+
+Reviewer: Codex/autor; sem independência. Data local:2026-10-09. Resultado: **FAIL — BLOCKED**. Nenhuma publicação efetuada.
+
+Achado bloqueante: oito áudios SUNO_FREE_NON_COMMERCIAL rastreados em apps/web/public/assets/audio retornamHTTP200/audio/ogg via nextstart de produção. Corpos Ogg e SHA256 correspondem aos originais e receipts; commercialProductionApproved=false em todos. Gate solicitado pelo usuário proíbe distribuição desses assets. A guardaDEV do catálogo impede reprodução pelo jogo, mas não distribuição física via arquivospublic. Evidência: build/task-0063-deployment-audit/production-isolation.json, oito resultadosFAIL. Histórico comercial da TASK-0042 preservado.
+
+Controle comprovado nesta amostra: quatro rotasDEV/galeria/fontes privadas retornam404 no servidor local; nenhuma ativaçãoBody-Fit ou alteração de receipts/assets. O indexGit está vazio e nenhum arquivo será enviado nesta execução. .env.local permanece ignorado; consultasVercel mostram somente nomes de variáveisProduction no relatório, sem valores. Nenhuma escrita em ambiente/banco/serviço externo. Varredura final de secrets dos candidatos não executada após o bloqueio; não declarar auditoria completa PASS.
+
+Condição de liberação: excluir os arquivos restritos do artefato público de produção, preservando fontesDEV, com prova de ausência física/HTTP404; ou substituição futura com licença comercial e revisão porhash válidas. Depois executar todos os gates da release e configuração do projeto antes de commit/push/deploy. Não alterar licença ou aprovação para contornar o gate.
+
+Limites: teste feito no servidor local de produção0062 já existente; nenhuma verificaçãoHTTP dos áudios no deployment remoto, nenhum smoke da nova publicação, teste físico ou autenticação real. EstadoREADY do deployment antigo204ba56 não valida uma release0063. Conforme instrução explícita do usuário, a publicação foi interrompida imediatamente após a falha de segurança; originals/reports/workingtree preservados.

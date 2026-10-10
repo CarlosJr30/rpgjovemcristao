@@ -739,7 +739,7 @@
 }
 .avatarScene {
   position: relative;
-  height: 245px;
+  height: 255px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -5415,7 +5415,7 @@
     width: 235px;
   }
 }
-@media (max-width: 800px) {
+@media (max-width: 800px), (max-width: 1024px) and (pointer: coarse) {
   .appLayout {
     display: block;
   }
@@ -7529,5 +7529,277 @@
   }
   .arcadeGameActive:fullscreen .arcadeGameActions {
     position: absolute;
+  }
+}
+
+/* TASK-0062: phone typography and spacing, after the historical breakpoints.
+   Do not scale the world, battle camera or source avatar canvas. */
+.main {
+  display: flow-root;
+}
+.plainLayout:has(.loading),
+.appLayout:has(.loading) {
+  /* Keep the footer below the first viewport while the local traveler hydrates. */
+  min-height: 100svh;
+}
+.plainLayout:has(.loading) {
+  display: flow-root;
+}
+.plainLayout:has(.loading) .appContent {
+  margin-left: 196px;
+}
+.shell:has(.loading) .main {
+  /* Contain the loading paragraph's margins; reserve the first content viewport. */
+  min-height: calc(100svh - 200px);
+}
+.shell:has(.loading) .backNav {
+  /* This transient link is removed by the ready shell; do not shift content for it. */
+  display: none;
+}
+@media (max-width: 1000px) {
+  .plainLayout:has(.loading) .appContent {
+    margin-left: 174px;
+  }
+}
+@media (max-width: 800px), (max-width: 1024px) and (pointer: coarse) {
+  .plainLayout:has(.loading) {
+    /* Reserve the 44px menu and its 10px margin in the outer layout. */
+    margin-top: 54px;
+  }
+  .plainLayout:has(.loading) .appContent {
+    margin-left: 0;
+  }
+  .arcadeTitle small {
+    font-size: 0.875rem;
+    line-height: 1.4;
+  }
+  .main {
+    padding-inline: max(12px, env(safe-area-inset-left))
+      max(12px, env(safe-area-inset-right));
+  }
+  .header {
+    padding-top: env(safe-area-inset-top);
+    padding-inline: max(12px, env(safe-area-inset-left))
+      max(12px, env(safe-area-inset-right));
+  }
+  .footer {
+    padding-bottom: max(18px, env(safe-area-inset-bottom));
+    font-size: 0.875rem;
+  }
+  .primarySidebar {
+    padding-top: max(24px, env(safe-area-inset-top));
+    padding-bottom: max(24px, env(safe-area-inset-bottom));
+    padding-left: max(13px, env(safe-area-inset-left));
+  }
+  .mobileMenuButton {
+    min-height: 44px;
+    margin-inline: 12px;
+  }
+  .eyebrow,
+  .hint,
+  .micro,
+  .reference,
+  .statNote,
+  .characterStage .statNote,
+  .privateNotice,
+  .equipmentSlotTheme,
+  .heroEquipmentNote,
+  .stageHint,
+  .arenaEthics,
+  .arcadeHelp,
+  .mapLegend,
+  .mapFoot p,
+  .actText small,
+  .viewToggle,
+  .spotlightObjective small,
+  .spotlightProgress span,
+  .ringSlot small,
+  .ringSlot span,
+  .stats div,
+  .arenaStats dt,
+  .combatPower small,
+  .combatPower details,
+  .itemCard small {
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+  .fieldLabel,
+  .sectionHeading > p:last-child,
+  .characterStage > p,
+  .mapHeading p,
+  .mapFoot a,
+  .adventurePortal p,
+  .phaseCard p,
+  .arcadeMessage,
+  .readingList article :is(a, button),
+  .devotionalPrayerToggle {
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+  .main :is(input, select, textarea) {
+    font-size: 1rem;
+  }
+  .main :is(a, button, summary) {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  .heroEquipmentNote a,
+  .questDeck a,
+  .equipmentBibleDetails a,
+  .itemCard a,
+  .readingList article a,
+  .phaseCard a {
+    display: inline-flex;
+    align-items: center;
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+  .readingList article button,
+  .devotionalPrayerToggle {
+    padding-block: 10px;
+  }
+  .combatPower summary {
+    display: list-item;
+    padding-block: 12px;
+  }
+  .combatPower details[open] {
+    position: static;
+    width: min(100%, 300px);
+    box-sizing: border-box;
+  }
+  .arenaLobbyGrid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .arenaHeader {
+    padding: 24px 16px;
+  }
+  .arenaOpponentList small {
+    font-size: 0.875rem;
+  }
+  .heroWorld {
+    padding-inline: 16px;
+  }
+  .ringSlot small,
+  .actText small {
+    letter-spacing: 0.04em;
+  }
+  .mapHeading .viewToggle,
+  .options legend,
+  .option > span,
+  .formDivider,
+  .phaseCopy > p:not(.eyebrow),
+  .arcadeOverlay p,
+  .arcadeOverlay button,
+  .audioNote,
+  .audioVolume > span,
+  .statStrip :is(small, b),
+  .arenaMatchPanel > p,
+  .arenaOnlineNotice p,
+  .phaseCopy .reference,
+  .phaseCopy p,
+  .futurePhase p,
+  .readingList article small,
+  .devotionalPanel small {
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+  .gardenWorldPoint small {
+    font-size: 0.875rem;
+    line-height: 1.3;
+  }
+  .gardenHud,
+  .gardenHud strong {
+    font-size: 0.875rem;
+    letter-spacing: 0.02em;
+    line-height: 1.4;
+  }
+  .gardenControlsHint {
+    font-size: 0.75rem;
+    letter-spacing: 0;
+    max-width: calc(100% - 28px);
+  }
+  .gardenObjectivePanel > :is(small, span, a),
+  .gardenEquipmentFound > :is(strong, small) {
+    font-size: 0.875rem;
+    line-height: 1.4;
+  }
+  .ringSlot {
+    min-height: 90px;
+  }
+  .ringSlot strong {
+    font-size: 0.875rem;
+    white-space: normal;
+  }
+  .ringSlot .equipmentStatusEquipped,
+  .ringSlot .equipmentStatusEmpty {
+    font-size: 0.75rem;
+  }
+  .diarySection > p > a {
+    display: inline-flex;
+    align-items: center;
+  }
+  .entryScreen > a {
+    display: inline-flex;
+    align-items: center;
+  }
+  .savedTravelerCard {
+    padding: 16px;
+  }
+  .savedTravelerOption {
+    padding: 12px;
+    max-width: 100%;
+  }
+  .savedTravelerOption [data-avatar-mode='card'] {
+    width: 170px;
+    height: 255px;
+  }
+  .readingList article :is(a, button) {
+    min-height: 44px;
+    box-sizing: border-box;
+  }
+  .avatarScene {
+    height: 280px;
+  }
+  .avatarScene [data-avatar-mode='card'] {
+    width: 170px;
+    height: 255px;
+    aspect-ratio: 2 / 3;
+  }
+  .logoutDialog {
+    max-height: calc(
+      100dvh - 32px - env(safe-area-inset-top) - env(safe-area-inset-bottom)
+    );
+    overflow-y: auto;
+  }
+}
+@media (max-width: 700px) {
+  .shell:has(.loading) .header {
+    /* Reserve the two phone header rows before the traveler is available. */
+    min-height: 135px;
+    grid-template-rows: 48px 64px;
+  }
+}
+@media (max-width: 480px) {
+  .adventurePortals {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .adventurePortal {
+    min-height: 170px;
+    padding: 20px;
+  }
+  .adventurePortal h2 {
+    font-size: 1.375rem;
+  }
+  .journeySpotlight {
+    padding: 24px 18px;
+  }
+  .arenaTravelerCard {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .arenaTravelerCard .arenaPortrait {
+    min-height: 270px;
+  }
+  .arenaTravelerCard .arenaPortrait .avatarComposite {
+    width: 170px;
   }
 }

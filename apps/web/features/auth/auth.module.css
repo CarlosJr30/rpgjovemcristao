@@ -78,3 +78,23 @@
 .notice {
   color: #d8efc3;
 }
+
+/* Phone presentation: keep form controls at 16px to avoid focus zoom on iOS. */
+@media (max-width: 800px), (max-width: 1024px) and (pointer: coarse) {
+  .page {
+    min-height: 100svh;
+    padding: max(12px, env(safe-area-inset-top))
+      max(12px, env(safe-area-inset-right))
+      max(12px, env(safe-area-inset-bottom))
+      max(12px, env(safe-area-inset-left));
+  }
+  .card {
+    padding: 24px 20px;
+  }
+  .eyebrow {
+    font-size: 0.875rem;
+  }
+  .card :is(input, button) {
+    font-size: 1rem;
+  }
+}

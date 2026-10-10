@@ -1,0 +1,78 @@
+{
+  "result": "PASS",
+  "rows": [
+    {
+      "width": 360,
+      "smallBefore": 178,
+      "smallAfter": 0,
+      "touchBefore": 23,
+      "touchAfter": 0
+    },
+    {
+      "width": 375,
+      "smallBefore": 178,
+      "smallAfter": 0,
+      "touchBefore": 23,
+      "touchAfter": 0
+    },
+    {
+      "width": 390,
+      "smallBefore": 178,
+      "smallAfter": 0,
+      "touchBefore": 23,
+      "touchAfter": 0
+    },
+    {
+      "width": 412,
+      "smallBefore": 178,
+      "smallAfter": 0,
+      "touchBefore": 23,
+      "touchAfter": 0
+    },
+    {
+      "width": 430,
+      "smallBefore": 178,
+      "smallAfter": 0,
+      "touchBefore": 23,
+      "touchAfter": 0
+    },
+    {
+      "width": 844,
+      "smallBefore": 174,
+      "smallAfter": 0,
+      "touchBefore": 23,
+      "touchAfter": 0
+    },
+    {
+      "width": 915,
+      "smallBefore": 173,
+      "smallAfter": 0,
+      "touchBefore": 23,
+      "touchAfter": 0
+    },
+    {
+      "width": 768,
+      "smallBefore": 173,
+      "smallAfter": 0,
+      "touchBefore": 23,
+      "touchAfter": 0
+    },
+    {
+      "width": 1440,
+      "smallBefore": 173,
+      "smallAfter": 173,
+      "touchBefore": 23,
+      "touchAfter": 23
+    },
+    {
+      "width": 1920,
+      "smallBefore": 173,
+      "smallAfter": 173,
+      "touchBefore": 23,
+      "touchAfter": 23
+    }
+  ],
+  "samplesPerRun": 200,
+  "physicalDevice": false,
+  "desktopTypographyPreserved": true
+}

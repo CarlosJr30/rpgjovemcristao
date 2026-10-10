@@ -325,3 +325,26 @@
     transition: none !important;
   }
 }
+
+@media (max-width: 800px), (max-width: 1024px) and (pointer: coarse) {
+  .kicker,
+  .summary dt,
+  .muted,
+  .private,
+  .item small,
+  .timeline span,
+  .timeline time {
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+  .pages {
+    padding: 8px;
+  }
+  .next > section {
+    padding: 14px;
+  }
+  .panel,
+  .codex {
+    padding: 14px;
+  }
+}
