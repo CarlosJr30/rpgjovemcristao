@@ -60,6 +60,7 @@
 }
 
 .card .secondary {
+  color: #f7f0dc;
   border: 1px solid rgb(247 240 220 / 35%);
   background: transparent;
 }
