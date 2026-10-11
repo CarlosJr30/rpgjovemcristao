@@ -188,12 +188,19 @@ export function AuthScreen() {
               name="password"
               type="password"
               minLength={mode === 'signUp' ? 8 : undefined}
+              aria-describedby={mode === 'signUp' ? 'password-hint' : undefined}
               autoComplete={
                 mode === 'signIn' ? 'current-password' : 'new-password'
               }
               required
             />
           </label>
+          {mode === 'signUp' && (
+            <span id="password-hint" className={styles.hint}>
+              Use pelo menos 8 caracteres. Para ficar mais segura, misture letras,
+              números e símbolos.
+            </span>
+          )}
           {error && (
             <p className={styles.error} role="alert">
               {error}

@@ -80,6 +80,13 @@
   color: #d8efc3;
 }
 
+.hint {
+  color: #f7f0dc;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
 /* Phone presentation: keep form controls at 16px to avoid focus zoom on iOS. */
 @media (max-width: 800px), (max-width: 1024px) and (pointer: coarse) {
   .page {
