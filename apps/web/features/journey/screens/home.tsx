@@ -8,6 +8,7 @@ import { JOURNEY_ROUTES as routes } from '../data/campaign';
 import { Shell } from '../components/shell';
 import { Landscape } from '../components/landscape';
 import { AvatarRuntime } from '../components/avatar-runtime';
+import { ResponsivePanel } from '../components/responsive-panel';
 import {
   JourneySpotlight,
   AdventurePortals,
@@ -48,7 +49,12 @@ export function Home() {
             <p className={styles.eyebrow}>SEUS VIAJANTES</p>
             {savedTravelers.map((traveler) => (
               <article key={traveler.id} className={styles.savedTravelerOption}>
-                <AvatarRuntime traveler={traveler} mode="card" decorative className={styles.avatar} />
+                <AvatarRuntime
+                  traveler={traveler}
+                  mode="card"
+                  decorative
+                  className={styles.avatar}
+                />
                 <h2>{traveler.name}</h2>
                 <p>
                   Viajante · Nível {traveler.level}
@@ -92,7 +98,11 @@ export function Home() {
   if (state.status === 'ready')
     return (
       <Shell>
-        <section className={styles.adventureHome} aria-labelledby="home-title">
+        <section
+          className={styles.adventureHome}
+          aria-labelledby="home-title"
+          data-mobile-screen="home"
+        >
           <header className={styles.adventureWelcome}>
             <div>
               <p className={styles.eyebrow}>SEU CAMINHO CONTINUA</p>
@@ -100,27 +110,34 @@ export function Home() {
                 Bem-vindo à jornada, {state.traveler.name}.
               </h1>
             </div>
-            <AvatarRuntime traveler={state.traveler} mode="thumbnail" decorative className={styles.avatarSmall} />
+            <AvatarRuntime
+              traveler={state.traveler}
+              mode="thumbnail"
+              decorative
+              className={styles.avatarSmall}
+            />
           </header>
-          <div className={styles.adventureProgress}>
-            <span>Nível {state.traveler.level}</span>
-            <span>{state.traveler.xp} XP</span>
-            <span>
-              ◈ {state.traveler.coins} {TRAVELER_CURRENCY_NAME}
-            </span>
-            <span>
-              {nextUnlock(state.traveler.level)?.label ??
-                'Marcos de nível alcançados'}
-            </span>
-          </div>
           <JourneySpotlight traveler={state.traveler} />
-          <AdventurePortals />
-          <Button
-            className={styles.primary}
-            onClick={() => router.push(routes.map)}
-          >
-            Iniciar Jornada <span aria-hidden="true">↗</span>
-          </Button>
+          <ResponsivePanel title="Meu progresso e outros caminhos">
+            <div className={styles.adventureProgress}>
+              <span>Nível {state.traveler.level}</span>
+              <span>{state.traveler.xp} XP</span>
+              <span>
+                ◈ {state.traveler.coins} {TRAVELER_CURRENCY_NAME}
+              </span>
+              <span>
+                {nextUnlock(state.traveler.level)?.label ??
+                  'Marcos de nível alcançados'}
+              </span>
+            </div>
+            <AdventurePortals />
+            <Button
+              className={styles.primary}
+              onClick={() => router.push(routes.map)}
+            >
+              Iniciar Jornada <span aria-hidden="true">↗</span>
+            </Button>
+          </ResponsivePanel>
         </section>
       </Shell>
     );

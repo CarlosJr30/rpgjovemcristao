@@ -1,5 +1,5 @@
 'use client';
-import { useState, type ReactNode } from 'react';
+import { useState, useSyncExternalStore, type ReactNode } from 'react';
 import Image from 'next/image';
 import {
   VISUAL_ASSETS,
@@ -15,6 +15,14 @@ type GuildDecoration = Extract<
   | 'guildLeaderTable'
   | 'guildRewardChest'
 >;
+const hallQuery = '(max-width: 760px)';
+const hallSnapshot = () => window.matchMedia?.(hallQuery).matches ?? false;
+const subscribeHallSize = (notify: () => void) => {
+  const media = window.matchMedia?.(hallQuery);
+  if (!media) return () => {};
+  media.addEventListener('change', notify);
+  return () => media.removeEventListener('change', notify);
+};
 /** Decorative only: failures restore the underlying CSS without another request. */
 export function GuildArtwork({
   slot,
@@ -64,6 +72,11 @@ export function GuildHall({
   className?: string;
 }) {
   const [failed, setFailed] = useState(false);
+  const compact = useSyncExternalStore(
+    subscribeHallSize,
+    hallSnapshot,
+    () => false,
+  );
   const asset = VISUAL_ASSETS.guildHall;
   const enabled = Boolean(!failed && asset && isApprovedVisualAsset(asset));
   return (
@@ -78,7 +91,7 @@ export function GuildHall({
           )}
           <img
             data-guild-art="guildHall"
-            src={asset.src}
+            src={compact && asset.mobileSrc ? asset.mobileSrc : asset.src}
             alt=""
             decoding="async"
             fetchPriority="high"

@@ -7139,9 +7139,12 @@
   }
 }
 .adventureHome {
+  display: flex;
+  flex-direction: column;
   padding: 30px 0 48px;
 }
 .adventureWelcome {
+  order: 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -7156,6 +7159,7 @@
   flex-shrink: 0;
 }
 .adventureProgress {
+  order: 1;
   display: flex;
   gap: 12px 24px;
   flex-wrap: wrap;
@@ -7801,5 +7805,512 @@
   }
   .arenaTravelerCard .arenaPortrait .avatarComposite {
     width: 170px;
+  }
+}
+
+/* TASK-0064: activity-first mobile presentation; no game rule or global scale. */
+.adventureHome .journeySpotlight {
+  order: 2;
+}
+.adventureHome .adventurePortals {
+  order: 3;
+}
+.adventureHome > details > .primary {
+  order: 4;
+}
+@media (max-width: 1024px) {
+  .shell .appLayout {
+    display: block;
+  }
+  .shell .headerActions {
+    flex: 1;
+    min-width: 0;
+    justify-content: flex-start;
+  }
+  .shell .header .hudIdentity {
+    display: grid;
+    min-width: 0;
+  }
+  .shell .hudIdentity strong {
+    max-width: 100%;
+    font-size: 16px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .shell .hudIdentity > span {
+    display: block;
+    font-size: 14px;
+    line-height: 1.4;
+  }
+  .shell .header .hudValue,
+  .shell .header .coins,
+  .shell .headerLogout {
+    display: none;
+  }
+  .shell .header .audioLauncher {
+    position: static;
+    flex: 0 0 44px;
+    width: 44px;
+    height: 44px;
+  }
+  .shell .headerNote {
+    display: none;
+  }
+  .shell .footer {
+    display: none;
+  }
+  .shell .primarySidebar {
+    position: fixed;
+    inset: 64px auto 64px 0;
+    top: calc(64px + env(safe-area-inset-top));
+    width: min(320px, 88vw);
+    height: auto;
+    overflow-y: auto;
+    z-index: 40;
+    padding: 12px;
+    transform: translateX(-105%);
+    visibility: hidden;
+  }
+  .shell .primarySidebarOpen {
+    transform: translateX(0);
+    visibility: visible;
+  }
+  .shell .primarySidebar a {
+    min-height: 48px;
+    font-size: 16px;
+    box-sizing: border-box;
+  }
+  .shell .sidebarScrim {
+    display: block;
+    position: fixed;
+    inset: 64px 0 64px;
+    z-index: 30;
+    background: #102c2577;
+  }
+  .shell .profilePopover {
+    z-index: 45;
+    max-width: calc(100vw - 24px);
+  }
+  .shell .sectionHeading {
+    padding-top: 8px;
+  }
+  .adventureHome[data-mobile-screen='home'] {
+    padding: 0;
+  }
+  .adventureHome .adventureWelcome {
+    order: 0;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 16px;
+    min-height: 0;
+    margin-bottom: 8px;
+  }
+  .adventureHome .adventureWelcome > div {
+    grid-column: 2;
+    grid-row: 1;
+  }
+  .adventureHome .adventureWelcome h1 {
+    font-size: clamp(22px, 5.5vw, 28px);
+    line-height: 1.2;
+    margin: 8px 0;
+  }
+  .adventureHome .adventureWelcome .eyebrow {
+    font-size: 12px;
+    letter-spacing: 0.08em;
+  }
+  .shell .adventureHome .adventureWelcome .avatarSmall {
+    grid-column: 1;
+    grid-row: 1;
+    width: calc(clamp(140px, 24dvh, 220px) * 2 / 3);
+    height: clamp(140px, 24dvh, 220px);
+    aspect-ratio: 2/3;
+  }
+  .adventureHome .journeySpotlight {
+    order: 1;
+    min-height: 0;
+    margin: 0;
+    padding: 12px;
+    border-radius: 12px;
+    box-shadow: none;
+  }
+  .adventureHome .journeySpotlight::after {
+    display: none;
+  }
+  .adventureHome .spotlightCopy h2 {
+    font-size: 24px;
+    line-height: 1.15;
+    margin: 8px 0;
+  }
+  .adventureHome .spotlightReference {
+    margin: 8px 0;
+  }
+  .adventureHome .spotlightObjective {
+    margin: 10px 0;
+  }
+  .adventureHome .spotlightProgress {
+    margin: 10px 0;
+  }
+  .adventureHome .spotlightCopy .primaryLink {
+    min-height: 48px;
+    width: 100%;
+    box-sizing: border-box;
+    justify-content: space-between;
+  }
+  .adventureHome .adventurePortals {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .adventureHome .adventurePortal {
+    min-height: 120px;
+  }
+  .shell .createSection {
+    padding-top: 0;
+  }
+  .shell .characterStage {
+    padding: 12px;
+    border: 0;
+    box-shadow: none;
+    border-radius: 12px;
+  }
+  .shell .characterStage .avatarScene {
+    height: 220px;
+  }
+  .shell .avatarScene [data-avatar-mode='card'] {
+    width: 140px;
+    height: 210px;
+  }
+  .shell .characterStage .stats {
+    display: grid;
+  }
+  .shell .characterStage .statNote {
+    display: block;
+  }
+  .shell .createForm {
+    padding: 16px 0;
+    border: 0;
+  }
+  .shell .createGrid {
+    gap: 12px;
+  }
+  .shell .createForm:focus-within {
+    scroll-margin-bottom: 100px;
+  }
+  .shell textarea {
+    scroll-margin-block: 32px 110px;
+    font-size: 16px;
+  }
+  .shell .phasePresentation {
+    margin-top: 0;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+  }
+  .shell .phaseDetails {
+    padding: 12px 0;
+  }
+  .shell [data-phase-step='explore'] .gardenExploration {
+    margin: 0;
+    width: 100%;
+    min-width: 0;
+  }
+  .shell [data-phase-step='explore'] .gardenHud > span {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+  .shell .arenaFocusHelp,
+  .shell .arenaEffects p,
+  .shell .arenaEffects small {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  .shell [data-phase-step='snake'] > .phaseBanner,
+  .shell [data-phase-step='snake'] > .phaseDetails > .eyebrow {
+    display: none;
+  }
+  .shell [data-phase-step='snake'] > .phaseDetails > h1 {
+    font-size: 22px;
+    margin: 0 0 8px;
+  }
+  .shell .arcadeGame:not(.arcadeGameActive) {
+    padding: 8px;
+    margin-top: 0;
+    border: 0;
+    box-shadow: none;
+  }
+  .shell .arcadeGame:not(.arcadeGameActive) .arcadeTitle {
+    margin-bottom: 8px;
+  }
+  .shell .arcadeGame:not(.arcadeGameActive) .arcadeTitle > span {
+    display: none;
+  }
+  .shell .arcadeGame:not(.arcadeGameActive) .arcadeStage {
+    height: clamp(230px, 35dvh, 340px);
+    min-height: 230px;
+    aspect-ratio: auto;
+  }
+  .shell .arcadeGame:not(.arcadeGameActive) .arcadeCanvas {
+    object-fit: contain;
+    background: #142f29;
+    border: 0;
+    border-radius: 8px;
+  }
+  .shell .arcadeGame:not(.arcadeGameActive) .arcadeHud {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .shell .arcadeGame:not(.arcadeGameActive) .arcadeHud > span {
+    min-width: 0;
+    padding: 8px 4px;
+  }
+  .shell .arcadeGame:not(.arcadeGameActive) .arcadeHud > span:last-child {
+    grid-column: 1 / -1;
+  }
+  .shell .arcadeOverlay {
+    overflow-y: auto;
+  }
+  .shell .arenaHub {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-top: 0;
+    margin-top: 0;
+  }
+  .shell .arenaHeader {
+    order: 0;
+    padding: 12px;
+    margin: 0;
+    border-radius: 12px;
+  }
+  .shell .arenaHeader h1 {
+    font-size: 26px;
+  }
+  .shell .arenaHeader .combatPower {
+    width: auto;
+    height: auto;
+    min-width: 0;
+    border: 0;
+    padding: 8px;
+  }
+  .shell .arenaHeader .combatPower strong {
+    font-size: 28px;
+  }
+  .shell .arenaHub > .arenaEthics {
+    order: 3;
+    margin: 8px 0;
+  }
+  .shell .arenaHub > .arenaLobbyGrid {
+    order: 1;
+  }
+  .shell .arenaHub > .arenaHistory {
+    order: 4;
+  }
+  .shell .arenaHub > .arenaOnlineNotice {
+    order: 5;
+  }
+  .shell .arenaHub > .arenaPreview {
+    order: 1;
+  }
+  .shell .arenaHub[data-arena-state='battle'] > .arenaHeader,
+  .shell .arenaHub[data-arena-state='result'] > .arenaHeader {
+    padding: 4px 0;
+    color: #233f30;
+    background: none;
+    border: 0;
+    box-shadow: none;
+  }
+  .shell
+    .arenaHub[data-arena-state='battle']
+    .arenaHeader
+    :is(p, span, .combatPower),
+  .shell
+    .arenaHub[data-arena-state='result']
+    .arenaHeader
+    :is(p, span, .combatPower) {
+    display: none;
+  }
+  .shell .arenaHub[data-arena-state='battle'] .arenaHeader h1,
+  .shell .arenaHub[data-arena-state='result'] .arenaHeader h1 {
+    font-size: 22px;
+    margin: 0;
+  }
+  /* The compact shell already announces Arena; keep the repeated h1 semantic. */
+  .shell .arenaHub[data-arena-state='battle'] > .arenaHeader {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    clip-path: inset(50%);
+    overflow: hidden;
+  }
+  .shell .battleArena {
+    order: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 4px;
+    border: 0;
+    border-radius: 12px;
+    gap: 4px;
+    overflow: visible;
+  }
+  .shell .battleRound {
+    order: 0;
+    margin: 0 auto;
+    padding: 4px 12px;
+    font-size: 12px;
+  }
+  .shell .battleArena > [data-testid='arena-stage'] {
+    order: 1;
+  }
+  .shell .battleArena > .combatAnnouncement {
+    order: 2;
+    min-height: 0;
+    padding: 6px 8px;
+    margin: 0;
+    font-size: 14px;
+  }
+  .shell .combatAnnouncement > span {
+    display: none;
+  }
+  .shell .battleActions {
+    order: 3;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 4px;
+    margin: 0;
+  }
+  .shell .battleActions button {
+    min-width: 0;
+    min-height: 60px;
+    padding: 8px 3px;
+  }
+  .shell .battleActions b {
+    font-size: 14px;
+    line-height: 1.2;
+  }
+  .shell .battleActions :is(span, small) {
+    font-size: 12px;
+    line-height: 1.2;
+  }
+  .shell .battleActions span {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    clip-path: inset(50%);
+    overflow: hidden;
+  }
+  .shell .arenaSpecials {
+    order: 4;
+  }
+  .shell .battleArena > details {
+    order: 5;
+  }
+  .shell .arenaIntent {
+    order: 4;
+  }
+  .shell .arenaEffects {
+    order: 6;
+  }
+  .shell .battleLog {
+    order: 7;
+  }
+  .shell .battleResult {
+    order: 4;
+  }
+  .shell .arenaTravelerCard {
+    display: flex;
+    gap: 12px;
+    padding: 12px;
+  }
+  .shell .arenaTravelerCard .arenaPortrait {
+    min-height: 0;
+    width: 120px;
+    flex: 0 0 120px;
+  }
+  .shell .arenaTravelerCard .arenaPortrait [data-avatar-runtime] {
+    width: 120px;
+    height: 180px;
+  }
+  .shell .arenaStats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .shell .arenaMatchPanel {
+    padding: 16px;
+  }
+}
+@media (max-width: 1024px) and (orientation: landscape) and (max-height: 500px) {
+  .adventureHome .adventureWelcome {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+  .adventureHome .avatarSmall {
+    height: 160px;
+  }
+  .adventureHome[data-mobile-screen='home'] {
+    display: grid;
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+    gap: 12px;
+    align-items: start;
+  }
+  .adventureHome > details {
+    grid-column: 1/-1;
+  }
+  .shell .battleArena {
+    display: grid;
+    grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr);
+  }
+  .shell .battleRound {
+    grid-column: 1;
+    grid-row: 1;
+  }
+  .shell .battleArena > [data-testid='arena-stage'] {
+    grid-column: 1;
+    grid-row: 2/5;
+  }
+  .shell .battleArena > .combatAnnouncement {
+    grid-column: 2;
+    grid-row: 1/3;
+  }
+  .shell .battleActions {
+    grid-column: 2;
+    grid-row: 3/5;
+    align-self: start;
+  }
+  .shell .battleActions button {
+    min-height: 72px;
+  }
+  .shell
+    .battleArena
+    > :is(
+      details,
+      .arenaSpecials,
+      .arenaIntent,
+      .arenaEffects,
+      .battleLog,
+      .battleResult
+    ) {
+    grid-column: 1/-1;
+  }
+  .shell .createGrid {
+    grid-template-columns: minmax(0, 0.7fr) minmax(0, 1.3fr);
+    align-items: start;
+  }
+}
+@media (max-width: 1024px) {
+  .adventureHome > details {
+    order: 2;
+  }
+}
+.arcadeOrientation {
+  display: none;
+}
+@media (max-width: 1024px) and (orientation: portrait) {
+  .arcadeOrientation {
+    display: block;
+    color: #fff0c7;
+    font-size: 14px;
+    line-height: 1.4;
+    text-align: center;
+    margin: 8px 0;
+  }
+  .arcadeGameActive .arcadeOrientation {
+    display: none;
   }
 }

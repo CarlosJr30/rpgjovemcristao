@@ -19,6 +19,7 @@ import {
 import { JOURNEY_ROUTES as routes } from '../data/campaign';
 import type { Traveler } from '../domain/traveler';
 import styles from '../journey.module.css';
+import mobile from './mobile-game-mode.module.css';
 import {
   MAX_LEVEL,
   TRAVELER_CURRENCY_NAME,
@@ -71,6 +72,52 @@ export function Shell({
   const [confirmingTravelerSwitch, setConfirmingTravelerSwitch] =
     useState(false);
   const [gainNotice, setGainNotice] = useState('');
+  const switchDialog = useRef<HTMLElement>(null);
+  const menuTrigger = useRef<HTMLButtonElement>(null);
+  const profileTrigger = useRef<HTMLButtonElement>(null);
+  useEffect(() => {
+    if (!confirmingTravelerSwitch) return;
+    const previousFocus =
+      document.activeElement === document.body
+        ? profileTrigger.current
+        : (document.activeElement as HTMLElement | null);
+    const dialog = switchDialog.current;
+    dialog?.querySelector('button')?.focus();
+    const handleKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setConfirmingTravelerSwitch(false);
+      if (event.key !== 'Tab' || !dialog) return;
+      const controls = Array.from(
+        dialog.querySelectorAll<HTMLButtonElement>('button:not(:disabled)'),
+      );
+      const first = controls[0],
+        last = controls.at(-1);
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last?.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first?.focus();
+      }
+    };
+    document.addEventListener('keydown', handleKey);
+    return () => {
+      document.removeEventListener('keydown', handleKey);
+      if (previousFocus?.isConnected) previousFocus.focus();
+    };
+  }, [confirmingTravelerSwitch]);
+  useEffect(() => {
+    if (!menuOpen) return;
+    const trigger = menuTrigger.current;
+    document.querySelector<HTMLElement>('#journey-sidebar a')?.focus();
+    const handleKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setMenuOpen(false);
+    };
+    document.addEventListener('keydown', handleKey);
+    return () => {
+      document.removeEventListener('keydown', handleKey);
+      trigger?.focus();
+    };
+  }, [menuOpen]);
   const onlineSync = useSyncExternalStore(
     subscribeOnlineSync,
     getOnlineSyncStatus,
@@ -119,7 +166,8 @@ export function Shell({
   }, [state]);
   return (
     <div
-      className={styles.shell}
+      className={`${styles.shell} ${mobile.gameShell}`}
+      data-game-shell="mobile-game-mode-v1"
       onClickCapture={(event) => {
         if (
           event.target instanceof HTMLElement &&
@@ -131,10 +179,10 @@ export function Shell({
       <a className={styles.skip} href="#main">
         Pular para o conteúdo
       </a>
-      <header className={styles.header}>
+      <header className={`${styles.header} ${mobile.gameHeader}`}>
         <Link
           href="/"
-          className={styles.brand}
+          className={`${styles.brand} ${state.status === 'ready' ? mobile.readyBrand : ''}`}
           aria-label="RPG Jovem Cristão — início"
         >
           <span className={styles.brandMark} aria-hidden="true">
@@ -148,14 +196,27 @@ export function Shell({
           <div className={styles.headerActions}>
             <div className={styles.profileMenu}>
               <button
-                className={styles.hud}
+                ref={profileTrigger}
+                className={`${styles.hud} ${mobile.playerHud}`}
                 onClick={() => setProfileOpen((open) => !open)}
                 aria-label="Abrir Herói"
               >
-                <AvatarRuntime traveler={state.traveler} mode="thumbnail" decorative />
+                <AvatarRuntime
+                  traveler={state.traveler}
+                  mode="thumbnail"
+                  decorative
+                />
                 <span className={styles.hudIdentity}>
                   <strong>{state.traveler.name}</strong>
-                  <span>Viajante · Nível {state.traveler.level}</span>
+                  <span>
+                    <span className={mobile.desktopContext}>Viajante</span>
+                    <span className={mobile.mobileContext}>
+                      {primaryLinks.find(
+                        ([id]) => pathname === routes[id],
+                      )?.[1] ?? 'Jornada'}
+                    </span>{' '}
+                    · Nível {state.traveler.level}
+                  </span>
                 </span>
                 <span className={styles.hudValue}>
                   {state.traveler.xp} XP
@@ -184,6 +245,10 @@ export function Shell({
                   >
                     Meu Herói
                   </Link>
+                  <span className={mobile.mobilePlayerStats}>
+                    {state.traveler.xp} XP · {state.traveler.coins}{' '}
+                    {TRAVELER_CURRENCY_NAME}
+                  </span>
                   {(auth.status === 'signedOut' || auth.status === 'local') && (
                     <Link
                       href="/auth"
@@ -246,6 +311,18 @@ export function Shell({
         >
           <span aria-hidden="true">♫</span>
         </button>
+        {state.status === 'ready' && (
+          <button
+            ref={menuTrigger}
+            className={`${styles.mobileMenuButton} ${mobile.moreButton}`}
+            aria-label={menuOpen ? 'Fechar menu' : 'Abrir menu'}
+            aria-expanded={menuOpen}
+            aria-controls="journey-sidebar"
+            onClick={() => setMenuOpen((open) => !open)}
+          >
+            <span aria-hidden="true">{menuOpen ? '×' : '☰'}</span>
+          </button>
+        )}
       </header>
       {audioOpen && (
         <AudioSettings preferences={audioPreferences} onClose={closeAudio} />
@@ -263,6 +340,7 @@ export function Shell({
       {confirmingTravelerSwitch && (
         <div className={styles.dialogBackdrop} role="presentation">
           <section
+            ref={switchDialog}
             className={styles.logoutDialog}
             role="dialog"
             aria-modal="true"
@@ -292,16 +370,6 @@ export function Shell({
         <p className={styles.notice} role="status">
           {onlineSync.message}
         </p>
-      )}
-      {state.status === 'ready' && (
-        <button
-          className={styles.mobileMenuButton}
-          aria-expanded={menuOpen}
-          aria-controls="journey-sidebar"
-          onClick={() => setMenuOpen((open) => !open)}
-        >
-          {menuOpen ? 'Fechar menu' : 'Abrir menu'}
-        </button>
       )}
       {menuOpen && state.status === 'ready' && (
         <button
@@ -346,7 +414,12 @@ export function Shell({
               <Link href={back}>← {backLabel}</Link>
             </nav>
           )}
-          <main id="main" tabIndex={-1} className={styles.main}>
+          <main
+            id="main"
+            tabIndex={-1}
+            inert={menuOpen}
+            className={`${styles.main} ${mobile.gameMain}`}
+          >
             {process.env.NODE_ENV === 'development' &&
               MUSIC_ASSETS.arena &&
               pathname?.startsWith('/journey/arena') && (
@@ -389,6 +462,40 @@ export function Shell({
           </main>
         </div>
       </div>
+      {state.status === 'ready' && (
+        <nav
+          className={mobile.bottomNav}
+          inert={menuOpen}
+          aria-label="Navegação do jogo"
+        >
+          {(['map', 'arena', 'equipment', 'guild', 'diary'] as const).map(
+            (id) => (
+              <Link
+                key={id}
+                href={routes[id]}
+                prefetch={false}
+                aria-current={
+                  pathname === routes[id] ||
+                  (id === 'map' &&
+                    (pathname === '/' ||
+                      pathname?.startsWith('/journey/phases/')))
+                    ? 'page'
+                    : undefined
+                }
+              >
+                <JourneyIcon name={id} />
+                <span>
+                  {id === 'map'
+                    ? 'Jornada'
+                    : id === 'equipment'
+                      ? 'Equipar'
+                      : primaryLinks.find(([key]) => key === id)?.[1]}
+                </span>
+              </Link>
+            ),
+          )}
+        </nav>
+      )}
       <footer className={styles.footer}>
         <span>{GAME_NAME}</span>
         <span>Explore. Descubra. Continue.</span>

@@ -136,11 +136,13 @@ for (const viewport of sizes)
     );
     await expect(summary).toBeFocused();
     await page.emulateMedia({ reducedMotion: 'reduce' });
-    expect(
-      await page
-        .locator('#diary-reflection')
-        .evaluate((el) => getComputedStyle(el).animationName),
-    ).toBe('none');
+    await expect
+      .poll(() =>
+        page
+          .locator('#diary-reflection')
+          .evaluate((el) => getComputedStyle(el).animationName),
+      )
+      .toBe('none');
     await page.screenshot({
       path: info.outputPath(`diary-${viewport.width}x${viewport.height}.png`),
       fullPage: true,

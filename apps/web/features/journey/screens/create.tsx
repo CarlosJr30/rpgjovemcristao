@@ -13,6 +13,7 @@ import {
 import { registerTraveler, useJourney } from '../state/use-journey';
 import { JOURNEY_ROUTES as routes } from '../data/campaign';
 import { Shell } from '../components/shell';
+import { ResponsivePanel } from '../components/responsive-panel';
 import { Avatar } from '../components/avatar';
 import styles from '../journey.module.css';
 import { useAuth } from '../../../lib/supabase/auth-context';
@@ -137,23 +138,25 @@ export function CreateScreen() {
               <p>
                 Viajante <span>·</span> Nível 1
               </p>
-              <div className={styles.stats} aria-label="Atributos iniciais">
-                <div>
-                  <strong>{PROTOTYPE_BASE_STATS.life}</strong>Vida
+              <ResponsivePanel title="Atributos iniciais">
+                <div className={styles.stats} aria-label="Atributos iniciais">
+                  <div>
+                    <strong>{PROTOTYPE_BASE_STATS.life}</strong>Vida
+                  </div>
+                  <div>
+                    <strong>{PROTOTYPE_BASE_STATS.strength}</strong>Força
+                  </div>
+                  <div>
+                    <strong>{PROTOTYPE_BASE_STATS.defense}</strong>Defesa
+                  </div>
+                  <div>
+                    <strong>{PROTOTYPE_BASE_STATS.wisdom}</strong>Sabedoria
+                  </div>
                 </div>
-                <div>
-                  <strong>{PROTOTYPE_BASE_STATS.strength}</strong>Força
-                </div>
-                <div>
-                  <strong>{PROTOTYPE_BASE_STATS.defense}</strong>Defesa
-                </div>
-                <div>
-                  <strong>{PROTOTYPE_BASE_STATS.wisdom}</strong>Sabedoria
-                </div>
-              </div>
-              <p className={styles.statNote}>
-                Atributos de jogo. Sabedoria não mede espiritualidade.
-              </p>
+                <p className={styles.statNote}>
+                  Atributos de jogo. Sabedoria não mede espiritualidade.
+                </p>
+              </ResponsivePanel>
             </aside>
             <form className={styles.createForm} onSubmit={submit} noValidate>
               {state.status === 'corrupt' && (

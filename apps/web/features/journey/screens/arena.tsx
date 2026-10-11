@@ -18,6 +18,7 @@ import {
   type TrainingReward,
 } from '@rpg/game-engine';
 import { Shell, RequireTraveler } from '../components/shell';
+import { ResponsivePanel } from '../components/responsive-panel';
 import { ATTRIBUTE_LABELS } from '../data/attributes';
 import { JOURNEY_ROUTES as routes } from '../data/campaign';
 import {
@@ -233,7 +234,11 @@ function ArenaExperience({ traveler }: { traveler: Traveler }) {
     isWithinMatchmakingRange(playerSnapshot.combatPower, power);
   const powerBreakdown = calculateCombatPowerBreakdown(playerSnapshot);
   return (
-    <section className={styles.arenaHub}>
+    <section
+      className={styles.arenaHub}
+      data-mobile-screen="arena"
+      data-arena-state={stage}
+    >
       <header className={styles.arenaHeader}>
         <div>
           <span>ÁREA DE TREINO</span>
@@ -425,10 +430,12 @@ function ArenaExperience({ traveler }: { traveler: Traveler }) {
         selected && (
           <section className={styles.battleArena} style={arenaStageVariables()}>
             <div className={styles.battleRound}>RODADA {battle.round}</div>
-            <p className={styles.arenaFocusHelp}>
-              Atacar gera Foco. Defender protege e gera Foco. Foco é um recurso
-              mecânico de batalha.
-            </p>
+            <ResponsivePanel title="Ajuda do combate">
+              <p className={styles.arenaFocusHelp}>
+                Atacar gera Foco. Defender protege e gera Foco. Foco é um
+                recurso mecânico de batalha.
+              </p>
+            </ResponsivePanel>
             <ArenaStage
               battle={visibleBattle}
               player={traveler}

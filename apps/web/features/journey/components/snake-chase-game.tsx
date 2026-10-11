@@ -869,6 +869,9 @@ export function SnakeChaseGame({
         <strong>Fuga da Serpente</strong>
         <small>Reúna sabedoria, colete luz e encontre a saída.</small>
       </div>
+      <p className={styles.arcadeOrientation}>
+        Gire o celular para ampliar o campo. Você também pode jogar em pé.
+      </p>
       {status !== 'ready' && (
         <div className={styles.arcadeGameActions}>
           <button

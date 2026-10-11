@@ -70,6 +70,16 @@ vi.mock('./data/equipmentAssets', async (importOriginal) => {
 import { EquippedAvatar } from './components/equipped-avatar';
 import { EquipmentScreen } from './screens/equipment';
 
+function stubMedia(reducedMotion = false) {
+  vi.stubGlobal('matchMedia', (query: string) =>
+    Object.assign(new EventTarget(), {
+      media: query,
+      matches: query.includes('prefers-reduced-motion') && reducedMotion,
+      onchange: null,
+    }),
+  );
+}
+
 beforeEach(() => {
   vi.useFakeTimers();
   mocks.definitions = {};
@@ -92,7 +102,7 @@ beforeEach(() => {
     delete equipped[slot as keyof typeof equipped];
     mocks.traveler = { ...mocks.traveler!, equipped };
   });
-  vi.stubGlobal('matchMedia', () => ({ matches: false }));
+  stubMedia();
   vi.stubGlobal('requestAnimationFrame', (callback: FrameRequestCallback) =>
     setTimeout(() => callback(0), 0),
   );
@@ -214,7 +224,7 @@ describe('Avatar overlays and equipment feedback', () => {
   );
 
   it('reduced motion reveals approved full-canvas with no icon flight or impact', () => {
-    vi.stubGlobal('matchMedia', () => ({ matches: true }));
+    stubMedia(true);
     const sword = EQUIPMENT_CATALOG.find((item) => item.slot === 'weapon')!;
     mocks.definitions[sword.id] = fullCanvasFixture(sword.id);
     const { container } = render(<EquipmentScreen />);
@@ -276,7 +286,7 @@ describe('Avatar overlays and equipment feedback', () => {
   });
 
   it('reduced motion swaps with a short fade-out and no flight', () => {
-    vi.stubGlobal('matchMedia', () => ({ matches: true }));
+    stubMedia(true);
     const sword = EQUIPMENT_CATALOG.find((item) => item.slot === 'weapon')!;
     const rare = { ...sword, id: 'traveler-sword-rare' };
     mocks.traveler!.inventory.push(rare);
@@ -378,7 +388,7 @@ describe('Avatar overlays and equipment feedback', () => {
   });
 
   it('reduced motion shows a brief reward for missing armor and keeps its icon only in UI', () => {
-    vi.stubGlobal('matchMedia', () => ({ matches: true }));
+    stubMedia(true);
     const pendingArmor = EQUIPMENT_CATALOG.find(
       (item) => item.slot === 'armor',
     )!;

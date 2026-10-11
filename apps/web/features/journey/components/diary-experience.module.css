@@ -348,3 +348,43 @@
     padding: 14px;
   }
 }
+
+/* TASK-0064: a reading surface, without nested book frames on phones. */
+@media (max-width: 1024px) {
+  .book {
+    margin: 0;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+  }
+  .cover {
+    padding: 16px;
+    border-radius: 12px;
+  }
+  .cover h1 {
+    font-size: 26px;
+  }
+  .cover::after {
+    display: none;
+  }
+  .pages {
+    grid-template-columns: minmax(0, 1fr);
+    padding: 12px 0;
+    gap: 16px;
+  }
+  .next,
+  .panel,
+  .codex {
+    padding: 16px;
+    border: 0;
+    border-radius: 10px;
+  }
+  .jump {
+    flex-wrap: wrap;
+  }
+  .reading p,
+  .answer {
+    font-size: 16px;
+    line-height: 1.7;
+  }
+}

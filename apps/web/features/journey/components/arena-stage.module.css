@@ -509,3 +509,59 @@
     animation: none;
   }
 }
+
+/* TASK-0064: reserve the HUD above the fighters, and fit the field above actions. */
+@media (max-width: 1024px) {
+  .frame.frame {
+    --stage-height: clamp(240px, calc(100dvh - 302px), 430px);
+    --hud-safe: 110px;
+    --fighter-min: 140px;
+    --fighter-max: 280px;
+    --player-x: 25%;
+    --opponent-x: 75%;
+  }
+  .frame .fighter .hud.hud {
+    min-height: 0;
+    top: 4px;
+    padding: 6px;
+  }
+  .frame .hud h2 {
+    font-size: 15px;
+    margin: 2px 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .frame .hud > span {
+    display: none;
+  }
+  .frame .fighter .hud > b {
+    font-size: 14px;
+  }
+  .frame .hud [role='meter'] {
+    margin: 2px 0;
+    font-size: 14px;
+    gap: 4px;
+  }
+  .frame .hud [role='meter'] b {
+    font-size: 12px;
+  }
+  .frame .hud [role='meter'] small {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    clip-path: inset(50%);
+    overflow: hidden;
+  }
+  .frame .actor.actor {
+    width: min(44%, calc(var(--fighter-height) * 2 / 3));
+  }
+}
+@media (max-width: 1024px) and (orientation: landscape) and (max-height: 500px) {
+  .frame.frame {
+    --stage-height: calc(100dvh - 164px);
+    --ground: 97%;
+    --fighter-min: 120px;
+    --hud-safe: 90px;
+  }
+}
