@@ -199,12 +199,10 @@ export function finishIntroduction(): boolean {
     refresh();
     return false;
   }
-  const saved = journeyRepository.save({
-    ...current.traveler,
-    progress: { ...current.traveler.progress, introCompleted: true },
-  });
-  if (saved) refresh();
-  return saved;
+  return updateTraveler((traveler) => ({
+    ...traveler,
+    progress: { ...traveler.progress, introCompleted: true },
+  }));
 }
 
 export function updateTraveler(

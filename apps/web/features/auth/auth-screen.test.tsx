@@ -13,6 +13,7 @@ import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest';
 const {
   router,
   signIn,
+  signUp,
   getSession,
   getAuthenticatedUser,
   hasPersistedSupabaseSession,
@@ -20,6 +21,7 @@ const {
 } = vi.hoisted(() => ({
   router: { replace: vi.fn() },
   signIn: vi.fn(),
+  signUp: vi.fn(),
   getSession: vi.fn(),
   getAuthenticatedUser: vi.fn(),
   hasPersistedSupabaseSession: vi.fn(),
@@ -28,14 +30,18 @@ const {
 
 vi.mock('next/navigation', () => ({ useRouter: () => router }));
 vi.mock('next/link', () => ({
-  default: ({ children, href }: { children: React.ReactNode; href: string }) => (
-    <a href={href}>{children}</a>
-  ),
+  default: ({
+    children,
+    href,
+  }: {
+    children: React.ReactNode;
+    href: string;
+  }) => <a href={href}>{children}</a>,
 }));
 vi.mock('../../lib/supabase/auth', () => ({
   signIn,
   signOut: vi.fn(),
-  signUp: vi.fn(),
+  signUp,
   getSession,
   getAuthenticatedUser,
 }));
@@ -73,6 +79,76 @@ beforeEach(() => {
 afterEach(cleanup);
 
 describe('Auth sign in contract', () => {
+  test('registers name, email and password and verifies a real session before creating the hero', async () => {
+    signUp.mockResolvedValue({ data: { user, session }, error: null });
+    getSession.mockResolvedValue(session);
+    getAuthenticatedUser.mockResolvedValue(user);
+    render(<AuthScreen />);
+    fireEvent.click(
+      screen.getByRole('button', { name: 'Ainda não tenho conta' }),
+    );
+    fireEvent.change(screen.getByLabelText('Nome de exibição'), {
+      target: { value: 'Ana' },
+    });
+    fireEvent.change(screen.getByLabelText('E-mail'), {
+      target: { value: 'ana@example.com' },
+    });
+    fireEvent.change(screen.getByLabelText('Senha'), {
+      target: { value: 'senha-segura' },
+    });
+    fireEvent.click(screen.getByRole('button', { name: 'Criar conta' }));
+    await waitFor(() =>
+      expect(router.replace).toHaveBeenCalledWith('/journey/create'),
+    );
+    expect(signUp).toHaveBeenCalledWith(
+      'ana@example.com',
+      'senha-segura',
+      'Ana',
+    );
+    expect(getAuthenticatedUser).toHaveBeenCalledTimes(1);
+  });
+
+  test('does not pretend registration authenticated when confirmation is still required', async () => {
+    signUp.mockResolvedValue({ data: { user, session: null }, error: null });
+    render(<AuthScreen />);
+    fireEvent.click(
+      screen.getByRole('button', { name: 'Ainda não tenho conta' }),
+    );
+    fireEvent.change(screen.getByLabelText('Nome de exibição'), {
+      target: { value: 'Ana' },
+    });
+    fireEvent.change(screen.getByLabelText('E-mail'), {
+      target: { value: 'ana@example.com' },
+    });
+    fireEvent.change(screen.getByLabelText('Senha'), {
+      target: { value: 'senha-segura' },
+    });
+    fireEvent.click(screen.getByRole('button', { name: 'Criar conta' }));
+    expect(await screen.findByRole('status')).toHaveTextContent(
+      'Não conseguimos iniciar',
+    );
+    expect(router.replace).not.toHaveBeenCalled();
+    expect(getAuthenticatedUser).not.toHaveBeenCalled();
+  });
+
+  test('rejects a malformed email before sending a registration request', async () => {
+    render(<AuthScreen />);
+    fireEvent.click(
+      screen.getByRole('button', { name: 'Ainda não tenho conta' }),
+    );
+    fireEvent.change(screen.getByLabelText('Nome de exibição'), {
+      target: { value: 'Ana' },
+    });
+    fireEvent.change(screen.getByLabelText('E-mail'), {
+      target: { value: 'ana-invalid' },
+    });
+    fireEvent.change(screen.getByLabelText('Senha'), {
+      target: { value: 'senha-segura' },
+    });
+    fireEvent.click(screen.getByRole('button', { name: 'Criar conta' }));
+    expect(screen.getByRole('alert')).toBeVisible();
+    expect(signUp).not.toHaveBeenCalled();
+  });
   test('navigates only after signIn, getSession, getUser and storage agree', async () => {
     signIn.mockResolvedValue({ data: { user, session }, error: null });
     getSession.mockResolvedValue(session);
@@ -92,9 +168,9 @@ describe('Auth sign in contract', () => {
 
     submitSignIn();
 
-    expect(
-      await screen.findByRole('alert'),
-    ).toHaveTextContent('Não foi possível entrar.');
+    expect(await screen.findByRole('alert')).toHaveTextContent(
+      'Não foi possível entrar.',
+    );
     expect(router.replace).not.toHaveBeenCalled();
     expect(getSession).not.toHaveBeenCalled();
   });

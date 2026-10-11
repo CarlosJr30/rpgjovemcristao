@@ -82,6 +82,40 @@ beforeEach(() => {
 afterEach(cleanup);
 
 describe('CreateScreen auth guard', () => {
+  test('starts with a ready hero, optional customization and opens the first mission after saving', async () => {
+    mocks.auth.current = {
+      ...signedIn,
+      user: { id: userId, user_metadata: { display_name: 'Ana' } },
+    };
+    render(<CreateScreen />);
+    expect(screen.getByLabelText('Nome do Viajante')).not.toBeVisible();
+    fireEvent.click(screen.getByLabelText('Viajante do Horizonte'));
+    fireEvent.click(screen.getByRole('button', { name: /Começar aventura/ }));
+    await waitFor(() =>
+      expect(mocks.push).toHaveBeenCalledWith(
+        '/journey/phases/o-jardim-e-a-escolha',
+      ),
+    );
+    expect(mocks.registerTraveler).toHaveBeenCalledWith(
+      'Ana',
+      { hair: 'longo', outfit: 'azul', skin: 'escuro' },
+      'female',
+      userId,
+    );
+  });
+
+  test('keeps the hero form open if the online save fails', async () => {
+    mocks.auth.current = signedIn;
+    mocks.registerTraveler.mockResolvedValue(
+      'Não conseguimos salvar seu herói.',
+    );
+    render(<CreateScreen />);
+    fireEvent.click(screen.getByRole('button', { name: /Começar aventura/ }));
+    expect(await screen.findByRole('alert')).toHaveTextContent(
+      'Não conseguimos salvar',
+    );
+    expect(mocks.push).not.toHaveBeenCalled();
+  });
   test('existing traveler can continue or open creation for another traveler', () => {
     mocks.auth.current = signedIn;
     mocks.journey.current = {
@@ -103,14 +137,17 @@ describe('CreateScreen auth guard', () => {
       screen.getByRole('button', { name: 'Criar outro Viajante' }),
     );
 
+    fireEvent.click(
+      screen.getByRole('button', { name: 'Personalizar (opcional)' }),
+    );
     expect(screen.getByLabelText('Nome do Viajante')).toBeVisible();
     expect(
-      screen.getByRole('button', { name: /Criar Viajante/ }),
+      screen.getByRole('button', { name: /Começar aventura/ }),
     ).toBeEnabled();
     fireEvent.change(screen.getByLabelText('Nome do Viajante'), {
       target: { value: 'TesteWorkLocal' },
     });
-    fireEvent.click(screen.getByRole('button', { name: /Criar Viajante/ }));
+    fireEvent.click(screen.getByRole('button', { name: /Começar aventura/ }));
 
     return waitFor(() =>
       expect(mocks.registerTraveler).toHaveBeenCalledWith(
@@ -143,9 +180,12 @@ describe('CreateScreen auth guard', () => {
     mocks.auth.current = signedIn;
     render(<CreateScreen />);
 
-    const button = screen.getByRole('button', { name: /Criar Viajante/ });
+    const button = screen.getByRole('button', { name: /Começar aventura/ });
     expect(button).toBeEnabled();
-    expect(screen.getByText(/Salvo online/)).toBeVisible();
+    expect(screen.getByText(/salvo na sua conta/)).toBeVisible();
+    fireEvent.click(
+      screen.getByRole('button', { name: 'Personalizar (opcional)' }),
+    );
     fireEvent.change(screen.getByLabelText('Nome do Viajante'), {
       target: { value: 'TesteSupabaseFinal' },
     });

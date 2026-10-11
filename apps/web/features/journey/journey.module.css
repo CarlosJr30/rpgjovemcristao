@@ -829,7 +829,7 @@
   font-weight: 700;
   margin-bottom: 12px;
 }
-.createForm > input {
+.createForm input:not([type='radio']) {
   width: 100%;
   border: 1px solid #b8c1aa;
   background: #fcfbf4;
@@ -837,6 +837,16 @@
   padding: 15px 16px;
   color: #293c2c;
   min-height: 50px;
+}
+
+@media (max-width: 800px) {
+  .shell .createSection[data-quick-hero='true'] .characterStage .avatarScene {
+    height: 130px;
+  }
+  .shell .createSection[data-quick-hero='true'] .avatarScene [data-avatar-mode='card'] {
+    width: 86px;
+    height: 129px;
+  }
 }
 .hint {
   font-size: 11px;

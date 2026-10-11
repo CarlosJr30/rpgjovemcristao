@@ -32,6 +32,7 @@ export type TravelerRow = {
   level: number;
   xp: number;
   is_active: boolean;
+  journey_progress?: Json | null;
   created_at: string;
   updated_at: string;
 };

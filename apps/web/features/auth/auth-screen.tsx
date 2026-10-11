@@ -34,8 +34,9 @@ export function AuthScreen() {
     setMessage(null);
     if (
       !email ||
-      password.length < 8 ||
-      (mode === 'signUp' && displayName.length < 2)
+      !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) ||
+      (mode === 'signIn' ? password.length === 0 : password.length < 8) ||
+      (mode === 'signUp' && (displayName.length < 2 || displayName.length > 50))
     ) {
       setError(
         'Confira o nome, o e-mail e use uma senha com pelo menos 8 caracteres.',
@@ -47,13 +48,24 @@ export function AuthScreen() {
       if (mode === 'signIn') {
         const result = await signIn(email, password);
         if (process.env.NODE_ENV === 'development') {
-          console.info('[AUTH SIGNIN] error:',
+          console.info(
+            '[AUTH SIGNIN] error:',
             result.error
-              ? { name: result.error.name, message: result.error.message, status: result.error.status }
+              ? {
+                  name: result.error.name,
+                  message: result.error.message,
+                  status: result.error.status,
+                }
               : null,
           );
-          console.info('[AUTH SIGNIN] user present:', Boolean(result.data.user));
-          console.info('[AUTH SIGNIN] session present:', Boolean(result.data.session));
+          console.info(
+            '[AUTH SIGNIN] user present:',
+            Boolean(result.data.user),
+          );
+          console.info(
+            '[AUTH SIGNIN] session present:',
+            Boolean(result.data.session),
+          );
         }
         if (result.error || !result.data.user || !result.data.session)
           throw new Error('O Supabase não retornou uma sessão válida.');
@@ -77,11 +89,25 @@ export function AuthScreen() {
       } else {
         const result = await signUp(email, password, displayName);
         if (result.error) throw new Error();
-        if (result.data.session) router.replace('/');
-        else
+        if (!result.data.session || !result.data.user) {
           setMessage(
-            'Confira seu e-mail para confirmar a conta antes de entrar.',
+            'Não conseguimos iniciar sua jornada agora. Tente entrar com seus dados. Se não funcionar, fale com o responsável pelo jogo.',
           );
+          return;
+        }
+        const [session, user] = await Promise.all([
+          getSession(),
+          getAuthenticatedUser(),
+        ]);
+        if (
+          !session ||
+          !user ||
+          session.user.id !== result.data.user.id ||
+          user.id !== result.data.user.id ||
+          !hasPersistedSupabaseSession()
+        )
+          throw new Error('Não foi possível manter sua sessão.');
+        router.replace('/journey/create');
       }
     } catch (cause) {
       const developmentDetails =
@@ -126,7 +152,11 @@ export function AuthScreen() {
       <section className={styles.card} aria-labelledby="auth-title">
         <p className={styles.eyebrow}>JORNADA ONLINE</p>
         <h1 id="auth-title">{mode === 'signIn' ? 'Entrar' : 'Criar conta'}</h1>
-        <p>Sincronize Viajantes, XP, moedas, mochila e equipamentos.</p>
+        <p>
+          {mode === 'signUp'
+            ? 'Crie sua conta e escolha seu herói para começar.'
+            : 'Entre para continuar com seu herói e seu progresso.'}
+        </p>
         <form onSubmit={submit} noValidate>
           {mode === 'signUp' && (
             <label>
@@ -142,14 +172,22 @@ export function AuthScreen() {
           )}
           <label>
             E-mail
-            <input name="email" type="email" autoComplete="email" required />
+            <input
+              name="email"
+              type="email"
+              inputMode="email"
+              autoCapitalize="none"
+              spellCheck={false}
+              autoComplete="email"
+              required
+            />
           </label>
           <label>
             Senha
             <input
               name="password"
               type="password"
-              minLength={8}
+              minLength={mode === 'signUp' ? 8 : undefined}
               autoComplete={
                 mode === 'signIn' ? 'current-password' : 'new-password'
               }
@@ -166,7 +204,7 @@ export function AuthScreen() {
               {message}
             </p>
           )}
-          <button type="submit" disabled={pending}>
+          <button type="submit" disabled={pending || auth.status === 'loading'}>
             {pending
               ? 'Aguarde…'
               : mode === 'signIn'
@@ -177,6 +215,7 @@ export function AuthScreen() {
         <button
           className={styles.secondary}
           type="button"
+          disabled={pending}
           onClick={() => {
             setMode((current) => (current === 'signIn' ? 'signUp' : 'signIn'));
             setError(null);

@@ -192,69 +192,87 @@ describe('online traveler creation', () => {
 
 describe('online traveler selection', () => {
   test.each([1, 2])(
-    'does not auto-enter a traveler when the account has %i saved traveler(s)',
+    'automatically restores the active traveler among %i saved traveler(s)',
     async (travelerCount) => {
-    const rows = [
-      {
-        id: travelerA,
-        user_id: userA,
-        name: 'Ana',
-        body_type: 'male',
-        skin_tone: 'medio',
-        hair_style: 'curto',
-        hair_color: '#3b2416',
-        avatar_variant: 'musgo',
-        level: 1,
-        xp: 0,
-        is_active: true,
-        created_at: '2026-09-26T00:00:00.000Z',
-        updated_at: '2026-09-26T00:00:00.000Z',
-      },
-      {
-        id: newTravelerId,
-        user_id: userA,
-        name: 'Nova',
-        body_type: 'female',
-        skin_tone: 'escuro',
-        hair_style: 'longo',
-        hair_color: '#3b2416',
-        avatar_variant: 'azul',
-        level: 1,
-        xp: 0,
-        is_active: false,
-        created_at: '2026-09-26T01:00:00.000Z',
-        updated_at: '2026-09-26T01:00:00.000Z',
-      },
-    ];
-    vi.spyOn(travelerRepository, 'getTravelersByUser').mockResolvedValue(
-      rows.slice(0, travelerCount),
-    );
-    vi.spyOn(statsRepository, 'getTravelerStats').mockImplementation(
-      async (id) => ({
-        traveler_id: id,
-        base_life: 1,
-        base_strength: 1,
-        base_defense: 1,
-        base_wisdom: 1,
-        created_at: '2026-09-26T00:00:00.000Z',
-        updated_at: '2026-09-26T00:00:00.000Z',
-      }),
-    );
-    vi.spyOn(walletRepository, 'getWallet').mockImplementation(async (id) => ({
-      traveler_id: id,
-      coins: 0,
-      created_at: '2026-09-26T00:00:00.000Z',
-      updated_at: '2026-09-26T00:00:00.000Z',
-    }));
-    vi.spyOn(inventoryRepository, 'getInventory').mockResolvedValue([]);
-    vi.spyOn(equipmentRepository, 'getEquippedItems').mockResolvedValue([]);
+      const rows = [
+        {
+          id: travelerA,
+          user_id: userA,
+          name: 'Ana',
+          body_type: 'male',
+          skin_tone: 'medio',
+          hair_style: 'curto',
+          hair_color: '#3b2416',
+          avatar_variant: 'musgo',
+          level: 1,
+          xp: 0,
+          is_active: true,
+          journey_progress:
+            travelerCount === 1
+              ? {
+                  ...createTraveler(
+                    'Ana',
+                    DEFAULT_APPEARANCE,
+                    travelerA,
+                    '2026-09-26T00:00:00.000Z',
+                  ).progress,
+                  gardenStep: 'explore',
+                  gardenFragments: 2,
+                }
+              : null,
+          created_at: '2026-09-26T00:00:00.000Z',
+          updated_at: '2026-09-26T00:00:00.000Z',
+        },
+        {
+          id: newTravelerId,
+          user_id: userA,
+          name: 'Nova',
+          body_type: 'female',
+          skin_tone: 'escuro',
+          hair_style: 'longo',
+          hair_color: '#3b2416',
+          avatar_variant: 'azul',
+          level: 1,
+          xp: 0,
+          is_active: false,
+          created_at: '2026-09-26T01:00:00.000Z',
+          updated_at: '2026-09-26T01:00:00.000Z',
+        },
+      ];
+      vi.spyOn(travelerRepository, 'getTravelersByUser').mockResolvedValue(
+        rows.slice(0, travelerCount),
+      );
+      vi.spyOn(statsRepository, 'getTravelerStats').mockImplementation(
+        async (id) => ({
+          traveler_id: id,
+          base_life: 1,
+          base_strength: 1,
+          base_defense: 1,
+          base_wisdom: 1,
+          created_at: '2026-09-26T00:00:00.000Z',
+          updated_at: '2026-09-26T00:00:00.000Z',
+        }),
+      );
+      vi.spyOn(walletRepository, 'getWallet').mockImplementation(
+        async (id) => ({
+          traveler_id: id,
+          coins: 0,
+          created_at: '2026-09-26T00:00:00.000Z',
+          updated_at: '2026-09-26T00:00:00.000Z',
+        }),
+      );
+      vi.spyOn(inventoryRepository, 'getInventory').mockResolvedValue([]);
+      vi.spyOn(equipmentRepository, 'getEquippedItems').mockResolvedValue([]);
 
-    setCurrentOnlineUser(userA);
-    await hydrateOnlineTravelers(userA);
+      setCurrentOnlineUser(userA);
+      await hydrateOnlineTravelers(userA);
 
-    expect(listTravelersForCurrentSession()).toHaveLength(travelerCount);
-    expect(getCurrentRemoteActiveTravelerId()).toBe(travelerA);
-    expect(journeyRepository.activeTravelerId()).toBeNull();
+      expect(listTravelersForCurrentSession()).toHaveLength(travelerCount);
+      expect(getCurrentRemoteActiveTravelerId()).toBe(travelerA);
+      expect(journeyRepository.activeTravelerId()).toBe(travelerA);
+      expect(
+        getLocalTravelerSnapshot(travelerA)?.progress.gardenFragments,
+      ).toBe(travelerCount === 1 ? 2 : 0);
     },
   );
 
