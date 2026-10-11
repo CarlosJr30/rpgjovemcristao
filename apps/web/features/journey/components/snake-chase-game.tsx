@@ -9,6 +9,16 @@ import {
   type PointerEvent as ReactPointerEvent,
 } from 'react';
 import { SnakeInput, type SnakeDirection } from './snake-input';
+import {
+  getSnakeRenderProfile,
+  getSnakeView,
+  SnakeRenderQuality,
+} from './snake-camera';
+import { SnakeSteering, SnakeSwipe } from './snake-swipe';
+import mobileStyles from './snake-mobile.module.css';
+import type { SnakeView } from './snake-camera';
+export { getMapFit, getSnakeRenderProfile } from './snake-camera';
+export type { MapFit, SnakeRenderProfile } from './snake-camera';
 import { gameAudio } from '../audio/audio-manager';
 import {
   CELL_SIZE,
@@ -39,7 +49,7 @@ type Props = {
   onTutorialComplete: () => void;
   onComplete: () => void;
 };
-type Status = 'ready' | 'playing' | 'won' | 'lost';
+type Status = 'ready' | 'playing' | 'paused' | 'won' | 'lost';
 type PowerKind = 'shield' | 'speed' | 'heal';
 type Pickup = Point & { id: string };
 type PowerPickup = Pickup & { kind: PowerKind };
@@ -67,73 +77,6 @@ type Hud = {
   distance: number;
 };
 type CanvasViewport = { width: number; height: number; dpr: number };
-export type SnakeRenderProfile = {
-  mode: 'desktop' | 'mobile-portrait' | 'mobile-landscape' | 'tablet';
-  cameraFollow: boolean;
-  actorScale: number;
-  pickupScale: number;
-};
-
-export type MapFit = {
-  scale: number;
-  offsetX: number;
-  offsetY: number;
-  width: number;
-  height: number;
-};
-
-export function getSnakeRenderProfile(
-  screenWidth: number,
-  screenHeight: number,
-): SnakeRenderProfile {
-  if (screenWidth > 1024)
-    return {
-      mode: 'desktop',
-      cameraFollow: false,
-      actorScale: 1,
-      pickupScale: 1,
-    };
-  if (screenWidth > screenHeight && screenHeight <= 500) {
-    return {
-      mode: 'mobile-landscape',
-      cameraFollow: false,
-      actorScale: 1.15,
-      pickupScale: 1.15,
-    };
-  }
-  if (screenWidth <= 600)
-    return {
-      mode: 'mobile-portrait',
-      cameraFollow: false,
-      actorScale: 1.2,
-      pickupScale: 1.16,
-    };
-  return {
-    mode: 'tablet',
-    cameraFollow: false,
-    actorScale: 1.15,
-    pickupScale: 1.12,
-  };
-}
-
-export function getMapFit(
-  availableWidth: number,
-  availableHeight: number,
-): MapFit {
-  const width = Math.max(1, availableWidth);
-  const height = Math.max(1, availableHeight);
-  const scale = Math.min(width / GAME_WIDTH, height / GAME_HEIGHT);
-  const mapWidth = GAME_WIDTH * scale;
-  const mapHeight = GAME_HEIGHT * scale;
-  return {
-    scale,
-    offsetX: (width - mapWidth) / 2,
-    offsetY: (height - mapHeight) / 2,
-    width: mapWidth,
-    height: mapHeight,
-  };
-}
-
 const fragments: readonly Pickup[] = [
   { id: 'fragment-one', ...cellCenter({ col: 3, row: 3 }) },
   { id: 'fragment-two', ...cellCenter({ col: 18, row: 3 }) },
@@ -207,6 +150,8 @@ function createRuntime(reducedMotion: boolean) {
     serpent: { ...SERPENT_SPAWN },
     velocity: { x: 0, y: 0 },
     input: new SnakeInput(),
+    swipe: new SnakeSwipe(),
+    steering: new SnakeSteering(),
     fragments: fragments.map((item) => ({ ...item })),
     lightFragments: lightFragments.map((item) => ({ ...item })),
     powers: powers.map((item) => ({ ...item })),
@@ -231,7 +176,9 @@ function createRuntime(reducedMotion: boolean) {
     finished: false,
     victory: false,
     serpentDirection: { x: -1, y: 0 },
-    camera: { x: 0, y: 130 },
+    camera: null as Point | null,
+    metricsAt: -Infinity,
+    renderQuality: new SnakeRenderQuality(),
     reducedMotion,
     lastMessage: 'Prepare-se · a perseguição começa em instantes.',
     serpentHintShown: false,
@@ -304,6 +251,7 @@ export function SnakeChaseGame({
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [resetKey, setResetKey] = useState(0);
   const [fullscreenError, setFullscreenError] = useState('');
+  const [showControls, setShowControls] = useState(false);
 
   const syncControls = useCallback(() => {
     gameSurface.current
@@ -321,6 +269,8 @@ export function SnakeChaseGame({
   }, []);
   const clearInput = useCallback(() => {
     runtime.current.input.clear();
+    runtime.current.swipe.clear();
+    runtime.current.steering.clear();
     runtime.current.velocity = { x: 0, y: 0 };
     syncControls();
   }, [syncControls]);
@@ -423,8 +373,15 @@ export function SnakeChaseGame({
         1,
         Math.round(element.clientHeight || rect.height || GAME_HEIGHT),
       );
-      const dpr = Math.min(2, Math.max(1, window.devicePixelRatio || 1));
+      if (
+        width !== viewport.current.width ||
+        height !== viewport.current.height
+      )
+        runtime.current.renderQuality.reset();
+      const dpr = runtime.current.renderQuality.dpr(window.devicePixelRatio);
+      element.dataset.renderDpr = String(dpr);
       viewport.current = { width, height, dpr };
+      runtime.current.camera = null;
       const renderWidth = Math.round(width * dpr);
       const renderHeight = Math.round(height * dpr);
       if (element.width !== renderWidth) element.width = renderWidth;
@@ -470,13 +427,17 @@ export function SnakeChaseGame({
         return;
       event.preventDefault();
       runtime.current.input.key(event.key, true);
+      runtime.current.steering.clear();
       syncControls();
     };
     const up = (event: KeyboardEvent) => {
       runtime.current.input.key(event.key, false);
       syncControls();
     };
-    const suspend = () => clearInput();
+    const suspend = () => {
+      clearInput();
+      if (status === 'playing') setStatus('paused');
+    };
     window.addEventListener('keydown', down);
     window.addEventListener('keyup', up);
     window.addEventListener('blur', suspend);
@@ -517,6 +478,16 @@ export function SnakeChaseGame({
     let uiTimer = 0;
     const tick = (now: number) => {
       const game = runtime.current;
+      if (status === 'playing') {
+        game.renderQuality.observe(now - last, window.innerWidth <= 1024);
+        const dpr = game.renderQuality.dpr(window.devicePixelRatio);
+        if (viewport.current.dpr !== dpr) {
+          viewport.current.dpr = dpr;
+          element.width = Math.round(viewport.current.width * dpr);
+          element.height = Math.round(viewport.current.height * dpr);
+          element.dataset.renderDpr = String(dpr);
+        }
+      }
       const dt = Math.min(0.033, (now - last) / 1000);
       last = now;
       if (status === 'playing' && !game.finished) {
@@ -532,7 +503,17 @@ export function SnakeChaseGame({
         game.flash = Math.max(0, game.flash - dt);
         game.shake = Math.max(0, game.shake - dt);
         game.portalActivation = Math.max(0, game.portalActivation - dt);
-        const input = normalizeInput(game.input.axis());
+        const held = game.input.axis();
+        const input = normalizeInput(
+          held.x || held.y
+            ? held
+            : game.steering.axis(game.player, game.elapsed),
+        );
+        // A buffered cardinal turn stops the old axis rather than drifting into the corner.
+        if (!held.x && !held.y && (input.x || input.y)) {
+          if (!input.x || game.velocity.x * input.x < 0) game.velocity.x = 0;
+          if (!input.y || game.velocity.y * input.y < 0) game.velocity.y = 0;
+        }
         const maxSpeed = PLAYER_MAX_SPEED * (game.speedTimer > 0 ? 1.3 : 1);
         const target = { x: input.x * maxSpeed, y: input.y * maxSpeed };
         const responsiveness = input.x || input.y ? 980 : 1250;
@@ -723,6 +704,9 @@ export function SnakeChaseGame({
               game.player = playerRespawn(game.fragmentCount);
               game.serpent = { ...SERPENT_SPAWN };
               game.velocity = { x: 0, y: 0 };
+              game.steering.clear();
+              game.swipe.clear();
+              game.camera = null;
               game.path = [];
               game.invulnerable = RESPAWN_INVULNERABILITY;
               game.lastMessage = game.respawnHintShown
@@ -764,7 +748,7 @@ export function SnakeChaseGame({
         }
         updateParticles(game, dt);
         uiTimer += dt;
-        if (uiTimer >= 0.1) {
+        if (uiTimer >= 0.1 || game.finished) {
           uiTimer = 0;
           setHud({
             lives: game.lives,
@@ -791,6 +775,7 @@ export function SnakeChaseGame({
         stablePortrait,
         viewport.current,
         now,
+        dt,
       );
       frame = requestAnimationFrame(tick);
     };
@@ -805,7 +790,8 @@ export function SnakeChaseGame({
     if (status !== 'playing') return;
     event.preventDefault();
     event.stopPropagation();
-    event.currentTarget.setPointerCapture(event.pointerId);
+    event.currentTarget.setPointerCapture?.(event.pointerId);
+    runtime.current.steering.clear();
     runtime.current.input.pointer(event.pointerId, direction);
     syncControls();
   };
@@ -814,11 +800,11 @@ export function SnakeChaseGame({
     event.stopPropagation();
     runtime.current.input.pointer(event.pointerId, null);
     syncControls();
-    if (event.currentTarget.hasPointerCapture(event.pointerId))
+    if (event.currentTarget.hasPointerCapture?.(event.pointerId))
       event.currentTarget.releasePointerCapture(event.pointerId);
   };
   const slideDirection = (event: ReactPointerEvent<HTMLButtonElement>) => {
-    if (!event.currentTarget.hasPointerCapture(event.pointerId)) return;
+    if (!event.currentTarget.hasPointerCapture?.(event.pointerId)) return;
     const target = document
       .elementFromPoint(event.clientX, event.clientY)
       ?.closest<HTMLButtonElement>('button[data-direction]');
@@ -833,6 +819,19 @@ export function SnakeChaseGame({
   const retry = () => {
     setAttempts((value) => value + 1);
     reset('playing');
+  };
+  const pause = () => {
+    clearInput();
+    setStatus(status === 'paused' ? 'playing' : 'paused');
+  };
+  const swipeMove = (event: ReactPointerEvent<HTMLCanvasElement>) => {
+    if (status !== 'playing') return;
+    const game = runtime.current;
+    const direction = game.swipe.move(event.pointerId, {
+      x: event.clientX,
+      y: event.clientY,
+    });
+    if (direction) game.steering.request(direction, game.elapsed);
   };
   const exitGame = async () => {
     clearInput();
@@ -862,7 +861,10 @@ export function SnakeChaseGame({
   return (
     <div
       ref={gameSurface}
-      className={`${styles.arcadeGame} ${status !== 'ready' ? styles.arcadeGameActive : ''} ${hud.danger > 0.65 ? styles.arcadeDanger : ''}`}
+      className={`${styles.arcadeGame} ${mobileStyles.surface} ${status !== 'ready' ? `${styles.arcadeGameActive} ${mobileStyles.active}` : ''} ${hud.danger > 0.65 ? styles.arcadeDanger : ''}`}
+      data-serpent-mode="mobile-first-v2"
+      data-status={status}
+      data-controls={showControls}
     >
       <div className={styles.arcadeTitle}>
         <span>GRANDE DESAFIO</span>
@@ -874,6 +876,20 @@ export function SnakeChaseGame({
       </p>
       {status !== 'ready' && (
         <div className={styles.arcadeGameActions}>
+          {(status === 'playing' || status === 'paused') && (
+            <button onClick={pause}>
+              {status === 'paused' ? 'Retomar' : 'Pausar'}
+            </button>
+          )}
+          <button
+            aria-pressed={showControls}
+            onClick={() => {
+              clearInput();
+              setShowControls((value) => !value);
+            }}
+          >
+            Direcional
+          </button>
           <button
             aria-label={
               isFullscreen ? 'Sair da tela cheia' : 'Entrar em tela cheia'
@@ -923,7 +939,47 @@ export function SnakeChaseGame({
           className={styles.arcadeCanvas}
           role="application"
           aria-label="Fuga da Serpente, jogo de perseguição"
+          aria-describedby="serpent-controls-help"
+          tabIndex={0}
+          onPointerDown={(event) => {
+            if (status !== 'playing' || event.button !== 0) return;
+            if (
+              runtime.current.swipe.start(event.pointerId, {
+                x: event.clientX,
+                y: event.clientY,
+              })
+            ) {
+              event.preventDefault();
+              event.currentTarget.setPointerCapture?.(event.pointerId);
+            }
+          }}
+          onPointerMove={swipeMove}
+          onPointerUp={(event) => {
+            swipeMove(event);
+            if (
+              runtime.current.swipe.end(event.pointerId) &&
+              event.currentTarget.hasPointerCapture?.(event.pointerId)
+            )
+              event.currentTarget.releasePointerCapture(event.pointerId);
+          }}
+          onPointerCancel={(event) => {
+            if (runtime.current.swipe.owns(event.pointerId)) clearInput();
+          }}
+          onLostPointerCapture={(event) => {
+            if (runtime.current.swipe.owns(event.pointerId)) clearInput();
+          }}
         />
+        {status === 'paused' && (
+          <div
+            className={styles.arcadeOverlay}
+            role="dialog"
+            aria-label="Partida pausada"
+          >
+            <strong>PAUSADO</strong>
+            <button onClick={pause}>Continuar partida</button>
+            <button onClick={() => void exitGame()}>Sair</button>
+          </div>
+        )}
         {status === 'ready' && (
           <div className={styles.arcadeOverlay}>
             {!tutorialCompleted ? (
@@ -932,7 +988,7 @@ export function SnakeChaseGame({
                 <h3>Encontre 3 Fragmentos de Sabedoria e escape pelo Portal</h3>
                 <div>
                   <p>
-                    <b>WASD / SETAS</b>
+                    <b>DESLIZE / WASD / SETAS</b>
                     <br />
                     Mover o Viajante
                   </p>
@@ -978,7 +1034,7 @@ export function SnakeChaseGame({
             )}
           </div>
         )}
-        {status !== 'ready' && status !== 'playing' && (
+        {(status === 'won' || status === 'lost') && (
           <div className={styles.arcadeOverlay}>
             <strong>
               {status === 'won'
@@ -1073,10 +1129,10 @@ export function SnakeChaseGame({
           </button>
         ))}
       </div>
-      <p className={styles.arcadeHelp}>
-        WASD ou setas · Touch: use o direcional · Portal inativo até 3
-        Fragmentos de Sabedoria · Fragmentos de Luz = pontos ·{' '}
-        {assisted ? 'Ajuda ativa' : 'Dificuldade padrão'}
+      <p id="serpent-controls-help" className={styles.arcadeHelp}>
+        Deslize para mudar a direção · WASD ou setas · Direcional opcional ·
+        Portal inativo até 3 Fragmentos de Sabedoria · Fragmentos de Luz =
+        pontos · {assisted ? 'Ajuda ativa' : 'Dificuldade padrão'}
       </p>
     </div>
   );
@@ -1137,14 +1193,48 @@ function renderGame(
   portrait: GameplayPortrait,
   viewport: CanvasViewport,
   now: number,
+  dt: number,
 ) {
   const profile = getSnakeRenderProfile(window.innerWidth, window.innerHeight);
-  const mapFit = getMapFit(viewport.width, viewport.height);
+  const mapFit = getSnakeView(
+    viewport.width,
+    viewport.height,
+    game.player,
+    game.camera,
+    profile.cameraFollow,
+    game.reducedMotion,
+    dt,
+  );
   const worldScale = mapFit.scale;
   const actorScale = Math.max(profile.actorScale, 24 / (56 * worldScale));
   const pickupScale = Math.max(profile.pickupScale, 14 / (29 * worldScale));
-  game.camera.x = 0;
-  game.camera.y = 0;
+  const visibleView = profile.cameraFollow ? mapFit : undefined;
+  const visible = (point: Point, padding = 50) =>
+    !visibleView ||
+    (point.x + padding >= visibleView.camera.x &&
+      point.y + padding >= visibleView.camera.y &&
+      point.x - padding <= visibleView.camera.x + visibleView.worldWidth &&
+      point.y - padding <= visibleView.camera.y + visibleView.worldHeight);
+  game.camera = mapFit.camera;
+  if (now - game.metricsAt >= 100) {
+    game.metricsAt = now;
+    Object.assign(context.canvas.dataset, {
+      cameraFollow: String(profile.cameraFollow),
+      cameraX: mapFit.camera.x.toFixed(3),
+      cameraY: mapFit.camera.y.toFixed(3),
+      worldWidth: mapFit.worldWidth.toFixed(3),
+      worldHeight: mapFit.worldHeight.toFixed(3),
+      cellPixels: (CELL_SIZE * worldScale).toFixed(3),
+      playerPixels: (26 * actorScale * worldScale).toFixed(3),
+      playerX: game.player.x.toFixed(3),
+      playerY: game.player.y.toFixed(3),
+      playerScreenX: (mapFit.offsetX + game.player.x * worldScale).toFixed(3),
+      playerScreenY: (
+        mapFit.offsetY +
+        (game.player.y - 12) * worldScale
+      ).toFixed(3),
+    });
+  }
   context.setTransform(viewport.dpr, 0, 0, viewport.dpr, 0, 0);
   context.clearRect(0, 0, viewport.width, viewport.height);
   const shakeX = game.reducedMotion
@@ -1172,13 +1262,14 @@ function renderGame(
     GAME_WIDTH + 10,
     GAME_HEIGHT + 10,
     '#58744c',
+    visibleView,
   );
   const atmosphere = context.createLinearGradient(0, 0, 0, GAME_HEIGHT);
   atmosphere.addColorStop(0, 'rgba(66, 104, 62, .18)');
   atmosphere.addColorStop(1, 'rgba(23, 54, 40, .46)');
   context.fillStyle = atmosphere;
   context.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
-  drawOrganicTerrain(context, assets, now);
+  drawOrganicTerrain(context, assets, now, visibleView);
 
   const portalActive = game.fragmentCount === 3 && game.portalActivation <= 0;
   const portalActivating = game.portalActivation > 0;
@@ -1214,6 +1305,7 @@ function renderGame(
   if (game.victory)
     drawCenteredAsset(context, assets.victory, PORTAL_POSITION, 92, '#f3da83');
   game.lightFragments.forEach((item, index) => {
+    if (!visible(item)) return;
     const point = {
       x: item.x,
       y: item.y + (game.reducedMotion ? 0 : Math.sin(now / 260 + index) * 1.5),
@@ -1232,6 +1324,7 @@ function renderGame(
     context.restore();
   });
   game.fragments.forEach((item) => {
+    if (!visible(item)) return;
     context.save();
     context.shadowColor = '#f7e29a';
     context.shadowBlur = 12 + Math.sin(now / 180) * 5;
@@ -1249,6 +1342,7 @@ function renderGame(
     context.restore();
   });
   game.powers.forEach((item) => {
+    if (!visible(item)) return;
     drawGroundShadow(context, item, 12, 4, 0.24);
     drawCenteredAsset(
       context,
@@ -1259,6 +1353,7 @@ function renderGame(
     );
   });
   game.particles.forEach((particle) => {
+    if (!visible(particle, particle.size ?? 50)) return;
     context.globalAlpha = Math.max(0, particle.life / 0.65);
     if (particle.sprite)
       drawCenteredAsset(
@@ -1462,6 +1557,7 @@ function drawOrganicTerrain(
   context: CanvasRenderingContext2D,
   assets: Partial<Record<AssetKey, RenderableAsset>>,
   now: number,
+  view?: SnakeView,
 ) {
   if (!terrainCanvas) {
     const canvas = document.createElement('canvas');
@@ -1484,7 +1580,21 @@ function drawOrganicTerrain(
       terrainCanvas = canvas;
     }
   }
-  if (terrainCanvas) context.drawImage(terrainCanvas, 0, 0);
+  if (terrainCanvas) {
+    if (view)
+      context.drawImage(
+        terrainCanvas,
+        view.camera.x,
+        view.camera.y,
+        view.worldWidth,
+        view.worldHeight,
+        view.camera.x,
+        view.camera.y,
+        view.worldWidth,
+        view.worldHeight,
+      );
+    else context.drawImage(terrainCanvas, 0, 0);
+  }
   context.save();
   context.globalAlpha = 0.9 + Math.sin(now / 500) * 0.06;
   drawCenteredAsset(
@@ -1643,6 +1753,7 @@ function drawCover(
   width: number,
   height: number,
   fallback: string,
+  view?: SnakeView,
 ) {
   if (!isRenderable(image)) {
     context.fillStyle = fallback;
@@ -1656,6 +1767,22 @@ function drawCover(
   const scale = Math.max(width / sourceWidth, height / sourceHeight);
   const cropWidth = width / scale;
   const cropHeight = height / scale;
+  if (view) {
+    // Crop in source coordinates before scaling: software Canvas must not raster
+    // the entire background outside the camera's visible surface every frame.
+    context.drawImage(
+      image,
+      (sourceWidth - cropWidth) / 2 + (view.camera.x - x) / scale,
+      (sourceHeight - cropHeight) / 2 + (view.camera.y - y) / scale,
+      view.worldWidth / scale,
+      view.worldHeight / scale,
+      view.camera.x,
+      view.camera.y,
+      view.worldWidth,
+      view.worldHeight,
+    );
+    return;
+  }
   context.drawImage(
     image,
     (sourceWidth - cropWidth) / 2,
@@ -1710,5 +1837,18 @@ function cleanMinigameAsset(image: HTMLImageElement): HTMLCanvasElement {
       );
   }
   context.putImageData(pixels, 0, 0);
+  // These world sprites render at tens of CSS pixels. Keep original PNGs intact
+  // and resample once, instead of repeatedly filtering megapixel textures.
+  const scale = Math.min(1, 256 / Math.max(canvas.width, canvas.height));
+  if (scale < 1) {
+    const sprite = document.createElement('canvas');
+    sprite.width = Math.max(1, Math.round(canvas.width * scale));
+    sprite.height = Math.max(1, Math.round(canvas.height * scale));
+    const spriteContext = sprite.getContext('2d');
+    if (spriteContext) {
+      spriteContext.drawImage(canvas, 0, 0, sprite.width, sprite.height);
+      return sprite;
+    }
+  }
   return canvas;
 }

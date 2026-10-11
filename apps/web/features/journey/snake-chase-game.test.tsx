@@ -120,21 +120,21 @@ test('começa sem concluir a fase ou conceder progresso automaticamente', () => 
 test('remove camera follow responsiva e preserva escalas visuais independentes', () => {
   expect(getSnakeRenderProfile(390, 844)).toEqual({
     mode: 'mobile-portrait',
-    cameraFollow: false,
+    cameraFollow: true,
     actorScale: 1.2,
     pickupScale: 1.16,
   });
   expect(getSnakeRenderProfile(844, 390)).toEqual({
     mode: 'mobile-landscape',
-    cameraFollow: false,
-    actorScale: 1.15,
-    pickupScale: 1.15,
+    cameraFollow: true,
+    actorScale: 1.2,
+    pickupScale: 1.16,
   });
   expect(getSnakeRenderProfile(768, 1024)).toEqual({
     mode: 'tablet',
-    cameraFollow: false,
-    actorScale: 1.15,
-    pickupScale: 1.12,
+    cameraFollow: true,
+    actorScale: 1.2,
+    pickupScale: 1.16,
   });
   expect(getSnakeRenderProfile(1440, 900)).toEqual({
     mode: 'desktop',
@@ -159,4 +159,51 @@ test('enquadra e centraliza o mapa inteiro sem distorcer', () => {
     width: (864 * 270) / 504,
     height: 270,
   });
+});
+
+test('pausa, retoma e sai sem concluir a fase ou registrar recompensa', () => {
+  const onComplete = vi.fn();
+  render(
+    <SnakeChaseGame
+      portrait={{
+        imageUrl: '/assets/avatar/runtime/male/male_short_moss_light.png',
+        source: { x: 150, y: 0, width: 212, height: 205 },
+      }}
+      tutorialCompleted
+      onTutorialComplete={vi.fn()}
+      onComplete={onComplete}
+    />,
+  );
+  fireEvent.click(screen.getByRole('button', { name: 'Começar perseguição' }));
+  fireEvent.click(screen.getByRole('button', { name: 'Pausar' }));
+  expect(screen.getByRole('dialog', { name: 'Partida pausada' })).toBeVisible();
+  expect(
+    screen.getByRole('button', { name: 'Mover para cima' }),
+  ).toBeDisabled();
+  fireEvent.click(screen.getByRole('button', { name: 'Continuar partida' }));
+  expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+  expect(screen.getByRole('button', { name: 'Mover para cima' })).toBeEnabled();
+  fireEvent.click(screen.getByRole('button', { name: /^Sair$/ }));
+  expect(onComplete).not.toHaveBeenCalled();
+});
+
+test('fullscreen indisponível mantém o jogo e a alternativa de direcional', () => {
+  render(
+    <SnakeChaseGame
+      portrait={{
+        imageUrl: '/assets/avatar/runtime/male/male_short_moss_light.png',
+        source: { x: 150, y: 0, width: 212, height: 205 },
+      }}
+      tutorialCompleted
+      onTutorialComplete={vi.fn()}
+      onComplete={vi.fn()}
+    />,
+  );
+  fireEvent.click(screen.getByRole('button', { name: 'Começar perseguição' }));
+  fireEvent.click(screen.getByRole('button', { name: 'Entrar em tela cheia' }));
+  expect(screen.getByText(/Tela cheia indisponível/)).toBeVisible();
+  const toggle = screen.getByRole('button', { name: 'Direcional' });
+  fireEvent.click(toggle);
+  expect(toggle).toHaveAttribute('aria-pressed', 'true');
+  expect(screen.getByRole('button', { name: 'Pausar' })).toBeEnabled();
 });
