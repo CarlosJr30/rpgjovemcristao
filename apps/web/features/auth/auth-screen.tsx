@@ -197,8 +197,9 @@ export function AuthScreen() {
           </label>
           {mode === 'signUp' && (
             <span id="password-hint" className={styles.hint}>
-              Use pelo menos 8 caracteres. Para ficar mais segura, misture letras,
-              números e símbolos.
+              Use pelo menos 8 caracteres. Não há quantidade obrigatória de letras
+              maiúsculas, números ou símbolos. Para ficar mais segura, recomendamos
+              misturar maiúsculas, minúsculas, números e símbolos.
             </span>
           )}
           {error && (
