@@ -1,5 +1,11 @@
 # TASK-0065 — Revisão de produção
 
+## Followup da inspeção visual
+
+Primeiro deployment READY/67e72ad com gatesremotos209/726/8SHA e31HTTP PASS, sem exposição de mídia/secrets. Inspeção visual encontrou scrollretido ao iniciarArena; impede aceite final de UX, sem achado de segurança/banco. Correção exclusiva de apresentação10linhas e teste mais forte, helperQA/documentos próprios; engines/auth/assets/licenças/data aprovados preservados. Novo snapshot:9unitafetados/3layout×11dimensões/9regressõesArena/lint/types/buildPASS; mesmos gates726/8SHA/54HD, HTTP local28PASS. Reutilizar checks de módulos intocados; exigir revisão do stagingfollowup ehash/deploy/404/smoke final paraDEPLOY_COMPLETE. Nenhum force/amend/reset ou deploymanual duplicado.
+
+## Histórico — primeiro release
+
 2026-10-10. **PASS para commit/push após gates e revisão do staging; validação pública pendente.** Reviewer: autor, sem revisão independente.
 
 Alvo confirmado por CLI/API: projeto existente prj_mG2ZSDaSc5i2Pz2uqKSlCzSGiVmG/equipe carlos-junior-s-projects, produção main. Nenhuma alteração de banco, domínio, plano ou configuração; push normal autorizado após gates.

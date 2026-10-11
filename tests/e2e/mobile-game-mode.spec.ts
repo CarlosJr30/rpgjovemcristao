@@ -80,7 +80,8 @@ test('activity-first layout: useful avatar, six slots and battle actions in the 
     await page
       .getByRole('button', { name: 'Iniciar batalha', exact: true })
       .click();
-    await page.evaluate(() => scrollTo(0, 0));
+    if (width > 1024) await page.evaluate(() => scrollTo(0, 0));
+    else await expect.poll(() => page.evaluate(() => scrollY)).toBe(0);
     const actions = await page
       .getByLabel('Ações da batalha', { exact: true })
       .boundingBox();
@@ -89,6 +90,8 @@ test('activity-first layout: useful avatar, six slots and battle actions in the 
       const nav = await page
         .getByRole('navigation', { name: 'Navegação do jogo', exact: true })
         .boundingBox();
+      expect(field!.y).toBeGreaterThanOrEqual(0);
+      expect(field!.y + field!.height).toBeLessThanOrEqual(nav!.y + 1);
       expect(
         actions!.y + actions!.height,
         `${width}x${height}: actions should be visible above navigation; field=${JSON.stringify(field)}, actions=${JSON.stringify(actions)}`,

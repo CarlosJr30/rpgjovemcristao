@@ -1,5 +1,17 @@
 # TASK-0065 — Publicação Mobile Game Mode V1
 
+## Checkpoint atual — VALIDATING da correção da transição mobile Arena
+
+Primeiro release37arquivos publicado: commit67e72ad249f9a414b3ce6e45b4d63480a7582658, push normal/hashremotoigual, automático dpl_8zG7yvBtuwye8zK81fPEFun2ceWm READY/produção. Gatesremotos209/726/8SHA PASS. Smoke público31HTTP/3perfis semerros/áudiorestrito confirmou modo/ações, porém inspeção visual encontrou campo parcialmente fora da tela ao iniciar combate: scroll herdado da seleção. Ainda **NÃO DEPLOY_COMPLETE**. O teste de layout anterior aplicava scrollmanual e não comprovava essa transição real; o smoke inicial também não exigia campo integral.
+
+Correção local autorizada: efeito exclusivamente de apresentação reposiciona início do combate em≤1024px; nenhum cálculo/persistência/recompensa/engine alterado. Teste exige scrollzero/campo e ações integralmente visíveis sem reposicionamento manual mobile; desktop mantém comportamento anterior. Novo snapshot/reexecução pertinente em andamento. Primeiro build/deploy/JSON/screenshots preservados; followup terá commit normal e deploy automático de hash diferente, sem force/amend nem publicação manual duplicada.
+
+Gates do followup PASS: noveunitários afetados, três testes de layout/11dimensões/3projetos e nove regressõesArena; lint/typecheck/build repetidos209/726/8SHA/54HD. Total consolidado104unit/63E2E distintos aceitos, sem falhas finais;231observações estáticas anteriores continuam aplicáveis à geometria e telas não alteradas. Novo smoke final exigirá campo integral após o clique real, sem reposicionar a página pelo coletor. Seis arquivos selecionados para correção (incluídos nos37caminhos únicos do release), nenhum asset/engine/auth alterado. Resultado em local-gates-followup.json/arena-scroll-layout.json/arena-scroll-regressions.json e logs arena-followup-*.
+
+Git estava sem identidade no notebook: usada identidade do release anterior apenas para o comando commit, sem configurar globalmente. Primeira consultaCLI de deployments falhou por separador de query no.cmdWindows; leitura corrigida com parâmetro único, sem efeitos remotos. Esses problemas não foram tratados como push ou deploy bem-sucedidos sem confirmação.
+
+## Histórico — gates do primeiro release
+
 2026-10-10. **VALIDATING: gates locais e revisão do staging PASS; publicação pendente neste checkpoint.** Autor com perfis DEVOPS/QA/SECURITY; revisão pelo autor, sem independência.
 
 Branch inicial main, base90aa0fc821b2856f03f114698e5e9e8b8b040a3d; fetch origin0/0, staging vazio. CLI63.1.2 autenticado confirmou projeto existente carlos-junior-s-projects/rpgjovemcristao-web/prj_mG2ZSDaSc5i2Pz2uqKSlCzSGiVmG, Root Directory apps/web, Next.js, Node24.x, GitHub CarlosJr30/rpgjovemcristao e productionBranch main. Nenhuma configuração remota alterada.

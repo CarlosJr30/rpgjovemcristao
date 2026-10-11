@@ -27,6 +27,7 @@ const read = async (name) =>
 const write = async (name, data) =>
   writeFile(path.join(out, name), JSON.stringify(data, null, 2) + '\n');
 const mode = process.argv[2];
+const suffix = process.argv.includes('--followup') ? '-followup' : '';
 const runtime = [
   'apps/web/features/auth/auth.module.css',
   ...[
@@ -123,7 +124,7 @@ if (mode === 'plan') {
     }),
   );
 } else if (mode === 'snapshot') {
-  const plan = await read('release-plan.json');
+  const plan = await read(`release-plan${suffix}.json`);
   const snapshot = path.join(out, 'release-snapshot-' + Date.now());
   await mkdir(snapshot);
   const privateIndex = path.join(out, 'snapshot-index-' + Date.now());
@@ -150,7 +151,7 @@ if (mode === 'plan') {
     path.join(snapshot, 'node_modules'),
     'junction',
   );
-  await write('snapshot-location.json', {
+  await write(`snapshot-location${suffix}.json`, {
     snapshot,
     privateEnvironmentCopied: false,
     dependencies: 'Existing node_modules reused; no installation',
@@ -160,6 +161,8 @@ if (mode === 'plan') {
 } else if (mode === 'preserve') {
   const baseline = await read('preservation-before.json');
   const permitted = new Set([
+    'apps/web/features/journey/screens/arena.tsx',
+    'tests/e2e/mobile-game-mode.spec.ts',
     'apps/web/features/journey/equipment-overlays.test.tsx',
     '.agent/memory/CURRENT_STATE.md',
     'docs/architecture/EQUIPMENT-MASTER-CHECKLIST-V1.md',
@@ -194,8 +197,8 @@ if (mode === 'plan') {
     JSON.stringify({ pass: true, unchanged, permittedChanges: changed.length }),
   );
 } else if (mode === 'index') {
-  const plan = await read('release-plan.json');
-  const snapshot = await read('snapshot-location.json');
+  const plan = await read(`release-plan${suffix}.json`);
+  const snapshot = await read(`snapshot-location${suffix}.json`);
   const staged = git('diff', '--cached', '--name-only', '-z')
     .toString()
     .split('\0')
@@ -264,7 +267,7 @@ if (mode === 'plan') {
     limitation:
       'Targeted review and heuristic secret scan, not all secret formats.',
   };
-  await write('index-review.json', result);
+  await write(`index-review${suffix}.json`, result);
   assert(result.pass, JSON.stringify(findings));
   git('diff', '--cached', '--check');
   console.log(

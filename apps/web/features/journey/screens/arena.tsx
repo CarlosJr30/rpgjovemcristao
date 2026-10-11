@@ -105,6 +105,16 @@ function ArenaExperience({ traveler }: { traveler: Traveler }) {
   const visibleBattle = presentation.display ?? battle;
 
   useEffect(() => {
+    // The preview button can scroll the page; begin mobile combat at its field.
+    if (
+      stage === 'battle' &&
+      window.matchMedia?.('(max-width: 1024px)').matches
+    ) {
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    }
+  }, [stage]);
+
+  useEffect(() => {
     const sync = window.setTimeout(() => {
       const saved = journeyRepository
         .listSaved()
