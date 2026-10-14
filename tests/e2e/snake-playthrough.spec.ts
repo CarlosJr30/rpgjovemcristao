@@ -21,6 +21,14 @@ type Point = { x: number; y: number };
 type Cell = { col: number; row: number };
 
 async function prepareGame(page: Page) {
+  const origin = new URL(test.info().project.use.baseURL!).origin;
+  await page
+    .context()
+    .route('**/*', (route) =>
+      new URL(route.request().url()).origin === origin
+        ? route.continue()
+        : route.abort(),
+    );
   await page.addInitScript(() => {
     localStorage.setItem('rpg-jovem-cristao:auth-mode:v1', 'local');
     const prototype = CanvasRenderingContext2D.prototype;
@@ -80,7 +88,7 @@ async function prepareGame(page: Page) {
     localStorage.setItem(key, JSON.stringify(save));
   });
   await page.goto('/journey/phases/o-jardim-e-a-escolha');
-  await page.getByRole('button', { name: 'Começar perseguição' }).click();
+  await page.getByRole('button', { name: 'Começar', exact: true }).click();
   await expect
     .poll(() =>
       page.evaluate(() =>
@@ -239,7 +247,7 @@ test('mobile completa 3 Fragmentos, ativa o Portal, vence, reinicia e sai', asyn
   await expect
     .poll(() => page.evaluate(() => document.body.dataset.snakeGameActive))
     .toBe('false');
-  await expect(page.locator('header')).toBeVisible();
+  await expect(page.getByRole('banner')).toBeVisible();
   expect(logoutRequests).toEqual([]);
   await expect
     .poll(() =>

@@ -1,0 +1,182 @@
+{
+  "origin": "http://127.0.0.1:3173",
+  "publicRouteChecks": 7,
+  "restrictedAudio404": 8,
+  "restrictedSource404": 8,
+  "dev404": 5,
+  "frontendScriptsScanned": 18,
+  "chatBundlePresent": true,
+  "liveTwoAccountChatAcceptance": "NOT_EXECUTED_TASK_0072B_PENDING",
+  "results": [
+    {
+      "route": "/",
+      "initialStatus": 200,
+      "status": 200,
+      "expected": 200
+    },
+    {
+      "route": "/auth",
+      "initialStatus": 200,
+      "status": 200,
+      "expected": 200
+    },
+    {
+      "route": "/journey",
+      "initialStatus": 200,
+      "status": 200,
+      "expected": 200
+    },
+    {
+      "route": "/journey/arena",
+      "initialStatus": 200,
+      "status": 200,
+      "expected": 200
+    },
+    {
+      "route": "/journey/equipment",
+      "initialStatus": 200,
+      "status": 200,
+      "expected": 200
+    },
+    {
+      "route": "/journey/guild",
+      "initialStatus": 200,
+      "status": 200,
+      "expected": 200
+    },
+    {
+      "route": "/journey/phases/o-jardim-e-a-escolha",
+      "initialStatus": 200,
+      "status": 200,
+      "expected": 200
+    },
+    {
+      "route": "/tools/arena-lab/",
+      "initialStatus": 308,
+      "status": 404,
+      "expected": 404
+    },
+    {
+      "route": "/dev/arena-lab",
+      "initialStatus": 404,
+      "status": 404,
+      "expected": 404
+    },
+    {
+      "route": "/__arena_lab/assets",
+      "initialStatus": 404,
+      "status": 404,
+      "expected": 404
+    },
+    {
+      "route": "/dev/avatar-hd-lab",
+      "initialStatus": 404,
+      "status": 404,
+      "expected": 404
+    },
+    {
+      "route": "/dev/body-fit-lab",
+      "initialStatus": 404,
+      "status": 404,
+      "expected": 404
+    },
+    {
+      "route": "/assets/audio/effects/arena_attack.ogg",
+      "initialStatus": 404,
+      "status": 404,
+      "expected": 404
+    },
+    {
+      "route": "/assets/audio/effects/arena_defense.ogg",
+      "initialStatus": 404,
+      "status": 404,
+      "expected": 404
+    },
+    {
+      "route": "/assets/audio/effects/arena_dodge.ogg",
+      "initialStatus": 404,
+      "status": 404,
+      "expected": 404
+    },
+    {
+      "route": "/assets/audio/effects/arena_focus.ogg",
+      "initialStatus": 404,
+      "status": 404,
+      "expected": 404
+    },
+    {
+      "route": "/assets/audio/effects/defeat.ogg",
+      "initialStatus": 404,
+      "status": 404,
+      "expected": 404
+    },
+    {
+      "route": "/assets/audio/effects/player_hit.ogg",
+      "initialStatus": 404,
+      "status": 404,
+      "expected": 404
+    },
+    {
+      "route": "/assets/audio/effects/victory.ogg",
+      "initialStatus": 404,
+      "status": 404,
+      "expected": 404
+    },
+    {
+      "route": "/assets/audio/music/arena_training.ogg",
+      "initialStatus": 404,
+      "status": 404,
+      "expected": 404
+    },
+    {
+      "route": "/assets-source/arena-audio-prototype/audio/effects/arena_attack.ogg",
+      "initialStatus": 404,
+      "status": 404,
+      "expected": 404
+    },
+    {
+      "route": "/assets-source/arena-audio-prototype/audio/effects/arena_defense.ogg",
+      "initialStatus": 404,
+      "status": 404,
+      "expected": 404
+    },
+    {
+      "route": "/assets-source/arena-audio-prototype/audio/effects/arena_dodge.ogg",
+      "initialStatus": 404,
+      "status": 404,
+      "expected": 404
+    },
+    {
+      "route": "/assets-source/arena-audio-prototype/audio/effects/arena_focus.ogg",
+      "initialStatus": 404,
+      "status": 404,
+      "expected": 404
+    },
+    {
+      "route": "/assets-source/arena-audio-prototype/audio/effects/defeat.ogg",
+      "initialStatus": 404,
+      "status": 404,
+      "expected": 404
+    },
+    {
+      "route": "/assets-source/arena-audio-prototype/audio/effects/player_hit.ogg",
+      "initialStatus": 404,
+      "status": 404,
+      "expected": 404
+    },
+    {
+      "route": "/assets-source/arena-audio-prototype/audio/effects/victory.ogg",
+      "initialStatus": 404,
+      "status": 404,
+      "expected": 404
+    },
+    {
+      "route": "/assets-source/arena-audio-prototype/audio/music/arena_training.ogg",
+      "initialStatus": 404,
+      "status": 404,
+      "expected": 404
+    }
+  ],
+  "findings": [],
+  "pass": true
+}

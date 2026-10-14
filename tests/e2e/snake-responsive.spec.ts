@@ -11,6 +11,14 @@ const screens = [
 ] as const;
 
 async function openSnakeGame(page: Page) {
+  const origin = new URL(test.info().project.use.baseURL!).origin;
+  await page
+    .context()
+    .route('**/*', (route) =>
+      new URL(route.request().url()).origin === origin
+        ? route.continue()
+        : route.abort(),
+    );
   await page.addInitScript(() =>
     localStorage.setItem('rpg-jovem-cristao:auth-mode:v1', 'local'),
   );
@@ -40,7 +48,7 @@ test('Fuga V2: câmera legível, DPR limitado e direcional opcional sem encobrir
   for (const screen of screens) {
     await page.setViewportSize({ width: screen.width, height: screen.height });
     await page.goto('/journey/phases/o-jardim-e-a-escolha');
-    await page.getByRole('button', { name: 'Começar perseguição' }).click();
+    await page.getByRole('button', { name: 'Começar', exact: true }).click();
     const canvas = page.getByRole('application', {
       name: 'Fuga da Serpente, jogo de perseguição',
     });
@@ -139,7 +147,7 @@ test('Fuga mobile: quatro orientações, hold, slide, multitouch, cancel, fullsc
   ]) {
     await page.setViewportSize(size);
     await page.goto('/journey/phases/o-jardim-e-a-escolha');
-    await page.getByRole('button', { name: 'Começar perseguição' }).click();
+    await page.getByRole('button', { name: 'Começar', exact: true }).click();
     if (
       (await page
         .locator('[data-serpent-mode]')
@@ -240,7 +248,7 @@ test('Fuga mobile: quatro orientações, hold, slide, multitouch, cancel, fullsc
       .getByRole('button', { name: 'Sair', exact: true })
       .first()
       .click();
-    await expect(page.locator('header')).toBeVisible();
+    await expect(page.getByRole('banner')).toBeVisible();
     expect(
       await page.evaluate(() => getComputedStyle(document.body).touchAction),
     ).not.toBe('none');

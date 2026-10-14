@@ -16,6 +16,7 @@ import {
 } from './snake-camera';
 import { SnakeSteering, SnakeSwipe } from './snake-swipe';
 import mobileStyles from './snake-mobile.module.css';
+import { ContextPanel } from './context-panel';
 import type { SnakeView } from './snake-camera';
 export { getMapFit, getSnakeRenderProfile } from './snake-camera';
 export type { MapFit, SnakeRenderProfile } from './snake-camera';
@@ -252,6 +253,8 @@ export function SnakeChaseGame({
   const [resetKey, setResetKey] = useState(0);
   const [fullscreenError, setFullscreenError] = useState('');
   const [showControls, setShowControls] = useState(false);
+  const [instructionsOpen, setInstructionsOpen] = useState(false);
+  const [tutorialStep, setTutorialStep] = useState(0);
 
   const syncControls = useCallback(() => {
     gameSurface.current
@@ -835,6 +838,7 @@ export function SnakeChaseGame({
   };
   const exitGame = async () => {
     clearInput();
+    setInstructionsOpen(false);
     if (document.fullscreenElement === gameSurface.current)
       await document.exitFullscreen().catch(() => undefined);
     reset('ready');
@@ -874,6 +878,29 @@ export function SnakeChaseGame({
       <p className={styles.arcadeOrientation}>
         Gire o celular para ampliar o campo. Você também pode jogar em pé.
       </p>
+      {status === 'ready' && (
+        <div className={mobileStyles.intro}>
+          <p>Encontre 3 Fragmentos de Sabedoria e escape pelo Portal.</p>
+          <p>Deslize para mover o Viajante. Use os obstáculos para escapar.</p>
+          <button
+            onClick={() => {
+              if (!tutorialCompleted) onTutorialComplete();
+              reset('playing');
+            }}
+          >
+            Começar
+          </button>
+          <button
+            onClick={(event) => {
+              event.currentTarget.focus({ preventScroll: true });
+              setTutorialStep(0);
+              setInstructionsOpen(true);
+            }}
+          >
+            Como jogar
+          </button>
+        </div>
+      )}
       {status !== 'ready' && (
         <div className={styles.arcadeGameActions}>
           {(status === 'playing' || status === 'paused') && (
@@ -901,7 +928,7 @@ export function SnakeChaseGame({
           <button onClick={() => void exitGame()}>Sair</button>
         </div>
       )}
-      <div className={styles.arcadeHud}>
+      <div className={styles.arcadeHud} hidden={status === 'ready'}>
         <span>
           <b>♥ VIDAS</b>
           <strong>{hud.lives}/3</strong>
@@ -927,11 +954,17 @@ export function SnakeChaseGame({
       </div>
       <p
         className={styles.arcadeMessage}
-        role={fullscreenError ? 'status' : undefined}
+        role="status"
+        aria-live="polite"
+        aria-atomic="true"
+        hidden={status === 'ready'}
       >
-        {fullscreenError || hud.message}
+        {fullscreenError ||
+          (hud.message.startsWith('A Serpente está perseguindo')
+            ? 'A serpente está atrás de você! Use os obstáculos para escapar.'
+            : hud.message)}
       </p>
-      <div className={styles.arcadeStage}>
+      <div className={styles.arcadeStage} hidden={status === 'ready'}>
         <canvas
           ref={canvas}
           width={GAME_WIDTH}
@@ -976,62 +1009,18 @@ export function SnakeChaseGame({
             aria-label="Partida pausada"
           >
             <strong>PAUSADO</strong>
+            <p>{hud.message}</p>
             <button onClick={pause}>Continuar partida</button>
+            <button
+              onClick={(event) => {
+                event.currentTarget.focus({ preventScroll: true });
+                setTutorialStep(0);
+                setInstructionsOpen(true);
+              }}
+            >
+              Como jogar
+            </button>
             <button onClick={() => void exitGame()}>Sair</button>
-          </div>
-        )}
-        {status === 'ready' && (
-          <div className={styles.arcadeOverlay}>
-            {!tutorialCompleted ? (
-              <div className={styles.snakeTutorial}>
-                <span>OBJETIVO</span>
-                <h3>Encontre 3 Fragmentos de Sabedoria e escape pelo Portal</h3>
-                <div>
-                  <p>
-                    <b>DESLIZE / WASD / SETAS</b>
-                    <br />
-                    Mover o Viajante
-                  </p>
-                  <p>
-                    <b>◆ SABEDORIA</b>
-                    <br />
-                    Ativa o Portal em 3/3
-                  </p>
-                  <p>
-                    <b>SERPENTE</b>
-                    <br />
-                    Use caminhos e obstáculos para ganhar distância
-                  </p>
-                  <p>
-                    <b>✦ LUZ</b>
-                    <br />
-                    Fragmentos de Luz valem pontos
-                  </p>
-                </div>
-                <small>
-                  Escudo protege contra um ataque · Velocidade dá impulso · Cura
-                  recupera uma vida.
-                </small>
-                <button
-                  onClick={() => {
-                    onTutorialComplete();
-                    reset('playing');
-                  }}
-                >
-                  Entendi · começar perseguição
-                </button>
-              </div>
-            ) : (
-              <>
-                <p>
-                  Reúna 3 Fragmentos e alcance o Portal. A perseguição começa
-                  após um breve preparo.
-                </p>
-                <button onClick={() => reset('playing')}>
-                  Começar perseguição
-                </button>
-              </>
-            )}
           </div>
         )}
         {(status === 'won' || status === 'lost') && (
@@ -1084,7 +1073,11 @@ export function SnakeChaseGame({
           </div>
         )}
       </div>
-      <div className={styles.arcadeTouchPad} aria-label="Controles touch">
+      <div
+        className={styles.arcadeTouchPad}
+        aria-label="Controles touch"
+        hidden={status === 'ready'}
+      >
         {(
           [
             ['arrowup', 'cima', '▲'],
@@ -1129,11 +1122,54 @@ export function SnakeChaseGame({
           </button>
         ))}
       </div>
-      <p id="serpent-controls-help" className={styles.arcadeHelp}>
+      <p
+        id="serpent-controls-help"
+        className={styles.arcadeHelp}
+        hidden={status === 'ready'}
+      >
         Deslize para mudar a direção · WASD ou setas · Direcional opcional ·
         Portal inativo até 3 Fragmentos de Sabedoria · Fragmentos de Luz =
         pontos · {assisted ? 'Ajuda ativa' : 'Dificuldade padrão'}
       </p>
+      <ContextPanel
+        open={instructionsOpen}
+        title="Como jogar — Fuga da Serpente"
+        onClose={() => setInstructionsOpen(false)}
+      >
+        <div className={mobileStyles.tutorial}>
+          <small>Etapa {tutorialStep + 1} de 2</small>
+          <h3>{tutorialStep === 0 ? 'Movimento' : 'Objetivo'}</h3>
+          {tutorialStep === 0 ? (
+            <>
+              <p>Deslize o dedo para mover seu Viajante pelos corredores.</p>
+              <p>
+                Para virar na esquina, deslize antes da curva. Você também pode
+                usar WASD, setas ou o Direcional.
+              </p>
+              <button onClick={() => setTutorialStep(1)}>Próximo</button>
+            </>
+          ) : (
+            <>
+              <p>
+                Colete os itens e evite a serpente. Reúna 3 Fragmentos de
+                Sabedoria para abrir o Portal e escapar.
+              </p>
+              <p>
+                Fragmentos de Luz valem pontos. Escudo protege contra um ataque;
+                Velocidade dá impulso; Cura recupera uma vida.
+              </p>
+              <button onClick={() => setTutorialStep(0)}>Voltar</button>
+              <button onClick={() => setInstructionsOpen(false)}>
+                Voltar ao jogo
+              </button>
+            </>
+          )}
+          <p>
+            Durante a partida, use Pausar para consultar estas instruções
+            novamente.
+          </p>
+        </div>
+      </ContextPanel>
     </div>
   );
 }

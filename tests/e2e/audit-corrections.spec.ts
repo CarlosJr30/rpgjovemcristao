@@ -84,7 +84,7 @@ test('Arena explica poder e separa efeito automático de habilidade ativa', asyn
   });
 });
 
-test('tutorial completo da Fuga aparece uma vez por Viajante', async ({
+test('tutorial opcional da Fuga pode ser consultado e início registra a orientação', async ({
   page,
 }, testInfo) => {
   await createTraveler(page, 'Teo');
@@ -102,20 +102,19 @@ test('tutorial completo da Fuga aparece uma vez por Viajante', async ({
   await expect(
     page.getByText(/Encontre 3 Fragmentos de Sabedoria/),
   ).toBeVisible();
-  await expect(page.getByText('Fragmentos de Luz valem pontos')).toBeVisible();
+  await page.getByRole('button', { name: 'Como jogar', exact: true }).click();
+  await page.getByRole('button', { name: 'Próximo', exact: true }).click();
+  await expect(page.getByText(/Fragmentos de Luz valem pontos/)).toBeVisible();
   await expect(page.getByText(/Escudo protege contra um ataque/)).toBeVisible();
   await page.screenshot({
     path: testInfo.outputPath('snake-first-run-tutorial.png'),
     fullPage: true,
   });
   await page
-    .getByRole('button', { name: 'Entendi · começar perseguição' })
+    .getByRole('button', { name: 'Fechar painel', exact: true })
     .click();
+  await page.getByRole('button', { name: 'Começar' }).click();
   await page.reload();
-  await expect(
-    page.getByRole('button', { name: 'Começar perseguição' }),
-  ).toBeVisible();
-  await expect(
-    page.getByRole('button', { name: 'Entendi · começar perseguição' }),
-  ).toHaveCount(0);
+  await expect(page.getByRole('button', { name: 'Começar' })).toBeVisible();
+  await expect(page.getByText(/Fragmentos de Luz valem pontos/)).toHaveCount(0);
 });

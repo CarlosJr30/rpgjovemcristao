@@ -843,7 +843,10 @@
   .shell .createSection[data-quick-hero='true'] .characterStage .avatarScene {
     height: 130px;
   }
-  .shell .createSection[data-quick-hero='true'] .avatarScene [data-avatar-mode='card'] {
+  .shell
+    .createSection[data-quick-hero='true']
+    .avatarScene
+    [data-avatar-mode='card'] {
     width: 86px;
     height: 129px;
   }
@@ -2460,10 +2463,6 @@
   }
 }
 @media (max-width: 1024px) and (orientation: portrait) {
-  :global(body[data-snake-game-active='true']) {
-    overflow: hidden;
-    overscroll-behavior: none;
-  }
   :global(body[data-snake-game-active='true']) .header,
   :global(body[data-snake-game-active='true']) .footer,
   :global(body[data-snake-game-active='true']) .primarySidebar,
@@ -8322,5 +8321,44 @@
   }
   .arcadeGameActive .arcadeOrientation {
     display: none;
+  }
+}
+
+/* TASK-0073: keep questions and feedback readable without changing quiz rules. */
+@media (max-width: 767px) {
+  .quizPanel {
+    padding: 16px;
+    min-width: 0;
+    font-size: 1rem;
+    line-height: 1.55;
+  }
+  .quizPanel p[id='quiz-question'] {
+    font-size: 1.125rem;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+  }
+  .quizPanel .choiceGrid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .quizPanel .choiceCard {
+    min-height: 48px;
+    padding: 12px;
+    font-size: 1rem;
+    line-height: 1.5;
+    white-space: normal;
+  }
+  .quizPanel .quizFeedback {
+    font-size: 1rem;
+    line-height: 1.55;
+  }
+  .quizPanel .quizFeedback > div {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .quizPanel .quizFeedback :is(a, button) {
+    min-height: 48px;
+    display: flex;
+    align-items: center;
   }
 }

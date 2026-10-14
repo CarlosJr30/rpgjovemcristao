@@ -67,7 +67,7 @@ test('Arena completa um treino e persiste histórico e recompensa', async ({
 test('Arena mantém ações legíveis no viewport móvel', async ({
   page,
 }, testInfo) => {
-  test.skip(testInfo.project.name !== 'mobile', 'validação específica mobile');
+  test.skip(testInfo.project.name === 'desktop', 'validação específica mobile');
   await page.goto('/journey/create');
   await page.getByLabel(/Nome do Viajante/i).fill('Noa');
   await page.getByRole('button', { name: 'Criar Viajante' }).click();

@@ -1,0 +1,130 @@
+.exploration :is(button, a):focus-visible {
+  outline: 3px solid #ffe7a3;
+  outline-offset: 3px;
+}
+.number {
+  display: none;
+}
+.touchHint {
+  display: none;
+}
+.keyboardHint {
+  display: inline;
+}
+.detail {
+  display: grid;
+  gap: 12px;
+}
+.detail p {
+  margin: 0;
+}
+.detail button {
+  padding: 12px 16px;
+  border: 1px solid #d8c98d;
+  border-radius: 10px;
+  background: #f5ecd0;
+  color: #173a2b;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+.detail button:disabled {
+  opacity: 0.65;
+  cursor: default;
+}
+.panelBody {
+  position: static !important;
+  width: auto !important;
+  max-width: none !important;
+  padding: 0 !important;
+  transform: none !important;
+  box-shadow: none !important;
+  border: 0 !important;
+  background: none !important;
+  animation: none !important;
+}
+.panelBody button {
+  font-size: 1rem;
+  line-height: 1.4;
+}
+.panelBody > small {
+  font-size: 12px !important;
+  letter-spacing: 0.6px !important;
+}
+.panelBody > span {
+  font-size: 15px !important;
+}
+.panelBody a {
+  display: flex;
+  align-items: center;
+  font-size: 16px !important;
+}
+.feedback {
+  margin: 12px 0;
+  padding: 12px;
+  color: #fff8dd;
+  background: #173a2b;
+  border: 1px solid #d8c98d;
+  border-radius: 10px;
+  line-height: 1.5;
+}
+@media (max-width: 1024px) {
+  .touchHint {
+    display: inline;
+  }
+  .keyboardHint {
+    display: none;
+  }
+  .exploration [class*='gardenWorldPoint'] {
+    width: 48px;
+    height: 48px;
+    animation: none;
+  }
+  .exploration [class*='gardenWorldPoint'] :is(small, em) {
+    display: none;
+  }
+  .exploration [class*='gardenWorldPoint'] > .number {
+    display: grid;
+    position: absolute;
+    right: -3px;
+    top: -6px;
+    place-items: center;
+    width: 20px;
+    height: 20px;
+    font:
+      700 12px/1 system-ui,
+      sans-serif;
+    border-radius: 50%;
+    color: #173a2b;
+    background: #f5ecd0;
+    border: 1px solid #173a2b;
+  }
+  .exploration [class*='gardenScene'] {
+    min-height: 420px;
+  }
+  .exploration [class*='gardenHud'] {
+    font-size: 13px;
+    gap: 8px;
+  }
+  .exploration [class*='gardenHud'] > span:first-child {
+    grid-column: 1 / -1;
+  }
+  .exploration [class*='gardenHud'] strong {
+    white-space: normal;
+    overflow-wrap: anywhere;
+    font-size: 16px;
+  }
+  .exploration [class*='gardenControlsHint'] {
+    font-size: 12px;
+    line-height: 1.45;
+    letter-spacing: 0;
+  }
+  .panelBody [class*='gardenSequence'],
+  .panelBody [class*='gardenSignalGrid'] {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .panelBody[class*='gardenPuzzle'] > div {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

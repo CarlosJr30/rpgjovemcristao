@@ -1,0 +1,26 @@
+{
+  "base": "2d4fe22a1af739192a2bbe02e10e3dd541c618d0",
+  "trackedBaseline": 2062,
+  "preserved": 2046,
+  "authorizedChanges": [
+    ".agent/memory/CURRENT_STATE.md",
+    ".gitignore",
+    "apps/web/features/journey/components/garden-exploration.tsx",
+    "apps/web/features/journey/components/snake-chase-game.tsx",
+    "apps/web/features/journey/components/snake-mobile.module.css",
+    "apps/web/features/journey/journey.module.css",
+    "apps/web/features/journey/screens/phase.tsx",
+    "apps/web/features/journey/snake-chase-game.test.tsx",
+    "tests/e2e/arena.spec.ts",
+    "tests/e2e/audit-corrections.spec.ts",
+    "tests/e2e/avatar-hd-activation.spec.ts",
+    "tests/e2e/home.spec.ts",
+    "tests/e2e/serpent-mobile-v2.spec.ts",
+    "tests/e2e/snake-playthrough.spec.ts",
+    "tests/e2e/snake-responsive.spec.ts"
+  ],
+  "unexpected": [],
+  "generatedRouteTypesExcluded": 1,
+  "cameraSwipeEngineAuthDatabaseGuildChatAssets": "PASS",
+  "renderAndInputLoopUnchanged": true
+}

@@ -21,10 +21,24 @@ beforeEach(() => {
   vi.spyOn(HTMLCanvasElement.prototype, 'getContext').mockReturnValue(
     {} as CanvasRenderingContext2D,
   );
+  Object.defineProperty(HTMLDialogElement.prototype, 'showModal', {
+    configurable: true,
+    value: vi.fn(function (this: HTMLDialogElement) {
+      this.setAttribute('open', '');
+    }),
+  });
+  Object.defineProperty(HTMLDialogElement.prototype, 'close', {
+    configurable: true,
+    value: vi.fn(function (this: HTMLDialogElement) {
+      this.removeAttribute('open');
+    }),
+  });
 });
 
 afterEach(() => {
   cleanup();
+  Reflect.deleteProperty(HTMLDialogElement.prototype, 'showModal');
+  Reflect.deleteProperty(HTMLDialogElement.prototype, 'close');
   vi.unstubAllGlobals();
   vi.restoreAllMocks();
 });
@@ -74,7 +88,7 @@ test('HD portrait decode error and wrong dimensions retry only the own legacy so
   expect(player.src).toBe(imageUrl);
 });
 
-test('apresenta objetivo, HUD e controles antes de iniciar a perseguição', () => {
+test('introdução apresenta objetivo e início sem HUD ou controles ativos; tutorial tem duas etapas', () => {
   render(
     <SnakeChaseGame
       portrait={{
@@ -89,10 +103,18 @@ test('apresenta objetivo, HUD e controles antes de iniciar a perseguição', () 
 
   expect(screen.getByText('Fuga da Serpente')).toBeVisible();
   expect(screen.getByText(/Encontre 3 Fragmentos de Sabedoria/)).toBeVisible();
-  expect(screen.getAllByText(/SABEDORIA/).length).toBeGreaterThanOrEqual(2);
-  expect(screen.getByText(/LUZ/)).toBeVisible();
+  expect(screen.getByRole('button', { name: 'Começar' })).toBeVisible();
+  expect(
+    screen.queryByRole('button', { name: 'Mover para cima' }),
+  ).not.toBeInTheDocument();
+  fireEvent.click(screen.getByRole('button', { name: 'Como jogar' }));
+  expect(screen.getByText('Etapa 1 de 2')).toBeVisible();
+  fireEvent.click(screen.getByRole('button', { name: 'Próximo' }));
+  expect(screen.getByText('Etapa 2 de 2')).toBeVisible();
+  expect(screen.getByText(/Fragmentos de Luz valem pontos/)).toBeVisible();
   expect(screen.queryByText(/maçã/i)).not.toBeInTheDocument();
-  expect(screen.getByRole('button', { name: 'Mover para cima' })).toBeVisible();
+  fireEvent.click(screen.getByRole('button', { name: 'Fechar painel' }));
+  expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
 });
 
 test('começa sem concluir a fase ou conceder progresso automaticamente', () => {
@@ -109,10 +131,10 @@ test('começa sem concluir a fase ou conceder progresso automaticamente', () => 
     />,
   );
 
-  fireEvent.click(screen.getByRole('button', { name: 'Começar perseguição' }));
+  fireEvent.click(screen.getByRole('button', { name: 'Começar' }));
 
   expect(
-    screen.queryByRole('button', { name: 'Começar perseguição' }),
+    screen.queryByRole('button', { name: 'Começar' }),
   ).not.toBeInTheDocument();
   expect(onComplete).not.toHaveBeenCalled();
 });
@@ -174,7 +196,7 @@ test('pausa, retoma e sai sem concluir a fase ou registrar recompensa', () => {
       onComplete={onComplete}
     />,
   );
-  fireEvent.click(screen.getByRole('button', { name: 'Começar perseguição' }));
+  fireEvent.click(screen.getByRole('button', { name: 'Começar' }));
   fireEvent.click(screen.getByRole('button', { name: 'Pausar' }));
   expect(screen.getByRole('dialog', { name: 'Partida pausada' })).toBeVisible();
   expect(
@@ -199,7 +221,7 @@ test('fullscreen indisponível mantém o jogo e a alternativa de direcional', ()
       onComplete={vi.fn()}
     />,
   );
-  fireEvent.click(screen.getByRole('button', { name: 'Começar perseguição' }));
+  fireEvent.click(screen.getByRole('button', { name: 'Começar' }));
   fireEvent.click(screen.getByRole('button', { name: 'Entrar em tela cheia' }));
   expect(screen.getByText(/Tela cheia indisponível/)).toBeVisible();
   const toggle = screen.getByRole('button', { name: 'Direcional' });

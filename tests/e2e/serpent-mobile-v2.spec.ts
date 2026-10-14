@@ -15,6 +15,9 @@ const sizes = [
 ];
 const dir = 'build/task-0066-serpent-mobile-first';
 const baseline = process.env.SERPENT_QA_STAGE === 'before';
+test.beforeAll(async () => {
+  await mkdir(dir, { recursive: true });
+});
 async function open(page: Page) {
   const origin = new URL(test.info().project.use.baseURL!).origin;
   await page
@@ -64,9 +67,7 @@ async function start(page: Page) {
     await page.waitForLoadState('networkidle');
     await page.goto('/journey/phases/o-jardim-e-a-escolha');
   }
-  await page
-    .getByRole('button', { name: 'Começar perseguição', exact: true })
-    .click();
+  await page.getByRole('button', { name: 'Começar', exact: true }).click();
   if (!baseline)
     await expect(page.locator('[data-serpent-mode]')).toHaveAttribute(
       'data-status',
@@ -149,13 +150,17 @@ test('fullscreen recalculates real surface and camera across orientation; fallba
     Boolean(document.fullscreenElement),
   );
   const samples = [];
+  const fullscreenCdp =
+    supported && info.project.name === 'android'
+      ? await page.context().newCDPSession(page)
+      : null;
   if (supported) {
     for (const size of [
       { width: 390, height: 844 },
       { width: 915, height: 412 },
     ]) {
       if (info.project.name === 'android') {
-        const cdp = await page.context().newCDPSession(page);
+        const cdp = fullscreenCdp!;
         await cdp.send('Emulation.setDeviceMetricsOverride', {
           ...size,
           deviceScaleFactor: 3,
@@ -168,7 +173,6 @@ test('fullscreen recalculates real surface and camera across orientation; fallba
             angle: size.width > size.height ? 90 : 0,
           },
         });
-        await cdp.detach();
       } else await page.setViewportSize(size);
       const canvas = page.getByRole('application');
       await expect
@@ -220,7 +224,7 @@ test('fullscreen recalculates real surface and camera across orientation; fallba
       samples.push(metric);
       const screenshotPath = `${dir}/${baseline ? 'before' : 'after'}-fullscreen-${info.project.name}-${size.width}x${size.height}.png`;
       if (info.project.name === 'android') {
-        const cdp = await page.context().newCDPSession(page);
+        const cdp = fullscreenCdp!;
         const { data } = await cdp.send('Page.captureScreenshot', {
           format: 'png',
           captureBeyondViewport: true,
@@ -233,7 +237,6 @@ test('fullscreen recalculates real surface and camera across orientation; fallba
           },
         });
         await writeFile(screenshotPath, Buffer.from(data, 'base64'));
-        await cdp.detach();
       } else await page.screenshot({ path: screenshotPath, scale: 'css' });
     }
     await page
@@ -243,6 +246,7 @@ test('fullscreen recalculates real surface and camera across orientation; fallba
     await expect(
       page.getByText(/indisponível|não abriu tela cheia/),
     ).toBeVisible();
+  await fullscreenCdp?.detach();
   await page.getByRole('button', { name: 'Sair', exact: true }).first().click();
   await writeFile(
     `${dir}/${baseline ? 'before' : 'after'}-fullscreen-${info.project.name}.json`,
@@ -632,7 +636,7 @@ test('swipe: four directions, short/diagonal, cancel, pause, keyboard, restart, 
     ).toBeVisible();
   }
   await page.getByRole('button', { name: 'Sair', exact: true }).first().click();
-  await page.getByRole('button', { name: 'Começar perseguição' }).click();
+  await page.getByRole('button', { name: 'Começar' }).click();
   await expect.poll(async () => (await position(page)).x).toBeCloseTo(90, 0);
   await writeFile(
     `${dir}/input-${info.project.name}.json`,

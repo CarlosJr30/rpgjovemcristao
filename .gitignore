@@ -5,6 +5,7 @@
 
 # Dependências e saídas geradas
 node_modules/
+.qa-node-modules-link/
 .npm-cache/
 .next/
 *.tsbuildinfo
@@ -13,6 +14,7 @@ test-results/
 dist/
 build/
 coverage/
+
 *.log
 __pycache__/
 *.py[cod]
@@ -1168,3 +1170,33 @@ secrets/
 !/build/task-0063-deployment-audit/rework-qa-summary.json
 !/build/task-0063-deployment-audit/rework-preservation-final.json
 !/build/task-0063-deployment-audit/release-plan.json
+
+# TASK-0073: explicit synthetic UI evidence only; traces and runtime caches stay ignored.
+!/build/
+/build/*
+!/build/task-0073-mobile-gameplay-exploration/
+/build/task-0073-mobile-gameplay-exploration/*
+!/build/task-0073-mobile-gameplay-exploration/before/
+!/build/task-0073-mobile-gameplay-exploration/after/
+!/build/task-0073-mobile-gameplay-exploration/production/
+/build/task-0073-mobile-gameplay-exploration/before/*
+/build/task-0073-mobile-gameplay-exploration/after/*
+/build/task-0073-mobile-gameplay-exploration/production/*
+!/build/task-0073-mobile-gameplay-exploration/before/chromium/
+!/build/task-0073-mobile-gameplay-exploration/after/chromium/
+!/build/task-0073-mobile-gameplay-exploration/after/webkit/
+!/build/task-0073-mobile-gameplay-exploration/production/chromium/
+!/build/task-0073-mobile-gameplay-exploration/production/webkit/
+/build/task-0073-mobile-gameplay-exploration/*/chromium/*
+/build/task-0073-mobile-gameplay-exploration/*/webkit/*
+!/build/task-0073-mobile-gameplay-exploration/*/chromium/*.png
+!/build/task-0073-mobile-gameplay-exploration/*/webkit/*.png
+!/build/task-0073-mobile-gameplay-exploration/*/chromium/metrics.json
+!/build/task-0073-mobile-gameplay-exploration/*/webkit/metrics.json
+!/build/task-0073-mobile-gameplay-exploration/before/chromium/preservation.json
+!/build/task-0073-mobile-gameplay-exploration/qa-summary.json
+!/build/task-0073-mobile-gameplay-exploration/preservation-summary.json
+!/build/task-0073-mobile-gameplay-exploration/local-smoke.json
+!/build/task-0073-mobile-gameplay-exploration/production-smoke.json
+!/build/task-0073-mobile-gameplay-exploration/review/
+!/build/task-0073-mobile-gameplay-exploration/review/index.html

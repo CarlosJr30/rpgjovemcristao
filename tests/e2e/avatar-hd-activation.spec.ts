@@ -139,7 +139,7 @@ for (const gender of ['male', 'female'] as const)
       localStorage.setItem(key, JSON.stringify(save));
     }, key);
     await page.goto('/journey/phases/o-jardim-e-a-escolha');
-    await page.getByRole('button', { name: 'Começar perseguição' }).click();
+    await page.getByRole('button', { name: 'Começar' }).click();
     await expect(
       page.getByRole('application', {
         name: 'Fuga da Serpente, jogo de perseguição',
@@ -179,7 +179,7 @@ for (const gender of ['male', 'female'] as const)
       }),
     );
     await page.reload();
-    await page.getByRole('button', { name: 'Começar perseguição' }).click();
+    await page.getByRole('button', { name: 'Começar' }).click();
     await expect
       .poll(() =>
         page.evaluate(() =>
@@ -197,7 +197,7 @@ for (const gender of ['male', 'female'] as const)
     expect(fallback.crop).toEqual([150, 0, 212, 205]);
     await page.unroute('**' + expected);
     await page.reload();
-    await page.getByRole('button', { name: 'Começar perseguição' }).click();
+    await page.getByRole('button', { name: 'Começar' }).click();
     await expect
       .poll(() =>
         page.evaluate(() =>

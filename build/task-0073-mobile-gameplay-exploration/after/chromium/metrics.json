@@ -1,0 +1,3228 @@
+{
+  "stage": "after",
+  "engine": "chromium",
+  "samples": [
+    {
+      "width": 320,
+      "height": 568,
+      "name": "exploration",
+      "documentWidth": 320,
+      "scene": {
+        "x": 13,
+        "y": 148.3125,
+        "width": 294,
+        "height": 420
+      },
+      "canvas": null,
+      "pointOverlaps": 0,
+      "dialogCount": 0,
+      "message": null,
+      "resources": 56,
+      "heapBytes": 12369044
+    },
+    {
+      "width": 320,
+      "height": 568,
+      "name": "point-details",
+      "documentWidth": 320,
+      "scene": {
+        "x": 13,
+        "y": 148.3125,
+        "width": 294,
+        "height": 420
+      },
+      "canvas": null,
+      "pointOverlaps": 0,
+      "dialogCount": 1,
+      "message": null,
+      "resources": 56,
+      "heapBytes": 12788936
+    },
+    {
+      "width": 320,
+      "height": 568,
+      "name": "riddle",
+      "documentWidth": 320,
+      "scene": {
+        "x": 13,
+        "y": 148.3125,
+        "width": 294,
+        "height": 420
+      },
+      "canvas": null,
+      "pointOverlaps": 0,
+      "dialogCount": 1,
+      "message": null,
+      "resources": 56,
+      "heapBytes": 13929146
+    },
+    {
+      "width": 320,
+      "height": 568,
+      "name": "riddle-text-200",
+      "documentWidth": 320,
+      "scene": {
+        "x": 13,
+        "y": 148.3125,
+        "width": 294,
+        "height": 420
+      },
+      "canvas": null,
+      "pointOverlaps": 0,
+      "dialogCount": 1,
+      "message": null,
+      "resources": 56,
+      "heapBytes": 13929146
+    },
+    {
+      "width": 320,
+      "height": 568,
+      "name": "snake-intro",
+      "documentWidth": 320,
+      "scene": null,
+      "canvas": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0
+      },
+      "pointOverlaps": 0,
+      "dialogCount": 0,
+      "message": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "text": "Encontre os três Fragmentos de Sabedoria.",
+        "scrollHeight": 0,
+        "clientHeight": 0,
+        "whiteSpace": "normal"
+      },
+      "resources": 67,
+      "heapBytes": 14151064
+    },
+    {
+      "width": 320,
+      "height": 568,
+      "name": "snake-intro-text-200",
+      "documentWidth": 320,
+      "scene": null,
+      "canvas": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0
+      },
+      "pointOverlaps": 0,
+      "dialogCount": 0,
+      "message": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "text": "Encontre os três Fragmentos de Sabedoria.",
+        "scrollHeight": 0,
+        "clientHeight": 0,
+        "whiteSpace": "normal"
+      },
+      "resources": 80,
+      "heapBytes": 14775000
+    },
+    {
+      "width": 320,
+      "height": 568,
+      "name": "snake-intro-text-200-actions",
+      "documentWidth": 320,
+      "scene": null,
+      "canvas": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0
+      },
+      "pointOverlaps": 0,
+      "dialogCount": 0,
+      "message": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "text": "Encontre os três Fragmentos de Sabedoria.",
+        "scrollHeight": 0,
+        "clientHeight": 0,
+        "whiteSpace": "normal"
+      },
+      "resources": 80,
+      "heapBytes": 15047564
+    },
+    {
+      "width": 320,
+      "height": 568,
+      "name": "tutorial-movement",
+      "documentWidth": 320,
+      "scene": null,
+      "canvas": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0
+      },
+      "pointOverlaps": 0,
+      "dialogCount": 1,
+      "message": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "text": "Encontre os três Fragmentos de Sabedoria.",
+        "scrollHeight": 0,
+        "clientHeight": 0,
+        "whiteSpace": "normal"
+      },
+      "resources": 80,
+      "heapBytes": 15047564
+    },
+    {
+      "width": 320,
+      "height": 568,
+      "name": "tutorial-objective",
+      "documentWidth": 320,
+      "scene": null,
+      "canvas": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0
+      },
+      "pointOverlaps": 0,
+      "dialogCount": 1,
+      "message": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "text": "Encontre os três Fragmentos de Sabedoria.",
+        "scrollHeight": 0,
+        "clientHeight": 0,
+        "whiteSpace": "normal"
+      },
+      "resources": 80,
+      "heapBytes": 15643612
+    },
+    {
+      "width": 320,
+      "height": 568,
+      "name": "snake-active",
+      "documentWidth": 320,
+      "scene": null,
+      "canvas": {
+        "x": 4,
+        "y": 178.1875,
+        "width": 312,
+        "height": 381.8125
+      },
+      "pointOverlaps": 0,
+      "dialogCount": 0,
+      "message": {
+        "x": 4,
+        "y": 131,
+        "width": 312,
+        "height": 43.1875,
+        "text": "A serpente está atrás de você! Use os obstáculos para escapar.",
+        "scrollHeight": 43,
+        "clientHeight": 43,
+        "whiteSpace": "normal"
+      },
+      "resources": 80,
+      "heapBytes": 12414494
+    },
+    {
+      "width": 320,
+      "height": 568,
+      "name": "snake-hud-text-200",
+      "documentWidth": 320,
+      "scene": null,
+      "canvas": {
+        "x": 4,
+        "y": 376.1875,
+        "width": 312,
+        "height": 183.8125
+      },
+      "pointOverlaps": 0,
+      "dialogCount": 0,
+      "message": {
+        "x": 4,
+        "y": 329,
+        "width": 312,
+        "height": 43.1875,
+        "text": "A serpente está atrás de você! Use os obstáculos para escapar.",
+        "scrollHeight": 43,
+        "clientHeight": 43,
+        "whiteSpace": "normal"
+      },
+      "resources": 80,
+      "heapBytes": 12557290
+    },
+    {
+      "width": 320,
+      "height": 568,
+      "name": "snake-paused",
+      "documentWidth": 320,
+      "scene": null,
+      "canvas": {
+        "x": 4,
+        "y": 178.1875,
+        "width": 312,
+        "height": 381.8125
+      },
+      "pointOverlaps": 0,
+      "dialogCount": 0,
+      "message": {
+        "x": 4,
+        "y": 131,
+        "width": 312,
+        "height": 43.1875,
+        "text": "A serpente está atrás de você! Use os obstáculos para escapar.",
+        "scrollHeight": 43,
+        "clientHeight": 43,
+        "whiteSpace": "normal"
+      },
+      "resources": 80,
+      "heapBytes": 12922877
+    },
+    {
+      "width": 320,
+      "height": 568,
+      "name": "snake-fullscreen",
+      "documentWidth": 320,
+      "scene": null,
+      "canvas": {
+        "x": 4,
+        "y": 178.1875,
+        "width": 312,
+        "height": 381.8125
+      },
+      "pointOverlaps": 0,
+      "dialogCount": 0,
+      "message": {
+        "x": 4,
+        "y": 131,
+        "width": 312,
+        "height": 43.1875,
+        "text": "A serpente está atrás de você! Use os obstáculos para escapar.",
+        "scrollHeight": 43,
+        "clientHeight": 43,
+        "whiteSpace": "normal"
+      },
+      "resources": 80,
+      "heapBytes": 13116327
+    },
+    {
+      "width": 320,
+      "height": 568,
+      "name": "quiz-question",
+      "documentWidth": 320,
+      "scene": null,
+      "canvas": null,
+      "pointOverlaps": 0,
+      "dialogCount": 0,
+      "message": null,
+      "resources": 33,
+      "heapBytes": 10373285
+    },
+    {
+      "width": 320,
+      "height": 568,
+      "name": "quiz-feedback",
+      "documentWidth": 320,
+      "scene": null,
+      "canvas": null,
+      "pointOverlaps": 0,
+      "dialogCount": 0,
+      "message": null,
+      "resources": 51,
+      "heapBytes": 11359687
+    },
+    {
+      "width": 360,
+      "height": 800,
+      "name": "exploration",
+      "documentWidth": 360,
+      "scene": {
+        "x": 13,
+        "y": 255.921875,
+        "width": 334,
+        "height": 420
+      },
+      "canvas": null,
+      "pointOverlaps": 0,
+      "dialogCount": 0,
+      "message": null,
+      "resources": 38,
+      "heapBytes": 12483730
+    },
+    {
+      "width": 360,
+      "height": 800,
+      "name": "point-details",
+      "documentWidth": 360,
+      "scene": {
+        "x": 13,
+        "y": 255.921875,
+        "width": 334,
+        "height": 420
+      },
+      "canvas": null,
+      "pointOverlaps": 0,
+      "dialogCount": 1,
+      "message": null,
+      "resources": 56,
+      "heapBytes": 12776094
+    },
+    {
+      "width": 360,
+      "height": 800,
+      "name": "riddle",
+      "documentWidth": 360,
+      "scene": {
+        "x": 13,
+        "y": 255.921875,
+        "width": 334,
+        "height": 420
+      },
+      "canvas": null,
+      "pointOverlaps": 0,
+      "dialogCount": 1,
+      "message": null,
+      "resources": 56,
+      "heapBytes": 13916028
+    },
+    {
+      "width": 360,
+      "height": 800,
+      "name": "riddle-text-200",
+      "documentWidth": 360,
+      "scene": {
+        "x": 13,
+        "y": 255.921875,
+        "width": 334,
+        "height": 420
+      },
+      "canvas": null,
+      "pointOverlaps": 0,
+      "dialogCount": 1,
+      "message": null,
+      "resources": 56,
+      "heapBytes": 13916028
+    },
+    {
+      "width": 360,
+      "height": 800,
+      "name": "snake-intro",
+      "documentWidth": 360,
+      "scene": null,
+      "canvas": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0
+      },
+      "pointOverlaps": 0,
+      "dialogCount": 0,
+      "message": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "text": "Encontre os três Fragmentos de Sabedoria.",
+        "scrollHeight": 0,
+        "clientHeight": 0,
+        "whiteSpace": "normal"
+      },
+      "resources": 76,
+      "heapBytes": 12673248
+    },
+    {
+      "width": 360,
+      "height": 800,
+      "name": "snake-intro-text-200",
+      "documentWidth": 360,
+      "scene": null,
+      "canvas": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0
+      },
+      "pointOverlaps": 0,
+      "dialogCount": 0,
+      "message": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "text": "Encontre os três Fragmentos de Sabedoria.",
+        "scrollHeight": 0,
+        "clientHeight": 0,
+        "whiteSpace": "normal"
+      },
+      "resources": 79,
+      "heapBytes": 12762646
+    },
+    {
+      "width": 360,
+      "height": 800,
+      "name": "snake-intro-text-200-actions",
+      "documentWidth": 360,
+      "scene": null,
+      "canvas": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0
+      },
+      "pointOverlaps": 0,
+      "dialogCount": 0,
+      "message": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "text": "Encontre os três Fragmentos de Sabedoria.",
+        "scrollHeight": 0,
+        "clientHeight": 0,
+        "whiteSpace": "normal"
+      },
+      "resources": 79,
+      "heapBytes": 13030134
+    },
+    {
+      "width": 360,
+      "height": 800,
+      "name": "tutorial-movement",
+      "documentWidth": 360,
+      "scene": null,
+      "canvas": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0
+      },
+      "pointOverlaps": 0,
+      "dialogCount": 1,
+      "message": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "text": "Encontre os três Fragmentos de Sabedoria.",
+        "scrollHeight": 0,
+        "clientHeight": 0,
+        "whiteSpace": "normal"
+      },
+      "resources": 79,
+      "heapBytes": 13431475
+    },
+    {
+      "width": 360,
+      "height": 800,
+      "name": "tutorial-objective",
+      "documentWidth": 360,
+      "scene": null,
+      "canvas": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0
+      },
+      "pointOverlaps": 0,
+      "dialogCount": 1,
+      "message": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "text": "Encontre os três Fragmentos de Sabedoria.",
+        "scrollHeight": 0,
+        "clientHeight": 0,
+        "whiteSpace": "normal"
+      },
+      "resources": 79,
+      "heapBytes": 13431475
+    },
+    {
+      "width": 360,
+      "height": 800,
+      "name": "snake-active",
+      "documentWidth": 360,
+      "scene": null,
+      "canvas": {
+        "x": 4,
+        "y": 178.1875,
+        "width": 352,
+        "height": 613.8125
+      },
+      "pointOverlaps": 0,
+      "dialogCount": 0,
+      "message": {
+        "x": 4,
+        "y": 131,
+        "width": 352,
+        "height": 43.1875,
+        "text": "A serpente está atrás de você! Use os obstáculos para escapar.",
+        "scrollHeight": 43,
+        "clientHeight": 43,
+        "whiteSpace": "normal"
+      },
+      "resources": 79,
+      "heapBytes": 12115053
+    },
+    {
+      "width": 360,
+      "height": 800,
+      "name": "snake-hud-text-200",
+      "documentWidth": 360,
+      "scene": null,
+      "canvas": {
+        "x": 4,
+        "y": 376.1875,
+        "width": 352,
+        "height": 415.8125
+      },
+      "pointOverlaps": 0,
+      "dialogCount": 0,
+      "message": {
+        "x": 4,
+        "y": 329,
+        "width": 352,
+        "height": 43.1875,
+        "text": "A serpente está atrás de você! Use os obstáculos para escapar.",
+        "scrollHeight": 43,
+        "clientHeight": 43,
+        "whiteSpace": "normal"
+      },
+      "resources": 79,
+      "heapBytes": 12280129
+    },
+    {
+      "width": 360,
+      "height": 800,
+      "name": "snake-paused",
+      "documentWidth": 360,
+      "scene": null,
+      "canvas": {
+        "x": 4,
+        "y": 178.1875,
+        "width": 352,
+        "height": 613.8125
+      },
+      "pointOverlaps": 0,
+      "dialogCount": 0,
+      "message": {
+        "x": 4,
+        "y": 131,
+        "width": 352,
+        "height": 43.1875,
+        "text": "A serpente está atrás de você! Use os obstáculos para escapar.",
+        "scrollHeight": 43,
+        "clientHeight": 43,
+        "whiteSpace": "normal"
+      },
+      "resources": 79,
+      "heapBytes": 12688352
+    },
+    {
+      "width": 360,
+      "height": 800,
+      "name": "snake-fullscreen",
+      "documentWidth": 360,
+      "scene": null,
+      "canvas": {
+        "x": 4,
+        "y": 178.1875,
+        "width": 352,
+        "height": 613.8125
+      },
+      "pointOverlaps": 0,
+      "dialogCount": 0,
+      "message": {
+        "x": 4,
+        "y": 131,
+        "width": 352,
+        "height": 43.1875,
+        "text": "A serpente está atrás de você! Use os obstáculos para escapar.",
+        "scrollHeight": 43,
+        "clientHeight": 43,
+        "whiteSpace": "normal"
+      },
+      "resources": 79,
+      "heapBytes": 12879906
+    },
+    {
+      "width": 360,
+      "height": 800,
+      "name": "quiz-question",
+      "documentWidth": 360,
+      "scene": null,
+      "canvas": null,
+      "pointOverlaps": 0,
+      "dialogCount": 0,
+      "message": null,
+      "resources": 39,
+      "heapBytes": 10536102
+    },
+    {
+      "width": 360,
+      "height": 800,
+      "name": "quiz-feedback",
+      "documentWidth": 360,
+      "scene": null,
+      "canvas": null,
+      "pointOverlaps": 0,
+      "dialogCount": 0,
+      "message": null,
+      "resources": 51,
+      "heapBytes": 11299328
+    },
+    {
+      "width": 375,
+      "height": 812,
+      "name": "exploration",
+      "documentWidth": 375,
+      "scene": {
+        "x": 13,
+        "y": 255.921875,
+        "width": 349,
+        "height": 420
+      },
+      "canvas": null,
+      "pointOverlaps": 0,
+      "dialogCount": 0,
+      "message": null,
+      "resources": 44,
+      "heapBytes": 11990141
+    },
+    {
+      "width": 375,
+      "height": 812,
+      "name": "point-details",
+      "documentWidth": 375,
+      "scene": {
+        "x": 13,
+        "y": 255.921875,
+        "width": 349,
+        "height": 420
+      },
+      "canvas": null,
+      "pointOverlaps": 0,
+      "dialogCount": 1,
+      "message": null,
+      "resources": 56,
+      "heapBytes": 12873045
+    },
+    {
+      "width": 375,
+      "height": 812,
+      "name": "riddle",
+      "documentWidth": 375,
+      "scene": {
+        "x": 13,
+        "y": 255.921875,
+        "width": 349,
+        "height": 420
+      },
+      "canvas": null,
+      "pointOverlaps": 0,
+      "dialogCount": 1,
+      "message": null,
+      "resources": 56,
+      "heapBytes": 14013743
+    },
+    {
+      "width": 375,
+      "height": 812,
+      "name": "riddle-text-200",
+      "documentWidth": 375,
+      "scene": {
+        "x": 13,
+        "y": 255.921875,
+        "width": 349,
+        "height": 420
+      },
+      "canvas": null,
+      "pointOverlaps": 0,
+      "dialogCount": 1,
+      "message": null,
+      "resources": 56,
+      "heapBytes": 14013743
+    },
+    {
+      "width": 375,
+      "height": 812,
+      "name": "snake-intro",
+      "documentWidth": 375,
+      "scene": null,
+      "canvas": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0
+      },
+      "pointOverlaps": 0,
+      "dialogCount": 0,
+      "message": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "text": "Encontre os três Fragmentos de Sabedoria.",
+        "scrollHeight": 0,
+        "clientHeight": 0,
+        "whiteSpace": "normal"
+      },
+      "resources": 71,
+      "heapBytes": 12868553
+    },
+    {
+      "width": 375,
+      "height": 812,
+      "name": "snake-intro-text-200",
+      "documentWidth": 375,
+      "scene": null,
+      "canvas": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0
+      },
+      "pointOverlaps": 0,
+      "dialogCount": 0,
+      "message": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "text": "Encontre os três Fragmentos de Sabedoria.",
+        "scrollHeight": 0,
+        "clientHeight": 0,
+        "whiteSpace": "normal"
+      },
+      "resources": 78,
+      "heapBytes": 13296033
+    },
+    {
+      "width": 375,
+      "height": 812,
+      "name": "snake-intro-text-200-actions",
+      "documentWidth": 375,
+      "scene": null,
+      "canvas": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0
+      },
+      "pointOverlaps": 0,
+      "dialogCount": 0,
+      "message": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "text": "Encontre os três Fragmentos de Sabedoria.",
+        "scrollHeight": 0,
+        "clientHeight": 0,
+        "whiteSpace": "normal"
+      },
+      "resources": 78,
+      "heapBytes": 13571489
+    },
+    {
+      "width": 375,
+      "height": 812,
+      "name": "tutorial-movement",
+      "documentWidth": 375,
+      "scene": null,
+      "canvas": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0
+      },
+      "pointOverlaps": 0,
+      "dialogCount": 1,
+      "message": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "text": "Encontre os três Fragmentos de Sabedoria.",
+        "scrollHeight": 0,
+        "clientHeight": 0,
+        "whiteSpace": "normal"
+      },
+      "resources": 78,
+      "heapBytes": 13975530
+    },
+    {
+      "width": 375,
+      "height": 812,
+      "name": "tutorial-objective",
+      "documentWidth": 375,
+      "scene": null,
+      "canvas": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0
+      },
+      "pointOverlaps": 0,
+      "dialogCount": 1,
+      "message": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "text": "Encontre os três Fragmentos de Sabedoria.",
+        "scrollHeight": 0,
+        "clientHeight": 0,
+        "whiteSpace": "normal"
+      },
+      "resources": 78,
+      "heapBytes": 13975530
+    },
+    {
+      "width": 375,
+      "height": 812,
+      "name": "snake-active",
+      "documentWidth": 375,
+      "scene": null,
+      "canvas": {
+        "x": 4,
+        "y": 178.1875,
+        "width": 367,
+        "height": 625.8125
+      },
+      "pointOverlaps": 0,
+      "dialogCount": 0,
+      "message": {
+        "x": 4,
+        "y": 131,
+        "width": 367,
+        "height": 43.1875,
+        "text": "A serpente está atrás de você! Use os obstáculos para escapar.",
+        "scrollHeight": 43,
+        "clientHeight": 43,
+        "whiteSpace": "normal"
+      },
+      "resources": 78,
+      "heapBytes": 12710233
+    },
+    {
+      "width": 375,
+      "height": 812,
+      "name": "snake-hud-text-200",
+      "documentWidth": 375,
+      "scene": null,
+      "canvas": {
+        "x": 4,
+        "y": 376.1875,
+        "width": 367,
+        "height": 427.8125
+      },
+      "pointOverlaps": 0,
+      "dialogCount": 0,
+      "message": {
+        "x": 4,
+        "y": 329,
+        "width": 367,
+        "height": 43.1875,
+        "text": "A serpente está atrás de você! Use os obstáculos para escapar.",
+        "scrollHeight": 43,
+        "clientHeight": 43,
+        "whiteSpace": "normal"
+      },
+      "resources": 78,
+      "heapBytes": 12875665
+    },
+    {
+      "width": 375,
+      "height": 812,
+      "name": "snake-paused",
+      "documentWidth": 375,
+      "scene": null,
+      "canvas": {
+        "x": 4,
+        "y": 178.1875,
+        "width": 367,
+        "height": 625.8125
+      },
+      "pointOverlaps": 0,
+      "dialogCount": 0,
+      "message": {
+        "x": 4,
+        "y": 131,
+        "width": 367,
+        "height": 43.1875,
+        "text": "A serpente está atrás de você! Use os obstáculos para escapar.",
+        "scrollHeight": 43,
+        "clientHeight": 43,
+        "whiteSpace": "normal"
+      },
+      "resources": 78,
+      "heapBytes": 13318924
+    },
+    {
+      "width": 375,
+      "height": 812,
+      "name": "snake-fullscreen",
+      "documentWidth": 375,
+      "scene": null,
+      "canvas": {
+        "x": 4,
+        "y": 178.1875,
+        "width": 367,
+        "height": 625.8125
+      },
+      "pointOverlaps": 0,
+      "dialogCount": 0,
+      "message": {
+        "x": 4,
+        "y": 131,
+        "width": 367,
+        "height": 43.1875,
+        "text": "A serpente está atrás de você! Use os obstáculos para escapar.",
+        "scrollHeight": 43,
+        "clientHeight": 43,
+        "whiteSpace": "normal"
+      },
+      "resources": 78,
+      "heapBytes": 13513826
+    },
+    {
+      "width": 375,
+      "height": 812,
+      "name": "quiz-question",
+      "documentWidth": 375,
+      "scene": null,
+      "canvas": null,
+      "pointOverlaps": 0,
+      "dialogCount": 0,
+      "message": null,
+      "resources": 40,
+      "heapBytes": 10621729
+    },
+    {
+      "width": 375,
+      "height": 812,
+      "name": "quiz-feedback",
+      "documentWidth": 375,
+      "scene": null,
+      "canvas": null,
+      "pointOverlaps": 0,
+      "dialogCount": 0,
+      "message": null,
+      "resources": 51,
+      "heapBytes": 11328698
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "name": "exploration",
+      "documentWidth": 390,
+      "scene": {
+        "x": 13,
+        "y": 248.734375,
+        "width": 364,
+        "height": 420
+      },
+      "canvas": null,
+      "pointOverlaps": 0,
+      "dialogCount": 0,
+      "message": null,
+      "resources": 37,
+      "heapBytes": 12393242
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "name": "point-details",
+      "documentWidth": 390,
+      "scene": {
+        "x": 13,
+        "y": 248.734375,
+        "width": 364,
+        "height": 420
+      },
+      "canvas": null,
+      "pointOverlaps": 0,
+      "dialogCount": 1,
+      "message": null,
+      "resources": 56,
+      "heapBytes": 12764183
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "name": "riddle",
+      "documentWidth": 390,
+      "scene": {
+        "x": 13,
+        "y": 248.734375,
+        "width": 364,
+        "height": 420
+      },
+      "canvas": null,
+      "pointOverlaps": 0,
+      "dialogCount": 1,
+      "message": null,
+      "resources": 56,
+      "heapBytes": 13903897
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "name": "riddle-text-200",
+      "documentWidth": 390,
+      "scene": {
+        "x": 13,
+        "y": 248.734375,
+        "width": 364,
+        "height": 420
+      },
+      "canvas": null,
+      "pointOverlaps": 0,
+      "dialogCount": 1,
+      "message": null,
+      "resources": 56,
+      "heapBytes": 13934925
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "name": "snake-intro",
+      "documentWidth": 390,
+      "scene": null,
+      "canvas": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0
+      },
+      "pointOverlaps": 0,
+      "dialogCount": 0,
+      "message": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "text": "Encontre os três Fragmentos de Sabedoria.",
+        "scrollHeight": 0,
+        "clientHeight": 0,
+        "whiteSpace": "normal"
+      },
+      "resources": 61,
+      "heapBytes": 10554929
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "name": "snake-intro-text-200",
+      "documentWidth": 390,
+      "scene": null,
+      "canvas": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0
+      },
+      "pointOverlaps": 0,
+      "dialogCount": 0,
+      "message": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "text": "Encontre os três Fragmentos de Sabedoria.",
+        "scrollHeight": 0,
+        "clientHeight": 0,
+        "whiteSpace": "normal"
+      },
+      "resources": 80,
+      "heapBytes": 11387438
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "name": "snake-intro-text-200-actions",
+      "documentWidth": 390,
+      "scene": null,
+      "canvas": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0
+      },
+      "pointOverlaps": 0,
+      "dialogCount": 0,
+      "message": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "text": "Encontre os três Fragmentos de Sabedoria.",
+        "scrollHeight": 0,
+        "clientHeight": 0,
+        "whiteSpace": "normal"
+      },
+      "resources": 80,
+      "heapBytes": 11675662
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "name": "tutorial-movement",
+      "documentWidth": 390,
+      "scene": null,
+      "canvas": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0
+      },
+      "pointOverlaps": 0,
+      "dialogCount": 1,
+      "message": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "text": "Encontre os três Fragmentos de Sabedoria.",
+        "scrollHeight": 0,
+        "clientHeight": 0,
+        "whiteSpace": "normal"
+      },
+      "resources": 80,
+      "heapBytes": 12079579
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "name": "tutorial-objective",
+      "documentWidth": 390,
+      "scene": null,
+      "canvas": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0
+      },
+      "pointOverlaps": 0,
+      "dialogCount": 1,
+      "message": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "text": "Encontre os três Fragmentos de Sabedoria.",
+        "scrollHeight": 0,
+        "clientHeight": 0,
+        "whiteSpace": "normal"
+      },
+      "resources": 80,
+      "heapBytes": 12079579
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "name": "snake-active",
+      "documentWidth": 390,
+      "scene": null,
+      "canvas": {
+        "x": 4,
+        "y": 178.1875,
+        "width": 382,
+        "height": 657.8125
+      },
+      "pointOverlaps": 0,
+      "dialogCount": 0,
+      "message": {
+        "x": 4,
+        "y": 131,
+        "width": 382,
+        "height": 43.1875,
+        "text": "A serpente está atrás de você! Use os obstáculos para escapar.",
+        "scrollHeight": 43,
+        "clientHeight": 43,
+        "whiteSpace": "normal"
+      },
+      "resources": 80,
+      "heapBytes": 14113612
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "name": "snake-hud-text-200",
+      "documentWidth": 390,
+      "scene": null,
+      "canvas": {
+        "x": 4,
+        "y": 376.1875,
+        "width": 382,
+        "height": 459.8125
+      },
+      "pointOverlaps": 0,
+      "dialogCount": 0,
+      "message": {
+        "x": 4,
+        "y": 329,
+        "width": 382,
+        "height": 43.1875,
+        "text": "A serpente está atrás de você! Use os obstáculos para escapar.",
+        "scrollHeight": 43,
+        "clientHeight": 43,
+        "whiteSpace": "normal"
+      },
+      "resources": 80,
+      "heapBytes": 14286920
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "name": "snake-paused",
+      "documentWidth": 390,
+      "scene": null,
+      "canvas": {
+        "x": 4,
+        "y": 178.1875,
+        "width": 382,
+        "height": 657.8125
+      },
+      "pointOverlaps": 0,
+      "dialogCount": 0,
+      "message": {
+        "x": 4,
+        "y": 131,
+        "width": 382,
+        "height": 43.1875,
+        "text": "A serpente está atrás de você! Use os obstáculos para escapar.",
+        "scrollHeight": 43,
+        "clientHeight": 43,
+        "whiteSpace": "normal"
+      },
+      "resources": 80,
+      "heapBytes": 10186444
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "name": "snake-fullscreen",
+      "documentWidth": 390,
+      "scene": null,
+      "canvas": {
+        "x": 4,
+        "y": 178.1875,
+        "width": 382,
+        "height": 657.8125
+      },
+      "pointOverlaps": 0,
+      "dialogCount": 0,
+      "message": {
+        "x": 4,
+        "y": 131,
+        "width": 382,
+        "height": 43.1875,
+        "text": "A serpente está atrás de você! Use os obstáculos para escapar.",
+        "scrollHeight": 43,
+        "clientHeight": 43,
+        "whiteSpace": "normal"
+      },
+      "resources": 80,
+      "heapBytes": 10414700
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "name": "quiz-question",
+      "documentWidth": 390,
+      "scene": null,
+      "canvas": null,
+      "pointOverlaps": 0,
+      "dialogCount": 0,
+      "message": null,
+      "resources": 43,
+      "heapBytes": 16057322
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "name": "quiz-feedback",
+      "documentWidth": 390,
+      "scene": null,
+      "canvas": null,
+      "pointOverlaps": 0,
+      "dialogCount": 0,
+      "message": null,
+      "resources": 53,
+      "heapBytes": 10428537
+    },
+    {
+      "width": 412,
+      "height": 915,
+      "name": "exploration",
+      "documentWidth": 412,
+      "scene": {
+        "x": 13,
+        "y": 248.734375,
+        "width": 386,
+        "height": 420
+      },
+      "canvas": null,
+      "pointOverlaps": 0,
+      "dialogCount": 0,
+      "message": null,
+      "resources": 42,
+      "heapBytes": 11940362
+    },
+    {
+      "width": 412,
+      "height": 915,
+      "name": "point-details",
+      "documentWidth": 412,
+      "scene": {
+        "x": 13,
+        "y": 248.734375,
+        "width": 386,
+        "height": 420
+      },
+      "canvas": null,
+      "pointOverlaps": 0,
+      "dialogCount": 1,
+      "message": null,
+      "resources": 56,
+      "heapBytes": 12886620
+    },
+    {
+      "width": 412,
+      "height": 915,
+      "name": "riddle",
+      "documentWidth": 412,
+      "scene": {
+        "x": 13,
+        "y": 248.734375,
+        "width": 386,
+        "height": 420
+      },
+      "canvas": null,
+      "pointOverlaps": 0,
+      "dialogCount": 1,
+      "message": null,
+      "resources": 56,
+      "heapBytes": 14028382
+    },
+    {
+      "width": 412,
+      "height": 915,
+      "name": "riddle-text-200",
+      "documentWidth": 412,
+      "scene": {
+        "x": 13,
+        "y": 248.734375,
+        "width": 386,
+        "height": 420
+      },
+      "canvas": null,
+      "pointOverlaps": 0,
+      "dialogCount": 1,
+      "message": null,
+      "resources": 56,
+      "heapBytes": 14059362
+    },
+    {
+      "width": 412,
+      "height": 915,
+      "name": "snake-intro",
+      "documentWidth": 412,
+      "scene": null,
+      "canvas": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0
+      },
+      "pointOverlaps": 0,
+      "dialogCount": 0,
+      "message": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "text": "Encontre os três Fragmentos de Sabedoria.",
+        "scrollHeight": 0,
+        "clientHeight": 0,
+        "whiteSpace": "normal"
+      },
+      "resources": 61,
+      "heapBytes": 14317792
+    },
+    {
+      "width": 412,
+      "height": 915,
+      "name": "snake-intro-text-200",
+      "documentWidth": 412,
+      "scene": null,
+      "canvas": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0
+      },
+      "pointOverlaps": 0,
+      "dialogCount": 0,
+      "message": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "text": "Encontre os três Fragmentos de Sabedoria.",
+        "scrollHeight": 0,
+        "clientHeight": 0,
+        "whiteSpace": "normal"
+      },
+      "resources": 77,
+      "heapBytes": 14954509
+    },
+    {
+      "width": 412,
+      "height": 915,
+      "name": "snake-intro-text-200-actions",
+      "documentWidth": 412,
+      "scene": null,
+      "canvas": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0
+      },
+      "pointOverlaps": 0,
+      "dialogCount": 0,
+      "message": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "text": "Encontre os três Fragmentos de Sabedoria.",
+        "scrollHeight": 0,
+        "clientHeight": 0,
+        "whiteSpace": "normal"
+      },
+      "resources": 80,
+      "heapBytes": 15416147
+    },
+    {
+      "width": 412,
+      "height": 915,
+      "name": "tutorial-movement",
+      "documentWidth": 412,
+      "scene": null,
+      "canvas": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0
+      },
+      "pointOverlaps": 0,
+      "dialogCount": 1,
+      "message": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "text": "Encontre os três Fragmentos de Sabedoria.",
+        "scrollHeight": 0,
+        "clientHeight": 0,
+        "whiteSpace": "normal"
+      },
+      "resources": 80,
+      "heapBytes": 15833200
+    },
+    {
+      "width": 412,
+      "height": 915,
+      "name": "tutorial-objective",
+      "documentWidth": 412,
+      "scene": null,
+      "canvas": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0
+      },
+      "pointOverlaps": 0,
+      "dialogCount": 1,
+      "message": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "text": "Encontre os três Fragmentos de Sabedoria.",
+        "scrollHeight": 0,
+        "clientHeight": 0,
+        "whiteSpace": "normal"
+      },
+      "resources": 80,
+      "heapBytes": 15833200
+    },
+    {
+      "width": 412,
+      "height": 915,
+      "name": "snake-active",
+      "documentWidth": 412,
+      "scene": null,
+      "canvas": {
+        "x": 4,
+        "y": 178.1875,
+        "width": 404,
+        "height": 728.8125
+      },
+      "pointOverlaps": 0,
+      "dialogCount": 0,
+      "message": {
+        "x": 4,
+        "y": 131,
+        "width": 404,
+        "height": 43.1875,
+        "text": "A serpente está atrás de você! Use os obstáculos para escapar.",
+        "scrollHeight": 43,
+        "clientHeight": 43,
+        "whiteSpace": "normal"
+      },
+      "resources": 80,
+      "heapBytes": 12887269
+    },
+    {
+      "width": 412,
+      "height": 915,
+      "name": "snake-hud-text-200",
+      "documentWidth": 412,
+      "scene": null,
+      "canvas": {
+        "x": 4,
+        "y": 294.1875,
+        "width": 404,
+        "height": 612.8125
+      },
+      "pointOverlaps": 0,
+      "dialogCount": 0,
+      "message": {
+        "x": 4,
+        "y": 247,
+        "width": 404,
+        "height": 43.1875,
+        "text": "A serpente está atrás de você! Use os obstáculos para escapar.",
+        "scrollHeight": 43,
+        "clientHeight": 43,
+        "whiteSpace": "normal"
+      },
+      "resources": 80,
+      "heapBytes": 13084297
+    },
+    {
+      "width": 412,
+      "height": 915,
+      "name": "snake-paused",
+      "documentWidth": 412,
+      "scene": null,
+      "canvas": {
+        "x": 4,
+        "y": 178.1875,
+        "width": 404,
+        "height": 728.8125
+      },
+      "pointOverlaps": 0,
+      "dialogCount": 0,
+      "message": {
+        "x": 4,
+        "y": 131,
+        "width": 404,
+        "height": 43.1875,
+        "text": "A serpente está atrás de você! Use os obstáculos para escapar.",
+        "scrollHeight": 43,
+        "clientHeight": 43,
+        "whiteSpace": "normal"
+      },
+      "resources": 80,
+      "heapBytes": 13548268
+    },
+    {
+      "width": 412,
+      "height": 915,
+      "name": "snake-fullscreen",
+      "documentWidth": 412,
+      "scene": null,
+      "canvas": {
+        "x": 4,
+        "y": 178.1875,
+        "width": 404,
+        "height": 728.8125
+      },
+      "pointOverlaps": 0,
+      "dialogCount": 0,
+      "message": {
+        "x": 4,
+        "y": 131,
+        "width": 404,
+        "height": 43.1875,
+        "text": "A serpente está atrás de você! Use os obstáculos para escapar.",
+        "scrollHeight": 43,
+        "clientHeight": 43,
+        "whiteSpace": "normal"
+      },
+      "resources": 80,
+      "heapBytes": 13769110
+    },
+    {
+      "width": 412,
+      "height": 915,
+      "name": "quiz-question",
+      "documentWidth": 412,
+      "scene": null,
+      "canvas": null,
+      "pointOverlaps": 0,
+      "dialogCount": 0,
+      "message": null,
+      "resources": 47,
+      "heapBytes": 10809105
+    },
+    {
+      "width": 412,
+      "height": 915,
+      "name": "quiz-feedback",
+      "documentWidth": 412,
+      "scene": null,
+      "canvas": null,
+      "pointOverlaps": 0,
+      "dialogCount": 0,
+      "message": null,
+      "resources": 51,
+      "heapBytes": 11258858
+    },
+    {
+      "width": 430,
+      "height": 932,
+      "name": "exploration",
+      "documentWidth": 430,
+      "scene": {
+        "x": 13,
+        "y": 248.734375,
+        "width": 404,
+        "height": 420
+      },
+      "canvas": null,
+      "pointOverlaps": 0,
+      "dialogCount": 0,
+      "message": null,
+      "resources": 50,
+      "heapBytes": 12292732
+    },
+    {
+      "width": 430,
+      "height": 932,
+      "name": "point-details",
+      "documentWidth": 430,
+      "scene": {
+        "x": 13,
+        "y": 248.734375,
+        "width": 404,
+        "height": 420
+      },
+      "canvas": null,
+      "pointOverlaps": 0,
+      "dialogCount": 1,
+      "message": null,
+      "resources": 56,
+      "heapBytes": 12757037
+    },
+    {
+      "width": 430,
+      "height": 932,
+      "name": "riddle",
+      "documentWidth": 430,
+      "scene": {
+        "x": 13,
+        "y": 248.734375,
+        "width": 404,
+        "height": 420
+      },
+      "canvas": null,
+      "pointOverlaps": 0,
+      "dialogCount": 1,
+      "message": null,
+      "resources": 56,
+      "heapBytes": 13894531
+    },
+    {
+      "width": 430,
+      "height": 932,
+      "name": "riddle-text-200",
+      "documentWidth": 430,
+      "scene": {
+        "x": 13,
+        "y": 248.734375,
+        "width": 404,
+        "height": 420
+      },
+      "canvas": null,
+      "pointOverlaps": 0,
+      "dialogCount": 1,
+      "message": null,
+      "resources": 56,
+      "heapBytes": 13925511
+    },
+    {
+      "width": 430,
+      "height": 932,
+      "name": "snake-intro",
+      "documentWidth": 430,
+      "scene": null,
+      "canvas": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0
+      },
+      "pointOverlaps": 0,
+      "dialogCount": 0,
+      "message": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "text": "Encontre os três Fragmentos de Sabedoria.",
+        "scrollHeight": 0,
+        "clientHeight": 0,
+        "whiteSpace": "normal"
+      },
+      "resources": 75,
+      "heapBytes": 15466223
+    },
+    {
+      "width": 430,
+      "height": 932,
+      "name": "snake-intro-text-200",
+      "documentWidth": 430,
+      "scene": null,
+      "canvas": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0
+      },
+      "pointOverlaps": 0,
+      "dialogCount": 0,
+      "message": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "text": "Encontre os três Fragmentos de Sabedoria.",
+        "scrollHeight": 0,
+        "clientHeight": 0,
+        "whiteSpace": "normal"
+      },
+      "resources": 80,
+      "heapBytes": 15833270
+    },
+    {
+      "width": 430,
+      "height": 932,
+      "name": "snake-intro-text-200-actions",
+      "documentWidth": 430,
+      "scene": null,
+      "canvas": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0
+      },
+      "pointOverlaps": 0,
+      "dialogCount": 0,
+      "message": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "text": "Encontre os três Fragmentos de Sabedoria.",
+        "scrollHeight": 0,
+        "clientHeight": 0,
+        "whiteSpace": "normal"
+      },
+      "resources": 80,
+      "heapBytes": 16104918
+    },
+    {
+      "width": 430,
+      "height": 932,
+      "name": "tutorial-movement",
+      "documentWidth": 430,
+      "scene": null,
+      "canvas": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0
+      },
+      "pointOverlaps": 0,
+      "dialogCount": 1,
+      "message": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "text": "Encontre os três Fragmentos de Sabedoria.",
+        "scrollHeight": 0,
+        "clientHeight": 0,
+        "whiteSpace": "normal"
+      },
+      "resources": 80,
+      "heapBytes": 16513519
+    },
+    {
+      "width": 430,
+      "height": 932,
+      "name": "tutorial-objective",
+      "documentWidth": 430,
+      "scene": null,
+      "canvas": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0
+      },
+      "pointOverlaps": 0,
+      "dialogCount": 1,
+      "message": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "text": "Encontre os três Fragmentos de Sabedoria.",
+        "scrollHeight": 0,
+        "clientHeight": 0,
+        "whiteSpace": "normal"
+      },
+      "resources": 80,
+      "heapBytes": 16513519
+    },
+    {
+      "width": 430,
+      "height": 932,
+      "name": "snake-active",
+      "documentWidth": 430,
+      "scene": null,
+      "canvas": {
+        "x": 4,
+        "y": 158.59375,
+        "width": 422,
+        "height": 765.40625
+      },
+      "pointOverlaps": 0,
+      "dialogCount": 0,
+      "message": {
+        "x": 4,
+        "y": 131,
+        "width": 422,
+        "height": 23.59375,
+        "text": "A serpente está atrás de você! Use os obstáculos para escapar.",
+        "scrollHeight": 24,
+        "clientHeight": 24,
+        "whiteSpace": "normal"
+      },
+      "resources": 80,
+      "heapBytes": 14623585
+    },
+    {
+      "width": 430,
+      "height": 932,
+      "name": "snake-hud-text-200",
+      "documentWidth": 430,
+      "scene": null,
+      "canvas": {
+        "x": 4,
+        "y": 240.59375,
+        "width": 422,
+        "height": 683.40625
+      },
+      "pointOverlaps": 0,
+      "dialogCount": 0,
+      "message": {
+        "x": 4,
+        "y": 213,
+        "width": 422,
+        "height": 23.59375,
+        "text": "A serpente está atrás de você! Use os obstáculos para escapar.",
+        "scrollHeight": 24,
+        "clientHeight": 24,
+        "whiteSpace": "normal"
+      },
+      "resources": 80,
+      "heapBytes": 14838025
+    },
+    {
+      "width": 430,
+      "height": 932,
+      "name": "snake-paused",
+      "documentWidth": 430,
+      "scene": null,
+      "canvas": {
+        "x": 4,
+        "y": 158.59375,
+        "width": 422,
+        "height": 765.40625
+      },
+      "pointOverlaps": 0,
+      "dialogCount": 0,
+      "message": {
+        "x": 4,
+        "y": 131,
+        "width": 422,
+        "height": 23.59375,
+        "text": "A serpente está atrás de você! Use os obstáculos para escapar.",
+        "scrollHeight": 24,
+        "clientHeight": 24,
+        "whiteSpace": "normal"
+      },
+      "resources": 80,
+      "heapBytes": 9883873
+    },
+    {
+      "width": 430,
+      "height": 932,
+      "name": "snake-fullscreen",
+      "documentWidth": 430,
+      "scene": null,
+      "canvas": {
+        "x": 4,
+        "y": 158.59375,
+        "width": 422,
+        "height": 765.40625
+      },
+      "pointOverlaps": 0,
+      "dialogCount": 0,
+      "message": {
+        "x": 4,
+        "y": 131,
+        "width": 422,
+        "height": 23.59375,
+        "text": "A serpente está atrás de você! Use os obstáculos para escapar.",
+        "scrollHeight": 24,
+        "clientHeight": 24,
+        "whiteSpace": "normal"
+      },
+      "resources": 80,
+      "heapBytes": 10102171
+    },
+    {
+      "width": 430,
+      "height": 932,
+      "name": "quiz-question",
+      "documentWidth": 430,
+      "scene": null,
+      "canvas": null,
+      "pointOverlaps": 0,
+      "dialogCount": 0,
+      "message": null,
+      "resources": 52,
+      "heapBytes": 16048058
+    },
+    {
+      "width": 430,
+      "height": 932,
+      "name": "quiz-feedback",
+      "documentWidth": 430,
+      "scene": null,
+      "canvas": null,
+      "pointOverlaps": 0,
+      "dialogCount": 0,
+      "message": null,
+      "resources": 53,
+      "heapBytes": 16402537
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "name": "exploration",
+      "documentWidth": 844,
+      "scene": {
+        "x": 13,
+        "y": -0.421875,
+        "width": 818,
+        "height": 420
+      },
+      "canvas": null,
+      "pointOverlaps": 0,
+      "dialogCount": 0,
+      "message": null,
+      "resources": 44,
+      "heapBytes": 11911993
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "name": "point-details",
+      "documentWidth": 844,
+      "scene": {
+        "x": 13,
+        "y": -0.421875,
+        "width": 818,
+        "height": 420
+      },
+      "canvas": null,
+      "pointOverlaps": 0,
+      "dialogCount": 1,
+      "message": null,
+      "resources": 56,
+      "heapBytes": 12792997
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "name": "riddle",
+      "documentWidth": 844,
+      "scene": {
+        "x": 13,
+        "y": -0.421875,
+        "width": 818,
+        "height": 420
+      },
+      "canvas": null,
+      "pointOverlaps": 0,
+      "dialogCount": 1,
+      "message": null,
+      "resources": 56,
+      "heapBytes": 13934543
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "name": "snake-intro",
+      "documentWidth": 844,
+      "scene": null,
+      "canvas": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0
+      },
+      "pointOverlaps": 0,
+      "dialogCount": 0,
+      "message": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "text": "Encontre os três Fragmentos de Sabedoria.",
+        "scrollHeight": 0,
+        "clientHeight": 0,
+        "whiteSpace": "normal"
+      },
+      "resources": 58,
+      "heapBytes": 14239825
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "name": "tutorial-movement",
+      "documentWidth": 844,
+      "scene": null,
+      "canvas": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0
+      },
+      "pointOverlaps": 0,
+      "dialogCount": 1,
+      "message": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "text": "Encontre os três Fragmentos de Sabedoria.",
+        "scrollHeight": 0,
+        "clientHeight": 0,
+        "whiteSpace": "normal"
+      },
+      "resources": 79,
+      "heapBytes": 15507016
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "name": "tutorial-objective",
+      "documentWidth": 844,
+      "scene": null,
+      "canvas": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0
+      },
+      "pointOverlaps": 0,
+      "dialogCount": 1,
+      "message": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "text": "Encontre os três Fragmentos de Sabedoria.",
+        "scrollHeight": 0,
+        "clientHeight": 0,
+        "whiteSpace": "normal"
+      },
+      "resources": 79,
+      "heapBytes": 15507016
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "name": "snake-active",
+      "documentWidth": 844,
+      "scene": null,
+      "canvas": {
+        "x": 4,
+        "y": 133.09375,
+        "width": 836,
+        "height": 248.90625
+      },
+      "pointOverlaps": 0,
+      "dialogCount": 0,
+      "message": {
+        "x": 4,
+        "y": 105.5,
+        "width": 836,
+        "height": 23.59375,
+        "text": "A serpente está atrás de você! Use os obstáculos para escapar.",
+        "scrollHeight": 24,
+        "clientHeight": 24,
+        "whiteSpace": "normal"
+      },
+      "resources": 79,
+      "heapBytes": 12415901
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "name": "snake-paused",
+      "documentWidth": 844,
+      "scene": null,
+      "canvas": {
+        "x": 4,
+        "y": 133.09375,
+        "width": 836,
+        "height": 248.90625
+      },
+      "pointOverlaps": 0,
+      "dialogCount": 0,
+      "message": {
+        "x": 4,
+        "y": 105.5,
+        "width": 836,
+        "height": 23.59375,
+        "text": "A serpente está atrás de você! Use os obstáculos para escapar.",
+        "scrollHeight": 24,
+        "clientHeight": 24,
+        "whiteSpace": "normal"
+      },
+      "resources": 79,
+      "heapBytes": 12752336
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "name": "snake-fullscreen",
+      "documentWidth": 844,
+      "scene": null,
+      "canvas": {
+        "x": 4,
+        "y": 133.09375,
+        "width": 836,
+        "height": 248.90625
+      },
+      "pointOverlaps": 0,
+      "dialogCount": 0,
+      "message": {
+        "x": 4,
+        "y": 105.5,
+        "width": 836,
+        "height": 23.59375,
+        "text": "A serpente está atrás de você! Use os obstáculos para escapar.",
+        "scrollHeight": 24,
+        "clientHeight": 24,
+        "whiteSpace": "normal"
+      },
+      "resources": 79,
+      "heapBytes": 12985480
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "name": "quiz-question",
+      "documentWidth": 844,
+      "scene": null,
+      "canvas": null,
+      "pointOverlaps": 0,
+      "dialogCount": 0,
+      "message": null,
+      "resources": 39,
+      "heapBytes": 10624824
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "name": "quiz-feedback",
+      "documentWidth": 844,
+      "scene": null,
+      "canvas": null,
+      "pointOverlaps": 0,
+      "dialogCount": 0,
+      "message": null,
+      "resources": 51,
+      "heapBytes": 11362458
+    },
+    {
+      "width": 915,
+      "height": 412,
+      "name": "exploration",
+      "documentWidth": 915,
+      "scene": {
+        "x": 13,
+        "y": -0.421875,
+        "width": 889,
+        "height": 420
+      },
+      "canvas": null,
+      "pointOverlaps": 0,
+      "dialogCount": 0,
+      "message": null,
+      "resources": 38,
+      "heapBytes": 12418334
+    },
+    {
+      "width": 915,
+      "height": 412,
+      "name": "point-details",
+      "documentWidth": 915,
+      "scene": {
+        "x": 13,
+        "y": -0.421875,
+        "width": 889,
+        "height": 420
+      },
+      "canvas": null,
+      "pointOverlaps": 0,
+      "dialogCount": 1,
+      "message": null,
+      "resources": 56,
+      "heapBytes": 12736451
+    },
+    {
+      "width": 915,
+      "height": 412,
+      "name": "riddle",
+      "documentWidth": 915,
+      "scene": {
+        "x": 13,
+        "y": -0.421875,
+        "width": 889,
+        "height": 420
+      },
+      "canvas": null,
+      "pointOverlaps": 0,
+      "dialogCount": 1,
+      "message": null,
+      "resources": 56,
+      "heapBytes": 13878981
+    },
+    {
+      "width": 915,
+      "height": 412,
+      "name": "snake-intro",
+      "documentWidth": 915,
+      "scene": null,
+      "canvas": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0
+      },
+      "pointOverlaps": 0,
+      "dialogCount": 0,
+      "message": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "text": "Encontre os três Fragmentos de Sabedoria.",
+        "scrollHeight": 0,
+        "clientHeight": 0,
+        "whiteSpace": "normal"
+      },
+      "resources": 63,
+      "heapBytes": 14027233
+    },
+    {
+      "width": 915,
+      "height": 412,
+      "name": "tutorial-movement",
+      "documentWidth": 915,
+      "scene": null,
+      "canvas": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0
+      },
+      "pointOverlaps": 0,
+      "dialogCount": 1,
+      "message": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "text": "Encontre os três Fragmentos de Sabedoria.",
+        "scrollHeight": 0,
+        "clientHeight": 0,
+        "whiteSpace": "normal"
+      },
+      "resources": 80,
+      "heapBytes": 15193585
+    },
+    {
+      "width": 915,
+      "height": 412,
+      "name": "tutorial-objective",
+      "documentWidth": 915,
+      "scene": null,
+      "canvas": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0
+      },
+      "pointOverlaps": 0,
+      "dialogCount": 1,
+      "message": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "text": "Encontre os três Fragmentos de Sabedoria.",
+        "scrollHeight": 0,
+        "clientHeight": 0,
+        "whiteSpace": "normal"
+      },
+      "resources": 80,
+      "heapBytes": 15193585
+    },
+    {
+      "width": 915,
+      "height": 412,
+      "name": "snake-active",
+      "documentWidth": 915,
+      "scene": null,
+      "canvas": {
+        "x": 4,
+        "y": 132.09375,
+        "width": 907,
+        "height": 271.90625
+      },
+      "pointOverlaps": 0,
+      "dialogCount": 0,
+      "message": {
+        "x": 4,
+        "y": 104.5,
+        "width": 907,
+        "height": 23.59375,
+        "text": "A serpente está atrás de você! Use os obstáculos para escapar.",
+        "scrollHeight": 24,
+        "clientHeight": 24,
+        "whiteSpace": "normal"
+      },
+      "resources": 80,
+      "heapBytes": 12376437
+    },
+    {
+      "width": 915,
+      "height": 412,
+      "name": "snake-paused",
+      "documentWidth": 915,
+      "scene": null,
+      "canvas": {
+        "x": 4,
+        "y": 132.09375,
+        "width": 907,
+        "height": 271.90625
+      },
+      "pointOverlaps": 0,
+      "dialogCount": 0,
+      "message": {
+        "x": 4,
+        "y": 104.5,
+        "width": 907,
+        "height": 23.59375,
+        "text": "A serpente está atrás de você! Use os obstáculos para escapar.",
+        "scrollHeight": 24,
+        "clientHeight": 24,
+        "whiteSpace": "normal"
+      },
+      "resources": 80,
+      "heapBytes": 12801440
+    },
+    {
+      "width": 915,
+      "height": 412,
+      "name": "snake-fullscreen",
+      "documentWidth": 915,
+      "scene": null,
+      "canvas": {
+        "x": 4,
+        "y": 132.09375,
+        "width": 907,
+        "height": 271.90625
+      },
+      "pointOverlaps": 0,
+      "dialogCount": 0,
+      "message": {
+        "x": 4,
+        "y": 104.5,
+        "width": 907,
+        "height": 23.59375,
+        "text": "A serpente está atrás de você! Use os obstáculos para escapar.",
+        "scrollHeight": 24,
+        "clientHeight": 24,
+        "whiteSpace": "normal"
+      },
+      "resources": 80,
+      "heapBytes": 12998962
+    },
+    {
+      "width": 915,
+      "height": 412,
+      "name": "quiz-question",
+      "documentWidth": 915,
+      "scene": null,
+      "canvas": null,
+      "pointOverlaps": 0,
+      "dialogCount": 0,
+      "message": null,
+      "resources": 40,
+      "heapBytes": 10781555
+    },
+    {
+      "width": 915,
+      "height": 412,
+      "name": "quiz-feedback",
+      "documentWidth": 915,
+      "scene": null,
+      "canvas": null,
+      "pointOverlaps": 0,
+      "dialogCount": 0,
+      "message": null,
+      "resources": 51,
+      "heapBytes": 11390871
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "name": "exploration",
+      "documentWidth": 768,
+      "scene": {
+        "x": 13,
+        "y": 151.578125,
+        "width": 742,
+        "height": 420
+      },
+      "canvas": null,
+      "pointOverlaps": 0,
+      "dialogCount": 0,
+      "message": null,
+      "resources": 47,
+      "heapBytes": 11994991
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "name": "point-details",
+      "documentWidth": 768,
+      "scene": {
+        "x": 13,
+        "y": 151.578125,
+        "width": 742,
+        "height": 420
+      },
+      "canvas": null,
+      "pointOverlaps": 0,
+      "dialogCount": 1,
+      "message": null,
+      "resources": 54,
+      "heapBytes": 12723165
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "name": "riddle",
+      "documentWidth": 768,
+      "scene": {
+        "x": 13,
+        "y": 151.578125,
+        "width": 742,
+        "height": 420
+      },
+      "canvas": null,
+      "pointOverlaps": 0,
+      "dialogCount": 1,
+      "message": null,
+      "resources": 54,
+      "heapBytes": 13867855
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "name": "snake-intro",
+      "documentWidth": 768,
+      "scene": null,
+      "canvas": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0
+      },
+      "pointOverlaps": 0,
+      "dialogCount": 0,
+      "message": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "text": "Encontre os três Fragmentos de Sabedoria.",
+        "scrollHeight": 0,
+        "clientHeight": 0,
+        "whiteSpace": "normal"
+      },
+      "resources": 79,
+      "heapBytes": 12162481
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "name": "tutorial-movement",
+      "documentWidth": 768,
+      "scene": null,
+      "canvas": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0
+      },
+      "pointOverlaps": 0,
+      "dialogCount": 1,
+      "message": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "text": "Encontre os três Fragmentos de Sabedoria.",
+        "scrollHeight": 0,
+        "clientHeight": 0,
+        "whiteSpace": "normal"
+      },
+      "resources": 79,
+      "heapBytes": 12716446
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "name": "tutorial-objective",
+      "documentWidth": 768,
+      "scene": null,
+      "canvas": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0
+      },
+      "pointOverlaps": 0,
+      "dialogCount": 1,
+      "message": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "text": "Encontre os três Fragmentos de Sabedoria.",
+        "scrollHeight": 0,
+        "clientHeight": 0,
+        "whiteSpace": "normal"
+      },
+      "resources": 79,
+      "heapBytes": 12976525
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "name": "snake-active",
+      "documentWidth": 768,
+      "scene": null,
+      "canvas": {
+        "x": 4,
+        "y": 157.59375,
+        "width": 760,
+        "height": 858.40625
+      },
+      "pointOverlaps": 0,
+      "dialogCount": 0,
+      "message": {
+        "x": 4,
+        "y": 130,
+        "width": 760,
+        "height": 23.59375,
+        "text": "A serpente está atrás de você! Use os obstáculos para escapar.",
+        "scrollHeight": 24,
+        "clientHeight": 24,
+        "whiteSpace": "normal"
+      },
+      "resources": 79,
+      "heapBytes": 11665428
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "name": "snake-paused",
+      "documentWidth": 768,
+      "scene": null,
+      "canvas": {
+        "x": 4,
+        "y": 157.59375,
+        "width": 760,
+        "height": 858.40625
+      },
+      "pointOverlaps": 0,
+      "dialogCount": 0,
+      "message": {
+        "x": 4,
+        "y": 130,
+        "width": 760,
+        "height": 23.59375,
+        "text": "A serpente está atrás de você! Use os obstáculos para escapar.",
+        "scrollHeight": 24,
+        "clientHeight": 24,
+        "whiteSpace": "normal"
+      },
+      "resources": 79,
+      "heapBytes": 12302231
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "name": "snake-fullscreen",
+      "documentWidth": 768,
+      "scene": null,
+      "canvas": {
+        "x": 4,
+        "y": 157.59375,
+        "width": 760,
+        "height": 858.40625
+      },
+      "pointOverlaps": 0,
+      "dialogCount": 0,
+      "message": {
+        "x": 4,
+        "y": 130,
+        "width": 760,
+        "height": 23.59375,
+        "text": "A serpente está atrás de você! Use os obstáculos para escapar.",
+        "scrollHeight": 24,
+        "clientHeight": 24,
+        "whiteSpace": "normal"
+      },
+      "resources": 79,
+      "heapBytes": 12554137
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "name": "quiz-question",
+      "documentWidth": 768,
+      "scene": null,
+      "canvas": null,
+      "pointOverlaps": 0,
+      "dialogCount": 0,
+      "message": null,
+      "resources": 51,
+      "heapBytes": 13228109
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "name": "quiz-feedback",
+      "documentWidth": 768,
+      "scene": null,
+      "canvas": null,
+      "pointOverlaps": 0,
+      "dialogCount": 0,
+      "message": null,
+      "resources": 51,
+      "heapBytes": 13487138
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "name": "exploration",
+      "documentWidth": 1440,
+      "scene": {
+        "x": 272.1875,
+        "y": 174,
+        "width": 1091.625,
+        "height": 520
+      },
+      "canvas": null,
+      "pointOverlaps": 0,
+      "dialogCount": 0,
+      "message": null,
+      "resources": 52,
+      "heapBytes": 12096752
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "name": "riddle",
+      "documentWidth": 1440,
+      "scene": {
+        "x": 272.1875,
+        "y": 174,
+        "width": 1091.625,
+        "height": 520
+      },
+      "canvas": null,
+      "pointOverlaps": 0,
+      "dialogCount": 1,
+      "message": null,
+      "resources": 58,
+      "heapBytes": 13698532
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "name": "snake-intro",
+      "documentWidth": 1440,
+      "scene": null,
+      "canvas": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0
+      },
+      "pointOverlaps": 0,
+      "dialogCount": 0,
+      "message": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "text": "Encontre os três Fragmentos de Sabedoria.",
+        "scrollHeight": 0,
+        "clientHeight": 0,
+        "whiteSpace": "normal"
+      },
+      "resources": 69,
+      "heapBytes": 12155122
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "name": "tutorial-movement",
+      "documentWidth": 1440,
+      "scene": null,
+      "canvas": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0
+      },
+      "pointOverlaps": 0,
+      "dialogCount": 1,
+      "message": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "text": "Encontre os três Fragmentos de Sabedoria.",
+        "scrollHeight": 0,
+        "clientHeight": 0,
+        "whiteSpace": "normal"
+      },
+      "resources": 83,
+      "heapBytes": 13251867
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "name": "tutorial-objective",
+      "documentWidth": 1440,
+      "scene": null,
+      "canvas": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0
+      },
+      "pointOverlaps": 0,
+      "dialogCount": 1,
+      "message": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "text": "Encontre os três Fragmentos de Sabedoria.",
+        "scrollHeight": 0,
+        "clientHeight": 0,
+        "whiteSpace": "normal"
+      },
+      "resources": 83,
+      "heapBytes": 13538098
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "name": "snake-active",
+      "documentWidth": 1440,
+      "scene": null,
+      "canvas": {
+        "x": 320.984375,
+        "y": 751.328125,
+        "width": 994.03125,
+        "height": 579.84375
+      },
+      "pointOverlaps": 0,
+      "dialogCount": 0,
+      "message": {
+        "x": 320.984375,
+        "y": 704.140625,
+        "width": 994.03125,
+        "height": 36,
+        "text": "A serpente está atrás de você! Use os obstáculos para escapar.",
+        "scrollHeight": 36,
+        "clientHeight": 36,
+        "whiteSpace": "normal"
+      },
+      "resources": 83,
+      "heapBytes": 9791509
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "name": "snake-paused",
+      "documentWidth": 1440,
+      "scene": null,
+      "canvas": {
+        "x": 320.984375,
+        "y": 751.328125,
+        "width": 994.03125,
+        "height": 579.84375
+      },
+      "pointOverlaps": 0,
+      "dialogCount": 0,
+      "message": {
+        "x": 320.984375,
+        "y": 704.140625,
+        "width": 994.03125,
+        "height": 36,
+        "text": "A serpente está atrás de você! Use os obstáculos para escapar.",
+        "scrollHeight": 36,
+        "clientHeight": 36,
+        "whiteSpace": "normal"
+      },
+      "resources": 83,
+      "heapBytes": 10550372
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "name": "snake-fullscreen",
+      "documentWidth": 1440,
+      "scene": null,
+      "canvas": {
+        "x": 11,
+        "y": 164.46875,
+        "width": 1418,
+        "height": 662.140625
+      },
+      "pointOverlaps": 0,
+      "dialogCount": 0,
+      "message": {
+        "x": 11,
+        "y": 117.28125,
+        "width": 1418,
+        "height": 36,
+        "text": "A serpente está atrás de você! Use os obstáculos para escapar.",
+        "scrollHeight": 36,
+        "clientHeight": 36,
+        "whiteSpace": "normal"
+      },
+      "resources": 83,
+      "heapBytes": 10855982
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "name": "quiz-question",
+      "documentWidth": 1440,
+      "scene": null,
+      "canvas": null,
+      "pointOverlaps": 0,
+      "dialogCount": 0,
+      "message": null,
+      "resources": 53,
+      "heapBytes": 12883488
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "name": "quiz-feedback",
+      "documentWidth": 1440,
+      "scene": null,
+      "canvas": null,
+      "pointOverlaps": 0,
+      "dialogCount": 0,
+      "message": null,
+      "resources": 56,
+      "heapBytes": 13339459
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "name": "exploration",
+      "documentWidth": 1920,
+      "scene": {
+        "x": 515,
+        "y": 174,
+        "width": 1086,
+        "height": 520
+      },
+      "canvas": null,
+      "pointOverlaps": 0,
+      "dialogCount": 0,
+      "message": null,
+      "resources": 48,
+      "heapBytes": 12095141
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "name": "riddle",
+      "documentWidth": 1920,
+      "scene": {
+        "x": 515,
+        "y": 174,
+        "width": 1086,
+        "height": 520
+      },
+      "canvas": null,
+      "pointOverlaps": 0,
+      "dialogCount": 1,
+      "message": null,
+      "resources": 58,
+      "heapBytes": 13808716
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "name": "snake-intro",
+      "documentWidth": 1920,
+      "scene": null,
+      "canvas": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0
+      },
+      "pointOverlaps": 0,
+      "dialogCount": 0,
+      "message": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "text": "Encontre os três Fragmentos de Sabedoria.",
+        "scrollHeight": 0,
+        "clientHeight": 0,
+        "whiteSpace": "normal"
+      },
+      "resources": 80,
+      "heapBytes": 10211783
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "name": "tutorial-movement",
+      "documentWidth": 1920,
+      "scene": null,
+      "canvas": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0
+      },
+      "pointOverlaps": 0,
+      "dialogCount": 1,
+      "message": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "text": "Encontre os três Fragmentos de Sabedoria.",
+        "scrollHeight": 0,
+        "clientHeight": 0,
+        "whiteSpace": "normal"
+      },
+      "resources": 83,
+      "heapBytes": 10784062
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "name": "tutorial-objective",
+      "documentWidth": 1920,
+      "scene": null,
+      "canvas": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0
+      },
+      "pointOverlaps": 0,
+      "dialogCount": 1,
+      "message": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "text": "Encontre os três Fragmentos de Sabedoria.",
+        "scrollHeight": 0,
+        "clientHeight": 0,
+        "whiteSpace": "normal"
+      },
+      "resources": 83,
+      "heapBytes": 11101397
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "name": "snake-active",
+      "documentWidth": 1920,
+      "scene": null,
+      "canvas": {
+        "x": 563.796875,
+        "y": 751.328125,
+        "width": 988.40625,
+        "height": 576.5625
+      },
+      "pointOverlaps": 0,
+      "dialogCount": 0,
+      "message": {
+        "x": 563.796875,
+        "y": 704.140625,
+        "width": 988.40625,
+        "height": 36,
+        "text": "A serpente está atrás de você! Use os obstáculos para escapar.",
+        "scrollHeight": 36,
+        "clientHeight": 36,
+        "whiteSpace": "normal"
+      },
+      "resources": 83,
+      "heapBytes": 11618452
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "name": "snake-paused",
+      "documentWidth": 1920,
+      "scene": null,
+      "canvas": {
+        "x": 563.796875,
+        "y": 751.328125,
+        "width": 988.40625,
+        "height": 576.5625
+      },
+      "pointOverlaps": 0,
+      "dialogCount": 0,
+      "message": {
+        "x": 563.796875,
+        "y": 704.140625,
+        "width": 988.40625,
+        "height": 36,
+        "text": "A serpente está atrás de você! Use os obstáculos para escapar.",
+        "scrollHeight": 36,
+        "clientHeight": 36,
+        "whiteSpace": "normal"
+      },
+      "resources": 83,
+      "heapBytes": 12663103
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "name": "snake-fullscreen",
+      "documentWidth": 1920,
+      "scene": null,
+      "canvas": {
+        "x": 11,
+        "y": 164.46875,
+        "width": 1898,
+        "height": 842.140625
+      },
+      "pointOverlaps": 0,
+      "dialogCount": 0,
+      "message": {
+        "x": 11,
+        "y": 117.28125,
+        "width": 1898,
+        "height": 36,
+        "text": "A serpente está atrás de você! Use os obstáculos para escapar.",
+        "scrollHeight": 36,
+        "clientHeight": 36,
+        "whiteSpace": "normal"
+      },
+      "resources": 83,
+      "heapBytes": 13014325
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "name": "quiz-question",
+      "documentWidth": 1920,
+      "scene": null,
+      "canvas": null,
+      "pointOverlaps": 0,
+      "dialogCount": 0,
+      "message": null,
+      "resources": 44,
+      "heapBytes": 15196434
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "name": "quiz-feedback",
+      "documentWidth": 1920,
+      "scene": null,
+      "canvas": null,
+      "pointOverlaps": 0,
+      "dialogCount": 0,
+      "message": null,
+      "resources": 56,
+      "heapBytes": 15911239
+    }
+  ],
+  "errors": [],
+  "physicalDevice": false
+}

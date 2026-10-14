@@ -1,4 +1,4 @@
-﻿import { expect, test, type Page } from '@playwright/test';
+import { expect, test, type Page } from '@playwright/test';
 
 async function navigate(page: Page, label: string) {
   const menu = page.getByRole('button', { name: 'Abrir menu' });
@@ -10,10 +10,35 @@ async function navigate(page: Page, label: string) {
 }
 
 async function enableLocalMode(page: Page) {
+  const origin = new URL(test.info().project.use.baseURL!).origin;
+  await page
+    .context()
+    .route('**/*', (route) =>
+      new URL(route.request().url()).origin === origin
+        ? route.continue()
+        : route.abort(),
+    );
   await page.goto('/auth');
   await page
     .getByRole('button', { name: 'Continuar somente neste navegador' })
     .click();
+}
+
+async function openTravelerSwitch(page: Page) {
+  const trigger = page.getByRole('button', {
+    name: 'Trocar Viajante',
+    exact: true,
+  });
+  if (await trigger.isVisible()) {
+    await trigger.click();
+  } else {
+    await page
+      .getByRole('button', { name: 'Abrir Herói', exact: true })
+      .click();
+    await page
+      .getByRole('menuitem', { name: 'Trocar Viajante', exact: true })
+      .click();
+  }
 }
 
 test('navegação leva à Loja, compra aparece na Mochila e equipamento persiste', async ({
@@ -62,6 +87,7 @@ test('navegação leva à Loja, compra aparece na Mochila e equipamento persiste
     page.getByRole('heading', { name: 'Espada do Caminho' }),
   ).toBeVisible();
   await navigate(page, 'Equipamentos');
+  await page.getByRole('button', { name: 'Arma', exact: true }).click();
   await page.getByRole('button', { name: 'Equipar', exact: true }).click();
   await page.waitForTimeout(250);
   await page.screenshot({
@@ -70,6 +96,7 @@ test('navegação leva à Loja, compra aparece na Mochila e equipamento persiste
   });
   await expect(page.getByText('Espada do Caminho equipado.')).toBeVisible();
   await page.reload();
+  await page.getByRole('button', { name: 'Arma', exact: true }).click();
   await expect(page.getByRole('button', { name: 'Desequipar' })).toBeVisible();
   await navigate(page, 'Coleção');
   await expect(page.getByRole('heading', { name: 'Coleção' })).toBeVisible();
@@ -150,7 +177,7 @@ test('líder local publica lição e missão que reaparecem após reload', async
   await expect(
     page.getByRole('heading', { name: 'Desafio da semana' }),
   ).toBeVisible();
-  await page.getByRole('button', { name: 'Trocar Viajante' }).click();
+  await openTravelerSwitch(page);
   await page
     .getByRole('dialog')
     .getByRole('button', { name: 'Trocar Viajante' })
@@ -199,7 +226,7 @@ test('líder local publica lição e missão que reaparecem após reload', async
     .filter({ has: page.getByRole('heading', { name: 'Desafio da semana' }) })
     .getByRole('button', { name: 'Concluir e enviar' })
     .click();
-  await page.getByRole('button', { name: 'Trocar Viajante' }).click();
+  await openTravelerSwitch(page);
   await page
     .getByRole('dialog')
     .getByRole('button', { name: 'Trocar Viajante' })
@@ -228,7 +255,7 @@ test('líder local publica lição e missão que reaparecem após reload', async
       has: page.getByRole('heading', { name: 'Desafio da semana' }),
     }),
   ).toContainText('1/2');
-  await page.getByRole('button', { name: 'Trocar Viajante' }).click();
+  await openTravelerSwitch(page);
   await page
     .getByRole('dialog')
     .getByRole('button', { name: 'Trocar Viajante' })
@@ -362,12 +389,14 @@ test('equipamento mostra inspiração bíblica, animação e persiste no Códice
   await page.getByRole('button', { name: 'Botas' }).click();
   await expect(page.getByRole('button', { name: 'Desequipar' })).toBeVisible();
   await page.goto('/journey/diary');
-  await page.getByText('Ver itens descobertos e suas referências', {exact:true}).click();
+  await page
+    .getByText('Ver itens descobertos e suas referências', { exact: true })
+    .click();
   await expect(
     page.getByRole('heading', { name: 'Equipamentos & Bíblia' }),
   ).toBeVisible();
   await expect(page.getByText('Equipamento inicial')).toBeVisible();
-  await page.getByRole('button', { name: 'Trocar Viajante' }).click();
+  await openTravelerSwitch(page);
   await page
     .getByRole('dialog')
     .getByRole('button', { name: 'Trocar Viajante' })
@@ -401,12 +430,8 @@ test('minigame carrega o Jardim e inicia a perseguição após o preparo', async
     localStorage.setItem(key, JSON.stringify(save));
   });
   await page.goto('/journey/phases/o-jardim-e-a-escolha');
-  await expect(
-    page.getByRole('button', { name: 'Entendi · começar perseguição' }),
-  ).toBeVisible();
-  await page
-    .getByRole('button', { name: 'Entendi · começar perseguição' })
-    .click();
+  await expect(page.getByRole('button', { name: 'Começar' })).toBeVisible();
+  await page.getByRole('button', { name: 'Começar' }).click();
   await expect(
     page.getByRole('application', {
       name: 'Fuga da Serpente, jogo de perseguição',
@@ -417,7 +442,7 @@ test('minigame carrega o Jardim e inicia a perseguição após o preparo', async
     fullPage: true,
   });
   await expect(
-    page.getByText(/Serpente surgiu|Serpente está perseguindo você/),
+    page.getByText(/serpente está atrás de você|Serpente surgiu/i),
   ).toBeVisible({
     timeout: 5000,
   });
@@ -468,7 +493,8 @@ test('fluxo completo, teclado, persistência e mapa acessível', async ({
   await page.getByLabel('Longo', { exact: true }).check();
   await page.getByLabel('Azul', { exact: true }).check();
   await page.getByLabel('Escuro', { exact: true }).check();
-  await expect(page.getByRole('radio')).toHaveCount(11);
+  // Three ready heroes plus the eleven existing customization choices.
+  await expect(page.getByRole('radio')).toHaveCount(14);
   await page.screenshot({
     path: testInfo.outputPath('02-create.png'),
     fullPage: true,
@@ -537,6 +563,16 @@ test('fluxo completo, teclado, persistência e mapa acessível', async ({
     'Ana Clara',
   );
   await page.goto('/');
+  const progress = page
+    .locator('details')
+    .filter({
+      has: page.locator('summary', {
+        hasText: 'Meu progresso e outros caminhos',
+      }),
+    });
+  if ((await progress.getAttribute('open')) === null) {
+    await progress.locator('summary').click();
+  }
   await page.getByRole('button', { name: 'Iniciar Jornada' }).click();
   await expect(page).toHaveURL('/journey');
   await page.goto('/journey/create');

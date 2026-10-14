@@ -1,0 +1,202 @@
+{
+  "base": "2d4fe22a1af739192a2bbe02e10e3dd541c618d0",
+  "status": "LOCAL_GATES_PASS_DEPLOY_PENDING",
+  "authorReview": true,
+  "independentReview": false,
+  "physicalDevice": false,
+  "unit": {
+    "files": 67,
+    "tests": 443,
+    "command": "npx vitest run --maxWorkers=2",
+    "result": "PASS"
+  },
+  "lint": "PASS",
+  "typecheck": "PASS",
+  "build": {
+    "result": "PASS",
+    "routes": 20,
+    "publicFiles": 209,
+    "artifactFiles": 727,
+    "hdIdentities": 54,
+    "restrictedSourceHashes": 8
+  },
+  "distinctE2EAccepted": 108,
+  "runs": {
+    "final-acceptance": {
+      "startTime": "2026-10-14T15:51:31.233Z",
+      "duration": 250618.779,
+      "expected": 63,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "final-regression": {
+      "startTime": "2026-10-14T15:44:48.433Z",
+      "duration": 93469.342,
+      "expected": 41,
+      "skipped": 1,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "panel-final": {
+      "startTime": "2026-10-14T15:57:59.169Z",
+      "duration": 55301.314,
+      "expected": 12,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "playthrough-accepted": {
+      "startTime": "2026-10-14T15:59:14.478Z",
+      "duration": 26234.36,
+      "expected": 2,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "native-touch-accepted": {
+      "startTime": "2026-10-14T15:59:41.806Z",
+      "duration": 10229.782,
+      "expected": 2,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "quiz-navigation-final": {
+      "startTime": "2026-10-14T16:10:36.186Z",
+      "duration": 4417.737,
+      "expected": 3,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    }
+  },
+  "visual": {
+    "before/chromium": {
+      "captures": 66,
+      "errors": 0,
+      "horizontalOverflow": 0,
+      "markerOverlaps": 0,
+      "physicalDevice": false
+    },
+    "after/chromium": {
+      "captures": 143,
+      "errors": 0,
+      "horizontalOverflow": 0,
+      "markerOverlaps": 0,
+      "physicalDevice": false
+    },
+    "after/webkit": {
+      "captures": 143,
+      "errors": 0,
+      "horizontalOverflow": 0,
+      "markerOverlaps": 0,
+      "physicalDevice": false
+    }
+  },
+  "performance": {
+    "android": {
+      "durationMs": 3001.49999999553,
+      "frames": 433,
+      "p50Ms": 6.900000000000546,
+      "p95Ms": 7,
+      "framesOver33ms": 0,
+      "cls": 0.05141596627153478,
+      "heapUsedBytes": 9752284,
+      "canvasBackingBytes": 4021696,
+      "renderDpr": 2,
+      "warmupMs": 2000,
+      "reducedMotion": true,
+      "host": "Windows browser emulation, no CPU/network throttle; not POCO X7 measurement"
+    },
+    "webkit-mobile": {
+      "durationMs": 3063,
+      "frames": 49,
+      "p50Ms": 62,
+      "p95Ms": 78,
+      "framesOver33ms": 49,
+      "cls": null,
+      "heapUsedBytes": null,
+      "canvasBackingBytes": 4021696,
+      "renderDpr": 2,
+      "warmupMs": 2000,
+      "reducedMotion": true,
+      "host": "Windows browser emulation, no CPU/network throttle; not POCO X7 measurement"
+    },
+    "desktop": {
+      "durationMs": 3006.3999999999996,
+      "frames": 434,
+      "p50Ms": 6.900000000000546,
+      "p95Ms": 7.100000000000364,
+      "framesOver33ms": 0,
+      "cls": 0.05141596627153478,
+      "heapUsedBytes": 10028062,
+      "canvasBackingBytes": 1005424,
+      "renderDpr": 1,
+      "warmupMs": 2000,
+      "reducedMotion": true,
+      "host": "Windows browser emulation, no CPU/network throttle; not POCO X7 measurement"
+    }
+  },
+  "preservation": {
+    "base": "2d4fe22a1af739192a2bbe02e10e3dd541c618d0",
+    "trackedBaseline": 2062,
+    "preserved": 2046,
+    "authorizedChanges": [
+      ".agent/memory/CURRENT_STATE.md",
+      ".gitignore",
+      "apps/web/features/journey/components/garden-exploration.tsx",
+      "apps/web/features/journey/components/snake-chase-game.tsx",
+      "apps/web/features/journey/components/snake-mobile.module.css",
+      "apps/web/features/journey/journey.module.css",
+      "apps/web/features/journey/screens/phase.tsx",
+      "apps/web/features/journey/snake-chase-game.test.tsx",
+      "tests/e2e/arena.spec.ts",
+      "tests/e2e/audit-corrections.spec.ts",
+      "tests/e2e/avatar-hd-activation.spec.ts",
+      "tests/e2e/home.spec.ts",
+      "tests/e2e/serpent-mobile-v2.spec.ts",
+      "tests/e2e/snake-playthrough.spec.ts",
+      "tests/e2e/snake-responsive.spec.ts"
+    ],
+    "unexpected": [],
+    "generatedRouteTypesExcluded": 1,
+    "cameraSwipeEngineAuthDatabaseGuildChatAssets": "PASS",
+    "renderAndInputLoopUnchanged": true
+  },
+  "chat": {
+    "result": "PASS",
+    "scope": "UI fixtures; no live authenticated two-account transport approval",
+    "checks": [
+      "chrome 360px: chat visible, no horizontal overflow",
+      "chrome 390px: chat visible, no horizontal overflow",
+      "chrome 768px: chat visible, no horizontal overflow",
+      "chrome 1440px: chat visible, no horizontal overflow",
+      "chrome: send/read/reconnect/removal/account isolation fixtures PASS",
+      "msedge 360px: chat visible, no horizontal overflow",
+      "msedge 390px: chat visible, no horizontal overflow",
+      "msedge 768px: chat visible, no horizontal overflow",
+      "msedge 1440px: chat visible, no horizontal overflow",
+      "msedge: send/read/reconnect/removal/account isolation fixtures PASS"
+    ]
+  },
+  "localHttp": {
+    "checks": 28,
+    "scriptsScanned": 18,
+    "result": "PASS"
+  },
+  "earlierFailures": [
+    "jsdom dialog API mock",
+    "WebKit trigger focus",
+    "CDP fullscreen override lifetime",
+    "metric directory absent",
+    "concurrent artifact collision",
+    "outdated Home selectors",
+    "DEV indicator interception",
+    "high-worker import timeout",
+    "canonical 308 before DEV 404",
+    "header selector ambiguity in playthrough"
+  ],
+  "remoteDatabaseChanges": false,
+  "deploymentProtectionChanges": false
+}

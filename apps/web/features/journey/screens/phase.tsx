@@ -190,6 +190,7 @@ export function PhaseScreen() {
 
                 {step === 'explore' && (
                   <GardenExploration
+                    key={traveler.id}
                     traveler={traveler}
                     onComplete={() => next('reading')}
                   />
@@ -252,6 +253,7 @@ export function PhaseScreen() {
 
                 {step === 'snake' && (
                   <SnakeChaseGame
+                    key={traveler.id}
                     portrait={gameplayPortrait}
                     tutorialCompleted={traveler.progress.snakeTutorialCompleted}
                     onTutorialComplete={() =>

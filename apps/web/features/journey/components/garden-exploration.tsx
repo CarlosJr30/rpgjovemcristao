@@ -5,6 +5,7 @@ import {
   useCallback,
   useEffect,
   useMemo,
+  useRef,
   useState,
   type MouseEvent,
 } from 'react';
@@ -14,6 +15,8 @@ import { bibleLinkForReference } from '../data/bibleLinks';
 import { updateTraveler } from '../state/use-journey';
 import { AvatarRuntime } from './avatar-runtime';
 import styles from '../journey.module.css';
+import mobileStyles from './garden-mobile.module.css';
+import { ContextPanel } from './context-panel';
 
 type GardenInteraction = {
   id: string;
@@ -154,6 +157,12 @@ export function GardenExploration({
   const [careSignals, setCareSignals] = useState<string[]>([]);
   const [challengeSequence, setChallengeSequence] = useState<string[]>([]);
   const [consequenceClues, setConsequenceClues] = useState<string[]>([]);
+  const [selectedPoint, setSelectedPoint] = useState<GardenInteraction | null>(
+    null,
+  );
+  const challengeDrafts = useRef<Record<string, string[]>>({});
+  const interactionTimer = useRef<number | undefined>(undefined);
+  useEffect(() => () => window.clearTimeout(interactionTimer.current), []);
   const progress = traveler.progress;
   const nearby = useMemo(
     () =>
@@ -207,7 +216,7 @@ export function GardenExploration({
               ? 'limit'
               : 'consequence',
         );
-        setChallengeSequence([]);
+        setChallengeSequence(challengeDrafts.current[point.id] ?? []);
         return;
       }
       if (point.kind === 'puzzle') {
@@ -327,7 +336,7 @@ export function GardenExploration({
         setActiveInteraction(null);
         return;
       }
-      window.setTimeout(() => {
+      interactionTimer.current = window.setTimeout(() => {
         interact(point);
         setActiveInteraction(null);
       }, 650);
@@ -337,6 +346,17 @@ export function GardenExploration({
 
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {
+      if (
+        selectedPoint ||
+        puzzleOpen ||
+        activeChallenge ||
+        activeInteraction ||
+        (event.target instanceof HTMLElement &&
+          event.target.matches(
+            'input,textarea,select,[contenteditable="true"]',
+          ))
+      )
+        return;
       const directions: Record<string, [number, number]> = {
         ArrowUp: [0, -3],
         w: [0, -3],
@@ -377,7 +397,14 @@ export function GardenExploration({
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [interact, nearbyInRange]);
+  }, [
+    interact,
+    nearbyInRange,
+    selectedPoint,
+    puzzleOpen,
+    activeChallenge,
+    activeInteraction,
+  ]);
 
   const clickDestination = (event: MouseEvent<HTMLDivElement>) => {
     if (event.target !== event.currentTarget) return;
@@ -480,8 +507,32 @@ export function GardenExploration({
         ? 'Organize escolha e consequência'
         : 'Os três Fragmentos foram encontrados';
 
+  const closePanel = () => {
+    if (activeChallenge) {
+      const id =
+        activeChallenge === 'care'
+          ? 'water'
+          : activeChallenge === 'limit'
+            ? 'stones'
+            : 'leaves';
+      challengeDrafts.current[id] = challengeSequence;
+    }
+    setSelectedPoint(null);
+    setPuzzleOpen(false);
+    setActiveChallenge(null);
+  };
+  const panelTitle =
+    selectedPoint?.label ??
+    (puzzleOpen
+      ? 'Desafio de observação'
+      : activeChallenge === 'care'
+        ? 'Desafio do cuidado'
+        : activeChallenge === 'limit'
+          ? 'Desafio do limite'
+          : 'Desafio de escolha e consequência');
+
   return (
-    <div className={styles.gardenExploration}>
+    <div className={`${styles.gardenExploration} ${mobileStyles.exploration}`}>
       <div className={styles.gardenHud}>
         <span>
           OBJETIVO ATUAL <strong>{nextObjective}</strong>
@@ -520,13 +571,14 @@ export function GardenExploration({
         >
           <AvatarRuntime traveler={traveler} decorative />
         </div>
-        {GARDEN_INTERACTIONS.map((point) => {
+        {GARDEN_INTERACTIONS.map((point, index) => {
           const resolved = isResolved(point, traveler);
           const close = distance(position, point) <= 12;
           return (
             <button
               key={point.id}
               type="button"
+              data-garden-point={point.id}
               className={`${styles.gardenWorldPoint} ${styles[`gardenPoint${point.kind}`]} ${resolved ? styles.gardenWorldPointDone : ''} ${activeInteraction === point.id ? styles.gardenWorldPointActive : ''}`}
               style={{
                 left: `${String(point.x)}%`,
@@ -534,186 +586,245 @@ export function GardenExploration({
               }}
               onClick={(event) => {
                 event.stopPropagation();
-                approachAndInteract(point);
+                if (activeInteraction) return;
+                event.currentTarget.focus({ preventScroll: true });
+                if (window.matchMedia('(max-width: 1024px)').matches)
+                  setSelectedPoint(point);
+                else approachAndInteract(point);
               }}
-              disabled={resolved}
               aria-label={`${point.label}: ${resolved ? 'concluído' : point.action}`}
             >
-              {point.asset ? (
+              {point.asset && !resolved ? (
                 // eslint-disable-next-line @next/next/no-img-element -- local exploration asset
                 <img src={point.asset} alt="" aria-hidden="true" />
               ) : (
                 <span aria-hidden="true">{pointIcon(point, resolved)}</span>
               )}
               <small>{point.label}</small>
+              <span className={mobileStyles.number} aria-hidden="true">
+                {index + 1}
+              </span>
               {close && !resolved && <em>[E] {point.action}</em>}
             </button>
           );
         })}
         <div className={styles.gardenControlsHint}>
-          WASD / SETAS · CLIQUE OU TOQUE PARA MOVER · E PARA INTERAGIR
+          <span className={mobileStyles.touchHint}>
+            Toque em um ponto para ver o objetivo. Toque no caminho para mover.
+          </span>
+          <span className={mobileStyles.keyboardHint}>
+            WASD / SETAS · CLIQUE PARA MOVER · E PARA INTERAGIR
+          </span>
         </div>
         {feedback && (
           <div className={styles.gardenDiscovery} role="status">
             {feedback}
           </div>
         )}
-        {puzzleOpen && (
-          <div
-            className={styles.gardenPuzzle}
-            role="group"
-            aria-label="Desafio de observação"
-          >
-            <strong>Qual sinal se move sem deixar o lugar?</strong>
-            <div>
-              <button onClick={() => solvePuzzle('pedras')}>Pedras</button>
-              <button onClick={() => solvePuzzle('folhas')}>Folhas</button>
-              <button onClick={() => solvePuzzle('agua')}>Água</button>
-            </div>
-          </div>
-        )}
-        {activeChallenge === 'care' && (
-          <div
-            className={styles.gardenObjectivePanel}
-            role="dialog"
-            aria-label="Desafio do cuidado"
-          >
-            <small>REFERÊNCIA · Gênesis 2:8–15</small>
-            <strong>Cuidado do Jardim</strong>
-            <p>
-              O relato associa o jardim a água, cultivo e guarda. Encontre três
-              sinais de cuidado nesta região.
+        <ContextPanel
+          open={!!selectedPoint || puzzleOpen || !!activeChallenge}
+          title={panelTitle}
+          onClose={closePanel}
+        >
+          {feedback && (
+            <p className={mobileStyles.feedback} role="status">
+              {feedback}
             </p>
-            <div className={styles.gardenSignalGrid}>
-              {[
-                ['water-flow', 'Água que irriga'],
-                ['cultivated-soil', 'Solo que pode ser cultivado'],
-                ['protected-plants', 'Vegetação a ser guardada'],
-              ].map(([id, label]) => (
-                <button
-                  key={id}
-                  className={
-                    careSignals.includes(id)
-                      ? styles.gardenSignalFound
-                      : undefined
-                  }
-                  onClick={() => selectCareSignal(id)}
-                >
-                  {careSignals.includes(id) ? '✓ ' : '✦ '}
-                  {label}
-                </button>
-              ))}
-            </div>
-            <span>Sinais encontrados {careSignals.length} / 3</span>
-            <a
-              href={bibleLinkForReference('Gênesis 2:8–15').url}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Abrir na Bíblia ↗
-            </a>
-            <button
-              disabled={careSignals.length < 3}
-              onClick={() => completeFragment('water', 'care-signs')}
-            >
-              Concluir observação
-            </button>
-          </div>
-        )}
-        {activeChallenge === 'limit' && (
-          <div
-            className={styles.gardenObjectivePanel}
-            role="dialog"
-            aria-label="Desafio do limite"
-          >
-            <small>REFERÊNCIA · Gênesis 2:16–17</small>
-            <strong>Liberdade e limite</strong>
-            <p>
-              Toque nos conceitos na ordem em que a orientação é apresentada.
-            </p>
-            <div className={styles.gardenSequence}>
-              <button onClick={() => selectLimitStep('limite')}>Limite</button>
-              <button onClick={() => selectLimitStep('liberdade')}>
-                Liberdade
-              </button>
-              <button onClick={() => selectLimitStep('orientacao')}>
-                Orientação
+          )}
+          {selectedPoint && (
+            <div className={mobileStyles.detail}>
+              <p>{selectedPoint.text}</p>
+              <p>
+                <strong>Estado:</strong>{' '}
+                {isResolved(selectedPoint, traveler)
+                  ? '✓ Concluído'
+                  : selectedPoint.id === 'chest-hidden' &&
+                      !progress.gardenEvents.includes('wind-pattern')
+                    ? 'Bloqueado: resolva primeiro os Sinais do vento.'
+                    : 'Disponível'}
+              </p>
+              {selectedPoint.reward && (
+                <p>
+                  Recompensa: {selectedPoint.reward} moedas, concedidas uma
+                  única vez.
+                </p>
+              )}
+              {selectedPoint.kind === 'fragment' && (
+                <p>
+                  Objetivo: concluir o desafio para encontrar um Fragmento de
+                  Sabedoria.
+                </p>
+              )}
+              <button
+                disabled={isResolved(selectedPoint, traveler)}
+                onClick={() => {
+                  const point = selectedPoint;
+                  setSelectedPoint(null);
+                  approachAndInteract(point);
+                }}
+              >
+                {isResolved(selectedPoint, traveler)
+                  ? 'Concluído'
+                  : selectedPoint.action}
               </button>
             </div>
-            <span>Sequência {challengeSequence.length} / 3</span>
-            <a
-              href={bibleLinkForReference('Gênesis 2:16–17').url}
-              target="_blank"
-              rel="noopener noreferrer"
+          )}
+          {puzzleOpen && (
+            <div
+              className={`${styles.gardenPuzzle} ${mobileStyles.panelBody}`}
+              role="group"
+              aria-label="Desafio de observação"
             >
-              Abrir na Bíblia ↗
-            </a>
-          </div>
-        )}
-        {activeChallenge === 'consequence' && (
-          <div
-            className={styles.gardenObjectivePanel}
-            role="dialog"
-            aria-label="Desafio de escolha e consequência"
-          >
-            <small>REFERÊNCIA · Gênesis 3:1–7</small>
-            <strong>Escolha e consequência</strong>
-            <p>
-              Revele as pistas e organize o desenvolvimento do relato sem
-              assumir o lugar de seus personagens.
-            </p>
-            {consequenceClues.length < 3 ? (
+              <strong>Qual sinal se move sem deixar o lugar?</strong>
+              <div>
+                <button onClick={() => solvePuzzle('pedras')}>Pedras</button>
+                <button onClick={() => solvePuzzle('folhas')}>Folhas</button>
+                <button onClick={() => solvePuzzle('agua')}>Água</button>
+              </div>
+            </div>
+          )}
+          {activeChallenge === 'care' && (
+            <div
+              className={`${styles.gardenObjectivePanel} ${mobileStyles.panelBody}`}
+              aria-label="Desafio do cuidado"
+            >
+              <small>REFERÊNCIA · Gênesis 2:8–15</small>
+              <strong>Cuidado do Jardim</strong>
+              <p>
+                O relato associa o jardim a água, cultivo e guarda. Encontre
+                três sinais de cuidado nesta região.
+              </p>
               <div className={styles.gardenSignalGrid}>
                 {[
-                  ['heard-guidance', 'Orientação lembrada'],
-                  ['made-choice', 'Escolha realizada'],
-                  ['perceived-change', 'Mudança percebida'],
+                  ['water-flow', 'Água que irriga'],
+                  ['cultivated-soil', 'Solo que pode ser cultivado'],
+                  ['protected-plants', 'Vegetação a ser guardada'],
                 ].map(([id, label]) => (
                   <button
                     key={id}
                     className={
-                      consequenceClues.includes(id)
+                      careSignals.includes(id)
                         ? styles.gardenSignalFound
                         : undefined
                     }
-                    onClick={() =>
-                      setConsequenceClues((current) =>
-                        current.includes(id) ? current : [...current, id],
-                      )
-                    }
+                    onClick={() => selectCareSignal(id)}
                   >
-                    {consequenceClues.includes(id) ? '✓ ' : '? '}
+                    {careSignals.includes(id) ? '✓ ' : '✦ '}
                     {label}
                   </button>
                 ))}
               </div>
-            ) : (
+              <span>Sinais encontrados {careSignals.length} / 3</span>
+              <a
+                href={bibleLinkForReference('Gênesis 2:8–15').url}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Abrir na Bíblia ↗
+              </a>
+              <button
+                disabled={careSignals.length < 3}
+                onClick={() => completeFragment('water', 'care-signs')}
+              >
+                Concluir observação
+              </button>
+            </div>
+          )}
+          {activeChallenge === 'limit' && (
+            <div
+              className={`${styles.gardenObjectivePanel} ${mobileStyles.panelBody}`}
+              aria-label="Desafio do limite"
+            >
+              <small>REFERÊNCIA · Gênesis 2:16–17</small>
+              <strong>Liberdade e limite</strong>
+              <p>
+                Toque nos conceitos na ordem em que a orientação é apresentada.
+              </p>
               <div className={styles.gardenSequence}>
-                <button onClick={() => selectConsequenceStep('consequencia')}>
-                  Consequência
+                <button onClick={() => selectLimitStep('limite')}>
+                  Limite
                 </button>
-                <button onClick={() => selectConsequenceStep('orientacao')}>
+                <button onClick={() => selectLimitStep('liberdade')}>
+                  Liberdade
+                </button>
+                <button onClick={() => selectLimitStep('orientacao')}>
                   Orientação
                 </button>
-                <button onClick={() => selectConsequenceStep('escolha')}>
-                  Escolha
-                </button>
               </div>
-            )}
-            <span>
-              {consequenceClues.length < 3
-                ? `Pistas ${String(consequenceClues.length)} / 3`
-                : `Ordem ${String(challengeSequence.length)} / 3`}
-            </span>
-            <a
-              href={bibleLinkForReference('Gênesis 3:1–7').url}
-              target="_blank"
-              rel="noopener noreferrer"
+              <span>Sequência {challengeSequence.length} / 3</span>
+              <a
+                href={bibleLinkForReference('Gênesis 2:16–17').url}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Abrir na Bíblia ↗
+              </a>
+            </div>
+          )}
+          {activeChallenge === 'consequence' && (
+            <div
+              className={`${styles.gardenObjectivePanel} ${mobileStyles.panelBody}`}
+              aria-label="Desafio de escolha e consequência"
             >
-              Abrir na Bíblia ↗
-            </a>
-          </div>
-        )}
+              <small>REFERÊNCIA · Gênesis 3:1–7</small>
+              <strong>Escolha e consequência</strong>
+              <p>
+                Revele as pistas e organize o desenvolvimento do relato sem
+                assumir o lugar de seus personagens.
+              </p>
+              {consequenceClues.length < 3 ? (
+                <div className={styles.gardenSignalGrid}>
+                  {[
+                    ['heard-guidance', 'Orientação lembrada'],
+                    ['made-choice', 'Escolha realizada'],
+                    ['perceived-change', 'Mudança percebida'],
+                  ].map(([id, label]) => (
+                    <button
+                      key={id}
+                      className={
+                        consequenceClues.includes(id)
+                          ? styles.gardenSignalFound
+                          : undefined
+                      }
+                      onClick={() =>
+                        setConsequenceClues((current) =>
+                          current.includes(id) ? current : [...current, id],
+                        )
+                      }
+                    >
+                      {consequenceClues.includes(id) ? '✓ ' : '? '}
+                      {label}
+                    </button>
+                  ))}
+                </div>
+              ) : (
+                <div className={styles.gardenSequence}>
+                  <button onClick={() => selectConsequenceStep('consequencia')}>
+                    Consequência
+                  </button>
+                  <button onClick={() => selectConsequenceStep('orientacao')}>
+                    Orientação
+                  </button>
+                  <button onClick={() => selectConsequenceStep('escolha')}>
+                    Escolha
+                  </button>
+                </div>
+              )}
+              <span>
+                {consequenceClues.length < 3
+                  ? `Pistas ${String(consequenceClues.length)} / 3`
+                  : `Ordem ${String(challengeSequence.length)} / 3`}
+              </span>
+              <a
+                href={bibleLinkForReference('Gênesis 3:1–7').url}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Abrir na Bíblia ↗
+              </a>
+            </div>
+          )}
+        </ContextPanel>
         {equipmentPending && (
           <div className={styles.gardenEquipmentFound} role="status">
             <strong>NOVO EQUIPAMENTO</strong>
