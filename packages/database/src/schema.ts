@@ -16,6 +16,7 @@ import {
   uuid,
 } from 'drizzle-orm/pg-core';
 import { authenticatedRole, authUid, authUsers } from 'drizzle-orm/supabase';
+export * from './chat-schema';
 
 const timestamps = {
   createdAt: timestamp('created_at', { withTimezone: true })

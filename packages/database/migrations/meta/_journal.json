@@ -43,6 +43,27 @@
       "when": 1790816400000,
       "tag": "0005_guild_lessons_and_schedule",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1791950013709,
+      "tag": "0006_traveler_journey_progress",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1791950014239,
+      "tag": "0007_guild_chat",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1791950014764,
+      "tag": "0008_guild_chat_commit_order",
+      "breakpoints": true
     }
   ]
 }

@@ -53,6 +53,7 @@ import { GuildHero } from './guild-hero';
 import hall from './guild-experience.module.css';
 import { guildStatusLabel } from '../data/guildPresentation';
 import { GuildArtwork, GuildHall } from './guild-artwork';
+import { GuildChat } from './guild-chat';
 
 type LoadedState = Readonly<{
   context: OnlineGuildContext | null;
@@ -2059,6 +2060,7 @@ export function OnlineGuildHub({
           Membros
         </button>
       </nav>
+      <GuildChat guildId={context.guild.id} travelerId={traveler.id} />
       <p role="status" aria-live="polite">
         {feedback}
       </p>

@@ -13,6 +13,25 @@ type TableDefinition<Row, Insert, Update> = {
   Relationships: [];
 };
 
+export type GuildChatMessageRow = {
+  id: string; sequence: number; guild_id: string; author_traveler_id: string | null;
+  client_id: string; author_name: string; author_body_type: 'male' | 'female';
+  author_skin_tone: 'claro' | 'medio' | 'escuro'; author_hair_style: 'curto' | 'longo' | 'cacheado';
+  author_outfit: 'musgo' | 'ocre' | 'azul'; body: string | null;
+  is_announcement: boolean; created_at: string; removed_at: string | null;
+};
+export type GuildChatSummary = {
+  unread_count: number; last_read_sequence: number; can_announce: boolean; can_moderate: boolean;
+};
+export type GuildChatReportRow = {
+  id: string; guild_id: string; message_id: string; reporter_traveler_id: string | null;
+  reason: string; status: string; created_at: string;
+};
+export type GuildChatLogRow = {
+  id: string; guild_id: string; message_id: string; actor_traveler_id: string | null;
+  action: string; reason: string; created_at: string;
+};
+
 export type ProfileRow = {
   id: string;
   display_name: string | null;
@@ -134,6 +153,10 @@ export type GuildMissionProgressSummary = { traveler_id: string; traveler_name: 
 export type Database = {
   public: {
     Tables: {
+      guild_chat_messages: TableDefinition<GuildChatMessageRow, never, never>;
+      guild_chat_reads: TableDefinition<{guild_id: string; user_id: string; last_read_sequence: number}, never, never>;
+      guild_chat_reports: TableDefinition<GuildChatReportRow, never, never>;
+      guild_chat_moderation_log: TableDefinition<GuildChatLogRow, never, never>;
       profiles: TableDefinition<
         ProfileRow,
         { id: string; display_name?: string | null },
@@ -193,6 +216,11 @@ export type Database = {
     };
     Views: Record<string, never>;
     Functions: {
+      send_guild_chat_message: { Args: {p_guild_id: string; p_traveler_id: string; p_client_id: string; p_body: string; p_announcement: boolean}; Returns: string };
+      guild_chat_summary: {Args: {p_guild_id: string; p_traveler_id: string}; Returns: GuildChatSummary[]};
+      mark_guild_chat_read: {Args: {p_guild_id: string; p_traveler_id: string; p_sequence: number}; Returns: undefined};
+      report_guild_chat_message: {Args: {p_guild_id: string; p_traveler_id: string; p_message_id: string; p_reason: string}; Returns: undefined};
+      moderate_guild_chat_message: {Args: {p_guild_id: string; p_traveler_id: string; p_message_id: string; p_action: string; p_reason: string}; Returns: undefined};
       create_traveler: {
         Args: {
           p_id: string;

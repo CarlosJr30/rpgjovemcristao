@@ -34,6 +34,11 @@ test('TASK-0063: restricted audio, private sources and DEV galleries are unavail
 test('TASK-0063: mobile login form remains readable and validates without touching remote auth', async ({
   page,
 }) => {
+  const authRequests: string[] = [];
+  page.on('request', (request) => {
+    const url = new URL(request.url());
+    if (url.pathname.startsWith('/auth/v1/')) authRequests.push(url.pathname);
+  });
   await page.context().route('**/*', (route) => {
     const url = new URL(route.request().url());
     return url.protocol.startsWith('http') && url.hostname !== '127.0.0.1'
@@ -59,12 +64,25 @@ test('TASK-0063: mobile login form remains readable and validates without touchi
   ).toBeVisible();
   await email.fill('qa@example.invalid');
   const password = page.getByLabel('Senha', { exact: true });
-  await password.fill('123');
+  // Login accepts existing credentials; signup is where the minimum applies.
+  await expect(password).not.toHaveAttribute('minlength');
+  await password.fill('');
   await page.getByRole('button', { name: 'Entrar', exact: true }).click();
+  expect(
+    await password.evaluate(
+      (element) => (element as HTMLInputElement).validity.valueMissing,
+    ),
+  ).toBe(true);
+  await page.getByRole('button', { name: 'Ainda não tenho conta' }).click();
+  await page.getByLabel('Nome de exibição', { exact: true }).fill('QA Mobile');
+  await expect(password).toHaveAttribute('minlength', '8');
+  await password.fill('123');
+  await page.getByRole('button', { name: 'Criar conta', exact: true }).click();
   expect(
     await password.evaluate(
       (element) => (element as HTMLInputElement).validity.tooShort,
     ),
   ).toBe(true);
+  expect(authRequests).toEqual([]);
   await expect(page).toHaveURL(/\/auth$/);
 });
