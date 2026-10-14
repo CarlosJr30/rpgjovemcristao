@@ -8,6 +8,10 @@ test.beforeEach(async ({ page }) => {
 });
 
 async function openArena(page: Page) {
+  await expect(page).toHaveURL('/journey/intro');
+  await expect(
+    page.getByRole('button', { name: /Entrar na jornada/ }),
+  ).toBeVisible();
   const menu = page.getByRole('button', { name: 'Abrir menu' });
   if (await menu.isVisible()) await menu.click();
   await page
