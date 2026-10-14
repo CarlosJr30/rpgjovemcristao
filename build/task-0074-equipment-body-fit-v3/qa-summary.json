@@ -1,0 +1,164 @@
+{
+  "checks": [
+    {
+      "test": "HTML offline, caminhos e imagens",
+      "result": "PASS",
+      "evidence": "inspection/{chromium,webkit}/results.json",
+      "defect": "16 targets/18 imagens incorporadas; nenhum arquivo ausente",
+      "recommendedFix": "Nenhuma",
+      "priority": "P2"
+    },
+    {
+      "test": "SHA/PNG/CRC/RGBA/Avatar",
+      "result": "PASS",
+      "evidence": "inventory.json e inspection/*/results.json",
+      "defect": "16 fontes,16 bakes e54HD conferidos; PNG1024×1536 e alpha",
+      "recommendedFix": "Nenhuma",
+      "priority": "P1"
+    },
+    {
+      "test": "Navegação e troca da referência",
+      "result": "PASS",
+      "evidence": "inspection/*/results.json",
+      "defect": "Candidato troca para o Avatar exato masculino/feminino; variantes arbitrárias não oferecidas",
+      "recommendedFix": "Não generalizar aprovação",
+      "priority": "P1"
+    },
+    {
+      "test": "Zoom real, corpo inteiro e acessibilidade",
+      "result": "PASS",
+      "evidence": "inspection/*/results.json",
+      "defect": "Nome acessível ausente e enquadramento/zoom mobile corrigidos",
+      "recommendedFix": "Rechecado nos11 tamanhos ×2 motores",
+      "priority": "P2"
+    },
+    {
+      "test": "Sobreposição estática",
+      "result": "PASS",
+      "evidence": "compatibility/results.json e30PNGs",
+      "defect": "10 pares renderizados; ordem2/6/7 coerente, nenhum Avatar deformado",
+      "recommendedFix": "A inspeção não aprova as combinações",
+      "priority": "P2"
+    },
+    {
+      "test": "Fixação dos escudos",
+      "result": "BLOCKED",
+      "evidence": "inspection/*/*shield*zoom-right-hand.png",
+      "defect": "Mão/pega/correia posterior ficam ocultas; encaixe físico não demonstrável",
+      "recommendedFix": "Revisão humana ou rework artístico específico",
+      "priority": "P2"
+    },
+    {
+      "test": "Decisões humanas dos7",
+      "result": "BLOCKED",
+      "evidence": "visual-review.json",
+      "defect": "Nenhuma aprovação explícita nova",
+      "recommendedFix": "Carlos decidir por hash/Avatar, sem herança para outros itens",
+      "priority": "P1"
+    },
+    {
+      "test": "Ativação dos7 em produção",
+      "result": "BLOCKED",
+      "evidence": "resolvedor/gate e smoke HTTP",
+      "defect": "Pendentes inativos,2 armaduras sem item jogável",
+      "recommendedFix": "Não ativar; não criar itens",
+      "priority": "P1"
+    },
+    {
+      "test": "Unitários",
+      "result": "PASS",
+      "evidence": "vitest run --maxWorkers=2",
+      "defect": "447 testes/68 arquivos; inclui54 identidades,slots,atributos,HD/overlay inválido",
+      "recommendedFix": "Duas expectativas históricas V1 atualizadas sem relaxar fallback",
+      "priority": "P1"
+    },
+    {
+      "test": "Portal/equipar/atributos/persistência",
+      "result": "PASS",
+      "evidence": "portal-acceptance.json",
+      "defect": "44PASS/10skip de matriz desktop redundante;23 casos novos de provador",
+      "recommendedFix": "Fluxos normais e reduced motion; saves só sintéticos locais",
+      "priority": "P1"
+    },
+    {
+      "test": "Arena/Jornada/Serpente",
+      "result": "PASS",
+      "evidence": "regressions-accepted.json",
+      "defect": "80PASS/1skip exclusivamente desktop;21Portal rechecados no build final",
+      "recommendedFix": "Câmera/swipe/engine preservados por SHA",
+      "priority": "P1"
+    },
+    {
+      "test": "Home e atributos entre telas",
+      "result": "PASS",
+      "evidence": "home-attributes-verified.json + home-webkit-final.json",
+      "defect": "25 casos aceitos +5 rechecagens WebKit; menu/accordion esperados e cancelamento de prefetch corrigidos no teste",
+      "recommendedFix": "Sincronização do teste, sem mudança de domínio",
+      "priority": "P1"
+    },
+    {
+      "test": "Chat da Guilda (fixtures)",
+      "result": "PASS",
+      "evidence": "test-guild-chat-browser.mjs",
+      "defect": "10checks com fixtures; fonte não modificada",
+      "recommendedFix": "Não confundir com Realtime real",
+      "priority": "P1"
+    },
+    {
+      "test": "Chat real com2contas",
+      "result": "BLOCKED",
+      "evidence": "TASK-0072B",
+      "defect": "Aceite real não executado nesta auditoria; nenhum dado/conversa real usado",
+      "recommendedFix": "Continuar a tarefa de aceite real separadamente",
+      "priority": "P1"
+    },
+    {
+      "test": "Áudios/licenças e arquivos privados",
+      "result": "PASS",
+      "evidence": "local-smoke.json; production gate",
+      "defect": "8áudios e8fontes404;51caminhos privados404; sem mudança de contratos",
+      "recommendedFix": "Não inferir licença comercial/ownership exclusivo; nenhuma nova arte gerada",
+      "priority": "P1"
+    },
+    {
+      "test": "Performance",
+      "result": "PASS",
+      "evidence": "performance.json",
+      "defect": "1HD carregado; CLSmobile0; CLSdesktop0.05083/0.03059 iguais ao baseline",
+      "recommendedFix": "Tempos/heap/bytes DEV vsprodução não permitem alegar ganho percentual",
+      "priority": "P2"
+    },
+    {
+      "test": "Preservação",
+      "result": "PASS",
+      "evidence": "preservation-final.json",
+      "defect": "54HD/16fontes/receipts/SQL/Auth/chat/saves/engine preservados",
+      "recommendedFix": "Nenhuma mudança remota de segurança ou banco",
+      "priority": "P1"
+    },
+    {
+      "test": "POCO X7 físico",
+      "result": "BLOCKED",
+      "evidence": "Nenhum teste físico observado",
+      "defect": "Emulação não equivale ao aparelho real",
+      "recommendedFix": "Usuário testar galeria e produção",
+      "priority": "P2"
+    }
+  ],
+  "technicalCounts": {
+    "targets": 16,
+    "FIT_PASS": 8,
+    "NEEDS_REWORK": 1,
+    "NEEDS_NEW_ART": 7,
+    "humanApproved": 1,
+    "humanPending": 7,
+    "READY_STAGING": 1,
+    "ACTIVE_RUNTIME": 1,
+    "integrationEligible": 1,
+    "hd": 54,
+    "catalogItems": 6
+  },
+  "humanDecisionsChanged": 0,
+  "pendingProductionActivations": 0,
+  "physicalDevice": false
+}

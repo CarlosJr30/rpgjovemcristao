@@ -7,6 +7,125 @@
   gap: 1.5rem;
   color: #293f30;
 }
+.totalAttributes {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin: 12px 0 0;
+}
+.totalAttributes > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 8px 12px;
+  border: 1px solid #bbad8d;
+  border-radius: 8px;
+  background: #fff8e8;
+}
+.totalAttributes dt {
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+.totalAttributes dd {
+  margin: 0;
+  font-weight: 800;
+}
+.equippedMark {
+  color: #24583b;
+  margin-left: 6px;
+}
+.tryOn,
+.previewConfirm {
+  min-height: 48px;
+  width: 100%;
+  padding: 12px;
+  font: inherit;
+  font-weight: 700;
+  border: 1px solid #b6a571;
+  border-radius: 8px;
+  color: #173a2b;
+  background: #f4e9c8;
+  cursor: pointer;
+}
+.tryOn {
+  margin-bottom: 8px;
+}
+.card[data-selected='true'] {
+  outline: 3px solid #ac8b43;
+  outline-offset: -3px;
+}
+.selectionStatus {
+  padding: 12px;
+  border: 1px solid #bbad8d;
+  border-radius: 8px;
+  background: #fff8e8;
+  overflow-wrap: anywhere;
+}
+.previewNotice {
+  line-height: 1.5;
+  padding: 12px;
+  border-left: 3px solid #d8c98d;
+}
+.previewControls {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 12px 0;
+}
+.previewControls button,
+.previewControls select {
+  min-height: 48px;
+  padding: 10px 16px;
+  border: 1px solid #d8c98d;
+  border-radius: 8px;
+  background: #f4e9c8;
+  color: #173a2b;
+  font: inherit;
+}
+.previewControls button[aria-pressed='true'] {
+  outline: 3px solid #e2c879;
+  outline-offset: 2px;
+}
+.previewControls label {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+.previewViewport {
+  height: min(52dvh, 520px);
+  overflow: auto;
+  border: 1px solid #d8c98d;
+  border-radius: 10px;
+  background: #eee6d1;
+}
+.previewCanvas {
+  width: calc(
+    var(--preview-zoom, 1) * min(100%, calc(34.6667dvh - 3px), 344px)
+  );
+  max-width: none;
+  margin: auto;
+  min-width: 0;
+}
+.previewCanvas [data-avatar-runtime] {
+  width: 100%;
+  max-width: none;
+}
+.previewConfirm:disabled {
+  opacity: 0.65;
+  cursor: default;
+}
+.previewViewport:focus-visible {
+  outline: 3px solid #ffe7a3;
+  outline-offset: -3px;
+}
+@media (max-width: 1024px) {
+  .portal .slot > span:first-of-type {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
 .portal * {
   box-sizing: border-box;
 }
@@ -363,7 +482,7 @@
   }
   .portal .stage {
     width: auto;
-    height: clamp(180px, 32dvh, 300px);
+    height: clamp(220px, 38dvh, 360px);
     aspect-ratio: 2/3;
     margin: 0 auto;
     border-bottom-width: 0;
@@ -448,7 +567,7 @@
     gap: 12px;
   }
   .portal .stage {
-    height: 160px;
+    height: 220px;
   }
   .portal .slots {
     margin-top: 0;
@@ -462,5 +581,10 @@
 @media (max-width: 1024px) {
   .portal :global(#equipment-inventory) > h2 {
     display: none;
+  }
+}
+@media (max-width: 360px) {
+  .portal .filters {
+    grid-template-columns: minmax(0, 1fr);
   }
 }

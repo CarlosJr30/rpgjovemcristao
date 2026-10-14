@@ -122,7 +122,9 @@ for (const body of ['female', 'male'] as const) {
       const flight = page.locator('[data-equipment-flight]');
       // Capture at creation instead of polling for a short-lived DOM node.
 
-      await expect(page.locator('[data-overlay-slot]')).toHaveCount(0);
+      await expect(
+        page.locator('[data-mobile-screen="equipment"] [data-overlay-slot]'),
+      ).toHaveCount(0);
       await expect
         .poll(() =>
           page.evaluate(
@@ -177,9 +179,13 @@ for (const body of ['female', 'male'] as const) {
         card.getByRole('button', { name: 'Desequipar', exact: true }),
       ).toBeEnabled();
       await expect(page.getByRole('status')).toContainText(
-        'Camada corporal pendente',
+        body === 'female' && slot === 'armor'
+          ? 'Agora aparece no Avatar'
+          : 'Camada corporal pendente',
       );
-      await expect(page.locator('[data-overlay-slot]')).toHaveCount(0);
+      await expect(
+        page.locator('[data-mobile-screen="equipment"] [data-overlay-slot]'),
+      ).toHaveCount(body === 'female' && slot === 'armor' ? 1 : 0);
       expect(await base!.evaluate((node) => node.isConnected)).toBe(true);
       await card
         .getByRole('button', { name: 'Desequipar', exact: true })
@@ -223,7 +229,9 @@ for (const body of ['female', 'male'] as const) {
     await expect(
       commonCard.getByRole('button', { name: 'Equipar', exact: true }),
     ).toBeEnabled();
-    await expect(page.locator('[data-overlay-slot]')).toHaveCount(0);
+    await expect(
+      page.locator('[data-mobile-screen="equipment"] [data-overlay-slot]'),
+    ).toHaveCount(0);
     await page.emulateMedia({ reducedMotion: 'reduce' });
     await alternativeCard
       .getByRole('button', { name: 'Desequipar', exact: true })

@@ -1,0 +1,658 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'none'; img-src data:; style-src 'unsafe-inline'; script-src 'unsafe-inline'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'"
+    />
+    <title>Body-Fit V3 — revisão privada</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: #102c22;
+        color: #fff8dd;
+        font: 16px/1.5 system-ui;
+      }
+      main {
+        max-width: 1260px;
+        margin: auto;
+        padding: 16px;
+      }
+      h1,
+      h2 {
+        font-family: Georgia, serif;
+        color: #efd493;
+        margin: 8px 0;
+      }
+      h1 {
+        font-size: 28px;
+      }
+      h2 {
+        font-size: 23px;
+      }
+      .notice {
+        border-left: 4px solid #efd493;
+        padding: 12px;
+        background: #1d4431;
+      }
+      .toolbar,
+      .decisions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin: 16px 0;
+      }
+      button,
+      select,
+      input,
+      textarea {
+        font: inherit;
+        max-width: 100%;
+      }
+      button,
+      select,
+      input {
+        min-height: 48px;
+        padding: 10px 14px;
+        border: 1px solid #cfbc82;
+        border-radius: 9px;
+      }
+      button {
+        color: #153829;
+        background: #f2e8c9;
+        cursor: pointer;
+      }
+      button:disabled {
+        opacity: 0.6;
+        cursor: default;
+      }
+      button[aria-pressed='true'] {
+        outline: 3px solid #efd493;
+        outline-offset: 2px;
+      }
+      select,
+      input,
+      textarea {
+        background: #fff8e8;
+        color: #173a2b;
+      }
+      button:focus-visible,
+      a:focus-visible,
+      input:focus-visible,
+      select:focus-visible,
+      summary:focus-visible,
+      textarea:focus-visible {
+        outline: 3px solid #fff0a8;
+        outline-offset: 3px;
+      }
+      label {
+        display: grid;
+        gap: 6px;
+        min-width: 0;
+      }
+      .meta {
+        overflow-wrap: anywhere;
+      }
+      .compare {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+      }
+      .pane {
+        margin: 0;
+        min-width: 0;
+      }
+      .pane figcaption {
+        padding: 8px;
+        text-align: center;
+        font-weight: bold;
+      }
+      .viewport {
+        width: min(100%, 480px, 46.6667dvh);
+        margin: auto;
+        aspect-ratio: 2/3;
+        overflow: auto;
+        border: 1px solid #cfbc82;
+        border-radius: 12px;
+        background: repeating-conic-gradient(#bec6bb 0% 25%, #dbe0d3 0% 50%)
+          0/20px 20px;
+      }
+      .art {
+        position: relative;
+        aspect-ratio: 2/3;
+        width: calc(var(--zoom, 1) * 100%);
+        transition: none;
+      }
+      .art img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        image-rendering: auto;
+      }
+      .after .base,
+      .before .base {
+        z-index: 1;
+      }
+      .bodyfit {
+        z-index: var(--layer, 2);
+      }
+      .companion {
+        z-index: var(--companion-layer, 6);
+      }
+      .compare[data-mode='before'] .after,
+      .compare[data-mode='after'] .before {
+        display: none;
+      }
+      .compare[data-mode='before'],
+      .compare[data-mode='after'] {
+        grid-template-columns: minmax(0, 1fr);
+        max-width: 480px;
+        margin: auto;
+      }
+      .controls {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+        margin: 16px 0;
+      }
+      .controls input[type='range'] {
+        padding: 0;
+        width: 100%;
+      }
+      .controls label {
+        align-content: start;
+      }
+      details {
+        border: 1px solid #cfbc82;
+        border-radius: 10px;
+        padding: 12px;
+        margin: 16px 0;
+      }
+      summary {
+        cursor: pointer;
+        min-height: 48px;
+        display: flex;
+        align-items: center;
+      }
+      code {
+        overflow-wrap: anywhere;
+        font-size: 13px;
+      }
+      dt {
+        font-weight: bold;
+      }
+      dd {
+        margin: 0 0 10px;
+        overflow-wrap: anywhere;
+      }
+      .decision-form {
+        display: grid;
+        gap: 12px;
+      }
+      textarea {
+        min-height: 90px;
+        padding: 12px;
+        border-radius: 8px;
+      }
+      .reject {
+        background: #ead8cb;
+      }
+      .message {
+        min-height: 24px;
+      }
+      .review-state {
+        font-weight: bold;
+      }
+      [hidden] {
+        display: none !important;
+      }
+      @media (max-width: 767px) {
+        .controls {
+          grid-template-columns: minmax(0, 1fr);
+        }
+        .compare {
+          grid-template-columns: minmax(0, 1fr);
+        }
+        .toolbar button,
+        .decisions button {
+          flex: 1 1 120px;
+        }
+        .pane {
+          max-width: 430px;
+          width: 100%;
+          margin: auto;
+        }
+        .viewport {
+          aspect-ratio: 2/3;
+        }
+        main {
+          padding: 12px;
+        }
+        .notice {
+          font-size: 15px;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          scroll-behavior: auto !important;
+        }
+      }
+      select {
+        width: 100%;
+        min-width: 0;
+      }
+      .toolbar > label {
+        flex: 1 1 240px;
+        width: 100%;
+        min-width: 0;
+      }
+      input[type='range'] {
+        margin: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header>
+        <h1>Body-Fit V3 — revisão corporal</h1>
+        <p class="notice">
+          Arquivo privado e offline. FIT_PASS é validação técnica. Suas escolhas
+          abaixo são rascunhos: a ativação exige confirmação humana explícita
+          para o item, hash e Avatar exatos. Nenhuma decisão altera o jogo, o
+          banco ou o runtime.
+        </p>
+      </header>
+      <nav class="toolbar" aria-label="Itens da revisão">
+        <button id="previous">Item anterior</button
+        ><button id="next">Próximo item</button
+        ><label>Escolher candidato<select id="item"></select></label>
+      </nav>
+      <section aria-labelledby="name">
+        <h2 id="name"></h2>
+        <p class="meta" id="meta"></p>
+        <p class="review-state" id="state"></p>
+        <p id="count"></p>
+      </section>
+      <div class="toolbar" aria-label="Comparação visual">
+        <button id="before" aria-pressed="false">Antes</button
+        ><button id="after" aria-pressed="true">Depois</button
+        ><button id="side" aria-pressed="false">Lado a lado</button>
+      </div>
+      <div class="compare" id="compare" data-mode="after">
+        <figure class="pane before">
+          <figcaption>Avatar HD original</figcaption>
+          <div class="viewport">
+            <div class="art">
+              <img
+                class="base"
+                id="before-img"
+                alt="Avatar HD original, sem overlay"
+                width="1024"
+                height="1536"
+              />
+            </div>
+          </div>
+        </figure>
+        <figure class="pane after">
+          <figcaption>Avatar + candidato exato</figcaption>
+          <div class="viewport">
+            <div class="art">
+              <img
+                class="base"
+                id="after-img"
+                alt="Avatar HD original preservado"
+                width="1024"
+                height="1536"
+              /><img
+                class="bodyfit"
+                id="overlay-img"
+                alt="Candidato corporal em revisão"
+                width="1024"
+                height="1536"
+              /><img
+                class="companion"
+                id="companion-img"
+                alt="Segundo candidato para comparação, sem aprovação implícita"
+                width="1024"
+                height="1536"
+                hidden
+              />
+            </div>
+          </div>
+        </figure>
+      </div>
+      <section class="controls" aria-label="Controles de inspeção">
+        <label
+          >Região<select id="region">
+            <option value="whole">Corpo inteiro</option>
+            <option value="head">Cabeça</option>
+            <option value="hands">Mãos e braços</option>
+            <option value="left-hand">Mão à esquerda</option>
+            <option value="right-hand">Mão à direita</option>
+            <option value="waist">Cintura e quadril</option>
+            <option value="feet">Pés e solo</option>
+          </select></label
+        ><label
+          >Zoom <output id="zoom-label">1×</output
+          ><input
+            id="zoom"
+            aria-label="Zoom"
+            type="range"
+            min="1"
+            max="4"
+            step=".1"
+            value="1" /></label
+        ><label
+          >Compatibilidade com outro candidato<select id="companion">
+            <option value="">Sem segundo candidato</option>
+          </select></label
+        >
+      </section>
+      <p>
+        Antes usa o Avatar original. Depois sobrepõe os PNGs exatos em canvas
+        comum, sem escala corretiva, recorte corporal ou base apagada. Zoom
+        altera somente a visualização. Uma decisão nunca aprova automaticamente
+        o segundo candidato.
+      </p>
+      <details>
+        <summary>Detalhes técnicos e hashes</summary>
+        <dl id="details"></dl>
+      </details>
+      <section aria-labelledby="decision-title">
+        <h2 id="decision-title">Sua decisão sobre este candidato</h2>
+        <p id="eligibility"></p>
+        <div class="decision-form">
+          <label
+            >Pessoa que revisou<input
+              id="reviewer"
+              autocomplete="name"
+              maxlength="100"
+              placeholder="Seu nome" /></label
+          ><label
+            >Observações sobre o encaixe<textarea
+              id="notes"
+              maxlength="2000"
+              placeholder="Ombros, mãos, cintura, cabeça ou pés; descreva o que precisa mudar."
+            ></textarea>
+          </label>
+        </div>
+        <div class="decisions">
+          <button id="approve">Aprovar visualmente</button
+          ><button id="rework">Solicitar correção</button
+          ><button id="reject" class="reject">Reprovar</button
+          ><button id="export">Exportar decisões</button>
+        </div>
+        <p class="message" id="message" role="status" aria-live="polite"></p>
+        <p id="saved"></p>
+      </section>
+      <footer>
+        <p>
+          As decisões ficam neste arquivo/contexto local e podem ser exportadas
+          em JSON. Nenhuma credencial administrativa, conexão remota ou
+          aprovação automática. Para registrar aprovação válida, confirme ao
+          responsável o candidato, SHA e Avatar apresentados.
+        </p>
+      </footer>
+    </main>
+    <script type="application/json" id="review-data">
+      __BODY_FIT_REVIEW_DATA__
+    </script>
+    <script>
+      const data = JSON.parse(
+          document.getElementById('review-data').textContent,
+        ),
+        targets = data.targets,
+        images = data.images,
+        $ = (id) => document.getElementById(id);
+      let index = 0;
+      const drafts = new Map();
+      const storageKey = 'rpg-body-fit-v3-review-drafts:' + data.base;
+      try {
+        for (const d of JSON.parse(localStorage.getItem(storageKey) || '[]'))
+          if (
+            targets.some(
+              (t) =>
+                t.id === d.targetId &&
+                t.sha256 === d.sha256 &&
+                t.avatarSha256 === d.avatar.sha256,
+            )
+          )
+            drafts.set(d.targetId, d);
+      } catch {}
+      const slotNames = {
+        armor: 'Couraça',
+        helmet: 'Elmo',
+        weapon: 'Espada',
+        shield: 'Escudo',
+        boots: 'Botas',
+        amulet: 'Medalhão',
+      };
+      for (const [i, t] of targets.entries()) {
+        const option = document.createElement('option');
+        option.value = String(i);
+        option.textContent =
+          i +
+          1 +
+          ' · ' +
+          slotNames[t.slot] +
+          ' · ' +
+          (t.gender === 'female' ? 'F' : 'M') +
+          ' · ' +
+          t.rarity;
+        $('item').append(option);
+      }
+      function mode(value) {
+        $('compare').dataset.mode = value;
+        for (const k of ['before', 'after', 'side'])
+          $(k).setAttribute('aria-pressed', String(k === value));
+        zoom();
+      }
+      function zoom() {
+        const value = Number($('zoom').value);
+        $('zoom-label').textContent = value + '×';
+        const positions = {
+          whole: [50, 50],
+          head: [50, 10],
+          hands: [52, 46],
+          'left-hand': [19, 46],
+          'right-hand': [81, 46],
+          waist: [50, 56],
+          feet: [50, 91],
+        };
+        const [x, y] = positions[$('region').value];
+        for (const art of document.querySelectorAll('.art')) {
+          art.style.setProperty('--zoom', value);
+          const viewport = art.parentElement;
+          viewport.scrollLeft =
+            (art.scrollWidth * x) / 100 - viewport.clientWidth / 2;
+          viewport.scrollTop =
+            (art.scrollHeight * y) / 100 - viewport.clientHeight / 2;
+        }
+      }
+      function render() {
+        const t = targets[index];
+        $('item').value = String(index);
+        $('name').textContent = t.name;
+        $('meta').textContent =
+          t.gender + ' · ' + t.slot + ' · ' + t.rarity + ' · ' + t.id;
+        $('state').textContent =
+          t.technical +
+          ' / ' +
+          t.human +
+          ' / ' +
+          (t.runtime
+            ? 'runtime ativo apenas no Avatar aprovado'
+            : 'runtime inativo');
+        $('count').textContent =
+          'Candidato ' + (index + 1) + ' de ' + targets.length;
+        $('before-img').src = images[t.avatar];
+        $('after-img').src = images[t.avatar];
+        $('overlay-img').src = images[t.staging];
+        $('overlay-img').style.setProperty('--layer', t.layer);
+        $('companion-img').hidden = true;
+        $('companion-img').removeAttribute('src');
+        $('companion').replaceChildren();
+        const none = document.createElement('option');
+        none.value = '';
+        none.textContent = 'Sem segundo candidato';
+        $('companion').append(none);
+        for (const other of targets.filter(
+          (a) =>
+            a.id !== t.id &&
+            a.avatarSha256 === t.avatarSha256 &&
+            a.slot !== t.slot,
+        )) {
+          const o = document.createElement('option');
+          o.value = other.id;
+          o.textContent = other.name + ' · ' + other.technical;
+          $('companion').append(o);
+        }
+        const details = {
+          Identificador: t.id,
+          'Item jogável': t.registered ? 'Sim' : 'Não — definição arquivada',
+          Asset: t.staging,
+          'SHA do candidato': t.sha256,
+          Avatar: t.avatarId,
+          'SHA do Avatar': t.avatarSha256,
+          'Fonte original SHA': t.sourceSha256,
+          Resolução: t.resolution.width + '×' + t.resolution.height + ' RGBA',
+          Transparência: t.png.transparentPixels + ' pixels transparentes',
+          Camada: String(t.layer),
+          'Fit técnico': t.technical,
+          'Aprovação humana existente': t.approval
+            ? `${t.approval.reviewedBy} · ${t.approval.reviewedAt} · ${t.approval.scope}`
+            : 'Nenhuma aprovação humana verificada',
+          Staging: t.ready ? 'READY apenas no escopo exato' : 'Não READY',
+          Compatibilidade: t.compatibility,
+          'Próximo passo': t.nextAction,
+        };
+        $('details').replaceChildren();
+        for (const [label, value] of Object.entries(details)) {
+          const dt = document.createElement('dt'),
+            dd = document.createElement('dd');
+          dt.textContent = label;
+          dd.textContent = value;
+          $('details').append(dt, dd);
+        }
+        $('approve').disabled = t.technical !== 'FIT_PASS';
+        $('eligibility').textContent =
+          t.technical === 'FIT_PASS'
+            ? t.registered
+              ? 'Pode registrar uma decisão visual para este hash e Avatar, sem liberar outras variantes.'
+              : 'Revisão visual documental: item arquivado não pode ser ativado nem adicionado ao catálogo nesta tarefa.'
+            : 'Este candidato ainda exige correção técnica/nova arte. A aprovação visual está indisponível; registre correção ou reprovação.';
+        const d = drafts.get(t.id);
+        $('notes').value = d?.observations || '';
+        $('reviewer').value = d?.reviewer || $('reviewer').value;
+        $('saved').textContent = d
+          ? 'Rascunho: ' + d.decision + ' · ' + d.decidedAt
+          : 'Nenhuma decisão local para este candidato.';
+        $('message').textContent = '';
+        $('zoom').value = '1';
+        $('region').value = 'whole';
+        zoom();
+      }
+      function decide(decision) {
+        const t = targets[index],
+          reviewer = $('reviewer').value.trim();
+        if (!reviewer) {
+          $('message').textContent = 'Informe quem realizou a revisão.';
+          $('reviewer').focus();
+          return;
+        }
+        if (decision === 'APPROVE' && t.technical !== 'FIT_PASS') return;
+        const companion = targets.find((a) => a.id === $('companion').value);
+        const d = {
+          task: 'TASK-0074',
+          recordStatus: 'UNVERIFIED_HUMAN_DECISION_DRAFT',
+          targetId: t.id,
+          itemId: t.itemId,
+          gender: t.gender,
+          asset: t.staging,
+          sha256: t.sha256,
+          avatar: { id: t.avatarId, path: t.avatar, sha256: t.avatarSha256 },
+          reviewer,
+          decidedAt: new Date().toISOString(),
+          decision,
+          observations: $('notes').value.trim(),
+          scope:
+            'ONLY this asset/hash/avatar; no other variant or companion approval',
+          companionViewed: companion
+            ? { targetId: companion.id, sha256: companion.sha256 }
+            : null,
+          runtimeActivation: false,
+        };
+        drafts.set(t.id, d);
+        try {
+          localStorage.setItem(
+            storageKey,
+            JSON.stringify([...drafts.values()]),
+          );
+        } catch {}
+        $('message').textContent =
+          'Decisão registrada como rascunho. Exporte e confirme os identificadores ao responsável.';
+        $('saved').textContent = 'Rascunho: ' + decision + ' · ' + d.decidedAt;
+      }
+      $('previous').onclick = () => {
+        index = (index + targets.length - 1) % targets.length;
+        render();
+      };
+      $('next').onclick = () => {
+        index = (index + 1) % targets.length;
+        render();
+      };
+      $('item').onchange = () => {
+        index = Number($('item').value);
+        render();
+      };
+      for (const k of ['before', 'after', 'side']) $(k).onclick = () => mode(k);
+      $('zoom').oninput = zoom;
+      $('region').onchange = () => {
+        $('zoom').value = $('region').value === 'whole' ? '1' : '2.5';
+        zoom();
+      };
+      $('companion').onchange = () => {
+        const t = targets.find((a) => a.id === $('companion').value);
+        $('companion-img').hidden = !t;
+        if (t) {
+          $('companion-img').src = images[t.staging];
+          $('companion-img').style.setProperty('--companion-layer', t.layer);
+        } else $('companion-img').removeAttribute('src');
+      };
+      $('approve').onclick = () => decide('APPROVE');
+      $('rework').onclick = () => decide('REWORK');
+      $('reject').onclick = () => decide('REJECT');
+      $('export').onclick = () => {
+        const receipt = {
+          task: 'TASK-0074',
+          recordStatus: 'UNVERIFIED_HUMAN_DECISION_DRAFT',
+          base: data.base,
+          exportedAt: new Date().toISOString(),
+          runtimeActivation: false,
+          decisions: [...drafts.values()],
+        };
+        const url = URL.createObjectURL(
+          new Blob([JSON.stringify(receipt, null, 2)], {
+            type: 'application/json',
+          }),
+        );
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'TASK-0074-human-review-drafts.json';
+        a.click();
+        setTimeout(() => URL.revokeObjectURL(url), 1000);
+        $('message').textContent =
+          'JSON exportado. A ativação continua condicionada à confirmação humana e técnica.';
+      };
+      mode(matchMedia('(max-width:767px)').matches ? 'after' : 'side');
+      render();
+    </script>
+  </body>
+</html>

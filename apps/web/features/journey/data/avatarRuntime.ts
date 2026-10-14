@@ -10,6 +10,7 @@ import {
   EQUIPMENT_COMPOSITION_LAYERS,
   FULL_CANVAS_OVERLAY_SOURCE,
   equippedOverlayLayers,
+  resolveEquipmentDefinition,
 } from './equipmentAssets';
 
 export type AvatarIdentity = { appearance: Appearance; avatar?: AvatarConfig };
@@ -71,13 +72,17 @@ export function resolveAvatarRuntime(
   const identity = resolveAvatarIdentity(subject, reviewPilot);
   const layers =
     showEquipment && 'inventory' in subject && 'equipped' in subject
-      ? equippedOverlayLayers({
-          ...subject,
-          avatar: {
-            ...(subject.avatar ?? DEFAULT_AVATAR),
-            gender: identity.gender,
-          },
-        } as Traveler)
+      ? equippedOverlayLayers(
+          {
+            ...subject,
+            avatar: {
+              ...(subject.avatar ?? DEFAULT_AVATAR),
+              gender: identity.gender,
+            },
+          } as Traveler,
+          resolveEquipmentDefinition,
+          identity.source,
+        )
       : [];
   return { ...identity, layers };
 }

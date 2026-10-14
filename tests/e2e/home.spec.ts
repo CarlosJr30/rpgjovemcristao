@@ -2,7 +2,13 @@ import { expect, test, type Page } from '@playwright/test';
 
 async function navigate(page: Page, label: string) {
   const menu = page.getByRole('button', { name: 'Abrir menu' });
+  const nav = page.getByRole('navigation', { name: 'Navegação principal' });
+  await expect
+    .poll(async () => (await menu.isVisible()) || (await nav.isVisible()))
+    .toBe(true);
   if (await menu.isVisible()) await menu.click();
+  await expect(nav).toBeVisible();
+  await page.waitForLoadState('networkidle');
   await page
     .getByRole('navigation', { name: 'Navegação principal' })
     .getByRole('link', { name: label })
@@ -22,6 +28,8 @@ async function enableLocalMode(page: Page) {
   await page
     .getByRole('button', { name: 'Continuar somente neste navegador' })
     .click();
+  await expect(page).toHaveURL('/');
+  await page.waitForLoadState('networkidle');
 }
 
 async function openTravelerSwitch(page: Page) {
@@ -417,6 +425,8 @@ test('minigame carrega o Jardim e inicia a perseguição após o preparo', async
   await page.goto('/journey/create');
   await page.getByLabel('Nome do Viajante', { exact: true }).fill('Lia');
   await page.getByRole('button', { name: 'Criar Viajante' }).click();
+  await page.getByRole('button', { name: /Entrar na jornada/ }).waitFor();
+  await page.waitForLoadState('networkidle');
   await page.evaluate(() => {
     const key = 'rpg-jovem-cristao:journey:v1';
     const save = JSON.parse(localStorage.getItem(key)!);
@@ -447,6 +457,7 @@ test('minigame carrega o Jardim e inicia a perseguição após o preparo', async
     timeout: 5000,
   });
   expect(errors).toEqual([]);
+  await page.waitForLoadState('networkidle');
 });
 
 test('fluxo completo, teclado, persistência e mapa acessível', async ({
@@ -458,6 +469,7 @@ test('fluxo completo, teclado, persistência e mapa acessível', async ({
   page.on('console', (message) => {
     if (message.type() === 'error') errors.push(message.text());
   });
+  await page.waitForLoadState('networkidle');
   await page.goto('/');
   await expect(page).toHaveTitle('RPG Jovem Cristão');
   await expect(page.locator('html')).toHaveAttribute('lang', 'pt-BR');
@@ -468,12 +480,17 @@ test('fluxo completo, teclado, persistência e mapa acessível', async ({
     path: testInfo.outputPath('01-home.png'),
     fullPage: true,
   });
-  await page.keyboard.press('Tab');
+  // Windows WebKit mobile skips links in its default Tab sequence (observed).
+  // Check the skip link's focusability explicitly, then test button Tab order.
+  const webkit = testInfo.project.use.browserName === 'webkit';
+  if (webkit)
+    await page.getByRole('link', { name: 'Pular para o conteúdo' }).focus();
+  else await page.keyboard.press('Tab');
   await expect(
     page.getByRole('link', { name: 'Pular para o conteúdo' }),
   ).toBeFocused();
   await page.keyboard.press('Tab');
-  await page.keyboard.press('Tab');
+  if (!webkit) await page.keyboard.press('Tab');
   await expect(
     page.getByRole('button', { name: 'Configurações de áudio' }),
   ).toBeFocused();
@@ -562,19 +579,19 @@ test('fluxo completo, teclado, persistência e mapa acessível', async ({
   await expect(page.getByRole('button', { name: 'Abrir Herói' })).toContainText(
     'Ana Clara',
   );
+  await page.waitForLoadState('networkidle');
   await page.goto('/');
-  const progress = page
-    .locator('details')
-    .filter({
-      has: page.locator('summary', {
-        hasText: 'Meu progresso e outros caminhos',
-      }),
-    });
+  const progress = page.locator('details').filter({
+    has: page.locator('summary', {
+      hasText: 'Meu progresso e outros caminhos',
+    }),
+  });
   if ((await progress.getAttribute('open')) === null) {
     await progress.locator('summary').click();
   }
   await page.getByRole('button', { name: 'Iniciar Jornada' }).click();
   await expect(page).toHaveURL('/journey');
+  await page.waitForLoadState('networkidle');
   await page.goto('/journey/create');
   await expect(
     page.getByRole('heading', { name: 'Seu Viajante já está pronto.' }),

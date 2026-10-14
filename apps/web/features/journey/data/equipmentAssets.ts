@@ -1,5 +1,6 @@
 import type { Equipment, EquipmentSlot, Traveler } from '../domain/traveler';
 import { EQUIPMENT_CATALOG } from './equipmentCatalog';
+import { APPROVED_BODY_FIT_V3 } from './equipmentBodyFitV3';
 import {
   AVATAR_CANVAS,
   bodyAnchorPoint,
@@ -81,6 +82,8 @@ export type EquipmentAssetEntry = EquipmentOverlayDefinition & {
   visualQuality: VisualQuality;
   // Record only after the user approves the actual composition for this body.
   bodyOverlayApproval?: Partial<Record<BodyType, 'APPROVED_BY_USER'>>;
+  // Approval for one exact HD identity never applies to other variants or legacy fallback.
+  bodyOverlayScope?: { gender: BodyType; avatarSource: string };
   iconAssetHighQuality?: OverlayAssetSource;
   // Boots may supply an independent right-foot layer; hands can be separate too.
   additionalOverlays?: readonly EquipmentOverlayDefinition[];
@@ -106,6 +109,7 @@ export type ResolvedOverlayLayer = {
   overlayMode: OverlayMode;
   asset: string;
   placement: OverlayPlacement;
+  requiredAvatarSource?: string;
 };
 export type ResolvedEquipmentVisual = {
   iconAsset: string;
@@ -254,15 +258,26 @@ export const EQUIPMENT_ASSET_MANIFEST: Readonly<
       },
     },
   ),
-  'traveler-armor-uncommon': archivedOverlay(
-    'armor',
-    bodies('armor_traveler_uncommon'),
-    {
+  'traveler-armor-uncommon': {
+    ...archivedOverlay('armor', bodies('armor_traveler_uncommon'), {
       ...armorConfig,
       base: { ...armorConfig.base, scale: 1.25 },
       male: { ...armorConfig.male, scale: 1.15 },
+    }),
+    overlayMode: 'full-canvas',
+    overlayAsset: { female: APPROVED_BODY_FIT_V3.asset },
+    visualConfig: null,
+    fullCanvasConfig: {
+      sourceSize: APPROVED_BODY_FIT_V3.sourceSize,
+      zIndex: EQUIPMENT_COMPOSITION_LAYERS.armor,
     },
-  ),
+    visualQuality: 'READY',
+    bodyOverlayApproval: { female: 'APPROVED_BY_USER' },
+    bodyOverlayScope: {
+      gender: APPROVED_BODY_FIT_V3.gender,
+      avatarSource: APPROVED_BODY_FIT_V3.avatarSource,
+    },
+  },
   'traveler-armor-rare': archivedOverlay(
     'armor',
     bodies('armor_traveler_rare'),
@@ -390,6 +405,7 @@ function validCalibration(config: OverlayCalibration): boolean {
 export function resolveEquipmentVisual(
   definition: EquipmentDefinition,
   bodyType: BodyType,
+  avatarSource?: string,
 ): ResolvedEquipmentVisual {
   const unavailable = (): ResolvedEquipmentVisual => ({
     iconAsset: definition.iconAsset,
@@ -403,7 +419,10 @@ export function resolveEquipmentVisual(
   if (
     definition.visualQuality !== 'READY' ||
     definition.bodyOverlayApproval?.[bodyType] !== 'APPROVED_BY_USER' ||
-    !definition.overlayAsset
+    !definition.overlayAsset ||
+    (definition.bodyOverlayScope &&
+      (definition.bodyOverlayScope.gender !== bodyType ||
+        definition.bodyOverlayScope.avatarSource !== avatarSource))
   )
     return unavailable();
   const layers: ResolvedOverlayLayer[] = [];
@@ -490,10 +509,11 @@ export function equipmentAssetForItem(
 export function equipmentVisualForItem(
   item: Pick<Equipment, 'id' | 'slot'>,
   bodyType: BodyType,
+  avatarSource?: string,
 ): ResolvedEquipmentVisual {
   const definition = resolveEquipmentDefinition(item.id);
   return definition?.slot === item.slot
-    ? resolveEquipmentVisual(definition, bodyType)
+    ? resolveEquipmentVisual(definition, bodyType, avatarSource)
     : {
         iconAsset: equipmentIcons[item.slot],
         layers: [],
@@ -504,12 +524,14 @@ export function equipmentVisualForItem(
 export function equipmentOverlayForItem(
   item: Pick<Equipment, 'id' | 'slot'>,
   bodyType: BodyType,
+  avatarSource?: string,
 ): readonly ResolvedOverlayLayer[] {
-  return equipmentVisualForItem(item, bodyType).layers;
+  return equipmentVisualForItem(item, bodyType, avatarSource).layers;
 }
 export function equippedOverlayLayers(
   traveler: Traveler,
   resolveDefinition = resolveEquipmentDefinition,
+  avatarSource?: string,
 ) {
   return Object.entries(traveler.equipped)
     .flatMap(([slot, itemId]) => {
@@ -518,9 +540,16 @@ export function equippedOverlayLayers(
       );
       const definition = item ? resolveDefinition(item.id) : undefined;
       return item && definition?.slot === slot
-        ? resolveEquipmentVisual(definition, traveler.avatar.gender).layers.map(
-            (piece) => ({ ...piece, itemId: item.id, slot: item.slot }),
-          )
+        ? resolveEquipmentVisual(
+            definition,
+            traveler.avatar.gender,
+            avatarSource,
+          ).layers.map((piece) => ({
+            ...piece,
+            requiredAvatarSource: definition.bodyOverlayScope?.avatarSource,
+            itemId: item.id,
+            slot: item.slot,
+          }))
         : [];
     })
     .sort((a, b) => a.placement.zIndex - b.placement.zIndex);

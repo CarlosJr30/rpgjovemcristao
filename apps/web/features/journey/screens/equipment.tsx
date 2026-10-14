@@ -2,6 +2,9 @@
 import Image from 'next/image';
 import portal from '../components/equipment-portal.module.css';
 import { EquipmentComparison } from '../components/equipment-comparison';
+import { EquipmentTryOn } from '../components/equipment-try-on';
+import { ATTRIBUTE_LABELS } from '../data/attributes';
+import { resolveAvatarIdentity } from '../data/avatarRuntime';
 import { travelerBattleSnapshot } from '../data/arena';
 import { RARITY_PRESENTATION } from '../data/equipmentCinematic';
 import { formatAttributeBonuses, equippedItems } from '../data/attributes';
@@ -57,6 +60,11 @@ const rarityEffect: Record<string, string> = {
 export function EquipmentScreen() {
   const compact = useCompactGameLayout();
   const [inventoryOpen, setInventoryOpen] = useState(false);
+  const [selected, setSelected] = useState<{
+    travelerId: string;
+    itemId: string;
+  } | null>(null);
+  const [previewOpen, setPreviewOpen] = useState(false);
   const [availability, setAvailability] = useState('all');
   const [rarity, setRarity] = useState('all');
   const [slot, setSlot] = useState<EquipmentSlot>('weapon');
@@ -96,7 +104,11 @@ export function EquipmentScreen() {
       return false;
     }
     if (feedbackTimer.current) clearTimeout(feedbackTimer.current);
-    const visual = equipmentVisualForItem(item, traveler.avatar.gender);
+    const visual = equipmentVisualForItem(
+      item,
+      traveler.avatar.gender,
+      resolveAvatarIdentity(traveler).source,
+    );
     setEquippedAnimationSlot(item.slot);
     setFeedback(
       `${item.name} equipado. ${reward.beforePower} → ${reward.afterPower} PODER (${signedValue(reward.powerDelta)}).${deltaText ? ` Atributos: ${deltaText}.` : ''}${visual.visualOverlayUnavailable ? ' Camada corporal pendente; o item mantém seus atributos.' : ' Agora aparece no Avatar.'}`,
@@ -222,6 +234,21 @@ export function EquipmentScreen() {
                 </strong>
                 <small>{equippedItems(t).length} de 6 slots equipados</small>
               </div>
+              <dl
+                className={portal.totalAttributes}
+                aria-label="Atributos equipados do Viajante"
+              >
+                {Object.entries(calculateTotalAttributes(t).total).map(
+                  ([key, value]) => (
+                    <div key={key}>
+                      <dt>
+                        {ATTRIBUTE_LABELS[key as keyof typeof ATTRIBUTE_LABELS]}
+                      </dt>
+                      <dd data-current-attribute={key}>{value}</dd>
+                    </div>
+                  ),
+                )}
+              </dl>
             </div>
             <div className={portal.workspace}>
               <p className={portal.kicker}>SEU EQUIPAMENTO</p>
@@ -245,6 +272,8 @@ export function EquipmentScreen() {
                       data-slot={id}
                       onClick={(event) => {
                         setSlot(id);
+                        setSelected(null);
+                        setPreviewOpen(false);
                         setInventoryOpen(true);
                         if (
                           event.detail > 0 &&
@@ -280,6 +309,11 @@ export function EquipmentScreen() {
                       />
                       <span>
                         {label}
+                        {current && (
+                          <b className={portal.equippedMark} aria-hidden="true">
+                            ✓
+                          </b>
+                        )}
                         {equippedAnimationSlot === id && (
                           <span
                             className={cinematicStyles.check}
@@ -290,7 +324,7 @@ export function EquipmentScreen() {
                         )}
                       </span>
                       <span id={`equipment-slot-${id}`}>
-                        {current ? current.name : 'Slot vazio'}
+                        {current ? `${current.name} · equipado` : 'Slot vazio'}
                       </span>
                       <small>
                         {current
@@ -371,12 +405,17 @@ export function EquipmentScreen() {
                       const visual = equipmentVisualForItem(
                         item,
                         t.avatar.gender,
+                        resolveAvatarIdentity(t).source,
                       );
                       return (
                         <article
                           key={item.id}
                           data-rarity={item.rarity}
                           data-equipped={t.equipped[slot] === item.id}
+                          data-selected={
+                            selected?.travelerId === t.id &&
+                            selected.itemId === item.id
+                          }
                           className={`${portal.card} ${equipmentStateClass(t.equipped[slot] === item.id)} ${equippedAnimationSlot === item.slot && t.equipped[slot] === item.id ? rarityEffect[item.rarity] : ''}`}
                         >
                           {item.isNew && <b>NOVO EQUIPAMENTO!</b>}
@@ -429,6 +468,22 @@ export function EquipmentScreen() {
                           </p>
                           <EquipmentComparison traveler={t} item={item} />
                           <button
+                            className={portal.tryOn}
+                            disabled={busy}
+                            onClick={(event) => {
+                              event.currentTarget.focus({
+                                preventScroll: true,
+                              });
+                              setSelected({
+                                travelerId: t.id,
+                                itemId: item.id,
+                              });
+                              setPreviewOpen(true);
+                            }}
+                          >
+                            Experimentar
+                          </button>
+                          <button
                             className={styles.primaryLink}
                             disabled={busy}
                             onClick={(event) =>
@@ -472,6 +527,41 @@ export function EquipmentScreen() {
               <p className={portal.feedback} role="status" aria-live="polite">
                 {feedback}
               </p>
+              {selected?.travelerId === t.id &&
+                t.inventory.some((item) => item.id === selected.itemId) && (
+                  <>
+                    <p className={portal.selectionStatus}>
+                      Item selecionado:{' '}
+                      <strong>
+                        {
+                          t.inventory.find(
+                            (item) => item.id === selected.itemId,
+                          )!.name
+                        }
+                      </strong>
+                      {t.equipped[slot] === selected.itemId
+                        ? ' · ✓ Equipado'
+                        : ' · Pré-visualização'}
+                    </p>
+                    <EquipmentTryOn
+                      key={`${t.id}:${selected.itemId}:${previewOpen}`}
+                      traveler={t}
+                      item={t.inventory.find(
+                        (item) => item.id === selected.itemId,
+                      )!}
+                      open={previewOpen}
+                      busy={busy}
+                      onClose={() => setPreviewOpen(false)}
+                      onEquip={(event) => {
+                        const item = t.inventory.find(
+                          (candidate) => candidate.id === selected.itemId,
+                        )!;
+                        setPreviewOpen(false);
+                        equip(item, t, event);
+                      }}
+                    />
+                  </>
+                )}
               <EquipmentEquipCinematic
                 session={cinematic.session}
                 onSkip={cinematic.skip}

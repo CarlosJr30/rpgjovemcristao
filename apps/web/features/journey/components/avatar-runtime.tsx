@@ -201,14 +201,20 @@ function RuntimeCanvas({
         />
       )}
       {!failed &&
-        resolved.layers.map((layer, index) => (
-          <EquipmentLayer
-            key={`${layer.itemId}:${layer.asset}:${index}`}
-            layer={layer}
-            highlightedSlot={highlightedSlot}
-            hidingSlot={hidingSlot}
-          />
-        ))}
+        resolved.layers
+          .filter(
+            (layer) =>
+              !layer.requiredAvatarSource ||
+              layer.requiredAvatarSource === source,
+          )
+          .map((layer, index) => (
+            <EquipmentLayer
+              key={`${layer.itemId}:${layer.asset}:${index}`}
+              layer={layer}
+              highlightedSlot={highlightedSlot}
+              hidingSlot={hidingSlot}
+            />
+          ))}
     </div>
   );
 }

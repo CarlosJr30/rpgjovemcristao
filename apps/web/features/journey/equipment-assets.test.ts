@@ -73,10 +73,12 @@ describe('equipment visual contract', () => {
 
   it('preserves V1 for UI/archive while rejected art stays off both bodies', () => {
     for (const [id, entry] of Object.entries(EQUIPMENT_ASSET_MANIFEST)) {
-      expect(entry.visualQuality).toBe('NEEDS_NEW_OVERLAY');
-      expect(entry.overlayMode).toBe('cropped');
-      expect(entry.iconAssetHighQuality).toEqual(entry.overlayAsset);
-      expect(entry.bodyOverlayApproval).toBeUndefined();
+      if (id !== 'traveler-armor-uncommon') {
+        expect(entry.visualQuality).toBe('NEEDS_NEW_OVERLAY');
+        expect(entry.overlayMode).toBe('cropped');
+        expect(entry.iconAssetHighQuality).toEqual(entry.overlayAsset);
+        expect(entry.bodyOverlayApproval).toBeUndefined();
+      }
       for (const body of ['male', 'female'] as const) {
         expect(equipmentOverlayForItem({ id, slot: entry.slot }, body)).toEqual(
           [],

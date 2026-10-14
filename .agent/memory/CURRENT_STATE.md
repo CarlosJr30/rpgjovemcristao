@@ -1,3 +1,13 @@
+## 2026-10-14 — TASK-0074 EQUIPMENT_BODY_FIT_V3 / REVIEW_READY / RELEASE_VALIDATING
+
+Worktree isolado D:/rpg-jovem-cristao-task-0074 / feat/equipment-body-fit-v3-0074, main9c709c93ec94af998b9cb05030db8ce405637fec da TASK0073 já publicada READY. Original55bae817/trabalho0072 e encerramento local0073 preservados; entradas anteriores abaixo são checkpoints históricos.
+
+Auditoria16targets/54HD/6itens por SHA:8FIT_PASS,1REWORK,7NEW_ART,1humana anterior/7pendentes. Galeria privada offline/18PNGs incorporados,22checks mobile/desktop em Chromium/WebKit, sem decisões/storage alterados nesta auditoria. Capturas7candidatos/10pares estáticos e ZIP privado com124arquivos verificados, sem .env/dados reais/54HD copiados. Fixação dos escudos e suspensão espada/cinto destacados para decisão humana; sem aprovação presumida.
+
+Portal: provador temporário antes/depois/zoom real/corpo inteiro, Avatar maior,selecionado/equipado e4atributos derivados. Somente Couraça feminina previamente aprovada no Avatar/hash exatos entra no resolvedor local;53outras identidades/fallbacks e7pendentes não recebem a camada. Fonte/bake/receipt/54HD intactos. Build/start guardam aprovação/hash/exposição. Domínio/itens/regras/saves/Auth/chat/DB/engine/câmera/swipe/mídia preservados. QA447unit/68files,133E2E distintos aceitos (incluindo rechecks; onze skips redundantes),lint/types/build20rotas PASS; enquadramento final do provador23PASS/10skip e55capturasWebKit sem overflow. Chat10fixtures PASS, aceite real2contas0072B continua BLOCKED. QA/Security pelo autor; físicoPOCO pendente.
+
+Próximo: fechar recheck, selecionar staging sem galeria/PNG pendente/secret, commit/push normal main, Vercel existente automático READY/SHA/HTTP/8áudios404, registrar PARTIAL_DEPLOY_COMPLETE e entregar URL/ZIP. Nenhuma migration/env/proteção/banco remoto alterado. Relatório docs/architecture/TASK-0074-EQUIPMENT-BODY-FIT-V3-REPORT.md; contrato ativo0074. Decisões específicas de Carlos continuam necessárias para cada pendente.
+
 ## 2026-10-14 — TASK-0073 MOBILE_GAMEPLAY_EXPLORATION / VALIDATING
 
 Pedido runtime explícito do usuário autoriza apresentação mobile, gates e publicação normal no Vercel existente. Worktree isolado D:/rpg-jovem-cristao-task-0073 / fix/mobile-gameplay-exploration-0073 baseado na main2d4fe22, merge externo do PR#1. Workspace original55bae81 e documentação0072B pendente preservados; merge externo não comprova aceite real do chat.

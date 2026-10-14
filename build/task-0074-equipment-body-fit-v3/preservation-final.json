@@ -1,0 +1,72 @@
+{
+  "base": "9c709c93ec94af998b9cb05030db8ce405637fec",
+  "total": 2435,
+  "preserved": 2420,
+  "authorizedChanges": [
+    {
+      "path": ".agent/memory/CURRENT_STATE.md",
+      "sha256": "e63e41abc2838a9b3eb9bf8f8c939bdd1d714800c9c7f8ba73278f68fd517717"
+    },
+    {
+      "path": ".gitignore",
+      "sha256": "fff7d3a576783d6ddc03808258d5fa61c0c9482ec6933e02ed8b9cebffbe8a2e"
+    },
+    {
+      "path": "apps/web/features/journey/components/avatar-runtime.tsx",
+      "sha256": "417789ddf9fe5b9bc2b24ac41cb4db18d4b471f5c2f2be96af313c4c008cd985"
+    },
+    {
+      "path": "apps/web/features/journey/components/equipment-comparison.tsx",
+      "sha256": "fc47d7195c7595cca4ad7ebec72980fe1c520264968667df1073d8c04508f12e"
+    },
+    {
+      "path": "apps/web/features/journey/components/equipment-portal.module.css",
+      "sha256": "8d777cae2fe5ce36e4ab64dc280a2c0fa74bb40d9f3d6005eaba072fa43acba0"
+    },
+    {
+      "path": "apps/web/features/journey/data/avatarRuntime.ts",
+      "sha256": "1d96e8199a49a2f63f2cbcd73a00b0c924aaf0c6e365f2bf8d580cc880c74964"
+    },
+    {
+      "path": "apps/web/features/journey/data/equipmentAssets.ts",
+      "sha256": "9e3cbe106d7d21518ed85a1da0b79c5e214eab8e964edaa5095a3d3f62a9cae5"
+    },
+    {
+      "path": "apps/web/features/journey/equipment-assets.test.ts",
+      "sha256": "5e9f07f1f2175f9cd5b5cc4338535ac3df4f0adfccd697cb32f9f1a3fb15e35e"
+    },
+    {
+      "path": "apps/web/features/journey/equipment-v1-files.test.ts",
+      "sha256": "1bf95e183ee0b537c6d36c88d2449c5323e4b1197cf6bcf8996dff75a87a6c15"
+    },
+    {
+      "path": "apps/web/features/journey/screens/equipment.tsx",
+      "sha256": "a588cae381a14713f4595f8e489fee6c11228aae080b0cbeb7398d0a6b92e002"
+    },
+    {
+      "path": "apps/web/package.json",
+      "sha256": "9105cad6a71bbcc71e8164ad67437ea92be49f3b8ba3e339f4e776b17bf33a58"
+    },
+    {
+      "path": "docs/architecture/EQUIPMENT-MASTER-CHECKLIST-V1.md",
+      "sha256": "cd1fb3d34d4a2e62cf49172c96fff293ee61da12d958cc554517a4b349a1eb9d"
+    },
+    {
+      "path": "tests/e2e/attributes.spec.ts",
+      "sha256": "9cd44d8fcead9dc9eec979b4587f2d6f44395a781f289499c34ede1d6d364479"
+    },
+    {
+      "path": "tests/e2e/equipment-animation-v2.spec.ts",
+      "sha256": "82965ec3722e02b87c2a0d6ada3c2301c13a237c7b6c84b989a4121b4ec60126"
+    },
+    {
+      "path": "tests/e2e/home.spec.ts",
+      "sha256": "8d50bd36344dd4ff1ea856ad729009bf36f508df1251c856567c91bdc93a196f"
+    }
+  ],
+  "unexpectedChanges": [],
+  "hdPreserved": 54,
+  "sourcesPreserved": 16,
+  "humanReceiptsUntouched": true,
+  "pass": true
+}

@@ -1,0 +1,153 @@
+{
+  "targets": [
+    {
+      "id": "armor_traveler_uncommon_male_v2",
+      "avatar": "male_short_moss_medium",
+      "avatarSha256": "b182c2e29b512b337891716a413ab7efaad737e23c6354779fae17fe19b8af34",
+      "asset": "build/task-0055-body-fit-bake/armor_traveler_uncommon_male_v2/armor_traveler_uncommon_male_v2_baked.png",
+      "sha256": "8ece1c5d4daad2b4b7b0a6d673eb3ad6e2d16a9bcc888082ee33a2bd71c928c2",
+      "sourceSha256": "7172c482d49902d1c268a98c3b5339950f7e5340c6c4e0e54bdbea42ffe80b32",
+      "resolution": {
+        "width": 1024,
+        "height": 1536
+      },
+      "technical": "FIT_PASS",
+      "human": "HUMAN_BODY_FIT_REVIEW_PENDING",
+      "productionActive": false,
+      "observations": "Ombros/peitoral acompanham o torso; rosto, mãos e antebraços ficam livres. Cinto único legível; não observei deformação grosseira isolada. Pochete original continua visível na lateral.",
+      "recommendation": "Revisão humana do conjunto exato. Conferir a suspensão da espada junto ao cinto e às abas antes de aceitar uma combinação.",
+      "priority": "P2",
+      "reviewer": "Agente principal — inspeção técnica/visual, não aprovação humana",
+      "scope": "Static exact PNG composition; not animation, physical POCO or human acceptance",
+      "evidence": "inspection/chromium/armor_traveler_uncommon_male_v2-390-after.png"
+    },
+    {
+      "id": "armor_traveler_rare_female_v2",
+      "avatar": "female_short_moss_medium",
+      "avatarSha256": "f260cb9b053b35c328025f1bc7ee602cbb30e57c71ba1f2238a4b1519685f460",
+      "asset": "build/task-0055-body-fit-bake/armor_traveler_rare_female_v2/armor_traveler_rare_female_v2_baked.png",
+      "sha256": "58be3d1d95eeab11ac0a38d67f06ad88383d018e3720502d31dada7a9f2fc833",
+      "sourceSha256": "dffb2c8c352f6b4ccd17049479d4d76917cac711c346c9ab685e57ac0434b209",
+      "resolution": {
+        "width": 1024,
+        "height": 1536
+      },
+      "technical": "FIT_PASS",
+      "human": "HUMAN_BODY_FIT_REVIEW_PENDING",
+      "productionActive": false,
+      "observations": "Gola alta próxima ao pescoço e ombreiras largas, com rosto e mãos preservados. Abas ornamentadas ocupam a cintura e parte do quadril; não foi observado corte de anatomia. Item arquivado, sem cadastro jogável.",
+      "recommendation": "Revisar gola, volume peitoral e sobreposição das abas com espada/escudo. Mesmo eventual aprovação visual não autoriza criar este item no catálogo.",
+      "priority": "P2",
+      "reviewer": "Agente principal — inspeção técnica/visual, não aprovação humana",
+      "scope": "Static exact PNG composition; not animation, physical POCO or human acceptance",
+      "evidence": "inspection/chromium/armor_traveler_rare_female_v2-390-after.png"
+    },
+    {
+      "id": "armor_traveler_rare_male_v2",
+      "avatar": "male_short_moss_medium",
+      "avatarSha256": "b182c2e29b512b337891716a413ab7efaad737e23c6354779fae17fe19b8af34",
+      "asset": "build/task-0055-body-fit-bake/armor_traveler_rare_male_v2/armor_traveler_rare_male_v2_baked.png",
+      "sha256": "cc96ad925b3c298a0e85f2cfeda2f1171130d83f6bd7c71080e1b43c87e7f0dd",
+      "sourceSha256": "fb36c83cce93fc31b4871af4ea9e14597c5f7c5bb5167e2287c0928c96975e0f",
+      "resolution": {
+        "width": 1024,
+        "height": 1536
+      },
+      "technical": "FIT_PASS",
+      "human": "HUMAN_BODY_FIT_REVIEW_PENDING",
+      "productionActive": false,
+      "observations": "Peitoral e cintura centrados; braços/mãos permanecem livres. Tabardo longo cobre parte das bolsas/calças originais; ombreiras mantêm a silhueta geral. Item arquivado, sem cadastro jogável.",
+      "recommendation": "Revisar largura de ombreiras e abas na cintura. Combinações e item jogável precisam de escopo próprio; não ativar por esta inspeção.",
+      "priority": "P2",
+      "reviewer": "Agente principal — inspeção técnica/visual, não aprovação humana",
+      "scope": "Static exact PNG composition; not animation, physical POCO or human acceptance",
+      "evidence": "inspection/chromium/armor_traveler_rare_male_v2-390-after.png"
+    },
+    {
+      "id": "sword_path_common_female_v2",
+      "avatar": "female_short_moss_medium",
+      "avatarSha256": "f260cb9b053b35c328025f1bc7ee602cbb30e57c71ba1f2238a4b1519685f460",
+      "asset": "build/task-0058-sword-sheath-pilot/baked/attempt-03/sword_path_common_female_v2_sheathed_baked.png",
+      "sha256": "735000c62ddaee5214cfb895deae17685a1f2e1c0c642f3557e09879d90524f2",
+      "sourceSha256": "03e3edbcf9572fae0cafc46b0a02eda045cbcdfe855dfcdf808e4aa8a5401d29",
+      "resolution": {
+        "width": 1024,
+        "height": 1536
+      },
+      "technical": "FIT_PASS",
+      "human": "HUMAN_BODY_FIT_REVIEW_PENDING",
+      "productionActive": false,
+      "observations": "Espada embainhada no quadril, cabo para cima/ponta para baixo; lâmina duplicada não observada. Bainha com costura e duas correias junto ao cinto. Mão/antebraço à frente ficam livres.",
+      "recommendation": "Revisar a boca da bainha e continuidade das correias em zoom. As armaduras alteram a leitura do cinto: a combinação não herda aprovação individual.",
+      "priority": "P2",
+      "reviewer": "Agente principal — inspeção técnica/visual, não aprovação humana",
+      "scope": "Static exact PNG composition; not animation, physical POCO or human acceptance",
+      "evidence": "inspection/chromium/sword_path_common_female_v2-390-after.png"
+    },
+    {
+      "id": "sword_path_common_male_v2",
+      "avatar": "male_short_moss_medium",
+      "avatarSha256": "b182c2e29b512b337891716a413ab7efaad737e23c6354779fae17fe19b8af34",
+      "asset": "build/task-0059-equipment-recovery/recovery/sword_path_common_male_v2/c-split-suspension-mouth/sword_path_common_male_v2_baked.png",
+      "sha256": "73e29fafd9adec500978eae7bb35eca05e8b79d946862b98704f40e95964aec4",
+      "sourceSha256": "ef4ca354506a7da6a9c80dcbb2b4d5388af7d11bef98fce9a81d8de6b40e8818",
+      "resolution": {
+        "width": 1024,
+        "height": 1536
+      },
+      "technical": "FIT_PASS",
+      "human": "HUMAN_BODY_FIT_REVIEW_PENDING",
+      "productionActive": false,
+      "observations": "Bainha inclinada ao lado da coxa, ponta acima do solo e cabo para cima. Mão/antebraço preservados; sem lâmina extra observada. Suspensão ajustada ao cinto original, não a todos os cintos das armaduras.",
+      "recommendation": "Revisão humana exata de bainha, guarda e correias. Conferir as duas combinações com armaduras e a oclusão pelo escudo.",
+      "priority": "P2",
+      "reviewer": "Agente principal — inspeção técnica/visual, não aprovação humana",
+      "scope": "Static exact PNG composition; not animation, physical POCO or human acceptance",
+      "evidence": "inspection/chromium/sword_path_common_male_v2-390-after.png"
+    },
+    {
+      "id": "shield_perseverance_rare_female_v2",
+      "avatar": "female_short_moss_medium",
+      "avatarSha256": "f260cb9b053b35c328025f1bc7ee602cbb30e57c71ba1f2238a4b1519685f460",
+      "asset": "build/task-0055-body-fit-bake/shield_perseverance_rare_female_v2/shield_perseverance_rare_female_v2_baked.png",
+      "sha256": "1d0392230985f18b22ff043083af121fb9f276d526a3e8ecf4b9c93135dabe02",
+      "sourceSha256": "2722949386d675b27337dfe67a295b7be217dd17881a68a84b84800a0dbeb117",
+      "resolution": {
+        "width": 1024,
+        "height": 1536
+      },
+      "technical": "FIT_PASS",
+      "human": "HUMAN_BODY_FIT_REVIEW_PENDING",
+      "productionActive": false,
+      "observations": "Escudo sobre o antebraço à direita da imagem; escala entre cintura e coxa. Mão e punho ficam completamente ocultos. A imagem frontal não demonstra a correia ou a pega posterior: fixação visual ambígua.",
+      "recommendation": "Prioridade P2: Carlos avaliar se a fixação parece natural. Se parecer flutuante, solicitar revisão de pose/oclusão/amarração; não deslocar ou deformar o Avatar para corrigir.",
+      "priority": "P2",
+      "reviewer": "Agente principal — inspeção técnica/visual, não aprovação humana",
+      "scope": "Static exact PNG composition; not animation, physical POCO or human acceptance",
+      "evidence": "inspection/chromium/shield_perseverance_rare_female_v2-390-after.png"
+    },
+    {
+      "id": "shield_perseverance_rare_male_v2",
+      "avatar": "male_short_moss_medium",
+      "avatarSha256": "b182c2e29b512b337891716a413ab7efaad737e23c6354779fae17fe19b8af34",
+      "asset": "build/task-0055-body-fit-bake/shield_perseverance_rare_male_v2/shield_perseverance_rare_male_v2_baked.png",
+      "sha256": "bf0785671741851d4e64402984309cfc30ff80313da98cf453b3e3a57b40e2a6",
+      "sourceSha256": "94632b12aeb02547dfd98453f58f7cf40c3d143c1bfcc9b19bae19f75244809d",
+      "resolution": {
+        "width": 1024,
+        "height": 1536
+      },
+      "technical": "FIT_PASS",
+      "human": "HUMAN_BODY_FIT_REVIEW_PENDING",
+      "productionActive": false,
+      "observations": "Escudo centrado na região do braço à direita da imagem, sem corte dos pés ou do rosto. Antebraço/mão ocultos; correias ou pega não são verificáveis na vista frontal.",
+      "recommendation": "Prioridade P2: revisar fixação ao braço e a margem interna junto à guarda da espada. Manter inativo até decisão específica do usuário.",
+      "priority": "P2",
+      "reviewer": "Agente principal — inspeção técnica/visual, não aprovação humana",
+      "scope": "Static exact PNG composition; not animation, physical POCO or human acceptance",
+      "evidence": "inspection/chromium/shield_perseverance_rare_male_v2-390-after.png"
+    }
+  ],
+  "humanDecisionsChanged": 0,
+  "approvedFemalePreserved": true
+}

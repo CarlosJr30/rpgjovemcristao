@@ -1,0 +1,576 @@
+{
+  "baselineBuild": "development; timing/heap/bytes are NOT directly comparable with optimized production",
+  "finalBuild": "next build + next start",
+  "before": [
+    {
+      "name": "portal",
+      "width": 320,
+      "height": 568,
+      "documentWidth": 320,
+      "avatarSource": "/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+      "hdResources": [
+        {
+          "name": "/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+          "bytes": 2157107,
+          "duration": 11.600000000093132
+        }
+      ],
+      "resourceBytes": 3290106,
+      "cls": 0,
+      "heapBytes": 31361839
+    },
+    {
+      "name": "portal",
+      "width": 360,
+      "height": 800,
+      "documentWidth": 360,
+      "avatarSource": "/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+      "hdResources": [
+        {
+          "name": "/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+          "bytes": 2157107,
+          "duration": 11.300000000279397
+        }
+      ],
+      "resourceBytes": 3297812,
+      "cls": 0,
+      "heapBytes": 31057098
+    },
+    {
+      "name": "portal",
+      "width": 375,
+      "height": 812,
+      "documentWidth": 375,
+      "avatarSource": "/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+      "hdResources": [
+        {
+          "name": "/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+          "bytes": 2157107,
+          "duration": 10.400000000372529
+        }
+      ],
+      "resourceBytes": 3297812,
+      "cls": 0,
+      "heapBytes": 31166015
+    },
+    {
+      "name": "portal",
+      "width": 390,
+      "height": 844,
+      "documentWidth": 390,
+      "avatarSource": "/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+      "hdResources": [
+        {
+          "name": "/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+          "bytes": 2157107,
+          "duration": 12.300000000279397
+        }
+      ],
+      "resourceBytes": 3297812,
+      "cls": 0,
+      "heapBytes": 31111520
+    },
+    {
+      "name": "portal",
+      "width": 412,
+      "height": 915,
+      "documentWidth": 412,
+      "avatarSource": "/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+      "hdResources": [
+        {
+          "name": "/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+          "bytes": 2157107,
+          "duration": 11
+        }
+      ],
+      "resourceBytes": 3297812,
+      "cls": 0,
+      "heapBytes": 31058876
+    },
+    {
+      "name": "portal",
+      "width": 430,
+      "height": 932,
+      "documentWidth": 430,
+      "avatarSource": "/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+      "hdResources": [
+        {
+          "name": "/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+          "bytes": 2157107,
+          "duration": 10.5
+        }
+      ],
+      "resourceBytes": 3297812,
+      "cls": 0,
+      "heapBytes": 31047859
+    },
+    {
+      "name": "portal",
+      "width": 844,
+      "height": 390,
+      "documentWidth": 844,
+      "avatarSource": "/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+      "hdResources": [
+        {
+          "name": "/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+          "bytes": 2157107,
+          "duration": 11.399999999906868
+        }
+      ],
+      "resourceBytes": 3297812,
+      "cls": 0,
+      "heapBytes": 31032845
+    },
+    {
+      "name": "portal",
+      "width": 915,
+      "height": 412,
+      "documentWidth": 915,
+      "avatarSource": "/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+      "hdResources": [
+        {
+          "name": "/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+          "bytes": 2157107,
+          "duration": 9.900000000372529
+        }
+      ],
+      "resourceBytes": 3297812,
+      "cls": 0,
+      "heapBytes": 31144441
+    },
+    {
+      "name": "portal",
+      "width": 768,
+      "height": 1024,
+      "documentWidth": 768,
+      "avatarSource": "/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+      "hdResources": [
+        {
+          "name": "/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+          "bytes": 2157107,
+          "duration": 11.899999999906868
+        }
+      ],
+      "resourceBytes": 3297812,
+      "cls": 0,
+      "heapBytes": 31107787
+    },
+    {
+      "name": "portal",
+      "width": 1440,
+      "height": 900,
+      "documentWidth": 1440,
+      "avatarSource": "/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+      "hdResources": [
+        {
+          "name": "/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+          "bytes": 2157107,
+          "duration": 20.09999999962747
+        }
+      ],
+      "resourceBytes": 3297812,
+      "cls": 0.050831618655692724,
+      "heapBytes": 31052249
+    },
+    {
+      "name": "portal",
+      "width": 1920,
+      "height": 1080,
+      "documentWidth": 1920,
+      "avatarSource": "/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+      "hdResources": [
+        {
+          "name": "/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+          "bytes": 2157107,
+          "duration": 21.200000000186265
+        }
+      ],
+      "resourceBytes": 3299702,
+      "cls": 0.030587585198045265,
+      "heapBytes": 31060057
+    }
+  ],
+  "after": [
+    {
+      "name": "portal",
+      "width": 320,
+      "height": 568,
+      "documentWidth": 320,
+      "avatarSource": "/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+      "hdResources": [
+        {
+          "name": "/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+          "bytes": 2157107,
+          "duration": 26.199999999254942
+        }
+      ],
+      "resourceBytes": 2473471,
+      "cls": 0,
+      "heapBytes": 12175504
+    },
+    {
+      "name": "portal",
+      "width": 360,
+      "height": 800,
+      "documentWidth": 360,
+      "avatarSource": "/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+      "hdResources": [
+        {
+          "name": "/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+          "bytes": 2157107,
+          "duration": 29.40000000037253
+        }
+      ],
+      "resourceBytes": 2470107,
+      "cls": 0,
+      "heapBytes": 12096322
+    },
+    {
+      "name": "portal",
+      "width": 375,
+      "height": 812,
+      "documentWidth": 375,
+      "avatarSource": "/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+      "hdResources": [
+        {
+          "name": "/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+          "bytes": 2157107,
+          "duration": 22.700000001117587
+        }
+      ],
+      "resourceBytes": 2474032,
+      "cls": 0,
+      "heapBytes": 12228445
+    },
+    {
+      "name": "portal",
+      "width": 390,
+      "height": 844,
+      "documentWidth": 390,
+      "avatarSource": "/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+      "hdResources": [
+        {
+          "name": "/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+          "bytes": 2157107,
+          "duration": 20.300000000745058
+        }
+      ],
+      "resourceBytes": 2473471,
+      "cls": 0,
+      "heapBytes": 12179763
+    },
+    {
+      "name": "portal",
+      "width": 412,
+      "height": 915,
+      "documentWidth": 412,
+      "avatarSource": "/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+      "hdResources": [
+        {
+          "name": "/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+          "bytes": 2157107,
+          "duration": 24.90000000037253
+        }
+      ],
+      "resourceBytes": 2473471,
+      "cls": 0,
+      "heapBytes": 12200380
+    },
+    {
+      "name": "portal",
+      "width": 430,
+      "height": 932,
+      "documentWidth": 430,
+      "avatarSource": "/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+      "hdResources": [
+        {
+          "name": "/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+          "bytes": 2157107,
+          "duration": 20.5
+        }
+      ],
+      "resourceBytes": 2470107,
+      "cls": 0,
+      "heapBytes": 12165011
+    },
+    {
+      "name": "portal",
+      "width": 844,
+      "height": 390,
+      "documentWidth": 844,
+      "avatarSource": "/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+      "hdResources": [
+        {
+          "name": "/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+          "bytes": 2157107,
+          "duration": 26.5
+        }
+      ],
+      "resourceBytes": 2473471,
+      "cls": 0,
+      "heapBytes": 12223169
+    },
+    {
+      "name": "portal",
+      "width": 915,
+      "height": 412,
+      "documentWidth": 915,
+      "avatarSource": "/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+      "hdResources": [
+        {
+          "name": "/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+          "bytes": 2157107,
+          "duration": 16.200000001117587
+        }
+      ],
+      "resourceBytes": 2471212,
+      "cls": 0,
+      "heapBytes": 12219603
+    },
+    {
+      "name": "portal",
+      "width": 768,
+      "height": 1024,
+      "documentWidth": 768,
+      "avatarSource": "/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+      "hdResources": [
+        {
+          "name": "/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+          "bytes": 2157107,
+          "duration": 19.899999998509884
+        }
+      ],
+      "resourceBytes": 2473471,
+      "cls": 0,
+      "heapBytes": 12206635
+    },
+    {
+      "name": "portal",
+      "width": 1440,
+      "height": 900,
+      "documentWidth": 1440,
+      "avatarSource": "/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+      "hdResources": [
+        {
+          "name": "/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+          "bytes": 2157107,
+          "duration": 30.800000000745058
+        }
+      ],
+      "resourceBytes": 2475361,
+      "cls": 0.050831618655692724,
+      "heapBytes": 12177059
+    },
+    {
+      "name": "portal",
+      "width": 1920,
+      "height": 1080,
+      "documentWidth": 1920,
+      "avatarSource": "/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+      "hdResources": [
+        {
+          "name": "/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+          "bytes": 2157107,
+          "duration": 9.299999998882413
+        }
+      ],
+      "resourceBytes": 2471997,
+      "cls": 0.030587585198045265,
+      "heapBytes": 12091458
+    }
+  ],
+  "extraOnDemand": [
+    {
+      "name": "try-on",
+      "width": 320,
+      "height": 568,
+      "documentWidth": 320,
+      "avatarSource": "/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+      "hdResources": [
+        {
+          "name": "/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+          "bytes": 2157107,
+          "duration": 26.199999999254942
+        }
+      ],
+      "resourceBytes": 3144254,
+      "cls": 0,
+      "heapBytes": 14046631
+    },
+    {
+      "name": "try-on",
+      "width": 360,
+      "height": 800,
+      "documentWidth": 360,
+      "avatarSource": "/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+      "hdResources": [
+        {
+          "name": "/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+          "bytes": 2157107,
+          "duration": 29.40000000037253
+        }
+      ],
+      "resourceBytes": 3144254,
+      "cls": 0,
+      "heapBytes": 13917947
+    },
+    {
+      "name": "try-on",
+      "width": 375,
+      "height": 812,
+      "documentWidth": 375,
+      "avatarSource": "/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+      "hdResources": [
+        {
+          "name": "/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+          "bytes": 2157107,
+          "duration": 22.700000001117587
+        }
+      ],
+      "resourceBytes": 3144254,
+      "cls": 0,
+      "heapBytes": 13969126
+    },
+    {
+      "name": "try-on",
+      "width": 390,
+      "height": 844,
+      "documentWidth": 390,
+      "avatarSource": "/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+      "hdResources": [
+        {
+          "name": "/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+          "bytes": 2157107,
+          "duration": 20.300000000745058
+        }
+      ],
+      "resourceBytes": 3144254,
+      "cls": 0,
+      "heapBytes": 13995716
+    },
+    {
+      "name": "try-on",
+      "width": 412,
+      "height": 915,
+      "documentWidth": 412,
+      "avatarSource": "/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+      "hdResources": [
+        {
+          "name": "/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+          "bytes": 2157107,
+          "duration": 24.90000000037253
+        }
+      ],
+      "resourceBytes": 3144254,
+      "cls": 0,
+      "heapBytes": 13961317
+    },
+    {
+      "name": "try-on",
+      "width": 430,
+      "height": 932,
+      "documentWidth": 430,
+      "avatarSource": "/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+      "hdResources": [
+        {
+          "name": "/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+          "bytes": 2157107,
+          "duration": 20.5
+        }
+      ],
+      "resourceBytes": 3144254,
+      "cls": 0,
+      "heapBytes": 13993864
+    },
+    {
+      "name": "try-on",
+      "width": 844,
+      "height": 390,
+      "documentWidth": 844,
+      "avatarSource": "/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+      "hdResources": [
+        {
+          "name": "/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+          "bytes": 2157107,
+          "duration": 26.5
+        }
+      ],
+      "resourceBytes": 3144254,
+      "cls": 0,
+      "heapBytes": 14060786
+    },
+    {
+      "name": "try-on",
+      "width": 915,
+      "height": 412,
+      "documentWidth": 915,
+      "avatarSource": "/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+      "hdResources": [
+        {
+          "name": "/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+          "bytes": 2157107,
+          "duration": 16.200000001117587
+        }
+      ],
+      "resourceBytes": 3144254,
+      "cls": 0,
+      "heapBytes": 13978797
+    },
+    {
+      "name": "try-on",
+      "width": 768,
+      "height": 1024,
+      "documentWidth": 768,
+      "avatarSource": "/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+      "hdResources": [
+        {
+          "name": "/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+          "bytes": 2157107,
+          "duration": 19.899999998509884
+        }
+      ],
+      "resourceBytes": 3144254,
+      "cls": 0,
+      "heapBytes": 14003139
+    },
+    {
+      "name": "try-on",
+      "width": 1440,
+      "height": 900,
+      "documentWidth": 1440,
+      "avatarSource": "/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+      "hdResources": [
+        {
+          "name": "/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+          "bytes": 2157107,
+          "duration": 30.800000000745058
+        }
+      ],
+      "resourceBytes": 3157456,
+      "cls": 0.050831618655692724,
+      "heapBytes": 13962956
+    },
+    {
+      "name": "try-on",
+      "width": 1920,
+      "height": 1080,
+      "documentWidth": 1920,
+      "avatarSource": "/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+      "hdResources": [
+        {
+          "name": "/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+          "bytes": 2157107,
+          "duration": 9.299999998882413
+        }
+      ],
+      "resourceBytes": 3157456,
+      "cls": 0.030587585198045265,
+      "heapBytes": 14025395
+    }
+  ],
+  "maxHDLoaded": 1,
+  "mobileCLS": 0,
+  "desktopCLSUnchanged": true,
+  "qualityReduction": false,
+  "physicalDevice": false
+}

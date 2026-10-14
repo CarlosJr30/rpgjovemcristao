@@ -1,5 +1,13 @@
 # Equipment Master Checklist V1
 
+## TASK-0074 — auditoria atual / REVIEW_READY
+
+14/10/2026:16targets/54HD/6itens revalidados por SHA físico,8FIT_PASS/1NEEDS_REWORK/7NEEDS_NEW_ART;1aprovação humana antiga válida/7pendentes. Nenhuma decisão humana nova. Fonte original, bake e receipt da Couraça feminina permanecem intactos.
+
+Resolvedor local permite apenas Couraça aprovada / female_short_moss_medium / SHAebee2f026c2dd6aac6b47850c8412f243cdc20c51a36d6f91e2d6cf3b46c20cb. As outras53aparências,7pendentes e2armaduras raras sem item não são ativadas. Integração de produção aguardando READY/SHA neste checkpoint. Galeria local privada,11dimensões×2motores,16imagens decodificadas e10pares estáticos, sem cliques de decisão.
+
+Relatório: [TASK-0074](TASK-0074-EQUIPMENT-BODY-FIT-V3-REPORT.md). Matriz/hashes: build/task-0074-equipment-body-fit-v3/inventory.json e visual-review.json. Recomendações visuais não promovem estados. O quadro TASK0059 abaixo é histórico e preservado; não representa a integração local0074.
+
 TASK-0059. Fonte de acompanhamento, gerada a partir dos catálogos/receipts e SHA físicos, sem editar catálogos de jogo.
 
 ## Estado inicial confirmado

@@ -1200,3 +1200,13 @@ secrets/
 !/build/task-0073-mobile-gameplay-exploration/production-smoke.json
 !/build/task-0073-mobile-gameplay-exploration/review/
 !/build/task-0073-mobile-gameplay-exploration/review/index.html
+
+# TASK-0074: metadata only. Pending art, gallery, ZIPs and browser captures remain private.
+!/build/task-0074-equipment-body-fit-v3/
+/build/task-0074-equipment-body-fit-v3/*
+!/build/task-0074-equipment-body-fit-v3/inventory.json
+!/build/task-0074-equipment-body-fit-v3/inventory-before.json
+!/build/task-0074-equipment-body-fit-v3/qa-summary.json
+!/build/task-0074-equipment-body-fit-v3/preservation-final.json
+!/build/task-0074-equipment-body-fit-v3/visual-review.json
+!/build/task-0074-equipment-body-fit-v3/performance.json

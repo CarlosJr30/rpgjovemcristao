@@ -6,9 +6,11 @@ import portal from './equipment-portal.module.css';
 export function EquipmentComparison({
   traveler,
   item,
+  expanded = false,
 }: {
   traveler: Traveler;
   item: Equipment;
+  expanded?: boolean;
 }) {
   const reward = equipmentReward(traveler, item);
   const before = calculateTotalAttributes(traveler).total;
@@ -17,7 +19,7 @@ export function EquipmentComparison({
     equipped: { ...traveler.equipped, [item.slot]: item.id },
   }).total;
   return (
-    <details className={portal.comparison}>
+    <details className={portal.comparison} open={expanded || undefined}>
       <summary>Comparar com o atual</summary>
       <p>
         {reward.previous

@@ -1,0 +1,15 @@
+# Revisão de segurança — TASK-0074
+
+QA e Security pelo agente principal, sem alegação de revisão independente. Pedido autoriza auditoria, galeria privada e publicação somente de correções seguras e integração de arte já aprovada no escopo exato. Os sete candidatos pendentes não foram aprovados nem ativados.
+
+Galeria offline com CSP sem rede/formulários/objetos; imagens incorporadas por SHA, textos via textContent, sem administração fictícia ou rotas públicas. Nesta auditoria, contextos descartáveis verificam navegação, zoom, variantes de referência,16imagens e11dimensões sem clicar em nenhum botão de decisão e sem gravar localStorage. Rascunho local não é receipt humano. PNGs/capturas/HTML/ZIP privados permanecem ignorados; somente metadata é allowlisted no Git, sem endpoint público. ZIP revisado por entradas e hashes, sem .env, HAR, perfis, traces, dados reais ou54HD duplicados.
+
+Receipt0054 original intacto. Gate de build/start verifica aprovador/data/ID/gênero/Avatar/SHA/fonte/metadata/bake/cópia pública e impede art/fontes pendentes ou payload da galeria no público. A única camada permitida é a Couraça já aprovada sobre female_short_moss_medium; as outras53aparências e fallbacks não a recebem. Resolvedor verifica slot e posse existente; provador usa cópia temporária e chama o fluxo normal de equipar, sem escrever saves diretamente. Art inválida desaparece sem mudar bônus ou base HD.
+
+Sem dependências novas de aplicação ou lockfile alterado. Fontes/54HD/SQL/Auth/RLS/Supabase/chat/saves/catálogo/engine/câmera/swipe/economia/recompensas permanecem por hash. Sem execução de SQL, env remoto, proteções ou bypass Vercel. Projeto/equipe/root/repo/main conferidos pelo CLI autenticado; publicação segue Git automático, sem deployment duplicado. Nenhum token ou credencial compartilhável criado.
+
+Oito áudios restritos e suas fontes preservados fora do artefato; contratos de licença não alterados, nenhuma arte nova gerada. A auditoria não declara licença comercial exclusiva por inferência. Build:210públicos/728artefatos/8SHA;54HD117.434.147bytes. HTTP local:7rotas200,8áudios404,8fontes404,5DEV404 e51caminhos privados404; PNG aprovado200/SHA exato.18bundles frontend revisados sem service role/private key. Heurística não substitui revisão manual do diff e das imagens, realizada pelo autor.
+
+Nenhum achado crítico/alto aberto neste escopo. Corrigidos nomes acessíveis/zoom/enquadramento e overflow320WebKit. Riscos residuais: decisão humana pendente por7hashes/Avatares; fixação dos escudos ambígua na vista frontal; combinações estáticas não garantem poses animadas; teste físicoPOCO pendente. WebKit emulado omite links no Tab padrão: Home verifica foco explícito do skip link e ordem Tab dos botões, sem alegar equivalência a teclado físico. Chat10fixtures PASS; aceite real de2contas continua separado/BLOCKED na TASK0072B, sem alterar permissões remotas.
+
+READY/SHA/HTTP público serão registrados no relatório e receipt após a publicação segura. Nenhum deploy exclusivamente para documentação.

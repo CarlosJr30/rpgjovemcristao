@@ -1,0 +1,1930 @@
+{
+  "base": "9c709c93ec94af998b9cb05030db8ce405637fec",
+  "counts": {
+    "targets": 16,
+    "FIT_PASS": 8,
+    "NEEDS_REWORK": 1,
+    "NEEDS_NEW_ART": 7,
+    "humanApproved": 1,
+    "humanPending": 7,
+    "READY_STAGING": 1,
+    "ACTIVE_RUNTIME": 0,
+    "integrationEligible": 1,
+    "hd": 54,
+    "catalogItems": 6
+  },
+  "targets": [
+    {
+      "id": "armor_traveler_uncommon_female_v2",
+      "itemId": "traveler-armor-uncommon",
+      "gender": "female",
+      "slot": "armor",
+      "source": "assets-source/body-fit-v2-targets/armor_traveler_uncommon_female_v2.png",
+      "sourceSha256": "564e2a4ebeaf51c41fd32dd7dca311dcc6d9c7cb4015d579d4f3b7f9d98714d1",
+      "staging": "build/task-0054-body-fit-bake/pilot/armor_traveler_uncommon_female_v2_baked.png",
+      "sha256": "ebee2f026c2dd6aac6b47850c8412f243cdc20c51a36d6f91e2d6cf3b46c20cb",
+      "technical": "FIT_PASS",
+      "human": "HUMAN_BODY_FIT_APPROVED",
+      "ready": true,
+      "runtime": false,
+      "avatar": "apps/web/public/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+      "approvalReceipt": "docs/architecture/TASK-0054-HUMAN-BODY-FIT-APPROVAL.json",
+      "pngIntegrity": "CRC_PASS",
+      "registered": true,
+      "rarity": "incomum",
+      "category": "BODY_FIT_FOR_REGISTERED_ITEM",
+      "dependency": null,
+      "nextAction": "Preserve staging; no runtime activation",
+      "avatarId": "female_short_moss_medium",
+      "avatarSha256": "f260cb9b053b35c328025f1bc7ee602cbb30e57c71ba1f2238a4b1519685f460",
+      "resolution": {
+        "width": 1024,
+        "height": 1536
+      },
+      "png": {
+        "format": "png",
+        "width": 1024,
+        "height": 1536,
+        "channels": 4,
+        "hasAlpha": true,
+        "integrity": {
+          "status": "CRC_PASS",
+          "chunks": 67
+        },
+        "alpha128Bounds": {
+          "left": 304,
+          "top": 256,
+          "right": 744,
+          "bottom": 817,
+          "count": 149275
+        },
+        "alphaPositiveBoundsDiagnostic": {
+          "left": 292,
+          "top": 222,
+          "right": 748,
+          "bottom": 893,
+          "count": 155032
+        },
+        "transparentPixels": 1417832,
+        "sha256": "ebee2f026c2dd6aac6b47850c8412f243cdc20c51a36d6f91e2d6cf3b46c20cb",
+        "decode": "PASS"
+      },
+      "avatarPng": {
+        "format": "png",
+        "width": 1024,
+        "height": 1536,
+        "channels": 4,
+        "hasAlpha": true,
+        "integrity": {
+          "status": "CRC_PASS",
+          "chunks": 36
+        },
+        "alpha128Bounds": {
+          "left": 187,
+          "top": 2,
+          "right": 964,
+          "bottom": 1495,
+          "count": 585164
+        },
+        "alphaPositiveBoundsDiagnostic": {
+          "left": 0,
+          "top": 0,
+          "right": 1001,
+          "bottom": 1504,
+          "count": 620433
+        },
+        "transparentPixels": 952431,
+        "sha256": "f260cb9b053b35c328025f1bc7ee602cbb30e57c71ba1f2238a4b1519685f460",
+        "decode": "PASS"
+      },
+      "name": "Couraça do Viajante",
+      "layer": 2,
+      "verifiedHumanApproval": true,
+      "approval": {
+        "reviewedBy": "Carlos Faustino",
+        "reviewedAt": "2026-10-08T07:31:46.510Z",
+        "scope": "ONLY this baked hash and this avatar/gender reference; no other15 targets or avatar variants",
+        "receipt": "docs/architecture/TASK-0054-HUMAN-BODY-FIT-APPROVAL.json"
+      },
+      "integrationEligible": true,
+      "compatibility": "Requires current runtime combination/fallback verification; historical reports are reference only",
+      "reviewComposition": "Immutable original HD base + exact baked overlay; no derived/erased base or transform"
+    },
+    {
+      "id": "armor_traveler_uncommon_male_v2",
+      "itemId": "traveler-armor-uncommon",
+      "gender": "male",
+      "slot": "armor",
+      "source": "assets-source/body-fit-v2-targets/armor_traveler_uncommon_male_v2.png",
+      "sourceSha256": "7172c482d49902d1c268a98c3b5339950f7e5340c6c4e0e54bdbea42ffe80b32",
+      "staging": "build/task-0055-body-fit-bake/armor_traveler_uncommon_male_v2/armor_traveler_uncommon_male_v2_baked.png",
+      "sha256": "8ece1c5d4daad2b4b7b0a6d673eb3ad6e2d16a9bcc888082ee33a2bd71c928c2",
+      "technical": "FIT_PASS",
+      "human": "HUMAN_BODY_FIT_REVIEW_PENDING",
+      "ready": false,
+      "runtime": false,
+      "avatar": "apps/web/public/assets/avatar/hd/male/male_short_moss_medium_hd.png",
+      "historicalFitReport": "build/task-0055-body-fit-bake/armor_traveler_uncommon_male_v2/fit-report.json",
+      "pngIntegrity": "CRC_PASS",
+      "registered": true,
+      "rarity": "incomum",
+      "category": "BODY_FIT_FOR_REGISTERED_ITEM",
+      "dependency": "EXPLICIT_HUMAN_REVIEW",
+      "nextAction": "Carlos reviews exact Avatar/hash",
+      "avatarId": "male_short_moss_medium",
+      "avatarSha256": "b182c2e29b512b337891716a413ab7efaad737e23c6354779fae17fe19b8af34",
+      "resolution": {
+        "width": 1024,
+        "height": 1536
+      },
+      "png": {
+        "format": "png",
+        "width": 1024,
+        "height": 1536,
+        "channels": 4,
+        "hasAlpha": true,
+        "integrity": {
+          "status": "CRC_PASS",
+          "chunks": 82
+        },
+        "alpha128Bounds": {
+          "left": 274,
+          "top": 252,
+          "right": 755,
+          "bottom": 892,
+          "count": 186301
+        },
+        "alphaPositiveBoundsDiagnostic": {
+          "left": 273,
+          "top": 229,
+          "right": 756,
+          "bottom": 920,
+          "count": 193211
+        },
+        "transparentPixels": 1379653,
+        "sha256": "8ece1c5d4daad2b4b7b0a6d673eb3ad6e2d16a9bcc888082ee33a2bd71c928c2",
+        "decode": "PASS"
+      },
+      "avatarPng": {
+        "format": "png",
+        "width": 1024,
+        "height": 1536,
+        "channels": 4,
+        "hasAlpha": true,
+        "integrity": {
+          "status": "CRC_PASS",
+          "chunks": 37
+        },
+        "alpha128Bounds": {
+          "left": 169,
+          "top": 2,
+          "right": 933,
+          "bottom": 1513,
+          "count": 617449
+        },
+        "alphaPositiveBoundsDiagnostic": {
+          "left": 0,
+          "top": 0,
+          "right": 1003,
+          "bottom": 1521,
+          "count": 652586
+        },
+        "transparentPixels": 920278,
+        "sha256": "b182c2e29b512b337891716a413ab7efaad737e23c6354779fae17fe19b8af34",
+        "decode": "PASS"
+      },
+      "name": "Couraça do Viajante",
+      "layer": 2,
+      "verifiedHumanApproval": false,
+      "integrationEligible": false,
+      "compatibility": "Requires current runtime combination/fallback verification; historical reports are reference only",
+      "reviewComposition": "Immutable original HD base + exact baked overlay; no derived/erased base or transform"
+    },
+    {
+      "id": "armor_traveler_rare_female_v2",
+      "itemId": "traveler-armor-rare",
+      "gender": "female",
+      "slot": "armor",
+      "source": "assets-source/body-fit-v2-targets/armor_traveler_rare_female_v2.png",
+      "sourceSha256": "dffb2c8c352f6b4ccd17049479d4d76917cac711c346c9ab685e57ac0434b209",
+      "staging": "build/task-0055-body-fit-bake/armor_traveler_rare_female_v2/armor_traveler_rare_female_v2_baked.png",
+      "sha256": "58be3d1d95eeab11ac0a38d67f06ad88383d018e3720502d31dada7a9f2fc833",
+      "technical": "FIT_PASS",
+      "human": "HUMAN_BODY_FIT_REVIEW_PENDING",
+      "ready": false,
+      "runtime": false,
+      "avatar": "apps/web/public/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+      "historicalFitReport": "build/task-0055-body-fit-bake/armor_traveler_rare_female_v2/fit-report.json",
+      "pngIntegrity": "CRC_PASS",
+      "registered": false,
+      "rarity": "raro",
+      "category": "BODY_FIT_FOR_ARCHIVED_DEFINITION",
+      "dependency": "EXPLICIT_HUMAN_REVIEW",
+      "nextAction": "Carlos reviews exact Avatar/hash",
+      "avatarId": "female_short_moss_medium",
+      "avatarSha256": "f260cb9b053b35c328025f1bc7ee602cbb30e57c71ba1f2238a4b1519685f460",
+      "resolution": {
+        "width": 1024,
+        "height": 1536
+      },
+      "png": {
+        "format": "png",
+        "width": 1024,
+        "height": 1536,
+        "channels": 4,
+        "hasAlpha": true,
+        "integrity": {
+          "status": "CRC_PASS",
+          "chunks": 92
+        },
+        "alpha128Bounds": {
+          "left": 300,
+          "top": 254,
+          "right": 748,
+          "bottom": 901,
+          "count": 200114
+        },
+        "alphaPositiveBoundsDiagnostic": {
+          "left": 296,
+          "top": 245,
+          "right": 752,
+          "bottom": 916,
+          "count": 210292
+        },
+        "transparentPixels": 1362572,
+        "sha256": "58be3d1d95eeab11ac0a38d67f06ad88383d018e3720502d31dada7a9f2fc833",
+        "decode": "PASS"
+      },
+      "avatarPng": {
+        "format": "png",
+        "width": 1024,
+        "height": 1536,
+        "channels": 4,
+        "hasAlpha": true,
+        "integrity": {
+          "status": "CRC_PASS",
+          "chunks": 36
+        },
+        "alpha128Bounds": {
+          "left": 187,
+          "top": 2,
+          "right": 964,
+          "bottom": 1495,
+          "count": 585164
+        },
+        "alphaPositiveBoundsDiagnostic": {
+          "left": 0,
+          "top": 0,
+          "right": 1001,
+          "bottom": 1504,
+          "count": 620433
+        },
+        "transparentPixels": 952431,
+        "sha256": "f260cb9b053b35c328025f1bc7ee602cbb30e57c71ba1f2238a4b1519685f460",
+        "decode": "PASS"
+      },
+      "name": "Definição arquivada — sem item jogável",
+      "layer": 2,
+      "verifiedHumanApproval": false,
+      "integrationEligible": false,
+      "compatibility": "Requires current runtime combination/fallback verification; historical reports are reference only",
+      "reviewComposition": "Immutable original HD base + exact baked overlay; no derived/erased base or transform"
+    },
+    {
+      "id": "armor_traveler_rare_male_v2",
+      "itemId": "traveler-armor-rare",
+      "gender": "male",
+      "slot": "armor",
+      "source": "assets-source/body-fit-v2-targets/armor_traveler_rare_male_v2.png",
+      "sourceSha256": "fb36c83cce93fc31b4871af4ea9e14597c5f7c5bb5167e2287c0928c96975e0f",
+      "staging": "build/task-0055-body-fit-bake/armor_traveler_rare_male_v2/armor_traveler_rare_male_v2_baked.png",
+      "sha256": "cc96ad925b3c298a0e85f2cfeda2f1171130d83f6bd7c71080e1b43c87e7f0dd",
+      "technical": "FIT_PASS",
+      "human": "HUMAN_BODY_FIT_REVIEW_PENDING",
+      "ready": false,
+      "runtime": false,
+      "avatar": "apps/web/public/assets/avatar/hd/male/male_short_moss_medium_hd.png",
+      "historicalFitReport": "build/task-0055-body-fit-bake/armor_traveler_rare_male_v2/fit-report.json",
+      "pngIntegrity": "CRC_PASS",
+      "registered": false,
+      "rarity": "raro",
+      "category": "BODY_FIT_FOR_ARCHIVED_DEFINITION",
+      "dependency": "EXPLICIT_HUMAN_REVIEW",
+      "nextAction": "Carlos reviews exact Avatar/hash",
+      "avatarId": "male_short_moss_medium",
+      "avatarSha256": "b182c2e29b512b337891716a413ab7efaad737e23c6354779fae17fe19b8af34",
+      "resolution": {
+        "width": 1024,
+        "height": 1536
+      },
+      "png": {
+        "format": "png",
+        "width": 1024,
+        "height": 1536,
+        "channels": 4,
+        "hasAlpha": true,
+        "integrity": {
+          "status": "CRC_PASS",
+          "chunks": 92
+        },
+        "alpha128Bounds": {
+          "left": 277,
+          "top": 242,
+          "right": 750,
+          "bottom": 911,
+          "count": 202130
+        },
+        "alphaPositiveBoundsDiagnostic": {
+          "left": 274,
+          "top": 216,
+          "right": 752,
+          "bottom": 934,
+          "count": 209703
+        },
+        "transparentPixels": 1363161,
+        "sha256": "cc96ad925b3c298a0e85f2cfeda2f1171130d83f6bd7c71080e1b43c87e7f0dd",
+        "decode": "PASS"
+      },
+      "avatarPng": {
+        "format": "png",
+        "width": 1024,
+        "height": 1536,
+        "channels": 4,
+        "hasAlpha": true,
+        "integrity": {
+          "status": "CRC_PASS",
+          "chunks": 37
+        },
+        "alpha128Bounds": {
+          "left": 169,
+          "top": 2,
+          "right": 933,
+          "bottom": 1513,
+          "count": 617449
+        },
+        "alphaPositiveBoundsDiagnostic": {
+          "left": 0,
+          "top": 0,
+          "right": 1003,
+          "bottom": 1521,
+          "count": 652586
+        },
+        "transparentPixels": 920278,
+        "sha256": "b182c2e29b512b337891716a413ab7efaad737e23c6354779fae17fe19b8af34",
+        "decode": "PASS"
+      },
+      "name": "Definição arquivada — sem item jogável",
+      "layer": 2,
+      "verifiedHumanApproval": false,
+      "integrationEligible": false,
+      "compatibility": "Requires current runtime combination/fallback verification; historical reports are reference only",
+      "reviewComposition": "Immutable original HD base + exact baked overlay; no derived/erased base or transform"
+    },
+    {
+      "id": "helmet_traveler_rare_female_v2",
+      "itemId": "traveler-helmet-rare",
+      "gender": "female",
+      "slot": "helmet",
+      "source": "assets-source/body-fit-v2-targets/helmet_traveler_rare_female_v2.png",
+      "sourceSha256": "49a8a293aafae600a9e5bb4feddbf17b0a68572b6c8876aaab3ea22d4804d037",
+      "staging": "build/task-0059-equipment-recovery/recovery/helmet_traveler_rare_female_v2/a-crown-in-canvas/helmet_traveler_rare_female_v2_baked.png",
+      "sha256": "0896335cd7e310538f09f8aa09669146de8ca1334ba102a1932ed34dc78ae9f4",
+      "technical": "NEEDS_NEW_ART",
+      "human": "NOT_ELIGIBLE",
+      "ready": false,
+      "runtime": false,
+      "avatar": "apps/web/public/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+      "historicalFitReport": "build/task-0055-body-fit-bake/helmet_traveler_rare_female_v2/fit-report.json",
+      "pngIntegrity": "CRC_PASS",
+      "registered": true,
+      "rarity": "raro",
+      "category": "BODY_FIT_FOR_REGISTERED_ITEM",
+      "dependency": "Coroa agora dentro do canvas, porém cabelo excede o casco e janela facial permanece incompatível com olhos/testa. Escala uniforme não resolve simultaneamente largura, hairline e abertura; nenhuma edição do cabelo/HD.",
+      "nextAction": "Produzir fonte específica conforme brief; novo bake e revisão independente",
+      "artRequirement": "NEEDS_NEW_HEADWEAR_ART",
+      "recoveryReport": "build/task-0059-equipment-recovery/recovery/helmet_traveler_rare_female_v2/a-crown-in-canvas/fit-report.json",
+      "avatarId": "female_short_moss_medium",
+      "avatarSha256": "f260cb9b053b35c328025f1bc7ee602cbb30e57c71ba1f2238a4b1519685f460",
+      "resolution": {
+        "width": 1024,
+        "height": 1536
+      },
+      "png": {
+        "format": "png",
+        "width": 1024,
+        "height": 1536,
+        "channels": 4,
+        "hasAlpha": true,
+        "integrity": {
+          "status": "CRC_PASS",
+          "chunks": 27
+        },
+        "alpha128Bounds": {
+          "left": 378,
+          "top": 19,
+          "right": 661,
+          "bottom": 408,
+          "count": 52548
+        },
+        "alphaPositiveBoundsDiagnostic": {
+          "left": 377,
+          "top": 18,
+          "right": 662,
+          "bottom": 410,
+          "count": 54567
+        },
+        "transparentPixels": 1518297,
+        "sha256": "0896335cd7e310538f09f8aa09669146de8ca1334ba102a1932ed34dc78ae9f4",
+        "decode": "PASS"
+      },
+      "avatarPng": {
+        "format": "png",
+        "width": 1024,
+        "height": 1536,
+        "channels": 4,
+        "hasAlpha": true,
+        "integrity": {
+          "status": "CRC_PASS",
+          "chunks": 36
+        },
+        "alpha128Bounds": {
+          "left": 187,
+          "top": 2,
+          "right": 964,
+          "bottom": 1495,
+          "count": 585164
+        },
+        "alphaPositiveBoundsDiagnostic": {
+          "left": 0,
+          "top": 0,
+          "right": 1001,
+          "bottom": 1504,
+          "count": 620433
+        },
+        "transparentPixels": 952431,
+        "sha256": "f260cb9b053b35c328025f1bc7ee602cbb30e57c71ba1f2238a4b1519685f460",
+        "decode": "PASS"
+      },
+      "name": "Elmo do Viajante",
+      "layer": 8,
+      "verifiedHumanApproval": false,
+      "integrationEligible": false,
+      "compatibility": "Requires current runtime combination/fallback verification; historical reports are reference only",
+      "reviewComposition": "Immutable original HD base + exact baked overlay; no derived/erased base or transform"
+    },
+    {
+      "id": "helmet_traveler_rare_male_v2",
+      "itemId": "traveler-helmet-rare",
+      "gender": "male",
+      "slot": "helmet",
+      "source": "assets-source/body-fit-v2-targets/helmet_traveler_rare_male_v2.png",
+      "sourceSha256": "c5e5a15cfeaa19c3ebff002480fa5f0c1b93b914c7c5604cc3b3d51d079590da",
+      "staging": "build/task-0059-equipment-recovery/recovery/helmet_traveler_rare_male_v2/a-crown-in-canvas/helmet_traveler_rare_male_v2_baked.png",
+      "sha256": "a5ed12e9de23a9ff8b1ea54eba0b9590e82015c947e591274434df8c827049dd",
+      "technical": "NEEDS_NEW_ART",
+      "human": "NOT_ELIGIBLE",
+      "ready": false,
+      "runtime": false,
+      "avatar": "apps/web/public/assets/avatar/hd/male/male_short_moss_medium_hd.png",
+      "historicalFitReport": "build/task-0055-body-fit-bake/helmet_traveler_rare_male_v2/fit-report.json",
+      "pngIntegrity": "CRC_PASS",
+      "registered": true,
+      "rarity": "raro",
+      "category": "BODY_FIT_FOR_REGISTERED_ITEM",
+      "dependency": "Coroa agora dentro do canvas, porém cabelo excede o casco e janela facial permanece incompatível com olhos/testa. Escala uniforme não resolve simultaneamente largura, hairline e abertura; nenhuma edição do cabelo/HD.",
+      "nextAction": "Produzir fonte específica conforme brief; novo bake e revisão independente",
+      "artRequirement": "NEEDS_NEW_HEADWEAR_ART",
+      "recoveryReport": "build/task-0059-equipment-recovery/recovery/helmet_traveler_rare_male_v2/a-crown-in-canvas/fit-report.json",
+      "avatarId": "male_short_moss_medium",
+      "avatarSha256": "b182c2e29b512b337891716a413ab7efaad737e23c6354779fae17fe19b8af34",
+      "resolution": {
+        "width": 1024,
+        "height": 1536
+      },
+      "png": {
+        "format": "png",
+        "width": 1024,
+        "height": 1536,
+        "channels": 4,
+        "hasAlpha": true,
+        "integrity": {
+          "status": "CRC_PASS",
+          "chunks": 29
+        },
+        "alpha128Bounds": {
+          "left": 367,
+          "top": 8,
+          "right": 652,
+          "bottom": 407,
+          "count": 57087
+        },
+        "alphaPositiveBoundsDiagnostic": {
+          "left": 367,
+          "top": 7,
+          "right": 652,
+          "bottom": 414,
+          "count": 59517
+        },
+        "transparentPixels": 1513347,
+        "sha256": "a5ed12e9de23a9ff8b1ea54eba0b9590e82015c947e591274434df8c827049dd",
+        "decode": "PASS"
+      },
+      "avatarPng": {
+        "format": "png",
+        "width": 1024,
+        "height": 1536,
+        "channels": 4,
+        "hasAlpha": true,
+        "integrity": {
+          "status": "CRC_PASS",
+          "chunks": 37
+        },
+        "alpha128Bounds": {
+          "left": 169,
+          "top": 2,
+          "right": 933,
+          "bottom": 1513,
+          "count": 617449
+        },
+        "alphaPositiveBoundsDiagnostic": {
+          "left": 0,
+          "top": 0,
+          "right": 1003,
+          "bottom": 1521,
+          "count": 652586
+        },
+        "transparentPixels": 920278,
+        "sha256": "b182c2e29b512b337891716a413ab7efaad737e23c6354779fae17fe19b8af34",
+        "decode": "PASS"
+      },
+      "name": "Elmo do Viajante",
+      "layer": 8,
+      "verifiedHumanApproval": false,
+      "integrationEligible": false,
+      "compatibility": "Requires current runtime combination/fallback verification; historical reports are reference only",
+      "reviewComposition": "Immutable original HD base + exact baked overlay; no derived/erased base or transform"
+    },
+    {
+      "id": "boots_traveler_common_female_v2",
+      "itemId": "traveler-boots",
+      "gender": "female",
+      "slot": "boots",
+      "source": "assets-source/body-fit-v2-targets/boots_traveler_common_female_v2.png",
+      "sourceSha256": "dfc523cddaf71075163b30f3d92f80b7c6d723d013ada40d18b70de1dbd52277",
+      "staging": "build/task-0059-equipment-recovery/recovery/boots_traveler_common_female_v2/b-localized-footwear-replacement/boots_traveler_common_female_v2_baked.png",
+      "sha256": "81608ac55e9f5594f8a46a754af7ece36130f56c5492ccc48a85de693ff3b51f",
+      "technical": "NEEDS_NEW_ART",
+      "human": "NOT_ELIGIBLE",
+      "ready": false,
+      "runtime": false,
+      "avatar": "apps/web/public/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+      "historicalFitReport": "build/task-0055-body-fit-bake/boots_traveler_common_female_v2/fit-report.json",
+      "pngIntegrity": "CRC_PASS",
+      "registered": true,
+      "rarity": "comum",
+      "category": "BODY_FIT_FOR_REGISTERED_ITEM",
+      "dependency": "HD possui calçado pré-composto. Registro por pé ainda duplica couro/sola; subtração localizada deixa5124pixels sem cobertura (9.97% da área removida), lacunas e resíduos no tornozelo. Não reconstruir fundo apagando anatomia.",
+      "nextAction": "Produzir fonte específica conforme brief; novo bake e revisão independente",
+      "artRequirement": "NEEDS_NEW_FOOTWEAR_ART",
+      "recoveryReport": "build/task-0059-equipment-recovery/recovery/boots_traveler_common_female_v2/b-localized-footwear-replacement/fit-report.json",
+      "avatarId": "female_short_moss_medium",
+      "avatarSha256": "f260cb9b053b35c328025f1bc7ee602cbb30e57c71ba1f2238a4b1519685f460",
+      "resolution": {
+        "width": 1024,
+        "height": 1536
+      },
+      "png": {
+        "format": "png",
+        "width": 1024,
+        "height": 1536,
+        "channels": 4,
+        "hasAlpha": true,
+        "integrity": {
+          "status": "CRC_PASS",
+          "chunks": 40
+        },
+        "alpha128Bounds": {
+          "left": 206,
+          "top": 1117,
+          "right": 829,
+          "bottom": 1498,
+          "count": 83534
+        },
+        "alphaPositiveBoundsDiagnostic": {
+          "left": 205,
+          "top": 1022,
+          "right": 831,
+          "bottom": 1522,
+          "count": 87073
+        },
+        "transparentPixels": 1485791,
+        "sha256": "81608ac55e9f5594f8a46a754af7ece36130f56c5492ccc48a85de693ff3b51f",
+        "decode": "PASS"
+      },
+      "avatarPng": {
+        "format": "png",
+        "width": 1024,
+        "height": 1536,
+        "channels": 4,
+        "hasAlpha": true,
+        "integrity": {
+          "status": "CRC_PASS",
+          "chunks": 36
+        },
+        "alpha128Bounds": {
+          "left": 187,
+          "top": 2,
+          "right": 964,
+          "bottom": 1495,
+          "count": 585164
+        },
+        "alphaPositiveBoundsDiagnostic": {
+          "left": 0,
+          "top": 0,
+          "right": 1001,
+          "bottom": 1504,
+          "count": 620433
+        },
+        "transparentPixels": 952431,
+        "sha256": "f260cb9b053b35c328025f1bc7ee602cbb30e57c71ba1f2238a4b1519685f460",
+        "decode": "PASS"
+      },
+      "name": "Botas do Viajante",
+      "layer": 3,
+      "verifiedHumanApproval": false,
+      "integrationEligible": false,
+      "compatibility": "Requires current runtime combination/fallback verification; historical reports are reference only",
+      "reviewComposition": "Immutable original HD base + exact baked overlay; no derived/erased base or transform"
+    },
+    {
+      "id": "boots_traveler_common_male_v2",
+      "itemId": "traveler-boots",
+      "gender": "male",
+      "slot": "boots",
+      "source": "assets-source/body-fit-v2-targets/boots_traveler_common_male_v2.png",
+      "sourceSha256": "bbfb5cfb3045181340daaedb5bdd87600190af8f11963de72f08ef9608fa8371",
+      "staging": "build/task-0055-body-fit-bake/boots_traveler_common_male_v2/boots_traveler_common_male_v2_baked.png",
+      "sha256": "e0f392c934da8376e9ee4d5b54e31be1de1f2ab65dc3cb102bf8fce17a7c6049",
+      "technical": "NEEDS_REWORK",
+      "human": "NOT_ELIGIBLE",
+      "ready": false,
+      "runtime": false,
+      "avatar": "apps/web/public/assets/avatar/hd/male/male_short_moss_medium_hd.png",
+      "historicalFitReport": "build/task-0055-body-fit-bake/boots_traveler_common_male_v2/fit-report.json",
+      "pngIntegrity": "CRC_PASS",
+      "registered": true,
+      "rarity": "comum",
+      "category": "BODY_FIT_FOR_REGISTERED_ITEM",
+      "dependency": "Método feminino não validado após2abordagens; masculino não processado",
+      "nextAction": "Aguardar solução de footwear feminina antes de derivar masculino",
+      "avatarId": "male_short_moss_medium",
+      "avatarSha256": "b182c2e29b512b337891716a413ab7efaad737e23c6354779fae17fe19b8af34",
+      "resolution": {
+        "width": 1024,
+        "height": 1536
+      },
+      "png": {
+        "format": "png",
+        "width": 1024,
+        "height": 1536,
+        "channels": 4,
+        "hasAlpha": true,
+        "integrity": {
+          "status": "CRC_PASS",
+          "chunks": 96
+        },
+        "alpha128Bounds": {
+          "left": 210,
+          "top": 922,
+          "right": 819,
+          "bottom": 1535,
+          "count": 226421
+        },
+        "alphaPositiveBoundsDiagnostic": {
+          "left": 198,
+          "top": 830,
+          "right": 821,
+          "bottom": 1535,
+          "count": 234179
+        },
+        "transparentPixels": 1338685,
+        "sha256": "e0f392c934da8376e9ee4d5b54e31be1de1f2ab65dc3cb102bf8fce17a7c6049",
+        "decode": "PASS"
+      },
+      "avatarPng": {
+        "format": "png",
+        "width": 1024,
+        "height": 1536,
+        "channels": 4,
+        "hasAlpha": true,
+        "integrity": {
+          "status": "CRC_PASS",
+          "chunks": 37
+        },
+        "alpha128Bounds": {
+          "left": 169,
+          "top": 2,
+          "right": 933,
+          "bottom": 1513,
+          "count": 617449
+        },
+        "alphaPositiveBoundsDiagnostic": {
+          "left": 0,
+          "top": 0,
+          "right": 1003,
+          "bottom": 1521,
+          "count": 652586
+        },
+        "transparentPixels": 920278,
+        "sha256": "b182c2e29b512b337891716a413ab7efaad737e23c6354779fae17fe19b8af34",
+        "decode": "PASS"
+      },
+      "name": "Botas do Viajante",
+      "layer": 3,
+      "verifiedHumanApproval": false,
+      "integrationEligible": false,
+      "compatibility": "Requires current runtime combination/fallback verification; historical reports are reference only",
+      "reviewComposition": "Immutable original HD base + exact baked overlay; no derived/erased base or transform"
+    },
+    {
+      "id": "sword_path_common_female_v2",
+      "itemId": "traveler-sword-common",
+      "gender": "female",
+      "slot": "weapon",
+      "source": "assets-source/body-fit-v2-targets/sword_path_common_female_v2.png",
+      "sourceSha256": "03e3edbcf9572fae0cafc46b0a02eda045cbcdfe855dfcdf808e4aa8a5401d29",
+      "staging": "build/task-0058-sword-sheath-pilot/baked/attempt-03/sword_path_common_female_v2_sheathed_baked.png",
+      "sha256": "735000c62ddaee5214cfb895deae17685a1f2e1c0c642f3557e09879d90524f2",
+      "technical": "FIT_PASS",
+      "human": "HUMAN_BODY_FIT_REVIEW_PENDING",
+      "ready": false,
+      "runtime": false,
+      "avatar": "apps/web/public/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+      "historicalFitReport": "build/task-0055-body-fit-bake/sword_path_common_female_v2/fit-report.json",
+      "pngIntegrity": "CRC_PASS",
+      "registered": true,
+      "rarity": "comum",
+      "category": "BODY_FIT_FOR_REGISTERED_ITEM",
+      "dependency": "EXPLICIT_HUMAN_REVIEW",
+      "nextAction": "Carlos reviews exact Avatar/hash",
+      "avatarId": "female_short_moss_medium",
+      "avatarSha256": "f260cb9b053b35c328025f1bc7ee602cbb30e57c71ba1f2238a4b1519685f460",
+      "resolution": {
+        "width": 1024,
+        "height": 1536
+      },
+      "png": {
+        "format": "png",
+        "width": 1024,
+        "height": 1536,
+        "channels": 4,
+        "hasAlpha": true,
+        "integrity": {
+          "status": "CRC_PASS",
+          "chunks": 21
+        },
+        "alpha128Bounds": {
+          "left": 598,
+          "top": 554,
+          "right": 837,
+          "bottom": 1228,
+          "count": 35324
+        },
+        "alphaPositiveBoundsDiagnostic": {
+          "left": 531,
+          "top": 554,
+          "right": 923,
+          "bottom": 1233,
+          "count": 38538
+        },
+        "transparentPixels": 1534326,
+        "sha256": "735000c62ddaee5214cfb895deae17685a1f2e1c0c642f3557e09879d90524f2",
+        "decode": "PASS"
+      },
+      "avatarPng": {
+        "format": "png",
+        "width": 1024,
+        "height": 1536,
+        "channels": 4,
+        "hasAlpha": true,
+        "integrity": {
+          "status": "CRC_PASS",
+          "chunks": 36
+        },
+        "alpha128Bounds": {
+          "left": 187,
+          "top": 2,
+          "right": 964,
+          "bottom": 1495,
+          "count": 585164
+        },
+        "alphaPositiveBoundsDiagnostic": {
+          "left": 0,
+          "top": 0,
+          "right": 1001,
+          "bottom": 1504,
+          "count": 620433
+        },
+        "transparentPixels": 952431,
+        "sha256": "f260cb9b053b35c328025f1bc7ee602cbb30e57c71ba1f2238a4b1519685f460",
+        "decode": "PASS"
+      },
+      "name": "Espada do Caminho",
+      "layer": 6,
+      "verifiedHumanApproval": false,
+      "integrationEligible": false,
+      "compatibility": "Requires current runtime combination/fallback verification; historical reports are reference only",
+      "reviewComposition": "Immutable original HD base + exact baked overlay; no derived/erased base or transform"
+    },
+    {
+      "id": "sword_path_common_male_v2",
+      "itemId": "traveler-sword-common",
+      "gender": "male",
+      "slot": "weapon",
+      "source": "assets-source/body-fit-v2-targets/sword_path_common_male_v2.png",
+      "sourceSha256": "ef4ca354506a7da6a9c80dcbb2b4d5388af7d11bef98fce9a81d8de6b40e8818",
+      "staging": "build/task-0059-equipment-recovery/recovery/sword_path_common_male_v2/c-split-suspension-mouth/sword_path_common_male_v2_baked.png",
+      "sha256": "73e29fafd9adec500978eae7bb35eca05e8b79d946862b98704f40e95964aec4",
+      "technical": "FIT_PASS",
+      "human": "HUMAN_BODY_FIT_REVIEW_PENDING",
+      "ready": false,
+      "runtime": false,
+      "avatar": "apps/web/public/assets/avatar/hd/male/male_short_moss_medium_hd.png",
+      "historicalFitReport": "build/task-0055-body-fit-bake/sword_path_common_male_v2/fit-report.json",
+      "pngIntegrity": "CRC_PASS",
+      "registered": true,
+      "rarity": "comum",
+      "category": "BODY_FIT_FOR_REGISTERED_ITEM",
+      "dependency": "Revisão corporal humana por hash e compatibilidade com armaduras",
+      "nextAction": "Carlos revisar o novo candidato masculino e suas combinações; READY=false",
+      "previousStaging": "build/task-0055-body-fit-bake/sword_path_common_male_v2/sword_path_common_male_v2_baked.png",
+      "recoveryReport": "build/task-0059-equipment-recovery/recovery/sword_path_common_male_v2/c-split-suspension-mouth/fit-report.json",
+      "avatarId": "male_short_moss_medium",
+      "avatarSha256": "b182c2e29b512b337891716a413ab7efaad737e23c6354779fae17fe19b8af34",
+      "resolution": {
+        "width": 1024,
+        "height": 1536
+      },
+      "png": {
+        "format": "png",
+        "width": 1024,
+        "height": 1536,
+        "channels": 4,
+        "hasAlpha": true,
+        "integrity": {
+          "status": "CRC_PASS",
+          "chunks": 21
+        },
+        "alpha128Bounds": {
+          "left": 594,
+          "top": 557,
+          "right": 837,
+          "bottom": 1248,
+          "count": 36870
+        },
+        "alphaPositiveBoundsDiagnostic": {
+          "left": 417,
+          "top": 555,
+          "right": 923,
+          "bottom": 1253,
+          "count": 39869
+        },
+        "transparentPixels": 1532995,
+        "sha256": "73e29fafd9adec500978eae7bb35eca05e8b79d946862b98704f40e95964aec4",
+        "decode": "PASS"
+      },
+      "avatarPng": {
+        "format": "png",
+        "width": 1024,
+        "height": 1536,
+        "channels": 4,
+        "hasAlpha": true,
+        "integrity": {
+          "status": "CRC_PASS",
+          "chunks": 37
+        },
+        "alpha128Bounds": {
+          "left": 169,
+          "top": 2,
+          "right": 933,
+          "bottom": 1513,
+          "count": 617449
+        },
+        "alphaPositiveBoundsDiagnostic": {
+          "left": 0,
+          "top": 0,
+          "right": 1003,
+          "bottom": 1521,
+          "count": 652586
+        },
+        "transparentPixels": 920278,
+        "sha256": "b182c2e29b512b337891716a413ab7efaad737e23c6354779fae17fe19b8af34",
+        "decode": "PASS"
+      },
+      "name": "Espada do Caminho",
+      "layer": 6,
+      "verifiedHumanApproval": false,
+      "integrationEligible": false,
+      "compatibility": "Requires current runtime combination/fallback verification; historical reports are reference only",
+      "reviewComposition": "Immutable original HD base + exact baked overlay; no derived/erased base or transform"
+    },
+    {
+      "id": "sword_path_rare_female_v2",
+      "itemId": "traveler-sword-rare",
+      "gender": "female",
+      "slot": "weapon",
+      "source": "assets-source/body-fit-v2-targets/sword_path_rare_female_v2.png",
+      "sourceSha256": "5b445879d181b54e7a4f22761f63602cce83b15341255df8409d5b6b2f8a6ab8",
+      "staging": "build/task-0059-equipment-recovery/recovery/sword_path_rare_female_v2/a-local-sheath-adaptation/sword_path_rare_female_v2_baked.png",
+      "sha256": "59040db59c391711ac2e36a0bde481c219958037808f76ab5bd5821da0cc64e6",
+      "technical": "NEEDS_NEW_SHEATH_ART",
+      "human": "NOT_ELIGIBLE",
+      "ready": false,
+      "runtime": false,
+      "avatar": "apps/web/public/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+      "historicalFitReport": "build/task-0055-body-fit-bake/sword_path_rare_female_v2/fit-report.json",
+      "pngIntegrity": "CRC_PASS",
+      "registered": false,
+      "rarity": "raro",
+      "category": "BODY_FIT_FOR_ARCHIVED_DEFINITION",
+      "dependency": "Bainha local comum não resolve guarda rara larga/ornamentada: fragmento da guarda reaparece isolado depois do antebraço, oclusão e boca desproporcionais. Não copiar máscara feminina como aprovação masculina.",
+      "nextAction": "Bainha própria para guarda/lâmina rara e suspensão específica do cinto",
+      "recoveryReport": "build/task-0059-equipment-recovery/recovery/sword_path_rare_female_v2/a-local-sheath-adaptation/fit-report.json",
+      "avatarId": "female_short_moss_medium",
+      "avatarSha256": "f260cb9b053b35c328025f1bc7ee602cbb30e57c71ba1f2238a4b1519685f460",
+      "resolution": {
+        "width": 1024,
+        "height": 1536
+      },
+      "png": {
+        "format": "png",
+        "width": 1024,
+        "height": 1536,
+        "channels": 4,
+        "hasAlpha": true,
+        "integrity": {
+          "status": "CRC_PASS",
+          "chunks": 24
+        },
+        "alpha128Bounds": {
+          "left": 560,
+          "top": 539,
+          "right": 836,
+          "bottom": 1226,
+          "count": 41408
+        },
+        "alphaPositiveBoundsDiagnostic": {
+          "left": 470,
+          "top": 514,
+          "right": 936,
+          "bottom": 1233,
+          "count": 45195
+        },
+        "transparentPixels": 1527669,
+        "sha256": "59040db59c391711ac2e36a0bde481c219958037808f76ab5bd5821da0cc64e6",
+        "decode": "PASS"
+      },
+      "avatarPng": {
+        "format": "png",
+        "width": 1024,
+        "height": 1536,
+        "channels": 4,
+        "hasAlpha": true,
+        "integrity": {
+          "status": "CRC_PASS",
+          "chunks": 36
+        },
+        "alpha128Bounds": {
+          "left": 187,
+          "top": 2,
+          "right": 964,
+          "bottom": 1495,
+          "count": 585164
+        },
+        "alphaPositiveBoundsDiagnostic": {
+          "left": 0,
+          "top": 0,
+          "right": 1001,
+          "bottom": 1504,
+          "count": 620433
+        },
+        "transparentPixels": 952431,
+        "sha256": "f260cb9b053b35c328025f1bc7ee602cbb30e57c71ba1f2238a4b1519685f460",
+        "decode": "PASS"
+      },
+      "name": "Definição arquivada — sem item jogável",
+      "layer": 6,
+      "verifiedHumanApproval": false,
+      "integrationEligible": false,
+      "compatibility": "Requires current runtime combination/fallback verification; historical reports are reference only",
+      "reviewComposition": "Immutable original HD base + exact baked overlay; no derived/erased base or transform"
+    },
+    {
+      "id": "sword_path_rare_male_v2",
+      "itemId": "traveler-sword-rare",
+      "gender": "male",
+      "slot": "weapon",
+      "source": "assets-source/body-fit-v2-targets/sword_path_rare_male_v2.png",
+      "sourceSha256": "89676a2f0f5b8ce73e25e6088ff52979115a11a091bbf25ce810b3c8488c96cb",
+      "staging": "build/task-0059-equipment-recovery/recovery/sword_path_rare_male_v2/a-local-sheath-adaptation/sword_path_rare_male_v2_baked.png",
+      "sha256": "3af6d9c52cf2e162cb9ab4833828a5738cd5a435d729da2c6ea58af0717a9a89",
+      "technical": "NEEDS_NEW_SHEATH_ART",
+      "human": "NOT_ELIGIBLE",
+      "ready": false,
+      "runtime": false,
+      "avatar": "apps/web/public/assets/avatar/hd/male/male_short_moss_medium_hd.png",
+      "historicalFitReport": "build/task-0055-body-fit-bake/sword_path_rare_male_v2/fit-report.json",
+      "pngIntegrity": "CRC_PASS",
+      "registered": false,
+      "rarity": "raro",
+      "category": "BODY_FIT_FOR_ARCHIVED_DEFINITION",
+      "dependency": "Bainha local comum não resolve guarda rara larga/ornamentada: fragmento da guarda reaparece isolado depois do antebraço, oclusão e boca desproporcionais. Não copiar máscara feminina como aprovação masculina.",
+      "nextAction": "Bainha própria para guarda/lâmina rara e suspensão específica do cinto",
+      "recoveryReport": "build/task-0059-equipment-recovery/recovery/sword_path_rare_male_v2/a-local-sheath-adaptation/fit-report.json",
+      "avatarId": "male_short_moss_medium",
+      "avatarSha256": "b182c2e29b512b337891716a413ab7efaad737e23c6354779fae17fe19b8af34",
+      "resolution": {
+        "width": 1024,
+        "height": 1536
+      },
+      "png": {
+        "format": "png",
+        "width": 1024,
+        "height": 1536,
+        "channels": 4,
+        "hasAlpha": true,
+        "integrity": {
+          "status": "CRC_PASS",
+          "chunks": 25
+        },
+        "alpha128Bounds": {
+          "left": 558,
+          "top": 544,
+          "right": 842,
+          "bottom": 1271,
+          "count": 42975
+        },
+        "alphaPositiveBoundsDiagnostic": {
+          "left": 481,
+          "top": 543,
+          "right": 949,
+          "bottom": 1277,
+          "count": 47750
+        },
+        "transparentPixels": 1525114,
+        "sha256": "3af6d9c52cf2e162cb9ab4833828a5738cd5a435d729da2c6ea58af0717a9a89",
+        "decode": "PASS"
+      },
+      "avatarPng": {
+        "format": "png",
+        "width": 1024,
+        "height": 1536,
+        "channels": 4,
+        "hasAlpha": true,
+        "integrity": {
+          "status": "CRC_PASS",
+          "chunks": 37
+        },
+        "alpha128Bounds": {
+          "left": 169,
+          "top": 2,
+          "right": 933,
+          "bottom": 1513,
+          "count": 617449
+        },
+        "alphaPositiveBoundsDiagnostic": {
+          "left": 0,
+          "top": 0,
+          "right": 1003,
+          "bottom": 1521,
+          "count": 652586
+        },
+        "transparentPixels": 920278,
+        "sha256": "b182c2e29b512b337891716a413ab7efaad737e23c6354779fae17fe19b8af34",
+        "decode": "PASS"
+      },
+      "name": "Definição arquivada — sem item jogável",
+      "layer": 6,
+      "verifiedHumanApproval": false,
+      "integrationEligible": false,
+      "compatibility": "Requires current runtime combination/fallback verification; historical reports are reference only",
+      "reviewComposition": "Immutable original HD base + exact baked overlay; no derived/erased base or transform"
+    },
+    {
+      "id": "shield_perseverance_rare_female_v2",
+      "itemId": "traveler-shield-rare",
+      "gender": "female",
+      "slot": "shield",
+      "source": "assets-source/body-fit-v2-targets/shield_perseverance_rare_female_v2.png",
+      "sourceSha256": "2722949386d675b27337dfe67a295b7be217dd17881a68a84b84800a0dbeb117",
+      "staging": "build/task-0055-body-fit-bake/shield_perseverance_rare_female_v2/shield_perseverance_rare_female_v2_baked.png",
+      "sha256": "1d0392230985f18b22ff043083af121fb9f276d526a3e8ecf4b9c93135dabe02",
+      "technical": "FIT_PASS",
+      "human": "HUMAN_BODY_FIT_REVIEW_PENDING",
+      "ready": false,
+      "runtime": false,
+      "avatar": "apps/web/public/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+      "historicalFitReport": "build/task-0055-body-fit-bake/shield_perseverance_rare_female_v2/fit-report.json",
+      "pngIntegrity": "CRC_PASS",
+      "registered": true,
+      "rarity": "raro",
+      "category": "BODY_FIT_FOR_REGISTERED_ITEM",
+      "dependency": "EXPLICIT_HUMAN_REVIEW",
+      "nextAction": "Carlos reviews exact Avatar/hash",
+      "avatarId": "female_short_moss_medium",
+      "avatarSha256": "f260cb9b053b35c328025f1bc7ee602cbb30e57c71ba1f2238a4b1519685f460",
+      "resolution": {
+        "width": 1024,
+        "height": 1536
+      },
+      "png": {
+        "format": "png",
+        "width": 1024,
+        "height": 1536,
+        "channels": 4,
+        "hasAlpha": true,
+        "integrity": {
+          "status": "CRC_PASS",
+          "chunks": 40
+        },
+        "alpha128Bounds": {
+          "left": 642,
+          "top": 498,
+          "right": 927,
+          "bottom": 980,
+          "count": 82260
+        },
+        "alphaPositiveBoundsDiagnostic": {
+          "left": 639,
+          "top": 497,
+          "right": 929,
+          "bottom": 981,
+          "count": 83757
+        },
+        "transparentPixels": 1489107,
+        "sha256": "1d0392230985f18b22ff043083af121fb9f276d526a3e8ecf4b9c93135dabe02",
+        "decode": "PASS"
+      },
+      "avatarPng": {
+        "format": "png",
+        "width": 1024,
+        "height": 1536,
+        "channels": 4,
+        "hasAlpha": true,
+        "integrity": {
+          "status": "CRC_PASS",
+          "chunks": 36
+        },
+        "alpha128Bounds": {
+          "left": 187,
+          "top": 2,
+          "right": 964,
+          "bottom": 1495,
+          "count": 585164
+        },
+        "alphaPositiveBoundsDiagnostic": {
+          "left": 0,
+          "top": 0,
+          "right": 1001,
+          "bottom": 1504,
+          "count": 620433
+        },
+        "transparentPixels": 952431,
+        "sha256": "f260cb9b053b35c328025f1bc7ee602cbb30e57c71ba1f2238a4b1519685f460",
+        "decode": "PASS"
+      },
+      "name": "Escudo da Perseverança",
+      "layer": 7,
+      "verifiedHumanApproval": false,
+      "integrationEligible": false,
+      "compatibility": "Requires current runtime combination/fallback verification; historical reports are reference only",
+      "reviewComposition": "Immutable original HD base + exact baked overlay; no derived/erased base or transform"
+    },
+    {
+      "id": "shield_perseverance_rare_male_v2",
+      "itemId": "traveler-shield-rare",
+      "gender": "male",
+      "slot": "shield",
+      "source": "assets-source/body-fit-v2-targets/shield_perseverance_rare_male_v2.png",
+      "sourceSha256": "94632b12aeb02547dfd98453f58f7cf40c3d143c1bfcc9b19bae19f75244809d",
+      "staging": "build/task-0055-body-fit-bake/shield_perseverance_rare_male_v2/shield_perseverance_rare_male_v2_baked.png",
+      "sha256": "bf0785671741851d4e64402984309cfc30ff80313da98cf453b3e3a57b40e2a6",
+      "technical": "FIT_PASS",
+      "human": "HUMAN_BODY_FIT_REVIEW_PENDING",
+      "ready": false,
+      "runtime": false,
+      "avatar": "apps/web/public/assets/avatar/hd/male/male_short_moss_medium_hd.png",
+      "historicalFitReport": "build/task-0055-body-fit-bake/shield_perseverance_rare_male_v2/fit-report.json",
+      "pngIntegrity": "CRC_PASS",
+      "registered": true,
+      "rarity": "raro",
+      "category": "BODY_FIT_FOR_REGISTERED_ITEM",
+      "dependency": "EXPLICIT_HUMAN_REVIEW",
+      "nextAction": "Carlos reviews exact Avatar/hash",
+      "avatarId": "male_short_moss_medium",
+      "avatarSha256": "b182c2e29b512b337891716a413ab7efaad737e23c6354779fae17fe19b8af34",
+      "resolution": {
+        "width": 1024,
+        "height": 1536
+      },
+      "png": {
+        "format": "png",
+        "width": 1024,
+        "height": 1536,
+        "channels": 4,
+        "hasAlpha": true,
+        "integrity": {
+          "status": "CRC_PASS",
+          "chunks": 45
+        },
+        "alpha128Bounds": {
+          "left": 638,
+          "top": 508,
+          "right": 947,
+          "bottom": 998,
+          "count": 96065
+        },
+        "alphaPositiveBoundsDiagnostic": {
+          "left": 637,
+          "top": 507,
+          "right": 948,
+          "bottom": 999,
+          "count": 97582
+        },
+        "transparentPixels": 1475282,
+        "sha256": "bf0785671741851d4e64402984309cfc30ff80313da98cf453b3e3a57b40e2a6",
+        "decode": "PASS"
+      },
+      "avatarPng": {
+        "format": "png",
+        "width": 1024,
+        "height": 1536,
+        "channels": 4,
+        "hasAlpha": true,
+        "integrity": {
+          "status": "CRC_PASS",
+          "chunks": 37
+        },
+        "alpha128Bounds": {
+          "left": 169,
+          "top": 2,
+          "right": 933,
+          "bottom": 1513,
+          "count": 617449
+        },
+        "alphaPositiveBoundsDiagnostic": {
+          "left": 0,
+          "top": 0,
+          "right": 1003,
+          "bottom": 1521,
+          "count": 652586
+        },
+        "transparentPixels": 920278,
+        "sha256": "b182c2e29b512b337891716a413ab7efaad737e23c6354779fae17fe19b8af34",
+        "decode": "PASS"
+      },
+      "name": "Escudo da Perseverança",
+      "layer": 7,
+      "verifiedHumanApproval": false,
+      "integrationEligible": false,
+      "compatibility": "Requires current runtime combination/fallback verification; historical reports are reference only",
+      "reviewComposition": "Immutable original HD base + exact baked overlay; no derived/erased base or transform"
+    },
+    {
+      "id": "medallion_path_rare_female_v2",
+      "itemId": "wisdom-amulet",
+      "gender": "female",
+      "slot": "amulet",
+      "source": "assets-source/body-fit-v2-targets/medallion_path_rare_female_v2.png",
+      "sourceSha256": "d4b114d305cb89901878a145f4c69745bcfd9c2b7683a7a123158758609e41f7",
+      "staging": "build/task-0059-equipment-recovery/recovery/medallion_path_rare_female_v2/a-chain-behind-scarf/medallion_path_rare_female_v2_baked.png",
+      "sha256": "de79f2e9a09af5c423b591c3eae822e79d37b56fa312f9aa42780e5c0bbd092a",
+      "technical": "NEEDS_NEW_ART",
+      "human": "NOT_ELIGIBLE",
+      "ready": false,
+      "runtime": false,
+      "avatar": "apps/web/public/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+      "historicalFitReport": "build/task-0055-body-fit-bake/medallion_path_rare_female_v2/fit-report.json",
+      "pngIntegrity": "CRC_PASS",
+      "registered": true,
+      "rarity": "raro",
+      "category": "BODY_FIT_FOR_REGISTERED_ITEM",
+      "dependency": "Fonte termina no topo do canvas. Ocultar extremidades sob cachecol remove a continuidade visível da corrente; feminino parece broche flutuante, masculino tem corte na parte superior do medalhão. Não comprova suspensão pelo pescoço.",
+      "nextAction": "Produzir fonte específica conforme brief; novo bake e revisão independente",
+      "artRequirement": "NEEDS_NEW_CHAIN_ART",
+      "recoveryReport": "build/task-0059-equipment-recovery/recovery/medallion_path_rare_female_v2/a-chain-behind-scarf/fit-report.json",
+      "avatarId": "female_short_moss_medium",
+      "avatarSha256": "f260cb9b053b35c328025f1bc7ee602cbb30e57c71ba1f2238a4b1519685f460",
+      "resolution": {
+        "width": 1024,
+        "height": 1536
+      },
+      "png": {
+        "format": "png",
+        "width": 1024,
+        "height": 1536,
+        "channels": 4,
+        "hasAlpha": true,
+        "integrity": {
+          "status": "CRC_PASS",
+          "chunks": 8
+        },
+        "alpha128Bounds": {
+          "left": 460,
+          "top": 372,
+          "right": 579,
+          "bottom": 502,
+          "count": 7555
+        },
+        "alphaPositiveBoundsDiagnostic": {
+          "left": 459,
+          "top": 371,
+          "right": 585,
+          "bottom": 514,
+          "count": 7811
+        },
+        "transparentPixels": 1565053,
+        "sha256": "de79f2e9a09af5c423b591c3eae822e79d37b56fa312f9aa42780e5c0bbd092a",
+        "decode": "PASS"
+      },
+      "avatarPng": {
+        "format": "png",
+        "width": 1024,
+        "height": 1536,
+        "channels": 4,
+        "hasAlpha": true,
+        "integrity": {
+          "status": "CRC_PASS",
+          "chunks": 36
+        },
+        "alpha128Bounds": {
+          "left": 187,
+          "top": 2,
+          "right": 964,
+          "bottom": 1495,
+          "count": 585164
+        },
+        "alphaPositiveBoundsDiagnostic": {
+          "left": 0,
+          "top": 0,
+          "right": 1001,
+          "bottom": 1504,
+          "count": 620433
+        },
+        "transparentPixels": 952431,
+        "sha256": "f260cb9b053b35c328025f1bc7ee602cbb30e57c71ba1f2238a4b1519685f460",
+        "decode": "PASS"
+      },
+      "name": "Medalhão do Caminho",
+      "layer": 4,
+      "verifiedHumanApproval": false,
+      "integrationEligible": false,
+      "compatibility": "Requires current runtime combination/fallback verification; historical reports are reference only",
+      "reviewComposition": "Immutable original HD base + exact baked overlay; no derived/erased base or transform"
+    },
+    {
+      "id": "medallion_path_rare_male_v2",
+      "itemId": "wisdom-amulet",
+      "gender": "male",
+      "slot": "amulet",
+      "source": "assets-source/body-fit-v2-targets/medallion_path_rare_male_v2.png",
+      "sourceSha256": "2ef82d3b22ad557019f41529d6c7dcd155c641142f5012ac2dbf7b9bb58a4b8e",
+      "staging": "build/task-0059-equipment-recovery/recovery/medallion_path_rare_male_v2/a-chain-behind-scarf/medallion_path_rare_male_v2_baked.png",
+      "sha256": "381cc1593896cedd300595d690a1b539b90ef8bcb76a4da76f58641e10c547fb",
+      "technical": "NEEDS_NEW_ART",
+      "human": "NOT_ELIGIBLE",
+      "ready": false,
+      "runtime": false,
+      "avatar": "apps/web/public/assets/avatar/hd/male/male_short_moss_medium_hd.png",
+      "historicalFitReport": "build/task-0055-body-fit-bake/medallion_path_rare_male_v2/fit-report.json",
+      "pngIntegrity": "CRC_PASS",
+      "registered": true,
+      "rarity": "raro",
+      "category": "BODY_FIT_FOR_REGISTERED_ITEM",
+      "dependency": "Fonte termina no topo do canvas. Ocultar extremidades sob cachecol remove a continuidade visível da corrente; feminino parece broche flutuante, masculino tem corte na parte superior do medalhão. Não comprova suspensão pelo pescoço.",
+      "nextAction": "Produzir fonte específica conforme brief; novo bake e revisão independente",
+      "artRequirement": "NEEDS_NEW_CHAIN_ART",
+      "recoveryReport": "build/task-0059-equipment-recovery/recovery/medallion_path_rare_male_v2/a-chain-behind-scarf/fit-report.json",
+      "avatarId": "male_short_moss_medium",
+      "avatarSha256": "b182c2e29b512b337891716a413ab7efaad737e23c6354779fae17fe19b8af34",
+      "resolution": {
+        "width": 1024,
+        "height": 1536
+      },
+      "png": {
+        "format": "png",
+        "width": 1024,
+        "height": 1536,
+        "channels": 4,
+        "hasAlpha": true,
+        "integrity": {
+          "status": "CRC_PASS",
+          "chunks": 9
+        },
+        "alpha128Bounds": {
+          "left": 439,
+          "top": 390,
+          "right": 580,
+          "bottom": 520,
+          "count": 10491
+        },
+        "alphaPositiveBoundsDiagnostic": {
+          "left": 438,
+          "top": 390,
+          "right": 581,
+          "bottom": 533,
+          "count": 10713
+        },
+        "transparentPixels": 1562151,
+        "sha256": "381cc1593896cedd300595d690a1b539b90ef8bcb76a4da76f58641e10c547fb",
+        "decode": "PASS"
+      },
+      "avatarPng": {
+        "format": "png",
+        "width": 1024,
+        "height": 1536,
+        "channels": 4,
+        "hasAlpha": true,
+        "integrity": {
+          "status": "CRC_PASS",
+          "chunks": 37
+        },
+        "alpha128Bounds": {
+          "left": 169,
+          "top": 2,
+          "right": 933,
+          "bottom": 1513,
+          "count": 617449
+        },
+        "alphaPositiveBoundsDiagnostic": {
+          "left": 0,
+          "top": 0,
+          "right": 1003,
+          "bottom": 1521,
+          "count": 652586
+        },
+        "transparentPixels": 920278,
+        "sha256": "b182c2e29b512b337891716a413ab7efaad737e23c6354779fae17fe19b8af34",
+        "decode": "PASS"
+      },
+      "name": "Medalhão do Caminho",
+      "layer": 4,
+      "verifiedHumanApproval": false,
+      "integrationEligible": false,
+      "compatibility": "Requires current runtime combination/fallback verification; historical reports are reference only",
+      "reviewComposition": "Immutable original HD base + exact baked overlay; no derived/erased base or transform"
+    }
+  ],
+  "hd": [
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_curly_blue_dark_hd.png",
+      "sha256": "c96e8b93f23e732ead9f0243f7d390293e20ab6c2187f0e260dbc190872591c2",
+      "bytes": 2183745,
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_curly_blue_light_hd.png",
+      "sha256": "8dc450bdcb0730fca04571c9628b7c21807b6f63800eebfe11e2813ab806d0ac",
+      "bytes": 2144963,
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_curly_blue_medium_hd.png",
+      "sha256": "69ee723023e71d7eceeabbf6ff529bddbb4b45edbb6b2b9c2a863a5b9d2d2201",
+      "bytes": 2192738,
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_curly_moss_dark_hd.png",
+      "sha256": "8dc002903a6d817ed3e88bd074c2e4bdec29851012b2d54f59e395c217e4feef",
+      "bytes": 2137504,
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_curly_moss_light_hd.png",
+      "sha256": "9a3429cbf48879a4dce7d3c864efb0a96e046824e608c715868d73c6add0574a",
+      "bytes": 2154942,
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_curly_moss_medium_hd.png",
+      "sha256": "facd724c6cfba397ae2e5808e6c2f70bd47e98fe8ad4ea89e8e369615dbac339",
+      "bytes": 2136521,
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_curly_ochre_dark_hd.png",
+      "sha256": "4bad1dcd741d745b2fa66202814470bd59af3a22faa14d12851471262fa4fa31",
+      "bytes": 2071878,
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_curly_ochre_light_hd.png",
+      "sha256": "ed613e15a51bbcdae2a0d57eaa29b768501e25c8df3a8f9977540760e5655fa9",
+      "bytes": 2114670,
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_curly_ochre_medium_hd.png",
+      "sha256": "e0a0f6ff69aef40fc9cbcf0655e18962397e851ad9c173056882744aed25df67",
+      "bytes": 2173195,
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_long_blue_dark_hd.png",
+      "sha256": "8965ed75ea6fed37f0f20bda47d1e89cde09ef5bba38bcb977a8331cd2ce6e9a",
+      "bytes": 2180452,
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_long_blue_light_hd.png",
+      "sha256": "1d9ea6451ef5004b50eeaf3fe6f5ba0a4be7e9e5b9b792b08913b14347a6b62f",
+      "bytes": 2139135,
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_long_blue_medium_hd.png",
+      "sha256": "7cccad3f330823bf6172f482e19846aebeee7b4a63098a88e88b2033119478e7",
+      "bytes": 2212590,
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_long_moss_dark_hd.png",
+      "sha256": "af2a67a75c3f59c6f59c1595cc255174478e081652ec6cf661d63863bdd897b6",
+      "bytes": 2130431,
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_long_moss_light_hd.png",
+      "sha256": "b58b4eac65b271c8dd8c598d05ff05f0e8ab50936c2a6903cdaf47c40c0fe2f5",
+      "bytes": 2214514,
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_long_moss_medium_hd.png",
+      "sha256": "14a85fed5713caed593d151119231f9e6b477aeb503b6791f1bff800d489aae4",
+      "bytes": 2220563,
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_long_ochre_dark_hd.png",
+      "sha256": "24f0d3abfa9c0fd04670a98ea6e28354e8c6906232f25a1daf45df04d93b106c",
+      "bytes": 2196172,
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_long_ochre_light_hd.png",
+      "sha256": "8d8344f596c2819c97630cd1d6ad96a1823d2b2738ee2543021773765ee03d3f",
+      "bytes": 2155462,
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_long_ochre_medium_hd.png",
+      "sha256": "9a66160fe37601d540896b078619fb8d983b1432bb43300722713d09b2d66821",
+      "bytes": 2128141,
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_short_blue_dark_hd.png",
+      "sha256": "691d944d7eee8ef015f5427280b2b72379a2dfedfe20af61736ebad6d8598380",
+      "bytes": 2196916,
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_short_blue_light_hd.png",
+      "sha256": "f3a580c2305f3415ea5d01ed880ab9eda95ad20dd3c1ae572fec2cdee8cf14ac",
+      "bytes": 2192519,
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_short_blue_medium_hd.png",
+      "sha256": "3fb0c1fbf7991b717754f7a7c82c57014273fdbe3fea20df0103f034c2b0684f",
+      "bytes": 2163442,
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_short_moss_dark_hd.png",
+      "sha256": "65ae8c6308032994d7ac80d2d53503c6af4c12f92a4b1f266cba9480b02b1032",
+      "bytes": 2190502,
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_short_moss_light_hd.png",
+      "sha256": "ffa9d2698c7d1e67497cd7006d28294d2d17e31ed06e05b56e3bae1cf0a56162",
+      "bytes": 2148772,
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+      "sha256": "f260cb9b053b35c328025f1bc7ee602cbb30e57c71ba1f2238a4b1519685f460",
+      "bytes": 2156807,
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_short_ochre_dark_hd.png",
+      "sha256": "cf7fab4691bc7380d6e9304106900859da05838a0afbaf4428513ca542e1cd52",
+      "bytes": 2159702,
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_short_ochre_light_hd.png",
+      "sha256": "b0e475eb240f148e3b6ba6c60d2b53b62c153254b0151b11ff46d91d0edb81ff",
+      "bytes": 2134279,
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/female/female_short_ochre_medium_hd.png",
+      "sha256": "31117e2ae50cc207a02b4f65c70f97df37e82db54f8c70e35a8adade08e41ae2",
+      "bytes": 2122664,
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/male/male_curly_blue_dark_hd.png",
+      "sha256": "5ff01c5eb2aa68a3fa0ba3c8d3722c21a92861c442a5db4fdc32884e8c9793ae",
+      "bytes": 2192022,
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/male/male_curly_blue_light_hd.png",
+      "sha256": "f4a119053fe94850222d606ca7ab5907399fec28246b8700338893a25897713c",
+      "bytes": 2180157,
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/male/male_curly_blue_medium_hd.png",
+      "sha256": "65d4233a10037109e5dac652e607b87d9a7856d2e30ba8511bd8ff52d2f40758",
+      "bytes": 2193003,
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/male/male_curly_moss_dark_hd.png",
+      "sha256": "a414e8d6888aa147c9256a1cec04eac67c444a21d26ba0a09ff848a1feb6fd1c",
+      "bytes": 2149056,
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/male/male_curly_moss_light_hd.png",
+      "sha256": "4134196166b8578f87e445a5d19fc32f940137dd007942b94c811af6e8749ec4",
+      "bytes": 2265827,
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/male/male_curly_moss_medium_hd.png",
+      "sha256": "c2aaea7d357ef0aeec5bd5ebf9f0842e82b30d5605ccab9ad920b1fb50861afc",
+      "bytes": 2195248,
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/male/male_curly_ochre_dark_hd.png",
+      "sha256": "17cc19e6a3813277a844f46f684b9d4dd730270d5b709168c21f0e939dc9fb36",
+      "bytes": 2139463,
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/male/male_curly_ochre_light_hd.png",
+      "sha256": "8cff7e8e43d0f3372e7ac22663adfa7380cc27b87c5bac1332c4e4e01542141e",
+      "bytes": 2159298,
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/male/male_curly_ochre_medium_hd.png",
+      "sha256": "e58d45c166bf154c320d0a5cad530ccfe42a0bf8c6a093a050c66250329be8cd",
+      "bytes": 2183742,
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/male/male_long_blue_dark_hd.png",
+      "sha256": "9d243e0ce2f10ffb7cb2e86ef1cdaed6ded161b9d052e7611ef020a7956105df",
+      "bytes": 2254856,
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/male/male_long_blue_light_hd.png",
+      "sha256": "d7b69134b6429fe3d305380d39adf2149ff955782afba17cc563f0aded780191",
+      "bytes": 2203966,
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/male/male_long_blue_medium_hd.png",
+      "sha256": "e390217b97a4bf6dbb54b42e2b7b043d98184901cf164ab42ff6b9af83ec01a4",
+      "bytes": 2200236,
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/male/male_long_moss_dark_hd.png",
+      "sha256": "561c0da9f89bb56bebd4584a6750c977e5819c1fb503e7703610bcd7659ca9a1",
+      "bytes": 2215713,
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/male/male_long_moss_light_hd.png",
+      "sha256": "24bbc5a3ec9a4ccee28864dc6868de1e137a29575d34bda072c7298d8dd8b0dd",
+      "bytes": 2231350,
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/male/male_long_moss_medium_hd.png",
+      "sha256": "7105d9b86cd74645d2a9ad7fb65954e9b4764b5dc7972d3cf8bcc543f69565d0",
+      "bytes": 2147107,
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/male/male_long_ochre_dark_hd.png",
+      "sha256": "3ccee1a98a598903d47b351e62f4b3af505123711158fe6601054ee5cd40d3ad",
+      "bytes": 2197843,
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/male/male_long_ochre_light_hd.png",
+      "sha256": "e8548f8771dd172f55e456358ed99ed5423532cf1f0dfc3fb099451ba6ba2ad6",
+      "bytes": 2208395,
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/male/male_long_ochre_medium_hd.png",
+      "sha256": "bc0ab9ad75d36d038c20f352a3c50ec84eefe8bcd3910e7d7263c7bebd6ed285",
+      "bytes": 2143431,
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/male/male_short_blue_dark_hd.png",
+      "sha256": "8771935dcc7a529b5b0bfe958d6da38f70ef31c50f86655a97f2936eacadf8c3",
+      "bytes": 2147071,
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/male/male_short_blue_light_hd.png",
+      "sha256": "98b5e7c9d50151af6da95dd7a813f6f4304d7cd292a6c85ff7fa68b6e03bf302",
+      "bytes": 2142625,
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/male/male_short_blue_medium_hd.png",
+      "sha256": "6f732859e75bbdebb5b69120dc00e0d4342025cfed84a4106ab6d0ad9adaf224",
+      "bytes": 2207923,
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/male/male_short_moss_dark_hd.png",
+      "sha256": "b32dafb858dac73b8a49f4d7275b1a30806948db11cb8e958f8e9adfb9f3866f",
+      "bytes": 2148771,
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/male/male_short_moss_light_hd.png",
+      "sha256": "66f5dc34b6dc5c07c2a6dff581e60fa23f0e22bd10845c019bc2d42a8c365ce6",
+      "bytes": 2213952,
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/male/male_short_moss_medium_hd.png",
+      "sha256": "b182c2e29b512b337891716a413ab7efaad737e23c6354779fae17fe19b8af34",
+      "bytes": 2238839,
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/male/male_short_ochre_dark_hd.png",
+      "sha256": "b6b0c87a7fd62286fb17cc90e692a6cf09d8f06e031d7e0a3c1b38b841baaa94",
+      "bytes": 2106497,
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/male/male_short_ochre_light_hd.png",
+      "sha256": "15de9f313b5af24574854d16a85bec4be3569b29f502b578c2c0c3995a168d35",
+      "bytes": 2174927,
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "apps/web/public/assets/avatar/hd/male/male_short_ochre_medium_hd.png",
+      "sha256": "00d5d22f7dae0fdbce82555797b902f26c590abadc9ae5579e0b4ffb2ad16d18",
+      "bytes": 2239610,
+      "width": 1024,
+      "height": 1536
+    }
+  ],
+  "catalog": [
+    {
+      "id": "traveler-boots",
+      "name": "Botas do Viajante",
+      "slot": "boots",
+      "rarity": "comum",
+      "power": 1,
+      "stats": {
+        "life": 1
+      }
+    },
+    {
+      "id": "traveler-helmet-rare",
+      "name": "Elmo do Viajante",
+      "slot": "helmet",
+      "rarity": "raro",
+      "power": 2,
+      "stats": {
+        "defense": 1
+      }
+    },
+    {
+      "id": "wisdom-amulet",
+      "name": "Medalhão do Caminho",
+      "slot": "amulet",
+      "rarity": "raro",
+      "power": 2,
+      "stats": {
+        "wisdom": 2
+      }
+    },
+    {
+      "id": "traveler-sword-common",
+      "name": "Espada do Caminho",
+      "slot": "weapon",
+      "rarity": "comum",
+      "power": 1,
+      "stats": {
+        "strength": 2
+      }
+    },
+    {
+      "id": "traveler-armor-uncommon",
+      "name": "Couraça do Viajante",
+      "slot": "armor",
+      "rarity": "incomum",
+      "power": 2,
+      "stats": {
+        "life": 1,
+        "defense": 1
+      }
+    },
+    {
+      "id": "traveler-shield-rare",
+      "name": "Escudo da Perseverança",
+      "slot": "shield",
+      "rarity": "raro",
+      "power": 3,
+      "stats": {
+        "life": 1,
+        "defense": 2
+      }
+    }
+  ],
+  "rarities": {
+    "comum": 2,
+    "incomum": 1,
+    "raro": 3,
+    "épico": 0,
+    "lendário": 0
+  },
+  "findings": []
+}

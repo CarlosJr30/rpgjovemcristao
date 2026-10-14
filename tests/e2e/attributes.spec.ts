@@ -1,19 +1,47 @@
 import { expect, test, type Page } from '@playwright/test';
 
 test.beforeEach(async ({ page }) => {
+  const origin = new URL(test.info().project.use.baseURL!).origin;
+  await page.route('**/*', (route) =>
+    new URL(route.request().url()).origin === origin
+      ? route.continue()
+      : route.abort(),
+  );
   await page.goto('/auth');
   await page
     .getByRole('button', { name: 'Continuar somente neste navegador' })
     .click();
+  await expect(page).toHaveURL('/');
+  await page.waitForLoadState('networkidle');
 });
 
 async function navigate(page: Page, label: string) {
   const menu = page.getByRole('button', { name: 'Abrir menu' });
+  const nav = page.getByRole('navigation', { name: 'Navegação principal' });
+  await expect
+    .poll(async () => (await menu.isVisible()) || (await nav.isVisible()))
+    .toBe(true);
   if (await menu.isVisible()) await menu.click();
+  await expect(nav).toBeVisible();
   await page
     .getByRole('navigation', { name: 'Navegação principal' })
     .getByRole('link', { name: label })
     .click();
+}
+async function openTravelerSwitch(page: Page) {
+  const trigger = page.getByRole('button', {
+    name: 'Trocar Viajante',
+    exact: true,
+  });
+  if (await trigger.isVisible()) await trigger.click();
+  else {
+    await page
+      .getByRole('button', { name: 'Abrir Herói', exact: true })
+      .click();
+    await page
+      .getByRole('menuitem', { name: 'Trocar Viajante', exact: true })
+      .click();
+  }
 }
 
 async function expectAttributes(page: Page, expected: Record<string, number>) {
@@ -29,6 +57,7 @@ test('equipamentos alteram atributos derivados e persistem sem acumular', async 
   await page.goto('/journey/create');
   await page.getByLabel('Nome do Viajante', { exact: true }).fill('Luca');
   await page.getByRole('button', { name: 'Criar Viajante' }).click();
+  await page.getByRole('button', { name: /Entrar na jornada/ }).waitFor();
   await page.evaluate(() => {
     const key = 'rpg-jovem-cristao:journey:v1';
     const save = JSON.parse(localStorage.getItem(key)!);
@@ -52,6 +81,7 @@ test('equipamentos alteram atributos derivados e persistem sem acumular', async 
   await swordOffer.getByRole('button', { name: 'Comprar' }).click();
 
   await navigate(page, 'Equipamentos');
+  await page.getByRole('button', { name: 'Arma', exact: true }).click();
   const swordCard = page
     .locator('article')
     .filter({ has: page.getByRole('heading', { name: 'Espada do Caminho' }) });
@@ -82,9 +112,7 @@ test('equipamentos alteram atributos derivados e persistem sem acumular', async 
   await page.reload();
   await expectAttributes(page, { life: 2, strength: 3, defense: 2, wisdom: 1 });
 
-  await page
-    .getByRole('button', { name: 'Trocar Viajante', exact: true })
-    .click();
+  await openTravelerSwitch(page);
   await page
     .getByRole('dialog')
     .getByRole('button', { name: 'Trocar Viajante' })
@@ -92,11 +120,10 @@ test('equipamentos alteram atributos derivados e persistem sem acumular', async 
   await page.goto('/journey/create');
   await page.getByLabel('Nome do Viajante', { exact: true }).fill('Bia');
   await page.getByRole('button', { name: 'Criar Viajante' }).click();
+  await page.getByRole('button', { name: /Entrar na jornada/ }).waitFor();
   await navigate(page, 'Herói');
   await expectAttributes(page, { life: 2, strength: 1, defense: 1, wisdom: 1 });
-  await page
-    .getByRole('button', { name: 'Trocar Viajante', exact: true })
-    .click();
+  await openTravelerSwitch(page);
   await page
     .getByRole('dialog')
     .getByRole('button', { name: 'Trocar Viajante' })
