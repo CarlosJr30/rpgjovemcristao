@@ -203,10 +203,10 @@
   font-weight: 700;
   color: #465d3c;
 }
-.visualNote {
+.card .visualNote {
   padding: 0.5rem 0;
   color: #596349;
-  font-size: 0.75rem !important;
+  font-size: 0.75rem;
 }
 .comparison {
   margin: 0.8rem 0;
@@ -295,5 +295,172 @@
   .portal *::after {
     animation: none !important;
     transition: none !important;
+  }
+}
+
+@media (max-width: 800px), (max-width: 1024px) and (pointer: coarse) {
+  .portal {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .hero {
+    padding: 20px 14px;
+  }
+  .stage {
+    width: min(240px, 100%);
+  }
+  .kicker,
+  .hero small,
+  .slot small,
+  .slot em,
+  .card small,
+  .available,
+  .comparison table,
+  .comparison small {
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+  .slot span,
+  .filters label,
+  .card p,
+  .comparison summary {
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+  .card .visualNote {
+    font-size: 0.875rem;
+  }
+  .comparison table {
+    table-layout: fixed;
+    overflow-wrap: anywhere;
+  }
+  .slot {
+    padding: 12px 8px;
+  }
+}
+
+/* TASK-0064: the avatar and six slots form the loadout; inventory is its own panel. */
+@media (max-width: 1024px) {
+  .portal[data-mobile-screen='equipment'] {
+    display: block;
+    padding: 0;
+  }
+  .portal .hero {
+    padding: 8px;
+    border: 0;
+    border-radius: 12px;
+    box-shadow: none;
+  }
+  .portal .hero > .kicker {
+    display: none;
+  }
+  .portal .hero h1 {
+    font-size: 24px;
+    margin: 0 0 8px;
+  }
+  .portal .hero > h2,
+  .portal .hero > p:not(.kicker) {
+    display: none;
+  }
+  .portal .stage {
+    width: auto;
+    height: clamp(180px, 32dvh, 300px);
+    aspect-ratio: 2/3;
+    margin: 0 auto;
+    border-bottom-width: 0;
+    box-shadow: inset 0 -3px #a99772;
+  }
+  .portal .stage > [data-avatar-runtime] {
+    height: 100%;
+    width: 100%;
+  }
+  .portal .power {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin: 8px 0 0;
+    padding: 8px;
+  }
+  .portal .power span {
+    font-size: 14px;
+  }
+  .portal .power strong {
+    font-size: 26px;
+  }
+  .portal .power small {
+    font-size: 12px;
+  }
+  .portal .workspace > :is(h2, p) {
+    display: none;
+  }
+  .portal .workspace > .feedback {
+    display: block;
+  }
+  .portal .slots {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+    margin: 12px 0;
+  }
+  .portal .slot {
+    align-items: center;
+    text-align: center;
+    padding: 8px 4px;
+    min-height: 82px;
+    position: relative;
+  }
+  .portal .slot[aria-pressed='true'] {
+    padding: 7px 3px;
+  }
+  .portal .slot > span:first-of-type {
+    font-size: 14px;
+    font-weight: 700;
+  }
+  .portal .slot > :is(small, em),
+  .portal .slot > span:nth-of-type(2) {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    clip-path: inset(50%);
+    overflow: hidden;
+  }
+  .portal .shelf {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .portal .card {
+    padding: 16px;
+  }
+  .portal .filters {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .portal .filters label {
+    min-width: 0;
+  }
+  .portal .filters select {
+    width: 100%;
+    min-width: 0;
+  }
+}
+@media (max-width: 1024px) and (orientation: landscape) and (max-height: 500px) {
+  .portal[data-mobile-screen='equipment'] {
+    display: grid;
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+    gap: 12px;
+  }
+  .portal .stage {
+    height: 160px;
+  }
+  .portal .slots {
+    margin-top: 0;
+  }
+  .portal .slot {
+    min-height: 68px;
+    flex-direction: row;
+    justify-content: center;
+  }
+}
+@media (max-width: 1024px) {
+  .portal :global(#equipment-inventory) > h2 {
+    display: none;
   }
 }

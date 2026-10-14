@@ -1,0 +1,12 @@
+{
+  "at": "2026-10-10T15:09:30.085Z",
+  "scope": "STAGED_SOURCE_SNAPSHOT_BUILD_WITHOUT_PRIVATE_ENV",
+  "scanned": 723,
+  "findings": [],
+  "pass": true,
+  "sourceHashesPreserved": 8,
+  "dist": "apps/web/.next",
+  "indexTreeTested": "2cfd5d61e5d6e707739b6610193332559b719b56",
+  "snapshotRuntimeMatchesStaging": true,
+  "dependencyInstall": "Existing node_modules reused; clean npm ci not performed"
+}

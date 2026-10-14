@@ -1,4 +1,5 @@
 'use client';
+import Image from 'next/image';
 import portal from '../components/equipment-portal.module.css';
 import { EquipmentComparison } from '../components/equipment-comparison';
 import { travelerBattleSnapshot } from '../data/arena';
@@ -29,6 +30,10 @@ import { useEquipmentCinematic } from '../hooks/use-equipment-cinematic';
 import { EquipmentEquipCinematic } from '../components/equipment-equip-cinematic';
 import cinematicStyles from '../components/equipment-cinematic.module.css';
 import {
+  ResponsivePanel,
+  useCompactGameLayout,
+} from '../components/responsive-panel';
+import {
   calculateTotalAttributes,
   equipmentSwapDelta,
   formatAttributeDelta,
@@ -50,6 +55,8 @@ const rarityEffect: Record<string, string> = {
   lendário: styles.equipLegendaryEffect,
 };
 export function EquipmentScreen() {
+  const compact = useCompactGameLayout();
+  const [inventoryOpen, setInventoryOpen] = useState(false);
   const [availability, setAvailability] = useState('all');
   const [rarity, setRarity] = useState('all');
   const [slot, setSlot] = useState<EquipmentSlot>('weapon');
@@ -180,7 +187,7 @@ export function EquipmentScreen() {
     <Shell back={routes.hero} backLabel="Voltar ao Herói">
       <RequireTraveler>
         {(t) => (
-          <section className={portal.portal}>
+          <section className={portal.portal} data-mobile-screen="equipment">
             <div className={portal.hero}>
               <p className={portal.kicker}>PORTAL DE EQUIPAMENTOS</p>
               <h1>Arsenal do Viajante</h1>
@@ -236,10 +243,26 @@ export function EquipmentScreen() {
                       aria-describedby={`equipment-slot-${id}`}
                       aria-pressed={slot === id}
                       data-slot={id}
-                      onClick={() => setSlot(id)}
+                      onClick={(event) => {
+                        setSlot(id);
+                        setInventoryOpen(true);
+                        if (
+                          event.detail > 0 &&
+                          window.matchMedia('(max-width: 1024px)').matches
+                        )
+                          requestAnimationFrame(() => {
+                            document
+                              .querySelector('#equipment-inventory > summary')
+                              ?.scrollIntoView({ block: 'start' });
+                            (
+                              document.querySelector(
+                                '#equipment-inventory > summary',
+                              ) as HTMLElement | null
+                            )?.focus({ preventScroll: true });
+                          });
+                      }}
                     >
-                      {/* eslint-disable-next-line @next/next/no-img-element -- local slot icon registry */}
-                      <img
+                      <Image
                         src={
                           current
                             ? equipmentAssetForItem(current)
@@ -291,45 +314,146 @@ export function EquipmentScreen() {
                   );
                 })}
               </div>
-              <h2>Mochila · {slots.find(([id]) => id === slot)?.[2]}</h2>
-              <div className={portal.filters}>
-                <label>
-                  Mostrar
-                  <select
-                    aria-label="Mostrar"
-                    value={availability}
-                    onChange={(e) => setAvailability(e.target.value)}
-                  >
-                    <option value="all">Todos do slot</option>
-                    <option value="available">Equipáveis</option>
-                    <option value="equipped">Equipados</option>
-                  </select>
-                </label>
-                <label>
-                  Raridade
-                  <select
-                    aria-label="Raridade"
-                    value={rarity}
-                    onChange={(e) => setRarity(e.target.value)}
-                  >
-                    <option value="all">Todas as raridades</option>
-                    {Object.entries(RARITY_PRESENTATION).map(
-                      ([value, config]) => (
-                        <option key={value} value={value}>
-                          {config.label}
-                        </option>
-                      ),
-                    )}
-                  </select>
-                </label>
-              </div>
-              <p className={styles.equipmentSlotTheme}>
-                Tema do slot: {SLOT_INSPIRATION[slot].biblicalTheme} ·{' '}
-                {SLOT_INSPIRATION[slot].biblicalReference}
-              </p>
-              <div className={portal.shelf}>
-                {t.inventory
-                  .filter(
+              <ResponsivePanel
+                id="equipment-inventory"
+                title={`Mochila · ${slots.find(([id]) => id === slot)?.[2]}`}
+                expanded={inventoryOpen}
+                onExpandedChange={setInventoryOpen}
+              >
+                <h2>Mochila · {slots.find(([id]) => id === slot)?.[2]}</h2>
+                <div className={portal.filters}>
+                  <label>
+                    Mostrar
+                    <select
+                      aria-label="Mostrar"
+                      value={availability}
+                      onChange={(e) => setAvailability(e.target.value)}
+                    >
+                      <option value="all">Todos do slot</option>
+                      <option value="available">Equipáveis</option>
+                      <option value="equipped">Equipados</option>
+                    </select>
+                  </label>
+                  <label>
+                    Raridade
+                    <select
+                      aria-label="Raridade"
+                      value={rarity}
+                      onChange={(e) => setRarity(e.target.value)}
+                    >
+                      <option value="all">Todas as raridades</option>
+                      {Object.entries(RARITY_PRESENTATION).map(
+                        ([value, config]) => (
+                          <option key={value} value={value}>
+                            {config.label}
+                          </option>
+                        ),
+                      )}
+                    </select>
+                  </label>
+                </div>
+                <p className={styles.equipmentSlotTheme}>
+                  Tema do slot: {SLOT_INSPIRATION[slot].biblicalTheme} ·{' '}
+                  {SLOT_INSPIRATION[slot].biblicalReference}
+                </p>
+                <div className={portal.shelf}>
+                  {t.inventory
+                    .filter(
+                      (i) =>
+                        i.slot === slot &&
+                        (rarity === 'all' || i.rarity === rarity) &&
+                        (availability === 'all' ||
+                          (availability === 'equipped'
+                            ? t.equipped[slot] === i.id
+                            : t.equipped[slot] !== i.id)),
+                    )
+                    .map((item) => {
+                      const visual = equipmentVisualForItem(
+                        item,
+                        t.avatar.gender,
+                      );
+                      return (
+                        <article
+                          key={item.id}
+                          data-rarity={item.rarity}
+                          data-equipped={t.equipped[slot] === item.id}
+                          className={`${portal.card} ${equipmentStateClass(t.equipped[slot] === item.id)} ${equippedAnimationSlot === item.slot && t.equipped[slot] === item.id ? rarityEffect[item.rarity] : ''}`}
+                        >
+                          {item.isNew && <b>NOVO EQUIPAMENTO!</b>}
+                          {(!compact || inventoryOpen) && (
+                            <Image
+                              width={64}
+                              height={64}
+                              className={styles.equipmentItemIcon}
+                              src={equipmentAssetForItem(item)}
+                              alt=""
+                              loading="lazy"
+                              decoding="async"
+                              onError={(event) => {
+                                event.currentTarget.hidden = true;
+                              }}
+                              onLoad={(event) => {
+                                event.currentTarget.hidden = false;
+                              }}
+                            />
+                          )}
+                          <h2>{item.name}</h2>
+                          <p>
+                            {RARITY_PRESENTATION[item.rarity].label} · poder do
+                            item {item.power}
+                          </p>
+                          <EquipmentStatBonuses
+                            stats={item.stats}
+                            delta={
+                              t.equipped[slot] === item.id
+                                ? undefined
+                                : equipmentSwapDelta(t, item)
+                            }
+                          />
+                          <span className={portal.available}>
+                            {t.equipped[slot] === item.id
+                              ? '✓ Equipado'
+                              : 'Disponível para equipar'}
+                          </span>
+                          <EquipmentBibleDetails item={item} />
+                          <p
+                            className={portal.visualNote}
+                            data-visual-quality={visual.visualQuality}
+                            data-visual-overlay-unavailable={
+                              visual.visualOverlayUnavailable
+                            }
+                          >
+                            {visual.visualOverlayUnavailable
+                              ? 'Visual corporal em preparação · pode ser equipado e mantém seus atributos.'
+                              : 'Camada corporal disponível: aparece no Avatar ao equipar.'}
+                          </p>
+                          <EquipmentComparison traveler={t} item={item} />
+                          <button
+                            className={styles.primaryLink}
+                            disabled={busy}
+                            onClick={(event) =>
+                              t.equipped[slot] === item.id
+                                ? unequip(slot, t)
+                                : equip(item, t, event)
+                            }
+                          >
+                            {t.equipped[slot] === item.id
+                              ? 'Desequipar'
+                              : 'Equipar'}
+                          </button>
+                          {t.equipped[slot] === item.id && (
+                            <button
+                              className={styles.textLink}
+                              disabled={busy}
+                              onClick={() => unequip(slot, t)}
+                            >
+                              Remover do slot
+                            </button>
+                          )}
+                        </article>
+                      );
+                    })}
+                  {!t.inventory.some(
                     (i) =>
                       i.slot === slot &&
                       (rarity === 'all' || i.rarity === rarity) &&
@@ -337,103 +461,14 @@ export function EquipmentScreen() {
                         (availability === 'equipped'
                           ? t.equipped[slot] === i.id
                           : t.equipped[slot] !== i.id)),
-                  )
-                  .map((item) => {
-                    const visual = equipmentVisualForItem(
-                      item,
-                      t.avatar.gender,
-                    );
-                    return (
-                      <article
-                        key={item.id}
-                        data-rarity={item.rarity}
-                        data-equipped={t.equipped[slot] === item.id}
-                        className={`${portal.card} ${equipmentStateClass(t.equipped[slot] === item.id)} ${equippedAnimationSlot === item.slot && t.equipped[slot] === item.id ? rarityEffect[item.rarity] : ''}`}
-                      >
-                        {item.isNew && <b>NOVO EQUIPAMENTO!</b>}
-                        {/* eslint-disable-next-line @next/next/no-img-element -- local item icon registry */}
-                        <img
-                          className={styles.equipmentItemIcon}
-                          src={equipmentAssetForItem(item)}
-                          alt=""
-                          onError={(event) => {
-                            event.currentTarget.hidden = true;
-                          }}
-                          onLoad={(event) => {
-                            event.currentTarget.hidden = false;
-                          }}
-                        />
-                        <h2>{item.name}</h2>
-                        <p>
-                          {RARITY_PRESENTATION[item.rarity].label} · poder do
-                          item {item.power}
-                        </p>
-                        <EquipmentStatBonuses
-                          stats={item.stats}
-                          delta={
-                            t.equipped[slot] === item.id
-                              ? undefined
-                              : equipmentSwapDelta(t, item)
-                          }
-                        />
-                        <span className={portal.available}>
-                          {t.equipped[slot] === item.id
-                            ? '✓ Equipado'
-                            : 'Disponível para equipar'}
-                        </span>
-                        <EquipmentBibleDetails item={item} />
-                        <p
-                          className={portal.visualNote}
-                          data-visual-quality={visual.visualQuality}
-                          data-visual-overlay-unavailable={
-                            visual.visualOverlayUnavailable
-                          }
-                        >
-                          {visual.visualOverlayUnavailable
-                            ? 'Visual corporal em preparação · pode ser equipado e mantém seus atributos.'
-                            : 'Camada corporal disponível: aparece no Avatar ao equipar.'}
-                        </p>
-                        <EquipmentComparison traveler={t} item={item} />
-                        <button
-                          className={styles.primaryLink}
-                          disabled={busy}
-                          onClick={(event) =>
-                            t.equipped[slot] === item.id
-                              ? unequip(slot, t)
-                              : equip(item, t, event)
-                          }
-                        >
-                          {t.equipped[slot] === item.id
-                            ? 'Desequipar'
-                            : 'Equipar'}
-                        </button>
-                        {t.equipped[slot] === item.id && (
-                          <button
-                            className={styles.textLink}
-                            disabled={busy}
-                            onClick={() => unequip(slot, t)}
-                          >
-                            Remover do slot
-                          </button>
-                        )}
-                      </article>
-                    );
-                  })}
-                {!t.inventory.some(
-                  (i) =>
-                    i.slot === slot &&
-                    (rarity === 'all' || i.rarity === rarity) &&
-                    (availability === 'all' ||
-                      (availability === 'equipped'
-                        ? t.equipped[slot] === i.id
-                        : t.equipped[slot] !== i.id)),
-                ) && (
-                  <p>
-                    Nenhum item para estes filtros. Escolha Todos do slot ou
-                    outra raridade.
-                  </p>
-                )}
-              </div>
+                  ) && (
+                    <p>
+                      Nenhum item para estes filtros. Escolha Todos do slot ou
+                      outra raridade.
+                    </p>
+                  )}
+                </div>
+              </ResponsivePanel>
               <p className={portal.feedback} role="status" aria-live="polite">
                 {feedback}
               </p>

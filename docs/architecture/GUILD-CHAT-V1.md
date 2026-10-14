@@ -2,6 +2,8 @@
 
 Implementado em 2026-10-14. Aceite **BLOCKED** pelo teste de duas sessões reais em navegadores distintos. Código, migrações, SQL de segurança e QA com fixtures foram executados; não equivalem à comprovação do transporte Realtime autenticado.
 
+Na conciliação do notebook (TASK-0072), o contrato local originalmente chamado TASK-0062 foi reidentificado como TASK-0071: TASK-0062 já identifica a entrega mobile publicada. Os registros publicados foram preservados. As migrações locais do chat passaram de 0006/0007 para 0007/0008 para acomodar `0006_traveler_journey_progress.sql`; os nomes/versões já aplicados no Supabase continuam iguais. Nenhuma migração foi reaplicada por causa da renumeração.
+
 ## Auditoria e integração
 
 - AuthProvider e cliente browser Supabase existentes, com sessão persistente e sincronização de Viajantes. Nenhuma alteração no Auth, saves ou mecânicas.
@@ -37,12 +39,12 @@ Troca de conta/célula/Viajante desmonta a sessão, cancela respostas obsoletas 
 
 ## Migrações
 
-1. `packages/database/migrations/0006_guild_chat.sql`: tabelas, índices, RLS, RPCs/grants e publicação.
-2. `packages/database/migrations/0007_guild_chat_commit_order.sql`: correção aditiva da ordem de commit de mensagens da mesma célula.
+1. `packages/database/migrations/0007_guild_chat.sql`: tabelas, índices, RLS, RPCs/grants e publicação.
+2. `packages/database/migrations/0008_guild_chat_commit_order.sql`: correção aditiva da ordem de commit de mensagens da mesma célula.
 
 Aplicadas via MCP autorizado como `20261014032438_guild_chat_v1` e `20261014033334_guild_chat_commit_order`. Não reaplicar CREATE no projeto atual. Em outro ambiente, o chat requer 0000/0001; a Guilda completa depende das migrações próprias 0002–0005. Journal/snapshots locais atualizados com o Drizzle instalado, pois Supabase CLI não está instalado. A skill recomenda CLI; a alternativa preservou a convenção real deste repositório sem instalar dependências.
 
-Rollback operacional em `0006_guild_chat.down.sql`: revoga somente a API nova e remove sua publicação; mantém tabelas, logs e RLS. Não executado. A correção 0007 permanece durante o rollback; reativação restaura grants/publicação, sem recriar tabelas. Nenhum reset, drop, instalação, push ou deploy foi realizado.
+Rollback operacional em `0007_guild_chat.down.sql`: revoga somente a API nova e remove sua publicação; mantém tabelas, logs e RLS. Não executado. A correção 0008 permanece durante o rollback; reativação restaura grants/publicação, sem recriar tabelas. Nenhum reset, drop, instalação, push ou deploy foi realizado.
 
 ## Evidências
 
@@ -88,6 +90,6 @@ Isto não comprova consentimento de responsáveis, verificação de idade ou res
 - `components/guild-chat.tsx`, `components/guild-chat.module.css`, `hooks/use-guild-chat.ts` (sob `apps/web/features/journey`): interface e ciclo de atualização.
 - `apps/web/lib/supabase/database.types.ts`, `repositories/guild-chat-repository.ts` e teste: contratos e acesso.
 - `apps/web/features/journey/guild-chat.test.tsx`: comportamento/lifecycle.
-- `packages/database/src/schema.ts`, `chat-schema.ts`; migrações 0006/0007, rollback 0006, journal e snapshots 0006/0007.
+- `packages/database/src/schema.ts`, `chat-schema.ts`; migrações 0007/0008, rollback 0007, journal e snapshots 0006/0007/0008 reconciliados.
 - `tests/security/guild-chat-rls.sql`, `tests/fixtures/guild-chat-preview.tsx`, `scripts/test-guild-chat-browser.mjs`, `scripts/test-guild-chat-anon.mjs`.
 - Este relatório, parecer Security, contrato TASK-0071 e `.agent/memory/CURRENT_STATE.md`.

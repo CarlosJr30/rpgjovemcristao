@@ -148,7 +148,13 @@ test('TASK-0043: player and leader hall in six viewports, sections, keyboard and
     ).toBe('cover');
     if (viewport.width <= 760)
       expect(
-        guildRequests.some((url) => url.endsWith('/guild_hall.webp')),
+        await page.evaluate(() =>
+          performance
+            .getEntriesByType('resource')
+            .some((entry) =>
+              new URL(entry.name).pathname.endsWith('/guild_hall.webp'),
+            ),
+        ),
       ).toBe(false);
     await expect(page.locator('img[data-guild-art="guildBanner"]')).toHaveCount(
       1,
@@ -193,6 +199,7 @@ test('TASK-0043: player and leader hall in six viewports, sections, keyboard and
       ).toBe('none');
     await page.screenshot({
       path: info.outputPath(`guild-player-${viewport.width}.png`),
+      scale: 'css',
       fullPage: true,
     });
     await board(page)
@@ -254,6 +261,7 @@ test('TASK-0043: player and leader hall in six viewports, sections, keyboard and
     ).toBeLessThanOrEqual(viewport.width + 1);
     await page.screenshot({
       path: info.outputPath(`guild-leader-${viewport.width}.png`),
+      scale: 'css',
       fullPage: true,
     });
   }
@@ -287,6 +295,7 @@ test('TASK-0044: long names stay clear of the banner, and other routes load no G
     expect(titleBox.x + titleBox.width).toBeLessThanOrEqual(viewport.width);
     await page.screenshot({
       path: info.outputPath(`guild-long-name-${viewport.width}.png`),
+      scale: 'css',
     });
   }
   const requests: string[] = [];
@@ -338,6 +347,7 @@ test('TASK-0044: failed Guild images preserve fallback, keyboard and mission act
   ).toBeLessThanOrEqual(page.viewportSize()!.width + 1);
   await page.screenshot({
     path: info.outputPath('guild-image-fallback.png'),
+    scale: 'css',
     fullPage: true,
   });
 });
@@ -387,6 +397,7 @@ test('TASK-0043: submission, leader approval, real reward once and preserved his
   ).toBe(guildMissionRewards.normal.chestQuantity);
   await page.screenshot({
     path: info.outputPath('guild-approval-result.png'),
+    scale: 'css',
     fullPage: true,
   });
   await page.reload();

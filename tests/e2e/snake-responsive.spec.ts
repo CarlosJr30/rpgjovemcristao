@@ -32,12 +32,11 @@ async function openSnakeGame(page: Page) {
   });
 }
 
-test('Fuga da Serpente usa viewport real, DPR limitado e controles legíveis', async ({
+test('Fuga V2: câmera legível, DPR limitado e direcional opcional sem encobrir campo', async ({
   page,
 }, testInfo) => {
   await page.setViewportSize(screens[0]);
   await openSnakeGame(page);
-
   for (const screen of screens) {
     await page.setViewportSize({ width: screen.width, height: screen.height });
     await page.goto('/journey/phases/o-jardim-e-a-escolha');
@@ -45,226 +44,85 @@ test('Fuga da Serpente usa viewport real, DPR limitado e controles legíveis', a
     const canvas = page.getByRole('application', {
       name: 'Fuga da Serpente, jogo de perseguição',
     });
-    await expect(canvas).toBeVisible();
-    if (screen.kind === 'desktop') {
-      await canvas.evaluate((element) =>
-        element.parentElement?.parentElement?.scrollIntoView({
-          block: 'center',
-        }),
-      );
-    }
-    if (screen.kind === 'phone' || screen.kind === 'landscape') {
-      await expect
-        .poll(() => page.evaluate(() => document.body.dataset.snakeGameActive))
-        .toBe('true');
-    }
+    if (screen.kind === 'desktop') await canvas.scrollIntoViewIfNeeded();
     await expect
-      .poll(() =>
-        canvas.evaluate((element) => {
-          const surface = element as HTMLCanvasElement;
-          return surface.width / surface.clientWidth;
-        }),
-      )
-      .toBeGreaterThanOrEqual(0.99);
-
+      .poll(() => canvas.getAttribute('data-cell-pixels'))
+      .not.toBeNull();
+    if (
+      (await page
+        .locator('[data-serpent-mode]')
+        .getAttribute('data-controls')) !== 'true'
+    )
+      await page
+        .getByRole('button', { name: 'Direcional', exact: true })
+        .click();
+    await expect(page.getByRole('button', { name: /Mover para/ })).toHaveCount(
+      4,
+    );
     const metrics = await canvas.evaluate((element) => {
-      const surface = element as HTMLCanvasElement;
-      const stage = surface.parentElement!;
-      const game = stage.parentElement!;
-      const hud = game.querySelector('[class*="arcadeHud"]') as HTMLElement;
-      const message = game.querySelector(
-        '[class*="arcadeMessage"]',
-      ) as HTMLElement;
-      const controls = Array.from(
-        game.querySelectorAll<HTMLButtonElement>(
-          'button[aria-label^="Mover para"]',
-        ),
-      );
-      const controlPad = game.querySelector(
-        '[aria-label="Controles touch"]',
-      ) as HTMLElement;
-      const rect = surface.getBoundingClientRect();
-      const hudRect = hud.getBoundingClientRect();
-      const messageRect = message.getBoundingClientRect();
-      const controlRect = controlPad.getBoundingClientRect();
-      const gameRect = game.getBoundingClientRect();
-      const mapScale = Math.min(rect.width / 864, rect.height / 504);
-      const mapWidth = 864 * mapScale;
-      const mapHeight = 504 * mapScale;
-      const mapRect = {
-        left: rect.left + (rect.width - mapWidth) / 2,
-        top: rect.top + (rect.height - mapHeight) / 2,
-        right: rect.left + (rect.width + mapWidth) / 2,
-        bottom: rect.top + (rect.height + mapHeight) / 2,
-        width: mapWidth,
-        height: mapHeight,
-      };
-      const criticalMessages = [
-        'Você perdeu uma vida · reapareceu em segurança com proteção temporária.',
-        'ESCUDO QUEBRADO · você continua protegido por alguns instantes.',
-        'PORTAL ATIVADO · Escape!',
-        'Fragmento encontrado · 2 / 3',
-      ];
-      const messageProbe = message.cloneNode() as HTMLElement;
-      messageProbe.style.position = 'fixed';
-      messageProbe.style.visibility = 'hidden';
-      messageProbe.style.width = `${String(message.getBoundingClientRect().width)}px`;
-      game.append(messageProbe);
-      const criticalMessagesFit = criticalMessages.every((text) => {
-        messageProbe.textContent = text;
-        return messageProbe.scrollHeight <= messageProbe.clientHeight + 1;
-      });
-      messageProbe.remove();
+      const c = element as HTMLCanvasElement,
+        r = c.getBoundingClientRect();
       return {
-        width: rect.width,
-        height: rect.height,
-        stageHeight: stage.getBoundingClientRect().height,
-        hudHeight: hud.getBoundingClientRect().height,
-        backingScaleX: surface.width / surface.clientWidth,
-        backingScaleY: surface.height / surface.clientHeight,
-        smallestControl: Math.min(
-          ...controls.map((control) =>
-            Math.min(
-              control.getBoundingClientRect().width,
-              control.getBoundingClientRect().height,
-            ),
-          ),
-        ),
-        bodyMode: document.body.dataset.snakeGameActive,
-        bodyOverflow: getComputedStyle(document.body).overflow,
-        gameWidth: game.getBoundingClientRect().width,
-        gameHeight: game.getBoundingClientRect().height,
-        gameTop: gameRect.top,
-        gameRight: gameRect.right,
-        gameBottom: gameRect.bottom,
-        gameLeft: gameRect.left,
-        controls: controls.map((control) => {
-          const controlRect = control.getBoundingClientRect();
-          return {
-            top: controlRect.top,
-            right: controlRect.right,
-            bottom: controlRect.bottom,
-            left: controlRect.left,
-          };
-        }),
-        hudBottom: hudRect.bottom,
-        messageBottom: messageRect.bottom,
-        controlPad: {
-          top: controlRect.top,
-          right: controlRect.right,
-          bottom: controlRect.bottom,
-          left: controlRect.left,
-        },
-        mapRect,
-        viewportWidth: window.innerWidth,
-        viewportHeight: window.innerHeight,
-        documentWidth: document.documentElement.scrollWidth,
-        criticalMessagesFit,
-        messageWhiteSpace: getComputedStyle(message).whiteSpace,
-        controlsReceiveTouch: controls.every((control) => {
-          const r = control.getBoundingClientRect();
-          return (
-            document.elementFromPoint(
-              r.left + r.width / 2,
-              r.top + r.height / 2,
-            ) === control
-          );
-        }),
-        controlsTouchAction: controls.every(
-          (control) => getComputedStyle(control).touchAction === 'none',
-        ),
+        cell: Number(c.dataset.cellPixels),
+        follow: c.dataset.cameraFollow,
+        dpr: c.width / c.clientWidth,
+        width: r.width,
+        height: r.height,
+        overflow: document.documentElement.scrollWidth - innerWidth,
+        worldWidth: Number(c.dataset.worldWidth),
+        worldHeight: Number(c.dataset.worldHeight),
+        cameraX: Number(c.dataset.cameraX),
+        cameraY: Number(c.dataset.cameraY),
       };
     });
-
-    expect(metrics.backingScaleX).toBeGreaterThanOrEqual(1);
-    expect(metrics.backingScaleX).toBeLessThanOrEqual(2.01);
-    expect(metrics.backingScaleY).toBeGreaterThanOrEqual(1);
-    expect(metrics.backingScaleY).toBeLessThanOrEqual(2.01);
-    expect(metrics.smallestControl).toBeGreaterThanOrEqual(48);
-    expect(metrics.controlsReceiveTouch).toBe(true);
-    expect(metrics.controlsTouchAction).toBe(true);
-    for (const control of metrics.controls) {
-      expect(control.top).toBeGreaterThanOrEqual(0);
-      expect(control.left).toBeGreaterThanOrEqual(0);
-      expect(control.right).toBeLessThanOrEqual(metrics.viewportWidth);
-      expect(control.bottom).toBeLessThanOrEqual(metrics.viewportHeight);
-    }
-    expect(metrics.mapRect.left).toBeGreaterThanOrEqual(0);
-    expect(metrics.mapRect.top).toBeGreaterThanOrEqual(
-      metrics.messageBottom - 1,
-    );
-    expect(metrics.mapRect.right).toBeLessThanOrEqual(metrics.viewportWidth);
-    expect(metrics.mapRect.bottom).toBeLessThanOrEqual(metrics.viewportHeight);
-    expect(metrics.mapRect.width / metrics.mapRect.height).toBeCloseTo(
-      12 / 7,
-      5,
-    );
-    if (screen.kind === 'landscape') {
-      expect(metrics.controlPad.right).toBeLessThanOrEqual(
-        metrics.mapRect.left + 1,
-      );
+    expect(metrics.dpr).toBeGreaterThanOrEqual(0.99);
+    expect(metrics.dpr).toBeLessThanOrEqual(2.01);
+    expect(metrics.overflow).toBeLessThanOrEqual(1);
+    if (screen.kind !== 'desktop') {
+      expect(metrics.cell).toBeGreaterThanOrEqual(40);
+      expect(metrics.follow).toBe('true');
+      expect(metrics.height).toBeGreaterThan(screen.height * 0.45);
+      expect(metrics.cameraX + metrics.worldWidth).toBeLessThanOrEqual(864.01);
+      expect(metrics.cameraY + metrics.worldHeight).toBeLessThanOrEqual(504.01);
     } else {
-      expect(metrics.mapRect.bottom).toBeLessThanOrEqual(
-        metrics.controlPad.top + 1,
-      );
+      expect(metrics.follow).toBe('false');
+      expect(metrics.worldWidth).toBe(864);
+      expect(metrics.worldHeight).toBe(504);
     }
-    if (screen.kind === 'phone' || screen.kind === 'landscape') {
-      expect(metrics.gameTop).toBeGreaterThanOrEqual(0);
-      expect(metrics.gameLeft).toBeGreaterThanOrEqual(0);
-      expect(metrics.gameRight).toBeLessThanOrEqual(metrics.viewportWidth + 1);
-      expect(metrics.gameBottom).toBeLessThanOrEqual(
-        metrics.viewportHeight + 1,
-      );
-      expect(metrics.criticalMessagesFit).toBe(true);
-      expect(metrics.messageWhiteSpace).toBe('normal');
+    for (const button of await page
+      .getByRole('button', { name: /Mover para/ })
+      .all()) {
+      if (screen.kind === 'desktop') await button.scrollIntoViewIfNeeded();
+      const box = (await button.boundingBox())!;
+      expect(box.width).toBeGreaterThanOrEqual(48);
+      expect(box.height).toBeGreaterThanOrEqual(48);
+      expect(box.y).toBeGreaterThanOrEqual(0);
+      expect(box.y + box.height).toBeLessThanOrEqual(screen.height + 1);
+      expect(
+        await button.evaluate((b) => {
+          const r = b.getBoundingClientRect();
+          return (
+            document.elementFromPoint(r.x + r.width / 2, r.y + r.height / 2) ===
+            b
+          );
+        }),
+      ).toBe(true);
     }
-
-    if (screen.kind === 'phone') {
-      expect(metrics.bodyMode).toBe('true');
-      expect(metrics.bodyOverflow).toBe('hidden');
-      expect(metrics.gameWidth).toBeGreaterThanOrEqual(screen.width - 1);
-      expect(metrics.gameHeight).toBeGreaterThanOrEqual(screen.height - 1);
-      expect(metrics.width).toBeGreaterThanOrEqual(screen.width - 30);
-      expect(metrics.stageHeight).toBeGreaterThanOrEqual(190);
-      expect(metrics.stageHeight).toBeLessThanOrEqual(240);
-      expect(metrics.hudHeight).toBeLessThanOrEqual(90);
-      await expect(page.locator('header')).toBeHidden();
-    } else if (screen.kind === 'landscape') {
-      expect(metrics.bodyMode).toBe('true');
-      expect(metrics.bodyOverflow).toBe('hidden');
-      expect(metrics.gameWidth).toBeGreaterThanOrEqual(screen.width - 1);
-      expect(metrics.gameHeight).toBeGreaterThanOrEqual(screen.height - 1);
-      expect(metrics.width).toBeGreaterThanOrEqual(430);
-      expect(metrics.stageHeight).toBeGreaterThanOrEqual(screen.height * 0.55);
-      expect(metrics.stageHeight).toBeLessThanOrEqual(screen.height);
-      expect(metrics.documentWidth).toBeLessThanOrEqual(screen.width);
-    } else if (screen.kind === 'tablet') {
-      expect(metrics.width).toBeGreaterThanOrEqual(700);
-      expect(metrics.stageHeight).toBeGreaterThanOrEqual(400);
-    } else {
-      expect(metrics.width / metrics.height).toBeCloseTo(12 / 7, 1);
-    }
-
-    await testInfo.attach(`snake-${screen.name}-metrics`, {
-      body: JSON.stringify({
-        canvas: { width: metrics.width, height: metrics.height },
-        mapRect: metrics.mapRect,
-      }),
+    await testInfo.attach('snake-' + screen.name + '-metrics', {
+      body: JSON.stringify(metrics),
       contentType: 'application/json',
     });
     await page.screenshot({
-      path: testInfo.outputPath(`snake-${screen.name}.png`),
+      path: testInfo.outputPath('snake-' + screen.name + '.png'),
+      scale: 'css',
     });
-    if (screen.name === 'phone-360x800') {
-      await page
-        .getByRole('button', { name: 'Sair', exact: true })
-        .first()
-        .click();
-      await expect
-        .poll(() => page.evaluate(() => document.body.dataset.snakeGameActive))
-        .toBe('false');
-      await expect(page.locator('header')).toBeVisible();
-    }
+    await page
+      .getByRole('button', { name: 'Sair', exact: true })
+      .first()
+      .click();
+    await expect
+      .poll(() => page.evaluate(() => document.body.dataset.snakeGameActive))
+      .toBe('false');
   }
 });
 
@@ -282,6 +140,14 @@ test('Fuga mobile: quatro orientações, hold, slide, multitouch, cancel, fullsc
     await page.setViewportSize(size);
     await page.goto('/journey/phases/o-jardim-e-a-escolha');
     await page.getByRole('button', { name: 'Começar perseguição' }).click();
+    if (
+      (await page
+        .locator('[data-serpent-mode]')
+        .getAttribute('data-controls')) !== 'true'
+    )
+      await page
+        .getByRole('button', { name: 'Direcional', exact: true })
+        .click();
     const directions = ['cima', 'baixo', 'esquerda', 'direita'] as const;
     const scrollBeforeTouch = await page.evaluate(() => window.scrollY);
     const centers = await Promise.all(

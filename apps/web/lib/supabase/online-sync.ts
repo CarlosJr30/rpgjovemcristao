@@ -163,12 +163,30 @@ const toLocalTraveler = (
     row.id,
     new Date(row.created_at).toISOString(),
   );
+  // Legacy rows keep their browser progress until their next normal save.
+  // Remote progress is validated as game data; it never grants server permissions.
+  const remoteProgress =
+    row.journey_progress &&
+    typeof row.journey_progress === 'object' &&
+    !Array.isArray(row.journey_progress)
+      ? parseTraveler({
+          ...base,
+          progress: { ...base.progress, ...row.journey_progress },
+        })?.progress
+      : null;
   const ownedItems = inventory.flatMap((entry) => {
     const catalogItem = EQUIPMENT_CATALOG.find(
       (item) => item.id === entry.item_id,
     );
     return catalogItem
-      ? [{ ...catalogItem, stats: { ...catalogItem.stats }, quantity: entry.quantity, isNew: false }]
+      ? [
+          {
+            ...catalogItem,
+            stats: { ...catalogItem.stats },
+            quantity: entry.quantity,
+            isNew: false,
+          },
+        ]
       : [];
   });
   const equippedSlots = Object.fromEntries(
@@ -183,6 +201,7 @@ const toLocalTraveler = (
 
   return {
     ...(cached ?? base),
+    progress: remoteProgress ?? cached?.progress ?? base.progress,
     id: row.id,
     name: row.name,
     level: levelForXp(row.xp),
@@ -246,6 +265,9 @@ export const hydrateOnlineTravelers = async (userId: string): Promise<void> => {
     );
     currentRemoteActiveTravelerId = active?.id ?? null;
     journeyRepository.clearActiveTraveler();
+    const resumed = active ?? travelers[0];
+    if (resumed && !journeyRepository.startSession(resumed.id))
+      throw new Error('Não foi possível retomar seu herói.');
     setSyncStatus({ state: 'synced', message: null });
     notifyCacheChanged();
   } catch {
@@ -260,10 +282,15 @@ export const hydrateOnlineTravelers = async (userId: string): Promise<void> => {
   }
 };
 
-export const reloadOnlineTraveler = async (travelerId: string): Promise<boolean> => {
+export const reloadOnlineTraveler = async (
+  travelerId: string,
+): Promise<boolean> => {
   if (!currentOnlineUserId) return false;
   try {
-    const row = await travelerRepository.getTravelerById(travelerId, currentOnlineUserId);
+    const row = await travelerRepository.getTravelerById(
+      travelerId,
+      currentOnlineUserId,
+    );
     if (!row) return false;
     const traveler = await loadRemoteTraveler(currentOnlineUserId, row);
     if (!journeyRepository.save(traveler)) return false;
@@ -415,6 +442,7 @@ export const queueOnlineTravelerSync = (
     appearance: value.appearance,
     gender: value.avatar.gender,
     hairColor: value.avatar.hairColor,
+    progress: value.progress,
   });
   if (
     JSON.stringify(essential(previous)) === JSON.stringify(essential(traveler))

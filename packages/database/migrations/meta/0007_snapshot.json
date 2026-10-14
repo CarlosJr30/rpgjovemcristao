@@ -1,6 +1,6 @@
 {
-  "id": "afb29520-3dbc-46a1-8815-5d1d4d787fec",
-  "prevId": "af36c2c6-5a9b-4ea3-8316-e7377b7b24c3",
+  "id": "a2727351-110b-4817-9016-dc5d675b704d",
+  "prevId": "a855cd41-e4dc-473e-bfe4-dea6bed6a2f0",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -83,35 +83,35 @@
             }
           ],
           "isUnique": false,
-          "with": {},
+          "concurrently": false,
           "method": "btree",
-          "concurrently": false
+          "with": {}
         }
       },
       "foreignKeys": {
         "chest_operations_traveler_id_travelers_id_fk": {
           "name": "chest_operations_traveler_id_travelers_id_fk",
           "tableFrom": "chest_operations",
+          "tableTo": "travelers",
           "columnsFrom": [
             "traveler_id"
           ],
-          "tableTo": "travelers",
           "columnsTo": [
             "id"
           ],
-          "onUpdate": "no action",
-          "onDelete": "cascade"
+          "onDelete": "cascade",
+          "onUpdate": "no action"
         }
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {
         "chest_operations_traveler_key_unique": {
           "name": "chest_operations_traveler_key_unique",
+          "nullsNotDistinct": false,
           "columns": [
             "traveler_id",
             "operation_key"
-          ],
-          "nullsNotDistinct": false
+          ]
         }
       },
       "policies": {
@@ -184,30 +184,30 @@
         "equipped_items_traveler_id_travelers_id_fk": {
           "name": "equipped_items_traveler_id_travelers_id_fk",
           "tableFrom": "equipped_items",
+          "tableTo": "travelers",
           "columnsFrom": [
             "traveler_id"
           ],
-          "tableTo": "travelers",
           "columnsTo": [
             "id"
           ],
-          "onUpdate": "no action",
-          "onDelete": "cascade"
+          "onDelete": "cascade",
+          "onUpdate": "no action"
         },
         "equipped_items_owned_item_fk": {
           "name": "equipped_items_owned_item_fk",
           "tableFrom": "equipped_items",
+          "tableTo": "inventory",
           "columnsFrom": [
             "traveler_id",
             "item_id"
           ],
-          "tableTo": "inventory",
           "columnsTo": [
             "traveler_id",
             "item_id"
           ],
-          "onUpdate": "no action",
-          "onDelete": "cascade"
+          "onDelete": "cascade",
+          "onUpdate": "no action"
         }
       },
       "compositePrimaryKeys": {
@@ -341,37 +341,37 @@
             }
           ],
           "isUnique": false,
-          "with": {},
+          "concurrently": false,
           "method": "btree",
-          "concurrently": false
+          "with": {}
         }
       },
       "foreignKeys": {
         "guild_activity_log_guild_id_guilds_id_fk": {
           "name": "guild_activity_log_guild_id_guilds_id_fk",
           "tableFrom": "guild_activity_log",
+          "tableTo": "guilds",
           "columnsFrom": [
             "guild_id"
           ],
-          "tableTo": "guilds",
           "columnsTo": [
             "id"
           ],
-          "onUpdate": "no action",
-          "onDelete": "cascade"
+          "onDelete": "cascade",
+          "onUpdate": "no action"
         },
         "guild_activity_log_actor_traveler_id_travelers_id_fk": {
           "name": "guild_activity_log_actor_traveler_id_travelers_id_fk",
           "tableFrom": "guild_activity_log",
+          "tableTo": "travelers",
           "columnsFrom": [
             "actor_traveler_id"
           ],
-          "tableTo": "travelers",
           "columnsTo": [
             "id"
           ],
-          "onUpdate": "no action",
-          "onDelete": "set null"
+          "onDelete": "set null",
+          "onUpdate": "no action"
         }
       },
       "compositePrimaryKeys": {},
@@ -470,50 +470,50 @@
             }
           ],
           "isUnique": false,
-          "with": {},
+          "concurrently": false,
           "method": "btree",
-          "concurrently": false
+          "with": {}
         }
       },
       "foreignKeys": {
         "guild_invites_guild_id_guilds_id_fk": {
           "name": "guild_invites_guild_id_guilds_id_fk",
           "tableFrom": "guild_invites",
+          "tableTo": "guilds",
           "columnsFrom": [
             "guild_id"
           ],
-          "tableTo": "guilds",
           "columnsTo": [
             "id"
           ],
-          "onUpdate": "no action",
-          "onDelete": "cascade"
+          "onDelete": "cascade",
+          "onUpdate": "no action"
         },
         "guild_invites_invited_traveler_id_travelers_id_fk": {
           "name": "guild_invites_invited_traveler_id_travelers_id_fk",
           "tableFrom": "guild_invites",
+          "tableTo": "travelers",
           "columnsFrom": [
             "invited_traveler_id"
           ],
-          "tableTo": "travelers",
           "columnsTo": [
             "id"
           ],
-          "onUpdate": "no action",
-          "onDelete": "cascade"
+          "onDelete": "cascade",
+          "onUpdate": "no action"
         },
         "guild_invites_invited_by_traveler_id_travelers_id_fk": {
           "name": "guild_invites_invited_by_traveler_id_travelers_id_fk",
           "tableFrom": "guild_invites",
+          "tableTo": "travelers",
           "columnsFrom": [
             "invited_by_traveler_id"
           ],
-          "tableTo": "travelers",
           "columnsTo": [
             "id"
           ],
-          "onUpdate": "no action",
-          "onDelete": "cascade"
+          "onDelete": "cascade",
+          "onUpdate": "no action"
         }
       },
       "compositePrimaryKeys": {},
@@ -612,10 +612,10 @@
             }
           ],
           "isUnique": true,
-          "with": {},
-          "method": "btree",
           "where": "\"guild_join_requests\".\"status\" = 'pending'",
-          "concurrently": false
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
         },
         "guild_join_requests_guild_status_idx": {
           "name": "guild_join_requests_guild_status_idx",
@@ -634,50 +634,50 @@
             }
           ],
           "isUnique": false,
-          "with": {},
+          "concurrently": false,
           "method": "btree",
-          "concurrently": false
+          "with": {}
         }
       },
       "foreignKeys": {
         "guild_join_requests_guild_id_guilds_id_fk": {
           "name": "guild_join_requests_guild_id_guilds_id_fk",
           "tableFrom": "guild_join_requests",
+          "tableTo": "guilds",
           "columnsFrom": [
             "guild_id"
           ],
-          "tableTo": "guilds",
           "columnsTo": [
             "id"
           ],
-          "onUpdate": "no action",
-          "onDelete": "cascade"
+          "onDelete": "cascade",
+          "onUpdate": "no action"
         },
         "guild_join_requests_traveler_id_travelers_id_fk": {
           "name": "guild_join_requests_traveler_id_travelers_id_fk",
           "tableFrom": "guild_join_requests",
+          "tableTo": "travelers",
           "columnsFrom": [
             "traveler_id"
           ],
-          "tableTo": "travelers",
           "columnsTo": [
             "id"
           ],
-          "onUpdate": "no action",
-          "onDelete": "cascade"
+          "onDelete": "cascade",
+          "onUpdate": "no action"
         },
         "guild_join_requests_reviewed_by_traveler_id_travelers_id_fk": {
           "name": "guild_join_requests_reviewed_by_traveler_id_travelers_id_fk",
           "tableFrom": "guild_join_requests",
+          "tableTo": "travelers",
           "columnsFrom": [
             "reviewed_by_traveler_id"
           ],
-          "tableTo": "travelers",
           "columnsTo": [
             "id"
           ],
-          "onUpdate": "no action",
-          "onDelete": "set null"
+          "onDelete": "set null",
+          "onUpdate": "no action"
         }
       },
       "compositePrimaryKeys": {},
@@ -846,50 +846,50 @@
             }
           ],
           "isUnique": false,
-          "with": {},
+          "concurrently": false,
           "method": "btree",
-          "concurrently": false
+          "with": {}
         }
       },
       "foreignKeys": {
         "guild_lessons_guild_id_guilds_id_fk": {
           "name": "guild_lessons_guild_id_guilds_id_fk",
           "tableFrom": "guild_lessons",
+          "tableTo": "guilds",
           "columnsFrom": [
             "guild_id"
           ],
-          "tableTo": "guilds",
           "columnsTo": [
             "id"
           ],
-          "onUpdate": "no action",
-          "onDelete": "cascade"
+          "onDelete": "cascade",
+          "onUpdate": "no action"
         },
         "guild_lessons_created_by_traveler_id_travelers_id_fk": {
           "name": "guild_lessons_created_by_traveler_id_travelers_id_fk",
           "tableFrom": "guild_lessons",
+          "tableTo": "travelers",
           "columnsFrom": [
             "created_by_traveler_id"
           ],
-          "tableTo": "travelers",
           "columnsTo": [
             "id"
           ],
-          "onUpdate": "no action",
-          "onDelete": "restrict"
+          "onDelete": "restrict",
+          "onUpdate": "no action"
         },
         "guild_lessons_related_mission_id_guild_missions_id_fk": {
           "name": "guild_lessons_related_mission_id_guild_missions_id_fk",
           "tableFrom": "guild_lessons",
+          "tableTo": "guild_missions",
           "columnsFrom": [
             "related_mission_id"
           ],
-          "tableTo": "guild_missions",
           "columnsTo": [
             "id"
           ],
-          "onUpdate": "no action",
-          "onDelete": "set null"
+          "onDelete": "set null",
+          "onUpdate": "no action"
         }
       },
       "compositePrimaryKeys": {},
@@ -1017,10 +1017,10 @@
             }
           ],
           "isUnique": true,
-          "with": {},
-          "method": "btree",
           "where": "\"guild_members\".\"status\" = 'active'",
-          "concurrently": false
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
         },
         "guild_members_guild_status_idx": {
           "name": "guild_members_guild_status_idx",
@@ -1039,48 +1039,48 @@
             }
           ],
           "isUnique": false,
-          "with": {},
+          "concurrently": false,
           "method": "btree",
-          "concurrently": false
+          "with": {}
         }
       },
       "foreignKeys": {
         "guild_members_guild_id_guilds_id_fk": {
           "name": "guild_members_guild_id_guilds_id_fk",
           "tableFrom": "guild_members",
+          "tableTo": "guilds",
           "columnsFrom": [
             "guild_id"
           ],
-          "tableTo": "guilds",
           "columnsTo": [
             "id"
           ],
-          "onUpdate": "no action",
-          "onDelete": "cascade"
+          "onDelete": "cascade",
+          "onUpdate": "no action"
         },
         "guild_members_traveler_id_travelers_id_fk": {
           "name": "guild_members_traveler_id_travelers_id_fk",
           "tableFrom": "guild_members",
+          "tableTo": "travelers",
           "columnsFrom": [
             "traveler_id"
           ],
-          "tableTo": "travelers",
           "columnsTo": [
             "id"
           ],
-          "onUpdate": "no action",
-          "onDelete": "cascade"
+          "onDelete": "cascade",
+          "onUpdate": "no action"
         }
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {
         "guild_members_guild_traveler_unique": {
           "name": "guild_members_guild_traveler_unique",
+          "nullsNotDistinct": false,
           "columns": [
             "guild_id",
             "traveler_id"
-          ],
-          "nullsNotDistinct": false
+          ]
         }
       },
       "policies": {
@@ -1217,61 +1217,61 @@
             }
           ],
           "isUnique": false,
-          "with": {},
+          "concurrently": false,
           "method": "btree",
-          "concurrently": false
+          "with": {}
         }
       },
       "foreignKeys": {
         "guild_mission_progress_mission_id_guild_missions_id_fk": {
           "name": "guild_mission_progress_mission_id_guild_missions_id_fk",
           "tableFrom": "guild_mission_progress",
+          "tableTo": "guild_missions",
           "columnsFrom": [
             "mission_id"
           ],
-          "tableTo": "guild_missions",
           "columnsTo": [
             "id"
           ],
-          "onUpdate": "no action",
-          "onDelete": "cascade"
+          "onDelete": "cascade",
+          "onUpdate": "no action"
         },
         "guild_mission_progress_traveler_id_travelers_id_fk": {
           "name": "guild_mission_progress_traveler_id_travelers_id_fk",
           "tableFrom": "guild_mission_progress",
+          "tableTo": "travelers",
           "columnsFrom": [
             "traveler_id"
           ],
-          "tableTo": "travelers",
           "columnsTo": [
             "id"
           ],
-          "onUpdate": "no action",
-          "onDelete": "cascade"
+          "onDelete": "cascade",
+          "onUpdate": "no action"
         },
         "guild_mission_progress_approved_by_traveler_id_travelers_id_fk": {
           "name": "guild_mission_progress_approved_by_traveler_id_travelers_id_fk",
           "tableFrom": "guild_mission_progress",
+          "tableTo": "travelers",
           "columnsFrom": [
             "approved_by_traveler_id"
           ],
-          "tableTo": "travelers",
           "columnsTo": [
             "id"
           ],
-          "onUpdate": "no action",
-          "onDelete": "set null"
+          "onDelete": "set null",
+          "onUpdate": "no action"
         }
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {
         "guild_mission_progress_mission_traveler_unique": {
           "name": "guild_mission_progress_mission_traveler_unique",
+          "nullsNotDistinct": false,
           "columns": [
             "mission_id",
             "traveler_id"
-          ],
-          "nullsNotDistinct": false
+          ]
         }
       },
       "policies": {
@@ -1443,37 +1443,37 @@
             }
           ],
           "isUnique": false,
-          "with": {},
+          "concurrently": false,
           "method": "btree",
-          "concurrently": false
+          "with": {}
         }
       },
       "foreignKeys": {
         "guild_missions_guild_id_guilds_id_fk": {
           "name": "guild_missions_guild_id_guilds_id_fk",
           "tableFrom": "guild_missions",
+          "tableTo": "guilds",
           "columnsFrom": [
             "guild_id"
           ],
-          "tableTo": "guilds",
           "columnsTo": [
             "id"
           ],
-          "onUpdate": "no action",
-          "onDelete": "cascade"
+          "onDelete": "cascade",
+          "onUpdate": "no action"
         },
         "guild_missions_created_by_traveler_id_travelers_id_fk": {
           "name": "guild_missions_created_by_traveler_id_travelers_id_fk",
           "tableFrom": "guild_missions",
+          "tableTo": "travelers",
           "columnsFrom": [
             "created_by_traveler_id"
           ],
-          "tableTo": "travelers",
           "columnsTo": [
             "id"
           ],
-          "onUpdate": "no action",
-          "onDelete": "restrict"
+          "onDelete": "restrict",
+          "onUpdate": "no action"
         }
       },
       "compositePrimaryKeys": {},
@@ -1587,39 +1587,39 @@
         "guild_reward_claims_mission_id_guild_missions_id_fk": {
           "name": "guild_reward_claims_mission_id_guild_missions_id_fk",
           "tableFrom": "guild_reward_claims",
+          "tableTo": "guild_missions",
           "columnsFrom": [
             "mission_id"
           ],
-          "tableTo": "guild_missions",
           "columnsTo": [
             "id"
           ],
-          "onUpdate": "no action",
-          "onDelete": "cascade"
+          "onDelete": "cascade",
+          "onUpdate": "no action"
         },
         "guild_reward_claims_traveler_id_travelers_id_fk": {
           "name": "guild_reward_claims_traveler_id_travelers_id_fk",
           "tableFrom": "guild_reward_claims",
+          "tableTo": "travelers",
           "columnsFrom": [
             "traveler_id"
           ],
-          "tableTo": "travelers",
           "columnsTo": [
             "id"
           ],
-          "onUpdate": "no action",
-          "onDelete": "cascade"
+          "onDelete": "cascade",
+          "onUpdate": "no action"
         }
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {
         "guild_reward_claims_mission_traveler_unique": {
           "name": "guild_reward_claims_mission_traveler_unique",
+          "nullsNotDistinct": false,
           "columns": [
             "mission_id",
             "traveler_id"
-          ],
-          "nullsNotDistinct": false
+          ]
         }
       },
       "policies": {
@@ -1714,38 +1714,38 @@
             }
           ],
           "isUnique": false,
-          "with": {},
+          "concurrently": false,
           "method": "btree",
-          "concurrently": false
+          "with": {}
         }
       },
       "foreignKeys": {
         "guilds_created_by_user_id_users_id_fk": {
           "name": "guilds_created_by_user_id_users_id_fk",
           "tableFrom": "guilds",
+          "tableTo": "users",
+          "schemaTo": "auth",
           "columnsFrom": [
             "created_by_user_id"
           ],
-          "tableTo": "users",
-          "schemaTo": "auth",
           "columnsTo": [
             "id"
           ],
-          "onUpdate": "no action",
-          "onDelete": "restrict"
+          "onDelete": "restrict",
+          "onUpdate": "no action"
         },
         "guilds_leader_traveler_id_travelers_id_fk": {
           "name": "guilds_leader_traveler_id_travelers_id_fk",
           "tableFrom": "guilds",
+          "tableTo": "travelers",
           "columnsFrom": [
             "leader_traveler_id"
           ],
-          "tableTo": "travelers",
           "columnsTo": [
             "id"
           ],
-          "onUpdate": "no action",
-          "onDelete": "restrict"
+          "onDelete": "restrict",
+          "onUpdate": "no action"
         }
       },
       "compositePrimaryKeys": {},
@@ -1833,35 +1833,35 @@
             }
           ],
           "isUnique": false,
-          "with": {},
+          "concurrently": false,
           "method": "btree",
-          "concurrently": false
+          "with": {}
         }
       },
       "foreignKeys": {
         "inventory_traveler_id_travelers_id_fk": {
           "name": "inventory_traveler_id_travelers_id_fk",
           "tableFrom": "inventory",
+          "tableTo": "travelers",
           "columnsFrom": [
             "traveler_id"
           ],
-          "tableTo": "travelers",
           "columnsTo": [
             "id"
           ],
-          "onUpdate": "no action",
-          "onDelete": "cascade"
+          "onDelete": "cascade",
+          "onUpdate": "no action"
         }
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {
         "inventory_traveler_item_unique": {
           "name": "inventory_traveler_item_unique",
+          "nullsNotDistinct": false,
           "columns": [
             "traveler_id",
             "item_id"
-          ],
-          "nullsNotDistinct": false
+          ]
         }
       },
       "policies": {
@@ -1951,16 +1951,16 @@
         "profiles_id_users_id_fk": {
           "name": "profiles_id_users_id_fk",
           "tableFrom": "profiles",
+          "tableTo": "users",
+          "schemaTo": "auth",
           "columnsFrom": [
             "id"
           ],
-          "tableTo": "users",
-          "schemaTo": "auth",
           "columnsTo": [
             "id"
           ],
-          "onUpdate": "no action",
-          "onDelete": "cascade"
+          "onDelete": "cascade",
+          "onUpdate": "no action"
         }
       },
       "compositePrimaryKeys": {},
@@ -2053,15 +2053,15 @@
         "traveler_chests_traveler_id_travelers_id_fk": {
           "name": "traveler_chests_traveler_id_travelers_id_fk",
           "tableFrom": "traveler_chests",
+          "tableTo": "travelers",
           "columnsFrom": [
             "traveler_id"
           ],
-          "tableTo": "travelers",
           "columnsTo": [
             "id"
           ],
-          "onUpdate": "no action",
-          "onDelete": "cascade"
+          "onDelete": "cascade",
+          "onUpdate": "no action"
         }
       },
       "compositePrimaryKeys": {
@@ -2159,15 +2159,15 @@
         "traveler_stats_traveler_id_travelers_id_fk": {
           "name": "traveler_stats_traveler_id_travelers_id_fk",
           "tableFrom": "traveler_stats",
+          "tableTo": "travelers",
           "columnsFrom": [
             "traveler_id"
           ],
-          "tableTo": "travelers",
           "columnsTo": [
             "id"
           ],
-          "onUpdate": "no action",
-          "onDelete": "cascade"
+          "onDelete": "cascade",
+          "onUpdate": "no action"
         }
       },
       "compositePrimaryKeys": {},
@@ -2275,6 +2275,12 @@
           "primaryKey": false,
           "notNull": false
         },
+        "journey_progress": {
+          "name": "journey_progress",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": false
+        },
         "level": {
           "name": "level",
           "type": "integer",
@@ -2323,9 +2329,9 @@
             }
           ],
           "isUnique": false,
-          "with": {},
+          "concurrently": false,
           "method": "btree",
-          "concurrently": false
+          "with": {}
         },
         "travelers_one_active_per_user_idx": {
           "name": "travelers_one_active_per_user_idx",
@@ -2338,26 +2344,26 @@
             }
           ],
           "isUnique": true,
-          "with": {},
-          "method": "btree",
           "where": "\"travelers\".\"is_active\" = true",
-          "concurrently": false
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
         }
       },
       "foreignKeys": {
         "travelers_user_id_users_id_fk": {
           "name": "travelers_user_id_users_id_fk",
           "tableFrom": "travelers",
+          "tableTo": "users",
+          "schemaTo": "auth",
           "columnsFrom": [
             "user_id"
           ],
-          "tableTo": "users",
-          "schemaTo": "auth",
           "columnsTo": [
             "id"
           ],
-          "onUpdate": "no action",
-          "onDelete": "cascade"
+          "onDelete": "cascade",
+          "onUpdate": "no action"
         }
       },
       "compositePrimaryKeys": {},
@@ -2417,6 +2423,10 @@
         "travelers_xp_check": {
           "name": "travelers_xp_check",
           "value": "\"travelers\".\"xp\" >= 0"
+        },
+        "travelers_journey_progress_object_check": {
+          "name": "travelers_journey_progress_object_check",
+          "value": "\"travelers\".\"journey_progress\" is null or (jsonb_typeof(\"travelers\".\"journey_progress\") = 'object' and octet_length(\"travelers\".\"journey_progress\"::text) <= 131072)"
         }
       },
       "isRLSEnabled": true
@@ -2458,15 +2468,15 @@
         "wallets_traveler_id_travelers_id_fk": {
           "name": "wallets_traveler_id_travelers_id_fk",
           "tableFrom": "wallets",
+          "tableTo": "travelers",
           "columnsFrom": [
             "traveler_id"
           ],
-          "tableTo": "travelers",
           "columnsTo": [
             "id"
           ],
-          "onUpdate": "no action",
-          "onDelete": "cascade"
+          "onDelete": "cascade",
+          "onUpdate": "no action"
         }
       },
       "compositePrimaryKeys": {},
@@ -2526,15 +2536,15 @@
           "primaryKey": false,
           "notNull": true,
           "identity": {
+            "type": "always",
             "name": "guild_chat_messages_sequence_seq",
+            "schema": "public",
             "increment": "1",
+            "startWith": "1",
             "minValue": "1",
             "maxValue": "9223372036854775807",
-            "startWith": "1",
             "cache": "1",
-            "cycle": false,
-            "schema": "public",
-            "type": "always"
+            "cycle": false
           }
         },
         "guild_id": {
@@ -2630,9 +2640,9 @@
             }
           ],
           "isUnique": false,
-          "with": {},
+          "concurrently": false,
           "method": "btree",
-          "concurrently": false
+          "with": {}
         },
         "guild_chat_messages_author_idx": {
           "name": "guild_chat_messages_author_idx",
@@ -2645,55 +2655,55 @@
             }
           ],
           "isUnique": false,
-          "with": {},
+          "concurrently": false,
           "method": "btree",
-          "concurrently": false
+          "with": {}
         }
       },
       "foreignKeys": {
         "guild_chat_messages_guild_id_guilds_id_fk": {
           "name": "guild_chat_messages_guild_id_guilds_id_fk",
           "tableFrom": "guild_chat_messages",
+          "tableTo": "guilds",
           "columnsFrom": [
             "guild_id"
           ],
-          "tableTo": "guilds",
           "columnsTo": [
             "id"
           ],
-          "onUpdate": "no action",
-          "onDelete": "restrict"
+          "onDelete": "restrict",
+          "onUpdate": "no action"
         },
         "guild_chat_messages_author_traveler_id_travelers_id_fk": {
           "name": "guild_chat_messages_author_traveler_id_travelers_id_fk",
           "tableFrom": "guild_chat_messages",
+          "tableTo": "travelers",
           "columnsFrom": [
             "author_traveler_id"
           ],
-          "tableTo": "travelers",
           "columnsTo": [
             "id"
           ],
-          "onUpdate": "no action",
-          "onDelete": "set null"
+          "onDelete": "set null",
+          "onUpdate": "no action"
         }
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {
         "guild_chat_messages_sequence_unique": {
           "name": "guild_chat_messages_sequence_unique",
+          "nullsNotDistinct": false,
           "columns": [
             "sequence"
-          ],
-          "nullsNotDistinct": false
+          ]
         },
         "guild_chat_messages_author_traveler_id_client_id_key": {
           "name": "guild_chat_messages_author_traveler_id_client_id_key",
+          "nullsNotDistinct": false,
           "columns": [
             "author_traveler_id",
             "client_id"
-          ],
-          "nullsNotDistinct": false
+          ]
         }
       },
       "policies": {
@@ -2806,9 +2816,9 @@
             }
           ],
           "isUnique": false,
-          "with": {},
+          "concurrently": false,
           "method": "btree",
-          "concurrently": false
+          "with": {}
         },
         "guild_chat_moderation_log_message_idx": {
           "name": "guild_chat_moderation_log_message_idx",
@@ -2821,9 +2831,9 @@
             }
           ],
           "isUnique": false,
-          "with": {},
+          "concurrently": false,
           "method": "btree",
-          "concurrently": false
+          "with": {}
         },
         "guild_chat_moderation_log_actor_idx": {
           "name": "guild_chat_moderation_log_actor_idx",
@@ -2836,50 +2846,50 @@
             }
           ],
           "isUnique": false,
-          "with": {},
+          "concurrently": false,
           "method": "btree",
-          "concurrently": false
+          "with": {}
         }
       },
       "foreignKeys": {
         "guild_chat_moderation_log_guild_id_guilds_id_fk": {
           "name": "guild_chat_moderation_log_guild_id_guilds_id_fk",
           "tableFrom": "guild_chat_moderation_log",
+          "tableTo": "guilds",
           "columnsFrom": [
             "guild_id"
           ],
-          "tableTo": "guilds",
           "columnsTo": [
             "id"
           ],
-          "onUpdate": "no action",
-          "onDelete": "restrict"
+          "onDelete": "restrict",
+          "onUpdate": "no action"
         },
         "guild_chat_moderation_log_message_id_guild_chat_messages_id_fk": {
           "name": "guild_chat_moderation_log_message_id_guild_chat_messages_id_fk",
           "tableFrom": "guild_chat_moderation_log",
+          "tableTo": "guild_chat_messages",
           "columnsFrom": [
             "message_id"
           ],
-          "tableTo": "guild_chat_messages",
           "columnsTo": [
             "id"
           ],
-          "onUpdate": "no action",
-          "onDelete": "restrict"
+          "onDelete": "restrict",
+          "onUpdate": "no action"
         },
         "guild_chat_moderation_log_actor_traveler_id_travelers_id_fk": {
           "name": "guild_chat_moderation_log_actor_traveler_id_travelers_id_fk",
           "tableFrom": "guild_chat_moderation_log",
+          "tableTo": "travelers",
           "columnsFrom": [
             "actor_traveler_id"
           ],
-          "tableTo": "travelers",
           "columnsTo": [
             "id"
           ],
-          "onUpdate": "no action",
-          "onDelete": "set null"
+          "onDelete": "set null",
+          "onUpdate": "no action"
         }
       },
       "compositePrimaryKeys": {},
@@ -2949,16 +2959,16 @@
         "rate_limits_user_id_users_id_fk": {
           "name": "rate_limits_user_id_users_id_fk",
           "tableFrom": "rate_limits",
+          "tableTo": "users",
+          "schemaTo": "auth",
           "columnsFrom": [
             "user_id"
           ],
-          "tableTo": "users",
-          "schemaTo": "auth",
           "columnsTo": [
             "id"
           ],
-          "onUpdate": "no action",
-          "onDelete": "cascade"
+          "onDelete": "cascade",
+          "onUpdate": "no action"
         }
       },
       "compositePrimaryKeys": {
@@ -3009,29 +3019,29 @@
         "guild_chat_reads_guild_id_guilds_id_fk": {
           "name": "guild_chat_reads_guild_id_guilds_id_fk",
           "tableFrom": "guild_chat_reads",
+          "tableTo": "guilds",
           "columnsFrom": [
             "guild_id"
           ],
-          "tableTo": "guilds",
           "columnsTo": [
             "id"
           ],
-          "onUpdate": "no action",
-          "onDelete": "restrict"
+          "onDelete": "restrict",
+          "onUpdate": "no action"
         },
         "guild_chat_reads_user_id_users_id_fk": {
           "name": "guild_chat_reads_user_id_users_id_fk",
           "tableFrom": "guild_chat_reads",
+          "tableTo": "users",
+          "schemaTo": "auth",
           "columnsFrom": [
             "user_id"
           ],
-          "tableTo": "users",
-          "schemaTo": "auth",
           "columnsTo": [
             "id"
           ],
-          "onUpdate": "no action",
-          "onDelete": "cascade"
+          "onDelete": "cascade",
+          "onUpdate": "no action"
         }
       },
       "compositePrimaryKeys": {
@@ -3137,9 +3147,9 @@
             }
           ],
           "isUnique": false,
-          "with": {},
+          "concurrently": false,
           "method": "btree",
-          "concurrently": false
+          "with": {}
         },
         "guild_chat_reports_reporter_idx": {
           "name": "guild_chat_reports_reporter_idx",
@@ -3152,61 +3162,61 @@
             }
           ],
           "isUnique": false,
-          "with": {},
+          "concurrently": false,
           "method": "btree",
-          "concurrently": false
+          "with": {}
         }
       },
       "foreignKeys": {
         "guild_chat_reports_guild_id_guilds_id_fk": {
           "name": "guild_chat_reports_guild_id_guilds_id_fk",
           "tableFrom": "guild_chat_reports",
+          "tableTo": "guilds",
           "columnsFrom": [
             "guild_id"
           ],
-          "tableTo": "guilds",
           "columnsTo": [
             "id"
           ],
-          "onUpdate": "no action",
-          "onDelete": "restrict"
+          "onDelete": "restrict",
+          "onUpdate": "no action"
         },
         "guild_chat_reports_message_id_guild_chat_messages_id_fk": {
           "name": "guild_chat_reports_message_id_guild_chat_messages_id_fk",
           "tableFrom": "guild_chat_reports",
+          "tableTo": "guild_chat_messages",
           "columnsFrom": [
             "message_id"
           ],
-          "tableTo": "guild_chat_messages",
           "columnsTo": [
             "id"
           ],
-          "onUpdate": "no action",
-          "onDelete": "restrict"
+          "onDelete": "restrict",
+          "onUpdate": "no action"
         },
         "guild_chat_reports_reporter_traveler_id_travelers_id_fk": {
           "name": "guild_chat_reports_reporter_traveler_id_travelers_id_fk",
           "tableFrom": "guild_chat_reports",
+          "tableTo": "travelers",
           "columnsFrom": [
             "reporter_traveler_id"
           ],
-          "tableTo": "travelers",
           "columnsTo": [
             "id"
           ],
-          "onUpdate": "no action",
-          "onDelete": "set null"
+          "onDelete": "set null",
+          "onUpdate": "no action"
         }
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {
         "guild_chat_reports_message_id_reporter_traveler_id_key": {
           "name": "guild_chat_reports_message_id_reporter_traveler_id_key",
+          "nullsNotDistinct": false,
           "columns": [
             "message_id",
             "reporter_traveler_id"
-          ],
-          "nullsNotDistinct": false
+          ]
         }
       },
       "policies": {
@@ -3235,10 +3245,10 @@
   },
   "enums": {},
   "schemas": {},
-  "views": {},
   "sequences": {},
   "roles": {},
   "policies": {},
+  "views": {},
   "_meta": {
     "columns": {},
     "schemas": {},

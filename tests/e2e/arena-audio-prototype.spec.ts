@@ -6,6 +6,13 @@ type Probe = {
   calls: { media: HTMLMediaElement; started: boolean; error: string }[];
 };
 async function setup(page: Page, strong = false, seedAudio = true) {
+  await page.context().route('**/*', (route) => {
+    const url = new URL(route.request().url());
+    return url.protocol.startsWith('http') &&
+      (url.hostname !== '127.0.0.1' || url.port !== '3110')
+      ? route.abort()
+      : route.continue();
+  });
   await page.addInitScript((seedAudio) => {
     localStorage.setItem('rpg-jovem-cristao:auth-mode:v1', 'local');
     const key = 'rpg-jovem-cristao:audio-preferences:v1';

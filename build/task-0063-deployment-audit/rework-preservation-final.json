@@ -1,0 +1,120 @@
+{
+  "at": "2026-10-10T15:11:59.547Z",
+  "scope": "PRECOMMIT_RELEASE",
+  "baselineCount": 2002,
+  "unchanged": 1982,
+  "permittedChanges": [
+    {
+      "file": "docs/architecture/TASK-0063-VERCEL-PUBLISH-REPORT.md",
+      "before": "6e7818fd4ce1227bad2531c368447f3452ab4e4454df2dde96222e8ab6a35da3",
+      "after": "e026759cee57bbad4bac5edebf225f25ea526ede83f82ecab31c61f36a20f376"
+    },
+    {
+      "file": "docs/security/TASK-0063-PRODUCTION-REVIEW.md",
+      "before": "8276eacaa6df1647253698292e15fc1ccde2a94d51c5bcdfc55e9f321322d9e1",
+      "after": "32be61c03380248ee3cedb5bfbfd94a09052635eb40e32d971cf5992282c869a"
+    },
+    {
+      "file": "tasks/active/TASK-0063-publish-mobile-fixes-vercel.md",
+      "before": "57858b7eca121f7dbf97e83dce21beaaea2a1c800ce70168c540c17cfaa9fb84",
+      "after": "c255939582be5bd89ce84a573eabccff889ccb900a9bc9af02e59f5bf693ba98"
+    },
+    {
+      "file": ".agent/memory/CURRENT_STATE.md",
+      "before": "0b6baeccd84e1f0b8e7b6ed660856bdd4fb262254d6f1c369e2c678206f5cc3d",
+      "after": "f5b0fc2c2753a5e7bb1bdedb5ea2a723d50bb44c37517acfeda43b1702a172f5"
+    },
+    {
+      "file": ".gitignore",
+      "before": "d79f49ef2f7088a03f75b8774bd6ad22dc19cf4d45a9e8dd628f8d946fb2d634",
+      "after": "9b734e3837f96d4baa49ca9ae489bd2e707db4c7c97f53030cd3d2eb9213992e"
+    },
+    {
+      "file": "apps/web/features/journey/arena-audio-prototype.test.ts",
+      "before": "9d346f97de0767f53755f53e4013a884fbd3e82b288ab9cbe9e88c03aee37e61",
+      "after": "788918100794af49b7f5592998557e12ef9513ac4cd4939df3a5eb5ebf6ac035"
+    },
+    {
+      "file": "apps/web/next.config.ts",
+      "before": "f03c70a26ce0ed1d574838f909da5e840fbd530e5775f4e824c3978d2f209f44",
+      "after": "f52289868801f05a2026dd223fdfdb7b45754c6d5599dc585adabddb4faf9cbc"
+    },
+    {
+      "file": "apps/web/package.json",
+      "before": "85ea0f9701d8e22a35a5bd0ca3658cf72f325e6ee2b8ae5b0a67f209f27e50f4",
+      "after": "c6ab86e24c38d0fa1cafa2fa6ae5e81f77fa96058f91947692434c78ebbd87d7"
+    },
+    {
+      "file": "docs/architecture/EQUIPMENT-MASTER-CHECKLIST-V1.md",
+      "before": "12b47813855aa740ca4554b6eaf00a5a045a90422ab4368e842533c216ccd363",
+      "after": "186689b1ef67c41f698822a7a2029eb6c7fef3c5a6ebf619d4d0ab31f191594f"
+    },
+    {
+      "file": "scripts/arena-audio-prototype.mjs",
+      "before": "eb05acdca2c89a387ced819c0b6d1d29ae0ef81bd74803891dff526a09a71cec",
+      "after": "428fd3916fdb1ba23dada3b7a56b66efdccde8d66cafa7366da480cceec5bf7f"
+    },
+    {
+      "file": "tests/e2e/arena-audio-prototype.spec.ts",
+      "before": "cdf7273b3221c5db00ba8bf4e1a6429e6c28f9be0a161f24f276e50917b00093",
+      "after": "d8a3fc85a69d67d4a91bc352b4f5154aab664440c8a03b075d7e6548db08c104"
+    },
+    {
+      "file": "tsconfig.json",
+      "before": "2fbc048a2e156178c28ca4e785470d1222419258ac0a05b99f7a567f19df7d58",
+      "after": "dfbf66904d1c096863c5696db52b9bb40434f7071543ca66b8be1494c85fc20b"
+    }
+  ],
+  "relocations": [
+    {
+      "from": "apps/web/public/assets/audio/effects/arena_attack.ogg",
+      "to": "assets-source/arena-audio-prototype/audio/effects/arena_attack.ogg",
+      "sha256": "c0d9c0b7e6816704622ec70211d1d3c82b0b0a9efd0b5fa947218d647a38b484",
+      "pass": true
+    },
+    {
+      "from": "apps/web/public/assets/audio/effects/arena_defense.ogg",
+      "to": "assets-source/arena-audio-prototype/audio/effects/arena_defense.ogg",
+      "sha256": "12bffebca55bbfef7333534206c71e373270bc5de85970553f2bd63161b1027f",
+      "pass": true
+    },
+    {
+      "from": "apps/web/public/assets/audio/effects/arena_dodge.ogg",
+      "to": "assets-source/arena-audio-prototype/audio/effects/arena_dodge.ogg",
+      "sha256": "5f32b1b09a21c72ac89de150b65a3503554174440cff2033d5b36c959af4ffb8",
+      "pass": true
+    },
+    {
+      "from": "apps/web/public/assets/audio/effects/arena_focus.ogg",
+      "to": "assets-source/arena-audio-prototype/audio/effects/arena_focus.ogg",
+      "sha256": "e186d41474f14690af308c197c734ecaf1d7bee7912b7e325cf3baeac8030203",
+      "pass": true
+    },
+    {
+      "from": "apps/web/public/assets/audio/effects/defeat.ogg",
+      "to": "assets-source/arena-audio-prototype/audio/effects/defeat.ogg",
+      "sha256": "90ade25672796deab35fde94cbf824a1b3f7cb9b2f69cb7308e8dec2914718ff",
+      "pass": true
+    },
+    {
+      "from": "apps/web/public/assets/audio/effects/player_hit.ogg",
+      "to": "assets-source/arena-audio-prototype/audio/effects/player_hit.ogg",
+      "sha256": "f95d37ed16d56f278a5d592317c6539efa9a0dc08441e5a830d46f80b97e892b",
+      "pass": true
+    },
+    {
+      "from": "apps/web/public/assets/audio/effects/victory.ogg",
+      "to": "assets-source/arena-audio-prototype/audio/effects/victory.ogg",
+      "sha256": "7c18cc1013e887e37980f6c9c199fda1626a7f1cca0e688ff621c3330ef0d945",
+      "pass": true
+    },
+    {
+      "from": "apps/web/public/assets/audio/music/arena_training.ogg",
+      "to": "assets-source/arena-audio-prototype/audio/music/arena_training.ogg",
+      "sha256": "9fd927742b21cbfc397a4b4b9fa85a988a07777d60b7d6b932b67aa949fab8bf",
+      "pass": true
+    }
+  ],
+  "unexpected": [],
+  "pass": true
+}

@@ -73,6 +73,7 @@ export const travelers = pgTable(
     hairStyle: text('hair_style').notNull(),
     hairColor: text('hair_color'),
     avatarVariant: text('avatar_variant'),
+    journeyProgress: jsonb('journey_progress'),
     level: integer('level').notNull().default(1),
     xp: integer('xp').notNull().default(0),
     isActive: boolean('is_active').notNull().default(false),
@@ -93,6 +94,10 @@ export const travelers = pgTable(
     ),
     check('travelers_level_check', sql`${table.level} >= 1`),
     check('travelers_xp_check', sql`${table.xp} >= 0`),
+    check(
+      'travelers_journey_progress_object_check',
+      sql`${table.journeyProgress} is null or (jsonb_typeof(${table.journeyProgress}) = 'object' and octet_length(${table.journeyProgress}::text) <= 131072)`,
+    ),
     pgPolicy('travelers_select_own', {
       for: 'select',
       to: authenticatedRole,

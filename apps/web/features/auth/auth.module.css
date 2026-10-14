@@ -60,6 +60,7 @@
 }
 
 .card .secondary {
+  color: #f7f0dc;
   border: 1px solid rgb(247 240 220 / 35%);
   background: transparent;
 }
@@ -77,4 +78,57 @@
 
 .notice {
   color: #d8efc3;
+}
+
+.hint {
+  color: #f7f0dc;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+/* Phone presentation: keep form controls at 16px to avoid focus zoom on iOS. */
+@media (max-width: 800px), (max-width: 1024px) and (pointer: coarse) {
+  .page {
+    min-height: 100svh;
+    padding: max(12px, env(safe-area-inset-top))
+      max(12px, env(safe-area-inset-right))
+      max(12px, env(safe-area-inset-bottom))
+      max(12px, env(safe-area-inset-left));
+  }
+  .card {
+    padding: 24px 20px;
+  }
+  .eyebrow {
+    font-size: 0.875rem;
+  }
+  .card :is(input, button) {
+    font-size: 1rem;
+  }
+}
+
+/* TASK-0064: edge-to-edge account screen; normal document scroll follows the keyboard. */
+@media (max-width: 1024px) {
+  .page {
+    min-height: 100dvh;
+    padding: max(16px, env(safe-area-inset-top))
+      max(16px, env(safe-area-inset-right))
+      max(24px, env(safe-area-inset-bottom))
+      max(16px, env(safe-area-inset-left));
+    align-items: start;
+  }
+  .card {
+    width: 100%;
+    padding: 16px 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+  .card h1 {
+    font-size: 28px;
+  }
+  .card form {
+    scroll-margin-bottom: 32px;
+  }
 }

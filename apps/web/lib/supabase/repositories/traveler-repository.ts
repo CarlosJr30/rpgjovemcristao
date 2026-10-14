@@ -12,6 +12,7 @@ const travelerUpdate = (traveler: Traveler) => ({
   avatar_variant: traveler.appearance.outfit,
   level: traveler.level,
   xp: traveler.xp,
+  journey_progress: traveler.progress,
 });
 
 export const travelerRepository = {

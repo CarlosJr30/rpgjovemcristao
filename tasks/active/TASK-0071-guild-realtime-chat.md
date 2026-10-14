@@ -24,8 +24,10 @@ DEFINITION_OF_DONE:
 
 ## Execução e aceite — 2026-10-14
 
+- ID local anterior TASK-0062 foi reidentificado na TASK-0072, pois o notebook publicou uma tarefa mobile com esse ID antes do merge. O contrato de chat e seu aceite permanecem o mesmo; histórico original preservado em backup/commit 0192b8f. Migrações locais renumeradas de 0006/0007 para 0007/0008; histórico Supabase preservado, sem nova execução.
+
 - Implementação e validação técnica concluídas; `ACTIVE → VALIDATING → BLOCKED` pelo gate de duas sessões reais. Nenhuma falha conhecida de código ficou aberta.
-- Migrações 0006/0007 aplicadas ao projeto autorizado: `20261014032438_guild_chat_v1` e `20261014033334_guild_chat_commit_order`. Journal/snapshots locais gerados pelo Drizzle instalado; Supabase CLI ausente, sem instalar dependências. 0007 serializa commits por célula para proteger o cursor de leitura.
+- Migrações 0007/0008 aplicadas ao projeto autorizado: `20261014032438_guild_chat_v1` e `20261014033334_guild_chat_commit_order`. Journal/snapshots locais gerados pelo Drizzle instalado; Supabase CLI ausente, sem instalar dependências. 0008 serializa commits por célula para proteger o cursor de leitura.
 - SELF VALIDATE: lint/typecheck/build PASS; suíte completa 64 arquivos/414 testes PASS; novos testes após o ajuste final 2 arquivos/11 testes PASS; diff/scan final registrado abaixo.
 - QA pelo autor: 14 E2E existentes de Guilda/Auth desktop/mobile PASS; 10 checks de UI standalone em Chrome/Edge e 360/390/768/1440 px PASS com fixtures, imagens carregadas e capturas mobile/desktop inspecionadas.
 - Security pelo autor: SQL real com duas contas e claims simuladas PASS (isolamento, autoria, papéis, limites, denúncias, moderação, revogação, archive, anon). Transação revertida. API real: tabela/RPC anon HTTP401; schema privado HTTP406. Advisors: INFO intencional de rate_limits sem policy/grants e avisos preexistentes registrados no parecer.

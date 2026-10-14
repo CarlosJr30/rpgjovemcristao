@@ -70,16 +70,23 @@ test('modo local preserva o primeiro Viajante ao criar e selecionar um segundo',
   await page.getByRole('button', { name: 'Criar Viajante' }).click();
   await expect(page).toHaveURL('/journey/intro');
 
+  await page.getByRole('button', { name: 'Abrir Herói' }).click();
   await page
-    .getByRole('button', { name: 'Trocar Viajante', exact: true })
+    .getByRole('menuitem', { name: 'Trocar Viajante', exact: true })
     .click();
   await page
     .getByRole('dialog')
     .getByRole('button', { name: 'Trocar Viajante', exact: true })
     .click();
-  await expect(page.getByRole('heading', { name: 'Escolha seu Viajante' })).toBeVisible();
-  await expect(page.getByRole('heading', { name: 'Primeiro Viajante' })).toBeVisible();
-  await expect(page.getByRole('heading', { name: 'Segundo Viajante' })).toBeVisible();
+  await expect(
+    page.getByRole('heading', { name: 'Escolha seu Viajante' }),
+  ).toBeVisible();
+  await expect(
+    page.getByRole('heading', { name: 'Primeiro Viajante' }),
+  ).toBeVisible();
+  await expect(
+    page.getByRole('heading', { name: 'Segundo Viajante' }),
+  ).toBeVisible();
 
   await page
     .locator('article')

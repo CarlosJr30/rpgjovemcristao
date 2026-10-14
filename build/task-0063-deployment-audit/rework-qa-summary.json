@@ -1,0 +1,194 @@
+{
+  "at": "2026-10-10T14:35:44.130Z",
+  "status": "LOCAL_RELEASE_GATES_PASS_DEPLOYMENT_PENDING",
+  "reviewer": "Codex/author; not independent",
+  "unit": {
+    "distinctFiles": 12,
+    "distinctPassed": 73,
+    "audio": "4 files / 32 PASS",
+    "mobile": "8 files / 41 PASS",
+    "latestGateFollowup": "5 isolation tests PASS after adding apps/web/.vercel/output scan; targeted ESLint PASS"
+  },
+  "e2e": {
+    "reports": {
+      "dev-e2e.json": {
+        "startTime": "2026-10-10T13:59:50.091Z",
+        "duration": 787947.312,
+        "expected": 5,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "dev-shutdown-e2e.json": {
+        "startTime": "2026-10-10T14:16:06.206Z",
+        "duration": 26444.222999999998,
+        "expected": 1,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "production-e2e.json": {
+        "startTime": "2026-10-10T14:07:29.937Z",
+        "duration": 363146.23600000003,
+        "expected": 30,
+        "skipped": 5,
+        "unexpected": 3,
+        "flaky": 0
+      },
+      "production-followup-e2e.json": {
+        "startTime": "2026-10-10T14:15:59.474Z",
+        "duration": 13522.166,
+        "expected": 4,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      }
+    },
+    "devDistinctPassed": 5,
+    "productionDistinctPassedAfterFollowup": 33,
+    "productionPlannedSkipped": 5
+  },
+  "gates": {
+    "lint": "PASS",
+    "typecheck": "PASS",
+    "build": "PASS; local isolated Next production build",
+    "prebuildPublic": "PASS / 209 files",
+    "physicalArtifact": "PASS / 723 files / zero findings",
+    "originalHashes": "8/8 preserved",
+    "avatarHd": "54/54 approved runtime identities; originals unchanged",
+    "bodyFit": "7 pending human reviews / 1 READY staging / 0 V2 active; no approvals or promotions",
+    "http": "8 restricted URLs 404; all 8 private source URLs 404 in E2E; DEV galleries/labs 404",
+    "candidateSecrets": {
+      "pass": true,
+      "textScanned": 1206,
+      "findings": [],
+      "limitation": "Heuristic scan and targeted review; no proof that every possible secret format is absent; private env files never read."
+    },
+    "preservation": {
+      "pass": true,
+      "unchanged": 1982,
+      "relocated": 8
+    },
+    "cloudConfiguration": "BLOCKED_HTTP_403",
+    "cloudArtifacts": "NOT_VERIFIED",
+    "publication": "NOT_EXECUTED"
+  },
+  "failureHistory": [
+    "Original public gate correctly failed on all 8 restricted assets before relocation.",
+    "Initial audio unit validation lacked ffprobe. Unit metadata uses an identified mock; all 8 OGG files were decoded and played by a real browser.",
+    "Build/typecheck initially failed on codec probe typing and webServer union configuration; corrected and final checks passed.",
+    "Initial DEV harness lacked public auth config: four tests failed. Fictitious local config and blocked external traffic fixed the harness, without auth implementation or Supabase changes.",
+    "First complete DEV run passed 5 tests but teardown hung. Only owned QA processes were stopped; direct wrapper command/lifecycle fixed; shutdown followup passed with automatic termination.",
+    "Production run: 30 PASS / 3 FAIL / 5 planned skips. One browser target crashed before the Arena page, two auth tests used the wrong E-mail label. Targeted followup: 4 PASS including Arena in both profiles and corrected auth tests."
+  ],
+  "limitations": [
+    "Edge emulation only; no physical phone or iOS Safari test",
+    "No real Supabase authentication, account data or writes",
+    "Local public auth fixture is intentionally nonfunctional; local build cannot be deployed as a prebuilt production artifact",
+    "No Vercel artifact inspection or new deployed smoke; original deployment READY is historical",
+    "ffprobe absent; native browser playback is the actual codec evidence",
+    "QA and security review by the author, not independent"
+  ],
+  "evidence": {
+    "http": "build/task-0063-deployment-audit/rework-http-isolation.json",
+    "artifact": "build/task-0063-deployment-audit/rework-artifact-audit.json",
+    "preservation": "build/task-0063-deployment-audit/rework-preservation-final.json",
+    "releasePlan": "build/task-0063-deployment-audit/release-plan.json"
+  },
+  "finalRelease": {
+    "at": "2026-10-10T15:09:30.200Z",
+    "status": "RELEASE_GATES_PASS_DEPLOYMENT_PENDING",
+    "unit": {
+      "passed": 56,
+      "files": 12
+    },
+    "dev": {
+      "accepted": 5,
+      "skipped": 0,
+      "unresolvedFailures": []
+    },
+    "production": {
+      "accepted": 33,
+      "skipped": 5,
+      "unresolvedFailures": []
+    },
+    "rawRunStats": {
+      "dev-release-final-e2e.json": {
+        "startTime": "2026-10-10T14:57:16.739Z",
+        "duration": 102092.548,
+        "expected": 4,
+        "skipped": 0,
+        "unexpected": 1,
+        "flaky": 0
+      },
+      "dev-release-followup-e2e.json": {
+        "startTime": "2026-10-10T15:06:38.188Z",
+        "duration": 63891.933,
+        "expected": 1,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "production-release-final-e2e.json": {
+        "startTime": "2026-10-10T14:58:21.720Z",
+        "duration": 374660.217,
+        "expected": 32,
+        "skipped": 5,
+        "unexpected": 1,
+        "flaky": 0
+      },
+      "production-release-followup-e2e.json": {
+        "startTime": "2026-10-10T15:04:57.783Z",
+        "duration": 33546.729,
+        "expected": 1,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      }
+    },
+    "failureHistory": "Parallel browser runs produced truncated/unexpected JSON and a closed target; affected cases passed in isolated sequential followups without runtime edits. Cause of transport instability not proven.",
+    "lint": "PASS",
+    "typecheck": "PASS",
+    "workingBuild": "PASS",
+    "stagedSourceSnapshotBuild": "PASS_WITHOUT_PRIVATE_ENV",
+    "artifact": {
+      "scanned": 723,
+      "findings": [],
+      "pass": true,
+      "sourceHashesPreserved": 8,
+      "dist": "apps/web/.next"
+    },
+    "publicGate": {
+      "pass": true,
+      "files": 209
+    },
+    "restrictedHttp404": 8,
+    "originalSourceHashesPreserved": 8,
+    "avatarHdIdentities": 54,
+    "snapshotIndexTree": "2cfd5d61e5d6e707739b6610193332559b719b56",
+    "snapshotRuntimeMatchesStaging": true,
+    "dependencyInstall": "Existing dependencies reused; no new installation",
+    "vercel": {
+      "projectId": "prj_mG2ZSDaSc5i2Pz2uqKSlCzSGiVmG",
+      "project": "rpgjovemcristao-web",
+      "team": "carlos-junior-s-projects",
+      "rootDirectory": "apps/web",
+      "framework": "nextjs",
+      "nodeVersion": "24.x",
+      "git": "CarlosJr30/rpgjovemcristao",
+      "productionBranch": "main",
+      "cli": "63.1.2",
+      "productionEnvNames": [
+        "NEXT_PUBLIC_SUPABASE_URL",
+        "NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY"
+      ],
+      "secretValuesPrinted": false
+    },
+    "limits": [
+      "No physical phone, iOS Safari or real account authentication",
+      "QA fixtures and external traffic blocking; no Supabase writes",
+      "Local QA build must never be deployed with --prebuilt",
+      "Author QA/Security, not independent"
+    ]
+  }
+}

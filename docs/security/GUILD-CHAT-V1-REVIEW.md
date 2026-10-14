@@ -25,7 +25,7 @@ Controles novos revisados localmente e executados no banco real. Sem achado crí
 
 - RLS revoga consultas novas imediatamente; não pode apagar conteúdo já visto/copied. UI revalida a cada 15 segundos em aba ativa e no retorno ao foco/canal. Browser throttling pode alongar esse intervalo no background.
 - Duas contas foram usadas com claims SQL simuladas. Isso não testa emissão/renovação JWT, Auth de navegador nem isolamento/transporte WebSocket real. Não substituir esse gate por fixtures de UI.
-- Não houve teste concorrente entre duas transações de envio reais; locks revisados e fluxos sequenciais testados. A migração 0007 evita avanço de cursor sobre commit tardio na mesma célula.
+- Não houve teste concorrente entre duas transações de envio reais; locks revisados e fluxos sequenciais testados. A migração 0008 evita avanço de cursor sobre commit tardio na mesma célula.
 - Limites por conta são janelas de 60 segundos, não prometem janela móvel exata. DoS distribuído entre muitas contas exige observação/controles operacionais próprios.
 - Retenção, resposta humana a denúncias, consentimento/supervisão de menores e pedidos de exclusão precisam de responsáveis e prazos definidos antes da disponibilização social a menores. O chat não coleta idade e não a presume pelo nome/avatar.
 - Nome/avatar são snapshots do Viajante no envio. Exclusão de Viajante mantém mensagem/log e zera a FK; minimização/remoção de identificadores históricos deve seguir uma política aprovada. Não foi executada exclusão nesta tarefa.

@@ -47,15 +47,22 @@
     {
       "idx": 6,
       "version": "7",
-      "when": 1791948057546,
-      "tag": "0006_guild_chat",
+      "when": 1791950013709,
+      "tag": "0006_traveler_journey_progress",
       "breakpoints": true
     },
     {
       "idx": 7,
       "version": "7",
-      "when": 1791948693139,
-      "tag": "0007_guild_chat_commit_order",
+      "when": 1791950014239,
+      "tag": "0007_guild_chat",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1791950014764,
+      "tag": "0008_guild_chat_commit_order",
       "breakpoints": true
     }
   ]

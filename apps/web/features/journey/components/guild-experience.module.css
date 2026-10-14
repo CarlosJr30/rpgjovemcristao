@@ -342,3 +342,51 @@
     transform: none;
   }
 }
+
+@media (max-width: 800px), (max-width: 1024px) and (pointer: coarse) {
+  .eyebrow,
+  .scope,
+  .metrics dt {
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+  .metrics div {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+}
+@media (max-width: 480px) {
+  .metrics {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* TASK-0064: a mobile mission board rather than a miniature guild hall. */
+@media (max-width: 1024px) {
+  .hall {
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+  }
+  .hall[data-guild-scene='active'] {
+    padding-top: 0;
+  }
+  .hero {
+    padding: 16px;
+    border-radius: 12px;
+  }
+  .hallScene {
+    height: 240px;
+  }
+  .hero h1 {
+    font-size: 26px;
+  }
+  .metrics {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .hall article {
+    width: 100%;
+    box-sizing: border-box;
+  }
+}

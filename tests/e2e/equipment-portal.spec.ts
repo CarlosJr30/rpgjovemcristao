@@ -55,11 +55,9 @@ for (const viewport of viewports)
     await page.keyboard.press('Enter');
     await expect(page.locator('[data-slot="weapon"]')).toBeFocused();
     const item = EQUIPMENT_CATALOG.find((i) => i.slot === 'weapon')!;
-    const card = page
-      .locator('article')
-      .filter({
-        has: page.getByRole('heading', { name: item.name, exact: true }),
-      });
+    const card = page.locator('article').filter({
+      has: page.getByRole('heading', { name: item.name, exact: true }),
+    });
     await card.locator('summary').click();
     const reward = equipmentReward(traveler, item);
     const powerCells = card.locator('[data-comparison-power] td');
@@ -84,7 +82,9 @@ for (const viewport of viewports)
     const measures = await page
       .locator('[data-slot], article > button, select, summary')
       .evaluateAll((nodes) =>
-        nodes.map((n) => n.getBoundingClientRect().height),
+        nodes
+          .filter((n) => n.checkVisibility())
+          .map((n) => n.getBoundingClientRect().height),
       );
     expect(measures.every((height) => height >= 44)).toBe(true);
     expect(
@@ -174,6 +174,7 @@ test('Missing artwork preserves avatar fallback, equip action and comparison', a
   await page.getByRole('button', { name: 'Criar Viajante' }).click();
   await expect(page).not.toHaveURL(/\/create$/);
   await page.route('**/assets/**', (route) => route.abort());
+  await page.route('**/_next/image?**', (route) => route.abort());
   await page.evaluate(() => {
     const key = 'rpg-jovem-cristao:journey:v1',
       save = JSON.parse(localStorage.getItem(key)!);

@@ -153,6 +153,8 @@ export function PhaseScreen() {
           const gameplayPortrait = getGameplayAvatarPortrait(traveler);
           return (
             <section
+              data-mobile-screen="phase"
+              data-phase-step={step}
               className={`${styles.phasePresentation} ${step === 'explore' ? styles.phaseExploring : ''}`}
             >
               <div className={`${styles.phaseBanner} ${styles.gardenBanner}`}>

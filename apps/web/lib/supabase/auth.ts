@@ -72,7 +72,7 @@ export const onAuthStateChange = (
   }).data.subscription;
 
 export const profileDisplayName = (user: User): string | null => {
-  const value = user.user_metadata.display_name;
+  const value = user.user_metadata?.display_name;
   return typeof value === 'string' && value.trim().length >= 2
     ? value.trim().slice(0, 50)
     : null;
