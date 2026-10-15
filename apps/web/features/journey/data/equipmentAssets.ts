@@ -1,6 +1,6 @@
 import type { Equipment, EquipmentSlot, Traveler } from '../domain/traveler';
 import { EQUIPMENT_CATALOG } from './equipmentCatalog';
-import { APPROVED_BODY_FIT_V3 } from './equipmentBodyFitV3';
+import { APPROVED_BODY_FIT_V3_ASSETS } from './equipmentBodyFitV3';
 import {
   AVATAR_CANVAS,
   bodyAnchorPoint,
@@ -83,7 +83,7 @@ export type EquipmentAssetEntry = EquipmentOverlayDefinition & {
   // Record only after the user approves the actual composition for this body.
   bodyOverlayApproval?: Partial<Record<BodyType, 'APPROVED_BY_USER'>>;
   // Approval for one exact HD identity never applies to other variants or legacy fallback.
-  bodyOverlayScope?: { gender: BodyType; avatarSource: string };
+  bodyOverlayScope?: Partial<Record<BodyType, string>>;
   iconAssetHighQuality?: OverlayAssetSource;
   // Boots may supply an independent right-foot layer; hands can be separate too.
   additionalOverlays?: readonly EquipmentOverlayDefinition[];
@@ -199,15 +199,35 @@ const swordConfig: OverlayVisualConfig = {
     scale: 1.15,
   },
 };
+function approvedBodyFit(itemId: string, zIndex: number) {
+  const entries = APPROVED_BODY_FIT_V3_ASSETS.filter(
+    (a) => a.itemId === itemId,
+  );
+  return {
+    overlayMode: 'full-canvas' as const,
+    overlayAsset: Object.fromEntries(entries.map((a) => [a.gender, a.asset])),
+    visualConfig: null,
+    fullCanvasConfig: { sourceSize: FULL_CANVAS_OVERLAY_SOURCE, zIndex },
+    visualQuality: 'READY' as const,
+    bodyOverlayApproval: Object.fromEntries(
+      entries.map((a) => [a.gender, 'APPROVED_BY_USER' as const]),
+    ),
+    bodyOverlayScope: Object.fromEntries(
+      entries.map((a) => [a.gender, a.avatarSource]),
+    ),
+  };
+}
 // Original UI icons are preserved; anatomy and dedicated PNGs remain centralized.
 export const EQUIPMENT_ASSET_MANIFEST: Readonly<
   Record<string, EquipmentAssetEntry>
 > = {
-  'traveler-sword-common': archivedOverlay(
-    'weapon',
-    v1('sword_path_common'),
-    swordConfig,
-  ),
+  'traveler-sword-common': {
+    ...archivedOverlay('weapon', v1('sword_path_common'), swordConfig),
+    ...approvedBodyFit(
+      'traveler-sword-common',
+      EQUIPMENT_COMPOSITION_LAYERS.weapon,
+    ),
+  },
   'traveler-sword-rare': archivedOverlay(
     'weapon',
     v1('sword_path_rare'),
@@ -264,19 +284,10 @@ export const EQUIPMENT_ASSET_MANIFEST: Readonly<
       base: { ...armorConfig.base, scale: 1.25 },
       male: { ...armorConfig.male, scale: 1.15 },
     }),
-    overlayMode: 'full-canvas',
-    overlayAsset: { female: APPROVED_BODY_FIT_V3.asset },
-    visualConfig: null,
-    fullCanvasConfig: {
-      sourceSize: APPROVED_BODY_FIT_V3.sourceSize,
-      zIndex: EQUIPMENT_COMPOSITION_LAYERS.armor,
-    },
-    visualQuality: 'READY',
-    bodyOverlayApproval: { female: 'APPROVED_BY_USER' },
-    bodyOverlayScope: {
-      gender: APPROVED_BODY_FIT_V3.gender,
-      avatarSource: APPROVED_BODY_FIT_V3.avatarSource,
-    },
+    ...approvedBodyFit(
+      'traveler-armor-uncommon',
+      EQUIPMENT_COMPOSITION_LAYERS.armor,
+    ),
   },
   'traveler-armor-rare': archivedOverlay(
     'armor',
@@ -421,8 +432,8 @@ export function resolveEquipmentVisual(
     definition.bodyOverlayApproval?.[bodyType] !== 'APPROVED_BY_USER' ||
     !definition.overlayAsset ||
     (definition.bodyOverlayScope &&
-      (definition.bodyOverlayScope.gender !== bodyType ||
-        definition.bodyOverlayScope.avatarSource !== avatarSource))
+      (!definition.bodyOverlayScope[bodyType] ||
+        definition.bodyOverlayScope[bodyType] !== avatarSource))
   )
     return unavailable();
   const layers: ResolvedOverlayLayer[] = [];
@@ -546,7 +557,8 @@ export function equippedOverlayLayers(
             avatarSource,
           ).layers.map((piece) => ({
             ...piece,
-            requiredAvatarSource: definition.bodyOverlayScope?.avatarSource,
+            requiredAvatarSource:
+              definition.bodyOverlayScope?.[traveler.avatar.gender],
             itemId: item.id,
             slot: item.slot,
           }))

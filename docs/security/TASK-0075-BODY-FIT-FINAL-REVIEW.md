@@ -1,5 +1,11 @@
 # TASK-0075 — revisão de segurança
 
+## Ativação autorizada — 15/10/2026 — PASS local / release VALIDATING
+
+SELF REVIEW pelo agente principal. Três novos PNGs públicos são cópias exatas autorizadas; gate de build verifica quatroassets, recibos visuais/pares, item/gênero/HD/SHA/fonte/FIT_PASS e bloqueia qualquer outro original/fonte no distributável. Nenhuma alteração em catálogo/atributos/inventário/saves/54HD/Auth/chat/Supabase/lockfile.835arquivos protegidos preservados;548públicos/build e70JS contra76hashes privados sem achados; .env não rastreado. Smoke local7rotas200/8áudios404/8fontes404/5DEV404/65privados404 e quatro assets com SHA exato PASS. As6alterações autorizadas em apps/web têm revisão separada do baseline protegido.
+
+Registro dos dois pares humanos preexistia no workspace; vínculos e hashes dos HTMLs revisados conferem. Não há promoção técnica de outros candidatos nem decisão humana automatizada. Diagnósticos interrompidos do Portal estão retidos; expectativas de disponibilidade e contagem entre dois Avatares distintas foram corrigidas com asserção da camada exata no Avatar principal, sem ocultar erro. Nova rodada completa185PASS/0FAIL/10skips previstos, exit0,0flaky/erros globais;14falhas antigas PASS, RCA parcial preservada.452unit (incluindo7casos UI do chat), lint/typecheck/build PASS. Teste real de duas contas e POCO continuam pendentes.403no MCP Vercel resolvido por leitura CLI autenticada, mesmo projeto/equipe, sem bypass/configuração alterada. Ver [relatório de ativação](../architecture/TASK-0075-ACTIVATION-REPORT.md). Checkpoints anteriores abaixo são históricos.
+
 ## Continuação de 15/10/2026 — PASS no escopo privado; publicação BLOCKED
 
 841arquivos protegidos verificados contra baseline, sem alteração (runtime,54HD,fontes/bakes históricos,receipts antigos,lockfile). Recibo12decisões/16bindings+SHAgaleria original confere.545arquivos público/build e70JS escaneados contra79hashes privados;0arte exposta/segredo/chave service-role identificado. Nenhum .env rastreado ou valor registrado. Smoke local:7rotas200/8áudios404/8fontes404/5DEV404/63privados404. Nenhuma chamada ou mudança Supabase/Vercel/política remota.

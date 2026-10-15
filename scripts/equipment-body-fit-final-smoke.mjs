@@ -157,6 +157,7 @@ for (const p of [
   if (response.status !== 404) findings.push('private-candidate-exposed:' + p);
 }
 const approved = inventory.targets.find((t) => t.verifiedHumanApproval);
+const activation = process.env.BODY_FIT_SMOKE_PHASE === 'activation';
 const publicAsset =
   '/assets/equipment/overlays/body-fit-v3/armor_traveler_uncommon_female_approved.png';
 const response = await fetch(origin + publicAsset, {
@@ -167,7 +168,45 @@ const publicSha = createHash('sha256')
   .digest('hex');
 if (response.status !== 200 || publicSha !== approved.sha256)
   findings.push('approved-public-asset-binding');
+const approvedAssets = [];
+if (activation) {
+  const scope = JSON.parse(
+    await readFile(
+      path.join(root, 'docs/architecture/TASK-0075-ACTIVATION-SCOPE.json'),
+      'utf8',
+    ),
+  );
+  for (const a of scope.assets) {
+    const response = await fetch(origin + a.publicAsset, {
+      signal: AbortSignal.timeout(30_000),
+    });
+    const sha256 = createHash('sha256')
+      .update(Buffer.from(await response.arrayBuffer()))
+      .digest('hex');
+    approvedAssets.push({
+      id: a.id,
+      path: a.publicAsset,
+      status: response.status,
+      sha256,
+    });
+    if (response.status !== 200 || sha256 !== a.sha256)
+      findings.push('authorized-public-asset-binding:' + a.id);
+  }
+  for (const p of [
+    '/build/task-0075-body-fit-final-review/activation/male-pair.html',
+    '/build/task-0075-body-fit-final-review/activation/female-pair.html',
+  ]) {
+    const response = await fetch(origin + p, {
+      signal: AbortSignal.timeout(30_000),
+    });
+    await response.arrayBuffer();
+    privateChecks.push({ path: p, status: response.status });
+    if (response.status !== 404)
+      findings.push('private-activation-evidence-exposed');
+  }
+}
 Object.assign(result, {
+  approvedAssets,
   privateChecks,
   approvedPublicAsset: {
     path: publicAsset,
@@ -179,7 +218,7 @@ Object.assign(result, {
 await writeFile(
   path.join(
     root,
-    `build/task-0075-body-fit-final-review/${process.env.BODY_FIT_SMOKE_PHASE === 'continuation' ? 'continuation/' : ''}${new URL(origin).hostname === '127.0.0.1' ? 'local' : 'production'}-smoke.json`,
+    `build/task-0075-body-fit-final-review/${activation ? 'activation/' : process.env.BODY_FIT_SMOKE_PHASE === 'continuation' ? 'continuation/' : ''}${new URL(origin).hostname === '127.0.0.1' ? 'local' : 'production'}-smoke.json`,
   ),
   JSON.stringify(result, null, 2),
 );

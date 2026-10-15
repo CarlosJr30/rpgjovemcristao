@@ -1,6 +1,15 @@
 import { defineConfig, devices } from '@playwright/test';
 const run = process.env.BODY_FIT_QA_RUN ?? 'e2e-final';
 const pinnedDesktop = process.env.BODY_FIT_PINNED_DESKTOP === '1';
+const baseURL = process.env.BODY_FIT_QA_URL ?? 'http://127.0.0.1:3175';
+if (
+  ![
+    'http://127.0.0.1:3175',
+    'https://rpgjovemcristao-web-inky.vercel.app',
+  ].includes(baseURL)
+)
+  throw new Error('Unapproved QA origin');
+const production = baseURL.startsWith('https:');
 export default defineConfig({
   testDir: './tests/e2e',
   workers: 2,
@@ -16,17 +25,19 @@ export default defineConfig({
   use: {
     actionTimeout: 15_000,
     navigationTimeout: 20_000,
-    baseURL: 'http://127.0.0.1:3175',
+    baseURL,
     trace: 'retain-on-failure',
   },
   // Own the production server lifecycle: never silently reuse a stale/shared process.
-  webServer: {
-    command: 'npm run start --workspace=@rpg/web -- --port 3175',
-    url: 'http://127.0.0.1:3175',
-    reuseExistingServer: false,
-    timeout: 60_000,
-    env: { NEXT_TELEMETRY_DISABLED: '1' },
-  },
+  webServer: production
+    ? undefined
+    : {
+        command: 'npm run start --workspace=@rpg/web -- --port 3175',
+        url: 'http://127.0.0.1:3175',
+        reuseExistingServer: false,
+        timeout: 60_000,
+        env: { NEXT_TELEMETRY_DISABLED: '1' },
+      },
   projects: [
     { name: 'android', use: { ...devices['Pixel 7'], channel: 'msedge' } },
     {

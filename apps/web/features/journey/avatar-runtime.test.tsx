@@ -195,11 +195,11 @@ describe('renderer and recovery', () => {
   );
   it('pending production equipment stays mechanically equipped without body art', () => {
     const traveler = make(),
-      item = EQUIPMENT_CATALOG.find((i) => i.slot === 'weapon')!;
+      item = EQUIPMENT_CATALOG.find((i) => i.slot === 'shield')!;
     traveler.inventory.push(item);
-    traveler.equipped = { weapon: item.id };
+    traveler.equipped = { shield: item.id };
     expect(resolveAvatarRuntime(traveler).layers).toHaveLength(0);
-    expect(traveler.equipped.weapon).toBe(item.id);
+    expect(traveler.equipped.shield).toBe(item.id);
   });
   it('Arena and equipment adapter use the central runtime without swapping base', () => {
     const traveler = make();

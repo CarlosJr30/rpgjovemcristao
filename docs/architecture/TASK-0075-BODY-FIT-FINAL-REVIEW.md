@@ -1,5 +1,7 @@
 # TASK-0075 — índice da revisão privada
 
+**Recorte de ativação vigente (15/10/2026):** três assets exatos autorizados para integração/publicação após gates, além da Couraça feminina preservada. Ver [relatório de ativação](TASK-0075-ACTIVATION-REPORT.md), escopo TASK-0075-ACTIVATION-SCOPE.json e recibo preexistente TASK-0075-HUMAN-COMBINATION-APPROVAL.json. As seções seguintes são checkpoints históricos da revisão privada; seus bloqueios gerais não anulam o novo recorte autorizado, e elmos/botas/outros candidatos continuam pendentes/inativos.
+
 **Continuação vigente:158E2E PASS/0FAIL/10skips, exit0;447unit/lint/types/build PASS.**14casos antigos agora PASS, mas RCA parcial: corridas de preparação Arena/WebKit diagnosticadas, mobile com mesma assinatura sem causa completa isolada,11timeouts desktop sem reprodução/causa exata. Não confundir execução PASS com causa encerrada. Correções apenas no harness: estabilizar Intro antes de goto da fixture, controlar servidor e guardar exit real/logs via Node.
 
 Botas: prova estrutural privada em http://127.0.0.1:8077/, acabamento limitado ao cano do calçado existente.0ediçãoHD/0nova geração/escala/deslocamento. Comparação real:0diferenças fora da superfície e nas biqueiras/calcanhares/solas,12casos Edge/WebKit PASS. Não é arte final/FIT_PASS nem runtime. Elmos exatos continuam em8076 para aprovação posterior com zoom/comparação, além de capturas individuais.

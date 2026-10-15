@@ -1,5 +1,6 @@
 import { expect, test } from '@playwright/test';
 import { EQUIPMENT_CATALOG } from '../../apps/web/features/journey/data/equipmentCatalog';
+import { APPROVED_BODY_FIT_V3_ASSETS } from '../../apps/web/features/journey/data/equipmentBodyFitV3';
 import { equipmentReward } from '../../apps/web/features/journey/data/equipmentCinematic';
 import { travelerBattleSnapshot } from '../../apps/web/features/journey/data/arena';
 import type { Traveler } from '../../apps/web/features/journey/domain/traveler';
@@ -30,6 +31,8 @@ for (const viewport of viewports)
       .fill('Viajante do Arsenal');
     await page.getByRole('button', { name: 'Criar Viajante' }).click();
     await expect(page).not.toHaveURL(/\/create$/);
+    await page.getByRole('button', { name: /Entrar na jornada/ }).waitFor();
+    await page.waitForLoadState('networkidle');
     const traveler = (await page.evaluate((items) => {
       const key = 'rpg-jovem-cristao:journey:v1',
         save = JSON.parse(localStorage.getItem(key)!);
@@ -55,6 +58,9 @@ for (const viewport of viewports)
     await page.keyboard.press('Enter');
     await expect(page.locator('[data-slot="weapon"]')).toBeFocused();
     const item = EQUIPMENT_CATALOG.find((i) => i.slot === 'weapon')!;
+    const approvedSword = APPROVED_BODY_FIT_V3_ASSETS.find(
+      (a) => a.itemId === item.id && a.gender === traveler.avatar.gender,
+    )!;
     const card = page.locator('article').filter({
       has: page.getByRole('heading', { name: item.name, exact: true }),
     });
@@ -71,8 +77,8 @@ for (const viewport of viewports)
     await expect(link).toHaveAttribute('rel', 'noopener noreferrer');
     expect(await link.getAttribute('href')).toMatch(/^https:\/\//);
     await expect(
-      card.locator('[data-visual-overlay-unavailable="true"]'),
-    ).toContainText('Visual corporal em preparação');
+      card.locator('[data-visual-overlay-unavailable="false"]'),
+    ).toContainText('Camada corporal disponível');
     await page.screenshot({
       path: testInfo.outputPath(
         `portal-${viewport.width}x${viewport.height}.png`,
@@ -124,7 +130,12 @@ for (const viewport of viewports)
     await expect(page.getByRole('status')).toContainText(
       `${reward.beforePower} → ${reward.afterPower}`,
     );
-    await expect(page.locator('[data-overlay-slot]')).toHaveCount(0);
+    await expect(
+      page.locator('[data-mobile-screen="equipment"] [data-overlay-slot]'),
+    ).toHaveCount(1);
+    await expect(
+      page.locator('[data-mobile-screen="equipment"] [data-overlay-slot]'),
+    ).toHaveAttribute('src', approvedSword.asset);
     await page
       .getByRole('combobox', { name: 'Mostrar', exact: true })
       .selectOption('equipped');
@@ -161,6 +172,12 @@ for (const viewport of viewports)
     await expect(page.locator('[data-current-power]')).toHaveText(
       String(reward.afterPower),
     );
+    await expect(
+      page.locator('[data-mobile-screen="equipment"] [data-overlay-slot]'),
+    ).toHaveCount(1);
+    await expect(
+      page.locator('[data-mobile-screen="equipment"] [data-overlay-slot]'),
+    ).toHaveAttribute('src', approvedSword.asset);
   });
 
 test('Missing artwork preserves avatar fallback, equip action and comparison', async ({

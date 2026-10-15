@@ -1,15 +1,15 @@
 # TASK-0075 — Body-Fit final rework and human approval
 
 ID: TASK-0075
-OBJECTIVE: Reuse TASK-0074 evidence, investigate seven pending candidates, produce private whole-body/zoom/triple-combination evidence and a mobile human-review gallery.
+OBJECTIVE: Continue TASK-0075 by safely integrating and publishing the three exact approved Body-Fit assets, preserving the active female armor and private historical review evidence.
 PRIORITY: P1 High
-STATUS: BLOCKED
+STATUS: VALIDATING
 AUDIT_STATUS: COMPLETE_WITH_DEFECTS
-ACCEPTANCE_STATUS: FUNCTIONAL_PASS_ART_HUMAN_AND_PARTIAL_RCA_GATES_PENDING
+ACCEPTANCE_STATUS: THREE_EXACT_ASSET_LOCAL_PASS_DEPLOY_PENDING
 BASE: 100492bfa1f93dc49a4122f935544c001dcd96cb (origin/main)
 DEPENDENCIES: TASK-0074; explicit human approval of each exact hash/Avatar before activation.
 ASSIGNED_AGENT: Main agent assuming Frontend, QA and Security profiles; no independent review claimed.
-SCOPE: New TASK-0075 scripts, private ignored build/task-0075-body-fit-final-review, generic offline gallery template, task/report/security/memory documentation. Private non-destructive art alternatives only when a concrete visual defect warrants them. Existing TASK-0074 pipeline and sources reused.
+SCOPE: Exact three-asset resolver/registry integration, three approved public PNG copies, scoped tests (including Equipment Portal expectations), production allowlist and release checks, normal commit/push/safe main integration, automatic Vercel production deployment and public verification. Reuse existing private TASK-0074/0075 evidence and preserve all other candidates and original assets.
 OUT_OF_SCOPE: HD edits, historical receipt edits, catalog additions, rare-armor runtime, pending-candidate runtime, Supabase, production player data, protection changes, force push, unrelated game mechanics. No deployment for private review changes alone.
 REQUIRED_CONTEXT: User TASK-0075 attachment; global/current context and workflow; TASK-0074 inventory, gallery, compatibility and inspection scripts; DEC-037.
 SECURITY_CONSIDERATIONS: Gallery and experimental PNGs remain ignored/offline, no secrets or real-player data; only synthetic browser storage. Self-review must verify preservation and public build isolation.
@@ -24,6 +24,22 @@ TEST_PLAN: Read-only baseline hash manifest; browser screenshots/decoded images 
 DEFINITION_OF_DONE: Authorized local work complete, evidence delivered, applicable checks pass, human acceptance recorded and memory updated. Pending human review does not equal DONE.
 
 ## Initial verification
+
+### Local acceptance of authorized activation — 2026-10-15
+
+Full195-case run activation-scoped-final-20261015 completed185PASS/0FAIL/10expected skips, actual exit0,0flaky/global errors. All14historical failures now PASS, without claiming complete historical RCA.452unit/68files, lint/typecheck exit0, optimized build and media/private-asset gates PASS.835protected files preserved,16receipt bindings and exact pair HTML hashes verified. Local routes7×200/audio8×404/sources8×404/DEV5×404/private65×404 and exact four public PNG hashes PASS. scripts/equipment-body-fit-activation-acceptance.mjs verifies source hashes and generates activation/local-acceptance.json. QA/Security SELF REVIEW. Earlier interrupted diagnostic rounds retained: unavailable-sword expectations and globally counting two separate Avatar contexts were corrected; no runtime workaround, assertion suppression, timeout increase or retry. Scoped Portal readiness now waits for Intro before hard navigation. Production-capable QA config has an explicit two-origin allowlist and never starts a local server for the public URL. Release remains pending normal Git integration, Vercel exact-SHA READY and public QA. Original art review remains pending for helmets/boots; no physical approval inferred.
+
+### Resumed workspace verification — 2026-10-15
+
+At this session's entry the branch was already at 7b2b989 with three unpublished commits, 11 modified tracked files and seven untracked integration files (three public PNG copies, activation scope, existing combination receipt, review script and activation E2E). These pre-existing changes were preserved and reviewed, rather than attributed to this session. The original workspace remains on integration/chat-notebook-20261014 at a1a2053 with its own modified memory, untouched. Fetch again confirmed origin/main at100492b. The earlier clean-branch record below belongs to the preceding integration checkpoint. A snapshot of received paths/hashes (also including the subsequent generated next-env change) is private at activation/working-tree-received.json.
+
+Both pre-existing combination receipt bindings and reviewed HTML hashes were verified. Unit452/452, lint and typecheck passed again. First expanded195-case functional run is retained in continuation/activation-verified-20261015.log and its JSON report. It exposed obsolete Equipment Portal assertions requiring the now-approved common sword to remain unavailable; update those assertions to positively verify the exact approved overlay. This is a test-contract change required by the authorized activation, with fallback/animation/persistence assertions retained. QA/Security remain self-review, not independent.
+
+## Authorized integration and release — 2026-10-15
+
+The latest user continuation supersedes the earlier no-runtime/no-push checkpoint only for armor_traveler_uncommon_male_v2, sword_path_common_female_v2 and sword_path_common_male_v2 at the exact supplied SHA/Avatar identities. Preserve the existing female uncommon armor asset, receipt and exact-Avatar fallback. Main agent assumes Frontend, QA, Security and DevOps profiles; scoped ownership includes resolver/registry, explicit production allowlist, relevant tests/scripts, public copies of these three exact approved PNGs, evidence/docs/memory and normal Git/Vercel release. No new items, stats, saves, HD/source edits, Supabase or remote protection changes. Other art stays inactive and independently pending; partial historical RCA remains documented. Individual approval does not certify a new visual combination. Validate actual pairs and block any materially defective combination pending correction and specific human approval. Required release gates: receipt/hash/PNG/alpha/catalog/FIT_PASS, exact scoped resolver/fallback, whole-body pairs/mobile UX, full TASK75 suite/unit/login/chat regression/lint/types/build/media/secrets, then normal push/safe main integration and one automatic Vercel production deployment with exact SHA/READY and post-release evidence. No physical POCO acceptance inferred.
+
+Initial Git: clean feat/body-fit-final-review-0075 at 7b2b989557653d1edeb4f9ee4914a201f236ccdf; fetch confirms origin/main100492bfa1f93dc49a4122f935544c001dcd96cb with no new remote commits. Three unpublished local commits preserved. Other worktrees remain untouched.
 
 ## Final continuation checkpoint — 2026-10-15
 

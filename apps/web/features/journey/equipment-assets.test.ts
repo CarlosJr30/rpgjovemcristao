@@ -73,7 +73,7 @@ describe('equipment visual contract', () => {
 
   it('preserves V1 for UI/archive while rejected art stays off both bodies', () => {
     for (const [id, entry] of Object.entries(EQUIPMENT_ASSET_MANIFEST)) {
-      if (id !== 'traveler-armor-uncommon') {
+      if (!['traveler-armor-uncommon', 'traveler-sword-common'].includes(id)) {
         expect(entry.visualQuality).toBe('NEEDS_NEW_OVERLAY');
         expect(entry.overlayMode).toBe('cropped');
         expect(entry.iconAssetHighQuality).toEqual(entry.overlayAsset);

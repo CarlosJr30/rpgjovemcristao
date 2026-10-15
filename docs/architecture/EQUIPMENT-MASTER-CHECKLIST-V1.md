@@ -1,6 +1,21 @@
 # Equipment Master Checklist V1
 
-## TASK-0075 — continuação final / execução funcional PASS, ativação BLOCKED
+## TASK-0075 — aceite local PASS / DEPLOY_PENDING (15/10/2026)
+
+Escopo atual: Couraça incomum masculina e duas Espadas comuns, nos três hashes e dois Avatares exatos de TASK-0075-ACTIVATION-SCOPE.json. Couraça feminina anterior/receipt/HD/fallback preservados. Quatro PNGs/recibos/FIT_PASS e dois pares do recibo humano preexistente conferem.452unit, lint, types e build PASS; suite funcional final ampliada185PASS/0FAIL/10skips previstos em195casos, exit0. Diagnósticos interrompidos do Portal registrados, sem atribuir defeito runtime. Próximo: publicação normal e QA pública. Relatório: [TASK-0075-ACTIVATION-REPORT.md](TASK-0075-ACTIVATION-REPORT.md).
+
+- [x] Correspondência exata item/gênero/Avatar/SHA e FIT_PASS.
+- [x] Couraça feminina preservada e fallback seguro.
+- [x] Comparação de pares, cintura/bainha/cinto/braço e corpo inteiro.
+- [x] Unit/lint/typecheck/build/mídia/segurança local.
+- [x] Rodada E2E completa final aprovada:185PASS/0FAIL/10skips previstos, exit0;14falhas antigas PASS. Aceite em activation/local-acceptance.json.
+- [ ] Commit/push/main seguro e Vercel READY/SHA confirmado.
+- [ ] Equipamentos/rotas/fallback/mídia privada verificados em produção.
+- [ ] POCO X7 físico: PHYSICAL_QA_PENDING.
+
+Elmos feminino02/masculino03 aguardam aprovação específica. Botas continuam REWORK; prova de superfície não é FIT_PASS/arte final. Demais candidatos e definições raras arquivadas continuam inativos. Histórico abaixo preservado.
+
+## TASK-0075 — continuação anterior / execução funcional PASS, ativação BLOCKED
 
 158E2E PASS/0FAIL/10skips, exit0;14casos antigos agora PASS.447unit/68arquivos/lint/types/build PASS. RCA parcial: duas corridas de preparação Arena observadas/corrigidas no harness; mobile com mesma assinatura sem causa completa do destino isolada;11timeouts desktop não reproduzidos/causa exata não confirmada. Config controla servidor; Node runner retém exit real/logs. Sem aumento de timeout, filtro de erro ou remoção de asserções.
 

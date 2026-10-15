@@ -11,20 +11,28 @@ const root = fileURLToPath(new URL('..', import.meta.url));
 const run = process.argv[2];
 assert(run && /^[a-z0-9-]+$/.test(run), 'Supply a unique run name');
 const pinned = process.argv.includes('--pinned');
+const production = process.argv.includes('--production');
 const dir = path.join(
   root,
   'build/task-0075-body-fit-final-review/continuation',
 );
 await mkdir(dir, { recursive: true });
-const cases = [
-  'equipment-body-fit-v3',
-  'equipment-portal',
-  'attributes',
-  'home',
-  'arena-v2',
-  'gameplay-exploration',
-  'mobile-game-mode',
-].map((n) => `tests/e2e/${n}.spec.ts`);
+const cases = (
+  production
+    ? ['equipment-body-fit-activation', 'supabase-auth', 'mobile-game-mode']
+    : [
+        'equipment-body-fit-v3',
+        'equipment-portal',
+        'attributes',
+        'home',
+        'arena-v2',
+        'gameplay-exploration',
+        'mobile-game-mode',
+        ...(process.argv.includes('--activation')
+          ? ['equipment-body-fit-activation', 'supabase-auth']
+          : []),
+      ]
+).map((n) => `tests/e2e/${n}.spec.ts`);
 const args = [
   'node_modules/@playwright/test/cli.js',
   'test',
@@ -48,6 +56,9 @@ const child = spawn(process.execPath, args, {
   env: {
     ...process.env,
     BODY_FIT_QA_RUN: run,
+    ...(production
+      ? { BODY_FIT_QA_URL: 'https://rpgjovemcristao-web-inky.vercel.app' }
+      : { BODY_FIT_QA_URL: 'http://127.0.0.1:3175' }),
     ...(pinned
       ? { BODY_FIT_PINNED_DESKTOP: '1' }
       : { BODY_FIT_PINNED_DESKTOP: '0' }),
@@ -81,6 +92,7 @@ const receipt = {
   startedAt,
   finishedAt: new Date().toISOString(),
   pinned,
+  production,
   ...outcome,
   args,
   sources,

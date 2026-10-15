@@ -4,6 +4,7 @@ import { createHash } from 'node:crypto';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { build } from 'esbuild';
+import { inspectPng } from './body-fit-batch-bake.mjs';
 const root = fileURLToPath(new URL('..', import.meta.url));
 const read = (p) => readFile(path.join(root, p));
 const json = async (p) => JSON.parse(await read(p));
@@ -20,7 +21,10 @@ const bundle = await build({
   format: 'esm',
   write: false,
 });
-const { APPROVED_BODY_FIT_V3: approved } = await import(
+const {
+  APPROVED_BODY_FIT_V3: approved,
+  APPROVED_BODY_FIT_V3_ASSETS: registry,
+} = await import(
   'data:text/javascript;base64,' +
     Buffer.from(bundle.outputFiles[0].text).toString('base64')
 );
@@ -70,10 +74,75 @@ assert.equal(
   approved.assetSha256,
 );
 assert.equal(target.technical, 'FIT_PASS');
+const decisions = await json(
+  'docs/architecture/TASK-0075-HUMAN-VISUAL-DECISIONS.json',
+);
+const release = await json('docs/architecture/TASK-0075-ACTIVATION-SCOPE.json');
+assert.equal(release.task, 'TASK-0075');
+assert.equal(release.assets.length, 3);
+assert.equal(registry.length, 4);
+assert.equal(new Set(registry.map((a) => a.targetId)).size, 4);
+assert.deepEqual(registry[0], approved);
+const publicAssets = new Map();
+for (const a of registry) {
+  const t = history.targets.find((t) => t.id === a.targetId);
+  assert(t && t.registered && t.technical === 'FIT_PASS');
+  assert.equal(a.itemId, t.itemId);
+  assert.equal(a.gender, t.gender);
+  assert.equal(a.assetSha256, t.sha256);
+  assert.equal('apps/web/public' + a.avatarSource, t.avatar);
+  assert.equal(hash(await read(t.avatar)), a.avatarSha256);
+  assert.equal(hash(await read(t.staging)), a.assetSha256);
+  const publicPath = 'apps/web/public' + a.asset;
+  assert.equal(hash(await read(publicPath)), a.assetSha256);
+  assert.deepEqual(a.sourceSize, { width: 1024, height: 1536 });
+  const png = await inspectPng(await read(publicPath));
+  assert.equal(png.hasAlpha, true);
+  if (a.targetId !== approved.targetId) {
+    const scope = release.assets.find((s) => s.id === a.targetId);
+    const decision = decisions.decisions.find((d) => d.id === a.targetId);
+    assert(scope && decision && decision.decision === 'VISUALLY_APPROVED');
+    assert.equal(a.approvalId, 'TASK-0075-HUMAN-VISUAL-DECISIONS');
+    for (const bound of [scope, decision]) {
+      assert.equal(bound.sha256, a.assetSha256);
+      assert.equal(bound.itemId, a.itemId);
+      assert.equal(bound.gender, a.gender);
+      assert.equal(bound.asset, t.staging);
+      assert.equal(bound.avatar.path, t.avatar);
+      assert.equal(bound.avatar.sha256, a.avatarSha256);
+      assert.equal(hash(await read(t.source)), bound.sourceSha256);
+    }
+    assert.equal(scope.publicAsset, a.asset);
+    assert.equal(hash(await read(scope.fitReport)), scope.fitReportSha256);
+    const fit = await json(scope.fitReport);
+    assert.equal(fit.status, 'FIT_PASS');
+    assert.equal(fit.outputSha256 ?? fit.output?.sha256, a.assetSha256);
+    assert.equal(decision.technicalAtReview, 'FIT_PASS');
+  }
+  publicAssets.set(a.assetSha256, publicPath);
+}
+const combinations = await json(
+  'docs/architecture/TASK-0075-HUMAN-COMBINATION-APPROVAL.json',
+);
+assert.equal(combinations.task, 'TASK-0075');
+assert.equal(combinations.userStatement, 'Aprovo as duas combinações');
+assert.equal(combinations.pairs.length, 2);
+for (const gender of ['female', 'male']) {
+  const pair = combinations.pairs.find((p) => p.gender === gender);
+  assert(pair && pair.decision === 'VISUALLY_APPROVED');
+  const assets = registry.filter((a) => a.gender === gender);
+  assert.equal(assets.length, 2);
+  assert.deepEqual(
+    pair.assets,
+    assets.map((a) => ({ id: a.targetId, sha256: a.assetSha256 })),
+  );
+  assert.equal(pair.avatar.path, 'apps/web/public' + assets[0].avatarSource);
+  assert.equal(pair.avatar.sha256, assets[0].avatarSha256);
+}
 const privateHashes = new Set();
 for (const t of history.targets) {
   privateHashes.add(t.sourceSha256);
-  if (t.id !== approved.targetId) privateHashes.add(t.sha256);
+  if (!registry.some((a) => a.targetId === t.id)) privateHashes.add(t.sha256);
 }
 async function* files(dir) {
   for (const e of await readdir(path.join(root, dir), {
@@ -101,14 +170,14 @@ for (const dir of dirs)
       !privateHashes.has(sha),
       'Unapproved body-fit art in distributable file: ' + p,
     );
-    if (sha === approved.assetSha256)
+    if (publicAssets.has(sha))
       assert.equal(
         p,
-        'apps/web/public' + approved.asset,
+        publicAssets.get(sha),
         'Approved asset copied into unexpected public path',
       );
     assert(
-      !/task-0074.*review|assets-source|body-fit-v3-review\.html/i.test(p),
+      !/task-007[45].*review|assets-source|body-fit-v3-review\.html/i.test(p),
       'Private gallery/source path published: ' + p,
     );
     if (/\.(?:html|js|json|txt)$/.test(p))
@@ -122,7 +191,7 @@ console.log(
   JSON.stringify({
     gate: 'BODY_FIT_V3_PRODUCTION',
     pass: true,
-    exactApprovedRuntimeAssets: 1,
+    exactApprovedRuntimeAssets: registry.length,
     checked,
     pendingAssetsPublished: 0,
   }),

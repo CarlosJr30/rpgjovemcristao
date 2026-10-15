@@ -103,17 +103,21 @@ describe('physical V1 overlay package', () => {
       for (const id of Object.keys(EQUIPMENT_ASSET_MANIFEST)) {
         const definition = resolveEquipmentDefinition(id)!;
         expect(definition.visualQuality).toBe(
-          id === 'traveler-armor-uncommon' ? 'READY' : 'NEEDS_NEW_OVERLAY',
+          ['traveler-armor-uncommon', 'traveler-sword-common'].includes(id)
+            ? 'READY'
+            : 'NEEDS_NEW_OVERLAY',
         );
         expect(resolveEquipmentVisual(definition, body).layers).toEqual([]);
         for (const piece of [
           definition,
           ...(definition.additionalOverlays ?? []),
         ]) {
-          const source =
-            id === 'traveler-armor-uncommon'
-              ? definition.iconAssetHighQuality!
-              : piece.overlayAsset!;
+          const source = [
+            'traveler-armor-uncommon',
+            'traveler-sword-common',
+          ].includes(id)
+            ? definition.iconAssetHighQuality!
+            : piece.overlayAsset!;
           const asset = typeof source === 'string' ? source : source[body]!;
           files.add(asset);
           const name = asset

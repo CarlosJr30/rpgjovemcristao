@@ -5,18 +5,39 @@ import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 import assert from 'node:assert/strict';
 const root = fileURLToPath(new URL('..', import.meta.url));
+const activation = process.argv.includes('--activation');
 const dir = 'build/task-0075-body-fit-final-review',
-  out = path.join(root, dir, 'continuation');
+  out = path.join(root, dir, activation ? 'activation' : 'continuation');
 const read = (p) => readFile(path.join(root, p));
 const json = async (p) =>
   JSON.parse((await read(p)).toString('utf8').replace(/^\uFEFF/, ''));
 const hash = (b) => createHash('sha256').update(b).digest('hex');
 const baseline = await json(dir + '/preservation-before.json');
 const inventory = await json(dir + '/inventory.json');
+const authorized = activation
+  ? (await json('docs/architecture/TASK-0075-ACTIVATION-SCOPE.json')).assets
+  : [];
+const approvedIds = new Set(authorized.map((a) => a.id));
+approvedIds.add('armor_traveler_uncommon_female_v2');
+const scopedCodeChanges = new Set(
+  activation
+    ? [
+        'apps/web/features/journey/data/equipmentAssets.ts',
+        'apps/web/features/journey/data/equipmentBodyFitV3.ts',
+        'apps/web/features/journey/avatar-runtime.test.tsx',
+        'apps/web/features/journey/equipment-assets.test.ts',
+        'apps/web/features/journey/equipment-body-fit-v3.test.tsx',
+        'apps/web/features/journey/equipment-v1-files.test.ts',
+      ]
+    : [],
+);
 const receipt = await json(
   'docs/architecture/TASK-0075-HUMAN-VISUAL-DECISIONS.json',
 );
-assert.equal(hash(await read(dir + '/review/index.html')), receipt.evidence.gallerySha256);
+assert.equal(
+  hash(await read(dir + '/review/index.html')),
+  receipt.evidence.gallerySha256,
+);
 const reviews = await json(dir + '/visual-review.json');
 const protectedChanges = [];
 let protectedChecked = 0;
@@ -30,6 +51,7 @@ for (const [p, expected] of Object.entries(baseline.hashes)) {
     p.includes('BAKED-ASSET-MANIFEST') ||
     p === 'package-lock.json'
   ) {
+    if (scopedCodeChanges.has(p)) continue;
     protectedChecked++;
     if (hash(await read(p)) !== expected) protectedChanges.push(p);
   }
@@ -57,7 +79,7 @@ for (const t of inventory.targets) {
   assert.equal(d.itemId, t.itemId);
   assert.equal(d.gender, t.gender);
   privateHashes.add(t.sourceSha256);
-  if (!t.runtime) privateHashes.add(t.sha256);
+  if (!approvedIds.has(t.id)) privateHashes.add(t.sha256);
   const technicalConcern =
     reviews.targets.find((r) => r.id === t.id)?.visualResult === 'NEEDS_REWORK';
   const fitEligible =
@@ -74,8 +96,10 @@ for (const t of inventory.targets) {
     visualDecision: d.decision,
     historicalTechnical: t.technical,
     assetEligibleForIntegrationReview: fitEligible,
-    currentRuntimeEligible: t.integrationEligible,
-    currentRuntimeActive: t.runtime,
+    currentRuntimeEligible: activation
+      ? approvedIds.has(t.id) && fitEligible
+      : t.integrationEligible,
+    currentRuntimeActive: activation ? approvedIds.has(t.id) : t.runtime,
     reason: !t.registered
       ? 'ARCHIVED_NO_PLAYABLE_CATALOG_ITEM'
       : d.decision === 'CORRECTION_REQUESTED'
@@ -84,7 +108,7 @@ for (const t of inventory.targets) {
           ? 'TECHNICAL_FIT_NOT_PASSED'
           : technicalConcern
             ? 'SHIELD_FIXATION_REVIEW_STILL_OPEN'
-            : t.runtime
+            : (activation ? approvedIds.has(t.id) : t.runtime)
               ? 'EXACT_APPROVED_SCOPE_ALREADY_ACTIVE'
               : 'EXISTING_FIT_PASS_AND_EXACT_VISUAL_APPROVAL_VERIFIED_INTEGRATION_NOT_ACTIVATED',
   });
@@ -175,11 +199,14 @@ const result = {
   trackedEnvs,
   findings,
   remoteCalls: 0,
-  runtimeStateChanged: false,
+  runtimeStateChanged: activation,
+  authorizedCodeChangePaths: [...scopedCodeChanges],
   technicalStatesPromoted: 0,
   notes: [
     'Asset integration review eligibility is not permission to activate or publish.',
-    'Historical FIT_PASS states and production resolver remain unchanged.',
+    activation
+      ? 'Historical FIT_PASS unchanged; three exact assets added locally under explicit release authorization. Production status requires deployment receipt.'
+      : 'Historical FIT_PASS states and production resolver remain unchanged.',
     'No secret value or environment-file content is recorded.',
   ],
 };

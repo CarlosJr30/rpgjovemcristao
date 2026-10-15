@@ -1,0 +1,52 @@
+{
+  "task": "TASK-0075",
+  "reviewer": "Carlos (user in this conversation)",
+  "recordedOn": "2026-10-15",
+  "userStatement": "Aprovo as duas combinações",
+  "scope": "Only these exact armor+sword pairs on the exact HD Avatars. Conditional on mandatory technical release gates. No other item or combination approval.",
+  "pairs": [
+    {
+      "gender": "female",
+      "assets": [
+        {
+          "id": "armor_traveler_uncommon_female_v2",
+          "sha256": "ebee2f026c2dd6aac6b47850c8412f243cdc20c51a36d6f91e2d6cf3b46c20cb"
+        },
+        {
+          "id": "sword_path_common_female_v2",
+          "sha256": "735000c62ddaee5214cfb895deae17685a1f2e1c0c642f3557e09879d90524f2"
+        }
+      ],
+      "avatar": {
+        "id": "female_short_moss_medium",
+        "path": "apps/web/public/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+        "sha256": "f260cb9b053b35c328025f1bc7ee602cbb30e57c71ba1f2238a4b1519685f460"
+      },
+      "reviewedFile": "build/task-0075-body-fit-final-review/activation/female-pair.html",
+      "reviewedFileSha256": "3fe28cfc31ac6f7b7e968e0168954a6be8e5069db75ba14dd4c26c515953d2d3",
+      "decision": "VISUALLY_APPROVED"
+    },
+    {
+      "gender": "male",
+      "assets": [
+        {
+          "id": "armor_traveler_uncommon_male_v2",
+          "sha256": "8ece1c5d4daad2b4b7b0a6d673eb3ad6e2d16a9bcc888082ee33a2bd71c928c2"
+        },
+        {
+          "id": "sword_path_common_male_v2",
+          "sha256": "73e29fafd9adec500978eae7bb35eca05e8b79d946862b98704f40e95964aec4"
+        }
+      ],
+      "avatar": {
+        "id": "male_short_moss_medium",
+        "path": "apps/web/public/assets/avatar/hd/male/male_short_moss_medium_hd.png",
+        "sha256": "b182c2e29b512b337891716a413ab7efaad737e23c6354779fae17fe19b8af34"
+      },
+      "reviewedFile": "build/task-0075-body-fit-final-review/activation/male-pair.html",
+      "reviewedFileSha256": "2bed28a9f083d137ac7dbcf33e4f963c0092a576041e235ca311693a9ed1bcc2",
+      "decision": "VISUALLY_APPROVED"
+    }
+  ],
+  "physicalQAApproved": false
+}
