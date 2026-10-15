@@ -1,5 +1,11 @@
 # Equipment Master Checklist V1
 
+## TASK-0075 — decisões humanas recebidas / correções privadas
+
+Carlos aprovou visualmente 12 versões originais e solicitou correção dos dois elmos e das duas botas. Recibo exato: TASK-0075-HUMAN-VISUAL-DECISIONS.json. As tabelas históricas abaixo mantêm os estados do checkpoint anterior; o recibo atualiza somente a decisão visual humana, sem promover status técnico, staging ou runtime. Aprovação feminina anterior preservada. Quatro experimentos antigos de escudo não foram aprovados.
+
+13 novas tentativas privadas: elmo feminino02 e masculino03 preparados para nova avaliação humana (masculino requer conferir margem das sobrancelhas); ambas as botas permanecem REWORK. Zero novo FIT_PASS/ativação. Galeria8076/12checks Edge+WebKit PASS; 16 originais/source/Avatar hashes conferidos. Gate funcional anterior144PASS/14FAIL/10skips permanece FAIL, sem nova execução nem publicação nesta etapa.
+
 ## TASK-0075 — revisão final privada / BLOCKED
 
 15/10/2026: base pública 100492b. Os 16 originais e 54 HD foram revalidados: 8 FIT_PASS históricos, 1 NEEDS_REWORK, 7 NEEDS_NEW_ART, uma aprovação humana anterior e sete pendentes. A única Couraça feminina aprovada já está ativa no Avatar exato; a descrição antiga de staging abaixo é histórica.

@@ -1,0 +1,302 @@
+{
+  "task": "TASK-0075",
+  "recordedAt": "2026-10-15T03:52:50.796Z",
+  "reviewer": "Carlos (user in this conversation)",
+  "evidence": {
+    "primaryUserStatement": "Todos aprovados, menos esses em anexo, que ficaram muito grandes; Elmo (Cobrindo a cara do avatar); Botas masculina muito grande",
+    "clarification": "Corrigir as duas botas",
+    "gallerySha256": "43732b5f5e1588187683adb9892314bb2297cdc12c914287356ef9eaf07bbe85"
+  },
+  "scope": "Documentary visual decisions for the 16 ORIGINAL gallery versions and exact Avatar hashes only. No technical promotion, runtime authorization, future derivatives or rejected shield experiments included. Historical female armor approval is preserved.",
+  "runtimeChanges": 0,
+  "decisions": [
+    {
+      "id": "armor_traveler_uncommon_female_v2",
+      "itemId": "traveler-armor-uncommon",
+      "gender": "female",
+      "asset": "build/task-0054-body-fit-bake/pilot/armor_traveler_uncommon_female_v2_baked.png",
+      "sha256": "ebee2f026c2dd6aac6b47850c8412f243cdc20c51a36d6f91e2d6cf3b46c20cb",
+      "sourceSha256": "564e2a4ebeaf51c41fd32dd7dca311dcc6d9c7cb4015d579d4f3b7f9d98714d1",
+      "avatar": {
+        "id": "female_short_moss_medium",
+        "path": "apps/web/public/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+        "sha256": "f260cb9b053b35c328025f1bc7ee602cbb30e57c71ba1f2238a4b1519685f460"
+      },
+      "decision": "VISUALLY_APPROVED",
+      "technicalAtReview": "FIT_PASS",
+      "technicalPromotion": false,
+      "existingFemaleReceiptPreserved": true,
+      "note": "Explicit all-except approval of original candidate; technical/integration gates still apply."
+    },
+    {
+      "id": "armor_traveler_uncommon_male_v2",
+      "itemId": "traveler-armor-uncommon",
+      "gender": "male",
+      "asset": "build/task-0055-body-fit-bake/armor_traveler_uncommon_male_v2/armor_traveler_uncommon_male_v2_baked.png",
+      "sha256": "8ece1c5d4daad2b4b7b0a6d673eb3ad6e2d16a9bcc888082ee33a2bd71c928c2",
+      "sourceSha256": "7172c482d49902d1c268a98c3b5339950f7e5340c6c4e0e54bdbea42ffe80b32",
+      "avatar": {
+        "id": "male_short_moss_medium",
+        "path": "apps/web/public/assets/avatar/hd/male/male_short_moss_medium_hd.png",
+        "sha256": "b182c2e29b512b337891716a413ab7efaad737e23c6354779fae17fe19b8af34"
+      },
+      "decision": "VISUALLY_APPROVED",
+      "technicalAtReview": "FIT_PASS",
+      "technicalPromotion": false,
+      "existingFemaleReceiptPreserved": false,
+      "note": "Explicit all-except approval of original candidate; technical/integration gates still apply."
+    },
+    {
+      "id": "armor_traveler_rare_female_v2",
+      "itemId": "traveler-armor-rare",
+      "gender": "female",
+      "asset": "build/task-0055-body-fit-bake/armor_traveler_rare_female_v2/armor_traveler_rare_female_v2_baked.png",
+      "sha256": "58be3d1d95eeab11ac0a38d67f06ad88383d018e3720502d31dada7a9f2fc833",
+      "sourceSha256": "dffb2c8c352f6b4ccd17049479d4d76917cac711c346c9ab685e57ac0434b209",
+      "avatar": {
+        "id": "female_short_moss_medium",
+        "path": "apps/web/public/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+        "sha256": "f260cb9b053b35c328025f1bc7ee602cbb30e57c71ba1f2238a4b1519685f460"
+      },
+      "decision": "VISUALLY_APPROVED",
+      "technicalAtReview": "FIT_PASS",
+      "technicalPromotion": false,
+      "existingFemaleReceiptPreserved": false,
+      "note": "Explicit all-except approval of original candidate; technical/integration gates still apply."
+    },
+    {
+      "id": "armor_traveler_rare_male_v2",
+      "itemId": "traveler-armor-rare",
+      "gender": "male",
+      "asset": "build/task-0055-body-fit-bake/armor_traveler_rare_male_v2/armor_traveler_rare_male_v2_baked.png",
+      "sha256": "cc96ad925b3c298a0e85f2cfeda2f1171130d83f6bd7c71080e1b43c87e7f0dd",
+      "sourceSha256": "fb36c83cce93fc31b4871af4ea9e14597c5f7c5bb5167e2287c0928c96975e0f",
+      "avatar": {
+        "id": "male_short_moss_medium",
+        "path": "apps/web/public/assets/avatar/hd/male/male_short_moss_medium_hd.png",
+        "sha256": "b182c2e29b512b337891716a413ab7efaad737e23c6354779fae17fe19b8af34"
+      },
+      "decision": "VISUALLY_APPROVED",
+      "technicalAtReview": "FIT_PASS",
+      "technicalPromotion": false,
+      "existingFemaleReceiptPreserved": false,
+      "note": "Explicit all-except approval of original candidate; technical/integration gates still apply."
+    },
+    {
+      "id": "helmet_traveler_rare_female_v2",
+      "itemId": "traveler-helmet-rare",
+      "gender": "female",
+      "asset": "build/task-0059-equipment-recovery/recovery/helmet_traveler_rare_female_v2/a-crown-in-canvas/helmet_traveler_rare_female_v2_baked.png",
+      "sha256": "0896335cd7e310538f09f8aa09669146de8ca1334ba102a1932ed34dc78ae9f4",
+      "sourceSha256": "49a8a293aafae600a9e5bb4feddbf17b0a68572b6c8876aaab3ea22d4804d037",
+      "avatar": {
+        "id": "female_short_moss_medium",
+        "path": "apps/web/public/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+        "sha256": "f260cb9b053b35c328025f1bc7ee602cbb30e57c71ba1f2238a4b1519685f460"
+      },
+      "decision": "CORRECTION_REQUESTED",
+      "technicalAtReview": "NEEDS_NEW_ART",
+      "technicalPromotion": false,
+      "existingFemaleReceiptPreserved": false,
+      "note": "Too large; covers face. Keep eyes, eyebrows and facial silhouette unobstructed."
+    },
+    {
+      "id": "helmet_traveler_rare_male_v2",
+      "itemId": "traveler-helmet-rare",
+      "gender": "male",
+      "asset": "build/task-0059-equipment-recovery/recovery/helmet_traveler_rare_male_v2/a-crown-in-canvas/helmet_traveler_rare_male_v2_baked.png",
+      "sha256": "a5ed12e9de23a9ff8b1ea54eba0b9590e82015c947e591274434df8c827049dd",
+      "sourceSha256": "c5e5a15cfeaa19c3ebff002480fa5f0c1b93b914c7c5604cc3b3d51d079590da",
+      "avatar": {
+        "id": "male_short_moss_medium",
+        "path": "apps/web/public/assets/avatar/hd/male/male_short_moss_medium_hd.png",
+        "sha256": "b182c2e29b512b337891716a413ab7efaad737e23c6354779fae17fe19b8af34"
+      },
+      "decision": "CORRECTION_REQUESTED",
+      "technicalAtReview": "NEEDS_NEW_ART",
+      "technicalPromotion": false,
+      "existingFemaleReceiptPreserved": false,
+      "note": "Too large; covers face. Keep eyes, eyebrows and facial silhouette unobstructed."
+    },
+    {
+      "id": "boots_traveler_common_female_v2",
+      "itemId": "traveler-boots",
+      "gender": "female",
+      "asset": "build/task-0059-equipment-recovery/recovery/boots_traveler_common_female_v2/b-localized-footwear-replacement/boots_traveler_common_female_v2_baked.png",
+      "sha256": "81608ac55e9f5594f8a46a754af7ece36130f56c5492ccc48a85de693ff3b51f",
+      "sourceSha256": "dfc523cddaf71075163b30f3d92f80b7c6d723d013ada40d18b70de1dbd52277",
+      "avatar": {
+        "id": "female_short_moss_medium",
+        "path": "apps/web/public/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+        "sha256": "f260cb9b053b35c328025f1bc7ee602cbb30e57c71ba1f2238a4b1519685f460"
+      },
+      "decision": "CORRECTION_REQUESTED",
+      "technicalAtReview": "NEEDS_NEW_ART",
+      "technicalPromotion": false,
+      "existingFemaleReceiptPreserved": false,
+      "note": "Too large; resize/rework BOTH genders against their own unchanged HD anatomy."
+    },
+    {
+      "id": "boots_traveler_common_male_v2",
+      "itemId": "traveler-boots",
+      "gender": "male",
+      "asset": "build/task-0055-body-fit-bake/boots_traveler_common_male_v2/boots_traveler_common_male_v2_baked.png",
+      "sha256": "e0f392c934da8376e9ee4d5b54e31be1de1f2ab65dc3cb102bf8fce17a7c6049",
+      "sourceSha256": "bbfb5cfb3045181340daaedb5bdd87600190af8f11963de72f08ef9608fa8371",
+      "avatar": {
+        "id": "male_short_moss_medium",
+        "path": "apps/web/public/assets/avatar/hd/male/male_short_moss_medium_hd.png",
+        "sha256": "b182c2e29b512b337891716a413ab7efaad737e23c6354779fae17fe19b8af34"
+      },
+      "decision": "CORRECTION_REQUESTED",
+      "technicalAtReview": "NEEDS_REWORK",
+      "technicalPromotion": false,
+      "existingFemaleReceiptPreserved": false,
+      "note": "Too large; resize/rework BOTH genders against their own unchanged HD anatomy."
+    },
+    {
+      "id": "sword_path_common_female_v2",
+      "itemId": "traveler-sword-common",
+      "gender": "female",
+      "asset": "build/task-0058-sword-sheath-pilot/baked/attempt-03/sword_path_common_female_v2_sheathed_baked.png",
+      "sha256": "735000c62ddaee5214cfb895deae17685a1f2e1c0c642f3557e09879d90524f2",
+      "sourceSha256": "03e3edbcf9572fae0cafc46b0a02eda045cbcdfe855dfcdf808e4aa8a5401d29",
+      "avatar": {
+        "id": "female_short_moss_medium",
+        "path": "apps/web/public/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+        "sha256": "f260cb9b053b35c328025f1bc7ee602cbb30e57c71ba1f2238a4b1519685f460"
+      },
+      "decision": "VISUALLY_APPROVED",
+      "technicalAtReview": "FIT_PASS",
+      "technicalPromotion": false,
+      "existingFemaleReceiptPreserved": false,
+      "note": "Explicit all-except approval of original candidate; technical/integration gates still apply."
+    },
+    {
+      "id": "sword_path_common_male_v2",
+      "itemId": "traveler-sword-common",
+      "gender": "male",
+      "asset": "build/task-0059-equipment-recovery/recovery/sword_path_common_male_v2/c-split-suspension-mouth/sword_path_common_male_v2_baked.png",
+      "sha256": "73e29fafd9adec500978eae7bb35eca05e8b79d946862b98704f40e95964aec4",
+      "sourceSha256": "ef4ca354506a7da6a9c80dcbb2b4d5388af7d11bef98fce9a81d8de6b40e8818",
+      "avatar": {
+        "id": "male_short_moss_medium",
+        "path": "apps/web/public/assets/avatar/hd/male/male_short_moss_medium_hd.png",
+        "sha256": "b182c2e29b512b337891716a413ab7efaad737e23c6354779fae17fe19b8af34"
+      },
+      "decision": "VISUALLY_APPROVED",
+      "technicalAtReview": "FIT_PASS",
+      "technicalPromotion": false,
+      "existingFemaleReceiptPreserved": false,
+      "note": "Explicit all-except approval of original candidate; technical/integration gates still apply."
+    },
+    {
+      "id": "sword_path_rare_female_v2",
+      "itemId": "traveler-sword-rare",
+      "gender": "female",
+      "asset": "build/task-0059-equipment-recovery/recovery/sword_path_rare_female_v2/a-local-sheath-adaptation/sword_path_rare_female_v2_baked.png",
+      "sha256": "59040db59c391711ac2e36a0bde481c219958037808f76ab5bd5821da0cc64e6",
+      "sourceSha256": "5b445879d181b54e7a4f22761f63602cce83b15341255df8409d5b6b2f8a6ab8",
+      "avatar": {
+        "id": "female_short_moss_medium",
+        "path": "apps/web/public/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+        "sha256": "f260cb9b053b35c328025f1bc7ee602cbb30e57c71ba1f2238a4b1519685f460"
+      },
+      "decision": "VISUALLY_APPROVED",
+      "technicalAtReview": "NEEDS_NEW_SHEATH_ART",
+      "technicalPromotion": false,
+      "existingFemaleReceiptPreserved": false,
+      "note": "Explicit all-except approval of original candidate; technical/integration gates still apply."
+    },
+    {
+      "id": "sword_path_rare_male_v2",
+      "itemId": "traveler-sword-rare",
+      "gender": "male",
+      "asset": "build/task-0059-equipment-recovery/recovery/sword_path_rare_male_v2/a-local-sheath-adaptation/sword_path_rare_male_v2_baked.png",
+      "sha256": "3af6d9c52cf2e162cb9ab4833828a5738cd5a435d729da2c6ea58af0717a9a89",
+      "sourceSha256": "89676a2f0f5b8ce73e25e6088ff52979115a11a091bbf25ce810b3c8488c96cb",
+      "avatar": {
+        "id": "male_short_moss_medium",
+        "path": "apps/web/public/assets/avatar/hd/male/male_short_moss_medium_hd.png",
+        "sha256": "b182c2e29b512b337891716a413ab7efaad737e23c6354779fae17fe19b8af34"
+      },
+      "decision": "VISUALLY_APPROVED",
+      "technicalAtReview": "NEEDS_NEW_SHEATH_ART",
+      "technicalPromotion": false,
+      "existingFemaleReceiptPreserved": false,
+      "note": "Explicit all-except approval of original candidate; technical/integration gates still apply."
+    },
+    {
+      "id": "shield_perseverance_rare_female_v2",
+      "itemId": "traveler-shield-rare",
+      "gender": "female",
+      "asset": "build/task-0055-body-fit-bake/shield_perseverance_rare_female_v2/shield_perseverance_rare_female_v2_baked.png",
+      "sha256": "1d0392230985f18b22ff043083af121fb9f276d526a3e8ecf4b9c93135dabe02",
+      "sourceSha256": "2722949386d675b27337dfe67a295b7be217dd17881a68a84b84800a0dbeb117",
+      "avatar": {
+        "id": "female_short_moss_medium",
+        "path": "apps/web/public/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+        "sha256": "f260cb9b053b35c328025f1bc7ee602cbb30e57c71ba1f2238a4b1519685f460"
+      },
+      "decision": "VISUALLY_APPROVED",
+      "technicalAtReview": "FIT_PASS",
+      "technicalPromotion": false,
+      "existingFemaleReceiptPreserved": false,
+      "note": "Explicit all-except approval of original candidate; technical/integration gates still apply."
+    },
+    {
+      "id": "shield_perseverance_rare_male_v2",
+      "itemId": "traveler-shield-rare",
+      "gender": "male",
+      "asset": "build/task-0055-body-fit-bake/shield_perseverance_rare_male_v2/shield_perseverance_rare_male_v2_baked.png",
+      "sha256": "bf0785671741851d4e64402984309cfc30ff80313da98cf453b3e3a57b40e2a6",
+      "sourceSha256": "94632b12aeb02547dfd98453f58f7cf40c3d143c1bfcc9b19bae19f75244809d",
+      "avatar": {
+        "id": "male_short_moss_medium",
+        "path": "apps/web/public/assets/avatar/hd/male/male_short_moss_medium_hd.png",
+        "sha256": "b182c2e29b512b337891716a413ab7efaad737e23c6354779fae17fe19b8af34"
+      },
+      "decision": "VISUALLY_APPROVED",
+      "technicalAtReview": "FIT_PASS",
+      "technicalPromotion": false,
+      "existingFemaleReceiptPreserved": false,
+      "note": "Explicit all-except approval of original candidate; technical/integration gates still apply."
+    },
+    {
+      "id": "medallion_path_rare_female_v2",
+      "itemId": "wisdom-amulet",
+      "gender": "female",
+      "asset": "build/task-0059-equipment-recovery/recovery/medallion_path_rare_female_v2/a-chain-behind-scarf/medallion_path_rare_female_v2_baked.png",
+      "sha256": "de79f2e9a09af5c423b591c3eae822e79d37b56fa312f9aa42780e5c0bbd092a",
+      "sourceSha256": "d4b114d305cb89901878a145f4c69745bcfd9c2b7683a7a123158758609e41f7",
+      "avatar": {
+        "id": "female_short_moss_medium",
+        "path": "apps/web/public/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+        "sha256": "f260cb9b053b35c328025f1bc7ee602cbb30e57c71ba1f2238a4b1519685f460"
+      },
+      "decision": "VISUALLY_APPROVED",
+      "technicalAtReview": "NEEDS_NEW_ART",
+      "technicalPromotion": false,
+      "existingFemaleReceiptPreserved": false,
+      "note": "Explicit all-except approval of original candidate; technical/integration gates still apply."
+    },
+    {
+      "id": "medallion_path_rare_male_v2",
+      "itemId": "wisdom-amulet",
+      "gender": "male",
+      "asset": "build/task-0059-equipment-recovery/recovery/medallion_path_rare_male_v2/a-chain-behind-scarf/medallion_path_rare_male_v2_baked.png",
+      "sha256": "381cc1593896cedd300595d690a1b539b90ef8bcb76a4da76f58641e10c547fb",
+      "sourceSha256": "2ef82d3b22ad557019f41529d6c7dcd155c641142f5012ac2dbf7b9bb58a4b8e",
+      "avatar": {
+        "id": "male_short_moss_medium",
+        "path": "apps/web/public/assets/avatar/hd/male/male_short_moss_medium_hd.png",
+        "sha256": "b182c2e29b512b337891716a413ab7efaad737e23c6354779fae17fe19b8af34"
+      },
+      "decision": "VISUALLY_APPROVED",
+      "technicalAtReview": "NEEDS_NEW_ART",
+      "technicalPromotion": false,
+      "existingFemaleReceiptPreserved": false,
+      "note": "Explicit all-except approval of original candidate; technical/integration gates still apply."
+    }
+  ]
+}

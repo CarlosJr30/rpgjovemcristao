@@ -5,7 +5,7 @@ OBJECTIVE: Reuse TASK-0074 evidence, investigate seven pending candidates, produ
 PRIORITY: P1 High
 STATUS: BLOCKED
 AUDIT_STATUS: COMPLETE_WITH_DEFECTS
-ACCEPTANCE_STATUS: HUMAN_REVIEW_PENDING_AND_REWORK_REQUIRED
+ACCEPTANCE_STATUS: ORIGINAL_VISUAL_DECISIONS_RECORDED_DERIVATIVES_AND_FUNCTIONAL_GATES_PENDING
 BASE: 100492bfa1f93dc49a4122f935544c001dcd96cb (origin/main)
 DEPENDENCIES: TASK-0074; explicit human approval of each exact hash/Avatar before activation.
 ASSIGNED_AGENT: Main agent assuming Frontend, QA and Security profiles; no independent review claimed.
@@ -43,4 +43,12 @@ DEFINITION_OF_DONE: Authorized local work complete, evidence delivered, applicab
 
 ## Acceptance and next step
 
-Five exact originals are prepared for human visual review, including two archived rare armors for documentary review only. All seven human decisions remain pending. Two shields require rework, and the functional E2E gate is FAIL. Do not mark DONE or activate any pending candidate. Resolve the visual/functional defects and obtain exact human decisions before activation. No push or deployment for this private review/tooling/documentation checkpoint.
+### Human feedback received — 2026-10-15
+
+Carlos explicitly approved all original candidates except the two helmets and both pairs of boots; the follow-up answer confirms that female boots also require correction. Record a separate documentary receipt bound to the 16 original hashes and their exact reference Avatars. Twelve original visual decisions are APPROVED (including the already-approved female armor, whose historical receipt remains untouched); four are CORRECTION_REQUESTED. Approval applies to original gallery candidates, never to the four rejected shield experiments or any future derivative. Technical findings and production eligibility remain separate and unchanged.
+
+Authorized follow-up scope: create four non-destructive private imagegen derivatives for helmet_traveler_rare_female_v2, helmet_traveler_rare_male_v2, boots_traveler_common_female_v2 and boots_traveler_common_male_v2; inspect transparency, scale and registration on each unchanged HD Avatar, provide a separate private comparison and exact hashes. No runtime activation or remote changes. Main agent assumes scoped Frontend/QA ownership of scripts, private art, documentary receipt and gallery. New versions require a new human decision; the existing functional E2E failures remain blockers.
+
+Current human decisions supersede the initial pending state above: 12 original versions visually approved, including the preserved historical female armor; both helmets and both boots require correction. Receipt: docs/architecture/TASK-0075-HUMAN-VISUAL-DECISIONS.json. This is visual acceptance only; technical findings, archived definitions and runtime gates remain separate. No rejected shield experiment is approved. Four targets have 13 private generated attempts: two exact helmet derivatives are prepared for human review, while both boots remain NEEDS_REWORK due to alignment/silhouette/duplicate footwear. The male helmet has 105 pixels in a conservative facial rectangle; visual inspection shows eyes clear but brow clearance still requires human judgment. New derivatives inherit no approval. Functional E2E gate remains FAIL. Do not mark DONE or activate candidates. No push or deployment for this private checkpoint.
+
+Follow-up QA: 16 original/source/Avatar hash bindings reverified; all 13 new PNGs CRC/decode/RGBA1024x1536 inspected. Comparison gallery: 12 Edge/WebKit viewport cases PASS, 38 decoded images per viewport, navigation/zoom/no overflow, zero remote requests/storage writes/decision clicks; four private path denials PASS. Initial 2px horizontal overflow corrected by wrapping long identifiers. Gallery: http://127.0.0.1:8076/ (only loopback) or build/task-0075-body-fit-final-review/size-rework/review.html. Original gallery and ZIP remain historical, unchanged. Prompts: tools/equipment-body-fit-size-rework-prompts.json. Runtime unchanged; prior failed E2E remains authoritative, not rerun or claimed fixed. Review by main agent, not independent.

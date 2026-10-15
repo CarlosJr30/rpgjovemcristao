@@ -1,7 +1,11 @@
 import { createServer } from 'node:http';
 import { readFile } from 'node:fs/promises';
+const sizeRework = process.argv.includes('--size-rework');
+const port = sizeRework ? 8076 : 8075;
 const file = new URL(
-  '../build/task-0075-body-fit-final-review/review/index.html',
+  sizeRework
+    ? '../build/task-0075-body-fit-final-review/size-rework/review.html'
+    : '../build/task-0075-body-fit-final-review/review/index.html',
   import.meta.url,
 );
 await readFile(file);
@@ -25,8 +29,8 @@ createServer(async (req, res) => {
     res.writeHead(503);
     res.end('Galeria temporariamente indisponivel.');
   }
-}).listen(8075, '127.0.0.1', () =>
+}).listen(port, '127.0.0.1', () =>
   console.log(
-    'TASK-0075 PRIVATE review: http://127.0.0.1:8075/ (loopback only, one HTML, no other files served)',
+    `TASK-0075 PRIVATE review: http://127.0.0.1:${port}/ (loopback only, one HTML, no other files served)`,
   ),
 );

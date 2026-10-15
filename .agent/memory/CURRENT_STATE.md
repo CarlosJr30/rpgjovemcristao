@@ -1,3 +1,9 @@
+## 2026-10-15 — TASK-0075 / ORIGINAL_VISUAL_DECISIONS_RECORDED
+
+Carlos aprovou visualmente 12 originais, exceto dois elmos e ambas as botas (confirmação explícita para botas femininas). Recibo por hash/Avatar: D:/rpg-jovem-cristao-task-0075/docs/architecture/TASK-0075-HUMAN-VISUAL-DECISIONS.json; fonte feminina anterior intacta. Aprovação não inclui derivados/experimentos, promoção técnica ou ativação. Galeria e ZIP anteriores são históricos.
+
+13 novas tentativas privadas via imagegen, originais/HD preservados: elmo feminino02 e masculino03 preparados para revisão humana; masculino exige conferir folga das sobrancelhas (105pixels no retângulo facial conservador, olhos livres na inspeção). Ambas as botas seguem REWORK por contorno/posição/solas duplicadas; não declarar corrigidas. Nova comparação http://127.0.0.1:8076/, arquivo build/task-0075-body-fit-final-review/size-rework/review.html; manifest.json e inspection.json no mesmo diretório. 12 casos Edge/WebKit PASS,38imagens/caso, navegação/zoom/sem overflow/zero decisões/requests remotos;13PNG RGBA1024x1536 e16bindings originais conferidos. Sem código runtime/DB/Supabase/push/deploy alterado. E2E anterior144PASS/14FAIL/10skips continua bloqueando publicação. Próximo: revisão dos novos elmos, ajuste preciso das botas e resolver gate funcional. TASK75 não DONE.
+
 ## 2026-10-15 — TASK-0075 / BLOCKED / HUMAN_REVIEW_AND_REWORK
 
 Revisão isolada em D:/rpg-jovem-cristao-task-0075, branch feat/body-fit-final-review-0075, base pública100492b. Reutiliza TASK74; preserva54HD/16fontes/16bakes/recibos e todo código runtime/câmera/swipe/engine/auth/chat/DB/saves.16originais:8FIT_PASS históricos/7pendentes humanos/1aprovação anterior válida e ativa somente no Avatar feminino exato;1REWORK/7NEW_ART. Nenhuma aprovação humana nova.

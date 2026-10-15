@@ -1,5 +1,9 @@
 # TASK-0075 — índice da revisão privada
 
+Atualização após resposta humana: **12 originais aprovados visualmente; dois elmos e ambas as botas com correção solicitada**. Recibo documental por hash/Avatar em TASK-0075-HUMAN-VISUAL-DECISIONS.json; aprovação feminina anterior intacta. As seções seguintes descrevem o checkpoint anterior, preservado como histórico, e não anulam essa decisão.
+
+Nova comparação privada em http://127.0.0.1:8076/ ou build/task-0075-body-fit-final-review/size-rework/review.html; iniciar com `node scripts/equipment-body-fit-final-serve.mjs --size-rework`. Treze tentativas preservadas e hashes/inspeção em size-rework/manifest.json e inspection.json. Elmos feminino02 e masculino03 preparados para revisão humana; 105 pixels do masculino intersectam o retângulo facial conservador, sem olhos encobertos na inspeção visual, exigindo conferir a folga sobre as sobrancelhas. Botas continuam REWORK por contorno/posição/duplicação de calçado. Não são novas versões FIT_PASS. Prompts exatos em tools/equipment-body-fit-size-rework-prompts.json. Galeria passou 12 combinações Edge/WebKit/tamanho, 38 imagens por caso, sem imagens quebradas, rolagem horizontal ou decisões automáticas. Nenhum runtime/Avatar original/Supabase/deploy alterado. Testes funcionais anteriores ainda bloqueiam publicação.
+
 Estado: BLOCKED. Cinco candidatos para avaliação humana; dois escudos em rework. Nenhuma aprovação ou ativação humana inferida. Base pública 100492bfa1f93dc49a4122f935544c001dcd96cb.
 
 As fontes, bakes e recibos da TASK-0074 foram reutilizados. Arte de couraças e espadas preservada; quatro alternativas de fixação dos escudos foram geradas com built-in imagegen e reprovaram a inspeção. Prompts exatos em tools/equipment-body-fit-final-prompts.json; PNGs somente em build/task-0075-body-fit-final-review/alternatives/. Não há fonte experimental no build público.
