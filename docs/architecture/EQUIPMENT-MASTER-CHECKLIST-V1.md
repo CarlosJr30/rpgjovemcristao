@@ -1,5 +1,15 @@
 # Equipment Master Checklist V1
 
+## TASK-0075 — revisão final privada / BLOCKED
+
+15/10/2026: base pública 100492b. Os 16 originais e 54 HD foram revalidados: 8 FIT_PASS históricos, 1 NEEDS_REWORK, 7 NEEDS_NEW_ART, uma aprovação humana anterior e sete pendentes. A única Couraça feminina aprovada já está ativa no Avatar exato; a descrição antiga de staging abaixo é histórica.
+
+Couraça incomum masculina, duas espadas comuns e duas couraças raras arquivadas mantidas sem alteração de arte: cinco para revisão humana. Dois escudos exigem rework visual de fixação; quatro experimentos de correia falharam e continuam privados, sem novo FIT_PASS. Não ativar essas artes nem criar itens raros arquivados.
+
+Nova galeria privada: D:/rpg-jovem-cristao-task-0075/build/task-0075-body-fit-final-review/review/index.html, ou http://127.0.0.1:8075/ neste computador. Contém hashes/Avatar, antes/depois/zoom e três camadas compatíveis por Avatar, com Aprovar bloqueado nos casos com defeitos. Zero decisão humana automatizada.
+
+22 verificações de galeria e 24 montagens de trios/104 capturas concluídas. Unidade, build, mídia e segurança possuem evidências em qa-summary.json; consultar o resultado final E2E: recarga desktop apresentou timeouts em Edge e Chrome e a causa raiz não foi demonstrada. Não presumir gates completos nem publicar por este checkpoint. ZIP/relatório final ficam na mesma pasta privada. Nenhum push/deploy apenas documental; produção anterior permanece READY no SHA 100492b.
+
 ## TASK-0074 — auditoria atual / REVIEW_READY
 
 14/10/2026:16targets/54HD/6itens revalidados por SHA físico,8FIT_PASS/1NEEDS_REWORK/7NEEDS_NEW_ART;1aprovação humana antiga válida/7pendentes. Nenhuma decisão humana nova. Fonte original, bake e receipt da Couraça feminina permanecem intactos.

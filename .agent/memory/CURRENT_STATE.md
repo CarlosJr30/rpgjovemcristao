@@ -1,3 +1,15 @@
+## 2026-10-15 — TASK-0075 / BLOCKED / HUMAN_REVIEW_AND_REWORK
+
+Revisão isolada em D:/rpg-jovem-cristao-task-0075, branch feat/body-fit-final-review-0075, base pública100492b. Reutiliza TASK74; preserva54HD/16fontes/16bakes/recibos e todo código runtime/câmera/swipe/engine/auth/chat/DB/saves.16originais:8FIT_PASS históricos/7pendentes humanos/1aprovação anterior válida e ativa somente no Avatar feminino exato;1REWORK/7NEW_ART. Nenhuma aprovação humana nova.
+
+Couraça incomum masculina, duas espadas e duas couraças raras arquivadas mantidas sem alteração de arte:5para revisão humana. Dois escudos em REWORK visual de fixação.4experimentos imagegen privados reprovados tecnicamente;0novoFIT_PASS. Galeria privada mobile com hashes/Avatar/antes-depois/zoom/trios e decisões por hash, sem escrita automática.22checks de galeria PASS;24montagens/104capturas de trios+43capturas individuais selecionadas.
+
+447unit/68arquivos, lint/types/build/mídia/segurança PASS. E2E final completo:144PASS/14FAIL/10skips em168casos.11falhas desktop de navegação/recarga e3WebKit de prefetch/access-control/navegação; causa raiz não demonstrada, rechecks separados não substituem a rodada completa. Contornos de captura/recarga descartados; apenas correção de harness Arena por teclado retida. Gate funcional e aceite global NÃO aprovados.
+
+Artefatos/ZIP/relatórios em build/task-0075-body-fit-final-review dentro do worktree; hashes e integridade em review-package/SHA256.json e package-inspection.json. Galeria: http://127.0.0.1:8075/ neste computador, ou review/index.html offline. Aprovar bloqueado nos escudos/experimentos com defeitos;0decisões clicadas pelos testes. Não publicar galeria/arte pendente, não criar itens raros arquivados.
+
+Produção anterior permanece100492bfa1f93dc49a4122f935544c001dcd96cb / dpl_B6HAwZUACcR7zsD6cVF7X21jiBHt READY, consulta GET renovada.7rotas200/8áudios404/8fontes404/5DEV404/56privados404. Sem push/deploy só documental/privado; sem Supabase ou política remota alterada. Chat preservado/bundle presente; aceite real duas contas da TASK72B e POCO físico não comprovados. Próximo: decisões humanas exatas dos5prontos, rework dos2escudos e resolução/revalidação das14falhas E2E; não DONE.
+
 ## 2026-10-14 — TASK-0074 EQUIPMENT_BODY_FIT_V3 / REVIEW_READY / RELEASE_VALIDATING
 
 Worktree isolado D:/rpg-jovem-cristao-task-0074 / feat/equipment-body-fit-v3-0074, main9c709c93ec94af998b9cb05030db8ce405637fec da TASK0073 já publicada READY. Original55bae817/trabalho0072 e encerramento local0073 preservados; entradas anteriores abaixo são checkpoints históricos.

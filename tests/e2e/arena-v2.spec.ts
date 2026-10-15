@@ -187,7 +187,9 @@ test('V2 nível 1: três escolhas, locks, Defesa útil e save antigo sem novos c
   const special = page.getByRole('button', { name: /Golpe do Caminho/ });
   await expect(special).toHaveAttribute('aria-disabled', 'true');
   // Intentionally attempt an unavailable action; the engine must keep the turn unchanged.
-  await special.click({ force: true });
+  await expect(special).toHaveJSProperty('disabled', false);
+  await special.focus();
+  await page.keyboard.press('Enter');
   await expect(
     page.getByRole('status').filter({ hasText: 'Desbloqueia no nível 2' }),
   ).toBeVisible();
@@ -250,7 +252,9 @@ test('V2 nível 2: vazio, cheio, Foco insuficiente e Golpe do Caminho cinematogr
   await page.getByRole('button', { name: /ESPECIAIS/ }).click();
   const special = page.getByRole('button', { name: /Golpe do Caminho/ });
   await expect(special).toHaveAttribute('aria-disabled', 'true');
-  await special.click({ force: true });
+  await expect(special).toHaveJSProperty('disabled', false);
+  await special.focus();
+  await page.keyboard.press('Enter');
   await expect(
     page.getByRole('status').filter({ hasText: 'FOCO INSUFICIENTE' }),
   ).toBeVisible();
