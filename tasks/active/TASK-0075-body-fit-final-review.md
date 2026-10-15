@@ -5,7 +5,7 @@ OBJECTIVE: Reuse TASK-0074 evidence, investigate seven pending candidates, produ
 PRIORITY: P1 High
 STATUS: BLOCKED
 AUDIT_STATUS: COMPLETE_WITH_DEFECTS
-ACCEPTANCE_STATUS: ORIGINAL_VISUAL_DECISIONS_RECORDED_DERIVATIVES_AND_FUNCTIONAL_GATES_PENDING
+ACCEPTANCE_STATUS: FUNCTIONAL_PASS_ART_HUMAN_AND_PARTIAL_RCA_GATES_PENDING
 BASE: 100492bfa1f93dc49a4122f935544c001dcd96cb (origin/main)
 DEPENDENCIES: TASK-0074; explicit human approval of each exact hash/Avatar before activation.
 ASSIGNED_AGENT: Main agent assuming Frontend, QA and Security profiles; no independent review claimed.
@@ -24,6 +24,22 @@ TEST_PLAN: Read-only baseline hash manifest; browser screenshots/decoded images 
 DEFINITION_OF_DONE: Authorized local work complete, evidence delivered, applicable checks pass, human acceptance recorded and memory updated. Pending human review does not equal DONE.
 
 ## Initial verification
+
+## Final continuation checkpoint — 2026-10-15
+
+This checkpoint supersedes the historical results below. Complete TASK75 suite: **158 PASS /0 FAIL /10 expected skips**, actual child exit0, no retry/flaky/global error. All14 formerly failed cases PASS now. Baseline before fixture corrections157PASS/1FAIL/10skips. Chromium153 control46PASS/10skips; Chrome155 also passed, so browser version is not a demonstrated sole cause.447unit/68files/lint/typecheck/build PASS.
+
+RCA remains partial: two Arena/WebKit Fetch/RSC error signatures occur10–33ms after fixture hard goto; one reproduced15ms after that transition. Arena fixture now waits for Intro's rendered button and settled network. Mobile's old trace has the same signature54ms after hard goto; its fixture also settles, but full cause of wrong destination was not isolated. Eleven desktop transport timeouts did not reproduce; exact cause unconfirmed, no gameplay defect/fix invented. No timeout increased, error filtered or assertion removed. Config owns server lifecycle with reuseExistingServer=false. Node runner retains actual exit, source hashes and all logs; a separate PowerShell stderr false-exit was reproduced with process.exit(0), not used to reclassify14actual failed tests. Interrupted run is historical only.
+
+Boots structural proof: unchanged complete HD, cosmetic panels only on individually registered shafts; original toes/heels/soles belowy1395 untouched. Actual browser pixel comparison:0differences outside surfaces and0toe/sole differences in both genders;12Edge/WebKit/resolution PASS. Contour-only clipping was rejected because it could still paint a second internal sole. No new raster generation/edit/scale/offset. Proof at8077 remains NOT_ELIGIBLE, needs dedicated finish/surface review and a future approved fail-closed integration; no runtime change.
+
+Both exact helmets remain available at8076 with zoom/comparison; additional full-body HTML/head captures in continuation/helmets. Female02 SHA f1a2b8e7592ab3610a7ad0191e34557d674f3947b6672902cab90f3c78cd11bd; male03 SHA2dccdbbab52c6ddd1ab8a2b75cd6755f2a5b5c1059ae9516ba3b70ba1a92af60. Both human PENDING.12visual decisions/16bindings and original gallery SHA reverified;4existing FIT_PASS originals apt for integration review (two uncommon armors/two common swords), only1currently eligible/active female armor.0technical promotion/0activation.
+
+Security:841protected files unchanged;545public/build files,70JS/79private hashes, zero findings.7localroutes200/8audios404/8sources404/5DEV404/63privatepaths404. No live2account chat/physical device claim. Runtime/camera/swipe/saves/economy/auth/DB/original assets/lockfile unchanged; browser control only in Playwright cache. No push/deploy/remote config. Main agent self-review, not independent. Report: build/task-0075-body-fit-final-review/continuation/RELATORIO.{md,html}; exact stats/code in continuation-final-verified-receipt.json. Human/art gates and partial RCA prevent DONE/publication.
+
+## Authorized continuation — 2026-10-15
+
+User explicitly requests continuing TASK-0075 without creating another task: diagnose the 14 functional failures and distinguish real defects from harness issues; apply minimal local runtime/test corrections supported by evidence and repeat complete tests; investigate a structural footwear composition solution without editing HD anatomy, original assets, saves, economy or remote services. Scope extends to relevant frontend composition/navigation code and test harness, private structural proofs and reports. No new random scaling/translation attempts. Keep both exact new helmets available for later human review. Revalidate all 12 documentary approvals without technical promotion. Main agent assumes Frontend/QA/Security roles; reviews are self-review. No Supabase, remote policies, push or deployment. Acceptance remains separate from human decisions and technical eligibility.
 
 2026-10-14: origin/main remains 100492b. TASK-0074 dirty closure documents and evidence preserved in their original worktree. New branch feat/body-fit-final-review-0075 has separate ownership. Historical attachment staging wording is stale: the single approved female armor is already active for female_short_moss_medium only.
 

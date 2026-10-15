@@ -17,6 +17,11 @@ async function traveler(
   await page.getByLabel('Nome do Viajante', { exact: true }).fill('Lia Tática');
   await page.getByRole('button', { name: 'Criar Viajante' }).click();
   await expect(page).toHaveURL('/journey/intro');
+  // URL changes before all Intro prefetch tasks settle. This fixture immediately
+  // performs a hard navigation (not a player's Link click); do not unload that
+  // document while WebKit is still starting same-origin RSC fetches.
+  await page.getByRole('button', { name: /Entrar na jornada/ }).waitFor();
+  await page.waitForLoadState('networkidle');
   // Controlled local E2E fixture, never a production save migration.
   await page.evaluate(
     ({ level, attributes, xp }) => {

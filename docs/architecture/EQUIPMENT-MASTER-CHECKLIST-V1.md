@@ -1,5 +1,13 @@
 # Equipment Master Checklist V1
 
+## TASK-0075 — continuação final / execução funcional PASS, ativação BLOCKED
+
+158E2E PASS/0FAIL/10skips, exit0;14casos antigos agora PASS.447unit/68arquivos/lint/types/build PASS. RCA parcial: duas corridas de preparação Arena observadas/corrigidas no harness; mobile com mesma assinatura sem causa completa do destino isolada;11timeouts desktop não reproduzidos/causa exata não confirmada. Config controla servidor; Node runner retém exit real/logs. Sem aumento de timeout, filtro de erro ou remoção de asserções.
+
+Botas: prova privada de acabamento apenas no cano do calçado HD, sem apagar a base ou modificar biqueiras/calcanhares/solas.0diferenças fora da superfície/0diferenças nos pés e solas na comparação real de pixels;12casos Edge/WebKit PASS. Não é FIT_PASS nem arte final; sem nova geração/escala/deslocamento/runtime. Prova em127.0.0.1:8077. ElmosF02/M03 continuam em8076 para aprovação posterior, hashes preservados.
+
+Recibo12decisões/16bindings+SHAgaleria PASS.4FIT_PASS originais aptos à revisão de integração: couraças incomunsF/M e espadas comunsF/M; apenas couraça feminina anterior elegível/ativa no resolvedor. Escudos com achado de fixação, artes sem FIT_PASS e definições arquivadas não são promovidos.841arquivos protegidos iguais;545arquivos públicos/build,70JS/79hashes privados sem achados.7rotas200/8áudios404/8fontes404/5DEV404/63privados404 locais. Relatório vigente em build/task-0075-body-fit-final-review/continuation/. Sem push/deploy/Supabase/saves/economia/HD alterados; não DONE. Seções abaixo são checkpoints históricos.
+
 ## TASK-0075 — decisões humanas recebidas / correções privadas
 
 Carlos aprovou visualmente 12 versões originais e solicitou correção dos dois elmos e das duas botas. Recibo exato: TASK-0075-HUMAN-VISUAL-DECISIONS.json. As tabelas históricas abaixo mantêm os estados do checkpoint anterior; o recibo atualiza somente a decisão visual humana, sem promover status técnico, staging ou runtime. Aprovação feminina anterior preservada. Quatro experimentos antigos de escudo não foram aprovados.

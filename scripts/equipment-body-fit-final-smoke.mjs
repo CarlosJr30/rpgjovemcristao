@@ -135,6 +135,13 @@ for (const p of [
   '/build/task-0075-body-fit-final-review/alternatives/shield_male_mount_attempt02.png',
   '/build/task-0075-body-fit-final-review/alternatives/shield_male_mount_attempt03.png',
   '/build/task-0075-body-fit-final-review/TASK-0075-revisao.zip',
+  '/build/task-0075-body-fit-final-review/TASK-0075-adendo-elmos-botas.zip',
+  '/build/task-0075-body-fit-final-review/size-rework/review.html',
+  '/build/task-0075-body-fit-final-review/continuation/footwear/index.html',
+  '/build/task-0075-body-fit-final-review/continuation/footwear/female-footwear-surface.svg',
+  '/build/task-0075-body-fit-final-review/continuation/footwear/male-footwear-surface.svg',
+  '/build/task-0075-body-fit-final-review/continuation/helmets/female.html',
+  '/build/task-0075-body-fit-final-review/continuation/helmets/male.html',
   ...inventory.targets.flatMap((t) => [
     '/' + t.staging,
     '/' + t.source,
@@ -172,7 +179,7 @@ Object.assign(result, {
 await writeFile(
   path.join(
     root,
-    `build/task-0075-body-fit-final-review/${new URL(origin).hostname === '127.0.0.1' ? 'local' : 'production'}-smoke.json`,
+    `build/task-0075-body-fit-final-review/${process.env.BODY_FIT_SMOKE_PHASE === 'continuation' ? 'continuation/' : ''}${new URL(origin).hostname === '127.0.0.1' ? 'local' : 'production'}-smoke.json`,
   ),
   JSON.stringify(result, null, 2),
 );

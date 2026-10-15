@@ -1,11 +1,14 @@
 import { createServer } from 'node:http';
 import { readFile } from 'node:fs/promises';
 const sizeRework = process.argv.includes('--size-rework');
-const port = sizeRework ? 8076 : 8075;
+const footwear = process.argv.includes('--footwear');
+const port = footwear ? 8077 : sizeRework ? 8076 : 8075;
 const file = new URL(
-  sizeRework
-    ? '../build/task-0075-body-fit-final-review/size-rework/review.html'
-    : '../build/task-0075-body-fit-final-review/review/index.html',
+  footwear
+    ? '../build/task-0075-body-fit-final-review/continuation/footwear/index.html'
+    : sizeRework
+      ? '../build/task-0075-body-fit-final-review/size-rework/review.html'
+      : '../build/task-0075-body-fit-final-review/review/index.html',
   import.meta.url,
 );
 await readFile(file);

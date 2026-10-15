@@ -32,6 +32,10 @@ async function create(page: Page) {
     .getByRole('button', { name: 'Criar Viajante', exact: true })
     .click();
   await expect(page).toHaveURL('/journey/intro');
+  // Local fixture setup hard-navigates away from Intro next. Finish its client
+  // transition/prefetch first; a URL update alone is not a settled document.
+  await page.getByRole('button', { name: /Entrar na jornada/ }).waitFor();
+  await page.waitForLoadState('networkidle');
 }
 test('activity-first layout: useful avatar, six slots and battle actions in the 11 viewports', async ({
   page,

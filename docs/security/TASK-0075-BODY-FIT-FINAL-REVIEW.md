@@ -1,5 +1,15 @@
 # TASK-0075 — revisão de segurança
 
+## Continuação de 15/10/2026 — PASS no escopo privado; publicação BLOCKED
+
+841arquivos protegidos verificados contra baseline, sem alteração (runtime,54HD,fontes/bakes históricos,receipts antigos,lockfile). Recibo12decisões/16bindings+SHAgaleria original confere.545arquivos público/build e70JS escaneados contra79hashes privados;0arte exposta/segredo/chave service-role identificado. Nenhum .env rastreado ou valor registrado. Smoke local:7rotas200/8áudios404/8fontes404/5DEV404/63privados404. Nenhuma chamada ou mudança Supabase/Vercel/política remota.
+
+Prova de botas é SVG/código nativo privado: HD completo imutável, somente acabamento no cano com registro próprio por Avatar, biqueiras/calcanhares/solas preservados.0diferenças externas em comparação real de pixels; sem raster editado/gerado ou escala/deslocamento novo. Não é compositor autorizado para produção: contrato futuro deve validar hash/Avatar/máscara/arte antes de exibir camada, restaurando HD sem overlay em qualquer falha. Sem tal validação e aprovação humana/técnica, manter inativo; não depender de fallback nativo de referência SVG inválida, que pode deixar a camada sem recorte.
+
+Fixtures Arena/mobile aguardam Intro antes da navegação forçada, mantendo erros/asserts; config não reutiliza servidor desconhecido. Runner Node captura exit real e stderr completo; não remove warnings para obter PASS. Suíte158PASS/0FAIL/10skips/exit0 não equivale a causa raiz encerrada:11timeouts desktop e causa completa da navegação mobile continuam sem prova definitiva. Sem CORS/Auth/RLS desabilitados. Navegador de controle baixado apenas no cache Playwright, sem dependências/lockfile alterados.
+
+Só1overlay continua elegível/ativo no resolvedor.4originais aptos à revisão de integração não recebem ativação automática; todos os experimentos, elmos pendentes, botas da prova, achados de fixação e definições arquivadas continuam bloqueados. Galerias8076/8077 somente127.0.0.1, GETHTML restrito, CSPsemconexão, sem playerdata/decisões automáticas. Sem push/deploy. SELF REVIEW pelo agente principal; sem alegação de independência ou aceite real de chat/POCO.
+
 Revisor: agente principal; SELF REVIEW, sem alegação de revisão independente.
 
 Escopo: ferramentas de revisão locais, galeria offline, metadados e experimentos privados. Base pública 100492bfa1f93dc49a4122f935544c001dcd96cb. Nenhuma mudança de código runtime, banco, RLS, autenticação ou proteção Vercel.
