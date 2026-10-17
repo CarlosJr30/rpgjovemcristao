@@ -65,23 +65,10 @@ describe('online repositories', () => {
     });
   });
 
-  test('uses an atomic RPC to spend coins', async () => {
-    rpc.mockResolvedValue({ data: 7, error: null });
-    await expect(walletRepository.spendCoins('traveler-1', 3)).resolves.toBe(7);
-    expect(rpc).toHaveBeenCalledWith('spend_coins', {
-      p_traveler_id: 'traveler-1',
-      p_amount: 3,
-    });
-  });
-
-  test('redacts database errors from wallet operations', async () => {
-    rpc.mockResolvedValue({
-      data: null,
-      error: { message: 'database detail' },
-    });
-    await expect(walletRepository.addCoins('traveler-1', 2)).rejects.toThrow(
-      'Não foi possível salvar as moedas.',
-    );
+  test('requires a semantic server operation instead of an arbitrary spend amount', () => {
+    expect(walletRepository).not.toHaveProperty('spendCoins');
+    expect(walletRepository).not.toHaveProperty('addCoins');
+    expect(rpc).not.toHaveBeenCalled();
   });
 
   test('sets the active traveler through one atomic RPC', async () => {

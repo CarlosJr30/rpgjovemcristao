@@ -1,6 +1,9 @@
 {
   "extends": "./tsconfig.base.json",
-  "compilerOptions": { "types": ["node"], "lib": ["ES2022", "DOM"] },
+  "compilerOptions": {
+    "types": ["node"],
+    "lib": ["ES2022", "DOM"]
+  },
   "include": [
     "vitest.config.ts",
     "playwright.config.ts",
@@ -8,6 +11,8 @@
     "playwright.arena-audio-prototype.config.ts",
     "playwright.mobile.config.ts",
     "playwright.media-isolation.config.ts",
-    "tests/e2e/**/*.ts"
+    "playwright.combat-card.config.ts",
+    "tests/e2e/**/*.ts",
+    "playwright.arena-preview-0076c.config.ts"
   ]
 }

@@ -79,7 +79,8 @@ test('activity-first layout: useful avatar, six slots and battle actions in the 
       const rect = await select.boundingBox();
       expect(rect!.x + rect!.width).toBeLessThanOrEqual(width + 1);
     }
-    await page.goto('/journey/arena');
+    // Preserve the former combat layout matrix; the new card field has its own matrix.
+    await page.goto('/journey/arena/legacy');
     await page.getByRole('button', { name: /Davi,/ }).click();
     await page
       .getByRole('button', { name: 'Iniciar batalha', exact: true })

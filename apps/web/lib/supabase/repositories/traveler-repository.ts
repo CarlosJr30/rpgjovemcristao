@@ -10,8 +10,6 @@ const travelerUpdate = (traveler: Traveler) => ({
   hair_style: traveler.appearance.hair,
   hair_color: traveler.avatar.hairColor,
   avatar_variant: traveler.appearance.outfit,
-  level: traveler.level,
-  xp: traveler.xp,
   journey_progress: traveler.progress,
 });
 

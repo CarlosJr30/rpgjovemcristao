@@ -18,6 +18,8 @@ async function openArena(page: Page) {
     .getByRole('navigation', { name: /principal/i })
     .getByRole('link', { name: 'Arena' })
     .click();
+  // The former rules remain covered at their explicit reversible legacy route.
+  await page.getByRole('link', { name: 'Arena clássica', exact: true }).click();
 }
 
 test('Arena completa um treino e persiste histórico e recompensa', async ({

@@ -12,6 +12,8 @@ import {
   listTravelersForCurrentSession,
   selectOnlineTraveler,
   setCurrentOnlineUser,
+  queueOnlineTravelerSync,
+  getOnlineSyncStatus,
 } from './online-sync';
 import { equipmentRepository } from './repositories/equipment-repository';
 import { inventoryRepository } from './repositories/inventory-repository';
@@ -74,6 +76,39 @@ beforeEach(() => {
   storage.setItem(
     'rpg-jovem-cristao:online-owner:v1',
     JSON.stringify({ [travelerA]: userA, [travelerB]: userB }),
+  );
+});
+
+describe('economic snapshot firewall', () => {
+  test.each(['coins', 'xp', 'quantity', 'item', 'attributes'])(
+    'does not issue remote writes for browser-selected %s',
+    async (field) => {
+      setCurrentOnlineUser(userA);
+      const previous = getLocalTravelerSnapshot(travelerA)!;
+      const next = structuredClone(previous);
+      if (field === 'coins') next.coins = 999999;
+      if (field === 'xp') next.xp = 999999;
+      if (field === 'quantity') next.inventory[0].quantity = 999;
+      if (field === 'item')
+        next.inventory.push({ ...next.inventory[0], id: 'invented-card' });
+      if (field === 'attributes') next.attributes.strength = 999;
+      const update = vi
+        .spyOn(travelerRepository, 'updateTraveler')
+        .mockResolvedValue(undefined);
+      const inventory = vi
+        .spyOn(inventoryRepository, 'setQuantity')
+        .mockResolvedValue(undefined);
+      const stats = vi
+        .spyOn(statsRepository, 'updateBaseStats')
+        .mockResolvedValue(undefined);
+      queueOnlineTravelerSync(previous, next);
+      await vi.waitFor(() =>
+        expect(getOnlineSyncStatus().state).toBe('fallback'),
+      );
+      expect(update).not.toHaveBeenCalled();
+      expect(inventory).not.toHaveBeenCalled();
+      expect(stats).not.toHaveBeenCalled();
+    },
   );
 });
 

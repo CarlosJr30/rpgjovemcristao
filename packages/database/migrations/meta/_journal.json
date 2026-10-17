@@ -64,6 +64,20 @@
       "when": 1791950014764,
       "tag": "0008_guild_chat_commit_order",
       "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1792196432729,
+      "tag": "0009_reward_security_task0076a",
+      "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1792208366990,
+      "tag": "0010_reward_security_cutover_task0076a",
+      "breakpoints": true
     }
   ]
 }

@@ -1,0 +1,35 @@
+.root {
+  padding: max(1rem, env(safe-area-inset-top))
+    max(0.5rem, env(safe-area-inset-right))
+    max(1rem, env(safe-area-inset-bottom))
+    max(0.5rem, env(safe-area-inset-left));
+}
+.notice {
+  max-width: 1100px;
+  margin: 0 auto 1rem;
+  padding: 0.7rem;
+  background: #f8f1df;
+  color: #173a2b;
+  border-radius: 0.5rem;
+  font-size: 0.9rem;
+}
+.setup {
+  display: grid;
+  gap: 0.8rem;
+}
+.setup label {
+  display: grid;
+  gap: 0.4rem;
+}
+.setup select {
+  max-width: 100%;
+  min-height: 48px;
+  padding: 0.5rem;
+  font: inherit;
+}
+.scenarios {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  margin-top: 0.7rem;
+}

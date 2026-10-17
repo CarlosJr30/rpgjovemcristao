@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState, useRef } from 'react';
 import {
   arenaSpecials,
   arenaProfiles,
@@ -31,6 +31,8 @@ import {
   type ArenaBattleRecord,
 } from '../persistence/arena-storage';
 import { journeyRepository } from '../persistence/journey-storage';
+import { economyClient } from '../../../lib/economy/client';
+import { getCurrentOnlineUserId,reloadOnlineTraveler } from '../../../lib/supabase/online-sync';
 import { updateTraveler } from '../state/use-journey';
 import { addGameplayReward } from '../data/progression';
 import type { Traveler } from '../domain/traveler';
@@ -88,6 +90,7 @@ function ArenaExperience({ traveler }: { traveler: Traveler }) {
     () => travelerBattleSnapshot(traveler),
     [traveler],
   );
+  const commands=useRef<ArenaAction[]>([]);
   const [stage, setStage] = useState<Stage>('lobby');
   const [options, setOptions] = useState<OpponentOption[]>(
     TRAINING_OPPONENTS.map((snapshot) => ({ snapshot, source: 'training' })),
@@ -154,8 +157,13 @@ function ArenaExperience({ traveler }: { traveler: Traveler }) {
     setStage('preview');
   }
 
-  function begin() {
+  async function begin() {
     if (!selected) return;
+    commands.current=[];
+    if(getCurrentOnlineUserId()){
+      try{const next=await economyClient.startClassic(traveler.id,selected.snapshot.id);setBattle(next);setReward(null);setLevelNotice(null);setSpecialsOpen(false);setStage('battle');}catch{setStage('preview');}
+      return;
+    }
     const seed = crypto.getRandomValues(new Uint32Array(1))[0];
     setBattle(
       createArenaBattle(
@@ -171,16 +179,19 @@ function ArenaExperience({ traveler }: { traveler: Traveler }) {
     setStage('battle');
   }
 
-  function settle(finished: BattleState) {
+  async function settle(finished: BattleState) {
     if (!selected || arenaRepository.has(finished.id)) return;
     const won = finished.winnerId === traveler.id;
-    const calculated = calculateTrainingReward(
+    let serverReward:TrainingReward|null=null;
+    if(getCurrentOnlineUserId()){try{serverReward=await economyClient.settleClassic(traveler.id,finished.id,commands.current);await reloadOnlineTraveler(traveler.id);}catch{return;}}
+    const calculated = serverReward??calculateTrainingReward(
       won,
       arenaRepository.rewardedToday(traveler.id, selected.snapshot.id),
     );
     let changedLevel: { before: number; after: number } | null = null;
+    if(serverReward){const current=journeyRepository.load();if(current.status==='ready'&&current.traveler.id===traveler.id&&current.traveler.level>traveler.level)changedLevel={before:traveler.level,after:current.traveler.level};}
     const granted =
-      !calculated.rewarded ||
+      !!serverReward || !calculated.rewarded ||
       updateTraveler((current) => {
         const next = addGameplayReward(
           current,
@@ -223,6 +234,7 @@ function ArenaExperience({ traveler }: { traveler: Traveler }) {
     if (!battle || battle.status !== 'in_progress' || presentation.busy) return;
     const next = resolveArenaRound(battle, action);
     if (next === battle) return;
+    commands.current.push(action);
     presentation.play(battle, next, () => {
       setBattle(next);
       if (next.status === 'finished') {

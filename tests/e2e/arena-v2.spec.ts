@@ -47,7 +47,7 @@ async function traveler(
     },
     { level, attributes, xp },
   );
-  await page.goto('/journey/arena');
+  await page.goto('/journey/arena/legacy');
 }
 async function begin(page: Page, opponent: string) {
   await page.getByRole('button', { name: new RegExp(opponent + ',') }).click();
@@ -110,7 +110,7 @@ test('V2 áudio Arena: eventos sincronizados, silêncio sem mídia e saída limp
     { width: 915, height: 412 },
   ]) {
     await page.setViewportSize(size);
-    await page.goto('/journey/arena');
+    await page.goto('/journey/arena/legacy');
     await begin(page, 'Davi');
     await act(page, 'DEFENDER');
     await act(page, 'ATACAR');
@@ -156,7 +156,7 @@ test('V2 pack real: falha controlada mantém Avatar, monogramas e combate em red
   await page.route('**/assets/world/arena/*.webp', (route) => route.abort());
   await traveler(page, 8);
   for (const name of ['Davi', 'Elias', 'Mara', 'Noemi']) {
-    await page.goto('/journey/arena');
+    await page.goto('/journey/arena/legacy');
     await begin(page, name);
     const stage = page.getByTestId('arena-stage');
     await expect(stage.locator('[data-portrait-side="opponent"] b')).toHaveText(
@@ -339,7 +339,7 @@ test('V2 quatro oponentes nos quatro viewports: Avatar, Foco, impacto, fallback 
       ['Mara', 'guardian'],
       ['Noemi', 'tactical'],
     ]) {
-      await page.goto('/journey/arena');
+      await page.goto('/journey/arena/legacy');
       await begin(page, opponent);
       const fighters = page.locator('[class*="battleFighter"]');
       await expect(fighters).toHaveCount(2);
