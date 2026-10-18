@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - 'cloud/**'
-      - 'preview/**'
       - 'automation/**'
     paths-ignore:
       - '**/*.md'
