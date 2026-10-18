@@ -4,6 +4,32 @@ import { isArenaPreview } from './arena-preview';
 import { proxy } from '../proxy';
 afterEach(() => vi.unstubAllEnvs());
 describe('server-owned Preview isolation', () => {
+  it.each(['local', 'production'])(
+    'redirects legacy GET/HEAD before rendering in %s',
+    (environment) => {
+      vi.stubEnv('VERCEL_ENV', environment === 'local' ? '' : environment);
+      vi.stubEnv('RPG_ARENA_DEMO', environment === 'production' ? '1' : '0');
+      for (const method of ['GET', 'HEAD']) {
+        const response = proxy(
+          new NextRequest('https://example.test/journey/arena/legacy', {
+            method,
+          }),
+        );
+        expect(response.status).toBe(307);
+        expect(response.headers.get('location')).toBe(
+          'https://example.test/journey/arena',
+        );
+        expect(response.headers.has('x-arena-demo')).toBe(false);
+      }
+      expect(
+        proxy(
+          new NextRequest('https://example.test/journey/arena/legacy', {
+            method: 'POST',
+          }),
+        ).headers.get('x-middleware-next'),
+      ).toBe('1');
+    },
+  );
   it('does not activate in Production even with the local demo switch', () => {
     vi.stubEnv('VERCEL_ENV', 'production');
     vi.stubEnv('RPG_ARENA_DEMO', '1');

@@ -2,8 +2,16 @@ import { NextResponse, type NextRequest } from 'next/server';
 import { isArenaPreview } from './lib/arena-preview';
 
 export function proxy(request: NextRequest) {
-  if (!isArenaPreview()) return NextResponse.next();
   const pathname = request.nextUrl.pathname;
+  if (!isArenaPreview()) {
+    // Redirect old bookmarks before rendering or initializing browser auth.
+    if (
+      pathname === '/journey/arena/legacy' &&
+      ['GET', 'HEAD'].includes(request.method)
+    )
+      return NextResponse.redirect(new URL('/journey/arena', request.url));
+    return NextResponse.next();
+  }
   let response: NextResponse;
   if (
     !['GET', 'HEAD'].includes(request.method) ||
