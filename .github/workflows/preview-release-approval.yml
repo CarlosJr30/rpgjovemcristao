@@ -1,0 +1,52 @@
+name: Conferir autorizacao de Preview (sem deploy)
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'Branch preview/ que deseja validar'
+        required: true
+        type: string
+      sha:
+        description: 'SHA completo do commit verificado'
+        required: true
+        type: string
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Conferir branch, commit e testes
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          BRANCH: ${{ inputs.branch }}
+          COMMIT: ${{ inputs.sha }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ ! "$BRANCH" =~ ^preview/[a-zA-Z0-9._/-]+$ ]] || [[ "$BRANCH" == *..* ]]; then
+            echo "::error::Somente branches preview/ sao permitidas."
+            exit 1
+          fi
+          if [[ ! "$COMMIT" =~ ^[a-fA-F0-9]{40}$ ]]; then
+            echo "::error::Informe o SHA completo (40 caracteres)."
+            exit 1
+          fi
+          ACTUAL=$(gh api "repos/$REPO/git/ref/heads/$BRANCH" --jq '.object.sha')
+          if [[ "$ACTUAL" != "$COMMIT" ]]; then
+            echo "::error::O SHA informado nao corresponde a branch remota."
+            exit 1
+          fi
+          RUNS=$(gh api "repos/$REPO/actions/workflows/preview-readiness.yml/runs?head_sha=$COMMIT&per_page=100" --jq '[.workflow_runs[] | select(.head_sha == env.COMMIT and .event == "push" and .status == "completed" and .conclusion == "success")] | length')
+          if [[ "$RUNS" -lt 1 ]]; then
+            echo "::error::Nenhuma verificacao Preview bem-sucedida foi encontrada para este commit."
+            exit 1
+          fi
+          echo "READY FOR REVIEW: branch e testes confirmados no GitHub."
+          echo "NENHUM DEPLOY FOI EXECUTADO."
