@@ -2,10 +2,8 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "git": {
     "deploymentEnabled": {
-      "cloud/task-cloud-003-release-plan": false,
-      "cloud/preview-release-gate-007": false,
-      "codex/**": false,
-      "preview/**": false
+      "**": false,
+      "main": true
     }
   }
 }

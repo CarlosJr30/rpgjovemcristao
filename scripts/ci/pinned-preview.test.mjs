@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
+import { reviewedDemo } from './demo-isolation.mjs';
 import {
   deployPinnedPreview,
   project,
@@ -26,25 +27,37 @@ const ready = () => ({
 function fixture(options = {}) {
   const posts = [];
   const github = async (path) =>
-    path.includes('/jobs?')
+    path.includes('/git/trees/')
       ? {
-          total_count: 1,
-          jobs: [
-            {
-              name: 'Testes, lint, tipos e build',
-              status: 'completed',
-              conclusion: options.quality ?? 'success',
-            },
-          ],
+          truncated: false,
+          tree: options.noDemo
+            ? []
+            : Object.entries(reviewedDemo).map(([path, sha]) => ({
+                path,
+                sha,
+                mode: '100644',
+                type: 'blob',
+              })),
         }
-      : {
-          repository: { full_name: repository },
-          head_sha: options.runSha ?? sha,
-          head_branch: input.branch,
-          event: 'push',
-          path: '.github/workflows/quality.yml',
-          run_attempt: 1,
-        };
+      : path.includes('/jobs?')
+        ? {
+            total_count: 1,
+            jobs: [
+              {
+                name: 'Testes, lint, tipos e build',
+                status: 'completed',
+                conclusion: options.quality ?? 'success',
+              },
+            ],
+          }
+        : {
+            repository: { full_name: repository },
+            head_sha: options.runSha ?? sha,
+            head_branch: input.branch,
+            event: 'push',
+            path: '.github/workflows/quality.yml',
+            run_attempt: 1,
+          };
   const vercel = async (path, request) => {
     if (request?.method === 'POST') {
       posts.push(request.body);
@@ -97,6 +110,15 @@ test('quality failure prevents any deployment request', async () => {
   await assert.rejects(
     deployPinnedPreview(input, f.dependencies),
     /no successful quality/,
+  );
+  assert.equal(f.posts.length, 0);
+});
+
+test('successful quality cannot publish a commit without reviewed isolation', async () => {
+  const f = fixture({ noDemo: true });
+  await assert.rejects(
+    deployPinnedPreview(input, f.dependencies),
+    /lacks reviewed demo/,
   );
   assert.equal(f.posts.length, 0);
 });

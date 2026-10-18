@@ -1,5 +1,6 @@
 import { appendFileSync } from 'node:fs';
 import { pathToFileURL } from 'node:url';
+import { hasReviewedDemo } from './demo-isolation.mjs';
 
 export const project = 'prj_mG2ZSDaSc5i2Pz2uqKSlCzSGiVmG';
 export const team = 'team_FWD8MfZ9vARK8EBovoyTn9Ox';
@@ -87,6 +88,14 @@ export async function deployPinnedPreview(
           job.conclusion === 'success',
       ),
     'The exact commit has no successful quality job.',
+  );
+
+  const source = await github(
+    `/repos/${repository}/git/trees/${sha}?recursive=1`,
+  );
+  requireSafe(
+    hasReviewedDemo(source),
+    'The exact commit lacks reviewed demo isolation.',
   );
 
   const settings = await vercel(`/v9/projects/${project}?teamId=${team}`);

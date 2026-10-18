@@ -21,6 +21,8 @@ jobs:
     name: Testes, lint, tipos e build
     runs-on: ubuntu-latest
     timeout-minutes: 35
+    outputs:
+      demo_eligible: ${{ steps.demo.outputs.eligible }}
     env:
       CI: 'true'
       NEXT_TELEMETRY_DISABLED: '1'
@@ -46,7 +48,11 @@ jobs:
         run: npm test -- --run
 
       - name: Verificar protocolo de publicação por SHA
-        run: node --test scripts/ci/pinned-preview.test.mjs
+        run: node --test scripts/ci/*.test.mjs
+
+      - name: Conferir isolamento da demonstração
+        id: demo
+        run: node scripts/ci/demo-isolation.mjs >> "$GITHUB_OUTPUT"
 
       - name: Verificar lint
         run: npm run lint
@@ -60,7 +66,7 @@ jobs:
   pinned-preview:
     name: Preview do SHA aprovado
     needs: quality
-    if: ${{ success() && github.event_name == 'push' && github.repository == 'CarlosJr30/rpgjovemcristao' && github.run_attempt == 1 && (startsWith(github.ref, 'refs/heads/preview/') || github.ref == 'refs/heads/codex/pinned-preview-ci') && vars.RPG_PINNED_PREVIEW_ENABLED == 'true' }}
+    if: ${{ success() && needs.quality.outputs.demo_eligible == 'true' && github.event_name == 'push' && github.repository == 'CarlosJr30/rpgjovemcristao' && github.run_attempt == 1 && (startsWith(github.ref, 'refs/heads/preview/') || github.ref == 'refs/heads/codex/pinned-preview-ci') && vars.RPG_PINNED_PREVIEW_ENABLED == 'true' }}
     environment: preview-deploy
     runs-on: ubuntu-latest
     timeout-minutes: 15
