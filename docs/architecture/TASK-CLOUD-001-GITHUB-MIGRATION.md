@@ -1,6 +1,6 @@
 # TASK-CLOUD-001 — Migração segura para GitHub
 
-Estado de preparação: verificações locais PASS; push e conferência remota pendentes.
+Estado final: **TASK-CLOUD-001 — GITHUB_MIGRATION_READY**, 2026-10-17.
 
 ## Origem e conteúdo
 
@@ -35,10 +35,18 @@ Somente uma lista explícita de documentação/memória/contratos será adiciona
 
 Evidências locais privadas: `build/task-cloud-001/{inventory,security-review,essential-tests,lint-result,typecheck-result,build-reuse}.json` e logs. Scanner não imprime valores secretos.
 
-## Publicação e verificação propostas
+## Publicação e verificação
 
-Commit organizado apenas de documentação aprovada e push exclusivo da branch Cloud. Conferir ref remoto e fazer clone bare descartável da branch GitHub com filtro de blobs, comparando toda a árvore (caminho, modo e hash). Ler novamente os blobs críticos da Arena/CSS/economia/SQL no clone, sem depender de origin/ref local. Após essa prova, registrar o fechamento documental em commit separado na mesma branch e conferir a ref final.
+Primeiro commit documental `7ee918f617120e2855bc661f27d6001d3a83f585`, seguido de fechamento documental separado na mesma branch. Push exclusivo da branch Cloud. Clone bare descartável independente feito diretamente do GitHub: toda a árvore (caminho, modo e hash) corresponde ao checkout. Foram recuperados e conferidos14 blobs críticos da Arena/CSS/economia/SQL/exemplos/lockfile/guia, sem depender de origin/ref local. Após o fechamento, atualizar o clone e comparar novamente árvore e SHA final. O SHA definitivo está no recibo `github-verification.json` e na entrega, evitando autorreferência impossível dentro do próprio commit.
 
-Baseline remoto: main `0df878764f26f0501959031dd4aec4a77fb9308a`; Production `dpl_CHxbJAphNzND5f8ZbFoR86fT98Yt`, aliases e proteção registrados por leitura. A integração Git pode disparar Preview automática; não há deploy manual, promoção ou alteração de domínio/Production nesta tarefa. Não abrir merge automático.
+Branch: https://github.com/CarlosJr30/rpgjovemcristao/tree/cloud/rpg-jovem-cristao-migration
+
+**2572 arquivos presentes na branch**; seis documentos lógicos consolidados (incluindo renomeação do contrato0076E), com dois commits documentais nesta tarefa. Isso não significa2572 uploads novos: Git preserva os objetos de código já existentes na Preview. Nenhum arquivo runtime mudou. Histórico aprovado0076/A/B/C/D/E preservado. Não há código importante pendente de envio identificado.
+
+Baseline e leitura posterior: main `0df878764f26f0501959031dd4aec4a77fb9308a`; Production `dpl_CHxbJAphNzND5f8ZbFoR86fT98Yt`, aliases e proteção idênticos. Preview0076E permanece40e843c. A integração Git pode disparar Preview automática; não há deploy manual, promoção ou alteração de domínio/Production nesta tarefa. Nenhum merge/PR automático foi aberto.
+
+Pendências locais intencionais: somente `SQL-PARA-REVISAO/` não versionado, cópias dos SQLs já enviados; `.env.local`, node_modules, caches e evidências privadas permanecem ignorados. Não foram apagados. O fechamento deste relatório/contrato/memória é enviado na branch Cloud; nenhum fechamento funcional fica apenas no computador. Estado esperado após push final: branch sincronizada (0/0), nenhum arquivo rastreado modificado ou staged.
+
+Recibos adicionais privados: `github-verification.json`, `production-before.json`, `production-after.json`, `acceptance.json`; este último só é gerado após conferir o push definitivo.
 
 Riscos remanescentes: configuração e validação Linux/Cloud futuras, dependências de sistema/navegadores para E2E, QA física POCO X7, pendências econômicas/backup0076A. Disponibilidade das fontes no GitHub não libera uso da economia real nem implantação das migrations.
