@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - 'preview/**'
+      - 'cloud/preview-ci-gate'
     paths-ignore:
       - '**/*.md'
       - 'docs/**'
