@@ -1,6 +1,6 @@
 # TASK-CLOUD-008 — Publicação por SHA e CI oficial
 
-Estado: **ACTIVE / preparação e verificação**. Produção preservada.
+Estado: **PINNED_SHA_VERIFIED / OFFICIAL_CI_PR_READY / RUNNER_VALIDATING**. Produção preservada.
 
 ## Commit imutável
 
@@ -43,3 +43,18 @@ Esta atualização documental avança a branch após aprovação do commit anter
 REWORK da prova inicial: a API retornou HTTP400 para `target: preview`; Preview é o padrão quando o campo é omitido, e a API aceita explicitamente production/staging/custom. Consultas após a tentativa confirmaram zero deployments para 0ae9dc2. Corrigido o pedido para omitir target, mantendo rejeição explícita de qualquer resposta de produção, projeto ou SHA incorreto. Teste de formato do pedido ampliado; CI da correção deve passar antes de nova prova. Nenhuma sugestão de publicar com --prod foi seguida.
 
 Correção aprovada pelo CI real: run39102978491, SHA `6796845c89b039d64a53da1bb5376cfd2d87ebaa`, qualidade PASS. Esta segunda atualização documental avança a branch para testar a publicação desse SHA corrigido. Main protegida por PR/checks aprovados e branch atualizada; PR5 de CI oficial aprovado, ainda sem merge. Credencial protegida do novo deploy permanece pendente de configuração pelo usuário.
+
+### Aceites comprovados
+
+- [PR4 — publicação por SHA](https://github.com/CarlosJr30/rpgjovemcristao/pull/4): 15 testes de protocolo,561 testes do projeto PASS/14 skips preexistentes,lint/tipos/build PASS no run39102978491. Prova real enviou6796845 com a branch já emcdf3967 e publicou exatamente6796845: dpl_4Q9NbuEFwtz5fqEtD9bBp3j5c78y READY,uma única Preview para esseSHA.
+- [Preview por SHA verificada](https://rpgjovemcristao-qpeot05es-carlos-junior-s-projects.vercel.app/journey): seis probesHTTPS PASS, isolamento memory-only/CSPself/APIbloqueada. AutenticaçãoOIDCefêmera,sem bypasspermanente/dados reais.
+- [PR5 — CI oficial](https://github.com/CarlosJr30/rpgjovemcristao/pull/5): somente3arquivos,originadodemain;452testes/lint/tipos/buildPASS nos runspush39102792903/PR39102807772. Regra demain instalada/lidadevolta:PR+checkGitHubActions15368,branchatualizada,administradoresincluídos,forcepush/exclusãobloqueados.
+- Main/produção permanecem0df8787/dpl_CHxbJAphNzND5f8ZbFoR86fT98Yt,semmerge oumigrations. Plano deprodução/rollback pronto para revisão,sem execução.
+
+### Ativação ainda pendente
+
+A prova acima usou a autenticação local doCLI. O jobGitHubnovo continua SKIPPED e a flagnova desativada. O ambiente [preview-deploy](https://github.com/CarlosJr30/rpgjovemcristao/settings/environments/24615620257/edit) está protegido,mas ainda semVERCEL_TOKEN. Usuário precisa configurá-lo diretamente e depois aprovar o job doSHAexato. Não coletar ou mover credenciais doCLI paraCI. Só então validar um runGitHubcompletoatéREADY e encerrar a tarefa.
+
+Main foi protegida,mas o workflow oficial segue proposto noPR5; nenhuma instalação pormerge foi presumida. Relatório/contrato finais locais,sem novo deployment documental. Receiptprivado em build/task-cloud-008-pinned-ci/acceptance.json na raiz original.
+
+Retomada após "Salvei": VERCEL_TOKEN presente por metadados, variável RPG_PINNED_PREVIEW_ENABLED=true configurada e conferida. Validação agora passa pelo runner real do GitHub e pela aprovação obrigatória do ambiente. Este push documental tem finalidade de aceite da ativação do CI, não é outro deploy local de encerramento. Nenhum valor secreto acessado pelo agente; main/produção continuam inalteradas.
