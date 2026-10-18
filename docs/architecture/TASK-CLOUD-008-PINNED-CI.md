@@ -41,3 +41,5 @@ Primeiro CI Linux aprovado: run39102704343 para `0ae9dc2457e303dfb6dc252ba3ad3e6
 Esta atualização documental avança a branch após aprovação do commit anterior. A prova real deve solicitar o SHA anterior aprovado e conferir que a Vercel não publica esta nova ponta.
 
 REWORK da prova inicial: a API retornou HTTP400 para `target: preview`; Preview é o padrão quando o campo é omitido, e a API aceita explicitamente production/staging/custom. Consultas após a tentativa confirmaram zero deployments para 0ae9dc2. Corrigido o pedido para omitir target, mantendo rejeição explícita de qualquer resposta de produção, projeto ou SHA incorreto. Teste de formato do pedido ampliado; CI da correção deve passar antes de nova prova. Nenhuma sugestão de publicar com --prod foi seguida.
+
+Correção aprovada pelo CI real: run39102978491, SHA `6796845c89b039d64a53da1bb5376cfd2d87ebaa`, qualidade PASS. Esta segunda atualização documental avança a branch para testar a publicação desse SHA corrigido. Main protegida por PR/checks aprovados e branch atualizada; PR5 de CI oficial aprovado, ainda sem merge. Credencial protegida do novo deploy permanece pendente de configuração pelo usuário.
