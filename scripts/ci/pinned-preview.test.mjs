@@ -87,6 +87,7 @@ test('pins approved SHA even when the source branch has advanced', async () => {
   const result = await deployPinnedPreview(input, f.dependencies);
   assert.notEqual(remoteBranchNow, sha);
   assert.equal(f.posts[0].gitSource.sha, sha);
+  assert.equal(Object.hasOwn(f.posts[0], 'target'), false);
   assert.equal(f.posts[0].gitSource.ref, input.branch);
   assert.equal(result.sha, sha);
   assert.equal(f.posts.length, 1);

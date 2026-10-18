@@ -130,7 +130,7 @@ export async function deployPinnedPreview(
       body: {
         name: 'rpgjovemcristao-web',
         project,
-        target: 'preview',
+        // Preview is the API default. The literal target "preview" is rejected.
         gitSource: { type: 'github', repoId, ref: branch, sha },
         meta: {
           rpgReleaseSha: sha,

@@ -39,3 +39,5 @@ Resultados dos testes locais, CI Linux, prova de branch avançada/SHA publicado,
 Primeiro CI Linux aprovado: run39102704343 para `0ae9dc2457e303dfb6dc252ba3ad3e6cdc75b00a`; job de qualidade PASS e deploy protegido SKIPPED por não estar ativado. O ambiente preview-deploy foi criado sem secrets, com CarlosJr30 como aprovador e branches codex/pinned-preview-ci e preview/* autorizadas. PR4 contém a proposta por SHA; PR5 contém somente o CI oficial, sem merge.
 
 Esta atualização documental avança a branch após aprovação do commit anterior. A prova real deve solicitar o SHA anterior aprovado e conferir que a Vercel não publica esta nova ponta.
+
+REWORK da prova inicial: a API retornou HTTP400 para `target: preview`; Preview é o padrão quando o campo é omitido, e a API aceita explicitamente production/staging/custom. Consultas após a tentativa confirmaram zero deployments para 0ae9dc2. Corrigido o pedido para omitir target, mantendo rejeição explícita de qualquer resposta de produção, projeto ou SHA incorreto. Teste de formato do pedido ampliado; CI da correção deve passar antes de nova prova. Nenhuma sugestão de publicar com --prod foi seguida.
