@@ -1,6 +1,6 @@
 # TASK-0076E — Preview integrada da Arena
 
-Estado de preparação: validação local concluída; publicação/HTTPS ainda pendentes. Não declarar READY até anexar evidências efetivas.
+Estado final: **TASK-0076E — INTEGRATED_PREVIEW_READY**, comprovado em 2026-10-17.
 
 ## Escopo e isolamento
 
@@ -14,7 +14,7 @@ As operações reais `journey-action`, início/liquidação de combate, compra d
 
 ## Arquivos
 
-Novos: `journey-preview.tsx`, `playwright.integrated-preview-0076e.config.ts`, este relatório e contrato0076E. Atualizados: páginas `app/journey/page.tsx` e `app/journey/arena/page.tsx`, retorno opcional em `arena-demo.tsx`, `proxy.ts`, testes de isolamento e suite Preview existente, `tsconfig.json` e memória. Inclui as fontes/testes e fechamento documental previamente aprovados0076D e o fechamento documental0076C, ainda não commitados. Cópias `SQL-PARA-REVISAO` e artefatos privados permanecem locais.
+Novos: `journey-preview.tsx`, `playwright.integrated-preview-0076e.config.ts`, este relatório e contrato0076E. Atualizados: páginas `app/journey/page.tsx` e `app/journey/arena/page.tsx`, retorno opcional em `arena-demo.tsx`, `proxy.ts`, testes de isolamento e suite Preview existente, `tsconfig.json` e memória. Inclui as fontes/testes e fechamento documental previamente aprovados0076D e o fechamento documental0076C, que ainda estavam locais antes deste commit. Cópias `SQL-PARA-REVISAO` e artefatos privados permanecem locais.
 
 CSS mobile/19keyframes, engine, apresentação dos lutadores/cartas, recompensas e migrations0009/0010 não alterados. O modo normal conserva a integração0076D quando a decisão Preview é falsa.
 
@@ -29,3 +29,18 @@ Publicação por push exclusivo em `preview/task-0076e-integrated-arena`, integr
 Baseline por leitura: projeto `prj_mG2ZSDaSc5i2Pz2uqKSlCzSGiVmG`, raiz `apps/web`, Production/main em `0df878764f26f0501959031dd4aec4a77fb9308a`, deployment `dpl_CHxbJAphNzND5f8ZbFoR86fT98Yt`; aliases e proteção registrados em `build/task-0076e-integrated-preview/production-before.json`.
 
 QA/Security: autorrevisão, sem alegação de independência. Evidências privadas em `build/task-0076e-integrated-preview/`. POCO X7 físico, ergonomia e FPS pendentes. Proteção Vercel permanece ativa e pode exigir login do proprietário; nenhuma conta do jogo é necessária.
+
+## Publicação e aceite efetivos
+
+- URL da Jornada: https://rpgjovemcristao-lsv5dc8yq-carlos-junior-s-projects.vercel.app/journey
+- Arena principal: https://rpgjovemcristao-lsv5dc8yq-carlos-junior-s-projects.vercel.app/journey/arena
+- Deployment: `dpl_2mtUz82NvJyqkidmtsNo86BxXTqA`, **READY**, target **preview**, Next.js. A publicação foi gerada automaticamente pelo push da branch.
+- Branch: `preview/task-0076e-integrated-arena`; commit `40e843c1cf7defb661294bac0b646b09d8c4bf81`.
+- **29 casos PASS**: cinco unitários, 16 E2E locais Chromium/WebKit e oito E2E HTTPS reais Chromium; zero falhas/skips/retries na validação final. Quatro verificações HTTP adicionais comprovaram `/journey`, `/journey/arena`, `/arena-demo` (200/marcador/CSP) e `/journey/arena/legacy` (307). APIs e POSTs econômicos403 confirmados sobre o deployment real antes dos handlers.
+- Nos testes HTTPS: três resoluções, toque nas cinco cartas, energia3, jogar/turno, rotação/reload, diálogos de vitória/derrota, Jornada→Arena→retorno e legado307. Zero escrita em Storage/IndexedDB, zero tentativa de conexão externa, nenhuma alteração de sentinela sintética. Traces remotos desligados; nenhuma credencial gravada nas evidências. Verificação dos35 bundles JS locais detectou zero credencial privilegiada.
+- Production posterior idêntica ao baseline: deployment `dpl_CHxbJAphNzND5f8ZbFoR86fT98Yt`, SHA/main `0df878764f26f0501959031dd4aec4a77fb9308a`, três aliases e proteção iguais. `main` remoto e SHA da branch Preview conferidos após os testes. Nenhuma alteração Supabase, migration, usuário ou segredo de Production. Preview0076C não foi substituída nem promovida.
+- Recibos: `deployment.json`, `https-proof.json`, `local-final-tests.json`, `remote-ready-tests.json`, `production-before.json`, `production-after.json`, `preservation.json`, `browser-bundle-security.json`, `commit-review.json` e `acceptance.json`. [Galeria local e HTTPS](../../build/task-0076e-integrated-preview/review/index.html).
+
+No POCO X7, abrir a Jornada, autenticar-se no Vercel se solicitado, tocar em “Entrar na Arena de Cartas”, iniciar demonstração, jogar cartas/encerrar turno e girar o aparelho. Usar os cenários visuais para vitória/derrota e “Voltar à Jornada” para retornar. Reentrar/recarregar deve descartar a batalha. Não usar uma conta real do jogo.
+
+Este fechamento de evidências/memória/contrato fica local após o commit publicado, evitando novo build apenas documental. A aplicação remota corresponde exatamente ao commit acima. READY refere-se somente à Preview fictícia integrada; mapa completo, progresso, equipamentos pessoais e economia autenticada não estão liberados. Pendências0076A e QA física permanecem.
