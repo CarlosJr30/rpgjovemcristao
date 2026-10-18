@@ -1,8 +1,11 @@
 'use client';
 
 import { useState } from 'react';
+import { comprehensionQuestions } from '../data/reading-comprehension';
 import type { Traveler } from '../domain/traveler';
 import { BIBLE_LINKS } from '../data/bibleLinks';
+import { getCurrentOnlineUserId } from '../../../lib/supabase/online-sync';
+import { runOnlineJourneyAction } from '../state/use-journey';
 import { updateTraveler } from '../state/use-journey';
 import styles from '../journey.module.css';
 
@@ -12,44 +15,15 @@ const readings = [
   { key: 'genesis3', link: BIBLE_LINKS.genesis3, opened: 'genesis3Opened', confirmed: 'genesis3Confirmed' },
 ] as const;
 
-const comprehensionQuestions = [
-  {
-    id: 'care',
-    prompt: 'Qual responsabilidade aparece em Gênesis 2:15?',
-    options: [
-      { id: 'cultivate', text: 'Cultivar e guardar o jardim' },
-      { id: 'abandon', text: 'Abandonar o jardim' },
-      { id: 'rule-city', text: 'Governar uma cidade' },
-    ],
-    correctOptionId: 'cultivate',
-  },
-  {
-    id: 'orientation',
-    prompt: 'Como Gênesis 2:16–17 apresenta liberdade e limite?',
-    options: [
-      { id: 'freedom-limit', text: 'Há liberdade ampla e um limite específico' },
-      { id: 'no-freedom', text: 'Nenhuma árvore podia ser usada' },
-      { id: 'no-guidance', text: 'Nenhuma orientação foi apresentada' },
-    ],
-    correctOptionId: 'freedom-limit',
-  },
-  {
-    id: 'consequence',
-    prompt: 'O que muda no relato depois da desobediência?',
-    options: [
-      { id: 'rupture', text: 'Surgem vergonha, medo e consequências' },
-      { id: 'nothing', text: 'Nada muda no relato' },
-      { id: 'garden-grows', text: 'O jardim se transforma em cidade' },
-    ],
-    correctOptionId: 'rupture',
-  },
-] as const;
+
 
 export function BibleReading({ traveler, onComplete }: { traveler: Traveler; onComplete: () => void }) {
+  const [onlineError,setOnlineError]=useState('');
   const reading = traveler.progress.bibleReading;
   const allConfirmed = reading.genesis2Confirmed && reading.genesis3Confirmed;
 
-  const markOpened = (key: ReadingKey) => {
+  const markOpened = async (key: ReadingKey) => {
+    if(getCurrentOnlineUserId()){try{await runOnlineJourneyAction({type:'reading',chapter:key,action:'open'});setOnlineError('');}catch{setOnlineError('Não foi possível confirmar a abertura. Tente novamente.');}return;}
     updateTraveler((current) => {
       const field = key === 'genesis2' ? 'genesis2Opened' : 'genesis3Opened';
       if (current.progress.bibleReading[field]) return current;
@@ -63,7 +37,8 @@ export function BibleReading({ traveler, onComplete }: { traveler: Traveler; onC
     });
   };
 
-  const confirmReading = (key: ReadingKey) => {
+  const confirmReading = async (key: ReadingKey) => {
+    if(getCurrentOnlineUserId()){try{await runOnlineJourneyAction({type:'reading',chapter:key,action:'confirm'});setOnlineError('');}catch{setOnlineError('Não foi possível confirmar a leitura. Tente novamente.');}return;}
     updateTraveler((current) => {
       const openedField = key === 'genesis2' ? 'genesis2Opened' : 'genesis3Opened';
       const confirmedField = key === 'genesis2' ? 'genesis2Confirmed' : 'genesis3Confirmed';
@@ -80,6 +55,7 @@ export function BibleReading({ traveler, onComplete }: { traveler: Traveler; onC
 
   return (
     <section className={styles.readingPanel} aria-labelledby="reading-title">
+      {onlineError && <p role="alert">{onlineError}</p>}
       <p className={styles.phaseLead}>Leitura da fase</p>
       <h2 id="reading-title">Abra a Bíblia</h2>
       <p>Leia Gênesis 2–3 no serviço externo e volte quando estiver pronto. O jogo registra somente a abertura do link e a sua confirmação.</p>
@@ -113,10 +89,12 @@ export function BibleReading({ traveler, onComplete }: { traveler: Traveler; onC
 }
 
 export function ReadingComprehension({ traveler, onComplete }: { traveler: Traveler; onComplete: () => void }) {
+  const [onlineError,setOnlineError]=useState('');
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const allCorrect = comprehensionQuestions.every((item) => answers[item.id] === item.correctOptionId);
 
-  const finish = () => {
+  const finish = async () => {
+    if(getCurrentOnlineUserId()){try{await runOnlineJourneyAction({type:'comprehension',answers});setOnlineError('');onComplete();}catch{setOnlineError('Não foi possível validar as respostas. Tente novamente.');}return;}
     if (!allCorrect || !traveler.progress.bibleReading.genesis2Confirmed || !traveler.progress.bibleReading.genesis3Confirmed) return;
     updateTraveler((current) => ({
       ...current,
@@ -130,6 +108,7 @@ export function ReadingComprehension({ traveler, onComplete }: { traveler: Trave
 
   return (
     <section className={styles.comprehensionPanel} aria-labelledby="comprehension-title">
+      {onlineError && <p role="alert">{onlineError}</p>}
       <p className={styles.phaseLead}>Checkpoint de compreensão</p>
       <h2 id="comprehension-title">O que você observou?</h2>
       <p>Estas perguntas verificam apenas a compreensão objetiva da leitura.</p>

@@ -21,6 +21,7 @@ import { statsRepository } from './repositories/stats-repository';
 import { travelerRepository } from './repositories/traveler-repository';
 import { walletRepository } from './repositories/wallet-repository';
 import { OnlinePersistenceError } from './repositories/errors';
+import { sameEconomicResources } from '../economy/checkpoint';
 
 export const ONLINE_CACHE_EVENT = 'rpg-jovem-cristao:online-cache-change';
 const ONLINE_OWNERS_KEY = 'rpg-jovem-cristao:online-owner:v1';
@@ -301,21 +302,6 @@ export const reloadOnlineTraveler = async (
   }
 };
 
-const reconcileInventory = async (traveler: Traveler) => {
-  const remote = await inventoryRepository.getInventory(traveler.id);
-  const desired = new Set(traveler.inventory.map((item) => item.id));
-  await Promise.all(
-    traveler.inventory.map((item) =>
-      inventoryRepository.setQuantity(traveler.id, item.id, item.quantity ?? 1),
-    ),
-  );
-  await Promise.all(
-    remote
-      .filter((item) => !desired.has(item.item_id))
-      .map((item) => inventoryRepository.removeItem(traveler.id, item.item_id)),
-  );
-};
-
 const reconcileEquipment = async (traveler: Traveler) => {
   const remote = await equipmentRepository.getEquippedItems(traveler.id);
   const desired = new Map(Object.entries(traveler.equipped));
@@ -341,20 +327,16 @@ const synchronizeTravelerSnapshot = async (
   previous: Traveler | null,
   traveler: Traveler,
 ) => {
+  // Saves remain checkpoints, never a source of economic authority. Validate
+  // before any remote write so a rejected economic snapshot cannot half-save.
+  if (!previous || !sameEconomicResources(previous, traveler))
+    throw new Error('Recursos exigem uma operação validada pelo servidor.');
   const existing = await travelerRepository.getTravelerById(
     traveler.id,
     userId,
   );
-  if (!existing) await travelerRepository.createTraveler(traveler);
-  await Promise.all([
-    travelerRepository.updateTraveler(traveler.id, userId, traveler),
-    statsRepository.updateBaseStats(traveler.id, traveler.attributes),
-    reconcileInventory(traveler),
-  ]);
-  const coinDelta = traveler.coins - (previous?.coins ?? traveler.coins);
-  if (coinDelta > 0) await walletRepository.addCoins(traveler.id, coinDelta);
-  else if (coinDelta < 0)
-    await walletRepository.spendCoins(traveler.id, Math.abs(coinDelta));
+  if (!existing) throw new Error('Viajante online não encontrado.');
+  await travelerRepository.updateTraveler(traveler.id, userId, traveler);
   await reconcileEquipment(traveler);
 };
 
@@ -437,7 +419,9 @@ export const queueOnlineTravelerSync = (
     xp: value.xp,
     coins: value.coins,
     attributes: value.attributes,
-    inventory: value.inventory.map((item) => item.id).sort(),
+    inventory: value.inventory
+      .map((item) => [item.id, item.quantity ?? 1])
+      .sort(),
     equipped: value.equipped,
     appearance: value.appearance,
     gender: value.avatar.gender,

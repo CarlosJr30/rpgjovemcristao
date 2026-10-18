@@ -6,6 +6,7 @@ import {
 import { assertProductionPublic } from '../../scripts/prototype-audio-isolation.mjs';
 
 const nextConfig: NextConfig = {
+  output: 'standalone',
   // Local mobile QA/build must not reuse the user's running dev-server cache.
   ...(process.env.RPG_MOBILE_E2E === '1'
     ? { distDir: '.next/task-0062-mobile' }

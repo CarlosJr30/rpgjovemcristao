@@ -79,31 +79,38 @@ test('activity-first layout: useful avatar, six slots and battle actions in the 
       const rect = await select.boundingBox();
       expect(rect!.x + rect!.width).toBeLessThanOrEqual(width + 1);
     }
+    // The main activity now uses the approved card layout, with vertical scrolling.
     await page.goto('/journey/arena');
-    await page.getByRole('button', { name: /Davi,/ }).click();
-    await page
-      .getByRole('button', { name: 'Iniciar batalha', exact: true })
-      .click();
-    if (width > 1024) await page.evaluate(() => scrollTo(0, 0));
-    else await expect.poll(() => page.evaluate(() => scrollY)).toBe(0);
-    const actions = await page
-      .getByLabel('Ações da batalha', { exact: true })
-      .boundingBox();
-    const field = await page.getByTestId('arena-stage').boundingBox();
-    if (width <= 1024) {
-      const nav = await page
-        .getByRole('navigation', { name: 'Navegação do jogo', exact: true })
-        .boundingBox();
-      expect(field!.y).toBeGreaterThanOrEqual(0);
-      expect(field!.y + field!.height).toBeLessThanOrEqual(nav!.y + 1);
-      expect(
-        actions!.y + actions!.height,
-        `${width}x${height}: actions should be visible above navigation; field=${JSON.stringify(field)}, actions=${JSON.stringify(actions)}`,
-      ).toBeLessThanOrEqual(nav!.y + 1);
-      expect(field!.width).toBeGreaterThan(
-        width < 768 ? width * 0.85 : width * 0.55,
-      );
+    const arena = page.locator('[data-card-arena-state]');
+    await arena.waitFor();
+    if (
+      ['lobby', 'finished'].includes(
+        (await arena.getAttribute('data-card-arena-state'))!,
+      )
+    ) {
+      await page
+        .getByRole('button', {
+          name: 'Treinar com Davi, o Aprendiz',
+          exact: true,
+        })
+        .click();
     }
+    const battlefield = page.getByLabel('Campo de batalha', { exact: true });
+    await battlefield.scrollIntoViewIfNeeded();
+    await expect(battlefield.locator('progress')).toHaveCount(2);
+    await expect(page.locator('[data-card-id]')).toHaveCount(5);
+    const field = await battlefield.boundingBox();
+    expect(field!.x).toBeGreaterThanOrEqual(0);
+    expect(field!.x + field!.width).toBeLessThanOrEqual(width + 1);
+    const endTurn = page.getByRole('button', {
+      name: 'Encerrar turno',
+      exact: true,
+    });
+    await endTurn.evaluate((n) => n.scrollIntoView({ block: 'center' }));
+    const actions = await endTurn.boundingBox();
+    expect(actions!.height).toBeGreaterThanOrEqual(44);
+    expect(actions!.x).toBeGreaterThanOrEqual(0);
+    expect(actions!.x + actions!.width).toBeLessThanOrEqual(width + 1);
     expect(
       await page.evaluate(() => document.documentElement.scrollWidth),
     ).toBeLessThanOrEqual(width + 1);

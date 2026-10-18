@@ -12,6 +12,8 @@ import {
 import { GARDEN_HELMET, type Traveler } from '../domain/traveler';
 import { equipmentAssetForItem } from '../data/avatarAssets';
 import { bibleLinkForReference } from '../data/bibleLinks';
+import { getCurrentOnlineUserId } from '../../../lib/supabase/online-sync';
+import { runOnlineJourneyAction } from '../state/use-journey';
 import { updateTraveler } from '../state/use-journey';
 import { AvatarRuntime } from './avatar-runtime';
 import styles from '../journey.module.css';
@@ -206,7 +208,7 @@ export function GardenExploration({
   );
 
   const interact = useCallback(
-    (point: GardenInteraction) => {
+    async (point: GardenInteraction) => {
       if (isResolved(point, traveler)) return;
       if (point.kind === 'fragment') {
         setActiveChallenge(
@@ -228,6 +230,10 @@ export function GardenExploration({
         !progress.gardenEvents.includes('wind-pattern')
       ) {
         showFeedback('BAÚ PROTEGIDO · Resolva primeiro os Sinais do vento.');
+        return;
+      }
+      if(getCurrentOnlineUserId()){
+        try{await runOnlineJourneyAction({type:'collect',id:point.id});showFeedback(point.reward?`${point.text} +${String(point.reward)} MOEDAS`:point.text);}catch{showFeedback('Não foi possível confirmar a coleta no servidor.');}
         return;
       }
       updateTraveler((current) => {
@@ -292,7 +298,11 @@ export function GardenExploration({
   );
 
   const completeFragment = useCallback(
-    (pointId: 'water' | 'stones' | 'leaves', objectiveId: string) => {
+    async (pointId: 'water' | 'stones' | 'leaves', objectiveId: string, answers?:string[]) => {
+      if(getCurrentOnlineUserId()){
+        try{const confirmed=await runOnlineJourneyAction({type:'fragment',id:pointId,answers:answers??careSignals});setActiveChallenge(null);setChallengeSequence([]);gameAudio.playEffect('objective');showFeedback(`FRAGMENTO DE SABEDORIA · ${confirmed.gardenFragments} / 3`);}catch{showFeedback('Não foi possível confirmar o desafio no servidor.');}
+        return;
+      }
       updateTraveler((current) => {
         if (current.progress.gardenExploredPoints.includes(pointId))
           return current;
@@ -321,7 +331,7 @@ export function GardenExploration({
         `FRAGMENTO DE SABEDORIA · ${Math.min(3, progress.gardenFragments + 1)} / 3`,
       );
     },
-    [progress.gardenFragments, showFeedback],
+    [progress.gardenFragments, showFeedback,careSignals],
   );
 
   const approachAndInteract = useCallback(
@@ -415,7 +425,8 @@ export function GardenExploration({
     });
   };
 
-  const solvePuzzle = (answer: 'pedras' | 'folhas' | 'agua') => {
+  const solvePuzzle = async (answer: 'pedras' | 'folhas' | 'agua') => {
+    if(getCurrentOnlineUserId()){try{await runOnlineJourneyAction({type:'fragment',id:'wind',answers:[answer]});setPuzzleOpen(false);showFeedback('PADRÃO DESCOBERTO · As folhas revelaram a direção. +5 MOEDAS');}catch{showFeedback('Resposta inválida ou servidor indisponível.');}return;}
     if (answer !== 'folhas') {
       showFeedback(
         'As marcas não reagiram. Observe o que se move com o vento.',
@@ -440,7 +451,8 @@ export function GardenExploration({
     );
   };
 
-  const claimEquipment = () => {
+  const claimEquipment = async () => {
+    if(getCurrentOnlineUserId()){try{await runOnlineJourneyAction({type:'collect',id:'garden-equipment'});showFeedback('NOVO EQUIPAMENTO ADICIONADO À MOCHILA');}catch{showFeedback('Não foi possível confirmar o equipamento.');}return;}
     updateTraveler((current) =>
       current.inventory.some((item) => item.id === GARDEN_HELMET.id)
         ? current
@@ -481,7 +493,7 @@ export function GardenExploration({
     }
     setChallengeSequence(sequence);
     if (sequence.length === expected.length)
-      completeFragment('stones', 'limit-sequence');
+      void completeFragment('stones', 'limit-sequence',sequence);
   };
 
   const selectConsequenceStep = (value: string) => {
@@ -496,7 +508,7 @@ export function GardenExploration({
     }
     setChallengeSequence(sequence);
     if (sequence.length === expected.length)
-      completeFragment('leaves', 'choice-consequence-order');
+      void completeFragment('leaves', 'choice-consequence-order',sequence);
   };
 
   const nextObjective = !progress.gardenExploredPoints.includes('water')

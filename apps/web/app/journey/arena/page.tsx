@@ -1,5 +1,11 @@
-import { ArenaScreen } from '../../../features/journey/screens/arena';
+import { CardArenaScreen } from '../../../features/journey/screens/card-arena';
+import { ArenaDemo } from '../../../features/journey/components/arena-demo';
+import { isArenaPreview } from '../../../lib/arena-preview';
 
 export default function Page() {
-  return <ArenaScreen />;
+  return isArenaPreview() ? (
+    <ArenaDemo journeyNavigation />
+  ) : (
+    <CardArenaScreen />
+  );
 }

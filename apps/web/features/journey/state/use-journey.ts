@@ -20,6 +20,9 @@ import {
   type ChestReward,
 } from '../data/chests';
 import { purchaseFromShop, type PurchaseResult } from '../data/shop';
+import { economyClient } from '../../../lib/economy/client';
+import { sameEconomicResources } from '../../../lib/economy/checkpoint';
+import type { JourneyAction,JourneyProgress } from '../../../lib/economy/journey-authority';
 import {
   guildContentRepository,
   GUILD_REWARDS,
@@ -44,6 +47,7 @@ import {
   createOnlineTraveler,
   getCurrentOnlineUserId,
   queueOnlineTravelerSync,
+  reloadOnlineTraveler,
   selectOnlineTraveler,
 } from '../../../lib/supabase/online-sync';
 
@@ -54,6 +58,23 @@ type Snapshot =
 const initial: Snapshot = { status: 'loading' };
 let snapshot: Snapshot = initial;
 const listeners = new Set<() => void>();
+const journeyActions=new Map<string,Promise<unknown>>();
+const pendingActionIds=new Map<string,string>();
+export function runOnlineJourneyAction(action:JourneyAction):Promise<JourneyProgress> {
+  const loaded=journeyRepository.load(),userId=getCurrentOnlineUserId();
+  if(loaded.status!=='ready'||!userId)return Promise.reject(Error('Sessão online necessária.'));
+  const id=loaded.traveler.id,key=userId+':'+id+':'+JSON.stringify(action);
+  const operationId=pendingActionIds.get(key)??crypto.randomUUID();pendingActionIds.set(key,operationId);
+  const previous=journeyActions.get(id)??Promise.resolve();
+  const next=previous.catch(()=>undefined).then(async()=>{
+    if(getCurrentOnlineUserId()!==userId||journeyRepository.activeTravelerId()!==id)throw Error('Sua sessão mudou.');
+    const result=await economyClient.journey(id,operationId,action);
+    if(getCurrentOnlineUserId()!==userId)throw Error('Sua sessão mudou.');
+    if(!(await reloadOnlineTraveler(id)))throw Error('Resultado confirmado no servidor; não foi possível atualizar o cache. Tente novamente.');
+    pendingActionIds.delete(key);refresh();return result.progress;
+  }).finally(()=>{if(journeyActions.get(id)===next)journeyActions.delete(id);});
+  journeyActions.set(id,next);return next;
+}
 function refresh() {
   const saved = journeyRepository.load();
   snapshot =
@@ -211,6 +232,7 @@ export function updateTraveler(
   const current = journeyRepository.load();
   if (current.status !== 'ready') return false;
   const next = mutator(current.traveler);
+  if (getCurrentOnlineUserId() && !sameEconomicResources(current.traveler, next)) return false;
   const saved = journeyRepository.save(next);
   if (saved) {
     queueOnlineTravelerSync(current.traveler, next);
@@ -219,11 +241,18 @@ export function updateTraveler(
   return saved;
 }
 
-export function buyEquipment(
+export async function buyEquipment(
   equipmentId: string,
-): PurchaseResult['status'] | 'save-failed' {
+): Promise<PurchaseResult['status'] | 'save-failed'> {
   const current = journeyRepository.load();
   if (current.status !== 'ready') return 'unavailable';
+  if (getCurrentOnlineUserId()) {
+    try {
+      const result = await economyClient.purchase(current.traveler.id, equipmentId);
+      await reloadOnlineTraveler(current.traveler.id);
+      return result.status;
+    } catch { return 'save-failed'; }
+  }
   const result = purchaseFromShop(current.traveler, equipmentId);
   if (result.status !== 'purchased') return result.status;
   if (!journeyRepository.save(result.traveler)) return 'save-failed';
@@ -327,6 +356,7 @@ function reviewGuildActivity(
   contentId: string,
   decision: 'approved' | 'revision-requested',
 ): boolean {
+  if(getCurrentOnlineUserId())return false;
   const current = journeyRepository.load();
   if (current.status !== 'ready' || !current.traveler.progress.guildId)
     return false;

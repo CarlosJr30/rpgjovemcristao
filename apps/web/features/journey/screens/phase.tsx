@@ -23,10 +23,11 @@ import { createGardenQuizSession } from '../data/gardenQuiz';
 import { grantChest } from '../data/chests';
 import { resolveGardenStep, type GardenStep } from '../data/phaseProgress';
 import { PATH_AMULET } from '../domain/traveler';
+import type { SnakeProof } from '../data/snake-replay';
+import { runOnlineJourneyAction } from '../state/use-journey';
+import { getCurrentOnlineUserId } from '../../../lib/supabase/online-sync';
 import { updateTraveler, useJourney } from '../state/use-journey';
 import { useAuth } from '../../../lib/supabase/auth-context';
-import { chestRepository } from '../../../lib/supabase/repositories/chest-repository';
-import { reloadOnlineTraveler } from '../../../lib/supabase/online-sync';
 import styles from '../journey.module.css';
 
 export function PhaseScreen() {
@@ -65,7 +66,8 @@ export function PhaseScreen() {
     };
   }, [progressHydrated, savedProgress]);
 
-  const next = (nextStep: GardenStep) => {
+  const next = async (nextStep: GardenStep) => {
+    if(getCurrentOnlineUserId()){try{await runOnlineJourneyAction({type:'advance',step:nextStep});if(nextStep==='reward')gameAudio.playEffect('victory');setSelectedOptionId(null);setStep(nextStep);}catch{setFinishError('Não foi possível confirmar a etapa no servidor.');}return;}
     if (nextStep === 'reward') gameAudio.playEffect('victory');
     setSelectedOptionId(null);
     setStep(nextStep);
@@ -75,7 +77,8 @@ export function PhaseScreen() {
     }));
   };
 
-  const startQuiz = () => {
+  const startQuiz = async (proof?:SnakeProof) => {
+    if(getCurrentOnlineUserId()){try{if(!proof)throw Error('Prova ausente');const p=await runOnlineJourneyAction({type:'snake',proof});setQuizAttemptId(p.quizAttemptId);setQuestionIndex(0);setScore(0);setSelectedOptionId(null);setStep('quiz');}catch{setFinishError('Não foi possível validar a vitória no servidor.');}return;}
     let attempt = quizAttemptId + 1;
     updateTraveler((traveler) => {
       attempt = traveler.progress.quizAttemptId + 1;
@@ -98,6 +101,7 @@ export function PhaseScreen() {
   const finish = async () => {
     setFinishError('');
     const travelerId = journey.status === 'ready' ? journey.traveler.id : null;
+    if(auth.status==='signedIn'&&travelerId){try{await runOnlineJourneyAction({type:'complete'});setStep('done');}catch{setFinishError('Não foi possível confirmar a recompensa no servidor. Tente novamente.');}return;}
     updateTraveler((traveler) => ({
       ...grantChest(
         addGameplayReward(
@@ -126,20 +130,6 @@ export function PhaseScreen() {
         ? traveler.inventory
         : [...traveler.inventory, { ...PATH_AMULET, isNew: true }],
     }));
-    if (auth.status === 'signedIn' && travelerId) {
-      try {
-        await chestRepository.claimPhaseReward(
-          travelerId,
-          'phase:garden-choice',
-        );
-        await reloadOnlineTraveler(travelerId);
-      } catch {
-        setFinishError(
-          'Não foi possível guardar o Baú online. Tente finalizar novamente.',
-        );
-        return;
-      }
-    }
     next('done');
   };
 
@@ -163,6 +153,7 @@ export function PhaseScreen() {
                 </span>
               </div>
               <div className={styles.phaseDetails}>
+                {finishError && step!=='diary' && <p role="alert">{finishError}</p>}
                 <p className={styles.eyebrow}>
                   GÊNESIS 2–3 ·{' '}
                   {traveler.progress.gardenCompleted
@@ -310,7 +301,8 @@ export function PhaseScreen() {
                           </a>
                           <button
                             className={styles.primaryLink}
-                            onClick={() => {
+                            onClick={async () => {
+                              if(getCurrentOnlineUserId()){try{await runOnlineJourneyAction({type:'quiz-answer',questionId:question.id,optionId:selectedOptionId!});}catch{setFinishError('Resposta não confirmada no servidor.');return;}}
                               const nextScore =
                                 score +
                                 Number(

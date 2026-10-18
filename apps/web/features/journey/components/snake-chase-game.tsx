@@ -8,6 +8,7 @@ import {
   useState,
   type PointerEvent as ReactPointerEvent,
 } from 'react';
+import { SNAKE_PROOF_MAX_FRAMES,type SnakeFrame,type SnakeProof } from '../data/snake-replay';
 import { SnakeInput, type SnakeDirection } from './snake-input';
 import {
   getSnakeRenderProfile,
@@ -48,7 +49,7 @@ type Props = {
   portrait: GameplayPortrait;
   tutorialCompleted: boolean;
   onTutorialComplete: () => void;
-  onComplete: () => void;
+  onComplete: (proof?:SnakeProof) => void;
 };
 type Status = 'ready' | 'playing' | 'paused' | 'won' | 'lost';
 type PowerKind = 'shield' | 'speed' | 'heal';
@@ -147,6 +148,7 @@ const MAX_PARTICLES = 80;
 
 function createRuntime(reducedMotion: boolean) {
   return {
+    proofFrames: [] as SnakeFrame[],
     player: { ...PLAYER_SPAWN },
     serpent: { ...SERPENT_SPAWN },
     velocity: { x: 0, y: 0 },
@@ -245,6 +247,7 @@ export function SnakeChaseGame({
   });
   const images = useRef<Partial<Record<AssetKey, RenderableAsset>>>({});
   const runtime = useRef(createRuntime(false));
+  const proofLosses=useRef<SnakeFrame[][]>([]);
   const [status, setStatus] = useState<Status>('ready');
   const [attempts, setAttempts] = useState(1);
   const [losses, setLosses] = useState(0);
@@ -295,6 +298,7 @@ export function SnakeChaseGame({
     const reduced = window.matchMedia(
       '(prefers-reduced-motion: reduce)',
     ).matches;
+    if(runtime.current.finished&&!runtime.current.victory&&proofLosses.current.length<2&&!runtime.current.proofFrames.some(f=>f[5]))proofLosses.current.push(runtime.current.proofFrames);
     runtime.current = createRuntime(reduced);
     syncControls();
     setHud({
@@ -512,6 +516,7 @@ export function SnakeChaseGame({
             ? held
             : game.steering.axis(game.player, game.elapsed),
         );
+        if(game.proofFrames.length<SNAKE_PROOF_MAX_FRAMES)game.proofFrames.push([dt,input.x,input.y,!held.x&&!held.y,getSnakeRenderProfile(window.innerWidth,window.innerHeight).mode!=='desktop',assisted]);
         // A buffered cardinal turn stops the old axis rather than drifting into the corner.
         if (!held.x && !held.y && (input.x || input.y)) {
           if (!input.x || game.velocity.x * input.x < 0) game.velocity.x = 0;
@@ -1066,7 +1071,7 @@ export function SnakeChaseGame({
                 {status === 'won' ? 'Jogar novamente' : 'Tentar novamente'}
               </button>
               {status === 'won' && (
-                <button onClick={onComplete}>Continuar para o Quiz →</button>
+                <button onClick={() => onComplete({frames:runtime.current.proofFrames,losses:proofLosses.current})}>Continuar para o Quiz →</button>
               )}
               <button onClick={() => void exitGame()}>Sair</button>
             </div>

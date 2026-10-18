@@ -13,8 +13,8 @@ import styles from '../journey.module.css';
 
 export function ShopScreen() {
   const [feedback, setFeedback] = useState('');
-  const buy = (id: string, name: string) => {
-    const result = buyEquipment(id);
+  const buy = async (id: string, name: string) => {
+    const result = await buyEquipment(id);
     setFeedback(
       result === 'purchased'
         ? `${name} comprado. Item enviado para a Mochila.`
@@ -23,7 +23,7 @@ export function ShopScreen() {
           : result === 'owned'
             ? 'Você já possui este equipamento.'
             : result === 'save-failed'
-              ? 'Compra não salva. Seu saldo foi preservado.'
+              ? 'Não foi possível confirmar a compra. Atualize a Mochila antes de tentar novamente.'
               : 'Oferta indisponível.',
     );
   };
