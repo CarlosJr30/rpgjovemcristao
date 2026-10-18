@@ -35,3 +35,7 @@ Estado atual da produção: main `0df878764f26f0501959031dd4aec4a77fb9308a`, dep
 ## Evidências
 
 Resultados dos testes locais, CI Linux, prova de branch avançada/SHA publicado, PR oficial, proteção e bloqueios serão registrados conforme observados. QA/Security pelo autor; sem revisão independente ou aceite físico presumido.
+
+Primeiro CI Linux aprovado: run39102704343 para `0ae9dc2457e303dfb6dc252ba3ad3e6cdc75b00a`; job de qualidade PASS e deploy protegido SKIPPED por não estar ativado. O ambiente preview-deploy foi criado sem secrets, com CarlosJr30 como aprovador e branches codex/pinned-preview-ci e preview/* autorizadas. PR4 contém a proposta por SHA; PR5 contém somente o CI oficial, sem merge.
+
+Esta atualização documental avança a branch após aprovação do commit anterior. A prova real deve solicitar o SHA anterior aprovado e conferir que a Vercel não publica esta nova ponta.
