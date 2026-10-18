@@ -5,6 +5,7 @@ on:
     branches:
       - 'preview/**'
       - 'cloud/preview-ci-gate'
+      - 'cloud/preview-release-gate-007'
     paths-ignore:
       - '**/*.md'
       - 'docs/**'
@@ -53,3 +54,36 @@ jobs:
           echo "Validacoes aprovadas para ${GITHUB_SHA}."
           echo "Nenhum deploy foi executado."
           echo "Publicacao exige integracao Vercel configurada separadamente."
+
+  gated-vercel-hook:
+    name: Publicar Preview somente com liberacao explicita
+    needs: validate
+    if: ${{ success() && github.event_name == 'push' && github.ref == 'refs/heads/cloud/preview-release-gate-007' && vars.RPG_PREVIEW_HOOK_ENABLED == 'true' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+    steps:
+      - name: Checar se o commit aprovado ainda e o atual
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          BRANCH: ${{ github.ref_name }}
+          COMMIT: ${{ github.sha }}
+        run: |
+          set -euo pipefail
+          ACTUAL=$(gh api "repos/$REPO/git/ref/heads/$BRANCH" --jq '.object.sha')
+          test "$ACTUAL" = "$COMMIT" || { echo "::error::Branch mudou apos os testes; deploy cancelado."; exit 1; }
+      - name: Acionar gatilho Vercel da branch de teste
+        env:
+          DEPLOY_HOOK: ${{ secrets.VERCEL_PREVIEW_DEPLOY_HOOK }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ -z "$DEPLOY_HOOK" ]]; then
+            echo "::error::Segredo VERCEL_PREVIEW_DEPLOY_HOOK indisponivel."
+            exit 1
+          fi
+          curl --fail-with-body --silent --show-error --retry 2 --max-time 30 --request POST --url "$DEPLOY_HOOK" > /dev/null
+          echo "Gatilho chamado apos testes, para a branch de teste configurada no Vercel."
