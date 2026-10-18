@@ -27,3 +27,12 @@ DEFINITION_OF_DONE: Critérios comprovados e relatório/memória atualizados; fa
 ## Inspeção inicial — 2026-10-18
 
 Origem 9f35f28b5bf25ee89042372eaf726e93dc17607b. Worktree isolado build/task-cloud-007-preview-automation/checkout, branch local codex/preview-hook-gate. Hook confirmado pelo CLI autenticado, root apps/web, productionBranch main. Secret presente; nenhuma variável Actions configurada. Run 39100060401: validate PASS, hook SKIPPED. Deployment direto anterior dpl_BNZRAfmeX4X2L6c7sV2BrXveT9ax READY confirma caminho antecipado ainda ativo. Conector Vercel403; CLI existente permite leitura. Alterações de outras tarefas na raiz preservadas.
+
+## SELF VALIDATE / QA / SECURITY — etapa negativa
+
+- YAML/JSON/permissões/pins/escopos e sintaxe Bash PASS; dez probes shell isolados sem rede PASS: hook vazio/HTTP/host errado/projeto errado/injeção de linha bloqueados, sucesso simulado, HTTP500 e timeout sem retry, ponta correta aceita e ponta divergente bloqueada. Harness privado em build/task-cloud-007-preview-automation/validate-workflows.mjs; primeira execução no sandbox sem Bash disponível e primeira revisão do mock com variável ausente foram corrigidas, sem alteração adicional no produto.
+- Vitest direcionado local: exatamente uma falha intencional do canário. Não é regressão do jogo; fixture removida no commit seguinte.
+- Commit negativo e7ca0ef46e783a3b10896a5941da7d388decdb41 enviado normalmente apenas à branch de preview. GitHub run39101438873: validate FAILURE no passo npm test, hook e prontidão SKIPPED; nenhuma tentativa de POST.
+- Secret confirmado por metadados; variável RPG_PREVIEW_HOOK_ENABLED=true criada e lida de volta, sem novos secrets. Vercel consultada após conclusão do CI: zero deployments para e7ca0ef. Proteção all_except_custom_domains preservada.
+- main remota0df878764f26f0501959031dd4aec4a77fb9308a; produção dpl_CHxbJAphNzND5f8ZbFoR86fT98Yt READY, sem novo deployment.
+- Aceite negativo PASS. Remoção do canário preparada; positivo ainda PENDENTE. Revisão pelo autor, não independente.

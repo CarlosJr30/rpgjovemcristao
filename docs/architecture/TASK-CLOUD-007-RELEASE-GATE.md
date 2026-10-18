@@ -14,6 +14,12 @@ Limite operacional: Deploy Hook é vinculado à branch e resolve sua ponta no di
 
 Contrato: `tasks/active/TASK-CLOUD-007-preview-automation.md`. Teste físico mobile segue pendente e esta tarefa não libera a Arena/economia em produção.
 
+### Evidência do bloqueio real
+
+**PASS:** commit negativo `e7ca0ef46e783a3b10896a5941da7d388decdb41`, [run39101438873](https://github.com/CarlosJr30/rpgjovemcristao/actions/runs/39101438873): falha intencional em `npm test`; hook e prontidão `SKIPPED`. Consulta Vercel posterior ao encerramento: **zero deployments para esse SHA**, mantendo a Preview anterior. Variável `RPG_PREVIEW_HOOK_ENABLED=true` confirmada e secret preexistente preservado. Produção/main permanecem `0df8787`/`dpl_CHxbJAphNzND5f8ZbFoR86fT98Yt`. Dez probes shell isolados e revisão YAML/JSON/segurança PASS. O canário é removido na etapa positiva; nenhum defeito funcional do jogo foi introduzido.
+
+**Pendente:** CI positivo e Preview única READY, confirmação do SHA/horários e smoke da demonstração protegida. Não concluir a tarefa antes disso.
+
 ## Registro anterior — preservado como histórico
 
 **Estado anterior: VERIFICATION_PREPARED / VERCEL_GATE_BLOCKED.**
