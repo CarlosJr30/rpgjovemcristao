@@ -3,7 +3,7 @@ ID: TASK-0076C
 TITLE: Demonstração HTTPS para POCO X7
 OBJECTIVE: Publicar Preview READY verificável com combate fictício em memória e sem recompensas ou banco.
 PRIORITY: P1 High
-STATUS: VALIDATING
+STATUS: DONE
 SCOPE: rota demo, componentes de apresentação compartilhados, isolamento Preview em Providers/proxy/config, testes direcionados e documentação; branch/commit/push exclusivamente Preview e implantação Vercel Preview.
 OUT_OF_SCOPE: Production/domínios, SQL/RLS/migrations remotas, credenciais, contas reais, economia/progressão, auditoria completa e suíte E2E inteira.
 DEPENDENCIES: 0076/0076A/0076B preservadas; bloqueio remoto de economia não impede demo sem banco.
@@ -22,3 +22,15 @@ Pedido atual autoriza branch/commit e publicação somente Preview, superando pr
 
 ## Gates pré-publicação
 Build/lint/typecheck PASS; cinco unitários de isolamento e doze E2E dirigidos PASS. Security/QA autorrevistos: sem portas econômicas na demo, proxy/CSP bloqueiam persistência/rede, Providers fora da árvore cliente demo, sem novos segredos. Ver docs/architecture/TASK-0076C-VERCEL-PREVIEW.md. Publicação remota ainda PENDING; não declarar READY.
+
+
+## Aceite remoto final
+DELIVERY: TASK-0076C — VERCEL_PREVIEW_READY.
+DEPLOYMENT: dpl_4G1z57e51kwZFgcAsnwKxHtf7KAN / READY / Preview.
+URL: https://rpgjovemcristao-b64ry58kr-carlos-junior-s-projects.vercel.app/arena-demo
+COMMIT: 3616f491026d23caf476d64321b92dfac3c06173 / preview/task-0076c-arena-mobile, branch remota publicada.
+SELF VALIDATE / QA: PASS; cinco unitários + doze E2E locais + seis HTTPS finais, build/lint/types PASS. Não houve retries, aumento de timeout ou remoção de asserções.
+SECURITY: autorrevisão sem independência; demo sem persistência/Auth/economia, proxy/CSP, origem restrita e OIDC efêmero para validação final. Incidente corretivo obrigatório: vercel curl gerou token de bypass automaticamente; somente esse token foi revogado sem regeneração; zero tokens automation-bypass e proteção preservada confirmados. Ver relatório e token-cleanup.json; não afirmar que nunca houve essa mutação.
+ACCEPTANCE: URL efetiva HTTP200, READY e commit/branch conferidos; imagens mobile/cinco cartas/energia/turno/rotação/vitória/derrota e bloqueio persistente PASS. Production/main/aliases iguais ao baseline, nenhum Supabase/migration/jogador real alterado.
+PENDING: QA física POCO X7, conforto/FPS. Link requer login Vercel do proprietário conforme proteção existente.
+MEMORY / DOCUMENTATION: atualizadas localmente após o commit publicado, sem gerar nova implantação documental.

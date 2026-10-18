@@ -13,6 +13,8 @@
     "playwright.media-isolation.config.ts",
     "playwright.combat-card.config.ts",
     "tests/e2e/**/*.ts",
-    "playwright.arena-preview-0076c.config.ts"
+    "playwright.arena-preview-0076c.config.ts",
+    "playwright.main-arena-0076d.config.ts",
+    "playwright.integrated-preview-0076e.config.ts"
   ]
 }

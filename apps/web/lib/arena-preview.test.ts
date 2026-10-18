@@ -38,13 +38,13 @@ describe('server-owned Preview isolation', () => {
       ).toBe(403);
     }
   });
-  it('redirects legacy gameplay and authentication to the isolated demo', () => {
+  it('redirects unavailable gameplay and authentication to the isolated Journey', () => {
     vi.stubEnv('VERCEL_ENV', 'preview');
-    for (const path of ['/', '/journey/arena', '/journey/shop', '/auth']) {
+    for (const path of ['/', '/journey/shop', '/auth']) {
       const response = proxy(new NextRequest('https://example.test' + path));
       expect(response.status).toBe(307);
       expect(response.headers.get('location')).toBe(
-        'https://example.test/arena-demo',
+        'https://example.test/journey',
       );
     }
   });
@@ -52,6 +52,9 @@ describe('server-owned Preview isolation', () => {
     vi.stubEnv('VERCEL_ENV', 'preview');
     for (const path of [
       '/arena-demo',
+      '/journey',
+      '/journey/arena',
+      '/journey/arena/legacy',
       '/_next/static/test.js',
       '/assets/test.png',
     ]) {

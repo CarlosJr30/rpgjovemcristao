@@ -15,13 +15,16 @@ export function proxy(request: NextRequest) {
     );
   } else if (
     pathname === '/arena-demo' ||
+    pathname === '/journey' ||
+    pathname === '/journey/arena' ||
+    pathname === '/journey/arena/legacy' ||
     pathname.startsWith('/_next/static/') ||
     pathname.startsWith('/assets/') ||
     pathname === '/favicon.ico'
   ) {
     response = NextResponse.next();
   } else {
-    response = NextResponse.redirect(new URL('/arena-demo', request.url));
+    response = NextResponse.redirect(new URL('/journey', request.url));
   }
   response.headers.set(
     'Content-Security-Policy',

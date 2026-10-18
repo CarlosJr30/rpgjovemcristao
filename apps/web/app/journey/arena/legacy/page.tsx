@@ -1,4 +1,6 @@
-import { ArenaScreen } from '../../../../features/journey/screens/arena';
+import { redirect } from 'next/navigation';
+
+/** Preserve old bookmarks without exposing the retired combat interface. */
 export default function LegacyArenaPage() {
-  return <ArenaScreen />;
+  redirect('/journey/arena');
 }

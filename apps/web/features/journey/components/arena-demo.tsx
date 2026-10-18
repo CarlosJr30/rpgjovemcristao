@@ -1,4 +1,5 @@
 'use client';
+import Link from 'next/link';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import {
   COMBAT_CARDS,
@@ -100,7 +101,11 @@ function Outcome({
   );
 }
 
-export function ArenaDemo() {
+export function ArenaDemo({
+  journeyNavigation = false,
+}: {
+  journeyNavigation?: boolean;
+}) {
   const [battle, setBattle] = useState<CardBattle | null>(null);
   const [opponentId, setOpponentId] = useState(TRAINING_OPPONENTS[0].id);
   const [selected, setSelected] = useState<string | null>(null);
@@ -188,6 +193,13 @@ export function ArenaDemo() {
         PREVIEW · DEMONSTRAÇÃO ISOLADA · Sem login, recompensas ou salvamento.
         Recarregar reinicia tudo.
       </p>
+      {journeyNavigation && (
+        <nav className={demo.notice} aria-label="Retorno à Jornada">
+          <Link href="/journey" prefetch={false}>
+            Voltar à Jornada
+          </Link>
+        </nav>
+      )}
       <section
         className={styles.page}
         data-card-arena-state={battle?.phase ?? 'lobby'}

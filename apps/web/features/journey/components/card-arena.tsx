@@ -351,7 +351,11 @@ function CardArenaExperience({
     } catch (cause) {
       if (alive())
         setError(
-          cause instanceof Error ? cause.message : 'Não foi possível iniciar.',
+          scope.ownerId !== 'local'
+            ? 'Não foi possível iniciar a Arena online com validação segura. Nenhuma batalha ou recompensa local foi criada. Verifique sua conexão e tente novamente.'
+            : cause instanceof Error
+              ? cause.message
+              : 'Não foi possível iniciar.',
         );
     } finally {
       acting.current = false;
@@ -386,7 +390,6 @@ function CardArenaExperience({
           <h1>Duelo de Cartas</h1>
           <p>Observe. Prepare sua mão. Escolha o momento de agir.</p>
         </div>
-        <Link href="/journey/arena/legacy">Arena clássica</Link>
       </header>
       <details className={styles.rules}>
         <summary>Como funciona o treino?</summary>

@@ -8,7 +8,9 @@ async function isolate(page: Page, baseURL: string) {
       attempts.push(new URL(route.request().url()).hostname);
       return route.abort();
     }
-    const token = process.env.TASK_0076C_URL && process.env.VERCEL_OIDC_TOKEN;
+    const token =
+      (process.env.TASK_0076C_URL || process.env.TASK_0076E_URL) &&
+      process.env.VERCEL_OIDC_TOKEN;
     return route.continue(
       token
         ? {
@@ -66,7 +68,7 @@ for (const [width, height] of [
   }, info) => {
     const check = await isolate(page, baseURL!);
     await page.setViewportSize({ width, height });
-    await page.goto('/arena-demo');
+    await page.goto('/journey/arena');
     await page
       .getByRole('button', { name: 'Iniciar demonstração', exact: true })
       .tap();
@@ -118,7 +120,7 @@ test('play, complete turn, rotate and reload without persistent changes', async 
 }, info) => {
   const check = await isolate(page, baseURL!);
   await page.setViewportSize({ width: 406, height: 904 });
-  await page.goto('/arena-demo');
+  await page.goto('/journey/arena');
   await page
     .getByRole('button', { name: 'Iniciar demonstração', exact: true })
     .tap();
@@ -155,7 +157,7 @@ test('victory and defeat dialogs close and restart without rewards', async ({
 }, info) => {
   const check = await isolate(page, baseURL!);
   await page.setViewportSize({ width: 406, height: 904 });
-  await page.goto('/arena-demo');
+  await page.goto('/journey/arena');
   await page.getByText('Cenários de validação visual', { exact: true }).tap();
   for (const kind of ['vitória', 'derrota']) {
     await page
@@ -189,26 +191,114 @@ test('victory and defeat dialogs close and restart without rewards', async ({
   await expect(page.locator('[data-card-id]')).toHaveCount(5);
   await check();
 });
-test('server denies economic operations and routes legacy/auth navigation to demo', async ({
+
+test('TASK-0076E Journey enters the principal Arena and returns without saving', async ({
+  page,
+  baseURL,
+}, info) => {
+  const check = await isolate(page, baseURL!);
+  await page.setViewportSize({ width: 406, height: 904 });
+  await page.goto('/journey');
+  await expect(
+    page.getByRole('heading', { name: 'Jornada do Viajante' }),
+  ).toBeVisible();
+  await expect(page.locator('[data-journey-preview]')).toHaveAttribute(
+    'data-journey-preview',
+    'memory-only',
+  );
+  await page.screenshot({
+    path: info.outputPath('journey-preview.png'),
+    fullPage: true,
+  });
+  await page.getByRole('link', { name: 'Entrar na Arena de Cartas' }).tap();
+  await expect(page).toHaveURL(/\/journey\/arena$/);
+  await expect(
+    page.getByRole('heading', { name: 'Duelo de Cartas' }),
+  ).toBeVisible();
+  await expect(page.locator('a[href="/journey/arena/legacy"]')).toHaveCount(0);
+  await page
+    .getByRole('button', { name: 'Iniciar demonstração', exact: true })
+    .tap();
+  await expect(page.locator('[data-card-id]')).toHaveCount(5);
+  await expect(
+    page.getByLabel('Energia 3 de 3', { exact: true }),
+  ).toBeVisible();
+  await page.screenshot({
+    path: info.outputPath('integrated-arena.png'),
+    fullPage: true,
+  });
+  await page.getByRole('link', { name: 'Voltar à Jornada', exact: true }).tap();
+  await expect(page).toHaveURL(/\/journey$/);
+  await expect(
+    page.getByRole('heading', { name: 'Jornada do Viajante' }),
+  ).toBeVisible();
+  await page.getByRole('link', { name: 'Entrar na Arena de Cartas' }).tap();
+  await expect(page.locator('[data-card-id]')).toHaveCount(0);
+  await check();
+});
+
+test('TASK-0076E legacy redirect and disabled gameplay remain isolated', async ({
+  page,
+  baseURL,
+  request,
+}) => {
+  const check = await isolate(page, baseURL!);
+  const headers =
+    (process.env.TASK_0076E_URL || process.env.TASK_0076C_URL) &&
+    process.env.VERCEL_OIDC_TOKEN
+      ? { 'x-vercel-trusted-oidc-idp-token': process.env.VERCEL_OIDC_TOKEN }
+      : undefined;
+  const legacy = await request.get('/journey/arena/legacy', {
+    headers,
+    maxRedirects: 0,
+  });
+  expect(legacy.status()).toBe(307);
+  expect(new URL(legacy.headers().location, baseURL).pathname).toBe(
+    '/journey/arena',
+  );
+  await page.goto('/journey/arena/legacy');
+  await expect(page).toHaveURL(/\/journey\/arena$/);
+  await expect(
+    page.getByRole('heading', { name: 'Duelo de Cartas' }),
+  ).toBeVisible();
+  for (const path of ['/auth', '/journey/shop', '/journey/inventory']) {
+    const response = await request.get(path, { headers, maxRedirects: 0 });
+    expect(response.status()).toBe(307);
+    expect(new URL(response.headers().location, baseURL).pathname).toBe(
+      '/journey',
+    );
+  }
+  for (const path of ['/api/economy', '/journey', '/journey/arena']) {
+    const response = await request.post(path, {
+      headers,
+      data: { coins: 9999 },
+    });
+    expect(response.status()).toBe(403);
+  }
+  await check();
+});
+test('server denies economic operations and allows the integrated Arena', async ({
   page,
   baseURL,
   request,
 }) => {
   const check = await isolate(page, baseURL!);
   await page.goto('/journey/arena');
-  await expect(page).toHaveURL(/\/arena-demo$/);
+  await expect(page).toHaveURL(/\/journey\/arena$/);
   for (const path of ['/api/economy', '/arena-demo']) {
     const r = await request.post(path, {
       data: { action: 'reward', coins: 9999 },
       headers:
-        process.env.TASK_0076C_URL && process.env.VERCEL_OIDC_TOKEN
+        (process.env.TASK_0076C_URL || process.env.TASK_0076E_URL) &&
+        process.env.VERCEL_OIDC_TOKEN
           ? { 'x-vercel-trusted-oidc-idp-token': process.env.VERCEL_OIDC_TOKEN }
           : undefined,
     });
     expect(r.status()).toBe(403);
   }
   const authHeaders =
-    process.env.TASK_0076C_URL && process.env.VERCEL_OIDC_TOKEN
+    (process.env.TASK_0076C_URL || process.env.TASK_0076E_URL) &&
+    process.env.VERCEL_OIDC_TOKEN
       ? { 'x-vercel-trusted-oidc-idp-token': process.env.VERCEL_OIDC_TOKEN }
       : undefined;
   const response = await request.get('/arena-demo', { headers: authHeaders });
