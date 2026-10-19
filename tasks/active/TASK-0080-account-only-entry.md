@@ -89,3 +89,17 @@ Validações finais desta rodada: **40 testes direcionados/6 arquivos PASS**, **
 **Bloqueios:**5alertasP1 altos propagados de braces sem patch publicado compatível;4P2 moderados da cadeia esbuild (sem uso serve identificado). Sem correção segura demonstrada, manifests/lockfile permanecem iguais; audit atual9DEV/produção0. Downgrades sugeridos pelo audit não aplicados. Risco condicionalP1: create_traveler/políticas legadas não distinguem conta anônima; revisar Anonymous Sign-ins e controle servidor do alvo antes de permitir teste remoto. Nenhuma configuração Auth alterada. Exposição de logs e evidências hospedadas/físicas continuam pendentes.
 
 **Pendente de autorização:** criar/configurar ambiente/contas, aplicar SQL, push ou preview; nenhuma dessas ações executada. Próximo: resolver cadeiaP1 com solução compatível e revisão, então autorizar separadamente preparo do alvo isolado e suas verificações. TASK-0080 permanece **BLOCKED**, sem DONE. QA/Security pelo autor, não independente. Commit17c6349 preservado e esta auditoria reunida em novo commit somente local, sem amend/merge/push.
+
+### Etapa de dependências P1 — continuação de b71b205
+
+Autorização atual: investigar/corrigir somente dependências com solução segura demonstrada; reavaliarP2 sem atualização automática; preservar scripts/lockfile, sem runtime/Supabase/produção/push/deploy. Ownership desta etapa limitado aos manifests/lockfile se necessário, testes de ferramentas e documentação/memória. Após análise não houve motivo para modificar manifests: config/plugin16.4.2 latest, fast-glob3.3.3 ainda usa micromatch4.0.8/braces3.0.3; sem braces corrigido publicado. Não aplicar downgrade14.2.35, alias/patch não revisado ou override que preserve o problema.
+
+- [x] Branch/commits17c6349 e b71b205 preservados; checkout inicial limpo.
+- [x] Árvore npm e cincoP1/ranges/alcance/correções analisados; representam um advisory propagado, sem reclassificação por ser DEV.
+- [x] QuatroP2/esbuild reavaliados; estáveis mais recentes mantêm a cadeia, sem benefício compatível demonstrado para atualizá-la.
+- [x] Audit renovado:5P1altos/4P2moderados/0críticos; produção0.
+- [x] Plano isolado revisto e suficiente para revisão, com gates externos ainda fechados.
+- [ ] Corrigir causaP1 com solução compatível publicada/revisada; nenhuma disponível comprovada nesta etapa.
+- [ ] Aceites hospedados/físicos e demais gates do contrato, ainda pendentes.
+
+Parecer detalhado atualizado em docs/security/TASK-0080-SECURITY-AUDIT.md. Sondagens locais limitadas não reproduziram RangeError nesteNode24; isso não invalida advisory/P1. Nenhum pacote instalado/alterado; npmci/lint/tipos/build/unitários/E2E/SQL não repetidos por ausência de mudança executável. Evidências anteriores reutilizadas sem inflar contagem; novos diagnósticos/recibo p1-* na pasta ignorada da tarefa. Correções Auth/SQL de b71b205 intactas. STATUS **BLOCKED**, não VALIDATING/DONE; não houve correção tentada que introduzisse REWORK. Próximo: solução upstream compatível ou revisão específica de alternativa, antes de qualquer execução remota. Commit novo somente documental/local, sem amend/merge/push.

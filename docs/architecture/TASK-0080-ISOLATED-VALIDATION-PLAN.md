@@ -5,6 +5,8 @@
 ## Gate 0 — Autorização e riscos
 
 - [ ] Resolver os cinco P1 da cadeia braces com correção compatível/revisada; sem patch estável disponível em19/10/2026. Os quatro P2 da cadeia esbuild devem ter responsável/tratamento e não ter serve/Studio ativado. Não considerar a ausência de exploit HTTP uma correção.
+
+Reavaliação após b71b205: árvore/advisories/metadados atuais continuam5P1/4P2/produção0; atualizar fast-glob para3.3.3 não elimina braces. Nenhuma correção compatível comprovada foi aplicada. Gate permanece fechado; o restante do plano foi revisto e está preparado para revisão, sem configurações remotas. Detalhes no parecer de segurança.
 - [ ] Revisar AUTH-01/SQL-01 corrigidos, testes e diff posterior a17c6349; confirmar SHA exato candidato e checksum do SQL. Revisão pelo autor atual não equivale a revisão independente do alvo.
 - [ ] Registrar autorização específica para preparar o ambiente separado e, em outro gate, para aplicar o manifesto SQL revisado. Push/deploy continuam fases próprias, com aprovação exigida por este pedido.
 - [ ] Definir responsável, janela, teto de custo, expiração do ambiente e recuperação. Nenhum serviço pago ou exclusão automática autorizado aqui.
