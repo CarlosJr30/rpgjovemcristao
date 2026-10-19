@@ -92,21 +92,26 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     };
 
     const scheduleSession = (session: Session | null) => {
-      sessionQueue = sessionQueue.then(() => applySession(session));
+      sessionQueue = sessionQueue.then(async () => {
+        let verifiedSession: Session | null = null;
+        if (session && !session.user.is_anonymous) {
+          try {
+            const user = await getAuthenticatedUser();
+            if (user && !user.is_anonymous && user.id === session.user.id)
+              verifiedSession = { ...session, user };
+          } catch {
+            // Cached SDK events never replace verification by the Auth server.
+          }
+        }
+        await applySession(verifiedSession);
+      });
       return sessionQueue;
     };
 
     const boot = async () => {
       try {
         const session = await getSession();
-        const user = session ? await getAuthenticatedUser() : null;
-        const validSession =
-          session && user && !user.is_anonymous && session.user.id === user.id ? session : null;
-        if (process.env.NODE_ENV === 'development') {
-          console.info('[AUTH BOOT] session present:', Boolean(validSession));
-          console.info('[AUTH BOOT] user present:', Boolean(user));
-        }
-        await scheduleSession(validSession);
+        await scheduleSession(session);
       } catch {
         await scheduleSession(null);
       } finally {

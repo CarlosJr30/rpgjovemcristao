@@ -1,6 +1,6 @@
 import { after, test } from 'node:test';
 import assert from 'node:assert/strict';
-import { execFileSync } from 'node:child_process';
+import { execFileSync, spawn } from 'node:child_process';
 import { readFileSync } from 'node:fs';
 
 // Existing WSL runtime/image only. No real backup, network, port or host data mount.
@@ -8,6 +8,29 @@ const name = `rpg0080-invites-${process.pid}`;
 const prefix = ['-d', 'RPG-0078-Restore', '-u', 'root', '--', '/usr/sbin/podman', '--storage-driver', 'overlay', '--cgroup-manager', 'cgroupfs'];
 const run = (args, input) => execFileSync('wsl.exe', [...prefix, ...args], { input, encoding: 'utf8', stdio: ['pipe', 'pipe', 'pipe'], timeout: 30000 });
 let created = false;
+
+const query = sql => run(['exec', '-i', name, 'psql', '-X', '-q', '-h', '/tmp', '-U', 'postgres', '-d', 'postgres', '-v', 'ON_ERROR_STOP=1', '-At'], sql);
+function sqlSession(label, sql, keepOpen = false) {
+  const child = spawn('wsl.exe', [...prefix, 'exec', '-i', name, 'psql', '-X', '-q', '-h', '/tmp', '-U', 'postgres', '-d', 'postgres', '-v', 'ON_ERROR_STOP=1', '-At'], { stdio: ['pipe', 'pipe', 'pipe'] });
+  let output = ''; let error = '';
+  child.stdout.on('data', chunk => { output += chunk.toString(); });
+  child.stderr.on('data', chunk => { error += chunk.toString(); });
+  const timer = setTimeout(() => child.kill(), 20000);
+  const finished = new Promise((resolve, reject) => {
+    child.on('error', reject);
+    child.on('close', code => { clearTimeout(timer); resolve({ code, output, error: error.replace(/[a-f0-9]{64}/g, '[synthetic token redacted]') }); });
+  });
+  child.stdin.write(`SET application_name='${label}';\n${sql}\n`);
+  if (!keepOpen) child.stdin.end();
+  return { finished, end: () => child.stdin.end('COMMIT;\n'), output: () => output };
+}
+async function until(check) {
+  for (let n = 0; n < 60; n++) {
+    if (check()) return;
+    await new Promise(resolve => setTimeout(resolve, 50));
+  }
+  assert.fail('Expected local PostgreSQL synchronization point was not reached');
+}
 after(() => {
   if (!created) return;
   const info = JSON.parse(run(['inspect', name]))[0];
@@ -16,7 +39,7 @@ after(() => {
   run(['stop', '--time', '5', name]); // --rm destroys only this synthetic tmpfs container.
 });
 
-test('real PostgreSQL: invite secrecy, permissions, expiry, revocation, pending requests and normal approval', async () => {
+test('real PostgreSQL: invite secrecy, permissions, expiry, revocation, pending requests and normal approval', async t => {
   run(['run', '-d', '--rm', '--name', name, '--label', 'task=TASK-0080', '--network', 'none', '--read-only',
     '--user', '100:101', '--cap-drop', 'ALL', '--security-opt', 'no-new-privileges',
     '--tmpfs', '/tmp:rw,nosuid,nodev,size=256m,mode=1777', '--entrypoint', '/bin/sh',
@@ -44,6 +67,11 @@ test('real PostgreSQL: invite secrecy, permissions, expiry, revocation, pending 
     const start = original.indexOf(`CREATE TABLE public.${table} (`);
     return original.slice(start, original.indexOf(';--> statement-breakpoint', start) + 1);
   }).join('\n');
+  const indexes = ['guild_members_one_active_guild_per_traveler_idx', 'guild_join_requests_one_pending_idx'].map(index => {
+    const start = original.indexOf(`CREATE UNIQUE INDEX ${index} `);
+    assert.ok(start >= 0);
+    return original.slice(start, original.indexOf(';', start) + 1);
+  }).join('\n');
   const sql = `
 CREATE ROLE anon NOLOGIN; CREATE ROLE authenticated NOLOGIN;
 CREATE SCHEMA auth; CREATE SCHEMA extensions;
@@ -53,7 +81,7 @@ CREATE FUNCTION auth.uid() RETURNS uuid LANGUAGE sql STABLE AS $$ SELECT nullif(
 GRANT USAGE ON SCHEMA auth TO authenticated;
 CREATE TABLE public.travelers(id uuid PRIMARY KEY,user_id uuid REFERENCES auth.users(id));
 ${tables}
-CREATE UNIQUE INDEX guild_join_requests_one_pending_idx ON public.guild_join_requests(guild_id,traveler_id) WHERE status='pending';
+${indexes}
 ${extractFunction('owns_traveler')}
 ${extractFunction('request_join_guild')}
 ${extractFunction('review_guild_join_request')}
@@ -164,4 +192,41 @@ SELECT 'TASK-0080 PostgreSQL invariants PASS';
 `;
   const output = run(['exec', '-i', name, 'psql', '-X', '-q', '-h', '/tmp', '-U', 'postgres', '-d', 'postgres', '--single-transaction', '-v', 'ON_ERROR_STOP=1', '-At'], sql);
   assert.match(output, /TASK-0080 PostgreSQL invariants PASS/);
+
+  query("INSERT INTO auth.users(id) VALUES ('00000000-0000-4000-8000-000000000005'); INSERT INTO public.travelers VALUES ('10000000-0000-4000-8000-000000000005','00000000-0000-4000-8000-000000000005');");
+  for (const action of ['preview', 'request']) await t.test(`expired invite after a row-lock wait cannot ${action}`, async () => {
+    const token = query("SET ROLE authenticated; SET request.jwt.claim.sub='00000000-0000-4000-8000-000000000003'; SELECT public.create_guild_link_invite('10000000-0000-4000-8000-000000000003')->>'token';").trim();
+    assert.match(token, /^[a-f0-9]{64}$/);
+    query(`UPDATE guild_invite_private.link_invites SET expires_at=clock_timestamp()+interval '2 seconds' WHERE token_hash=extensions.digest('${token}','sha256');`);
+    const blocker = sqlSession('task0080-expiry-blocker', `BEGIN; SELECT id FROM guild_invite_private.link_invites WHERE token_hash=extensions.digest('${token}','sha256') FOR UPDATE; SELECT 'LOCKED';`, true);
+    let reader;
+    try {
+      await until(() => blocker.output().includes('LOCKED'));
+      reader = sqlSession('task0080-expiry-reader', action === 'preview'
+        ? `SET ROLE anon; SELECT public.preview_guild_link_invite('${token}');`
+        : `SET ROLE authenticated; SET request.jwt.claim.sub='00000000-0000-4000-8000-000000000005'; SELECT public.request_guild_link_invite('${token}','10000000-0000-4000-8000-000000000005');`);
+      await until(() => query("SELECT count(*) FROM pg_stat_activity WHERE application_name='task0080-expiry-reader' AND wait_event_type='Lock';").trim() === '1');
+      query(`SELECT pg_sleep(greatest(0,extract(epoch FROM expires_at-clock_timestamp()))+0.1) FROM guild_invite_private.link_invites WHERE token_hash=extensions.digest('${token}','sha256');`);
+    } finally {
+      blocker.end();
+      assert.equal((await blocker.finished).code, 0);
+    }
+    assert.ok(reader);
+    const result = await reader.finished;
+    assert.notEqual(result.code, 0, 'Expired invite was accepted after waiting for its lock');
+    assert.match(result.error, /Invite unavailable/);
+    assert.equal(query("SELECT count(*) FROM public.guild_join_requests WHERE traveler_id='10000000-0000-4000-8000-000000000005';").trim(), '0');
+  });
+
+  await t.test('two concurrent confirmations reuse one pending request and never add membership', async () => {
+    const token = query("SET ROLE authenticated; SET request.jwt.claim.sub='00000000-0000-4000-8000-000000000003'; SELECT public.create_guild_link_invite('10000000-0000-4000-8000-000000000003')->>'token';").trim();
+    const command = `SET ROLE authenticated; SET request.jwt.claim.sub='00000000-0000-4000-8000-000000000005'; SELECT public.request_guild_link_invite('${token}','10000000-0000-4000-8000-000000000005');`;
+    const first = sqlSession('task0080-confirm-first', command);
+    const second = sqlSession('task0080-confirm-second', command);
+    const results = await Promise.all([first.finished, second.finished]);
+    for (const result of results) assert.equal(result.code, 0, result.error);
+    assert.equal(results[0].output.trim(), results[1].output.trim());
+    assert.equal(query("SELECT count(*) FROM public.guild_join_requests WHERE traveler_id='10000000-0000-4000-8000-000000000005' AND status='pending';").trim(), '1');
+    assert.equal(query("SELECT count(*) FROM public.guild_members WHERE traveler_id='10000000-0000-4000-8000-000000000005';").trim(), '0');
+  });
 });

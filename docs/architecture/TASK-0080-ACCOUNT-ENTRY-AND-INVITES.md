@@ -4,6 +4,8 @@ Branch isolada `codex/account-only-entry`, base main `5508514`. Nenhum push, mer
 
 Estado final: **BLOCKED para aceite completo**, com validação local aprovada. Dependências externas e limites de segurança estão no checklist do contrato TASK-0080.
 
+Continuação de segurança posterior ao commit17c6349: [parecer e classificação individual dos nove alertas DEV](../security/TASK-0080-SECURITY-AUDIT.md) e [plano de validação isolada, sem execução remota](TASK-0080-ISOLATED-VALIDATION-PLAN.md). Corrigidos replay de sessão não verificada e expiração após espera por lock, ambos reproduzidos antes da mudança. Nesta rodada40unitários direcionados/27E2E/integraçãoSQL com3subtestes/lint/tipos/build PASS; baseline470 abaixo é histórico preservado. Nenhuma dependência atualizada por ausência de correção compatível comprovada; produção audit0,5P1/4P2DEV ainda abertos. SQL continua local, com nova verificação temporal pós-lock. Sem divergências no código inicial desta retomada; diferenças novas limitadas às correções/testes/documentação.
+
 ## Entrada e persistência
 
 A entrada oferece Entrar e Criar conta. A rota de convite abre a mesma autenticação existente. AuthProvider não aceita a escolha local antiga nem sessão anônima como conta cadastrada; páginas do jogo não são exibidas sem sessão. registerTraveler recusa criação sem usuário verificado. Supabase SDK, persistSession/autoRefreshToken, getSession/getUser, criação online e hidratação por usuário são reaproveitados. Não existe outro serviço de autenticação.

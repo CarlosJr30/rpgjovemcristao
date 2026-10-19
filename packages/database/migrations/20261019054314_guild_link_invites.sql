@@ -63,7 +63,10 @@ BEGIN
       AND i.revoked_at IS NULL AND i.expires_at > clock_timestamp()
       AND g.status = 'active' AND gm.role = 'leader' AND gm.status = 'active'
     FOR SHARE OF i, g, gm;
-  IF NOT FOUND THEN RAISE EXCEPTION 'Invite unavailable' USING ERRCODE = 'P0002'; END IF;
+  -- A row lock can wait beyond expiry even when the WHERE matched before waiting.
+  IF NOT FOUND OR invite_row.expires_at <= clock_timestamp() THEN
+    RAISE EXCEPTION 'Invite unavailable' USING ERRCODE = 'P0002';
+  END IF;
   RETURN invite_row;
 END $$;
 

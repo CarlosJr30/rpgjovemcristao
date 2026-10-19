@@ -59,6 +59,27 @@ beforeEach(() => {
 afterEach(cleanup);
 
 describe('AuthProvider bootstrap', () => {
+  test('buffered INITIAL_SESSION cannot override a rejected server identity', async () => {
+    getAuthenticatedUser.mockResolvedValue(null);
+    onAuthStateChange.mockImplementationOnce((notify) => {
+      notify('INITIAL_SESSION', session);
+      return { unsubscribe: vi.fn() };
+    });
+    await act(async () => { render(<AuthProvider><Probe /></AuthProvider>); });
+    expect(screen.getByText('signedOut:none')).toBeVisible();
+    expect(hydrateOnlineTravelers).not.toHaveBeenCalled();
+    expect(profileEnsure).not.toHaveBeenCalled();
+  });
+
+  test('a later SDK event cannot authenticate an identity rejected by getUser', async () => {
+    getSession.mockResolvedValue(null);
+    await act(async () => { render(<AuthProvider><Probe /></AuthProvider>); });
+    getAuthenticatedUser.mockResolvedValue({ id: 'different-account' });
+    const notify = onAuthStateChange.mock.calls[0][0];
+    await act(async () => { notify('SIGNED_IN', session); });
+    expect(screen.getByText('signedOut:none')).toBeVisible();
+    expect(hydrateOnlineTravelers).not.toHaveBeenCalled();
+  });
   test('does not accept an anonymous session as a registered account', async () => {
     getAuthenticatedUser.mockResolvedValue({ ...user, is_anonymous: true });
     render(<AuthProvider><Probe /></AuthProvider>);
