@@ -153,6 +153,7 @@ export type GuildMissionProgressSummary = { traveler_id: string; traveler_name: 
 export type Database = {
   public: {
     Tables: {
+      story_progress: TableDefinition<import('../../features/story/progression').StoryProgress, never, never>;
       guild_chat_messages: TableDefinition<GuildChatMessageRow, never, never>;
       guild_chat_reads: TableDefinition<{guild_id: string; user_id: string; last_read_sequence: number}, never, never>;
       guild_chat_reports: TableDefinition<GuildChatReportRow, never, never>;
@@ -216,6 +217,7 @@ export type Database = {
     };
     Views: Record<string, never>;
     Functions: {
+      complete_story: { Args: { p_traveler_id: string; p_story_id: string }; Returns: boolean };
       send_guild_chat_message: { Args: {p_guild_id: string; p_traveler_id: string; p_client_id: string; p_body: string; p_announcement: boolean}; Returns: string };
       guild_chat_summary: {Args: {p_guild_id: string; p_traveler_id: string}; Returns: GuildChatSummary[]};
       mark_guild_chat_read: {Args: {p_guild_id: string; p_traveler_id: string; p_sequence: number}; Returns: undefined};

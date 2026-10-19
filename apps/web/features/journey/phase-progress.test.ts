@@ -4,7 +4,12 @@ import { resolveGardenStep } from './data/phaseProgress';
 
 function progressAt(step: string) {
   return {
-    ...createTraveler('Teste', { hair: 'curto', outfit: 'musgo', skin: 'medio' }, 'traveler-1', '2026-09-23T12:00:00.000Z').progress,
+    ...createTraveler(
+      'Teste',
+      { hair: 'curto', outfit: 'musgo', skin: 'medio' },
+      'traveler-1',
+      '2026-09-23T12:00:00.000Z',
+    ).progress,
     gardenStep: step,
   };
 }
@@ -40,7 +45,7 @@ describe('progressão da Fase 1.1', () => {
     expect(resolveGardenStep(progress)).toBe('mission');
   });
 
-  test.each(['snake', 'quiz', 'reward', 'diary'])(
+  test.each(['snake', 'quiz', 'video'])(
     'não regride %s quando os requisitos anteriores estão completos',
     (step) => {
       const progress = progressAt(step);
@@ -53,6 +58,20 @@ describe('progressão da Fase 1.1', () => {
       };
       progress.devotionalCompleted = true;
       expect(resolveGardenStep(progress)).toBe(step);
+    },
+  );
+  test.each(['reward', 'diary'])(
+    'save antigo em %s não ignora o novo vídeo',
+    (step) => {
+      const progress = progressAt(step);
+      progress.bibleReading = {
+        ...progress.bibleReading,
+        genesis2Confirmed: true,
+        genesis3Confirmed: true,
+        comprehensionCompleted: true,
+      };
+      progress.devotionalCompleted = true;
+      expect(resolveGardenStep(progress)).toBe('video');
     },
   );
 });

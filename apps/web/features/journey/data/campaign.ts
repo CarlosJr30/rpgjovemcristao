@@ -1,3 +1,4 @@
+import { WORLDS } from '../../story/catalog';
 export type Phase = {
   id: string;
   slug: string;
@@ -35,80 +36,16 @@ export const GARDEN: Phase = {
     'Descobertas',
   ],
 };
-export const CAMPAIGN: readonly Act[] = [
-  {
-    id: 'origins',
-    slug: 'as-origens',
-    title: 'As Origens',
-    numeral: 'I',
-    order: 1,
-    status: 'available',
-    phases: [GARDEN],
-  },
-  {
-    id: 'patriarchs',
-    slug: 'os-patriarcas',
-    title: 'Os Patriarcas',
-    numeral: 'II',
-    order: 2,
-    status: 'locked',
-    phases: [],
-  },
-  {
-    id: 'liberation',
-    slug: 'libertacao',
-    title: 'Libertação',
-    numeral: 'III',
-    order: 3,
-    status: 'locked',
-    phases: [],
-  },
-  {
-    id: 'kings',
-    slug: 'juizes-e-reis',
-    title: 'Juízes e Reis',
-    numeral: 'IV',
-    order: 4,
-    status: 'locked',
-    phases: [],
-  },
-  {
-    id: 'exile',
-    slug: 'profetas-reinos-e-exilio',
-    title: 'Profetas, Reinos e Exílio',
-    numeral: 'V',
-    order: 5,
-    status: 'locked',
-    phases: [],
-  },
-  {
-    id: 'return',
-    slug: 'retorno-e-restauracao',
-    title: 'Retorno e Restauração',
-    numeral: 'VI',
-    order: 6,
-    status: 'locked',
-    phases: [],
-  },
-  {
-    id: 'jesus',
-    slug: 'jesus',
-    title: 'Jesus',
-    numeral: 'VII',
-    order: 7,
-    status: 'locked',
-    phases: [],
-  },
-  {
-    id: 'church',
-    slug: 'a-igreja',
-    title: 'A Igreja',
-    numeral: 'VIII',
-    order: 8,
-    status: 'locked',
-    phases: [],
-  },
-];
+// Compatibility facade for existing diary/phase consumers. The story catalog owns the order.
+export const CAMPAIGN: readonly Act[] = WORLDS.map((world, index) => ({
+  id: world.id,
+  slug: world.id === 'origins' ? 'as-origens' : world.id,
+  title: world.title,
+  numeral: ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX'][index],
+  order: world.order,
+  status: index === 0 ? 'available' : 'locked',
+  phases: index === 0 ? [GARDEN] : [],
+}));
 export const JOURNEY_ROUTES = {
   create: '/journey/create',
   intro: '/journey/intro',

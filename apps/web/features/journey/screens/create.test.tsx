@@ -91,11 +91,7 @@ describe('CreateScreen auth guard', () => {
     expect(screen.getByLabelText('Nome do Viajante')).not.toBeVisible();
     fireEvent.click(screen.getByLabelText('Viajante do Horizonte'));
     fireEvent.click(screen.getByRole('button', { name: /Começar aventura/ }));
-    await waitFor(() =>
-      expect(mocks.push).toHaveBeenCalledWith(
-        '/journey/phases/o-jardim-e-a-escolha',
-      ),
-    );
+    await waitFor(() => expect(mocks.push).toHaveBeenCalledWith('/journey'));
     expect(mocks.registerTraveler).toHaveBeenCalledWith(
       'Ana',
       { hair: 'longo', outfit: 'azul', skin: 'escuro' },

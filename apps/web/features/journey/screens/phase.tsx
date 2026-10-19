@@ -18,20 +18,15 @@ import {
 } from '../data/campaign';
 import { bibleLinkForReference } from '../data/bibleLinks';
 import { getGameplayAvatarPortrait } from '../data/gameplayAvatarPortrait';
-import { addGameplayReward } from '../data/progression';
 import { createGardenQuizSession } from '../data/gardenQuiz';
-import { grantChest } from '../data/chests';
 import { resolveGardenStep, type GardenStep } from '../data/phaseProgress';
-import { PATH_AMULET } from '../domain/traveler';
 import { updateTraveler, useJourney } from '../state/use-journey';
-import { useAuth } from '../../../lib/supabase/auth-context';
-import { chestRepository } from '../../../lib/supabase/repositories/chest-repository';
-import { reloadOnlineTraveler } from '../../../lib/supabase/online-sync';
+import { findStory, storyRoute } from '../../story/catalog';
+import { StoryVideoPanel } from '../../story/video-panel';
 import styles from '../journey.module.css';
 
 export function PhaseScreen() {
   const journey = useJourney();
-  const auth = useAuth();
   const savedProgress =
     journey.status === 'ready' ? journey.traveler.progress : undefined;
   const [step, setStep] = useState<GardenStep>(() =>
@@ -44,7 +39,6 @@ export function PhaseScreen() {
   const [questionIndex, setQuestionIndex] = useState(0);
   const [score, setScore] = useState(0);
   const [selectedOptionId, setSelectedOptionId] = useState<string | null>(null);
-  const [finishError, setFinishError] = useState('');
   const quizQuestions = useMemo(
     () => createGardenQuizSession(quizAttemptId),
     [quizAttemptId],
@@ -95,54 +89,6 @@ export function PhaseScreen() {
     setStep('quiz');
   };
 
-  const finish = async () => {
-    setFinishError('');
-    const travelerId = journey.status === 'ready' ? journey.traveler.id : null;
-    updateTraveler((traveler) => ({
-      ...grantChest(
-        addGameplayReward(
-          traveler,
-          traveler.progress.gardenRewardGranted ? 0 : 120,
-          traveler.progress.gardenRewardGranted ? 0 : 30,
-        ),
-        'common',
-        'phase_completion',
-        'phase:garden-choice',
-      ),
-      progress: {
-        ...traveler.progress,
-        gardenCompleted: true,
-        gardenRewardGranted: true,
-        gardenDiscoveryFound:
-          traveler.progress.gardenExploredPoints.includes('water') ||
-          traveler.progress.gardenDiscoveryFound,
-        guildChallengeStatus:
-          traveler.progress.guildId &&
-          traveler.progress.guildChallengeStatus === 'locked'
-            ? 'available'
-            : traveler.progress.guildChallengeStatus,
-      },
-      inventory: traveler.inventory.some((item) => item.id === PATH_AMULET.id)
-        ? traveler.inventory
-        : [...traveler.inventory, { ...PATH_AMULET, isNew: true }],
-    }));
-    if (auth.status === 'signedIn' && travelerId) {
-      try {
-        await chestRepository.claimPhaseReward(
-          travelerId,
-          'phase:garden-choice',
-        );
-        await reloadOnlineTraveler(travelerId);
-      } catch {
-        setFinishError(
-          'Não foi possível guardar o Baú online. Tente finalizar novamente.',
-        );
-        return;
-      }
-    }
-    next('done');
-  };
-
   return (
     <Shell
       back={step === 'opening' ? routes.origins : undefined}
@@ -166,7 +112,7 @@ export function PhaseScreen() {
                 <p className={styles.eyebrow}>
                   GÊNESIS 2–3 ·{' '}
                   {traveler.progress.gardenCompleted
-                    ? 'CONCLUÍDA · REPLAY DISPONÍVEL'
+                    ? 'ATIVIDADES REGISTRADAS · HISTÓRICO PRESERVADO'
                     : 'AVENTURA EM ANDAMENTO'}
                 </p>
                 <h1>{step === 'done' ? 'Caminho registrado' : GARDEN.title}</h1>
@@ -317,7 +263,7 @@ export function PhaseScreen() {
                                   selectedOptionId === question.correctOptionId,
                                 );
                               setScore(nextScore);
-                              if (questionIndex === 4) next('reward');
+                              if (questionIndex === 4) next('video');
                               else {
                                 setQuestionIndex((index) => index + 1);
                                 setSelectedOptionId(null);
@@ -332,67 +278,45 @@ export function PhaseScreen() {
                   </section>
                 )}
 
-                {step === 'reward' && (
+                {['video', 'reward', 'diary'].includes(step) && (
                   <>
-                    <p className={styles.phaseLead}>Recompensa</p>
+                    <StoryVideoPanel
+                      video={findStory('garden-choice')!.video}
+                      completed={false}
+                    />
                     <p>
-                      {traveler.progress.gardenRewardGranted
-                        ? 'Recompensa principal já recebida. Este replay mantém seu progresso.'
-                        : 'Ao finalizar o registro, você receberá 120 XP, 30 moedas e 1 Baú Comum na Mochila.'}
+                      Quiz nesta sessão: {score}/5. Suas atividades foram
+                      preservadas. A conclusão e a recompensa aguardam o vídeo
+                      obrigatório e a integração segura.
                     </p>
-                    <p>
-                      Descoberta:{' '}
-                      {traveler.progress.gardenDiscoveryFound
-                        ? GARDEN_CONTENT.discovery
-                        : 'Revisite a trilha para encontrar o fragmento.'}
-                    </p>
-                    <p className={styles.micro}>
-                      Quiz: {score}/5 · conhecimento objetivo, não avaliação de
-                      fé.
-                    </p>
-                    <button
+                    <Link
                       className={styles.primaryLink}
-                      onClick={() => next('diary')}
+                      href={storyRoute('garden-choice')}
                     >
-                      Concluir fase →
-                    </button>
-                  </>
-                )}
-
-                {step === 'diary' && (
-                  <>
-                    <p className={styles.phaseLead}>Diário e códice</p>
-                    <p>
-                      Sua descoberta e a reflexão privada foram registradas
-                      neste navegador. Continue quando estiver pronto.
-                    </p>
-                    {finishError && (
-                      <p className={styles.notice} role="alert">
-                        {finishError}
-                      </p>
-                    )}
-                    <button className={styles.primaryLink} onClick={finish}>
-                      Finalizar registro →
-                    </button>
+                      Ver requisitos da história →
+                    </Link>
                   </>
                 )}
 
                 {step === 'done' && (
                   <>
                     <p className={styles.phaseLead}>
-                      A aventura fica salva neste navegador.
+                      Seu histórico de atividades foi preservado.
                     </p>
                     <p>
                       Você pode rejogar para observar novas rotas; a recompensa
                       principal não duplica.
                     </p>
                     <div className={styles.guildGateNotice}>
-                      <strong>DESAFIO FINAL DA CÉLULA</strong>
+                      <strong>CONTINUE NO MODO HISTÓRIA</strong>
                       <span>
-                        A próxima fase será liberada após a validação da
-                        atividade Escolhas e Responsabilidade.
+                        A progressão é individual. Consulte os novos requisitos
+                        e o vídeo obrigatório; seu registro anterior não foi
+                        apagado.
                       </span>
-                      <Link href={routes.guild}>Ir para o desafio →</Link>
+                      <Link href={storyRoute('garden-choice')}>
+                        Ver história e requisitos →
+                      </Link>
                     </div>
                     <Link href={routes.map} className={styles.primaryLink}>
                       Voltar ao mapa →

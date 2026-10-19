@@ -29,7 +29,7 @@ export function diaryView(traveler: Traveler) {
   ];
   // Quiz score/answers are transient in PhaseScreen. Only completion/attempt ID survive.
   const quizCompleted =
-    p.gardenCompleted || ['reward', 'diary', 'done'].includes(step);
+    p.gardenCompleted || ['video', 'reward', 'diary', 'done'].includes(step);
   const events: DiaryEvent[] = [];
   for (const reading of readings) {
     if (reading.openedAt)

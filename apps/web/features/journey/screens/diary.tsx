@@ -79,10 +79,7 @@ export function DiaryScreen() {
                   {p.gardenCompleted && (
                     <p data-diary-guild-state>
                       {view.guildStatus}
-                      {p.nextPhaseUnlocked
-                        ? ' · Liberação registrada; consulte o mapa para as fases disponíveis.'
-                        : ''}
-                      .
+                      {' · Atividade da Guilda independente do Modo História'}.
                     </p>
                   )}
                   <dl className={book.summary}>

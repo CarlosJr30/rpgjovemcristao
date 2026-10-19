@@ -117,13 +117,10 @@ export function CreateScreen() {
         selectedName,
         appearance,
         bodyType,
-        auth.status === 'signedIn'
-          ? auth.user.id
-          : undefined,
+        auth.status === 'signedIn' ? auth.user.id : undefined,
       );
       setError(failure);
-      if (!failure)
-        router.push(entryReturn(routes.garden));
+      if (!failure) router.push(entryReturn(routes.map));
     } finally {
       setIsSubmitting(false);
     }
@@ -365,8 +362,8 @@ export function CreateScreen() {
                 {auth.status === 'signedIn'
                   ? 'Seu herói será salvo na sua conta.'
                   : auth.status === 'loading'
-                      ? 'Verificando sessão…'
-                      : 'Entre em sua conta para criar e salvar seu herói.'}
+                    ? 'Verificando sessão…'
+                    : 'Entre em sua conta para criar e salvar seu herói.'}
               </p>
             </form>
           </div>

@@ -90,7 +90,12 @@ async function mockSupabase(
         base_wisdom: 1,
       };
     if (endpoint === 'wallets') body = { traveler_id: hero?.id, coins: 0 };
-    if (endpoint === 'inventory' || endpoint === 'equipped_items') body = [];
+    if (
+      endpoint === 'inventory' ||
+      endpoint === 'equipped_items' ||
+      endpoint === 'story_progress'
+    )
+      body = [];
     await route.fulfill({ json: body });
   });
   return { hero: () => hero };
@@ -103,6 +108,16 @@ async function register(page: import('@playwright/test').Page, path = '/auth') {
   await page.getByLabel('E-mail').fill('ana@example.com');
   await page.getByLabel('Senha').fill('synthetic-test-password');
   await page.getByRole('button', { name: 'Criar conta', exact: true }).click();
+}
+
+async function openLegacyGarden(page: import('@playwright/test').Page) {
+  const menu = page.getByRole('button', { name: 'Abrir menu', exact: true });
+  if (await menu.isVisible()) await menu.click();
+  await page
+    .getByRole('navigation', { name: 'Navegação principal' })
+    .getByRole('link', { name: 'Missões', exact: true })
+    .click();
+  await expect(page).toHaveURL('/journey/phases/o-jardim-e-a-escolha');
 }
 
 test('cadastro → herói pronto → primeira missão → novo login recupera avatar e progresso', async ({
@@ -137,7 +152,13 @@ test('cadastro → herói pronto → primeira missão → novo login recupera av
     fullPage: true,
   });
   await page.getByRole('button', { name: 'Começar aventura' }).click();
-  await expect(page).toHaveURL('/journey/phases/o-jardim-e-a-escolha');
+  await expect(page).toHaveURL('/journey');
+  await expect(
+    page.getByRole('heading', { name: 'Nove mundos. Um caminho seu.' }),
+  ).toBeVisible();
+  // Existing Garden remains a separate compatibility path; this test exercises
+  // its account recovery, not completion of the newly prepared first chapter.
+  await openLegacyGarden(page);
   expect(remote.hero()?.body_type).toBe('female');
   expect(remote.hero()?.name).toBe('Ana');
   await page.getByRole('button', { name: /Entrar no jardim/ }).click();
@@ -178,7 +199,11 @@ test('cadastro → herói pronto → primeira missão → novo login recupera av
   ).toBeVisible();
   // Follow the real in-game link; a forced document navigation aborts WebKit's
   // in-flight RSC prefetch and is unrelated to session/character recovery.
-  await page.getByRole('link', { name: /Continuar jornada/ }).click();
+  await page.getByRole('link', { name: /Modo História · ver mundos/ }).click();
+  await expect(
+    page.getByRole('heading', { name: 'Nove mundos. Um caminho seu.' }),
+  ).toBeVisible();
+  await openLegacyGarden(page);
   await expect(
     page.getByRole('application', { name: 'Área explorável do Jardim' }),
   ).toBeVisible();
@@ -317,7 +342,10 @@ test('QR → cadastro → avatar → confirmação cria somente pedido pendente'
       .getByRole('heading', { name: 'Guilda do teste' }),
   ).toBeVisible();
   expect(requests).toBe(0);
-  await page.screenshot({ path: test.info().outputPath('invite-before-login.png'), fullPage: true });
+  await page.screenshot({
+    path: test.info().outputPath('invite-before-login.png'),
+    fullPage: true,
+  });
   await register(page, page.url());
   await expect(page).toHaveURL(
     `/journey/create?next=${encodeURIComponent(path)}`,
