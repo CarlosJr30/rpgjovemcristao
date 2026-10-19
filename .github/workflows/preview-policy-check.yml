@@ -1,0 +1,27 @@
+name: Validar filtro de Preview
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'scripts/vercel-preview-branch-policy.mjs'
+      - 'scripts/vercel-preview-branch-policy.test.mjs'
+      - '.github/workflows/preview-policy-check.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  policy-test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24.16.0'
+      - name: Testar filtro sem acessar o Vercel
+        run: node --test scripts/vercel-preview-branch-policy.test.mjs
