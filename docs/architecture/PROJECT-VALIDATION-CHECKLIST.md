@@ -1,5 +1,7 @@
 # Checklist de validação do projeto
 
+Estado da Arena por cartas e gates da TASK-0076: [Checklist Mestre V3.0](MASTER-CHECKLIST-V3.0.md). Os registros históricos abaixo permanecem preservados e não representam aprovação automática da nova experiência.
+
 Atualização específica da TASK-0073. Registros antigos permanecem nas tarefas e relatórios correspondentes; esta lista não aprova gates humanos ou remotos anteriores.
 
 | Critério | Estado / evidência |

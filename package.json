@@ -24,6 +24,10 @@
     "format": "prettier --write apps/web packages tests/e2e *.json *.ts *.mjs .prettierrc.json README.md docs/architecture/BOOTSTRAP.md",
     "format:check": "prettier --check apps/web packages tests/e2e *.json *.ts *.mjs .prettierrc.json README.md docs/architecture/BOOTSTRAP.md"
   },
+  "overrides": {
+    "sharp": "0.35.5",
+    "source-map-js": "1.2.2"
+  },
   "devDependencies": {
     "@playwright/test": "1.63.0",
     "@testing-library/dom": "10.4.2",
@@ -33,7 +37,7 @@
     "@types/react": "19.3.0",
     "@types/react-dom": "19.3.0",
     "eslint": "9.39.5",
-    "eslint-config-next": "16.3.5",
+    "eslint-config-next": "16.4.2",
     "jsdom": "30.0.1",
     "prettier": "3.9.6",
     "typescript": "5.9.3",

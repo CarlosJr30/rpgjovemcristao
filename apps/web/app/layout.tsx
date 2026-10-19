@@ -3,6 +3,7 @@ import type { ReactNode } from 'react';
 import { GAME_NAME } from '@rpg/shared';
 import './globals.css';
 import { Providers } from './providers';
+import { isArenaPreview } from '../lib/arena-preview';
 
 export const metadata: Metadata = {
   title: GAME_NAME,
@@ -19,7 +20,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="pt-BR">
       <body>
-        <Providers>{children}</Providers>
+        {isArenaPreview() ? children : <Providers>{children}</Providers>}
       </body>
     </html>
   );

@@ -1,4 +1,5 @@
 export type BattleAttributes = Readonly<{ life: number; strength: number; defense: number; wisdom: number }>;
+export * from './combat-card-system';
 export type GuildRewardTier = 'normal' | 'great' | 'epic' | 'extraordinary';
 export type ChestType = 'common' | 'uncommon' | 'rare' | 'epic' | 'extraordinary';
 export type ChestReward = Readonly<{

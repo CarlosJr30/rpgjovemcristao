@@ -2,15 +2,19 @@
 
 import { useState } from 'react';
 import type { Traveler } from '../domain/traveler';
+import { getCurrentOnlineUserId } from '../../../lib/supabase/online-sync';
+import { runOnlineJourneyAction } from '../state/use-journey';
 import { updateTraveler } from '../state/use-journey';
 import styles from '../journey.module.css';
 
 export function Devotional({ traveler, onComplete }: { traveler: Traveler; onComplete: () => void }) {
+  const [onlineError,setOnlineError]=useState('');
   const [reflection, setReflection] = useState(traveler.progress.devotionalReflection);
   const [prayerVisible, setPrayerVisible] = useState(false);
   const canFinish = reflection.trim().length >= 3 && reflection.length <= 800;
 
-  const finish = () => {
+  const finish = async () => {
+    if(getCurrentOnlineUserId()){try{await runOnlineJourneyAction({type:'devotional',reflection});setOnlineError('');onComplete();}catch{setOnlineError('Não foi possível confirmar o registro. Tente novamente.');}return;}
     if (!canFinish) return;
     updateTraveler((current) => ({
       ...current,
@@ -25,6 +29,7 @@ export function Devotional({ traveler, onComplete }: { traveler: Traveler; onCom
 
   return (
     <section className={styles.devotionalPanel} aria-labelledby="devotional-title">
+      {onlineError && <p role="alert">{onlineError}</p>}
       <p className={styles.phaseLead}>Devocional</p>
       <h2 id="devotional-title">Escolhas, confiança e responsabilidade</h2>
       <p>Gênesis 2 apresenta liberdade acompanhada de cuidado e orientação. Gênesis 3 mostra que escolhas podem produzir consequências que alcançam relacionamentos, trabalho e o modo de enxergar a si mesmo.</p>
