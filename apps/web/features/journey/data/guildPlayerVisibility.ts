@@ -55,9 +55,11 @@ export function playerMissionSection(
   now: number,
 ): PlayerGuildSection {
   if (progress === 'completed') return 'history';
-  if (progress === 'pending_approval') return 'pending';
+  if (progress === 'pending_approval' || progress === 'approved')
+    return 'pending';
   if (!missionIsPlayable(mission, now)) return 'hidden';
-  return !progress || ['available', 'started', 'rejected'].includes(progress)
+  return !progress ||
+    ['available', 'started', 'rejected', 'changes_requested'].includes(progress)
     ? 'available'
     : 'hidden';
 }

@@ -11,6 +11,8 @@ import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest';
 import { createTraveler, DEFAULT_APPEARANCE } from './domain/traveler';
 
 const mocks = vi.hoisted(() => ({
+  workspaceLoad: vi.fn(),
+  workspaceAct: vi.fn(),
   getContext: vi.fn(),
   getOwnJoinRequest: vi.fn(),
   createGuild: vi.fn(),
@@ -55,6 +57,15 @@ vi.mock('../../lib/supabase/repositories/guild-repository', () => ({
     removeMember: mocks.removeMember,
   },
 }));
+vi.mock(
+  '../../lib/supabase/repositories/guild-mission-workspace-repository',
+  () => ({
+    missionWorkspaceRepository: {
+      load: mocks.workspaceLoad,
+      act: mocks.workspaceAct,
+    },
+  }),
+);
 vi.mock('../../lib/supabase/repositories/guild-mission-repository', () => ({
   guildMissionRepository: {
     list: mocks.listMissions,
@@ -120,6 +131,15 @@ const membership = (role: 'leader' | 'member') => ({
 
 beforeEach(() => {
   vi.clearAllMocks();
+  mocks.workspaceAct.mockResolvedValue(undefined);
+  mocks.workspaceLoad.mockResolvedValue({
+    version: 1,
+    guildId: guild.id,
+    missions: [],
+    progress: [],
+    attempts: [],
+    history: [],
+  });
   mocks.getOwnJoinRequest.mockResolvedValue(null);
   mocks.listMembers.mockResolvedValue([
     {
@@ -157,6 +177,41 @@ beforeEach(() => {
 afterEach(cleanup);
 
 describe('OnlineGuildHub', () => {
+  test('approved reward remains pending without inflating the approval counter', async () => {
+    mocks.getContext.mockResolvedValue({
+      guild,
+      membership: membership('member'),
+    });
+    mocks.listMissions.mockResolvedValue([
+      {
+        id: 'approved-mission',
+        title: 'Atividade aprovada',
+        status: 'published',
+        starts_at: null,
+        due_at: null,
+        mission_type: 'practical_activity',
+        reward_tier: 'normal',
+      },
+    ]);
+    mocks.listOwnProgress.mockResolvedValue([
+      {
+        id: 'approved-progress',
+        mission_id: 'approved-mission',
+        traveler_id: traveler.id,
+        status: 'approved',
+        reward_claimed_at: null,
+      },
+    ]);
+    render(<OnlineGuildHub traveler={traveler} />);
+    await screen.findByRole('heading', { name: guild.name });
+    expect(
+      screen.getByText('AGUARDANDO APROVAÇÃO', { exact: true }).parentElement,
+    ).toHaveTextContent('0');
+    fireEvent.click(screen.getByRole('button', { name: 'Missões' }));
+    expect(
+      screen.getByText(/Aprovação registrada. Recompensa pendente/),
+    ).toBeVisible();
+  });
   test('filtra agenda e conclusão; histórico separado e vazio acolhedor', async () => {
     mocks.getContext.mockResolvedValue({
       guild,
@@ -200,7 +255,7 @@ describe('OnlineGuildHub', () => {
     render(<OnlineGuildHub traveler={traveler} />);
     await screen.findByRole('heading', { name: guild.name });
     fireEvent.click(screen.getByRole('button', { name: 'Missões' }));
-    expect(screen.getByText('Tudo concluído por enquanto.')).toBeVisible();
+    expect(screen.getByText('Nenhuma nova missão disponível.')).toBeVisible();
     for (const title of [
       'Missão terminada',
       'Missão futura',
@@ -238,39 +293,18 @@ describe('OnlineGuildHub', () => {
     );
   });
 
-  test('leader creates a draft by tier without XP or coin fields', async () => {
+  test('leader uses the dedicated Guild panel instead of the previous creator', async () => {
     mocks.getContext.mockResolvedValue({
       guild,
       membership: membership('leader'),
     });
     render(<OnlineGuildHub traveler={traveler} />);
-    await screen.findByRole('heading', { name: 'Célula Esperança' });
-    fireEvent.click(screen.getByRole('button', { name: 'Missões' }));
-    fireEvent.change(screen.getByLabelText('Título *'), {
-      target: { value: 'Servir em comunidade' },
-    });
-    fireEvent.click(screen.getByRole('button', { name: 'Continuar' }));
-    fireEvent.click(screen.getByRole('button', { name: 'Continuar' }));
-    fireEvent.click(screen.getByRole('button', { name: 'Continuar' }));
+    await screen.findByRole('heading', { name: guild.name });
+    fireEvent.click(screen.getByRole('button', { name: 'Miss\u00f5es' }));
     expect(
-      screen.getByText(/Valores oficiais; não podem ser editados/),
-    ).toBeVisible();
-    expect(
-      screen.getByText('+80 XP · +25 Moedas do Viajante · +1 Baú Comum'),
-    ).toBeVisible();
-    expect(screen.queryByLabelText(/XP/i)).not.toBeInTheDocument();
-    expect(screen.queryByLabelText(/Moedas/i)).not.toBeInTheDocument();
-    fireEvent.click(screen.getByRole('button', { name: 'Salvar rascunho' }));
-    await waitFor(() =>
-      expect(mocks.createMission).toHaveBeenCalledWith(
-        expect.objectContaining({
-          travelerId: traveler.id,
-          title: 'Servir em comunidade',
-          rewardTier: 'normal',
-          publish: false,
-        }),
-      ),
-    );
+      screen.getByRole('link', { name: 'Painel da Guilda' }),
+    ).toHaveAttribute('href', '/journey/guild/manage');
+    expect(mocks.createMission).not.toHaveBeenCalled();
   });
 
   test('member sees published mission but no administrative form', async () => {
@@ -319,7 +353,7 @@ describe('OnlineGuildHub', () => {
     );
   });
 
-  test('self-complete processes the reward and refreshes the Traveler cache', async () => {
+  test('legacy self-complete mission submits evidence without claiming a reward', async () => {
     mocks.getContext.mockResolvedValue({
       guild,
       membership: membership('member'),
@@ -364,216 +398,68 @@ describe('OnlineGuildHub', () => {
         updated_at: guild.updated_at,
       },
     ]);
-    mocks.submit.mockResolvedValue('completed');
-
     render(<OnlineGuildHub traveler={traveler} />);
-    await screen.findByRole('heading', { name: 'Célula Esperança' });
-    fireEvent.click(screen.getByRole('button', { name: 'Missões' }));
+    await screen.findByRole('heading', { name: guild.name });
+    fireEvent.click(screen.getByRole('button', { name: 'Miss\u00f5es' }));
+    fireEvent.change(
+      screen.getByLabelText('Comprova\u00e7\u00e3o da conclus\u00e3o'),
+      { target: { value: 'Registro objetivo' } },
+    );
     fireEvent.click(
-      screen.getByRole('button', { name: 'Marcar como concluída' }),
+      screen.getByRole('button', { name: 'Enviar conclus\u00e3o' }),
     );
-
     await waitFor(() =>
-      expect(mocks.reloadOnlineTraveler).toHaveBeenCalledWith(traveler.id),
+      expect(mocks.workspaceAct).toHaveBeenCalledWith(
+        traveler.id,
+        'mission-self',
+        'submit',
+        'Registro objetivo',
+        expect.any(String),
+        0,
+      ),
     );
+    expect(mocks.submit).not.toHaveBeenCalled();
+    expect(mocks.reloadOnlineTraveler).not.toHaveBeenCalled();
   });
 
-  test('leader management shows real counters, drafts, approvals, members and history', async () => {
+  test('management uses the new eight-area workspace and existing membership', async () => {
     mocks.getContext.mockResolvedValue({
       guild,
       membership: membership('leader'),
     });
-    const mission = {
-      id: 'mission-1',
-      guild_id: guild.id,
-      created_by_traveler_id: traveler.id,
-      title: 'Serviço da semana',
-      description: null,
-      mission_type: 'practical_activity',
-      bible_reference: null,
-      bible_url: null,
-      completion_mode: 'leader_approval',
-      requires_leader_approval: true,
-      reward_tier: 'normal',
-      status: 'published',
-      starts_at: null,
-      due_at: null,
-      metadata: null,
-      published_at: guild.created_at,
-      closed_at: null,
-      created_at: guild.created_at,
-      updated_at: guild.updated_at,
-    };
-    mocks.adminMissions.mockResolvedValue([
-      mission,
-      { ...mission, id: 'draft-1', title: 'Rascunho novo', status: 'draft' },
-    ]);
-    mocks.adminStats.mockResolvedValue([
-      {
-        mission_id: mission.id,
-        participants: 2,
-        completed: 1,
-        pending: 1,
-        completed_recent: 1,
-      },
-    ]);
-    mocks.listProgress.mockResolvedValue([
-      {
-        traveler_id: 'member-1',
-        traveler_name: 'Felipe',
-        progress_status: 'pending_approval',
-        completion_note: 'Atividade feita',
-        submitted_at: guild.created_at,
-        completed_at: null,
-      },
-    ]);
-    mocks.listMembers.mockResolvedValue([
-      {
-        traveler_id: traveler.id,
-        traveler_name: traveler.name,
-        role: 'leader',
-        member_status: 'active',
-        joined_at: guild.created_at,
-      },
-      {
-        traveler_id: 'member-1',
-        traveler_name: 'Felipe',
-        role: 'member',
-        member_status: 'active',
-        joined_at: guild.created_at,
-      },
-    ]);
-    mocks.adminHistory.mockResolvedValue([
-      {
-        id: 'event-1',
-        guild_id: guild.id,
-        actor_traveler_id: traveler.id,
-        event_type: 'mission_published',
-        entity_type: 'mission',
-        entity_id: mission.id,
-        metadata: {},
-        created_at: guild.created_at,
-      },
-    ]);
     render(<OnlineGuildHub traveler={traveler} management />);
-    expect(await screen.findByText('PAINEL DO LÍDER')).toBeVisible();
-    expect(screen.getByLabelText('Resumo da Guilda')).toHaveTextContent(
-      '2 membros',
-    );
-    expect(screen.getByLabelText('Resumo da Guilda')).toHaveTextContent(
-      '1 aprovações',
-    );
-    expect(screen.getByText(/Missão publicada/)).toBeVisible();
-    fireEvent.click(screen.getByRole('button', { name: 'Conteúdo' }));
-    fireEvent.change(screen.getByLabelText('Status'), {
-      target: { value: 'all' },
-    });
-    expect(screen.getByText('Rascunho novo')).toBeVisible();
-    expect(screen.getByText('Serviço da semana')).toBeVisible();
-    fireEvent.click(screen.getByRole('button', { name: 'Aprovações (1)' }));
-    expect(screen.getAllByText('Felipe').length).toBeGreaterThan(0);
-    let finishReview!: (value: string) => void;
-    mocks.reviewWithGuidance.mockImplementationOnce(
-      () =>
-        new Promise<string>((resolve) => {
-          finishReview = resolve;
-        }),
-    );
-    const approve = screen.getByRole('button', { name: 'Aprovar' });
-    fireEvent.click(approve);
-    expect(approve).toBeDisabled();
-    fireEvent.click(approve);
-    expect(mocks.reviewWithGuidance).toHaveBeenCalledTimes(1);
-    await waitFor(() =>
-      expect(mocks.reviewWithGuidance).toHaveBeenCalledWith(
-        'mission-1',
-        'member-1',
-        traveler.id,
-        true,
-        '',
-      ),
-    );
-    finishReview('completed');
-    expect(await screen.findByText('MISSÃO APROVADA')).toBeVisible();
-    expect(
-      screen.getByText('Recompensa processada para Felipe:'),
-    ).toBeVisible();
+    await screen.findByRole('heading', { name: 'Painel da Guilda' });
+    expect(mocks.workspaceLoad).toHaveBeenCalledWith(traveler.id, 0);
+    expect(screen.getAllByRole('option')).toHaveLength(8);
     fireEvent.click(screen.getByRole('button', { name: 'Membros' }));
-    fireEvent.click(screen.getByLabelText('Ações para Felipe'));
-    fireEvent.click(
-      screen.getAllByRole('button', { name: 'Ver perfil público' })[1],
-    );
-    await waitFor(() =>
-      expect(mocks.publicMemberProfile).toHaveBeenCalledWith(
-        traveler.id,
-        'member-1',
-      ),
-    );
-    expect(
-      await screen.findByText(/Nível 3 · 7 missões concluídas/),
-    ).toBeVisible();
-    expect(
-      screen.getByRole('button', { name: 'Remover da Guilda' }),
-    ).toBeVisible();
+    expect(screen.getByText(traveler.name)).toBeVisible();
   });
 
-  test('member opening management sees normal Guild without admin controls', async () => {
+  test('member opening management is denied administrative data and controls', async () => {
     mocks.getContext.mockResolvedValue({
       guild,
       membership: membership('member'),
     });
     render(<OnlineGuildHub traveler={traveler} management />);
-    await screen.findByRole('heading', { name: /Esperan/ });
-    expect(screen.queryByText('Painel do Líder')).not.toBeInTheDocument();
+    await screen.findByRole('link', { name: 'Voltar \u00e0 Guilda' });
+    expect(mocks.workspaceLoad).not.toHaveBeenCalled();
     expect(
-      screen.queryByRole('button', { name: '+ Criar missão' }),
-    ).not.toBeInTheDocument();
-    expect(screen.queryByText('Gerenciar Guilda')).not.toBeInTheDocument();
+      screen.queryByRole('button', { name: 'Criar miss\u00e3o' }),
+    ).toBeNull();
   });
 
-  test('leader publishes a lesson with a related mission while keeping draft controls private', async () => {
+  test('new leader panel keeps lessons and calendar outside this task', async () => {
     mocks.getContext.mockResolvedValue({
       guild,
       membership: membership('leader'),
     });
     render(<OnlineGuildHub traveler={traveler} management />);
-    await screen.findByText('PAINEL DO LÍDER');
-    fireEvent.click(screen.getByRole('button', { name: '+ Criar aula' }));
-    fireEvent.change(screen.getByLabelText('Título *'), {
-      target: { value: 'Eu sou a videira' },
-    });
-    fireEvent.change(screen.getByLabelText('Tema *'), {
-      target: { value: 'Permanecer em Cristo' },
-    });
-    fireEvent.click(screen.getByRole('button', { name: 'Continuar' }));
-    fireEvent.change(screen.getByLabelText('Passagem *'), {
-      target: { value: 'João 15' },
-    });
-    fireEvent.click(screen.getByRole('button', { name: 'Continuar' }));
-    fireEvent.change(screen.getByLabelText('Conteúdo principal *'), {
-      target: { value: 'Leitura e estudo de João 15.' },
-    });
-    fireEvent.click(screen.getByRole('button', { name: 'Continuar' }));
-    fireEvent.change(screen.getByLabelText('Perguntas, uma por linha'), {
-      target: { value: 'Qual imagem Jesus usa?' },
-    });
-    fireEvent.click(screen.getByRole('button', { name: 'Continuar' }));
-    fireEvent.click(screen.getByRole('button', { name: 'Continuar' }));
-    fireEvent.change(screen.getByLabelText('Data da aula *'), {
-      target: { value: '2026-10-01T19:00' },
-    });
-    fireEvent.click(screen.getByRole('button', { name: 'Publicar aula' }));
-    await waitFor(() =>
-      expect(mocks.saveLesson).toHaveBeenCalledWith(
-        expect.objectContaining({
-          leaderTravelerId: traveler.id,
-          title: 'Eu sou a videira',
-          bibleReference: 'João 15',
-          discussionQuestions: ['Qual imagem Jesus usa?'],
-          publish: true,
-        }),
-      ),
-    );
+    await screen.findByRole('heading', { name: 'Painel da Guilda' });
+    expect(
+      screen.queryByRole('button', { name: /Criar aula|Publicar aula/ }),
+    ).toBeNull();
+    expect(mocks.saveLesson).not.toHaveBeenCalled();
+    expect(mocks.listLessons).not.toHaveBeenCalled();
   });
 
   test('member sees only published lessons returned by RLS and no leader action', async () => {
@@ -674,7 +560,14 @@ describe('OnlineGuildHub', () => {
       screen.getByRole('button', { name: 'Iniciar nova tentativa' }),
     );
     await waitFor(() =>
-      expect(mocks.start).toHaveBeenCalledWith('retry-1', traveler.id),
+      expect(mocks.workspaceAct).toHaveBeenCalledWith(
+        traveler.id,
+        'retry-1',
+        'start',
+        '',
+        expect.any(String),
+        0,
+      ),
     );
   });
 });

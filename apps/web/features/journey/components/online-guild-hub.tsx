@@ -1,5 +1,9 @@
 'use client';
 import { GuildInvitePanel } from '../../guild-invites/invite-panel';
+import { GuildLeaderPanel } from '../../guild-missions/leader-panel';
+import { MemberMission } from '../../guild-missions/member-mission';
+import type { Mission, Progress } from '../../guild-missions/contracts';
+import { eligibleForTraveler } from '../../guild-missions/contracts';
 
 import { guildMissionRewards, type GuildRewardTier } from '@rpg/game-engine';
 import {
@@ -52,8 +56,7 @@ import { useGuildClock } from '../hooks/use-guild-clock';
 import { gameAudio } from '../audio/audio-manager';
 import { GuildHero } from './guild-hero';
 import hall from './guild-experience.module.css';
-import { guildStatusLabel } from '../data/guildPresentation';
-import { GuildArtwork, GuildHall } from './guild-artwork';
+import { GuildHall } from './guild-artwork';
 import { GuildChat } from './guild-chat';
 
 type LoadedState = Readonly<{
@@ -129,7 +132,17 @@ const emptyLessonForm = () => ({
 });
 type LessonForm = ReturnType<typeof emptyLessonForm>;
 
-export function OnlineGuildHub({
+export function OnlineGuildHub(props: {
+  traveler: Traveler;
+  management?: boolean;
+}) {
+  return props.management ? (
+    <GuildLeaderPanel key={props.traveler.id} traveler={props.traveler} />
+  ) : (
+    <OnlineGuildLegacyHub key={props.traveler.id} {...props} />
+  );
+}
+function OnlineGuildLegacyHub({
   traveler,
   management = false,
 }: {
@@ -249,7 +262,12 @@ export function OnlineGuildHub({
               missingPendingIds,
             )
           : [];
-      const loadedMissions = [...missions, ...pendingOlderMissions];
+      const loadedMissions = [...missions, ...pendingOlderMissions].filter(
+        (mission) =>
+          leader ||
+          eligibleForTraveler(mission as Mission, traveler.id) ||
+          ownProgress.some((progress) => progress.mission_id === mission.id),
+      );
       const progressEntries = leader
         ? await Promise.all(
             loadedMissions
@@ -529,13 +547,16 @@ export function OnlineGuildHub({
         ownProgress.get(mission.id)?.status === 'started' &&
         missionIsPlayable(mission, now),
     ),
-    pending: state.missions.filter(
-      (mission) => ownProgress.get(mission.id)?.status === 'pending_approval',
+    pending: state.missions.filter((mission) =>
+      ['pending_approval', 'approved'].includes(
+        ownProgress.get(mission.id)?.status ?? '',
+      ),
     ),
     rejected: state.missions.filter(
       (mission) =>
-        ownProgress.get(mission.id)?.status === 'rejected' &&
-        missionIsPlayable(mission, now),
+        ['rejected', 'changes_requested'].includes(
+          ownProgress.get(mission.id)?.status ?? '',
+        ) && missionIsPlayable(mission, now),
     ),
     completed: state.missions.filter(
       (mission) => ownProgress.get(mission.id)?.status === 'completed',
@@ -2012,7 +2033,12 @@ export function OnlineGuildHub({
           missionGroups.started.length +
           missionGroups.rejected.length
         }
-        pending={missionGroups.pending.length}
+        pending={
+          missionGroups.pending.filter(
+            (mission) =>
+              ownProgress.get(mission.id)?.status === 'pending_approval',
+          ).length
+        }
         completed={missionGroups.completed.length}
       >
         <span className={styles.guildRoleBadge}>
@@ -2088,8 +2114,8 @@ export function OnlineGuildHub({
                 : 'missões disponíveis para você'}
             </p>
             <p>
-              {missionGroups.pending.length} aguardando{' '}
-              {isLeader ? 'sua aprovação' : 'aprovação do líder'}
+              {missionGroups.pending.length} pendências de aprovação ou
+              recompensa.
             </p>
             {!isLeader && (
               <button
@@ -2099,7 +2125,9 @@ export function OnlineGuildHub({
                 Ver minhas missões →
               </button>
             )}
-            <p>Recompensas são calculadas e processadas pelo sistema.</p>
+            <p>
+              Recompensas aprovadas podem permanecer pendentes de integração.
+            </p>
           </section>
           <section className={styles.guildChallengePanel}>
             <h2>Privacidade</h2>
@@ -2309,22 +2337,7 @@ export function OnlineGuildHub({
           {tab === 'missions' && (
             <>
               {isLeader && (
-                <MissionCreator
-                  travelerId={traveler.id}
-                  value={missionForm}
-                  onChange={setMissionForm}
-                  onSave={(publish) =>
-                    void act(
-                      () =>
-                        guildMissionRepository.create({
-                          ...missionForm,
-                          travelerId: traveler.id,
-                          publish,
-                        }),
-                      publish ? 'Missão publicada.' : 'Rascunho salvo.',
-                    )
-                  }
-                />
+                <Link href="/journey/guild/manage">Painel da Guilda</Link>
               )}
               <MissionSection
                 title={isLeader ? 'Missões da Guilda' : 'Disponíveis'}
@@ -2379,7 +2392,7 @@ export function OnlineGuildHub({
                     )}
                   />
                   <MissionSection
-                    title="Aguardando aprovação"
+                    title="Aprovação e recompensas pendentes"
                     missions={missionGroups.pending}
                     render={(mission) => (
                       <MissionCard
@@ -2911,7 +2924,7 @@ function MissionSection({
           (title === 'Disponíveis' ? (
             <div className={styles.guildEmpty}>
               <span aria-hidden="true">✦</span>
-              <h3>Tudo concluído por enquanto.</h3>
+              <h3>Nenhuma nova missão disponível.</h3>
               <p>Novas missões da sua célula aparecerão aqui.</p>
             </div>
           ) : (
@@ -2926,17 +2939,7 @@ function MissionSection({
   );
 }
 
-function MissionCard({
-  now,
-  mission,
-  progress,
-  isLeader,
-  note,
-  setNote,
-  onAction,
-  travelerId,
-  leaderProgress,
-}: {
+function MissionCard(props: {
   now: number;
   mission: GuildMissionRow;
   progress?: GuildMissionProgressRow;
@@ -2951,171 +2954,13 @@ function MissionCard({
   travelerId: string;
   leaderProgress: GuildMissionProgressSummary[];
 }) {
-  const expired = Boolean(mission.due_at && Date.parse(mission.due_at) <= now);
-  const rewardTier = mission.reward_tier as GuildRewardTier;
-  const pending = leaderProgress.filter(
-    (item) => item.progress_status === 'pending_approval',
-  );
   return (
-    <article
-      className={styles.guildSpecialCard}
-      data-special={['epic', 'extraordinary'].includes(rewardTier)}
-    >
-      <GuildArtwork slot="guildMissionParchment" className={hall.parchment} />
-      <span>
-        {missionTypeLabels[mission.mission_type as GuildMissionType]} ·{' '}
-        {guildStatusLabel(mission.status)}
-      </span>
-      <h3>{mission.title}</h3>
-      {mission.description && (
-        <p className={hall.excerpt}>{mission.description}</p>
-      )}
-      <details>
-        <summary>Ver missão</summary>
-        {mission.description && <p>{mission.description}</p>}
-        {mission.bible_reference && (
-          <p>Referência: {mission.bible_reference}</p>
-        )}
-        {mission.bible_url && (
-          <a href={mission.bible_url} target="_blank" rel="noopener noreferrer">
-            Abrir na Bíblia ↗
-          </a>
-        )}
-      </details>
-      {mission.due_at && (
-        <p>Prazo: {new Date(mission.due_at).toLocaleString('pt-BR')}</p>
-      )}
-      <GuildRewardDetails
-        tier={rewardTier}
-        showChest={
-          ['epic', 'extraordinary'].includes(rewardTier) ||
-          progress?.status === 'completed'
-        }
-      />
-      {expired && <p className={styles.guildWarning}>Missão expirada.</p>}
-      <b className={hall.status}>
-        {expired &&
-        progress?.status !== 'completed' &&
-        progress?.status !== 'pending_approval'
-          ? 'EXPIRADA'
-          : progress
-            ? (progressLabels[progress.status] ?? progress.status)
-            : 'DISPONÍVEL'}
-      </b>
-      {!isLeader &&
-        missionIsPlayable(mission, now) &&
-        (!progress ||
-          progress.status === 'available' ||
-          progress.status === 'rejected') && (
-          <button
-            onClick={() =>
-              onAction(
-                () => guildMissionRepository.start(mission.id, travelerId),
-                'Missão iniciada.',
-              )
-            }
-          >
-            {progress?.status === 'rejected'
-              ? 'Iniciar nova tentativa'
-              : 'Iniciar Missão'}
-          </button>
-        )}
-      {!isLeader &&
-        missionIsPlayable(mission, now) &&
-        progress?.status === 'started' && (
-          <>
-            <label>
-              Nota objetiva opcional
-              <textarea
-                maxLength={500}
-                value={note}
-                onChange={(event) => setNote(event.target.value)}
-                placeholder="Registre somente informação ligada à atividade; não inclua orações ou Diário privado."
-              />
-            </label>
-            <button
-              onClick={() =>
-                onAction(
-                  () =>
-                    guildMissionRepository.submit(mission.id, travelerId, note),
-                  mission.completion_mode === 'self_complete'
-                    ? 'Missão concluída e recompensa recebida.'
-                    : 'Missão enviada para aprovação.',
-                  mission.completion_mode === 'self_complete',
-                )
-              }
-            >
-              {mission.completion_mode === 'self_complete'
-                ? 'Marcar como concluída'
-                : 'Enviar para aprovação'}
-            </button>
-          </>
-        )}
-      {progress?.status === 'completed' && (
-        <p className={styles.guildSuccess}>
-          ✓ Concluída · recompensa processada
-        </p>
-      )}
-      {progress?.status === 'rejected' && progress.review_note && (
-        <p className={styles.guildWarning}>
-          Orientação do líder: {progress.review_note}
-        </p>
-      )}
-      {isLeader && mission.status === 'draft' && (
-        <button
-          onClick={() =>
-            onAction(
-              () => guildMissionRepository.publish(mission.id, travelerId),
-              'Missão publicada.',
-            )
-          }
-        >
-          Publicar
-        </button>
-      )}
-      {isLeader &&
-        pending.map((item) => (
-          <div className={styles.guildRequestCard} key={item.traveler_id}>
-            <div>
-              <b>{item.traveler_name}</b>
-              <span>{item.completion_note || 'Sem nota de conclusão.'}</span>
-            </div>
-            <div>
-              <button
-                onClick={() =>
-                  onAction(
-                    () =>
-                      guildMissionRepository.review(
-                        mission.id,
-                        item.traveler_id,
-                        travelerId,
-                        true,
-                      ),
-                    'Missão aprovada e recompensa processada.',
-                  )
-                }
-              >
-                Aprovar
-              </button>
-              <button
-                onClick={() =>
-                  onAction(
-                    () =>
-                      guildMissionRepository.review(
-                        mission.id,
-                        item.traveler_id,
-                        travelerId,
-                        false,
-                      ),
-                    'Nova tentativa solicitada.',
-                  )
-                }
-              >
-                Solicitar nova tentativa
-              </button>
-            </div>
-          </div>
-        ))}
-    </article>
+    <MemberMission
+      mission={props.mission as Mission}
+      progress={props.progress as Progress | undefined}
+      travelerId={props.travelerId}
+      now={props.now}
+      onAction={props.onAction}
+    />
   );
 }
