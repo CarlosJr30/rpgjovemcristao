@@ -4,6 +4,8 @@ Branch isolada `codex/account-only-entry`, base main `5508514`. Nenhum push, mer
 
 Estado final: **BLOCKED para aceite completo**, com validação local aprovada. Dependências externas e limites de segurança estão no checklist do contrato TASK-0080.
 
+Decisão posterior de Carlos: auditoria de dependências **DONE**, mantendo5P1/braces e4P2/esbuild visíveis e risco provisoriamente aceito para desenvolvimento/preparação isolada, não para produção irrestrita. Não repetir investigação sem fato novo. Bloqueios atuais são ambiente/autorização/aceite externo, não esses alertas aceitos para o preparo. [Plano rápido atualizado](TASK-0080-ISOLATED-VALIDATION-PLAN.md): CI de qualidade cobre branch0080, deploy CLOUD não; proposta de Preview separada e publicação manual do SHA aprovado, sem alterar automação. Nenhum novo teste/audit/push/deploy/migration remoto nesta decisão.
+
 Continuação de segurança posterior ao commit17c6349: [parecer e classificação individual dos nove alertas DEV](../security/TASK-0080-SECURITY-AUDIT.md) e [plano de validação isolada, sem execução remota](TASK-0080-ISOLATED-VALIDATION-PLAN.md). Corrigidos replay de sessão não verificada e expiração após espera por lock, ambos reproduzidos antes da mudança. Nesta rodada40unitários direcionados/27E2E/integraçãoSQL com3subtestes/lint/tipos/build PASS; baseline470 abaixo é histórico preservado. Nenhuma dependência atualizada por ausência de correção compatível comprovada; produção audit0,5P1/4P2DEV ainda abertos. SQL continua local, com nova verificação temporal pós-lock. Sem divergências no código inicial desta retomada; diferenças novas limitadas às correções/testes/documentação.
 
 ## Entrada e persistência

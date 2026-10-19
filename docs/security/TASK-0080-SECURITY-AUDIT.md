@@ -1,5 +1,9 @@
 # TASK-0080 — Auditoria local de segurança
 
+**AUDITORIA DE DEPENDÊNCIAS: DONE**, por encerramento explícito de Carlos após b3f62ee. Os5P1/braces e4P2/esbuild continuam reportados, sem correção compatível comprovada até a última auditoria; audit de produção anteriormente0. Riscos aceitos provisoriamente pelo usuário **somente para continuidade do desenvolvimento e preparação do ambiente isolado**, não para liberação irrestrita de produção. Nenhum alerta suprimido, severidade rebaixada ou npm audit desabilitado. As exigências históricas abaixo de resolverP1 antes de preparar o ambiente ficam superadas por esta decisão delimitada; não representam bloqueio atual dessa preparação.
+
+Não reabrir esta investigação sem versão corrigida, novo advisory ou mudança concreta de exposição. Nenhum novo audit, busca de versão ou teste de dependência executado neste encerramento. TASK-0080 como um todo não recebe DONE: implementação local concluída, aceite externo pendente. Restam ambiente separado, autorizações e provas hospedadas/físicas. Plano de publicação em docs/architecture/TASK-0080-ISOLATED-VALIDATION-PLAN.md.
+
 Data: 19/10/2026. Branch `codex/account-only-entry`; ponto auditado `17c63491540c9226779b50a2b303a819347e21a2`, preservado como ancestral. Checkout inicialmente limpo, sem divergências do relatório anterior. Autor assume Backend/Database/QA/Security; revisão pelo autor, não independente. Estado global **BLOCKED**. Nenhum acesso a projeto/dados remotos, push, deploy, novo secret ou configuração externa.
 
 ## Achados demonstrados e correções

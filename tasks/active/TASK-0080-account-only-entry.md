@@ -2,6 +2,7 @@
 
 ID: TASK-0080
 STATUS: BLOCKED
+DEPENDENCY_AUDIT_STATUS: DONE
 OBJECTIVE: Remover a entrada local/temporária e reutilizar Auth existente para login, cadastro, retorno ao avatar e convite pendente.
 AUTHORIZATION: Pedido explícito de Carlos em 19/10/2026; implementação e testes locais, sem main/produção/Supabase remoto/deploy/operações destrutivas. Não alterar o contrato TASK-0078.
 SCOPE: AuthScreen/AuthProvider/gate de páginas, textos da entrada/criação, trava da criação sem sessão, testes relacionados, documentação e memória desta tarefa. Autor assume Frontend/Backend/QA/Security, sem subagentes; ownership desses caminhos autorizado neste contrato. Reusar SDK, repositórios e hidratação existentes, sem outro sistema de Auth. Worktree isolado build/task-0080-account-entry/checkout, branch codex/account-only-entry a partir de main5508514; alterações preexistentes preservadas.
@@ -64,7 +65,8 @@ Logs ficam no diretório ignorado build/task-0080-account-entry da raiz original
 - [ ] Aplicar a migration isolada em alvo autorizado após revisão e plano de recuperação; expressamente proibido nesta sessão.
 - [ ] Configurar APP_BASE_URL real e revisar callbacks Auth/PostgREST/ACL/logs no ambiente autorizado.
 - [ ] Comprovar Auth hospedado, recuperação em dois aparelhos reais e leitura pela câmera; não equivalem a mocks/contextos separados.
-- [ ] Resolver os nove alertas DEV e completar aceite Security externo.
+- [x] Auditoria de dependências encerrada pelo usuário;9alertas preservados, risco provisoriamente aceito para desenvolvimento/preparo isolado.
+- [ ] Completar aceite de segurança/funcional hospedado; encerramento da auditoria não libera produção.
 
 ### Condição de desbloqueio
 
@@ -103,3 +105,15 @@ Autorização atual: investigar/corrigir somente dependências com solução seg
 - [ ] Aceites hospedados/físicos e demais gates do contrato, ainda pendentes.
 
 Parecer detalhado atualizado em docs/security/TASK-0080-SECURITY-AUDIT.md. Sondagens locais limitadas não reproduziram RangeError nesteNode24; isso não invalida advisory/P1. Nenhum pacote instalado/alterado; npmci/lint/tipos/build/unitários/E2E/SQL não repetidos por ausência de mudança executável. Evidências anteriores reutilizadas sem inflar contagem; novos diagnósticos/recibo p1-* na pasta ignorada da tarefa. Correções Auth/SQL de b71b205 intactas. STATUS **BLOCKED**, não VALIDATING/DONE; não houve correção tentada que introduzisse REWORK. Próximo: solução upstream compatível ou revisão específica de alternativa, antes de qualquer execução remota. Commit novo somente documental/local, sem amend/merge/push.
+
+## Encerramento da auditoria e preparo da Preview — decisão posterior de Carlos
+
+Auditoria de dependências **DONE** por instrução explícita do usuário. Manter5P1/braces e4P2/esbuild nos relatórios, sem correção compatível comprovada e produção anteriormente0. Risco aceito provisoriamente para desenvolver/preparar ambiente isolado, nunca para produção irrestrita. Não reabrir investigação sem versão corrigida, novo advisory ou exposição alterada. Esta decisão supera o bloqueio histórico por dependências na preparação, sem fechar os alertas.
+
+Pedido autoriza somente verificar requisitos e preparar configuração/proposta; não autoriza push/deploy/migration remota. Branch inicialmente limpa em b3f62ee, commits anteriores preservados. git ls-remote confirma branch0080 ainda ausente e main5508514. Workflow/scripts/vercel.json iguais à main; quality aceita todas as branches, mas pinned-preview exige preview/* ou codex/pinned-preview-ci, demo_eligible e alvo Vercel fixo. Checagem somente de elegibilidade resulta false para este HEAD. Logo CLOUD não publica esta branch nem serve como atalho para Auth/Supabase de teste. Nenhum workflow alterado, CI remoto desse SHA ainda pendente do push autorizado.
+
+Consulta somente de metadados Supabase: nenhum projeto de teste RPG identificado entre os visíveis; projeto RPG de produção é o único ativo. Nenhuma consulta SQL/dado/Auth/configuração do projeto. Listagem Vercel pelo conector retornou403 no workspace; CLI não disponível nas localizações padrão verificadas. Existência/configuração de projeto Vercel isolado não confirmada; isso não autoriza usar o projeto existente como substituto.
+
+Plano existente atualizado com o caminho mínimo: criar/configurar Supabase e Vercel separados após autorização, publicar branch0080 para quality, exigir CI verde do SHA candidato e então Preview manual desse SHA no projeto isolado. Sem alterar CLOUD ou criar branch de conveniência para burlar gates. Migration proposta mantém checksum2D536427D68281FBB72795315B2845BDF58EA4CA89160E4ECF6CA2F005E1CA37; aplicação remota proibida nesta etapa. Configuração mínima, exceção de risco e proposta estão no plano. Nenhuma suíte/audit repetida; somente leituras/checagens de branch, gates e metadados.
+
+Estado: **implementação local concluída / aceite externo pendente**. AuditoriaDONE. TASK-0080 permanece BLOCKED apenas por ambiente/autorização/configuração e evidências externas ausentes, não pelos alertas provisoriamente aceitos. Próximo passo executável: obter autorização específica para criar/configurar os projetos isolados e publicar a branch para CI; aprovação da aplicação SQL e do deploy continuam explícitas. Nenhum recurso remoto, secret, conta, push/deploy/SQL criado/executado nesta sessão. Contrato TASK-0078/CLOUD/produção/main intactos.
