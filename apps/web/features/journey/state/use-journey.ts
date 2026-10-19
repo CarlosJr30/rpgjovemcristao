@@ -108,8 +108,8 @@ export async function registerTraveler(
   authenticatedUserId: string | null | undefined = undefined,
 ): Promise<string | null> {
   try {
-    if (authenticatedUserId === undefined)
-      return 'Entre em sua conta ou escolha continuar somente neste navegador.';
+    if (!authenticatedUserId)
+      return 'Entre em sua conta para criar e salvar seu herói.';
 
     const session = await getSession();
     const verifiedUser = session ? await getAuthenticatedUser() : null;
@@ -118,18 +118,14 @@ export async function registerTraveler(
       console.info('[AUTH] user id:', verifiedUser?.id ?? null);
     }
 
-    const requiresOnlineCreation =
-      authenticatedUserId !== null || session !== null;
-    if (requiresOnlineCreation) {
-      if (
-        !session?.user.id ||
-        !verifiedUser?.id ||
-        session.user.id !== verifiedUser.id ||
-        (authenticatedUserId !== null &&
-          authenticatedUserId !== verifiedUser.id)
-      ) {
-        return 'Não foi possível validar sua sessão do Supabase. Entre novamente e tente de novo.';
-      }
+    if (
+      !session?.user.id ||
+      !verifiedUser?.id ||
+      verifiedUser.is_anonymous ||
+      session.user.id !== verifiedUser.id ||
+      authenticatedUserId !== verifiedUser.id
+    ) {
+      return 'Não foi possível validar sua sessão do Supabase. Entre novamente e tente de novo.';
     }
 
     const traveler = createTraveler(
@@ -140,17 +136,9 @@ export async function registerTraveler(
     );
     traveler.avatar.gender = bodyType;
 
-    if (verifiedUser) {
-      const result = await createOnlineTraveler(verifiedUser.id, traveler);
-      refresh();
-      return result.status === 'created' ? null : result.message;
-    }
-
-    if (!journeyRepository.saveNew(traveler))
-      return 'Não foi possível salvar. Permita o armazenamento deste site e tente novamente.';
-    journeyRepository.startSession(traveler.id);
+    const result = await createOnlineTraveler(verifiedUser.id, traveler);
     refresh();
-    return null;
+    return result.status === 'created' ? null : result.message;
   } catch {
     return 'Não foi possível criar o Viajante. Confira o nome e tente novamente.';
   }

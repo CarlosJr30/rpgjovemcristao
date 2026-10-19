@@ -20,6 +20,7 @@ import {
   getCurrentRemoteActiveTravelerId,
   listTravelersForCurrentSession,
 } from '../../../lib/supabase/online-sync';
+import { registrationDestination } from '../../../lib/supabase/auth-return';
 
 export function Home() {
   const state = useJourney();
@@ -36,7 +37,7 @@ export function Home() {
       state.status !== 'ready' &&
       savedTravelers.length === 0
     )
-      router.replace(routes.create);
+      router.replace(registrationDestination());
   }, [auth.status, router, savedTravelers.length, state.status]);
   if (state.status === 'logged-out') {
     const preferredTravelerId = getCurrentRemoteActiveTravelerId();
@@ -88,8 +89,8 @@ export function Home() {
           <Link className={styles.primaryLink} href={routes.create}>
             + Criar novo Viajante
           </Link>
-          {(auth.status === 'signedOut' || auth.status === 'local') && (
-            <Link href="/auth">Entrar ou criar conta para sincronizar</Link>
+          {auth.status === 'signedOut' && (
+            <Link href="/auth">Entrar ou criar conta</Link>
           )}
         </section>
       </Shell>
@@ -180,7 +181,7 @@ export function Home() {
             }}
           >
             {auth.status === 'signedOut'
-              ? 'Entrar ou continuar localmente'
+              ? 'Entrar'
               : 'Criar Viajante'}{' '}
             <span aria-hidden="true">↗</span>
           </Button>

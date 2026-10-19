@@ -201,7 +201,7 @@ describe('CreateScreen auth guard', () => {
     );
   });
 
-  test('explicit local-only mode can create locally', async () => {
+  test('a stale local-only auth value cannot create a traveler', async () => {
     mocks.auth.current = {
       status: 'local',
       session: null,
@@ -212,20 +212,13 @@ describe('CreateScreen auth guard', () => {
     render(<CreateScreen />);
 
     const button = screen.getByRole('button', { name: /Criar Viajante/ });
-    expect(button).toBeEnabled();
+    expect(button).toBeDisabled();
     fireEvent.change(screen.getByLabelText('Nome do Viajante'), {
       target: { value: 'Viajante Local' },
     });
     fireEvent.click(button);
 
-    await waitFor(() =>
-      expect(mocks.registerTraveler).toHaveBeenCalledWith(
-        'Viajante Local',
-        expect.any(Object),
-        'male',
-        null,
-      ),
-    );
+    expect(mocks.registerTraveler).not.toHaveBeenCalled();
   });
 
   test('signed-out user without local-only choice remains blocked', () => {
@@ -235,7 +228,7 @@ describe('CreateScreen auth guard', () => {
       screen.getByRole('button', { name: /Criar Viajante/ }),
     ).toBeDisabled();
     expect(
-      screen.getByText(/Entre em uma conta ou escolha explicitamente/),
+      screen.getByText(/Entre em sua conta para criar e salvar/),
     ).toBeVisible();
   });
 });

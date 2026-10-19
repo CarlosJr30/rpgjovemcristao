@@ -18,6 +18,7 @@ import { Avatar } from '../components/avatar';
 import styles from '../journey.module.css';
 import { useAuth } from '../../../lib/supabase/auth-context';
 import { profileDisplayName } from '../../../lib/supabase/auth';
+import { entryReturn } from '../../../lib/supabase/auth-return';
 
 const presets: {
   label: string;
@@ -75,8 +76,7 @@ export function CreateScreen() {
   const auth = useAuth();
   const router = useRouter();
   const authLoading = auth.status === 'loading';
-  const canCreateTraveler =
-    auth.status === 'signedIn' || auth.status === 'local';
+  const canCreateTraveler = auth.status === 'signedIn';
   const suggestedName =
     auth.status === 'signedIn'
       ? (profileDisplayName(auth.user)?.slice(0, 24) ?? 'Viajante')
@@ -95,7 +95,6 @@ export function CreateScreen() {
       sessionPresent: Boolean(auth.session),
       userPresent: Boolean(auth.user),
       isAuthenticated: auth.isAuthenticated,
-      continueLocally: auth.status === 'local',
     });
   }, [auth, authLoading]);
 
@@ -120,13 +119,11 @@ export function CreateScreen() {
         bodyType,
         auth.status === 'signedIn'
           ? auth.user.id
-          : auth.status === 'local'
-            ? null
-            : undefined,
+          : undefined,
       );
       setError(failure);
       if (!failure)
-        router.push(auth.status === 'signedIn' ? routes.garden : routes.intro);
+        router.push(entryReturn(routes.garden));
     } finally {
       setIsSubmitting(false);
     }
@@ -367,11 +364,9 @@ export function CreateScreen() {
               <p className={styles.micro}>
                 {auth.status === 'signedIn'
                   ? 'Seu herói será salvo na sua conta.'
-                  : auth.status === 'local'
-                    ? 'Modo local escolhido: salvo somente neste navegador.'
-                    : auth.status === 'loading'
+                  : auth.status === 'loading'
                       ? 'Verificando sessão…'
-                      : 'Entre em uma conta ou escolha explicitamente o modo local em /auth.'}
+                      : 'Entre em sua conta para criar e salvar seu herói.'}
               </p>
             </form>
           </div>

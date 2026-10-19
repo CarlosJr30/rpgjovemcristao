@@ -35,6 +35,7 @@ import { AudioSettings } from './audio-settings';
 import { useGameAudio } from '../hooks/use-game-audio';
 import { DEFAULT_AUDIO_PREFERENCES, gameAudio } from '../audio/audio-manager';
 import { MUSIC_ASSETS } from '../audio/audio-assets';
+import { safeEntryReturn } from '../../../lib/supabase/auth-return';
 const primaryLinks = [
   ['hero', 'Herói', '✦'],
   ['map', 'Jornada', '⌁'],
@@ -249,7 +250,7 @@ export function Shell({
                     {state.traveler.xp} XP · {state.traveler.coins}{' '}
                     {TRAVELER_CURRENCY_NAME}
                   </span>
-                  {(auth.status === 'signedOut' || auth.status === 'local') && (
+                  {auth.status === 'signedOut' && (
                     <Link
                       href="/auth"
                       role="menuitem"
@@ -517,8 +518,13 @@ export function RequireTraveler({
   const state = useJourney();
   const router = useRouter();
   useEffect(() => {
-    if (state.status !== 'loading' && state.status !== 'ready')
-      router.replace('/');
+    if (state.status !== 'loading' && state.status !== 'ready') {
+      const next = safeEntryReturn(
+        `${window.location.pathname}${window.location.search}`,
+        window.location.origin,
+      );
+      router.replace(next ? `/?next=${encodeURIComponent(next)}` : '/');
+    }
   }, [state.status, router]);
   return state.status === 'ready' ? (
     children(state.traveler)

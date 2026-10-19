@@ -73,20 +73,47 @@ const submitSignIn = () => {
 
 beforeEach(() => {
   vi.clearAllMocks();
+  window.history.replaceState({}, '', '/auth');
   hasPersistedSupabaseSession.mockReturnValue(true);
 });
 
 afterEach(cleanup);
 
 describe('Auth sign in contract', () => {
+  test('returns an existing player to a validated pending internal destination', async () => {
+    window.history.replaceState(
+      {},
+      '',
+      '/auth?next=%2Fjourney%2Fguild%3Fcode%3Dtest-invite',
+    );
+    signIn.mockResolvedValue({ data: { user, session }, error: null });
+    getSession.mockResolvedValue(session);
+    getAuthenticatedUser.mockResolvedValue(user);
+    render(<AuthScreen />);
+    submitSignIn();
+    await waitFor(() =>
+      expect(router.replace).toHaveBeenCalledWith(
+        '/journey/guild?code=test-invite',
+      ),
+    );
+  });
+
+  test('does not accept login without a persisted SDK session', async () => {
+    signIn.mockResolvedValue({ data: { user, session }, error: null });
+    getSession.mockResolvedValue(session);
+    getAuthenticatedUser.mockResolvedValue(user);
+    hasPersistedSupabaseSession.mockReturnValue(false);
+    render(<AuthScreen />);
+    submitSignIn();
+    expect(await screen.findByRole('alert')).toBeVisible();
+    expect(router.replace).not.toHaveBeenCalled();
+  });
   test('registers name, email and password and verifies a real session before creating the hero', async () => {
     signUp.mockResolvedValue({ data: { user, session }, error: null });
     getSession.mockResolvedValue(session);
     getAuthenticatedUser.mockResolvedValue(user);
     render(<AuthScreen />);
-    fireEvent.click(
-      screen.getByRole('button', { name: 'Ainda não tenho conta' }),
-    );
+    fireEvent.click(screen.getByRole('button', { name: 'Criar conta' }));
     fireEvent.change(screen.getByLabelText('Nome de exibição'), {
       target: { value: 'Ana' },
     });
@@ -111,9 +138,7 @@ describe('Auth sign in contract', () => {
   test('does not pretend registration authenticated when confirmation is still required', async () => {
     signUp.mockResolvedValue({ data: { user, session: null }, error: null });
     render(<AuthScreen />);
-    fireEvent.click(
-      screen.getByRole('button', { name: 'Ainda não tenho conta' }),
-    );
+    fireEvent.click(screen.getByRole('button', { name: 'Criar conta' }));
     fireEvent.change(screen.getByLabelText('Nome de exibição'), {
       target: { value: 'Ana' },
     });
@@ -125,7 +150,7 @@ describe('Auth sign in contract', () => {
     });
     fireEvent.click(screen.getByRole('button', { name: 'Criar conta' }));
     expect(await screen.findByRole('status')).toHaveTextContent(
-      'Não conseguimos iniciar',
+      'Cadastro recebido.',
     );
     expect(router.replace).not.toHaveBeenCalled();
     expect(getAuthenticatedUser).not.toHaveBeenCalled();
@@ -133,9 +158,7 @@ describe('Auth sign in contract', () => {
 
   test('rejects a malformed email before sending a registration request', async () => {
     render(<AuthScreen />);
-    fireEvent.click(
-      screen.getByRole('button', { name: 'Ainda não tenho conta' }),
-    );
+    fireEvent.click(screen.getByRole('button', { name: 'Criar conta' }));
     fireEvent.change(screen.getByLabelText('Nome de exibição'), {
       target: { value: 'Ana' },
     });
@@ -175,16 +198,16 @@ describe('Auth sign in contract', () => {
     expect(getSession).not.toHaveBeenCalled();
   });
 
-  test('enters local-only mode only from the explicit action', () => {
+  test('offers only account actions and never enables local-only entry', () => {
     render(<AuthScreen />);
-
-    fireEvent.click(
-      screen.getByRole('button', {
-        name: 'Continuar somente neste navegador',
-      }),
-    );
-
-    expect(continueLocally).toHaveBeenCalledTimes(1);
-    expect(router.replace).toHaveBeenCalledWith('/');
+    expect(
+      screen.queryByRole('button', { name: /somente neste navegador/i }),
+    ).toBeNull();
+    fireEvent.click(screen.getByRole('button', { name: 'Criar conta' }));
+    expect(
+      screen.queryByRole('button', { name: /somente neste navegador/i }),
+    ).toBeNull();
+    expect(continueLocally).not.toHaveBeenCalled();
+    expect(router.replace).not.toHaveBeenCalled();
   });
 });

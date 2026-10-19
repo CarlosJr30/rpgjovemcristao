@@ -247,6 +247,12 @@ export type Database = {
       };
       create_guild: { Args: { p_leader_traveler_id: string; p_name: string; p_description?: string | null }; Returns: string };
       request_join_guild: { Args: { p_guild_id: string; p_traveler_id: string }; Returns: string };
+      create_guild_link_invite: { Args: { p_leader_traveler_id: string }; Returns: Json };
+      list_guild_link_invites: { Args: { p_leader_traveler_id: string }; Returns: Json };
+      resolve_guild_link_invite: { Args: { p_token: string }; Returns: Json };
+      preview_guild_link_invite: { Args: { p_token: string }; Returns: Json };
+      request_guild_link_invite: { Args: { p_token: string; p_traveler_id: string }; Returns: string };
+      revoke_guild_link_invite: { Args: { p_invite_id: string; p_leader_traveler_id: string }; Returns: undefined };
       review_guild_join_request: { Args: { p_request_id: string; p_reviewer_traveler_id: string; p_approve: boolean }; Returns: undefined };
       leave_guild: { Args: { p_traveler_id: string }; Returns: undefined };
       create_guild_mission: { Args: {

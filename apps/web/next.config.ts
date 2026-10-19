@@ -21,6 +21,21 @@ const nextConfig: NextConfig = {
     ? { distDir: '.next/task-0042-prototype' }
     : {}),
   poweredByHeader: false,
+  logging: {
+    incomingRequests: { ignore: [/\/guilda\/convite\//, /[?&]next=/, /\/api\/guild-invites/] },
+  },
+  async headers() {
+    return [
+      { source: '/:path*', headers: [{ key: 'Referrer-Policy', value: 'no-referrer' }] },
+      ...['/guilda/convite/:path*', '/api/guild-invites', '/auth'].map(source => ({
+        source,
+        headers: [
+          { key: 'Cache-Control', value: 'no-store' },
+          { key: 'X-Robots-Tag', value: 'noindex, nofollow' },
+        ],
+      })),
+    ];
+  },
   transpilePackages: ['@rpg/shared', '@rpg/ui'],
   // Private prototype sources must never enter server/function deploy traces.
   outputFileTracingExcludes: {

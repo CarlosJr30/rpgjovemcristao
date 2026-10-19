@@ -1,4 +1,5 @@
 'use client';
+import { GuildInvitePanel } from '../../guild-invites/invite-panel';
 
 import { guildMissionRewards, type GuildRewardTier } from '@rpg/game-engine';
 import {
@@ -908,6 +909,7 @@ export function OnlineGuildHub({
           </div>
           <Link href="/journey/guild">Voltar à Guilda</Link>
         </GuildHero>
+        <GuildInvitePanel travelerId={traveler.id} />
         <div className={styles.guildAdminToolbar}>
           <nav className={styles.guildTabs} aria-label="Painel do Líder">
             {(

@@ -3,7 +3,6 @@
 import type { AuthChangeEvent, Session, User } from '@supabase/supabase-js';
 import {
   createContext,
-  useCallback,
   useContext,
   useEffect,
   useMemo,
@@ -25,28 +24,19 @@ import { profileRepository } from './repositories/profile-repository';
 type AuthState =
   | { status: 'loading'; session: null; user: null }
   | { status: 'signedOut'; session: null; user: null }
-  | { status: 'local'; session: null; user: null }
   | { status: 'signedIn'; session: Session; user: User };
 
 type AuthContextValue = AuthState & {
   isAuthenticated: boolean;
-  continueLocally: () => void;
 };
 
 const LOCAL_MODE_KEY = 'rpg-jovem-cristao:auth-mode:v1';
-const localModeSelected = () =>
-  typeof window !== 'undefined' && localStorage.getItem(LOCAL_MODE_KEY) === 'local';
-const setLocalMode = (enabled: boolean) => {
-  if (enabled) localStorage.setItem(LOCAL_MODE_KEY, 'local');
-  else localStorage.removeItem(LOCAL_MODE_KEY);
-};
 
 const AuthContext = createContext<AuthContextValue>({
   status: 'loading',
   session: null,
   user: null,
   isAuthenticated: false,
-  continueLocally: () => undefined,
 });
 
 export function AuthProvider({ children }: { children: ReactNode }) {
@@ -55,13 +45,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     session: null,
     user: null,
   });
-
-  const continueLocally = useCallback(() => {
-    setLocalMode(true);
-    setCurrentOnlineUser(null);
-    protectSignedOutCache();
-    setState({ status: 'local', session: null, user: null });
-  }, []);
 
   useEffect(() => {
     let active = true;
@@ -72,7 +55,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       event: AuthChangeEvent;
       session: Session | null;
     } | null = null;
-    const applySession = async (session: Session | null) => {
+    const applySession = async (incoming: Session | null) => {
+      const session = incoming?.user.is_anonymous ? null : incoming;
       if (!active) return;
       const nextUserId = session?.user.id ?? null;
       if (currentSessionUserId === nextUserId) {
@@ -85,13 +69,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         setCurrentOnlineUser(null);
         protectSignedOutCache();
         setState({
-          status: localModeSelected() ? 'local' : 'signedOut',
+          status: 'signedOut',
           session: null,
           user: null,
         });
         return;
       }
-      setLocalMode(false);
+      localStorage.removeItem(LOCAL_MODE_KEY);
       setState({ status: 'loading', session: null, user: null });
       setCurrentOnlineUser(session.user.id);
       try {
@@ -117,7 +101,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         const session = await getSession();
         const user = session ? await getAuthenticatedUser() : null;
         const validSession =
-          session && user && session.user.id === user.id ? session : null;
+          session && user && !user.is_anonymous && session.user.id === user.id ? session : null;
         if (process.env.NODE_ENV === 'development') {
           console.info('[AUTH BOOT] session present:', Boolean(validSession));
           console.info('[AUTH BOOT] user present:', Boolean(user));
@@ -156,9 +140,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     () => ({
       ...state,
       isAuthenticated: state.status === 'signedIn',
-      continueLocally,
     }),
-    [continueLocally, state],
+    [state],
   );
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }

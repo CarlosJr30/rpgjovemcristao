@@ -1,6 +1,5 @@
 'use client';
 
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState, type FormEvent } from 'react';
 import {
@@ -13,10 +12,15 @@ import {
 import { useAuth } from '../../lib/supabase/auth-context';
 import { hasPersistedSupabaseSession } from '../../lib/supabase/client';
 import styles from './auth.module.css';
+import { GuildInvitePreview } from '../guild-invites/invite-preview';
+import {
+  entryReturn,
+  registrationDestination,
+} from '../../lib/supabase/auth-return';
 
 type Mode = 'signIn' | 'signUp';
 
-export function AuthScreen() {
+export function AuthScreen({ inviteToken }: { inviteToken?: string }) {
   const auth = useAuth();
   const router = useRouter();
   const [mode, setMode] = useState<Mode>('signIn');
@@ -80,18 +84,19 @@ export function AuthScreen() {
         if (
           !session ||
           !user ||
+          user.is_anonymous ||
           session.user.id !== result.data.user.id ||
           user.id !== result.data.user.id ||
           !storagePresent
         )
           throw new Error('A sessão não permaneceu disponível após o login.');
-        router.replace('/');
+        router.replace(entryReturn('/'));
       } else {
         const result = await signUp(email, password, displayName);
         if (result.error) throw new Error();
         if (!result.data.session || !result.data.user) {
           setMessage(
-            'Não conseguimos iniciar sua jornada agora. Tente entrar com seus dados. Se não funcionar, fale com o responsável pelo jogo.',
+            'Cadastro recebido. Entre com seus dados para continuar e siga as instruções do e-mail, se houver.',
           );
           return;
         }
@@ -102,12 +107,13 @@ export function AuthScreen() {
         if (
           !session ||
           !user ||
+          user.is_anonymous ||
           session.user.id !== result.data.user.id ||
           user.id !== result.data.user.id ||
           !hasPersistedSupabaseSession()
         )
           throw new Error('Não foi possível manter sua sessão.');
-        router.replace('/journey/create');
+        router.replace(registrationDestination());
       }
     } catch (cause) {
       const developmentDetails =
@@ -130,7 +136,7 @@ export function AuthScreen() {
       <main className={styles.page}>
         <section className={styles.card}>
           <p className={styles.eyebrow}>CONTA ONLINE</p>
-          <h1>Sua jornada está sincronizada</h1>
+          <h1>Sua conta está conectada</h1>
           <p>{auth.user.email}</p>
           <button
             type="button"
@@ -141,7 +147,12 @@ export function AuthScreen() {
           >
             Sair da conta
           </button>
-          <Link href="/">Voltar ao jogo</Link>
+          <button
+            type="button"
+            onClick={() => router.replace(entryReturn('/'))}
+          >
+            Voltar ao jogo
+          </button>
         </section>
       </main>
     );
@@ -152,6 +163,9 @@ export function AuthScreen() {
       <section className={styles.card} aria-labelledby="auth-title">
         <p className={styles.eyebrow}>JORNADA ONLINE</p>
         <h1 id="auth-title">{mode === 'signIn' ? 'Entrar' : 'Criar conta'}</h1>
+        {inviteToken && (
+          <GuildInvitePreview key={inviteToken} token={inviteToken} />
+        )}
         <p>
           {mode === 'signUp'
             ? 'Crie sua conta e escolha seu herói para começar.'
@@ -197,9 +211,9 @@ export function AuthScreen() {
           </label>
           {mode === 'signUp' && (
             <span id="password-hint" className={styles.hint}>
-              Use pelo menos 8 caracteres. Não há quantidade obrigatória de letras
-              maiúsculas, números ou símbolos. Para ficar mais segura, recomendamos
-              misturar maiúsculas, minúsculas, números e símbolos.
+              Use pelo menos 8 caracteres. Não há quantidade obrigatória de
+              letras maiúsculas, números ou símbolos. Para ficar mais segura,
+              recomendamos misturar maiúsculas, minúsculas, números e símbolos.
             </span>
           )}
           {error && (
@@ -230,17 +244,7 @@ export function AuthScreen() {
             setMessage(null);
           }}
         >
-          {mode === 'signIn' ? 'Ainda não tenho conta' : 'Já tenho conta'}
-        </button>
-        <button
-          className={styles.secondary}
-          type="button"
-          onClick={() => {
-            auth.continueLocally();
-            router.replace('/');
-          }}
-        >
-          Continuar somente neste navegador
+          {mode === 'signIn' ? 'Criar conta' : 'Já tenho conta'}
         </button>
       </section>
     </main>
