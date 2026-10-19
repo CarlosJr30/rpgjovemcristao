@@ -1,5 +1,9 @@
 # TASK-0080 — Plano de validação isolada
 
+## Resultado da execução posteriormente autorizada
+
+Push da branch0080/SHA1d8dd709992431842bccb1fec38e6562634649db concluído; CI39234610068SUCCESS. Projeto Vercel separado rpgjovemcristao-test criado (prj_qKzjXMVXwiVpGlU66SoTA71mStXX), Next.js/apps/web/Node24.x/proteçãoall, Git desconectado, nenhuma variável/deploy. Fallback CLI autenticado superou403 do conector. Nenhum Supabase de teste identificado; criação/configuração/migration/conta continuam fora da autorização. DeployPreview **não executado**: esta aplicação não oferece modo explícito sem backend, nem aceita configuração inventada. [Relatório e próximos passos](TASK-0080-PREVIEW-PUBLICATION-REPORT.md). As referências abaixo a projeto Vercel ainda não criado/push pendente são histórico do preparo, superadas por este resultado. AuditoriaDONE, tarefaBLOCKED por backend. Autorização de Vercel/push persiste, sem nova confirmação genérica; é necessária nova autorização específica para Supabase ou alvo de teste já preparado.
+
 **PREPARADO, NÃO EXECUTADO — BLOCKED.** Este documento não autoriza criar projetos, secrets, contas, configurar serviços, aplicar SQL, enviar commits ou publicar. Não há ambiente remoto novo, URL ou domínio atribuído. Não usar localhost/domínio fictício em convites hospedados. Riscos e parecer: [auditoria](../security/TASK-0080-SECURITY-AUDIT.md).
 
 ## Caminho mínimo para disponibilizar aos testadores
