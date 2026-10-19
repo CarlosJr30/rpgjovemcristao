@@ -2,7 +2,7 @@
 
 STATUS: **BLOCKED para aceite integral/hospedado**. Primeira versão funcional local concluída e validada; recompensa pendente é estado esperado desta versão. Não representa instalação, concessão econômica ou aceite em serviços hospedados.
 
-Branch `codex/guild-leader-missions`, worktree `build/task-0082-guild-panel/checkout`, base **bb547c6** da TASK-0081. O código de Auth/QR da TASK-0080 já está nessa ancestralidade; os arquivos locais pendentes daqueles checkouts não foram copiados como fonte. Não se presume publicação remota. Commit local: a registrar após os gates.
+Branch `codex/guild-leader-missions`, worktree `build/task-0082-guild-panel/checkout`, base **bb547c6** da TASK-0081. O código de Auth/QR da TASK-0080 já está nessa ancestralidade; os arquivos locais pendentes daqueles checkouts não foram copiados como fonte. Não se presume publicação remota. Commit local da implementação validada: **b0aa00af0d5601a16583dd08bf76b47f818a216d**. O commit seguinte registra somente o controle documental final.
 
 ## Auditoria e reaproveitamento
 
@@ -91,4 +91,4 @@ Relatório de segurança: [TASK-0082-GUILD-SECURITY](../security/TASK-0082-GUILD
 3. Não fazer rollback destrutivo das tentativas nem restaurar antigas concessões apenas para fazer o cliente antigo funcionar. Em falha de cutover, congelar mutações de missões, preservar dados/auditoria e aplicar correção/reconciliação revisada. Nenhum script automático de downgrade/data loss foi entregue.
 4. Integrar/validar recompensas com recibo único e aparelhos reais antes do aceite hospedado. Não publicar por consequência deste preparo.
 
-Nenhum push, merge, deploy, acesso a dados reais ou SQL remoto. Main, TASK-0078, Auth/QR0080 e progressão/contrato0081 ficam preservados. Próxima etapa: resolver o ambiente isolado autorizado e o adapter de recompensa; não iniciar automaticamente contexto 03/09.
+Nenhum push, merge, deploy, acesso a dados reais ou SQL remoto. Main, TASK-0078, Auth/QR0080 e progressão/contrato0081 ficam preservados. Foi acrescentada também uma entrada de controle à memória do checkout raiz, com corpo anterior preservado byte a byte e sem commit ou mudança de sua branch/ref. Próxima etapa: resolver o ambiente isolado autorizado e o adapter de recompensa; não iniciar automaticamente contexto 03/09.
