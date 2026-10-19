@@ -60,3 +60,5 @@ Autor assume os perfis; não houve revisão independente. Relatório: [TASK-0081
 Falhas iniciais preservadas: 6 testes de Diário (expectativa antiga e ordem de leitura corrigidas); build por junction fora do root resolvido com cópia local das dependências existentes; 3 seletores ambíguos com o anunciador Next corrigidos; tentativa de regressão com config antiga apontou dist inexistente; WebKit detectou navegações documentais abortando prefetch, corrigidas usando links reais do menu. Estado passou por REWORK; checks finais acima não têm falhas.
 
 Nada de push, deploy, merge, produção, nova migration registrada ou alteração de main. Proposta SQL não ativa nenhum capítulo e não modifica economia. O contexto 02/09 não foi iniciado. Próximo passo: resolver dependências do Mundo 1 e integração segura no mesmo contrato, mediante o escopo/autorização apropriados; não confundir preparo local com campanha completa.
+
+Commit local da implementação: `35c589896c9118312dfa0f9a0461e807960cdb38`. Controle subsequente altera somente este contrato e o relatório. Worktree local limpo após o registro final; nenhuma publicação autorizada/executada neste pedido.

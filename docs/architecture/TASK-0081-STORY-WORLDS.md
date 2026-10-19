@@ -2,7 +2,7 @@
 
 STATUS: BLOCKED — arquitetura local preparada; campanha integral não aceita.
 
-Branch: `codex/story-nine-worlds`. Worktree: `build/task-0081-story-worlds/checkout`. Base local: `99fb2c0` da TASK-0080, escolhida por já conter a autenticação de conta e correções do convite. Nenhum arquivo pendente do checkout 0080 foi copiado como fonte. Recibos e logs em `build/task-0081-story-worlds/`, fora do versionamento; o hash local validado será acrescentado ao controle após o commit.
+Branch: `codex/story-nine-worlds`. Worktree: `build/task-0081-story-worlds/checkout`. Base local: `99fb2c0` da TASK-0080, escolhida por já conter a autenticação de conta e correções do convite. Commit local da implementação validada: `35c589896c9118312dfa0f9a0461e807960cdb38`; o commit seguinte acrescenta somente este controle documental. Nenhum arquivo pendente do checkout 0080 foi copiado como fonte. Recibos e logs em `build/task-0081-story-worlds/`, fora do versionamento.
 
 ## Auditoria e reaproveitamento
 
@@ -80,4 +80,4 @@ Evidências locais preservam falhas iniciais e REWORK: expectativas antigas no D
 4. Converter a proposta SQL em migration/schema revisados e validar em ambiente isolado autorizado; Auth/JWT/PostgREST e sincronização real entre aparelhos seguem pendentes.
 5. Conferir aceite físico/editorial com Carlos. Não avançar ao contexto 02/09 antes de concluir o controle desta etapa.
 
-Não houve push, merge, deploy, migration remota nem alteração de produção/main. A ausência de vídeos/conteúdo/integração impede DONE; não é falha mascarada como sucesso.
+Não houve push, merge, deploy, migration remota nem alteração de produção/main. Somente uma entrada de memória de controle foi acrescentada também ao checkout raiz, preservando byte a byte o corpo anterior; não houve commit naquele checkout nem alteração de sua branch/ref. A ausência de vídeos/conteúdo/integração impede DONE; não é falha mascarada como sucesso.
