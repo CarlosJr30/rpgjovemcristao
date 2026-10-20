@@ -1,0 +1,85 @@
+.tower {
+  max-width: 1000px;
+  margin: auto;
+  color: #25392e;
+  line-height: 1.6;
+}
+.tower header {
+  padding: 24px;
+  background: #173c2f;
+  color: #fff7e6;
+  border-radius: 16px;
+  border-top: 4px solid #c3a269;
+}
+.notice {
+  padding: 16px;
+  background: #e8ecd9;
+  border-left: 4px solid #6b8057;
+  margin: 18px 0;
+}
+.floors {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: 18px;
+}
+.floors li {
+  padding: 22px;
+  border: 1px solid #c9b988;
+  border-radius: 12px;
+  background: #fffaf0;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.floors li[data-state='available'] {
+  border: 2px solid #426342;
+}
+.floors li[data-state='completed'] {
+  background: #e8ecd9;
+}
+.floors li[data-state='locked'] {
+  border-style: dashed;
+}
+.floors button {
+  min-height: 48px;
+  padding: 12px 18px;
+  max-width: 100%;
+  font: inherit;
+  border: 1px solid #8b703e;
+  border-radius: 8px;
+  background: #1d4938;
+  color: white;
+  cursor: pointer;
+}
+.floors button:disabled {
+  background: #e6dfcf;
+  color: #515a4d;
+  cursor: default;
+}
+.floors summary {
+  min-height: 44px;
+  padding: 8px 0;
+  cursor: pointer;
+}
+.tower :is(button, a, summary):focus-visible {
+  outline: 3px solid #806024;
+  outline-offset: 3px;
+}
+.champion {
+  border-top: 5px solid #ab792d !important;
+  background: #f4e9cb !important;
+  padding: 22px;
+  border-radius: 12px;
+}
+@media (max-width: 480px) {
+  .tower header,
+  .floors li {
+    padding: 16px;
+  }
+  .floors button {
+    width: 100%;
+  }
+  .tower h1 {
+    font-size: 1.65rem;
+  }
+}

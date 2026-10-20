@@ -1,0 +1,28 @@
+body {
+  margin: 0;
+  background: #f4eedf;
+  color: #25392e;
+  font:
+    16px Arial,
+    sans-serif;
+}
+main {
+  max-width: 1100px;
+  margin: auto;
+  padding: 16px;
+  box-sizing: border-box;
+}
+button {
+  padding: 12px;
+  min-height: 44px;
+  max-width: 100%;
+  font: inherit;
+}
+button:focus-visible,
+a:focus-visible {
+  outline: 3px solid #806024;
+  outline-offset: 3px;
+}
+* {
+  box-sizing: border-box;
+}

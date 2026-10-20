@@ -72,16 +72,27 @@ function Stats({ snapshot }: { snapshot: BattleParticipantSnapshot }) {
     </dl>
   );
 }
+export type LocalTowerMode = {
+  boss?: boolean;
+  opponent: BattleParticipantSnapshot;
+  session: typeof arenaDeckStorage;
+  onFinished: (battleId: string) => Promise<unknown>;
+  onExit: () => void;
+};
 
 export function ArenaExperience({
   traveler,
   ownerId,
   collectionSource = loadArenaCollection,
+  localTower,
 }: {
   traveler: Traveler;
   ownerId: string;
   collectionSource?: CollectionSource;
+  localTower?: LocalTowerMode;
 }) {
+  const session = localTower?.session ?? arenaDeckStorage;
+  const [towerConfirmed, setTowerConfirmed] = useState(false);
   const playerSnapshot = useMemo(
     () => travelerBattleSnapshot(traveler),
     [traveler],
@@ -94,11 +105,13 @@ export function ArenaExperience({
   const [deckBusy, setDeckBusy] = useState(false);
   const pending = useRef(false);
   const [showDeck, setShowDeck] = useState(false);
-  const [stage, setStage] = useState<Stage>('lobby');
+  const [stage, setStage] = useState<Stage>(localTower ? 'preview' : 'lobby');
   const [options, setOptions] = useState<OpponentOption[]>(
     TRAINING_OPPONENTS.map((snapshot) => ({ snapshot, source: 'training' })),
   );
-  const [selected, setSelected] = useState<OpponentOption | null>(null);
+  const [selected, setSelected] = useState<OpponentOption | null>(
+    localTower ? { snapshot: localTower.opponent, source: 'training' } : null,
+  );
   const [battle, setBattle] = useState<BattleState | null>(null);
   const [history, setHistory] = useState<ArenaBattleRecord[]>([]);
   const [reward, setReward] = useState<TrainingReward | null>(null);
@@ -120,6 +133,7 @@ export function ArenaExperience({
   }, [stage]);
 
   useEffect(() => {
+    if (localTower) return;
     const sync = window.setTimeout(() => {
       const saved = journeyRepository
         .listSaved()
@@ -139,13 +153,13 @@ export function ArenaExperience({
       setHistory(arenaRepository.list(traveler.id));
     }, 0);
     return () => window.clearTimeout(sync);
-  }, [traveler.id]);
+  }, [traveler.id, localTower]);
 
   useEffect(() => {
     let live = true;
     collectionSource(ownerId, traveler.id)
       .then((cards) => {
-        const saved = arenaDeckStorage.load(ownerId, traveler.id, cards);
+        const saved = session.load(ownerId, traveler.id, cards);
         if (!live) return;
         setDeckData({ cards, selection: saved.selection });
         if (saved.battle) {
@@ -157,11 +171,12 @@ export function ArenaExperience({
               : 'saved',
           });
           setStage(saved.battle.status === 'in_progress' ? 'battle' : 'result');
-          setReward(
-            arenaRepository
-              .list(traveler.id)
-              .find((r) => r.id === saved.battle?.id)?.reward ?? null,
-          );
+          if (!localTower)
+            setReward(
+              arenaRepository
+                .list(traveler.id)
+                .find((r) => r.id === saved.battle?.id)?.reward ?? null,
+            );
         }
       })
       .catch((e) => {
@@ -171,7 +186,7 @@ export function ArenaExperience({
     return () => {
       live = false;
     };
-  }, [ownerId, traveler.id, collectionSource]);
+  }, [ownerId, traveler.id, collectionSource, session, localTower]);
   function pickClosest() {
     const match = [...options].sort(
       (a, b) =>
@@ -197,7 +212,7 @@ export function ArenaExperience({
     setDeckError('');
     try {
       const cards = await collectionSource(ownerId, traveler.id);
-      const next = await arenaDeckStorage.begin(
+      const next = await session.begin(
         ownerId,
         traveler.id,
         cards,
@@ -220,6 +235,7 @@ export function ArenaExperience({
   }
 
   function settle(finished: BattleState) {
+    if (localTower) return;
     const active = journeyRepository.load();
     if (
       getCurrentOnlineUserId() !== ownerId ||
@@ -287,7 +303,7 @@ export function ArenaExperience({
     setDeckBusy(true);
     setDeckError('');
     try {
-      const next = await arenaDeckStorage.command(
+      const next = await session.command(
         ownerId,
         traveler.id,
         deckData.cards,
@@ -299,11 +315,14 @@ export function ArenaExperience({
         setBattle(next);
         if (next.status === 'finished') {
           setStage('result');
-          void arenaDeckStorage
-            .claimSettlement(ownerId, traveler.id, deckData.cards, next.id)
-            .then((claimed) => {
-              if (claimed) settle(next);
-            })
+          const confirmation = localTower
+            ? localTower.onFinished(next.id).then(() => setTowerConfirmed(true))
+            : session
+                .claimSettlement(ownerId, traveler.id, deckData.cards, next.id)
+                .then((claimed) => {
+                  if (claimed) settle(next);
+                });
+          void confirmation
             .catch((e) =>
               setDeckError(
                 e instanceof Error ? e.message : 'Resultado pendente.',
@@ -332,6 +351,10 @@ export function ArenaExperience({
 
   function reset() {
     presentation.cancel();
+    if (localTower) {
+      localTower.onExit();
+      return;
+    }
     setBattle(null);
     setReward(null);
     setLevelNotice(null);
@@ -349,8 +372,12 @@ export function ArenaExperience({
     >
       <header className={styles.arenaHeader}>
         <div>
-          <span>ÁREA DE TREINO</span>
-          <h1>Arena dos Viajantes</h1>
+          <span>
+            {localTower
+              ? 'TREINO LOCAL · SEM RECOMPENSAS OFICIAIS'
+              : 'ÁREA DE TREINO'}
+          </span>
+          <h1>{localTower ? 'Torre dos 7 Desafios' : 'Arena dos Viajantes'}</h1>
           <p>
             Batalhas estratégicas 1x1 com atributos, equipamentos e escolhas por
             rodada.
@@ -393,10 +420,21 @@ export function ArenaExperience({
 
       <p>
         <Link href="/journey/arena/deck">Meu Baralho</Link>
+        {!localTower && (
+          <>
+            {' '}
+            · <Link href="/journey/arena/tower">Torre dos 7 Desafios</Link>
+          </>
+        )}
       </p>
+      {localTower && stage !== 'result' && (
+        <button disabled={deckBusy} onClick={reset}>
+          Voltar à Torre
+        </button>
+      )}
       {deckError && <p role="alert">{deckError}</p>}
       {!deckData && !deckError && <p role="status">Carregando baralho...</p>}
-      {deckData && stage !== 'battle' && (
+      {deckData && stage !== 'battle' && !localTower && (
         <>
           <p>Cartas selecionadas: {deckData.selection.length}/7</p>
           <button disabled={deckBusy} onClick={() => setShowDeck((v) => !v)}>
@@ -525,7 +563,20 @@ export function ArenaExperience({
       {stage === 'preview' && selected && (
         <section className={styles.arenaPreview}>
           <span>PRÉ-BATALHA</span>
-          <h2>Confronto de treino</h2>
+          <h2>
+            {localTower
+              ? localTower.boss
+                ? 'Último desafio — Campeão da Torre'
+                : 'Próximo desafio da Torre'
+              : 'Confronto de treino'}
+          </h2>
+          {localTower?.boss && (
+            <p>
+              Você chegou ao sétimo andar. Prepare seu baralho: o campeão
+              combina defesa, leitura e ataque pelas mesmas regras da Arena.
+              Este é um treino local.
+            </p>
+          )}
           <div className={styles.arenaVersus}>
             <article>
               <FighterPortrait
@@ -583,7 +634,9 @@ export function ArenaExperience({
         visibleBattle &&
         selected && (
           <section className={styles.battleArena} style={arenaStageVariables()}>
-            <div className={styles.battleRound}>RODADA {battle.round}</div>
+            <div className={styles.battleRound}>
+              {localTower ? 'TORRE LOCAL · ' : ''}RODADA {battle.round}
+            </div>
             <ResponsivePanel title="Ajuda do combate">
               <p className={styles.arenaFocusHelp}>
                 Atacar gera Foco. Defender protege e gera Foco. Foco é um
@@ -668,7 +721,9 @@ export function ArenaExperience({
                 </span>
                 <h2>
                   {battle.winnerId === traveler.id
-                    ? 'Treino concluído com vitória'
+                    ? localTower?.boss
+                      ? 'Campeão superado no treino local!'
+                      : 'Treino concluído com vitória'
                     : 'Uma nova estratégia espera por você'}
                 </h2>
                 <div>
@@ -678,13 +733,17 @@ export function ArenaExperience({
                   <b>{battle.player.abilitiesUsed} habilidades usadas</b>
                 </div>
                 <p>
-                  {!reward
-                    ? 'Resultado salvo; recompensa ainda não confirmada. Recarregar não repete a concessão.'
-                    : reward.rewarded
-                      ? `Recompensa: +${reward.xp} XP e +${reward.coins} moedas.`
-                      : reward?.reason === 'daily-limit'
-                        ? 'Limite diário de recompensas contra este adversário atingido. Você pode continuar treinando.'
-                        : 'Treinos sem vitória não concedem recursos.'}
+                  {localTower
+                    ? towerConfirmed
+                      ? 'Resultado demonstrativo registrado neste navegador. Nenhuma recompensa ou conquista oficial concedida.'
+                      : 'Resultado local pendente de registro. Nenhuma recompensa ou conquista oficial concedida.'
+                    : !reward
+                      ? 'Resultado salvo; recompensa ainda não confirmada. Recarregar não repete a concessão.'
+                      : reward.rewarded
+                        ? `Recompensa: +${reward.xp} XP e +${reward.coins} moedas.`
+                        : reward?.reason === 'daily-limit'
+                          ? 'Limite diário de recompensas contra este adversário atingido. Você pode continuar treinando.'
+                          : 'Treinos sem vitória não concedem recursos.'}
                 </p>
                 {reward?.rewarded && (
                   <ol
@@ -702,21 +761,47 @@ export function ArenaExperience({
                   />
                 )}
                 <div className={styles.arenaControls}>
-                  <button onClick={reset}>Voltar à Arena</button>
-                  <button
-                    className={styles.arenaPrimary}
-                    onClick={() => void begin()}
-                    disabled={
-                      deckBusy ||
-                      showDeck ||
-                      !deckData ||
-                      !!validateArenaDeck(deckData.selection, deckData.cards)
-                    }
-                  >
-                    {battle.winnerId === traveler.id
-                      ? 'Jogar novamente'
-                      : 'Tentar novamente'}
+                  <button onClick={reset}>
+                    {localTower ? 'Voltar à Torre' : 'Voltar à Arena'}
                   </button>
+                  {localTower && !towerConfirmed && (
+                    <button
+                      disabled={deckBusy}
+                      onClick={async () => {
+                        setDeckBusy(true);
+                        try {
+                          await localTower.onFinished(battle.id);
+                          setTowerConfirmed(true);
+                        } catch (e) {
+                          setDeckError(
+                            e instanceof Error
+                              ? e.message
+                              : 'Resultado local pendente.',
+                          );
+                        } finally {
+                          setDeckBusy(false);
+                        }
+                      }}
+                    >
+                      Registrar resultado local
+                    </button>
+                  )}
+                  {!localTower && (
+                    <button
+                      className={styles.arenaPrimary}
+                      onClick={() => void begin()}
+                      disabled={
+                        deckBusy ||
+                        showDeck ||
+                        !deckData ||
+                        !!validateArenaDeck(deckData.selection, deckData.cards)
+                      }
+                    >
+                      {battle.winnerId === traveler.id
+                        ? 'Jogar novamente'
+                        : 'Tentar novamente'}
+                    </button>
+                  )}
                 </div>
               </section>
             )}
