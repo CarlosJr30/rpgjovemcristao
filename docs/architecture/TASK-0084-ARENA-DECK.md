@@ -89,3 +89,5 @@ Ver [contrato](../../tasks/active/TASK-0084-arena-seven-card-deck.md). Base loca
 ## 11. Próximo passo
 
 Consolidar catálogo/aquisição e desenho autoritativo no escopo apropriado antes de habilitar cartas reais. Contexto05 poderá simplificar os especiais sob nova instrução explícita, usando os conflitos registrados. Não iniciar05, Torre, PvP ou animações08 automaticamente. Não publicar nem modificar serviço remoto nesta tarefa.
+
+Controle final: implementação validada no commit local `f254349130c7779413b4ae7d3e0438e766955b39`. Commit seguinte altera somente este relatório e o contrato. Memória de controle raiz atualizada com preservação do corpo anterior; recibo `build/task-0084-arena-deck/final-receipt.json` registra fontes/logs/refs e checkout limpo. Nenhuma publicação remota.
