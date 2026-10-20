@@ -3,28 +3,39 @@ import { gameAudio } from '../audio/audio-manager';
 
 import { useCallback, useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
-import {
-  chestCatalog,
-  resolveChestEquipmentReward,
-  type ChestEquipmentReward,
-  type ChestReward,
-  type ChestType,
-} from '../data/chests';
+import { chestCatalog, type ChestType } from '../data/chests';
 import type { Traveler } from '../domain/traveler';
-import { buyChest, openOwnedChest } from '../state/use-journey';
+import { buyChest } from '../state/use-journey';
 import { chestRepository } from '../../../lib/supabase/repositories/chest-repository';
 import { reloadOnlineTraveler } from '../../../lib/supabase/online-sync';
 import styles from '../journey.module.css';
+import { ChestReveal } from '../../chest-reveal/reveal';
+import { requestChestOpening } from '../../chest-reveal/opening';
+import {
+  receiptFromOperation,
+  isChestType,
+  type RevealReceipt,
+} from '../../chest-reveal/receipt';
+import {
+  bindReceipt,
+  readVisual,
+  saveCursor,
+  type OpeningIntent,
+  type VisualCursor,
+} from '../../chest-reveal/visual-store';
+import type { ChestOperationRow } from '../../../lib/supabase/database.types';
 
 type OwnedChest = { type: ChestType; quantity: number };
 const chestTypes = Object.keys(chestCatalog) as ChestType[];
 
 export function ChestPanel({
+  ownerId,
   traveler,
   online,
   onCountChange,
   onViewEquipment,
 }: {
+  ownerId: string;
   traveler: Traveler;
   online: boolean;
   onCountChange: (count: number) => void;
@@ -39,22 +50,68 @@ export function ChestPanel({
   const [busy, setBusy] = useState<string | null>(null);
   const [message, setMessage] = useState('');
   const [reveal, setReveal] = useState<{
-    type: ChestType;
-    reward: ChestReward;
-    equipment: ChestEquipmentReward | null;
+    receipt: RevealReceipt;
+    cursor: VisualCursor;
   } | null>(null);
+  const [history, setHistory] = useState<ChestOperationRow[]>([]);
+  const [pending, setPending] = useState<OpeningIntent | null>(null);
+  const [resumable, setResumable] = useState<RevealReceipt | null>(null);
+  const opening = useRef(false);
+  const mounted = useRef(true);
   const operations = useRef(new Map<string, string>());
-  const continueButton = useRef<HTMLButtonElement>(null);
-
   useEffect(() => {
-    if (!reveal) return;
-    continueButton.current?.focus();
-    const closeOnEscape = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') setReveal(null);
+    mounted.current = true;
+    return () => {
+      mounted.current = false;
     };
-    window.addEventListener('keydown', closeOnEscape);
-    return () => window.removeEventListener('keydown', closeOnEscape);
-  }, [reveal]);
+  }, []);
+
+  const consult = useCallback(async () => {
+    if (!online || !ownerId) return;
+    let saved: ReturnType<typeof readVisual> | null = null;
+    let visualError: unknown;
+    try {
+      saved = readVisual(ownerId, traveler.id);
+    } catch (e) {
+      visualError = e;
+    }
+    const operationKey = saved?.intent
+      ? `open:${saved.intent.operationId}`
+      : saved?.view?.operationKey;
+    const [rows, row] = await Promise.all([
+      chestRepository.history(traveler.id),
+      operationKey
+        ? chestRepository.operation(traveler.id, operationKey)
+        : Promise.resolve(null),
+    ]);
+    if (!mounted.current) return;
+    setHistory(rows);
+    if (!saved) throw visualError;
+    setPending(saved.intent);
+    if (row) {
+      const receipt = receiptFromOperation(row, traveler.id);
+      bindReceipt(ownerId, traveler.id, receipt);
+      setPending(null);
+      setResumable(receipt);
+    }
+  }, [ownerId, online, traveler.id]);
+  useEffect(() => {
+    let live = true;
+    const timer = window.setTimeout(
+      () =>
+        void consult().catch((e) => {
+          if (live)
+            setMessage(
+              e instanceof Error ? e.message : 'Confirmação pendente.',
+            );
+        }),
+      0,
+    );
+    return () => {
+      live = false;
+      window.clearTimeout(timer);
+    };
+  }, [consult]);
 
   const load = useCallback(async () => {
     if (!online) {
@@ -68,13 +125,19 @@ export function ChestPanel({
     }
     try {
       const rows = await chestRepository.list(traveler.id);
-      const remote = rows.map((row) => ({
-        type: row.chest_type as ChestType,
-        quantity: row.quantity,
-      }));
+      const remote = rows
+        .filter(
+          (row) =>
+            isChestType(row.chest_type) &&
+            Number.isSafeInteger(row.quantity) &&
+            row.quantity > 0,
+        )
+        .map((row) => ({
+          type: row.chest_type as ChestType,
+          quantity: row.quantity,
+        }));
       setOwned(remote);
       onCountChange(remote.reduce((sum, entry) => sum + entry.quantity, 0));
-      setMessage('');
     } catch (error) {
       setMessage(
         error instanceof Error
@@ -131,51 +194,111 @@ export function ChestPanel({
     }
   };
 
-  const open = async (type: ChestType) => {
-    const key = `open:${type}`;
-    setBusy(key);
+  const present = (receipt: RevealReceipt, replay = false) => {
+    let cursor: VisualCursor;
+    try {
+      cursor = bindReceipt(ownerId, traveler.id, receipt, replay);
+    } catch (e) {
+      if (!replay) throw e;
+      // A fresh server record remains readable when local visual storage fails.
+      // Never repair/delete bytes or treat this in-memory cursor as ownership.
+      cursor = {
+        receiptId: receipt.id,
+        operationKey: receipt.operationKey,
+        index: 0,
+        seen: 0,
+        summary: false,
+      };
+      setMessage(
+        'Histórico confirmado em modo de leitura. A apresentação não pôde ser salva neste navegador.',
+      );
+    }
+    setReveal({ receipt, cursor });
+    setResumable(receipt);
+  };
+  const open = async (type: ChestType, retry = false) => {
+    if (!online || !ownerId || opening.current) return;
+    opening.current = true;
+    setBusy(`open:${type}`);
     setMessage('');
     try {
-      const id = operationId(key);
-      let reward: ChestReward;
-      if (online) {
-        const result = await chestRepository.open(traveler.id, type, id);
-        reward = {
-          coins: result.coins,
-          itemId: result.itemId,
-          itemName: result.itemName,
-        };
-        if (!(await reloadOnlineTraveler(traveler.id))) {
-          setMessage(
-            'Recompensa concedida. A Mochila será sincronizada novamente em instantes.',
-          );
-        }
-      } else {
-        const result = openOwnedChest(type, id);
-        if (!('reward' in result))
-          throw new Error('Este Baú não está mais disponível.');
-        reward = result.reward;
-      }
-      operations.current.delete(key);
-      setReveal({
+      const receipt = await requestChestOpening(
+        ownerId,
+        traveler.id,
         type,
-        reward,
-        equipment: resolveChestEquipmentReward(reward, traveler.inventory),
-      });
-      await load();
-    } catch (error) {
-      setMessage(
-        error instanceof Error
-          ? error.message
-          : 'Não foi possível abrir o Baú.',
+        retry,
       );
+      // Sync is separate from receipt confirmation; failure never opens again.
+      await reloadOnlineTraveler(traveler.id);
+      if (!mounted.current) return;
+      present(receipt);
+      setPending(null);
+      await Promise.all([load(), consult()]);
+    } catch (error) {
+      if (!mounted.current) return;
+      try {
+        setPending(readVisual(ownerId, traveler.id).intent);
+      } catch {
+        /* Preserve corrupt bytes. */
+      }
+      setMessage(error instanceof Error ? error.message : 'Abertura pendente.');
     } finally {
-      setBusy(null);
+      opening.current = false;
+      if (mounted.current) setBusy(null);
     }
   };
 
   return (
     <div className={styles.chestPanel}>
+      {!online && (
+        <p className={styles.notice}>
+          Abertura de Baús exige conta online e registro confirmado do servidor.
+          O modo local não concede prêmios nesta apresentação.
+        </p>
+      )}
+      {pending && (
+        <section aria-label="Abertura pendente" className={styles.notice}>
+          <h2>Abertura pendente de confirmação</h2>
+          <p>
+            O resultado ainda não foi confirmado. Consulte o resultado ou tente
+            reenviar a solicitação. Isso não abre outro Baú.
+          </p>
+          <button
+            disabled={!!busy}
+            onClick={() =>
+              void consult().catch((e) =>
+                setMessage(
+                  e instanceof Error ? e.message : 'Confirmação pendente.',
+                ),
+              )
+            }
+          >
+            Consultar resultado
+          </button>
+          <button
+            disabled={!!busy}
+            onClick={() => void open(pending.type, true)}
+          >
+            Reenviar mesma solicitação
+          </button>
+        </section>
+      )}
+      {resumable && !reveal && (
+        <button
+          disabled={!!busy}
+          onClick={() => {
+            try {
+              present(resumable);
+            } catch (e) {
+              setMessage(
+                e instanceof Error ? e.message : 'Apresentação indisponível.',
+              );
+            }
+          }}
+        >
+          Retomar apresentação registrada
+        </button>
+      )}
       <section aria-labelledby="owned-chests-title">
         <p className={styles.eyebrow}>SEUS BAÚS</p>
         <h2 id="owned-chests-title">Tesouros guardados</h2>
@@ -195,6 +318,7 @@ export function ChestPanel({
                 quantity={quantity}
                 action="open"
                 busy={busy === `open:${type}`}
+                disabled={!!busy || !!pending || !online || !ownerId}
                 onAction={() => void open(type)}
               />
             ))}
@@ -212,92 +336,86 @@ export function ChestPanel({
               type={type}
               action="purchase"
               busy={busy === `purchase:${type}`}
+              disabled={!!busy || !!pending}
               onAction={() => void purchase(type)}
             />
           ))}
         </div>
       </section>
+      {online && (
+        <section aria-label="Histórico de aberturas">
+          <h2>Aberturas registradas</h2>
+          <p>Ver novamente consulta o registro e não abre outro Baú.</p>
+          {history.length === 0 ? (
+            <p>Nenhuma abertura confirmada carregada.</p>
+          ) : (
+            <ul>
+              {history
+                .filter(
+                  (r) =>
+                    r.traveler_id === traveler.id && isChestType(r.chest_type),
+                )
+                .map((row) => (
+                  <li key={row.id}>
+                    {chestCatalog[row.chest_type as ChestType].name} ·{' '}
+                    {new Date(row.created_at).toLocaleDateString('pt-BR')}{' '}
+                    <button
+                      disabled={!!busy || !!pending}
+                      onClick={async () => {
+                        if (opening.current) return;
+                        opening.current = true;
+                        setBusy('history');
+                        try {
+                          const fresh = await chestRepository.operation(
+                            traveler.id,
+                            row.operation_key,
+                          );
+                          if (!fresh)
+                            throw new Error('Registro não confirmado.');
+                          if (mounted.current)
+                            present(
+                              receiptFromOperation(fresh, traveler.id),
+                              true,
+                            );
+                        } catch (e) {
+                          if (mounted.current)
+                            setMessage(
+                              e instanceof Error
+                                ? e.message
+                                : 'Histórico indisponível.',
+                            );
+                        } finally {
+                          opening.current = false;
+                          if (mounted.current) setBusy(null);
+                        }
+                      }}
+                    >
+                      Ver novamente
+                    </button>
+                  </li>
+                ))}
+            </ul>
+          )}
+        </section>
+      )}
       {message && (
         <p className={styles.notice} role="status">
           {message}
         </p>
       )}
       {reveal && (
-        <div className={styles.chestRevealBackdrop} role="presentation">
-          <section
-            className={styles.chestReveal}
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="chest-result-title"
-          >
-            <Image
-              className={styles.chestRevealChest}
-              src={chestCatalog[reveal.type].image}
-              alt={`${chestCatalog[reveal.type].name} aberto`}
-              width={180}
-              height={180}
-            />
-            <p className={styles.eyebrow}>VOCÊ RECEBEU</p>
-            <h2 id="chest-result-title">
-              {chestCatalog[reveal.type].name} aberto!
-            </h2>
-            <div className={styles.chestRewardList}>
-              {reveal.reward.coins > 0 && (
-                <article className={styles.chestCoinReward}>
-                  <Image
-                    src="/assets/items/coin_pouch.png"
-                    alt="Moedas do Viajante"
-                    width={72}
-                    height={72}
-                  />
-                  <strong>+ {reveal.reward.coins} Moedas do Viajante</strong>
-                </article>
-              )}
-              {reveal.equipment && (
-                <article
-                  className={styles.chestEquipmentReward}
-                  data-rarity={reveal.equipment.rarity}
-                >
-                  <Image
-                    src={reveal.equipment.iconAsset}
-                    alt={reveal.equipment.name}
-                    width={168}
-                    height={168}
-                  />
-                  <div>
-                    <h3>{reveal.equipment.name}</h3>
-                    <b className={styles.chestRewardRarity}>
-                      {reveal.equipment.rarityLabel}
-                    </b>
-                    <strong>+1</strong>
-                    {reveal.equipment.duplicate && (
-                      <span>
-                        Duplicado — quantidade aumentada para{' '}
-                        {reveal.equipment.quantity}
-                      </span>
-                    )}
-                  </div>
-                </article>
-              )}
-            </div>
-            <div className={styles.chestRevealActions}>
-              {reveal.equipment && (
-                <button
-                  className={styles.chestSecondaryAction}
-                  onClick={() => {
-                    setReveal(null);
-                    onViewEquipment();
-                  }}
-                >
-                  Ver na Mochila
-                </button>
-              )}
-              <button ref={continueButton} onClick={() => setReveal(null)}>
-                Continuar
-              </button>
-            </div>
-          </section>
-        </div>
+        <ChestReveal
+          key={reveal.receipt.id}
+          receipt={reveal.receipt}
+          traveler={traveler}
+          cursor={reveal.cursor}
+          onProgress={(cursor) => saveCursor(ownerId, traveler.id, cursor)}
+          onClose={() => setReveal(null)}
+          onViewEquipment={() => {
+            setReveal(null);
+            onViewEquipment();
+          }}
+        />
       )}
     </div>
   );
@@ -308,12 +426,14 @@ function ChestCard({
   quantity,
   action,
   busy,
+  disabled = false,
   onAction,
 }: {
   type: ChestType;
   quantity?: number;
   action: 'open' | 'purchase';
   busy: boolean;
+  disabled?: boolean;
   onAction: () => void;
 }) {
   const chest = chestCatalog[type];
@@ -329,11 +449,11 @@ function ChestCard({
         <span>Pode conter: {chest.possibleRewards.join(' · ')}</span>
       </div>
       {action === 'open' ? (
-        <button disabled={busy} onClick={onAction}>
+        <button disabled={busy || disabled} onClick={onAction}>
           {busy ? 'Abrindo…' : 'Abrir'}
         </button>
       ) : purchasable ? (
-        <button disabled={busy} onClick={onAction}>
+        <button disabled={busy || disabled} onClick={onAction}>
           {busy ? 'Comprando…' : `Comprar · ◈ ${chest.price}`}
         </button>
       ) : (

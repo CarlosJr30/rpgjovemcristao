@@ -11,6 +11,32 @@ import { chestRepository } from './chest-repository';
 beforeEach(() => rpc.mockReset());
 
 describe('chest repository', () => {
+  test('receipt lookup is read-only, scoped to Traveler, open type and exact operation key', async () => {
+    const maybeSingle = vi.fn().mockResolvedValue({ data: null, error: null });
+    const chain = { select: vi.fn(), eq: vi.fn(), maybeSingle };
+    chain.select.mockReturnValue(chain);
+    chain.eq.mockReturnValue(chain);
+    client.from.mockReturnValue(chain);
+    expect(
+      await chestRepository.operation('traveler-1', 'open:operation-2'),
+    ).toBeNull();
+    expect(client.from).toHaveBeenCalledWith('chest_operations');
+    expect(chain.eq.mock.calls).toEqual([
+      ['traveler_id', 'traveler-1'],
+      ['operation_type', 'open'],
+      ['operation_key', 'open:operation-2'],
+    ]);
+    expect(rpc).not.toHaveBeenCalled();
+    maybeSingle.mockResolvedValue({
+      data: null,
+      error: { message: 'private database detail' },
+    });
+    await expect(
+      chestRepository.operation('traveler-1', 'open:operation-2'),
+    ).rejects.toThrow(
+      'Não foi possível confirmar a abertura. Consulte novamente sem abrir outro Baú.',
+    );
+  });
   test('purchase sends only traveler, tier and operation id', async () => {
     rpc.mockResolvedValue({
       data: {

@@ -1,0 +1,26 @@
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  background: #f4eedf;
+  color: #20392e;
+  font:
+    16px Arial,
+    sans-serif;
+}
+main {
+  max-width: 900px;
+  margin: auto;
+  padding: 20px;
+}
+button {
+  font: inherit;
+  padding: 12px;
+  min-height: 48px;
+  margin: 4px;
+}
+label {
+  display: block;
+  margin: 20px 0;
+}

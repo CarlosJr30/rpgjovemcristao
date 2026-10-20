@@ -42,6 +42,24 @@ export const chestRepository = {
     return result.data;
   },
 
+  async operation(
+    travelerId: string,
+    operationKey: string,
+  ): Promise<ChestOperationRow | null> {
+    const result = await getSupabaseBrowserClient()
+      .from('chest_operations')
+      .select('*')
+      .eq('traveler_id', travelerId)
+      .eq('operation_type', 'open')
+      .eq('operation_key', operationKey)
+      .maybeSingle();
+    if (result.error)
+      throw new Error(
+        'Não foi possível confirmar a abertura. Consulte novamente sem abrir outro Baú.',
+      );
+    return result.data;
+  },
+
   async purchase(
     travelerId: string,
     type: ChestType,

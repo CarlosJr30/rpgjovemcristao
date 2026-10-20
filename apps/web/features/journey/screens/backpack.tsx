@@ -100,6 +100,8 @@ export function BackpackScreen() {
             )}
             {tab === 'chests' && (
               <ChestPanel
+                key={`${auth.user?.id}:${t.id}`}
+                ownerId={auth.user?.id ?? ''}
                 traveler={t}
                 online={auth.status === 'signedIn'}
                 onCountChange={updateChestCount}
