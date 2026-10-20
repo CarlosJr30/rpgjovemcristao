@@ -4,7 +4,7 @@
 
 ## 1. Branch e commit
 
-Branch codex/consolidation-economy-authority-004, checkout D:/rpg-jovem-cristao/build/task-consolidation-004/checkout. Base003A limpa7f3e52b885caa6ae4a222f80e4f199b0290ea16e, implementação anteriorcd43a49b6c33fad953ce45ae8e93e772947444b3 e recibo003A conferidos. Commit de implementação e fechamento documental registrados no recibo final da raiz build/task-consolidation-004/final-receipt.json; este relatório receberá o hash da implementação no fechamento. Sem merge/fetch/push/main/deploy.
+Branch codex/consolidation-economy-authority-004, checkout D:/rpg-jovem-cristao/build/task-consolidation-004/checkout. Base003A limpa7f3e52b885caa6ae4a222f80e4f199b0290ea16e, implementação anteriorcd43a49b6c33fad953ce45ae8e93e772947444b3 e recibo003A conferidos. Implementação004 no commit1ce9523793f003e50ec528e12538c52a0feda209; fechamento posterior somente documental. HEAD final/hashes/estado limpo no recibo da raiz build/task-consolidation-004/final-receipt.json. Sem merge/fetch/push/main/deploy.
 
 ## 2–3. Auditoria e reprodução do P1
 
