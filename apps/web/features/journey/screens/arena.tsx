@@ -6,12 +6,10 @@ import {
   arenaProbableIntent,
   calculateCombatPowerBreakdown,
   calculateTrainingReward,
-  equipmentEffects,
   isWithinMatchmakingRange,
   type ArenaProductAction,
   type BattleParticipantSnapshot,
   type BattleState,
-  type BattleEffectId,
   type TrainingReward,
 } from '@rpg/game-engine';
 import { Shell, RequireTraveler } from '../components/shell';
@@ -53,30 +51,15 @@ import {
 import { arenaDeckStorage } from '../../arena-deck/storage';
 import { DeckEditor, BattleCards } from '../../arena-deck/editor';
 import { ArenaBattleActions } from '../../arena-deck/battle-actions';
+import {
+  ArenaEffectDetails,
+  ArenaRuleSummary,
+  ArenaRecentHistory,
+} from '../components/arena-rule-details';
 import { validateArenaDeck, type ArenaCard } from '@rpg/game-engine';
 
 type Stage = 'lobby' | 'preview' | 'battle' | 'result';
 const attributeKeys = ['life', 'strength', 'defense', 'wisdom'] as const;
-const triggerLabels = {
-  onBattleStart: 'início da batalha',
-  onRoundStart: 'início da rodada',
-  onAttack: 'ao atacar',
-  onDefend: 'ao defender',
-  onDamageTaken: 'ao receber dano',
-  onLowHealth: 'quando a vida fica baixa',
-  onFocus: 'ao focar',
-  onVictory: 'na vitória',
-} as const;
-
-function fighterEffects(snapshot: BattleParticipantSnapshot) {
-  return snapshot.equipment.flatMap((item) =>
-    item.effectIds.map((id) => ({
-      item: item.name,
-      effect: equipmentEffects[id],
-    })),
-  );
-}
-
 function Stats({ snapshot }: { snapshot: BattleParticipantSnapshot }) {
   return (
     <dl className={styles.arenaStats}>
@@ -673,8 +656,9 @@ export function ArenaExperience({
                 onPlay={() => undefined}
               />
             )}
-            <ArenaEffects fighter={battle.player} />
-            <BattleLog battle={battle} />
+            <ArenaEffectDetails fighter={battle.player} />
+            <ArenaRuleSummary snapshot={battle.player.snapshot} />
+            <ArenaRecentHistory battle={visibleBattle ?? battle} />
             {stage === 'result' && (
               <section className={styles.battleResult}>
                 <span>
@@ -739,109 +723,6 @@ export function ArenaExperience({
           </section>
         )}
     </section>
-  );
-}
-
-function ArenaEffects({ fighter }: { fighter: BattleState['player'] }) {
-  const entries = fighterEffects(fighter.snapshot);
-  const remaining = (id: BattleEffectId) =>
-    Math.max(
-      0,
-      equipmentEffects[id].usesPerBattle -
-        fighter.usedEffects.filter((used) => used === id).length,
-    );
-  return (
-    <section
-      className={styles.arenaEffects}
-      aria-label="Efeitos dos equipamentos"
-    >
-      <div>
-        <h3>EFEITOS ATIVOS DOS EQUIPAMENTOS</h3>
-        <small>
-          Reforçam automaticamente a ação correspondente, inclusive especiais
-          usados por cartas, respeitando os usos e cooldowns do equipamento.
-        </small>
-        {entries
-          .filter(({ effect }) => effect.type === 'ACTIVE')
-          .map(({ item, effect }) => (
-            <details key={effect.id}>
-              <summary>
-                {effect.name}{' '}
-                <span>
-                  {(fighter.cooldowns[effect.id] ?? 0) > 0
-                    ? `${fighter.cooldowns[effect.id]} rodadas restantes`
-                    : remaining(effect.id)
-                      ? 'Disponível'
-                      : 'Usos esgotados'}
-                </span>
-              </summary>
-              <p>
-                <b>{item}</b> · ATIVA
-              </p>
-              <p>{effect.description}</p>
-              <small>
-                Condição: {triggerLabels[effect.trigger]} · Cooldown:{' '}
-                {effect.cooldown || 'sem cooldown'} · Usos restantes:{' '}
-                {remaining(effect.id)}
-              </small>
-            </details>
-          ))}
-        {!entries.some(({ effect }) => effect.type === 'ACTIVE') && (
-          <p>Nenhuma habilidade ativa equipada.</p>
-        )}
-      </div>
-      <div>
-        <h3>EFEITOS PASSIVOS E AUTOMÁTICOS</h3>
-        {entries
-          .filter(({ effect }) => effect.type !== 'ACTIVE')
-          .map(({ item, effect }) => (
-            <details key={effect.id}>
-              <summary>
-                {effect.name}{' '}
-                <span>
-                  {effect.type === 'PASSIVE' ? 'Passivo' : 'Automático'}
-                </span>
-              </summary>
-              <p>
-                <b>{item}</b> ·{' '}
-                {effect.type === 'PASSIVE' ? 'PASSIVA' : 'DISPARADA'}
-              </p>
-              <p>{effect.description}</p>
-              <small>
-                Condição: {triggerLabels[effect.trigger]} · Usos restantes:{' '}
-                {effect.usesPerBattle ? remaining(effect.id) : 'sempre ativo'}
-              </small>
-            </details>
-          ))}
-      </div>
-    </section>
-  );
-}
-
-function BattleLog({ battle }: { battle: BattleState }) {
-  return (
-    <details className={styles.battleLog} open>
-      <summary>Log da batalha</summary>
-      <ol>
-        {battle.log.slice(-8).map((entry, index) => (
-          <li key={`${entry.round}-${index}`}>
-            <b>{entry.round ? `R${entry.round}` : 'INÍCIO'}</b>{' '}
-            {entry.effectType && (
-              <em>
-                [
-                {entry.effectType === 'ACTIVE'
-                  ? 'ATIVA'
-                  : entry.effectType === 'PASSIVE'
-                    ? 'PASSIVA'
-                    : 'DISPARADA'}
-                ]
-              </em>
-            )}{' '}
-            {entry.message}
-          </li>
-        ))}
-      </ol>
-    </details>
   );
 }
 

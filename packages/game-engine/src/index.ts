@@ -117,6 +117,7 @@ export type BattleState = Readonly<{
 }>;
 
 export const battleBalanceConfig = Object.freeze({
+  maximumStat: 999, wisdomInitiativeMultiplier: 2, helmetInitiativeBonus: 1, prudenceAmuletBoost: 0.15,
   hpBase: 20, hpPerLife: 6, baseDamage: 3, strengthDamageMultiplier: 2.2, equipmentPowerDamageMultiplier: 0.18,
   defenseReductionMultiplier: 1.15, minimumDamage: 1, defendDamageMultiplier: 0.5,
   fortifiedDefendDamageMultiplier: 0.25, armorDefendDamageMultiplier: 0.85,
@@ -145,8 +146,9 @@ export const equipmentEffects: Readonly<Record<BattleEffectId, Readonly<{
   'traveler-armor': { id: 'traveler-armor', name: 'Postura Firme', trigger: 'onDefend', description: 'Melhora levemente a proteção sempre que Defender.', cooldown: 0, usesPerBattle: 0, type: 'PASSIVE' },
 });
 
-const clampStat = (value: number) => Number.isFinite(value) ? Math.max(0, Math.min(999, value)) : 0;
+const clampStat = (value: number) => Number.isFinite(value) ? Math.max(0, Math.min(battleBalanceConfig.maximumStat, value)) : 0;
 const equipmentPower = (snapshot: BattleParticipantSnapshot) => snapshot.equipment.reduce((sum, item) => sum + clampStat(item.power), 0);
+export { clampStat as normalizeBattleStat, equipmentPower as calculateEquipmentPower };
 const hasEffect = (fighter: BattleFighterState, effect: BattleEffectId) => fighter.snapshot.equipment.some((item) => item.effectIds.includes(effect));
 
 export function calculateMaxHp(attributes: BattleAttributes): number {
@@ -182,9 +184,9 @@ export function seededUnit(seed: number, round: number, salt: string): number {
   return (value >>> 0) / 4294967295;
 }
 export function calculateInitiative(snapshot: BattleParticipantSnapshot, seed: number, round: number): number {
-  const helmet = snapshot.equipment.some((item) => item.effectIds.includes('traveler-helmet')) ? 1 : 0;
+  const helmet = snapshot.equipment.some((item) => item.effectIds.includes('traveler-helmet')) ? battleBalanceConfig.helmetInitiativeBonus : 0;
   const variation = Math.floor(seededUnit(seed, round, snapshot.id) * (battleBalanceConfig.initiativeVariance * 2 + 1)) - battleBalanceConfig.initiativeVariance;
-  return clampStat(snapshot.attributes.wisdom) * 2 + helmet + variation;
+  return clampStat(snapshot.attributes.wisdom) * battleBalanceConfig.wisdomInitiativeMultiplier + helmet + variation;
 }
 function makeFighter(snapshot: BattleParticipantSnapshot): BattleFighterState {
   const maxHp = calculateMaxHp(snapshot.attributes);
@@ -241,7 +243,7 @@ export function resolveRound(state: BattleState, playerAction: BattleAction): Ba
       actor.usedEffects.push(ability.id); actor.abilitiesUsed += 1; actor.cooldowns[ability.id] = ability.cooldown + 1;
       logs.push({ round: state.round, actorId: actor.snapshot.id, kind: 'effect', effectType: 'ACTIVE', message: `${actor.snapshot.name} usou ${ability.name}.` });
       if (ability.id === 'steadfast-shield') { fortified.add(actor.snapshot.id); continue; }
-      if (ability.id === 'prudence-amulet') { actor.focusMultiplier = Math.min(battleBalanceConfig.focusMaximumMultiplier, battleBalanceConfig.focusBaseMultiplier + 0.15 + actor.snapshot.attributes.wisdom * battleBalanceConfig.focusPerWisdom); continue; }
+      if (ability.id === 'prudence-amulet') { actor.focusMultiplier = Math.min(battleBalanceConfig.focusMaximumMultiplier, battleBalanceConfig.focusBaseMultiplier + battleBalanceConfig.prudenceAmuletBoost + actor.snapshot.attributes.wisdom * battleBalanceConfig.focusPerWisdom); continue; }
       if (ability.id === 'path-sword') attackMultiplier *= battleBalanceConfig.swordAttackMultiplier;
     }
     let damage = calculateDamage(actor.snapshot, target.snapshot, { multiplier: attackMultiplier, defending: defending(target) || fortified.has(target.snapshot.id), fortified: fortified.has(target.snapshot.id), armored: hasEffect(target, 'traveler-armor') });
@@ -276,3 +278,4 @@ export function calculateTrainingReward(won: boolean, rewardedBattlesToday: numb
 export function getEngineStatus(): { readonly gameplayAvailable: true } { return { gameplayAvailable: true }; }
 export * from './arena-combat-v2';
 export * from './arena-deck';
+export * from './arena-descriptions';

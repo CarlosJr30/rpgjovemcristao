@@ -1,4 +1,4 @@
-import { arenaSpecials } from '@rpg/game-engine';
+import { arenaSpecials, describeArenaAction } from '@rpg/game-engine';
 import { ArenaFx } from './arena-stage';
 import styles from '../journey.module.css';
 import { arenaStageVariables } from '../data/arenaPresentation';
@@ -48,7 +48,8 @@ export function ArenaUnlockNotice({
             </p>
             <details>
               <summary>Ver habilidade</summary>
-              <p>{s.description}</p>
+              <p>{describeArenaAction(`special:${s.id}`).explanation}</p>
+              <p>Duração: {describeArenaAction(`special:${s.id}`).duration}</p>
             </details>
           </div>
         ))}

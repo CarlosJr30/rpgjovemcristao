@@ -1,0 +1,46 @@
+.rules,
+.effects,
+.equipment {
+  grid-column: 1 / -1;
+  min-width: 0;
+  box-sizing: border-box;
+  padding: 14px;
+  margin: 12px 0;
+  border: 1px solid #c9b988;
+  border-radius: 10px;
+  background: #f4eedf;
+  color: #25392e;
+  font-size: 1rem;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+.rules {
+  order: 5;
+}
+.effects {
+  order: 6;
+}
+.rules summary,
+.effects summary,
+.equipment summary {
+  min-height: 44px;
+  box-sizing: border-box;
+  padding: 8px 0;
+  font-weight: 700;
+  cursor: pointer;
+}
+.rules summary:focus-visible,
+.effects summary:focus-visible,
+.equipment summary:focus-visible {
+  outline: 3px solid #806024;
+  outline-offset: 3px;
+}
+.rules dd {
+  margin: 0 0 14px;
+}
+.rules dt {
+  font-weight: 700;
+}
+.effects details {
+  border-top: 1px solid #c9b988;
+}

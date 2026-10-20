@@ -66,7 +66,9 @@ it.each(['empty', 'same', 'upgrade', 'downgrade'] as const)(
     })) {
       const attribute = key as keyof typeof beforeStats;
       const cells = within(
-        screen.getByRole('row', { name: new RegExp(label), hidden: true }),
+        screen
+          .getByRole('rowheader', { name: label, hidden: true })
+          .closest('tr')!,
       ).getAllByRole('cell', { hidden: true });
       expect(cells.map((c) => c.textContent)).toEqual([
         String(beforeStats[attribute]),

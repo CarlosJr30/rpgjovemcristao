@@ -1,6 +1,10 @@
 'use client';
 import { useEffect, useId, useRef, useState } from 'react';
-import type { ArenaProductAction, BattleState } from '@rpg/game-engine';
+import {
+  arenaCombatConfig,
+  type ArenaProductAction,
+  type BattleState,
+} from '@rpg/game-engine';
 import { BattleCards } from './editor';
 import styles from '../journey/journey.module.css';
 
@@ -42,7 +46,7 @@ export function ArenaBattleActions({
         >
           <b>ATACAR</b>
           <span>Dano com Força</span>
-          <small>+1 Foco</small>
+          <small>Até +{arenaCombatConfig.attackFocus} Foco</small>
         </button>
         <button
           disabled={busy}
@@ -51,7 +55,7 @@ export function ArenaBattleActions({
         >
           <b>DEFENDER</b>
           <span>Protege o próximo golpe</span>
-          <small>+1 Foco</small>
+          <small>Até +{arenaCombatConfig.defendFocus} Foco</small>
         </button>
         <button
           ref={trigger}

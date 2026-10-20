@@ -16,7 +16,7 @@ const EFFECT_BY_ITEM: Readonly<Record<string, readonly BattleEffectId[]>> = {
   'traveler-armor-uncommon': ['traveler-armor'],
 };
 
-function equipmentSnapshot(item: Equipment) {
+export function equipmentSnapshot(item: Equipment) {
   return {
     id: item.id,
     name: item.name,

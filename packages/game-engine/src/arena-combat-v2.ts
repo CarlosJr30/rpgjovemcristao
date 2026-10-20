@@ -20,6 +20,7 @@ import {
   type ArenaCard,
   type ArenaBaseAction,
 } from './arena-deck';
+import { describeArenaAction } from './arena-descriptions';
 export type ArenaAction = ArenaBaseAction | `card:${string}`;
 /** Commands accepted by the normal Arena. Direct specials belong to legacy labs/AI. */
 export type ArenaProductAction = 'attack' | 'defend' | `card:${string}`;
@@ -45,6 +46,7 @@ export const arenaCombatConfig = Object.freeze({
   defendFocus: 1,
   maximumSpecialSlots: 4,
   strikeMultiplier: 1.45,
+  maximumSpecialPowerMultiplier: 1.25,
   agileDodgeChance: 0.12,
 });
 export const arenaSpecials: readonly ArenaSpecial[] = Object.freeze([
@@ -246,14 +248,7 @@ export function resolveArenaCommand(
   return resolveArenaRound(state, action);
 }
 export function arenaCardDescription(card: ArenaCard): string {
-  if (card.action === 'attack')
-    return 'Executa o ataque básico com seus atributos e efeitos de equipamento atuais.';
-  if (card.action === 'defend')
-    return 'Executa a defesa básica e gera Foco conforme as regras atuais.';
-  return (
-    arenaSpecials.find((s) => `special:${s.id}` === card.action)?.description ??
-    'Efeito ainda indisponível.'
-  );
+  return describeArenaAction(card.action).explanation;
 }
 export function arenaCardAvailability(state: BattleState, id: string) {
   const card = state.deck?.cards.find((c) => c.id === id);
@@ -479,7 +474,7 @@ function executeArenaRound(
     if (special) pay(actor, special);
     else actor.lastSpecial = null;
     if (special?.id === 'discernment') {
-      const equippedBoost = effect(actor, 'prudence-amulet') ? 0.15 : 0;
+      const equippedBoost = effect(actor, 'prudence-amulet') ? battleBalanceConfig.prudenceAmuletBoost : 0;
       actor.tacticalMultiplier = Math.min(
         battleBalanceConfig.focusMaximumMultiplier,
         battleBalanceConfig.focusBaseMultiplier +
@@ -517,7 +512,7 @@ function executeArenaRound(
         bounded(
           actor.snapshot.specialModifiers?.[special.id]?.powerMultiplier,
           1,
-          1.25,
+          arenaCombatConfig.maximumSpecialPowerMultiplier,
           1,
         );
       if (effect(actor, 'path-sword'))

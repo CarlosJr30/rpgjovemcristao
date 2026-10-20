@@ -3,6 +3,7 @@ import { useState } from 'react';
 import {
   arenaCardDescription,
   arenaCardAvailability,
+  describeArenaAction,
   validateArenaDeck,
   type ArenaCard,
   type BattleState,
@@ -115,42 +116,57 @@ export function DeckEditor({
             (c) =>
               (!rarity || c.rarity === rarity) && (!kind || c.type === kind),
           )
-          .map((c) => (
-            <article
-              className={css.card}
-              key={c.id}
-              aria-label={`Carta: ${c.name}`}
-            >
-              <h3>{c.name}</h3>
-              <p>
-                {c.rarity} ·{' '}
-                {c.type === 'OFFENSIVE'
-                  ? 'Ofensiva'
-                  : c.type === 'DEFENSIVE'
-                    ? 'Defensiva'
-                    : 'Tática'}
-              </p>
-              <p>{arenaCardDescription(c)}</p>
-              <p>
-                {ids.includes(c.id)
-                  ? 'NO BARALHO'
-                  : c.action
-                    ? 'Disponível'
-                    : 'Efeito indisponível'}
-              </p>
-              <button
-                disabled={
-                  locked ||
-                  busy ||
-                  !c.action ||
-                  (!ids.includes(c.id) && ids.length >= 7)
-                }
-                onClick={() => select(c.id)}
+          .map((c) => {
+            const detail = describeArenaAction(c.action);
+            return (
+              <article
+                className={css.card}
+                key={c.id}
+                aria-label={`Carta: ${c.name}`}
               >
-                {ids.includes(c.id) ? 'Retirar do baralho' : 'Selecionar carta'}
-              </button>
-            </article>
-          ))}
+                <h3>{c.name}</h3>
+                <p>
+                  {c.rarity} ·{' '}
+                  {c.type === 'OFFENSIVE'
+                    ? 'Ofensiva'
+                    : c.type === 'DEFENSIVE'
+                      ? 'Defensiva'
+                      : 'Tática'}
+                </p>
+                <p>{arenaCardDescription(c)}</p>
+                <p>
+                  <strong>{detail.headline}</strong>
+                </p>
+                <p>Duração: {detail.duration}</p>
+                <p>Condição: {detail.condition}</p>
+                <p>
+                  Custo base: {detail.focusCost} Foco · Nível mínimo:{' '}
+                  {detail.minimumLevel}. O custo na batalha considera
+                  modificadores do snapshot.
+                </p>
+                <p>
+                  {ids.includes(c.id)
+                    ? 'NO BARALHO'
+                    : c.action
+                      ? 'Disponível'
+                      : 'Efeito indisponível'}
+                </p>
+                <button
+                  disabled={
+                    locked ||
+                    busy ||
+                    !c.action ||
+                    (!ids.includes(c.id) && ids.length >= 7)
+                  }
+                  onClick={() => select(c.id)}
+                >
+                  {ids.includes(c.id)
+                    ? 'Retirar do baralho'
+                    : 'Selecionar carta'}
+                </button>
+              </article>
+            );
+          })}
       </div>
       <button
         disabled={busy || locked || !!validateArenaDeck(ids, cards)}
@@ -200,6 +216,7 @@ export function BattleCards({
       <div className={css.grid}>
         {battle.deck?.cards.map((c) => {
           const availability = arenaCardAvailability(battle, c.id);
+          const description = describeArenaAction(c.action, battle.player);
           const { status, focusCost, minimumLevel, missingFocus } =
             availability;
           const reason =
@@ -223,9 +240,29 @@ export function BattleCards({
               aria-label={`Carta: ${c.name}`}
             >
               <h4>{c.name}</h4>
-              <p>{arenaCardDescription(c)}</p>
+              <p>
+                {c.rarity} ·{' '}
+                {c.type === 'OFFENSIVE'
+                  ? 'Ofensiva'
+                  : c.type === 'DEFENSIVE'
+                    ? 'Defensiva'
+                    : 'Tática'}
+              </p>
+              <strong>{description.headline}</strong>
+              <details>
+                <summary>Como funciona esta carta</summary>
+                <p>{description.explanation}</p>
+                <p>
+                  Condição: {description.condition} Nível e Foco suficientes.
+                </p>
+              </details>
+              <p>Duração: {description.duration}</p>
               <p>
                 Custo: {focusCost} Foco · Nível mínimo: {minimumLevel}
+              </p>
+              <p>
+                Usos disponíveis nesta batalha:{' '}
+                {status === 'used' || battle.status !== 'in_progress' ? 0 : 1}.
               </p>
               <b>
                 {status === 'used'
