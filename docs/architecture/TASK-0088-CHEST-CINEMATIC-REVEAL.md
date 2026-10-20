@@ -4,7 +4,7 @@ Apresentação cinematográfica local implementada sobre o fluxo de Baús existe
 
 ## 1. Branch e commit local
 
-Branch `codex/chest-cinematic-reveal`, worktree `build/task-0088-chest-reveal/checkout`, base limpa `e24f8ed0712ff3b5f9392313194232e1efe044ed`, controle documental após runtime0087 validado `170beefd2b3fc79c7e2e780bf56a5b67cb1b7866`. Commits locais e recibo de fechamento registrados no controle final. Não presumir publicação GitHub. Raiz e checkout0087 preservados; nenhuma main/merge/push/deploy/migration/dado real alterado.
+Branch `codex/chest-cinematic-reveal`, worktree `build/task-0088-chest-reveal/checkout`, base limpa `e24f8ed0712ff3b5f9392313194232e1efe044ed`, controle documental após runtime0087 validado `170beefd2b3fc79c7e2e780bf56a5b67cb1b7866`. Implementação local `ea0c07f214ee13824a43f14666c6132d51b10677`; commit posterior somente deste relatório e do contrato. HEAD final/hashes no recibo `build/task-0088-chest-reveal/final-receipt.json`, fora do versionamento. Não presumir publicação GitHub. Raiz e checkout0087 preservados; nenhuma main/merge/push/deploy/migration/dado real alterado.
 
 ## 2. Sistemas reaproveitados
 
@@ -86,6 +86,8 @@ Cartas reais/arte/posse dependem de homologação e aquisição autorizadas, com
 ## 11. Checklist e status
 
 Contrato único [TASK-0088](../../tasks/active/TASK-0088-chest-cinematic-reveal.md), implementação visual local testada e aceite integral BLOCKED. Vinte critérios do pedido mapeados na tarefa; gates e limitações explícitos. Memória raiz recebe somente uma entrada, preservando todos os bytes anteriores e os arquivos sujos do usuário. Commits locais, referências e evidências de preservação ficam no controle final/recibo.
+
+Memória atualizada, prefixo conferido por comparação binária, SHA256 final `bdc5e825111430cc2dd0d8d30ef7f7e405ef5180c8389f382a657c0243bba9f4`. Root e refs locais permanecem iguais, checkout0087 continua limpo na base. Recibo registra hashes dos26arquivos da entrega, logs e capturas finais, sem segredos ou prêmio real.
 
 ## 12. Próxima etapa recomendada
 

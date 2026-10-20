@@ -33,7 +33,7 @@ DEFINITION_OF_DONE: Evidência local dos critérios; integral BLOCKED enquanto a
 - [x] Cinemática/carta/equipamento/temas/acessibilidade
 - [x] Integração confirmada/pendente/histórico
 - [x] QA/Security/gates/relatório
-- [ ] Memória/controle final dos commits
+- [x] Memória/controle final dos commits
 - [ ] Catálogo de cartas/autoridade hospedada/aparelhos/sons homologados
 
 ## Self validate / QA / Security
@@ -79,3 +79,7 @@ Reworks:lint de refs/efeitos e tag de imagem; primeiro unit31PASS/3FAIL em curso
 |20.Controle de acesso | consulta somente leitura por Traveler/open/key, nega linha estrangeira; testes Auth existentes; SQL/Auth/RLS intocados |
 
 Provas locais/sintéticas não são crédito real, aquisição de carta, segurança global, sincronização entre aparelhos, licença sonora ou aceite de ambiente hospedado. Check necessário pendente não recebe PASS.
+
+## Controle final local
+
+Implementação ea0c07f214ee13824a43f14666c6132d51b10677, branch codex/chest-cinematic-reveal. Commit posterior altera somente este contrato e o relatório para registrar o fechamento. Memória raiz atualizada por prefixo e comparação binária:todos os bytes anteriores preservados; SHA256 final bdc5e825111430cc2dd0d8d30ef7f7e405ef5180c8389f382a657c0243bba9f4. Recibo com HEAD final/hashes/gates em build/task-0088-chest-reveal/final-receipt.json, fora do versionamento. Checkout limpo após commits, implementação local PASS e aceite integral BLOCKED. Nenhum push/deploy/merge/main/remoto executado.
