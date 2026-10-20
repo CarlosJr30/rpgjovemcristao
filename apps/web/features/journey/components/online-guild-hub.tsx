@@ -2048,6 +2048,7 @@ function OnlineGuildLegacyHub({
         <small>
           ID para pedidos de entrada: <code>{context.guild.id}</code>
         </small>
+        <Link className={styles.primaryLink} href="/journey/guild/ebd">Escola Bíblica</Link>
         {isLeader && (
           <Link className={styles.primaryLink} href="/journey/guild/manage">
             Gerenciar Guilda

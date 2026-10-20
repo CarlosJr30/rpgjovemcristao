@@ -213,6 +213,7 @@ export function GuildLeaderPanel({ traveler }: { traveler: Traveler }) {
         <Link className={css.link} href="/journey/guild">
           Ver área dos membros →
         </Link>
+        <p><Link className={css.link} href="/journey/guild/ebd">Escola Bíblica →</Link></p>
       </header>
       <GuildInvitePanel travelerId={traveler.id} />
       <nav className={css.tabs} aria-label="Áreas do Painel da Guilda">

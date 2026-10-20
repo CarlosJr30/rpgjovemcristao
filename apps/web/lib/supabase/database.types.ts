@@ -217,6 +217,8 @@ export type Database = {
     };
     Views: Record<string, never>;
     Functions: {
+      guild_ebd_workspace: {Args: {p_actor: string; p_offset: number}; Returns: Json};
+      guild_ebd_command: {Args: {p_actor: string; p_action: string; p_id: string; p_revision: number; p_data: Json}; Returns: Json};
       guild_mission_workspace: { Args: { p_actor: string; p_history_offset: number }; Returns: Json };
       save_guild_mission_v2: { Args: { p_actor: string; p_mission: string; p_expected_revision: number; p_data: Json }; Returns: string };
       transition_guild_mission_v2: { Args: { p_actor: string; p_mission: string; p_expected_revision: number; p_action: string }; Returns: undefined };
