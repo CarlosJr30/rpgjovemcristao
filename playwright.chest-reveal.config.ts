@@ -5,12 +5,12 @@ export default defineConfig({
   workers: 1,
   retries: 0,
   timeout: 120000,
-  outputDir: 'build/task-0087-chest-reveal/browser-artifacts',
+  outputDir: 'build/task-0088-chest-reveal/browser-artifacts',
   reporter: [
     ['list'],
     [
       'json',
-      { outputFile: 'build/task-0087-chest-reveal/browser-results.json' },
+      { outputFile: 'build/task-0088-chest-reveal/browser-results.json' },
     ],
   ],
   use: { baseURL: 'http://127.0.0.1:3194', trace: 'retain-on-failure' },
