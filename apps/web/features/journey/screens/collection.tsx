@@ -13,6 +13,7 @@ export function CollectionScreen() {
       return <section className={styles.diarySection}>
         <p className={styles.eyebrow}>DESCOBERTAS DO VIAJANTE</p>
         <h1>Coleção</h1>
+        <p><Link href="/journey/arena/deck">Meu Baralho — Arena →</Link></p>
         <p>Equipamentos descobertos: <strong>{EQUIPMENT_CATALOG.filter((item) => found.has(item.id)).length}/{EQUIPMENT_CATALOG.length}</strong></p>
         <p>Segredos do Jardim: <strong>{traveler.progress.gardenSecrets.length}/1</strong></p>
         <p>Conquistas: em preparação.</p>

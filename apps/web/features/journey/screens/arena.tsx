@@ -1,16 +1,14 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import {
   arenaSpecials,
   arenaProfiles,
   arenaProbableIntent,
   calculateCombatPowerBreakdown,
   calculateTrainingReward,
-  createArenaBattle,
   equipmentEffects,
   isWithinMatchmakingRange,
-  resolveArenaRound,
   type ArenaAction,
   type BattleParticipantSnapshot,
   type BattleState,
@@ -48,6 +46,17 @@ type OpponentOption = {
   traveler?: Traveler;
   source: 'training' | 'saved';
 };
+import Link from 'next/link';
+import { useAuth } from '../../../lib/supabase/auth-context';
+import { getCurrentOnlineUserId } from '../../../lib/supabase/online-sync';
+import {
+  loadArenaCollection,
+  type CollectionSource,
+} from '../../arena-deck/collection';
+import { arenaDeckStorage } from '../../arena-deck/storage';
+import { DeckEditor, BattleCards } from '../../arena-deck/editor';
+import { validateArenaDeck, type ArenaCard } from '@rpg/game-engine';
+
 type Stage = 'lobby' | 'preview' | 'battle' | 'result';
 const attributeKeys = ['life', 'strength', 'defense', 'wisdom'] as const;
 const triggerLabels = {
@@ -83,11 +92,27 @@ function Stats({ snapshot }: { snapshot: BattleParticipantSnapshot }) {
   );
 }
 
-function ArenaExperience({ traveler }: { traveler: Traveler }) {
+export function ArenaExperience({
+  traveler,
+  ownerId,
+  collectionSource = loadArenaCollection,
+}: {
+  traveler: Traveler;
+  ownerId: string;
+  collectionSource?: CollectionSource;
+}) {
   const playerSnapshot = useMemo(
     () => travelerBattleSnapshot(traveler),
     [traveler],
   );
+  const [deckData, setDeckData] = useState<{
+    cards: readonly ArenaCard[];
+    selection: readonly string[];
+  } | null>(null);
+  const [deckError, setDeckError] = useState('');
+  const [deckBusy, setDeckBusy] = useState(false);
+  const pending = useRef(false);
+  const [showDeck, setShowDeck] = useState(false);
   const [stage, setStage] = useState<Stage>('lobby');
   const [options, setOptions] = useState<OpponentOption[]>(
     TRAINING_OPPONENTS.map((snapshot) => ({ snapshot, source: 'training' })),
@@ -136,6 +161,37 @@ function ArenaExperience({ traveler }: { traveler: Traveler }) {
     return () => window.clearTimeout(sync);
   }, [traveler.id]);
 
+  useEffect(() => {
+    let live = true;
+    collectionSource(ownerId, traveler.id)
+      .then((cards) => {
+        const saved = arenaDeckStorage.load(ownerId, traveler.id, cards);
+        if (!live) return;
+        setDeckData({ cards, selection: saved.selection });
+        if (saved.battle) {
+          setBattle(saved.battle);
+          setSelected({
+            snapshot: saved.battle.opponent.snapshot,
+            source: saved.battle.opponent.snapshot.id.startsWith('training-')
+              ? 'training'
+              : 'saved',
+          });
+          setStage(saved.battle.status === 'in_progress' ? 'battle' : 'result');
+          setReward(
+            arenaRepository
+              .list(traveler.id)
+              .find((r) => r.id === saved.battle?.id)?.reward ?? null,
+          );
+        }
+      })
+      .catch((e) => {
+        if (live)
+          setDeckError(e instanceof Error ? e.message : 'Arena indisponível.');
+      });
+    return () => {
+      live = false;
+    };
+  }, [ownerId, traveler.id, collectionSource]);
   function pickClosest() {
     const match = [...options].sort(
       (a, b) =>
@@ -154,24 +210,44 @@ function ArenaExperience({ traveler }: { traveler: Traveler }) {
     setStage('preview');
   }
 
-  function begin() {
-    if (!selected) return;
-    const seed = crypto.getRandomValues(new Uint32Array(1))[0];
-    setBattle(
-      createArenaBattle(
+  async function begin() {
+    if (!selected || pending.current || !deckData) return;
+    pending.current = true;
+    setDeckBusy(true);
+    setDeckError('');
+    try {
+      const cards = await collectionSource(ownerId, traveler.id);
+      const next = await arenaDeckStorage.begin(
+        ownerId,
+        traveler.id,
+        cards,
         playerSnapshot,
         selected.snapshot,
-        seed,
-        crypto.randomUUID(),
-      ),
-    );
-    setReward(null);
-    setLevelNotice(null);
-    setSpecialsOpen(false);
-    setStage('battle');
+      );
+      setBattle(next);
+      setDeckData({ cards, selection: next.deck!.cards.map((c) => c.id) });
+      presentation.cancel();
+      setReward(null);
+      setLevelNotice(null);
+      setSpecialsOpen(false);
+      setShowDeck(false);
+      setStage('battle');
+    } catch (e) {
+      setDeckError(e instanceof Error ? e.message : 'Arena indisponível.');
+    } finally {
+      pending.current = false;
+      setDeckBusy(false);
+    }
   }
 
   function settle(finished: BattleState) {
+    const active = journeyRepository.load();
+    if (
+      getCurrentOnlineUserId() !== ownerId ||
+      active.status !== 'ready' ||
+      active.traveler.id !== traveler.id
+    )
+      return;
     if (!selected || arenaRepository.has(finished.id)) return;
     const won = finished.winnerId === traveler.id;
     const calculated = calculateTrainingReward(
@@ -219,20 +295,64 @@ function ArenaExperience({ traveler }: { traveler: Traveler }) {
     emitArenaSound(won ? 'victory' : 'defeat');
   }
 
-  function act(action: ArenaAction) {
-    if (!battle || battle.status !== 'in_progress' || presentation.busy) return;
-    const next = resolveArenaRound(battle, action);
-    if (next === battle) return;
-    presentation.play(battle, next, () => {
-      setBattle(next);
-      if (next.status === 'finished') {
-        settle(next);
-        setStage('result');
+  async function act(action: ArenaAction) {
+    if (
+      !battle ||
+      battle.status !== 'in_progress' ||
+      presentation.busy ||
+      pending.current ||
+      !deckData
+    )
+      return;
+    pending.current = true;
+    setDeckBusy(true);
+    setDeckError('');
+    try {
+      const next = await arenaDeckStorage.command(
+        ownerId,
+        traveler.id,
+        deckData.cards,
+        battle.id,
+        battle.round,
+        action,
+      );
+      const started = presentation.play(battle, next, () => {
+        setBattle(next);
+        if (next.status === 'finished') {
+          setStage('result');
+          void arenaDeckStorage
+            .claimSettlement(ownerId, traveler.id, deckData.cards, next.id)
+            .then((claimed) => {
+              if (claimed) settle(next);
+            })
+            .catch((e) =>
+              setDeckError(
+                e instanceof Error ? e.message : 'Resultado pendente.',
+              ),
+            )
+            .finally(() => {
+              pending.current = false;
+              setDeckBusy(false);
+            });
+        } else {
+          pending.current = false;
+          setDeckBusy(false);
+        }
+      });
+      if (!started) {
+        pending.current = false;
+        setDeckBusy(false);
+        setDeckError('Rodada salva. Recarregue para retomar.');
       }
-    });
+    } catch (e) {
+      pending.current = false;
+      setDeckBusy(false);
+      setDeckError(e instanceof Error ? e.message : 'Ação indisponível.');
+    }
   }
 
   function reset() {
+    presentation.cancel();
     setBattle(null);
     setReward(null);
     setSpecialsOpen(false);
@@ -293,6 +413,43 @@ function ArenaExperience({ traveler }: { traveler: Traveler }) {
         espiritualidade ou valor pessoal.
       </p>
 
+      <p>
+        <Link href="/journey/arena/deck">Meu Baralho</Link>
+      </p>
+      {deckError && <p role="alert">{deckError}</p>}
+      {!deckData && !deckError && <p role="status">Carregando baralho...</p>}
+      {deckData && stage !== 'battle' && (
+        <>
+          <p>Cartas selecionadas: {deckData.selection.length}/7</p>
+          <button disabled={deckBusy} onClick={() => setShowDeck((v) => !v)}>
+            Montar baralho nesta tela
+          </button>
+        </>
+      )}
+      {deckData && showDeck && (
+        <DeckEditor
+          key={traveler.id}
+          cards={deckData.cards}
+          initial={deckData.selection}
+          locked={battle?.status === 'in_progress'}
+          busy={deckBusy}
+          onSave={async (ids) => {
+            const cards = await collectionSource(ownerId, traveler.id);
+            await arenaDeckStorage.save(ownerId, traveler.id, cards, ids);
+            setDeckData({ cards, selection: [...ids] });
+            setShowDeck(false);
+          }}
+        />
+      )}
+      {deckData &&
+        validateArenaDeck(deckData.selection, deckData.cards) &&
+        stage !== 'battle' && (
+          <p>
+            Monte um baralho com sete cartas de combate válidas para iniciar. O
+            catálogo e a aquisição de cartas ainda aguardam integração
+            autorizada.
+          </p>
+        )}
       {stage === 'lobby' && (
         <>
           <div className={styles.arenaLobbyGrid}>
@@ -427,7 +584,16 @@ function ArenaExperience({ traveler }: { traveler: Traveler }) {
           </p>
           <div className={styles.arenaControls}>
             <button onClick={reset}>Voltar</button>
-            <button className={styles.arenaPrimary} onClick={begin}>
+            <button
+              className={styles.arenaPrimary}
+              onClick={() => void begin()}
+              disabled={
+                deckBusy ||
+                showDeck ||
+                !deckData ||
+                !!validateArenaDeck(deckData.selection, deckData.cards)
+              }
+            >
               Iniciar batalha
             </button>
           </div>
@@ -497,7 +663,7 @@ function ArenaExperience({ traveler }: { traveler: Traveler }) {
                 aria-label="Ações da batalha"
               >
                 <button
-                  disabled={presentation.busy}
+                  disabled={presentation.busy || deckBusy}
                   onClick={() => act('attack')}
                 >
                   <b>ATACAR</b>
@@ -505,7 +671,7 @@ function ArenaExperience({ traveler }: { traveler: Traveler }) {
                   <small>+1 Foco</small>
                 </button>
                 <button
-                  disabled={presentation.busy}
+                  disabled={presentation.busy || deckBusy}
                   onClick={() => act('defend')}
                 >
                   <b>DEFENDER</b>
@@ -513,7 +679,7 @@ function ArenaExperience({ traveler }: { traveler: Traveler }) {
                   <small>+1 Foco · próximo golpe</small>
                 </button>
                 <button
-                  disabled={presentation.busy}
+                  disabled={presentation.busy || deckBusy}
                   data-special-ready={arenaSpecials.some(
                     (special) =>
                       specialAvailability(battle.player, special.id) ===
@@ -543,6 +709,11 @@ function ArenaExperience({ traveler }: { traveler: Traveler }) {
                   Discernimento · {arenaProbableIntent(battle)}
                 </p>
               )}
+            <BattleCards
+              battle={battle}
+              busy={presentation.busy || deckBusy}
+              onPlay={(id) => void act(`card:${id}`)}
+            />
             <ArenaEffects fighter={battle.player} />
             <BattleLog battle={battle} />
             {stage === 'result' && (
@@ -564,11 +735,13 @@ function ArenaExperience({ traveler }: { traveler: Traveler }) {
                   <b>{battle.player.abilitiesUsed} habilidades usadas</b>
                 </div>
                 <p>
-                  {reward?.rewarded
-                    ? `Recompensa: +${reward.xp} XP e +${reward.coins} moedas.`
-                    : reward?.reason === 'daily-limit'
-                      ? 'Limite diário de recompensas contra este adversário atingido. Você pode continuar treinando.'
-                      : 'Treinos sem vitória não concedem recursos.'}
+                  {!reward
+                    ? 'Resultado salvo; recompensa ainda não confirmada. Recarregar não repete a concessão.'
+                    : reward.rewarded
+                      ? `Recompensa: +${reward.xp} XP e +${reward.coins} moedas.`
+                      : reward?.reason === 'daily-limit'
+                        ? 'Limite diário de recompensas contra este adversário atingido. Você pode continuar treinando.'
+                        : 'Treinos sem vitória não concedem recursos.'}
                 </p>
                 {reward?.rewarded && (
                   <ol
@@ -587,7 +760,16 @@ function ArenaExperience({ traveler }: { traveler: Traveler }) {
                 )}
                 <div className={styles.arenaControls}>
                   <button onClick={reset}>Voltar à Arena</button>
-                  <button className={styles.arenaPrimary} onClick={begin}>
+                  <button
+                    className={styles.arenaPrimary}
+                    onClick={() => void begin()}
+                    disabled={
+                      deckBusy ||
+                      showDeck ||
+                      !deckData ||
+                      !!validateArenaDeck(deckData.selection, deckData.cards)
+                    }
+                  >
                     {battle.winnerId === traveler.id
                       ? 'Jogar novamente'
                       : 'Tentar novamente'}
@@ -705,10 +887,17 @@ function BattleLog({ battle }: { battle: BattleState }) {
 }
 
 export function ArenaScreen() {
+  const auth = useAuth();
   return (
     <Shell back={routes.map} backLabel="Voltar à Jornada">
       <RequireTraveler>
-        {(traveler) => <ArenaExperience traveler={traveler} />}
+        {(traveler) => (
+          <ArenaExperience
+            key={`${auth.user?.id}:${traveler.id}`}
+            traveler={traveler}
+            ownerId={auth.user?.id ?? ''}
+          />
+        )}
       </RequireTraveler>
     </Shell>
   );

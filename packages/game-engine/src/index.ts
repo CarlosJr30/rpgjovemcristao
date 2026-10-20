@@ -110,6 +110,7 @@ export type BattleFighterState = Readonly<{
   tacticalMultiplier?: number; mobilityReady?: boolean; lastSpecial?: ArenaSpecialId | null;
 }>;
 export type BattleState = Readonly<{
+  deck?: import('./arena-deck').ArenaBattleDeck;
   id: string; seed: number; status: Extract<BattleStatus, 'in_progress' | 'finished'>; round: number;
   player: BattleFighterState; opponent: BattleFighterState; winnerId: string | null; loserId: string | null;
   log: readonly BattleLogEntry[];
@@ -274,3 +275,4 @@ export function calculateTrainingReward(won: boolean, rewardedBattlesToday: numb
 }
 export function getEngineStatus(): { readonly gameplayAvailable: true } { return { gameplayAvailable: true }; }
 export * from './arena-combat-v2';
+export * from './arena-deck';

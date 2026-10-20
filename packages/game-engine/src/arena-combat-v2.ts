@@ -14,7 +14,8 @@ import {
   type BattleEffectId,
 } from './index';
 
-export type ArenaAction = 'attack' | 'defend' | `special:${ArenaSpecialId}`;
+import { freezeArenaDeck, validateArenaDeck, type ArenaCard, type ArenaBaseAction } from './arena-deck';
+export type ArenaAction = ArenaBaseAction | `card:${string}`;
 export type ArenaSpecial = Readonly<{
   id: ArenaSpecialId;
   name: string;
@@ -207,6 +208,18 @@ export function createArenaBattle(
     opponent: normalize(state.opponent),
   };
 }
+export function createArenaDeckBattle(player:BattleParticipantSnapshot,opponent:BattleParticipantSnapshot,seed:number,id:string,ids:readonly string[],owned:readonly ArenaCard[]):BattleState {
+  return {...createArenaBattle(player,opponent,seed,id),deck:freezeArenaDeck(player.id,ids,owned)};
+}
+/** A stale command never advances a round, even when delivered twice. */
+export function resolveArenaCommand(state:BattleState,id:string,round:number,action:ArenaAction):BattleState {
+  return state.id===id && state.round===round ? resolveArenaRound(state,action) : state;
+}
+export function arenaCardDescription(card:ArenaCard):string {
+  if(card.action==='attack')return 'Executa o ataque básico com seus atributos e efeitos de equipamento atuais.';
+  if(card.action==='defend')return 'Executa a defesa básica e gera Foco conforme as regras atuais.';
+  return arenaSpecials.find(s=>`special:${s.id}`===card.action)?.description ?? 'Efeito ainda indisponível.';
+}
 /** Reads the committed state only; the player's upcoming choice is not an input. */
 export function chooseArenaOpponentAction(state: BattleState): ArenaAction {
   const fighter = state.opponent;
@@ -266,6 +279,16 @@ export function resolveArenaRound(
   playerAction: ArenaAction,
 ): BattleState {
   if (state.status !== 'in_progress') return state;
+  if(typeof playerAction!=='string')return state;
+  if(state.deck && (state.deck.ownerId!==state.player.snapshot.id || validateArenaDeck(state.deck.cards.map(c=>c.id),state.deck.cards) || new Set(state.deck.usedIds).size!==state.deck.usedIds.length || state.deck.usedIds.some(id=>!state.deck!.cards.some(c=>c.id===id))))return state;
+  if(playerAction.startsWith('card:')) {
+    const id=playerAction.slice(5);const deck=state.deck;
+    const card=deck?.cards.find(c=>c.id===id);
+    if(!deck || !card?.action || deck.usedIds.includes(id))return state;
+    const next=resolveArenaRound(state,card.action);
+    if(next===state)return state;
+    return {...next,deck:{...deck,usedIds:[...deck.usedIds,id]}};
+  }
   const selectedSpecial = arenaSpecials.find(
     (special) => playerAction === `special:${special.id}`,
   );
