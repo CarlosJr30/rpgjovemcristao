@@ -30,7 +30,7 @@ DEFINITION_OF_DONE: Checks locais comprovados; integral BLOCKED se catálogo/bac
 - [x] Fonte compartilhada e descrições
 - [x] UI e comparação/histórico
 - [x] Testes/QA/Security executados, P1 legado continua bloqueado
-- [x] Relatório/checklist; memória no controle final
+- [x] Relatório/checklist/memória e aceite local; integral BLOCKED
 - [ ] Catálogo/aquisição/backend autoritativo
 
 ## SELF VALIDATE / QA / SECURITY / ACCEPTANCE
@@ -55,3 +55,5 @@ REWORK registrado: primeira rodada89teve85PASS/4FAIL pelo seletor regex antigo (
 Aceite local: números e condições reais, sem nova cura/carta/efeito, previsão de dano definitivo ou informação oculta da IA. Três ações/sete/consumo/Foco/lock/persistência intactos; cópia da apresentação não altera transcrição nem grant. Catálogo vazio mantém início de produto bloqueado; autoridade/recibos/Auth real/dispositivos pendentes. Sem main/merge/push/deploy/Supabase/SQL remoto/dado real; contexto07 não iniciado.
 
 Relatório: [TASK-0086-ARENA-NUMERIC-DESCRIPTIONS](../../docs/architecture/TASK-0086-ARENA-NUMERIC-DESCRIPTIONS.md). [Parecer Security](../../docs/security/TASK-0086-ARENA-DESCRIPTIONS-SECURITY.md). Próximo: catálogo/aquisição e autoridade sob tarefa própria; decidir reforço do escudo separadamente.
+
+Controle final: implementação validada no commit local `34dde31b25a6ff9ef373e88c8eff1b6132ca3820`. Após retirar a opção de seletor incompatível com o tipo do Testing Library,4testes da comparação passaram em unit-selector-final.log. Memória raiz recebeu somente entrada0086, preservando corpo anterior byte a byte. Commit seguinte somente neste contrato e relatório; sem nova suíte para metadados. Recibo de fontes/logs/refs em build/task-0086-arena-descriptions/final-receipt.json.

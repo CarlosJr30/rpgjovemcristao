@@ -105,3 +105,5 @@ Ver [contrato0086](../../tasks/active/TASK-0086-arena-numeric-descriptions.md) e
 ## 12. Próxima etapa
 
 Revisar e homologar conteúdo/aquisição em tarefa própria com economia/atributos; resolver autoridade antes de habilitar cartas e prêmios reais. Decidir separadamente o reforço do escudo. Contexto07 não iniciado automaticamente; sem Torre, PvP, nova energia, animação de baú ou deploy nesta entrega.
+
+Controle final: implementação validada no commit local `34dde31b25a6ff9ef373e88c8eff1b6132ca3820`. Tipos/build/browser finais PASS, além de4testes da comparação após retirada da opção de seletor inválida (unit-selector-final.log). Commit seguinte somente documental neste relatório e contrato. Memória de controle raiz atualizada preservando todos os bytes anteriores; recibo `build/task-0086-arena-descriptions/final-receipt.json` registra fontes/logs/refs e checkout limpo. Nenhuma publicação remota.
