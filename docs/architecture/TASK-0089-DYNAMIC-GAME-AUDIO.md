@@ -4,7 +4,7 @@ Data: 2026-10-20. **Infraestrutura local PASS; aceite integral BLOCKED.** Revis�
 
 ## 1. Branch e commit local
 
-Branch `codex/dynamic-game-audio`, checkout `build/task-0089-dynamic-audio/checkout`, base `760b269dbbe947bb4da00903d64d19280a9e38ce`, descendente do runtime0088 `ea0c07f214ee13824a43f14666c6132d51b10677`. SHA desta implementação será registrado no fechamento documental e em `../final-receipt.json`. Nada enviado ao remoto, publicado, mesclado ou aplicado em banco.
+Branch `codex/dynamic-game-audio`, checkout `build/task-0089-dynamic-audio/checkout`, base `760b269dbbe947bb4da00903d64d19280a9e38ce`, descendente do runtime0088 `ea0c07f214ee13824a43f14666c6132d51b10677`. Implementação validada: `a573cd12c0541524644c3cb552bfdbb28456f600`. Fechamento posterior apenas documental, sem alterar o runtime validado; HEAD final em `../final-receipt.json`. Memória de controle raiz atualizada por prefixo, com os bytes anteriores preservados integralmente. Nada enviado ao remoto, publicado, mesclado ou aplicado em banco.
 
 ## 2. Auditoria do AudioManager
 

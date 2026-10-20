@@ -31,7 +31,7 @@ DEFINITION_OF_DONE: Infraestrutura local comprovada e rodada09 documentada; inte
 - [x] Catálogo/proveniência/slots
 - [x] Manager/contextos/volumes/ciclo de vida
 - [x] Vídeo/estudo/Arena/Torre/Baús
-- [x] QA/Security/checks/relatório consolidado; memória/recibo no fechamento
+- [x] QA/Security/checks/relatório consolidado e memória raiz por prefixo; recibo final local
 - [ ] Mídias/licenças/audição/aparelhos e aceite integral das dependências
 
 ## Validação e aceite
@@ -45,3 +45,7 @@ REWORK→ACTIVE→VALIDATING: teste antigo esperava journey no menu e áudio de 
 SECURITY pelo autor: parecer próprio em `docs/security/TASK-0089-AUDIO-SECURITY.md`; sem revisão independente. Catálogos aprovados vazios/intactos e fontes Suno Free DEV intactas, sem novas licenças ou mídia. Vídeo não confirma progresso; som não concede prêmio. Auditoria `build/task-0089-dynamic-audio/scope-audit.json` confere limites, refs/main, engine/economia/0078/SQL/Auth/RLS/assets/contratos e hashes dos arquivos pendentes raiz. Memória raiz deve manter bytes anteriores como sufixo exato; registro final no recibo local. Nenhum remoto/push/deploy/merge/instalação.
 
 BLOCKED: arquivos/direitos oficiais e aprovação verificável, audição/loops/mix reais, aparelhos físicos; dependências herdadas de conteúdo/vídeos/validador0081, catálogo/aquisição0084, autoridade/recibos0078 e ambiente/schema/Auth/RLS/cutover/riscos já documentados. Condição de desbloqueio: escopo posterior autorizado resolve essas dependências e produz evidências reais. Não iniciar próxima funcionalidade nem marcar jogo DONE.
+
+## Fechamento local
+
+Implementação validada `a573cd12c0541524644c3cb552bfdbb28456f600`. Follow-up somente neste contrato e nos dois relatórios de entrega/consolidado, para registrar SHA e memória; runtime/testes/config inalterados após a implementação. Memória raiz recebeu prefixo com os bytes anteriores como sufixo exato; branch/ref raiz e oito arquivos pendentes intactos. Recibo final ignorado `build/task-0089-dynamic-audio/final-receipt.json` registra HEAD, hashes/evidências/gates. Checkout próprio limpo após os commits locais. Rodada dos nove contextos documentada; status integral continua BLOCKED.

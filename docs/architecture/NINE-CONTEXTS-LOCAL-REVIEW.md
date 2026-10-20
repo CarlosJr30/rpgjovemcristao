@@ -18,7 +18,7 @@ Cada linha resume o recibo local `build/task-00XX-*/final-receipt.json`. São re
 | 06/0086 | Atributos e descrições objetivas | `34dde31b25a6ff9ef373e88c8eff1b6132ca3820` |89 unitários;6 E2E, rechecks documentados | Fórmulas preservadas; catálogo/hosted/autoridade ainda pendentes |
 | 07/0087 | Torre permanente de sete desafios, progresso local separado | `170beefd2b3fc79c7e2e780bf56a5b67cb1b7866` |93 unitários;6 E2E | Autoridade remota e balanceamento com cartas/jogadores aprovados |
 | 08/0088 | Revelação cinematográfica de prêmio confirmado e retomada visual | `ea0c07f214ee13824a43f14666c6132d51b10677` |56 unitários;9 E2E, correção WebKit e rechecks | Recibo/apresentação não substituem hardening/cutover0078 e hosted |
-| 09/0089 | Mesmo AudioManager, contextos, vídeo/estudo, volumes/cache e raridades | SHA no fechamento do relatório0089 |104regressões+1integração de cinco raridades;6 E2E | Mídia/licenças/audição/aparelhos e dependências herdadas |
+| 09/0089 | Mesmo AudioManager, contextos, vídeo/estudo, volumes/cache e raridades | `a573cd12c0541524644c3cb552bfdbb28456f600` |104 regressões+1 integração de cinco raridades;6 E2E | Mídia/licenças/audição/aparelhos e dependências herdadas |
 
 Todas registraram lint, TypeScript e build locais PASS nas respectivas entregas. Navegador inclui Chromium desktop/mobile e WebKit mobile em emulação; não equivale a aparelho físico. Banco das tarefas0081–0083 foi PostgreSQL sintético local, sem aplicar propostas em Supabase remoto. Nas demais tarefas não houve SQL novo. Os recibos distinguem cenários, nós e rechecks; não contar novamente um mesmo cenário como entrega nova.
 
