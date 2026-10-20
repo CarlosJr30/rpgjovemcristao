@@ -106,6 +106,7 @@ test('embed source is constructed from allowed provider and validated ID', () =>
     source: 'synthetic fixture',
     author: 'fixture',
     verification: 'provider-api' as const,
+    embedding: 'allowed' as const, editorialReview: {status:'approved' as const,reference:'test-fixture-only'}, durationSeconds:75, captions:'fixture', accessibleAlternative:'fixture',
     authorization: {
       status: 'approved' as const,
       terms: 'test-only',

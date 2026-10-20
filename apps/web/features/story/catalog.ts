@@ -35,6 +35,9 @@ export type StoryVideo = {
   verification: 'provider-api' | 'browser-events' | 'none';
   captions: string | null;
   accessibleAlternative: string | null;
+  embedding: 'pending' | 'allowed' | 'denied';
+  editorialReview: { status:'pending'|'approved'; reference:string|null };
+  captionUrl: string|null;
 };
 export type StoryReward = {
   key: string;
@@ -52,7 +55,7 @@ export type Story = {
   description: string;
   references: readonly string[];
   requiredSteps: readonly StoryStep[];
-  content: 'prepared' | 'legacy-adapter' | 'ready';
+  content: 'prepared' | 'candidate' | 'legacy-adapter' | 'ready';
   minigameId: 'snake-chase' | null;
   legacyRoute: string | null;
   video: StoryVideo;
@@ -83,6 +86,9 @@ const missingVideo = (): StoryVideo => ({
   verification: 'none',
   captions: null,
   accessibleAlternative: null,
+  embedding:'pending',
+  editorialReview:{status:'pending',reference:null},
+  captionUrl:null,
 });
 function originsStory(
   id: string,
@@ -100,7 +106,7 @@ function originsStory(
     description,
     references: [reference],
     requiredSteps: STORY_STEPS,
-    content: garden ? 'legacy-adapter' : 'prepared',
+    content: garden ? 'legacy-adapter' : 'candidate',
     minigameId: garden ? 'snake-chase' : null,
     legacyRoute: garden ? '/journey/phases/o-jardim-e-a-escolha' : null,
     video: missingVideo(),
@@ -136,7 +142,7 @@ export const ORIGIN_STORIES: readonly Story[] = [
     3,
     'Caim e Abel',
     'Gênesis 4',
-    'Um capítulo sobre os irmãos, preparado para desenvolvimento editorial.',
+    'Ira, responsabilidade e misericórdia em uma prévia educativa.',
   ),
   originsStory(
     'noah-ark',
@@ -149,7 +155,7 @@ export const ORIGIN_STORIES: readonly Story[] = [
     'babel',
     5,
     'A Torre de Babel',
-    'Gênesis 11',
+    'Gênesis 11:1–9',
     'O relato da torre e da dispersão.',
   ),
 ];

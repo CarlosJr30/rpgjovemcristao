@@ -35,6 +35,10 @@ export function videoBlocker(video: StoryVideo): string | null {
     return 'Aguardando comprovação de autorização e autoria do vídeo.';
   if (video.verification === 'none')
     return 'Este provedor ainda não permite registrar a visualização. A conclusão permanece pendente.';
+  if(video.embedding!=='allowed'||video.editorialReview.status!=='approved'||!video.editorialReview.reference)
+    return 'Aguardando autorização de incorporação e revisão editorial do vídeo.';
+  if(!video.durationSeconds||video.durationSeconds<=0||!video.captions||!video.accessibleAlternative)
+    return 'Aguardando duração, legendas e alternativa acessível revisadas.';
   return null;
 }
 export const progressFor = (

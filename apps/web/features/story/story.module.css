@@ -200,6 +200,19 @@
   gap: 12px;
   margin-top: 22px;
 }
+.workbook { margin: 28px 0; }
+.sceneGrid { display: grid; grid-template-columns: repeat(auto-fit,minmax(min(100%,190px),1fr)); gap: 12px; margin: 20px 0; }
+.sceneGrid button { text-align: left; min-height: 64px; }
+.sceneGrid button[aria-pressed='true'] { background: #495b36; border-color: #edcf8b; }
+.lessonScene { border-left: 3px solid #c8ab73; padding: 8px 20px; margin-bottom: 24px; background: #ffffff09; }
+.readingRow { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; margin: 16px 0; }
+.task { margin: 22px 0; }
+.workbook label { display: block; line-height: 1.6; }
+.workbook select,.workbook textarea { display: block; width: 100%; max-width: 100%; min-width: 0; min-height: 44px; margin-top: 8px; padding: 12px; border-radius: 8px; font: inherit; color: #1c3024; background: #faf4e5; }
+.workbook fieldset { min-width: 0; padding: 16px; margin: 24px 0; border: 1px solid #9f926d; }
+.workbook .quizOption { display: flex; align-items: flex-start; gap: 12px; min-height: 44px; padding: 10px 0; }
+.quizOption input { flex: 0 0 auto; margin-top: 5px; }
+.workbook :is(select,textarea,input):focus-visible { outline: 3px solid #e9cb88; outline-offset: 3px; }
 @media (max-width: 900px) {
   .grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));

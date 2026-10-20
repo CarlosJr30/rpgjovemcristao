@@ -155,6 +155,7 @@ describe('mandatory video dependencies', () => {
     source: 'Synthetic test fixture',
     author: 'Test author',
     verification: 'provider-api',
+    embedding: 'allowed' as const, editorialReview: {status:'approved' as const,reference:'test-fixture-only'}, durationSeconds:75, captions:'fixture', accessibleAlternative:'fixture',
     authorization: {
       status: 'approved',
       terms: 'synthetic test only',

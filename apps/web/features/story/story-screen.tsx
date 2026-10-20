@@ -27,6 +27,9 @@ import { STATUS_LABELS } from './world-map';
 import css from './story.module.css';
 import { useAudioScene } from '../journey/hooks/use-game-audio';
 import { AUDIO_WORLD_IDS } from '../journey/audio/audio-catalog';
+import { originsLesson } from './origins-lessons';
+import { OriginsWorkbook } from './origins-workbook';
+import { useAuth } from '../../lib/supabase/auth-context';
 
 export function StoryView({
   story,
@@ -35,6 +38,7 @@ export function StoryView({
   error = '',
   loading = false,
   onComplete,
+  ownerId,
 }: {
   story: Story;
   traveler: Traveler;
@@ -42,6 +46,7 @@ export function StoryView({
   error?: string;
   loading?: boolean;
   onComplete?: () => Promise<void>;
+  ownerId?: string;
 }) {
   const [saving, setSaving] = useState(false);
   const [finishError, setFinishError] = useState('');
@@ -70,10 +75,11 @@ export function StoryView({
     status === 'available' &&
     !step &&
     !videoBlocker(story.video) &&
-    story.content !== 'prepared' &&
+    story.content === 'ready' &&
     !!onComplete;
   const next =
     ALL_STORIES[ALL_STORIES.findIndex((item) => item.id === story.id) + 1];
+  const lesson=originsLesson(story.id);
   return (
     <section className={css.page}>
       <Link className={css.back} href={worldRoute(story.worldId)}>
@@ -100,15 +106,18 @@ export function StoryView({
           preparação deste capítulo.
         </p>
       )}
+      {lesson&&<OriginsWorkbook key={`${ownerId??'preview'}:${traveler.id}:${story.id}`} lesson={lesson} traveler={traveler} ownerId={ownerId}/>}
       <div className={css.columns}>
         <section className={css.panel}>
-          <h2>Seu próximo passo</h2>
+          <h2>Progresso oficial</h2>
           <p>
             {status === 'completed'
               ? 'História concluída. A revisita preserva suas recompensas.'
               : story.content === 'prepared'
                 ? 'Este capítulo está em preparação. Atividades, quiz e reflexão aguardam revisão.'
-                : step
+                : story.content==='candidate'
+                  ? 'Prévia interativa disponível; conclusão oficial aguarda revisão e vídeo autorizado.'
+                  : step
                   ? STEP_LABELS[step]
                   : 'Confirmar a conclusão da história.'}
           </p>
@@ -213,11 +222,13 @@ function TravelerStory({
   traveler: Traveler;
 }) {
   const progress = useStoryProgress(traveler.id);
+  const auth=useAuth();
   return (
     <StoryView
       story={story}
       traveler={traveler}
       {...progress}
+      ownerId={auth.user?.id}
       onComplete={async () => {
         await storyRepository.complete(traveler.id, story.id);
         progress.refresh();

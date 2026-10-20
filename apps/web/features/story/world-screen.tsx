@@ -65,7 +65,7 @@ export function WorldView({
                     {STATUS_LABELS[status]} ·{' '}
                     {story.content === 'legacy-adapter'
                       ? 'Atividades do Jardim disponíveis'
-                      : 'Conteúdo em preparação'}
+                      : story.content==='candidate'?'Prévia interativa · revisão pendente':'Conteúdo em preparação'}
                   </span>
                 </div>
                 <Link className={css.link} href={storyRoute(story.id)}>

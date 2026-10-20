@@ -23,10 +23,13 @@ afterEach(() => {
 });
 const video: StoryVideo = {
   ...findStory('garden-choice')!.video,
-  provider: 'youtube',
-  externalId: 'abcdefghijk',
+  provider: 'html5',
+  url: 'https://video-fixture.invalid/local-test.mp4',
+  captionUrl:'https://video-fixture.invalid/local-test.vtt',
   availability: 'available',
-  verification: 'provider-api',
+  verification: 'browser-events',
+  embedding:'allowed',
+  editorialReview:{status:'approved',reference:'fixture-only'},
   source: 'Synthetic test only',
   author: 'Synthetic test only',
   authorization: {
@@ -38,25 +41,31 @@ const video: StoryVideo = {
   captions: 'fixture',
   accessibleAlternative: 'fixture',
 };
-test('external player holds ambient music until explicit close/unmount, without awarding video completion', async () => {
+test('approved native player holds during playback and releases on pause/close/unmount without awarding completion', async () => {
   const release = vi.fn(),
     hold = vi.spyOn(gameAudio, 'holdMusic').mockReturnValue(release);
   const ui = render(<StoryVideoPanel video={video} completed={false} />);
   fireEvent.click(
-    screen.getByRole('button', { name: 'Carregar vídeo de youtube' }),
+    screen.getByRole('button', { name: 'Carregar vídeo de html5' }),
   );
+  expect(hold).not.toHaveBeenCalled();
+  fireEvent.play(screen.getByLabelText(video.title));
   await waitFor(() => expect(hold).toHaveBeenCalledOnce());
-  expect(screen.getByTitle('Vídeo educativo em seleção')).toBeInTheDocument();
+  expect(screen.getByLabelText(video.title)).toBeInTheDocument();
   expect(screen.getByText(/Abrir o player não conclui/)).toBeVisible();
   fireEvent.click(
     screen.getByRole('button', { name: 'Fechar vídeo e retomar ambiente' }),
   );
   expect(release).toHaveBeenCalledOnce();
   fireEvent.click(
-    screen.getByRole('button', { name: 'Carregar vídeo de youtube' }),
+    screen.getByRole('button', { name: 'Carregar vídeo de html5' }),
   );
-  ui.unmount();
+  fireEvent.play(screen.getByLabelText(video.title));
+  fireEvent.pause(screen.getByLabelText(video.title));
   expect(release).toHaveBeenCalledTimes(2);
+  fireEvent.play(screen.getByLabelText(video.title));
+  ui.unmount();
+  expect(release).toHaveBeenCalledTimes(3);
 });
 test('missing or blocked video never acquires a hold and approved rarity hooks remain silent when catalog is empty', () => {
   const hold = vi.spyOn(gameAudio, 'holdMusic');
