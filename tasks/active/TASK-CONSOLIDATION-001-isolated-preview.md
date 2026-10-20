@@ -55,3 +55,7 @@ Security pelo autor: revisão em docs/security/CONSOLIDATION-001-SECURITY.md. Ba
 Relatório: docs/architecture/TASK-CONSOLIDATION-001-REPORT.md; suportes CONSOLIDATION-001-{ANCESTRY,MIGRATION-PLAN,PREVIEW-PLAN}.md. Recibo final/auditorias/logs ignorados em build/task-consolidation-001/. Memória de controle raiz recebe somente prefixo, mantendo o corpo anterior. Commit/HEAD final registrados no fechamento, sem outro teste amplo por mudança documental.
 
 Condição de desbloqueio: autorização específica para inspeção de metadados dos recursos exclusivos de teste, identificação/configuração de backend apropriado, contrato para negar superfícies econômicas não autoritativas e evidências Auth/RLS/cutover reais. Cartas, áudio e conclusão de Story podem permanecer indisponíveis sem bloquear módulos não econômicos seguros; APIs mutáveis não ficam seguras por esconder UI. Nenhum push/deploy/fetch/merge/remoto/main/0078/produção/dado real foi modificado. Não iniciar consolidação02 por inferência.
+
+## Fechamento
+
+Implementação local `e9e74ee1a93d12a1ff44cfbec1f2082a4dc6772e`. Memória raiz recebeu prefixo com corpo anterior preservado byte a byte. Follow-up somente neste contrato e relatório; runtime/testes/SQL/config não alterados após os gates. Recibo final com HEAD/checkout limpo/hashes em build/task-consolidation-001/final-receipt.json. Pedido explícito002 recebido durante o fechamento autoriza a continuação no escopo próprio, sem repetir os seis cenários ou os gates desta entrega; não muda retroativamente os limites001.

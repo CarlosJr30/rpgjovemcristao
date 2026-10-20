@@ -4,7 +4,7 @@
 
 ## 1. Branch e commit da consolidação
 
-Branch `codex/consolidation-preview-001`, worktree `build/task-consolidation-001/checkout`, base consolidada auditada `6a683f4b690e54c19a56aaaf41e89861faa6e510`. SHA de implementação/fechamento será registrado após os commits locais em `build/task-consolidation-001/final-receipt.json` da raiz. Não partir de main, reaplicar tarefas ou incorporar pendências de outros checkouts.
+Branch `codex/consolidation-preview-001`, worktree `build/task-consolidation-001/checkout`, base consolidada auditada `6a683f4b690e54c19a56aaaf41e89861faa6e510`. Implementação validada `e9e74ee1a93d12a1ff44cfbec1f2082a4dc6772e`; follow-up somente documental registra fechamento/memória. HEAD final em `build/task-consolidation-001/final-receipt.json` da raiz. Memória raiz atualizada por prefixo com bytes anteriores preservados. Não partir de main, reaplicar tarefas ou incorporar pendências de outros checkouts.
 
 ## 2. Mapa de ancestralidade
 
