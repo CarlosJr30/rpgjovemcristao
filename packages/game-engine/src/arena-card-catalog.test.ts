@@ -22,9 +22,9 @@ import {
   type ArenaCard,
   type BattleState,
 } from './index';
-import { cards, player, opponent } from '../../../tests/fixtures/arena-deck';
+import { player, opponent } from '../../../tests/fixtures/arena-deck';
 
-test('registry preserves six stable unique identities and distinct implemented effects, with no invented seventh', () => {
+test('registry preserves six original identities and adds one distinct implemented candidate', () => {
   const catalog = getArenaCardCatalog();
   expect(catalog.map((entry) => entry.id)).toEqual([
     'arena-card-basic-attack',
@@ -33,8 +33,9 @@ test('registry preserves six stable unique identities and distinct implemented e
     'arena-card-steadfast-guard',
     'arena-card-discernment',
     'arena-card-pilgrim-step',
+    'arena-card-measured-strike',
   ]);
-  expect(new Set(catalog.map((entry) => entry.id)).size).toBe(6);
+  expect(new Set(catalog.map((entry) => entry.id)).size).toBe(7);
   expect(catalog.map((entry) => entry.action)).toEqual(ARENA_CARD_ACTIONS);
   expect(catalog).toEqual(getArenaCardCatalog());
   expect(
@@ -42,10 +43,10 @@ test('registry preserves six stable unique identities and distinct implemented e
       catalog.map((entry) => entry.id),
       catalog,
     ),
-  ).toBe('count');
+  ).toBeNull();
   expect(
     validateArenaDeck(
-      [...catalog.map((entry) => entry.id), catalog[0].id],
+      [...catalog.slice(0, 6).map((entry) => entry.id), catalog[0].id],
       catalog,
     ),
   ).toBe('duplicate');
@@ -99,16 +100,19 @@ test('proposed entries and injected definitions are never playable approvals or 
 test('readiness reports the real shortage and level-one limitation without promising a starter grant', () => {
   expect(getArenaCardReadiness()).toMatchObject({
     requiredDeckSize: 7,
-    proposedCards: 6,
-    distinctExistingEffects: 6,
-    missingDistinctEffects: 1,
+    proposedCards: 7,
+    distinctExistingEffects: 7,
+    missingDistinctEffects: 0,
     approvedCards: 0,
-    proposedUsableAtLevel: 2,
+    proposedUsableAtLevel: 3,
     collectionAvailable: false,
     starterAvailable: false,
     authoritativeAcquisitionAvailable: false,
   });
-  expect(getArenaCardReadiness(8).proposedUsableAtLevel).toBe(6);
+  expect(getArenaCardReadiness(8).proposedUsableAtLevel).toBe(7);
+  expect(getArenaCardReadiness().blockers).not.toContain(
+    'seventh-effect-pending',
+  );
   for (const level of [0, -1, 1.2, NaN, Infinity])
     expect(() => getArenaCardReadiness(level)).toThrow(/Nível/);
 });
@@ -139,10 +143,11 @@ test('objective data and descriptions use the actual engine rules rather than du
   ).toBe(battleBalanceConfig.focusMaximumMultiplier);
 });
 
-// A synthetic seventh slot exercises the existing seven-card engine contract.
-// It is never a seventh official proposal, a grant or part of the runtime catalog.
+// Proposed definitions are injected as synthetic ownership only in tests.
 function syntheticDeck(entry: ArenaCard) {
-  const owned: readonly ArenaCard[] = [entry, ...cards.slice(0, 6)];
+  const owned: readonly ArenaCard[] = getArenaCardCatalog().map((card) =>
+    card.id === entry.id ? entry : card,
+  );
   return { owned, ids: owned.map((card) => card.id) };
 }
 const charge = (state: BattleState): BattleState => ({
@@ -150,7 +155,11 @@ const charge = (state: BattleState): BattleState => ({
   player: { ...state.player, focusPoints: arenaCombatConfig.maximumFocus },
 });
 
-test.each(getArenaCardCatalog())(
+test.each(
+  getArenaCardCatalog().filter(
+    (card) => card.action !== 'special:measured-strike',
+  ),
+)(
   '$name executes the existing effect exactly and consumes only the accepted card',
   (entry) => {
     const { owned, ids } = syntheticDeck(entry);

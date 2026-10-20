@@ -11,9 +11,9 @@ import {
   type ArenaCard,
 } from './arena-deck';
 
-export const ARENA_CARD_CATALOG_VERSION = 'arena-cards-2026-10-20.1';
+export const ARENA_CARD_CATALOG_VERSION = 'arena-cards-2026-10-20.2';
 export const ARENA_CARD_ID_PREFIX = 'arena-card-';
-export const ARENA_CARD_BALANCE_VERSION = 'arena-v2-existing-effects-0086.1';
+export const ARENA_CARD_BALANCE_VERSION = 'arena-v2-measured-strike-003a.1';
 export const ARENA_CARD_RARITIES = Object.freeze([
   'comum',
   'incomum',
@@ -101,13 +101,23 @@ const identities: readonly Readonly<{
     name: 'Passo do Peregrino',
     type: 'TACTICAL',
   }),
+  Object.freeze({
+    id: 'arena-card-measured-strike',
+    action: 'special:measured-strike',
+    name: 'Golpe Medido',
+    type: 'OFFENSIVE',
+  }),
 ]);
 
 // Inspection data only: the resolver still selects its own constants by action.
 // Never accept this object, an effect or numeric overrides from a browser command.
 function parameters(action: ArenaBaseAction): Readonly<Record<string, number>> {
   const maximumFocus = arenaCombatConfig.maximumFocus;
-  if (action === 'attack' || action === 'special:path-strike')
+  if (
+    action === 'attack' ||
+    action === 'special:path-strike' ||
+    action === 'special:measured-strike'
+  )
     return Object.freeze({
       baseDamage: rules.baseDamage,
       strengthMultiplier: rules.strengthDamageMultiplier,
@@ -116,7 +126,11 @@ function parameters(action: ArenaBaseAction): Readonly<Record<string, number>> {
       minimumDamage: rules.minimumDamage,
       maximumStat: rules.maximumStat,
       offensiveMultiplier:
-        action === 'attack' ? 1 : arenaCombatConfig.strikeMultiplier,
+        action === 'attack'
+          ? 1
+          : action === 'special:path-strike'
+            ? arenaCombatConfig.strikeMultiplier
+            : arenaCombatConfig.measuredStrikeMultiplier,
       gainedFocus: action === 'attack' ? arenaCombatConfig.attackFocus : 0,
       maximumSpecialPowerMultiplier:
         arenaCombatConfig.maximumSpecialPowerMultiplier,
@@ -223,14 +237,15 @@ export function getArenaCardReadiness(level = 1) {
     throw new Error('Nível inválido.');
   const proposals = getArenaCardCatalog();
   const approved = getApprovedArenaCards();
+  const missing = Math.max(
+    0,
+    ARENA_DECK_SIZE - new Set(proposals.map((entry) => entry.action)).size,
+  );
   return Object.freeze({
     requiredDeckSize: ARENA_DECK_SIZE,
     proposedCards: proposals.length,
     distinctExistingEffects: new Set(ARENA_CARD_ACTIONS).size,
-    missingDistinctEffects: Math.max(
-      0,
-      ARENA_DECK_SIZE - new Set(proposals.map((entry) => entry.action)).size,
-    ),
+    missingDistinctEffects: missing,
     approvedCards: approved.length,
     proposedUsableAtLevel: proposals.filter(
       (entry) => entry.minimumLevel <= level,
@@ -241,7 +256,7 @@ export function getArenaCardReadiness(level = 1) {
     starterAvailable: false,
     authoritativeAcquisitionAvailable: false,
     blockers: Object.freeze([
-      'seventh-effect-pending',
+      ...(missing ? ['seventh-effect-pending' as const] : []),
       'homologation-pending',
       'server-acquisition-pending',
       'starter-contract-pending',

@@ -28,6 +28,7 @@ export function ArenaUnlockNotice({
       <b>NÍVEL {after}</b>
       {preview && <p>DEV FIXTURE · nenhum desbloqueio salvo</p>}
       {arenaSpecials
+        .filter((special) => !special.cardOnly)
         .filter((s) => s.minimumLevel > before && s.minimumLevel <= after)
         .map((s) => (
           <div key={s.id} style={{ position: 'relative' }}>

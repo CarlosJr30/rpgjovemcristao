@@ -81,7 +81,7 @@ export const guildTierChest: Readonly<Record<GuildRewardTier, ChestType>> = Obje
   extraordinary: guildMissionRewards.extraordinary.chestType,
 });
 export type BattleAction = 'attack' | 'defend' | 'focus' | 'equipment';
-export type ArenaSpecialId = 'path-strike' | 'steadfast-guard' | 'discernment' | 'pilgrim-step';
+export type ArenaSpecialId = 'path-strike' | 'steadfast-guard' | 'discernment' | 'pilgrim-step' | 'measured-strike';
 export type ArenaProfile = 'agile' | 'offensive' | 'guardian' | 'tactical';
 export type BattleStatus = 'pending' | 'ready' | 'in_progress' | 'finished' | 'cancelled';
 export type BattleEffectTrigger = 'onBattleStart' | 'onRoundStart' | 'onAttack' | 'onDefend' | 'onDamageTaken' | 'onLowHealth' | 'onFocus' | 'onVictory';

@@ -104,6 +104,7 @@ export function ArenaSpecialPanel({
       </header>
       <div>
         {arenaSpecials
+          .filter((special) => !special.cardOnly)
           .slice(0, arenaCombatConfig.maximumSpecialSlots)
           .map((special) => {
             const state = specialAvailability(fighter, special.id);

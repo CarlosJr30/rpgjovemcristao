@@ -27,7 +27,7 @@ No nível 1, apenas as duas propostas básicas são utilizáveis; as demais pres
 
 ## Proposta mínima para aprovação: Golpe Medido
 
-Esta seção **não é implementação**, ficha oficial, ID de coleção ou efeito homologado. Contrato separado em [TASK-CONSOLIDATION-003A](../../tasks/backlog/TASK-CONSOLIDATION-003A-seventh-card-proposal.md), BACKLOG, sem autorização para executar nova ação.
+Registro histórico da proposta003: esta seção não homologou a carta ou concedeu posse. O contrato [TASK-CONSOLIDATION-003A](../../tasks/active/TASK-CONSOLIDATION-003A-seventh-card-proposal.md) foi posteriormente autorizado pelo usuário para implementação/balanceamento **somente locais**; o relatório003A registra os resultados, sem liberação ao produto.
 
 Uma nova ação ofensiva poderia reutilizar calculateDamage e os mesmos equipamentos/Defesa/guarda/armadura/arredondamento, mudando somente um multiplicador próprio da nova ação. Candidato a balancear: nível 1, custo 1 Foco, multiplicador ofensivo **1,15**, sem gerar Foco e sem bônus/estado adicional; uma utilização por batalha via carta. Referência comparativa existente: ataque básico custa 0 e gera Foco; Golpe do Caminho exige nível 2, custa 2 e usa 1,45. São propostas de valores, não conclusões de equilíbrio ou alteração das fórmulas globais.
 

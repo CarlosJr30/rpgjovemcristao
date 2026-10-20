@@ -21,6 +21,7 @@ export const ARENA_CARD_ACTIONS: readonly ArenaBaseAction[] = Object.freeze([
   'special:steadfast-guard',
   'special:discernment',
   'special:pilgrim-step',
+  'special:measured-strike',
 ]);
 const actions = new Set<string>(ARENA_CARD_ACTIONS);
 export function isArenaCard(value: unknown): value is ArenaCard {

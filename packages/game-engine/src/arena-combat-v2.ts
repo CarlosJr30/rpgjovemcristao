@@ -31,6 +31,7 @@ export type ArenaSpecial = Readonly<{
   type: 'OFFENSIVE' | 'DEFENSIVE' | 'TACTICAL';
   focusCost: number;
   minimumLevel: number;
+  cardOnly?: boolean;
   effects: readonly ('damage' | 'guard' | 'insight' | 'mobility')[];
   tags: readonly string[];
   visual: Readonly<{
@@ -46,6 +47,8 @@ export const arenaCombatConfig = Object.freeze({
   defendFocus: 1,
   maximumSpecialSlots: 4,
   strikeMultiplier: 1.45,
+  measuredStrikeMultiplier: 1.15,
+  minimumSpecialFocusCost: 1,
   maximumSpecialPowerMultiplier: 1.25,
   agileDodgeChance: 0.12,
 });
@@ -94,6 +97,18 @@ export const arenaSpecials: readonly ArenaSpecial[] = Object.freeze([
     effects: ['mobility'],
     tags: ['dodge', 'movement'],
     visual: { icon: '➶', motion: 'step', accent: 'gold' },
+  },
+  {
+    id: 'measured-strike',
+    name: 'Golpe Medido',
+    description: 'Ataque com multiplicador próprio, sem gerar Foco.',
+    type: 'OFFENSIVE',
+    focusCost: 1,
+    minimumLevel: 1,
+    cardOnly: true,
+    effects: ['damage'],
+    tags: ['attack'],
+    visual: { icon: '⚔', motion: 'strike', accent: 'gold' },
   },
 ]);
 export const arenaProfiles: Readonly<
@@ -146,7 +161,10 @@ export function specialCost(
   const discount = Math.floor(
     bounded(snapshot.specialModifiers?.[special.id]?.focusDiscount, 0, 1, 0),
   );
-  return Math.max(1, special.focusCost - discount);
+  return Math.max(
+    arenaCombatConfig.minimumSpecialFocusCost,
+    special.focusCost - discount,
+  );
 }
 export function specialLoadout(
   snapshot: BattleParticipantSnapshot,
@@ -161,7 +179,9 @@ export function specialLoadout(
     .filter((id) =>
       arenaSpecials.some(
         (special) =>
-          special.id === id && snapshot.level >= special.minimumLevel,
+          special.id === id &&
+          !special.cardOnly &&
+          snapshot.level >= special.minimumLevel,
       ),
     )
     .slice(0, arenaCombatConfig.maximumSpecialSlots);
@@ -368,7 +388,8 @@ function executeArenaRound(
     (special) => playerAction === `special:${special.id}`,
   );
   // Even the legacy export cannot directly activate a special on a product deck.
-  if (state.deck && selectedSpecial && !fromCard) return state;
+  if (selectedSpecial && (state.deck || selectedSpecial.cardOnly) && !fromCard)
+    return state;
   const specialReady =
     selectedSpecial &&
     (fromCard
@@ -474,7 +495,9 @@ function executeArenaRound(
     if (special) pay(actor, special);
     else actor.lastSpecial = null;
     if (special?.id === 'discernment') {
-      const equippedBoost = effect(actor, 'prudence-amulet') ? battleBalanceConfig.prudenceAmuletBoost : 0;
+      const equippedBoost = effect(actor, 'prudence-amulet')
+        ? battleBalanceConfig.prudenceAmuletBoost
+        : 0;
       actor.tacticalMultiplier = Math.min(
         battleBalanceConfig.focusMaximumMultiplier,
         battleBalanceConfig.focusBaseMultiplier +
@@ -506,16 +529,18 @@ function executeArenaRound(
     actor.tacticalMultiplier = 1;
     if (actor.defendedLastRound && hasEffect(actor, 'path-sword'))
       multiplier *= battleBalanceConfig.swordAfterDefendMultiplier;
-    if (special?.id === 'path-strike') {
+    if (special?.id === 'path-strike' || special?.id === 'measured-strike') {
       multiplier *=
-        arenaCombatConfig.strikeMultiplier *
+        (special.id === 'path-strike'
+          ? arenaCombatConfig.strikeMultiplier
+          : arenaCombatConfig.measuredStrikeMultiplier) *
         bounded(
           actor.snapshot.specialModifiers?.[special.id]?.powerMultiplier,
           1,
           arenaCombatConfig.maximumSpecialPowerMultiplier,
           1,
         );
-      if (effect(actor, 'path-sword'))
+      if (special.id === 'path-strike' && effect(actor, 'path-sword'))
         multiplier *= battleBalanceConfig.swordAttackMultiplier;
     }
     const defended = Boolean(target.guard);

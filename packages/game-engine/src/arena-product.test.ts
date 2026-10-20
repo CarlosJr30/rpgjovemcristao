@@ -58,7 +58,7 @@ test('basic actions generate existing Foco without consuming cards; own card con
   ).toBe(used);
   expect(resolveArenaCommand(b, 'other', b.round, 'attack')).toBe(b);
 });
-test.each(arenaSpecials)(
+test.each(arenaSpecials.filter((special) => !special.cardOnly))(
   '$name: level/Foco reject without usage, card works without parallel legacy loadout',
   (s) => {
     const id = `fixture-special-${s.id}`;

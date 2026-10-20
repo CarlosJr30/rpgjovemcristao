@@ -98,6 +98,23 @@ export function describeArenaAction(
       duration:
         'Próximo golpe não esquivado; permanece preparada até esse golpe, sem prazo fixo em turnos.',
     };
+  if (action === 'special:measured-strike') {
+    const power =
+      fighter?.snapshot.specialModifiers?.['measured-strike']?.powerMultiplier;
+    const boundedPower = Number.isFinite(power)
+      ? Math.max(
+          1,
+          Math.min(arenaCombatConfig.maximumSpecialPowerMultiplier, power!),
+        )
+      : 1;
+    return {
+      ...base,
+      headline: `Golpe Medido ${mult(arenaCombatConfig.measuredStrikeMultiplier)}`,
+      explanation: `Multiplica por ${n(arenaCombatConfig.measuredStrikeMultiplier)} a parcela ofensiva menos a Defesa, antes do arredondamento e da guarda. Não é aumento fixo do dano final nem percentual da vida. Modificador de potência do snapshot: ${mult(boundedPower)}. Vantagem preparada e bônus da espada após Defender continuam aplicáveis; o reforço ativo exclusivo do Golpe do Caminho não é ativado. Não gera Foco; descontos respeitam o piso de ${n(arenaCombatConfig.minimumSpecialFocusCost)} Foco.`,
+      duration:
+        'Um ataque; uma utilização por batalha. Carta consumida somente após comando aceito, mesmo se cair antes de agir. Permanece na coleção e volta na próxima batalha.',
+    };
+  }
   if (action === 'special:discernment') {
     const boost =
       fighter &&
