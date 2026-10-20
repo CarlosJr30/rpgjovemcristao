@@ -6,6 +6,7 @@ import {
 } from '../../../../tests/fixtures/chest-reveal';
 import { receiptFromOperation, rarityLabel, chestRarity } from './receipt';
 import type { ChestOperationRow } from '../../lib/supabase/database.types';
+import { getArenaCardCatalog } from '@rpg/game-engine';
 test('legacy confirmed ledger maps only granted coins then catalog equipment, without quantity guesses', () => {
   expect(receipt.entries.map((p) => p.kind)).toEqual(['coins', 'equipment']);
   expect(receipt.entries[1]).toMatchObject({
@@ -59,4 +60,42 @@ test('only existing five rarity identities; extraordinary is presentation alias 
     'Épico',
     'Extraordinário',
   ]);
+});
+
+test('catalog proposals never become chest cards through itemId, client metadata or an unapproved v2 receipt', () => {
+  for (const card of getArenaCardCatalog()) {
+    expect(() =>
+      receiptFromOperation(
+        {
+          ...chestRow,
+          rewards: { ...(chestRow.rewards as object), itemId: card.id },
+        },
+        TRAVELER,
+      ),
+    ).toThrow(/pendente/);
+    expect(() =>
+      receiptFromOperation(
+        {
+          ...chestRow,
+          rewards: {
+            ...(chestRow.rewards as object),
+            cards: [{ cardId: card.id, catalogVersion: card.catalogVersion }],
+          },
+        },
+        TRAVELER,
+      ),
+    ).toThrow(/pendente/);
+  }
+  expect(() =>
+    receiptFromOperation(
+      {
+        ...chestRow,
+        rewards: {
+          schemaVersion: 2,
+          entries: [{ kind: 'card', cardId: getArenaCardCatalog()[0].id }],
+        },
+      },
+      TRAVELER,
+    ),
+  ).toThrow(/pendente/);
 });

@@ -1,12 +1,17 @@
-import { isArenaCard, type ArenaCard } from '@rpg/game-engine';
-import { inventoryRepository } from '../../lib/supabase/repositories/inventory-repository';
+import {
+  ARENA_CARD_ID_PREFIX,
+  getApprovedArenaCards,
+  getArenaCardReadiness,
+  isArenaCard,
+  type ArenaCard,
+} from '@rpg/game-engine';
 import {
   canUseTravelerInCurrentSession,
   getCurrentOnlineUserId,
 } from '../../lib/supabase/online-sync';
-// No collectible combat-card catalog exists in the audited baseline. Approval and
-// acquisition are dependencies, never inferred from item metadata or equipment art.
-export const APPROVED_ARENA_CARDS: readonly ArenaCard[] = Object.freeze([]);
+// Proposed definitions are separate from playable approvals and server ownership.
+export const APPROVED_ARENA_CARDS: readonly ArenaCard[] =
+  getApprovedArenaCards();
 export type CollectionSource = (
   owner: string,
   traveler: string,
@@ -16,6 +21,8 @@ export function cardsFromInventory(
   rows: readonly { traveler_id: string; item_id: string; quantity: number }[],
   catalog: readonly ArenaCard[],
 ): readonly ArenaCard[] {
+  // Legacy projection for isolated adapters/tests. Inventory rows are not proof
+  // of an official grant; the production loader below never uses this shortcut.
   const owned = new Set(
     rows
       .filter(
@@ -26,7 +33,12 @@ export function cardsFromInventory(
       )
       .map((r) => r.item_id),
   );
-  return catalog.filter((c) => isArenaCard(c) && owned.has(c.id));
+  return catalog.filter(
+    (c) =>
+      isArenaCard(c) &&
+      !c.id.startsWith(ARENA_CARD_ID_PREFIX) &&
+      owned.has(c.id),
+  );
 }
 export const loadArenaCollection: CollectionSource = async (
   owner,
@@ -38,11 +50,8 @@ export const loadArenaCollection: CollectionSource = async (
     !canUseTravelerInCurrentSession(traveler)
   )
     throw new Error('Viajante indisponível nesta conta.');
-  const inventory = await inventoryRepository.getInventory(traveler);
-  if (
-    getCurrentOnlineUserId() !== owner ||
-    !canUseTravelerInCurrentSession(traveler)
-  )
-    throw new Error('A sessão mudou.');
-  return cardsFromInventory(traveler, inventory, APPROVED_ARENA_CARDS);
+  if (!getArenaCardReadiness().collectionAvailable) return [];
+  // A future authoritative read endpoint needs its own reviewed integration.
+  // Even future catalog approvals cannot silently promote writable inventory.
+  throw new Error('Aquisição de cartas pendente de validação pelo servidor.');
 };

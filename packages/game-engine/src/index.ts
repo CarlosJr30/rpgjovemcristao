@@ -279,3 +279,4 @@ export function getEngineStatus(): { readonly gameplayAvailable: true } { return
 export * from './arena-combat-v2';
 export * from './arena-deck';
 export * from './arena-descriptions';
+export * from './arena-card-catalog';

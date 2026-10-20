@@ -14,7 +14,7 @@ export type ArenaBattleDeck = Readonly<{
   cards: readonly ArenaCard[];
   usedIds: readonly string[];
 }>;
-const actions = new Set([
+export const ARENA_CARD_ACTIONS: readonly ArenaBaseAction[] = Object.freeze([
   'attack',
   'defend',
   'special:path-strike',
@@ -22,6 +22,7 @@ const actions = new Set([
   'special:discernment',
   'special:pilgrim-step',
 ]);
+const actions = new Set<string>(ARENA_CARD_ACTIONS);
 export function isArenaCard(value: unknown): value is ArenaCard {
   if (!value || typeof value !== 'object') return false;
   const v = value as Record<string, unknown>;

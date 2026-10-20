@@ -14,6 +14,7 @@ import {
   loadArenaCollection,
 } from './collection';
 import { cards } from '../../../../tests/fixtures/arena-deck';
+import { getArenaCardCatalog } from '@rpg/game-engine';
 test('production catalog grants no cards and metadata/equipment cannot invent ownership', () => {
   expect(APPROVED_ARENA_CARDS).toEqual([]);
   expect(
@@ -35,11 +36,29 @@ test('production catalog grants no cards and metadata/equipment cannot invent ow
     ),
   ).toEqual([cards[2]]);
 });
-test('existing inventory is read only for the current account/Traveler, never written', async () => {
-  mocks.getInventory.mockResolvedValue([]);
+test('production denies inventory rows as official entitlement and enforces the current account/Traveler', async () => {
+  mocks.getInventory.mockResolvedValue([
+    {
+      traveler_id: 'p',
+      item_id: 'arena-card-path-strike',
+      quantity: 99,
+      metadata: { official: true },
+    },
+  ]);
   expect(await loadArenaCollection('owner', 'p')).toEqual([]);
-  expect(mocks.getInventory).toHaveBeenCalledWith('p');
+  expect(mocks.getInventory).not.toHaveBeenCalled();
   await expect(loadArenaCollection('foreign', 'p')).rejects.toThrow();
   mocks.canUseTravelerInCurrentSession.mockReturnValueOnce(false);
   await expect(loadArenaCollection('owner', 'other')).rejects.toThrow();
+});
+
+test('the legacy inventory projection cannot promote official IDs even with proposed definitions and positive quantities', () => {
+  const catalog = getArenaCardCatalog();
+  const rows = catalog.map((card) => ({
+    traveler_id: 'p',
+    item_id: card.id,
+    quantity: 1,
+  }));
+  expect(cardsFromInventory('p', rows, catalog)).toEqual([]);
+  expect(cardsFromInventory('foreign', rows, catalog)).toEqual([]);
 });
