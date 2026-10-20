@@ -8,7 +8,9 @@ Branch `codex/consolidation-preview-001`, implementação `e9e74ee1a93d12a1ff44c
 
 ## 2. Branch e commits locais da 002
 
-Branch `codex/consolidation-supabase-002`, checkout `D:/rpg-jovem-cristao/build/task-consolidation-002/checkout`. Base `a0c6639791476d167ca48d5bd76a487ed481cfad`. O commit de implementação será registrado no fechamento documental; o HEAD final e estado limpo ficam no recibo `D:/rpg-jovem-cristao/build/task-consolidation-002/final-receipt.json`. Sem push, fetch, merge, main ou deploy.
+Branch `codex/consolidation-supabase-002`, checkout `D:/rpg-jovem-cristao/build/task-consolidation-002/checkout`. Base `a0c6639791476d167ca48d5bd76a487ed481cfad`. Implementação e planos no commit `70aa7e15a9441119b6fcbb68f429d80fc71b3cdd`; fechamento posterior somente documental. O HEAD final e estado limpo ficam no recibo `D:/rpg-jovem-cristao/build/task-consolidation-002/final-receipt.json`. Sem push, fetch, merge, main ou deploy.
+
+Memória raiz atualizada por prefixo com bytes anteriores preservados: SHA256 anterior `3a7f80aced5d2f2c2627f066d706c478aa0e991c1b20e9a263fb7d198887b184`, novo `75e7bd84c2dd4c82a4c935eca130363e9899973f819baa2faee6174aad604180`. Auditoria focada PASS em 11 arquivos novos; root/main/origin/main, HEAD/estado da 001, tarefas 0080–89, nove pendências da raiz (exceto prefixo autorizado de memória) e sete arquivos 0080 preservados. O ZIP contém exatamente os 16 arquivos verificados e o SQL read-only coincide com a consulta de catálogo executada no teste.
 
 ## 3. Mapa das migrations
 
