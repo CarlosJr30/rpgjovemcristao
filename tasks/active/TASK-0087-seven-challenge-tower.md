@@ -34,7 +34,7 @@ DEFINITION_OF_DONE: Checks locais comprovados; integral BLOCKED por catálogo/ba
 - [x] Checkpoints/derrota/retomada/isolamento
 - [x] Recompensas negadas/contrato oficial futuro
 - [x] QA/Security/checks/relatório
-- [ ] Memória/controle final dos commits
+- [x] Memória/controle final dos commits
 - [ ] Catálogo/aquisição/backend autoritativo
 
 ## Self validate / QA / Security / aceite
@@ -82,3 +82,7 @@ Falhas levaram a REWORK antes desta rodada: fixture de cadência só defendia; b
 |20.Arena comum | recorte de regressão93PASS e auditoria do algoritmo storage/settle |
 
 São provas do modo local e do bloqueio oficial, não aceite de posse/combate/recompensa autoritativos ou balanceamento com cartas reais. Nenhum gate pendente é tratado como PASS.
+
+## Controle final local
+
+Implementação:170beefd2b3fc79c7e2e780bf56a5b67cb1b7866, branch codex/arena-seven-challenge-tower. Commit posterior altera somente este contrato e o relatório para registrar evidências. Memória de controle raiz atualizada por prefixo; todos os bytes anteriores preservados, SHA256 final0e6fb1e5e3b8aed676db0e2c08d6b25efe8c488b60994a472dbb41866b3dae1b. Recibo com HEAD final, hashes e resultados em build/task-0087-arena-tower/final-receipt.json, fora do versionamento. Status integral BLOCKED; implementação local PASS, nenhum push/deploy/merge/main/remoto executado.

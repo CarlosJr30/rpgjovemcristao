@@ -4,7 +4,7 @@ Modo local demonstrativo implementado com a Arena existente. **Progresso oficial
 
 ## 1. Branch e commit local
 
-Branch `codex/arena-seven-challenge-tower`, worktree `build/task-0087-arena-tower/checkout`, base limpa `fc424ff58c704cb7794974c3055e708f6895fa3b`, apenas controle documental após runtime0086 validado `34dde31b25a6ff9ef373e88c8eff1b6132ca3820`. Commit da entrega no controle final. Anexo07 reenviado tem mesmo SHA256 do primeiro; tarefa continuada sem contrato/implementação duplicados. Sem presumir publicação GitHub, sem push/deploy/merge/main ou operações remotas.
+Branch `codex/arena-seven-challenge-tower`, worktree `build/task-0087-arena-tower/checkout`, base limpa `fc424ff58c704cb7794974c3055e708f6895fa3b`, apenas controle documental após runtime0086 validado `34dde31b25a6ff9ef373e88c8eff1b6132ca3820`. Implementação local `170beefd2b3fc79c7e2e780bf56a5b67cb1b7866`; commit posterior apenas de controle documental. HEAD final/hashes no recibo `build/task-0087-arena-tower/final-receipt.json` fora do versionamento. Anexo07 reenviado tem mesmo SHA256 do primeiro; tarefa continuada sem contrato/implementação duplicados. Sem presumir publicação GitHub, sem push/deploy/merge/main ou operações remotas.
 
 ## 2. Adversários e critérios de dificuldade
 
@@ -105,6 +105,8 @@ Nova feature arena-tower (config, storage, screen/CSS e testes), rota tower/page
 ## 12. Checklist/status
 
 Contrato único [TASK-0087](../../tasks/active/TASK-0087-seven-challenge-tower.md) com evidências e20critérios cobertos. Implementação local testada; status integral BLOCKED. Sem main/merge/push/deploy/SQL/Supabase/dados reais. Memória raiz recebe só nova entrada preservando corpo anterior; nada em checkouts anteriores é editado, além da memória de controle da raiz exigida pelo workflow.
+
+Memória atualizada e bytes anteriores conferidos por comparação binária; SHA256 final `0e6fb1e5e3b8aed676db0e2c08d6b25efe8c488b60994a472dbb41866b3dae1b`. Root mantém seus arquivos sujos e refs, checkout0086 continua limpo na base. Recibo final registra auditoria e hashes dos20arquivos da entrega, logs e nove capturas.
 
 ## 13. Próxima etapa
 
