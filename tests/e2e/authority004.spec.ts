@@ -1,0 +1,26 @@
+import { test,expect } from '@playwright/test';
+import { mockAuthorityAccount,loginAuthorityAccount } from '../fixtures/authority-browser-account';
+test('official Arena and Tower fail closed when local server lacks credentials, preserving legacy saves',async({page,context},info)=>{
+  await mockAuthorityAccount(context);
+  const commands:unknown[]=[];
+  page.on('request',request=>{if(new URL(request.url()).pathname==='/api/authority')commands.push(request.postDataJSON());});
+  await loginAuthorityAccount(page);
+  await page.evaluate(()=>localStorage.setItem('004-old-local-win',JSON.stringify({winnerId:'forged',coins:999,seed:1})));
+  await page.goto('/journey/arena');
+  await expect(page.getByRole('heading',{name:'Arena de Treinamento'})).toBeVisible();
+  await expect(page.getByText('Servidor oficial indisponível. Catálogo e combate permanecem bloqueados.')).toBeVisible();
+  await expect(page.getByRole('button',{name:'Iniciar batalha'})).toBeDisabled();
+  await expect(page.getByText('Cartas selecionadas: 0/7')).toBeVisible();
+  expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
+  await page.goto('/journey/arena/tower');
+  await expect(page.getByRole('heading',{name:'Torre dos 7 Desafios'})).toBeVisible();
+  await expect(page.getByText('Servidor oficial indisponível. Catálogo e combate permanecem bloqueados.')).toBeVisible();
+  await expect(page.getByRole('button',{name:/Enfrentar/})).toBeDisabled();
+  await page.getByRole('button',{name:'Retomar pelo servidor'}).click();
+  await expect(page.getByText(/Servidor oficial indisponível. Nenhum resultado local será premiado./)).toBeVisible();
+  expect(await page.evaluate(()=>localStorage.getItem('004-old-local-win'))).toContain('999');
+  expect(commands.length).toBeGreaterThanOrEqual(5);
+  expect(commands.every(c=>['collection','resume','tower'].includes((c as {operation:string}).operation))).toBe(true);
+  expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
+  await page.screenshot({path:`build/task-consolidation-004/${info.project.name}-blocked.png`,fullPage:true,animations:'disabled'});
+});

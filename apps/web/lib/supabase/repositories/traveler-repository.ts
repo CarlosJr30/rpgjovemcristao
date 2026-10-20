@@ -10,9 +10,6 @@ const travelerUpdate = (traveler: Traveler) => ({
   hair_style: traveler.appearance.hair,
   hair_color: traveler.avatar.hairColor,
   avatar_variant: traveler.appearance.outfit,
-  level: traveler.level,
-  xp: traveler.xp,
-  journey_progress: traveler.progress,
 });
 
 export const travelerRepository = {
@@ -103,12 +100,8 @@ export const travelerRepository = {
   },
 
   async deleteTraveler(id: string, userId: string): Promise<void> {
-    const result = await getSupabaseBrowserClient()
-      .from('travelers')
-      .delete()
-      .eq('id', id)
-      .eq('user_id', userId);
-    requireSuccess(result, 'Não foi possível remover o Viajante.');
+    void id; void userId;
+    throw new OnlinePersistenceError('Remoção pausada durante a reconciliação econômica. Seu Viajante foi preservado.');
   },
 
   async setActiveTraveler(id: string): Promise<void> {

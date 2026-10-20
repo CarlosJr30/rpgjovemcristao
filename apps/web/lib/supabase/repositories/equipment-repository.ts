@@ -1,7 +1,7 @@
 import type { EquipmentSlot } from '../../../features/journey/domain/traveler';
 import { getSupabaseBrowserClient } from '../client';
 import type { EquippedItemRow } from '../database.types';
-import { requireSuccess } from './errors';
+import { ECONOMY_TRANSITION_NOTICE } from '../../authority/legacy-cutover';
 
 export const equipmentRepository = {
   async getEquippedItems(travelerId: string): Promise<EquippedItemRow[]> {
@@ -19,21 +19,14 @@ export const equipmentRepository = {
     slot: EquipmentSlot,
     itemId: string,
   ): Promise<void> {
-    const result = await getSupabaseBrowserClient()
-      .from('equipped_items')
-      .upsert(
-        { traveler_id: travelerId, slot, item_id: itemId },
-        { onConflict: 'traveler_id,slot' },
-      );
-    requireSuccess(result, 'Não foi possível equipar o item.');
+    void travelerId;
+    void slot;
+    void itemId;
+    throw new Error(ECONOMY_TRANSITION_NOTICE);
   },
-
   async unequipItem(travelerId: string, slot: EquipmentSlot): Promise<void> {
-    const result = await getSupabaseBrowserClient()
-      .from('equipped_items')
-      .delete()
-      .eq('traveler_id', travelerId)
-      .eq('slot', slot);
-    requireSuccess(result, 'Não foi possível desequipar o item.');
+    void travelerId;
+    void slot;
+    throw new Error(ECONOMY_TRANSITION_NOTICE);
   },
 };

@@ -1,6 +1,6 @@
 import { getSupabaseBrowserClient } from '../client';
 import type { WalletRow } from '../database.types';
-import { requireData, requireSuccess } from './errors';
+import { ECONOMY_TRANSITION_NOTICE } from '../../authority/legacy-cutover';
 
 export const walletRepository = {
   async getWallet(travelerId: string): Promise<WalletRow | null> {
@@ -14,28 +14,18 @@ export const walletRepository = {
   },
 
   async setCoins(travelerId: string, coins: number): Promise<void> {
-    if (!Number.isSafeInteger(coins) || coins < 0)
-      throw new Error('Saldo de moedas inválido.');
-    const result = await getSupabaseBrowserClient()
-      .from('wallets')
-      .update({ coins })
-      .eq('traveler_id', travelerId);
-    requireSuccess(result, 'Não foi possível salvar as moedas.');
+    void travelerId;
+    void coins;
+    throw new Error(ECONOMY_TRANSITION_NOTICE);
   },
-
   async addCoins(travelerId: string, amount: number): Promise<number> {
-    const result = await getSupabaseBrowserClient().rpc('add_coins', {
-      p_traveler_id: travelerId,
-      p_amount: amount,
-    });
-    return requireData(result, 'Não foi possível salvar as moedas.');
+    void travelerId;
+    void amount;
+    throw new Error(ECONOMY_TRANSITION_NOTICE);
   },
-
   async spendCoins(travelerId: string, amount: number): Promise<number> {
-    const result = await getSupabaseBrowserClient().rpc('spend_coins', {
-      p_traveler_id: travelerId,
-      p_amount: amount,
-    });
-    return requireData(result, 'Saldo insuficiente ou indisponível.');
+    void travelerId;
+    void amount;
+    throw new Error(ECONOMY_TRANSITION_NOTICE);
   },
 };

@@ -1,5 +1,6 @@
 'use client';
 import { useSyncExternalStore } from 'react';
+import { hasEconomicChange } from '../../../lib/authority/legacy-cutover';
 import {
   createTraveler,
   type Appearance,
@@ -199,6 +200,7 @@ export function updateTraveler(
   const current = journeyRepository.load();
   if (current.status !== 'ready') return false;
   const next = mutator(current.traveler);
+  if (getCurrentOnlineUserId() && hasEconomicChange(current.traveler,next)) return false;
   const saved = journeyRepository.save(next);
   if (saved) {
     queueOnlineTravelerSync(current.traveler, next);
@@ -210,6 +212,7 @@ export function updateTraveler(
 export function buyEquipment(
   equipmentId: string,
 ): PurchaseResult['status'] | 'save-failed' {
+  if (getCurrentOnlineUserId()) return 'unavailable';
   const current = journeyRepository.load();
   if (current.status !== 'ready') return 'unavailable';
   const result = purchaseFromShop(current.traveler, equipmentId);
@@ -224,6 +227,7 @@ export function buyChest(
   type: ChestType,
   operationId: string,
 ): 'purchased' | 'duplicate' | 'unavailable' | 'level-required' | 'insufficient' | 'save-failed' {
+  if (getCurrentOnlineUserId()) return 'unavailable';
   const current = journeyRepository.load();
   if (current.status !== 'ready') return 'unavailable';
   const result = purchaseChestLocal(current.traveler, type, operationId);
@@ -238,6 +242,7 @@ export function openOwnedChest(
   type: ChestType,
   operationId: string,
 ): { status: 'opened' | 'duplicate'; reward: ChestReward } | { status: 'empty' | 'save-failed' } {
+  if (getCurrentOnlineUserId()) return {status:'save-failed'};
   const current = journeyRepository.load();
   if (current.status !== 'ready') return { status: 'empty' };
   const random = new Uint32Array(1);
@@ -315,6 +320,7 @@ function reviewGuildActivity(
   contentId: string,
   decision: 'approved' | 'revision-requested',
 ): boolean {
+  if (getCurrentOnlineUserId()) return false;
   const current = journeyRepository.load();
   if (current.status !== 'ready' || !current.traveler.progress.guildId)
     return false;

@@ -17,6 +17,7 @@ export function DeckEditor({
   busy,
   onSave,
   showTitle = true,
+  saveMessage = 'Baralho salvo neste navegador.',
 }: {
   cards: readonly ArenaCard[];
   initial: readonly string[];
@@ -24,6 +25,7 @@ export function DeckEditor({
   busy: boolean;
   onSave: (ids: readonly string[]) => Promise<void>;
   showTitle?: boolean;
+  saveMessage?: string;
 }) {
   const [ids, setIds] = useState([...initial]);
   const [rarity, setRarity] = useState('');
@@ -173,7 +175,7 @@ export function DeckEditor({
         onClick={async () => {
           try {
             await onSave(ids);
-            setMessage('Baralho salvo neste navegador.');
+            setMessage(saveMessage);
           } catch (e) {
             setMessage(
               e instanceof Error ? e.message : 'Não foi possível salvar.',

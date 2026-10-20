@@ -301,61 +301,15 @@ export const reloadOnlineTraveler = async (
   }
 };
 
-const reconcileInventory = async (traveler: Traveler) => {
-  const remote = await inventoryRepository.getInventory(traveler.id);
-  const desired = new Set(traveler.inventory.map((item) => item.id));
-  await Promise.all(
-    traveler.inventory.map((item) =>
-      inventoryRepository.setQuantity(traveler.id, item.id, item.quantity ?? 1),
-    ),
-  );
-  await Promise.all(
-    remote
-      .filter((item) => !desired.has(item.item_id))
-      .map((item) => inventoryRepository.removeItem(traveler.id, item.item_id)),
-  );
-};
-
-const reconcileEquipment = async (traveler: Traveler) => {
-  const remote = await equipmentRepository.getEquippedItems(traveler.id);
-  const desired = new Map(Object.entries(traveler.equipped));
-  await Promise.all(
-    remote
-      .filter((item) => !desired.has(item.slot))
-      .map((item) =>
-        equipmentRepository.unequipItem(
-          traveler.id,
-          item.slot as EquipmentSlot,
-        ),
-      ),
-  );
-  await Promise.all(
-    [...desired].map(([slot, itemId]) =>
-      equipmentRepository.equipItem(traveler.id, slot as EquipmentSlot, itemId),
-    ),
-  );
-};
-
+// Legacy snapshots carry no economic authority. Only cosmetic fields are sent.
 const synchronizeTravelerSnapshot = async (
   userId: string,
-  previous: Traveler | null,
+  _previous: Traveler | null,
   traveler: Traveler,
 ) => {
-  const existing = await travelerRepository.getTravelerById(
-    traveler.id,
-    userId,
-  );
-  if (!existing) await travelerRepository.createTraveler(traveler);
-  await Promise.all([
-    travelerRepository.updateTraveler(traveler.id, userId, traveler),
-    statsRepository.updateBaseStats(traveler.id, traveler.attributes),
-    reconcileInventory(traveler),
-  ]);
-  const coinDelta = traveler.coins - (previous?.coins ?? traveler.coins);
-  if (coinDelta > 0) await walletRepository.addCoins(traveler.id, coinDelta);
-  else if (coinDelta < 0)
-    await walletRepository.spendCoins(traveler.id, Math.abs(coinDelta));
-  await reconcileEquipment(traveler);
+  const existing = await travelerRepository.getTravelerById(traveler.id, userId);
+  if (!existing) throw new Error('Viajante online indisponivel.');
+  await travelerRepository.updateTraveler(traveler.id, userId, traveler);
 };
 
 const enqueue = (travelerId: string, operation: () => Promise<void>) => {

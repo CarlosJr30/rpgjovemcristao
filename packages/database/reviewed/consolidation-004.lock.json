@@ -1,0 +1,24 @@
+{
+  "format": 1,
+  "task": "TASK-CONSOLIDATION-004",
+  "base": "7f3e52b885caa6ae4a222f80e4f199b0290ea16e",
+  "predecessorRecipe": "packages/database/reviewed/consolidation-002.lock.json",
+  "predecessorRecipeSha256": "85cf7ba4c743f74f0f1561d6862e953d713b112820c783698e116fda38555591",
+  "source0078Head": "4b63c905d26132f42d84be26e19eda76f9166a23",
+  "source0078Path": "packages/database/migrations/0009_reward_security_task0076a.sql",
+  "alternativeTo0078Contract0010": true,
+  "remoteApplyAuthorized": false,
+  "approvedCatalogSeedCount": 0,
+  "steps": [
+    {
+      "orderAfterBaseline002": 1,
+      "source": "packages/database/proposals/consolidation004-expand0078.sql",
+      "sha256": "6ae3fb539cc10ed028876285b2c7afe29438535d84038f73860933e90f658f19"
+    },
+    {
+      "orderAfterBaseline002": 2,
+      "source": "packages/database/proposals/consolidation004-authority.sql",
+      "sha256": "b1dba064bac9b9dfccc4d6469bb2e1677f25918033abdd4d3d05ca9e5f5c82b7"
+    }
+  ]
+}

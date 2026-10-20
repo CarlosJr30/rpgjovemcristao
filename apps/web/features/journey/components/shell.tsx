@@ -372,6 +372,7 @@ export function Shell({
           {onlineSync.message}
         </p>
       )}
+      {auth.user && <p className={styles.notice} role="note">Economia em transição: recompensas da Jornada, compras de equipamentos e trocas de equipamento estão pausadas nesta versão. Progresso local não concede XP, moedas ou baús online. Arena e Torre consultam somente o servidor; saldos antigos aguardam reconciliação.</p>}
       {menuOpen && state.status === 'ready' && (
         <button
           className={styles.sidebarScrim}

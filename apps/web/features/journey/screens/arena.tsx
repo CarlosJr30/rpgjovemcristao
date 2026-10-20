@@ -58,6 +58,7 @@ import {
   ArenaRecentHistory,
 } from '../components/arena-rule-details';
 import { validateArenaDeck, type ArenaCard } from '@rpg/game-engine';
+import { AuthoritativeArena } from '../../arena-deck/authoritative-arena';
 
 type Stage = 'lobby' | 'preview' | 'battle' | 'result';
 const attributeKeys = ['life', 'strength', 'defense', 'wisdom'] as const;
@@ -827,10 +828,11 @@ export function ArenaScreen() {
     <Shell back={routes.map} backLabel="Voltar à Jornada">
       <RequireTraveler>
         {(traveler) => (
+          auth.user ? <AuthoritativeArena key={`${auth.user.id}:${traveler.id}`} travelerId={traveler.id} mode="arena-v3" /> :
           <ArenaExperience
-            key={`${auth.user?.id}:${traveler.id}`}
+            key={`offline:${traveler.id}`}
             traveler={traveler}
-            ownerId={auth.user?.id ?? ''}
+            ownerId=""
           />
         )}
       </RequireTraveler>

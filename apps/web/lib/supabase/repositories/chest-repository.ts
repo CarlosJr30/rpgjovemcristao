@@ -13,11 +13,8 @@ export const chestRepository = {
     travelerId: string,
     rewardKey: 'phase:garden-choice',
   ): Promise<boolean> {
-    const result = await getSupabaseBrowserClient().rpc('claim_chest_reward', {
-      p_traveler_id: travelerId,
-      p_reward_key: rewardKey,
-    });
-    return requireData(result, 'Não foi possível guardar o Baú da fase.');
+    void travelerId; void rewardKey;
+    throw new Error('Recompensa da fase pausada até validação autoritativa. Nenhum baú foi concedido.');
   },
   async list(travelerId: string): Promise<TravelerChestRow[]> {
     const result = await getSupabaseBrowserClient()

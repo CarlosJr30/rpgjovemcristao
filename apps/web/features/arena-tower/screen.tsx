@@ -23,6 +23,7 @@ import {
   towerArenaSession,
 } from './storage';
 import css from './tower.module.css';
+import { AuthoritativeArena } from '../arena-deck/authoritative-arena';
 type View = ReturnType<typeof loadTower>;
 export function TowerExperience({
   ownerId,
@@ -270,9 +271,10 @@ export function TowerScreen() {
     <Shell back="/journey/arena" backLabel="Voltar à Arena">
       <RequireTraveler>
         {(traveler) => (
+          auth.user ? <AuthoritativeArena key={`${auth.user.id}:${traveler.id}`} travelerId={traveler.id} mode="tower-v3" /> :
           <TowerExperience
-            key={`${auth.user?.id}:${traveler.id}`}
-            ownerId={auth.user?.id ?? ''}
+            key={`offline:${traveler.id}`}
+            ownerId=""
             traveler={traveler}
           />
         )}

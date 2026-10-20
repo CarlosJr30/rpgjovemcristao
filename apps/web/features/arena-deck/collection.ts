@@ -9,6 +9,8 @@ import {
   canUseTravelerInCurrentSession,
   getCurrentOnlineUserId,
 } from '../../lib/supabase/online-sync';
+import { requestAuthority } from '../../lib/authority/client';
+import type { OwnedCard } from '../../lib/authority/service';
 // Proposed definitions are separate from playable approvals and server ownership.
 export const APPROVED_ARENA_CARDS: readonly ArenaCard[] =
   getApprovedArenaCards();
@@ -51,7 +53,6 @@ export const loadArenaCollection: CollectionSource = async (
   )
     throw new Error('Viajante indisponível nesta conta.');
   if (!getArenaCardReadiness().collectionAvailable) return [];
-  // A future authoritative read endpoint needs its own reviewed integration.
-  // Even future catalog approvals cannot silently promote writable inventory.
-  throw new Error('Aquisição de cartas pendente de validação pelo servidor.');
+  const owned = await requestAuthority<OwnedCard[]>({operation:'collection',travelerId:traveler});
+  return APPROVED_ARENA_CARDS.filter(c=>owned.some(e=>e.card.id===c.id&&e.card.action===c.action&&/^[\da-f-]{36}$/i.test(e.receiptId)));
 };
