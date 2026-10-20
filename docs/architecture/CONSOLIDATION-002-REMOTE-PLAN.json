@@ -1,0 +1,68 @@
+{
+  "task": "TASK-CONSOLIDATION-002",
+  "kind": "review-plan-not-provider-payload",
+  "remoteMutationAuthorized": false,
+  "supabase": {
+    "testProjectRef": null,
+    "proposedName": "rpgjovemcristao-test",
+    "proposedRegion": "sa-east-1",
+    "proposedPlan": "free",
+    "organizationCandidate": "xwyyrzctzharutyqysch",
+    "organizationSelectedByUserForQuote": true,
+    "specificCostQuote": {
+      "quotedOn": "2026-10-20",
+      "type": "project",
+      "recurrence": "monthly",
+      "amount": 0,
+      "currencyReturnedByTool": false,
+      "creationAuthorized": false
+    },
+    "productionRefExcluded": "wspafhlbtlpabypzymjo",
+    "copyProductionData": false,
+    "paidAddons": false,
+    "stopOnNonzeroOrUnconfirmedCost": true
+  },
+  "authDesiredAfterSeparateApproval": {
+    "emailPasswordEnabled": true,
+    "normalSignupEnabled": true,
+    "emailConfirmationRequired": true,
+    "anonymousSignInsEnabled": false,
+    "siteUrl": null,
+    "redirectOrigin": null,
+    "callbackPath": "/auth",
+    "callbackWithInternalNext": "/auth?next=<encoded-internal-relative-path>",
+    "allowCrossOriginNext": false,
+    "allowWildcardOtherDeployments": false,
+    "smtpConfigured": false,
+    "testMailboxesAuthorized": false,
+    "remoteSettingsApplied": false
+  },
+  "dataApiDesiredAfterSeparateApproval": {
+    "exposedApplicationSchema": "public",
+    "privateSchemasMustNotBeExposed": [
+      "guild_invite_private",
+      "story_private",
+      "guild_ops",
+      "ebd_ops"
+    ],
+    "rlsMustRemainEnabled": true,
+    "legacyEconomicWriteSurfaceClosed": false,
+    "previewGo": false
+  },
+  "vercel": {
+    "project": "rpgjovemcristao-test",
+    "projectId": "prj_qKzjXMVXwiVpGlU66SoTA71mStXX",
+    "teamId": "team_FWD8MfZ9vARK8EBovoyTn9Ox",
+    "scope": "carlos-junior-s-projects",
+    "realPreviewOrigin": null,
+    "APP_BASE_URL": null,
+    "requiredEnvNames": [
+      "NEXT_PUBLIC_SUPABASE_URL",
+      "NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY",
+      "APP_BASE_URL"
+    ],
+    "readSecretValues": false,
+    "deployAuthorized": false,
+    "selectedShaRemoteCiPassed": false
+  }
+}

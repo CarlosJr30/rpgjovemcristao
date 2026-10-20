@@ -1,0 +1,137 @@
+{
+  "format": 1,
+  "task": "TASK-CONSOLIDATION-002",
+  "sourceCommit": "a0c6639791476d167ca48d5bd76a487ed481cfad",
+  "normalization": "UTF-8 without BOM; CRLF converted to LF; no SQL statement changes",
+  "journal": {
+    "source": "packages/database/migrations/meta/_journal.json",
+    "sha256": "993073acb0ca066a6c6fecda097025bca327c6b4ca0df1a30d61cc0a7aa185ac",
+    "bytes": 1404,
+    "gitBlob": "c45ae84e308de526effa07beb56f328b885a6bbe"
+  },
+  "steps": [
+    {
+      "order": 1,
+      "source": "packages/database/migrations/0000_initial_supabase_gameplay.sql",
+      "sha256": "5b04baea7e7e8e0c6edfd8de8136f89ff2197fd0f4379a4f04a825f6012009f3",
+      "bytes": 16910,
+      "gitBlob": "a98cb326e93528433727007a88edf7f46795673d",
+      "journaled": true,
+      "status": "baseline"
+    },
+    {
+      "order": 2,
+      "source": "packages/database/migrations/0001_guild_supabase_v1.sql",
+      "sha256": "7f7b01e4589fb42b21fbf9a63372219630be67dc502bf881fc2e8d3d8351e4b6",
+      "bytes": 29471,
+      "gitBlob": "f3efd0c5c3b800a76fb9d088a9c10d7d8fb0f927",
+      "journaled": true,
+      "status": "baseline"
+    },
+    {
+      "order": 3,
+      "source": "packages/database/migrations/0002_traveler_chests.sql",
+      "sha256": "7b04f62135ce2838d77d33f3648ddd8e1b0ec6df02f99773bee588ae7ce1a2c8",
+      "bytes": 12871,
+      "gitBlob": "91998ef5f40780e1e22845e58aa8671b3344e7d9",
+      "journaled": true,
+      "status": "baseline"
+    },
+    {
+      "order": 4,
+      "source": "packages/database/migrations/0003_guild_mission_chest_rewards.sql",
+      "sha256": "fb458ccc078dfff56523e7f41ee55c3c5c9ef93f8c67612ca2eec3ac38e87ccd",
+      "bytes": 2125,
+      "gitBlob": "969bc32ad020d6db10d556f472c712aa2cf77a3e",
+      "journaled": true,
+      "status": "baseline"
+    },
+    {
+      "order": 5,
+      "source": "packages/database/migrations/0004_guild_leader_panel.sql",
+      "sha256": "d99675e9a1ecdccfa0a34c69ad4903131a2364e94ac4d7f276242a5b93e7bdcd",
+      "bytes": 12060,
+      "gitBlob": "01f2528dd9684bf92fc4a74d2173d563ba980412",
+      "journaled": true,
+      "status": "baseline"
+    },
+    {
+      "order": 6,
+      "source": "packages/database/migrations/0005_guild_lessons_and_schedule.sql",
+      "sha256": "1d4beb60b32aa820c0c2b537ba20822e38067ea301bdaebb781898ec273bb3ee",
+      "bytes": 11016,
+      "gitBlob": "a5e8b94f5074ac9922b579370a21f30aff0ef006",
+      "journaled": true,
+      "status": "baseline"
+    },
+    {
+      "order": 7,
+      "source": "packages/database/migrations/0006_traveler_journey_progress.sql",
+      "sha256": "144f6f790a2e3224c839286342b097903f4e19d9152af045dfd71543c61e7a7b",
+      "bytes": 543,
+      "gitBlob": "a4b770bc3091f310b9b1602c1b7b74201fb84520",
+      "journaled": true,
+      "status": "baseline"
+    },
+    {
+      "order": 8,
+      "source": "packages/database/migrations/0007_guild_chat.sql",
+      "sha256": "8ef2c65176aaaa33971d7c26ed5ef0540745ae79392b8d1042cb4cc3c463f8ae",
+      "bytes": 21393,
+      "gitBlob": "424e4fbf4d5732bf756e2c82443d4abd46e4c12e",
+      "journaled": true,
+      "status": "baseline"
+    },
+    {
+      "order": 9,
+      "source": "packages/database/migrations/0008_guild_chat_commit_order.sql",
+      "sha256": "5001c5cea5218f8242d177b1c3ea9cab1396f813ab123aa9afed6c8c5556c52c",
+      "bytes": 2000,
+      "gitBlob": "0cd15443f1f983d008acc8fe5cf07d778776e524",
+      "journaled": true,
+      "status": "baseline"
+    },
+    {
+      "order": 10,
+      "source": "packages/database/migrations/20261019054314_guild_link_invites.sql",
+      "sha256": "2d536427d68281fbb72795315b2845bdf58ea4ca89160e4ecf6ca2f005e1ca37",
+      "bytes": 9500,
+      "gitBlob": "2a84f52d44dfaeca1d281c6086249895fee1f305",
+      "journaled": false,
+      "status": "versioned-not-in-drizzle-journal"
+    },
+    {
+      "order": 11,
+      "source": "packages/database/proposals/task0081-story-progress.sql",
+      "sha256": "d8b9dd240058dfd2fe698d407c1e2b689787a6638f8f8e5e72ed1626e565d182",
+      "bytes": 7778,
+      "gitBlob": "4259d56bc1bd007487e348a665fa25dc11fd309d",
+      "journaled": false,
+      "status": "local-proposal-not-registered"
+    },
+    {
+      "order": 12,
+      "source": "packages/database/proposals/task0082-guild-missions.sql",
+      "sha256": "7c495f42502f421379075ef6e5d3bc81ea0135b27b16f96eb72bb9af69f6fdf1",
+      "bytes": 21756,
+      "gitBlob": "bf04bbd25c9b70f1f7647b1c42054d368d8498aa",
+      "journaled": false,
+      "status": "local-proposal-not-registered"
+    },
+    {
+      "order": 13,
+      "source": "packages/database/proposals/task0083-guild-ebd.sql",
+      "sha256": "8c78cc4a9f0b54b8e7e3ae1b716130473316ce317689ec0280cd7a8f29dbdfe5",
+      "bytes": 29094,
+      "gitBlob": "7f6684eb67b3b685a1cca8f009b752b0b6bf239c",
+      "journaled": false,
+      "status": "local-proposal-not-registered"
+    }
+  ],
+  "remoteApplyAuthorized": false,
+  "previewGo": false,
+  "blockers": [
+    "ECON-LEGACY P1 unchanged; package is not an API hardening/cutover",
+    "isolated project and remote application require explicit authorization"
+  ]
+}
