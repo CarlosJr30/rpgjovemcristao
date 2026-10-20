@@ -379,6 +379,30 @@ test('leader draft → publish → member proof → correction → approval → 
   await expect(
     page.getByRole('heading', { name: 'Painel da Guilda' }),
   ).toBeVisible();
+  const hero = page.locator('header').filter({
+    has: page.getByRole('heading', { name: 'Painel da Guilda', exact: true }),
+  });
+  const memberLink = await hero
+    .getByRole('link', { name: 'Ver área dos membros →' })
+    .boundingBox();
+  const schoolLink = await hero
+    .getByRole('link', { name: 'Escola Bíblica →' })
+    .boundingBox();
+  expect(memberLink).not.toBeNull();
+  expect(schoolLink).not.toBeNull();
+  const intersectionWidth =
+    Math.min(
+      memberLink!.x + memberLink!.width,
+      schoolLink!.x + schoolLink!.width,
+    ) - Math.max(memberLink!.x, schoolLink!.x);
+  const intersectionHeight =
+    Math.min(
+      memberLink!.y + memberLink!.height,
+      schoolLink!.y + schoolLink!.height,
+    ) - Math.max(memberLink!.y, schoolLink!.y);
+  expect(intersectionWidth <= 0 || intersectionHeight <= 0).toBe(true);
+  expect(memberLink!.height).toBeGreaterThanOrEqual(44);
+  expect(schoolLink!.height).toBeGreaterThanOrEqual(44);
   await fit(page);
   await page.screenshot({
     path: info.outputPath('panel-overview.png'),

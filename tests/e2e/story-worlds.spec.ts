@@ -144,6 +144,9 @@ test('home → map → world → story, reload, mobile layout and keyboard', asy
   await expect(
     page.getByRole('list', { name: 'Mundos bíblicos' }).locator(':scope > li'),
   ).toHaveCount(9);
+  await expect(
+    page.getByRole('status').filter({ hasText: 'Consultando seu progresso…' }),
+  ).toHaveCount(0);
   await fits(page);
   await page.screenshot({
     animations: 'disabled',
@@ -155,6 +158,9 @@ test('home → map → world → story, reload, mobile layout and keyboard', asy
     page.getByRole('heading', { name: 'As Origens', exact: true }),
   ).toBeVisible();
   await expect(page.getByRole('link', { name: /Ver história/ })).toHaveCount(5);
+  await expect(
+    page.getByRole('status').filter({ hasText: 'Consultando seu progresso…' }),
+  ).toHaveCount(0);
   await fits(page);
   await page.screenshot({
     animations: 'disabled',
@@ -172,14 +178,23 @@ test('home → map → world → story, reload, mobile layout and keyboard', asy
     page.getByRole('button', { name: 'Concluir história' }),
   ).toBeDisabled();
   await expect(page.locator('iframe, video')).toHaveCount(0);
+  await expect(
+    page.getByRole('status').filter({ hasText: 'Consultando seu progresso…' }),
+  ).toHaveCount(0);
   await page.reload();
   await expect(page.getByText(/Aguardando seleção de um vídeo/)).toBeVisible();
+  await expect(
+    page.getByRole('status').filter({ hasText: 'Consultando seu progresso…' }),
+  ).toHaveCount(0);
   await fits(page);
   const back = page.getByRole('link', { name: '← Histórias de As Origens' });
   await back.focus();
   await expect(back).toBeFocused();
   await page.keyboard.press('Enter');
   await expect(page).toHaveURL(/\/journey\/worlds\/origins$/);
+  await expect(
+    page.getByRole('status').filter({ hasText: 'Consultando seu progresso…' }),
+  ).toHaveCount(0);
   expect(
     writes.filter((item) =>
       ['complete_story', 'claim_chest_reward', 'story_progress'].includes(item),

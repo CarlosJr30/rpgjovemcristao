@@ -20,6 +20,11 @@
   line-height: 1.6;
   max-width: 65ch;
 }
+.hero .link {
+  display: inline-flex;
+  align-items: center;
+  max-width: 100%;
+}
 .kicker {
   font-size: 0.75rem;
   letter-spacing: 0.12em;
