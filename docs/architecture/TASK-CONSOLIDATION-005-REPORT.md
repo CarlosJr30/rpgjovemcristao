@@ -6,7 +6,7 @@
 
 CONSOLIDATION004 fechada antes desta tarefa: implementação1ce9523793f003e50ec528e12538c52a0feda209, HEAD documental4c9bff4859be8e42fbc1e888aa5e539d73c39c85 limpo, recibo SHA256bea5d98bfc9a8add9c57dede93effe682d2e0aec662ebc19ce235059f95397aa. Reutiliza28PG/77unit/3browser/lint/tipos/build004, sem repetir economia ou reabrir seu contrato.
 
-Branch codex/consolidation-origins-005, checkout D:/rpg-jovem-cristao/build/task-consolidation-005/checkout, base exata004 acima. Commit de implementação e fechamento no recibo final da raiz build/task-consolidation-005/final-receipt.json; hash será registrado neste relatório ao fechar. Baseline protege30worktrees anteriores, refs, nove pendências raiz/sete0080 e fonte0078. Nenhum merge/reaplicação/main/fetch/push/deploy.
+Branch codex/consolidation-origins-005, checkout D:/rpg-jovem-cristao/build/task-consolidation-005/checkout, base exata004 acima. Implementação no commitac9db0d1bb6442366b103aa59f797c06bbca9304; fechamento posterior somente documental. HEAD final/estado limpo/hashes no recibo da raiz build/task-consolidation-005/final-receipt.json. Baseline protege30worktrees anteriores, refs, nove pendências raiz/sete0080 e fonte0078. Nenhum merge/reaplicação/main/fetch/push/deploy.
 
 ## 2. Histórias implementadas
 
