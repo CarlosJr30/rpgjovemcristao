@@ -85,3 +85,5 @@ Contrato único em [TASK-0085](../../tasks/active/TASK-0085-arena-three-actions.
 ## 12. Próxima etapa recomendada
 
 Homologar catálogo e aquisição legítima em tarefa própria, coordenando atributos/economia e a correção autoritativa já preparada, antes de habilitar cartas reais ou prêmios apoiados nesse combate. Contexto06 não iniciado automaticamente; revisão numérica depende de novo pedido. Não antecipar Torre/PvP ou servidor fora do contrato.
+
+Controle final: implementação validada no commit local `cc419c61fe5b2856d113637ccde5b707789df968`. Commit seguinte altera somente este relatório e o contrato para registrar o controle. Memória raiz atualizada com entrada0085 mantendo o corpo anterior byte a byte. Recibo final de fontes/logs/refs em `build/task-0085-arena-cards/final-receipt.json`; checkout limpo, sem publicação remota.

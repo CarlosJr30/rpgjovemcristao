@@ -33,7 +33,7 @@ DEFINITION_OF_DONE: Gates locais comprovados. Integral BLOCKED enquanto faltarem
 - [x] UI e custos/motivos
 - [x] QA/Security/checks executados, com bloqueio de autoridade documentado
 - [x] Homologação/correção futura/relatório
-- [ ] Memória e aceite
+- [x] Memória e aceite local; integral BLOCKED
 - [ ] Catálogo/aquisição/backend autoritativo
 
 ## SELF VALIDATE / QA / SECURITY / ACCEPTANCE
@@ -58,3 +58,5 @@ Produto real permanece bloqueado sem sete cartas homologadas/possuídas, sem inv
 Relatório: [TASK-0085-ARENA-THREE-ACTIONS](../../docs/architecture/TASK-0085-ARENA-THREE-ACTIONS.md). [Homologação](../../docs/architecture/TASK-0085-CARD-HOMOLOGATION.md), [plano de correção compatível](../../docs/architecture/TASK-0085-ARENA-AUTHORITY-PLAN.md), [parecer Security](../../docs/security/TASK-0085-ARENA-SECURITY.md).
 
 Próximo: catálogo/aquisição legítima e autoridade integrados à economia existente em tarefa própria. Nenhum push/deploy/merge/main/Supabase/SQL remoto/dado real; contexto06 não iniciado.
+
+Controle final: implementação validada no commit local `cc419c61fe5b2856d113637ccde5b707789df968`. Atualização seguinte somente documental neste contrato e no relatório. Memória de controle raiz recebe entrada0085 com corpo anterior preservado byte a byte; recibo de fontes/logs/refs em build/task-0085-arena-cards/final-receipt.json. Sem nova suíte para estes metadados.
