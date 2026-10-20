@@ -8,6 +8,7 @@ import {
   type SoundEffect,
 } from './audio-assets';
 import { ARENA_MIX, AUDIO_CROSSFADE_MS } from './arena-mix';
+import { AUDIO_WORLD_IDS, QUIET_CONTEXTS, contextLoop } from './audio-catalog';
 
 export type AudioPreferences = Readonly<{
   music: boolean;
@@ -15,6 +16,8 @@ export type AudioPreferences = Readonly<{
   musicVolume: number;
   effectsVolume: number;
   muted: boolean;
+  masterVolume: number;
+  studyMusic: boolean;
 }>;
 export const AUDIO_PREFERENCES_KEY = 'rpg-jovem-cristao:audio-preferences:v1';
 export const DEFAULT_AUDIO_PREFERENCES: AudioPreferences = Object.freeze({
@@ -23,12 +26,14 @@ export const DEFAULT_AUDIO_PREFERENCES: AudioPreferences = Object.freeze({
   musicVolume: 0.45,
   effectsVolume: 0.65,
   muted: false,
+  masterVolume: 1,
+  studyMusic: false,
 });
 export function validateAudioPreferences(value: unknown): AudioPreferences {
   if (!value || typeof value !== 'object' || Array.isArray(value))
     return DEFAULT_AUDIO_PREFERENCES;
   const input = value as Record<string, unknown>;
-  const volume = (key: 'musicVolume' | 'effectsVolume') =>
+  const volume = (key: 'musicVolume' | 'effectsVolume' | 'masterVolume') =>
     typeof input[key] === 'number' && Number.isFinite(input[key])
       ? Math.min(1, Math.max(0, input[key]))
       : DEFAULT_AUDIO_PREFERENCES[key];
@@ -38,6 +43,8 @@ export function validateAudioPreferences(value: unknown): AudioPreferences {
     muted: input.muted === true,
     musicVolume: volume('musicVolume'),
     effectsVolume: volume('effectsVolume'),
+    masterVolume: volume('masterVolume'),
+    studyMusic: input.studyMusic === true,
   };
 }
 
@@ -60,6 +67,13 @@ export class AudioManager {
   private hydrated = false;
   private context: MusicContext = 'journey';
   private playingContext: MusicContext | null = null;
+  private baseContext: MusicContext = 'journey';
+  private scenes = new Map<symbol, { context: MusicContext; gain: number }>();
+  private holds = new Set<symbol>();
+  private saveData = false;
+  private musicPaused = false;
+  private musicCache = new Map<string, Media>();
+  private failedMusic = new Set<string>();
   private current: Media | null = null;
   private outgoing: Media | null = null;
   private effects = new Map<SoundEffect, Media>();
@@ -94,6 +108,7 @@ export class AudioManager {
       media.src = asset.fallbackSrc;
     try {
       await media.play();
+      if (!active()) media.pause();
     } catch (error) {
       if (
         !active() ||
@@ -107,6 +122,7 @@ export class AudioManager {
         throw error;
       media.src = asset.fallbackSrc;
       await media.play();
+      if (!active()) media.pause();
     }
   }
   hydrate() {
@@ -137,7 +153,9 @@ export class AudioManager {
     this.emit();
     this.effects.forEach((media, effect) => {
       media.volume =
-        this.preferences.effectsVolume * (this.effectGains.get(effect) ?? 1);
+        this.preferences.masterVolume *
+        this.preferences.effectsVolume *
+        (this.effectGains.get(effect) ?? 1);
       if (!this.preferences.effects || this.preferences.muted) media.pause();
     });
     if (!this.preferences.music || this.preferences.muted) this.fadeMusicOut();
@@ -150,13 +168,71 @@ export class AudioManager {
     this.startMusic();
   }
   setContext(context: MusicContext) {
-    if (this.context === 'arena' && context !== 'arena') {
+    this.baseContext = context;
+    this.applyScene();
+  }
+  private applyScene() {
+    const context =
+      [...this.scenes.values()].at(-1)?.context ?? this.baseContext;
+    if (
+      (this.context === 'arena' && context !== 'arena') ||
+      (['tower', 'boss'].includes(this.context) &&
+        !['arena', 'tower', 'boss'].includes(context))
+    ) {
       this.effects.forEach((media) => this.stop(media));
       this.effects.clear();
       this.effectGains.clear();
     }
     this.context = context;
     this.startMusic();
+  }
+  /** Scoped intent, not another manager. Latest scene wins; cleanup restores
+   * the current route even if navigation occurred while this scene was active. */
+  scene(context: MusicContext, gain = 1) {
+    const token = Symbol();
+    this.scenes.set(token, {
+      context,
+      gain: Number.isFinite(gain) ? Math.max(0, Math.min(1, gain)) : 0,
+    });
+    this.applyScene();
+    return () => {
+      if (this.scenes.delete(token)) this.applyScene();
+    };
+  }
+  holdMusic() {
+    const token = Symbol();
+    this.holds.add(token);
+    this.pauseMusic();
+    return () => {
+      if (this.holds.delete(token)) this.startMusic();
+    };
+  }
+  setSaveData(value: boolean) {
+    this.saveData = value;
+    if (value) {
+      this.pauseMusic();
+      this.effects.forEach((media) => media.pause());
+    } else this.startMusic();
+  }
+  private pauseMusic() {
+    this.stop(this.outgoing);
+    this.outgoing = null;
+    if (this.current) {
+      this.cancelFade(this.current);
+      this.current.pause();
+      this.musicPaused = true;
+    }
+  }
+  private musicAllowed() {
+    return (
+      this.unlocked &&
+      !this.suspended &&
+      !this.saveData &&
+      !this.holds.size &&
+      this.preferences.music &&
+      !this.preferences.muted &&
+      (!QUIET_CONTEXTS.has(this.context) || this.preferences.studyMusic)
+    );
   }
   private cancelFade(media: Media) {
     const timer = this.fades.get(media);
@@ -213,17 +289,51 @@ export class AudioManager {
       this.preferences.muted
     )
       return;
+    if (
+      this.saveData ||
+      this.holds.size ||
+      (QUIET_CONTEXTS.has(this.context) && !this.preferences.studyMusic)
+    ) {
+      this.pauseMusic();
+      return;
+    }
     const asset = this.catalog.music[this.context];
     if (!asset || !isApprovedAudioAsset(asset)) {
       this.fadeMusicOut();
       return;
     }
-    if (this.current && this.playingContext === this.context) {
+    if (this.failedMusic.has(asset.src)) return;
+    if (
+      this.current &&
+      (this.playingContext === this.context ||
+        this.current.src.endsWith(asset.src))
+    ) {
+      this.playingContext = this.context;
+      if (this.musicPaused) {
+        const media = this.current;
+        this.musicPaused = false;
+        void this.playMedia(
+          media,
+          asset,
+          () => this.current === media && this.musicAllowed(),
+        )
+          .then(() => {
+            if (this.current === media && this.musicAllowed())
+              this.fade(media, this.musicLevel());
+          })
+          .catch(() => {
+            this.failedMusic.add(asset.src);
+            if (this.current === media) this.pauseMusic();
+          });
+        return;
+      }
       this.fade(this.current, this.musicLevel());
       return;
     }
     this.stop(this.outgoing);
     this.outgoing = this.current;
+    this.current = null;
+    this.playingContext = null;
     if (this.outgoing) {
       const outgoing = this.outgoing;
       this.fade(outgoing, 0, AUDIO_CROSSFADE_MS, () => {
@@ -231,22 +341,43 @@ export class AudioManager {
         if (this.outgoing === outgoing) this.outgoing = null;
       });
     }
-    const media = this.createMedia(asset.src);
+    let media = this.musicCache.get(asset.src);
+    if (!media) {
+      try {
+        media = this.createMedia(asset.src);
+      } catch {
+        this.failedMusic.add(asset.src);
+        return;
+      }
+      this.musicCache.set(asset.src, media);
+      if (this.musicCache.size > 4) {
+        const oldest = [...this.musicCache].find(
+          ([, m]) => m !== this.current && m !== this.outgoing && m !== media,
+        );
+        if (oldest) {
+          this.stop(oldest[1]);
+          oldest[1].src = '';
+          this.musicCache.delete(oldest[0]);
+        }
+      }
+    }
     media.preload = 'none';
-    media.loop = true;
+    media.loop = asset.loop ?? contextLoop(this.context);
     media.volume = 0;
     this.current = media;
+    this.musicPaused = false;
     this.playingContext = this.context;
     void this.playMedia(
       media,
       asset,
-      () => this.current === media && !this.suspended,
+      () => this.current === media && this.musicAllowed(),
     )
       .then(() => {
-        if (this.current === media && !this.suspended)
+        if (this.current === media && this.musicAllowed())
           this.fade(media, this.musicLevel());
       })
       .catch(() => {
+        this.failedMusic.add(asset.src);
         this.stop(media);
         if (this.current === media) {
           this.current = null;
@@ -257,13 +388,22 @@ export class AudioManager {
   private musicLevel() {
     return (
       this.preferences.musicVolume *
-      (this.context === 'arena' ? ARENA_MIX.music : 1)
+      this.preferences.masterVolume *
+      (['arena', 'tower', 'boss'].includes(this.context)
+        ? ARENA_MIX.music
+        : 1) *
+      ([...this.scenes.values()].at(-1)?.gain ?? 1) *
+      Math.max(
+        0,
+        Math.min(1, this.catalog.music[this.context]?.defaultVolume ?? 1),
+      )
     );
   }
   playEffect(effect: SoundEffect, gain = 1) {
     if (
       !this.unlocked ||
       this.suspended ||
+      this.saveData ||
       !this.preferences.effects ||
       this.preferences.muted
     )
@@ -281,13 +421,18 @@ export class AudioManager {
         this.effects.delete(oldest[0]);
         this.effectGains.delete(oldest[0]);
       }
-      media = this.createMedia(asset.src);
+      try {
+        media = this.createMedia(asset.src);
+      } catch {
+        return;
+      }
       media.preload = 'none';
       this.effects.set(effect, media);
     }
     const level = Number.isFinite(gain) ? Math.min(1, Math.max(0, gain)) : 0;
     this.effectGains.set(effect, level);
-    media.volume = this.preferences.effectsVolume * level;
+    media.volume =
+      this.preferences.masterVolume * this.preferences.effectsVolume * level;
     media.currentTime = 0;
     void this.playMedia(
       media,
@@ -295,50 +440,18 @@ export class AudioManager {
       () =>
         this.effects.get(effect) === media &&
         !this.suspended &&
+        !this.saveData &&
         this.preferences.effects &&
         !this.preferences.muted,
     ).catch(() => undefined);
   }
   suspend() {
     this.suspended = true;
-    this.stop(this.outgoing);
-    this.outgoing = null;
-    if (this.current) {
-      this.cancelFade(this.current);
-      this.current.pause();
-    }
+    this.pauseMusic();
     this.effects.forEach((media) => media.pause());
   }
   resume() {
-    if (!this.suspended) {
-      this.startMusic();
-      return;
-    }
     this.suspended = false;
-    if (
-      this.current &&
-      this.unlocked &&
-      this.preferences.music &&
-      !this.preferences.muted
-    ) {
-      const media = this.current;
-      media.volume = 0;
-      const asset = this.catalog.music[this.context];
-      void (
-        asset && isApprovedAudioAsset(asset)
-          ? this.playMedia(
-              media,
-              asset,
-              () => this.current === media && !this.suspended,
-            )
-          : Promise.reject(new Error('Audio unavailable'))
-      )
-        .then(() => {
-          if (this.current === media && !this.suspended)
-            this.fade(media, this.musicLevel());
-        })
-        .catch(() => undefined);
-    }
     this.startMusic();
   }
   dispose() {
@@ -349,6 +462,17 @@ export class AudioManager {
     this.playingContext = null;
     this.effects.clear();
     this.effectGains.clear();
+    this.musicCache.forEach((media) => {
+      this.stop(media);
+      media.src = '';
+    });
+    this.musicCache.clear();
+    this.failedMusic.clear();
+    this.holds.clear();
+    this.scenes.clear();
+    this.musicPaused = false;
+    this.suspended = false;
+    this.saveData = false;
     this.unlocked = false;
   }
 }
@@ -358,13 +482,20 @@ export function routeMusicContext(
   pathname: string,
   step?: string,
 ): MusicContext {
+  if (pathname.startsWith('/journey/arena/tower')) return 'tower';
   if (pathname.startsWith('/journey/arena')) return 'arena';
+  if (pathname.startsWith('/journey/guild/ebd')) return 'ebd';
   if (pathname.startsWith('/journey/guild')) return 'guild';
+  const world = pathname.match(/^\/journey\/worlds\/([^/]+)/)?.[1];
+  if (world && AUDIO_WORLD_IDS.some((id) => id === world))
+    return `world:${world as (typeof AUDIO_WORLD_IDS)[number]}`;
   if (pathname.includes('/phases/')) {
     if (step === 'snake') return 'snake';
     if (step === 'reflection') return 'devotional';
     if (step === 'quiz') return 'quiz';
+    if (step === 'reading') return 'devotional';
+    if (pathname.includes('o-jardim-e-a-escolha')) return 'garden';
     return 'exploration';
   }
-  return 'journey';
+  return pathname === '/' ? 'menu' : 'journey';
 }

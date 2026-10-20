@@ -26,7 +26,7 @@ test('troca de Shell preserva reprodução; saída definitiva suspende e limpa',
     ['/journey/phases/garden', 'snake', 'snake'],
     ['/journey/phases/garden', 'reflection', 'devotional'],
     ['/journey/phases/garden', 'quiz', 'quiz'],
-    ['/', '', 'journey'],
+    ['/', '', 'menu'],
   ]) {
     next.rerender({ route, step });
     expect(context).toHaveBeenLastCalledWith(expected);
@@ -36,4 +36,25 @@ test('troca de Shell preserva reprodução; saída definitiva suspende e limpa',
   expect(suspend).toHaveBeenCalledOnce();
   document.dispatchEvent(new Event('visibilitychange'));
   expect(suspend).toHaveBeenCalledOnce();
+});
+
+test('browser connection changes apply data saving and listener is removed on exit', () => {
+  const connection = Object.assign(new EventTarget(), { saveData: true });
+  Object.defineProperty(navigator, 'connection', {
+    configurable: true,
+    value: connection,
+  });
+  const save = vi.spyOn(gameAudio, 'setSaveData');
+  const view = renderHook(() => useGameAudio('/journey'));
+  expect(save).toHaveBeenLastCalledWith(true);
+  act(() => {
+    connection.saveData = false;
+    connection.dispatchEvent(new Event('change'));
+  });
+  expect(save).toHaveBeenLastCalledWith(false);
+  view.unmount();
+  save.mockClear();
+  connection.dispatchEvent(new Event('change'));
+  expect(save).not.toHaveBeenCalled();
+  Reflect.deleteProperty(navigator, 'connection');
 });

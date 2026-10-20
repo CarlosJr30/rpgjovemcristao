@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useSyncExternalStore } from 'react';
 import { gameAudio, routeMusicContext } from '../audio/audio-manager';
+import type { MusicContext } from '../audio/audio-assets';
 
 let pendingSuspend: ReturnType<typeof setTimeout> | undefined;
 let consumers = 0;
@@ -16,7 +17,6 @@ export function useGameAudio(pathname: string, step?: string) {
     if (pendingSuspend) clearTimeout(pendingSuspend);
     pendingSuspend = undefined;
     gameAudio.hydrate();
-    gameAudio.resume();
     const gesture = (event: Event) => {
       if (event.isTrusted) gameAudio.unlock();
     };
@@ -24,6 +24,16 @@ export function useGameAudio(pathname: string, step?: string) {
       if (document.hidden) gameAudio.suspend();
       else gameAudio.resume();
     };
+    const connection = (
+      navigator as Navigator & {
+        connection?: EventTarget & { saveData?: boolean };
+      }
+    ).connection;
+    const dataSaver = () =>
+      gameAudio.setSaveData(connection?.saveData === true);
+    dataSaver();
+    visibility();
+    connection?.addEventListener('change', dataSaver);
     document.addEventListener('pointerdown', gesture, { passive: true });
     document.addEventListener('keydown', gesture);
     document.addEventListener('visibilitychange', visibility);
@@ -31,6 +41,7 @@ export function useGameAudio(pathname: string, step?: string) {
       document.removeEventListener('pointerdown', gesture);
       document.removeEventListener('keydown', gesture);
       document.removeEventListener('visibilitychange', visibility);
+      connection?.removeEventListener('change', dataSaver);
       consumers--;
       if (consumers === 0)
         pendingSuspend = setTimeout(() => {
@@ -43,4 +54,14 @@ export function useGameAudio(pathname: string, step?: string) {
     gameAudio.setContext(routeMusicContext(pathname, step));
   }, [pathname, step]);
   return preferences;
+}
+
+export function useAudioScene(context: MusicContext | null, gain = 1) {
+  useEffect(
+    () => (context ? gameAudio.scene(context, gain) : undefined),
+    [context, gain],
+  );
+}
+export function useMusicHold(active: boolean) {
+  useEffect(() => (active ? gameAudio.holdMusic() : undefined), [active]);
 }

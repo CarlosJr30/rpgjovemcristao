@@ -84,7 +84,7 @@ test('saída da Arena invalida fallback de SFX cujo play ainda está pendente', 
 
 test('mix Arena é relativo ao slider, crossfade preserva outros contextos e saída interrompe SFX', async () => {
   const { manager, factory } = setup();
-  manager.updatePreferences({ music: true, effects: true });
+  manager.updatePreferences({ music: true, effects: true, studyMusic: true });
   manager.unlock();
   await vi.advanceTimersByTimeAsync(700);
   expect(factory.mock.results[0].value.volume).toBeCloseTo(0.45);
@@ -370,7 +370,7 @@ test('rechamada rápida mantém limite de duas músicas e rejeição é silencio
 });
 
 test('contextos seguem área e etapa atuais; URLs externas não são carregadas', () => {
-  expect(routeMusicContext('/')).toBe('journey');
+  expect(routeMusicContext('/')).toBe('menu');
   expect(routeMusicContext('/journey/arena')).toBe('arena');
   expect(routeMusicContext('/journey/guild/manage')).toBe('guild');
   for (const [step, context] of [

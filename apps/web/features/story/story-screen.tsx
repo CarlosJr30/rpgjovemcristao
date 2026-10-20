@@ -25,6 +25,8 @@ import { useStoryProgress } from './use-story-progress';
 import { StoryVideoPanel } from './video-panel';
 import { STATUS_LABELS } from './world-map';
 import css from './story.module.css';
+import { useAudioScene } from '../journey/hooks/use-game-audio';
+import { AUDIO_WORLD_IDS } from '../journey/audio/audio-catalog';
 
 export function StoryView({
   story,
@@ -46,6 +48,15 @@ export function StoryView({
   const row = progressFor(story.id, traveler.id, records);
   const status = storyStatus(story, traveler.id, records);
   const step = nextRequiredStep(story, row);
+  useAudioScene(
+    step === 'reading' || step === 'reflection'
+      ? 'devotional'
+      : step === 'quiz'
+        ? 'quiz'
+        : AUDIO_WORLD_IDS.some((id) => id === story.worldId)
+          ? `world:${story.worldId as (typeof AUDIO_WORLD_IDS)[number]}`
+          : 'exploration',
+  );
   const legacy = story.id === 'garden-choice';
   const world = WORLDS.find((item) => item.id === story.worldId);
   const legacyStarted =

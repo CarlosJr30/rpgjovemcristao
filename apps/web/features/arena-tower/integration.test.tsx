@@ -133,7 +133,16 @@ test('ArenaExperience tower finishes without common economic grant even with act
     name: 'Ações da batalha',
   });
   expect(within(actions).getAllByRole('button')).toHaveLength(3);
-  fireEvent.click(screen.getByRole('button', { name: 'ATACAR' }));
+  // The agile opponent can dodge. Exercise real commands until the saved result,
+  // rather than assuming that the first random attack must finish the fight.
+  for (let turn = 0; turn < 12; turn++) {
+    if (screen.queryByText(/Resultado demonstrativo registrado/)) break;
+    fireEvent.click(screen.getByRole('button', { name: 'ATACAR' }));
+    await waitFor(() => {
+      if (screen.queryByText(/Resultado demonstrativo registrado/)) return;
+      expect(screen.getByRole('button', { name: 'ATACAR' })).toBeEnabled();
+    });
+  }
   await screen.findByText(/Resultado demonstrativo registrado/);
   expect(spies.grant).not.toHaveBeenCalled();
   expect(spies.history).not.toHaveBeenCalled();

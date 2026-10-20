@@ -1,4 +1,11 @@
 export type MusicContext =
+  | 'menu'
+  | 'garden'
+  | 'tower'
+  | 'boss'
+  | 'reward'
+  | 'ebd'
+  | `world:${'origins' | 'patriarchs' | 'liberation' | 'promised-land' | 'kings' | 'return' | 'jesus' | 'church' | 'new-creation'}`
   | 'journey'
   | 'exploration'
   | 'snake'
@@ -7,6 +14,11 @@ export type MusicContext =
   | 'devotional'
   | 'quiz';
 export type SoundEffect =
+  | 'chest_common'
+  | 'chest_uncommon'
+  | 'chest_rare'
+  | 'chest_epic'
+  | 'chest_extraordinary'
   | 'ui'
   | 'attack'
   | 'defense'
@@ -31,6 +43,8 @@ export type AudioAsset = Readonly<{
   src: string;
   license: string;
   fallbackSrc?: string;
+  loop?: boolean;
+  defaultVolume?: number;
 }>;
 // Production always uses the production auditor's catalog. The separate Suno
 // Free prototype catalog is compiled out outside development.

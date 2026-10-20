@@ -73,6 +73,25 @@ export function AudioSettings({
             }
           />
         </label>
+        <label className={styles.audioVolume}>
+          <span>
+            Volume geral{' '}
+            <output>{Math.round(preferences.masterVolume * 100)}%</output>
+          </span>
+          <input
+            type="range"
+            min="0"
+            max="100"
+            step="1"
+            aria-label="Volume geral"
+            value={preferences.masterVolume * 100}
+            onChange={(event) =>
+              gameAudio.updatePreferences({
+                masterVolume: Number(event.target.value) / 100,
+              })
+            }
+          />
+        </label>
         <label>
           <span>Música</span>
           <input
@@ -112,6 +131,21 @@ export function AudioSettings({
             }
           />
         </label>
+        <label>
+          <span>Música durante leitura e estudo</span>
+          <input
+            type="checkbox"
+            checked={preferences.studyMusic}
+            onChange={(event) =>
+              gameAudio.updatePreferences({ studyMusic: event.target.checked })
+            }
+          />
+        </label>
+        <p className={styles.audioNote}>
+          Leitura, oração, quiz, Guilda e EBD ficam sem música por padrão.
+          Vídeos sempre têm prioridade. A economia de dados do navegador também
+          pausa o áudio.
+        </p>
         <label className={styles.audioVolume}>
           <span>
             Volume efeitos{' '}

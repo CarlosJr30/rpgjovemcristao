@@ -32,6 +32,7 @@ import type { Traveler } from '../domain/traveler';
 import styles from '../journey.module.css';
 import { useBattlePresentation } from '../hooks/use-battle-presentation';
 import { emitArenaSound } from '../audio/arena-audio';
+import { useAudioScene } from '../hooks/use-game-audio';
 import { ArenaStage, FighterPortrait } from '../components/arena-stage';
 import { ArenaUnlockNotice } from '../components/arena-unlock-notice';
 import { arenaStageVariables } from '../data/arenaPresentation';
@@ -92,6 +93,10 @@ export function ArenaExperience({
   localTower?: LocalTowerMode;
 }) {
   const session = localTower?.session ?? arenaDeckStorage;
+  useAudioScene(
+    localTower ? (localTower.boss ? 'boss' : 'tower') : null,
+    localTower ? Math.min(1, 0.65 + localTower.opponent.level * 0.035) : 1,
+  );
   const [towerConfirmed, setTowerConfirmed] = useState(false);
   const playerSnapshot = useMemo(
     () => travelerBattleSnapshot(traveler),
@@ -316,7 +321,12 @@ export function ArenaExperience({
         if (next.status === 'finished') {
           setStage('result');
           const confirmation = localTower
-            ? localTower.onFinished(next.id).then(() => setTowerConfirmed(true))
+            ? localTower.onFinished(next.id).then(() => {
+                setTowerConfirmed(true);
+                emitArenaSound(
+                  next.winnerId === traveler.id ? 'victory' : 'defeat',
+                );
+              })
             : session
                 .claimSettlement(ownerId, traveler.id, deckData.cards, next.id)
                 .then((claimed) => {

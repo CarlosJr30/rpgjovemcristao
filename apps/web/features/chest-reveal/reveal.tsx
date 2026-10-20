@@ -12,7 +12,8 @@ import { EquipmentStatBonuses } from '../journey/components/equipment-stat-bonus
 import { EquipmentBibleDetails } from '../journey/components/equipment-bible-details';
 import type { Traveler } from '../journey/domain/traveler';
 import { gameAudio } from '../journey/audio/audio-manager';
-import { SOUND_ASSETS, type SoundEffect } from '../journey/audio/audio-assets';
+import { SOUND_ASSETS } from '../journey/audio/audio-assets';
+import { CHEST_RARITY_SOUNDS } from '../journey/audio/audio-catalog';
 import { REVEAL_TIMING, revealTransition, type RevealState } from './machine';
 import {
   prizeName,
@@ -24,15 +25,8 @@ import {
 import type { VisualCursor } from './visual-store';
 import css from './reveal.module.css';
 
-const soundByRarity: Record<RevealRarity, SoundEffect> = {
-  comum: 'chest',
-  incomum: 'reward',
-  raro: 'reward',
-  épico: 'equipment',
-  lendário: 'levelUp',
-};
 function revealSound(rarity: RevealRarity) {
-  const effect = soundByRarity[rarity];
+  const effect = CHEST_RARITY_SOUNDS[rarity];
   // Production-approved catalog only; no Arena prototype fallback here.
   if (SOUND_ASSETS[effect])
     gameAudio.playEffect(effect, rarity === 'comum' ? 0.45 : 0.7);

@@ -3,6 +3,7 @@ import { useState } from 'react';
 import type { StoryVideo } from './catalog';
 import { videoBlocker } from './progression';
 import css from './story.module.css';
+import { useMusicHold } from '../journey/hooks/use-game-audio';
 
 export function allowedEmbed(video: StoryVideo): string | null {
   if (videoBlocker(video)) return null;
@@ -25,6 +26,7 @@ export function StoryVideoPanel({
   const [opened, setOpened] = useState(false);
   const blocker = videoBlocker(video);
   const embed = allowedEmbed(video);
+  useMusicHold(opened && !blocker && !!embed);
   return (
     <section className={css.panel} aria-labelledby="story-video-title">
       <p className={css.eyebrow}>Etapa obrigatória</p>
@@ -37,13 +39,22 @@ export function StoryVideoPanel({
       {!blocker &&
         embed &&
         (opened ? (
-          <iframe
-            title={video.title}
-            src={embed}
-            allow="fullscreen"
-            referrerPolicy="strict-origin-when-cross-origin"
-            allowFullScreen
-          />
+          <div>
+            <button onClick={() => setOpened(false)}>
+              Fechar vídeo e retomar ambiente
+            </button>
+            <p>
+              A trilha fica pausada enquanto este player estiver aberto. Feche-o
+              ao terminar.
+            </p>
+            <iframe
+              title={video.title}
+              src={embed}
+              allow="fullscreen"
+              referrerPolicy="strict-origin-when-cross-origin"
+              allowFullScreen
+            />
+          </div>
         ) : (
           <button onClick={() => setOpened(true)}>
             Carregar vídeo de {video.provider}
