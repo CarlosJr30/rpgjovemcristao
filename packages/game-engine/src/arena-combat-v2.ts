@@ -14,8 +14,15 @@ import {
   type BattleEffectId,
 } from './index';
 
-import { freezeArenaDeck, validateArenaDeck, type ArenaCard, type ArenaBaseAction } from './arena-deck';
+import {
+  freezeArenaDeck,
+  validateArenaDeck,
+  type ArenaCard,
+  type ArenaBaseAction,
+} from './arena-deck';
 export type ArenaAction = ArenaBaseAction | `card:${string}`;
+/** Commands accepted by the normal Arena. Direct specials belong to legacy labs/AI. */
+export type ArenaProductAction = 'attack' | 'defend' | `card:${string}`;
 export type ArenaSpecial = Readonly<{
   id: ArenaSpecialId;
   name: string;
@@ -208,17 +215,64 @@ export function createArenaBattle(
     opponent: normalize(state.opponent),
   };
 }
-export function createArenaDeckBattle(player:BattleParticipantSnapshot,opponent:BattleParticipantSnapshot,seed:number,id:string,ids:readonly string[],owned:readonly ArenaCard[]):BattleState {
-  return {...createArenaBattle(player,opponent,seed,id),deck:freezeArenaDeck(player.id,ids,owned)};
+export function createArenaDeckBattle(
+  player: BattleParticipantSnapshot,
+  opponent: BattleParticipantSnapshot,
+  seed: number,
+  id: string,
+  ids: readonly string[],
+  owned: readonly ArenaCard[],
+): BattleState {
+  return {
+    ...createArenaBattle(player, opponent, seed, id),
+    deck: freezeArenaDeck(player.id, ids, owned),
+  };
 }
-/** A stale command never advances a round, even when delivered twice. */
-export function resolveArenaCommand(state:BattleState,id:string,round:number,action:ArenaAction):BattleState {
-  return state.id===id && state.round===round ? resolveArenaRound(state,action) : state;
+/** Product boundary: a deck is mandatory, and no direct special is accepted. */
+export function resolveArenaCommand(
+  state: BattleState,
+  id: string,
+  round: number,
+  action: ArenaProductAction,
+): BattleState {
+  if (
+    !state.deck ||
+    state.id !== id ||
+    state.round !== round ||
+    typeof action !== 'string' ||
+    (action !== 'attack' && action !== 'defend' && !action.startsWith('card:'))
+  )
+    return state;
+  return resolveArenaRound(state, action);
 }
-export function arenaCardDescription(card:ArenaCard):string {
-  if(card.action==='attack')return 'Executa o ataque básico com seus atributos e efeitos de equipamento atuais.';
-  if(card.action==='defend')return 'Executa a defesa básica e gera Foco conforme as regras atuais.';
-  return arenaSpecials.find(s=>`special:${s.id}`===card.action)?.description ?? 'Efeito ainda indisponível.';
+export function arenaCardDescription(card: ArenaCard): string {
+  if (card.action === 'attack')
+    return 'Executa o ataque básico com seus atributos e efeitos de equipamento atuais.';
+  if (card.action === 'defend')
+    return 'Executa a defesa básica e gera Foco conforme as regras atuais.';
+  return (
+    arenaSpecials.find((s) => `special:${s.id}` === card.action)?.description ??
+    'Efeito ainda indisponível.'
+  );
+}
+export function arenaCardAvailability(state: BattleState, id: string) {
+  const card = state.deck?.cards.find((c) => c.id === id);
+  const special = arenaSpecials.find((s) => `special:${s.id}` === card?.action);
+  const focusCost = special ? specialCost(state.player.snapshot, special) : 0;
+  const minimumLevel = special?.minimumLevel ?? 1;
+  const missingFocus = Math.max(0, focusCost - arenaFocus(state.player));
+  const status = !card?.action
+    ? 'unavailable'
+    : state.deck!.usedIds.includes(id)
+      ? 'used'
+      : state.status !== 'in_progress'
+        ? 'finished'
+        : !(state.player.snapshot.level >= minimumLevel)
+          ? 'level'
+          : missingFocus > 0
+            ? 'focus'
+            : 'available';
+  return { status, focusCost, minimumLevel, missingFocus } as const;
 }
 /** Reads the committed state only; the player's upcoming choice is not an input. */
 export function chooseArenaOpponentAction(state: BattleState): ArenaAction {
@@ -278,26 +332,56 @@ export function resolveArenaRound(
   state: BattleState,
   playerAction: ArenaAction,
 ): BattleState {
+  return executeArenaRound(state, playerAction, false);
+}
+/** Internal capability: only the validated card branch can set fromCard. */
+function executeArenaRound(
+  state: BattleState,
+  playerAction: ArenaAction,
+  fromCard: boolean,
+): BattleState {
   if (state.status !== 'in_progress') return state;
-  if(typeof playerAction!=='string')return state;
-  if(state.deck && (state.deck.ownerId!==state.player.snapshot.id || validateArenaDeck(state.deck.cards.map(c=>c.id),state.deck.cards) || new Set(state.deck.usedIds).size!==state.deck.usedIds.length || state.deck.usedIds.some(id=>!state.deck!.cards.some(c=>c.id===id))))return state;
-  if(playerAction.startsWith('card:')) {
-    const id=playerAction.slice(5);const deck=state.deck;
-    const card=deck?.cards.find(c=>c.id===id);
-    if(!deck || !card?.action || deck.usedIds.includes(id))return state;
-    const next=resolveArenaRound(state,card.action);
-    if(next===state)return state;
-    return {...next,deck:{...deck,usedIds:[...deck.usedIds,id]}};
+  if (typeof playerAction !== 'string') return state;
+  if (
+    state.deck &&
+    (state.deck.ownerId !== state.player.snapshot.id ||
+      validateArenaDeck(
+        state.deck.cards.map((c) => c.id),
+        state.deck.cards,
+      ) ||
+      new Set(state.deck.usedIds).size !== state.deck.usedIds.length ||
+      state.deck.usedIds.some(
+        (id) => !state.deck!.cards.some((c) => c.id === id),
+      ))
+  )
+    return state;
+  if (playerAction.startsWith('card:')) {
+    const id = playerAction.slice(5);
+    const deck = state.deck;
+    const card = deck?.cards.find((c) => c.id === id);
+    if (
+      !deck ||
+      !card?.action ||
+      arenaCardAvailability(state, id).status !== 'available'
+    )
+      return state;
+    const next = executeArenaRound(state, card.action, true);
+    if (next === state) return state;
+    return { ...next, deck: { ...deck, usedIds: [...deck.usedIds, id] } };
   }
   const selectedSpecial = arenaSpecials.find(
     (special) => playerAction === `special:${special.id}`,
   );
-  if (
-    playerAction !== 'attack' &&
-    playerAction !== 'defend' &&
-    (!selectedSpecial ||
-      specialAvailability(state.player, selectedSpecial.id) !== 'available')
-  )
+  // Even the legacy export cannot directly activate a special on a product deck.
+  if (state.deck && selectedSpecial && !fromCard) return state;
+  const specialReady =
+    selectedSpecial &&
+    (fromCard
+      ? state.player.snapshot.level >= selectedSpecial.minimumLevel &&
+        arenaFocus(state.player) >=
+          specialCost(state.player.snapshot, selectedSpecial)
+      : specialAvailability(state.player, selectedSpecial.id) === 'available');
+  if (playerAction !== 'attack' && playerAction !== 'defend' && !specialReady)
     return state;
   const opponentAction = chooseArenaOpponentAction(state);
   const player = normalize(state.player),

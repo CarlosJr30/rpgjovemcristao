@@ -40,7 +40,11 @@ beforeEach(() => {
   localStorage.clear();
   Object.defineProperty(window, 'matchMedia', {
     configurable: true,
-    value: () => ({ matches: false,addEventListener:vi.fn(),removeEventListener:vi.fn() }),
+    value: () => ({
+      matches: false,
+      addEventListener: vi.fn(),
+      removeEventListener: vi.fn(),
+    }),
   });
   let tail = Promise.resolve<unknown>(undefined);
   Object.defineProperty(navigator, 'locks', {
@@ -81,6 +85,14 @@ test('real Arena starts with saved7, commits one rapid action, remount resumes s
   await screen.findByText('Cartas selecionadas: 7/7');
   fireEvent.click(screen.getByRole('button', { name: /Davi, o Aprendiz/ }));
   fireEvent.click(screen.getByRole('button', { name: 'Iniciar batalha' }));
+  await screen.findByRole('group', { name: 'Ações da batalha' });
+  expect(
+    screen.queryByRole('button', { name: /ESPECIAIS/ }),
+  ).not.toBeInTheDocument();
+  expect(
+    screen.queryByRole('region', { name: 'Cartas desta batalha' }),
+  ).not.toBeInTheDocument();
+  fireEvent.click(screen.getByRole('button', { name: 'CARTAS' }));
   await screen.findByRole('button', { name: 'Usar carta Carta de teste 1' });
   const before = arenaDeckStorage.load('owner', 'player', cards).battle!;
   const button = screen.getByRole('button', {
@@ -97,6 +109,7 @@ test('real Arena starts with saved7, commits one rapid action, remount resumes s
       collectionSource={source}
     />,
   );
+  fireEvent.click(await screen.findByRole('button', { name: 'CARTAS' }));
   await waitFor(() =>
     expect(
       screen.getByRole('button', { name: 'Usar carta Carta de teste 1' }),

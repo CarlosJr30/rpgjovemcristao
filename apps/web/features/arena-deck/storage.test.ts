@@ -177,3 +177,73 @@ test('after a battle closes, an unavailable old card can be replaced without rew
   expect(next.deck?.cards.map((c) => c.id)).toEqual(replacement);
   expect(next.id).not.toBe(b.id);
 });
+test('old basic/card journals remain byte-preserved on load and continue with their original identity', async () => {
+  await save();
+  const b = await begin();
+  await storage.command(
+    'owner',
+    'player',
+    cards,
+    b.id,
+    b.round,
+    `card:${ids[0]}`,
+  );
+  const k = Object.keys(localStorage)[0];
+  const original = localStorage.getItem(k)!;
+  const resumed = storage.load('owner', 'player', cards).battle!;
+  expect(resumed.id).toBe(b.id);
+  expect(resumed.deck?.usedIds).toEqual([ids[0]]);
+  expect(localStorage.getItem(k)).toBe(original);
+  await storage.command(
+    'owner',
+    'player',
+    cards,
+    resumed.id,
+    resumed.round,
+    'defend',
+  );
+  expect(storage.load('owner', 'player', cards).battle?.id).toBe(b.id);
+});
+test('old direct-special transcript explicitly blocks every operation without deleting saved bytes', async () => {
+  await save();
+  const b = await begin();
+  const k = Object.keys(localStorage)[0];
+  const parsed = JSON.parse(localStorage.getItem(k)!);
+  parsed.journal.actions = ['attack', 'defend', 'special:path-strike'];
+  const old = JSON.stringify(parsed);
+  localStorage.setItem(k, old);
+  expect(() => storage.load('owner', 'player', cards)).toThrow(
+    /versão anterior.*bloqueada.*preservado/,
+  );
+  for (const operation of [
+    save,
+    begin,
+    () => storage.command('owner', 'player', cards, b.id, 4, 'attack'),
+    () => storage.claimSettlement('owner', 'player', cards, b.id),
+  ]) {
+    await expect(operation()).rejects.toThrow(/migração/);
+    expect(localStorage.getItem(k)).toBe(old);
+  }
+});
+test('direct-special client command is denied before persistence without consuming anything', async () => {
+  await save();
+  let b = await begin();
+  b = await storage.command('owner', 'player', cards, b.id, b.round, 'attack');
+  b = await storage.command('owner', 'player', cards, b.id, b.round, 'defend');
+  const k = Object.keys(localStorage)[0];
+  const original = localStorage.getItem(k)!;
+  await expect(
+    storage.command(
+      'owner',
+      'player',
+      cards,
+      b.id,
+      b.round,
+      'special:path-strike' as never,
+    ),
+  ).rejects.toThrow(/indisponível/);
+  expect(localStorage.getItem(k)).toBe(original);
+  expect(storage.load('owner', 'player', cards).battle?.deck?.usedIds).toEqual(
+    [],
+  );
+});

@@ -6,14 +6,14 @@ import {
   BattleCards,
 } from '../../../apps/web/features/arena-deck/editor';
 import { arenaDeckStorage as storage } from '../../../apps/web/features/arena-deck/storage';
-import { validateArenaDeck, type ArenaAction } from '@rpg/game-engine';
+import { validateArenaDeck, type ArenaProductAction } from '@rpg/game-engine';
 import { cards, player, opponent } from '../arena-deck';
 import './style.css';
 function Session({ owner }: { owner: string }) {
   const [data, setData] = useState(() => storage.load(owner, 'player', cards));
   const [error, setError] = useState('');
   const refresh = () => setData(storage.load(owner, 'player', cards));
-  const act = async (action: ArenaAction) => {
+  const act = async (action: ArenaProductAction) => {
     try {
       const b = data.battle!;
       await storage.command(owner, 'player', cards, b.id, b.round, action);

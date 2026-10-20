@@ -4,7 +4,7 @@ import {
   equipmentEffects,
   isArenaCard,
   validateArenaDeck,
-  type ArenaAction,
+  type ArenaProductAction,
   type ArenaCard,
   type BattleParticipantSnapshot,
   type BattleState,
@@ -17,7 +17,7 @@ type Journal = {
   opponent: BattleParticipantSnapshot;
   ids: string[];
   signature: string;
-  actions: ArenaAction[];
+  actions: ArenaProductAction[];
   settlementStarted: boolean;
 };
 type Stored = {
@@ -180,6 +180,12 @@ function replay(
   cards: readonly ArenaCard[],
 ): BattleState | null {
   if (!j) return null;
+  // TASK-0084 allowed direct specials. Never reinterpret them as free card uses,
+  // erase the journal, or replace an existing battle with a fresh one.
+  if (j.actions.some((action: string) => action.startsWith('special:')))
+    throw new Error(
+      'Esta batalha usa especiais diretos da versão anterior e está bloqueada para migração. O registro original foi preservado; nenhuma carta ou batalha foi reiniciada.',
+    );
   let frozen: unknown;
   try {
     frozen = JSON.parse(j.signature);
@@ -315,7 +321,7 @@ export const arenaDeckStorage = {
     cards: readonly ArenaCard[],
     id: string,
     round: number,
-    action: ArenaAction,
+    action: ArenaProductAction,
   ) {
     return lock(owner, traveler, () => {
       const v = read(owner, traveler);

@@ -1,0 +1,13 @@
+.battlePanel {
+  order: 4;
+  grid-column: 1 / -1;
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  margin: 12px 0;
+  padding: 20px clamp(12px, 2vw, 24px);
+  border: 1px solid #c9b988;
+  border-radius: 12px;
+  background: #f4eedf;
+  color: #25392e;
+}

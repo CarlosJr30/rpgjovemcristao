@@ -2,11 +2,13 @@
 import { useState } from 'react';
 import {
   arenaCardDescription,
+  arenaCardAvailability,
   validateArenaDeck,
   type ArenaCard,
   type BattleState,
 } from '@rpg/game-engine';
 import css from '../guild-missions/panel.module.css';
+import cardsCss from './cards.module.css';
 export function DeckEditor({
   cards,
   initial,
@@ -177,29 +179,65 @@ export function BattleCards({
   battle,
   busy,
   onPlay,
+  panelId,
 }: {
   battle: BattleState;
   busy: boolean;
   onPlay: (id: string) => void;
+  panelId?: string;
 }) {
   return (
-    <section className={css.panel} aria-label="Cartas desta batalha">
+    <section
+      id={panelId}
+      className={`${css.panel} ${cardsCss.battlePanel}`}
+      aria-label="Cartas desta batalha"
+    >
       <h3>Seu baralho nesta batalha</h3>
       <p>
-        Usadas: {battle.deck?.usedIds.length ?? 0}/7. Básicos, Foco e especiais
-        mantêm suas regras atuais.
+        Usadas: {battle.deck?.usedIds.length ?? 0}/7. Cada carta tem um uso.
+        Atacar e Defender não consomem cartas; especiais passam pelo baralho.
       </p>
       <div className={css.grid}>
         {battle.deck?.cards.map((c) => {
-          const used = battle.deck!.usedIds.includes(c.id);
+          const availability = arenaCardAvailability(battle, c.id);
+          const { status, focusCost, minimumLevel, missingFocus } =
+            availability;
+          const reason =
+            status === 'used'
+              ? 'Esta carta já foi utilizada nesta batalha.'
+              : status === 'finished'
+                ? 'Esta batalha foi encerrada.'
+                : status === 'level'
+                  ? `Carta disponível após atingir o nível ${minimumLevel}.`
+                  : status === 'focus'
+                    ? `Você precisa de mais ${missingFocus} ${missingFocus === 1 ? 'ponto' : 'pontos'} de Foco.`
+                    : status === 'unavailable'
+                      ? 'Efeito indisponível.'
+                      : busy
+                        ? 'Aguarde a confirmação da rodada.'
+                        : '';
           return (
-            <article key={c.id} className={css.card}>
+            <article
+              key={c.id}
+              className={css.card}
+              aria-label={`Carta: ${c.name}`}
+            >
               <h4>{c.name}</h4>
               <p>{arenaCardDescription(c)}</p>
-              <b>{used ? 'USADA' : 'Disponível'}</b>
+              <p>
+                Custo: {focusCost} Foco · Nível mínimo: {minimumLevel}
+              </p>
+              <b>
+                {status === 'used'
+                  ? 'USADA'
+                  : status === 'available' && !busy
+                    ? 'Disponível'
+                    : 'Indisponível'}
+              </b>
+              {reason && <p>{reason}</p>}
               <p>
                 <button
-                  disabled={busy || used || battle.status !== 'in_progress'}
+                  disabled={busy || status !== 'available'}
                   onClick={() => onPlay(c.id)}
                   aria-label={`Usar carta ${c.name}`}
                 >

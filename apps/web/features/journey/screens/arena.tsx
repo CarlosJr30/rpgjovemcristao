@@ -2,14 +2,13 @@
 
 import { useEffect, useMemo, useRef, useState } from 'react';
 import {
-  arenaSpecials,
   arenaProfiles,
   arenaProbableIntent,
   calculateCombatPowerBreakdown,
   calculateTrainingReward,
   equipmentEffects,
   isWithinMatchmakingRange,
-  type ArenaAction,
+  type ArenaProductAction,
   type BattleParticipantSnapshot,
   type BattleState,
   type BattleEffectId,
@@ -34,11 +33,9 @@ import { addGameplayReward } from '../data/progression';
 import type { Traveler } from '../domain/traveler';
 import styles from '../journey.module.css';
 import { useBattlePresentation } from '../hooks/use-battle-presentation';
-import { ArenaSpecialPanel } from '../components/arena-specials';
 import { emitArenaSound } from '../audio/arena-audio';
 import { ArenaStage, FighterPortrait } from '../components/arena-stage';
 import { ArenaUnlockNotice } from '../components/arena-unlock-notice';
-import { specialAvailability } from '@rpg/game-engine';
 import { arenaStageVariables } from '../data/arenaPresentation';
 
 type OpponentOption = {
@@ -55,6 +52,7 @@ import {
 } from '../../arena-deck/collection';
 import { arenaDeckStorage } from '../../arena-deck/storage';
 import { DeckEditor, BattleCards } from '../../arena-deck/editor';
+import { ArenaBattleActions } from '../../arena-deck/battle-actions';
 import { validateArenaDeck, type ArenaCard } from '@rpg/game-engine';
 
 type Stage = 'lobby' | 'preview' | 'battle' | 'result';
@@ -121,7 +119,6 @@ export function ArenaExperience({
   const [battle, setBattle] = useState<BattleState | null>(null);
   const [history, setHistory] = useState<ArenaBattleRecord[]>([]);
   const [reward, setReward] = useState<TrainingReward | null>(null);
-  const [specialsOpen, setSpecialsOpen] = useState(false);
   const [levelNotice, setLevelNotice] = useState<{
     before: number;
     after: number;
@@ -229,7 +226,6 @@ export function ArenaExperience({
       presentation.cancel();
       setReward(null);
       setLevelNotice(null);
-      setSpecialsOpen(false);
       setShowDeck(false);
       setStage('battle');
     } catch (e) {
@@ -295,7 +291,7 @@ export function ArenaExperience({
     emitArenaSound(won ? 'victory' : 'defeat');
   }
 
-  async function act(action: ArenaAction) {
+  async function act(action: ArenaProductAction) {
     if (
       !battle ||
       battle.status !== 'in_progress' ||
@@ -355,7 +351,6 @@ export function ArenaExperience({
     presentation.cancel();
     setBattle(null);
     setReward(null);
-    setSpecialsOpen(false);
     setLevelNotice(null);
     setSelected(null);
     setStage('lobby');
@@ -658,49 +653,11 @@ export function ArenaExperience({
               )}
             </div>
             {stage === 'battle' && (
-              <div
-                className={styles.battleActions}
-                aria-label="Ações da batalha"
-              >
-                <button
-                  disabled={presentation.busy || deckBusy}
-                  onClick={() => act('attack')}
-                >
-                  <b>ATACAR</b>
-                  <span>Dano com Força</span>
-                  <small>+1 Foco</small>
-                </button>
-                <button
-                  disabled={presentation.busy || deckBusy}
-                  onClick={() => act('defend')}
-                >
-                  <b>DEFENDER</b>
-                  <span>Protege o próximo golpe</span>
-                  <small>+1 Foco · próximo golpe</small>
-                </button>
-                <button
-                  disabled={presentation.busy || deckBusy}
-                  data-special-ready={arenaSpecials.some(
-                    (special) =>
-                      specialAvailability(battle.player, special.id) ===
-                      'available',
-                  )}
-                  id="arena-special-trigger"
-                  aria-expanded={specialsOpen}
-                  aria-controls="arena-specials"
-                  onClick={() => setSpecialsOpen((open) => !open)}
-                >
-                  <b>ESPECIAIS</b>
-                  <span>Use seu Foco</span>
-                </button>
-              </div>
-            )}
-            {stage === 'battle' && specialsOpen && (
-              <ArenaSpecialPanel
-                fighter={battle.player}
-                busy={presentation.busy}
-                onSelect={act}
-                onClose={() => setSpecialsOpen(false)}
+              <ArenaBattleActions
+                key={battle.id}
+                battle={battle}
+                busy={presentation.busy || deckBusy}
+                onAction={(action) => void act(action)}
               />
             )}
             {stage === 'battle' &&
@@ -709,11 +666,13 @@ export function ArenaExperience({
                   Discernimento · {arenaProbableIntent(battle)}
                 </p>
               )}
-            <BattleCards
-              battle={battle}
-              busy={presentation.busy || deckBusy}
-              onPlay={(id) => void act(`card:${id}`)}
-            />
+            {stage === 'result' && (
+              <BattleCards
+                battle={battle}
+                busy={false}
+                onPlay={() => undefined}
+              />
+            )}
             <ArenaEffects fighter={battle.player} />
             <BattleLog battle={battle} />
             {stage === 'result' && (
@@ -799,8 +758,8 @@ function ArenaEffects({ fighter }: { fighter: BattleState['player'] }) {
       <div>
         <h3>EFEITOS ATIVOS DOS EQUIPAMENTOS</h3>
         <small>
-          Reforçam o especial correspondente quando desbloqueado, respeitando
-          usos e cooldown.
+          Reforçam automaticamente a ação correspondente, inclusive especiais
+          usados por cartas, respeitando os usos e cooldowns do equipamento.
         </small>
         {entries
           .filter(({ effect }) => effect.type === 'ACTIVE')

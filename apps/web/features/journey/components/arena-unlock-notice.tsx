@@ -31,8 +31,13 @@ export function ArenaUnlockNotice({
         .filter((s) => s.minimumLevel > before && s.minimumLevel <= after)
         .map((s) => (
           <div key={s.id} style={{ position: 'relative' }}>
-            <strong>NOVA HABILIDADE DESBLOQUEADA</strong>
+            <strong>REQUISITO DE NÍVEL ATINGIDO</strong>
             <h3>{s.name}</h3>
+            <p>
+              Para usar este efeito na Arena, adquira uma carta homologada
+              correspondente e selecione-a no baralho. O nível não concede a
+              carta.
+            </p>
             <p>
               {s.type === 'OFFENSIVE'
                 ? 'Ofensivo'
