@@ -95,3 +95,5 @@ Ver [contrato ativo](../../tasks/active/TASK-0083-guild-ebd.md): escopo local e 
 ## 12. Próxima etapa
 
 Revisar o pacote SQL/cutover e preparar validação isolada hospedada sob autorização específica posterior. Não iniciar contexto04/09, não publicar ou aplicar SQL no escopo deste pedido. Preservar validações anteriores e repetir somente o que a próxima mudança afetar.
+
+Registro final: implementação validada no commit local `c4b3d92a8f4a77f1dc0f1f0821382067a6932ff2`. O commit seguinte altera apenas metadados de controle deste relatório e contrato. Memória de controle raiz recebe entrada0083 preservando o corpo anterior. Recibo `build/task-0083-ebd/final-receipt.json` registra hashes, refs protegidas e evidências. Nenhum push/deploy/merge/SQL remoto.

@@ -56,3 +56,5 @@ Versão local concluída. BLOCKED se refere ao aceite integral/hospedado, sem fa
 Reworks e falhas iniciais detalhados no relatório e preservados nos logs. Não houve push/deploy/merge/main/SQL remoto, modificação de dados reais, economia, contratos0080/0081/0082/0078 ou progressão Story. Apenas links de entrada alteram as duas telas existentes da Guilda. Propostas anteriores e migrations intactas.
 
 Relatório completo de12 itens: [TASK-0083-GUILD-EBD](../../docs/architecture/TASK-0083-GUILD-EBD.md). Parecer: [TASK-0083-EBD-SECURITY](../../docs/security/TASK-0083-EBD-SECURITY.md). Logs/capturas/recibo em build/task-0083-ebd fora do versionamento. Próximo: revisão do pacote e validação isolada hospedada sob autorização posterior; contexto04/09 não iniciado.
+
+Commit local da implementação validada: `c4b3d92a8f4a77f1dc0f1f0821382067a6932ff2`. Controle seguinte altera somente este contrato e o relatório. Memória raiz atualizada, corpo anterior preservado. Nenhuma nova execução de suíte extensa para esta atualização documental.
