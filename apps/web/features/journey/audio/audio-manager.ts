@@ -302,7 +302,10 @@ export class AudioManager {
       this.fadeMusicOut();
       return;
     }
-    if (this.failedMusic.has(asset.src)) return;
+    if (this.failedMusic.has(asset.src)) {
+      this.fadeMusicOut();
+      return;
+    }
     if (
       this.current &&
       (this.playingContext === this.context ||

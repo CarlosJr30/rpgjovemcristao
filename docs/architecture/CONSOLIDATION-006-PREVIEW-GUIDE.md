@@ -1,0 +1,27 @@
+# CONSOLIDATION-006 — guia para futura Preview isolada
+
+Pacote de preparação, sem operação remota nem autorização de execução. Artefatos `.next` desta tarefa contêm configuração pública `fixture.invalid` de teste e NÃO devem ser enviados ao host. Criar build próprio no ambiente autorizado, do SHA aprovado, com parâmetros reais exclusivamente do alvo de teste. Não reaproveitar pinned-preview/hook antigo nem editar hashes para forçar elegibilidade.
+
+## Gates obrigatórios antes da publicação
+
+- [ ] **Escolher escopo e responsáveis.** Registrar se a Preview será limitada; fixar o SHA completo e os modos explicitamente indisponíveis. Autorizar separadamente criação/configuração/SQL/push/deploy, conforme aplicável. Pedido006 não autoriza nenhuma dessas operações.
+- [ ] **Projeto Supabase vazio separado.** Retomar proposta002: rpgjovemcristao-test, CarlosJr30's Org, sa-east-1, Free, sem upgrade/add-on/cópia de produção. Revalidar disponibilidade/cotação quando autorizado; cotação histórica zero mensal não é autorização de criação nem garantia atual. Registrar novo ref/host; negar produção wspafhlbtlpabypzymjo e qualquer alvo ambíguo.
+- [ ] **Revisar SQL e recuperação.** Conferir locks002/004/hashes e alvo vazio. Ordem local já ensaiada: journal0000–0008 → QR0080 → propostasStory0081/missões0082/EBD0083 → EXPAND0078 importado em004 → CONTRACT004, transacional conforme plano. CONTRACT004 é alternativa a0010; nunca aplicar ambos por simples sequência. QR/propostas não foram registradas como migrations aplicadas. Aprovar histórico/registro e janela, snapshot/restore, dreno e revisão0078 antes de executar.
+- [ ] **Provar segurança real.** Defaults/grants de tabela e coluna, RLS, functions SECURITY DEFINER/search_path, esquemas privados não expostos; antigas APIs econômicas negadas inclusive com JWT real. Novos Travelers recebem alocação fixa; legados continuam sem confiança até reconciliação revisada. Não preencher economic_verified_at por conveniência. [Plano004](CONSOLIDATION-004-CUTOVER.md).
+- [ ] **Configurar Auth do teste.** Login/cadastro por e-mail, confirmação mantida, anonymous desabilitado. Caixas fictícias controladas pelo responsável; verificar capacidade/envio antes de convidar testadores. Aprovar SMTP separado se necessário; não desligar confirmação para passar. Site URL e allowlist somente na origem HTTPS real autorizada, destino existente `/auth` e next interno validado; sem wildcard geral.
+- [ ] **Configurar env com custódia.** NEXT_PUBLIC_SUPABASE_URL/PUBLISHABLE_KEY exclusivamente do teste; APP_BASE_URL da origem real. Protocolo3 exige SUPABASE_SERVICE_ROLE_KEY somente servidor. Nunca prefixar secret com NEXT_PUBLIC, colar valor em relatório/Git/log ou copiar produção. Sem chave/protocolo correto,503 e sem fallback são obrigatórios.
+- [ ] **CI do SHA exato.** Autorizar eventual push antes, executar checks e inspecionar commit/artefato. Não usar CI de main antigo como prova deste SHA; adaptar política de elegibilidade somente em contrato aprovado. Não instalar dependências/mudar lock para contornar falha de ambiente.
+- [ ] **Vercel correto.** Última evidência002: projeto rpgjovemcristao-test, prj_qKzjXMVXwiVpGlU66SoTA71mStXX, equipe team_FWD8MfZ9vARK8EBovoyTn9Ox, root apps/web, Node24.x, SSO em todos deployments. Metadados não foram atualizados006. Reconfirmar alvo/proteção quando autorizado; método e escopo Preview explícitos, sem promoção a produção.
+- [ ] **Deployment verificável.** Só após autorização, registrar deploymentId/READY/projectId/SHA/URL HTTPS real/proteção. Confirmar que app/Auth/callback/convite usam a mesma origem. Não desabilitar proteção para facilitar QR; incluir testadores autorizados e verificar fluxo em contexto permitido.
+- [ ] **Smoke de segurança antes de disponibilizar.** Executar negativas da matriz com JWT reais e fictícios, nenhuma concessão econômica por browser. Havendo falha, restringir acesso/colocar manutenção e investigar preservando recibos; não restaurar grants antigos ou apagar dados para esconder problema.
+
+## Gates por funcionalidade
+
+- [ ] **Guilda/EBD:** entre duas contas/Guildas, QR→prévia→pedido→decisão, escopo professor/aluno, aprovação/presença/histórico e prêmios pendentes sem pagamento indevido.
+- [ ] **Story oficial:** homologação005, vídeo com direitos, legendas/alternativa, eventos/prova protegida e recibo individual. Uma prévia candidata antes do vídeo não completa história.
+- [ ] **Arena/Torre:** sete cartas homologadas com posse/receipt, starter uma vez por conta, cliente/servidor/DB protocolo3, CAS/retomada/última rodada+recibo atômicos. Torre sem recompensa enquanto regra pendente. Save local não é vitória oficial.
+- [ ] **Baús:** propriedade/reconciliação/loot e débito server-side; abrir uma vez, timeout→consulta, animação/cursor não concedem. Carta não homologada somente demonstração isolada em testes.
+- [ ] **Áudio/vídeo:** direitos/hash/duração/loop/mix revisados antes de binding; testar narração/mute/volumes/background. Ausência de áudio não impede Preview silenciosa, mas impede aceite sonoro.
+- [ ] **Físico:** preencher matriz de aparelhos/OS/browser/rede, teclado/scroll/touch/câmera/duas sessões e percepção sonora. Guardar evidência redigida, sem e-mail/token/dado pessoal nos logs.
+
+Nenhuma caixa acima é considerada concluída por existir documentação local. [Ambiente002](CONSOLIDATION-002-ENVIRONMENT-AND-AUTH.md) contém metadados históricos e limites; não foi consultado serviço remoto para atualizá-los.

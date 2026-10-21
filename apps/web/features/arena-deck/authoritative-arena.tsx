@@ -1,5 +1,6 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
+import Link from 'next/link';
 import { validateArenaDeck, type ArenaProductAction } from '@rpg/game-engine';
 import { requestAuthority } from '../../lib/authority/client';
 import type { BattleView, OwnedCard } from '../../lib/authority/service';
@@ -102,6 +103,14 @@ export function AuthoritativeArena({
         Combate oficial por rodada. Saves locais anteriores permanecem
         demonstrativos.
       </p>
+      <nav aria-label="Modos da Arena">
+        <Link
+          className={styles.primaryLink}
+          href={mode === 'tower-v3' ? '/journey/arena' : '/journey/arena/tower'}
+        >
+          {mode === 'tower-v3' ? 'Arena de Treinamento' : 'Torre dos 7 Desafios'}
+        </Link>
+      </nav>
       {mode === 'tower-v3' && (
         <p>
           Próximo andar: {floor <= 7 ? floor : 'Torre concluída'}. Recompensas
