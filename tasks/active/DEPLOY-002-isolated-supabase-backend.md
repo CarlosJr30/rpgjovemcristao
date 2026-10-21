@@ -4,7 +4,7 @@ ID: DEPLOY-002
 TITLE: Implantação controlada do backend consolidado
 OBJECTIVE: Reconciliar e testar SQL002/004, aplicar individualmente no Supabase de testes e validar ACL/RLS/Auth/economia sem produção ou Vercel.
 PRIORITY: P1 High
-STATUS: VALIDATING
+STATUS: BLOCKED
 SCOPE: Base CI cb66b6c4b87645cf5911a86b8b99943cc2d1664b preservada; checkout/branch de integração codex/deploy-supabase-002. Banco remoto exclusivamente wkdvdzfkbwvhyjmamrsg/host correspondente/orgxwyyrzctzharutyqysch/sa-east-1. Orquestrador autoriza Database/Backend/DevOps/QA/Security pelo autor, escrita de scripts/testes/manifesto/migrations de implantação e documentação própria; correções apenas de incompatibilidades reproduzidas. Sem subagentes ou revisão independente. Memória raiz somente prefixada.
 OUT_OF_SCOPE: Produção wspafhlbtlpabypzymjo, dados reais, main/merge/push/deploy Vercel/configuração Vercel, recursos pagos, homologação/concessão de cartas/prêmios reais, edição de contratos ou locks SQL históricos, nova funcionalidade/economia.
 DEPENDENCIES: DEPLOY-001 CI aprovado; receitas002+004 e recuperação; matriz006. URLHTTPS/callback/APP_BASE_URL reais dependem de DEPLOY-003 e ficam pendentes, sem domínio fictício.
@@ -39,3 +39,22 @@ Gates locais apósREWORK:28PGPASS/0skip em postgres-28-rework.log;4casos própri
 Snapshot inicial salvo fora doGit: schema-before.json, zeroAuthusers/storageobjects/tabelas/funções da aplicação, sem vínculosforeignserver/subscription. Defaultspermissivos explícitos reconciliados por prepare_acl, contençãoUSAGE antes de cada commit e release somente apósCONTRACT. Arquivosguard/release gerados por CLIoficial2.121.0 verificada porSHA256; CLI usada só local, não autenticada/linkada ou publicada. CacheCLI ignorado.
 
 Authsettings públicos reais já conformes: emaillogintrue/disable_signupfalse/mailer_autoconfirmfalse/anonymous_usersfalse; preservados, sem configuração alterada. Não há navegador conectado nem ferramentaadminAuth nesta conexão. Solicitada disponibilidade de contas sintéticas confirmadas/painel para JWTs reais; enquanto isso, preparar negativas anon/JWTinválido e testes SQLcomROLE explicitamente distintos de JWT verificado. Callbacks públicos permanecem pendentes de URLDEPLOY-003.
+
+## Execução e aceite parcial — 2026-10-21
+
+Aplicadas17migrations via ferramenta suportada, sem erro/replay, somente no ref autorizado. Cada etapa conferida com journal real e payload exato;16etapas mantiveram contençãoUSAGE, última liberou apósCONTRACT/guards. Versões reais20261021031639–20261021032433. Protocolo3,30tabelas públicasRLS, catálogo0. Nenhum0010, grant econômico arbitrário, cópia de produção, conta real ou Vercel. SQLhistórico/locks intactos.
+
+Fixture nova teveREWORK por campos obrigatórios EBD ausentes/nomes incorretos/resposta vazia; corrigida após leitura do contratoSQL. Logs anteriores preservados, sem ignorar falhas. Ensaio final5casosPASS/0skip em postgres-hosted-harness-acceptance.log (inclui4anteriores, não somar). Somente então a mesma fixture executada hospedada:31assertionsPASS/cinco papéis, SETLOCALROLE/claims eROLLBACK. Não é JWT real. Contagens posterioresAuthusers/Travelers/Guildas/aulas/recibos/cartashomologadas0. Sequênciasidentity podem avançar no rollback.
+
+HTTP16checksPASS no alvo real: Authsettings conforme sem alteração, anonleitura/RPC negados, seis privados não expostos, JWTinválido rejeitado, anonymous signupdisabled, password de conta inexistente rejeitado. Primeira tentativa à raizREST recebeu401, endpoint de tabela corrigido para testar406PGRST106; sem mudança de produto/configuração. Relatório13itens/checklist/variáveis em [DEPLOY-002-REPORT](../../docs/architecture/DEPLOY-002-REPORT.md), matriz [Security](../../docs/security/DEPLOY-002-HOSTED-SECURITY.md). Advisors34security(20WARN/14INFO) e49performance classificados; zeroERRORsecurity. Não declarar P1 integralmente resolvido: negativos SQL/HTTP comprovados, positivos JWT/concorrência hospedada ainda pendentes.
+
+| Gate | Estado |
+| --- | --- |
+| SELF VALIDATE / QA autor | PASS preparação/aplicação/negativas:28PG+5deploy locais e31SQL+16HTTP hospedados. |
+| LINT / TYPECHECK | PASS lint dirigido e tipos completos, logs lint-final.log/typecheck-final.log. next-env gerado restaurado. |
+| BUILD / UNIT base | PASS reutilizado CI do SHA aprovado687unit+25protocolo/build; runtime/manifests/lockfile/workflows intocados. Nova lógica de implantação validada nos5testes PG, sem build frontend adicional necessário. |
+| SECURITY autor | PASS controles aplicados/negativas, com limites/advisors documentados; sem revisão independente. Gate Auth/JWT real continua aberto. |
+| DOC / NO SECRETS / preservação | Relatórios/manifesto/journal/auditoria/recibo locais; sem chave/senha/JWT versionados. Root/33worktrees e contratos antigos protegidos; memória raiz só prefixada. |
+| ACCEPTANCE integral | BLOCKED: cinco contas confirmadas e Auth positivo; origem/callback/aparelhos dependentes003; positivos Arena/Torre/Story dependem homologação/serviço/eventos. |
+
+Condição de retomada: painelAuth de testes ou contas sintéticas confirmadas por canal seguro, mantendo confirmaçãoemail e sem passwords/tokens na conversa. Depois executar positivosAuth e registrar evidência. Não iniciarDEPLOY-003 automaticamente ou publicarVercel enquanto gates aplicáveis estiverem abertos. Dados do banco estão preservados no estado sem usuários/fixtures persistidas; novas migrations exigem reconciliação com journal existente, nunca replay cego.

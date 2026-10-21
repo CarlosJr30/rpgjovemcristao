@@ -1,4 +1,5 @@
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
+import { hostedChecksSql } from '../deployments/deploy002/hosted-checks.mjs';
 import { readFileSync } from 'node:fs';
 import {
   offlinePostgres,
@@ -151,6 +152,19 @@ describe.runIf(process.env.RPG_LOCAL_PG === '1')(
         ),
       ).toBe('0');
       expect(sourceSql(steps[1].source)).toContain('CREATE TABLE');
+    });
+    it('validates the complete transient five-role hosted SQL harness locally before remote execution', () => {
+      const before = db.query('SELECT count(*) FROM auth.users');
+      const result = JSON.parse(db.query(hostedChecksSql()));
+      expect(result.passed).toBe(true);
+      expect(result.assertions).toBeGreaterThanOrEqual(25);
+      expect(result.syntheticRoles).toBe(5);
+      expect(db.query('SELECT count(*) FROM auth.users')).toBe(before);
+      expect(
+        db.query(
+          "SELECT count(*) FROM public.guilds WHERE name LIKE 'DEPLOY002%'",
+        ),
+      ).toBe('0');
     });
   },
 );

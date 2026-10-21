@@ -1,0 +1,70 @@
+[
+  {
+    "version": "20261021031639",
+    "name": "deploy002_prepare_acl"
+  },
+  {
+    "version": "20261021031817",
+    "name": "deploy002_01_0000_initial_supabase_gameplay"
+  },
+  {
+    "version": "20261021031824",
+    "name": "deploy002_02_0001_guild_supabase_v1"
+  },
+  {
+    "version": "20261021031830",
+    "name": "deploy002_03_0002_traveler_chests"
+  },
+  {
+    "version": "20261021031909",
+    "name": "deploy002_04_0003_guild_mission_chest_rewards"
+  },
+  {
+    "version": "20261021031916",
+    "name": "deploy002_05_0004_guild_leader_panel"
+  },
+  {
+    "version": "20261021031921",
+    "name": "deploy002_06_0005_guild_lessons_and_schedule"
+  },
+  {
+    "version": "20261021031927",
+    "name": "deploy002_07_0006_traveler_journey_progress"
+  },
+  {
+    "version": "20261021031940",
+    "name": "deploy002_08_0007_guild_chat"
+  },
+  {
+    "version": "20261021031947",
+    "name": "deploy002_09_0008_guild_chat_commit_order"
+  },
+  {
+    "version": "20261021031952",
+    "name": "deploy002_10_20261019054314_guild_link_invites"
+  },
+  {
+    "version": "20261021031958",
+    "name": "deploy002_11_task0081_story_progress"
+  },
+  {
+    "version": "20261021032004",
+    "name": "deploy002_12_task0082_guild_missions"
+  },
+  {
+    "version": "20261021032021",
+    "name": "deploy002_13_task0083_guild_ebd"
+  },
+  {
+    "version": "20261021032027",
+    "name": "deploy002_14_consolidation004_expand0078"
+  },
+  {
+    "version": "20261021032035",
+    "name": "deploy002_15_consolidation004_authority"
+  },
+  {
+    "version": "20261021032433",
+    "name": "deploy002_release_acl"
+  }
+]
