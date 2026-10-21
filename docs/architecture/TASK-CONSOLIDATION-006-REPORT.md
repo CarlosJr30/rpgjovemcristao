@@ -6,6 +6,8 @@
 
 Branch `codex/consolidation-integrated-acceptance-006`, checkout `D:/rpg-jovem-cristao/build/task-consolidation-006/checkout`, base005 limpa `74bedbc175ced34a651ceb632f555a4da53a6b47`, implementação005 `ac9db0d1bb6442366b103aa59f797c06bbca9304`. Recibo005 SHA256 `e166255a456616157459254e48741544ab34a29cbd108505ad00fa45ca143388`. Implementação006 e HEAD de fechamento/hashes/estado limpo registrados em `D:/rpg-jovem-cristao/build/task-consolidation-006/final-receipt.json`.
 
+Implementação validada006: `dcedd100a23fb1df65ff664998fb93167d4af6f0`. Commit posterior apenas documental registra este hash e o fechamento; runtime/testes permanecem os mesmos que passaram nos gates.
+
 Ancestralidade confirmada via Git: implementações001e9e74ee,00270aa7e1,003c165111,003Acd43a49,0041ce9523,005ac9db0d e áudio0089a573cd1. Não houve merge/reaplicação. Baseline protege31worktrees anteriores, refs/main/origin-main em cache, nove pendências raiz, sete0080, fonte0078 e recibo005. Só memória raiz recebe prefixo autorizado com bytes anteriores intactos; demais checkouts não alterados.
 
 ## 2. Integração do áudio conferida
