@@ -73,6 +73,20 @@ async function finish(n: number, b: BattleView) {
   expect(b.state.status).toBe('finished');
   return b;
 }
+async function beforeFinalAttack(n: number) {
+  let b = await start(n);
+  // PG supplies a random seed: an opening dodge/guard is not a settlement bug.
+  // Prepare the actual last round so the race/rollback still targets payout.
+  for (let turn = 0; turn < 20; turn++) {
+    if (
+      resolveArenaCommand(b.state, b.state.id, b.state.round, 'attack')
+        .status === 'finished'
+    )
+      return b;
+    b = await command(n, b);
+  }
+  throw new Error('Fixture did not reach a terminal attack');
+}
 const denied = (n: number, sql: string) =>
   expect(() => db.as(n, sql)).toThrow(
     /denied|permission|Account|Ownership|reconciliation/i,
@@ -335,7 +349,7 @@ describe.runIf(process.env.RPG_LOCAL_PG === '1')(
       await finish(2, b);
     });
     it('concurrent commands commit one transition, payout once, and reject finished commands', async () => {
-      const b = await start(3);
+      const b = await beforeFinalAttack(3);
       const before = totals();
       const results = await Promise.allSettled([command(3, b), command(3, b)]);
       expect(results.filter((r) => r.status === 'fulfilled')).toHaveLength(1);
@@ -427,7 +441,7 @@ describe.runIf(process.env.RPG_LOCAL_PG === '1')(
       expect(totals()).toBe(before);
     });
     it('rollback after XP update leaves no partial wallet, round, card consumption or receipt; retry reconciles', async () => {
-      const b = await start(5),
+      const b = await beforeFinalAttack(5),
         before = totals();
       expect(
         resolveArenaCommand(b.state, b.state.id, b.state.round, 'attack')
@@ -451,7 +465,7 @@ describe.runIf(process.env.RPG_LOCAL_PG === '1')(
             battleId: b.state.id,
           })
         ).revision,
-      ).toBe(0);
+      ).toBe(b.revision);
       expect(
         db.query(
           `SELECT count(*) FROM public.chest_operations WHERE operation_key='battle:${b.state.id}'`,
@@ -492,13 +506,18 @@ describe.runIf(process.env.RPG_LOCAL_PG === '1')(
         uid(9),
         tid(9),
         'revoke-card',
-        { cardId: ids[0], reason: 'Synthetic reviewed revocation', reviewRef: 'synthetic-admin-review-004' },
+        {
+          cardId: ids[0],
+          reason: 'Synthetic reviewed revocation',
+          reviewRef: 'synthetic-admin-review-004',
+        },
       );
       expect(
         (
           await db.rpc<{ id: string }>(uid(9), tid(9), 'revoke-card', {
             cardId: ids[0],
-            reason: 'Synthetic reviewed revocation', reviewRef: 'synthetic-admin-review-004',
+            reason: 'Synthetic reviewed revocation',
+            reviewRef: 'synthetic-admin-review-004',
           })
         ).id,
       ).toBe(revoked.id);
@@ -537,17 +556,42 @@ describe.runIf(process.env.RPG_LOCAL_PG === '1')(
         ).revision,
       ).toBe(next.revision);
     });
-    it('starter rollback leaves no partial provenance or receipt; level threshold keeps the existing ten-coin bonus',async()=>{
+    it('starter rollback leaves no partial provenance or receipt; level threshold keeps the existing ten-coin bonus', async () => {
       db.create(10);
-      db.query(`INSERT INTO public.inventory(traveler_id,item_id,quantity) VALUES('${tid(10)}','${ids[0]}',1)`);
-      await expect(execute(10,{operation:'starter'})).rejects.toThrow(/unique|duplicate/i);
-      expect(db.query(`SELECT count(*) FROM public.chest_operations WHERE identity_key='arena-starter-v1:${uid(10)}'`)).toBe('0');
-      expect(db.query(`SELECT count(*) FROM public.inventory WHERE traveler_id='${tid(10)}' AND card_receipt_id IS NOT NULL`)).toBe('0');
-      db.query(`DELETE FROM public.inventory WHERE traveler_id='${tid(10)}' AND item_id='${ids[0]}'`);
-      await execute(10,{operation:'starter'});
-      db.query(`UPDATE public.travelers SET xp=196 WHERE id='${tid(10)}';UPDATE public.traveler_stats SET base_life=80,base_strength=50 WHERE traveler_id='${tid(10)}'`);
-      const done=await finish(10,await start(10));expect(done.reward).toMatchObject({xp:8,coins:3,levelBonusCoins:10});
-      expect(db.query(`SELECT xp||','||level||','||coins FROM public.travelers JOIN public.wallets ON traveler_id=id WHERE id='${tid(10)}'`)).toBe('204,2,13');
+      db.query(
+        `INSERT INTO public.inventory(traveler_id,item_id,quantity) VALUES('${tid(10)}','${ids[0]}',1)`,
+      );
+      await expect(execute(10, { operation: 'starter' })).rejects.toThrow(
+        /unique|duplicate/i,
+      );
+      expect(
+        db.query(
+          `SELECT count(*) FROM public.chest_operations WHERE identity_key='arena-starter-v1:${uid(10)}'`,
+        ),
+      ).toBe('0');
+      expect(
+        db.query(
+          `SELECT count(*) FROM public.inventory WHERE traveler_id='${tid(10)}' AND card_receipt_id IS NOT NULL`,
+        ),
+      ).toBe('0');
+      db.query(
+        `DELETE FROM public.inventory WHERE traveler_id='${tid(10)}' AND item_id='${ids[0]}'`,
+      );
+      await execute(10, { operation: 'starter' });
+      db.query(
+        `UPDATE public.travelers SET xp=196 WHERE id='${tid(10)}';UPDATE public.traveler_stats SET base_life=80,base_strength=50 WHERE traveler_id='${tid(10)}'`,
+      );
+      const done = await finish(10, await start(10));
+      expect(done.reward).toMatchObject({
+        xp: 8,
+        coins: 3,
+        levelBonusCoins: 10,
+      });
+      expect(
+        db.query(
+          `SELECT xp||','||level||','||coins FROM public.travelers JOIN public.wallets ON traveler_id=id WHERE id='${tid(10)}'`,
+        ),
+      ).toBe('204,2,13');
     });
     it('HTTP uses the verified-identity port, rejects anonymous/forged identity/unexpected result fields and caps stream', async () => {
       const http = (body: unknown, token = 'synthetic-A') =>

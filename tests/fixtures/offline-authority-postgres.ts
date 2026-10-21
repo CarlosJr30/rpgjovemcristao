@@ -11,7 +11,12 @@ export const uid = (n: number) =>
   `00000000-0000-4000-8000-${String(n).padStart(12, '0')}`;
 export const tid = (n: number) =>
   `10000000-0000-4000-8000-${String(n).padStart(12, '0')}`;
-export function offlinePostgres() {
+export function offlinePostgres(
+  options: {
+    beforeMigrations?: (query: (sql: string) => string) => void;
+    transformMigration?: (sql: string) => string;
+  } = {},
+) {
   const name = `rpg-consolidation004-${process.pid}`;
   const prefix = [
     '-d',
@@ -132,6 +137,7 @@ export function offlinePostgres() {
         ALTER DEFAULT PRIVILEGES IN SCHEMA public REVOKE ALL ON SEQUENCES FROM anon,authenticated,service_role;
         ALTER DEFAULT PRIVILEGES IN SCHEMA public REVOKE EXECUTE ON FUNCTIONS FROM PUBLIC;
         CREATE PUBLICATION supabase_realtime;`);
+      options.beforeMigrations?.(query);
       const lock = JSON.parse(
         readFileSync(
           'packages/database/reviewed/consolidation-002.lock.json',
@@ -142,15 +148,38 @@ export function offlinePostgres() {
       const steps = lock.steps;
       for (const step of steps) {
         const sql = readFileSync(resolve(step.source), 'utf8');
-        if(createHash('sha256').update(sql.replaceAll('\r\n','\n')).digest('hex')!==step.sha256)throw Error('Unreviewed baseline SQL');
-        query(/^\s*BEGIN;\s*$/m.test(sql) ? sql : `BEGIN;${sql}\nCOMMIT;`);
+        if (
+          createHash('sha256')
+            .update(sql.replaceAll('\r\n', '\n'))
+            .digest('hex') !== step.sha256
+        )
+          throw Error('Unreviewed baseline SQL');
+        const prepared = options.transformMigration?.(sql) ?? sql;
+        query(
+          /^\s*BEGIN;\s*$/m.test(prepared)
+            ? prepared
+            : `BEGIN;${prepared}\nCOMMIT;`,
+        );
       }
     },
     apply(name: string) {
-      const reviewed=JSON.parse(readFileSync('packages/database/reviewed/consolidation-004.lock.json','utf8'));
-      const path=`packages/database/proposals/${name}`;
-      const step=reviewed.steps.find((s:{source:string})=>s.source===path);
-      if(!step||createHash('sha256').update(readFileSync(path,'utf8').replaceAll('\r\n','\n')).digest('hex')!==step.sha256)throw Error('Unreviewed authority SQL');
+      const reviewed = JSON.parse(
+        readFileSync(
+          'packages/database/reviewed/consolidation-004.lock.json',
+          'utf8',
+        ),
+      );
+      const path = `packages/database/proposals/${name}`;
+      const step = reviewed.steps.find(
+        (s: { source: string }) => s.source === path,
+      );
+      if (
+        !step ||
+        createHash('sha256')
+          .update(readFileSync(path, 'utf8').replaceAll('\r\n', '\n'))
+          .digest('hex') !== step.sha256
+      )
+        throw Error('Unreviewed authority SQL');
       query(
         `BEGIN;${readFileSync(`packages/database/proposals/${name}`, 'utf8')}\nCOMMIT;`,
       );
