@@ -4,7 +4,7 @@ ID: DEPLOY-001
 TITLE: Publicação controlada da integração no GitHub
 OBJECTIVE: Publicar somente codex/deploy-consolidated-001 e comprovar CI do SHA exato, sem deploy ou configuração de serviços.
 PRIORITY: P1 High
-STATUS: VALIDATING
+STATUS: DONE
 SCOPE: Worktree build/deploy-001/checkout sobre fechamento006 limpo8a470d20558c993f5f954bbc6a67776c9f583823. Autor assume DevOps/QA/Security; orquestrador autoriza documentação própria em tasks/docs e correções mínimas de falhas comprovadas do CI no código/ensaios pertinentes. Push normal exclusivamente refs/heads/codex/deploy-consolidated-001; leituras Git/GitHub necessárias e observação Actions. Memória raiz somente prefixada.
 OUT_OF_SCOPE: Main/merge/force-push/release/deploy, mudanças no gatilho CLOUD-007, configuração Supabase/Vercel/env remota, SQL remoto, dados reais, concessões/homologações, dependências ou implementação de funcionalidades.
 DEPENDENCIES: TASK-0080–0089 e CONSOLIDATION-001–006/003A ancestrais; recibo006 conferido. Supabase de teste wkdvdzfkbwvhyjmamrsg/sa-east-1 informado pelo usuário, sem migrations e sem consulta/configuração nesta tarefa.
@@ -31,3 +31,11 @@ Snapshot32worktrees/nove pendências/recibo006 antes do trabalho. Fetch apenas r
 Prepush: 17 HEADs0080–0089/consolidações confirmados ancestrais; 38 commits exclusivos da integração antes dos documentos DEPLOY-001, 335 caminhos diferentes da main, 455 blobs novos de texto auditados em todo o intervalo, nenhum segredo encontrado/novo asset. Workflow/config Vercel idênticos à main remota: quality sem secrets; pinned-preview nega esta branch por expressão explícita; isolamento retorna eligible=false; git.deploymentEnabled **false/maintrue. GitHub enumera três workflows históricos, mas os outros dois paths estão ausentes da main e desta branch; não se presume que serão disparados.
 
 Preflight local: npm test -- --run = 687PASS/28opt-inPGskip em109arquivos aprovados/1ignorado; 25testes scripts/ci PASS. Sem alteração de runtime, gates lint/tipos/build/E2E006 reutilizados localmente; novo CI remoto obrigatório ainda pendente. [Parecer](../../docs/security/DEPLOY-001-PREPUSH-SECURITY.md), [encaminhamento](../../docs/architecture/DEPLOY-001-HANDOFF-CHECKLIST.md). Recebido ref de teste do usuário como dado, sem leitura/configuração Supabase ou Vercel.
+
+## Aceite do primeiro SHA e fechamento
+
+Publicado e6b0508852f0b5d10db0570538129fcb4259066e somente na branch autorizada, sem force. [Run39534510529](https://github.com/CarlosJr30/rpgjovemcristao/actions/runs/39534510529) tentativa1 confirmado completed/success: qualitysuccess,687testesPASS/28PGopt-in skip,25protocolosPASS, isolamento/lint/tipos/buildPASS;969artefatos0achados/8hashes. pinned-previewskipped, nenhum status/deployment associado; main remota5508514 preservada. DONE / CI_APPROVED para o primeiro SHA comprovado.
+
+Este commit de encerramento altera apenas documentação e exige CI próprio antes da entrega final. Seu SHA/run/gates/branch limpa e refs remotas serão registrados em build/deploy-001/final-receipt.json; resultado anterior não aprova automaticamente esse SHA. Se falhar, reabrir REWORK; se não observado, BLOCKED. Não há atalhos de skip-tests. [Relatório12itens](../../docs/architecture/DEPLOY-001-REPORT.md) e checklist registram essa distinção sem commit recursivo de autorreferência.
+
+SELF VALIDATE/QA/Security pelo autor, sem independência. BUILD/LINT/TYPECHECK/UNIT/INTEGRATION selecionada/SECURITY/DOCUMENTATION/NO SECRETS aprovados no primeiro CI e auditoria local. Novo E2E/PG remoto N/A para documentos; evidências006/004 preservadas, sem alegar hospedado/físico. Memória raiz receberá prefixo após observar o fechamento. DEPLOY-002–005 somente encaminhadas, sem execução antecipada.

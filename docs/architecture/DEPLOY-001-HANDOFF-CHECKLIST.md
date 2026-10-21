@@ -9,8 +9,10 @@ Escopo atual: código consolidado em branch isolada GitHub, CI por SHA. Supabase
 | Segurança/prepush | Auditoria455blobs/335paths, nenhum segredo/novo asset; parecer próprio; protocolo25PASS/eligible=false |
 | Teste completo local do workflow |687PASS/28PGopt-in não executados; sem mudança de testes/gatilhos |
 | Deploy automático | Workflow/CLOUD-007 intactos; branch negada no pinned-preview e na configuração Git Vercel |
-| Push/SHA/Actions | PENDENTE na preparação; resultado final por SHA no recibo local build/deploy-001/final-receipt.json e relatórioDEPLOY-001 |
+| Push/SHA/Actions | Primeiro SHAe6b0508852f0b5d10db0570538129fcb4259066e publicado e CI_APPROVED no run39534510529; fechamento documental exige CI próprio, resultado final por SHA no recibo local build/deploy-001/final-receipt.json e relatórioDEPLOY-001 |
 | Main/serviços | Nenhuma mudança autorizada; verificar refs ao fechar |
+
+Novo Actions inicial confirmou687PASS/28PGopt-in não executados,25protocolosPASS, lint/tipos/buildsuccess e pinned-previewskipped. Nenhum status/deployment associado ao SHA. A execução do SHA de fechamento deve confirmar seus próprios gates antes da entrega, sem usar esse primeiro resultado como aprovação automática.
 
 ## DEPLOY-002 — Supabase de testes, ainda não executar
 
