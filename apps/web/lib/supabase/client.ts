@@ -16,7 +16,8 @@ const authFetch: typeof fetch = async (input, init) => {
   const isAuthRequest = url.pathname.startsWith('/auth/v1/');
   const method =
     init?.method ?? (input instanceof Request ? input.method : 'GET');
-  const operation = `${method.toUpperCase()} ${url.pathname}${url.search}`;
+  // Query strings may carry a confirmation callback or a limited invite token.
+  const operation = `${method.toUpperCase()} ${url.pathname}`;
 
   if (isAuthRequest) authDiagnostic('request:start', { operation });
   try {

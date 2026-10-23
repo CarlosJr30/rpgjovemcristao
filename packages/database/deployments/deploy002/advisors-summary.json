@@ -1,0 +1,557 @@
+{
+  "security": [
+    {
+      "name": "rls_enabled_no_policy",
+      "level": "INFO",
+      "count": 14,
+      "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0008_rls_enabled_no_policy",
+      "objects": [
+        {
+          "name": "battles",
+          "type": "table",
+          "schema": "economy_private"
+        },
+        {
+          "name": "card_catalog",
+          "type": "table",
+          "schema": "economy_private"
+        },
+        {
+          "name": "journey_operations",
+          "type": "table",
+          "schema": "economy_private"
+        },
+        {
+          "name": "journey_rewards",
+          "type": "table",
+          "schema": "economy_private"
+        },
+        {
+          "name": "journeys",
+          "type": "table",
+          "schema": "economy_private"
+        },
+        {
+          "name": "rate_limits",
+          "type": "table",
+          "schema": "guild_chat_private"
+        },
+        {
+          "name": "link_invites",
+          "type": "table",
+          "schema": "guild_invite_private"
+        },
+        {
+          "name": "guild_ebd_activities",
+          "type": "table",
+          "schema": "public"
+        },
+        {
+          "name": "guild_ebd_answers",
+          "type": "table",
+          "schema": "public"
+        },
+        {
+          "name": "guild_ebd_attendance",
+          "type": "table",
+          "schema": "public"
+        },
+        {
+          "name": "guild_ebd_history",
+          "type": "table",
+          "schema": "public"
+        },
+        {
+          "name": "guild_ebd_reward_pending",
+          "type": "table",
+          "schema": "public"
+        },
+        {
+          "name": "guild_ebd_teachers",
+          "type": "table",
+          "schema": "public"
+        },
+        {
+          "name": "step_receipts",
+          "type": "table",
+          "schema": "story_private"
+        }
+      ]
+    },
+    {
+      "name": "authenticated_security_definer_function_executable",
+      "level": "WARN",
+      "count": 20,
+      "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0029_authenticated_security_definer_function_executable",
+      "objects": [
+        {
+          "name": "act_guild_mission_v2",
+          "schema": "public",
+          "language": "plpgsql",
+          "arguments": "p_actor uuid, p_mission uuid, p_action text, p_note text, p_request uuid, p_expected_attempt integer",
+          "security_definer": true
+        },
+        {
+          "name": "can_lead_mission",
+          "schema": "public",
+          "language": "sql",
+          "arguments": "p_mission_id uuid",
+          "security_definer": true
+        },
+        {
+          "name": "complete_story",
+          "schema": "public",
+          "language": "plpgsql",
+          "arguments": "p_traveler_id uuid, p_story_id text",
+          "security_definer": true
+        },
+        {
+          "name": "create_guild",
+          "schema": "public",
+          "language": "plpgsql",
+          "arguments": "p_leader_traveler_id uuid, p_name text, p_description text",
+          "security_definer": true
+        },
+        {
+          "name": "guild_admin_stats",
+          "schema": "public",
+          "language": "plpgsql",
+          "arguments": "p_leader_traveler_id uuid",
+          "security_definer": true
+        },
+        {
+          "name": "guild_mission_workspace",
+          "schema": "public",
+          "language": "plpgsql",
+          "arguments": "p_actor uuid, p_history_offset integer",
+          "security_definer": true
+        },
+        {
+          "name": "guild_public_member_profile",
+          "schema": "public",
+          "language": "plpgsql",
+          "arguments": "p_requester_traveler_id uuid, p_member_traveler_id uuid",
+          "security_definer": true
+        },
+        {
+          "name": "is_active_guild_member",
+          "schema": "public",
+          "language": "sql",
+          "arguments": "p_guild_id uuid",
+          "security_definer": true
+        },
+        {
+          "name": "is_guild_leader",
+          "schema": "public",
+          "language": "sql",
+          "arguments": "p_guild_id uuid",
+          "security_definer": true
+        },
+        {
+          "name": "leave_guild",
+          "schema": "public",
+          "language": "plpgsql",
+          "arguments": "p_traveler_id uuid",
+          "security_definer": true
+        },
+        {
+          "name": "list_guild_join_requests",
+          "schema": "public",
+          "language": "sql",
+          "arguments": "p_leader_traveler_id uuid",
+          "security_definer": true
+        },
+        {
+          "name": "list_guild_members",
+          "schema": "public",
+          "language": "sql",
+          "arguments": "p_requester_traveler_id uuid",
+          "security_definer": true
+        },
+        {
+          "name": "list_guild_mission_progress",
+          "schema": "public",
+          "language": "sql",
+          "arguments": "p_mission_id uuid, p_leader_traveler_id uuid",
+          "security_definer": true
+        },
+        {
+          "name": "owns_traveler",
+          "schema": "public",
+          "language": "sql",
+          "arguments": "p_traveler_id uuid",
+          "security_definer": true
+        },
+        {
+          "name": "remove_guild_member",
+          "schema": "public",
+          "language": "plpgsql",
+          "arguments": "p_member_traveler_id uuid, p_leader_traveler_id uuid",
+          "security_definer": true
+        },
+        {
+          "name": "request_join_guild",
+          "schema": "public",
+          "language": "plpgsql",
+          "arguments": "p_guild_id uuid, p_traveler_id uuid",
+          "security_definer": true
+        },
+        {
+          "name": "review_guild_join_request",
+          "schema": "public",
+          "language": "plpgsql",
+          "arguments": "p_request_id uuid, p_reviewer_traveler_id uuid, p_approve boolean",
+          "security_definer": true
+        },
+        {
+          "name": "review_guild_mission_v2",
+          "schema": "public",
+          "language": "plpgsql",
+          "arguments": "p_actor uuid, p_attempt uuid, p_revision integer, p_decision text, p_reason text, p_request uuid",
+          "security_definer": true
+        },
+        {
+          "name": "save_guild_mission_v2",
+          "schema": "public",
+          "language": "plpgsql",
+          "arguments": "p_actor uuid, p_mission uuid, p_expected_revision integer, p_data jsonb",
+          "security_definer": true
+        },
+        {
+          "name": "transition_guild_mission_v2",
+          "schema": "public",
+          "language": "plpgsql",
+          "arguments": "p_actor uuid, p_mission uuid, p_expected_revision integer, p_action text",
+          "security_definer": true
+        }
+      ]
+    }
+  ],
+  "performance": [
+    {
+      "name": "unindexed_foreign_keys",
+      "level": "INFO",
+      "count": 28,
+      "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0001_unindexed_foreign_keys",
+      "objects": [
+        {
+          "name": "battles",
+          "type": "table",
+          "schema": "economy_private",
+          "fkey_name": "battles_receipt_id_fkey",
+          "fkey_columns": [22]
+        },
+        {
+          "name": "link_invites",
+          "type": "table",
+          "schema": "guild_invite_private",
+          "fkey_name": "link_invites_leader_traveler_id_fkey",
+          "fkey_columns": [3]
+        },
+        {
+          "name": "chest_operations",
+          "type": "table",
+          "schema": "public",
+          "fkey_name": "chest_operations_account_id_fkey",
+          "fkey_columns": [11]
+        },
+        {
+          "name": "equipped_items",
+          "type": "table",
+          "schema": "public",
+          "fkey_name": "equipped_items_owned_item_fk",
+          "fkey_columns": [1, 3]
+        },
+        {
+          "name": "guild_activity_log",
+          "type": "table",
+          "schema": "public",
+          "fkey_name": "guild_activity_log_actor_traveler_id_fkey",
+          "fkey_columns": [3]
+        },
+        {
+          "name": "guild_chat_reads",
+          "type": "table",
+          "schema": "public",
+          "fkey_name": "guild_chat_reads_user_id_users_id_fk",
+          "fkey_columns": [2]
+        },
+        {
+          "name": "guild_ebd_answers",
+          "type": "table",
+          "schema": "public",
+          "fkey_name": "guild_ebd_answers_reviewer_id_fkey",
+          "fkey_columns": [10]
+        },
+        {
+          "name": "guild_ebd_attendance",
+          "type": "table",
+          "schema": "public",
+          "fkey_name": "guild_ebd_attendance_marked_by_fkey",
+          "fkey_columns": [6]
+        },
+        {
+          "name": "guild_ebd_history",
+          "type": "table",
+          "schema": "public",
+          "fkey_name": "guild_ebd_history_actor_id_fkey",
+          "fkey_columns": [4]
+        },
+        {
+          "name": "guild_ebd_reward_pending",
+          "type": "table",
+          "schema": "public",
+          "fkey_name": "guild_ebd_reward_pending_activity_id_fkey",
+          "fkey_columns": [3]
+        },
+        {
+          "name": "guild_ebd_reward_pending",
+          "type": "table",
+          "schema": "public",
+          "fkey_name": "guild_ebd_reward_pending_answer_id_fkey",
+          "fkey_columns": [4]
+        },
+        {
+          "name": "guild_ebd_reward_pending",
+          "type": "table",
+          "schema": "public",
+          "fkey_name": "guild_ebd_reward_pending_traveler_id_fkey",
+          "fkey_columns": [2]
+        },
+        {
+          "name": "guild_ebd_teachers",
+          "type": "table",
+          "schema": "public",
+          "fkey_name": "guild_ebd_teachers_traveler_id_fkey",
+          "fkey_columns": [2]
+        },
+        {
+          "name": "guild_invites",
+          "type": "table",
+          "schema": "public",
+          "fkey_name": "guild_invites_invited_by_traveler_id_fkey",
+          "fkey_columns": [4]
+        },
+        {
+          "name": "guild_invites",
+          "type": "table",
+          "schema": "public",
+          "fkey_name": "guild_invites_invited_traveler_id_fkey",
+          "fkey_columns": [3]
+        },
+        {
+          "name": "guild_join_requests",
+          "type": "table",
+          "schema": "public",
+          "fkey_name": "guild_join_requests_reviewed_by_traveler_id_fkey",
+          "fkey_columns": [5]
+        },
+        {
+          "name": "guild_join_requests",
+          "type": "table",
+          "schema": "public",
+          "fkey_name": "guild_join_requests_traveler_id_fkey",
+          "fkey_columns": [3]
+        },
+        {
+          "name": "guild_lessons",
+          "type": "table",
+          "schema": "public",
+          "fkey_name": "guild_lessons_created_by_traveler_id_fkey",
+          "fkey_columns": [3]
+        },
+        {
+          "name": "guild_lessons",
+          "type": "table",
+          "schema": "public",
+          "fkey_name": "guild_lessons_related_mission_id_fkey",
+          "fkey_columns": [4]
+        },
+        {
+          "name": "guild_mission_attempts",
+          "type": "table",
+          "schema": "public",
+          "fkey_name": "guild_mission_attempts_reviewer_traveler_id_fkey",
+          "fkey_columns": [11]
+        },
+        {
+          "name": "guild_mission_progress",
+          "type": "table",
+          "schema": "public",
+          "fkey_name": "guild_mission_progress_approved_by_traveler_id_fkey",
+          "fkey_columns": [9]
+        },
+        {
+          "name": "guild_missions",
+          "type": "table",
+          "schema": "public",
+          "fkey_name": "guild_missions_created_by_traveler_id_fkey",
+          "fkey_columns": [3]
+        },
+        {
+          "name": "guild_reward_claims",
+          "type": "table",
+          "schema": "public",
+          "fkey_name": "guild_reward_claims_traveler_id_fkey",
+          "fkey_columns": [3]
+        },
+        {
+          "name": "guilds",
+          "type": "table",
+          "schema": "public",
+          "fkey_name": "guilds_created_by_user_id_fkey",
+          "fkey_columns": [4]
+        },
+        {
+          "name": "inventory",
+          "type": "table",
+          "schema": "public",
+          "fkey_name": "inventory_card_receipt_id_fkey",
+          "fkey_columns": [7]
+        },
+        {
+          "name": "inventory",
+          "type": "table",
+          "schema": "public",
+          "fkey_name": "inventory_card_revocation_receipt_id_fkey",
+          "fkey_columns": [10]
+        },
+        {
+          "name": "story_progress",
+          "type": "table",
+          "schema": "public",
+          "fkey_name": "story_progress_story_id_fkey",
+          "fkey_columns": [2]
+        },
+        {
+          "name": "step_receipts",
+          "type": "table",
+          "schema": "story_private",
+          "fkey_name": "step_receipts_story_id_fkey",
+          "fkey_columns": [2]
+        }
+      ]
+    },
+    {
+      "name": "auth_rls_initplan",
+      "level": "WARN",
+      "count": 2,
+      "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0003_auth_rls_initplan",
+      "objects": [
+        {
+          "name": "story_definitions",
+          "type": "table",
+          "schema": "public"
+        },
+        {
+          "name": "story_progress",
+          "type": "table",
+          "schema": "public"
+        }
+      ]
+    },
+    {
+      "name": "unused_index",
+      "level": "INFO",
+      "count": 19,
+      "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0005_unused_index",
+      "objects": [
+        {
+          "name": "inventory",
+          "type": "table",
+          "schema": "public"
+        },
+        {
+          "name": "guilds",
+          "type": "table",
+          "schema": "public"
+        },
+        {
+          "name": "guild_invites",
+          "type": "table",
+          "schema": "public"
+        },
+        {
+          "name": "guild_join_requests",
+          "type": "table",
+          "schema": "public"
+        },
+        {
+          "name": "guild_missions",
+          "type": "table",
+          "schema": "public"
+        },
+        {
+          "name": "guild_activity_log",
+          "type": "table",
+          "schema": "public"
+        },
+        {
+          "name": "guild_chat_messages",
+          "type": "table",
+          "schema": "public"
+        },
+        {
+          "name": "guild_chat_messages",
+          "type": "table",
+          "schema": "public"
+        },
+        {
+          "name": "guild_chat_reports",
+          "type": "table",
+          "schema": "public"
+        },
+        {
+          "name": "guild_chat_reports",
+          "type": "table",
+          "schema": "public"
+        },
+        {
+          "name": "guild_chat_moderation_log",
+          "type": "table",
+          "schema": "public"
+        },
+        {
+          "name": "guild_chat_moderation_log",
+          "type": "table",
+          "schema": "public"
+        },
+        {
+          "name": "guild_chat_moderation_log",
+          "type": "table",
+          "schema": "public"
+        },
+        {
+          "name": "guild_lessons",
+          "type": "table",
+          "schema": "public"
+        },
+        {
+          "name": "guild_lessons",
+          "type": "table",
+          "schema": "public"
+        },
+        {
+          "name": "guild_mission_attempts",
+          "type": "table",
+          "schema": "public"
+        },
+        {
+          "name": "guild_ebd_history",
+          "type": "table",
+          "schema": "public"
+        },
+        {
+          "name": "guild_ebd_history",
+          "type": "table",
+          "schema": "public"
+        },
+        {
+          "name": "battles",
+          "type": "table",
+          "schema": "economy_private"
+        }
+      ]
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 import type { AttributeValues } from '../../../features/journey/domain/traveler';
 import { getSupabaseBrowserClient } from '../client';
 import type { TravelerStatsRow } from '../database.types';
-import { requireSuccess } from './errors';
+import { ECONOMY_TRANSITION_NOTICE } from '../../authority/legacy-cutover';
 
 export const statsRepository = {
   async getTravelerStats(travelerId: string): Promise<TravelerStatsRow | null> {
@@ -19,15 +19,8 @@ export const statsRepository = {
     travelerId: string,
     stats: AttributeValues,
   ): Promise<void> {
-    const result = await getSupabaseBrowserClient()
-      .from('traveler_stats')
-      .update({
-        base_life: stats.life,
-        base_strength: stats.strength,
-        base_defense: stats.defense,
-        base_wisdom: stats.wisdom,
-      })
-      .eq('traveler_id', travelerId);
-    requireSuccess(result, 'Não foi possível salvar os atributos.');
+    void travelerId;
+    void stats;
+    throw new Error(ECONOMY_TRANSITION_NOTICE);
   },
 };

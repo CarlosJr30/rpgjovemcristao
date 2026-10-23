@@ -1,0 +1,8 @@
+body {
+  font-family: Arial, sans-serif;
+}
+.focusFixture {
+  padding: 12px;
+  background: #102d23;
+  border-radius: 10px;
+}

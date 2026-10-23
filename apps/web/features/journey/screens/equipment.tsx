@@ -2,6 +2,7 @@
 import Image from 'next/image';
 import portal from '../components/equipment-portal.module.css';
 import { EquipmentComparison } from '../components/equipment-comparison';
+import { EquipmentArenaDetails } from '../components/arena-rule-details';
 import { EquipmentTryOn } from '../components/equipment-try-on';
 import { ATTRIBUTE_LABELS } from '../data/attributes';
 import { resolveAvatarIdentity } from '../data/avatarRuntime';
@@ -455,6 +456,7 @@ export function EquipmentScreen() {
                               : 'Disponível para equipar'}
                           </span>
                           <EquipmentBibleDetails item={item} />
+                          <EquipmentArenaDetails item={item} />
                           <p
                             className={portal.visualNote}
                             data-visual-quality={visual.visualQuality}

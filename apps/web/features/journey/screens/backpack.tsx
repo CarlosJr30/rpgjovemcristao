@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { TRAVELER_CURRENCY_NAME } from '../data/progression';
 import { EquipmentBibleDetails } from '../components/equipment-bible-details';
 import { EquipmentStatBonuses } from '../components/equipment-stat-bonuses';
+import { EquipmentArenaDetails } from '../components/arena-rule-details';
 import { ChestPanel } from '../components/chest-panel';
 import { useAuth } from '../../../lib/supabase/auth-context';
 import { equipmentAssetForItem } from '../data/avatarAssets';
@@ -87,6 +88,7 @@ export function BackpackScreen() {
                       {item.slot} · {item.rarity} · poder {item.power}
                     </p>
                     <EquipmentStatBonuses stats={item.stats} />
+                    <EquipmentArenaDetails item={item} />
                     <EquipmentBibleDetails item={item} />
                     {item.isNew && <b>NOVO EQUIPAMENTO</b>}
                     {(item.quantity ?? 1) > 1 && (
@@ -98,6 +100,8 @@ export function BackpackScreen() {
             )}
             {tab === 'chests' && (
               <ChestPanel
+                key={`${auth.user?.id}:${t.id}`}
+                ownerId={auth.user?.id ?? ''}
                 traveler={t}
                 online={auth.status === 'signedIn'}
                 onCountChange={updateChestCount}

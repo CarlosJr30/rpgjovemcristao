@@ -37,6 +37,7 @@ test('nível 1 explica locks e Foco mecânico sem executar especial', () => {
   );
   expect(select).not.toHaveBeenCalled();
   expect(screen.getAllByRole('button')).toHaveLength(5);
+  expect(screen.queryByRole('button', { name: /Golpe Medido/ })).toBeNull();
 });
 
 test('custo insuficiente comunica feedback; cheio seleciona uma vez e encerra painel', () => {

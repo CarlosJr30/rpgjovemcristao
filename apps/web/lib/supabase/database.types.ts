@@ -153,6 +153,7 @@ export type GuildMissionProgressSummary = { traveler_id: string; traveler_name: 
 export type Database = {
   public: {
     Tables: {
+      story_progress: TableDefinition<import('../../features/story/progression').StoryProgress, never, never>;
       guild_chat_messages: TableDefinition<GuildChatMessageRow, never, never>;
       guild_chat_reads: TableDefinition<{guild_id: string; user_id: string; last_read_sequence: number}, never, never>;
       guild_chat_reports: TableDefinition<GuildChatReportRow, never, never>;
@@ -216,6 +217,14 @@ export type Database = {
     };
     Views: Record<string, never>;
     Functions: {
+      guild_ebd_workspace: {Args: {p_actor: string; p_offset: number}; Returns: Json};
+      guild_ebd_command: {Args: {p_actor: string; p_action: string; p_id: string; p_revision: number; p_data: Json}; Returns: Json};
+      guild_mission_workspace: { Args: { p_actor: string; p_history_offset: number }; Returns: Json };
+      save_guild_mission_v2: { Args: { p_actor: string; p_mission: string; p_expected_revision: number; p_data: Json }; Returns: string };
+      transition_guild_mission_v2: { Args: { p_actor: string; p_mission: string; p_expected_revision: number; p_action: string }; Returns: undefined };
+      act_guild_mission_v2: { Args: { p_actor: string; p_mission: string; p_action: string; p_note: string; p_request: string; p_expected_attempt: number }; Returns: string };
+      review_guild_mission_v2: { Args: { p_actor: string; p_attempt: string; p_revision: number; p_decision: string; p_reason: string; p_request: string }; Returns: string };
+      complete_story: { Args: { p_traveler_id: string; p_story_id: string }; Returns: boolean };
       send_guild_chat_message: { Args: {p_guild_id: string; p_traveler_id: string; p_client_id: string; p_body: string; p_announcement: boolean}; Returns: string };
       guild_chat_summary: {Args: {p_guild_id: string; p_traveler_id: string}; Returns: GuildChatSummary[]};
       mark_guild_chat_read: {Args: {p_guild_id: string; p_traveler_id: string; p_sequence: number}; Returns: undefined};
@@ -247,6 +256,12 @@ export type Database = {
       };
       create_guild: { Args: { p_leader_traveler_id: string; p_name: string; p_description?: string | null }; Returns: string };
       request_join_guild: { Args: { p_guild_id: string; p_traveler_id: string }; Returns: string };
+      create_guild_link_invite: { Args: { p_leader_traveler_id: string }; Returns: Json };
+      list_guild_link_invites: { Args: { p_leader_traveler_id: string }; Returns: Json };
+      resolve_guild_link_invite: { Args: { p_token: string }; Returns: Json };
+      preview_guild_link_invite: { Args: { p_token: string }; Returns: Json };
+      request_guild_link_invite: { Args: { p_token: string; p_traveler_id: string }; Returns: string };
+      revoke_guild_link_invite: { Args: { p_invite_id: string; p_leader_traveler_id: string }; Returns: undefined };
       review_guild_join_request: { Args: { p_request_id: string; p_reviewer_traveler_id: string; p_approve: boolean }; Returns: undefined };
       leave_guild: { Args: { p_traveler_id: string }; Returns: undefined };
       create_guild_mission: { Args: {

@@ -1,5 +1,6 @@
 'use client';
 import { useSyncExternalStore } from 'react';
+import { hasEconomicChange } from '../../../lib/authority/legacy-cutover';
 import {
   createTraveler,
   type Appearance,
@@ -108,8 +109,8 @@ export async function registerTraveler(
   authenticatedUserId: string | null | undefined = undefined,
 ): Promise<string | null> {
   try {
-    if (authenticatedUserId === undefined)
-      return 'Entre em sua conta ou escolha continuar somente neste navegador.';
+    if (!authenticatedUserId)
+      return 'Entre em sua conta para criar e salvar seu herói.';
 
     const session = await getSession();
     const verifiedUser = session ? await getAuthenticatedUser() : null;
@@ -118,18 +119,14 @@ export async function registerTraveler(
       console.info('[AUTH] user id:', verifiedUser?.id ?? null);
     }
 
-    const requiresOnlineCreation =
-      authenticatedUserId !== null || session !== null;
-    if (requiresOnlineCreation) {
-      if (
-        !session?.user.id ||
-        !verifiedUser?.id ||
-        session.user.id !== verifiedUser.id ||
-        (authenticatedUserId !== null &&
-          authenticatedUserId !== verifiedUser.id)
-      ) {
-        return 'Não foi possível validar sua sessão do Supabase. Entre novamente e tente de novo.';
-      }
+    if (
+      !session?.user.id ||
+      !verifiedUser?.id ||
+      verifiedUser.is_anonymous ||
+      session.user.id !== verifiedUser.id ||
+      authenticatedUserId !== verifiedUser.id
+    ) {
+      return 'Não foi possível validar sua sessão do Supabase. Entre novamente e tente de novo.';
     }
 
     const traveler = createTraveler(
@@ -140,17 +137,9 @@ export async function registerTraveler(
     );
     traveler.avatar.gender = bodyType;
 
-    if (verifiedUser) {
-      const result = await createOnlineTraveler(verifiedUser.id, traveler);
-      refresh();
-      return result.status === 'created' ? null : result.message;
-    }
-
-    if (!journeyRepository.saveNew(traveler))
-      return 'Não foi possível salvar. Permita o armazenamento deste site e tente novamente.';
-    journeyRepository.startSession(traveler.id);
+    const result = await createOnlineTraveler(verifiedUser.id, traveler);
     refresh();
-    return null;
+    return result.status === 'created' ? null : result.message;
   } catch {
     return 'Não foi possível criar o Viajante. Confira o nome e tente novamente.';
   }
@@ -211,6 +200,7 @@ export function updateTraveler(
   const current = journeyRepository.load();
   if (current.status !== 'ready') return false;
   const next = mutator(current.traveler);
+  if (getCurrentOnlineUserId() && hasEconomicChange(current.traveler,next)) return false;
   const saved = journeyRepository.save(next);
   if (saved) {
     queueOnlineTravelerSync(current.traveler, next);
@@ -222,6 +212,7 @@ export function updateTraveler(
 export function buyEquipment(
   equipmentId: string,
 ): PurchaseResult['status'] | 'save-failed' {
+  if (getCurrentOnlineUserId()) return 'unavailable';
   const current = journeyRepository.load();
   if (current.status !== 'ready') return 'unavailable';
   const result = purchaseFromShop(current.traveler, equipmentId);
@@ -236,6 +227,7 @@ export function buyChest(
   type: ChestType,
   operationId: string,
 ): 'purchased' | 'duplicate' | 'unavailable' | 'level-required' | 'insufficient' | 'save-failed' {
+  if (getCurrentOnlineUserId()) return 'unavailable';
   const current = journeyRepository.load();
   if (current.status !== 'ready') return 'unavailable';
   const result = purchaseChestLocal(current.traveler, type, operationId);
@@ -250,6 +242,7 @@ export function openOwnedChest(
   type: ChestType,
   operationId: string,
 ): { status: 'opened' | 'duplicate'; reward: ChestReward } | { status: 'empty' | 'save-failed' } {
+  if (getCurrentOnlineUserId()) return {status:'save-failed'};
   const current = journeyRepository.load();
   if (current.status !== 'ready') return { status: 'empty' };
   const random = new Uint32Array(1);
@@ -327,6 +320,7 @@ function reviewGuildActivity(
   contentId: string,
   decision: 'approved' | 'revision-requested',
 ): boolean {
+  if (getCurrentOnlineUserId()) return false;
   const current = journeyRepository.load();
   if (current.status !== 'ready' || !current.traveler.progress.guildId)
     return false;

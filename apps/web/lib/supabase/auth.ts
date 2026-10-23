@@ -1,6 +1,7 @@
 import type { AuthChangeEvent, Session, User } from '@supabase/supabase-js';
 import { authDiagnostic, safeAuthError } from './auth-diagnostics';
 import { getSupabaseBrowserClient } from './client';
+import { authCallbackPath } from './auth-return';
 
 export const signUp = async (
   email: string,
@@ -12,7 +13,7 @@ export const signUp = async (
     password,
     options: {
       data: { display_name: displayName.trim() },
-      emailRedirectTo: `${window.location.origin}/auth`,
+      emailRedirectTo: `${window.location.origin}${authCallbackPath()}`,
     },
   });
 

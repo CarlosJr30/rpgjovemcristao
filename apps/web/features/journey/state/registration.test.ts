@@ -104,6 +104,13 @@ describe('traveler and account session actions', () => {
 });
 
 describe('traveler registration session gate', () => {
+  test('does not create a traveler for a verified anonymous Supabase account', async () => {
+    getSession.mockResolvedValue({ user: { id: userId, is_anonymous: true } });
+    getAuthenticatedUser.mockResolvedValue({ id: userId, is_anonymous: true });
+    await expect(registerTraveler('Viajante', DEFAULT_APPEARANCE, 'male', userId)).resolves.toContain('Não foi possível validar sua sessão');
+    expect(createOnlineTraveler).not.toHaveBeenCalled();
+    expect(journeyRepository.listSaved()).toEqual([]);
+  });
   test('does not infer local-only mode while authentication is unresolved', async () => {
     await expect(
       registerTraveler(
@@ -113,7 +120,7 @@ describe('traveler registration session gate', () => {
         undefined,
       ),
     ).resolves.toBe(
-      'Entre em sua conta ou escolha continuar somente neste navegador.',
+      'Entre em sua conta para criar e salvar seu herói.',
     );
 
     expect(getSession).not.toHaveBeenCalled();
@@ -138,13 +145,15 @@ describe('traveler registration session gate', () => {
     expect(journeyRepository.activeTravelerId()).toBeNull();
   });
 
-  test('keeps local-only creation for a genuinely signed-out user', async () => {
+  test('refuses legacy local-only creation without deleting saved travelers', async () => {
+    const legacy = createTraveler('Viajante antigo', DEFAULT_APPEARANCE, '11111111-1111-4111-8111-111111111111', '2026-09-27T00:00:00.000Z');
+    journeyRepository.saveNew(legacy);
     await expect(
       registerTraveler('Viajante Local', DEFAULT_APPEARANCE, 'male', null),
-    ).resolves.toBeNull();
+    ).resolves.toBe('Entre em sua conta para criar e salvar seu herói.');
 
     expect(createOnlineTraveler).not.toHaveBeenCalled();
-    expect(journeyRepository.listSaved()).toHaveLength(1);
-    expect(journeyRepository.activeTravelerId()).not.toBeNull();
+    expect(journeyRepository.listSaved()).toEqual([legacy]);
+    expect(getSession).not.toHaveBeenCalled();
   });
 });

@@ -1210,3 +1210,6 @@ secrets/
 !/build/task-0074-equipment-body-fit-v3/preservation-final.json
 !/build/task-0074-equipment-body-fit-v3/visual-review.json
 !/build/task-0074-equipment-body-fit-v3/performance.json
+
+# DEPLOY-003: contexto Vercel e envs locais nunca entram no Git.
+.vercel/

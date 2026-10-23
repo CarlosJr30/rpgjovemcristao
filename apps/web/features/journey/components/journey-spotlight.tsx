@@ -20,6 +20,7 @@ const stepLabels: Record<GardenStep, string> = {
   mission: 'Realize a missão do Jardim',
   snake: 'Fuga da Serpente',
   quiz: 'Complete o Quiz Bíblico',
+  video: 'Vídeo educativo pendente',
   reward: 'Receba a recompensa da fase',
   diary: 'Registre sua descoberta',
   done: 'Caminho registrado',
@@ -27,21 +28,24 @@ const stepLabels: Record<GardenStep, string> = {
 export function JourneySpotlight({ traveler }: { traveler: Traveler }) {
   const step = resolveGardenStep(traveler.progress);
   const finished = traveler.progress.gardenCompleted;
-  const gate = finished && !traveler.progress.nextPhaseUnlocked;
   const index = finished ? PHASE_STEPS.length - 1 : PHASE_STEPS.indexOf(step);
   return (
     <section className={styles.journeySpotlight} aria-label="Sua jornada atual">
       <div className={styles.spotlightCopy}>
-        <p className={styles.eyebrow}>ATO I · AS ORIGENS</p>
+        <p className={styles.eyebrow}>MODO HISTÓRIA · AS ORIGENS</p>
         <h2>{GARDEN.title}</h2>
         <p className={styles.spotlightReference}>
           {GARDEN.biblicalReference} · Fase {GARDEN.order}
         </p>
         <p className={styles.spotlightObjective}>
-          <JourneyIcon name={gate ? 'guild' : 'garden'} />
+          <JourneyIcon name="garden" />
           <span>
             <small>SEU PRÓXIMO PASSO</small>
-            <strong>{gate ? 'Desafio da Célula' : stepLabels[step]}</strong>
+            <strong>
+              {finished
+                ? 'Consulte os novos capítulos e o vídeo obrigatório'
+                : stepLabels[step]}
+            </strong>
           </span>
         </p>
         <div className={styles.spotlightProgress}>
@@ -52,20 +56,12 @@ export function JourneySpotlight({ traveler }: { traveler: Traveler }) {
           />
           <span>
             {finished
-              ? 'Fase concluída'
+              ? 'Atividades do Jardim registradas'
               : `Etapa ${index + 1} de ${PHASE_STEPS.length}`}
           </span>
         </div>
-        <Link
-          className={styles.primaryLink}
-          href={gate ? routes.guild : routes.garden}
-        >
-          {gate
-            ? 'Continuar na Guilda'
-            : finished
-              ? 'Revisitar o Jardim'
-              : 'Continuar jornada'}{' '}
-          <span aria-hidden="true">→</span>
+        <Link className={styles.primaryLink} href={routes.map}>
+          Modo História · ver mundos <span aria-hidden="true">→</span>
         </Link>
       </div>
       <span className={styles.spotlightSeal} aria-hidden="true">

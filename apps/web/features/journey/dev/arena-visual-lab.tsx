@@ -203,11 +203,13 @@ export function ArenaVisualLab() {
             }}
           >
             <option value="basic">Ataque Básico</option>
-            {arenaSpecials.map((s) => (
-              <option key={s.id} value={s.id}>
-                {s.name}
-              </option>
-            ))}
+            {arenaSpecials
+              .filter((s) => !s.cardOnly)
+              .map((s) => (
+                <option key={s.id} value={s.id}>
+                  {s.name}
+                </option>
+              ))}
           </select>
         </label>
         <label>

@@ -131,10 +131,13 @@ it.each([
     currentTraveler.progress.guildChallengeStatus = status;
     render(<DiaryScreen />);
     expect(
-      screen.getByRole('link', { name: /Continuar na Guilda/ }),
-    ).toHaveAttribute('href', '/journey/guild');
+      screen.getByRole('link', { name: /Modo História · ver mundos/ }),
+    ).toHaveAttribute('href', '/journey');
     expect(
-      screen.getByText(diaryView(currentTraveler).guildStatus + '.'),
+      screen.getByText(
+        diaryView(currentTraveler).guildStatus +
+          ' · Atividade da Guilda independente do Modo História.',
+      ),
     ).toBeInTheDocument();
   },
 );

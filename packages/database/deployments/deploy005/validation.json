@@ -1,0 +1,43 @@
+{
+  "date": "2026-10-23",
+  "target": "wspafhlbtlpabypzymjo",
+  "runtimeSourceSha": "548d986c338cbf9997ba15020d2d7a58182d6551",
+  "payloadSha256": "217d5585022633e19e323c32cc9e26b184ff5a7f973f1501b37a4adbc45db503",
+  "payloadBytes": 127204,
+  "sourceSteps": 7,
+  "historicalSnapshotSha256": "CA6DBDBAB8AF72F4DEB28464679F3C2545CD1D5418AA5FB48029692D59094C26",
+  "offlineRestore": {
+    "tables": 67,
+    "rows": 490,
+    "schemaBlocks": 873,
+    "schemaDifferences": 0,
+    "dataHashesMatch": true,
+    "rolesAndMembershipsMatch": true,
+    "sequencesMatch": true,
+    "databaseContextMatch": true,
+    "network": "none",
+    "portsPublished": 0,
+    "readOnlyRoot": true
+  },
+  "catalogComparisonWithProduction": {
+    "functions": true,
+    "columns": true,
+    "policies": true,
+    "triggers": true,
+    "dataFreshnessProven": false
+  },
+  "offlineMigration": {
+    "atomicRollback": true,
+    "rollbackSchemaUnchanged": true,
+    "originalTablesPreserved": 67,
+    "originalRowsPreserved": 490,
+    "protocol": 3,
+    "roleAssertions": 31,
+    "fixtureRoles": 5,
+    "fixtureTransactionRolledBack": true
+  },
+  "productionMutated": false,
+  "refreshedBackup": "PENDING secure local PostgreSQL authentication",
+  "hostedAuthAndAcceptance": "PENDING",
+  "independentReview": false
+}

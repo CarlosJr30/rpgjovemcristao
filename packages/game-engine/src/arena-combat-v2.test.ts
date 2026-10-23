@@ -54,7 +54,7 @@ test('ataque e defesa geram Foco limitado e preservam a fórmula de dano', () =>
   expect(arenaFocus(resolveArenaRound(state, 'attack').player)).toBe(3);
 });
 
-test.each(arenaSpecials)(
+test.each(arenaSpecials.filter((special) => !special.cardOnly))(
   '$name: desbloqueio central e consumo exato de Foco',
   (special) => {
     const locked = focus(initial(special.minimumLevel - 1), 3);

@@ -1,0 +1,10 @@
+.metrics {
+  width: 100%;
+  table-layout: fixed;
+}
+.metrics th:first-child {
+  width: 40%;
+}
+.metrics abbr {
+  text-decoration: none;
+}
