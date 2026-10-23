@@ -1,5 +1,5 @@
 // @vitest-environment jsdom
-import { beforeEach, expect, test } from 'vitest';
+import { afterEach, beforeEach, expect, test, vi } from 'vitest';
 import { arenaDeckStorage } from '../arena-deck/storage';
 import { TOWER_FLOORS } from './config';
 import { finishTower, loadTower, towerArenaSession } from './storage';
@@ -12,6 +12,7 @@ import {
 const owner = '003a-fixture-account';
 const cards = syntheticSevenCards(),
   ids = cards.map((card) => card.id);
+afterEach(() => vi.restoreAllMocks());
 beforeEach(() => {
   localStorage.clear();
   const queues = new Map<string, Promise<unknown>>();
@@ -81,62 +82,89 @@ test('training reload preserves used candidate and stale concurrent commands acc
   expect(arenaDeckStorage.load(owner, 'foreign', cards).battle).toBeNull();
 });
 
-test('first two Tower floors restore candidate in the next battle and never settle training rewards', async () => {
-  const hero = {
-    ...measuredHero,
-    attributes: { life: 100, strength: 80, defense: 30, wisdom: 30 },
-  };
-  await arenaDeckStorage.save(owner, hero.id, cards, ids);
-  for (const floor of [0, 1]) {
-    const session = towerArenaSession(floor);
-    let b = await session.begin(
-      owner,
-      hero.id,
-      cards,
-      hero,
-      TOWER_FLOORS[floor].snapshot,
-    );
-    expect(b.deck?.usedIds).toEqual([]);
-    await expect(
-      session.command(
+test.each([
+  { seed: 42, firstStrikeDodged: false },
+  { seed: 4, firstStrikeDodged: true },
+])(
+  'first two Tower floors restore candidate and never settle training rewards (seed $seed)',
+  async ({ seed, firstStrikeDodged }) => {
+    vi.spyOn(crypto, 'getRandomValues').mockImplementation((array) => {
+      if (!(array instanceof Uint32Array))
+        throw new Error('Unexpected seed buffer');
+      array[0] = seed;
+      return array;
+    });
+    const hero = {
+      ...measuredHero,
+      attributes: { life: 100, strength: 80, defense: 30, wisdom: 30 },
+    };
+    await arenaDeckStorage.save(owner, hero.id, cards, ids);
+    for (const floor of [0, 1]) {
+      const session = towerArenaSession(floor);
+      let b = await session.begin(
+        owner,
+        hero.id,
+        cards,
+        hero,
+        TOWER_FLOORS[floor].snapshot,
+      );
+      expect(b.deck?.usedIds).toEqual([]);
+      await expect(
+        session.command(
+          owner,
+          hero.id,
+          cards,
+          b.id,
+          b.round,
+          `card:${MEASURED_CARD_ID}`,
+        ),
+      ).rejects.toThrow();
+      b = await session.command(owner, hero.id, cards, b.id, b.round, 'defend');
+      b = await session.command(
         owner,
         hero.id,
         cards,
         b.id,
         b.round,
         `card:${MEASURED_CARD_ID}`,
-      ),
-    ).rejects.toThrow();
-    b = await session.command(owner, hero.id, cards, b.id, b.round, 'defend');
-    b = await session.command(
-      owner,
-      hero.id,
-      cards,
-      b.id,
-      b.round,
-      `card:${MEASURED_CARD_ID}`,
+      );
+      expect(b.deck?.usedIds).toEqual([MEASURED_CARD_ID]);
+      expect(loadTower(owner, hero.id, cards).battle?.deck?.usedIds).toEqual([
+        MEASURED_CARD_ID,
+      ]);
+      expect(b.status).toBe(
+        floor === 0 && firstStrikeDodged ? 'in_progress' : 'finished',
+      );
+      // An agile opponent may dodge the card. Finish with ordinary attacks while
+      // preserving its consumed use; no combat rule or NPC parameter is changed.
+      for (let turn = 0; turn < 10 && b.status === 'in_progress'; turn++)
+        b = await session.command(
+          owner,
+          hero.id,
+          cards,
+          b.id,
+          b.round,
+          'attack',
+        );
+      expect(b.deck?.usedIds).toEqual([MEASURED_CARD_ID]);
+      expect(b.status).toBe('finished');
+      expect(b.winnerId).toBe(hero.id);
+      expect(await session.claimSettlement(owner, hero.id, cards, b.id)).toBe(
+        false,
+      );
+      await finishTower(owner, hero.id, cards, b.id);
+      expect(loadTower(owner, hero.id, cards).progress.wins).toHaveLength(
+        floor + 1,
+      );
+    }
+    const keys = Array.from({ length: localStorage.length }, (_, index) =>
+      localStorage.key(index)!,
     );
-    expect(b.deck?.usedIds).toEqual([MEASURED_CARD_ID]);
-    expect(loadTower(owner, hero.id, cards).battle?.deck?.usedIds).toEqual([
-      MEASURED_CARD_ID,
-    ]);
-    expect(b.status).toBe('finished');
-    expect(b.winnerId).toBe(hero.id);
-    expect(await session.claimSettlement(owner, hero.id, cards, b.id)).toBe(
-      false,
-    );
-    await finishTower(owner, hero.id, cards, b.id);
-    expect(loadTower(owner, hero.id, cards).progress.wins).toHaveLength(
-      floor + 1,
-    );
-  }
-  const keys = Array.from({ length: localStorage.length }, (_, index) =>
-    localStorage.key(index)!,
-  );
-  expect(keys.every((key) => key.startsWith('rpg-jovem-cristao:arena-'))).toBe(
-    true,
-  );
-});
+    expect(
+      keys.every((key) => key.startsWith('rpg-jovem-cristao:arena-')),
+    ).toBe(true);
+  },
+);
 
 test('defeat does not advance or grant; NPC parameters and synthetic collection stay unchanged', async () => {
   const beforeNpc = JSON.stringify(TOWER_FLOORS),
