@@ -14,6 +14,8 @@ import { useEffect, useRef, useState, type MouseEvent } from 'react';
 import { Shell, RequireTraveler } from '../components/shell';
 import { JOURNEY_ROUTES as routes } from '../data/campaign';
 import { equipItem, unequipSlot } from '../state/use-journey';
+import { getCurrentOnlineUserId } from '../../../lib/supabase/online-sync';
+import { changeOnlineEquipment } from '../../../lib/supabase/online-equipment';
 import type { EquipmentSlot, Traveler } from '../domain/traveler';
 import { EquippedAvatar } from '../components/equipped-avatar';
 import styles from '../journey.module.css';
@@ -83,7 +85,48 @@ export function EquipmentScreen() {
   const avatarTarget = useRef<HTMLDivElement>(null);
   const cinematic = useEquipmentCinematic();
   const [removing, setRemoving] = useState(false);
-  const busy = cinematic.busy || removing;
+  const [onlineBusy, setOnlineBusy] = useState(false);
+  const pending = useRef(false);
+  const live = useRef(true);
+  const busy = cinematic.busy || removing || onlineBusy;
+  useEffect(() => {
+    live.current = true;
+    return () => {
+      live.current = false;
+    };
+  }, []);
+  const confirmOnline = async (
+    traveler: Traveler,
+    id: EquipmentSlot,
+    itemId: string | null,
+  ) => {
+    if (pending.current) return;
+    pending.current = true;
+    setOnlineBusy(true);
+    setFeedback('Confirmando equipamento no servidor…');
+    try {
+      await changeOnlineEquipment(
+        traveler.id,
+        id,
+        itemId,
+        traveler.equipped[id] ?? null,
+      );
+      if (live.current)
+        setFeedback(
+          'Equipamento confirmado pelo servidor. Mochila e atributos atualizados.',
+        );
+    } catch (error) {
+      if (live.current)
+        setFeedback(
+          error instanceof Error
+            ? error.message
+            : 'Não foi possível confirmar o equipamento. Atualize para conferir.',
+        );
+    } finally {
+      pending.current = false;
+      if (live.current) setOnlineBusy(false);
+    }
+  };
   useEffect(
     () => () => {
       if (feedbackTimer.current) clearTimeout(feedbackTimer.current);
@@ -134,6 +177,10 @@ export function EquipmentScreen() {
     event: MouseEvent<HTMLButtonElement>,
   ) => {
     if (busy) return;
+    if (getCurrentOnlineUserId()) {
+      void confirmOnline(traveler, item.slot, item.id);
+      return;
+    }
     if (feedbackTimer.current) clearTimeout(feedbackTimer.current);
     const source = event.currentTarget.closest('article')?.querySelector('img');
     const target =
@@ -165,6 +212,10 @@ export function EquipmentScreen() {
   };
   const unequip = (id: EquipmentSlot, traveler: Traveler) => {
     if (busy) return;
+    if (getCurrentOnlineUserId()) {
+      void confirmOnline(traveler, id, null);
+      return;
+    }
     setRemoving(true);
     setEquippedAnimationSlot(null);
     if (feedbackTimer.current) clearTimeout(feedbackTimer.current);

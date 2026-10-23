@@ -9,7 +9,6 @@ vi.mock('../supabase/client', () => ({
 }));
 import { walletRepository } from '../supabase/repositories/wallet-repository';
 import { inventoryRepository } from '../supabase/repositories/inventory-repository';
-import { equipmentRepository } from '../supabase/repositories/equipment-repository';
 import { statsRepository } from '../supabase/repositories/stats-repository';
 import { travelerRepository } from '../supabase/repositories/traveler-repository';
 import { chestRepository } from '../supabase/repositories/chest-repository';
@@ -34,8 +33,6 @@ it('retired economic adapters reject before network and retain explicit recovery
         defense: 999,
         wisdom: 999,
       }),
-    () => equipmentRepository.equipItem('t', 'boots', 'fake'),
-    () => equipmentRepository.unequipItem('t', 'boots'),
   ];
   for (const action of actions)
     await expect(action()).rejects.toThrow('Economia online pausada');
