@@ -15,7 +15,10 @@ const lesson = '20000000-0000-4000-8000-000000000001',
   answer = '40000000-0000-4000-8000-000000000001';
 let guild = '';
 let recovery = '';
-const recoveryQuery = readFileSync('tests/fixtures/release-ebd-recovery.sql', 'utf8');
+const recoveryQuery = readFileSync(
+  'tests/fixtures/release-ebd-recovery.sql',
+  'utf8',
+);
 const command = (
   actor: number,
   action: string,
@@ -52,6 +55,9 @@ describe.runIf(process.env.RPG_LOCAL_PG === '1')(
       recovery = db.query(recoveryQuery);
       const before = balances();
       db.query(`BEGIN;${readFileSync(migration, 'utf8')}COMMIT;`);
+      db.query(
+        `BEGIN;${readFileSync('supabase/migrations/20261024154319_release_ebd_001_avatar_selection.sql', 'utf8')}COMMIT;`,
+      );
       expect(balances()).toBe(before);
     }, 120000);
     afterAll(() => db.stop());
@@ -86,7 +92,38 @@ describe.runIf(process.env.RPG_LOCAL_PG === '1')(
         6,
         `UPDATE public.travelers SET name='Renamed avatar'WHERE id='${tid(6)}'`,
       );
-});
+    });
+    it('selects only an owned avatar and rolls back a rejected foreign selection', () => {
+      db.as(
+        6,
+        `SELECT public.create_traveler('${tid(7)}','Second EBD Avatar','female','medio','curto','castanho','musgo')`,
+      );
+      db.as(6, `SELECT public.set_active_traveler('${tid(6)}')`);
+      expect(
+        db.query(
+          `SELECT id FROM public.travelers WHERE user_id='${uid(6)}' AND is_active`,
+        ),
+      ).toBe(tid(6));
+      expect(() =>
+        db.as(6, `SELECT public.set_active_traveler('${tid(1)}')`),
+      ).toThrow();
+      expect(
+        db.query(
+          `SELECT id FROM public.travelers WHERE user_id='${uid(6)}' AND is_active`,
+        ),
+      ).toBe(tid(6));
+      expect(
+        db.as(
+          6,
+          `WITH changed AS (UPDATE public.travelers SET is_active=true WHERE id='${tid(1)}' RETURNING id) SELECT count(*) FROM changed`,
+        ),
+      ).toBe('0');
+      expect(
+        db.query(
+          `SELECT user_id FROM public.travelers WHERE id='${tid(1)}' AND is_active`,
+        ),
+      ).toBe(uid(1));
+    });
     it('denies all direct economic columns and RPCs, even when the actor owns the avatar', async () => {
       const before = balances();
       for (const sql of [
@@ -235,7 +272,9 @@ describe.runIf(process.env.RPG_LOCAL_PG === '1')(
       expect(db.query(recoveryQuery)).toBe(recovery);
       expect(balances()).toBe(before);
       expect(workspace(3).answers[0].status).toBe('completed');
-      expect(db.query("SELECT to_regnamespace('release_ebd') IS NULL")).toBe('t');
+      expect(db.query("SELECT to_regnamespace('release_ebd') IS NULL")).toBe(
+        't',
+      );
     });
   },
 );
