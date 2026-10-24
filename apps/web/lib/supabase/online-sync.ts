@@ -31,6 +31,12 @@ type SyncStatus = Readonly<{
 }>;
 
 let currentOnlineUserId: string | null = null;
+// A user ID alone cannot distinguish logout/login of the same account.
+let onlineSessionRevision = 0;
+let hydrationRevision = 0;
+let selectionRevision = 0;
+let nextTravelerReadRevision = 0;
+const travelerReadRevisions = new Map<string, number>();
 let currentRemoteTravelerIds: ReadonlySet<string> | null = null;
 let currentRemoteActiveTravelerId: string | null = null;
 let syncStatus: SyncStatus = { state: 'idle', message: null };
@@ -84,12 +90,15 @@ export const subscribeOnlineSync = (listener: () => void) => {
 };
 
 export const setCurrentOnlineUser = (userId: string | null) => {
+  onlineSessionRevision++;
+  travelerReadRevisions.clear();
   currentOnlineUserId = userId;
   currentRemoteTravelerIds = null;
   currentRemoteActiveTravelerId = null;
 };
 
 export const getCurrentOnlineUserId = () => currentOnlineUserId;
+export const getOnlineSessionRevision = () => onlineSessionRevision;
 export const getCurrentRemoteActiveTravelerId = () =>
   currentRemoteActiveTravelerId;
 
@@ -246,16 +255,31 @@ const loadRemoteTraveler = async (
 };
 
 export const hydrateOnlineTravelers = async (userId: string): Promise<void> => {
+  if (currentOnlineUserId !== userId) return;
+  const session = onlineSessionRevision;
+  const hydration = ++hydrationRevision;
+  const selection = selectionRevision;
+  const read = ++nextTravelerReadRevision;
+  const isCurrent = () =>
+    onlineSessionRevision === session &&
+    currentOnlineUserId === userId &&
+    hydrationRevision === hydration &&
+    selectionRevision === selection;
   setSyncStatus({ state: 'syncing', message: null });
   try {
     const rows = await travelerRepository.getTravelersByUser(userId);
     const travelers = await Promise.all(
       rows.map((row) => loadRemoteTraveler(userId, row)),
     );
+    if (!isCurrent()) return;
+    // An equipment/authority refresh started later owns the newer snapshot.
+    if (travelers.some((t) => (travelerReadRevisions.get(t.id) ?? 0) > read))
+      return;
     currentRemoteTravelerIds = new Set(
       travelers.map((traveler) => traveler.id),
     );
     for (const traveler of travelers) {
+      travelerReadRevisions.set(traveler.id, read);
       markOwned(traveler.id, userId);
       if (!journeyRepository.save(traveler))
         throw new Error('Cache local indisponível.');
@@ -271,6 +295,7 @@ export const hydrateOnlineTravelers = async (userId: string): Promise<void> => {
     setSyncStatus({ state: 'synced', message: null });
     notifyCacheChanged();
   } catch {
+    if (!isCurrent()) return;
     currentRemoteTravelerIds = null;
     currentRemoteActiveTravelerId = null;
     journeyRepository.clearActiveTraveler();
@@ -287,14 +312,18 @@ export const reloadOnlineTraveler = async (
 ): Promise<boolean> => {
   const userId = currentOnlineUserId;
   if (!userId) return false;
+  const session = onlineSessionRevision;
+  const revision = ++nextTravelerReadRevision;
+  travelerReadRevisions.set(travelerId, revision);
+  const isCurrent = () =>
+    onlineSessionRevision === session &&
+    currentOnlineUserId === userId &&
+    travelerReadRevisions.get(travelerId) === revision;
   try {
-    const row = await travelerRepository.getTravelerById(
-      travelerId,
-      userId,
-    );
-    if (!row) return false;
+    const row = await travelerRepository.getTravelerById(travelerId, userId);
+    if (!row || !isCurrent()) return false;
     const traveler = await loadRemoteTraveler(userId, row);
-    if (currentOnlineUserId !== userId) return false;
+    if (!isCurrent()) return false;
     if (!journeyRepository.save(traveler)) return false;
     notifyCacheChanged();
     return true;
@@ -309,7 +338,10 @@ const synchronizeTravelerSnapshot = async (
   _previous: Traveler | null,
   traveler: Traveler,
 ) => {
-  const existing = await travelerRepository.getTravelerById(traveler.id, userId);
+  const existing = await travelerRepository.getTravelerById(
+    traveler.id,
+    userId,
+  );
   if (!existing) throw new Error('Viajante online indisponivel.');
   await travelerRepository.updateTraveler(traveler.id, userId, traveler);
 };
@@ -416,13 +448,19 @@ export const selectOnlineTraveler = async (
 ): Promise<boolean> => {
   if (!currentOnlineUserId || readOwners()[travelerId] !== currentOnlineUserId)
     return false;
+  const session = onlineSessionRevision;
+  const selection = ++selectionRevision;
+  const isCurrent = () =>
+    onlineSessionRevision === session && selectionRevision === selection;
   setSyncStatus({ state: 'syncing', message: null });
   try {
     await travelerRepository.setActiveTraveler(travelerId);
+    if (!isCurrent()) return false;
     currentRemoteActiveTravelerId = travelerId;
     setSyncStatus({ state: 'synced', message: null });
     return true;
   } catch {
+    if (!isCurrent()) return false;
     setSyncStatus({
       state: 'error',
       message: 'Não foi possível selecionar o Viajante online.',

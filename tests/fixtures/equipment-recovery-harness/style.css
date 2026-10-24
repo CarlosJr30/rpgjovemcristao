@@ -1,0 +1,28 @@
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  background: #18231e;
+  color: #f4f4e9;
+  font: 16px system-ui;
+}
+main {
+  max-width: 512px;
+  margin: auto;
+  padding: 12px;
+}
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+button {
+  padding: 10px;
+  font: inherit;
+}
+output {
+  display: block;
+  overflow-wrap: anywhere;
+  font-size: 12px;
+}

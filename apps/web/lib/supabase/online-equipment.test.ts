@@ -1,12 +1,13 @@
 import { beforeEach, expect, it, vi } from 'vitest';
 const { state, rpc, reload } = vi.hoisted(() => ({
-  state: { owner: 'account-a' as string | null, allowed: true },
+  state: { owner: 'account-a' as string | null, allowed: true, session: 1 },
   rpc: vi.fn(),
   reload: vi.fn(),
 }));
 vi.mock('./client', () => ({ getSupabaseBrowserClient: () => ({ rpc }) }));
 vi.mock('./online-sync', () => ({
   getCurrentOnlineUserId: () => state.owner,
+  getOnlineSessionRevision: () => state.session,
   canUseTravelerInCurrentSession: () => state.allowed,
   reloadOnlineTraveler: reload,
 }));
@@ -15,6 +16,7 @@ beforeEach(() => {
   vi.clearAllMocks();
   state.owner = 'account-a';
   state.allowed = true;
+  state.session = 1;
   rpc.mockResolvedValue({ error: null });
   reload.mockResolvedValue(true);
 });
@@ -86,6 +88,16 @@ it('refuses a foreign traveler or logged-out state before network', async () => 
 it('does not refresh across an account switch during the RPC', async () => {
   rpc.mockImplementationOnce(async () => {
     state.owner = 'account-b';
+    return { error: null };
+  });
+  await expect(
+    changeOnlineEquipment('traveler-a', 'boots', null, 'traveler-boots'),
+  ).rejects.toThrow('sessão mudou');
+  expect(reload).not.toHaveBeenCalled();
+});
+it('does not refresh after logout/login of the same account during the RPC', async () => {
+  rpc.mockImplementationOnce(async () => {
+    state.session += 2;
     return { error: null };
   });
   await expect(

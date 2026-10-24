@@ -79,18 +79,194 @@ beforeEach(() => {
 });
 
 describe('online cache ownership', () => {
+  const remoteRow = (name: string) => ({
+    id: travelerA,
+    user_id: userA,
+    name,
+    body_type: 'male',
+    skin_tone: 'medio',
+    hair_style: 'curto',
+    hair_color: null,
+    avatar_variant: 'musgo',
+    level: 1,
+    xp: 0,
+    is_active: true,
+    created_at: '2026-10-23T00:00:00Z',
+    updated_at: '2026-10-23T00:00:00Z',
+  });
+  function mockRemoteDetails() {
+    vi.spyOn(statsRepository, 'getTravelerStats').mockResolvedValue({
+      traveler_id: travelerA,
+      base_life: 1,
+      base_strength: 1,
+      base_defense: 1,
+      base_wisdom: 1,
+      created_at: '2026-10-23T00:00:00Z',
+      updated_at: '2026-10-23T00:00:00Z',
+    });
+    vi.spyOn(walletRepository, 'getWallet').mockResolvedValue({
+      traveler_id: travelerA,
+      coins: 0,
+      created_at: '2026-10-23T00:00:00Z',
+      updated_at: '2026-10-23T00:00:00Z',
+    });
+    vi.spyOn(inventoryRepository, 'getInventory').mockResolvedValue([]);
+    vi.spyOn(equipmentRepository, 'getEquippedItems').mockResolvedValue([]);
+  }
+  test('rejects a previous login read even after the same account signs back in', async () => {
+    setCurrentOnlineUser(userA);
+    mockRemoteDetails();
+    const original = getLocalTravelerSnapshot(travelerA);
+    let complete!: (row: ReturnType<typeof remoteRow>) => void;
+    vi.spyOn(travelerRepository, 'getTravelerById').mockReturnValueOnce(
+      new Promise((resolve) => {
+        complete = resolve;
+      }),
+    );
+    const pending = reloadOnlineTraveler(travelerA);
+    setCurrentOnlineUser(null);
+    setCurrentOnlineUser(userA);
+    complete(remoteRow('Resposta antiga'));
+    await expect(pending).resolves.toBe(false);
+    expect(getLocalTravelerSnapshot(travelerA)).toEqual(original);
+  });
+  test('an older equipment refresh cannot overwrite a newer server snapshot', async () => {
+    setCurrentOnlineUser(userA);
+    mockRemoteDetails();
+    let complete!: (row: ReturnType<typeof remoteRow>) => void;
+    vi.spyOn(travelerRepository, 'getTravelerById')
+      .mockReturnValueOnce(
+        new Promise((resolve) => {
+          complete = resolve;
+        }),
+      )
+      .mockResolvedValueOnce(remoteRow('Leitura mais recente'));
+    const oldRead = reloadOnlineTraveler(travelerA);
+    await expect(reloadOnlineTraveler(travelerA)).resolves.toBe(true);
+    complete(remoteRow('Leitura antiga'));
+    await expect(oldRead).resolves.toBe(false);
+    expect(getLocalTravelerSnapshot(travelerA)?.name).toBe(
+      'Leitura mais recente',
+    );
+  });
+  test.each(['success', 'failure'])(
+    'stale hydration (%s) leaves the current account session untouched',
+    async (outcome) => {
+      setCurrentOnlineUser(userA);
+      mockRemoteDetails();
+      let complete!: (rows: ReturnType<typeof remoteRow>[]) => void;
+      let reject!: (reason: Error) => void;
+      vi.spyOn(travelerRepository, 'getTravelersByUser').mockReturnValueOnce(
+        new Promise((resolve, fail) => {
+          complete = resolve;
+          reject = fail;
+        }),
+      );
+      const pending = hydrateOnlineTravelers(userA);
+      setCurrentOnlineUser(userB);
+      journeyRepository.startSession(travelerB);
+      if (outcome === 'success') complete([remoteRow('Conta anterior')]);
+      else reject(new Error('Network failed after account switch'));
+      await pending;
+      expect(journeyRepository.activeTravelerId()).toBe(travelerB);
+      expect(getCurrentRemoteActiveTravelerId()).toBeNull();
+    },
+  );
+  test('late avatar selection does not become the new account active avatar', async () => {
+    setCurrentOnlineUser(userA);
+    let complete!: () => void;
+    vi.spyOn(travelerRepository, 'setActiveTraveler').mockReturnValueOnce(
+      new Promise((resolve) => {
+        complete = resolve;
+      }),
+    );
+    const pending = selectOnlineTraveler(travelerA);
+    setCurrentOnlineUser(userB);
+    complete();
+    await expect(pending).resolves.toBe(false);
+    expect(getCurrentRemoteActiveTravelerId()).toBeNull();
+  });
+  test('hydration cannot overwrite an equipment refresh that started later', async () => {
+    setCurrentOnlineUser(userA);
+    mockRemoteDetails();
+    let complete!: (rows: ReturnType<typeof remoteRow>[]) => void;
+    vi.spyOn(travelerRepository, 'getTravelersByUser').mockReturnValueOnce(
+      new Promise((resolve) => {
+        complete = resolve;
+      }),
+    );
+    vi.spyOn(travelerRepository, 'getTravelerById').mockResolvedValueOnce(
+      remoteRow('Equipamento recente'),
+    );
+    const hydration = hydrateOnlineTravelers(userA);
+    await expect(reloadOnlineTraveler(travelerA)).resolves.toBe(true);
+    complete([remoteRow('Hidratação antiga')]);
+    await hydration;
+    expect(getLocalTravelerSnapshot(travelerA)?.name).toBe(
+      'Equipamento recente',
+    );
+  });
+  test('a delayed hydration cannot undo an explicit avatar selection', async () => {
+    setCurrentOnlineUser(userA);
+    mockRemoteDetails();
+    let complete!: (rows: ReturnType<typeof remoteRow>[]) => void;
+    vi.spyOn(travelerRepository, 'getTravelersByUser').mockReturnValueOnce(
+      new Promise((resolve) => {
+        complete = resolve;
+      }),
+    );
+    vi.spyOn(travelerRepository, 'setActiveTraveler').mockResolvedValueOnce();
+    const hydration = hydrateOnlineTravelers(userA);
+    await expect(selectOnlineTraveler(travelerA)).resolves.toBe(true);
+    complete([]);
+    await hydration;
+    expect(getCurrentRemoteActiveTravelerId()).toBe(travelerA);
+  });
   test('does not overwrite the cache when a remote read completes after account switch', async () => {
     setCurrentOnlineUser(userA);
     const original = getLocalTravelerSnapshot(travelerA);
-    let complete!: (value: Awaited<ReturnType<typeof travelerRepository.getTravelerById>>) => void;
-    vi.spyOn(travelerRepository, 'getTravelerById').mockReturnValue(new Promise(resolve => { complete = resolve; }));
-    vi.spyOn(statsRepository, 'getTravelerStats').mockResolvedValue({traveler_id:travelerA,base_life:1,base_strength:1,base_defense:1,base_wisdom:1,created_at:'2026-10-23T00:00:00Z',updated_at:'2026-10-23T00:00:00Z'});
-    vi.spyOn(walletRepository, 'getWallet').mockResolvedValue({traveler_id:travelerA,coins:123,created_at:'2026-10-23T00:00:00Z',updated_at:'2026-10-23T00:00:00Z'});
-    vi.spyOn(inventoryRepository,'getInventory').mockResolvedValue([]);
-    vi.spyOn(equipmentRepository,'getEquippedItems').mockResolvedValue([]);
-    const pending=reloadOnlineTraveler(travelerA);
+    let complete!: (
+      value: Awaited<ReturnType<typeof travelerRepository.getTravelerById>>,
+    ) => void;
+    vi.spyOn(travelerRepository, 'getTravelerById').mockReturnValue(
+      new Promise((resolve) => {
+        complete = resolve;
+      }),
+    );
+    vi.spyOn(statsRepository, 'getTravelerStats').mockResolvedValue({
+      traveler_id: travelerA,
+      base_life: 1,
+      base_strength: 1,
+      base_defense: 1,
+      base_wisdom: 1,
+      created_at: '2026-10-23T00:00:00Z',
+      updated_at: '2026-10-23T00:00:00Z',
+    });
+    vi.spyOn(walletRepository, 'getWallet').mockResolvedValue({
+      traveler_id: travelerA,
+      coins: 123,
+      created_at: '2026-10-23T00:00:00Z',
+      updated_at: '2026-10-23T00:00:00Z',
+    });
+    vi.spyOn(inventoryRepository, 'getInventory').mockResolvedValue([]);
+    vi.spyOn(equipmentRepository, 'getEquippedItems').mockResolvedValue([]);
+    const pending = reloadOnlineTraveler(travelerA);
     setCurrentOnlineUser(userB);
-    complete({id:travelerA,user_id:userA,name:'Stale server response',body_type:'male',skin_tone:'medio',hair_style:'curto',hair_color:null,avatar_variant:'musgo',level:1,xp:0,is_active:true,created_at:'2026-10-23T00:00:00Z',updated_at:'2026-10-23T00:00:00Z'});
+    complete({
+      id: travelerA,
+      user_id: userA,
+      name: 'Stale server response',
+      body_type: 'male',
+      skin_tone: 'medio',
+      hair_style: 'curto',
+      hair_color: null,
+      avatar_variant: 'musgo',
+      level: 1,
+      xp: 0,
+      is_active: true,
+      created_at: '2026-10-23T00:00:00Z',
+      updated_at: '2026-10-23T00:00:00Z',
+    });
     await expect(pending).resolves.toBe(false);
     expect(getLocalTravelerSnapshot(travelerA)).toEqual(original);
   });
