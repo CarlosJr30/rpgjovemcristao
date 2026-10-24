@@ -1,0 +1,28 @@
+{
+  "task": "FIX-PROD-006",
+  "status": "PENDING_HUMAN_REVIEW",
+  "runtimeEnabled": false,
+  "itemId": "traveler-armor-uncommon",
+  "avatarSource": "/assets/avatar/hd/female/female_long_blue_dark_hd.png",
+  "avatarSha256": "8965ed75ea6fed37f0f20bda47d1e89cde09ef5bba38bcb977a8331cd2ce6e9a",
+  "overlaySource": "/assets/equipment/overlays/body-fit-v3/armor_traveler_uncommon_female_approved.png",
+  "overlaySha256": "ebee2f026c2dd6aac6b47850c8412f243cdc20c51a36d6f91e2d6cf3b46c20cb",
+  "sourceSize": {
+    "width": 1024,
+    "height": 1536
+  },
+  "composition2": {
+    "xPercent": 0,
+    "yPercent": 0,
+    "scaleX": 1,
+    "scaleY": 1
+  },
+  "composition3": {
+    "xPercent": -2.5,
+    "yPercent": 0,
+    "scaleX": 1.05,
+    "scaleY": 1
+  },
+  "approvalInherited": false,
+  "reviewArtifact": "build/fix-prod-006/visual-review/index.html"
+}
