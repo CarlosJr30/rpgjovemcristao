@@ -1,6 +1,6 @@
 import { beforeAll, afterAll, describe, expect, it } from 'vitest';
 import { randomUUID } from 'node:crypto';
-import { mkdirSync, writeFileSync } from 'node:fs';
+import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import {
   getArenaCardCatalog,
   getApprovedArenaCards,
@@ -121,6 +121,10 @@ describe.runIf(process.env.RPG_LOCAL_PG === '1')(
       );
       db.apply('consolidation004-expand0078.sql');
       db.apply('consolidation004-authority.sql');
+      // Run the existing Auth/RLS/economic regressions against FIX-PROD-005 too.
+      db.query(
+        `BEGIN;${readFileSync('supabase/migrations/20261024025957_fix_prod_005_tower_settlement.sql', 'utf8')}\nCOMMIT;`,
+      );
       for (let n = 2; n <= 9; n++) db.create(n);
       db.create(22, 2);
       db.create(88, 8);
