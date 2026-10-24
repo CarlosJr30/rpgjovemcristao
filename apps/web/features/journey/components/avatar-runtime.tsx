@@ -108,6 +108,10 @@ function EquipmentLayer({
               inset: 0,
               width: '100%',
               height: '100%',
+              transform: layer.canvasComposition
+                ? `translate(${layer.canvasComposition.translateXPercent}%, 0) scale(${layer.canvasComposition.scaleX}, 1)`
+                : undefined,
+              transformOrigin: layer.canvasComposition ? 'top left' : undefined,
               zIndex: placement.zIndex,
             }
           : {

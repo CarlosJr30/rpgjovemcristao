@@ -1,6 +1,9 @@
 import type { Equipment, EquipmentSlot, Traveler } from '../domain/traveler';
 import { EQUIPMENT_CATALOG } from './equipmentCatalog';
-import { APPROVED_BODY_FIT_V3_ASSETS } from './equipmentBodyFitV3';
+import {
+  APPROVED_ARMOR_COMPOSITION_3,
+  APPROVED_BODY_FIT_V3_ASSETS,
+} from './equipmentBodyFitV3';
 import {
   AVATAR_CANVAS,
   bodyAnchorPoint,
@@ -75,6 +78,7 @@ export type EquipmentOverlayDefinition = {
   overlayAsset: OverlayAssetSource | null;
   visualConfig: OverlayVisualConfig | null;
   fullCanvasConfig?: FullCanvasOverlayConfig;
+  canvasComposition?: { translateXPercent: number; scaleX: number };
 };
 export type EquipmentAssetEntry = EquipmentOverlayDefinition & {
   slot: EquipmentSlot;
@@ -110,6 +114,7 @@ export type ResolvedOverlayLayer = {
   asset: string;
   placement: OverlayPlacement;
   requiredAvatarSource?: string;
+  canvasComposition?: { translateXPercent: number; scaleX: number };
 };
 export type ResolvedEquipmentVisual = {
   iconAsset: string;
@@ -418,6 +423,22 @@ export function resolveEquipmentVisual(
   bodyType: BodyType,
   avatarSource?: string,
 ): ResolvedEquipmentVisual {
+  const composition = APPROVED_ARMOR_COMPOSITION_3;
+  if (
+    definition.itemId === composition.itemId &&
+    definition.slot === 'armor' &&
+    definition.visualQuality === 'READY' &&
+    definition.bodyOverlayApproval?.[bodyType] === 'APPROVED_BY_USER' &&
+    bodyType === composition.gender &&
+    avatarSource === composition.avatarSource
+  ) {
+    definition = {
+      ...definition,
+      overlayAsset: composition.asset,
+      bodyOverlayScope: { [bodyType]: composition.avatarSource },
+      canvasComposition: composition.composition,
+    };
+  }
   const unavailable = (): ResolvedEquipmentVisual => ({
     iconAsset: definition.iconAsset,
     layers: [],
@@ -469,6 +490,8 @@ export function resolveEquipmentVisual(
       layers.push({
         asset,
         overlayMode: 'full-canvas',
+        requiredAvatarSource: definition.bodyOverlayScope?.[bodyType],
+        canvasComposition: piece.canvasComposition,
         placement: {
           anchor: 'canvas',
           x: 0,
@@ -558,6 +581,7 @@ export function equippedOverlayLayers(
           ).layers.map((piece) => ({
             ...piece,
             requiredAvatarSource:
+              piece.requiredAvatarSource ??
               definition.bodyOverlayScope?.[traveler.avatar.gender],
             itemId: item.id,
             slot: item.slot,

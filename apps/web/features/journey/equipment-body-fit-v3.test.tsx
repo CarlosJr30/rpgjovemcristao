@@ -15,6 +15,7 @@ import { equipmentVisualForItem } from './data/equipmentAssets';
 import {
   APPROVED_BODY_FIT_V3,
   APPROVED_BODY_FIT_V3_ASSETS,
+  APPROVED_ARMOR_COMPOSITION_3,
 } from './data/equipmentBodyFitV3';
 import { AvatarRuntime } from './components/avatar-runtime';
 import { calculateTotalAttributes } from './data/attributes';
@@ -34,7 +35,7 @@ const make = () => {
   return t;
 };
 afterEach(cleanup);
-it('limits armor to the two exact approved HD appearances without modifying traveler or attributes', () => {
+it('limits armor to the three exact approved HD appearances without modifying traveler or attributes', () => {
   let visible = 0;
   for (const gender of ['female', 'male'] as const)
     for (const hair of HAIR)
@@ -48,8 +49,14 @@ it('limits armor to the two exact approved HD appearances without modifying trav
             r = resolveAvatarRuntime(t);
           if (r.layers.length) {
             visible++;
-            const approved = APPROVED_BODY_FIT_V3_ASSETS.find(
-              (a) => a.itemId === armor.id && a.gender === gender,
+            const approved = [
+              ...APPROVED_BODY_FIT_V3_ASSETS,
+              APPROVED_ARMOR_COMPOSITION_3,
+            ].find(
+              (a) =>
+                a.itemId === armor.id &&
+                a.gender === gender &&
+                a.avatarSource === r.source,
             )!;
             expect(r.source).toBe(approved.avatarSource);
             expect(r.layers).toHaveLength(1);
@@ -59,7 +66,7 @@ it('limits armor to the two exact approved HD appearances without modifying trav
           expect(calculateTotalAttributes(t)).toEqual(attrs);
           expect(JSON.stringify(t)).toBe(before);
         }
-  expect(visible).toBe(2);
+  expect(visible).toBe(3);
   expect(equipmentVisualForItem(armor, 'female').layers).toEqual([]);
   expect(
     equipmentVisualForItem(
@@ -149,4 +156,39 @@ it('hides an invalid overlay without changing the HD base or item bonuses', () =
     screen.getByRole('img', { name: 'Avatar do Viajante' }),
   ).toHaveAttribute('src', APPROVED_BODY_FIT_V3.avatarSource);
   expect(calculateTotalAttributes(t)).toEqual(before);
+});
+
+it('renders composition 3 only for owned equipped armor on the exact approved body, retaining bonuses and reload state', () => {
+  const t = make();
+  t.appearance = { hair: 'longo', outfit: 'azul', skin: 'escuro' };
+  for (const item of t.inventory) t.equipped[item.slot] = item.id;
+  const before = JSON.stringify(t),
+    attrs = calculateTotalAttributes(t);
+  expect(resolveAvatarRuntime(t).layers.map((l) => l.itemId)).toEqual([
+    armor.id,
+  ]);
+  const { container, rerender } = render(<AvatarRuntime traveler={t} />);
+  expect(
+    screen.getByRole('img', { name: 'Avatar do Viajante' }),
+  ).toHaveAttribute('src', APPROVED_ARMOR_COMPOSITION_3.avatarSource);
+  expect(container.querySelector('[data-overlay-item]')).toHaveStyle({
+    transform: 'translate(-2.5%, 0) scale(1.05, 1)',
+    transformOrigin: 'top left',
+  });
+  rerender(<AvatarRuntime traveler={JSON.parse(before)} />);
+  expect(container.querySelectorAll('[data-overlay-item]')).toHaveLength(1);
+  expect(calculateTotalAttributes(t)).toEqual(attrs);
+  const unequipped = JSON.parse(before);
+  delete unequipped.equipped.armor;
+  rerender(<AvatarRuntime traveler={unequipped} />);
+  expect(container.querySelector('[data-overlay-item]')).toBeNull();
+  const unowned = JSON.parse(before);
+  unowned.inventory = unowned.inventory.filter(
+    (i: { id: string }) => i.id !== armor.id,
+  );
+  expect(resolveAvatarRuntime(unowned).layers).toEqual([]);
+  rerender(<AvatarRuntime traveler={t} />);
+  fireEvent.error(screen.getByRole('img', { name: 'Avatar do Viajante' }));
+  expect(container.querySelector('[data-overlay-item]')).toBeNull();
+  expect(JSON.stringify(t)).toBe(before);
 });

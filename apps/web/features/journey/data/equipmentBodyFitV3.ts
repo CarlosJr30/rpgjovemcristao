@@ -59,3 +59,14 @@ export const APPROVED_BODY_FIT_V3_ASSETS = [
     sourceSize: { width: 1024, height: 1536 },
   },
 ] as const;
+
+/** Composition 3 explicitly approved for this exact body in FIX-PROD-007. */
+export const APPROVED_ARMOR_COMPOSITION_3 = {
+  ...APPROVED_BODY_FIT_V3,
+  targetId: 'armor_female_long_blue_dark_composition_3',
+  avatarSource: '/assets/avatar/hd/female/female_long_blue_dark_hd.png',
+  avatarSha256:
+    '8965ed75ea6fed37f0f20bda47d1e89cde09ef5bba38bcb977a8331cd2ce6e9a',
+  approvalId: 'FIX-PROD-007-HUMAN-COMPOSITION-3',
+  composition: { translateXPercent: -2.5, scaleX: 1.05 },
+} as const;

@@ -24,6 +24,7 @@ const bundle = await build({
 const {
   APPROVED_BODY_FIT_V3: approved,
   APPROVED_BODY_FIT_V3_ASSETS: registry,
+  APPROVED_ARMOR_COMPOSITION_3: composition3,
 } = await import(
   'data:text/javascript;base64,' +
     Buffer.from(bundle.outputFiles[0].text).toString('base64')
@@ -84,6 +85,32 @@ assert.equal(registry.length, 4);
 assert.equal(new Set(registry.map((a) => a.targetId)).size, 4);
 assert.deepEqual(registry[0], approved);
 const publicAssets = new Map();
+const compositionApproval = await json(
+  'docs/architecture/FIX-PROD-007-HUMAN-COMPOSITION-APPROVAL.json',
+);
+assert.equal(compositionApproval.decision, 'VISUALLY_APPROVED');
+assert.equal(compositionApproval.userStatement, 'Aprovar composição 3');
+for (const key of [
+  'approvalId',
+  'itemId',
+  'avatarSource',
+  'avatarSha256',
+  'asset',
+  'assetSha256',
+  'composition',
+])
+  assert.deepEqual(composition3[key], compositionApproval[key]);
+assert.equal(composition3.gender, 'female');
+assert.deepEqual(composition3.composition, {
+  translateXPercent: -2.5,
+  scaleX: 1.05,
+});
+assert.equal(
+  hash(await read('apps/web/public' + composition3.avatarSource)),
+  composition3.avatarSha256,
+);
+assert.equal(composition3.asset, approved.asset);
+assert.equal(composition3.assetSha256, approved.assetSha256);
 for (const a of registry) {
   const t = history.targets.find((t) => t.id === a.targetId);
   assert(t && t.registered && t.technical === 'FIT_PASS');
@@ -192,6 +219,7 @@ console.log(
     gate: 'BODY_FIT_V3_PRODUCTION',
     pass: true,
     exactApprovedRuntimeAssets: registry.length,
+    exactApprovedCompositions: registry.length + 1,
     checked,
     pendingAssetsPublished: 0,
   }),
