@@ -1,6 +1,6 @@
 # RELEASE-EBD-001 — lançamento inicial de Guilda e EBD
 
-Atualizado em 24/10/2026, com rechecagem às 16h10–16h15 (Brasília). **Estado geral: BLOCKED para produção; Preview READY.**
+Atualizado em 24/10/2026, após correção autorizada de Auth PROD. **Estado geral: BLOCKED para publicação; Preview READY. Configuração Auth PROD corrigida e verificada.**
 
 ## Resultado e ambientes
 
@@ -12,7 +12,7 @@ O candidato implementa o lançamento parcial autorizado: Auth, criação/seleç�
 | GitHub e CI do candidato runtime | DONE | SHA `23391b514a8b4cddbe7945ed0dfb343fc70d4a39`, CI [40121574829](https://github.com/CarlosJr30/rpgjovemcristao/actions/runs/40121574829) success |
 | Preview | DONE | READY, `dpl_ALfghjQxopcwRozMx4D4CEast7JR`, SHA exato conferido |
 | Recuperação completa de acesso | BLOCKED | Pedido atual recebe HTTP 429 `over_email_send_rate_limit`; troca de senha e novo login ainda sem prova positiva |
-| Destinos Auth de produção | BLOCKED | Leitura do CLI e probe negativo confirmam URLs de Preview no projeto PROD; nenhuma URL foi alterada nesta rechecagem |
+| Destinos Auth de produção | DONE | Correção explicitamente autorizada aplicada somente no PROD; persistência remota e rejeição de destino TEST verificadas; detalhes na última seção |
 | Migrations de produção | BLOCKED | Não aplicadas; dependem dos gates anteriores e conferência final de compatibilidade/backup |
 | Publicação e testes pós-deploy em produção | BLOCKED | Não executados; nenhum merge/promoção produtiva nesta entrega |
 
@@ -28,7 +28,7 @@ O candidato implementa o lançamento parcial autorizado: Auth, criação/seleç�
 2. **DONE — Recompensas EBD:** formulários deixam de oferecer recompensas; o comando rejeita `rewardTier` não vazio e um trigger impede novos créditos pendentes. A aprendizagem, avaliações e presença continuam funcionando. Nenhum saldo/recibo antigo foi reescrito.
 3. **DONE — Seleção de avatar:** o primeiro isolamento removeu a permissão de coluna necessária ao RPC invoker `set_active_traveler`. O teste real detectou o problema; migration separada devolveu somente `UPDATE(is_active)`, mantendo RLS de titularidade e negando XP, nível e proprietário. Correção validada antes de prosseguir.
 4. **DONE — Legibilidade:** conteúdo EBD herdava fundo escuro incompatível com textos escuros; o wrapper recebeu fundo claro e a regra de labels foi limitada ao cartão, corrigindo também a seleção móvel indevidamente visível no desktop. Capturas finais desktop/móvel inspecionadas; contraste e largura validados.
-5. **DONE — Configuração Auth de TEST:** o CLI autenticado comprovou `site_url=http://localhost:3000` e `additional_redirect_urls=[]`. Foram alterados exclusivamente esses dois campos para a Preview e seus callbacks `/auth` e `/auth/recover`. O diff posterior retorna zero alterações declaradas pendentes. Confirmação de e-mail, MFA e limites de envio permaneceram iguais. Nenhuma configuração Auth de PROD foi alterada.
+5. **DONE — Configuração Auth de TEST:** o CLI autenticado comprovou `site_url=http://localhost:3000` e `additional_redirect_urls=[]`. Foram alterados exclusivamente esses dois campos para a Preview e seus callbacks `/auth` e `/auth/recover`. O diff posterior retorna zero alterações declaradas pendentes. Confirmação de e-mail, MFA e limites de envio permaneceram iguais. Essa etapa inicial não alterou PROD; a posterior correção produtiva explicitamente autorizada está registrada na última seção.
 6. **BLOCKED — Recuperação:** houve entrega real de e-mail antes da correção das URLs. O pedido do app envia o destino correto, porém novas solicitações retornam 429. A prova negativa com token deliberadamente inválido, sem cache, agora redireciona para a Preview `/auth/recover`; ela comprova configuração/destino e rejeição do token, não recuperação bem-sucedida.
 
 ## Testes e evidências
@@ -120,3 +120,43 @@ O destino de Auth PROD precisa corresponder ao domínio produtivo antes do lanç
 Celular físico segue indisponível; os testes móveis já executados são identificados como emulação. Arena/Torre/economia/História e a promoção específica do Teste Chat A continuam fora dos requisitos deste lançamento parcial, desde que seu isolamento permaneça comprovado. Não se exige repetir os testes já aprovados sem mudança ou evidência nova de regressão.
 
 Evidências adicionais privadas: `build/release-ebd-001/recheck-20261024-1910/` (`ci-docs.json`, `compatibility.json`, `auth-prod-inspection.json`, `auth-prod-probe.json`, diffs Auth somente leitura e snapshots dos deployments). **Estado final: BLOCKED; nenhuma migration, mudança de URL/limite ou publicação produtiva nesta rodada.**
+
+## Correção autorizada de Auth PROD — 24/10/2026
+
+Esta seção atualiza o estado mais recente e supera exclusivamente o bloqueio de destinos Auth descrito na rechecagem anterior. O usuário autorizou corrigir Site URL e Redirect URLs somente em PROD após confirmar domínio, projeto e recuperação; não autorizou merge ou publicação antes dos demais gates.
+
+| Check | Estado | Evidência |
+| --- | --- | --- |
+| Identificação dos ambientes | DONE | MCP list_projects: PROD `wspafhlbtlpabypzymjo` / `RPGJOVEMCRISTAO`; TEST `wkdvdzfkbwvhyjmamrsg` / `rpgjovemcristao-test`; ambos ACTIVE_HEALTHY |
+| Origem oficial HTTPS | DONE | `https://rpgjovemcristao-web-inky.vercel.app`; único domínio produtivo listado, verified=true, sem branch/redirect; deployment produtivo READY e HTTPS 200 com certificado validado |
+| Backup e plano | DONE | Snapshot anterior dos dois campos, hash SHA-256 `0b9318ee8c831d789414d79c203fe0818803564ace14ca6c16a52fdaeb7e4d02`, plano e diff revisado antes da escrita |
+| Destinos legítimos anteriores | DONE | Lista anterior continha somente os dois callbacks da Preview; zero destinos produtivos adicionais a preservar. Ambos os destinos TEST removidos |
+| Aplicação exclusiva em PROD | DONE | CLI `config push --project-ref wspafhlbtlpabypzymjo` com arquivo mínimo declarando somente os dois campos; exit 0 |
+| Persistência remota | DONE | Nova leitura `config diff`: zero alterações declaradas pendentes em PROD; sete diferenças de campos não declarados exatamente iguais antes/depois |
+| Separação TEST/PROD | DONE | TEST consultado sem escrita, zero diferenças em seus campos URL; destino Preview rejeitado no probe de Auth PROD |
+| Contas e dados | DONE | Hash das nove linhas de `auth.users` igual antes/depois; 20 avatares, 245.376 XP, 1.006.767 moedas e 37 registros de inventário iguais |
+| Recuperação positiva em TEST | BLOCKED | Único novo pedido normal nesta rodada ainda HTTP 429 `over_email_send_rate_limit`; sem novo callback, troca de senha ou login |
+| Publicação da aplicação | BLOCKED | Sem merge/migration/deploy; aplicação produtiva continua no mesmo deployment e SHA `5edc93f` |
+
+Valores efetivos autorizados e persistidos em PROD:
+
+```toml
+[auth]
+site_url = "https://rpgjovemcristao-web-inky.vercel.app"
+additional_redirect_urls = [
+  "https://rpgjovemcristao-web-inky.vercel.app/auth",
+  "https://rpgjovemcristao-web-inky.vercel.app/auth/recover"
+]
+```
+
+O CLI declara que propriedades ausentes do arquivo não são alteradas. Foram revisados somente dois updates antes de executar; demais configurações reportadas permaneceram iguais depois. Não houve alteração de senhas, contas, quotas, tokens, permissões econômicas ou variáveis de ambiente, nem desativação de Auth/RLS. O único envio de recuperação foi solicitado pelo fluxo público normal de TEST e foi recusado com 429.
+
+Probes sem conta, com tokens deliberadamente inválidos: solicitação de callback produtivo retornou 303 para o caminho `/auth/recover` da origem oficial; solicitação do antigo callback Preview retornou 303 para a raiz produtiva, rejeitando o destino TEST. Ambos retornaram `otp_expired`, `sb-project-ref` de PROD e cache DYNAMIC. São provas negativas do roteamento/allowlist, **não PASS de recuperação ou autenticação positiva**. O fluxo produtivo completo do novo candidato continua sujeito à publicação e aos testes posteriores.
+
+Recuperação operacional: snapshot histórico dos dois campos e metadados salvo antes da alteração; em caso de falha de verificação, interromper os demais writes/deploys, inspecionar e reaplicar de forma idempotente apenas os valores produtivos revisados. Não restaurar automaticamente os destinos TEST incorretos do snapshot. Nenhuma recuperação precisou ser executada, pois as verificações passaram.
+
+O conector Vercel retornou 403; a inspeção de domínios foi concluída pelo CLI já autenticado no mesmo team/projeto, sem alteração de permissões do conector. CI do commit documental anterior `8dbe0b2` aprovado no push 40124580870 e PR 40124584417; runtime/testes/arte/migrations permanecem sem alterações em relação a `23391b5`. A correção de configuração Auth PROD foi efetivamente executada: não se declara todo o ambiente produtivo inalterado, apenas aplicação, dados e demais controles preservados conforme as verificações acima.
+
+Evidências privadas: `build/release-ebd-001/auth-prod-fix-20261024/` (`projects.json`, `production-domains.json`, `plan.json`, `snapshot-before/`, `reviewed-diff.log`, `push.log`, `after.log`, `verification.json`, `data-preservation.json`, `redirect-probes.json`, resultado do novo pedido TEST e snapshot do deployment).
+
+**Pendências atuais:** recuperação completa normal em TEST continua BLOCKED por 429; depois, PR/CI do SHA efetivo, atualização de backup/baseline e aplicação exclusiva das migrations necessárias, build com backend PROD, publicação e testes reais pós-deploy. A correção das URLs não dispensa nenhum desses gates. Nenhuma senha foi alterada nesta rodada; a restrição de credenciais permanece vigente. **Release permanece BLOCKED; sem DEPLOY_COMPLETE.**
