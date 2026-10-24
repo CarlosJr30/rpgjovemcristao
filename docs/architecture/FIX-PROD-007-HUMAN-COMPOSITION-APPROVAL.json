@@ -1,0 +1,13 @@
+{
+  "task": "FIX-PROD-007",
+  "approvalId": "FIX-PROD-007-HUMAN-COMPOSITION-3",
+  "decision": "VISUALLY_APPROVED",
+  "userStatement": "Aprovar composição 3",
+  "scope": "Somente couraça no corpo exato; não homologa outras peças nem produção.",
+  "itemId": "traveler-armor-uncommon",
+  "avatarSource": "/assets/avatar/hd/female/female_long_blue_dark_hd.png",
+  "avatarSha256": "8965ed75ea6fed37f0f20bda47d1e89cde09ef5bba38bcb977a8331cd2ce6e9a",
+  "asset": "/assets/equipment/overlays/body-fit-v3/armor_traveler_uncommon_female_approved.png",
+  "assetSha256": "ebee2f026c2dd6aac6b47850c8412f243cdc20c51a36d6f91e2d6cf3b46c20cb",
+  "composition": { "translateXPercent": -2.5, "scaleX": 1.05 }
+}

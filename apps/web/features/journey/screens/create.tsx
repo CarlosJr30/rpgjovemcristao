@@ -12,13 +12,14 @@ import {
 } from '../domain/traveler';
 import { registerTraveler, useJourney } from '../state/use-journey';
 import { JOURNEY_ROUTES as routes } from '../data/campaign';
-import { Shell } from '../components/shell';
+import { ReleaseShell as Shell } from '../../release-ebd/shell';
 import { ResponsivePanel } from '../components/responsive-panel';
 import { Avatar } from '../components/avatar';
 import styles from '../journey.module.css';
 import { useAuth } from '../../../lib/supabase/auth-context';
 import { profileDisplayName } from '../../../lib/supabase/auth';
 import { entryReturn } from '../../../lib/supabase/auth-return';
+import releaseStyles from '../../release-ebd/release.module.css';
 
 const presets: {
   label: string;
@@ -128,7 +129,7 @@ export function CreateScreen() {
   return (
     <Shell back="/" backLabel="Voltar ao início">
       <section
-        className={styles.createSection}
+        className={`${styles.createSection} ${releaseStyles.content}`}
         data-quick-hero={auth.status === 'signedIn' && !customizing}
       >
         <div className={styles.sectionHeading}>

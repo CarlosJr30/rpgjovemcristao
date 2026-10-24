@@ -1,6 +1,10 @@
 import type { Equipment, EquipmentSlot, Traveler } from '../domain/traveler';
 import { EQUIPMENT_CATALOG } from './equipmentCatalog';
-import { APPROVED_BODY_FIT_V3_ASSETS } from './equipmentBodyFitV3';
+import {
+  APPROVED_ARMOR_COMPOSITION_3,
+  APPROVED_BODY_FIT_V3_ASSETS,
+  APPROVED_SWORD_GRIP_COMPOSITION,
+} from './equipmentBodyFitV3';
 import {
   AVATAR_CANVAS,
   bodyAnchorPoint,
@@ -69,12 +73,22 @@ export type FullCanvasOverlayConfig = {
   sourceSize: { width: number; height: number };
   zIndex: number;
 };
+export type CanvasComposition = {
+  translateXPercent: number;
+  translateYPercent?: number;
+  scaleX: number;
+  scaleY?: number;
+  transformOrigin?: string;
+};
+type HandOcclusion = { source: string; clipPath: string };
 export type EquipmentOverlayDefinition = {
   // Omitted mode retains the legacy anchor contract.
   overlayMode?: OverlayMode;
   overlayAsset: OverlayAssetSource | null;
   visualConfig: OverlayVisualConfig | null;
   fullCanvasConfig?: FullCanvasOverlayConfig;
+  canvasComposition?: CanvasComposition;
+  handOcclusion?: HandOcclusion;
 };
 export type EquipmentAssetEntry = EquipmentOverlayDefinition & {
   slot: EquipmentSlot;
@@ -110,6 +124,8 @@ export type ResolvedOverlayLayer = {
   asset: string;
   placement: OverlayPlacement;
   requiredAvatarSource?: string;
+  canvasComposition?: CanvasComposition;
+  handOcclusion?: HandOcclusion;
 };
 export type ResolvedEquipmentVisual = {
   iconAsset: string;
@@ -418,6 +434,39 @@ export function resolveEquipmentVisual(
   bodyType: BodyType,
   avatarSource?: string,
 ): ResolvedEquipmentVisual {
+  const composition = APPROVED_ARMOR_COMPOSITION_3;
+  if (
+    definition.itemId === composition.itemId &&
+    definition.slot === 'armor' &&
+    definition.visualQuality === 'READY' &&
+    definition.bodyOverlayApproval?.[bodyType] === 'APPROVED_BY_USER' &&
+    bodyType === composition.gender &&
+    avatarSource === composition.avatarSource
+  ) {
+    definition = {
+      ...definition,
+      overlayAsset: composition.asset,
+      bodyOverlayScope: { [bodyType]: composition.avatarSource },
+      canvasComposition: composition.composition,
+    };
+  }
+  const grip = APPROVED_SWORD_GRIP_COMPOSITION;
+  if (
+    definition.itemId === grip.itemId &&
+    definition.slot === 'weapon' &&
+    definition.visualQuality === 'READY' &&
+    definition.bodyOverlayApproval?.[bodyType] === 'APPROVED_BY_USER' &&
+    bodyType === grip.gender &&
+    avatarSource === grip.avatarSource
+  ) {
+    definition = {
+      ...definition,
+      overlayAsset: grip.asset,
+      bodyOverlayScope: { [bodyType]: grip.avatarSource },
+      canvasComposition: grip.composition,
+      handOcclusion: { source: grip.avatarSource, clipPath: grip.handClipPath },
+    };
+  }
   const unavailable = (): ResolvedEquipmentVisual => ({
     iconAsset: definition.iconAsset,
     layers: [],
@@ -469,6 +518,9 @@ export function resolveEquipmentVisual(
       layers.push({
         asset,
         overlayMode: 'full-canvas',
+        requiredAvatarSource: definition.bodyOverlayScope?.[bodyType],
+        canvasComposition: piece.canvasComposition,
+        handOcclusion: piece.handOcclusion,
         placement: {
           anchor: 'canvas',
           x: 0,
@@ -558,6 +610,7 @@ export function equippedOverlayLayers(
           ).layers.map((piece) => ({
             ...piece,
             requiredAvatarSource:
+              piece.requiredAvatarSource ??
               definition.bodyOverlayScope?.[traveler.avatar.gender],
             itemId: item.id,
             slot: item.slot,

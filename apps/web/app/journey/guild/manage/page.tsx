@@ -1,5 +1,10 @@
-import { GuildManageScreen } from '../../../../features/journey/screens/guild-manage';
+import { ReleaseGuild } from '../../../../features/release-ebd/guild';
+import { ReleaseAccess } from '../../../../features/release-ebd/shell';
 
 export default function Page() {
-  return <GuildManageScreen />;
+  return (
+    <ReleaseAccess>
+      <ReleaseGuild />
+    </ReleaseAccess>
+  );
 }

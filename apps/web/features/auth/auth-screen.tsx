@@ -13,6 +13,7 @@ import { useAuth } from '../../lib/supabase/auth-context';
 import { hasPersistedSupabaseSession } from '../../lib/supabase/client';
 import styles from './auth.module.css';
 import { GuildInvitePreview } from '../guild-invites/invite-preview';
+import Link from 'next/link';
 import {
   entryReturn,
   registrationDestination,
@@ -234,6 +235,9 @@ export function AuthScreen({ inviteToken }: { inviteToken?: string }) {
                 : 'Criar conta'}
           </button>
         </form>
+        {mode === 'signIn' && (
+          <Link href="/auth/recover">Esqueci minha senha</Link>
+        )}
         <button
           className={styles.secondary}
           type="button"

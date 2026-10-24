@@ -1,0 +1,194 @@
+import { readFileSync } from 'node:fs';
+import { beforeAll, afterAll, describe, expect, it } from 'vitest';
+import {
+  offlinePostgres,
+  literal,
+} from '../../../../tests/fixtures/offline-authority-postgres';
+const db = offlinePostgres();
+const equipment = () =>
+  readFileSync(
+    'supabase/migrations/20261024001624_fix_prod_003_owned_equipment.sql',
+    'utf8',
+  );
+const catalog = () =>
+  readFileSync(
+    'supabase/migrations/20261024001803_fix_prod_003_test_catalog.sql',
+    'utf8',
+  );
+describe.runIf(process.env.RPG_LOCAL_PG === '1')(
+  'FIX-PROD-003 targeted test recovery',
+  () => {
+    let before: Record<string, unknown>;
+    beforeAll(async () => {
+      before = JSON.parse(
+        readFileSync('build/fix-prod-003/test-before.json', 'utf8'),
+      );
+      await db.start();
+      db.apply('consolidation004-expand0078.sql');
+      db.apply('consolidation004-authority.sql');
+      const identities = before.auth_identities as {
+        id: string;
+        anonymous: boolean;
+      }[];
+      for (const user of identities)
+        db.query(
+          `INSERT INTO auth.users(id,is_anonymous) VALUES('${user.id}',${user.anonymous});`,
+        );
+      // Only the private, no-network disposable clone is changed during recovery.
+      const data = before.data as Record<string, unknown[]>;
+      db.query(
+        `DELETE FROM public.story_definitions;INSERT INTO public.story_definitions SELECT * FROM jsonb_populate_recordset(NULL::public.story_definitions,${literal(data['public.story_definitions'])});`,
+      );
+    }, 120000);
+    afterAll(() => db.stop(), 30000);
+    it('restores all 35 captured application tables and verifies frozen function definitions', () => {
+      for (const [table, rows] of Object.entries(
+        before.data as Record<string, unknown[]>,
+      )) {
+        expect(/^(public|economy_private)\.[a-z_]+$/.test(table)).toBe(true);
+        expect(
+          JSON.parse(
+            db.query(
+              `SELECT coalesce(jsonb_agg(to_jsonb(t) ORDER BY to_jsonb(t)::text),'[]') FROM ${table} t`,
+            ),
+          ),
+        ).toEqual(rows);
+      }
+      type Definition = {
+        schema: string;
+        name: string;
+        args: string;
+        definition: string;
+      };
+      const functions = JSON.parse(
+        db.query(
+          `SELECT jsonb_agg(jsonb_build_object('schema',n.nspname,'name',p.proname,'args',pg_get_function_identity_arguments(p.oid),'definition',pg_get_functiondef(p.oid))) FROM pg_proc p JOIN pg_namespace n ON n.oid=p.pronamespace WHERE n.nspname IN ('public','economy_private')`,
+        ),
+      ) as Definition[];
+      expect(functions).toHaveLength((before.functions as Definition[]).length);
+      for (const f of before.functions as Definition[]) {
+        const actual = functions.find(
+          (a) =>
+            a.schema === f.schema && a.name === f.name && a.args === f.args,
+        );
+        expect(actual?.definition.replaceAll('\r', '').trim()).toBe(
+          f.definition.replaceAll('\r', '').trim(),
+        );
+      }
+    }, 120000);
+    it('rolls back the equipment DDL atomically before the first hosted change', () => {
+      db.query(`BEGIN;${equipment()}ROLLBACK;`);
+      expect(
+        db.query(
+          "SELECT to_regprocedure('public.set_owned_equipment(uuid,text,text,text)') IS NULL",
+        ),
+      ).toBe('t');
+    });
+    it('rejects test-catalog deployment without a verified test target', () => {
+      expect(() => db.query(`BEGIN;${catalog()}COMMIT;`)).toThrow(
+        /Verified TEST target required/,
+      );
+      expect(
+        db.query('SELECT count(*) FROM economy_private.card_catalog'),
+      ).toBe('0');
+    });
+    it('applies the two reviewed increments without granting inventory or economic value', () => {
+      db.query(
+        `BEGIN;${equipment()}SET LOCAL fixprod003.target_project='wkdvdzfkbwvhyjmamrsg';${catalog()}COMMIT;`,
+      );
+      expect(
+        db.query(
+          "SELECT count(*),count(DISTINCT definition->>'action') FROM economy_private.card_catalog",
+        ),
+      ).toBe('7|7');
+      expect(db.query('SELECT count(*) FROM public.inventory')).toBe('0');
+      expect(db.query('SELECT count(*) FROM public.chest_operations')).toBe(
+        '0',
+      );
+      expect(
+        db.query(
+          "SELECT has_function_privilege('anon','public.set_owned_equipment(uuid,text,text,text)','EXECUTE'),has_table_privilege('authenticated','economy_private.card_catalog','INSERT')",
+        ),
+      ).toBe('f|f');
+    }, 30000);
+    it('returns a non-retryable HTTP conflict and preserves function bodies and permissions', () => {
+      const signature =
+        'economy_private.set_owned_equipment(uuid,text,text,text)';
+      const beforeDefinition = db.query(
+        `SELECT pg_get_functiondef('${signature}'::regprocedure)`,
+      );
+      db.query(
+        readFileSync(
+          'supabase/migrations/20261024003314_fix_prod_003_http_conflicts.sql',
+          'utf8',
+        ),
+      );
+      expect(
+        db.query(`SELECT pg_get_functiondef('${signature}'::regprocedure)`),
+      ).toBe(beforeDefinition.replaceAll("'40001'", "'PT409'"));
+      const identity = (before.auth_identities as { id: string }[])[0].id;
+      const traveler = '10000000-0000-4000-8000-000000000003';
+      db.query(
+        `BEGIN;SET LOCAL ROLE authenticated;SET LOCAL request.jwt.claim.sub='${identity}';SELECT set_config('request.jwt.claims','{"sub":"${identity}","role":"authenticated"}',true);SELECT public.create_traveler('${traveler}','Homologacao','male','medio','curto','castanho','musgo');SELECT public.set_owned_equipment('${traveler}','boots',null,'traveler-boots');COMMIT;`,
+      );
+      expect(
+        db
+          .query(
+            `BEGIN;SET LOCAL ROLE authenticated;SET LOCAL request.jwt.claim.sub='${identity}';SELECT set_config('request.jwt.claims','{"sub":"${identity}","role":"authenticated"}',true);DO $$ BEGIN PERFORM public.set_owned_equipment('${traveler}','boots','traveler-boots','stale');RAISE EXCEPTION 'Expected conflict missing';EXCEPTION WHEN SQLSTATE 'PT409' THEN NULL;END $$;ROLLBACK;`,
+          )
+          .split('\n')
+          .at(-1),
+      ).toContain(identity);
+      expect(
+        db.query(
+          `SELECT count(*) FROM public.inventory WHERE traveler_id='${traveler}' AND quantity=1`,
+        ),
+      ).toBe('1');
+      expect(
+        db.query(
+          "SELECT has_function_privilege('anon','public.set_owned_equipment(uuid,text,text,text)','EXECUTE'),has_function_privilege('authenticated','public.arena_authority_v3(uuid,uuid,text,jsonb)','EXECUTE')",
+        ),
+      ).toBe('f|f');
+    }, 30000);
+    it('repairs only the observed text encoding and exactly restores all seven frozen definitions', () => {
+      const repair = readFileSync(
+        'supabase/migrations/20261024004111_fix_prod_003_catalog_text_encoding.sql',
+        'utf8',
+      );
+      expect(/^[\x00-\x7f]*$/.test(repair)).toBe(true);
+      // Reproduce the observed transport corruption only in the disposable clone.
+      const rows = [
+        ...repair.matchAll(
+          /\('(arena-card-[a-z-]+)',('(?:[^']|'')*'::jsonb),('(?:[^']|'')*'::jsonb)\)/g,
+        ),
+      ];
+      expect(rows).toHaveLength(7);
+      for (const [, id, previous] of rows)
+        db.query(
+          `UPDATE economy_private.card_catalog SET definition=jsonb_set(definition,'{description}',${previous}) WHERE id='${id}'`,
+        );
+      expect(() => db.query(`BEGIN;${repair}COMMIT;`)).toThrow(
+        /Verified TEST target required/,
+      );
+      db.query(
+        `BEGIN;SET LOCAL fixprod003.target_project='wkdvdzfkbwvhyjmamrsg';${repair}COMMIT;`,
+      );
+      const actual = JSON.parse(
+        db.query(
+          'SELECT jsonb_agg(definition ORDER BY id) FROM economy_private.card_catalog',
+        ),
+      );
+      const frozen = JSON.parse(
+        readFileSync(
+          'packages/database/deployments/fixprod003/test-catalog.json',
+          'utf8',
+        ),
+      ).definitions;
+      expect(actual).toEqual(
+        frozen.sort((a: { id: string }, b: { id: string }) =>
+          a.id.localeCompare(b.id),
+        ),
+      );
+    }, 30000);
+  },
+);

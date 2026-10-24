@@ -44,6 +44,9 @@ test('refuses external, protocol-relative, auth-loop and malformed return paths'
     'javascript:alert(1)',
     '/auth',
     '/journey/../auth',
+    '/journey/arena',
+    '/journey/tower',
+    '/journey/shop',
     null,
   ]) {
     expect(safeEntryReturn(candidate, window.location.origin)).toBeNull();

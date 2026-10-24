@@ -2,6 +2,7 @@ import { expect, test } from '@playwright/test';
 
 test('entrada oferece somente login/cadastro em desktop e celular', async ({ page }) => {
   await page.goto('/');
+  await page.getByRole('link', { name: 'Entrar ou criar conta' }).first().click();
   await expect(page.getByRole('heading', { name: 'Entrar', exact: true })).toBeVisible();
   await expect(page.getByRole('button', { name: /somente neste navegador|localmente/i })).toHaveCount(0);
   await page.getByRole('button', { name: 'Criar conta', exact: true }).click();

@@ -19,6 +19,7 @@ import {
 } from './contracts';
 import { LessonEditor } from './lesson-editor';
 import { ActivityEditor } from './activity-editor';
+import {GAMEPLAY_ENABLED}from '../../lib/release-scope';
 import { ActivityCard, type Command } from './participation';
 import { AttendanceForm, TeacherForm } from './administration';
 import css from '../guild-missions/panel.module.css';
@@ -398,7 +399,7 @@ export function EbdPanel({ traveler }: { traveler: Traveler }) {
               )}
             </div>
           ))}
-          {lesson.reward_tier && (
+          {GAMEPLAY_ENABLED && lesson.reward_tier && (
             <p className={css.notice}>
               Recompensa opcional: {rewardLabel(lesson.reward_tier)}. Integração
               pendente; uma conclusão avaliada registra no máximo uma pendência
@@ -633,7 +634,7 @@ export function EbdPanel({ traveler }: { traveler: Traveler }) {
               {a.feedback && ` · ${a.feedback}`}
             </p>
           ))}
-          {data.rewards.map((r) => (
+          {GAMEPLAY_ENABLED && data.rewards.map((r) => (
             <p className={css.notice} key={`${r.lesson_id}-${r.traveler_id}`}>
               Recompensa pendente · {rewardLabel(r.tier)} ·{' '}
               {data.lessons.find((l) => l.id === r.lesson_id)?.title}. Sem

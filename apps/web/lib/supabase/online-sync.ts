@@ -285,14 +285,16 @@ export const hydrateOnlineTravelers = async (userId: string): Promise<void> => {
 export const reloadOnlineTraveler = async (
   travelerId: string,
 ): Promise<boolean> => {
-  if (!currentOnlineUserId) return false;
+  const userId = currentOnlineUserId;
+  if (!userId) return false;
   try {
     const row = await travelerRepository.getTravelerById(
       travelerId,
-      currentOnlineUserId,
+      userId,
     );
     if (!row) return false;
-    const traveler = await loadRemoteTraveler(currentOnlineUserId, row);
+    const traveler = await loadRemoteTraveler(userId, row);
+    if (currentOnlineUserId !== userId) return false;
     if (!journeyRepository.save(traveler)) return false;
     notifyCacheChanged();
     return true;

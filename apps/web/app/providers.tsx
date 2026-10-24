@@ -11,7 +11,12 @@ function AuthGate({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const router = useRouter();
   useEffect(() => {
-    if (auth.status !== 'signedOut' || pathname === '/' || pathname === '/auth')
+    if (
+      auth.status !== 'signedOut' ||
+      pathname === '/' ||
+      pathname === '/auth' ||
+      pathname === '/auth/recover'
+    )
       return;
     const next = safeEntryReturn(
       `${pathname}${window.location.search}`,
@@ -27,7 +32,12 @@ function AuthGate({ children }: { children: ReactNode }) {
     );
   }
   if (auth.status === 'signedOut') {
-    if (pathname === '/auth') return children;
+    if (
+      pathname === '/' ||
+      pathname === '/auth' ||
+      pathname === '/auth/recover'
+    )
+      return children;
     const inviteToken = pathname.match(
       /^\/guilda\/convite\/([a-f0-9]{64})$/,
     )?.[1];

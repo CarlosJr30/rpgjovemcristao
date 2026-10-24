@@ -10,6 +10,7 @@ import {
   getLocalTravelerSnapshot,
   hydrateOnlineTravelers,
   listTravelersForCurrentSession,
+  reloadOnlineTraveler,
   selectOnlineTraveler,
   setCurrentOnlineUser,
 } from './online-sync';
@@ -78,6 +79,21 @@ beforeEach(() => {
 });
 
 describe('online cache ownership', () => {
+  test('does not overwrite the cache when a remote read completes after account switch', async () => {
+    setCurrentOnlineUser(userA);
+    const original = getLocalTravelerSnapshot(travelerA);
+    let complete!: (value: Awaited<ReturnType<typeof travelerRepository.getTravelerById>>) => void;
+    vi.spyOn(travelerRepository, 'getTravelerById').mockReturnValue(new Promise(resolve => { complete = resolve; }));
+    vi.spyOn(statsRepository, 'getTravelerStats').mockResolvedValue({traveler_id:travelerA,base_life:1,base_strength:1,base_defense:1,base_wisdom:1,created_at:'2026-10-23T00:00:00Z',updated_at:'2026-10-23T00:00:00Z'});
+    vi.spyOn(walletRepository, 'getWallet').mockResolvedValue({traveler_id:travelerA,coins:123,created_at:'2026-10-23T00:00:00Z',updated_at:'2026-10-23T00:00:00Z'});
+    vi.spyOn(inventoryRepository,'getInventory').mockResolvedValue([]);
+    vi.spyOn(equipmentRepository,'getEquippedItems').mockResolvedValue([]);
+    const pending=reloadOnlineTraveler(travelerA);
+    setCurrentOnlineUser(userB);
+    complete({id:travelerA,user_id:userA,name:'Stale server response',body_type:'male',skin_tone:'medio',hair_style:'curto',hair_color:null,avatar_variant:'musgo',level:1,xp:0,is_active:true,created_at:'2026-10-23T00:00:00Z',updated_at:'2026-10-23T00:00:00Z'});
+    await expect(pending).resolves.toBe(false);
+    expect(getLocalTravelerSnapshot(travelerA)).toEqual(original);
+  });
   test('isolates cached travelers between users and the local-only flow', () => {
     setCurrentOnlineUser(userA);
     expect(

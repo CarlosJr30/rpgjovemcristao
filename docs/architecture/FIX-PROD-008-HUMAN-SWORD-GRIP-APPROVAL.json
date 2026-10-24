@@ -1,0 +1,20 @@
+{
+  "approvalId": "FIX-PROD-008-HUMAN-SWORD-GRIP-APPROVAL",
+  "decision": "VISUALLY_APPROVED",
+  "userStatement": "Aprovar esta empunhadura neste corpo",
+  "scope": "Somente espada e oclusão da mão no corpo exato da comparação privada; preserva couraça3. Não homologa outros equipamentos, economia ou produção.",
+  "itemId": "traveler-sword-common",
+  "avatarSource": "/assets/avatar/hd/female/female_long_blue_dark_hd.png",
+  "avatarSha256": "8965ed75ea6fed37f0f20bda47d1e89cde09ef5bba38bcb977a8331cd2ce6e9a",
+  "asset": "/assets/equipment/overlays/body-fit-v3/sword_female_long_blue_dark_grip_approved.png",
+  "assetSha256": "16384445ef43f5545d93e311f9348f16aad9082246eb2f802f6310a5f158beac",
+  "composition": {
+    "translateXPercent": -2.3,
+    "translateYPercent": 11.7,
+    "scaleX": 0.65,
+    "scaleY": 0.65,
+    "transformOrigin": "25.7% 41.7%"
+  },
+  "handClipPath": "polygon(20% 51.2%,23.3% 51%,26.8% 52.1%,26.8% 53.7%,25.4% 56%,22% 55.5%,20% 53.7%)",
+  "reviewHtmlSha256": "0b13169f17bf824ca27175b1a360907d86a434136139f8fabfe2391273e6cf3e"
+}

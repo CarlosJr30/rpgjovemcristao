@@ -5,6 +5,7 @@ import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { createHash } from 'node:crypto';
 const execAsync = promisify(execFile);
+let fixtureInstance = 0;
 export const literal = (value: unknown) =>
   `'${JSON.stringify(value).replaceAll("'", "''")}'::jsonb`;
 export const uid = (n: number) =>
@@ -15,9 +16,19 @@ export function offlinePostgres(
   options: {
     beforeMigrations?: (query: (sql: string) => string) => void;
     transformMigration?: (sql: string) => string;
+    // Test-only seed injected into the reviewed authority in an offline DB.
+    // Never alters a migration source file, hosted battle or persisted result.
+    authoritySeed?: number;
   } = {},
 ) {
-  const name = `rpg-consolidation004-${process.pid}`;
+  if (
+    options.authoritySeed !== undefined &&
+    (!Number.isInteger(options.authoritySeed) ||
+      options.authoritySeed < 0 ||
+      options.authoritySeed > 0xffffffff)
+  )
+    throw Error('Offline authority seed must be a uint32');
+  const name = `rpg-consolidation004-${process.pid}-${++fixtureInstance}`;
   const prefix = [
     '-d',
     'RPG-0078-Restore',
@@ -180,9 +191,18 @@ export function offlinePostgres(
           .digest('hex') !== step.sha256
       )
         throw Error('Unreviewed authority SQL');
-      query(
-        `BEGIN;${readFileSync(`packages/database/proposals/${name}`, 'utf8')}\nCOMMIT;`,
-      );
+      let prepared = readFileSync(path, 'utf8');
+      if (
+        options.authoritySeed !== undefined &&
+        name === 'consolidation004-authority.sql'
+      ) {
+        const entropy =
+          "('x'||encode(extensions.gen_random_bytes(4),'hex'))::bit(32)::bigint";
+        if (prepared.split(entropy).length !== 2)
+          throw Error('Unexpected offline seed baseline');
+        prepared = prepared.replace(entropy, String(options.authoritySeed));
+      }
+      query(`BEGIN;${prepared}\nCOMMIT;`);
     },
     create(n: number, owner = n) {
       query(

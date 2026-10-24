@@ -1,4 +1,9 @@
-import { HeroScreen } from '../../../features/journey/screens/hero';
+import { ReleaseAvatar } from '../../../features/release-ebd/home';
+import { ReleaseAccess } from '../../../features/release-ebd/shell';
 export default function Page() {
-  return <HeroScreen />;
+  return (
+    <ReleaseAccess>
+      <ReleaseAvatar />
+    </ReleaseAccess>
+  );
 }

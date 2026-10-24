@@ -217,6 +217,10 @@ export type Database = {
     };
     Views: Record<string, never>;
     Functions: {
+      set_owned_equipment: {
+        Args: { p_traveler_id: string; p_slot: string; p_item_id: string | null; p_expected_item_id: string | null };
+        Returns: Json;
+      };
       guild_ebd_workspace: {Args: {p_actor: string; p_offset: number}; Returns: Json};
       guild_ebd_command: {Args: {p_actor: string; p_action: string; p_id: string; p_revision: number; p_data: Json}; Returns: Json};
       guild_mission_workspace: { Args: { p_actor: string; p_history_offset: number }; Returns: Json };

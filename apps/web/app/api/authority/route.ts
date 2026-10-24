@@ -1,13 +1,6 @@
-import { createAuthorityPort } from '../../../lib/authority/server';
-import { handleAuthority } from '../../../lib/authority/service';
+import { unavailableResponse } from '../../../lib/release-scope';
 export const runtime = 'nodejs';
 export async function POST(request: Request) {
-  try {
-    return await handleAuthority(request, createAuthorityPort());
-  } catch {
-    return Response.json(
-      { error: 'Servidor oficial indisponível.' },
-      { status: 503, headers: { 'Cache-Control': 'no-store' } },
-    );
-  }
+  void request;
+  return unavailableResponse();
 }
