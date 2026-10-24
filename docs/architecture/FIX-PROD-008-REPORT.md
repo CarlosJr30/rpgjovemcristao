@@ -14,7 +14,7 @@ Lidos `.agent/RELEASE_POLICY.md`, contexto/memória, workflow/regras/segurança,
 | UID/avatar ativo e antigo | DONE em leitura | Identificados de forma inequívoca no cadastro; titularidade autenticada não demonstrada por essa consulta. |
 | Liderança/Guilda/EBD do alvo | BLOCKED | Falha do navegador conectado impede getUser da sessão e processo administrativo auditado. Nenhuma promoção executada. |
 | Composição3 e quatro anteriores | DONE na preservação | Cinco composições/quatro PNGs com hashes conferidos; gate213arquivosPASS. |
-| Espada no corpo atual | BLOCKED para ativação | Preparada comparação privada concreta, sem alterar PNG/posição ou runtime; revisão humana específica pendente. |
+| Espada no corpo atual | REWORK | Usuário respondeu “Requer ajuste na espada”. Composição proposta não aprovada; aguardando indicação do ajuste antes de alterar a proposta privada. |
 | Elmo/escudo/botas/medalhão | REWORK | Definições atuais NEEDS_NEW_OVERLAY e sem aprovação nesse corpo; não ativar calibração arquivada como arte homologada. |
 | Troca positiva no mesmo slot | BLOCKED | Catálogo contém seis itens, um por slot; falta segunda variante homologada e adquirida legitimamente. |
 | Atributos/persistência/desktop/móvel | DONE nos cenários007 já executados | Evidência válida preservada; nenhum código afetado. Revisão privada008 em dois viewports também executada; não equivale a equipar hospedado ou aparelho físico. |
@@ -45,7 +45,7 @@ Auditoria executável do catálogo/resolver real (`build/fix-prod-008/equipment-
 
 Gate `node scripts/equipment-body-fit-v3-production-gate.mjs`:PASS,4PNGs/5composições,213arquivos verificados,0pendentes publicados. Hashes do corpo e overlay de cada uma das cinco composições conferem. Nenhum arquivo de runtime, arte, calibração, regra econômica ou migration foi modificado em008 até esta revisão.
 
-Preparada revisão privada concreta de espada existente com a couraça3: `build/fix-prod-008/visual-review.html`. Comparação lado a lado do atual aprovado e da proposta adicionando apenas a espada existente, sem ajuste de posicionamento; não é ativação. Chromium1440/WebKit390 carregaram todas as imagens, sem overflow/erros, com toggle conferido; capturas inspecionadas. Pergunta de aprovação específica enviada ao usuário; ausência de resposta não concede aceite. Elmo/escudo/botas/medalhão não estão homologados por essa revisão. Teste de celular físico indisponível, não declaradoPASS.
+Preparada revisão privada concreta de espada existente com a couraça3: `build/fix-prod-008/visual-review.html`. Comparação lado a lado do atual aprovado e da proposta adicionando apenas a espada existente, sem ajuste de posicionamento; não é ativação. Chromium1440/WebKit390 carregaram todas as imagens, sem overflow/erros, com toggle conferido; capturas inspecionadas. **Resposta humana recebida: “Requer ajuste na espada”.** A proposta está REWORK, sem aprovação para esse corpo. Solicitado detalhamento de posição, tamanho, inclinação ou sobreposição; não inventar a preferência visual. Couraça3 e quatro composições anteriores preservadas. Elmo/escudo/botas/medalhão não estão homologados por essa revisão. Teste de celular físico indisponível, não declaradoPASS.
 
 ## Torre: execução real nova
 

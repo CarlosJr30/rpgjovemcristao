@@ -21,7 +21,7 @@ DEFINITION_OF_DONE: Todos os critérios comprovados e docs/architecture/FIX-PROD
 - DONE no cenário real executado:16checks Torre2 na Preview23f95ae;derrota legítima rodada7,batalha90c11431-9190-433d-91c2-f1fb2972fffc/reciboafee9700-f7c1-4ef1-9d46-aaa963737d08;0XP/0moedas/0baús,progresso2,reconexão/replay conferidos. Parou na primeira derrota.
 - DONE: hashes dos oito conjuntos anteriores iguais, excluindo somente a nova batalha/recibo autorizadosTEST.21batalhas23recibos16XP6moedas0claims/políticafalse;nenhuma escritaPROD.
 - BLOCKED: origem16/6 produtivos não comprovada,apesar de hipótese de2treinos8/3;liderança semgetUser por kernelassets;vitórias hospedadas2–7/campeão e troca positiva sem segundo item homologado.
-- REWORK: elmo/escudo/botas/medalhão NEEDS_NEW_OVERLAY. Espada: comparação privada concreta entregue e revisão humana pendente;sem ativação. Couraça3 e quatro composições anteriores intactas.
+- REWORK: elmo/escudo/botas/medalhão NEEDS_NEW_OVERLAY. Espada: usuário respondeu “Requer ajuste na espada”; proposta não aprovada para esse corpo. Solicitado detalhamento do ajuste; sem ativação. Couraça3 e quatro composições anteriores intactas.
 - Sem runtime/migration/DDL/dependência nova;testes007 válidos727unit/36PG/18API/12browser/lint/types/build/protocolo25 e10PG006 preservados,sem nova execução alegada.
 - Preview00723f95aeREADY,CI40098578298success;ccfa523CI40099363235success. Produção/main5edc93fREADY preservados. SemDEPLOY_COMPLETE.
 - Relatório: docs/architecture/FIX-PROD-008-REPORT.md; evidências privadas build/fix-prod-008. Pendências e condições de desbloqueio detalhadas no relatório.

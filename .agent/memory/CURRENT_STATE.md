@@ -1,3 +1,7 @@
+## FIX-PROD-008 — resposta à revisão da espada
+
+Usuário respondeu: Requer ajuste na espada. Proposta privada passa a REWORK, sem aprovação ou ativação nesse corpo. Solicitado detalhamento de posição/tamanho/inclinação/sobreposição; aguardar preferência antes de alterar a proposta. Couraça3 e quatro composições anteriores preservadas. Demais bloqueios de produção permanecem.
+
 ## 2026-10-24 — FIX-PROD-008 / nova derrota hospedada validada / produção BLOCKED
 
 Branch codex/fix-prod-008,baseccfa523 no checkout físico C:/Users/carlo/rpg-worktrees/fix-prod-005;23f95ae/ccfa523 locais/remotos confirmados. Sem mudança de runtime/arte/migration/dependência. Reutilizados resultados007727unit36PG18API12browser/lint/types/build/protocolo25 e10PG006;CI40098578298e40099363235success. Gate atual213arquivosPASS,4PNGs/5composições/hashespreservados.
