@@ -4,6 +4,7 @@ import { RequireTraveler } from '../journey/components/shell';
 import { ReleaseShell as Shell } from '../release-ebd/shell';
 import { GuildHub } from '../journey/screens/guild-hub';
 import { EbdPanel } from './panel';
+import releaseStyles from '../release-ebd/release.module.css';
 export function EbdScreen() {
   const auth = useAuth();
   if (auth.status === 'loading')
@@ -16,7 +17,11 @@ export function EbdScreen() {
   return (
     <Shell back="/journey/guild" backLabel="Voltar à Guilda">
       <RequireTraveler>
-        {(traveler) => <EbdPanel key={traveler.id} traveler={traveler} />}
+        {(traveler) => (
+          <div className={releaseStyles.content}>
+            <EbdPanel key={traveler.id} traveler={traveler} />
+          </div>
+        )}
       </RequireTraveler>
     </Shell>
   );

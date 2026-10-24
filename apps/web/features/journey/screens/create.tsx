@@ -19,6 +19,7 @@ import styles from '../journey.module.css';
 import { useAuth } from '../../../lib/supabase/auth-context';
 import { profileDisplayName } from '../../../lib/supabase/auth';
 import { entryReturn } from '../../../lib/supabase/auth-return';
+import releaseStyles from '../../release-ebd/release.module.css';
 
 const presets: {
   label: string;
@@ -128,7 +129,7 @@ export function CreateScreen() {
   return (
     <Shell back="/" backLabel="Voltar ao início">
       <section
-        className={styles.createSection}
+        className={`${styles.createSection} ${releaseStyles.content}`}
         data-quick-hero={auth.status === 'signedIn' && !customizing}
       >
         <div className={styles.sectionHeading}>
