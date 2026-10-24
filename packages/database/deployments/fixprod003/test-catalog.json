@@ -1,0 +1,384 @@
+{
+  "project": "wkdvdzfkbwvhyjmamrsg",
+  "environment": "test-only",
+  "productionApproval": false,
+  "approvalRef": "FIX-PROD-003:TEST-ONLY:2026-10-23",
+  "sourceVersion": "arena-cards-2026-10-20.2",
+  "version": "arena-cards-2026-10-20.2-fixprod003-test",
+  "balanceVersion": "arena-v2-measured-strike-003a.1",
+  "definitionsSha256": "ec5a22038ca372e57e9b64fc5883d3086a25db241b0d3f03e5c0e39d3437baf1",
+  "acquisition": "explicit-player-starter-request-once-per-account",
+  "definitions": [
+    {
+      "id": "arena-card-basic-attack",
+      "action": "attack",
+      "name": "Ataque Simples",
+      "type": "OFFENSIVE",
+      "rarity": "comum",
+      "description": {
+        "focusCost": 0,
+        "minimumLevel": 1,
+        "condition": "Carta selecionada, ainda não usada; batalha aberta e rodada atual.",
+        "headline": "Ataque básico · até +1 Foco",
+        "explanation": "Ao executar, gera até 1 Foco, limitado a 3; se cair antes de agir, não gera Foco. Parcela ofensiva = 3 + 2,2 × Força + 0,18 × soma do poder de todos os itens equipados. Subtrai 1,15 × Defesa do alvo; aplica multiplicadores e arredonda ao inteiro mais próximo, mínimo 1. Atributos e poder de cada item limitados a 0–999. Guarda/armadura arredondam para cima em etapas; esquiva causa 0 e dano aplicado não ultrapassa o HP restante.",
+        "duration": "Um ataque aceito; bônus preparados são consumidos quando o ataque é executado."
+      },
+      "parameters": {
+        "baseDamage": 3,
+        "strengthMultiplier": 2.2,
+        "equipmentPowerMultiplier": 0.18,
+        "defenseMultiplier": 1.15,
+        "minimumDamage": 1,
+        "maximumStat": 999,
+        "offensiveMultiplier": 1,
+        "gainedFocus": 1,
+        "maximumSpecialPowerMultiplier": 1.25,
+        "maximumFocus": 3
+      },
+      "minimumLevel": 1,
+      "focusCost": 0,
+      "usesPerBattle": 1,
+      "remainsOwnedAfterBattle": true,
+      "catalogVersion": "arena-cards-2026-10-20.2-fixprod003-test",
+      "balanceVersion": "arena-v2-measured-strike-003a.1",
+      "biblicalReference": null,
+      "art": {
+        "approved": false,
+        "reference": null
+      },
+      "homologation": {
+        "status": "approved",
+        "approvalReference": "FIX-PROD-003:TEST-ONLY:2026-10-23"
+      },
+      "acquisition": {
+        "status": "enabled",
+        "proposedSources": [
+          "starter",
+          "chest",
+          "guild-mission",
+          "journey",
+          "authorized-challenge"
+        ],
+        "authorizedSources": [
+          "starter"
+        ],
+        "approvalReference": "FIX-PROD-003:TEST-ONLY:2026-10-23"
+      }
+    },
+    {
+      "id": "arena-card-basic-defense",
+      "action": "defend",
+      "name": "Defesa",
+      "type": "DEFENSIVE",
+      "rarity": "comum",
+      "description": {
+        "focusCost": 0,
+        "minimumLevel": 1,
+        "condition": "Carta selecionada, ainda não usada; batalha aberta e rodada atual.",
+        "headline": "Dano recebido ×0,5 · até +1 Foco",
+        "explanation": "Gera até 1 Foco, limitado a 3. Aplica ×0,5 ao dano já arredondado do próximo golpe recebido. Arredonda para cima, mínimo 1; a redução final pode variar pelo arredondamento. Não soma Defesa nem cura. A armadura pode multiplicar a proteção depois.",
+        "duration": "Até receber um golpe não esquivado; sem prazo fixo em turnos. Não substitui uma Guarda forte já preparada."
+      },
+      "parameters": {
+        "receivedDamageMultiplier": 0.5,
+        "armorMultiplier": 0.85,
+        "minimumDamage": 1,
+        "gainedFocus": 1,
+        "maximumFocus": 3
+      },
+      "minimumLevel": 1,
+      "focusCost": 0,
+      "usesPerBattle": 1,
+      "remainsOwnedAfterBattle": true,
+      "catalogVersion": "arena-cards-2026-10-20.2-fixprod003-test",
+      "balanceVersion": "arena-v2-measured-strike-003a.1",
+      "biblicalReference": null,
+      "art": {
+        "approved": false,
+        "reference": null
+      },
+      "homologation": {
+        "status": "approved",
+        "approvalReference": "FIX-PROD-003:TEST-ONLY:2026-10-23"
+      },
+      "acquisition": {
+        "status": "enabled",
+        "proposedSources": [
+          "starter",
+          "chest",
+          "guild-mission",
+          "journey",
+          "authorized-challenge"
+        ],
+        "authorizedSources": [
+          "starter"
+        ],
+        "approvalReference": "FIX-PROD-003:TEST-ONLY:2026-10-23"
+      }
+    },
+    {
+      "id": "arena-card-path-strike",
+      "action": "special:path-strike",
+      "name": "Golpe do Caminho",
+      "type": "OFFENSIVE",
+      "rarity": "comum",
+      "description": {
+        "focusCost": 2,
+        "minimumLevel": 2,
+        "condition": "Carta selecionada, ainda não usada; batalha aberta e rodada atual.",
+        "headline": "Golpe ×1,45",
+        "explanation": "Multiplica por 1,45 a parcela ofensiva menos a Defesa, antes do arredondamento e da guarda. Não é percentual da vida do alvo. Modificador de potência do snapshot: ×1. Reforços da espada e vantagem preparada podem multiplicar esse resultado.",
+        "duration": "Um ataque; carta consumida após aceite. Se cair antes de agir, o turno aceito ainda gasta a carta."
+      },
+      "parameters": {
+        "baseDamage": 3,
+        "strengthMultiplier": 2.2,
+        "equipmentPowerMultiplier": 0.18,
+        "defenseMultiplier": 1.15,
+        "minimumDamage": 1,
+        "maximumStat": 999,
+        "offensiveMultiplier": 1.45,
+        "gainedFocus": 0,
+        "maximumSpecialPowerMultiplier": 1.25,
+        "maximumFocus": 3
+      },
+      "minimumLevel": 2,
+      "focusCost": 2,
+      "usesPerBattle": 1,
+      "remainsOwnedAfterBattle": true,
+      "catalogVersion": "arena-cards-2026-10-20.2-fixprod003-test",
+      "balanceVersion": "arena-v2-measured-strike-003a.1",
+      "biblicalReference": null,
+      "art": {
+        "approved": false,
+        "reference": null
+      },
+      "homologation": {
+        "status": "approved",
+        "approvalReference": "FIX-PROD-003:TEST-ONLY:2026-10-23"
+      },
+      "acquisition": {
+        "status": "enabled",
+        "proposedSources": [
+          "starter",
+          "chest",
+          "guild-mission",
+          "journey",
+          "authorized-challenge"
+        ],
+        "authorizedSources": [
+          "starter"
+        ],
+        "approvalReference": "FIX-PROD-003:TEST-ONLY:2026-10-23"
+      }
+    },
+    {
+      "id": "arena-card-steadfast-guard",
+      "action": "special:steadfast-guard",
+      "name": "Guarda Perseverante",
+      "type": "DEFENSIVE",
+      "rarity": "comum",
+      "description": {
+        "focusCost": 2,
+        "minimumLevel": 4,
+        "condition": "Carta selecionada, ainda não usada; batalha aberta e rodada atual.",
+        "headline": "Próximo dano recebido ×0,25",
+        "explanation": "Guarda preparada antes da iniciativa; aplica ×0,25 ao dano já arredondado, no lugar da defesa básica ×0,5. Arredonda para cima, mínimo 1; a redução final pode variar pelo arredondamento. O escudo não acrescenta outro multiplicador.",
+        "duration": "Próximo golpe não esquivado; permanece preparada até esse golpe, sem prazo fixo em turnos."
+      },
+      "parameters": {
+        "receivedDamageMultiplier": 0.25,
+        "armorMultiplier": 0.85,
+        "minimumDamage": 1,
+        "gainedFocus": 0,
+        "maximumFocus": 3
+      },
+      "minimumLevel": 4,
+      "focusCost": 2,
+      "usesPerBattle": 1,
+      "remainsOwnedAfterBattle": true,
+      "catalogVersion": "arena-cards-2026-10-20.2-fixprod003-test",
+      "balanceVersion": "arena-v2-measured-strike-003a.1",
+      "biblicalReference": null,
+      "art": {
+        "approved": false,
+        "reference": null
+      },
+      "homologation": {
+        "status": "approved",
+        "approvalReference": "FIX-PROD-003:TEST-ONLY:2026-10-23"
+      },
+      "acquisition": {
+        "status": "enabled",
+        "proposedSources": [
+          "starter",
+          "chest",
+          "guild-mission",
+          "journey",
+          "authorized-challenge"
+        ],
+        "authorizedSources": [
+          "starter"
+        ],
+        "approvalReference": "FIX-PROD-003:TEST-ONLY:2026-10-23"
+      }
+    },
+    {
+      "id": "arena-card-discernment",
+      "action": "special:discernment",
+      "name": "Discernimento",
+      "type": "TACTICAL",
+      "rarity": "comum",
+      "description": {
+        "focusCost": 2,
+        "minimumLevel": 6,
+        "condition": "Carta selecionada, ainda não usada; batalha aberta e rodada atual.",
+        "headline": "Próximo ataque até ×1,55",
+        "explanation": "Prepara multiplicador 1,18 + 0,035 × Sabedoria, limitado a 1,55. Aplica sobre a parcela ofensiva menos a Defesa, antes do arredondamento. Revela somente a intenção provável permitida pela mecânica após o uso.",
+        "duration": "Próximo ataque executado, básico ou Golpe; substitui a vantagem anterior, não acumula. Defesa não a consome."
+      },
+      "parameters": {
+        "baseMultiplier": 1.18,
+        "wisdomMultiplier": 0.035,
+        "maximumMultiplier": 1.55,
+        "amuletBoost": 0.15,
+        "maximumStat": 999,
+        "maximumFocus": 3
+      },
+      "minimumLevel": 6,
+      "focusCost": 2,
+      "usesPerBattle": 1,
+      "remainsOwnedAfterBattle": true,
+      "catalogVersion": "arena-cards-2026-10-20.2-fixprod003-test",
+      "balanceVersion": "arena-v2-measured-strike-003a.1",
+      "biblicalReference": null,
+      "art": {
+        "approved": false,
+        "reference": null
+      },
+      "homologation": {
+        "status": "approved",
+        "approvalReference": "FIX-PROD-003:TEST-ONLY:2026-10-23"
+      },
+      "acquisition": {
+        "status": "enabled",
+        "proposedSources": [
+          "starter",
+          "chest",
+          "guild-mission",
+          "journey",
+          "authorized-challenge"
+        ],
+        "authorizedSources": [
+          "starter"
+        ],
+        "approvalReference": "FIX-PROD-003:TEST-ONLY:2026-10-23"
+      }
+    },
+    {
+      "id": "arena-card-pilgrim-step",
+      "action": "special:pilgrim-step",
+      "name": "Passo do Peregrino",
+      "type": "TACTICAL",
+      "rarity": "comum",
+      "description": {
+        "focusCost": 3,
+        "minimumLevel": 8,
+        "condition": "Carta selecionada, ainda não usada; batalha aberta e rodada atual.",
+        "headline": "Evita o próximo golpe recebido · dano 0",
+        "explanation": "Prepara uma esquiva garantida para um golpe recebido; não usa probabilidade nem recupera vida. Tem prioridade sobre o uso automático das botas.",
+        "duration": "Um golpe recebido; permanece até ocorrer, sem prazo fixo em turnos. Não acumula esquivas ao repetir."
+      },
+      "parameters": {
+        "avoidedHits": 1,
+        "receivedDamage": 0,
+        "maximumFocus": 3
+      },
+      "minimumLevel": 8,
+      "focusCost": 3,
+      "usesPerBattle": 1,
+      "remainsOwnedAfterBattle": true,
+      "catalogVersion": "arena-cards-2026-10-20.2-fixprod003-test",
+      "balanceVersion": "arena-v2-measured-strike-003a.1",
+      "biblicalReference": null,
+      "art": {
+        "approved": false,
+        "reference": null
+      },
+      "homologation": {
+        "status": "approved",
+        "approvalReference": "FIX-PROD-003:TEST-ONLY:2026-10-23"
+      },
+      "acquisition": {
+        "status": "enabled",
+        "proposedSources": [
+          "starter",
+          "chest",
+          "guild-mission",
+          "journey",
+          "authorized-challenge"
+        ],
+        "authorizedSources": [
+          "starter"
+        ],
+        "approvalReference": "FIX-PROD-003:TEST-ONLY:2026-10-23"
+      }
+    },
+    {
+      "id": "arena-card-measured-strike",
+      "action": "special:measured-strike",
+      "name": "Golpe Medido",
+      "type": "OFFENSIVE",
+      "rarity": "comum",
+      "description": {
+        "focusCost": 1,
+        "minimumLevel": 1,
+        "condition": "Carta selecionada, ainda não usada; batalha aberta e rodada atual.",
+        "headline": "Golpe Medido ×1,15",
+        "explanation": "Multiplica por 1,15 a parcela ofensiva menos a Defesa, antes do arredondamento e da guarda. Não é aumento fixo do dano final nem percentual da vida. Modificador de potência do snapshot: ×1. Vantagem preparada e bônus da espada após Defender continuam aplicáveis; o reforço ativo exclusivo do Golpe do Caminho não é ativado. Não gera Foco; descontos respeitam o piso de 1 Foco.",
+        "duration": "Um ataque; uma utilização por batalha. Carta consumida somente após comando aceito, mesmo se cair antes de agir. Permanece na coleção e volta na próxima batalha."
+      },
+      "parameters": {
+        "baseDamage": 3,
+        "strengthMultiplier": 2.2,
+        "equipmentPowerMultiplier": 0.18,
+        "defenseMultiplier": 1.15,
+        "minimumDamage": 1,
+        "maximumStat": 999,
+        "offensiveMultiplier": 1.15,
+        "gainedFocus": 0,
+        "maximumSpecialPowerMultiplier": 1.25,
+        "maximumFocus": 3
+      },
+      "minimumLevel": 1,
+      "focusCost": 1,
+      "usesPerBattle": 1,
+      "remainsOwnedAfterBattle": true,
+      "catalogVersion": "arena-cards-2026-10-20.2-fixprod003-test",
+      "balanceVersion": "arena-v2-measured-strike-003a.1",
+      "biblicalReference": null,
+      "art": {
+        "approved": false,
+        "reference": null
+      },
+      "homologation": {
+        "status": "approved",
+        "approvalReference": "FIX-PROD-003:TEST-ONLY:2026-10-23"
+      },
+      "acquisition": {
+        "status": "enabled",
+        "proposedSources": [
+          "starter",
+          "chest",
+          "guild-mission",
+          "journey",
+          "authorized-challenge"
+        ],
+        "authorizedSources": [
+          "starter"
+        ],
+        "approvalReference": "FIX-PROD-003:TEST-ONLY:2026-10-23"
+      }
+    }
+  ]
+}

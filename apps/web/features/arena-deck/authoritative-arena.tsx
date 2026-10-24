@@ -108,7 +108,9 @@ export function AuthoritativeArena({
           className={styles.primaryLink}
           href={mode === 'tower-v3' ? '/journey/arena' : '/journey/arena/tower'}
         >
-          {mode === 'tower-v3' ? 'Arena de Treinamento' : 'Torre dos 7 Desafios'}
+          {mode === 'tower-v3'
+            ? 'Arena de Treinamento'
+            : 'Torre dos 7 Desafios'}
         </Link>
       </nav>
       {mode === 'tower-v3' && (
@@ -118,6 +120,34 @@ export function AuthoritativeArena({
         </p>
       )}
       <p role="status">{message}</p>
+      {owned.length === 0 && !active && (
+        <div>
+          <p>
+            O baralho inicial pode ser recebido uma vez por conta, pelo Viajante
+            escolhido, quando o catálogo estiver homologado.
+          </p>
+          <button
+            disabled={busy || presentation.busy}
+            onClick={() =>
+              void run(async () => {
+                await transport({ ...base, operation: 'starter' });
+                const collection = await transport<OwnedCard[]>({
+                  ...base,
+                  operation: 'collection',
+                });
+                setOwned(collection);
+                setMessage(
+                  collection.length === 7
+                    ? 'Baralho inicial confirmado pelo servidor.'
+                    : 'Nenhuma carta nova foi confirmada para este Viajante. O direito pode já ter sido utilizado nesta conta.',
+                );
+              })
+            }
+          >
+            Receber baralho inicial neste Viajante
+          </button>
+        </div>
+      )}
       <DeckEditor
         key={cards.map((c) => c.id).join(',') + (battle?.state.id ?? '')}
         cards={cards}
@@ -273,7 +303,9 @@ export function AuthoritativeArena({
             <p>
               Recibo: {battle.receiptId}. XP: {battle.reward?.xp ?? 0}. Moedas:{' '}
               {battle.reward?.coins ?? 0}.
-              {!!battle.reward?.levelBonusCoins && <> Bônus de nível: {battle.reward.levelBonusCoins} moedas.</>}
+              {!!battle.reward?.levelBonusCoins && (
+                <> Bônus de nível: {battle.reward.levelBonusCoins} moedas.</>
+              )}
             </p>
           )}
         </>

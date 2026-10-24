@@ -39,6 +39,75 @@ vi.mock('../journey/components/arena-stage', () => ({
 }));
 import { AuthoritativeArena } from './authoritative-arena';
 afterEach(cleanup);
+it('requests the existing starter only after an explicit click and displays only the server-confirmed collection', async () => {
+  let claimed = false;
+  const cards = syntheticSevenCards();
+  const transport = vi.fn(async (body: Record<string, unknown>) => {
+    if (body.operation === 'collection')
+      return claimed
+        ? cards.map((card) => ({
+            card,
+            version: 'fixture-only',
+            receiptId: 'confirmed-receipt',
+          }))
+        : [];
+    if (body.operation === 'resume') return null;
+    if (body.operation === 'starter') {
+      claimed = true;
+      return { id: 'confirmed-receipt' };
+    }
+    throw Error('Unexpected intent');
+  });
+  render(
+    <AuthoritativeArena
+      travelerId={measuredHero.id}
+      mode="arena-v3"
+      transport={transport as unknown as typeof requestAuthority}
+    />,
+  );
+  const button = await screen.findByRole('button', {
+    name: 'Receber baralho inicial neste Viajante',
+  });
+  await waitFor(() =>
+    expect((button as HTMLButtonElement).disabled).toBe(false),
+  );
+  expect(
+    transport.mock.calls.some(([body]) => body.operation === 'starter'),
+  ).toBe(false);
+  fireEvent.click(button);
+  await screen.findByText('Baralho inicial confirmado pelo servidor.');
+  expect(
+    transport.mock.calls.filter(([body]) => body.operation === 'starter'),
+  ).toEqual([[{ travelerId: measuredHero.id, operation: 'starter' }]]);
+  expect(
+    screen.queryByRole('button', {
+      name: 'Receber baralho inicial neste Viajante',
+    }),
+  ).toBeNull();
+});
+it('does not manufacture cards when a starter request is rejected', async () => {
+  const transport = vi.fn(async (body: Record<string, unknown>) => {
+    if (body.operation === 'collection') return [];
+    if (body.operation === 'resume') return null;
+    throw Error('Catálogo ainda não homologado.');
+  });
+  render(
+    <AuthoritativeArena
+      travelerId={measuredHero.id}
+      mode="arena-v3"
+      transport={transport as unknown as typeof requestAuthority}
+    />,
+  );
+  const button = await screen.findByRole('button', {
+    name: 'Receber baralho inicial neste Viajante',
+  });
+  await waitFor(() =>
+    expect((button as HTMLButtonElement).disabled).toBe(false),
+  );
+  fireEvent.click(button);
+  await screen.findByText('Catálogo ainda não homologado.');
+  expect(screen.queryByRole('button', { name: 'Selecionar carta' })).toBeNull();
+});
 it('official client sends only intent, takes confirmed state, and recovers consumed card without a local result', async () => {
   const cards = syntheticSevenCards();
   let current: BattleView | null = null;
