@@ -1,6 +1,26 @@
 # FIX-PROD-008 — Pendências finais de produção
 
-Data: 24/10/2026. Estado geral: **BLOCKED para produção**. Não há evidência suficiente para reconciliar o delta produtivo ou promover o avatar ativo. A nova execução hospedada registra uma derrota legítima, sem concessões.
+Data: 24/10/2026. Estado geral: **BLOCKED para produção**. Não há evidência suficiente para reconciliar o delta produtivo ou promover o avatar ativo. A nova execução hospedada registra uma derrota legítima, sem concessões. **A empunhadura da espada foi posteriormente aprovada e integrada no candidato7a9e115.** As pendências históricas de aprovação da espada descritas abaixo foram superadas exclusivamente para a composição registrada no JSON008; não para outros itens/economia.
+
+## Integração da empunhadura aprovada — estado mais recente
+
+Resposta explícita do usuário: **“Aprovar esta empunhadura neste corpo”**. Registro `FIX-PROD-008-HUMAN-SWORD-GRIP-APPROVAL.json` vincula item, corpo, PNG,hashes,transformação e oclusão à revisão privada. Integrado exatamente `sword-grip-v1.png`,SHA25616384445ef43f5545d93e311f9348f16aad9082246eb2f802f6310a5f158beac, em `apps/web/public/assets/equipment/overlays/body-fit-v3/sword_female_long_blue_dark_grip_approved.png`. Rascunho v2 e galeria privada não foram publicados.
+
+`equipmentBodyFitV3.ts` registra a composição adicional; `equipmentAssets.ts` resolve somente traveler-sword-common/female_long_blue_dark HD com posse/slot/qualidade/aprovação preservados. `avatar-runtime.tsx` reproduz translate(-2.3%,11.7%)scale(.65),origem25.7%41.7%,e uma camada da mão original com o mesmo clip-path da comparação aprovada. Não houve edição do corpo/couraça ou atributos. Equipar/desequipar remove espada e mão em conjunto; outra identidade/fallback/falha de imagem não herda o ajuste. Cinco composições anteriores intactas; agora5PNGs/6composições no gate.
+
+Validação local nova:12testesavatarPASS,729unitPASS/66SKIP,lint/types/buildPASS,protocolo25PASS; gate de build638arquivos/5PNGs/6composições/0pendentesPASS. Primeira suíte paralela esgotou memória local; log preservado, reexecução integral commaxWorkers2 passou sem enfraquecer critérios. Nenhuma falha inicial foi contada comoPASS. Banco/autoridade/migrations não mudaram;36PG007 e10PG006 válidos reutilizados, sem nova simulação alegada.
+
+Componente real no navegador local:Chromium1440/WebKit390PASS. Medidas CSS,transformação,origem,dimensões eclip-path da espada/mão/couraça conferem exatamente com a proposta aprovada no mesmo viewport. Equipar/desequipar,atributos,persistência apósreload e ausência de erro tambémPASS. Fixture sintética apenas; não prova acesso ao Teste Chat A hospedado nem teste físico. Evidências `build/fix-prod-008/grip-integration/`.
+
+[Candidato7a9e1150acd125007b53f5cb58003e926915bfe6](https://github.com/CarlosJr30/rpgjovemcristao/commit/7a9e1150acd125007b53f5cb58003e926915bfe6),[CI40105073628success](https://github.com/CarlosJr30/rpgjovemcristao/actions/runs/40105073628),job120904958910:tests,lint,types,build e protocolo aprovados no SHA exato. **[Nova Preview READY](https://rpgjovemcristao-qqhsk7s2v-carlos-junior-s-projects.vercel.app)**,dpl_7TSL6PBV9T6oJZ3m3LeArFXfxLjz,SHA7a9e115. Env exclusiva da branch008 aponta aoTEST; nenhuma migration necessária ou aplicada. Produção permanece bloqueada pelos demais gates, não pela aprovação visual já recebida.
+
+Verificação hospedada nova:18checksAPI e14browserPASS/0FAIL,Chromium1440/WebKit390. Login/getUser reais,equipamentos/atributos preexistentes,reload,coleção de sete cartas e negações de acesso cruzado/semAuth/injeção econômica;recibos históricos de derrota continuam sem créditos. SHA256 da espada servida pela Preview confere com a revisão humana nos dois navegadores. Sem erros/overflow,nova aquisição/partida/grant. Hashes dos oito conjuntos de dados iguais antes/depois,sem exclusão de linhas nesta rodada. Torre permanece0claims/políticafalse. Composição do alvo conferida no componente real local; não se alegou sessão autenticada do Teste Chat A na Preview ou teste físico.
+
+Produção/main reconferidos após testes:5edc93fREADY,dpl_H9aXo2mnhWvk2PD6BwQowpxeaiVv. Nenhuma publicação produtiva da empunhadura,DDL ou alteração de jogador. Evidências novas em `build/fix-prod-008/grip-integration/`:candidate/ci/preview,logs,browser local/hospedado,preview-checks/process,game-data-preservation.json eproduction-final.json.
+
+## Histórico da auditoria e das revisões anteriores
+
+Os registros abaixo preservam as etapas anteriores à aprovação da empunhadura. Afirmações de ausência de mudança de runtime e status PENDING_HUMAN_REVIEW referem-se àqueles momentos; foram superadas exclusivamente pela integração aprovada acima. Economia,liderança,demais peças e vitórias hospedadas pendentes continuamBLOCKED.
 
 ## Preparação e preservação — DONE
 
@@ -14,10 +34,10 @@ Lidos `.agent/RELEASE_POLICY.md`, contexto/memória, workflow/regras/segurança,
 | UID/avatar ativo e antigo | DONE em leitura | Identificados de forma inequívoca no cadastro; titularidade autenticada não demonstrada por essa consulta. |
 | Liderança/Guilda/EBD do alvo | BLOCKED | Falha do navegador conectado impede getUser da sessão e processo administrativo auditado. Nenhuma promoção executada. |
 | Composição3 e quatro anteriores | DONE na preservação | Cinco composições/quatro PNGs com hashes conferidos; gate213arquivosPASS. |
-| Espada no corpo atual | REWORK | Usuário respondeu “Requer ajuste na espada”. Composição proposta não aprovada; aguardando indicação do ajuste antes de alterar a proposta privada. |
+| Espada no corpo atual | DONE na implementação e Preview | Proposta aprovada explicitamente; candidato7a9e115READY reproduz composição/oclusão exatas. Produção permaneceBLOCKED. |
 | Elmo/escudo/botas/medalhão | REWORK | Definições atuais NEEDS_NEW_OVERLAY e sem aprovação nesse corpo; não ativar calibração arquivada como arte homologada. |
 | Troca positiva no mesmo slot | BLOCKED | Catálogo contém seis itens, um por slot; falta segunda variante homologada e adquirida legitimamente. |
-| Atributos/persistência/desktop/móvel | DONE nos cenários007 já executados | Evidência válida preservada; nenhum código afetado. Revisão privada008 em dois viewports também executada; não equivale a equipar hospedado ou aparelho físico. |
+| Atributos/persistência/desktop/móvel | DONE nos cenários executados | Novos12avatar/729unit/2viewports locais e18API/14browser hospedadosPASS. Corpo aprovado ensaiado na fixture local;sem grant para fabricar cenário hospedado ou teste físico alegado. |
 | Torre hospedada, derrota/recibo/reconexão | DONE no cenário008 | Nova tentativa legítima no andar2, derrota rodada7,16checksPASS;0XP/0moedas/0baús e progresso mantido2. |
 | Torre hospedada, vitórias2–7/campeão | BLOCKED | Tentativa não venceu o andar2; não abrir3–7 ou elevar atributos manualmente. |
 | Arena hospedada | DONE nos cenários003/007 preservados; demais positivos BLOCKED | Não repetir concessões/partidas sem necessidade; nenhuma recompensa nova de Arena em008. |

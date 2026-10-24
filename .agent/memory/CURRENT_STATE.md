@@ -1,3 +1,11 @@
+## FIX-PROD-008 — empunhadura aprovada integrada / Preview READY / produção BLOCKED
+
+Usuário aprovou explicitamente: Aprovar esta empunhadura neste corpo. Candidato7a9e1150acd125007b53f5cb58003e926915bfe6,CI40105073628success/job120904958910. PNG aprovado16384445ef43f5545d93e311f9348f16aad9082246eb2f802f6310a5f158beac empublic/overlays/body-fit-v3/sword_female_long_blue_dark_grip_approved.png;corpoexatofemale_long_blue_dark,transformação/oclusão iguais à revisão privada,registrohumanoJSON008. Cinco composições anteriores/couraça3 intactas;gate5PNGs6composições638arquivosPASS.
+
+12avatar/729unitPASS66SKIP,lint/types/build/protocolo25PASS. Primeira suíte localOOM;rerunmaxWorkers2PASS.2viewports locais componente real comparados à proposta aprovada,equipar/desequipar/atributos/persistênciaPASS. PreviewREADYdpl_7TSL6PBV9T6oJZ3m3LeArFXfxLjz,https://rpgjovemcristao-qqhsk7s2v-carlos-junior-s-projects.vercel.app,SHA7a9e115.18API14browser reaisPASS,novaimagemservidaSHAconfere,8hashesdadosexatamenteiguais;semnewbattle/grant/migration.36PG007/10PG006válidosreutilizados,semnovaexecuçãoalegada.
+
+Sem sessão alvo acessível/teste físico;outraspeças/economia16XP6moedas/liderança/vitóriasTorre hospedadas continuamBLOCKED. Nenhum dado ou privilégio alterado. Produção/main5edc93fREADY,dpl_H9aXo2mnhWvk2PD6BwQowpxeaiVv,intactos;semDEPLOY_COMPLETE. Relatório008 atualizado com estado recente e histórico; evidências privadasbuild/fix-prod-008/grip-integration. QA/Securitypeloautor.
+
 ## FIX-PROD-008 — proposta privada de espada na mão pronta para revisão
 
 Detalhamento recebido: empunhadura natural, alinhar cabo/mão e ajustar proporção/inclinação, preservar couraça3/demais itens, não aplicar antes da validação. Comparação antes/depois privada em build/fix-prod-008/sword-grip-review/index.html,PNGdesktop/mobile ePROMPTS.md;image_gen integrado,camada v1 selecionada,v2 alternativa. Corpo/couraça originais,oclusão por mão original viaCSS.2viewportsPASS e gate4PNGs5composições213arquivosPASS. StatusPENDING_HUMAN_REVIEW;semruntime/public/aprovação/deploy/banco alterado. Demais bloqueios de produção permanecem.
