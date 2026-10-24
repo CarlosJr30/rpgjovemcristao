@@ -111,5 +111,44 @@ describe.runIf(process.env.RPG_LOCAL_PG === '1')(
         ),
       ).toBe('f|f');
     });
+    it('returns a non-retryable HTTP conflict and preserves function bodies and permissions', () => {
+      const signature =
+        'economy_private.set_owned_equipment(uuid,text,text,text)';
+      const beforeDefinition = db.query(
+        `SELECT pg_get_functiondef('${signature}'::regprocedure)`,
+      );
+      db.query(
+        readFileSync(
+          'supabase/migrations/20261024003314_fix_prod_003_http_conflicts.sql',
+          'utf8',
+        ),
+      );
+      expect(
+        db.query(`SELECT pg_get_functiondef('${signature}'::regprocedure)`),
+      ).toBe(beforeDefinition.replaceAll("'40001'", "'PT409'"));
+      const identity = (before.auth_identities as { id: string }[])[0].id;
+      const traveler = '10000000-0000-4000-8000-000000000003';
+      db.query(
+        `BEGIN;SET LOCAL ROLE authenticated;SET LOCAL request.jwt.claim.sub='${identity}';SELECT set_config('request.jwt.claims','{"sub":"${identity}","role":"authenticated"}',true);SELECT public.create_traveler('${traveler}','Homologacao','male','medio','curto','castanho','musgo');SELECT public.set_owned_equipment('${traveler}','boots',null,'traveler-boots');COMMIT;`,
+      );
+      expect(
+        db
+          .query(
+            `BEGIN;SET LOCAL ROLE authenticated;SET LOCAL request.jwt.claim.sub='${identity}';SELECT set_config('request.jwt.claims','{"sub":"${identity}","role":"authenticated"}',true);DO $$ BEGIN PERFORM public.set_owned_equipment('${traveler}','boots','traveler-boots','stale');RAISE EXCEPTION 'Expected conflict missing';EXCEPTION WHEN SQLSTATE 'PT409' THEN NULL;END $$;ROLLBACK;`,
+          )
+          .split('\n')
+          .at(-1),
+      ).toContain(identity);
+      expect(
+        db.query(
+          `SELECT count(*) FROM public.inventory WHERE traveler_id='${traveler}' AND quantity=1`,
+        ),
+      ).toBe('1');
+      expect(
+        db.query(
+          "SELECT has_function_privilege('anon','public.set_owned_equipment(uuid,text,text,text)','EXECUTE'),has_function_privilege('authenticated','public.arena_authority_v3(uuid,uuid,text,jsonb)','EXECUTE')",
+        ),
+      ).toBe('f|f');
+    }, 30000);
   },
 );

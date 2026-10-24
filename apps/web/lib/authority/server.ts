@@ -39,7 +39,9 @@ export function createAuthorityPort(): AuthorityPort {
       });
       if (result.error)
         throw new AuthorityError(
-          result.error.code === '40001' || result.error.code === '23505'
+          result.error.code === 'PT409' ||
+            result.error.code === '40001' ||
+            result.error.code === '23505'
             ? 409
             : result.error.code === '42501'
               ? 403
