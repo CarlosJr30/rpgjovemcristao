@@ -1,3 +1,7 @@
+## 2026-10-24 — RPG-DEV-001: candidato isolado, VALIDATING
+
+Branch codex/rpg-dev-001 em worktree própria; produção Guilda/EBD segue 808433a READY. Corrigidas respostas antigas de sincronização/equipamento que substituíam cache ou seleção após mudança de conta. Regressões 24 PASS, unitários 764 PASS/74 SKIP, PG17 PASS, navegador2equipamento+4fronteira PASS, lint/types/build/protocolo PASS. Couraça3/empunhadura e demais artes aprovadas intactas. Nenhuma migration ou liberação econômica. Reconciliação16XP/6moedas continua sem proveniência; catálogo e vitórias hospedadas pendentes. CI/Preview em preparação. [Relatório](../../docs/architecture/RPG-DEV-001-REPORT.md).
+
 ## 2026-10-24 — RELEASE-EBD-001: Guilda/EBD publicadas, DONE
 
 Produção oficial https://rpgjovemcristao-web-inky.vercel.app, SHA808433a780e96a048c4a3f2d7e419351ab85e5a3, deploymentdpl_H8VCqQx2vT8sqVzjDbpFYKnE1mSA targetproductionREADY e alias confirmado. PR10 integrado pelo fluxo normal com head7a02640 aprovado; CI do SHA main40127254263success. Associação automática de domínios mantida em hold até CI/build/migrations; depois promoção do deployment existente e restoretrue do valor original. Sem build produtivo duplicado. BackendPRODwspafhlbtlpabypzymjo, TESTwkdvdzfkbwvhyjmamrsg separado; URLs/limites corrigidos anteriormente foram preservados.

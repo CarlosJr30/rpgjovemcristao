@@ -2,6 +2,7 @@ import type { EquipmentSlot } from '../../features/journey/domain/traveler';
 import {
   canUseTravelerInCurrentSession,
   getCurrentOnlineUserId,
+  getOnlineSessionRevision,
   reloadOnlineTraveler,
 } from './online-sync';
 import { equipmentRepository } from './repositories/equipment-repository';
@@ -16,6 +17,7 @@ export async function changeOnlineEquipment(
   expectedItemId: string | null,
 ): Promise<void> {
   const owner = getCurrentOnlineUserId();
+  const session = getOnlineSessionRevision();
   if (!owner || !canUseTravelerInCurrentSession(travelerId))
     throw new Error('Entre novamente na conta deste Viajante.');
   if (pending.has(travelerId))
@@ -33,6 +35,7 @@ export async function changeOnlineEquipment(
       );
     if (
       getCurrentOnlineUserId() !== owner ||
+      getOnlineSessionRevision() !== session ||
       !canUseTravelerInCurrentSession(travelerId)
     )
       throw new Error(
