@@ -1,6 +1,6 @@
 # RELEASE-EBD-001 — lançamento inicial de Guilda e EBD
 
-Atualizado em 24/10/2026. **Estado geral: BLOCKED para produção; Preview READY.**
+Atualizado em 24/10/2026, com rechecagem às 16h10–16h15 (Brasília). **Estado geral: BLOCKED para produção; Preview READY.**
 
 ## Resultado e ambientes
 
@@ -12,6 +12,7 @@ O candidato implementa o lançamento parcial autorizado: Auth, criação/seleç�
 | GitHub e CI do candidato runtime | DONE | SHA `23391b514a8b4cddbe7945ed0dfb343fc70d4a39`, CI [40121574829](https://github.com/CarlosJr30/rpgjovemcristao/actions/runs/40121574829) success |
 | Preview | DONE | READY, `dpl_ALfghjQxopcwRozMx4D4CEast7JR`, SHA exato conferido |
 | Recuperação completa de acesso | BLOCKED | Pedido atual recebe HTTP 429 `over_email_send_rate_limit`; troca de senha e novo login ainda sem prova positiva |
+| Destinos Auth de produção | BLOCKED | Leitura do CLI e probe negativo confirmam URLs de Preview no projeto PROD; nenhuma URL foi alterada nesta rechecagem |
 | Migrations de produção | BLOCKED | Não aplicadas; dependem dos gates anteriores e conferência final de compatibilidade/backup |
 | Publicação e testes pós-deploy em produção | BLOCKED | Não executados; nenhum merge/promoção produtiva nesta entrega |
 
@@ -91,3 +92,31 @@ Mudanças desta release concentram-se em `apps/web/features/release-ebd/`, recup
 QA e Security executados pelo próprio autor, sem alegação de revisão independente. Auth, RLS e autoridade continuam obrigatórios. Nenhum teste SKIP, simulado, não executado ou falho foi considerado PASS. **Acceptance check: BLOCKED. Não há DEPLOY_COMPLETE.**
 
 Próximo gate: obter novo e-mail pelo fluxo normal quando o provedor aceitar, confirmar seu destino e executar callback/troca de senha/login com preservação do avatar, usando o harness corrigido. Somente após os gates obrigatórios: fluxo normal de PR/CI do SHA exato, conferência de recuperação/migrations/ambiente PROD, publicação e verificação real posterior. Não promover a Preview conectada a TEST como produção.
+
+## Rechecagem solicitada — 24/10, 16h10–16h15 (Brasília)
+
+**BLOCKED — recuperação:** uma nova solicitação normal pela UI recebeu novamente HTTP 429, código `over_email_send_rate_limit`, no projeto TEST. Não foram aumentados limites, alteradas URLs, gerados links administrativos ou repetidos envios em ciclo. Callback, atualização de senha e novo login não foram executados novamente, pois não houve novo e-mail aceito. Resultados anteriores foram preservados, inclusive as falhas; não há novo PASS de recuperação.
+
+**DONE — gates independentes preparados:**
+
+- CI do commit documental `a1cee133d9899f3239dd1151275f1150eddf980e` aprovado tanto no push ([40124054032](https://github.com/CarlosJr30/rpgjovemcristao/actions/runs/40124054032)) quanto no PR ([40124057714](https://github.com/CarlosJr30/rpgjovemcristao/actions/runs/40124057714)). CI runtime `23391b5` e testes anteriores continuam válidos: nenhuma alteração de runtime, teste, arte, dependência ou migration nesta rechecagem.
+- Comparação somente leitura do recorte Guilda/EBD: 273 colunas e 37 políticas iguais em TEST e PROD; 24 assinaturas de funções presentes nos dois ambientes. Onze diferenças de hash eram exclusivamente finais de linha, confirmadas comparando as definições; duas diferenças funcionais são as substituições intencionais da release (`economy_private.create_traveler` e `public.guild_ebd_command`). Nenhuma divergência funcional inesperada nesse recorte. Isso não equivale a execução da migration ou teste hospedado produtivo.
+- Preview runtime `23391b5` e produção `5edc93f` novamente READY nos mesmos deployments. Branch e `origin/main` conferidos; PR permanece em rascunho, sem merge. Worktrees e arquivos preexistentes preservados.
+- Configuração TEST consultada sem escrita: zero diferenças nos campos declarados de Site URL/redirects. Nenhum `config push` foi executado nesta rodada.
+
+**BLOCKED — novo achado em Auth PROD:** o projeto `wspafhlbtlpabypzymjo` atualmente informa Site URL `https://rpgjovemcristao-ebd001-preview.vercel.app`, com redirects `/auth` e `/auth/recover` dessa mesma Preview. Uma requisição negativa, sem conta e com token deliberadamente inválido, direcionada ao backend PROD e solicitando o callback produtivo, retornou 303 para a raiz da Preview, `otp_expired`, com cabeçalho `sb-project-ref` de PROD e cache DYNAMIC. Confirma a configuração efetiva, sem comprovar autenticação positiva nem alterar conta. A origem/quando esses valores foram configurados não foi determinada; nenhuma alteração produtiva foi feita pelo agente nesta rodada.
+
+O destino de Auth PROD precisa corresponder ao domínio produtivo antes do lançamento. A instrução vigente determina não alterar novamente URLs; portanto, nenhuma correção de URLs foi aplicada. Essa pendência é separada do limite de envio em TEST e não desaparece quando o e-mail de teste for liberado.
+
+### O que falta exatamente para liberar Guilda e EBD
+
+1. **BLOCKED:** envio normal de recuperação aceito em TEST; novo e-mail com destino correto; callback real na Preview; atualização da senha, logout/novo login e preservação do mesmo avatar. Usar o harness corrigido e registrar os resultados, sem reutilizar token consumido nem alterar quotas.
+2. **BLOCKED:** resolver a configuração Auth PROD que aponta para Preview e validar destinos/recuperação de produção. Permanece sem escrita enquanto vigorar a instrução de não alterar URLs e os gates obrigatórios não passarem.
+3. **Pendente, preparado:** revisão final do SHA/CI e fluxo normal de PR/merge. Confirmar CI do SHA efetivamente destinado à produção, respeitando proteções e sem bypass; o CI de um SHA anterior não substitui essa conferência.
+4. **Pendente, preparado:** atualizar baseline/backup estrutural e verificar migrations remotas novamente imediatamente antes da aplicação. Aplicar somente as duas migrations da release, ainda ausentes em PROD, por finalidade/conteúdo; não reaplicar o histórico TEST. Validar ACL, Auth, RLS e hashes dos dados depois, com recuperação disponível.
+5. **Pendente, preparado:** confirmar variáveis do build produtivo apontando para PROD, acompanhar o deploy normal do SHA aprovado e conferir READY/aliases. A Preview ligada a TEST não deve ser promovida como se fosse o build produtivo.
+6. **Pendente:** testes reais pós-deploy de Auth/avatar/Guilda/EBD, isolamento entre Guildas e negações de rotas/APIs econômicas, usando somente contas autorizadas. Confirmar preservação dos dados e registrar URL/SHA/resultado antes de declarar publicação concluída.
+
+Celular físico segue indisponível; os testes móveis já executados são identificados como emulação. Arena/Torre/economia/História e a promoção específica do Teste Chat A continuam fora dos requisitos deste lançamento parcial, desde que seu isolamento permaneça comprovado. Não se exige repetir os testes já aprovados sem mudança ou evidência nova de regressão.
+
+Evidências adicionais privadas: `build/release-ebd-001/recheck-20261024-1910/` (`ci-docs.json`, `compatibility.json`, `auth-prod-inspection.json`, `auth-prod-probe.json`, diffs Auth somente leitura e snapshots dos deployments). **Estado final: BLOCKED; nenhuma migration, mudança de URL/limite ou publicação produtiva nesta rodada.**
