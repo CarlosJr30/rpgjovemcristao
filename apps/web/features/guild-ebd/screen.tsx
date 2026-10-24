@@ -1,6 +1,7 @@
 'use client';
 import { useAuth } from '../../lib/supabase/auth-context';
-import { Shell, RequireTraveler } from '../journey/components/shell';
+import { RequireTraveler } from '../journey/components/shell';
+import { ReleaseShell as Shell } from '../release-ebd/shell';
 import { GuildHub } from '../journey/screens/guild-hub';
 import { EbdPanel } from './panel';
 export function EbdScreen() {

@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import type { LessonInput, Material, Workspace } from './contracts';
 import { rewardLabel, validateLesson } from './contracts';
 import css from '../guild-missions/panel.module.css';
+import { GAMEPLAY_ENABLED } from '../../lib/release-scope';
 
 export function LessonEditor({
   initial,
@@ -42,7 +43,8 @@ export function LessonEditor({
         e.preventDefault();
         const message = validateLesson(form);
         setError(message);
-        if (!message) await onSave(form);
+        if (!message)
+          await onSave(GAMEPLAY_ENABLED ? form : { ...form, rewardTier: '' });
       }}
     >
       <h2>Editor de aula</h2>
@@ -250,32 +252,35 @@ export function LessonEditor({
           Adicionar material
         </button>
       </fieldset>
-      <label>
-        Recompensa opcional
-        <select
-          aria-label="Recompensa opcional"
-          value={form.rewardTier}
-          onChange={(e) =>
-            update('rewardTier', e.target.value as LessonInput['rewardTier'])
-          }
-        >
-          <option value="">Sem recompensa</option>
-          {(['normal', 'great', 'epic', 'extraordinary'] as const).map((t) => (
-            <option key={t} value={t}>
-              {rewardLabel(t)}
-            </option>
-          ))}
-        </select>
-      </label>
-      {form.rewardTier && (
+      {GAMEPLAY_ENABLED && (
+        <label>
+          Recompensa opcional
+          <select
+            aria-label="Recompensa opcional"
+            value={form.rewardTier}
+            onChange={(e) =>
+              update('rewardTier', e.target.value as LessonInput['rewardTier'])
+            }
+          >
+            <option value="">Sem recompensa</option>
+            {(['normal', 'great', 'epic', 'extraordinary'] as const).map(
+              (t) => (
+                <option key={t} value={t}>
+                  {rewardLabel(t)}
+                </option>
+              ),
+            )}
+          </select>
+        </label>
+      )}
+      {GAMEPLAY_ENABLED && form.rewardTier && (
         <p className={css.notice}>
           Recompensa pendente: {rewardLabel(form.rewardTier)}
         </p>
       )}
       <p className={css.meta}>
-        No máximo uma recompensa pendente por aluno e aula, após concluir uma
-        atividade avaliada. Não há concessão econômica nesta versão nem perda de
-        XP por erro ou ausência.
+        A participação e o aprendizado são registrados sem recompensas neste
+        lançamento.
       </p>
       <div className={css.actions}>
         <button disabled={busy}>Salvar rascunho</button>

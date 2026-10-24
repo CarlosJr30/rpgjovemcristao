@@ -429,7 +429,7 @@ async function login(page: Page, role: Role) {
   await page.getByLabel('Senha').fill('synthetic-password');
   await page.getByRole('button', { name: 'Entrar', exact: true }).click();
   await expect(
-    page.getByRole('heading', { name: `Bem-vindo à jornada, ${names[role]}.` }),
+    page.getByRole('heading', { name: `Bem-vindo, ${names[role]}` }),
   ).toBeVisible();
 }
 async function open(page: Page) {
@@ -463,7 +463,7 @@ test('leader authorizes teacher, teacher drafts/publishes, student submits, teac
   await mock(context, state, 'leader');
   await login(page, 'leader');
   await page.goto('/journey/guild');
-  await page.getByRole('link', { name: 'Escola Bíblica', exact: true }).click();
+  await page.getByRole('link', { name: 'Acessar Escola Bíblica Dominical', exact: true }).click();
   await expect(
     page.getByRole('heading', { name: 'Aprender juntos' }),
   ).toBeVisible();
@@ -496,7 +496,7 @@ test('leader authorizes teacher, teacher drafts/publishes, student submits, teac
     .getByLabel('Conteúdo livre')
     .fill('Conteúdo sintético do professor, somente neste teste.');
   await teacher.getByLabel('Data e horário').fill('2026-12-20T12:00');
-  await teacher.getByLabel('Recompensa opcional').selectOption('normal');
+  await expect(teacher.getByLabel('Recompensa opcional')).toHaveCount(0);
   await fit(teacher);
   await teacher.screenshot({
     path: `build/task-0083-ebd/${info.project.name}-editor.png`,
@@ -606,7 +606,7 @@ test('leader authorizes teacher, teacher drafts/publishes, student submits, teac
   await expect(
     student.getByText(/Feedback sintético do professor/),
   ).toBeVisible();
-  await expect(student.getByText(/Recompensa pendente/)).toBeVisible();
+  await expect(student.getByText(/Recompensa pendente/)).toHaveCount(0);
   await area(student, 'Presença');
   await expect(student.getByText(/Seu registro: Presente/)).toBeVisible();
   await expect(
@@ -629,7 +629,7 @@ test('leader authorizes teacher, teacher drafts/publishes, student submits, teac
         ].includes(w),
     ),
   ).toBe(true);
-  expect(state.rewards).toHaveLength(1);
+  expect(state.rewards).toHaveLength(0);
   await tc.close();
   await sc.close();
 });

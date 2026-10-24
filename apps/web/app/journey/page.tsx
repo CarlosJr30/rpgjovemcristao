@@ -1,4 +1,4 @@
-import { MapScreen } from '../../features/journey/screens/map';
+import { ReleaseHome } from '../../features/release-ebd/home';
 export default function Page() {
-  return <MapScreen />;
+  return <ReleaseHome />;
 }

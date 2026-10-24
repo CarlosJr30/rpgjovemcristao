@@ -1,3 +1,4 @@
+import { isReleasedPath } from '../release-scope';
 // Internal navigation only, never authorization to join a guild.
 export function safeEntryReturn(
   value: string | null,
@@ -9,7 +10,7 @@ export function safeEntryReturn(
     if (
       url.origin !== origin ||
       !(
-        url.pathname.startsWith('/journey/') ||
+        (url.pathname.startsWith('/journey') && isReleasedPath(url.pathname)) ||
         /^\/guilda\/convite\/[a-f0-9]{64}$/.test(url.pathname)
       )
     )

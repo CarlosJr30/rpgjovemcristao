@@ -201,7 +201,7 @@ test('student activity has no answer key and stable submission key after a netwo
   await waitFor(() => expect(mocks.command).toHaveBeenCalledTimes(2));
   expect(mocks.command.mock.calls[0][2]).toBe(mocks.command.mock.calls[1][2]);
 });
-test('optional reward remains pending without economic RPC, no Story dependency', async () => {
+test('partial launch hides legacy reward entries without economic RPC, no Story dependency', async () => {
   workspace.rewards = [
     {
       lesson_id: 'lesson',
@@ -212,9 +212,7 @@ test('optional reward remains pending without economic RPC, no Story dependency'
   ];
   await mount();
   area('Histórico de aprendizado');
-  expect(screen.getByText(/Recompensa pendente/)).toHaveTextContent(
-    'Sem concessão econômica',
-  );
+  expect(screen.queryByText(/Recompensa pendente/)).not.toBeInTheDocument();
   expect(mocks.command).not.toHaveBeenCalled();
   expect(
     screen.getByText(/independente da posição no Modo História/),

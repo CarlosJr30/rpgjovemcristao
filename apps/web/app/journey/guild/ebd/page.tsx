@@ -1,2 +1,9 @@
 import { EbdScreen } from '../../../../features/guild-ebd/screen';
-export default function Page(){return <EbdScreen/>;}
+import { ReleaseAccess } from '../../../../features/release-ebd/shell';
+export default function Page() {
+  return (
+    <ReleaseAccess>
+      <EbdScreen />
+    </ReleaseAccess>
+  );
+}

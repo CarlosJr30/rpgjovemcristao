@@ -12,7 +12,7 @@ import {
 } from '../domain/traveler';
 import { registerTraveler, useJourney } from '../state/use-journey';
 import { JOURNEY_ROUTES as routes } from '../data/campaign';
-import { Shell } from '../components/shell';
+import { ReleaseShell as Shell } from '../../release-ebd/shell';
 import { ResponsivePanel } from '../components/responsive-panel';
 import { Avatar } from '../components/avatar';
 import styles from '../journey.module.css';

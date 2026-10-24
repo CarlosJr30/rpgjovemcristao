@@ -1,4 +1,9 @@
-import { GuildHub } from '../../../features/journey/screens/guild-hub';
+import { ReleaseGuild } from '../../../features/release-ebd/guild';
+import { ReleaseAccess } from '../../../features/release-ebd/shell';
 export default function Page() {
-  return <GuildHub />;
+  return (
+    <ReleaseAccess>
+      <ReleaseGuild />
+    </ReleaseAccess>
+  );
 }

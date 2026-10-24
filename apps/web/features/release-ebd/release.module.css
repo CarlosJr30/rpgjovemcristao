@@ -1,0 +1,111 @@
+.page {
+  min-height: 100dvh;
+  background: #101e1c;
+  color: #f4f1df;
+  font:
+    1rem/1.55 system-ui,
+    sans-serif;
+  padding: clamp(1rem, 3vw, 2rem);
+}
+.page a {
+  color: #e7c77f;
+}
+.header,
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.header {
+  max-width: 1100px;
+  margin: auto;
+  border-bottom: 1px solid #48625a;
+  padding-bottom: 1rem;
+}
+.nav {
+  justify-content: flex-start;
+  margin-top: 1rem;
+}
+.main {
+  max-width: 1000px;
+  margin: 2rem auto;
+}
+.card {
+  padding: clamp(1rem, 3vw, 2rem);
+  border: 1px solid #48625a;
+  background: #1b302b;
+  border-radius: 16px;
+  margin: 1rem 0;
+  overflow-wrap: anywhere;
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+  gap: 1rem;
+}
+.page button,
+.page input,
+.page textarea {
+  font: inherit;
+  border-radius: 8px;
+  padding: 0.7rem;
+  max-width: 100%;
+}
+.page button {
+  cursor: pointer;
+  min-height: 44px;
+  color: #13251e;
+  background: #e7c77f;
+  border: 1px solid #e7c77f;
+}
+.page button:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+.page label {
+  display: grid;
+  gap: 0.3rem;
+  margin: 1rem 0;
+}
+.page input,
+.page textarea {
+  width: 100%;
+  background: #f7f5e9;
+  color: #152820;
+  border: 1px solid #7b968c;
+}
+.page :focus-visible {
+  outline: 3px solid #f6da8d;
+  outline-offset: 3px;
+}
+.avatar {
+  max-width: 320px;
+}
+.status {
+  padding: 0.8rem;
+  border-left: 4px solid #d1b36e;
+}
+.actions {
+  display: flex;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.page li {
+  margin: 0.6rem 0;
+}
+.page table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.page td,
+.page th {
+  padding: 0.6rem;
+  text-align: left;
+  border-bottom: 1px solid #48625a;
+}
+.page h1 {
+  font-size: clamp(1.5rem, 4vw, 2.3rem);
+}
