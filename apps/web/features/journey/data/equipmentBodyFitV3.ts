@@ -70,3 +70,24 @@ export const APPROVED_ARMOR_COMPOSITION_3 = {
   approvalId: 'FIX-PROD-007-HUMAN-COMPOSITION-3',
   composition: { translateXPercent: -2.5, scaleX: 1.05 },
 } as const;
+
+/** Exact private grip composition explicitly approved by the user in FIX-PROD-008. */
+export const APPROVED_SWORD_GRIP_COMPOSITION = {
+  ...APPROVED_ARMOR_COMPOSITION_3,
+  itemId: 'traveler-sword-common',
+  targetId: 'sword_female_long_blue_dark_hand_grip',
+  asset:
+    '/assets/equipment/overlays/body-fit-v3/sword_female_long_blue_dark_grip_approved.png',
+  assetSha256:
+    '16384445ef43f5545d93e311f9348f16aad9082246eb2f802f6310a5f158beac',
+  approvalId: 'FIX-PROD-008-HUMAN-SWORD-GRIP-APPROVAL',
+  composition: {
+    translateXPercent: -2.3,
+    translateYPercent: 11.7,
+    scaleX: 0.65,
+    scaleY: 0.65,
+    transformOrigin: '25.7% 41.7%',
+  },
+  handClipPath:
+    'polygon(20% 51.2%,23.3% 51%,26.8% 52.1%,26.8% 53.7%,25.4% 56%,22% 55.5%,20% 53.7%)',
+} as const;

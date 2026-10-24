@@ -81,50 +81,72 @@ function EquipmentLayer({
   if (failed) return null;
   const { asset, placement, overlayMode, itemId, slot } = layer;
   return (
-    <img
-      src={asset}
-      alt=""
-      aria-hidden="true"
-      decoding="async"
-      data-overlay-slot={slot}
-      data-overlay-item={itemId}
-      data-overlay-anchor={placement.anchor}
-      data-overlay-mode={overlayMode}
-      className={`${styles.avatarEquipmentLayer} ${highlightedSlot === slot ? styles.avatarEquipmentArrive : ''} ${hidingSlot === slot ? styles.avatarEquipmentLeaving : ''}`}
-      onError={() => setFailed(true)}
-      onLoad={(event) => {
-        if (
-          overlayMode === 'full-canvas' &&
-          (event.currentTarget.naturalWidth !==
-            FULL_CANVAS_OVERLAY_SOURCE.width ||
-            event.currentTarget.naturalHeight !==
-              FULL_CANVAS_OVERLAY_SOURCE.height)
-        )
-          setFailed(true);
-      }}
-      style={
-        overlayMode === 'full-canvas'
-          ? {
-              inset: 0,
-              width: '100%',
-              height: '100%',
-              transform: layer.canvasComposition
-                ? `translate(${layer.canvasComposition.translateXPercent}%, 0) scale(${layer.canvasComposition.scaleX}, 1)`
-                : undefined,
-              transformOrigin: layer.canvasComposition ? 'top left' : undefined,
-              zIndex: placement.zIndex,
-            }
-          : {
-              left: `${(placement.x / AVATAR_RUNTIME_CANVAS.width) * 100}%`,
-              top: `${(placement.y / AVATAR_RUNTIME_CANVAS.height) * 100}%`,
-              width: `${(placement.width / AVATAR_RUNTIME_CANVAS.width) * 100}%`,
-              height: `${(placement.height / AVATAR_RUNTIME_CANVAS.height) * 100}%`,
-              transform: `rotate(${placement.rotation}deg)${placement.mirrorX ? ' scaleX(-1)' : ''}`,
-              transformOrigin: placement.transformOrigin,
-              zIndex: placement.zIndex,
-            }
-      }
-    />
+    <>
+      <img
+        src={asset}
+        alt=""
+        aria-hidden="true"
+        decoding="async"
+        data-overlay-slot={slot}
+        data-overlay-item={itemId}
+        data-overlay-anchor={placement.anchor}
+        data-overlay-mode={overlayMode}
+        className={`${styles.avatarEquipmentLayer} ${highlightedSlot === slot ? styles.avatarEquipmentArrive : ''} ${hidingSlot === slot ? styles.avatarEquipmentLeaving : ''}`}
+        onError={() => setFailed(true)}
+        onLoad={(event) => {
+          if (
+            overlayMode === 'full-canvas' &&
+            (event.currentTarget.naturalWidth !==
+              FULL_CANVAS_OVERLAY_SOURCE.width ||
+              event.currentTarget.naturalHeight !==
+                FULL_CANVAS_OVERLAY_SOURCE.height)
+          )
+            setFailed(true);
+        }}
+        style={
+          overlayMode === 'full-canvas'
+            ? {
+                inset: 0,
+                width: '100%',
+                height: '100%',
+                transform: layer.canvasComposition
+                  ? `translate(${layer.canvasComposition.translateXPercent}%, ${layer.canvasComposition.translateYPercent === undefined ? '0' : `${layer.canvasComposition.translateYPercent}%`}) scale(${layer.canvasComposition.scaleX}, ${layer.canvasComposition.scaleY ?? 1})`
+                  : undefined,
+                transformOrigin: layer.canvasComposition
+                  ? (layer.canvasComposition.transformOrigin ?? 'top left')
+                  : undefined,
+                zIndex: placement.zIndex,
+              }
+            : {
+                left: `${(placement.x / AVATAR_RUNTIME_CANVAS.width) * 100}%`,
+                top: `${(placement.y / AVATAR_RUNTIME_CANVAS.height) * 100}%`,
+                width: `${(placement.width / AVATAR_RUNTIME_CANVAS.width) * 100}%`,
+                height: `${(placement.height / AVATAR_RUNTIME_CANVAS.height) * 100}%`,
+                transform: `rotate(${placement.rotation}deg)${placement.mirrorX ? ' scaleX(-1)' : ''}`,
+                transformOrigin: placement.transformOrigin,
+                zIndex: placement.zIndex,
+              }
+        }
+      />
+      {layer.handOcclusion && (
+        <img
+          src={layer.handOcclusion.source}
+          alt=""
+          aria-hidden="true"
+          decoding="async"
+          data-overlay-occlusion={itemId}
+          className={`${styles.avatarEquipmentLayer} ${highlightedSlot === slot ? styles.avatarEquipmentArrive : ''} ${hidingSlot === slot ? styles.avatarEquipmentLeaving : ''}`}
+          onError={() => setFailed(true)}
+          style={{
+            inset: 0,
+            width: '100%',
+            height: '100%',
+            clipPath: layer.handOcclusion.clipPath,
+            zIndex: placement.zIndex + 1,
+          }}
+        />
+      )}
+    </>
   );
 }
 function RuntimeCanvas({

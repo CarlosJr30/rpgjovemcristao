@@ -16,6 +16,7 @@ import {
   APPROVED_BODY_FIT_V3,
   APPROVED_BODY_FIT_V3_ASSETS,
   APPROVED_ARMOR_COMPOSITION_3,
+  APPROVED_SWORD_GRIP_COMPOSITION,
 } from './data/equipmentBodyFitV3';
 import { AvatarRuntime } from './components/avatar-runtime';
 import { calculateTotalAttributes } from './data/attributes';
@@ -162,6 +163,7 @@ it('renders composition 3 only for owned equipped armor on the exact approved bo
   const t = make();
   t.appearance = { hair: 'longo', outfit: 'azul', skin: 'escuro' };
   for (const item of t.inventory) t.equipped[item.slot] = item.id;
+  delete t.equipped.weapon;
   const before = JSON.stringify(t),
     attrs = calculateTotalAttributes(t);
   expect(resolveAvatarRuntime(t).layers.map((l) => l.itemId)).toEqual([
@@ -191,4 +193,74 @@ it('renders composition 3 only for owned equipped armor on the exact approved bo
   fireEvent.error(screen.getByRole('img', { name: 'Avatar do Viajante' }));
   expect(container.querySelector('[data-overlay-item]')).toBeNull();
   expect(JSON.stringify(t)).toBe(before);
+});
+
+it('binds the approved hand grip and original-hand occlusion to an owned equipped sword on the exact body', () => {
+  const t = make();
+  t.appearance = { hair: 'longo', outfit: 'azul', skin: 'escuro' };
+  t.equipped.weapon = 'traveler-sword-common';
+  const saved = JSON.stringify(t),
+    attrs = calculateTotalAttributes(t);
+  const { container, rerender } = render(<AvatarRuntime traveler={t} />);
+  expect(resolveAvatarRuntime(t).layers.map((l) => l.itemId)).toEqual([
+    armor.id,
+    'traveler-sword-common',
+  ]);
+  const blade = container.querySelector(
+    '[data-overlay-item="traveler-sword-common"]',
+  );
+  expect(blade).toHaveAttribute('src', APPROVED_SWORD_GRIP_COMPOSITION.asset);
+  expect(blade).toHaveStyle({
+    transform: 'translate(-2.3%, 11.7%) scale(0.65, 0.65)',
+    transformOrigin: '25.7% 41.7%',
+  });
+  const hand = container.querySelector('[data-overlay-occlusion]');
+  expect(hand).toHaveAttribute(
+    'src',
+    APPROVED_SWORD_GRIP_COMPOSITION.avatarSource,
+  );
+  expect(hand).toHaveStyle({
+    clipPath: APPROVED_SWORD_GRIP_COMPOSITION.handClipPath,
+  });
+  rerender(<AvatarRuntime traveler={JSON.parse(saved)} />);
+  expect(container.querySelectorAll('[data-overlay-occlusion]')).toHaveLength(
+    1,
+  );
+  const unequipped = JSON.parse(saved);
+  delete unequipped.equipped.weapon;
+  rerender(<AvatarRuntime traveler={unequipped} />);
+  expect(container.querySelector('[data-overlay-occlusion]')).toBeNull();
+  expect(
+    container.querySelector('[data-overlay-item="traveler-sword-common"]'),
+  ).toBeNull();
+  expect(
+    container.querySelector('[data-overlay-item="traveler-armor-uncommon"]'),
+  ).not.toBeNull();
+  const unowned = JSON.parse(saved);
+  unowned.inventory = unowned.inventory.filter(
+    (i: { id: string }) => i.id !== 'traveler-sword-common',
+  );
+  expect(resolveAvatarRuntime(unowned).layers.map((l) => l.itemId)).toEqual([
+    armor.id,
+  ]);
+  rerender(<AvatarRuntime traveler={t} />);
+  fireEvent.error(
+    container.querySelector('[data-overlay-item="traveler-sword-common"]')!,
+  );
+  expect(container.querySelector('[data-overlay-occlusion]')).toBeNull();
+  expect(calculateTotalAttributes(t)).toEqual(attrs);
+  expect(JSON.stringify(t)).toBe(saved);
+});
+
+it('does not transfer the grip or hand mask to a different body or image fallback', () => {
+  const t = make();
+  t.appearance = { hair: 'longo', outfit: 'azul', skin: 'escuro' };
+  t.equipped.weapon = 'traveler-sword-common';
+  const { container } = render(<AvatarRuntime traveler={t} />);
+  fireEvent.error(screen.getByRole('img', { name: 'Avatar do Viajante' }));
+  expect(container.querySelector('[data-overlay-occlusion]')).toBeNull();
+  expect(container.querySelector('[data-overlay-item]')).toBeNull();
+  const other = JSON.parse(JSON.stringify(t));
+  other.appearance.skin = 'medio';
+  expect(resolveAvatarRuntime(other).layers).toEqual([]);
 });

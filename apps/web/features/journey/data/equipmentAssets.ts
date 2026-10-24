@@ -3,6 +3,7 @@ import { EQUIPMENT_CATALOG } from './equipmentCatalog';
 import {
   APPROVED_ARMOR_COMPOSITION_3,
   APPROVED_BODY_FIT_V3_ASSETS,
+  APPROVED_SWORD_GRIP_COMPOSITION,
 } from './equipmentBodyFitV3';
 import {
   AVATAR_CANVAS,
@@ -72,13 +73,22 @@ export type FullCanvasOverlayConfig = {
   sourceSize: { width: number; height: number };
   zIndex: number;
 };
+export type CanvasComposition = {
+  translateXPercent: number;
+  translateYPercent?: number;
+  scaleX: number;
+  scaleY?: number;
+  transformOrigin?: string;
+};
+type HandOcclusion = { source: string; clipPath: string };
 export type EquipmentOverlayDefinition = {
   // Omitted mode retains the legacy anchor contract.
   overlayMode?: OverlayMode;
   overlayAsset: OverlayAssetSource | null;
   visualConfig: OverlayVisualConfig | null;
   fullCanvasConfig?: FullCanvasOverlayConfig;
-  canvasComposition?: { translateXPercent: number; scaleX: number };
+  canvasComposition?: CanvasComposition;
+  handOcclusion?: HandOcclusion;
 };
 export type EquipmentAssetEntry = EquipmentOverlayDefinition & {
   slot: EquipmentSlot;
@@ -114,7 +124,8 @@ export type ResolvedOverlayLayer = {
   asset: string;
   placement: OverlayPlacement;
   requiredAvatarSource?: string;
-  canvasComposition?: { translateXPercent: number; scaleX: number };
+  canvasComposition?: CanvasComposition;
+  handOcclusion?: HandOcclusion;
 };
 export type ResolvedEquipmentVisual = {
   iconAsset: string;
@@ -439,6 +450,23 @@ export function resolveEquipmentVisual(
       canvasComposition: composition.composition,
     };
   }
+  const grip = APPROVED_SWORD_GRIP_COMPOSITION;
+  if (
+    definition.itemId === grip.itemId &&
+    definition.slot === 'weapon' &&
+    definition.visualQuality === 'READY' &&
+    definition.bodyOverlayApproval?.[bodyType] === 'APPROVED_BY_USER' &&
+    bodyType === grip.gender &&
+    avatarSource === grip.avatarSource
+  ) {
+    definition = {
+      ...definition,
+      overlayAsset: grip.asset,
+      bodyOverlayScope: { [bodyType]: grip.avatarSource },
+      canvasComposition: grip.composition,
+      handOcclusion: { source: grip.avatarSource, clipPath: grip.handClipPath },
+    };
+  }
   const unavailable = (): ResolvedEquipmentVisual => ({
     iconAsset: definition.iconAsset,
     layers: [],
@@ -492,6 +520,7 @@ export function resolveEquipmentVisual(
         overlayMode: 'full-canvas',
         requiredAvatarSource: definition.bodyOverlayScope?.[bodyType],
         canvasComposition: piece.canvasComposition,
+        handOcclusion: piece.handOcclusion,
         placement: {
           anchor: 'canvas',
           x: 0,

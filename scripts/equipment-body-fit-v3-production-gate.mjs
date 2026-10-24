@@ -25,6 +25,7 @@ const {
   APPROVED_BODY_FIT_V3: approved,
   APPROVED_BODY_FIT_V3_ASSETS: registry,
   APPROVED_ARMOR_COMPOSITION_3: composition3,
+  APPROVED_SWORD_GRIP_COMPOSITION: grip,
 } = await import(
   'data:text/javascript;base64,' +
     Buffer.from(bundle.outputFiles[0].text).toString('base64')
@@ -111,6 +112,35 @@ assert.equal(
 );
 assert.equal(composition3.asset, approved.asset);
 assert.equal(composition3.assetSha256, approved.assetSha256);
+const gripApproval = await json(
+  'docs/architecture/FIX-PROD-008-HUMAN-SWORD-GRIP-APPROVAL.json',
+);
+assert.equal(gripApproval.decision, 'VISUALLY_APPROVED');
+assert.equal(
+  gripApproval.userStatement,
+  'Aprovar esta empunhadura neste corpo',
+);
+for (const key of [
+  'approvalId',
+  'itemId',
+  'avatarSource',
+  'avatarSha256',
+  'asset',
+  'assetSha256',
+  'composition',
+  'handClipPath',
+])
+  assert.deepEqual(grip[key], gripApproval[key]);
+assert.equal(grip.avatarSource, composition3.avatarSource);
+assert.equal(grip.avatarSha256, composition3.avatarSha256);
+assert.equal(
+  hash(await read('apps/web/public' + grip.asset)),
+  grip.assetSha256,
+);
+const gripPng = await inspectPng(await read('apps/web/public' + grip.asset));
+assert.equal(gripPng.hasAlpha, true);
+assert.deepEqual(grip.sourceSize, { width: 1024, height: 1536 });
+publicAssets.set(grip.assetSha256, 'apps/web/public' + grip.asset);
 for (const a of registry) {
   const t = history.targets.find((t) => t.id === a.targetId);
   assert(t && t.registered && t.technical === 'FIT_PASS');
@@ -218,8 +248,8 @@ console.log(
   JSON.stringify({
     gate: 'BODY_FIT_V3_PRODUCTION',
     pass: true,
-    exactApprovedRuntimeAssets: registry.length,
-    exactApprovedCompositions: registry.length + 1,
+    exactApprovedRuntimeAssets: registry.length + 1,
+    exactApprovedCompositions: registry.length + 2,
     checked,
     pendingAssetsPublished: 0,
   }),

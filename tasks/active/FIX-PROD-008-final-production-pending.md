@@ -21,6 +21,9 @@ DEFINITION_OF_DONE: Todos os critérios comprovados e docs/architecture/FIX-PROD
 ### Revisão privada da empunhadura — escopo adicional autorizado
 Usuário solicitou alinhar o cabo à mão, ajustar proporção/inclinação e evitar sobreposição com corpo/couraça. Autorizados somente rascunho privado e comparação antes/depois para validação humana. Couraça3 e outros equipamentos imutáveis; nenhuma ativação, publicação de arte ou alteração definitiva antes da validação. Skill imagegen para camada bitmap; HTML/CSS para composição e comparação. Aceite desta etapa: comparação concreta inspecionada em desktop/móvel, fontes aprovadas preservadas e status PENDING_HUMAN_REVIEW.
 
+### Aprovação recebida e integração autorizada
+Resposta explícita: “Aprovar esta empunhadura neste corpo”. Autoriza integrar exatamente a camada sword-grip-v1, transformação e oclusão da revisão privada, restritas a traveler-sword-common/female_long_blue_dark HD. Escopo: apps/web, registro humano/gate, testes, GitHub/CI e Preview após gates; nenhuma homologação dos outros itens/economia ou liberação automática de produção bloqueada. Preservar cinco composições anteriores. QA/Security pelo autor; validar origem/posse/fallback, desktop/mobile e igualdade visual com a proposta aprovada.
+
 - DONE: preparação/commits/ambientes e cinco composições preservados; gate213arquivosPASS. QA/Security documental pelo autor, sem revisão independente.
 - DONE no cenário real executado:16checks Torre2 na Preview23f95ae;derrota legítima rodada7,batalha90c11431-9190-433d-91c2-f1fb2972fffc/reciboafee9700-f7c1-4ef1-9d46-aaa963737d08;0XP/0moedas/0baús,progresso2,reconexão/replay conferidos. Parou na primeira derrota.
 - DONE: hashes dos oito conjuntos anteriores iguais, excluindo somente a nova batalha/recibo autorizadosTEST.21batalhas23recibos16XP6moedas0claims/políticafalse;nenhuma escritaPROD.
