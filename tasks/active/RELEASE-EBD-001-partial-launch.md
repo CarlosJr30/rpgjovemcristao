@@ -1,6 +1,6 @@
 # RELEASE-EBD-001 — Lançamento inicial de Guilda e EBD
 ID: RELEASE-EBD-001
-STATUS: ACTIVE
+STATUS: BLOCKED
 PRIORITY: P1
 OBJECTIVE: Publicar Auth/avatar/Guilda/EBD com isolamento efetivo de combate,economia,cartas e História.
 SCOPE: Frontend e navegação,rotas/API,Auth/recuperação,repositórios; migration aditiva de isolamento/ACL/RLS e integração EBD sem créditos; testes unitários/PG/browser/API; GitHub/CI,TEST/Preview e produção somente após gates. Usuário autoriza explicitamente o runtime e release parcial; bloqueios dos módulos excluídos não impedem release se isolados.
@@ -15,3 +15,7 @@ ACCEPTANCE_CRITERIA:
 TEST_PLAN: Mapa de dependências/ACL/RLS;PG isolado e restauração;contas de testes autorizadas;API/browserdesktop/móvel;unit/lint/types/build/CI;comparação de dados e migrations antes/depois;conferência remota.
 SECURITY_CONSIDERATIONS: Sem leitura de perfis/cookies;secrets somente armazenamento apropriado;menor privilégio e bloqueios no servidor,SQL e UI;evitar grants/novas recompensas inclusive em EBD.
 DEFINITION_OF_DONE: Gates acima comprovados,docs/architecture/RELEASE-EBD-001-REPORT.md e memória atualizados. Falha crítica mantém produção intacta.
+
+VALIDATION_2026_10_24: Runtime23391b5/CI40121574829success;756unitPASS74SKIP,8PGPASS,14browserlocalPASS,75APIrealPASS,35browserreal6403416PASS,25smokefinalPASS,6AuthcadastroPASS;lint/types/build/protocolo25PASS. QA/Security pelo autor,sem revisão independente. Duas migrations somente TEST,41hashes preservados por DDL,restauração estruturalPGPASS. AuthTESTURLcorrigida pelo CLI em somente2campos;confirmação/MFA/limites preservados.
+BLOCKER: Recuperação completa ainda sem PASS: pedido normal429over_email_send_rate_limit; tentativa de callback anterior parou na proteçãoVercel. Harness privado corrigido,sintaxePASS,fluxo positivo com novo token não executado. Celular físico indisponível,emulação claramente distinguida. Sem merge/migration/deployPROD.
+ACCEPTANCE_CHECK: BLOCKED. Produção/main5edc93fREADYintactos;Preview23391b5READY. Reabrir execução quando novo e-mail normal for aceito e validar senha/login/avatarantes dos gates produtivos. Relatório docs/architecture/RELEASE-EBD-001-REPORT.md.
