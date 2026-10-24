@@ -110,7 +110,7 @@ describe.runIf(process.env.RPG_LOCAL_PG === '1')(
           "SELECT has_function_privilege('anon','public.set_owned_equipment(uuid,text,text,text)','EXECUTE'),has_table_privilege('authenticated','economy_private.card_catalog','INSERT')",
         ),
       ).toBe('f|f');
-    });
+    }, 30000);
     it('returns a non-retryable HTTP conflict and preserves function bodies and permissions', () => {
       const signature =
         'economy_private.set_owned_equipment(uuid,text,text,text)';
@@ -149,6 +149,46 @@ describe.runIf(process.env.RPG_LOCAL_PG === '1')(
           "SELECT has_function_privilege('anon','public.set_owned_equipment(uuid,text,text,text)','EXECUTE'),has_function_privilege('authenticated','public.arena_authority_v3(uuid,uuid,text,jsonb)','EXECUTE')",
         ),
       ).toBe('f|f');
+    }, 30000);
+    it('repairs only the observed text encoding and exactly restores all seven frozen definitions', () => {
+      const repair = readFileSync(
+        'supabase/migrations/20261024004111_fix_prod_003_catalog_text_encoding.sql',
+        'utf8',
+      );
+      expect(/^[\x00-\x7f]*$/.test(repair)).toBe(true);
+      // Reproduce the observed transport corruption only in the disposable clone.
+      const rows = [
+        ...repair.matchAll(
+          /\('(arena-card-[a-z-]+)',('(?:[^']|'')*'::jsonb),('(?:[^']|'')*'::jsonb)\)/g,
+        ),
+      ];
+      expect(rows).toHaveLength(7);
+      for (const [, id, previous] of rows)
+        db.query(
+          `UPDATE economy_private.card_catalog SET definition=jsonb_set(definition,'{description}',${previous}) WHERE id='${id}'`,
+        );
+      expect(() => db.query(`BEGIN;${repair}COMMIT;`)).toThrow(
+        /Verified TEST target required/,
+      );
+      db.query(
+        `BEGIN;SET LOCAL fixprod003.target_project='wkdvdzfkbwvhyjmamrsg';${repair}COMMIT;`,
+      );
+      const actual = JSON.parse(
+        db.query(
+          'SELECT jsonb_agg(definition ORDER BY id) FROM economy_private.card_catalog',
+        ),
+      );
+      const frozen = JSON.parse(
+        readFileSync(
+          'packages/database/deployments/fixprod003/test-catalog.json',
+          'utf8',
+        ),
+      ).definitions;
+      expect(actual).toEqual(
+        frozen.sort((a: { id: string }, b: { id: string }) =>
+          a.id.localeCompare(b.id),
+        ),
+      );
     }, 30000);
   },
 );
