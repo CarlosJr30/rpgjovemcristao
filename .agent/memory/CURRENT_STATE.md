@@ -1,3 +1,7 @@
+## FIX-PROD-008 — proposta privada de espada na mão pronta para revisão
+
+Detalhamento recebido: empunhadura natural, alinhar cabo/mão e ajustar proporção/inclinação, preservar couraça3/demais itens, não aplicar antes da validação. Comparação antes/depois privada em build/fix-prod-008/sword-grip-review/index.html,PNGdesktop/mobile ePROMPTS.md;image_gen integrado,camada v1 selecionada,v2 alternativa. Corpo/couraça originais,oclusão por mão original viaCSS.2viewportsPASS e gate4PNGs5composições213arquivosPASS. StatusPENDING_HUMAN_REVIEW;semruntime/public/aprovação/deploy/banco alterado. Demais bloqueios de produção permanecem.
+
 ## FIX-PROD-008 — resposta à revisão da espada
 
 Usuário respondeu: Requer ajuste na espada. Proposta privada passa a REWORK, sem aprovação ou ativação nesse corpo. Solicitado detalhamento de posição/tamanho/inclinação/sobreposição; aguardar preferência antes de alterar a proposta. Couraça3 e quatro composições anteriores preservadas. Demais bloqueios de produção permanecem.

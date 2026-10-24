@@ -71,6 +71,12 @@ Produção/main continuam **5edc93f5857b26a59b183e8abfb963110831f90c**,VercelREA
 
 ## Evidências e desbloqueio
 
+### Proposta privada de empunhadura após detalhamento do usuário
+
+Usuário especificou cabo alinhado à mão, proporção/inclinação natural e ausência de sobreposição indevida; pediu comparação antes/depois e proibiu aplicação definitiva antes da validação. Preparada nova revisão em `build/fix-prod-008/sword-grip-review/index.html`, capturas compare-desktop.png/compare-mobile.png, status **PENDING_HUMAN_REVIEW**. A proposta rejeitada no cinto fica à esquerda; à direita, espada desembainhada e menor, inclinada para fora na mão direita do avatar (esquerda da imagem). Corpo e couraça3 usam os mesmos arquivos/transformações; demais peças intactas.
+
+Skill imagegen, ferramenta integrada image_gen, referências locais inspecionadas, duas saídas transparentes1024×1536 privadas; v1 selecionada na comparação, v2 alternativa não utilizada. Registro/tamanho do gerador precisaram de ajuste somente no HTML:origem25.7%41.7%,translate(-2.3%,11.7%)scale(.65). Mão original em primeiro plano via clip-path compõe a oclusão do cabo; não há edição do corpo ou PNG da couraça. Prompts completos e limites registrados privadamente em PROMPTS.md. DesktopChromium1440/WebKit390:imagens,toggle,sem overflow/erroPASS; capturas inspecionadas. Gate preserva4PNGs/5composições aprovadas/213arquivosPASS. Nenhuma arte nova empublic ou registro de aprovação, nenhuma alteração de runtime, banco ou deploy. A proposta depende de validação humana; não tratar geração como aprovação final.
+
 Artefatos privados em `build/fix-prod-008/`:reconciliation.json,identity.json,hosted-tower.json,hosted-process.json,hosted-receipt-final.json,game-data-preservation.json,equipment-audit.json,visual-review.html/capturas/JSON,prior-ci.json,preview.json,production.json,evidence-index.json. Índice comSHA256 de sete fontes/evidências, incluindo provisionamento original e trilha005; conteúdo privado não copiado para Git. Dados sensíveis não foram versionados.
 
 Desbloqueios necessários: evento rastreável que comprove16/6 e homologação econômica/catálogo; sessão autenticada e processo administrativo auditável; composição visual aprovada por peça/corpo; segundo equipamento homologado e adquirido para troca positiva; condições legítimas para vitórias hospedadas pendentes. Não resolver por concessão manual, desativação de proteção ou alteração de avatar antigo. Estado da tarefa permaneceBLOCKED enquanto faltarem essas evidências.
