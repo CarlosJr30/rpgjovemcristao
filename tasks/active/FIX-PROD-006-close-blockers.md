@@ -4,7 +4,7 @@ ID: FIX-PROD-006
 TITLE: Determinismo isolado da Torre e revisão dos gates restantes
 OBJECTIVE: Concluir o escopo autorizado sem alterar dados reais ou presumir homologações.
 PRIORITY: P1 High
-STATUS: VALIDATING
+STATUS: BLOCKED
 SCOPE: Testes determinísticos com motor e PostgreSQL descartável; fixtures exclusivamente offline; revisão visual concreta em artefato isolado, sem registrar aprovação humana; economia/ambientes em leitura; liderança somente após identidade autenticada e processo administrativo auditável; testes e Preview/produção conforme RELEASE_POLICY.
 OUT_OF_SCOPE: Seeds ou resultados alterados em hospedagem, progresso/vitórias/recompensas artificiais como prova produtiva; escrita em saldos/verified/recibos reais; ativação de prêmios antes de homologação; alteração do avatar antigo; extração de cookies/tokens de perfis; reset/queda de Auth/RLS; reexecução de migrations005/003; reativação ampla do projeto Body-Fit cancelado.
 ASSIGNED_AGENT: Orquestrador assume Database/Backend/GameDesigner/Frontend/QA/Security/DevOps localmente, dentro deste contrato explícito; sem subagentes.
@@ -28,3 +28,5 @@ SELF VALIDATE:10PG PASS na rodada final, dois percursos determinísticos complet
 VISUAL: comparação HTML/CSS existente preparada e inspecionada em desktop e WebKit390, sem overflow/erros; revisão humana solicitada para couraça no corpo exato, ainda pendente. Dois rascunhos de PNG produzidos pela skill imagegen preservados privados em REWORK, sem ativação. Demais itens, troca positiva entre variantes oficiais e aparelho físico não aprovados.
 
 ECONOMIA: SELECT novo confirma5checkpoints de compras iguais ao acumulado, saldo documentado1006259vsatual1006265,XP245016vs245000. Zero eventos de batalha,claimsGuilda,Jornada/EBD para justificar delta;verifiedNULL. BLOCKED sem origem comprovada; não alterar números. Liderança/getUser continua BLOCKED por falha dos dois runtimes Computer Use; não modificar o antigo.
+
+ENTREGA: candidato cc64a52aa55862a782e79dc89fd3663283afea71,CI40060534000 success;Previewdpl_41eBGzUafvZ6R8LCKwpTsvLAb8GM READY no SHA exato.18checks API e12navegadorPASS em Auth real/estado persistido/negações, sem mutação de dados de jogo. Hashes dos oito conjuntos de dados conferem; banco de testes22migrations/20batalhas/22recibos/16XP/6moedas/0claims/políticafalse. Nenhum DDL ou migração repetida. Produção5edc93f READY,4migrations e dados/papéis anteriores preservados. Relatório raiz `FIX-PROD-006-REPORT.md`; dependências econômicas, arte/identidade/aparelho físico bloqueiam aceite global e publicação. Não há DEPLOY_COMPLETE.
