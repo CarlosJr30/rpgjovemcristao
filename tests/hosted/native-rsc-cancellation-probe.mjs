@@ -182,4 +182,3 @@ console.log(
 );
 if (runs.some((run) => !run.functionalPassed || run.externalRequests.length))
   process.exitCode = 1;
-
