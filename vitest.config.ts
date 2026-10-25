@@ -7,7 +7,7 @@ export default defineConfig({
     include: [
       'packages/**/*.test.ts',
       'apps/**/*.test.{ts,tsx}',
-      'tests/*.test.ts',
+      'tests/*.test.{ts,tsx}',
     ],
     clearMocks: true,
   },

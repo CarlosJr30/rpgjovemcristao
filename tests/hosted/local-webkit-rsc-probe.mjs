@@ -1,5 +1,6 @@
 import { chromium, webkit } from '@playwright/test';
 import { mkdirSync, writeFileSync } from 'node:fs';
+import { dirname } from 'node:path';
 import { mockLocalReleaseAuth } from '../fixtures/local-release-auth.ts';
 import { startLocalAuthSimulator } from '../fixtures/local-auth-http-server.mjs';
 
@@ -8,12 +9,22 @@ const origin = 'http://127.0.0.1:3199';
 const nativeBackend = process.argv.includes('--native-backend');
 const simulator = nativeBackend ? await startLocalAuthSimulator() : null;
 const settledOnly = process.argv.includes('--settled-only');
-const output = settledOnly
-  ? 'build/rpg-dev-003/local-native-auth-settled.json'
-  : nativeBackend
-    ? 'build/rpg-dev-003/local-native-auth-rsc.json'
-    : 'build/rpg-dev-003/local-webkit-rsc.json';
-mkdirSync('build/rpg-dev-003', { recursive: true });
+const outputOption = process.argv.indexOf('--output');
+const selectedOutput =
+  outputOption === -1 ? null : process.argv[outputOption + 1];
+if (
+  selectedOutput &&
+  !/^build\/rpg-dev-004\/concurrency\/[a-z0-9-]+\.json$/.test(selectedOutput)
+)
+  throw new Error('Invalid diagnostic output path');
+const output =
+  selectedOutput ??
+  (settledOnly
+    ? 'build/rpg-dev-003/local-native-auth-settled.json'
+    : nativeBackend
+      ? 'build/rpg-dev-003/local-native-auth-rsc.json'
+      : 'build/rpg-dev-003/local-webkit-rsc.json');
+mkdirSync(dirname(output), { recursive: true });
 const cases = settledOnly
   ? [{ transport: 'settled', navigation: 'goto', repeats: 3 }]
   : process.argv.includes('--smoke')
@@ -52,11 +63,35 @@ for (const [engine, launcher] of [
           responses: [],
           delayed: 0,
           functionalPassed: false,
+          lifecycle: [],
         };
         runs.push(run);
         const context = await browser.newContext({
           viewport: { width: 390, height: 844 },
         });
+        if (process.argv.includes('--lifecycle')) {
+          await context.exposeBinding('__localLifecycle', (_source, event) =>
+            run.lifecycle.push(event),
+          );
+          await context.addInitScript(() => {
+            const report = (detail) =>
+              window
+                .__localLifecycle({
+                  at: performance.now(),
+                  path: location.pathname,
+                  ...detail,
+                })
+                .catch(() => {});
+            const add = window.addEventListener.bind(window);
+            add('beforeunload', () => report({ kind: 'beforeunload' }));
+            add('pagehide', () => report({ kind: 'pagehide' }));
+            window.addEventListener = function (type, ...args) {
+              if (type === 'beforeunload')
+                report({ kind: 'register', stack: new Error().stack });
+              return add(type, ...args);
+            };
+          });
+        }
         if (!nativeBackend) await mockLocalReleaseAuth(context, origin);
         if (!['fixture-only', 'settled'].includes(cell.transport))
           await context.route(origin + '/**', async (route) => {

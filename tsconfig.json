@@ -12,6 +12,8 @@
     "playwright.rpg-dev-003.config.ts",
     "playwright.gameplay-isolated.config.ts",
     "tests/protected-preview-route.test.ts",
+    "tests/document-navigation-link.test.tsx",
+    "tests/fixtures/rsc-lifecycle-harness/document-navigation-link.tsx",
     "tests/fixtures/protected-preview-route.ts",
     "tests/fixtures/local-release-auth.ts",
     "tests/fixtures/equipment-recovery-harness/**/*.ts",

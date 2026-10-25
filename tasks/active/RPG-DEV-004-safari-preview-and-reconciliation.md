@@ -30,3 +30,5 @@ RESULTS_2026_10_25:
 - COMMITS:7613eaaCIpush40151827015/PR40151830235success;1758241instrumentaçãodirecionada/sondasseparadas,CIregistradonorelatório.
 - REPORT:docs/architecture/RPG-DEV-004-REPORT.md;RSCrecorteseguroemRPG-DEV-004-RSC-EVIDENCE.json,artefatosprivadosbuild/rpg-dev-004/.
 UNBLOCK_CONDITION:Correção específica de lifecycle/framework/motor validada no contraste preservado e regressõesnormais,sem suprimirerros;demais gatesdegameplayexigemhomologação/evidênciaprópria. Não publicar emprodução enquanto faltarem.
+
+CONTINUATION_2026_10_25: ACTIVE somente na investigação concorrente autorizada. Preservar por hash as três provas WebKit/líder60checks. Criar fixture Next de produção local e barreiras por eventos para comparar prefetch real concorrente em navegação SPA, substituição de documento e alteração de estado sem navegação. Nenhuma conta, Supabase, configuração CORS/Auth ou proteção Vercel será alterada. Correção de produto somente após causa comprovada; QA/Security pelo autor; atualizar esta mesma PR11 e relatório, sem merge/deploy produtivo.
