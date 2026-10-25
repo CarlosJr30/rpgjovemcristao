@@ -1,0 +1,581 @@
+{
+  "task": "RPG-DEV-005",
+  "date": "2026-10-25",
+  "runtimeSha": "d95cd4cf3516c56d6d6b8060bc5bf394f79dbba8",
+  "preview": {
+    "id": "dpl_AeogfSbkQRjcTzs4nPb5fmFGiLxE",
+    "url": "rpgjovemcristao-pxf5m3jfd-carlos-junior-s-projects.vercel.app",
+    "readyState": "READY",
+    "target": null,
+    "sha": "d95cd4cf3516c56d6d6b8060bc5bf394f79dbba8"
+  },
+  "buildProof": {
+    "sha": "d95cd4cf3516c56d6d6b8060bc5bf394f79dbba8",
+    "deployment": "dpl_AeogfSbkQRjcTzs4nPb5fmFGiLxE",
+    "patchApplicationObserved": true,
+    "approvedCompositionsObserved": true
+  },
+  "ci": {
+    "runtimeSha": "d95cd4cf3516c56d6d6b8060bc5bf394f79dbba8",
+    "ci": [
+      {
+        "id": 40195978867,
+        "event": "push",
+        "conclusion": "success",
+        "url": "https://github.com/CarlosJr30/rpgjovemcristao/actions/runs/40195978867"
+      },
+      {
+        "id": 40195981694,
+        "event": "pull_request",
+        "conclusion": "success",
+        "url": "https://github.com/CarlosJr30/rpgjovemcristao/actions/runs/40195981694"
+      }
+    ],
+    "rscWindows": {
+      "jobId": 121176779353,
+      "nativeQualified": 48,
+      "patchedStable": 63,
+      "applicationStableRuns": 24
+    },
+    "quality": {
+      "jobId": 121176779193,
+      "unitPassed": 798,
+      "unitSkipped": 74,
+      "protocolPassed": 25,
+      "lint": true,
+      "typecheck": true,
+      "build": true
+    }
+  },
+  "production": {
+    "officialOrigin": "https://rpgjovemcristao-web-inky.vercel.app",
+    "deployment": "dpl_H8VCqQx2vT8sqVzjDbpFYKnE1mSA",
+    "readyState": "READY",
+    "target": "production",
+    "sha": "808433a780e96a048c4a3f2d7e419351ab85e5a3",
+    "http": {
+      "/": 200,
+      "/auth": 200,
+      "/journey/guild": 200,
+      "/journey/guild/ebd": 200,
+      "/journey/arena": 403,
+      "/journey/tower": 403,
+      "/journey/equipment": 403
+    }
+  },
+  "finalSelections": [
+    {
+      "role": "lider",
+      "verifiedUser": true,
+      "originalActiveRestored": true
+    },
+    {
+      "role": "professor",
+      "verifiedUser": true,
+      "originalActiveRestored": true
+    },
+    {
+      "role": "aluno",
+      "verifiedUser": true,
+      "originalActiveRestored": true
+    }
+  ],
+  "rlsChecks": [
+    {
+      "role": "lider",
+      "check": "authenticated UID",
+      "passed": true
+    },
+    {
+      "role": "lider",
+      "check": "own EBD workspace",
+      "passed": true
+    },
+    {
+      "role": "lider",
+      "check": "foreign traveler denied by RLS",
+      "passed": true
+    },
+    {
+      "role": "lider",
+      "check": "foreign Guilda EBD actor denied",
+      "status": 403,
+      "sqlstate": "42501",
+      "passed": true
+    },
+    {
+      "role": "professor",
+      "check": "authenticated UID",
+      "passed": true
+    },
+    {
+      "role": "professor",
+      "check": "own EBD workspace",
+      "passed": true
+    },
+    {
+      "role": "professor",
+      "check": "foreign traveler denied by RLS",
+      "passed": true
+    },
+    {
+      "role": "professor",
+      "check": "foreign Guilda EBD actor denied",
+      "status": 403,
+      "sqlstate": "42501",
+      "passed": true
+    },
+    {
+      "role": "aluno",
+      "check": "authenticated UID",
+      "passed": true
+    },
+    {
+      "role": "aluno",
+      "check": "own EBD workspace",
+      "passed": true
+    },
+    {
+      "role": "aluno",
+      "check": "foreign traveler denied by RLS",
+      "passed": true
+    },
+    {
+      "role": "aluno",
+      "check": "foreign Guilda EBD actor denied",
+      "status": 403,
+      "sqlstate": "42501",
+      "passed": true
+    }
+  ],
+  "hostedRuns": [
+    {
+      "artifact": "hosted-final-matrix.json",
+      "sha256": "77eee96c446b1903fa37c7b575e952bfaff21f967b78c079823bda1d82e1f614",
+      "engine": "chromium",
+      "role": "lider",
+      "checks": 21,
+      "passed": true,
+      "pageErrors": 0,
+      "domErrors": 0,
+      "consoleErrorsRecorded": 6,
+      "noRscConsoleError": true,
+      "backendHosts": [
+        "wkdvdzfkbwvhyjmamrsg.supabase.co"
+      ],
+      "fourPendingPrefetchesQualified": false
+    },
+    {
+      "artifact": "hosted-final-matrix.json",
+      "sha256": "77eee96c446b1903fa37c7b575e952bfaff21f967b78c079823bda1d82e1f614",
+      "engine": "chromium",
+      "role": "professor",
+      "checks": 21,
+      "passed": true,
+      "pageErrors": 0,
+      "domErrors": 0,
+      "consoleErrorsRecorded": 6,
+      "noRscConsoleError": true,
+      "backendHosts": [
+        "wkdvdzfkbwvhyjmamrsg.supabase.co"
+      ],
+      "fourPendingPrefetchesQualified": false
+    },
+    {
+      "artifact": "hosted-final-matrix.json",
+      "sha256": "77eee96c446b1903fa37c7b575e952bfaff21f967b78c079823bda1d82e1f614",
+      "engine": "chromium",
+      "role": "aluno",
+      "checks": 21,
+      "passed": true,
+      "pageErrors": 0,
+      "domErrors": 0,
+      "consoleErrorsRecorded": 6,
+      "noRscConsoleError": true,
+      "backendHosts": [
+        "wkdvdzfkbwvhyjmamrsg.supabase.co"
+      ],
+      "fourPendingPrefetchesQualified": false
+    },
+    {
+      "artifact": "hosted-final-matrix.json",
+      "sha256": "77eee96c446b1903fa37c7b575e952bfaff21f967b78c079823bda1d82e1f614",
+      "engine": "webkit",
+      "role": "lider",
+      "checks": 21,
+      "passed": true,
+      "pageErrors": 0,
+      "domErrors": 0,
+      "consoleErrorsRecorded": 6,
+      "noRscConsoleError": true,
+      "backendHosts": [
+        "wkdvdzfkbwvhyjmamrsg.supabase.co"
+      ],
+      "fourPendingPrefetchesQualified": false
+    },
+    {
+      "artifact": "hosted-final-matrix.json",
+      "sha256": "77eee96c446b1903fa37c7b575e952bfaff21f967b78c079823bda1d82e1f614",
+      "engine": "webkit",
+      "role": "professor",
+      "checks": 21,
+      "passed": true,
+      "pageErrors": 0,
+      "domErrors": 0,
+      "consoleErrorsRecorded": 6,
+      "noRscConsoleError": true,
+      "backendHosts": [
+        "wkdvdzfkbwvhyjmamrsg.supabase.co"
+      ],
+      "fourPendingPrefetchesQualified": false
+    },
+    {
+      "artifact": "hosted-final-matrix.json",
+      "sha256": "77eee96c446b1903fa37c7b575e952bfaff21f967b78c079823bda1d82e1f614",
+      "engine": "webkit",
+      "role": "aluno",
+      "checks": 21,
+      "passed": true,
+      "pageErrors": 0,
+      "domErrors": 0,
+      "consoleErrorsRecorded": 6,
+      "noRscConsoleError": true,
+      "backendHosts": [
+        "wkdvdzfkbwvhyjmamrsg.supabase.co"
+      ],
+      "fourPendingPrefetchesQualified": false
+    },
+    {
+      "artifact": "webkit-lider-strict-1.json",
+      "sha256": "a5cd2a85ba22c0793cf95df073bee85b5edd345ba24b16a4fadf589177bbbd01",
+      "engine": "webkit",
+      "role": "lider",
+      "checks": 22,
+      "passed": true,
+      "pageErrors": 0,
+      "domErrors": 0,
+      "consoleErrorsRecorded": 6,
+      "noRscConsoleError": true,
+      "backendHosts": [
+        "wkdvdzfkbwvhyjmamrsg.supabase.co"
+      ],
+      "fourPendingPrefetchesQualified": true
+    },
+    {
+      "artifact": "webkit-lider-strict-2.json",
+      "sha256": "5abf000a909437a19e6fc94d7aaca10ccea2f2c05d0381b7a2d358951ba88066",
+      "engine": "webkit",
+      "role": "lider",
+      "checks": 22,
+      "passed": true,
+      "pageErrors": 0,
+      "domErrors": 0,
+      "consoleErrorsRecorded": 6,
+      "noRscConsoleError": true,
+      "backendHosts": [
+        "wkdvdzfkbwvhyjmamrsg.supabase.co"
+      ],
+      "fourPendingPrefetchesQualified": true
+    },
+    {
+      "artifact": "webkit-lider-strict-3-rerun.json",
+      "sha256": "b9e8bfe22cd112c708bb61238015a66992734424847bc5ce682b77cf34acda24",
+      "engine": "webkit",
+      "role": "lider",
+      "checks": 22,
+      "passed": true,
+      "pageErrors": 0,
+      "domErrors": 0,
+      "consoleErrorsRecorded": 6,
+      "noRscConsoleError": true,
+      "backendHosts": [
+        "wkdvdzfkbwvhyjmamrsg.supabase.co"
+      ],
+      "fourPendingPrefetchesQualified": true
+    }
+  ],
+  "dataPreservation": {
+    "prod": [
+      {
+        "dataset": "public.travelers",
+        "rows": 24,
+        "beforeHash": "4e220759519de94bddd63f73cebb3eff",
+        "afterHash": "4e220759519de94bddd63f73cebb3eff",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.wallets",
+        "rows": 24,
+        "beforeHash": "0d2b276467cd92064c5778ca05a6d2db",
+        "afterHash": "0d2b276467cd92064c5778ca05a6d2db",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.inventory",
+        "rows": 37,
+        "beforeHash": "a7011bc26f265cc4d471cc0b2c6ebc1f",
+        "afterHash": "a7011bc26f265cc4d471cc0b2c6ebc1f",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.equipped_items",
+        "rows": 31,
+        "beforeHash": "7b1975f07527427f5028c9c5fe340d4a",
+        "afterHash": "7b1975f07527427f5028c9c5fe340d4a",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.traveler_stats",
+        "rows": 24,
+        "beforeHash": "dbee988bf36d5adaacb87ee0d58282dd",
+        "afterHash": "dbee988bf36d5adaacb87ee0d58282dd",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.traveler_chests",
+        "rows": 8,
+        "beforeHash": "6ee54f18a7e393269ebbb5bfb1c0b7b5",
+        "afterHash": "6ee54f18a7e393269ebbb5bfb1c0b7b5",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.chest_operations",
+        "rows": 37,
+        "beforeHash": "fe810d53404108603942157811bd3bac",
+        "afterHash": "fe810d53404108603942157811bd3bac",
+        "unchanged": true
+      },
+      {
+        "dataset": "economy_private.battles",
+        "rows": 0,
+        "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+        "afterHash": "d41d8cd98f00b204e9800998ecf8427e",
+        "unchanged": true
+      }
+    ],
+    "test": [
+      {
+        "dataset": "public.travelers",
+        "rows": 12,
+        "beforeHash": "137f0a237d24c35b28cb292844659424",
+        "afterHash": "4872a209c35569d2d21af6ff1af10bcc",
+        "unchanged": false
+      },
+      {
+        "dataset": "public.wallets",
+        "rows": 12,
+        "beforeHash": "3a7f45f3dff546e33b62b0a1b5066981",
+        "afterHash": "3a7f45f3dff546e33b62b0a1b5066981",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.inventory",
+        "rows": 18,
+        "beforeHash": "5826fa36b9eb0c6f3214e64f85f439df",
+        "afterHash": "5826fa36b9eb0c6f3214e64f85f439df",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.equipped_items",
+        "rows": 4,
+        "beforeHash": "0a86d90b83f79f0781693b5acdfdc9bd",
+        "afterHash": "0a86d90b83f79f0781693b5acdfdc9bd",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.traveler_stats",
+        "rows": 12,
+        "beforeHash": "c17346d1a67a89b880da14c1c46b8b63",
+        "afterHash": "c17346d1a67a89b880da14c1c46b8b63",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.traveler_chests",
+        "rows": 0,
+        "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+        "afterHash": "d41d8cd98f00b204e9800998ecf8427e",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.chest_operations",
+        "rows": 23,
+        "beforeHash": "ff179e1151f02a25bf708a5fd96469b9",
+        "afterHash": "ff179e1151f02a25bf708a5fd96469b9",
+        "unchanged": true
+      },
+      {
+        "dataset": "economy_private.battles",
+        "rows": 21,
+        "beforeHash": "d86e87487479633cad4b153bb63b37bb",
+        "afterHash": "d86e87487479633cad4b153bb63b37bb",
+        "unchanged": true
+      }
+    ],
+    "guild-prod": [
+      {
+        "dataset": "public.guild_activity_log",
+        "rows": 10,
+        "beforeHash": "03ab8a0a5f90c7d3183ff2423c031f8d",
+        "afterHash": "03ab8a0a5f90c7d3183ff2423c031f8d",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.guild_chat_messages",
+        "rows": 4,
+        "beforeHash": "b22fcbdc286c429a399a0a0f35077724",
+        "afterHash": "b22fcbdc286c429a399a0a0f35077724",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.guild_chat_moderation_log",
+        "rows": 0,
+        "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+        "afterHash": "d41d8cd98f00b204e9800998ecf8427e",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.guild_chat_reads",
+        "rows": 0,
+        "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+        "afterHash": "d41d8cd98f00b204e9800998ecf8427e",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.guild_chat_reports",
+        "rows": 0,
+        "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+        "afterHash": "d41d8cd98f00b204e9800998ecf8427e",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.guild_ebd_activities",
+        "rows": 1,
+        "beforeHash": "a32e07d626caa881e38cc8bda2649417",
+        "afterHash": "a32e07d626caa881e38cc8bda2649417",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.guild_ebd_answers",
+        "rows": 1,
+        "beforeHash": "204d84686cead70be66ad94b98ec17cb",
+        "afterHash": "204d84686cead70be66ad94b98ec17cb",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.guild_ebd_attendance",
+        "rows": 1,
+        "beforeHash": "baf3853071c4f4a7c864f65171d9a344",
+        "afterHash": "baf3853071c4f4a7c864f65171d9a344",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.guild_ebd_history",
+        "rows": 5,
+        "beforeHash": "3119adb01f3d66fa044478696cd8e3d1",
+        "afterHash": "3119adb01f3d66fa044478696cd8e3d1",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.guild_ebd_reward_pending",
+        "rows": 0,
+        "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+        "afterHash": "d41d8cd98f00b204e9800998ecf8427e",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.guild_ebd_teachers",
+        "rows": 1,
+        "beforeHash": "fb0ea0697434647481a1fed15c58af2e",
+        "afterHash": "fb0ea0697434647481a1fed15c58af2e",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.guild_invites",
+        "rows": 0,
+        "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+        "afterHash": "d41d8cd98f00b204e9800998ecf8427e",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.guild_join_requests",
+        "rows": 5,
+        "beforeHash": "26839a6ad25730bf07c7a8702bfd46d1",
+        "afterHash": "26839a6ad25730bf07c7a8702bfd46d1",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.guild_lessons",
+        "rows": 1,
+        "beforeHash": "65ecd5387800931e1912aa856810edc9",
+        "afterHash": "65ecd5387800931e1912aa856810edc9",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.guild_members",
+        "rows": 8,
+        "beforeHash": "227b695d7ecf4feb5b0c55c7f5c23747",
+        "afterHash": "227b695d7ecf4feb5b0c55c7f5c23747",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.guild_mission_attempts",
+        "rows": 0,
+        "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+        "afterHash": "d41d8cd98f00b204e9800998ecf8427e",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.guild_mission_progress",
+        "rows": 0,
+        "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+        "afterHash": "d41d8cd98f00b204e9800998ecf8427e",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.guild_missions",
+        "rows": 0,
+        "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+        "afterHash": "d41d8cd98f00b204e9800998ecf8427e",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.guild_reward_claims",
+        "rows": 0,
+        "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+        "afterHash": "d41d8cd98f00b204e9800998ecf8427e",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.guilds",
+        "rows": 3,
+        "beforeHash": "321e15a8185b3de6c1ddf1c39a08ff25",
+        "afterHash": "321e15a8185b3de6c1ddf1c39a08ff25",
+        "unchanged": true
+      }
+    ]
+  },
+  "hostedChecksPassed": 192,
+  "preservedFailedAttempt": {
+    "artifact": "webkit-lider-strict-3.json",
+    "passed": false,
+    "checksCompleted": 3,
+    "failure": "locator.click: Timeout 25000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('link', { name: 'Meu avatar', exact: true })\u001b[22m\n\u001b[2m    - locator resolved to <a href=\"/journey/hero\">Meu avatar</a>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    - waiting for element to be visible, enabled and stable\u001b[22m\n",
+    "pageErrors": 0,
+    "domErrors": 0,
+    "qualifiedConcurrentAttempt": false,
+    "recoveryHarnessCorrection": "Official selection RPC returned successful HTTP204; old recovery assertion expected200. Original selections verified; no authorization change."
+  },
+  "assets": {
+    "equipmentPngs": 9,
+    "bodies": 3,
+    "hashesPassed": 12,
+    "sha": "d95cd4cf3516c56d6d6b8060bc5bf394f79dbba8"
+  },
+  "release": {
+    "rscScopedAcceptance": "PASS with documented conservative prefetch limitation",
+    "productionPromotion": "BLOCKED by prior gameplay gates",
+    "mergePerformed": false,
+    "migrationsApplied": 0,
+    "paidResourcesCreated": 0
+  }
+}

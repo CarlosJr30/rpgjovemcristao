@@ -4468,6 +4468,7 @@
     }
   },
   "finalCandidate": {
+    "runtimeSha": "d95cd4cf3516c56d6d6b8060bc5bf394f79dbba8",
     "helperSha256": "0c4a5f98ccdfb1ae6cd3a1ddb9aa7e29012f861017806a80d6eb4c269e5ae67a",
     "fixture": "final-safe-fixture/next-rsc-concurrency.json",
     "application": [
@@ -4475,7 +4476,8 @@
       "app-regression-repeat.json"
     ],
     "resumePolicy": "pageshow or fresh document; canceled-dialog old document keeps background prefetch deferred, active navigation unaffected",
-    "hostedAndCiPending": true
+    "hostedAndCiPending": false,
+    "hostedEvidence": "RPG-DEV-005-HOSTED-EVIDENCE.json"
   },
   "baselineTimelineExample": [
     {

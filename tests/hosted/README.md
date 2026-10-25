@@ -1,5 +1,21 @@
 # Diagnóstico hospedado RPG-DEV-002
 
+## RPG-DEV-005 — correção no transporte e gates de estabilidade
+
+`npm test` e o build da aplicação aplicam explicitamente o patch interno do Next16.4.2, com versão/hashes exatos. `.npmrc` continua com `ignore-scripts=true`; nenhum hook de dependência precisa ser habilitado. `node scripts/next-rsc-departure-patch.mjs --check` verifica a aplicação nos formatos CJS/ESM. Fontes desconhecidas bloqueiam o comando.
+
+Para um **controle nativo isolado**, antes de qualquer build de teste, executar `node scripts/next-rsc-departure-patch.mjs --restore` e então `node tests/hosted/next-rsc-concurrency-probe.mjs --build --output build/rpg-dev-005/manual-native`. Reaplicar com `node scripts/next-rsc-departure-patch.mjs` ao terminar, inclusive em falha. O job CI usa `finally` para essa restauração. Não usar `--restore` em operação produtiva.
+
+Para validar o candidato: `node tests/hosted/next-rsc-concurrency-probe.mjs --build --expect-stable --extended --output build/rpg-dev-005/manual-patched`. Os63casos incluem os controles anteriores, diálogo cancelado/SPA/recarga, Link tardio, conclusão de hash real durante saída e clique no documento ainda provisório. Os três braços provisórios adicionais são WebKit; Chromium mantém seus controles de navegação/histórico/diálogo. O braço de hash segura apenas a conclusão do SHA-256 real, sem alterar fetch/RSC/status; o início da navegação exige quatro hashes pendentes. Os demais braços exigem quatro prefetches HTTP reais pendentes. Qualquer pageerror/erro DOM reprova a estabilidade. Não interpretar o diagnóstico nativo de falha esperada como aprovação de release.
+
+O patch final **retoma somente em pageshow/documento novo**. Uma interação pode acontecer com a navegação ainda pendente e não comprova cancelamento. Depois de cancelar diálogo, estado e navegação SPA continuam operacionais; novos prefetches de fundo daquele documento ficam adiados até restauração/recarga. A fixture exige as cargas já em curso, a SPA posterior e os seis prefetches num documento novo. Não afirmar retomada imediata de prefetch, BFCache real ou Safari físico.
+
+`node tests/hosted/local-rsc-app-regression.mjs` compila e executa a aplicação completa de produção em loopback3199, com o simulador HTTP existente em3202 e variáveis públicas sintéticas. Exige24fluxos Chromium/WebKit sem pageerror/erro DOM/console/origem externa. `--repeat` grava outra rodada separada. Não usa contas hospedadas; não equivale à homologação TEST real.
+
+Na homologação real, `release-preview-validation.mjs` aceita `task: "rpg-dev-005"` para separar os artefatos. A opção `concurrentReplacement: true` recarrega a EBD, retém quatro pedidos RSC reais iniciados pelo navegador e substitui esse mesmo documento pela rota Arena403. Repassa as requisições originais com o mesmo OIDC restrito à origem, sem fabricar payload/resposta, e libera a barreira em `finally`. Não combinar com `isolatedNegativeChecks`, que usa outra aba. Timeout da barreira reprova a qualificação. Credenciais somente por stdin/armazenamento protegido, projeto/backend TEST já verificados, nunca contas produtivas. Não usar o replay manual de fetch como se fosse uma carga gerada pelo Next corrigido.
+
+Relatório e resultados: `docs/architecture/RPG-DEV-005-REPORT.md` e `RPG-DEV-005-EVIDENCE.json`. A produção/gameplay continua sujeita aos bloqueios e à RELEASE_POLICY.
+
 ## RPG-DEV-004 — reprodução mínima e Preview atual
 
 ### Continuação: RSC automático determinístico e correção de lifecycle

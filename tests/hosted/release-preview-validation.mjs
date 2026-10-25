@@ -56,6 +56,7 @@ for (const [engine, launcher, viewport] of [
         checks: [],
         pageErrors: [],
         domErrors: [],
+        consoleErrors: [],
         failedRequests: [],
         hosts: [],
         passed: false,
@@ -224,7 +225,17 @@ for (const [engine, launcher, viewport] of [
         );
       });
       // Every tab remains subject to the same strict error gate.
-      context.on('page', (observed) =>
+      context.on('page', (observed) => {
+        observed.on('console', (message) => {
+          if (message.type() !== 'error') return;
+          run.consoleErrors.push({
+            phase,
+            message: redact(message.text()),
+            location: message.location().url
+              ? safeUrl(message.location().url)
+              : null,
+          });
+        });
         observed.on('pageerror', (error) => {
           event('pageerror', { message: redact(error.message) });
           run.pageErrors.push({
@@ -232,8 +243,8 @@ for (const [engine, launcher, viewport] of [
             message: redact(error.message),
           });
           save();
-        }),
-      );
+        });
+      });
       const page = await context.newPage();
       page.setDefaultTimeout(25000);
       page.on('requestfailed', (req) => {
@@ -574,9 +585,28 @@ for (const [engine, launcher, viewport] of [
         check('TEST only, never PROD', hosts.size === 1 && hosts.has(backend));
         check('no pageerror', run.pageErrors.length === 0);
         check('no DOM error/unhandledrejection', run.domErrors.length === 0);
+        // Preserve every console error. HTTP403 from the deliberately denied
+        // document routes is expected; any RSC/network-lifecycle error fails.
+        check(
+          'no RSC console error',
+          !run.consoleErrors.some((error) =>
+            /_rsc=|RSC payload|fetch RSC|access control|Load failed|CORS/i.test(
+              error.message + ' ' + error.location,
+            ),
+          ),
+        );
         run.passed = true;
       } catch (error) {
         run.failure = redact(error.message);
+        try {
+          await page.screenshot({
+            path: base + `${artifact}-${engine}-${role}-failure.png`,
+            fullPage: true,
+            timeout: 5000,
+          });
+        } catch (captureError) {
+          run.captureFailure = redact(captureError.message);
+        }
       } finally {
         releasePrefetches();
         await context.close();
