@@ -4,7 +4,7 @@ ID: RPG-DEV-001
 TITLE: Preparar equipamentos, Arena e Torre preservando Guilda/EBD
 OBJECTIVE: Reproduzir e corrigir defeitos confirmados, produzir evidências e delimitar os bloqueios da futura liberação.
 PRIORITY: P1 High
-STATUS: VALIDATING
+STATUS: BLOCKED
 SCOPE: apps/web/features/journey, apps/web/lib/supabase, apps/web/lib/authority, testes/fixtures/configurações locais de teste, relatório e memória. Assets aprovados somente leitura. Investigação remota somente leitura nesta etapa.
 OUT_OF_SCOPE: Desbloqueio produtivo, grants econômicos reais, promoção de jogadores, mudança de Auth/URLs/quotas, alteração das artes aprovadas, reset ou repetição de migrations.
 DEPENDENCIES: RELEASE-EBD-001 publicado em 808433a; homologação econômica e catálogo ainda pendentes.
@@ -36,4 +36,10 @@ DEFINITION_OF_DONE:
 
 ## Self validation / QA / Security pelo autor
 
-Reproduzidas quatro falhas de concorrência antes da correção. Regressores finais 24 PASS; suite integral 764 PASS/74 SKIP; PG 17 PASS com timeout apropriado ao WSL, mesma assertividade; navegador de equipamento 2 PASS e fronteira release 4 PASS; lint/types/build e protocolo 25 PASS. Assets cinco PNGs/seis composições intactos. Sem DDL ou escrita em dados de jogo remotos. Revisão não independente. CI/Preview e inspeção hospedada pendentes nesta etapa; liberação de gameplay BLOCKED por homologação/economia/fluxos hospedados.
+Reproduzidas quatro falhas de concorrência antes da correção. Regressores finais 24 PASS; suite integral 764 PASS/74 SKIP. Todos os 74 omitidos foram inventariados e executados separadamente: 17 PASS mais 57 PASS (e um check estático adicional). Torre completa/campeão em duas réplicas isoladas, transações/idempotência e derrotas testadas. Navegador local: equipamento 2 PASS/fronteira release 4 PASS; lint/types/build/protocolo25 PASS.
+
+SHA2d0132e aprovado no CI push40130559262/PR40130578445. Única PR11 em rascunho. Previewdpl_6nLjgXqu6GrzJeoAfGnU5sntcn6UREADY no SHA exato, TEST confirmado, 48checks hospedados Chromiumdesktop/móvel e oito hashes de assets PASS. WebKit registrou falha RSC/CORS intermitente e continua BLOCKED, apesar de uma execução isolada com16PASS. Logs de falha preservados; nenhuma proteção relaxada. Oito conjuntos de dados iguais antes/depois em cada ambiente; sem DDL ou escrita em dados de jogo remotos. Revisão pelo autor, sem independência.
+
+## Aceite e desbloqueio
+
+DONE: correção de sincronização, contrato/fixture/testes, investigação das74omissões, CI/Preview, preservação de assets e produção808433aREADY. BLOCKED: proveniência16XP/6moedas, catálogo/política econômica, fluxos positivos hospedados, WebKit e celular físico indisponível. REWORK: overlays das demais peças e segunda variante legítima para troca. Sem merge, promoção ou migrations. Relatório final: docs/architecture/RPG-DEV-001-REPORT.md. Retomar quando houver evidência econômica/homologação e ambiente hospedado seguro; não fabricar créditos, vitórias ou permissões.
