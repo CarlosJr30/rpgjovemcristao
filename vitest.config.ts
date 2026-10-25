@@ -4,7 +4,11 @@ export default defineConfig({
   esbuild: { jsx: 'automatic' },
   test: {
     environment: 'node',
-    include: ['packages/**/*.test.ts', 'apps/**/*.test.{ts,tsx}'],
+    include: [
+      'packages/**/*.test.ts',
+      'apps/**/*.test.{ts,tsx}',
+      'tests/*.test.ts',
+    ],
     clearMocks: true,
   },
 });

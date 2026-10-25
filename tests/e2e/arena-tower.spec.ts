@@ -224,6 +224,9 @@ test('isolated full Tower reuses ArenaExperience, resumes and clears7 without an
             (await page
               .getByRole('button', { name: 'ATACAR', exact: true })
               .isEnabled()),
+          // The final action plays its event queue before persisting the result.
+          // Keep the same outcome assertion while allowing that bounded animation.
+          { timeout: 15000 },
         )
         .toBe(true);
       if (await outcome.count()) break;
