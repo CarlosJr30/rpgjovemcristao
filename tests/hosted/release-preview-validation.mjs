@@ -24,7 +24,10 @@ const out = {
   provisionalReplay: input.provisionalReplay === true,
   runs: [],
 };
-const base = 'build/rpg-dev-004/';
+const task = input.task ?? 'rpg-dev-004';
+if (!['rpg-dev-004', 'rpg-dev-005'].includes(task))
+  throw new Error('Invalid task');
+const base = 'build/' + task + '/';
 const artifact = input.artifact ?? 'hosted-validation';
 if (!/^[a-z0-9-]+$/.test(artifact)) throw new Error('Invalid artifact name');
 const redact = (value) => {
@@ -98,14 +101,40 @@ for (const [engine, launcher, viewport] of [
         );
       out.runs.push(run);
       const context = await browser.newContext({ viewport });
-      await context.route(origin + '/**', (route) =>
-        route.continue({
-          headers: {
-            ...route.request().headers(),
-            'x-vercel-trusted-oidc-idp-token': process.env.VERCEL_OIDC_TOKEN,
-          },
-        }),
-      );
+      let holdPrefetches = false;
+      const heldPrefetches = [];
+      let fourPending;
+      const prefetchBarrier = new Promise((resolve) => {
+        fourPending = resolve;
+      });
+      const releasePrefetches = () => {
+        holdPrefetches = false;
+        for (const release of heldPrefetches.splice(0)) release();
+      };
+      await context.route(origin + '/**', async (route) => {
+        const headers = route.request().headers();
+        if (
+          holdPrefetches &&
+          headers['next-router-prefetch'] === '1' &&
+          headers['next-router-segment-prefetch'] === '/_tree' &&
+          heldPrefetches.length < 4
+        ) {
+          await new Promise((resolve) => {
+            heldPrefetches.push(resolve);
+            if (heldPrefetches.length === 4) fourPending();
+          });
+        }
+        try {
+          await route.continue({
+            headers: {
+              ...headers,
+              'x-vercel-trusted-oidc-idp-token': process.env.VERCEL_OIDC_TOKEN,
+            },
+          });
+        } catch (error) {
+          event('route-closed', { message: redact(error.message) });
+        }
+      });
       await context.route('https://*.supabase.co/**', (route) =>
         new URL(route.request().url()).hostname === backend
           ? route.continue()
@@ -384,6 +413,39 @@ for (const [engine, launcher, viewport] of [
           path: base + `${artifact}-${engine}-${role}.png`,
           fullPage: true,
         });
+        if (input.concurrentReplacement) {
+          if (input.isolatedNegativeChecks)
+            throw new Error(
+              'Concurrent replacement requires the original document',
+            );
+          phase = 'concurrent-rsc-barrier';
+          holdPrefetches = true;
+          await page.reload();
+          await page
+            .getByLabel('Área da Escola Bíblica')
+            .waitFor({ state: 'attached' });
+          let timer;
+          try {
+            await Promise.race([
+              prefetchBarrier,
+              new Promise((_, reject) => {
+                timer = setTimeout(
+                  () =>
+                    reject(
+                      new Error('Four real hosted RSC prefetches not observed'),
+                    ),
+                  25000,
+                );
+              }),
+            ]);
+          } finally {
+            clearTimeout(timer);
+          }
+          check(
+            'four real hosted RSC prefetches pending before replacement',
+            heldPrefetches.length === 4,
+          );
+        }
         if (input.provisionalReplay) {
           // Diagnostic replay, not a normal user flow or a successful release gate.
           const prefetch = run.timeline.find(
@@ -459,8 +521,18 @@ for (const [engine, launcher, viewport] of [
             '/journey/shop',
           ]) {
             phase = 'negative-' + path;
-            await negativePage.waitForLoadState('networkidle');
-            const response = await negativePage.goto(origin + path);
+            if (!holdPrefetches)
+              await negativePage.waitForLoadState('networkidle');
+            const navigation = negativePage.goto(origin + path);
+            if (holdPrefetches) {
+              await negativePage.waitForRequest(
+                (request) =>
+                  request.isNavigationRequest() &&
+                  new URL(request.url()).pathname === path,
+              );
+              releasePrefetches();
+            }
+            const response = await navigation;
             await negativePage.waitForLoadState('networkidle');
             check('economic route denied ' + path, response.status() === 403);
           }
@@ -506,6 +578,7 @@ for (const [engine, launcher, viewport] of [
       } catch (error) {
         run.failure = redact(error.message);
       } finally {
+        releasePrefetches();
         await context.close();
         save();
       }

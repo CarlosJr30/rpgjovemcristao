@@ -13,6 +13,7 @@
     "packages/*"
   ],
   "scripts": {
+    "postinstall": "node scripts/next-rsc-departure-patch.mjs",
     "dev": "npm run dev --workspace=@rpg/web",
     "build": "npm run build --workspace=@rpg/web",
     "start": "npm run start --workspace=@rpg/web",

@@ -14,7 +14,7 @@ const selectedOutput =
   outputOption === -1 ? null : process.argv[outputOption + 1];
 if (
   selectedOutput &&
-  !/^build\/rpg-dev-004\/concurrency\/[a-z0-9-]+\.json$/.test(selectedOutput)
+  !/^build\/rpg-dev-00[45]\/[a-z0-9/-]+\.json$/.test(selectedOutput)
 )
   throw new Error('Invalid diagnostic output path');
 const output =
@@ -59,6 +59,9 @@ for (const [engine, launcher] of [
           repeat,
           checks: [],
           errors: [],
+          domErrors: [],
+          consoleErrors: [],
+          externalOrigins: [],
           failedRequests: [],
           responses: [],
           delayed: 0,
@@ -68,6 +71,24 @@ for (const [engine, launcher] of [
         runs.push(run);
         const context = await browser.newContext({
           viewport: { width: 390, height: 844 },
+        });
+        await context.exposeBinding('__localRscError', (_source, event) =>
+          run.domErrors.push(event),
+        );
+        await context.addInitScript(() => {
+          addEventListener('error', (event) => {
+            window
+              .__localRscError({ kind: 'error', message: event.message })
+              .catch(() => {});
+          });
+          addEventListener('unhandledrejection', (event) => {
+            window
+              .__localRscError({
+                kind: 'unhandledrejection',
+                message: String(event.reason),
+              })
+              .catch(() => {});
+          });
         });
         if (process.argv.includes('--lifecycle')) {
           await context.exposeBinding('__localLifecycle', (_source, event) =>
@@ -82,6 +103,7 @@ for (const [engine, launcher] of [
                   ...detail,
                 })
                 .catch(() => {});
+            window.__rpgRscObserve = report;
             const add = window.addEventListener.bind(window);
             add('beforeunload', () => report({ kind: 'beforeunload' }));
             add('pagehide', () => report({ kind: 'pagehide' }));
@@ -115,6 +137,18 @@ for (const [engine, launcher] of [
           });
         const page = await context.newPage();
         page.setDefaultTimeout(15000);
+        page.on('console', (message) => {
+          if (message.type() === 'error')
+            run.consoleErrors.push(message.text());
+        });
+        page.on('request', (request) => {
+          const requestOrigin = new URL(request.url()).origin;
+          if (
+            nativeBackend &&
+            ![origin, 'http://127.0.0.1:3202'].includes(requestOrigin)
+          )
+            run.externalOrigins.push(requestOrigin);
+        });
         page.on('pageerror', (e) =>
           run.errors.push({ name: e.name, message: e.message }),
         );
@@ -199,7 +233,11 @@ for (const [engine, launcher] of [
         } catch (e) {
           run.failure = e.message;
         } finally {
-          run.errorFree = run.errors.length === 0;
+          run.errorFree =
+            run.errors.length === 0 &&
+            run.domErrors.length === 0 &&
+            run.consoleErrors.length === 0 &&
+            run.externalOrigins.length === 0;
           await context.close();
           save();
         }
@@ -236,4 +274,11 @@ console.log(
   ),
 );
 if (simulator) await new Promise((resolve) => simulator.close(resolve));
-if (runs.some((run) => !run.functionalPassed)) process.exitCode = 1;
+if (
+  runs.some(
+    (run) =>
+      !run.functionalPassed ||
+      (process.argv.includes('--require-stable') && !run.errorFree),
+  )
+)
+  process.exitCode = 1;

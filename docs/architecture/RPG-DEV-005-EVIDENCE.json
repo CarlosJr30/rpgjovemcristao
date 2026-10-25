@@ -1,0 +1,3977 @@
+{
+  "task": "RPG-DEV-005",
+  "date": "2026-10-25",
+  "baseCommit": "35fa16d992898035d52fb266223b876a6e88c445",
+  "productionChanged": false,
+  "gameplayReleaseAccepted": false,
+  "artifacts": {
+    "trace-baseline/next-rsc-concurrency.json": {
+      "sha256": "2b4b97119d56842cc3f3c54efcb78d1cbd4e85749c17406035b49e7a11c5ce6b",
+      "runs": [
+        {
+          "engine": "webkit",
+          "mode": "hard-six",
+          "repeat": 0,
+          "passedDiagnostic": true,
+          "releaseStable": false,
+          "pageErrors": 2,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "hard-six",
+          "repeat": 1,
+          "passedDiagnostic": true,
+          "releaseStable": false,
+          "pageErrors": 2,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "hard-six",
+          "repeat": 2,
+          "passedDiagnostic": true,
+          "releaseStable": false,
+          "pageErrors": 2,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "hard-four",
+          "repeat": 0,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "hard-four",
+          "repeat": 1,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "hard-four",
+          "repeat": 2,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "spa-six",
+          "repeat": 0,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "spa-six",
+          "repeat": 1,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "spa-six",
+          "repeat": 2,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "state-six",
+          "repeat": 0,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "state-six",
+          "repeat": 1,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "state-six",
+          "repeat": 2,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "guard-hard-six",
+          "repeat": 0,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "guard-hard-six",
+          "repeat": 1,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "guard-hard-six",
+          "repeat": 2,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "guard-spa-six",
+          "repeat": 0,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "guard-spa-six",
+          "repeat": 1,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "guard-spa-six",
+          "repeat": 2,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "guard-state-six",
+          "repeat": 0,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "guard-state-six",
+          "repeat": 1,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "guard-state-six",
+          "repeat": 2,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "guard-cancel-six",
+          "repeat": 0,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "guard-cancel-six",
+          "repeat": 1,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "guard-cancel-six",
+          "repeat": 2,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "hard-six",
+          "repeat": 0,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "hard-six",
+          "repeat": 1,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "hard-six",
+          "repeat": 2,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "hard-four",
+          "repeat": 0,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "hard-four",
+          "repeat": 1,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "hard-four",
+          "repeat": 2,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "spa-six",
+          "repeat": 0,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "spa-six",
+          "repeat": 1,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "spa-six",
+          "repeat": 2,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "state-six",
+          "repeat": 0,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "state-six",
+          "repeat": 1,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "state-six",
+          "repeat": 2,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "guard-hard-six",
+          "repeat": 0,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "guard-hard-six",
+          "repeat": 1,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "guard-hard-six",
+          "repeat": 2,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "guard-spa-six",
+          "repeat": 0,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "guard-spa-six",
+          "repeat": 1,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "guard-spa-six",
+          "repeat": 2,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "guard-state-six",
+          "repeat": 0,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "guard-state-six",
+          "repeat": 1,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "guard-state-six",
+          "repeat": 2,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "guard-cancel-six",
+          "repeat": 0,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "guard-cancel-six",
+          "repeat": 1,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "guard-cancel-six",
+          "repeat": 2,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        }
+      ]
+    },
+    "scheduler-guard/next-rsc-concurrency.json": {
+      "sha256": "54a9535d1c606857c7b57d9d6b69bbec4075325a883a7c5d64727a3591da1a5f",
+      "runs": [
+        {
+          "engine": "webkit",
+          "mode": "hard-six",
+          "repeat": 0,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "hard-six",
+          "repeat": 1,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "hard-six",
+          "repeat": 2,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "hard-four",
+          "repeat": 0,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "hard-four",
+          "repeat": 1,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "hard-four",
+          "repeat": 2,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "spa-six",
+          "repeat": 0,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "spa-six",
+          "repeat": 1,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "spa-six",
+          "repeat": 2,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "state-six",
+          "repeat": 0,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "state-six",
+          "repeat": 1,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "state-six",
+          "repeat": 2,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "guard-hard-six",
+          "repeat": 0,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "guard-hard-six",
+          "repeat": 1,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "guard-hard-six",
+          "repeat": 2,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "guard-spa-six",
+          "repeat": 0,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "guard-spa-six",
+          "repeat": 1,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "guard-spa-six",
+          "repeat": 2,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "guard-state-six",
+          "repeat": 0,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "guard-state-six",
+          "repeat": 1,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "guard-state-six",
+          "repeat": 2,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "guard-cancel-six",
+          "repeat": 0,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "guard-cancel-six",
+          "repeat": 1,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "guard-cancel-six",
+          "repeat": 2,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "hard-six",
+          "repeat": 0,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "hard-six",
+          "repeat": 1,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "hard-six",
+          "repeat": 2,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "hard-four",
+          "repeat": 0,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "hard-four",
+          "repeat": 1,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "hard-four",
+          "repeat": 2,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "spa-six",
+          "repeat": 0,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "spa-six",
+          "repeat": 1,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "spa-six",
+          "repeat": 2,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "state-six",
+          "repeat": 0,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "state-six",
+          "repeat": 1,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "state-six",
+          "repeat": 2,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "guard-hard-six",
+          "repeat": 0,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "guard-hard-six",
+          "repeat": 1,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "guard-hard-six",
+          "repeat": 2,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "guard-spa-six",
+          "repeat": 0,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "guard-spa-six",
+          "repeat": 1,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "guard-spa-six",
+          "repeat": 2,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "guard-state-six",
+          "repeat": 0,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "guard-state-six",
+          "repeat": 1,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "guard-state-six",
+          "repeat": 2,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "guard-cancel-six",
+          "repeat": 0,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "guard-cancel-six",
+          "repeat": 1,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "guard-cancel-six",
+          "repeat": 2,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        }
+      ]
+    },
+    "app-scheduler.json": {
+      "sha256": "62b972e82595f88075fa02bf9c0ec476b095762179612f9e25dada3d20ad8847",
+      "runs": [
+        {
+          "engine": "chromium",
+          "transport": "fixture-only",
+          "navigation": "links",
+          "repeat": 0,
+          "functionalPassed": true,
+          "errorFree": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "transport": "fixture-only",
+          "navigation": "links",
+          "repeat": 1,
+          "functionalPassed": true,
+          "errorFree": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "transport": "fixture-only",
+          "navigation": "links",
+          "repeat": 2,
+          "functionalPassed": true,
+          "errorFree": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "transport": "fixture-only",
+          "navigation": "goto",
+          "repeat": 0,
+          "functionalPassed": true,
+          "errorFree": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "transport": "fixture-only",
+          "navigation": "goto",
+          "repeat": 1,
+          "functionalPassed": false,
+          "errorFree": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0,
+          "failure": "locator.fill: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByLabel('E-mail')\u001b[22m\n"
+        },
+        {
+          "engine": "chromium",
+          "transport": "fixture-only",
+          "navigation": "goto",
+          "repeat": 2,
+          "functionalPassed": true,
+          "errorFree": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "transport": "continue",
+          "navigation": "goto",
+          "repeat": 0,
+          "functionalPassed": true,
+          "errorFree": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "transport": "continue",
+          "navigation": "goto",
+          "repeat": 1,
+          "functionalPassed": true,
+          "errorFree": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "transport": "continue",
+          "navigation": "goto",
+          "repeat": 2,
+          "functionalPassed": true,
+          "errorFree": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "transport": "delay-prefetch",
+          "navigation": "goto",
+          "repeat": 0,
+          "functionalPassed": true,
+          "errorFree": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "transport": "delay-prefetch",
+          "navigation": "goto",
+          "repeat": 1,
+          "functionalPassed": true,
+          "errorFree": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "transport": "delay-prefetch",
+          "navigation": "goto",
+          "repeat": 2,
+          "functionalPassed": true,
+          "errorFree": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "transport": "fixture-only",
+          "navigation": "links",
+          "repeat": 0,
+          "functionalPassed": true,
+          "errorFree": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "transport": "fixture-only",
+          "navigation": "links",
+          "repeat": 1,
+          "functionalPassed": true,
+          "errorFree": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "transport": "fixture-only",
+          "navigation": "links",
+          "repeat": 2,
+          "functionalPassed": true,
+          "errorFree": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "transport": "fixture-only",
+          "navigation": "goto",
+          "repeat": 0,
+          "functionalPassed": true,
+          "errorFree": false,
+          "pageErrors": 2,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "transport": "fixture-only",
+          "navigation": "goto",
+          "repeat": 1,
+          "functionalPassed": true,
+          "errorFree": false,
+          "pageErrors": 2,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "transport": "fixture-only",
+          "navigation": "goto",
+          "repeat": 2,
+          "functionalPassed": true,
+          "errorFree": false,
+          "pageErrors": 2,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "transport": "continue",
+          "navigation": "goto",
+          "repeat": 0,
+          "functionalPassed": true,
+          "errorFree": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "transport": "continue",
+          "navigation": "goto",
+          "repeat": 1,
+          "functionalPassed": true,
+          "errorFree": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "transport": "continue",
+          "navigation": "goto",
+          "repeat": 2,
+          "functionalPassed": true,
+          "errorFree": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "transport": "delay-prefetch",
+          "navigation": "goto",
+          "repeat": 0,
+          "functionalPassed": true,
+          "errorFree": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "transport": "delay-prefetch",
+          "navigation": "goto",
+          "repeat": 1,
+          "functionalPassed": true,
+          "errorFree": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "transport": "delay-prefetch",
+          "navigation": "goto",
+          "repeat": 2,
+          "functionalPassed": true,
+          "errorFree": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        }
+      ]
+    },
+    "boundary-trace/next-rsc-concurrency.json": {
+      "sha256": "32573299dcb45c1a75dae21ac9e949bb57aaf450343367b32b2509a693f8bdae",
+      "runs": [
+        {
+          "engine": "webkit",
+          "mode": "hard-six",
+          "repeat": 0,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "hard-six",
+          "repeat": 1,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "hard-six",
+          "repeat": 2,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "hard-four",
+          "repeat": 0,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "hard-four",
+          "repeat": 1,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "hard-four",
+          "repeat": 2,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "spa-six",
+          "repeat": 0,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "spa-six",
+          "repeat": 1,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "spa-six",
+          "repeat": 2,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "state-six",
+          "repeat": 0,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "state-six",
+          "repeat": 1,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "state-six",
+          "repeat": 2,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "guard-hard-six",
+          "repeat": 0,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "guard-hard-six",
+          "repeat": 1,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "guard-hard-six",
+          "repeat": 2,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "guard-spa-six",
+          "repeat": 0,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "guard-spa-six",
+          "repeat": 1,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "guard-spa-six",
+          "repeat": 2,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "guard-state-six",
+          "repeat": 0,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "guard-state-six",
+          "repeat": 1,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "guard-state-six",
+          "repeat": 2,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "guard-cancel-six",
+          "repeat": 0,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "guard-cancel-six",
+          "repeat": 1,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "guard-cancel-six",
+          "repeat": 2,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "hard-six",
+          "repeat": 0,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "hard-six",
+          "repeat": 1,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "hard-six",
+          "repeat": 2,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "hard-four",
+          "repeat": 0,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "hard-four",
+          "repeat": 1,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "hard-four",
+          "repeat": 2,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "spa-six",
+          "repeat": 0,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "spa-six",
+          "repeat": 1,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "spa-six",
+          "repeat": 2,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "state-six",
+          "repeat": 0,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "state-six",
+          "repeat": 1,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "state-six",
+          "repeat": 2,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "guard-hard-six",
+          "repeat": 0,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "guard-hard-six",
+          "repeat": 1,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "guard-hard-six",
+          "repeat": 2,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "guard-spa-six",
+          "repeat": 0,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "guard-spa-six",
+          "repeat": 1,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "guard-spa-six",
+          "repeat": 2,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "guard-state-six",
+          "repeat": 0,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "guard-state-six",
+          "repeat": 1,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "guard-state-six",
+          "repeat": 2,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "guard-cancel-six",
+          "repeat": 0,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "guard-cancel-six",
+          "repeat": 1,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "guard-cancel-six",
+          "repeat": 2,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        }
+      ]
+    },
+    "app-boundary.json": {
+      "sha256": "3d513acd61132d345d1b836973ec640c874322d800393b1c5e1b34b3a00f5c7e",
+      "runs": [
+        {
+          "engine": "chromium",
+          "transport": "fixture-only",
+          "navigation": "links",
+          "repeat": 0,
+          "functionalPassed": true,
+          "errorFree": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "transport": "fixture-only",
+          "navigation": "links",
+          "repeat": 1,
+          "functionalPassed": true,
+          "errorFree": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "transport": "fixture-only",
+          "navigation": "links",
+          "repeat": 2,
+          "functionalPassed": true,
+          "errorFree": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "transport": "fixture-only",
+          "navigation": "goto",
+          "repeat": 0,
+          "functionalPassed": true,
+          "errorFree": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "transport": "fixture-only",
+          "navigation": "goto",
+          "repeat": 1,
+          "functionalPassed": true,
+          "errorFree": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "transport": "fixture-only",
+          "navigation": "goto",
+          "repeat": 2,
+          "functionalPassed": true,
+          "errorFree": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "transport": "continue",
+          "navigation": "goto",
+          "repeat": 0,
+          "functionalPassed": true,
+          "errorFree": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "transport": "continue",
+          "navigation": "goto",
+          "repeat": 1,
+          "functionalPassed": true,
+          "errorFree": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "transport": "continue",
+          "navigation": "goto",
+          "repeat": 2,
+          "functionalPassed": true,
+          "errorFree": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "transport": "delay-prefetch",
+          "navigation": "goto",
+          "repeat": 0,
+          "functionalPassed": true,
+          "errorFree": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "transport": "delay-prefetch",
+          "navigation": "goto",
+          "repeat": 1,
+          "functionalPassed": true,
+          "errorFree": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "transport": "delay-prefetch",
+          "navigation": "goto",
+          "repeat": 2,
+          "functionalPassed": true,
+          "errorFree": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "transport": "fixture-only",
+          "navigation": "links",
+          "repeat": 0,
+          "functionalPassed": true,
+          "errorFree": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "transport": "fixture-only",
+          "navigation": "links",
+          "repeat": 1,
+          "functionalPassed": true,
+          "errorFree": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "transport": "fixture-only",
+          "navigation": "links",
+          "repeat": 2,
+          "functionalPassed": true,
+          "errorFree": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "transport": "fixture-only",
+          "navigation": "goto",
+          "repeat": 0,
+          "functionalPassed": true,
+          "errorFree": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "transport": "fixture-only",
+          "navigation": "goto",
+          "repeat": 1,
+          "functionalPassed": true,
+          "errorFree": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "transport": "fixture-only",
+          "navigation": "goto",
+          "repeat": 2,
+          "functionalPassed": true,
+          "errorFree": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "transport": "continue",
+          "navigation": "goto",
+          "repeat": 0,
+          "functionalPassed": true,
+          "errorFree": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "transport": "continue",
+          "navigation": "goto",
+          "repeat": 1,
+          "functionalPassed": true,
+          "errorFree": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "transport": "continue",
+          "navigation": "goto",
+          "repeat": 2,
+          "functionalPassed": true,
+          "errorFree": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "transport": "delay-prefetch",
+          "navigation": "goto",
+          "repeat": 0,
+          "functionalPassed": true,
+          "errorFree": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "transport": "delay-prefetch",
+          "navigation": "goto",
+          "repeat": 1,
+          "functionalPassed": true,
+          "errorFree": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "transport": "delay-prefetch",
+          "navigation": "goto",
+          "repeat": 2,
+          "functionalPassed": true,
+          "errorFree": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        }
+      ]
+    },
+    "final-fixture/next-rsc-concurrency.json": {
+      "sha256": "0fef4f915b3096111604cc1886ec6e5e71713fa6b1ac6387568a700436d926ae",
+      "runs": [
+        {
+          "engine": "webkit",
+          "mode": "hard-six",
+          "repeat": 0,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "hard-six",
+          "repeat": 1,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "hard-six",
+          "repeat": 2,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "hard-four",
+          "repeat": 0,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "hard-four",
+          "repeat": 1,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "hard-four",
+          "repeat": 2,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "spa-six",
+          "repeat": 0,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "spa-six",
+          "repeat": 1,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "spa-six",
+          "repeat": 2,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "state-six",
+          "repeat": 0,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "state-six",
+          "repeat": 1,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "state-six",
+          "repeat": 2,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "guard-hard-six",
+          "repeat": 0,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "guard-hard-six",
+          "repeat": 1,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "guard-hard-six",
+          "repeat": 2,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "guard-spa-six",
+          "repeat": 0,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "guard-spa-six",
+          "repeat": 1,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "guard-spa-six",
+          "repeat": 2,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "guard-state-six",
+          "repeat": 0,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "guard-state-six",
+          "repeat": 1,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "guard-state-six",
+          "repeat": 2,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "guard-cancel-six",
+          "repeat": 0,
+          "passedDiagnostic": false,
+          "releaseStable": false,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0,
+          "failure": "Precondition timeout: prefetch resumed after canceled navigation"
+        },
+        {
+          "engine": "webkit",
+          "mode": "guard-cancel-six",
+          "repeat": 1,
+          "passedDiagnostic": false,
+          "releaseStable": false,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0,
+          "failure": "Precondition timeout: prefetch resumed after canceled navigation"
+        },
+        {
+          "engine": "webkit",
+          "mode": "guard-cancel-six",
+          "repeat": 2,
+          "passedDiagnostic": false,
+          "releaseStable": false,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0,
+          "failure": "Precondition timeout: prefetch resumed after canceled navigation"
+        },
+        {
+          "engine": "webkit",
+          "mode": "cancel-six",
+          "repeat": 0,
+          "passedDiagnostic": false,
+          "releaseStable": false,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0,
+          "failure": "Precondition timeout: prefetch resumed after canceled navigation"
+        },
+        {
+          "engine": "webkit",
+          "mode": "cancel-six",
+          "repeat": 1,
+          "passedDiagnostic": false,
+          "releaseStable": false,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0,
+          "failure": "Precondition timeout: prefetch resumed after canceled navigation"
+        },
+        {
+          "engine": "webkit",
+          "mode": "cancel-six",
+          "repeat": 2,
+          "passedDiagnostic": false,
+          "releaseStable": false,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0,
+          "failure": "Precondition timeout: prefetch resumed after canceled navigation"
+        },
+        {
+          "engine": "webkit",
+          "mode": "hard-late-six",
+          "repeat": 0,
+          "passedDiagnostic": false,
+          "releaseStable": false,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0,
+          "failure": "locator.waitFor: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByTestId('late-link')\u001b[22m\n\u001b[2m    - waiting for \"http://127.0.0.1:3206/replacement\" navigation to finish...\u001b[22m\n"
+        },
+        {
+          "engine": "webkit",
+          "mode": "hard-late-six",
+          "repeat": 1,
+          "passedDiagnostic": false,
+          "releaseStable": false,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0,
+          "failure": "locator.waitFor: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByTestId('late-link')\u001b[22m\n\u001b[2m    - waiting for \"http://127.0.0.1:3206/replacement\" navigation to finish...\u001b[22m\n"
+        },
+        {
+          "engine": "webkit",
+          "mode": "hard-late-six",
+          "repeat": 2,
+          "passedDiagnostic": false,
+          "releaseStable": false,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0,
+          "failure": "locator.waitFor: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByTestId('late-link')\u001b[22m\n\u001b[2m    - waiting for \"http://127.0.0.1:3206/replacement\" navigation to finish...\u001b[22m\n"
+        },
+        {
+          "engine": "webkit",
+          "mode": "hard-hash-six",
+          "repeat": 0,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "hard-hash-six",
+          "repeat": 1,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "hard-hash-six",
+          "repeat": 2,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "hard-six",
+          "repeat": 0,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "hard-six",
+          "repeat": 1,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "hard-six",
+          "repeat": 2,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "hard-four",
+          "repeat": 0,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "hard-four",
+          "repeat": 1,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "hard-four",
+          "repeat": 2,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "spa-six",
+          "repeat": 0,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "spa-six",
+          "repeat": 1,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "spa-six",
+          "repeat": 2,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "state-six",
+          "repeat": 0,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "state-six",
+          "repeat": 1,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "state-six",
+          "repeat": 2,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "guard-hard-six",
+          "repeat": 0,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "guard-hard-six",
+          "repeat": 1,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "guard-hard-six",
+          "repeat": 2,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "guard-spa-six",
+          "repeat": 0,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "guard-spa-six",
+          "repeat": 1,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "guard-spa-six",
+          "repeat": 2,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "guard-state-six",
+          "repeat": 0,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "guard-state-six",
+          "repeat": 1,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "guard-state-six",
+          "repeat": 2,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "guard-cancel-six",
+          "repeat": 0,
+          "passedDiagnostic": false,
+          "releaseStable": false,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0,
+          "failure": "Precondition timeout: prefetch resumed after canceled navigation"
+        },
+        {
+          "engine": "chromium",
+          "mode": "guard-cancel-six",
+          "repeat": 1,
+          "passedDiagnostic": false,
+          "releaseStable": false,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0,
+          "failure": "Precondition timeout: prefetch resumed after canceled navigation"
+        },
+        {
+          "engine": "chromium",
+          "mode": "guard-cancel-six",
+          "repeat": 2,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "cancel-six",
+          "repeat": 0,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "cancel-six",
+          "repeat": 1,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "cancel-six",
+          "repeat": 2,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        }
+      ]
+    },
+    "final-fixture-v2/next-rsc-concurrency.json": {
+      "sha256": "afbbcdeef47c4cc26fbda1826a357cea37958aa3eac0a81f7ba41f057603a431",
+      "runs": [
+        {
+          "engine": "webkit",
+          "mode": "hard-six",
+          "repeat": 0,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "hard-six",
+          "repeat": 1,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "hard-six",
+          "repeat": 2,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "hard-four",
+          "repeat": 0,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "hard-four",
+          "repeat": 1,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "hard-four",
+          "repeat": 2,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "spa-six",
+          "repeat": 0,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "spa-six",
+          "repeat": 1,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "spa-six",
+          "repeat": 2,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "state-six",
+          "repeat": 0,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "state-six",
+          "repeat": 1,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "state-six",
+          "repeat": 2,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "guard-hard-six",
+          "repeat": 0,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "guard-hard-six",
+          "repeat": 1,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "guard-hard-six",
+          "repeat": 2,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "guard-spa-six",
+          "repeat": 0,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "guard-spa-six",
+          "repeat": 1,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "guard-spa-six",
+          "repeat": 2,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "guard-state-six",
+          "repeat": 0,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "guard-state-six",
+          "repeat": 1,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "guard-state-six",
+          "repeat": 2,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "guard-cancel-six",
+          "repeat": 0,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "guard-cancel-six",
+          "repeat": 1,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "guard-cancel-six",
+          "repeat": 2,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "cancel-six",
+          "repeat": 0,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "cancel-six",
+          "repeat": 1,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "cancel-six",
+          "repeat": 2,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "hard-late-six",
+          "repeat": 0,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "hard-late-six",
+          "repeat": 1,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "hard-late-six",
+          "repeat": 2,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "hard-hash-six",
+          "repeat": 0,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "hard-hash-six",
+          "repeat": 1,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "hard-hash-six",
+          "repeat": 2,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "hard-six",
+          "repeat": 0,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "hard-six",
+          "repeat": 1,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "hard-six",
+          "repeat": 2,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "hard-four",
+          "repeat": 0,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "hard-four",
+          "repeat": 1,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "hard-four",
+          "repeat": 2,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "spa-six",
+          "repeat": 0,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "spa-six",
+          "repeat": 1,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "spa-six",
+          "repeat": 2,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "state-six",
+          "repeat": 0,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "state-six",
+          "repeat": 1,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "state-six",
+          "repeat": 2,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "guard-hard-six",
+          "repeat": 0,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "guard-hard-six",
+          "repeat": 1,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "guard-hard-six",
+          "repeat": 2,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "guard-spa-six",
+          "repeat": 0,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "guard-spa-six",
+          "repeat": 1,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "guard-spa-six",
+          "repeat": 2,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "guard-state-six",
+          "repeat": 0,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "guard-state-six",
+          "repeat": 1,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "guard-state-six",
+          "repeat": 2,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "guard-cancel-six",
+          "repeat": 0,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "guard-cancel-six",
+          "repeat": 1,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "guard-cancel-six",
+          "repeat": 2,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "cancel-six",
+          "repeat": 0,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "cancel-six",
+          "repeat": 1,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "cancel-six",
+          "repeat": 2,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        }
+      ]
+    },
+    "native-hash/next-rsc-concurrency.json": {
+      "sha256": "eaaee03954c7c207f33262b416cda7a2c69b4e996b1e670eaeb9c7e79e8586ca",
+      "runs": [
+        {
+          "engine": "webkit",
+          "mode": "hard-hash-six",
+          "repeat": 0,
+          "passedDiagnostic": true,
+          "releaseStable": false,
+          "pageErrors": 6,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "hard-hash-six",
+          "repeat": 1,
+          "passedDiagnostic": true,
+          "releaseStable": false,
+          "pageErrors": 6,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "hard-hash-six",
+          "repeat": 2,
+          "passedDiagnostic": true,
+          "releaseStable": false,
+          "pageErrors": 6,
+          "domErrors": 0,
+          "consoleErrors": 0
+        }
+      ]
+    },
+    "app-regression.json": {
+      "sha256": "8a4635943efaac3a8a9840904389206b7128a6c816d31ff4829e58ee2d8283a8",
+      "runs": [
+        {
+          "engine": "chromium",
+          "transport": "fixture-only",
+          "navigation": "links",
+          "repeat": 0,
+          "functionalPassed": true,
+          "errorFree": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "transport": "fixture-only",
+          "navigation": "links",
+          "repeat": 1,
+          "functionalPassed": true,
+          "errorFree": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "transport": "fixture-only",
+          "navigation": "links",
+          "repeat": 2,
+          "functionalPassed": true,
+          "errorFree": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "transport": "fixture-only",
+          "navigation": "goto",
+          "repeat": 0,
+          "functionalPassed": true,
+          "errorFree": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "transport": "fixture-only",
+          "navigation": "goto",
+          "repeat": 1,
+          "functionalPassed": true,
+          "errorFree": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "transport": "fixture-only",
+          "navigation": "goto",
+          "repeat": 2,
+          "functionalPassed": true,
+          "errorFree": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "transport": "continue",
+          "navigation": "goto",
+          "repeat": 0,
+          "functionalPassed": true,
+          "errorFree": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "transport": "continue",
+          "navigation": "goto",
+          "repeat": 1,
+          "functionalPassed": true,
+          "errorFree": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "transport": "continue",
+          "navigation": "goto",
+          "repeat": 2,
+          "functionalPassed": true,
+          "errorFree": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "transport": "delay-prefetch",
+          "navigation": "goto",
+          "repeat": 0,
+          "functionalPassed": true,
+          "errorFree": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "transport": "delay-prefetch",
+          "navigation": "goto",
+          "repeat": 1,
+          "functionalPassed": true,
+          "errorFree": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "transport": "delay-prefetch",
+          "navigation": "goto",
+          "repeat": 2,
+          "functionalPassed": true,
+          "errorFree": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "transport": "fixture-only",
+          "navigation": "links",
+          "repeat": 0,
+          "functionalPassed": true,
+          "errorFree": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "transport": "fixture-only",
+          "navigation": "links",
+          "repeat": 1,
+          "functionalPassed": true,
+          "errorFree": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "transport": "fixture-only",
+          "navigation": "links",
+          "repeat": 2,
+          "functionalPassed": true,
+          "errorFree": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "transport": "fixture-only",
+          "navigation": "goto",
+          "repeat": 0,
+          "functionalPassed": true,
+          "errorFree": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "transport": "fixture-only",
+          "navigation": "goto",
+          "repeat": 1,
+          "functionalPassed": true,
+          "errorFree": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "transport": "fixture-only",
+          "navigation": "goto",
+          "repeat": 2,
+          "functionalPassed": true,
+          "errorFree": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "transport": "continue",
+          "navigation": "goto",
+          "repeat": 0,
+          "functionalPassed": true,
+          "errorFree": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "transport": "continue",
+          "navigation": "goto",
+          "repeat": 1,
+          "functionalPassed": true,
+          "errorFree": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "transport": "continue",
+          "navigation": "goto",
+          "repeat": 2,
+          "functionalPassed": true,
+          "errorFree": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "transport": "delay-prefetch",
+          "navigation": "goto",
+          "repeat": 0,
+          "functionalPassed": true,
+          "errorFree": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "transport": "delay-prefetch",
+          "navigation": "goto",
+          "repeat": 1,
+          "functionalPassed": true,
+          "errorFree": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "transport": "delay-prefetch",
+          "navigation": "goto",
+          "repeat": 2,
+          "functionalPassed": true,
+          "errorFree": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        }
+      ]
+    },
+    "app-regression-repeat.json": {
+      "sha256": "9c6f18b079b8c30ca67972e3cba3d77e94d26c444a1524916dfeaf3b6483b684",
+      "runs": [
+        {
+          "engine": "chromium",
+          "transport": "fixture-only",
+          "navigation": "links",
+          "repeat": 0,
+          "functionalPassed": true,
+          "errorFree": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "transport": "fixture-only",
+          "navigation": "links",
+          "repeat": 1,
+          "functionalPassed": true,
+          "errorFree": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "transport": "fixture-only",
+          "navigation": "links",
+          "repeat": 2,
+          "functionalPassed": true,
+          "errorFree": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "transport": "fixture-only",
+          "navigation": "goto",
+          "repeat": 0,
+          "functionalPassed": true,
+          "errorFree": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "transport": "fixture-only",
+          "navigation": "goto",
+          "repeat": 1,
+          "functionalPassed": true,
+          "errorFree": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "transport": "fixture-only",
+          "navigation": "goto",
+          "repeat": 2,
+          "functionalPassed": true,
+          "errorFree": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "transport": "continue",
+          "navigation": "goto",
+          "repeat": 0,
+          "functionalPassed": true,
+          "errorFree": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "transport": "continue",
+          "navigation": "goto",
+          "repeat": 1,
+          "functionalPassed": true,
+          "errorFree": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "transport": "continue",
+          "navigation": "goto",
+          "repeat": 2,
+          "functionalPassed": true,
+          "errorFree": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "transport": "delay-prefetch",
+          "navigation": "goto",
+          "repeat": 0,
+          "functionalPassed": true,
+          "errorFree": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "transport": "delay-prefetch",
+          "navigation": "goto",
+          "repeat": 1,
+          "functionalPassed": true,
+          "errorFree": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "transport": "delay-prefetch",
+          "navigation": "goto",
+          "repeat": 2,
+          "functionalPassed": true,
+          "errorFree": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "transport": "fixture-only",
+          "navigation": "links",
+          "repeat": 0,
+          "functionalPassed": true,
+          "errorFree": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "transport": "fixture-only",
+          "navigation": "links",
+          "repeat": 1,
+          "functionalPassed": true,
+          "errorFree": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "transport": "fixture-only",
+          "navigation": "links",
+          "repeat": 2,
+          "functionalPassed": true,
+          "errorFree": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "transport": "fixture-only",
+          "navigation": "goto",
+          "repeat": 0,
+          "functionalPassed": true,
+          "errorFree": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "transport": "fixture-only",
+          "navigation": "goto",
+          "repeat": 1,
+          "functionalPassed": true,
+          "errorFree": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "transport": "fixture-only",
+          "navigation": "goto",
+          "repeat": 2,
+          "functionalPassed": true,
+          "errorFree": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "transport": "continue",
+          "navigation": "goto",
+          "repeat": 0,
+          "functionalPassed": true,
+          "errorFree": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "transport": "continue",
+          "navigation": "goto",
+          "repeat": 1,
+          "functionalPassed": true,
+          "errorFree": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "transport": "continue",
+          "navigation": "goto",
+          "repeat": 2,
+          "functionalPassed": true,
+          "errorFree": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "transport": "delay-prefetch",
+          "navigation": "goto",
+          "repeat": 0,
+          "functionalPassed": true,
+          "errorFree": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "transport": "delay-prefetch",
+          "navigation": "goto",
+          "repeat": 1,
+          "functionalPassed": true,
+          "errorFree": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "transport": "delay-prefetch",
+          "navigation": "goto",
+          "repeat": 2,
+          "functionalPassed": true,
+          "errorFree": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        }
+      ]
+    }
+  },
+  "baselineTimelineExample": [
+    {
+      "path": "blank",
+      "at": 22,
+      "kind": "beforeunload",
+      "persisted": false
+    },
+    {
+      "path": "blank",
+      "at": 99,
+      "kind": "pagehide",
+      "persisted": false
+    },
+    {
+      "path": "/target/0",
+      "at": 219,
+      "kind": "framework",
+      "point": "cache:routeMiss"
+    },
+    {
+      "path": "/target/1",
+      "at": 221,
+      "kind": "framework",
+      "point": "cache:routeMiss"
+    },
+    {
+      "path": "/target/2",
+      "at": 221,
+      "kind": "framework",
+      "point": "cache:routeMiss"
+    },
+    {
+      "path": "/target/3",
+      "at": 221,
+      "kind": "framework",
+      "point": "cache:routeMiss"
+    },
+    {
+      "path": "/target/0",
+      "at": 223,
+      "kind": "framework",
+      "point": "fetch:send",
+      "priority": "low"
+    },
+    {
+      "path": "/target/1",
+      "at": 224,
+      "kind": "framework",
+      "point": "fetch:send",
+      "priority": "low"
+    },
+    {
+      "path": "/target/2",
+      "at": 224,
+      "kind": "framework",
+      "point": "fetch:send",
+      "priority": "low"
+    },
+    {
+      "path": "/target/3",
+      "at": 224,
+      "kind": "framework",
+      "point": "fetch:send",
+      "priority": "low"
+    },
+    {
+      "path": "/",
+      "at": 230,
+      "kind": "beforeunload",
+      "persisted": false
+    },
+    {
+      "path": "/",
+      "at": 230,
+      "kind": "framework",
+      "point": "scheduler:depart",
+      "queued": 2,
+      "inProgressRequests": 4
+    },
+    {
+      "path": "/",
+      "at": 231,
+      "kind": "framework",
+      "point": "scheduler:closed",
+      "queued": 3,
+      "inProgressRequests": 4,
+      "departing": true
+    },
+    {
+      "path": "/target/4",
+      "at": 232,
+      "kind": "framework",
+      "point": "cache:routeMiss"
+    },
+    {
+      "path": "/",
+      "at": 232,
+      "kind": "framework",
+      "point": "scheduler:closed",
+      "queued": 3,
+      "inProgressRequests": 4,
+      "departing": true
+    },
+    {
+      "path": "/target/5",
+      "at": 232,
+      "kind": "framework",
+      "point": "cache:routeMiss"
+    },
+    {
+      "path": "/",
+      "at": 232,
+      "kind": "framework",
+      "point": "scheduler:closed",
+      "queued": 3,
+      "inProgressRequests": 4,
+      "departing": true
+    },
+    {
+      "path": "/",
+      "at": 233,
+      "kind": "framework",
+      "point": "scheduler:closed",
+      "queued": 0,
+      "inProgressRequests": 3,
+      "departing": true
+    },
+    {
+      "path": "/target/4",
+      "at": 235,
+      "kind": "framework",
+      "point": "fetch:send",
+      "priority": "low"
+    },
+    {
+      "path": "/target/5",
+      "at": 235,
+      "kind": "framework",
+      "point": "fetch:send",
+      "priority": "low"
+    },
+    {
+      "path": "/",
+      "at": 247,
+      "kind": "framework",
+      "point": "scheduler:closed",
+      "queued": 0,
+      "inProgressRequests": 2,
+      "departing": true
+    },
+    {
+      "path": "/",
+      "at": 247,
+      "kind": "framework",
+      "point": "scheduler:closed",
+      "queued": 0,
+      "inProgressRequests": 1,
+      "departing": true
+    },
+    {
+      "path": "/",
+      "at": 264,
+      "kind": "pagehide",
+      "persisted": false
+    }
+  ],
+  "originalHostedProofs": [
+    {
+      "path": "build/rpg-dev-004/webkit-lider-functional-1.json",
+      "sha256": "c6bf43f83ccdd353c5effbec6190e53c806c8ed385fc881bc4bccb1ab4a0e220"
+    },
+    {
+      "path": "build/rpg-dev-004/webkit-lider-functional-2.json",
+      "sha256": "ecaf235e79acc88f9b9c6e85ae2154016b6d59c94cc646a5e8a112590edb3130"
+    },
+    {
+      "path": "build/rpg-dev-004/webkit-lider-functional-3.json",
+      "sha256": "66d77f4092ee2b83e0f8781a971cb2bc635f95b6cf315017c98aef371289cb8d"
+    }
+  ]
+}

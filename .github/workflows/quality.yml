@@ -86,8 +86,22 @@ jobs:
         run: npm ci --no-audit --no-fund
       - name: Instalar navegadores da versão fixada no lockfile
         run: npx --no-install playwright install chromium webkit
-      - name: Comparar controle nativo e proteção de lifecycle sem Auth ou banco
-        run: node tests/hosted/next-rsc-concurrency-probe.mjs --build
+      - name: Preservar reprodução nativa sem o patch
+        shell: pwsh
+        run: |
+          try {
+            node scripts/next-rsc-departure-patch.mjs --restore
+            if ($LASTEXITCODE -ne 0) { throw 'Native source restoration failed' }
+            node tests/hosted/next-rsc-concurrency-probe.mjs --build --output build/rpg-dev-005/ci-native
+            if ($LASTEXITCODE -ne 0) { throw 'Native diagnostic preconditions failed' }
+          } finally {
+            node scripts/next-rsc-departure-patch.mjs
+            if ($LASTEXITCODE -ne 0) { throw 'Patch application failed' }
+          }
+      - name: Exigir estabilidade na mesma fixture e nas regressões de lifecycle
+        run: node tests/hosted/next-rsc-concurrency-probe.mjs --build --expect-stable --extended --output build/rpg-dev-005/ci-patched
+      - name: Exigir estabilidade na aplicação completa com backend offline
+        run: node tests/hosted/local-rsc-app-regression.mjs
 
   pinned-preview:
     name: Preview do SHA aprovado

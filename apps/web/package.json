@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "node ../../scripts/prototype-audio-dev.mjs",
-    "build": "node ../../scripts/prototype-audio-isolation.mjs --prebuild && node ../../scripts/avatar-hd-runtime-audit.mjs && node ../../scripts/equipment-body-fit-v3-production-gate.mjs && next build && node ../../scripts/prototype-audio-isolation.mjs --artifact && node ../../scripts/equipment-body-fit-v3-production-gate.mjs --artifact",
+    "build": "node ../../scripts/next-rsc-departure-patch.mjs --check && node ../../scripts/prototype-audio-isolation.mjs --prebuild && node ../../scripts/avatar-hd-runtime-audit.mjs && node ../../scripts/equipment-body-fit-v3-production-gate.mjs && next build && node ../../scripts/prototype-audio-isolation.mjs --artifact && node ../../scripts/equipment-body-fit-v3-production-gate.mjs --artifact",
     "start": "node ../../scripts/prototype-audio-isolation.mjs --prestart && node ../../scripts/equipment-body-fit-v3-production-gate.mjs && next start --hostname 127.0.0.1",
     "typecheck": "next typegen && tsc --noEmit"
   },

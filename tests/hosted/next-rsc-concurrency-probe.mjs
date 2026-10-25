@@ -13,7 +13,16 @@ const root = resolve(import.meta.dirname, '../..');
 const fixture = resolve(root, 'tests/fixtures/rsc-lifecycle-harness');
 const next = resolve(root, 'node_modules/next/dist/bin/next');
 const origin = 'http://127.0.0.1:3206';
-const base = resolve(root, 'build/rpg-dev-004/concurrency');
+const outputIndex = process.argv.indexOf('--output');
+const output =
+  outputIndex < 0
+    ? 'build/rpg-dev-004/concurrency'
+    : process.argv[outputIndex + 1];
+assert.match(output, /^build\/rpg-dev-00[45]\/[a-z0-9-]+$/);
+const base = resolve(root, output);
+const expectStable = process.argv.includes('--expect-stable');
+const onlyIndex = process.argv.indexOf('--only-mode');
+const onlyMode = onlyIndex < 0 ? null : process.argv[onlyIndex + 1];
 mkdirSync(base, { recursive: true });
 const env = Object.fromEntries(
   Object.entries(process.env).filter(
@@ -202,7 +211,19 @@ try {
         'guard-spa-six',
         'guard-state-six',
         'guard-cancel-six',
+        ...(process.argv.includes('--extended')
+          ? ['cancel-six', 'hard-late-six', 'hard-hash-six']
+          : []),
       ]) {
+        if (onlyMode && mode !== onlyMode) continue;
+        // These arms execute code in WebKit's provisional old document.
+        // Chromium suspends driver evaluation until commit; its native hard,
+        // history, SPA, state and dismissed-dialog controls remain above.
+        if (
+          engine === 'chromium' &&
+          ['hard-late-six', 'hard-hash-six'].includes(mode)
+        )
+          continue;
         for (
           let repeat = 0;
           repeat < (process.argv.includes('--smoke') ? 1 : 3);
@@ -242,26 +263,62 @@ try {
               run.domErrors.push(event);
             changes.emit('change');
           });
-          await context.addInitScript(() => {
-            const report = (event) =>
-              window
-                .__rscObserve({
-                  path: location.pathname,
-                  at: performance.now(),
-                  ...event,
-                })
-                .catch(() => {});
-            for (const kind of ['beforeunload', 'pagehide', 'pageshow'])
-              addEventListener(kind, (event) =>
-                report({ kind, persisted: event.persisted === true }),
+          await context.addInitScript(
+            ({ holdHash }) => {
+              const report = (event) =>
+                window
+                  .__rscObserve({
+                    path: location.pathname,
+                    at: performance.now(),
+                    ...event,
+                  })
+                  .catch(() => {});
+              window.__rpgRscObserve = report;
+              // Separate diagnostic arm: real crypto, only its completion is held.
+              // Neither fetch nor RSC payloads are wrapped or fabricated.
+              if (holdHash && location.pathname === '/') {
+                const digest = crypto.subtle.digest.bind(crypto.subtle);
+                const held = [];
+                let released = false;
+                crypto.subtle.digest = (algorithm, data) => {
+                  const result = digest(algorithm, data);
+                  if (
+                    released ||
+                    !new TextDecoder().decode(data).startsWith('1,/_tree,')
+                  )
+                    return result;
+                  return result.then(
+                    (value) =>
+                      new Promise((resolve) => {
+                        held.push(() => resolve(value));
+                        report({ kind: 'hash-held', count: held.length });
+                      }),
+                  );
+                };
+                window.__releaseRscHashes = async () => {
+                  released = true;
+                  for (const finish of held.splice(0)) finish();
+                  // One event-loop checkpoint drains async cache-key continuations.
+                  await new Promise((resolve) => setTimeout(resolve, 0));
+                  report({ kind: 'hash-released' });
+                };
+              }
+              for (const kind of ['beforeunload', 'pagehide', 'pageshow'])
+                addEventListener(kind, (event) =>
+                  report({ kind, persisted: event.persisted === true }),
+                );
+              addEventListener('error', (e) =>
+                report({ kind: 'error', message: e.message }),
               );
-            addEventListener('error', (e) =>
-              report({ kind: 'error', message: e.message }),
-            );
-            addEventListener('unhandledrejection', (e) =>
-              report({ kind: 'unhandledrejection', message: String(e.reason) }),
-            );
-          });
+              addEventListener('unhandledrejection', (e) =>
+                report({
+                  kind: 'unhandledrejection',
+                  message: String(e.reason),
+                }),
+              );
+            },
+            { holdHash: navigationMode === 'hard-hash-six' },
+          );
           const page = await context.newPage();
           page.setDefaultTimeout(15000);
           page.on('pageerror', (error) => {
@@ -301,13 +358,24 @@ try {
               (await page.getByRole('navigation').getByRole('link').count()) ===
                 count,
             );
+            const hashArm = navigationMode === 'hard-hash-six';
             await until(
-              () => state.held.length === 4,
-              'four genuine tree prefetch requests pending',
+              () =>
+                hashArm
+                  ? run.lifecycle.some(
+                      (event) =>
+                        event.kind === 'hash-held' && event.count === 4,
+                    )
+                  : state.held.length === 4,
+              hashArm
+                ? 'four genuine RSC cache-key digests pending'
+                : 'four genuine tree prefetch requests pending',
             );
             check(
-              'four real Next prefetches held before action',
-              state.held.length === 4,
+              hashArm
+                ? 'four real cache-key computations held before action'
+                : 'four real Next prefetches held before action',
+              true,
             );
             check('no Auth cookies', (await context.cookies()).length === 0);
             if (navigationMode.startsWith('hard')) {
@@ -319,6 +387,25 @@ try {
                 () => !!state.replacement,
                 'replacement document requested',
               );
+              if (hashArm) {
+                await page.evaluate(() => window.__releaseRscHashes());
+                check(
+                  'hash continuations released in departing document',
+                  true,
+                );
+              }
+              if (navigationMode === 'hard-late-six') {
+                const mounted = await page.evaluate(() => {
+                  [...document.querySelectorAll('button')]
+                    .find((button) => button.textContent === 'Mount late link')
+                    .click();
+                  return !!document.querySelector('[data-testid="late-link"]');
+                });
+                check(
+                  'new Link mounted during provisional document navigation',
+                  mounted,
+                );
+              }
               // Chromium retains old loads until the replacement can commit.
               // WebKit cancels them while the replacement response is held.
               if (engine === 'chromium') {
@@ -327,17 +414,24 @@ try {
                 state.replacement = null;
                 start();
               }
-              await until(
-                () =>
-                  run.server.filter(
-                    (row) =>
-                      row.canceled &&
-                      row.headers['next-router-prefetch'] === '1',
-                  ).length >= 4,
-                'four prefetch cancellations',
-              );
-              check('old RSC canceled by document replacement', true);
-              if (!guarded && mode === 'hard-six' && engine === 'webkit')
+              if (!hashArm)
+                await until(
+                  () =>
+                    run.server.filter(
+                      (row) =>
+                        row.canceled &&
+                        row.headers['next-router-prefetch'] === '1',
+                    ).length >= 4,
+                  'four prefetch cancellations',
+                );
+              if (!hashArm)
+                check('old RSC canceled by document replacement', true);
+              if (
+                !expectStable &&
+                !guarded &&
+                ['hard-six', 'hard-late-six', 'hard-hash-six'].includes(mode) &&
+                engine === 'webkit'
+              )
                 await until(
                   () => run.pageErrors.length > 0,
                   'queued old-document fetch refused',
@@ -348,7 +442,7 @@ try {
               await page
                 .getByRole('heading', { name: 'Replacement completed' })
                 .waitFor();
-              if (guarded) {
+              if (guarded || expectStable) {
                 await page.goBack();
                 await page
                   .getByRole('heading', { name: 'RSC lifecycle fixture' })
@@ -360,6 +454,22 @@ try {
                   'history return remains interactive',
                   (await page.getByTestId('revision').textContent()) === '1',
                 );
+                if (hashArm)
+                  await page.evaluate(() => window.__releaseRscHashes());
+                await until(
+                  () =>
+                    new Set(
+                      run.server
+                        .filter(
+                          (row) =>
+                            row.status === 200 &&
+                            row.headers['next-router-prefetch'] === '1',
+                        )
+                        .map((row) => new URL(row.url).pathname),
+                    ).size >= count,
+                  'normal prefetch completes after history return',
+                );
+                check('normal prefetch succeeds after history return', true);
               }
             } else if (navigationMode === 'cancel-six') {
               await page
@@ -438,7 +548,9 @@ try {
             run.releaseStable = run.pageErrors.length === 0;
             check(
               'expected diagnostic signature',
-              mode === 'hard-six' && engine === 'webkit'
+              !expectStable &&
+                ['hard-six', 'hard-late-six', 'hard-hash-six'].includes(mode) &&
+                engine === 'webkit'
                 ? !run.releaseStable
                 : run.releaseStable,
             );
@@ -476,4 +588,5 @@ try {
   writeFileSync(resolve(base, 'next-server.log'), appLog);
 }
 save();
-if (out.runs.some((run) => !run.passedDiagnostic)) process.exitCode = 1;
+if (out.runs.length === 0 || out.runs.some((run) => !run.passedDiagnostic))
+  process.exitCode = 1;

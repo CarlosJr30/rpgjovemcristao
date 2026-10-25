@@ -2,11 +2,13 @@
 
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
+import { flushSync } from 'react-dom';
 import DocumentNavigationLink from '../document-navigation-link';
 
 export default function Links({ count, guarded }) {
   const [revision, setRevision] = useState(0);
   const [dirty, setDirty] = useState(false);
+  const [showLate, setShowLate] = useState(false);
   useEffect(() => {
     if (!dirty) return;
     const warn = (event) => {
@@ -26,6 +28,9 @@ export default function Links({ count, guarded }) {
         Change local state
       </button>
       <button onClick={() => setDirty(true)}>Protect unsaved form</button>
+      <button onClick={() => flushSync(() => setShowLate(true))}>
+        Mount late link
+      </button>
       <nav aria-label="Automatic prefetch targets">
         {Array.from({ length: count }, (_, i) => (
           <NavigationLink
@@ -37,6 +42,11 @@ export default function Links({ count, guarded }) {
           </NavigationLink>
         ))}
       </nav>
+      {showLate && (
+        <NavigationLink href="/target/late" data-testid="late-link">
+          Link mounted after state change
+        </NavigationLink>
+      )}
       <Link href="/replacement" prefetch={false}>
         Client navigation
       </Link>
