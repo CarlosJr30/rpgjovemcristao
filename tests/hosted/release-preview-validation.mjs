@@ -15,8 +15,18 @@ if (
   !process.env.VERCEL_OIDC_TOKEN
 )
   throw new Error('Verified TEST Preview and scoped OIDC required');
-const out = { sha: preview.sha, origin, backend, realHosted: true, runs: [] };
+const out = {
+  sha: preview.sha,
+  origin,
+  backend,
+  realHosted: true,
+  isolatedNegativeChecks: input.isolatedNegativeChecks === true,
+  provisionalReplay: input.provisionalReplay === true,
+  runs: [],
+};
 const base = 'build/rpg-dev-004/';
+const artifact = input.artifact ?? 'hosted-validation';
+if (!/^[a-z0-9-]+$/.test(artifact)) throw new Error('Invalid artifact name');
 const redact = (value) => {
   let text = String(value);
   for (const account of Object.values(accounts))
@@ -27,11 +37,12 @@ const redact = (value) => {
     .replace(/\?_rsc=[^\s)]+/g, '?_rsc=[nonce]');
 };
 const save = () =>
-  writeFileSync(base + 'hosted-validation.json', JSON.stringify(out, null, 2));
+  writeFileSync(base + artifact + '.json', JSON.stringify(out, null, 2));
 for (const [engine, launcher, viewport] of [
   ['chromium', chromium, { width: 1440, height: 1000 }],
   ['webkit', webkit, { width: 390, height: 844 }],
 ]) {
+  if (input.engines && !input.engines.includes(engine)) continue;
   const browser = await launcher.launch();
   try {
     for (const role of input.roles ?? ['lider', 'professor', 'aluno']) {
@@ -45,7 +56,46 @@ for (const [engine, launcher, viewport] of [
         failedRequests: [],
         hosts: [],
         passed: false,
+        timeline: [],
       };
+      const started = performance.now();
+      let phase = 'setup';
+      const event = (kind, detail = {}) =>
+        run.timeline.push({
+          ms: Math.round(performance.now() - started),
+          phase,
+          kind,
+          ...detail,
+        });
+      const safeUrl = (value) => {
+        const url = new URL(value);
+        return (
+          url.origin +
+          url.pathname +
+          (url.searchParams.has('_rsc')
+            ? '?_rsc=' + url.searchParams.get('_rsc')
+            : '')
+        );
+      };
+      const safeHeaders = (headers) =>
+        Object.fromEntries(
+          Object.entries(headers).filter(([name]) =>
+            [
+              'content-type',
+              'cache-control',
+              'vary',
+              'rsc',
+              'next-router-prefetch',
+              'next-router-segment-prefetch',
+              'access-control-allow-origin',
+              'access-control-allow-credentials',
+              'x-vercel-cache',
+              'sec-fetch-mode',
+              'sec-fetch-site',
+              'sec-fetch-dest',
+            ].includes(name.toLowerCase()),
+          ),
+        );
       out.runs.push(run);
       const context = await browser.newContext({ viewport });
       await context.route(origin + '/**', (route) =>
@@ -70,6 +120,70 @@ for (const [engine, launcher, viewport] of [
           });
         },
       );
+      if (input.diagnostic) {
+        await context.exposeBinding('__rpgLifecycle', (_source, detail) =>
+          event('document', detail),
+        );
+        await context.addInitScript(() => {
+          const report = (detail) =>
+            window
+              .__rpgLifecycle({
+                at: performance.now(),
+                location: location.pathname,
+                readyState: document.readyState,
+                ...detail,
+              })
+              .catch(() => {});
+          for (const kind of ['beforeunload', 'pagehide', 'pageshow'])
+            addEventListener(kind, () => report({ type: kind }));
+          const original = window.fetch;
+          window.fetch = async function (...args) {
+            const url = new URL(
+              typeof args[0] === 'string'
+                ? args[0]
+                : args[0] instanceof URL
+                  ? args[0].href
+                  : args[0].url,
+              location.href,
+            );
+            const rsc =
+              url.origin === location.origin && url.searchParams.has('_rsc');
+            if (rsc) {
+              const headers = Object.fromEntries(
+                new Headers(
+                  args[1]?.headers ??
+                    (args[0] instanceof Request ? args[0].headers : undefined),
+                ),
+              );
+              report({
+                type: 'fetch-start',
+                url: url.href,
+                stack: new Error().stack,
+                headers: Object.fromEntries(
+                  Object.entries(headers).filter(([name]) =>
+                    [
+                      'rsc',
+                      'next-router-prefetch',
+                      'next-router-segment-prefetch',
+                    ].includes(name),
+                  ),
+                ),
+              });
+            }
+            try {
+              return await original.apply(this, args);
+            } catch (error) {
+              if (rsc)
+                report({
+                  type: 'fetch-reject',
+                  url: url.href,
+                  error: String(error),
+                });
+              throw error;
+            }
+          };
+        });
+      }
       await context.addInitScript(() => {
         const report = (event) =>
           window.__rpgRuntimeObservation(event).catch(() => {});
@@ -80,16 +194,25 @@ for (const [engine, launcher, viewport] of [
           report({ kind: 'unhandledrejection', message: String(event.reason) }),
         );
       });
+      // Every tab remains subject to the same strict error gate.
+      context.on('page', (observed) =>
+        observed.on('pageerror', (error) => {
+          event('pageerror', { message: redact(error.message) });
+          run.pageErrors.push({
+            name: error.name,
+            message: redact(error.message),
+          });
+          save();
+        }),
+      );
       const page = await context.newPage();
       page.setDefaultTimeout(25000);
-      page.on('pageerror', (error) => {
-        run.pageErrors.push({
-          name: error.name,
-          message: redact(error.message),
-        });
-        save();
-      });
       page.on('requestfailed', (req) => {
+        if (new URL(req.url()).origin === origin)
+          event('requestfailed', {
+            url: safeUrl(req.url()),
+            failure: req.failure()?.errorText,
+          });
         const u = new URL(req.url());
         run.failedRequests.push({
           host: u.hostname,
@@ -102,6 +225,33 @@ for (const [engine, launcher, viewport] of [
       page.on('request', (req) => {
         const u = new URL(req.url());
         if (u.hostname.endsWith('.supabase.co')) hosts.add(u.hostname);
+        if (
+          u.origin === origin &&
+          (u.searchParams.has('_rsc') || req.isNavigationRequest())
+        )
+          event('request', {
+            url: safeUrl(req.url()),
+            method: req.method(),
+            navigation: req.isNavigationRequest(),
+            headers: safeHeaders(req.headers()),
+          });
+      });
+      page.on('response', (response) => {
+        const req = response.request();
+        if (
+          new URL(response.url()).origin === origin &&
+          (new URL(response.url()).searchParams.has('_rsc') ||
+            req.isNavigationRequest())
+        )
+          event('response', {
+            url: safeUrl(response.url()),
+            status: response.status(),
+            headers: safeHeaders(response.headers()),
+          });
+      });
+      page.on('framenavigated', (frame) => {
+        if (frame === page.mainFrame())
+          event('commit', { url: safeUrl(frame.url()) });
       });
       const check = (name, passed) => {
         run.checks.push({ name, passed });
@@ -109,6 +259,7 @@ for (const [engine, launcher, viewport] of [
       };
       const settled = () => page.waitForLoadState('networkidle');
       const select = async (traveler) => {
+        phase = 'select-' + traveler.id;
         await settled();
         await page
           .getByRole('button', { name: 'Trocar Viajante', exact: true })
@@ -159,6 +310,7 @@ for (const [engine, launcher, viewport] of [
         check('selected avatar persists ' + traveler.id, true);
       };
       try {
+        phase = 'login';
         await page.goto(origin + '/auth');
         await settled();
         await page.getByLabel('E-mail').fill(account.email);
@@ -188,6 +340,7 @@ for (const [engine, launcher, viewport] of [
         await select(account.alternate);
         await select(account.active);
         check('original active avatar restored', true);
+        phase = 'guild';
         await page.getByRole('link', { name: 'Guilda', exact: true }).click();
         await page
           .getByRole('heading', { name: 'Minha Guilda', exact: true })
@@ -209,6 +362,7 @@ for (const [engine, launcher, viewport] of [
             new URL(r.url()).pathname === '/rest/v1/rpc/guild_ebd_workspace' &&
             r.request().method() === 'POST',
         );
+        phase = 'ebd';
         await page.getByRole('link', { name: 'EBD', exact: true }).click();
         const response = await ebd;
         check(
@@ -227,20 +381,91 @@ for (const [engine, launcher, viewport] of [
           ),
         );
         await page.screenshot({
-          path: base + `hosted-${engine}-${role}.png`,
+          path: base + `${artifact}-${engine}-${role}.png`,
           fullPage: true,
         });
-        for (const path of [
-          '/journey/arena',
-          '/journey/tower',
-          '/journey/equipment',
-          '/journey/cards',
-          '/journey/shop',
-        ]) {
-          await settled();
-          const response = await page.goto(origin + path);
-          await settled();
-          check('economic route denied ' + path, response.status() === 403);
+        if (input.provisionalReplay) {
+          // Diagnostic replay, not a normal user flow or a successful release gate.
+          const prefetch = run.timeline.find(
+            (e) =>
+              e.kind === 'request' &&
+              e.url.includes('/journey/guild/manage?_rsc='),
+          );
+          if (!prefetch)
+            throw new Error('BLOCKED: real leader prefetch not observed');
+          const document = await page.evaluateHandle(() => window.document);
+          const replay = () =>
+            document.evaluate(
+              async (doc, request) => {
+                try {
+                  const response = await doc.defaultView.fetch(request.url, {
+                    headers: request.headers,
+                  });
+                  return {
+                    status: response.status,
+                    contentType: response.headers.get('content-type'),
+                  };
+                } catch (error) {
+                  return { caught: true, error: String(error) };
+                }
+              },
+              { url: prefetch.url, headers: prefetch.headers },
+            );
+          phase = 'controlled-prefetch-before-navigation';
+          event('replay-control', { result: await replay() });
+          let release, seen;
+          const held = new Promise((resolve) => {
+            seen = resolve;
+          });
+          await context.route(
+            origin + '/journey/arena',
+            async (route) => {
+              seen();
+              await new Promise((resolve) => {
+                release = resolve;
+              });
+              await route.fallback();
+            },
+            { times: 1 },
+          );
+          phase = 'controlled-provisional-prefetch';
+          const navigation = page.goto(origin + '/journey/arena');
+          try {
+            await held;
+            event('navigation-held-before-response');
+            event('replay-provisional', {
+              result: await Promise.race([
+                replay(),
+                new Promise((resolve) =>
+                  setTimeout(() => resolve({ pending: true }), 500),
+                ),
+              ]),
+            });
+          } finally {
+            release();
+          }
+          await navigation;
+          event('diagnostic-navigation-completed');
+        }
+        const negativePage = input.isolatedNegativeChecks
+          ? await context.newPage()
+          : page;
+        try {
+          for (const path of [
+            '/journey/arena',
+            '/journey/tower',
+            '/journey/equipment',
+            '/journey/cards',
+            '/journey/shop',
+          ]) {
+            phase = 'negative-' + path;
+            await negativePage.waitForLoadState('networkidle');
+            const response = await negativePage.goto(origin + path);
+            await negativePage.waitForLoadState('networkidle');
+            check('economic route denied ' + path, response.status() === 403);
+          }
+        } finally {
+          if (negativePage !== page) await negativePage.close();
         }
         const authority = await page.evaluate(
           async () =>
@@ -253,18 +478,25 @@ for (const [engine, launcher, viewport] of [
             ).status,
         );
         check('authority API denied', authority === 403);
-        await page.goto(origin + '/journey');
+        if (input.isolatedNegativeChecks)
+          await page.getByRole('link', { name: 'Início', exact: true }).click();
+        else await page.goto(origin + '/journey');
         await settled();
+        phase = 'logout';
         await page
           .getByRole('button', { name: 'Sair da conta', exact: true })
           .click();
         await page.waitForURL(origin + '/auth');
         await settled();
-        await page.goto(origin + '/journey/guild/ebd');
-        await page
+        const signedOutPage = input.isolatedNegativeChecks
+          ? await context.newPage()
+          : page;
+        await signedOutPage.goto(origin + '/journey/guild/ebd');
+        await signedOutPage
           .getByRole('heading', { name: 'Entrar', exact: true })
           .waitFor();
-        await settled();
+        await signedOutPage.waitForLoadState('networkidle');
+        if (signedOutPage !== page) await signedOutPage.close();
         check('logout denies EBD', true);
         run.hosts = [...hosts];
         check('TEST only, never PROD', hosts.size === 1 && hosts.has(backend));
