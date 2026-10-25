@@ -3255,8 +3255,681 @@
         }
       ]
     },
+    "provisional-interaction/next-rsc-concurrency.json": {
+      "sha256": "52db4aa9cbca42aee1d3a7b050631be5ab9f07d07b6d755fb54b56f1aa474220",
+      "runs": [
+        {
+          "engine": "webkit",
+          "mode": "hard-interact-six",
+          "repeat": 0,
+          "passedDiagnostic": false,
+          "releaseStable": false,
+          "pageErrors": 2,
+          "domErrors": 0,
+          "consoleErrors": 0,
+          "failure": "expected diagnostic signature"
+        },
+        {
+          "engine": "webkit",
+          "mode": "hard-interact-six",
+          "repeat": 1,
+          "passedDiagnostic": false,
+          "releaseStable": false,
+          "pageErrors": 2,
+          "domErrors": 0,
+          "consoleErrors": 0,
+          "failure": "expected diagnostic signature"
+        },
+        {
+          "engine": "webkit",
+          "mode": "hard-interact-six",
+          "repeat": 2,
+          "passedDiagnostic": false,
+          "releaseStable": false,
+          "pageErrors": 2,
+          "domErrors": 0,
+          "consoleErrors": 0,
+          "failure": "expected diagnostic signature"
+        }
+      ]
+    },
+    "final-safe-fixture/next-rsc-concurrency.json": {
+      "sha256": "3a32b871943788639717f874f17e53886858e04ad6b7446af504f2a85cd1e999",
+      "runs": [
+        {
+          "engine": "webkit",
+          "mode": "hard-six",
+          "repeat": 0,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "hard-six",
+          "repeat": 1,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "hard-six",
+          "repeat": 2,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "hard-four",
+          "repeat": 0,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "hard-four",
+          "repeat": 1,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "hard-four",
+          "repeat": 2,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "spa-six",
+          "repeat": 0,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "spa-six",
+          "repeat": 1,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "spa-six",
+          "repeat": 2,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "state-six",
+          "repeat": 0,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "state-six",
+          "repeat": 1,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "state-six",
+          "repeat": 2,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "guard-hard-six",
+          "repeat": 0,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "guard-hard-six",
+          "repeat": 1,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "guard-hard-six",
+          "repeat": 2,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "guard-spa-six",
+          "repeat": 0,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "guard-spa-six",
+          "repeat": 1,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "guard-spa-six",
+          "repeat": 2,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "guard-state-six",
+          "repeat": 0,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "guard-state-six",
+          "repeat": 1,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "guard-state-six",
+          "repeat": 2,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "guard-cancel-six",
+          "repeat": 0,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "guard-cancel-six",
+          "repeat": 1,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "guard-cancel-six",
+          "repeat": 2,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "cancel-six",
+          "repeat": 0,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "cancel-six",
+          "repeat": 1,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "cancel-six",
+          "repeat": 2,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "hard-late-six",
+          "repeat": 0,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "hard-late-six",
+          "repeat": 1,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "hard-late-six",
+          "repeat": 2,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "hard-hash-six",
+          "repeat": 0,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "hard-hash-six",
+          "repeat": 1,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "hard-hash-six",
+          "repeat": 2,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "hard-interact-six",
+          "repeat": 0,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "hard-interact-six",
+          "repeat": 1,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "webkit",
+          "mode": "hard-interact-six",
+          "repeat": 2,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "hard-six",
+          "repeat": 0,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "hard-six",
+          "repeat": 1,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "hard-six",
+          "repeat": 2,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "hard-four",
+          "repeat": 0,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "hard-four",
+          "repeat": 1,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "hard-four",
+          "repeat": 2,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "spa-six",
+          "repeat": 0,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "spa-six",
+          "repeat": 1,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "spa-six",
+          "repeat": 2,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "state-six",
+          "repeat": 0,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "state-six",
+          "repeat": 1,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "state-six",
+          "repeat": 2,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "guard-hard-six",
+          "repeat": 0,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "guard-hard-six",
+          "repeat": 1,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "guard-hard-six",
+          "repeat": 2,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "guard-spa-six",
+          "repeat": 0,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "guard-spa-six",
+          "repeat": 1,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "guard-spa-six",
+          "repeat": 2,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "guard-state-six",
+          "repeat": 0,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "guard-state-six",
+          "repeat": 1,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "guard-state-six",
+          "repeat": 2,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "guard-cancel-six",
+          "repeat": 0,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "guard-cancel-six",
+          "repeat": 1,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "guard-cancel-six",
+          "repeat": 2,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "cancel-six",
+          "repeat": 0,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "cancel-six",
+          "repeat": 1,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        },
+        {
+          "engine": "chromium",
+          "mode": "cancel-six",
+          "repeat": 2,
+          "passedDiagnostic": true,
+          "releaseStable": true,
+          "pageErrors": 0,
+          "domErrors": 0,
+          "consoleErrors": 0
+        }
+      ]
+    },
     "app-regression.json": {
-      "sha256": "8a4635943efaac3a8a9840904389206b7128a6c816d31ff4829e58ee2d8283a8",
+      "sha256": "06d7d6c024eef31a62a0c1b1ccee14224d62fdec6d1f33793decfa06d2ff445b",
       "runs": [
         {
           "engine": "chromium",
@@ -3525,7 +4198,7 @@
       ]
     },
     "app-regression-repeat.json": {
-      "sha256": "9c6f18b079b8c30ca67972e3cba3d77e94d26c444a1524916dfeaf3b6483b684",
+      "sha256": "f94e592bad2d9fcef6f14efa400d913a2711ee65f958d0076162569d98b3407e",
       "runs": [
         {
           "engine": "chromium",
@@ -3793,6 +4466,16 @@
         }
       ]
     }
+  },
+  "finalCandidate": {
+    "helperSha256": "0c4a5f98ccdfb1ae6cd3a1ddb9aa7e29012f861017806a80d6eb4c269e5ae67a",
+    "fixture": "final-safe-fixture/next-rsc-concurrency.json",
+    "application": [
+      "app-regression.json",
+      "app-regression-repeat.json"
+    ],
+    "resumePolicy": "pageshow or fresh document; canceled-dialog old document keeps background prefetch deferred, active navigation unaffected",
+    "hostedAndCiPending": true
   },
   "baselineTimelineExample": [
     {

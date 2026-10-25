@@ -63,12 +63,12 @@ describe('Next RSC document departure at the network boundary', () => {
     event('beforeunload');
     const late = request('/late-hydration', { priority: 'low' });
     expect(fetch).not.toHaveBeenCalled();
-    event('pointerdown');
+    event('pageshow');
     await late;
     expect(fetch).toHaveBeenCalledTimes(1);
   });
 
-  it.each(['pageshow', 'pointerdown', 'keydown'])(
+  it.each(['pageshow'])(
     'resumes once on %s and preserves all queued work',
     async (resume) => {
       const { fetch, request, event } = transport();
@@ -81,6 +81,22 @@ describe('Next RSC document departure at the network boundary', () => {
       event(resume);
       await Promise.all(pending);
       expect(fetch).toHaveBeenCalledTimes(4);
+    },
+  );
+
+  it.each(['pointerdown', 'keydown'])(
+    'does not mistake %s for canceled document navigation',
+    async (input) => {
+      const { fetch, request, event } = transport();
+      event('beforeunload');
+      const pending = request('/prefetch', { priority: 'low' });
+      event(input);
+      expect(fetch).not.toHaveBeenCalled();
+      await request('/active-navigation', { priority: 'auto' });
+      expect(fetch).toHaveBeenCalledTimes(1);
+      event('pageshow');
+      await pending;
+      expect(fetch).toHaveBeenCalledTimes(2);
     },
   );
 
@@ -127,7 +143,7 @@ describe('Next RSC document departure at the network boundary', () => {
     const first = request('/first-boundary', { priority: 'low' });
     const remounted = request('/remounted-boundary', { priority: 'low' });
     expect(fetch).not.toHaveBeenCalled();
-    event('keydown');
+    event('pageshow');
     await Promise.all([first, remounted]);
     event('beforeunload');
     const second = request('/second-departure', { priority: 'low' });

@@ -19,7 +19,11 @@ Hidratação/remount podem registrar trabalho novo nesse intervalo. Um estado li
 
 Patch restrito ao transporte interno `next/dist/{client,esm/client}/components/segment-cache/fetch.js` do **Next16.4.2**. No ponto imediatamente anterior ao fetch nativo, adia novas requisições internas de prioridade `low` enquanto o documento está em saída. Cobre tanto a fila reativada por cancelamentos quanto as continuações assíncronas já fora dela.
 
-Não substitui `window.fetch`, não altera headers RSC/CORS/Auth, não captura nem filtra erros do produto, não desativa prefetch normalmente, não cancela cargas já em curso e não bloqueia navegações de prioridade `auto`. As promessas adiadas continuam pendentes e não são escritas no cache como falhas artificiais. `pageshow`, `pointerdown` e `keydown` retomam o trabalho, incluindo navegação cancelada pelo usuário. AbortSignal continua encerrando trabalho adiado e removendo seu listener/fila. Estado pertence ao módulo do documento, independente de montagem React.
+Não substitui `window.fetch`, não altera headers RSC/CORS/Auth, não captura nem filtra erros do produto, não cancela cargas já em curso e não bloqueia navegações de prioridade `auto`. As promessas adiadas continuam pendentes e não são escritas no cache como falhas artificiais. **Somente `pageshow` retoma trabalho do documento preservado**; um documento novo começa normalmente. AbortSignal continua encerrando trabalho adiado e removendo seu listener/fila. Estado pertence ao módulo do documento, independente de montagem React.
+
+**Limitação deliberada de desempenho:** após cancelar um diálogo beforeunload, a interface/estado e a navegação SPA continuam funcionando, mas novos prefetches de fundo daquele documento permanecem adiados até restauração/fresh document. Isso evita adivinhar o resultado da navegação. Os quatro pedidos já em curso não são abortados pelo patch. O ensaio exige SPA funcional após cancelar e seis prefetches normais após retorno/recarga. Não declarar retomada imediata de prefetch após cancelar um diálogo.
+
+**Terceira corrida comprovada, candidato com interação rejeitado:** a retomada por pointerdown/keydown parecia funcionar nos60 casos iniciais e48 fluxos completos, mas um clique real no documento ainda provisório reacendeu as duas cargas recusadas:3/3FAIL, dois pageerrors/caso. Eventos da Navigation API também não notificaram o cancelamento do diálogo na revisão instalada; não foram adotados como garantia. A nova regressão mantém a navegação provisória e clica fora dos links. A correção final remove a heurística de interação; o CI anterior não basta para homologar esse candidato.
 
 Aplicação reproduzível em `scripts/next-rsc-departure-patch.mjs`, helper em `scripts/patches/next-rsc-departure.txt`. Os comandos explícitos de teste e build aplicam os dois formatos, verificando versão e hashes exatos antes de escrever; fontes desconhecidas falham. `--check` verifica o estado; `--restore` serve apenas ao controle diagnóstico. `.npmrc` mantém `ignore-scripts=true`, sem habilitar hooks de dependências. Nenhuma dependência ou versão foi adicionada/atualizada. A manutenção do patch exige revisão explícita ao atualizar Next.
 
@@ -34,7 +38,7 @@ Aplicação reproduzível em `scripts/next-rsc-departure-patch.mjs`, helper em `
 | Reprodução nativa instrumentada |48 casos qualificados; WebKit seis links3/3FAIL, dois erros/caso preservados |
 | Regressão do hash, sem patch |3/3FAIL, seis erros/caso; erro não convertido em sucesso de release |
 | Patch instrumentado, fixture/aplicação |48/48 e24/24 sem pageerror; prova exploratória, seguida de versão sem instrumentação |
-| Fixture final sem instrumentação |**60/60 PASS**, três repetições por condição; zero pageerror/erro DOM; prefetch real antes da saída e depois do retorno/cancelamento |
+| Fixture final sem instrumentação |**63/63 PASS**, incluindo clique durante saída; artefato `final-safe-fixture`, zero pageerror/erro DOM; três repetições por condição |
 | Aplicação completa local, duas rodadas |**48/48 PASS**, Chromium/WebKit, login/avatar/Guilda/EBD/reload/logout/negação; zero pageerror/erro DOM/erro console; segunda rodada também exige zero origem externa |
 | Unitários existentes |**787 preservados**, sem editar/remover testes anteriores |
 | Novos testes do transporte instalado |**11 PASS**; antes do patch3PASS/8FAIL. Hash tardio, trabalho tardio, retomadas, abort, prioridade de navegação, nova saída, propagação de falhas |
@@ -44,7 +48,7 @@ Aplicação reproduzível em `scripts/next-rsc-departure-patch.mjs`, helper em `
 
 As duas novas condições provisórias (hash/link tardio) são específicas de WebKit: Chromium suspende a avaliação do driver até commit. Seus controles normais de navegação, histórico, estado, SPA e diálogo cancelado são executados. O teste de link tardio monta um Link real durante saída; os testes unitários exercitam o transporte após o ponto de hidratação, não substituem hidratação React no navegador.
 
-Primeira ampliação do harness: REWORK por contagem de um link adicional e locator bloqueado pela própria navegação retida. Corrigidos sem afrouxar estabilidade. Artefato inicial preservado; somente `final-fixture-v2` qualifica a matriz final. Histórico observado não usou BFCache (`persisted=false`); não alegar validação física/BFCache real.
+Primeira ampliação do harness: REWORK por contagem de um link adicional e locator bloqueado pela própria navegação retida. Corrigidos sem afrouxar estabilidade. Artefatos iniciais preservados. `final-fixture-v2` passou60casos, mas o candidato foi reprovado pelo contraste adicional de interação; não representa a homologação final. Histórico observado não usou BFCache (`persisted=false`); não alegar validação física/BFCache real.
 
 Resultados seguros, hashes e timeline: [RPG-DEV-005-EVIDENCE.json](RPG-DEV-005-EVIDENCE.json). Logs/artefatos privados em `build/rpg-dev-005/`. CI Windows agora preserva o controle nativo sem patch e exige estabilidade com patch na fixture e aplicação completa offline; verde diagnóstico e estabilidade continuam distintos.
 

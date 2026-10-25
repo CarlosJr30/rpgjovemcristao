@@ -1,4 +1,4 @@
-// RPG-DEV-005: preserve prefetch work across a canceled document navigation.
+// RPG-DEV-005: quiesce background prefetch while a document is departing.
 // The check lives at the network boundary, after async RSC cache-key hashing.
 let isDocumentDeparting = false;
 const deferredPrefetchRequests = new Set();
@@ -14,10 +14,9 @@ if (typeof window !== 'undefined') {
         isDocumentDeparting = true;
     });
     window.addEventListener('pageshow', resumePrefetchRequests);
-    // A dismissed beforeunload dialog does not emit pageshow. Resume on the
-    // next interaction, without guessing whether the navigation was canceled.
-    window.addEventListener('pointerdown', resumePrefetchRequests, { passive: true });
-    window.addEventListener('keydown', resumePrefetchRequests);
+    // Input is not proof that a provisional navigation was canceled. After a
+    // dismissed beforeunload dialog, background work stays deferred until a
+    // confirmed pageshow/fresh document; active navigations still use 'auto'.
 }
 
 function deferPrefetchRequest(input, init) {
@@ -29,7 +28,7 @@ function deferPrefetchRequest(input, init) {
         };
         const resume = () => {
             cleanup();
-            // Recheck departure in case an interaction immediately navigated.
+            // Recheck departure if another navigation began during restoration.
             resolve(fetchInternal(input, init));
         };
         const abort = () => {

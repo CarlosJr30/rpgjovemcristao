@@ -212,7 +212,12 @@ try {
         'guard-state-six',
         'guard-cancel-six',
         ...(process.argv.includes('--extended')
-          ? ['cancel-six', 'hard-late-six', 'hard-hash-six']
+          ? [
+              'cancel-six',
+              'hard-late-six',
+              'hard-hash-six',
+              'hard-interact-six',
+            ]
           : []),
       ]) {
         if (onlyMode && mode !== onlyMode) continue;
@@ -221,7 +226,7 @@ try {
         // history, SPA, state and dismissed-dialog controls remain above.
         if (
           engine === 'chromium' &&
-          ['hard-late-six', 'hard-hash-six'].includes(mode)
+          ['hard-late-six', 'hard-hash-six', 'hard-interact-six'].includes(mode)
         )
           continue;
         for (
@@ -274,6 +279,18 @@ try {
                   })
                   .catch(() => {});
               window.__rpgRscObserve = report;
+              window.navigation?.addEventListener('navigate', (event) => {
+                report({
+                  kind: 'navigation-api-start',
+                  sameDocument: event.destination.sameDocument,
+                });
+                event.signal.addEventListener('abort', () =>
+                  report({ kind: 'navigation-api-abort' }),
+                );
+              });
+              window.navigation?.addEventListener('navigateerror', () =>
+                report({ kind: 'navigation-api-error' }),
+              );
               // Separate diagnostic arm: real crypto, only its completion is held.
               // Neither fetch nor RSC payloads are wrapped or fabricated.
               if (holdHash && location.pathname === '/') {
@@ -406,6 +423,13 @@ try {
                   mounted,
                 );
               }
+              if (navigationMode === 'hard-interact-six') {
+                await page.mouse.click(1200, 850);
+                check(
+                  'pointer interaction during provisional navigation',
+                  true,
+                );
+              }
               // Chromium retains old loads until the replacement can commit.
               // WebKit cancels them while the replacement response is held.
               if (engine === 'chromium') {
@@ -508,13 +532,51 @@ try {
                           row.headers['next-router-prefetch'] === '1',
                       )
                       .map((row) => new URL(row.url).pathname),
-                  ).size === 6,
-                'prefetch resumed after canceled navigation',
+                  ).size >= (expectStable ? 4 : 6),
+                'original prefetches finish after canceled navigation',
               );
               check(
-                'prefetch resumes after canceled document navigation',
+                'original pending prefetches are not aborted by the patch',
                 true,
               );
+              if (expectStable) {
+                await page
+                  .getByRole('link', { name: 'Client navigation', exact: true })
+                  .click();
+                await page
+                  .getByRole('heading', { name: 'Replacement completed' })
+                  .waitFor();
+                check(
+                  'active SPA navigation works after dismissed unload dialog',
+                  true,
+                );
+                await page.goBack();
+                await page
+                  .getByRole('heading', { name: 'RSC lifecycle fixture' })
+                  .waitFor();
+                await page.reload();
+                await page
+                  .getByRole('heading', { name: 'RSC lifecycle fixture' })
+                  .waitFor();
+                await until(
+                  () =>
+                    new Set(
+                      run.server
+                        .filter(
+                          (row) =>
+                            row.status === 200 &&
+                            row.headers['next-router-prefetch'] === '1',
+                        )
+                        .map((row) => new URL(row.url).pathname),
+                    ).size === 6,
+                  'normal prefetch restored in fresh document',
+                );
+                check('all automatic prefetches work in fresh document', true);
+              } else
+                check(
+                  'prototype prefetch resumes after canceled document navigation',
+                  true,
+                );
             } else if (navigationMode === 'spa-six') {
               const click = page
                 .getByRole('link', { name: 'Client navigation' })
