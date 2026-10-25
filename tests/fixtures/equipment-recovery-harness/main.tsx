@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client';
 import { AvatarRuntime } from '../../../apps/web/features/journey/components/avatar-runtime';
 import { calculateTotalAttributes } from '../../../apps/web/features/journey/data/attributes';
 import { EQUIPMENT_CATALOG } from '../../../apps/web/features/journey/data/equipmentCatalog';
+import { APPROVED_EQUIPMENT_003 } from '../../../apps/web/features/journey/data/equipmentBodyFit003';
 import {
   createTraveler,
   DEFAULT_APPEARANCE,
@@ -61,6 +62,20 @@ function Harness() {
           Trocar por variante sintética
         </button>
         <button onClick={() => unequipSlot('weapon')}>Desequipar arma</button>
+        {APPROVED_EQUIPMENT_003.map((entry) => (
+          <span key={entry.itemId}>
+            <button
+              onClick={() =>
+                equipItem(t.inventory.find((item) => item.id === entry.itemId)!)
+              }
+            >
+              Equipar {entry.slot}
+            </button>
+            <button onClick={() => unequipSlot(entry.slot)}>
+              Desequipar {entry.slot}
+            </button>
+          </span>
+        ))}
       </nav>
       <output data-testid="snapshot">
         {JSON.stringify({

@@ -1,0 +1,61 @@
+import { createServer } from 'node:http';
+import { mockLocalReleaseAuth } from './local-release-auth.ts';
+
+/** Offline simulator for diagnosing browser routing, never a Supabase service. */
+export async function startLocalAuthSimulator() {
+  let respond = async () => undefined;
+  await mockLocalReleaseAuth(
+    {
+      route: async (_pattern, handler) => {
+        respond = handler;
+      },
+    },
+    'http://127.0.0.1:3199',
+  );
+  const server = createServer((req, res) => {
+    // Explicit local cross-origin contract for the simulator only.
+    if (req.headers.origin !== 'http://127.0.0.1:3199') {
+      res.writeHead(403);
+      res.end();
+      return;
+    }
+    res.setHeader('Access-Control-Allow-Origin', 'http://127.0.0.1:3199');
+    res.setHeader('Vary', 'Origin');
+    res.setHeader(
+      'Access-Control-Allow-Headers',
+      'authorization,apikey,content-type,x-client-info,prefer,accept-profile,content-profile,x-supabase-api-version',
+    );
+    res.setHeader(
+      'Access-Control-Allow-Methods',
+      'GET,POST,PATCH,DELETE,OPTIONS',
+    );
+    if (req.method === 'OPTIONS') {
+      res.writeHead(204);
+      res.end();
+      return;
+    }
+    void respond({
+      request: () => ({
+        url: () => 'https://fixture.invalid' + req.url,
+        headers: () => req.headers,
+      }),
+      abort: async () => {
+        res.writeHead(403);
+        res.end();
+      },
+      fulfill: async ({ json }) => {
+        res.setHeader('Content-Type', 'application/json');
+        res.writeHead(200);
+        res.end(JSON.stringify(json));
+      },
+    }).catch(() => {
+      if (!res.headersSent) res.writeHead(500);
+      res.end();
+    });
+  });
+  await new Promise((resolve, reject) => {
+    server.once('error', reject);
+    server.listen(3202, '127.0.0.1', resolve);
+  });
+  return server;
+}

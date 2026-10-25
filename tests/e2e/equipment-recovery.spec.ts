@@ -1,4 +1,5 @@
 import { expect, test } from '@playwright/test';
+import { APPROVED_EQUIPMENT_003 } from '../../apps/web/features/journey/data/equipmentBodyFit003';
 
 test('isolated real state commands preserve inventory, approved composition and persistence', async ({
   page,
@@ -62,5 +63,78 @@ test('isolated real state commands preserve inventory, approved composition and 
       () => document.documentElement.scrollWidth <= innerWidth,
     ),
   ).toBe(true);
+  expect(errors).toEqual([]);
+});
+
+test('four newly approved compositions preserve owned inventory, state, attributes and the original armor/grip', async ({
+  page,
+  context,
+}, info) => {
+  await context.route('**/*', (route) =>
+    new URL(route.request().url()).origin === 'http://127.0.0.1:3197'
+      ? route.continue()
+      : route.abort(),
+  );
+  const errors: string[] = [];
+  page.on('pageerror', (error) => errors.push(error.message));
+  await page.goto('/');
+  const snapshot = async () =>
+    JSON.parse((await page.getByTestId('snapshot').textContent())!);
+  const initial = await snapshot();
+  await page
+    .getByRole('button', { name: 'Equipar espada aprovada', exact: true })
+    .click();
+  const armor = page.locator('[data-overlay-item="traveler-armor-uncommon"]');
+  const sword = page.locator('[data-overlay-item="traveler-sword-common"]');
+  await expect(sword).toHaveCount(1);
+  const armorStyle = await armor.getAttribute('style'),
+    swordStyle = await sword.getAttribute('style');
+  for (const entry of APPROVED_EQUIPMENT_003) {
+    const before = await snapshot();
+    await page
+      .getByRole('button', { name: `Equipar ${entry.slot}`, exact: true })
+      .click();
+    await expect(
+      page.locator(`[data-overlay-item="${entry.itemId}"]`),
+    ).toHaveCount(entry.layers.length);
+    const equipped = await snapshot();
+    expect(equipped.equipped[entry.slot]).toBe(entry.itemId);
+    expect(equipped.avatarEquipped).toEqual(equipped.equipped);
+    expect(equipped.inventory).toEqual(initial.inventory);
+    expect({ xp: equipped.xp, coins: equipped.coins }).toEqual({
+      xp: initial.xp,
+      coins: initial.coins,
+    });
+    await page.reload();
+    expect(await snapshot()).toEqual(equipped);
+    await page
+      .getByRole('button', { name: `Desequipar ${entry.slot}`, exact: true })
+      .click();
+    await expect(
+      page.locator(`[data-overlay-item="${entry.itemId}"]`),
+    ).toHaveCount(0);
+    expect(await snapshot()).toEqual(before);
+    await page
+      .getByRole('button', { name: `Equipar ${entry.slot}`, exact: true })
+      .click();
+  }
+  await expect(page.locator('[data-overlay-item]')).toHaveCount(7);
+  await expect(
+    page.locator('[data-overlay-chain="wisdom-amulet"]'),
+  ).toHaveCount(1);
+  await expect(armor).toHaveAttribute('style', armorStyle!);
+  await expect(sword).toHaveAttribute('style', swordStyle!);
+  const final = await snapshot();
+  await page.reload();
+  expect(await snapshot()).toEqual(final);
+  expect(
+    await page.evaluate(
+      () => document.documentElement.scrollWidth <= innerWidth,
+    ),
+  ).toBe(true);
+  await page.screenshot({
+    path: `build/rpg-dev-003/integrated-${info.project.name}.png`,
+    fullPage: true,
+  });
   expect(errors).toEqual([]);
 });

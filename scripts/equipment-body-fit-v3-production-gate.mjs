@@ -12,7 +12,7 @@ const hash = (b) => createHash('sha256').update(b).digest('hex');
 const bundle = await build({
   stdin: {
     contents:
-      "export * from './apps/web/features/journey/data/equipmentBodyFitV3.ts'",
+      "export * from './apps/web/features/journey/data/equipmentBodyFitV3.ts'; export * from './apps/web/features/journey/data/equipmentBodyFit003.ts'",
     resolveDir: root,
     loader: 'ts',
   },
@@ -26,6 +26,7 @@ const {
   APPROVED_BODY_FIT_V3_ASSETS: registry,
   APPROVED_ARMOR_COMPOSITION_3: composition3,
   APPROVED_SWORD_GRIP_COMPOSITION: grip,
+  APPROVED_EQUIPMENT_003: equipment003,
 } = await import(
   'data:text/javascript;base64,' +
     Buffer.from(bundle.outputFiles[0].text).toString('base64')
@@ -197,6 +198,48 @@ for (const gender of ['female', 'male']) {
   assert.equal(pair.avatar.sha256, assets[0].avatarSha256);
 }
 const privateHashes = new Set();
+const approval003 = await json(
+  'docs/architecture/RPG-DEV-003-HUMAN-VISUAL-APPROVAL.json',
+);
+assert.equal(approval003.decision, 'VISUALLY_APPROVED');
+assert.equal(
+  approval003.userStatement,
+  'Aprovar as quatro propostas neste corpo',
+);
+assert.equal(approval003.productionRelease, false);
+assert.equal(equipment003.length, 4);
+assert.deepEqual(equipment003, approval003.compositions);
+for (const a of equipment003) {
+  assert.equal(a.avatarSource, composition3.avatarSource);
+  assert.equal(a.avatarSha256, composition3.avatarSha256);
+  assert.equal(
+    hash(await read('apps/web/public' + a.avatarSource)),
+    a.avatarSha256,
+  );
+  for (const layer of a.layers) {
+    const publicPath = 'apps/web/public' + layer.asset;
+    const bytes = await read(publicPath);
+    assert.equal(hash(bytes), a.assetSha256);
+    if (layer.overlayMode === 'full-canvas') {
+      const png = await inspectPng(bytes);
+      assert.equal(png.hasAlpha, true);
+    } else {
+      // These two existing cropped PNGs retain their original dimensions/art.
+      assert.equal(bytes.subarray(1, 4).toString(), 'PNG');
+      assert(
+        [4, 6].includes(bytes[25]),
+        'Approved cropped PNG must retain alpha',
+      );
+      assert(
+        Math.abs(
+          layer.placement.width / layer.placement.height -
+            bytes.readUInt32BE(16) / bytes.readUInt32BE(20),
+        ) < 1e-12,
+      );
+    }
+    publicAssets.set(a.assetSha256, publicPath);
+  }
+}
 for (const t of history.targets) {
   privateHashes.add(t.sourceSha256);
   if (!registry.some((a) => a.targetId === t.id)) privateHashes.add(t.sha256);
@@ -248,8 +291,8 @@ console.log(
   JSON.stringify({
     gate: 'BODY_FIT_V3_PRODUCTION',
     pass: true,
-    exactApprovedRuntimeAssets: registry.length + 1,
-    exactApprovedCompositions: registry.length + 2,
+    exactApprovedRuntimeAssets: publicAssets.size,
+    exactApprovedCompositions: registry.length + 2 + equipment003.length,
     checked,
     pendingAssetsPublished: 0,
   }),

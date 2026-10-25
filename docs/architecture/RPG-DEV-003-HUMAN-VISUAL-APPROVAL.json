@@ -1,0 +1,164 @@
+{
+  "task": "RPG-DEV-003",
+  "approvalId": "RPG-DEV-003-HUMAN-FOUR-COMPOSITIONS",
+  "decision": "VISUALLY_APPROVED",
+  "userStatement": "Aprovar as quatro propostas neste corpo",
+  "reviewedOn": "2026-10-24",
+  "reviewedBy": "Carlos",
+  "scope": "Four individual compositions on female_long_blue_dark only; no economic or production approval",
+  "productionRelease": false,
+  "reviewHtmlSha256": "8480999edbdac81dc24ad61cc9fd2b17ff0bdfdddf13355896d4908d11faf01c",
+  "previousApprovedCompositionsPreserved": 6,
+  "compositions": [
+    {
+      "approvalId": "RPG-DEV-003-HUMAN-FOUR-COMPOSITIONS",
+      "gender": "female",
+      "avatarSource": "/assets/avatar/hd/female/female_long_blue_dark_hd.png",
+      "avatarSha256": "8965ed75ea6fed37f0f20bda47d1e89cde09ef5bba38bcb977a8331cd2ce6e9a",
+      "itemId": "traveler-helmet-rare",
+      "slot": "helmet",
+      "assetSha256": "b06b44ad85dee41b4487bcc1b1c6f853b351b1e276c1e73700eb5090eaba76f0",
+      "layers": [
+        {
+          "overlayMode": "full-canvas",
+          "asset": "/assets/equipment/overlays/body-fit-v3/helmet_female_long_blue_dark_approved.png",
+          "placement": {
+            "anchor": "canvas",
+            "x": 0,
+            "y": 0,
+            "width": 512,
+            "height": 768,
+            "rotation": 0,
+            "mirrorX": false,
+            "anchorX": 0,
+            "anchorY": 0,
+            "transformOrigin": "50% 50%",
+            "zIndex": 8
+          },
+          "canvasComposition": {
+            "translateXPercent": 24,
+            "translateYPercent": -0.65,
+            "scaleX": 0.52,
+            "scaleY": 0.52
+          }
+        }
+      ]
+    },
+    {
+      "approvalId": "RPG-DEV-003-HUMAN-FOUR-COMPOSITIONS",
+      "gender": "female",
+      "avatarSource": "/assets/avatar/hd/female/female_long_blue_dark_hd.png",
+      "avatarSha256": "8965ed75ea6fed37f0f20bda47d1e89cde09ef5bba38bcb977a8331cd2ce6e9a",
+      "itemId": "traveler-shield-rare",
+      "slot": "shield",
+      "assetSha256": "62523e42ed6b2c7bc807527b6caad0ab71f429824131b1a153e4b4df46f59f55",
+      "layers": [
+        {
+          "overlayMode": "cropped",
+          "asset": "/assets/equipment/overlays/v1/shield_perseverance_rare.png",
+          "placement": {
+            "anchor": "canvas",
+            "x": 327.68,
+            "y": 314.88,
+            "width": 133.12,
+            "height": 187.35407407407408,
+            "rotation": -7,
+            "mirrorX": false,
+            "anchorX": 0,
+            "anchorY": 0,
+            "transformOrigin": "50% 44%",
+            "zIndex": 7
+          }
+        }
+      ]
+    },
+    {
+      "approvalId": "RPG-DEV-003-HUMAN-FOUR-COMPOSITIONS",
+      "gender": "female",
+      "avatarSource": "/assets/avatar/hd/female/female_long_blue_dark_hd.png",
+      "avatarSha256": "8965ed75ea6fed37f0f20bda47d1e89cde09ef5bba38bcb977a8331cd2ce6e9a",
+      "itemId": "traveler-boots",
+      "slot": "boots",
+      "assetSha256": "ab733b56f949daad7a88e1255c8591b7a2391b932309792a00aa111df32cc288",
+      "layers": [
+        {
+          "overlayMode": "full-canvas",
+          "asset": "/assets/equipment/overlays/body-fit-v3/boots_female_long_blue_dark_pair_approved.png",
+          "placement": {
+            "anchor": "canvas",
+            "x": 0,
+            "y": 0,
+            "width": 512,
+            "height": 768,
+            "rotation": 0,
+            "mirrorX": false,
+            "anchorX": 0,
+            "anchorY": 0,
+            "transformOrigin": "50% 50%",
+            "zIndex": 3
+          },
+          "canvasComposition": {
+            "translateXPercent": 21.5,
+            "translateYPercent": 60.2,
+            "scaleX": 0.4,
+            "scaleY": 0.4,
+            "clipPath": "inset(0 50% 0 0)"
+          }
+        },
+        {
+          "overlayMode": "full-canvas",
+          "asset": "/assets/equipment/overlays/body-fit-v3/boots_female_long_blue_dark_pair_approved.png",
+          "placement": {
+            "anchor": "canvas",
+            "x": 0,
+            "y": 0,
+            "width": 512,
+            "height": 768,
+            "rotation": 0,
+            "mirrorX": false,
+            "anchorX": 0,
+            "anchorY": 0,
+            "transformOrigin": "50% 50%",
+            "zIndex": 3
+          },
+          "canvasComposition": {
+            "translateXPercent": 41,
+            "translateYPercent": 60.2,
+            "scaleX": 0.4,
+            "scaleY": 0.4,
+            "clipPath": "inset(0 0 0 50%)"
+          }
+        }
+      ]
+    },
+    {
+      "approvalId": "RPG-DEV-003-HUMAN-FOUR-COMPOSITIONS",
+      "gender": "female",
+      "avatarSource": "/assets/avatar/hd/female/female_long_blue_dark_hd.png",
+      "avatarSha256": "8965ed75ea6fed37f0f20bda47d1e89cde09ef5bba38bcb977a8331cd2ce6e9a",
+      "itemId": "wisdom-amulet",
+      "slot": "amulet",
+      "assetSha256": "7b009cfd5efa85d3de565a17a7d532f6ad781e6b0733790330208a74fe56a732",
+      "layers": [
+        {
+          "overlayMode": "cropped",
+          "asset": "/assets/equipment/overlays/v1/medallion_path_rare.png",
+          "placement": {
+            "anchor": "canvas",
+            "x": 250.88,
+            "y": 179.71200000000002,
+            "width": 17.92,
+            "height": 29.323636363636368,
+            "rotation": 0,
+            "mirrorX": false,
+            "anchorX": 0,
+            "anchorY": 0,
+            "transformOrigin": "50% 50%",
+            "zIndex": 4
+          },
+          "chainPath": "M475 315 Q495 345 521 368 Q548 345 567 315"
+        }
+      ]
+    }
+  ]
+}
