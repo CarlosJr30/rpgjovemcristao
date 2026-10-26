@@ -1,3 +1,5 @@
+Atualização: [Guilda/EBD com cenário medieval, após a imagem recebida](guild-reference/index.html). Aprovação pendente.
+
 # UI-RESTORE-002 — revisão visual pendente
 
 [Galeria comparativa](index.html) · [Relatório e inventário](../../architecture/UI-RESTORE-002-REPORT.md).

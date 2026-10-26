@@ -1,0 +1,134 @@
+{
+  "syntheticData": true,
+  "productionProof": false,
+  "runs": [
+    {
+      "guildRole": "member",
+      "device": "desktop",
+      "checks": [
+        {
+          "name": "current Guild context renders",
+          "pass": true
+        },
+        {
+          "name": "original approved hall loads",
+          "pass": true
+        },
+        {
+          "name": "responsive original hall variant",
+          "pass": true
+        },
+        {
+          "name": "original banner loads",
+          "pass": true
+        },
+        {
+          "name": "does not invent mission activity counts",
+          "pass": true
+        },
+        {
+          "name": "leader controls follow existing role",
+          "pass": true
+        },
+        {
+          "name": "no horizontal overflow",
+          "pass": true
+        },
+        {
+          "name": "management appearance cannot grant leader controls",
+          "pass": true
+        },
+        {
+          "name": "management has no horizontal overflow",
+          "pass": true
+        },
+        {
+          "name": "zero page/console errors",
+          "pass": true
+        },
+        {
+          "name": "loopback only",
+          "pass": true
+        }
+      ],
+      "errors": [],
+      "consoleErrors": [],
+      "externalOrigins": [],
+      "passed": true
+    },
+    {
+      "guildRole": "member",
+      "device": "mobile",
+      "checks": [],
+      "errors": [],
+      "consoleErrors": [],
+      "externalOrigins": [],
+      "passed": false,
+      "failure": "locator.click: Timeout 20000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('navigation', { name: 'Navegação principal', exact: true }).getByRole('link', { name: 'Guilda', exact: true })\u001b[22m\n"
+    },
+    {
+      "guildRole": "leader",
+      "device": "desktop",
+      "checks": [
+        {
+          "name": "current Guild context renders",
+          "pass": true
+        },
+        {
+          "name": "original approved hall loads",
+          "pass": true
+        },
+        {
+          "name": "responsive original hall variant",
+          "pass": true
+        },
+        {
+          "name": "original banner loads",
+          "pass": true
+        },
+        {
+          "name": "does not invent mission activity counts",
+          "pass": true
+        },
+        {
+          "name": "leader controls follow existing role",
+          "pass": true
+        },
+        {
+          "name": "no horizontal overflow",
+          "pass": true
+        },
+        {
+          "name": "management appearance cannot grant leader controls",
+          "pass": true
+        },
+        {
+          "name": "management has no horizontal overflow",
+          "pass": true
+        },
+        {
+          "name": "zero page/console errors",
+          "pass": true
+        },
+        {
+          "name": "loopback only",
+          "pass": true
+        }
+      ],
+      "errors": [],
+      "consoleErrors": [],
+      "externalOrigins": [],
+      "passed": true
+    },
+    {
+      "guildRole": "leader",
+      "device": "mobile",
+      "checks": [],
+      "errors": [],
+      "consoleErrors": [],
+      "externalOrigins": [],
+      "passed": false,
+      "failure": "locator.click: Timeout 20000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('navigation', { name: 'Navegação principal', exact: true }).getByRole('link', { name: 'Guilda', exact: true })\u001b[22m\n"
+    }
+  ]
+}

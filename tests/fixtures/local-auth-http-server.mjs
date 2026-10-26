@@ -2,7 +2,7 @@ import { createServer } from 'node:http';
 import { mockLocalReleaseAuth } from './local-release-auth.ts';
 
 /** Offline simulator for diagnosing browser routing, never a Supabase service. */
-export async function startLocalAuthSimulator() {
+export async function startLocalAuthSimulator(options = {}) {
   let respond = async () => undefined;
   await mockLocalReleaseAuth(
     {
@@ -11,6 +11,7 @@ export async function startLocalAuthSimulator() {
       },
     },
     'http://127.0.0.1:3199',
+    options,
   );
   const server = createServer((req, res) => {
     // Explicit local cross-origin contract for the simulator only.

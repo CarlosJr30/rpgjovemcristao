@@ -1,0 +1,238 @@
+{
+  "syntheticData": true,
+  "productionProof": false,
+  "runs": [
+    {
+      "guildRole": "member",
+      "device": "desktop",
+      "checks": [
+        {
+          "name": "current Guild context renders",
+          "pass": true
+        },
+        {
+          "name": "original approved hall loads",
+          "pass": true
+        },
+        {
+          "name": "responsive original hall variant",
+          "pass": true
+        },
+        {
+          "name": "original banner loads",
+          "pass": true
+        },
+        {
+          "name": "does not invent mission activity counts",
+          "pass": true
+        },
+        {
+          "name": "leader controls follow existing role",
+          "pass": true
+        },
+        {
+          "name": "no horizontal overflow",
+          "pass": true
+        },
+        {
+          "name": "management appearance cannot grant leader controls",
+          "pass": true
+        },
+        {
+          "name": "management hall is loaded before visual capture",
+          "pass": true
+        },
+        {
+          "name": "management has no horizontal overflow",
+          "pass": true
+        },
+        {
+          "name": "zero page/console errors",
+          "pass": true
+        },
+        {
+          "name": "loopback only",
+          "pass": true
+        }
+      ],
+      "errors": [],
+      "consoleErrors": [],
+      "externalOrigins": [],
+      "passed": true
+    },
+    {
+      "guildRole": "member",
+      "device": "mobile",
+      "checks": [
+        {
+          "name": "current Guild context renders",
+          "pass": true
+        },
+        {
+          "name": "original approved hall loads",
+          "pass": true
+        },
+        {
+          "name": "responsive original hall variant",
+          "pass": true
+        },
+        {
+          "name": "original banner loads",
+          "pass": true
+        },
+        {
+          "name": "does not invent mission activity counts",
+          "pass": true
+        },
+        {
+          "name": "leader controls follow existing role",
+          "pass": true
+        },
+        {
+          "name": "no horizontal overflow",
+          "pass": true
+        },
+        {
+          "name": "management appearance cannot grant leader controls",
+          "pass": true
+        },
+        {
+          "name": "management hall is loaded before visual capture",
+          "pass": true
+        },
+        {
+          "name": "management has no horizontal overflow",
+          "pass": true
+        },
+        {
+          "name": "zero page/console errors",
+          "pass": true
+        },
+        {
+          "name": "loopback only",
+          "pass": true
+        }
+      ],
+      "errors": [],
+      "consoleErrors": [],
+      "externalOrigins": [],
+      "passed": true
+    },
+    {
+      "guildRole": "leader",
+      "device": "desktop",
+      "checks": [
+        {
+          "name": "current Guild context renders",
+          "pass": true
+        },
+        {
+          "name": "original approved hall loads",
+          "pass": true
+        },
+        {
+          "name": "responsive original hall variant",
+          "pass": true
+        },
+        {
+          "name": "original banner loads",
+          "pass": true
+        },
+        {
+          "name": "does not invent mission activity counts",
+          "pass": true
+        },
+        {
+          "name": "leader controls follow existing role",
+          "pass": true
+        },
+        {
+          "name": "no horizontal overflow",
+          "pass": true
+        },
+        {
+          "name": "management appearance cannot grant leader controls",
+          "pass": true
+        },
+        {
+          "name": "management hall is loaded before visual capture",
+          "pass": true
+        },
+        {
+          "name": "management has no horizontal overflow",
+          "pass": true
+        },
+        {
+          "name": "zero page/console errors",
+          "pass": true
+        },
+        {
+          "name": "loopback only",
+          "pass": true
+        }
+      ],
+      "errors": [],
+      "consoleErrors": [],
+      "externalOrigins": [],
+      "passed": true
+    },
+    {
+      "guildRole": "leader",
+      "device": "mobile",
+      "checks": [
+        {
+          "name": "current Guild context renders",
+          "pass": true
+        },
+        {
+          "name": "original approved hall loads",
+          "pass": true
+        },
+        {
+          "name": "responsive original hall variant",
+          "pass": true
+        },
+        {
+          "name": "original banner loads",
+          "pass": true
+        },
+        {
+          "name": "does not invent mission activity counts",
+          "pass": true
+        },
+        {
+          "name": "leader controls follow existing role",
+          "pass": true
+        },
+        {
+          "name": "no horizontal overflow",
+          "pass": true
+        },
+        {
+          "name": "management appearance cannot grant leader controls",
+          "pass": true
+        },
+        {
+          "name": "management hall is loaded before visual capture",
+          "pass": true
+        },
+        {
+          "name": "management has no horizontal overflow",
+          "pass": true
+        },
+        {
+          "name": "zero page/console errors",
+          "pass": true
+        },
+        {
+          "name": "loopback only",
+          "pass": true
+        }
+      ],
+      "errors": [],
+      "consoleErrors": [],
+      "externalOrigins": [],
+      "passed": true
+    }
+  ]
+}

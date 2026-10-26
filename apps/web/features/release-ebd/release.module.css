@@ -61,6 +61,27 @@
 .page li {
   margin: 8px 0;
 }
+.guildPageTitle {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+.guildScene {
+  margin: 24px 0;
+}
+@media (max-width: 1024px) {
+  .page .guildScene[data-guild-scene='active'] {
+    padding: 140px 10px 14px;
+    border: 1px solid #c9b78b;
+    border-radius: 18px;
+  }
+}
 .page table {
   width: 100%;
   border-collapse: collapse;

@@ -4,7 +4,9 @@ Data: 26/10/2026. PR [#11](https://github.com/CarlosJr30/rpgjovemcristao/pull/11
 
 ## Referência e comparação
 
-O usuário confirmou `5edc93f5857b26a59b183e8abfb963110831f90c` como referência principal. A imagem de14/10 foi enviada no ChatGPT, mas não está disponível neste turno; não alegamos comparação pixel a pixel com ela. A [galeria](../reviews/UI-RESTORE-002/index.html) compara uma reconstrução local de5edc93f com a proposta atual, usando o mesmo Viajante sintético e dimensões desktop1440×1000/celular390×844.
+**Atualização após a imagem recebida:** o usuário anexou a referência da Guilda/manejo em dois navegadores. A imagem está disponível nesta continuação e confirma salão medieval, banner, mesa do líder e painéis sobrepostos. A limitação abaixo descreve apenas a primeira entrega0703ef7. [Nova galeria da Guilda/EBD](../reviews/UI-RESTORE-002/guild-reference/index.html), com10capturas atuais adicionais e sem copiar nomes/IDs da imagem para fixtures.
+
+O usuário confirmou `5edc93f5857b26a59b183e8abfb963110831f90c` como referência principal. A imagem de14/10 ainda não estava disponível na primeira entrega e foi recebida na continuação. A [galeria inicial](../reviews/UI-RESTORE-002/index.html) preserva a reconstrução local de5edc93f e a proposta0703ef7, com o mesmo Viajante sintético e dimensões desktop1440×1000/celular390×844. A nova galeria acima incorpora a referência anexada; não alegamos comparação automatizada pixel a pixel com o anexo.
 
 A reconstrução usa uma worktree detached separada, dependências já instaladas, backendHTTP sintético e somente loopback. O ajuste isolado em `next.config.ts` da worktree histórica amplia a raiz Turbopack para resolver a junction de dependências; nenhum componente visual histórico foi editado. O patch de transporteRSC já instalado permanece na dependência compartilhada, sem efeito visual. Não é uma execução de gameplay hospedado nem uma nova fotografia de14/10. Turbopack inicialmente não resolveu a junction; Webpack rejeitou CSS global legado; o ajuste de raiz permitiu compilar a fonte visual original. Uma tentativa de captura na porta3198 foi rejeitada pelo simulador, que aceita exclusivamente3199; a captura final usou3199, sem mudar CORS do simulador ou da aplicação.
 
@@ -47,7 +49,7 @@ Auditoria **somente de leitura** no projetoPROD confirmado `wspafhlbtlpabypzymjo
 
 O conjunto adicional `auth.users` manteve12contas, mas seu hash completo variou durante a auditoria. Não houve escrita Auth nesta tarefa; **a causa dessa variação não foi determinada**. A contagem sozinha não prova identidade; a prova separada registra o hash dos identificadores e contas confirmadas em duas leituras. Não tratar variação de metadados Auth como perda comprovada nem declarar todo o banco byte a byte idêntico. Não há restauração/reset/migration ou tentativa de “corrigir” esse delta. Produção não recebeu código desta UI.
 
-## Testes e evidências
+## Testes e evidências da entrega inicial0703ef7
 
 | Verificação                                             | Resultado local                                                                                         |
 | ------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
@@ -71,8 +73,20 @@ QA/Security e revisão React realizados pelo próprio autor, sem alegar independ
 
 ## Aprovação e pendências
 
-**Sem aprovação visual; sem merge/publicação.** A galeria usa o commit principal confirmado pelo usuário; a imagem14/10 original permanece indisponível neste turno. O aceite estético pertence ao usuário. UI-MOBILE-001 ficaREWORK/não aprovada, preservando seu histórico e evidências.
+**Sem aprovação visual; sem merge/publicação.** A galeria inicial usa o commit principal confirmado; a nova galeria da Guilda incorpora a imagem posteriormente anexada. O aceite estético pertence ao usuário. UI-MOBILE-001 ficaREWORK/não aprovada, preservando seu histórico e evidências.
 
 Antes de qualquer publicação, aplicar `.agent/RELEASE_POLICY.md`:CI do SHA exato, Preview com backend correto, fluxos reais autorizados e gates de segurança/dados. Nenhuma migration é necessária para esta UI. Aprovação visual não aprova gameplay ou todo o conteúdo anterior da PR11. Os bloqueios anteriores de16XP/6moedas, catálogo/recompensas/positivos hospedados/Safari físico continuam registrados; esta tarefa não os fechou.
 
 Produção Guilda/EBD não foi alterada por esta tarefa; nenhum comando de deploy/promote/merge foi executado. Referência produtiva anterior808433a/URLoficial permanece apenas histórica, sem alegar novo READY remoto nesta auditoria. Tarefa **VALIDATING**, nãoDONE/DEPLOY_COMPLETE.
+
+## Continuação — salão medieval conforme a imagem anexada
+
+A imagem recebida revela a lacuna da proposta0703: a Guilda ainda usava seu container simplificado, embora as artes/componentes originais estivessem preservados. Reconectados **GuildHall, GuildHero e GuildArtwork**: salão responsivo, banner, emblema/fallback e mesa do líder, com o mesmo CSS verde/dourado e painéis sobrepostos. O `/journey/guild/manage` solicita a apresentação de gestão; ela só aparece quando o contexto atual já identifica o papel `leader`. A conta de membro continua sem controles de líder mesmo nessa URL. As ações existentes de convites/solicitações/membros e as chamadas do repositório permanecem as mesmas. A EBD recebe o mesmo salão como moldura visual, sem mudança de seus dados, papéis ou ações.
+
+O componenteHero pode omitir os contadores de missões quando eles não foram carregados pelo sistema atual. Não foram inventados zeros, aprovações, missões ou recompensas para reproduzir a imagem. A contagem de membros deriva exclusivamente da lista atual carregada. O comportamento antigo deHero com contadores fornecidos continua testado. A paisagem decorativa da Guilda aguarda o carregamento inicial de seus dados; controles/estados de carregamento permanecem no HTML.
+
+**Validação atual:**804unitPASS/74SKIPexistentes;lint/types/build/protocolo25PASS;24/24RSCappPASS e138checksgeraisPASS;4cenários positivos membro/líder×desktop/WebKitmóvel,48checksPASS, zero erros de página/console e nenhuma origem externa. O jobWindows existente agora exige também esses cenários. Build final confirmou9PNGs/10composições e isolamento de áudio, sem alteração das artes. Capturas aguardam `HTMLImageElement.decode()`; isso evita fotografar um fundo ainda não decodificado, sem editar imagens ou aplicar filtros de erro. Oito capturas positivas de Guilda/gestão e duas deEBD foram acrescentadas às21iniciais, preservadas como histórico.
+
+**Falhas preservadas:** a primeira rodada completa teve1/24execuçõesWebKit com erro de fetch cancelado em `guild_members`, durante substituição do documento;24/24fluxos chegaram ao fim,23/24sem erro. Essa rodada éFAIL e está preservada em `guild-reference/evidence/app-first-failed.json`. A matriz seguinte passou24/24sem erros. A apresentação passou a adiar decoração até os dados carregarem, mas **não se atribui causa definitiva nem correção geral do cancelamento de APIs a essa mudança**; Auth/CORS/fetch/repositórios/patchRSC permanecem intactos. A primeira matriz positiva também teve timeouts móveis antes de a Home terminar o bootstrap; o ensaio passou a aguardar o título pronto antes de abrir o menu. Preservada em `browser-first-failed.json`, sem relaxar assertions. Uma recaptura de ferramenta usou bundle sem variáveis sintéticas: foi refeita com build local explícito, sem alterar código/configuração deAuth ou ambiente remoto.
+
+QA/Security/revisãoReact pelo autor: diff vazio emlib/proxy/Auth/providers/packages/Supabase/migrations/assets/lockfile/patchRSC. A alteração de mocks é opt-in para os dois papéis, mantém o cenário padrão e o contratoCORSloopback. **Nenhuma consulta ou escrita remota adicional nesta continuação**, nenhum recurso pago, merge ou deploy. A prova de dados anterior permanece histórica; não foi substituída por uma alegação nova de hashes remotos. O anexo é referência visual, **não aprovação**. ResultadosCI do SHA desta continuação ficam registrados naPR11/Checks; não inferir deploy ou aprovação humana de CI verde.

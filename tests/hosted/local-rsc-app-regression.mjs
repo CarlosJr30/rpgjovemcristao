@@ -97,6 +97,18 @@ try {
       { cwd: root, env, stdio: 'inherit' },
     );
     assert.equal((await once(ui, 'exit'))[0], 0, 'Mobile UI regression failed');
+    if (restoration) {
+      const guild = spawn(
+        process.execPath,
+        [resolve(root, 'tests/hosted/guild-restoration-validation.mjs')],
+        { cwd: root, env, stdio: 'inherit' },
+      );
+      assert.equal(
+        (await once(guild, 'exit'))[0],
+        0,
+        'Guild visual restoration failed',
+      );
+    }
   }
 } finally {
   app.kill();

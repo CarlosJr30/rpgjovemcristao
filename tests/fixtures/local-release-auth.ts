@@ -4,6 +4,7 @@ import type { BrowserContext } from '@playwright/test';
 export async function mockLocalReleaseAuth(
   context: BrowserContext,
   origin: string,
+  options: { guildRole?: 'leader' | 'member' } = {},
 ) {
   if (origin !== 'http://127.0.0.1:3199')
     throw new Error('Loopback fixture required');
@@ -68,6 +69,68 @@ export async function mockLocalReleaseAuth(
       if (endpoint === 'wallets') data = { traveler_id: travelerId, coins: 0 };
       if (endpoint === 'guild_members' || endpoint === 'guild_join_requests')
         data = null;
+      if (options.guildRole) {
+        const guildId = '20000000-0000-4000-8000-000000000001';
+        const leaderId =
+          options.guildRole === 'leader'
+            ? travelerId
+            : '10000000-0000-4000-8000-000000000001';
+        if (endpoint === 'guild_members') {
+          const membership = {
+            id: '30000000-0000-4000-8000-000000000001',
+            guild_id: guildId,
+            traveler_id: travelerId,
+            role: options.guildRole,
+            status: 'active',
+            joined_at: date,
+            updated_at: date,
+          };
+          data = req.headers().accept?.includes('object')
+            ? membership
+            : [membership];
+        }
+        if (endpoint === 'guilds') {
+          const guild = {
+            id: guildId,
+            name: 'Companheiros da Jornada',
+            description: 'Comunidade sintética para revisão visual',
+            created_by_user_id: user.id,
+            leader_traveler_id: leaderId,
+            status: 'active',
+            created_at: date,
+            updated_at: date,
+          };
+          data = req.headers().accept?.includes('object') ? guild : [guild];
+        }
+        if (endpoint === 'list_guild_members')
+          data = [
+            {
+              traveler_id: leaderId,
+              traveler_name: 'Liderança local',
+              role: 'leader',
+              member_status: 'active',
+              joined_at: date,
+            },
+            {
+              traveler_id:
+                options.guildRole === 'member'
+                  ? travelerId
+                  : '10000000-0000-4000-8000-000000000002',
+              traveler_name: 'Viajante local',
+              role: 'member',
+              member_status: 'active',
+              joined_at: date,
+            },
+            {
+              traveler_id: '10000000-0000-4000-8000-000000000004',
+              traveler_name: 'Companheiro local',
+              role: 'member',
+              member_status: 'active',
+              joined_at: date,
+            },
+          ];
+        if (endpoint === 'list_guild_join_requests') data = [];
+      }
       if (endpoint === 'guild_ebd_workspace')
         data = {
           version: 1,
