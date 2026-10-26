@@ -92,7 +92,7 @@ try {
       );
       check(
         'only the six approved consultation and guild modules are linked',
-        JSON.stringify(await nav.getByRole('link').evaluateAll(links => links.map(link => link.getAttribute('href')))) ===
+        JSON.stringify(await nav.locator('a[href]').evaluateAll(links => links.map(link => link.getAttribute('href')))) ===
           JSON.stringify(['/journey/hero','/journey/backpack','/journey/collection','/journey/diary','/journey/guild','/journey/guild/ebd']),
       );
       const trigger = page.getByRole('button', {

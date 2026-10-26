@@ -49,3 +49,9 @@ QA/Security/Frontend/Database/DevOps pelo autor; não se alega revisão independ
 - Produção segue https://rpgjovemcristao-web-inky.vercel.app, baseline `1a82d2c`; nenhuma migration, merge ou deploy desta tarefa até este checkpoint.
 
 Próximos passos: GitHub/CI; aplicar apenas a leitura em TEST; Preview exata com TEST; Auth/RLS e três consultas reais vazias, desktop/WebKit e negações econômicas; preservação e Security. Se os gates passarem, migration PROD mínima, merge normal da PR própria e acompanhamento do deploy automático, com READY/SHA/backend/alias e conferências de consulta. PR #12 não será integrada ou encerrada como dependência desta tarefa.
+
+### Rework do gate de navegação e matriz isolada
+
+[PR #13](https://github.com/CarlosJr30/rpgjovemcristao/pull/13) aberta em draft, sem alteração da #12. Runtime `620c608875924d9d9ef6fa137e4991ba8b5832cc`: CI push 40401370646 aprovou qualidade, mas o job móvel ainda exigia oito módulos bloqueados. Commit de teste `b7d1718` passou a exigir cinco bloqueios e seis links exatos; a execução local identificou que a consulta por role excluía os links do menu recolhido no celular. O seletor agora inspeciona todos os anchors da navegação, mantendo separadas as verificações de visibilidade, foco e abertura do menu. Não há relaxamento de erros ou de guardas de rotas.
+
+Matriz isolada posterior: **24/24 casos RSC** funcionais e sem erros; **142 checks de interface** em desktop, WebKit 390px, WebKit 320px e paisagem, todos aprovados; **48 checks Guilda** em membro/líder e desktop/celular, aprovados. Esses testes usam simulador local e são explicitamente **syntheticData / productionProof=false**, não evidência hospedada. Uma primeira execução RSC local registrou erro de fetch no WebKit; a falha foi preservada, e a reexecução passou sem alteração de Auth/CORS ou filtragem de erros. Logs em build/rpg-dev-007. CI do novo candidato ainda precisa de confirmação antes das etapas remotas.
