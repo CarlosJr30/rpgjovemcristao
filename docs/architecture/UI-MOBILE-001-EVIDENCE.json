@@ -71,5 +71,6 @@
     "mobile-validated.png": "6adbcdb12a3de3405c3655cbbe68acf245478ddeb8e132b23dc9b2dee80fcfff",
     "README.md": "2bcbf0a9139902c5ca74eb400cdb2427971b5fd78388c1b3ce444b419d9d6592",
     "small-mobile-validated.png": "85ae79e2814ff1423a96851d0ad5be6a6b84ef2a91b67373d640bc01b112e6f3"
-  }
+  },
+  "hashEncoding": "Git canonical blobs (LF for text), raw bytes for PNG"
 }

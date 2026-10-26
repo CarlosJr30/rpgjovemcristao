@@ -23,3 +23,13 @@ ACCEPTANCE_CRITERIA:
   DEFINITION_OF_DONE: Implementação e validações aprovadas, aprovação visual registrada e publicação posterior conforme política/gates aplicáveis. Até aprovação: VALIDATING/PENDING_VISUAL_APPROVAL com produção inalterada, evidências e memória atualizadas; falhas técnicas exigem REWORK.
 
 INITIAL_STATE: Worktree limpa em1b65cba178bb2156f70c737a31b00f25a5babfdc, PR11aberta/draft/base808433a. 798PASS74SKIP anteriores; patchNextRSC005 e aprovações9PNGs/10composições existentes preservados. RootD possui alterações anteriores alheias que não serão sobrescritas.
+
+IMPLEMENTATION: Candidato033c690867bbad456012eb25431b003e91b3da2e na mesma PR11. Shell original em variante released com4rotas autorizadas, home/avatares originais, Guilda/EBD dentro do menu, foco/scroll/teclado/touch móveis. Nenhum sistemaAuth/DB/economia reativado. Galeria docs/reviews/UI-MOBILE-001/index.html com25PNGs sintéticos antes/depois.
+
+SELF_VALIDATION: PASS801unit/74SKIPexistentes, lint/types/build e protocolo25;63fixtureRSC/24aplicação completa sem erros; duas matrizes4telas/122checksPASS, negativasHTTP403/autoridade403. Primeiro ensaio de recuperaçãoFAIL preservado; aguardou-se hidratação no ensaio, sem alterar Auth. Build confirmou9PNGs/10composições aprovadas. Evidências/logs/hashes em docs/architecture/UI-MOBILE-001-EVIDENCE.json e docs/reviews/UI-MOBILE-001/evidence.
+
+QA_REVIEW: Pelo próprio autor. PASS técnico local e inspeção das capturas; homologação visual humana ainda pendente. Não equivale a Safari físico ou validação de backend real desta UI.
+
+SECURITY_REVIEW: Pelo próprio autor. PASS no escopo de apresentação: diff vazio em lib/proxy/Auth/providers/packages/Supabase/migrations/lockfile/assets/patchRSC; allowlist e GAMEPLAY_ENABLED=false intactos. Zero acessoDB/grants/contas/XP/moedas/dadosreais/novasdependências/recursospagos. Histórico004/005 preservado.
+
+ACCEPTANCE: Implementação local e capturas entregues; CI runtime033c690push40253969931/PR40253973573completed/success,primeiratentativa. Checks do head documental final registrados na PR, sem mudan?a de runtime. PENDING_VISUAL_APPROVAL, sem aceite humano. Sem merge/deploy; após aprovação seguir RELEASE_POLICY com Preview/fluxosreais/gates antes de produção. Bloqueios anteriores de gameplay permanecem. STATUS permanece VALIDATING, não DONE/DEPLOY_COMPLETE.

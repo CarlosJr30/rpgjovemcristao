@@ -35,7 +35,7 @@ Os testes usam o bundle de produção completo e servidor HTTP Auth/API sintéti
 
 Uma primeira rodada do novo ensaio móvel falhou ao consultar o formulário de recuperação imediatamente após `goto`, antes da hidratação, sem erros de página/console; foi corrigida para aguardar o título visível e preservada em `browser-first-failed.json`. O login dos ensaios existentes também aguarda o botão habilitado antes de preencher, respeitando o bootstrap já existente. Não houve alteração no código Auth nem relaxamento das assertions RSC ou dos403.
 
-CI configurado para executar todos os gates anteriores e acrescentar a matriz móvel ao job Windows. O resultado remoto do candidato será registrado na PR e na atualização final deste relatório; não inferir PASS de CI a partir dos resultados locais.
+CI do candidato runtime `033c690867bbad456012eb25431b003e91b3da2e`: [push40253969931](https://github.com/CarlosJr30/rpgjovemcristao/actions/runs/40253969931) e [PR40253973573](https://github.com/CarlosJr30/rpgjovemcristao/actions/runs/40253973573), ambos **completed/success**, primeira tentativa. Ambos os jobs obrigatórios passaram: unitários/lint/tipos/build e Windows com48controles nativos/63casos corrigidos/24execuções da aplicação/matriz móvel122checks. Preview automático foi skipped pela política da branch; isso não equivale a deploy. A atualização documental seguinte não modifica o runtime; os checks do head final ficam registrados na PR11.
 
 ## Segurança e preservação
 
