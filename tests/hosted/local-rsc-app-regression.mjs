@@ -8,7 +8,12 @@ import { resolve } from 'node:path';
 // credentials, modified Auth/RLS rules, external services or fixture-only UI.
 const root = resolve(import.meta.dirname, '../..');
 const mobileReview = process.argv.includes('--ui-mobile');
-const prefix = mobileReview ? 'ui-mobile-001-' : '';
+const restoration = process.argv.includes('--restore');
+const prefix = restoration
+  ? 'ui-restore-002-'
+  : mobileReview
+    ? 'ui-mobile-001-'
+    : '';
 const base = resolve(root, 'build/rpg-dev-005');
 mkdirSync(base, { recursive: true });
 const env = Object.fromEntries(
@@ -85,7 +90,10 @@ try {
   if (mobileReview) {
     const ui = spawn(
       process.execPath,
-      [resolve(root, 'tests/hosted/ui-mobile-validation.mjs')],
+      [
+        resolve(root, 'tests/hosted/ui-mobile-validation.mjs'),
+        ...(restoration ? ['--restore'] : []),
+      ],
       { cwd: root, env, stdio: 'inherit' },
     );
     assert.equal((await once(ui, 'exit'))[0], 0, 'Mobile UI regression failed');

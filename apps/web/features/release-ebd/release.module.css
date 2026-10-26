@@ -189,6 +189,34 @@
   min-width: 0;
   min-height: 420px;
 }
+.page .sanctuaryAvatar {
+  width: 264px;
+  max-width: 100%;
+  filter: drop-shadow(0 16px 12px #07131788);
+}
+.page [class*='heroTop'] h2 {
+  font:
+    clamp(1.8rem, 3vw, 2.6rem) Georgia,
+    serif;
+  color: #f5e7b5;
+  margin: 8px 0;
+}
+.page [class*='statStrip'] dt {
+  color: #c5d4bf;
+  font-size: 12px;
+}
+.page [class*='statStrip'] dd {
+  font:
+    32px Georgia,
+    serif;
+  color: #ecd391;
+  margin: 8px 0;
+}
+@media (max-width: 800px) {
+  .page .sanctuaryAvatar {
+    width: 200px;
+  }
+}
 .avatarStage .fullAvatar {
   width: min(270px, 100%);
   z-index: 1;

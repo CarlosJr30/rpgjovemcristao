@@ -104,17 +104,33 @@ describe('original shell within the released interface', () => {
       screen.getByRole('navigation', { name: 'Navegação principal' }),
     ).getAllByRole('link');
     expect(links.map((link) => link.getAttribute('href'))).toEqual([
-      '/journey',
       '/journey/hero',
       '/journey/guild',
       '/journey/guild/ebd',
     ]);
     expect(links.map((link) => link.textContent)).toEqual([
-      'Início',
-      'Meu avatar',
+      'Herói',
       'Guilda',
       'EBD',
     ]);
+    const nav = screen.getByRole('navigation', { name: 'Navegação principal' });
+    const blocked = nav.querySelectorAll('[aria-disabled="true"]');
+    expect(blocked).toHaveLength(8);
+    expect(Array.from(blocked).map((item) => item.textContent)).toEqual([
+      'JornadaEm desenvolvimento',
+      'MissõesEm desenvolvimento',
+      'EquipamentosEm desenvolvimento',
+      'MochilaEm desenvolvimento',
+      'LojaEm desenvolvimento',
+      'ColeçãoEm desenvolvimento',
+      'DiárioEm desenvolvimento',
+      'ArenaEm desenvolvimento',
+    ]);
+    for (const item of blocked) {
+      expect(item.querySelector('a,button')).toBeNull();
+      fireEvent.click(item);
+    }
+    expect(mocks.replace).not.toHaveBeenCalled();
     expect(
       screen.queryByRole('navigation', { name: 'Navegação do jogo' }),
     ).not.toBeInTheDocument();
@@ -130,7 +146,7 @@ describe('original shell within the released interface', () => {
     const close = within(dialog).getByRole('button', {
       name: 'Fechar navegação',
     });
-    expect(within(dialog).getByRole('link', { name: 'Início' })).toHaveFocus();
+    expect(within(dialog).getByRole('link', { name: 'Herói' })).toHaveFocus();
     expect(document.body.style.overflow).toBe('hidden');
     expect(screen.getByRole('main', { hidden: true })).toHaveAttribute('inert');
     last.focus();

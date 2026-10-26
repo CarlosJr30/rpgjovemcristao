@@ -1,0 +1,110 @@
+{
+  "syntheticData": true,
+  "productionProof": false,
+  "runs": [
+    {
+      "name": "desktop",
+      "checks": [
+        {
+          "name": "current account login works",
+          "pass": true
+        },
+        {
+          "name": "no blocked route exposed by restored home",
+          "pass": true
+        },
+        {
+          "name": "home contains no large navigation card grid",
+          "pass": true
+        },
+        {
+          "name": "one original navigation with eleven modules",
+          "pass": false
+        }
+      ],
+      "errors": [],
+      "consoleErrors": [],
+      "externalOrigins": [],
+      "passed": false,
+      "failure": "one original navigation with eleven modules"
+    },
+    {
+      "name": "mobile",
+      "checks": [
+        {
+          "name": "current account login works",
+          "pass": true
+        },
+        {
+          "name": "no blocked route exposed by restored home",
+          "pass": true
+        },
+        {
+          "name": "home contains no large navigation card grid",
+          "pass": true
+        },
+        {
+          "name": "one original navigation with eleven modules",
+          "pass": false
+        }
+      ],
+      "errors": [],
+      "consoleErrors": [],
+      "externalOrigins": [],
+      "passed": false,
+      "failure": "one original navigation with eleven modules"
+    },
+    {
+      "name": "small-mobile",
+      "checks": [
+        {
+          "name": "current account login works",
+          "pass": true
+        },
+        {
+          "name": "no blocked route exposed by restored home",
+          "pass": true
+        },
+        {
+          "name": "home contains no large navigation card grid",
+          "pass": true
+        },
+        {
+          "name": "one original navigation with eleven modules",
+          "pass": false
+        }
+      ],
+      "errors": [],
+      "consoleErrors": [],
+      "externalOrigins": [],
+      "passed": false,
+      "failure": "one original navigation with eleven modules"
+    },
+    {
+      "name": "landscape",
+      "checks": [
+        {
+          "name": "current account login works",
+          "pass": true
+        },
+        {
+          "name": "no blocked route exposed by restored home",
+          "pass": true
+        },
+        {
+          "name": "home contains no large navigation card grid",
+          "pass": true
+        },
+        {
+          "name": "one original navigation with eleven modules",
+          "pass": false
+        }
+      ],
+      "errors": [],
+      "consoleErrors": [],
+      "externalOrigins": [],
+      "passed": false,
+      "failure": "one original navigation with eleven modules"
+    }
+  ]
+}

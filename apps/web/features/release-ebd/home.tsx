@@ -8,12 +8,7 @@ import { listTravelersForCurrentSession } from '../../lib/supabase/online-sync';
 import { AvatarRuntime } from '../journey/components/avatar-runtime';
 import { Landscape } from '../journey/components/landscape';
 import original from '../journey/journey.module.css';
-import { ATTRIBUTE_KEYS } from '../journey/domain/traveler';
-import type { Traveler } from '../journey/domain/traveler';
-import {
-  ATTRIBUTE_LABELS,
-  calculateTotalAttributes,
-} from '../journey/data/attributes';
+import { ReleasedSanctuary } from './sanctuary';
 import { ReleaseShell } from './shell';
 import css from './release.module.css';
 export function ReleaseHome() {
@@ -78,7 +73,7 @@ export function ReleaseHome() {
             <p className={original.eyebrow}>SEU CAMINHO CONTINUA</p>
             <h1>Bem-vindo, {state.traveler.name}</h1>
           </header>
-          <TravelerPresentation traveler={state.traveler} home />
+          <ReleasedSanctuary traveler={state.traveler} home />
         </>
       ) : (
         <section className={css.card}>
@@ -110,63 +105,10 @@ export function ReleaseAvatar() {
   return (
     <ReleaseShell>
       {state.status === 'ready' ? (
-        <TravelerPresentation traveler={state.traveler} />
+        <ReleasedSanctuary traveler={state.traveler} />
       ) : (
         <Link href="/journey">Escolher Viajante</Link>
       )}
     </ReleaseShell>
-  );
-}
-
-function TravelerPresentation({
-  traveler,
-  home = false,
-}: {
-  traveler: Traveler;
-  home?: boolean;
-}) {
-  const attributes = calculateTotalAttributes(traveler);
-  return (
-    <section
-      className={`${original.heroWorld} ${css.travelerPresentation}`}
-      aria-label={home ? 'Seu Viajante' : 'Meu avatar'}
-    >
-      <div className={css.travelerCopy}>
-        <p className={css.kicker}>
-          {home ? 'SEU VIAJANTE' : 'SANTUÁRIO DO VIAJANTE'}
-        </p>
-        {home ? <h2>{traveler.name}</h2> : <h1>{traveler.name}</h1>}
-        <p className={css.level}>Viajante · Nível {traveler.level}</p>
-        <p className={css.travelerDescription}>
-          Continue com sua Guilda e a Escola Bíblica.
-        </p>
-        <dl className={css.progressReadout} aria-label="Progresso do Viajante">
-          <div>
-            <dt>Nível</dt>
-            <dd>{traveler.level}</dd>
-          </div>
-          <div>
-            <dt>Experiência</dt>
-            <dd>{traveler.xp} XP</dd>
-          </div>
-        </dl>
-        {!home && (
-          <dl className={css.attributes} aria-label="Atributos do Viajante">
-            {ATTRIBUTE_KEYS.map((key) => (
-              <div key={key}>
-                <dt>{ATTRIBUTE_LABELS[key]}</dt>
-                <dd>{attributes.total[key]}</dd>
-              </div>
-            ))}
-          </dl>
-        )}
-        <p className={css.menuHint}>Guilda e EBD estão no menu principal.</p>
-      </div>
-      <div className={css.avatarStage}>
-        <span className={css.avatarHalo} aria-hidden="true" />
-        <AvatarRuntime traveler={traveler} className={css.fullAvatar} />
-        <span className={css.avatarShadow} aria-hidden="true" />
-      </div>
-    </section>
   );
 }

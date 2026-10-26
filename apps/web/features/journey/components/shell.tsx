@@ -49,11 +49,21 @@ const primaryLinks = [
   ['arena', 'Arena', '⚔'],
 ] as const;
 const releasedLinks = [
-  { id: 'home', label: 'Início', href: '/journey', icon: 'map' },
-  { id: 'hero', label: 'Meu avatar', href: '/journey/hero', icon: 'hero' },
-  { id: 'guild', label: 'Guilda', href: '/journey/guild', icon: 'guild' },
-  { id: 'ebd', label: 'EBD', href: '/journey/guild/ebd', icon: 'diary' },
-] as const;
+  ...primaryLinks.map(([id, label]) => ({
+    id,
+    label,
+    href: routes[id],
+    icon: id,
+    available: id === 'hero' || id === 'guild',
+  })),
+  {
+    id: 'ebd',
+    label: 'EBD',
+    href: '/journey/guild/ebd',
+    icon: 'diary',
+    available: true,
+  } as const,
+];
 
 export function Shell({
   children,
@@ -80,6 +90,7 @@ export function Shell({
         label,
         href: routes[id],
         icon: id,
+        available: true,
       }));
   const audioPreferences = useGameAudio(
     pathname ?? '/',
@@ -484,24 +495,40 @@ export function Shell({
               </button>
             )}
             <nav aria-label="Navegação principal">
-              {links.map(({ id, label, href, icon }) => (
-                <Link
-                  key={id}
-                  href={href}
-                  aria-current={
-                    pathname === href ||
-                    (released && id === 'home' && pathname === '/')
-                      ? 'page'
-                      : undefined
-                  }
-                  onClick={() => setMenuOpen(false)}
-                >
-                  <i aria-hidden="true">
-                    <JourneyIcon name={icon} />
-                  </i>
-                  {label}
-                </Link>
-              ))}
+              {links.map(({ id, label, href, icon, available }) =>
+                !available ? (
+                  <div
+                    key={id}
+                    className={styles.developmentNavItem}
+                    aria-disabled="true"
+                  >
+                    <i aria-hidden="true">
+                      <JourneyIcon name={icon} />
+                    </i>
+                    <span>
+                      {label}
+                      <small>Em desenvolvimento</small>
+                    </span>
+                  </div>
+                ) : (
+                  <Link
+                    key={id}
+                    href={href}
+                    aria-current={
+                      pathname === href ||
+                      (released && id === 'hero' && pathname === '/')
+                        ? 'page'
+                        : undefined
+                    }
+                    onClick={() => setMenuOpen(false)}
+                  >
+                    <i aria-hidden="true">
+                      <JourneyIcon name={icon} />
+                    </i>
+                    {label}
+                  </Link>
+                ),
+              )}
             </nav>
           </aside>
         )}

@@ -7,7 +7,9 @@ import { navigateReleased, accountAction } from './released-navigation.mjs';
 
 // Full production application, loopback-only synthetic data. Never hosted users.
 const origin = 'http://127.0.0.1:3199';
-const base = 'build/ui-mobile-001';
+const base = process.argv.includes('--restore')
+  ? 'build/ui-restore-002'
+  : 'build/ui-mobile-001';
 mkdirSync(base, { recursive: true });
 const simulator = await startLocalAuthSimulator();
 const result = { syntheticData: true, productionProof: false, runs: [] };
@@ -76,6 +78,18 @@ try {
         'home contains no large navigation card grid',
         (await page.getByRole('main').getByRole('link').count()) === 0,
       );
+      const nav = page.locator('nav[aria-label="Navegação principal"]');
+      check(
+        'one original navigation with eleven modules',
+        (await nav.evaluate((element) => element.children.length)) === 11,
+      );
+      check(
+        'eight development modules have no protected actions',
+        (await nav.locator('[aria-disabled="true"]').count()) === 8 &&
+          (await nav
+            .locator('[aria-disabled="true"] a,[aria-disabled="true"] button')
+            .count()) === 0,
+      );
       const trigger = page.getByRole('button', {
         name: 'Abrir menu',
         exact: true,
@@ -90,7 +104,7 @@ try {
         const menu = page.getByRole('dialog', { name: 'Menu principal' });
         await expect(menu).toBeVisible();
         await expect(
-          menu.getByRole('link', { name: 'Início', exact: true }),
+          menu.getByRole('link', { name: 'Herói', exact: true }),
         ).toBeFocused();
         check('menu opens with keyboard focus', true);
         check(
@@ -99,6 +113,7 @@ try {
         );
         const close = menu.getByRole('button', { name: 'Fechar navegação' });
         const last = menu.getByRole('link', { name: 'EBD', exact: true });
+        await last.scrollIntoViewIfNeeded();
         await last.focus();
         await page.keyboard.press('Tab');
         await expect(close).toBeFocused();
@@ -184,6 +199,8 @@ try {
         '/journey/shop',
         '/journey/backpack',
         '/journey/diary',
+        '/journey/collection',
+        '/journey/phases/o-jardim-e-a-escolha',
         '/journey/stories/blocked',
         '/journey/worlds/blocked',
       ]) {

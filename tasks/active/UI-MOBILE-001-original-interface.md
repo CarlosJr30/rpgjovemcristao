@@ -4,7 +4,7 @@ ID: UI-MOBILE-001
 TITLE: Recuperar o visual anterior ao RELEASE-EBD-001 com menu móvel funcional
 OBJECTIVE: Restaurar layout/cabeçalho/paleta/navegação/apresentação do avatar, preservando os sistemas e fronteiras atuais; entregar capturas antes/depois para aprovação visual.
 PRIORITY: P1 High
-STATUS: VALIDATING
+STATUS: REWORK
 SCOPE: Mesma PR11/branch codex/rpg-dev-001, base1b65cba; apresentação em apps/web/features/release-ebd e componentes/estilos originais da Jornada; menu original com Guilda/EBD e somente rotas autorizadas; testes, screenshots, relatório/CI/memória. Referência inicial5edc93f, primeiro pai de808433a (pré-lançamento). Reutilizar artes/componentes atuais sem reverter aprovações ou o patchRSC005.
 OUT_OF_SCOPE: Publicação produtiva/merge antes da aprovação visual explícita; reativar economia/Arena/Torre/História/equipamentos ou outras rotas bloqueadas; modificar cadastro/Auth/RLS/CORS/proteções/migrations/dados/regras/recompensas; novas dependências ou recursos pagos; reverter commits integralmente.
 DEPENDENCIES: PR11 e evidênciasRPG-DEV-005; RELEASE_POLICY; aprovação visual do usuário antes de produção.
@@ -23,6 +23,8 @@ ACCEPTANCE_CRITERIA:
   DEFINITION_OF_DONE: Implementação e validações aprovadas, aprovação visual registrada e publicação posterior conforme política/gates aplicáveis. Até aprovação: VALIDATING/PENDING_VISUAL_APPROVAL com produção inalterada, evidências e memória atualizadas; falhas técnicas exigem REWORK.
 
 INITIAL_STATE: Worktree limpa em1b65cba178bb2156f70c737a31b00f25a5babfdc, PR11aberta/draft/base808433a. 798PASS74SKIP anteriores; patchNextRSC005 e aprovações9PNGs/10composições existentes preservados. RootD possui alterações anteriores alheias que não serão sobrescritas.
+
+USER_DECISION_2026_10_26: Proposta parcial NÃO aprovada. Continuação substituída por UI-RESTORE-002, menu completo com módulos não homologados visíveis Em desenvolvimento e sem operações. Evidências anteriores preservadas; não publicar esta proposta.
 
 IMPLEMENTATION: Candidato033c690867bbad456012eb25431b003e91b3da2e na mesma PR11. Shell original em variante released com4rotas autorizadas, home/avatares originais, Guilda/EBD dentro do menu, foco/scroll/teclado/touch móveis. Nenhum sistemaAuth/DB/economia reativado. Galeria docs/reviews/UI-MOBILE-001/index.html com25PNGs sintéticos antes/depois.
 
