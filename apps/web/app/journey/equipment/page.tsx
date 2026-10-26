@@ -1,4 +1,9 @@
 import { EquipmentScreen } from '../../../features/journey/screens/equipment';
+import { ReleaseAccess } from '../../../features/release-ebd/shell';
 export default function Page() {
-  return <EquipmentScreen />;
+  return (
+    <ReleaseAccess>
+      <EquipmentScreen serverConfirmedOnly />
+    </ReleaseAccess>
+  );
 }

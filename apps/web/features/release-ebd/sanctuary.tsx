@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import type { Traveler } from '../journey/domain/traveler';
 import { ATTRIBUTE_KEYS } from '../journey/domain/traveler';
 import {
@@ -97,7 +98,7 @@ export function ReleasedSanctuary({
           </div>
         </div>
         <p className={styles.heroEquipmentNote}>
-          Equipamentos · Em desenvolvimento
+          <Link href="/journey/equipment">Gerenciar equipamentos →</Link>
         </p>
         <div className={styles.heroBottom}>
           <section>

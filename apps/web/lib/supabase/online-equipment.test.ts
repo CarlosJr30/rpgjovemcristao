@@ -56,7 +56,7 @@ it('unequips on the same RPC without an inventory removal or economic snapshot',
     p_expected_item_id: 'traveler-boots',
   });
 });
-it.each(['42501', '40001', 'PGRST202'])(
+it.each(['42501', '40001', 'PT409', 'PGRST202'])(
   'does not update cache on denied, stale or missing RPC (%s)',
   async (code) => {
     rpc.mockResolvedValueOnce({ error: { code } });

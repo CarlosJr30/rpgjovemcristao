@@ -1,0 +1,62 @@
+{
+  "environment": "TEST",
+  "userId": "575d92d9-2e5b-4fdc-8e02-3a4a096285a9",
+  "realClientSession": true,
+  "checks": [
+    {
+      "name": "TEST verified nonanonymous user",
+      "passed": true
+    },
+    {
+      "name": "TEST identity differs from protected production UID",
+      "passed": true
+    },
+    {
+      "name": "TEST email confirmation completed",
+      "passed": true
+    },
+    {
+      "name": "owned traveler query permitted by real session",
+      "passed": true
+    },
+    {
+      "name": "application recognizes signed-in session",
+      "passed": true
+    },
+    {
+      "name": "signed-in session persists after reload",
+      "passed": true
+    },
+    {
+      "name": "foreign inventory denied by RLS",
+      "passed": true
+    },
+    {
+      "name": "foreign equipment operation denied",
+      "passed": true
+    },
+    {
+      "name": "same verified session accepted in WebKit mobile",
+      "passed": true
+    },
+    {
+      "name": "WebKit session persists after reload",
+      "passed": true
+    },
+    {
+      "name": "no mobile page errors",
+      "passed": true
+    },
+    {
+      "name": "no manual browser page errors",
+      "passed": true
+    },
+    {
+      "name": "no traveler creation or changes",
+      "passed": true
+    }
+  ],
+  "passed": true,
+  "gameDataMutated": false,
+  "ownedTravelers": 0
+}
