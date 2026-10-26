@@ -6,6 +6,14 @@ import { useAuth } from '../../lib/supabase/auth-context';
 import { useJourney, resumeJourney } from '../journey/state/use-journey';
 import { listTravelersForCurrentSession } from '../../lib/supabase/online-sync';
 import { AvatarRuntime } from '../journey/components/avatar-runtime';
+import { Landscape } from '../journey/components/landscape';
+import original from '../journey/journey.module.css';
+import { ATTRIBUTE_KEYS } from '../journey/domain/traveler';
+import type { Traveler } from '../journey/domain/traveler';
+import {
+  ATTRIBUTE_LABELS,
+  calculateTotalAttributes,
+} from '../journey/data/attributes';
 import { ReleaseShell } from './shell';
 import css from './release.module.css';
 export function ReleaseHome() {
@@ -29,37 +37,48 @@ export function ReleaseHome() {
       {auth.status === 'loading' || state.status === 'loading' ? (
         <p role="status">Preparando seu acesso…</p>
       ) : auth.status !== 'signedIn' ? (
-        <section className={css.card}>
-          <h1>Aprenda e caminhe com sua Guilda</h1>
-          <p>
-            Crie seu avatar, participe da sua comunidade e acompanhe aulas e
-            atividades da Escola Bíblica Dominical.
-          </p>
-          <Link href="/auth">Entrar ou criar conta</Link>
+        <section className={original.hero} aria-labelledby="home-title">
+          <div className={original.heroCopy}>
+            <p className={original.eyebrow}>
+              <span /> A AVENTURA ESTÁ APENAS COMEÇANDO
+            </p>
+            <h1
+              id="home-title"
+              className={original.homeTitle}
+              aria-label="RPG Jovem Cristão"
+            >
+              RPG
+              <br />
+              Jovem Cristão
+              <span className={original.titleStar} aria-hidden="true">
+                ✦
+              </span>
+            </h1>
+            <p className={original.heroLead}>
+              Grandes histórias.
+              <br />
+              <em>Uma jornada sua.</em>
+            </p>
+            <p className={original.description}>
+              Crie seu Viajante, encontre sua Guilda e acompanhe a Escola
+              Bíblica Dominical.
+            </p>
+            <Link className={css.entryAction} href="/auth">
+              Entrar ou criar conta <span aria-hidden="true">↗</span>
+            </Link>
+          </div>
+          <div className={original.heroArt}>
+            <Landscape className={original.landscape} />
+            <div className={original.artFrame} />
+          </div>
         </section>
       ) : state.status === 'ready' ? (
         <>
-          <section className={css.card}>
+          <header className={css.welcome}>
+            <p className={original.eyebrow}>SEU CAMINHO CONTINUA</p>
             <h1>Bem-vindo, {state.traveler.name}</h1>
-            <p>Continue com sua Guilda e a Escola Bíblica.</p>
-          </section>
-          <div className={css.grid}>
-            <section className={css.card}>
-              <h2>Minha Guilda</h2>
-              <p>Participe por convite ou crie sua comunidade.</p>
-              <Link href="/journey/guild">Acessar Guilda</Link>
-            </section>
-            <section className={css.card}>
-              <h2>Escola Bíblica Dominical</h2>
-              <p>Aulas, atividades, agenda e presença.</p>
-              <Link href="/journey/guild/ebd">Acessar EBD</Link>
-            </section>
-            <section className={css.card}>
-              <h2>Meu avatar</h2>
-              <AvatarRuntime traveler={state.traveler} mode="card" />
-              <Link href="/journey/hero">Ver avatar</Link>
-            </section>
-          </div>
+          </header>
+          <TravelerPresentation traveler={state.traveler} home />
         </>
       ) : (
         <section className={css.card}>
@@ -91,16 +110,63 @@ export function ReleaseAvatar() {
   return (
     <ReleaseShell>
       {state.status === 'ready' ? (
-        <section className={css.card}>
-          <h1>{state.traveler.name}</h1>
-          <div className={css.avatar}>
-            <AvatarRuntime traveler={state.traveler} />
-          </div>
-          <Link href="/journey/create">Criar outro Viajante</Link>
-        </section>
+        <TravelerPresentation traveler={state.traveler} />
       ) : (
         <Link href="/journey">Escolher Viajante</Link>
       )}
     </ReleaseShell>
+  );
+}
+
+function TravelerPresentation({
+  traveler,
+  home = false,
+}: {
+  traveler: Traveler;
+  home?: boolean;
+}) {
+  const attributes = calculateTotalAttributes(traveler);
+  return (
+    <section
+      className={`${original.heroWorld} ${css.travelerPresentation}`}
+      aria-label={home ? 'Seu Viajante' : 'Meu avatar'}
+    >
+      <div className={css.travelerCopy}>
+        <p className={css.kicker}>
+          {home ? 'SEU VIAJANTE' : 'SANTUÁRIO DO VIAJANTE'}
+        </p>
+        {home ? <h2>{traveler.name}</h2> : <h1>{traveler.name}</h1>}
+        <p className={css.level}>Viajante · Nível {traveler.level}</p>
+        <p className={css.travelerDescription}>
+          Continue com sua Guilda e a Escola Bíblica.
+        </p>
+        <dl className={css.progressReadout} aria-label="Progresso do Viajante">
+          <div>
+            <dt>Nível</dt>
+            <dd>{traveler.level}</dd>
+          </div>
+          <div>
+            <dt>Experiência</dt>
+            <dd>{traveler.xp} XP</dd>
+          </div>
+        </dl>
+        {!home && (
+          <dl className={css.attributes} aria-label="Atributos do Viajante">
+            {ATTRIBUTE_KEYS.map((key) => (
+              <div key={key}>
+                <dt>{ATTRIBUTE_LABELS[key]}</dt>
+                <dd>{attributes.total[key]}</dd>
+              </div>
+            ))}
+          </dl>
+        )}
+        <p className={css.menuHint}>Guilda e EBD estão no menu principal.</p>
+      </div>
+      <div className={css.avatarStage}>
+        <span className={css.avatarHalo} aria-hidden="true" />
+        <AvatarRuntime traveler={traveler} className={css.fullAvatar} />
+        <span className={css.avatarShadow} aria-hidden="true" />
+      </div>
+    </section>
   );
 }

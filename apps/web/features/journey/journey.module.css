@@ -1,3 +1,7 @@
+.sidebarDismiss { display:none; }
+@media(max-width:1024px) {
+  .shell[data-navigation-mode='released'] .sidebarDismiss { display:grid; place-items:center; position:absolute; right:12px; top:12px; width:44px; min-height:44px; border:1px solid #c3aa6666; border-radius:8px; color:#f4e6b3; background:transparent; font-size:24px; }
+}
 .shell {
   max-width: 1600px;
   margin: auto;

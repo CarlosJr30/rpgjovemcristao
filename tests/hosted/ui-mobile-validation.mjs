@@ -1,0 +1,255 @@
+import assert from 'node:assert/strict';
+import { chromium, webkit, expect } from '@playwright/test';
+import { mkdirSync, writeFileSync } from 'node:fs';
+import { startLocalAuthSimulator } from '../fixtures/local-auth-http-server.mjs';
+import { isReleasedPath } from '../../apps/web/lib/release-scope.ts';
+import { navigateReleased, accountAction } from './released-navigation.mjs';
+
+// Full production application, loopback-only synthetic data. Never hosted users.
+const origin = 'http://127.0.0.1:3199';
+const base = 'build/ui-mobile-001';
+mkdirSync(base, { recursive: true });
+const simulator = await startLocalAuthSimulator();
+const result = { syntheticData: true, productionProof: false, runs: [] };
+try {
+  for (const [name, launcher, viewport, touch] of [
+    ['desktop', chromium, { width: 1440, height: 1000 }, false],
+    ['mobile', webkit, { width: 390, height: 844 }, true],
+    ['small-mobile', webkit, { width: 320, height: 740 }, true],
+    ['landscape', webkit, { width: 844, height: 390 }, true],
+  ]) {
+    const browser = await launcher.launch();
+    const context = await browser.newContext({
+      viewport,
+      isMobile: touch,
+      hasTouch: touch,
+    });
+    const page = await context.newPage();
+    page.setDefaultTimeout(20000);
+    const run = {
+      name,
+      checks: [],
+      errors: [],
+      consoleErrors: [],
+      externalOrigins: [],
+      passed: false,
+    };
+    result.runs.push(run);
+    const check = (name, pass) => {
+      run.checks.push({ name, pass });
+      assert.ok(pass, name);
+    };
+    page.on('pageerror', (e) => run.errors.push(e.message));
+    page.on('console', (e) => {
+      if (e.type() === 'error') run.consoleErrors.push(e.text());
+    });
+    page.on('request', (r) => {
+      const o = new URL(r.url()).origin;
+      if (![origin, 'http://127.0.0.1:3202'].includes(o))
+        run.externalOrigins.push(o);
+    });
+    try {
+      await page.goto(origin + '/auth');
+      const login = page.getByRole('button', { name: 'Entrar', exact: true });
+      await expect(login).toBeEnabled();
+      await page.getByLabel('E-mail').fill('local-only@fixture.invalid');
+      await page
+        .getByLabel('Senha', { exact: true })
+        .fill('synthetic-local-only');
+      await login.click();
+      await page.waitForURL(origin + '/');
+      await expect(
+        page.getByRole('heading', {
+          name: 'Bem-vindo, Local WebKit',
+          exact: true,
+        }),
+      ).toBeVisible();
+      check('current account login works', true);
+      const allowed = await page
+        .locator('a[href^="/journey"]')
+        .evaluateAll((links) => links.map((link) => link.getAttribute('href')));
+      check(
+        'no blocked route exposed by restored home',
+        allowed.every(isReleasedPath),
+      );
+      check(
+        'home contains no large navigation card grid',
+        (await page.getByRole('main').getByRole('link').count()) === 0,
+      );
+      const trigger = page.getByRole('button', {
+        name: 'Abrir menu',
+        exact: true,
+      });
+      if (touch) {
+        const bounds = await trigger.boundingBox();
+        check(
+          'menu touch target at least44px',
+          bounds.width >= 44 && bounds.height >= 44,
+        );
+        await trigger.tap();
+        const menu = page.getByRole('dialog', { name: 'Menu principal' });
+        await expect(menu).toBeVisible();
+        await expect(
+          menu.getByRole('link', { name: 'Início', exact: true }),
+        ).toBeFocused();
+        check('menu opens with keyboard focus', true);
+        check(
+          'body scroll locked while menu open',
+          await page.evaluate(() => document.body.style.overflow === 'hidden'),
+        );
+        const close = menu.getByRole('button', { name: 'Fechar navegação' });
+        const last = menu.getByRole('link', { name: 'EBD', exact: true });
+        await last.focus();
+        await page.keyboard.press('Tab');
+        await expect(close).toBeFocused();
+        await page.keyboard.press('Shift+Tab');
+        await expect(last).toBeFocused();
+        check('keyboard focus stays inside menu', true);
+        await page.keyboard.press('Escape');
+        await expect(menu).toHaveCount(0);
+        await expect(trigger).toBeFocused();
+        check('Escape closes and returns focus', true);
+        await trigger.tap();
+        await page.touchscreen.tap(
+          viewport.width - 6,
+          Math.min(180, viewport.height - 40),
+        );
+        await expect(menu).toHaveCount(0);
+        check('outside touch closes menu', true);
+        await trigger.tap();
+        await page
+          .getByRole('navigation', { name: 'Navegação principal', exact: true })
+          .getByRole('link', { name: 'EBD', exact: true })
+          .tap();
+      } else await navigateReleased(page, 'EBD');
+      await expect(page.getByLabel('Área da Escola Bíblica')).toBeAttached();
+      check('EBD reached through principal menu', true);
+      check(
+        'menu closes after navigation',
+        (await page.getByRole('dialog', { name: 'Menu principal' }).count()) ===
+          0,
+      );
+      await navigateReleased(page, 'Guilda');
+      await expect(
+        page.getByRole('heading', { name: 'Minha Guilda', exact: true }),
+      ).toBeVisible();
+      check('existing Guilda screen preserved', true);
+      await navigateReleased(page, 'Meu avatar');
+      await expect(
+        page.getByRole('heading', { name: 'Local WebKit', exact: true }),
+      ).toBeVisible();
+      check(
+        'avatar source loads',
+        await page
+          .locator('main [data-avatar-base]')
+          .evaluate((image) => image.complete && image.naturalWidth > 0),
+      );
+      check(
+        'four attributes are read-only',
+        (await page
+          .getByLabel('Atributos do Viajante')
+          .locator('dd')
+          .count()) === 4,
+      );
+      await page
+        .getByRole('button', { name: 'Abrir Herói', exact: true })
+        .click();
+      await page
+        .getByRole('menuitem', { name: 'Trocar Viajante', exact: true })
+        .click();
+      await page
+        .getByRole('dialog', { name: 'Trocar de Viajante?' })
+        .getByRole('button', { name: 'Cancelar', exact: true })
+        .click();
+      await expect(
+        page.getByRole('heading', { name: 'Local WebKit', exact: true }),
+      ).toBeVisible();
+      check('canceling switch preserves current traveler', true);
+      check(
+        'no horizontal overflow',
+        await page.evaluate(
+          () => document.documentElement.scrollWidth <= innerWidth,
+        ),
+      );
+      await page.screenshot({
+        path: base + '/' + name + '-validated.png',
+        fullPage: true,
+      });
+      // HTTP checks are real release guards, not routed or fabricated responses.
+      for (const path of [
+        '/journey/arena',
+        '/journey/arena/tower',
+        '/journey/tower',
+        '/journey/equipment',
+        '/journey/shop',
+        '/journey/backpack',
+        '/journey/diary',
+        '/journey/stories/blocked',
+        '/journey/worlds/blocked',
+      ]) {
+        const response = await context.request.get(origin + path);
+        check('protected ' + path, response.status() === 403);
+      }
+      const authority = await context.request.post(origin + '/api/authority', {
+        data: { operation: 'starter' },
+      });
+      check('economy authority remains denied', authority.status() === 403);
+      await accountAction(page, 'Sair da conta');
+      await page.waitForURL(origin + '/auth');
+      await expect(
+        page.getByRole('heading', { name: 'Entrar', exact: true }),
+      ).toBeVisible();
+      check('current logout works', true);
+      await page
+        .getByRole('button', { name: 'Criar conta', exact: true })
+        .click();
+      await expect(
+        page.getByRole('heading', { name: 'Criar conta', exact: true }),
+      ).toBeVisible();
+      await expect(page.getByLabel('Nome de exibição')).toBeVisible();
+      check(
+        'existing registration form preserved without creating an account',
+        true,
+      );
+      await page.goto(origin + '/auth/recover');
+      await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
+      check('existing recovery route remains available', true);
+      check('no page errors', run.errors.length === 0);
+      check('no console errors', run.consoleErrors.length === 0);
+      check('no external origins', run.externalOrigins.length === 0);
+      run.passed = true;
+    } catch (error) {
+      run.failure = error.message;
+      await page
+        .screenshot({
+          path: base + '/' + name + '-failure.png',
+          fullPage: true,
+        })
+        .catch(() => {});
+    } finally {
+      await context.close();
+      await browser.close();
+      writeFileSync(
+        base + '/browser-results.json',
+        JSON.stringify(result, null, 2),
+      );
+    }
+  }
+} finally {
+  await new Promise((resolve) => simulator.close(resolve));
+}
+console.log(
+  JSON.stringify(
+    result.runs.map(
+      ({ name, passed, checks, errors, consoleErrors, failure }) => ({
+        name,
+        passed,
+        checks: checks.length,
+        errors,
+        consoleErrors,
+        failure,
+      }),
+    ),
+  ),
+);
+if (result.runs.some((r) => !r.passed)) process.exitCode = 1;

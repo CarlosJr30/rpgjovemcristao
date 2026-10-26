@@ -100,8 +100,8 @@ jobs:
           }
       - name: Exigir estabilidade na mesma fixture e nas regressões de lifecycle
         run: node tests/hosted/next-rsc-concurrency-probe.mjs --build --expect-stable --extended --output build/rpg-dev-005/ci-patched
-      - name: Exigir estabilidade na aplicação completa com backend offline
-        run: node tests/hosted/local-rsc-app-regression.mjs
+      - name: Exigir estabilidade RSC e navegação móvel na aplicação completa
+        run: node tests/hosted/local-rsc-app-regression.mjs --ui-mobile
 
   pinned-preview:
     name: Preview do SHA aprovado

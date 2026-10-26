@@ -1,4 +1,5 @@
-import { chromium, webkit } from '@playwright/test';
+import { chromium, webkit, expect } from '@playwright/test';
+import { navigateReleased, accountAction } from './released-navigation.mjs';
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { dirname } from 'node:path';
 import { mockLocalReleaseAuth } from '../fixtures/local-release-auth.ts';
@@ -177,10 +178,13 @@ for (const [engine, launcher] of [
         };
         const navigate = async (path, name) => {
           if (cell.navigation === 'goto') await visit(path);
-          else await page.getByRole('link', { name, exact: true }).click();
+          else await navigateReleased(page, name);
         };
         try {
           await visit('/auth');
+          await expect(
+            page.getByRole('button', { name: 'Entrar', exact: true }),
+          ).toBeEnabled({ timeout: 15000 });
           await page.getByLabel('E-mail').fill('local-only@fixture.invalid');
           await page
             .getByLabel('Senha', { exact: true })
@@ -216,9 +220,7 @@ for (const [engine, launcher] of [
           run.checks.push('reload');
           if (cell.transport === 'settled')
             await page.waitForLoadState('networkidle');
-          await page
-            .getByRole('button', { name: 'Sair da conta', exact: true })
-            .click();
+          await accountAction(page, 'Sair da conta');
           await page.waitForURL(origin + '/auth');
           await page
             .getByRole('heading', { name: 'Entrar', exact: true })

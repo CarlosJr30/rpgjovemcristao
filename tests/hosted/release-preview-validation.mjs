@@ -1,4 +1,5 @@
 import { chromium, webkit } from '@playwright/test';
+import { navigateReleased, accountAction } from './released-navigation.mjs';
 import { readFileSync, writeFileSync } from 'node:fs';
 
 // Credentials arrive on stdin, never arguments/files. Only an existing TEST Preview.
@@ -301,9 +302,7 @@ for (const [engine, launcher, viewport] of [
       const select = async (traveler) => {
         phase = 'select-' + traveler.id;
         await settled();
-        await page
-          .getByRole('button', { name: 'Trocar Viajante', exact: true })
-          .click();
+        await accountAction(page, 'Trocar Viajante');
         await page
           .getByRole('heading', { name: 'Escolha seu Viajante', exact: true })
           .waitFor();
@@ -335,9 +334,7 @@ for (const [engine, launcher, viewport] of [
           .getByRole('heading', { name: 'Minha Guilda', exact: true })
           .waitFor();
         await settled();
-        await page
-          .getByRole('link', { name: 'Meu avatar', exact: true })
-          .click();
+        await navigateReleased(page, 'Meu avatar');
         await page
           .getByRole('heading', { name: traveler.name, exact: true })
           .waitFor();
@@ -365,9 +362,7 @@ for (const [engine, launcher, viewport] of [
           .waitFor();
         await settled();
         check('real login, original active avatar', true);
-        await page
-          .getByRole('link', { name: 'Meu avatar', exact: true })
-          .click();
+        await navigateReleased(page, 'Meu avatar');
         await page
           .getByRole('heading', { name: account.active.name, exact: true })
           .waitFor();
@@ -381,7 +376,7 @@ for (const [engine, launcher, viewport] of [
         await select(account.active);
         check('original active avatar restored', true);
         phase = 'guild';
-        await page.getByRole('link', { name: 'Guilda', exact: true }).click();
+        await navigateReleased(page, 'Guilda');
         await page
           .getByRole('heading', { name: 'Minha Guilda', exact: true })
           .waitFor();
@@ -403,7 +398,7 @@ for (const [engine, launcher, viewport] of [
             r.request().method() === 'POST',
         );
         phase = 'ebd';
-        await page.getByRole('link', { name: 'EBD', exact: true }).click();
+        await navigateReleased(page, 'EBD');
         const response = await ebd;
         check(
           'EBD workspace and existing permission',
@@ -562,13 +557,11 @@ for (const [engine, launcher, viewport] of [
         );
         check('authority API denied', authority === 403);
         if (input.isolatedNegativeChecks)
-          await page.getByRole('link', { name: 'Início', exact: true }).click();
+          await navigateReleased(page, 'Início');
         else await page.goto(origin + '/journey');
         await settled();
         phase = 'logout';
-        await page
-          .getByRole('button', { name: 'Sair da conta', exact: true })
-          .click();
+        await accountAction(page, 'Sair da conta');
         await page.waitForURL(origin + '/auth');
         await settled();
         const signedOutPage = input.isolatedNegativeChecks

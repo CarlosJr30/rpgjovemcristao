@@ -7,6 +7,8 @@ import { resolve } from 'node:path';
 // Actual application production bundle, offline Auth/API simulator. No hosted
 // credentials, modified Auth/RLS rules, external services or fixture-only UI.
 const root = resolve(import.meta.dirname, '../..');
+const mobileReview = process.argv.includes('--ui-mobile');
+const prefix = mobileReview ? 'ui-mobile-001-' : '';
 const base = resolve(root, 'build/rpg-dev-005');
 mkdirSync(base, { recursive: true });
 const env = Object.fromEntries(
@@ -59,9 +61,11 @@ try {
       reject(new Error('Application exited before readiness'));
     });
   });
-  const output = process.argv.includes('--repeat')
-    ? 'app-regression-repeat.json'
-    : 'app-regression.json';
+  const output =
+    prefix +
+    (process.argv.includes('--repeat')
+      ? 'app-regression-repeat.json'
+      : 'app-regression.json');
   const probe = spawn(
     process.execPath,
     [
@@ -78,7 +82,15 @@ try {
     0,
     'Actual application RSC regression failed',
   );
+  if (mobileReview) {
+    const ui = spawn(
+      process.execPath,
+      [resolve(root, 'tests/hosted/ui-mobile-validation.mjs')],
+      { cwd: root, env, stdio: 'inherit' },
+    );
+    assert.equal((await once(ui, 'exit'))[0], 0, 'Mobile UI regression failed');
+  }
 } finally {
   app.kill();
-  writeFileSync(resolve(base, 'app-regression-server.log'), log);
+  writeFileSync(resolve(base, prefix + 'app-regression-server.log'), log);
 }
