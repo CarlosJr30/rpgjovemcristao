@@ -67,9 +67,11 @@ export function GuildArtwork({
 export function GuildHall({
   children,
   className = '',
+  showScene = true,
 }: {
   children: ReactNode;
   className?: string;
+  showScene?: boolean;
 }) {
   const [failed, setFailed] = useState(false);
   const compact = useSyncExternalStore(
@@ -78,7 +80,9 @@ export function GuildHall({
     () => false,
   );
   const asset = VISUAL_ASSETS.guildHall;
-  const enabled = Boolean(!failed && asset && isApprovedVisualAsset(asset));
+  const enabled = Boolean(
+    showScene && !failed && asset && isApprovedVisualAsset(asset),
+  );
   return (
     <section
       className={`${className} ${styles.hall}`}

@@ -162,8 +162,9 @@ it('hides an invalid overlay without changing the HD base or item bonuses', () =
 it('renders composition 3 only for owned equipped armor on the exact approved body, retaining bonuses and reload state', () => {
   const t = make();
   t.appearance = { hair: 'longo', outfit: 'azul', skin: 'escuro' };
-  for (const item of t.inventory) t.equipped[item.slot] = item.id;
-  delete t.equipped.weapon;
+  // Keep this regression focused on armor; RPG-DEV-003 separately approves
+  // four additional items on this body and tests their ownership/identity scope.
+  t.equipped = { armor: armor.id };
   const before = JSON.stringify(t),
     attrs = calculateTotalAttributes(t);
   expect(resolveAvatarRuntime(t).layers.map((l) => l.itemId)).toEqual([

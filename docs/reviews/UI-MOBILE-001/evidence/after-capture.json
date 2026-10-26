@@ -1,0 +1,66 @@
+{
+  "phase": "after",
+  "syntheticData": true,
+  "realPlayerDataModified": false,
+  "runs": [
+    {
+      "name": "desktop",
+      "errors": [],
+      "screenshots": [
+        "desktop-public.png",
+        "desktop-home.png",
+        "desktop-avatar.png",
+        "desktop-guild.png",
+        "desktop-ebd.png"
+      ],
+      "checks": [
+        {
+          "page": "home",
+          "noHorizontalOverflow": true
+        },
+        {
+          "page": "avatar",
+          "noHorizontalOverflow": true
+        },
+        {
+          "page": "guild",
+          "noHorizontalOverflow": true
+        },
+        {
+          "page": "ebd",
+          "noHorizontalOverflow": true
+        }
+      ]
+    },
+    {
+      "name": "mobile",
+      "errors": [],
+      "screenshots": [
+        "mobile-public.png",
+        "mobile-home.png",
+        "mobile-menu.png",
+        "mobile-avatar.png",
+        "mobile-guild.png",
+        "mobile-ebd.png"
+      ],
+      "checks": [
+        {
+          "page": "home",
+          "noHorizontalOverflow": true
+        },
+        {
+          "page": "avatar",
+          "noHorizontalOverflow": true
+        },
+        {
+          "page": "guild",
+          "noHorizontalOverflow": true
+        },
+        {
+          "page": "ebd",
+          "noHorizontalOverflow": true
+        }
+      ]
+    }
+  ]
+}

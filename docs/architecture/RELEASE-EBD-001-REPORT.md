@@ -1,162 +1,101 @@
-# RELEASE-EBD-001 — lançamento inicial de Guilda e EBD
+# RELEASE-EBD-001 — Guilda e Escola Bíblica em produção
 
-Atualizado em 24/10/2026, após correção autorizada de Auth PROD. **Estado geral: BLOCKED para publicação; Preview READY. Configuração Auth PROD corrigida e verificada.**
+Atualizado em 24/10/2026. **DONE — publicação inicial concluída e conferida remotamente. DEPLOY_COMPLETE para o escopo Guilda/EBD.**
 
-## Resultado e ambientes
+## Publicação confirmada
 
-O candidato implementa o lançamento parcial autorizado: Auth, criação/seleção de avatar, Guilda e EBD. Combate, cartas, economia, loja, baús, mutações de equipamentos e História ficam indisponíveis por navegação, rotas/API e permissões do banco. O código e os dados desses módulos foram preservados. Isso descreve o candidato em testes, não uma funcionalidade já liberada em produção.
-
-| Item | Estado | Evidência / limite |
+| Item | Estado | Evidência |
 | --- | --- | --- |
-| Implementação do lançamento parcial | DONE | Commits `9cc4b73`, `6403416` e `23391b5`; testes abaixo |
-| GitHub e CI do candidato runtime | DONE | SHA `23391b514a8b4cddbe7945ed0dfb343fc70d4a39`, CI [40121574829](https://github.com/CarlosJr30/rpgjovemcristao/actions/runs/40121574829) success |
-| Preview | DONE | READY, `dpl_ALfghjQxopcwRozMx4D4CEast7JR`, SHA exato conferido |
-| Recuperação completa de acesso | BLOCKED | Pedido atual recebe HTTP 429 `over_email_send_rate_limit`; troca de senha e novo login ainda sem prova positiva |
-| Destinos Auth de produção | DONE | Correção explicitamente autorizada aplicada somente no PROD; persistência remota e rejeição de destino TEST verificadas; detalhes na última seção |
-| Migrations de produção | BLOCKED | Não aplicadas; dependem dos gates anteriores e conferência final de compatibilidade/backup |
-| Publicação e testes pós-deploy em produção | BLOCKED | Não executados; nenhum merge/promoção produtiva nesta entrega |
+| Produção oficial | DONE | <https://rpgjovemcristao-web-inky.vercel.app> |
+| Deployment | DONE | `dpl_H8VCqQx2vT8sqVzjDbpFYKnE1mSA`, target production, READY |
+| SHA publicado | DONE | `808433a780e96a048c4a3f2d7e419351ab85e5a3`, corresponde ao alias público e ao deployment |
+| PR | DONE | [PR #10](https://github.com/CarlosJr30/rpgjovemcristao/pull/10), merge normal, sem bypass; head aprovado `7a02640` |
+| CI do SHA produtivo | DONE | [Run 40127254263](https://github.com/CarlosJr30/rpgjovemcristao/actions/runs/40127254263), push de `808433a`, completed/success |
+| Backend produtivo | DONE | Supabase `wspafhlbtlpabypzymjo` / `RPGJOVEMCRISTAO`; nenhuma troca pelo banco TEST |
+| Preview validada | DONE | <https://rpgjovemcristao-ebd001-preview.vercel.app>, `dpl_ALfghjQxopcwRozMx4D4CEast7JR`, runtime `23391b5`, backend TEST `wkdvdzfkbwvhyjmamrsg` |
+| Verificação após publicação | DONE | 38 checks no navegador + 43 na API + 8 de recuperação real em PROD = 89 checks PASS |
 
-- Branch: `codex/release-ebd-001`; [PR #10 em rascunho](https://github.com/CarlosJr30/rpgjovemcristao/pull/10).
-- Preview estável: <https://rpgjovemcristao-ebd001-preview.vercel.app>.
-- Preview imutável: <https://rpgjovemcristao-d8lu9apks-carlos-junior-s-projects.vercel.app>.
-- Produção conferida remotamente: <https://rpgjovemcristao-web-inky.vercel.app>, READY, `dpl_H9aXo2mnhWvk2PD6BwQowpxeaiVv`, SHA `5edc93f5857b26a59b183e8abfb963110831f90c`. `origin/main` permanece nesse SHA.
-- TEST: Supabase `wkdvdzfkbwvhyjmamrsg`. PROD: `wspafhlbtlpabypzymjo`. A Preview usa TEST; nenhuma variável de produção foi substituída pelo banco de testes.
+O merge em main cria build produtivo automaticamente. A associação automática de domínios foi temporariamente suspensa para manter `5edc93f` no ar enquanto o novo SHA passava no CI. O build existente de `808433a` ficou READY em staging; somente depois do CI, das migrations e das verificações de preservação foi promovido. Não houve deploy duplicado. O valor anterior de associação automática foi restaurado ao final, com o alias oficial permanecendo no deployment aprovado.
 
-## Causas e correções
+O relatório de encerramento é persistido na branch documental `codex/release-ebd-001-report`, sem merge/deploy adicional da aplicação apenas para documentação.
 
-1. **DONE — Dependências de economia:** o shell anterior expunha módulos fora do lançamento e o cadastro de avatar criava itens iniciais. O novo shell oferece apenas avatar/Guilda/EBD; criação de avatar passa a gerar nível 1, XP/moedas zero e nenhum item/baú ou liderança automática. ACLs bloqueiam RPCs econômicas e escritas diretas. Dados existentes continuam disponíveis para hidratação autorizada, sem permitir operações econômicas.
-2. **DONE — Recompensas EBD:** formulários deixam de oferecer recompensas; o comando rejeita `rewardTier` não vazio e um trigger impede novos créditos pendentes. A aprendizagem, avaliações e presença continuam funcionando. Nenhum saldo/recibo antigo foi reescrito.
-3. **DONE — Seleção de avatar:** o primeiro isolamento removeu a permissão de coluna necessária ao RPC invoker `set_active_traveler`. O teste real detectou o problema; migration separada devolveu somente `UPDATE(is_active)`, mantendo RLS de titularidade e negando XP, nível e proprietário. Correção validada antes de prosseguir.
-4. **DONE — Legibilidade:** conteúdo EBD herdava fundo escuro incompatível com textos escuros; o wrapper recebeu fundo claro e a regra de labels foi limitada ao cartão, corrigindo também a seleção móvel indevidamente visível no desktop. Capturas finais desktop/móvel inspecionadas; contraste e largura validados.
-5. **DONE — Configuração Auth de TEST:** o CLI autenticado comprovou `site_url=http://localhost:3000` e `additional_redirect_urls=[]`. Foram alterados exclusivamente esses dois campos para a Preview e seus callbacks `/auth` e `/auth/recover`. O diff posterior retorna zero alterações declaradas pendentes. Confirmação de e-mail, MFA e limites de envio permaneceram iguais. Essa etapa inicial não alterou PROD; a posterior correção produtiva explicitamente autorizada está registrada na última seção.
-6. **BLOCKED — Recuperação:** houve entrega real de e-mail antes da correção das URLs. O pedido do app envia o destino correto, porém novas solicitações retornam 429. A prova negativa com token deliberadamente inválido, sem cache, agora redireciona para a Preview `/auth/recover`; ela comprova configuração/destino e rejeição do token, não recuperação bem-sucedida.
+## Funcionalidades liberadas e bloqueadas
 
-## Testes e evidências
+**DONE:** cadastro e autenticação; seleção/criação de avatar; logout e recuperação; criação explícita de Guilda; convite com QR real; solicitação/aprovação de membros; liderança por criação autorizada de Guilda; professor com permissões escopadas; criação/edição/publicação de aulas; atividades e questionários; agenda, presença, histórico e persistência após reconexão; isolamento de Guildas e autorização por avatar/UID.
 
-Evidências locais privadas em `build/release-ebd-001/`; contêm fixtures e metadados necessários à execução e não foram publicadas no Git. Credenciais permanecem em DPAPI; tokens, links de confirmação/recuperação e sessões não integram o relatório nem o histórico versionado.
+**BLOCKED por desenho do lançamento:** Arena, Torre, aquisição/uso de cartas, XP/moedas/recompensas, loja, baús, mutações de equipamentos econômicos e História. O código e os dados foram preservados. UI/navegação, proxy/API e permissões SQL impedem operações excluídas, inclusive chamadas diretas; ocultação de botões não é a única proteção. Hidratação autorizada de dados antigos continua somente leitura.
 
-| Gate | Estado | Resultado real |
+Não há liderança automática no cadastro de conta ou avatar. O líder dos testes assumiu apenas a liderança da Guilda criada explicitamente pelo mecanismo oficial; o professor foi autorizado dentro dessa Guilda. Nenhuma conta recebeu `service_role` ou administração global.
+
+## Correções entregues
+
+- Shell e rotas restritos a Auth/avatar/Guilda/EBD; API de autoridade retorna 403 e a fronteira SQL revoga operações fora do lançamento.
+- Criação de avatar passa a não entregar XP, moedas, equipamentos ou baús. Dados antigos não foram recalculados.
+- EBD não oferece recompensas; servidor rejeita `rewardTier` não vazio e bloqueia novos créditos pendentes. Avaliação, quiz, presença e auditoria continuam funcionando.
+- Permissão mínima `UPDATE(is_active)` restaurada para seleção de avatar pelo RPC invoker, mantendo RLS de titularidade e negando XP/nível/proprietário.
+- Contraste do conteúdo EBD corrigido e seletor móvel limitado ao viewport apropriado; desktop/móvel finais inspecionados.
+- Recuperação por e-mail implementada e validada até a troca de senha e novo login, tanto na Preview TEST quanto na origem produtiva publicada.
+- Auth PROD corrigido previamente com autorização explícita: Site URL da origem oficial e redirects `/auth` e `/auth/recover` nessa origem. Os dois destinos TEST anteriores foram removidos; não havia outros destinos produtivos legítimos na lista. Backup/diff/verificação foram registrados antes/depois. Nesta rodada final, URLs e limites não foram alterados.
+
+Arquivos funcionais concentram-se em `apps/web/features/release-ebd/`, Auth/recuperação, páginas públicas/Guilda/EBD, `apps/web/proxy.ts`, API de autoridade, `apps/web/lib/release-scope*`, testes e duas migrations. Commits funcionais `9cc4b73`, `6403416`, `23391b5`; o merge produtivo contém esses commits e o histórico anterior aprovado/isolado. As cinco PNGs e seis composições aprovadas, incluindo couraça 3 e empunhadura, ficaram intactas.
+
+## Testes e limites de evidência
+
+| Gate | Estado | Resultado |
 | --- | --- | --- |
-| Unitários | DONE | 756 PASS; 74 SKIP explicitamente não aprovados; `unit.log` |
-| PostgreSQL isolado | DONE | 8 PASS: titularidade/seleção, criação sem grants econômicos, negações, Guilda/EBD e restauração; `postgres-recovery.log` |
-| Navegador local desktop/móvel | DONE | 14 PASS; mocks isolados, sem alegar execução hospedada; `browser-local.log` |
-| API hospedada com contas autorizadas TEST | DONE | 75 checks PASS; `hosted-api.json` |
-| Fluxo hospedado completo Guilda/EBD | DONE | 35 checks PASS no SHA `6403416`, antes da correção exclusiva de apresentação; `hosted-browser-6403416.json` |
-| Smoke hospedado do candidato final | DONE | 25 checks PASS no SHA `23391b5`; `hosted-browser.json` |
-| Cadastro confirmado/login/avatar/logout | DONE | Confirmação real pelo provedor e 6 checks de UI no candidato final; `signup-login.json`, `auth-browser-initial.json` |
-| Recuperação por e-mail e nova senha | BLOCKED | Pedido inicial entregue; pedido atual 429. Callback/troca de senha/login posterior sem PASS; `auth-recovery-provider-error.json`, `auth-browser-finish.json` |
-| Lint, TypeScript e build | DONE | PASS; `lint.log`, `typecheck.log`, `build.log` |
-| Protocolo de release | DONE | 25 PASS; `protocol.log` |
-| Preservação de mídia aprovada | DONE | Gate 5 PNGs/6 composições PASS; couraça 3 e empunhadura aprovada preservadas; nenhuma nova arte |
-| Desktop e viewport móvel | DONE | Contas reais, largura 390, presença/agenda/histórico, QR decodificado dos pixels do SVG; capturas finais inspecionadas |
-| Celular físico | BLOCKED | Dispositivo conectado indisponível; emulação não é teste físico e não foi declarada como tal |
-| CI do SHA runtime exato | DONE | Run 40121574829 success; não equivale a CI de eventual merge futuro |
-| Produção pós-release | BLOCKED | Release não promovido; testes produtivos desse candidato não executados |
+| Unitários | DONE | 756 PASS / 74 SKIP no comando unitário; SKIP não contado como aprovado |
+| PostgreSQL EBD isolado | DONE | 8 PASS em execução dedicada: RLS/titularidade, seleção, ausência de grants econômicos, Guilda/EBD e recuperação estrutural |
+| Navegador local | DONE | 14 PASS desktop/móvel; mocks identificados, sem alegar prova hospedada |
+| API real TEST | DONE | 75 checks PASS com contas autorizadas |
+| Navegador real TEST | DONE | 35 checks no fluxo anterior e 25 no candidato final; cadastro/Auth com 6 checks adicionais |
+| Recuperação TEST | DONE | Novo envio normal HTTP 200, e-mail real, callback original correto, nova senha, login com mesmo avatar e logout: 2 + 6 checks PASS |
+| Lint, TypeScript, build e protocolo | DONE | PASS; protocolo 25 checks; CI do SHA produtivo também aprovado |
+| Navegador real PROD | DONE | 38 checks PASS, três contas distintas, criação de avatar/Guilda, QR decodificado dos pixels, membros, professor, aula/quiz, presença, agenda, reconexão e logout |
+| API real PROD | DONE | 43 checks PASS: propriedade, papéis, isolamento, idempotência, ausência de créditos e negações econômicas/RPCs/escritas diretas |
+| Recuperação real PROD | DONE | Envio normal HTTP 200, e-mail recebido na caixa real, callback da origem oficial, senha da conta dedicada, novo login/avatar/logout: 2 + 6 checks PASS |
+| Móvel e visual | DONE | Navegação real com backend hospedado em viewport móvel 390; sem overflow; capturas desktop/móvel inspecionadas |
+| Celular físico | REWORK futuro | Dispositivo indisponível; não executado e não apresentado como PASS físico. Emulação explicitamente identificada |
+| QA e Security | DONE | Revisão pelo autor, sem alegação de independência; RLS ativo, fronteiras verificadas e dados existentes preservados |
 
-Os testes hospedados cobrem: criação explícita de Guilda; convite e QR real; solicitação e aprovação; designação de professor pelo líder; rascunho/edição/publicação; acesso do aluno; questionário e reenvio idempotente; atividades; agenda, presença e histórico após reconexão; isolamento entre Guildas; negações para aluno/terceiros/anon; rotas excluídas e API de autoridade 403; RPCs econômicas e alterações diretas de saldos/papéis negadas; logout e proteção da EBD.
+O HTTP 429 anterior foi respeitado, sem aumentar limites ou desativar proteções. Após o intervalo, um único novo pedido TEST foi aceito. Usou-se o novo e-mail, sem reescrever destino/token; apenas quebras de linha introduzidas pela serialização Markdown do conector foram removidas ao ler o link. As falhas anteriores continuam nas evidências e no histórico Git.
 
-### Limites e falhas registrados
+O primeiro harness de API pós-deploy enviou `p_revision` ao workspace em vez de `p_offset`; foi corrigido somente no harness privado, conforme a assinatura existente. A execução inicial falha foi preservada separadamente. A execução final de 43 checks passou sem alteração da aplicação. Não houve teste obrigatório falho reclassificado como PASS.
 
-- A primeira tentativa real de recuperação após corrigir a configuração reutilizou o token do e-mail anterior, alterando somente o parâmetro de destino para a URL agora autorizada. Chegou à proteção da Vercel antes da tela de senha; **FAIL**, sem alteração de senha. Não se trata de prova de recuperação nem de um novo e-mail com URL correta.
-- O harness privado foi ajustado para seguir explicitamente o `Location` real do Supabase e aplicar OIDC somente ao domínio da Preview. Sintaxe validada; o cenário corrigido ainda não foi executado com novo token. Proteção Vercel não foi desativada; nenhum token foi persistido para contornar o teste.
-- Retentativa normal posterior à correção de URLs também retornou `429 / over_email_send_rate_limit`. Não houve aumento de quota, desativação de confirmação, confirmação administrativa ou link administrativo artificial. Não se presume horário de liberação da quota.
-- Nomes sintéticos de quatro fixtures recém-criadas continham dígitos, incompatíveis com a validação existente do cliente; somente essas fixtures próprias foram renomeadas pelo fluxo de atualização autorizado. Isso corrigiu o harness, sem alterar regras de nomes ou jogadores reais.
-- Falhas iniciais do harness relativas a resposta void HTTP 204, ambiente público ausente e leitura de SVG como PNG foram corrigidas; os resultados finais acima correspondem às execuções válidas, sem reclassificar falhas anteriores como PASS.
+## Contas dedicadas e permissões
 
-## Banco, migrations e preservação
+**DONE:** três contas PROD distintas, usando exatamente os endereços já existentes nas fixtures exclusivas TEST, da caixa real acessível; não foram inventados endereços nem usadas contas de jogadores. Cadastro pelo endpoint público normal, login e `getUser` reais verificados antes da publicação, sem avatares ou privilégios iniciais.
 
-| Arquivo local | Registro remoto TEST | PROD |
+| Finalidade | UID PROD | Avatar principal de homologação |
 | --- | --- | --- |
-| `20261024151503_release_ebd_001_isolation.sql` | `20261024154422 release_ebd_001_isolation` | Não aplicada |
-| `20261024154319_release_ebd_001_avatar_selection.sql` | `20261024155038 release_ebd_001_avatar_selection` | Não aplicada |
+| Líder | `9ca3047c-6832-4008-bcd8-481e17c17b01` | `c2ba6da4-996c-4360-9db2-5818f8a68a07` |
+| Professor | `02838502-87f6-4dd6-9998-9bfcc0d4dfc7` | `7892b67f-4055-4ff4-8762-7531675e021f` |
+| Aluno | `55a1e310-fea5-4151-8ba7-76f36cdf868c` | `9e555e9e-767c-42cf-8884-b27324beb681` |
 
-- **DONE:** 41 hashes de tabelas exatamente preservados antes/depois de cada DDL em TEST, inclusive `auth.users`; `migration-preservation.json` e `selection-migration-preservation.json`. Nenhuma migration anterior foi reaplicada.
-- **DONE:** plano de recuperação estrutural gera definições e permissões efetivas de funções/tabelas/colunas/default ACL. Sua restauração foi executada e validada no PostgreSQL isolado, preservando dados/saldos. Fixture versionada: `tests/fixtures/release-ebd-recovery.sql`.
-- **DONE preparação / BLOCKED execução PROD:** captura somente leitura das definições/ACL de PROD preparada em `prod-recovery-prepared.sql` (40.184 bytes), não executada. É backup estrutural para a alteração proposta; não é um dump completo dos jogadores. Atualizar captura/compatibilidade e baseline antes de eventual escrita produtiva.
-- **DONE:** dependências essenciais existem em PROD: schemas `economy_private`/`ebd_ops`, tabela de recompensa pendente, RPCs EBD/convite/seleção. Isso não substitui validação completa da futura aplicação produtiva.
-- **DONE:** PROD mantém quatro registros de migrations, último `20261023213654`; TEST mantém os registros prévios e os dois novos. Não executar `db push` indiscriminado: versões locais/remotas históricas exigem comparação por conteúdo e finalidade.
-- **DONE:** consulta final somente leitura em PROD: 20 avatares, 245.376 XP, 1.006.767 moedas, 37 registros de inventário, zero tabelas públicas sem RLS e `release_scope()` ainda ausente. Produção permanece na versão anterior.
-- **DONE:** novos avatares de teste não receberam XP, moedas, inventário, equipamentos, baús ou privilégios automáticos. Avatares ativos originais das quatro contas preexistentes foram restaurados pelo RPC oficial após os testes; não houve alteração manual de progresso.
-- Advisors TEST: zero RLS desativada; avisos existentes de proteção contra senhas vazadas e funções definer foram registrados. Não foram removidos controles para suprimir alertas.
+PROD já tinha `emailAutoConfirm=true`, comprovado também pelo registro anterior `build/deploy-005/production-auth-public-settings.json`. Essa política foi preservada; não foi habilitada para o teste e não houve confirmação administrativa artificial. A recuperação posterior da conta dedicada de líder comprovou recebimento real de e-mail e funcionamento do callback produtivo. Credenciais geradas/atualizadas ficaram somente em DPAPI local, sem senhas, tokens ou links de autenticação no Git ou relatório.
 
-## Liderança e escopo futuro
+Para isolamento entre Guildas, foi criado um quarto avatar de fixture, no mesmo cadastro dedicado de professor, e uma segunda Guilda pelo mecanismo normal. O avatar principal do professor foi restaurado como ativo pelo RPC oficial após o teste. As fixtures foram mantidas para auditoria; nenhuma conta, avatar ou tabela foi apagada.
 
-- **DONE:** fluxo explícito de criar Guilda e assumir sua liderança, aprovar membros e autorizar professor validado com fixtures próprias; não há liderança automática no cadastro.
-- **BLOCKED:** promoção do Teste Chat A não executada. Avatar ativo nível 50 permanece membro; avatar antigo nível 1 permanece preservado. Nenhum privilégio global ou `service_role` foi concedido à conta. A sessão autenticada alvo/processo administrativo desse caso ainda não foram comprovados. Essa pendência não é requisito para conceder liderança automática nesta release.
-- **DONE isolamento / BLOCKED homologação futura:** Arena, Torre, cartas, economia, loja, baús, equipamentos econômicos e História permanecem bloqueados no candidato. Os 16 XP/6 moedas legados continuam sem origem comprovada, sem ajuste; não são usados para conceder créditos e não bloqueiam isoladamente este lançamento parcial.
+Teste Chat A: avatar ativo nível 50 permanece membro; avatar antigo nível 1 permanece preservado. A promoção específica desse jogador não foi realizada e continua pendência separada; não impede o lançamento parcial nem autoriza privilégios automáticos.
 
-## Arquivos e revisão
+## Migrations, recuperação e dados
 
-Mudanças desta release concentram-se em `apps/web/features/release-ebd/`, recuperação/Auth, páginas públicas e Guilda/EBD, `apps/web/proxy.ts`, API de autoridade, `apps/web/lib/release-scope*`, duas migrations, testes PG/e2e e fixture de recuperação. O PR inclui o histórico anterior aprovado de FIX-PROD, preservado e isolado; não implica liberar seus módulos.
-
-QA e Security executados pelo próprio autor, sem alegação de revisão independente. Auth, RLS e autoridade continuam obrigatórios. Nenhum teste SKIP, simulado, não executado ou falho foi considerado PASS. **Acceptance check: BLOCKED. Não há DEPLOY_COMPLETE.**
-
-Próximo gate: obter novo e-mail pelo fluxo normal quando o provedor aceitar, confirmar seu destino e executar callback/troca de senha/login com preservação do avatar, usando o harness corrigido. Somente após os gates obrigatórios: fluxo normal de PR/CI do SHA exato, conferência de recuperação/migrations/ambiente PROD, publicação e verificação real posterior. Não promover a Preview conectada a TEST como produção.
-
-## Rechecagem solicitada — 24/10, 16h10–16h15 (Brasília)
-
-**BLOCKED — recuperação:** uma nova solicitação normal pela UI recebeu novamente HTTP 429, código `over_email_send_rate_limit`, no projeto TEST. Não foram aumentados limites, alteradas URLs, gerados links administrativos ou repetidos envios em ciclo. Callback, atualização de senha e novo login não foram executados novamente, pois não houve novo e-mail aceito. Resultados anteriores foram preservados, inclusive as falhas; não há novo PASS de recuperação.
-
-**DONE — gates independentes preparados:**
-
-- CI do commit documental `a1cee133d9899f3239dd1151275f1150eddf980e` aprovado tanto no push ([40124054032](https://github.com/CarlosJr30/rpgjovemcristao/actions/runs/40124054032)) quanto no PR ([40124057714](https://github.com/CarlosJr30/rpgjovemcristao/actions/runs/40124057714)). CI runtime `23391b5` e testes anteriores continuam válidos: nenhuma alteração de runtime, teste, arte, dependência ou migration nesta rechecagem.
-- Comparação somente leitura do recorte Guilda/EBD: 273 colunas e 37 políticas iguais em TEST e PROD; 24 assinaturas de funções presentes nos dois ambientes. Onze diferenças de hash eram exclusivamente finais de linha, confirmadas comparando as definições; duas diferenças funcionais são as substituições intencionais da release (`economy_private.create_traveler` e `public.guild_ebd_command`). Nenhuma divergência funcional inesperada nesse recorte. Isso não equivale a execução da migration ou teste hospedado produtivo.
-- Preview runtime `23391b5` e produção `5edc93f` novamente READY nos mesmos deployments. Branch e `origin/main` conferidos; PR permanece em rascunho, sem merge. Worktrees e arquivos preexistentes preservados.
-- Configuração TEST consultada sem escrita: zero diferenças nos campos declarados de Site URL/redirects. Nenhum `config push` foi executado nesta rodada.
-
-**BLOCKED — novo achado em Auth PROD:** o projeto `wspafhlbtlpabypzymjo` atualmente informa Site URL `https://rpgjovemcristao-ebd001-preview.vercel.app`, com redirects `/auth` e `/auth/recover` dessa mesma Preview. Uma requisição negativa, sem conta e com token deliberadamente inválido, direcionada ao backend PROD e solicitando o callback produtivo, retornou 303 para a raiz da Preview, `otp_expired`, com cabeçalho `sb-project-ref` de PROD e cache DYNAMIC. Confirma a configuração efetiva, sem comprovar autenticação positiva nem alterar conta. A origem/quando esses valores foram configurados não foi determinada; nenhuma alteração produtiva foi feita pelo agente nesta rodada.
-
-O destino de Auth PROD precisa corresponder ao domínio produtivo antes do lançamento. A instrução vigente determina não alterar novamente URLs; portanto, nenhuma correção de URLs foi aplicada. Essa pendência é separada do limite de envio em TEST e não desaparece quando o e-mail de teste for liberado.
-
-### O que falta exatamente para liberar Guilda e EBD
-
-1. **BLOCKED:** envio normal de recuperação aceito em TEST; novo e-mail com destino correto; callback real na Preview; atualização da senha, logout/novo login e preservação do mesmo avatar. Usar o harness corrigido e registrar os resultados, sem reutilizar token consumido nem alterar quotas.
-2. **BLOCKED:** resolver a configuração Auth PROD que aponta para Preview e validar destinos/recuperação de produção. Permanece sem escrita enquanto vigorar a instrução de não alterar URLs e os gates obrigatórios não passarem.
-3. **Pendente, preparado:** revisão final do SHA/CI e fluxo normal de PR/merge. Confirmar CI do SHA efetivamente destinado à produção, respeitando proteções e sem bypass; o CI de um SHA anterior não substitui essa conferência.
-4. **Pendente, preparado:** atualizar baseline/backup estrutural e verificar migrations remotas novamente imediatamente antes da aplicação. Aplicar somente as duas migrations da release, ainda ausentes em PROD, por finalidade/conteúdo; não reaplicar o histórico TEST. Validar ACL, Auth, RLS e hashes dos dados depois, com recuperação disponível.
-5. **Pendente, preparado:** confirmar variáveis do build produtivo apontando para PROD, acompanhar o deploy normal do SHA aprovado e conferir READY/aliases. A Preview ligada a TEST não deve ser promovida como se fosse o build produtivo.
-6. **Pendente:** testes reais pós-deploy de Auth/avatar/Guilda/EBD, isolamento entre Guildas e negações de rotas/APIs econômicas, usando somente contas autorizadas. Confirmar preservação dos dados e registrar URL/SHA/resultado antes de declarar publicação concluída.
-
-Celular físico segue indisponível; os testes móveis já executados são identificados como emulação. Arena/Torre/economia/História e a promoção específica do Teste Chat A continuam fora dos requisitos deste lançamento parcial, desde que seu isolamento permaneça comprovado. Não se exige repetir os testes já aprovados sem mudança ou evidência nova de regressão.
-
-Evidências adicionais privadas: `build/release-ebd-001/recheck-20261024-1910/` (`ci-docs.json`, `compatibility.json`, `auth-prod-inspection.json`, `auth-prod-probe.json`, diffs Auth somente leitura e snapshots dos deployments). **Estado final: BLOCKED; nenhuma migration, mudança de URL/limite ou publicação produtiva nesta rodada.**
-
-## Correção autorizada de Auth PROD — 24/10/2026
-
-Esta seção atualiza o estado mais recente e supera exclusivamente o bloqueio de destinos Auth descrito na rechecagem anterior. O usuário autorizou corrigir Site URL e Redirect URLs somente em PROD após confirmar domínio, projeto e recuperação; não autorizou merge ou publicação antes dos demais gates.
-
-| Check | Estado | Evidência |
+| Arquivo local | Registro TEST já validado | Registro PROD executado |
 | --- | --- | --- |
-| Identificação dos ambientes | DONE | MCP list_projects: PROD `wspafhlbtlpabypzymjo` / `RPGJOVEMCRISTAO`; TEST `wkdvdzfkbwvhyjmamrsg` / `rpgjovemcristao-test`; ambos ACTIVE_HEALTHY |
-| Origem oficial HTTPS | DONE | `https://rpgjovemcristao-web-inky.vercel.app`; único domínio produtivo listado, verified=true, sem branch/redirect; deployment produtivo READY e HTTPS 200 com certificado validado |
-| Backup e plano | DONE | Snapshot anterior dos dois campos, hash SHA-256 `0b9318ee8c831d789414d79c203fe0818803564ace14ca6c16a52fdaeb7e4d02`, plano e diff revisado antes da escrita |
-| Destinos legítimos anteriores | DONE | Lista anterior continha somente os dois callbacks da Preview; zero destinos produtivos adicionais a preservar. Ambos os destinos TEST removidos |
-| Aplicação exclusiva em PROD | DONE | CLI `config push --project-ref wspafhlbtlpabypzymjo` com arquivo mínimo declarando somente os dois campos; exit 0 |
-| Persistência remota | DONE | Nova leitura `config diff`: zero alterações declaradas pendentes em PROD; sete diferenças de campos não declarados exatamente iguais antes/depois |
-| Separação TEST/PROD | DONE | TEST consultado sem escrita, zero diferenças em seus campos URL; destino Preview rejeitado no probe de Auth PROD |
-| Contas e dados | DONE | Hash das nove linhas de `auth.users` igual antes/depois; 20 avatares, 245.376 XP, 1.006.767 moedas e 37 registros de inventário iguais |
-| Recuperação positiva em TEST | BLOCKED | Único novo pedido normal nesta rodada ainda HTTP 429 `over_email_send_rate_limit`; sem novo callback, troca de senha ou login |
-| Publicação da aplicação | BLOCKED | Sem merge/migration/deploy; aplicação produtiva continua no mesmo deployment e SHA `5edc93f` |
+| `20261024151503_release_ebd_001_isolation.sql` | `20261024154422 release_ebd_001_isolation` | `20261024195457 release_ebd_001_isolation` |
+| `20261024154319_release_ebd_001_avatar_selection.sql` | `20261024155038 release_ebd_001_avatar_selection` | `20261024195507 release_ebd_001_avatar_selection` |
 
-Valores efetivos autorizados e persistidos em PROD:
+**DONE:** conteúdo normalizado dos dois arquivos locais conferido contra as statements registradas em TEST; nenhum registro dessas migrations existia em PROD antes. Foram aplicadas somente as duas acima, sem reaplicar o histórico TEST, reset, recriação de tabelas ou concessões econômicas.
 
-```toml
-[auth]
-site_url = "https://rpgjovemcristao-web-inky.vercel.app"
-additional_redirect_urls = [
-  "https://rpgjovemcristao-web-inky.vercel.app/auth",
-  "https://rpgjovemcristao-web-inky.vercel.app/auth/recover"
-]
-```
+**DONE:** plano de recuperação estrutural registra definições de funções e ACLs de funções/tabelas/colunas/defaults. A restauração já havia sido executada com sucesso no PostgreSQL isolado; snapshot PROD renovado por leitura era idêntico ao preparado anteriormente, SHA-256 `7f71544b8e5ee2b4d7fb495f07c93b55eb98f2f02daea6734653372797d7b029`. É backup estrutural adequado à alteração de DDL/ACL; não foi chamado de dump completo dos jogadores. Não foi necessário restaurar.
 
-O CLI declara que propriedades ausentes do arquivo não são alteradas. Foram revisados somente dois updates antes de executar; demais configurações reportadas permaneceram iguais depois. Não houve alteração de senhas, contas, quotas, tokens, permissões econômicas ou variáveis de ambiente, nem desativação de Auth/RLS. O único envio de recuperação foi solicitado pelo fluxo público normal de TEST e foi recusado com 429.
+**DONE preservação:** 39 hashes de tabelas exatamente iguais antes/depois de cada migration PROD. Após os testes, 38 tabelas não Auth mantiveram os dados originais exatamente iguais ao excluir somente os IDs conhecidos das novas fixtures; as nove contas anteriores de `auth.users` também ficaram exatamente iguais. Os 20 avatares preexistentes foram preservados; agora há 24, incluindo quatro fixtures nível 1/XP 0/moedas 0. Totais de XP 245.376, moedas 1.006.767 e inventário 37 permanecem iguais. Zero tabelas públicas sem RLS. Nenhum item, baú ou crédito foi entregue às fixtures por EBD.
 
-Probes sem conta, com tokens deliberadamente inválidos: solicitação de callback produtivo retornou 303 para o caminho `/auth/recover` da origem oficial; solicitação do antigo callback Preview retornou 303 para a raiz produtiva, rejeitando o destino TEST. Ambos retornaram `otp_expired`, `sb-project-ref` de PROD e cache DYNAMIC. São provas negativas do roteamento/allowlist, **não PASS de recuperação ou autenticação positiva**. O fluxo produtivo completo do novo candidato continua sujeito à publicação e aos testes posteriores.
+Advisors remanescentes registrados: aviso de [RPCs SECURITY DEFINER executáveis por authenticated](https://supabase.com/docs/guides/database/database-linter?lint=0029_authenticated_security_definer_function_executable), aviso de [proteção contra senhas vazadas](https://supabase.com/docs/guides/auth/password-security#password-strength-and-leaked-password-protection) e informação de [RLS ativo sem policy](https://supabase.com/docs/guides/database/database-linter?lint=0008_rls_enabled_no_policy). Não se desativou controle para remover alertas; RLS, autorização e negações foram testados. Acompanhamento operacional desses avisos permanece REWORK, sem falha crítica aberta no escopo liberado.
 
-Recuperação operacional: snapshot histórico dos dois campos e metadados salvo antes da alteração; em caso de falha de verificação, interromper os demais writes/deploys, inspecionar e reaplicar de forma idempotente apenas os valores produtivos revisados. Não restaurar automaticamente os destinos TEST incorretos do snapshot. Nenhuma recuperação precisou ser executada, pois as verificações passaram.
+## Evidências e pendências
 
-O conector Vercel retornou 403; a inspeção de domínios foi concluída pelo CLI já autenticado no mesmo team/projeto, sem alteração de permissões do conector. CI do commit documental anterior `8dbe0b2` aprovado no push 40124580870 e PR 40124584417; runtime/testes/arte/migrations permanecem sem alterações em relação a `23391b5`. A correção de configuração Auth PROD foi efetivamente executada: não se declara todo o ambiente produtivo inalterado, apenas aplicação, dados e demais controles preservados conforme as verificações acima.
+Evidências privadas em `build/release-ebd-001/` e `build/release-ebd-001/release-gates-20261024/production/`: CI/SHA/deployment/alias, conta/cadastro, recuperação TEST/PROD, 38 checks browser, 43 API, hashes e preservação, migrations e capturas visuais. Tokens, senhas, sessões e convites privados não foram publicados. Arquivos de recuperação não foram executados em produção.
 
-Evidências privadas: `build/release-ebd-001/auth-prod-fix-20261024/` (`projects.json`, `production-domains.json`, `plan.json`, `snapshot-before/`, `reviewed-diff.log`, `push.log`, `after.log`, `verification.json`, `data-preservation.json`, `redirect-probes.json`, resultado do novo pedido TEST e snapshot do deployment).
+**BLOCKED, fora do lançamento:** homologação de combate/cartas/Torre/economia/História; origem legada de 16 XP/6 moedas não comprovada, sem ajuste manual; promoção específica do Teste Chat A. Permanecem isolados, sem créditos liberados. **REWORK futuro:** celular físico quando disponível e acompanhamento dos avisos operacionais de segurança. Nenhum desses itens foi apresentado como PASS ou desbloqueado por esta publicação.
 
-**Pendências atuais:** recuperação completa normal em TEST continua BLOCKED por 429; depois, PR/CI do SHA efetivo, atualização de backup/baseline e aplicação exclusiva das migrations necessárias, build com backend PROD, publicação e testes reais pós-deploy. A correção das URLs não dispensa nenhum desses gates. Nenhuma senha foi alterada nesta rodada; a restrição de credenciais permanece vigente. **Release permanece BLOCKED; sem DEPLOY_COMPLETE.**
+**Aceite do escopo Guilda/EBD: DONE.** Publicação remota, CI do SHA exato e testes reais posteriores confirmados. Não houve alteração adicional de Site URL, redirects ou quotas durante a conclusão; somente os dados das fixtures autorizadas e as duas migrations aprovadas foram criados/aplicados.

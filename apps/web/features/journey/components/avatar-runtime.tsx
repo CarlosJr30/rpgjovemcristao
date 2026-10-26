@@ -82,6 +82,27 @@ function EquipmentLayer({
   const { asset, placement, overlayMode, itemId, slot } = layer;
   return (
     <>
+      {layer.chainPath && (
+        <svg
+          aria-hidden="true"
+          viewBox="0 0 1024 1536"
+          data-overlay-chain={itemId}
+          className={styles.avatarEquipmentLayer}
+          style={{
+            inset: 0,
+            width: '100%',
+            height: '100%',
+            zIndex: placement.zIndex,
+          }}
+        >
+          <path
+            d={layer.chainPath}
+            fill="none"
+            stroke="#d1ad58"
+            strokeWidth="3"
+          />
+        </svg>
+      )}
       <img
         src={asset}
         alt=""
@@ -115,6 +136,7 @@ function EquipmentLayer({
                 transformOrigin: layer.canvasComposition
                   ? (layer.canvasComposition.transformOrigin ?? 'top left')
                   : undefined,
+                clipPath: layer.canvasComposition?.clipPath,
                 zIndex: placement.zIndex,
               }
             : {

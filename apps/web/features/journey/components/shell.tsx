@@ -48,20 +48,50 @@ const primaryLinks = [
   ['guild', 'Guilda', '⚑'],
   ['arena', 'Arena', '⚔'],
 ] as const;
+const releasedLinks = [
+  ...primaryLinks.map(([id, label]) => ({
+    id,
+    label,
+    href: routes[id],
+    icon: id,
+    available: id === 'hero' || id === 'guild',
+  })),
+  {
+    id: 'ebd',
+    label: 'EBD',
+    href: '/journey/guild/ebd',
+    icon: 'diary',
+    available: true,
+  } as const,
+];
 
 export function Shell({
   children,
   back,
   backLabel = 'Voltar ao mapa',
+  navigationMode = 'journey',
+  className = '',
 }: {
   children: ReactNode;
   back?: string;
   backLabel?: string;
+  navigationMode?: 'journey' | 'released';
+  className?: string;
 }) {
   const state = useJourney();
   const auth = useAuth();
   const router = useRouter();
   const pathname = usePathname();
+  const released = navigationMode === 'released';
+  const links = released
+    ? releasedLinks
+    : primaryLinks.map(([id, label]) => ({
+        id,
+        label,
+        href: routes[id],
+        icon: id,
+        available: true,
+      }));
   const audioPreferences = useGameAudio(
     pathname ?? '/',
     state.status === 'ready' ? state.traveler.progress?.gardenStep : undefined,
@@ -109,16 +139,45 @@ export function Shell({
   useEffect(() => {
     if (!menuOpen) return;
     const trigger = menuTrigger.current;
+    const sidebar = document.getElementById('journey-sidebar');
+    const previousOverflow = document.body.style.overflow;
+    if (released) document.body.style.overflow = 'hidden';
     document.querySelector<HTMLElement>('#journey-sidebar a')?.focus();
     const handleKey = (event: KeyboardEvent) => {
       if (event.key === 'Escape') setMenuOpen(false);
+      if (released && event.key === 'Tab' && sidebar) {
+        const controls = Array.from(
+          sidebar.querySelectorAll<HTMLElement>(
+            'a[href], button:not(:disabled)',
+          ),
+        );
+        const first = controls[0],
+          last = controls.at(-1);
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault();
+          last?.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault();
+          first?.focus();
+        }
+      }
+    };
+    const close = () => setMenuOpen(false);
+    const desktop = window.matchMedia?.('(min-width: 1025px)');
+    const resize = () => {
+      if (desktop?.matches) close();
     };
     document.addEventListener('keydown', handleKey);
+    window.addEventListener('popstate', close);
+    desktop?.addEventListener('change', resize);
     return () => {
       document.removeEventListener('keydown', handleKey);
+      window.removeEventListener('popstate', close);
+      desktop?.removeEventListener('change', resize);
+      if (released) document.body.style.overflow = previousOverflow;
       trigger?.focus();
     };
-  }, [menuOpen]);
+  }, [menuOpen, released]);
   const onlineSync = useSyncExternalStore(
     subscribeOnlineSync,
     getOnlineSyncStatus,
@@ -167,8 +226,9 @@ export function Shell({
   }, [state]);
   return (
     <div
-      className={`${styles.shell} ${mobile.gameShell}`}
+      className={`${styles.shell} ${mobile.gameShell} ${className}`}
       data-game-shell="mobile-game-mode-v1"
+      data-navigation-mode={navigationMode}
       onClickCapture={(event) => {
         if (
           event.target instanceof HTMLElement &&
@@ -183,7 +243,7 @@ export function Shell({
       <header className={`${styles.header} ${mobile.gameHeader}`}>
         <Link
           href="/"
-          className={`${styles.brand} ${state.status === 'ready' ? mobile.readyBrand : ''}`}
+          className={`${styles.brand} ${state.status === 'ready' && !released ? mobile.readyBrand : ''}`}
           aria-label="RPG Jovem Cristão — início"
         >
           <span className={styles.brandMark} aria-hidden="true">
@@ -199,8 +259,14 @@ export function Shell({
               <button
                 ref={profileTrigger}
                 className={`${styles.hud} ${mobile.playerHud}`}
-                onClick={() => setProfileOpen((open) => !open)}
+                onClick={() => {
+                  setMenuOpen(false);
+                  setProfileOpen((open) => !open);
+                }}
                 aria-label="Abrir Herói"
+                aria-expanded={profileOpen}
+                aria-haspopup="menu"
+                aria-controls="journey-account-menu"
               >
                 <AvatarRuntime
                   traveler={state.traveler}
@@ -212,11 +278,17 @@ export function Shell({
                   <span>
                     <span className={mobile.desktopContext}>Viajante</span>
                     <span className={mobile.mobileContext}>
-                      {primaryLinks.find(
-                        ([id]) => pathname === routes[id],
-                      )?.[1] ?? 'Jornada'}
+                      {released
+                        ? ''
+                        : (links.find((link) => pathname === link.href)
+                            ?.label ?? 'Jornada')}
                     </span>{' '}
-                    · Nível {state.traveler.level}
+                    {released ? (
+                      <span className={mobile.desktopContext}>· </span>
+                    ) : (
+                      '· '
+                    )}
+                    Nível {state.traveler.level}
                   </span>
                 </span>
                 <span className={styles.hudValue}>
@@ -238,13 +310,17 @@ export function Shell({
                 </span>
               </button>
               {profileOpen && (
-                <div className={styles.profilePopover} role="menu">
+                <div
+                  id="journey-account-menu"
+                  className={styles.profilePopover}
+                  role="menu"
+                >
                   <Link
                     href={routes.hero}
                     role="menuitem"
                     onClick={() => setProfileOpen(false)}
                   >
-                    Meu Herói
+                    {released ? 'Meu avatar' : 'Meu Herói'}
                   </Link>
                   <span className={mobile.mobilePlayerStats}>
                     {state.traveler.xp} XP · {state.traveler.coins}{' '}
@@ -292,12 +368,14 @@ export function Shell({
                 </div>
               )}
             </div>
-            <button
-              className={styles.headerLogout}
-              onClick={() => setConfirmingTravelerSwitch(true)}
-            >
-              Trocar Viajante
-            </button>
+            {!released && (
+              <button
+                className={styles.headerLogout}
+                onClick={() => setConfirmingTravelerSwitch(true)}
+              >
+                Trocar Viajante
+              </button>
+            )}
           </div>
         ) : (
           <span className={styles.headerNote}>
@@ -319,7 +397,10 @@ export function Shell({
             aria-label={menuOpen ? 'Fechar menu' : 'Abrir menu'}
             aria-expanded={menuOpen}
             aria-controls="journey-sidebar"
-            onClick={() => setMenuOpen((open) => !open)}
+            onClick={() => {
+              setProfileOpen(false);
+              setMenuOpen((open) => !open);
+            }}
           >
             <span aria-hidden="true">{menuOpen ? '×' : '☰'}</span>
           </button>
@@ -372,11 +453,19 @@ export function Shell({
           {onlineSync.message}
         </p>
       )}
-      {auth.user && <p className={styles.notice} role="note">Economia em transição: recompensas da Jornada e compras de equipamentos estão pausadas nesta versão. Trocas de equipamento exigem confirmação do servidor. Progresso local não concede XP, moedas ou baús online. Arena e Torre consultam somente o servidor; saldos antigos aguardam reconciliação.</p>}
+      {!released && auth.user && (
+        <p className={styles.notice} role="note">
+          Economia em transição: recompensas da Jornada e compras de
+          equipamentos estão pausadas nesta versão. Trocas de equipamento exigem
+          confirmação do servidor. Progresso local não concede XP, moedas ou
+          baús online. Arena e Torre consultam somente o servidor; saldos
+          antigos aguardam reconciliação.
+        </p>
+      )}
       {menuOpen && state.status === 'ready' && (
         <button
           className={styles.sidebarScrim}
-          aria-label="Fechar menu"
+          aria-label={released ? 'Fechar menu pelo fundo' : 'Fechar menu'}
           onClick={() => setMenuOpen(false)}
         />
       )}
@@ -389,24 +478,57 @@ export function Shell({
           <aside
             id="journey-sidebar"
             className={`${styles.primarySidebar} ${menuOpen ? styles.primarySidebarOpen : ''}`}
+            role={released && menuOpen ? 'dialog' : undefined}
+            aria-modal={released && menuOpen ? true : undefined}
+            aria-label={released && menuOpen ? 'Menu principal' : undefined}
           >
             <div className={styles.sidebarBrand}>
               RPG<span>JOVEM</span>
             </div>
+            {released && (
+              <button
+                className={styles.sidebarDismiss}
+                aria-label="Fechar navegação"
+                onClick={() => setMenuOpen(false)}
+              >
+                ×
+              </button>
+            )}
             <nav aria-label="Navegação principal">
-              {primaryLinks.map(([id, label]) => (
-                <Link
-                  key={id}
-                  href={routes[id]}
-                  aria-current={pathname === routes[id] ? 'page' : undefined}
-                  onClick={() => setMenuOpen(false)}
-                >
-                  <i aria-hidden="true">
-                    <JourneyIcon name={id} />
-                  </i>
-                  {label}
-                </Link>
-              ))}
+              {links.map(({ id, label, href, icon, available }) =>
+                !available ? (
+                  <div
+                    key={id}
+                    className={styles.developmentNavItem}
+                    aria-disabled="true"
+                  >
+                    <i aria-hidden="true">
+                      <JourneyIcon name={icon} />
+                    </i>
+                    <span>
+                      {label}
+                      <small>Em desenvolvimento</small>
+                    </span>
+                  </div>
+                ) : (
+                  <Link
+                    key={id}
+                    href={href}
+                    aria-current={
+                      pathname === href ||
+                      (released && id === 'hero' && pathname === '/')
+                        ? 'page'
+                        : undefined
+                    }
+                    onClick={() => setMenuOpen(false)}
+                  >
+                    <i aria-hidden="true">
+                      <JourneyIcon name={icon} />
+                    </i>
+                    {label}
+                  </Link>
+                ),
+              )}
             </nav>
           </aside>
         )}
@@ -464,7 +586,7 @@ export function Shell({
           </main>
         </div>
       </div>
-      {state.status === 'ready' && (
+      {state.status === 'ready' && !released && (
         <nav
           className={mobile.bottomNav}
           inert={menuOpen}
@@ -503,7 +625,9 @@ export function Shell({
         <span>Explore. Descubra. Continue.</span>
         <span>
           {state.status === 'ready'
-            ? 'Jornada salva neste navegador'
+            ? released
+              ? 'Seu progresso continua na sua conta'
+              : 'Jornada salva neste navegador'
             : 'Seu próximo passo começa aqui'}
         </span>
       </footer>

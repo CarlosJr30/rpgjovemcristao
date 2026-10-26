@@ -7,6 +7,26 @@ import { auditPack } from '../../../../scripts/audiovisual-pack.mjs';
 import { GuildArtwork, GuildHall } from './components/guild-artwork';
 import { GuildRewardDetails } from './components/guild-reward-summary';
 afterEach(cleanup);
+
+test('hall decoration can wait for data without hiding the current controls', () => {
+  const { container, rerender } = render(
+    <GuildHall showScene={false}>
+      <button>Atualizar Guilda</button>
+    </GuildHall>,
+  );
+  expect(container.querySelector('picture')).toBeNull();
+  expect(
+    screen.getByRole('button', { name: 'Atualizar Guilda' }),
+  ).toBeVisible();
+  rerender(
+    <GuildHall>
+      <button>Atualizar Guilda</button>
+    </GuildHall>,
+  );
+  expect(
+    container.querySelector('[data-guild-art="guildHall"]'),
+  ).toBeInTheDocument();
+});
 test('responsive hall restores CSS and preserves HTML when the chosen image fails', () => {
   const { container } = render(
     <GuildHall>

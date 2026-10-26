@@ -18,8 +18,8 @@
     "start": "npm run start --workspace=@rpg/web",
     "lint": "eslint . --max-warnings=0",
     "typecheck": "npm run typecheck --workspaces && tsc --noEmit",
-    "test": "vitest run",
-    "test:watch": "vitest",
+    "test": "node scripts/next-rsc-departure-patch.mjs && vitest run",
+    "test:watch": "node scripts/next-rsc-departure-patch.mjs && vitest",
     "test:e2e": "playwright test",
     "format": "prettier --write apps/web packages tests/e2e *.json *.ts *.mjs .prettierrc.json README.md docs/architecture/BOOTSTRAP.md",
     "format:check": "prettier --check apps/web packages tests/e2e *.json *.ts *.mjs .prettierrc.json README.md docs/architecture/BOOTSTRAP.md"

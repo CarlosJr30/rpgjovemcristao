@@ -1,0 +1,258 @@
+{
+  "task": "RPG-DEV-004",
+  "date": "2026-10-25",
+  "status": "BLOCKED_WEBKIT_HARD_NAVIGATION",
+  "preview": {
+    "id": "dpl_3TxRX7PZiv7y2PC17HaUTZpQkiit",
+    "url": "rpgjovemcristao-c2ii2gaxd-carlos-junior-s-projects.vercel.app",
+    "readyState": "READY",
+    "target": null,
+    "sha": "47ef29f15d3a1115168a0fde6d664be4495f9e1f"
+  },
+  "backend": "wkdvdzfkbwvhyjmamrsg",
+  "playwright": "1.63.0",
+  "webkitRevision": "2359",
+  "interpretation": {
+    "normalCancellation": "Real prefetch cancelled by full navigation; no HTTP response.",
+    "controlledReplay": "Same observed URL/allowed headers returns 200 before navigation, rejected after document replacement starts. Replay is deliberately diagnostic, not a normal user flow.",
+    "noProductFix": true,
+    "noErrorFiltering": true,
+    "productionUnchanged": true
+  },
+  "normalCanceledPrefetch": [
+    {
+      "ms": 9106,
+      "phase": "ebd",
+      "kind": "request",
+      "url": "https://rpgjovemcristao-c2ii2gaxd-carlos-junior-s-projects.vercel.app/journey/guild/manage?_rsc=pF60Ppc4CPk77cAI",
+      "method": "GET",
+      "navigation": false,
+      "headers": {
+        "sec-fetch-dest": "empty",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-site": "same-origin",
+        "cache-control": "no-cache",
+        "rsc": "1",
+        "next-router-prefetch": "1",
+        "next-router-segment-prefetch": "/_tree"
+      }
+    },
+    {
+      "ms": 9161,
+      "phase": "negative-/journey/arena",
+      "kind": "requestfailed",
+      "url": "https://rpgjovemcristao-c2ii2gaxd-carlos-junior-s-projects.vercel.app/journey/guild/manage?_rsc=pF60Ppc4CPk77cAI",
+      "failure": "Load request cancelled"
+    }
+  ],
+  "controlledReplayTimeline": [
+    {
+      "ms": 10495,
+      "phase": "controlled-prefetch-before-navigation",
+      "kind": "replay-control",
+      "result": {
+        "status": 200,
+        "contentType": "text/x-component"
+      }
+    },
+    {
+      "ms": 10499,
+      "phase": "controlled-provisional-prefetch",
+      "kind": "document",
+      "at": 3113,
+      "location": "/journey/guild/ebd",
+      "readyState": "complete",
+      "type": "beforeunload"
+    },
+    {
+      "ms": 10499,
+      "phase": "controlled-provisional-prefetch",
+      "kind": "document",
+      "at": 2848,
+      "location": "/_next-live/feedback/feedback.html",
+      "readyState": "complete",
+      "type": "beforeunload"
+    },
+    {
+      "ms": 10500,
+      "phase": "controlled-provisional-prefetch",
+      "kind": "requestfailed",
+      "url": "https://rpgjovemcristao-c2ii2gaxd-carlos-junior-s-projects.vercel.app/journey/guild/manage?_rsc=sK1xMFLw1XuGznw_",
+      "failure": "Load request cancelled"
+    },
+    {
+      "ms": 10501,
+      "phase": "controlled-provisional-prefetch",
+      "kind": "request",
+      "url": "https://rpgjovemcristao-c2ii2gaxd-carlos-junior-s-projects.vercel.app/journey/arena",
+      "method": "GET",
+      "navigation": true,
+      "headers": {
+        "cache-control": "no-cache",
+        "sec-fetch-dest": "document",
+        "sec-fetch-mode": "navigate",
+        "sec-fetch-site": "none"
+      }
+    },
+    {
+      "ms": 10502,
+      "phase": "controlled-provisional-prefetch",
+      "kind": "navigation-held-before-response"
+    },
+    {
+      "ms": 10502,
+      "phase": "controlled-provisional-prefetch",
+      "kind": "document",
+      "at": 3114,
+      "location": "/journey/guild/ebd",
+      "readyState": "complete",
+      "type": "fetch-reject",
+      "url": "https://rpgjovemcristao-c2ii2gaxd-carlos-junior-s-projects.vercel.app/journey/guild/manage?_rsc=sK1xMFLw1XuGznw_",
+      "error": "TypeError: Load failed"
+    },
+    {
+      "ms": 10504,
+      "phase": "controlled-provisional-prefetch",
+      "kind": "document",
+      "at": 3118,
+      "location": "/journey/guild/ebd",
+      "readyState": "complete",
+      "type": "fetch-start",
+      "url": "https://rpgjovemcristao-c2ii2gaxd-carlos-junior-s-projects.vercel.app/journey/guild/manage?_rsc=pF60Ppc4CPk77cAI",
+      "headers": {
+        "next-router-prefetch": "1",
+        "next-router-segment-prefetch": "/_tree",
+        "rsc": "1"
+      }
+    },
+    {
+      "ms": 10505,
+      "phase": "controlled-provisional-prefetch",
+      "kind": "pageerror",
+      "message": "/rpgjovemcristao-c2ii2gaxd-carlos-junior-s-projects.vercel.app/journey/guild/manage?_rsc=[nonce] due to access control checks."
+    },
+    {
+      "ms": 10514,
+      "phase": "controlled-provisional-prefetch",
+      "kind": "document",
+      "at": 3128,
+      "location": "/journey/guild/ebd",
+      "readyState": "complete",
+      "type": "fetch-reject",
+      "url": "https://rpgjovemcristao-c2ii2gaxd-carlos-junior-s-projects.vercel.app/journey/guild/manage?_rsc=pF60Ppc4CPk77cAI",
+      "error": "TypeError: Load failed"
+    },
+    {
+      "ms": 10514,
+      "phase": "controlled-provisional-prefetch",
+      "kind": "replay-provisional",
+      "result": {
+        "caught": true,
+        "error": "TypeError: Load failed"
+      }
+    },
+    {
+      "ms": 10665,
+      "phase": "controlled-provisional-prefetch",
+      "kind": "response",
+      "url": "https://rpgjovemcristao-c2ii2gaxd-carlos-junior-s-projects.vercel.app/journey/arena",
+      "status": 403,
+      "headers": {
+        "cache-control": "no-store",
+        "content-type": "text/html; charset=utf-8"
+      }
+    },
+    {
+      "ms": 10665,
+      "phase": "controlled-provisional-prefetch",
+      "kind": "document",
+      "at": 3279,
+      "location": "/journey/guild/ebd",
+      "readyState": "complete",
+      "type": "pagehide"
+    },
+    {
+      "ms": 10666,
+      "phase": "controlled-provisional-prefetch",
+      "kind": "document",
+      "at": 3015,
+      "location": "/_next-live/feedback/feedback.html",
+      "readyState": "complete",
+      "type": "pagehide"
+    },
+    {
+      "ms": 10669,
+      "phase": "controlled-provisional-prefetch",
+      "kind": "commit",
+      "url": "https://rpgjovemcristao-c2ii2gaxd-carlos-junior-s-projects.vercel.app/journey/arena"
+    },
+    {
+      "ms": 10672,
+      "phase": "controlled-provisional-prefetch",
+      "kind": "diagnostic-navigation-completed"
+    }
+  ],
+  "failedReplayHttpStatus": null,
+  "failedReplayResponseHeaders": null,
+  "failedReplayNote": "No browser request/response emitted for the refused replay; headers are the attempted safe request headers from the fetch observer. HTTP 403 belongs to the separate Arena navigation.",
+  "normalFlowRegression": [
+    {
+      "repeat": 1,
+      "checks": 20,
+      "passed": true,
+      "pageErrors": 0,
+      "domErrors": 0,
+      "fetchWrapper": true
+    },
+    {
+      "repeat": 2,
+      "checks": 20,
+      "passed": true,
+      "pageErrors": 0,
+      "domErrors": 0,
+      "fetchWrapper": false
+    },
+    {
+      "repeat": 3,
+      "checks": 20,
+      "passed": true,
+      "pageErrors": 0,
+      "domErrors": 0,
+      "fetchWrapper": false
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "build/rpg-dev-004/hosted-validation.json",
+      "sha256": "01598964e4759bedc1e5266bbed33b778b8363a0db643bea4e79d2cf903b1291"
+    },
+    {
+      "path": "build/rpg-dev-004/provisional-fetch.json",
+      "sha256": "f5a07e0590d5569d4fe879c4151cd3a8afd482ffd28d56792260e2b0b9da4ca4"
+    },
+    {
+      "path": "build/rpg-dev-004/webkit-lider-diagnostic-1.json",
+      "sha256": "f751eb170a2af91d2796ddd08f132a456a6a2d3e69a101c97977ba5cc1321cbd"
+    },
+    {
+      "path": "build/rpg-dev-004/webkit-lider-diagnostic-2.json",
+      "sha256": "2ba16ae47825714aabadf3a3118d56da16674ffc60a172b99676ac1c6273cbd1"
+    },
+    {
+      "path": "build/rpg-dev-004/webkit-lider-provisional-replay.json",
+      "sha256": "edfc3efcdc0bd2f77964e48e39229638f7533c967c89e28188c707c392b5e363"
+    },
+    {
+      "path": "build/rpg-dev-004/webkit-lider-functional-1.json",
+      "sha256": "c6bf43f83ccdd353c5effbec6190e53c806c8ed385fc881bc4bccb1ab4a0e220"
+    },
+    {
+      "path": "build/rpg-dev-004/webkit-lider-functional-2.json",
+      "sha256": "ecaf235e79acc88f9b9c6e85ae2154016b6d59c94cc646a5e8a112590edb3130"
+    },
+    {
+      "path": "build/rpg-dev-004/webkit-lider-functional-3.json",
+      "sha256": "66d77f4092ee2b83e0f8781a971cb2bc635f95b6cf315017c98aef371289cb8d"
+    }
+  ]
+}

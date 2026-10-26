@@ -1,3 +1,19 @@
+.sidebarDismiss { display:none; }
+.developmentNavItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 58px;
+  padding: 8px 12px;
+  border-left: 3px solid transparent;
+  color: #dfdfc6;
+  box-sizing: border-box;
+}
+.developmentNavItem i { display:grid; place-items:center; width:24px; color:#cab36c; }
+.developmentNavItem small { display:block; margin-top:3px; color:#cfbd84; font-size:11px; line-height:1.3; }
+@media(max-width:1024px) {
+  .shell[data-navigation-mode='released'] .sidebarDismiss { display:grid; place-items:center; position:absolute; right:12px; top:12px; width:44px; min-height:44px; border:1px solid #c3aa6666; border-radius:8px; color:#f4e6b3; background:transparent; font-size:24px; }
+}
 .shell {
   max-width: 1600px;
   margin: auto;

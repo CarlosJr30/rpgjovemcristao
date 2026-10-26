@@ -1,0 +1,490 @@
+{
+  "task": "UI-MOBILE-001",
+  "runtimeCommit": "033c690867bbad456012eb25431b003e91b3da2e",
+  "runs": [
+    {
+      "id": 40253969931,
+      "head_sha": "033c690867bbad456012eb25431b003e91b3da2e",
+      "event": "push",
+      "status": "completed",
+      "conclusion": "success",
+      "run_attempt": 1,
+      "html_url": "https://github.com/CarlosJr30/rpgjovemcristao/actions/runs/40253969931",
+      "jobs": [
+        {
+          "id": 121351721577,
+          "name": "Testes, lint, tipos e build",
+          "status": "completed",
+          "conclusion": "success",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1,
+              "started_at": "2026-10-26T01:23:24Z",
+              "completed_at": "2026-10-26T01:23:25Z"
+            },
+            {
+              "name": "Obter código da branch",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2,
+              "started_at": "2026-10-26T01:23:25Z",
+              "completed_at": "2026-10-26T01:23:36Z"
+            },
+            {
+              "name": "Configurar Node.js 24",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3,
+              "started_at": "2026-10-26T01:23:36Z",
+              "completed_at": "2026-10-26T01:23:44Z"
+            },
+            {
+              "name": "Configurar npm exigido pelo projeto",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 4,
+              "started_at": "2026-10-26T01:23:44Z",
+              "completed_at": "2026-10-26T01:23:48Z"
+            },
+            {
+              "name": "Instalar dependências reproduzíveis",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 5,
+              "started_at": "2026-10-26T01:23:48Z",
+              "completed_at": "2026-10-26T01:23:59Z"
+            },
+            {
+              "name": "Executar testes unitários",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 6,
+              "started_at": "2026-10-26T01:23:59Z",
+              "completed_at": "2026-10-26T01:24:40Z"
+            },
+            {
+              "name": "Verificar protocolo de publicação por SHA",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 7,
+              "started_at": "2026-10-26T01:24:40Z",
+              "completed_at": "2026-10-26T01:24:41Z"
+            },
+            {
+              "name": "Conferir isolamento da demonstração",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 8,
+              "started_at": "2026-10-26T01:24:41Z",
+              "completed_at": "2026-10-26T01:24:41Z"
+            },
+            {
+              "name": "Verificar lint",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 9,
+              "started_at": "2026-10-26T01:24:41Z",
+              "completed_at": "2026-10-26T01:24:58Z"
+            },
+            {
+              "name": "Verificar TypeScript",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 10,
+              "started_at": "2026-10-26T01:24:58Z",
+              "completed_at": "2026-10-26T01:25:16Z"
+            },
+            {
+              "name": "Compilar aplicação web",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 11,
+              "started_at": "2026-10-26T01:25:16Z",
+              "completed_at": "2026-10-26T01:25:36Z"
+            },
+            {
+              "name": "Post Configurar Node.js 24",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 21,
+              "started_at": "2026-10-26T01:25:36Z",
+              "completed_at": "2026-10-26T01:25:36Z"
+            },
+            {
+              "name": "Post Obter código da branch",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 22,
+              "started_at": "2026-10-26T01:25:36Z",
+              "completed_at": "2026-10-26T01:25:36Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 23,
+              "started_at": "2026-10-26T01:25:36Z",
+              "completed_at": "2026-10-26T01:25:36Z"
+            }
+          ]
+        },
+        {
+          "id": 121351721691,
+          "name": "Reprodução e contraste RSC isolados",
+          "status": "completed",
+          "conclusion": "success",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1,
+              "started_at": "2026-10-26T01:23:24Z",
+              "completed_at": "2026-10-26T01:23:25Z"
+            },
+            {
+              "name": "Obter código sem credenciais persistidas",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2,
+              "started_at": "2026-10-26T01:23:25Z",
+              "completed_at": "2026-10-26T01:23:53Z"
+            },
+            {
+              "name": "Configurar Node.js 24",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3,
+              "started_at": "2026-10-26T01:23:53Z",
+              "completed_at": "2026-10-26T01:24:06Z"
+            },
+            {
+              "name": "Configurar npm exigido pelo projeto",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 4,
+              "started_at": "2026-10-26T01:24:06Z",
+              "completed_at": "2026-10-26T01:24:24Z"
+            },
+            {
+              "name": "Instalar dependências reproduzíveis",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 5,
+              "started_at": "2026-10-26T01:24:24Z",
+              "completed_at": "2026-10-26T01:24:48Z"
+            },
+            {
+              "name": "Instalar navegadores da versão fixada no lockfile",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 6,
+              "started_at": "2026-10-26T01:24:48Z",
+              "completed_at": "2026-10-26T01:25:12Z"
+            },
+            {
+              "name": "Preservar reprodução nativa sem o patch",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 7,
+              "started_at": "2026-10-26T01:25:12Z",
+              "completed_at": "2026-10-26T01:26:03Z"
+            },
+            {
+              "name": "Exigir estabilidade na mesma fixture e nas regressões de lifecycle",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 8,
+              "started_at": "2026-10-26T01:26:03Z",
+              "completed_at": "2026-10-26T01:27:12Z"
+            },
+            {
+              "name": "Exigir estabilidade RSC e navegação móvel na aplicação completa",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 9,
+              "started_at": "2026-10-26T01:27:12Z",
+              "completed_at": "2026-10-26T01:28:35Z"
+            },
+            {
+              "name": "Post Configurar Node.js 24",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 17,
+              "started_at": "2026-10-26T01:28:35Z",
+              "completed_at": "2026-10-26T01:28:35Z"
+            },
+            {
+              "name": "Post Obter código sem credenciais persistidas",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 18,
+              "started_at": "2026-10-26T01:28:35Z",
+              "completed_at": "2026-10-26T01:28:37Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 19,
+              "started_at": "2026-10-26T01:28:37Z",
+              "completed_at": "2026-10-26T01:28:37Z"
+            }
+          ]
+        },
+        {
+          "id": 121353030151,
+          "name": "Preview do SHA aprovado",
+          "status": "completed",
+          "conclusion": "skipped",
+          "steps": []
+        }
+      ]
+    },
+    {
+      "id": 40253973573,
+      "head_sha": "033c690867bbad456012eb25431b003e91b3da2e",
+      "event": "pull_request",
+      "status": "completed",
+      "conclusion": "success",
+      "run_attempt": 1,
+      "html_url": "https://github.com/CarlosJr30/rpgjovemcristao/actions/runs/40253973573",
+      "jobs": [
+        {
+          "id": 121351734475,
+          "name": "Testes, lint, tipos e build",
+          "status": "completed",
+          "conclusion": "success",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1,
+              "started_at": "2026-10-26T01:23:26Z",
+              "completed_at": "2026-10-26T01:23:27Z"
+            },
+            {
+              "name": "Obter código da branch",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2,
+              "started_at": "2026-10-26T01:23:27Z",
+              "completed_at": "2026-10-26T01:23:39Z"
+            },
+            {
+              "name": "Configurar Node.js 24",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3,
+              "started_at": "2026-10-26T01:23:39Z",
+              "completed_at": "2026-10-26T01:23:45Z"
+            },
+            {
+              "name": "Configurar npm exigido pelo projeto",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 4,
+              "started_at": "2026-10-26T01:23:45Z",
+              "completed_at": "2026-10-26T01:23:49Z"
+            },
+            {
+              "name": "Instalar dependências reproduzíveis",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 5,
+              "started_at": "2026-10-26T01:23:49Z",
+              "completed_at": "2026-10-26T01:24:00Z"
+            },
+            {
+              "name": "Executar testes unitários",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 6,
+              "started_at": "2026-10-26T01:24:00Z",
+              "completed_at": "2026-10-26T01:24:42Z"
+            },
+            {
+              "name": "Verificar protocolo de publicação por SHA",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 7,
+              "started_at": "2026-10-26T01:24:42Z",
+              "completed_at": "2026-10-26T01:24:42Z"
+            },
+            {
+              "name": "Conferir isolamento da demonstração",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 8,
+              "started_at": "2026-10-26T01:24:42Z",
+              "completed_at": "2026-10-26T01:24:42Z"
+            },
+            {
+              "name": "Verificar lint",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 9,
+              "started_at": "2026-10-26T01:24:42Z",
+              "completed_at": "2026-10-26T01:25:00Z"
+            },
+            {
+              "name": "Verificar TypeScript",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 10,
+              "started_at": "2026-10-26T01:25:00Z",
+              "completed_at": "2026-10-26T01:25:19Z"
+            },
+            {
+              "name": "Compilar aplicação web",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 11,
+              "started_at": "2026-10-26T01:25:19Z",
+              "completed_at": "2026-10-26T01:25:39Z"
+            },
+            {
+              "name": "Post Configurar Node.js 24",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 21,
+              "started_at": "2026-10-26T01:25:39Z",
+              "completed_at": "2026-10-26T01:25:39Z"
+            },
+            {
+              "name": "Post Obter código da branch",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 22,
+              "started_at": "2026-10-26T01:25:39Z",
+              "completed_at": "2026-10-26T01:25:40Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 23,
+              "started_at": "2026-10-26T01:25:40Z",
+              "completed_at": "2026-10-26T01:25:40Z"
+            }
+          ]
+        },
+        {
+          "id": 121351734982,
+          "name": "Reprodução e contraste RSC isolados",
+          "status": "completed",
+          "conclusion": "success",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1,
+              "started_at": "2026-10-26T01:23:27Z",
+              "completed_at": "2026-10-26T01:23:27Z"
+            },
+            {
+              "name": "Obter código sem credenciais persistidas",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2,
+              "started_at": "2026-10-26T01:23:27Z",
+              "completed_at": "2026-10-26T01:23:47Z"
+            },
+            {
+              "name": "Configurar Node.js 24",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3,
+              "started_at": "2026-10-26T01:23:47Z",
+              "completed_at": "2026-10-26T01:23:59Z"
+            },
+            {
+              "name": "Configurar npm exigido pelo projeto",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 4,
+              "started_at": "2026-10-26T01:23:59Z",
+              "completed_at": "2026-10-26T01:24:18Z"
+            },
+            {
+              "name": "Instalar dependências reproduzíveis",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 5,
+              "started_at": "2026-10-26T01:24:18Z",
+              "completed_at": "2026-10-26T01:24:42Z"
+            },
+            {
+              "name": "Instalar navegadores da versão fixada no lockfile",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 6,
+              "started_at": "2026-10-26T01:24:42Z",
+              "completed_at": "2026-10-26T01:25:04Z"
+            },
+            {
+              "name": "Preservar reprodução nativa sem o patch",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 7,
+              "started_at": "2026-10-26T01:25:04Z",
+              "completed_at": "2026-10-26T01:25:54Z"
+            },
+            {
+              "name": "Exigir estabilidade na mesma fixture e nas regressões de lifecycle",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 8,
+              "started_at": "2026-10-26T01:25:54Z",
+              "completed_at": "2026-10-26T01:27:01Z"
+            },
+            {
+              "name": "Exigir estabilidade RSC e navegação móvel na aplicação completa",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 9,
+              "started_at": "2026-10-26T01:27:01Z",
+              "completed_at": "2026-10-26T01:28:20Z"
+            },
+            {
+              "name": "Post Configurar Node.js 24",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 17,
+              "started_at": "2026-10-26T01:28:20Z",
+              "completed_at": "2026-10-26T01:28:20Z"
+            },
+            {
+              "name": "Post Obter código sem credenciais persistidas",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 18,
+              "started_at": "2026-10-26T01:28:20Z",
+              "completed_at": "2026-10-26T01:28:22Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 19,
+              "started_at": "2026-10-26T01:28:22Z",
+              "completed_at": "2026-10-26T01:28:22Z"
+            }
+          ]
+        },
+        {
+          "id": 121352973414,
+          "name": "Preview do SHA aprovado",
+          "status": "completed",
+          "conclusion": "skipped",
+          "steps": []
+        }
+      ]
+    }
+  ]
+}

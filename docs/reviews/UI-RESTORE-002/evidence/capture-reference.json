@@ -1,0 +1,45 @@
+{
+  "phase": "reference",
+  "syntheticData": true,
+  "realPlayerDataModified": false,
+  "runs": [
+    {
+      "name": "desktop",
+      "errors": [],
+      "screenshots": [
+        "desktop-public.png",
+        "desktop-home.png",
+        "desktop-avatar.png"
+      ],
+      "checks": [
+        {
+          "page": "home",
+          "noHorizontalOverflow": true
+        },
+        {
+          "page": "avatar",
+          "noHorizontalOverflow": true
+        }
+      ]
+    },
+    {
+      "name": "mobile",
+      "errors": [],
+      "screenshots": [
+        "mobile-public.png",
+        "mobile-home.png",
+        "mobile-avatar.png"
+      ],
+      "checks": [
+        {
+          "page": "home",
+          "noHorizontalOverflow": true
+        },
+        {
+          "page": "avatar",
+          "noHorizontalOverflow": true
+        }
+      ]
+    }
+  ]
+}

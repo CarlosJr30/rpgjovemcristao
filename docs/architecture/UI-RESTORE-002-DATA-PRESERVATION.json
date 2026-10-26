@@ -1,0 +1,570 @@
+{
+  "task": "UI-RESTORE-002",
+  "date": "2026-10-26",
+  "project": "wspafhlbtlpabypzymjo",
+  "readOnly": true,
+  "algorithm": "md5(string_agg(to_jsonb(row)::text, newline order by row text)); aggregate only, no player content exported",
+  "tables": [
+    {
+      "schema": "economy_private",
+      "table_name": "battles",
+      "rls_enabled": true
+    },
+    {
+      "schema": "economy_private",
+      "table_name": "card_catalog",
+      "rls_enabled": true
+    },
+    {
+      "schema": "economy_private",
+      "table_name": "journey_operations",
+      "rls_enabled": true
+    },
+    {
+      "schema": "economy_private",
+      "table_name": "journey_rewards",
+      "rls_enabled": true
+    },
+    {
+      "schema": "economy_private",
+      "table_name": "journeys",
+      "rls_enabled": true
+    },
+    {
+      "schema": "public",
+      "table_name": "chest_operations",
+      "rls_enabled": true
+    },
+    {
+      "schema": "public",
+      "table_name": "equipped_items",
+      "rls_enabled": true
+    },
+    {
+      "schema": "public",
+      "table_name": "guild_activity_log",
+      "rls_enabled": true
+    },
+    {
+      "schema": "public",
+      "table_name": "guild_chat_messages",
+      "rls_enabled": true
+    },
+    {
+      "schema": "public",
+      "table_name": "guild_chat_moderation_log",
+      "rls_enabled": true
+    },
+    {
+      "schema": "public",
+      "table_name": "guild_chat_reads",
+      "rls_enabled": true
+    },
+    {
+      "schema": "public",
+      "table_name": "guild_chat_reports",
+      "rls_enabled": true
+    },
+    {
+      "schema": "public",
+      "table_name": "guild_ebd_activities",
+      "rls_enabled": true
+    },
+    {
+      "schema": "public",
+      "table_name": "guild_ebd_answers",
+      "rls_enabled": true
+    },
+    {
+      "schema": "public",
+      "table_name": "guild_ebd_attendance",
+      "rls_enabled": true
+    },
+    {
+      "schema": "public",
+      "table_name": "guild_ebd_history",
+      "rls_enabled": true
+    },
+    {
+      "schema": "public",
+      "table_name": "guild_ebd_reward_pending",
+      "rls_enabled": true
+    },
+    {
+      "schema": "public",
+      "table_name": "guild_ebd_teachers",
+      "rls_enabled": true
+    },
+    {
+      "schema": "public",
+      "table_name": "guild_invites",
+      "rls_enabled": true
+    },
+    {
+      "schema": "public",
+      "table_name": "guild_join_requests",
+      "rls_enabled": true
+    },
+    {
+      "schema": "public",
+      "table_name": "guild_lessons",
+      "rls_enabled": true
+    },
+    {
+      "schema": "public",
+      "table_name": "guild_members",
+      "rls_enabled": true
+    },
+    {
+      "schema": "public",
+      "table_name": "guild_mission_attempts",
+      "rls_enabled": true
+    },
+    {
+      "schema": "public",
+      "table_name": "guild_mission_progress",
+      "rls_enabled": true
+    },
+    {
+      "schema": "public",
+      "table_name": "guild_missions",
+      "rls_enabled": true
+    },
+    {
+      "schema": "public",
+      "table_name": "guild_reward_claims",
+      "rls_enabled": true
+    },
+    {
+      "schema": "public",
+      "table_name": "guilds",
+      "rls_enabled": true
+    },
+    {
+      "schema": "public",
+      "table_name": "inventory",
+      "rls_enabled": true
+    },
+    {
+      "schema": "public",
+      "table_name": "profiles",
+      "rls_enabled": true
+    },
+    {
+      "schema": "public",
+      "table_name": "story_definitions",
+      "rls_enabled": true
+    },
+    {
+      "schema": "public",
+      "table_name": "story_progress",
+      "rls_enabled": true
+    },
+    {
+      "schema": "public",
+      "table_name": "traveler_chests",
+      "rls_enabled": true
+    },
+    {
+      "schema": "public",
+      "table_name": "traveler_stats",
+      "rls_enabled": true
+    },
+    {
+      "schema": "public",
+      "table_name": "travelers",
+      "rls_enabled": true
+    },
+    {
+      "schema": "public",
+      "table_name": "wallets",
+      "rls_enabled": true
+    }
+  ],
+  "before": [
+    {
+      "dataset": "auth.users",
+      "rows": 12,
+      "hash": "e76e4d450b8c763808e3d2145aee08a6"
+    },
+    {
+      "dataset": "economy_private.battles",
+      "rows": 0,
+      "hash": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "dataset": "economy_private.card_catalog",
+      "rows": 0,
+      "hash": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "dataset": "economy_private.journey_operations",
+      "rows": 0,
+      "hash": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "dataset": "economy_private.journey_rewards",
+      "rows": 0,
+      "hash": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "dataset": "economy_private.journeys",
+      "rows": 0,
+      "hash": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "dataset": "public.chest_operations",
+      "rows": 37,
+      "hash": "419c47bf4a028129ea4544035d2ffeb2"
+    },
+    {
+      "dataset": "public.equipped_items",
+      "rows": 31,
+      "hash": "224f27fa31efbcd36d02e81fbe05a292"
+    },
+    {
+      "dataset": "public.guild_activity_log",
+      "rows": 10,
+      "hash": "b9fa612c0929e364659e53c6879ee8a3"
+    },
+    {
+      "dataset": "public.guild_chat_messages",
+      "rows": 4,
+      "hash": "b4e565deb761dc4d175798bac520674e"
+    },
+    {
+      "dataset": "public.guild_chat_moderation_log",
+      "rows": 0,
+      "hash": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "dataset": "public.guild_chat_reads",
+      "rows": 0,
+      "hash": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "dataset": "public.guild_chat_reports",
+      "rows": 0,
+      "hash": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "dataset": "public.guild_ebd_activities",
+      "rows": 1,
+      "hash": "04054ad2a1be7c4f1f0bf6ecf44c2c03"
+    },
+    {
+      "dataset": "public.guild_ebd_answers",
+      "rows": 1,
+      "hash": "b45a0a2198173fdda0bcdc78f61963fa"
+    },
+    {
+      "dataset": "public.guild_ebd_attendance",
+      "rows": 1,
+      "hash": "fa4cbf88a4d29b45dd3622caeda3f3c5"
+    },
+    {
+      "dataset": "public.guild_ebd_history",
+      "rows": 5,
+      "hash": "f067e9a781e8952498cba8df01145f40"
+    },
+    {
+      "dataset": "public.guild_ebd_reward_pending",
+      "rows": 0,
+      "hash": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "dataset": "public.guild_ebd_teachers",
+      "rows": 1,
+      "hash": "71e5885fce0ca50b318f95206218b41e"
+    },
+    {
+      "dataset": "public.guild_invites",
+      "rows": 0,
+      "hash": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "dataset": "public.guild_join_requests",
+      "rows": 5,
+      "hash": "1ab6816b87f83e4bdc72fc06d6fdc9f5"
+    },
+    {
+      "dataset": "public.guild_lessons",
+      "rows": 1,
+      "hash": "3664bc27b6981c1291b5f91b3d865c90"
+    },
+    {
+      "dataset": "public.guild_members",
+      "rows": 8,
+      "hash": "921b06260da72803cb94ae12379b7f1f"
+    },
+    {
+      "dataset": "public.guild_mission_attempts",
+      "rows": 0,
+      "hash": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "dataset": "public.guild_mission_progress",
+      "rows": 0,
+      "hash": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "dataset": "public.guild_missions",
+      "rows": 0,
+      "hash": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "dataset": "public.guild_reward_claims",
+      "rows": 0,
+      "hash": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "dataset": "public.guilds",
+      "rows": 3,
+      "hash": "7c1eb8c1b768c2866e8cf3eb007de1f2"
+    },
+    {
+      "dataset": "public.inventory",
+      "rows": 37,
+      "hash": "9adc255124118da074fddf112a565ac5"
+    },
+    {
+      "dataset": "public.profiles",
+      "rows": 11,
+      "hash": "d8efc063fc0bd6e378e6ec48f585ad22"
+    },
+    {
+      "dataset": "public.story_definitions",
+      "rows": 5,
+      "hash": "414c69e783d2e1a016d7f03d8fa37f23"
+    },
+    {
+      "dataset": "public.story_progress",
+      "rows": 0,
+      "hash": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "dataset": "public.traveler_chests",
+      "rows": 8,
+      "hash": "5f0868385b7b6d86fa3cd3fc74d8f526"
+    },
+    {
+      "dataset": "public.traveler_stats",
+      "rows": 24,
+      "hash": "617841fcfe6b59ba7e1cd1b8ea8cb364"
+    },
+    {
+      "dataset": "public.travelers",
+      "rows": 24,
+      "hash": "5c8f386e03d1603612a4dc7f430d91bd"
+    },
+    {
+      "dataset": "public.wallets",
+      "rows": 24,
+      "hash": "bec58057cc799f097303463bc8c96729"
+    }
+  ],
+  "after": [
+    {
+      "dataset": "auth.users",
+      "rows": 12,
+      "hash": "b15fb9ed9cc51f21a0044c2b20f277e5"
+    },
+    {
+      "dataset": "economy_private.battles",
+      "rows": 0,
+      "hash": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "dataset": "economy_private.card_catalog",
+      "rows": 0,
+      "hash": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "dataset": "economy_private.journey_operations",
+      "rows": 0,
+      "hash": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "dataset": "economy_private.journey_rewards",
+      "rows": 0,
+      "hash": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "dataset": "economy_private.journeys",
+      "rows": 0,
+      "hash": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "dataset": "public.chest_operations",
+      "rows": 37,
+      "hash": "419c47bf4a028129ea4544035d2ffeb2"
+    },
+    {
+      "dataset": "public.equipped_items",
+      "rows": 31,
+      "hash": "224f27fa31efbcd36d02e81fbe05a292"
+    },
+    {
+      "dataset": "public.guild_activity_log",
+      "rows": 10,
+      "hash": "b9fa612c0929e364659e53c6879ee8a3"
+    },
+    {
+      "dataset": "public.guild_chat_messages",
+      "rows": 4,
+      "hash": "b4e565deb761dc4d175798bac520674e"
+    },
+    {
+      "dataset": "public.guild_chat_moderation_log",
+      "rows": 0,
+      "hash": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "dataset": "public.guild_chat_reads",
+      "rows": 0,
+      "hash": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "dataset": "public.guild_chat_reports",
+      "rows": 0,
+      "hash": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "dataset": "public.guild_ebd_activities",
+      "rows": 1,
+      "hash": "04054ad2a1be7c4f1f0bf6ecf44c2c03"
+    },
+    {
+      "dataset": "public.guild_ebd_answers",
+      "rows": 1,
+      "hash": "b45a0a2198173fdda0bcdc78f61963fa"
+    },
+    {
+      "dataset": "public.guild_ebd_attendance",
+      "rows": 1,
+      "hash": "fa4cbf88a4d29b45dd3622caeda3f3c5"
+    },
+    {
+      "dataset": "public.guild_ebd_history",
+      "rows": 5,
+      "hash": "f067e9a781e8952498cba8df01145f40"
+    },
+    {
+      "dataset": "public.guild_ebd_reward_pending",
+      "rows": 0,
+      "hash": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "dataset": "public.guild_ebd_teachers",
+      "rows": 1,
+      "hash": "71e5885fce0ca50b318f95206218b41e"
+    },
+    {
+      "dataset": "public.guild_invites",
+      "rows": 0,
+      "hash": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "dataset": "public.guild_join_requests",
+      "rows": 5,
+      "hash": "1ab6816b87f83e4bdc72fc06d6fdc9f5"
+    },
+    {
+      "dataset": "public.guild_lessons",
+      "rows": 1,
+      "hash": "3664bc27b6981c1291b5f91b3d865c90"
+    },
+    {
+      "dataset": "public.guild_members",
+      "rows": 8,
+      "hash": "921b06260da72803cb94ae12379b7f1f"
+    },
+    {
+      "dataset": "public.guild_mission_attempts",
+      "rows": 0,
+      "hash": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "dataset": "public.guild_mission_progress",
+      "rows": 0,
+      "hash": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "dataset": "public.guild_missions",
+      "rows": 0,
+      "hash": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "dataset": "public.guild_reward_claims",
+      "rows": 0,
+      "hash": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "dataset": "public.guilds",
+      "rows": 3,
+      "hash": "7c1eb8c1b768c2866e8cf3eb007de1f2"
+    },
+    {
+      "dataset": "public.inventory",
+      "rows": 37,
+      "hash": "9adc255124118da074fddf112a565ac5"
+    },
+    {
+      "dataset": "public.profiles",
+      "rows": 11,
+      "hash": "d8efc063fc0bd6e378e6ec48f585ad22"
+    },
+    {
+      "dataset": "public.story_definitions",
+      "rows": 5,
+      "hash": "414c69e783d2e1a016d7f03d8fa37f23"
+    },
+    {
+      "dataset": "public.story_progress",
+      "rows": 0,
+      "hash": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "dataset": "public.traveler_chests",
+      "rows": 8,
+      "hash": "5f0868385b7b6d86fa3cd3fc74d8f526"
+    },
+    {
+      "dataset": "public.traveler_stats",
+      "rows": 24,
+      "hash": "617841fcfe6b59ba7e1cd1b8ea8cb364"
+    },
+    {
+      "dataset": "public.travelers",
+      "rows": 24,
+      "hash": "5c8f386e03d1603612a4dc7f430d91bd"
+    },
+    {
+      "dataset": "public.wallets",
+      "rows": 24,
+      "hash": "bec58057cc799f097303463bc8c96729"
+    }
+  ],
+  "unchanged": false,
+  "unchangedGameTables": 35,
+  "authFullRowHashChanged": true,
+  "authChangeCause": "Not determined; no Auth writes performed by this task",
+  "authIdentity": {
+    "before": [
+      {
+        "users": 12,
+        "identity_hash": "2ca05c58ad5e119aa438c48aac776c77",
+        "confirmed": 12
+      }
+    ],
+    "after": [
+      {
+        "users": 12,
+        "identity_hash": "2ca05c58ad5e119aa438c48aac776c77",
+        "confirmed": 12
+      }
+    ],
+    "equal": true
+  },
+  "productionWrites": 0
+}

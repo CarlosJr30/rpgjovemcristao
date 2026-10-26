@@ -11,18 +11,21 @@ export function GuildHero({
   pending,
   completed,
   management = false,
+  headingLevel = 1,
   children,
 }: {
   name: string;
   leader: string;
   description: string;
   participation: string;
-  available: number;
-  pending: number;
-  completed: number;
+  available?: number;
+  pending?: number;
+  completed?: number;
   management?: boolean;
+  headingLevel?: 1 | 2;
   children?: ReactNode;
 }) {
+  const Heading = headingLevel === 2 ? 'h2' : 'h1';
   return (
     <header className={styles.hero}>
       {management && (
@@ -36,7 +39,7 @@ export function GuildHero({
         <p className={styles.eyebrow}>
           {management ? 'PAINEL DO LÍDER' : 'GUILDA · JUNTOS NA JORNADA'}
         </p>
-        <h1>{name}</h1>
+        <Heading>{name}</Heading>
         <p>{description}</p>
         <p className={styles.identity}>
           <span>Líder: {leader}</span>
@@ -44,27 +47,35 @@ export function GuildHero({
         </p>
         {children}
       </div>
-      <dl
-        className={styles.metrics}
-        aria-label="Resumo das atividades carregadas"
-      >
-        <div>
-          <dt>{management ? 'MISSÕES ATIVAS' : 'DISPONÍVEIS'}</dt>
-          <dd>{available}</dd>
-        </div>
-        <div>
-          <dt>AGUARDANDO APROVAÇÃO</dt>
-          <dd>{pending}</dd>
-        </div>
-        <div>
-          <dt>CONCLUÍDAS</dt>
-          <dd>{completed}</dd>
-        </div>
-      </dl>
-      <small className={styles.scope}>
-        Resumo das atividades carregadas. Realizações registradas, sem medir fé
-        ou espiritualidade.
-      </small>
+      {available !== undefined &&
+        pending !== undefined &&
+        completed !== undefined && (
+          <dl
+            className={styles.metrics}
+            aria-label="Resumo das atividades carregadas"
+          >
+            <div>
+              <dt>{management ? 'MISSÕES ATIVAS' : 'DISPONÍVEIS'}</dt>
+              <dd>{available}</dd>
+            </div>
+            <div>
+              <dt>AGUARDANDO APROVAÇÃO</dt>
+              <dd>{pending}</dd>
+            </div>
+            <div>
+              <dt>CONCLUÍDAS</dt>
+              <dd>{completed}</dd>
+            </div>
+          </dl>
+        )}
+      {available !== undefined &&
+        pending !== undefined &&
+        completed !== undefined && (
+          <small className={styles.scope}>
+            Resumo das atividades carregadas. Realizações registradas, sem medir
+            fé ou espiritualidade.
+          </small>
+        )}
     </header>
   );
 }

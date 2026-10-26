@@ -23,8 +23,14 @@ vi.mock('next/navigation', () => ({
   useRouter: () => ({ replace: mocks.replace }),
 }));
 vi.mock('next/link', () => ({
-  default: ({ children, href, ...props }: React.AnchorHTMLAttributes<HTMLAnchorElement>) => (
-    <a href={String(href)} {...props}>{children}</a>
+  default: ({
+    children,
+    href,
+    ...props
+  }: React.AnchorHTMLAttributes<HTMLAnchorElement>) => (
+    <a href={String(href)} {...props}>
+      {children}
+    </a>
   ),
 }));
 vi.mock('./avatar', () => ({ Avatar: () => <div /> }));
@@ -88,5 +94,89 @@ describe('Shell account and traveler actions', () => {
     await waitFor(() => expect(mocks.signOutAccount).toHaveBeenCalledTimes(1));
     expect(mocks.switchTraveler).not.toHaveBeenCalled();
     expect(mocks.replace).toHaveBeenCalledWith('/auth');
+  });
+});
+
+describe('original shell within the released interface', () => {
+  test('keeps Guilda/EBD in the original menu without exposing gameplay links', () => {
+    render(<Shell navigationMode="released">Conteúdo</Shell>);
+    const links = within(
+      screen.getByRole('navigation', { name: 'Navegação principal' }),
+    ).getAllByRole('link');
+    expect(links.map((link) => link.getAttribute('href'))).toEqual([
+      '/journey/hero',
+      '/journey/guild',
+      '/journey/guild/ebd',
+    ]);
+    expect(links.map((link) => link.textContent)).toEqual([
+      'Herói',
+      'Guilda',
+      'EBD',
+    ]);
+    const nav = screen.getByRole('navigation', { name: 'Navegação principal' });
+    const blocked = nav.querySelectorAll('[aria-disabled="true"]');
+    expect(blocked).toHaveLength(8);
+    expect(Array.from(blocked).map((item) => item.textContent)).toEqual([
+      'JornadaEm desenvolvimento',
+      'MissõesEm desenvolvimento',
+      'EquipamentosEm desenvolvimento',
+      'MochilaEm desenvolvimento',
+      'LojaEm desenvolvimento',
+      'ColeçãoEm desenvolvimento',
+      'DiárioEm desenvolvimento',
+      'ArenaEm desenvolvimento',
+    ]);
+    for (const item of blocked) {
+      expect(item.querySelector('a,button')).toBeNull();
+      fireEvent.click(item);
+    }
+    expect(mocks.replace).not.toHaveBeenCalled();
+    expect(
+      screen.queryByRole('navigation', { name: 'Navegação do jogo' }),
+    ).not.toBeInTheDocument();
+  });
+
+  test('mobile menu traps focus and Escape restores focus/scroll without changing the traveler', () => {
+    document.body.style.overflow = 'auto';
+    render(<Shell navigationMode="released">Conteúdo</Shell>);
+    const trigger = screen.getByRole('button', { name: 'Abrir menu' });
+    fireEvent.click(trigger);
+    const dialog = screen.getByRole('dialog', { name: 'Menu principal' });
+    const last = within(dialog).getByRole('link', { name: 'EBD' });
+    const close = within(dialog).getByRole('button', {
+      name: 'Fechar navegação',
+    });
+    expect(within(dialog).getByRole('link', { name: 'Herói' })).toHaveFocus();
+    expect(document.body.style.overflow).toBe('hidden');
+    expect(screen.getByRole('main', { hidden: true })).toHaveAttribute('inert');
+    last.focus();
+    fireEvent.keyDown(document, { key: 'Tab' });
+    expect(close).toHaveFocus();
+    fireEvent.keyDown(document, { key: 'Tab', shiftKey: true });
+    expect(last).toHaveFocus();
+    fireEvent.keyDown(document, { key: 'Escape' });
+    expect(
+      screen.queryByRole('dialog', { name: 'Menu principal' }),
+    ).not.toBeInTheDocument();
+    expect(trigger).toHaveFocus();
+    expect(document.body.style.overflow).toBe('auto');
+    expect(mocks.switchTraveler).not.toHaveBeenCalled();
+    expect(mocks.signOutAccount).not.toHaveBeenCalled();
+    document.body.style.overflow = '';
+  });
+
+  test('selecting an allowed route closes the menu and restores the document', () => {
+    render(<Shell navigationMode="released">Conteúdo</Shell>);
+    fireEvent.click(screen.getByRole('button', { name: 'Abrir menu' }));
+    const link = screen.getByRole('link', { name: 'Guilda' });
+    link.addEventListener('click', (event) => event.preventDefault(), {
+      once: true,
+    });
+    fireEvent.click(link);
+    expect(
+      screen.queryByRole('dialog', { name: 'Menu principal' }),
+    ).not.toBeInTheDocument();
+    expect(document.body.style.overflow).toBe('');
+    expect(screen.getByRole('main')).not.toHaveAttribute('inert');
   });
 });

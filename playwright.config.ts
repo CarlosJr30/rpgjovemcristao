@@ -3,6 +3,7 @@ import { defineConfig, devices } from '@playwright/test';
 export default defineConfig({
   testDir: './tests/e2e',
   testIgnore: [
+    '**/equipment-recovery.spec.ts', // Dedicated loopback fixture/config.
     '**/arena-lab.spec.ts',
     '**/avatar-runtime-lab.spec.ts',
     '**/arena-audio-prototype.spec.ts',

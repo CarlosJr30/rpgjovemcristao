@@ -1,0 +1,2230 @@
+{
+  "date": "2026-10-25",
+  "task": "RPG-DEV-004",
+  "status": "BLOCKED_FULL_APPLICATION_CONCURRENCY",
+  "sourceCommit": "8616b383ed14ae0a9d0bddfa195c801e38189724",
+  "productChanged": false,
+  "experimentalPrototypeInProduct": false,
+  "noAuth": true,
+  "noBrowserRouting": true,
+  "noFetchWrapper": true,
+  "qualifiedDiagnosticRuns": 48,
+  "normalLeaderProofsPreserved": [
+    {
+      "path": "build/rpg-dev-004/webkit-lider-functional-1.json",
+      "sha256": "c6bf43f83ccdd353c5effbec6190e53c806c8ed385fc881bc4bccb1ab4a0e220"
+    },
+    {
+      "path": "build/rpg-dev-004/webkit-lider-functional-2.json",
+      "sha256": "ecaf235e79acc88f9b9c6e85ae2154016b6d59c94cc646a5e8a112590edb3130"
+    },
+    {
+      "path": "build/rpg-dev-004/webkit-lider-functional-3.json",
+      "sha256": "66d77f4092ee2b83e0f8781a971cb2bc635f95b6cf315017c98aef371289cb8d"
+    }
+  ],
+  "barrier": "Four real Next automatic /_tree RSC prefetch requests pending before action. Six-link arm adds queued work. Replacement response held while WebKit cancels old loads; Chromium advances replacement first.",
+  "runs": [
+    {
+      "engine": "webkit",
+      "mode": "hard-six",
+      "repeat": 0,
+      "qualified": true,
+      "releaseStable": false,
+      "pageErrors": 2,
+      "domErrors": 0,
+      "canceledRsc": 4,
+      "externalRequests": 0,
+      "checks": [
+        {
+          "name": "all automatic target links present",
+          "passed": true
+        },
+        {
+          "name": "four real Next prefetches held before action",
+          "passed": true
+        },
+        {
+          "name": "no Auth cookies",
+          "passed": true
+        },
+        {
+          "name": "old RSC canceled by document replacement",
+          "passed": true
+        },
+        {
+          "name": "document navigation completed",
+          "passed": true
+        },
+        {
+          "name": "no external service requests",
+          "passed": true
+        },
+        {
+          "name": "no DOM unhandled error or rejection",
+          "passed": true
+        },
+        {
+          "name": "expected diagnostic signature",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "mode": "hard-six",
+      "repeat": 1,
+      "qualified": true,
+      "releaseStable": false,
+      "pageErrors": 2,
+      "domErrors": 0,
+      "canceledRsc": 4,
+      "externalRequests": 0,
+      "checks": [
+        {
+          "name": "all automatic target links present",
+          "passed": true
+        },
+        {
+          "name": "four real Next prefetches held before action",
+          "passed": true
+        },
+        {
+          "name": "no Auth cookies",
+          "passed": true
+        },
+        {
+          "name": "old RSC canceled by document replacement",
+          "passed": true
+        },
+        {
+          "name": "document navigation completed",
+          "passed": true
+        },
+        {
+          "name": "no external service requests",
+          "passed": true
+        },
+        {
+          "name": "no DOM unhandled error or rejection",
+          "passed": true
+        },
+        {
+          "name": "expected diagnostic signature",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "mode": "hard-six",
+      "repeat": 2,
+      "qualified": true,
+      "releaseStable": false,
+      "pageErrors": 2,
+      "domErrors": 0,
+      "canceledRsc": 4,
+      "externalRequests": 0,
+      "checks": [
+        {
+          "name": "all automatic target links present",
+          "passed": true
+        },
+        {
+          "name": "four real Next prefetches held before action",
+          "passed": true
+        },
+        {
+          "name": "no Auth cookies",
+          "passed": true
+        },
+        {
+          "name": "old RSC canceled by document replacement",
+          "passed": true
+        },
+        {
+          "name": "document navigation completed",
+          "passed": true
+        },
+        {
+          "name": "no external service requests",
+          "passed": true
+        },
+        {
+          "name": "no DOM unhandled error or rejection",
+          "passed": true
+        },
+        {
+          "name": "expected diagnostic signature",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "mode": "hard-four",
+      "repeat": 0,
+      "qualified": true,
+      "releaseStable": true,
+      "pageErrors": 0,
+      "domErrors": 0,
+      "canceledRsc": 4,
+      "externalRequests": 0,
+      "checks": [
+        {
+          "name": "all automatic target links present",
+          "passed": true
+        },
+        {
+          "name": "four real Next prefetches held before action",
+          "passed": true
+        },
+        {
+          "name": "no Auth cookies",
+          "passed": true
+        },
+        {
+          "name": "old RSC canceled by document replacement",
+          "passed": true
+        },
+        {
+          "name": "document navigation completed",
+          "passed": true
+        },
+        {
+          "name": "no external service requests",
+          "passed": true
+        },
+        {
+          "name": "no DOM unhandled error or rejection",
+          "passed": true
+        },
+        {
+          "name": "expected diagnostic signature",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "mode": "hard-four",
+      "repeat": 1,
+      "qualified": true,
+      "releaseStable": true,
+      "pageErrors": 0,
+      "domErrors": 0,
+      "canceledRsc": 4,
+      "externalRequests": 0,
+      "checks": [
+        {
+          "name": "all automatic target links present",
+          "passed": true
+        },
+        {
+          "name": "four real Next prefetches held before action",
+          "passed": true
+        },
+        {
+          "name": "no Auth cookies",
+          "passed": true
+        },
+        {
+          "name": "old RSC canceled by document replacement",
+          "passed": true
+        },
+        {
+          "name": "document navigation completed",
+          "passed": true
+        },
+        {
+          "name": "no external service requests",
+          "passed": true
+        },
+        {
+          "name": "no DOM unhandled error or rejection",
+          "passed": true
+        },
+        {
+          "name": "expected diagnostic signature",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "mode": "hard-four",
+      "repeat": 2,
+      "qualified": true,
+      "releaseStable": true,
+      "pageErrors": 0,
+      "domErrors": 0,
+      "canceledRsc": 4,
+      "externalRequests": 0,
+      "checks": [
+        {
+          "name": "all automatic target links present",
+          "passed": true
+        },
+        {
+          "name": "four real Next prefetches held before action",
+          "passed": true
+        },
+        {
+          "name": "no Auth cookies",
+          "passed": true
+        },
+        {
+          "name": "old RSC canceled by document replacement",
+          "passed": true
+        },
+        {
+          "name": "document navigation completed",
+          "passed": true
+        },
+        {
+          "name": "no external service requests",
+          "passed": true
+        },
+        {
+          "name": "no DOM unhandled error or rejection",
+          "passed": true
+        },
+        {
+          "name": "expected diagnostic signature",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "mode": "spa-six",
+      "repeat": 0,
+      "qualified": true,
+      "releaseStable": true,
+      "pageErrors": 0,
+      "domErrors": 0,
+      "canceledRsc": 0,
+      "externalRequests": 0,
+      "checks": [
+        {
+          "name": "all automatic target links present",
+          "passed": true
+        },
+        {
+          "name": "four real Next prefetches held before action",
+          "passed": true
+        },
+        {
+          "name": "no Auth cookies",
+          "passed": true
+        },
+        {
+          "name": "no external service requests",
+          "passed": true
+        },
+        {
+          "name": "no DOM unhandled error or rejection",
+          "passed": true
+        },
+        {
+          "name": "expected diagnostic signature",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "mode": "spa-six",
+      "repeat": 1,
+      "qualified": true,
+      "releaseStable": true,
+      "pageErrors": 0,
+      "domErrors": 0,
+      "canceledRsc": 0,
+      "externalRequests": 0,
+      "checks": [
+        {
+          "name": "all automatic target links present",
+          "passed": true
+        },
+        {
+          "name": "four real Next prefetches held before action",
+          "passed": true
+        },
+        {
+          "name": "no Auth cookies",
+          "passed": true
+        },
+        {
+          "name": "no external service requests",
+          "passed": true
+        },
+        {
+          "name": "no DOM unhandled error or rejection",
+          "passed": true
+        },
+        {
+          "name": "expected diagnostic signature",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "mode": "spa-six",
+      "repeat": 2,
+      "qualified": true,
+      "releaseStable": true,
+      "pageErrors": 0,
+      "domErrors": 0,
+      "canceledRsc": 0,
+      "externalRequests": 0,
+      "checks": [
+        {
+          "name": "all automatic target links present",
+          "passed": true
+        },
+        {
+          "name": "four real Next prefetches held before action",
+          "passed": true
+        },
+        {
+          "name": "no Auth cookies",
+          "passed": true
+        },
+        {
+          "name": "no external service requests",
+          "passed": true
+        },
+        {
+          "name": "no DOM unhandled error or rejection",
+          "passed": true
+        },
+        {
+          "name": "expected diagnostic signature",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "mode": "state-six",
+      "repeat": 0,
+      "qualified": true,
+      "releaseStable": true,
+      "pageErrors": 0,
+      "domErrors": 0,
+      "canceledRsc": 0,
+      "externalRequests": 0,
+      "checks": [
+        {
+          "name": "all automatic target links present",
+          "passed": true
+        },
+        {
+          "name": "four real Next prefetches held before action",
+          "passed": true
+        },
+        {
+          "name": "no Auth cookies",
+          "passed": true
+        },
+        {
+          "name": "local state changed without route/session navigation",
+          "passed": true
+        },
+        {
+          "name": "no external service requests",
+          "passed": true
+        },
+        {
+          "name": "no DOM unhandled error or rejection",
+          "passed": true
+        },
+        {
+          "name": "expected diagnostic signature",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "mode": "state-six",
+      "repeat": 1,
+      "qualified": true,
+      "releaseStable": true,
+      "pageErrors": 0,
+      "domErrors": 0,
+      "canceledRsc": 0,
+      "externalRequests": 0,
+      "checks": [
+        {
+          "name": "all automatic target links present",
+          "passed": true
+        },
+        {
+          "name": "four real Next prefetches held before action",
+          "passed": true
+        },
+        {
+          "name": "no Auth cookies",
+          "passed": true
+        },
+        {
+          "name": "local state changed without route/session navigation",
+          "passed": true
+        },
+        {
+          "name": "no external service requests",
+          "passed": true
+        },
+        {
+          "name": "no DOM unhandled error or rejection",
+          "passed": true
+        },
+        {
+          "name": "expected diagnostic signature",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "mode": "state-six",
+      "repeat": 2,
+      "qualified": true,
+      "releaseStable": true,
+      "pageErrors": 0,
+      "domErrors": 0,
+      "canceledRsc": 0,
+      "externalRequests": 0,
+      "checks": [
+        {
+          "name": "all automatic target links present",
+          "passed": true
+        },
+        {
+          "name": "four real Next prefetches held before action",
+          "passed": true
+        },
+        {
+          "name": "no Auth cookies",
+          "passed": true
+        },
+        {
+          "name": "local state changed without route/session navigation",
+          "passed": true
+        },
+        {
+          "name": "no external service requests",
+          "passed": true
+        },
+        {
+          "name": "no DOM unhandled error or rejection",
+          "passed": true
+        },
+        {
+          "name": "expected diagnostic signature",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "mode": "guard-hard-six",
+      "repeat": 0,
+      "qualified": true,
+      "releaseStable": true,
+      "pageErrors": 0,
+      "domErrors": 0,
+      "canceledRsc": 4,
+      "externalRequests": 0,
+      "checks": [
+        {
+          "name": "all automatic target links present",
+          "passed": true
+        },
+        {
+          "name": "four real Next prefetches held before action",
+          "passed": true
+        },
+        {
+          "name": "no Auth cookies",
+          "passed": true
+        },
+        {
+          "name": "old RSC canceled by document replacement",
+          "passed": true
+        },
+        {
+          "name": "document navigation completed",
+          "passed": true
+        },
+        {
+          "name": "history return remains interactive",
+          "passed": true
+        },
+        {
+          "name": "no external service requests",
+          "passed": true
+        },
+        {
+          "name": "no DOM unhandled error or rejection",
+          "passed": true
+        },
+        {
+          "name": "expected diagnostic signature",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "mode": "guard-hard-six",
+      "repeat": 1,
+      "qualified": true,
+      "releaseStable": true,
+      "pageErrors": 0,
+      "domErrors": 0,
+      "canceledRsc": 4,
+      "externalRequests": 0,
+      "checks": [
+        {
+          "name": "all automatic target links present",
+          "passed": true
+        },
+        {
+          "name": "four real Next prefetches held before action",
+          "passed": true
+        },
+        {
+          "name": "no Auth cookies",
+          "passed": true
+        },
+        {
+          "name": "old RSC canceled by document replacement",
+          "passed": true
+        },
+        {
+          "name": "document navigation completed",
+          "passed": true
+        },
+        {
+          "name": "history return remains interactive",
+          "passed": true
+        },
+        {
+          "name": "no external service requests",
+          "passed": true
+        },
+        {
+          "name": "no DOM unhandled error or rejection",
+          "passed": true
+        },
+        {
+          "name": "expected diagnostic signature",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "mode": "guard-hard-six",
+      "repeat": 2,
+      "qualified": true,
+      "releaseStable": true,
+      "pageErrors": 0,
+      "domErrors": 0,
+      "canceledRsc": 4,
+      "externalRequests": 0,
+      "checks": [
+        {
+          "name": "all automatic target links present",
+          "passed": true
+        },
+        {
+          "name": "four real Next prefetches held before action",
+          "passed": true
+        },
+        {
+          "name": "no Auth cookies",
+          "passed": true
+        },
+        {
+          "name": "old RSC canceled by document replacement",
+          "passed": true
+        },
+        {
+          "name": "document navigation completed",
+          "passed": true
+        },
+        {
+          "name": "history return remains interactive",
+          "passed": true
+        },
+        {
+          "name": "no external service requests",
+          "passed": true
+        },
+        {
+          "name": "no DOM unhandled error or rejection",
+          "passed": true
+        },
+        {
+          "name": "expected diagnostic signature",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "mode": "guard-spa-six",
+      "repeat": 0,
+      "qualified": true,
+      "releaseStable": true,
+      "pageErrors": 0,
+      "domErrors": 0,
+      "canceledRsc": 0,
+      "externalRequests": 0,
+      "checks": [
+        {
+          "name": "all automatic target links present",
+          "passed": true
+        },
+        {
+          "name": "four real Next prefetches held before action",
+          "passed": true
+        },
+        {
+          "name": "no Auth cookies",
+          "passed": true
+        },
+        {
+          "name": "no external service requests",
+          "passed": true
+        },
+        {
+          "name": "no DOM unhandled error or rejection",
+          "passed": true
+        },
+        {
+          "name": "expected diagnostic signature",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "mode": "guard-spa-six",
+      "repeat": 1,
+      "qualified": true,
+      "releaseStable": true,
+      "pageErrors": 0,
+      "domErrors": 0,
+      "canceledRsc": 0,
+      "externalRequests": 0,
+      "checks": [
+        {
+          "name": "all automatic target links present",
+          "passed": true
+        },
+        {
+          "name": "four real Next prefetches held before action",
+          "passed": true
+        },
+        {
+          "name": "no Auth cookies",
+          "passed": true
+        },
+        {
+          "name": "no external service requests",
+          "passed": true
+        },
+        {
+          "name": "no DOM unhandled error or rejection",
+          "passed": true
+        },
+        {
+          "name": "expected diagnostic signature",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "mode": "guard-spa-six",
+      "repeat": 2,
+      "qualified": true,
+      "releaseStable": true,
+      "pageErrors": 0,
+      "domErrors": 0,
+      "canceledRsc": 0,
+      "externalRequests": 0,
+      "checks": [
+        {
+          "name": "all automatic target links present",
+          "passed": true
+        },
+        {
+          "name": "four real Next prefetches held before action",
+          "passed": true
+        },
+        {
+          "name": "no Auth cookies",
+          "passed": true
+        },
+        {
+          "name": "no external service requests",
+          "passed": true
+        },
+        {
+          "name": "no DOM unhandled error or rejection",
+          "passed": true
+        },
+        {
+          "name": "expected diagnostic signature",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "mode": "guard-state-six",
+      "repeat": 0,
+      "qualified": true,
+      "releaseStable": true,
+      "pageErrors": 0,
+      "domErrors": 0,
+      "canceledRsc": 0,
+      "externalRequests": 0,
+      "checks": [
+        {
+          "name": "all automatic target links present",
+          "passed": true
+        },
+        {
+          "name": "four real Next prefetches held before action",
+          "passed": true
+        },
+        {
+          "name": "no Auth cookies",
+          "passed": true
+        },
+        {
+          "name": "local state changed without route/session navigation",
+          "passed": true
+        },
+        {
+          "name": "no external service requests",
+          "passed": true
+        },
+        {
+          "name": "no DOM unhandled error or rejection",
+          "passed": true
+        },
+        {
+          "name": "expected diagnostic signature",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "mode": "guard-state-six",
+      "repeat": 1,
+      "qualified": true,
+      "releaseStable": true,
+      "pageErrors": 0,
+      "domErrors": 0,
+      "canceledRsc": 0,
+      "externalRequests": 0,
+      "checks": [
+        {
+          "name": "all automatic target links present",
+          "passed": true
+        },
+        {
+          "name": "four real Next prefetches held before action",
+          "passed": true
+        },
+        {
+          "name": "no Auth cookies",
+          "passed": true
+        },
+        {
+          "name": "local state changed without route/session navigation",
+          "passed": true
+        },
+        {
+          "name": "no external service requests",
+          "passed": true
+        },
+        {
+          "name": "no DOM unhandled error or rejection",
+          "passed": true
+        },
+        {
+          "name": "expected diagnostic signature",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "mode": "guard-state-six",
+      "repeat": 2,
+      "qualified": true,
+      "releaseStable": true,
+      "pageErrors": 0,
+      "domErrors": 0,
+      "canceledRsc": 0,
+      "externalRequests": 0,
+      "checks": [
+        {
+          "name": "all automatic target links present",
+          "passed": true
+        },
+        {
+          "name": "four real Next prefetches held before action",
+          "passed": true
+        },
+        {
+          "name": "no Auth cookies",
+          "passed": true
+        },
+        {
+          "name": "local state changed without route/session navigation",
+          "passed": true
+        },
+        {
+          "name": "no external service requests",
+          "passed": true
+        },
+        {
+          "name": "no DOM unhandled error or rejection",
+          "passed": true
+        },
+        {
+          "name": "expected diagnostic signature",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "mode": "guard-cancel-six",
+      "repeat": 0,
+      "qualified": true,
+      "releaseStable": true,
+      "pageErrors": 0,
+      "domErrors": 0,
+      "canceledRsc": 0,
+      "externalRequests": 0,
+      "checks": [
+        {
+          "name": "all automatic target links present",
+          "passed": true
+        },
+        {
+          "name": "four real Next prefetches held before action",
+          "passed": true
+        },
+        {
+          "name": "no Auth cookies",
+          "passed": true
+        },
+        {
+          "name": "unsaved form can cancel navigation",
+          "passed": true
+        },
+        {
+          "name": "prefetch resumes after canceled document navigation",
+          "passed": true
+        },
+        {
+          "name": "no external service requests",
+          "passed": true
+        },
+        {
+          "name": "no DOM unhandled error or rejection",
+          "passed": true
+        },
+        {
+          "name": "expected diagnostic signature",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "mode": "guard-cancel-six",
+      "repeat": 1,
+      "qualified": true,
+      "releaseStable": true,
+      "pageErrors": 0,
+      "domErrors": 0,
+      "canceledRsc": 0,
+      "externalRequests": 0,
+      "checks": [
+        {
+          "name": "all automatic target links present",
+          "passed": true
+        },
+        {
+          "name": "four real Next prefetches held before action",
+          "passed": true
+        },
+        {
+          "name": "no Auth cookies",
+          "passed": true
+        },
+        {
+          "name": "unsaved form can cancel navigation",
+          "passed": true
+        },
+        {
+          "name": "prefetch resumes after canceled document navigation",
+          "passed": true
+        },
+        {
+          "name": "no external service requests",
+          "passed": true
+        },
+        {
+          "name": "no DOM unhandled error or rejection",
+          "passed": true
+        },
+        {
+          "name": "expected diagnostic signature",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "mode": "guard-cancel-six",
+      "repeat": 2,
+      "qualified": true,
+      "releaseStable": true,
+      "pageErrors": 0,
+      "domErrors": 0,
+      "canceledRsc": 0,
+      "externalRequests": 0,
+      "checks": [
+        {
+          "name": "all automatic target links present",
+          "passed": true
+        },
+        {
+          "name": "four real Next prefetches held before action",
+          "passed": true
+        },
+        {
+          "name": "no Auth cookies",
+          "passed": true
+        },
+        {
+          "name": "unsaved form can cancel navigation",
+          "passed": true
+        },
+        {
+          "name": "prefetch resumes after canceled document navigation",
+          "passed": true
+        },
+        {
+          "name": "no external service requests",
+          "passed": true
+        },
+        {
+          "name": "no DOM unhandled error or rejection",
+          "passed": true
+        },
+        {
+          "name": "expected diagnostic signature",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "mode": "hard-six",
+      "repeat": 0,
+      "qualified": true,
+      "releaseStable": true,
+      "pageErrors": 0,
+      "domErrors": 0,
+      "canceledRsc": 6,
+      "externalRequests": 0,
+      "checks": [
+        {
+          "name": "all automatic target links present",
+          "passed": true
+        },
+        {
+          "name": "four real Next prefetches held before action",
+          "passed": true
+        },
+        {
+          "name": "no Auth cookies",
+          "passed": true
+        },
+        {
+          "name": "old RSC canceled by document replacement",
+          "passed": true
+        },
+        {
+          "name": "document navigation completed",
+          "passed": true
+        },
+        {
+          "name": "no external service requests",
+          "passed": true
+        },
+        {
+          "name": "no DOM unhandled error or rejection",
+          "passed": true
+        },
+        {
+          "name": "expected diagnostic signature",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "mode": "hard-six",
+      "repeat": 1,
+      "qualified": true,
+      "releaseStable": true,
+      "pageErrors": 0,
+      "domErrors": 0,
+      "canceledRsc": 6,
+      "externalRequests": 0,
+      "checks": [
+        {
+          "name": "all automatic target links present",
+          "passed": true
+        },
+        {
+          "name": "four real Next prefetches held before action",
+          "passed": true
+        },
+        {
+          "name": "no Auth cookies",
+          "passed": true
+        },
+        {
+          "name": "old RSC canceled by document replacement",
+          "passed": true
+        },
+        {
+          "name": "document navigation completed",
+          "passed": true
+        },
+        {
+          "name": "no external service requests",
+          "passed": true
+        },
+        {
+          "name": "no DOM unhandled error or rejection",
+          "passed": true
+        },
+        {
+          "name": "expected diagnostic signature",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "mode": "hard-six",
+      "repeat": 2,
+      "qualified": true,
+      "releaseStable": true,
+      "pageErrors": 0,
+      "domErrors": 0,
+      "canceledRsc": 6,
+      "externalRequests": 0,
+      "checks": [
+        {
+          "name": "all automatic target links present",
+          "passed": true
+        },
+        {
+          "name": "four real Next prefetches held before action",
+          "passed": true
+        },
+        {
+          "name": "no Auth cookies",
+          "passed": true
+        },
+        {
+          "name": "old RSC canceled by document replacement",
+          "passed": true
+        },
+        {
+          "name": "document navigation completed",
+          "passed": true
+        },
+        {
+          "name": "no external service requests",
+          "passed": true
+        },
+        {
+          "name": "no DOM unhandled error or rejection",
+          "passed": true
+        },
+        {
+          "name": "expected diagnostic signature",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "mode": "hard-four",
+      "repeat": 0,
+      "qualified": true,
+      "releaseStable": true,
+      "pageErrors": 0,
+      "domErrors": 0,
+      "canceledRsc": 4,
+      "externalRequests": 0,
+      "checks": [
+        {
+          "name": "all automatic target links present",
+          "passed": true
+        },
+        {
+          "name": "four real Next prefetches held before action",
+          "passed": true
+        },
+        {
+          "name": "no Auth cookies",
+          "passed": true
+        },
+        {
+          "name": "old RSC canceled by document replacement",
+          "passed": true
+        },
+        {
+          "name": "document navigation completed",
+          "passed": true
+        },
+        {
+          "name": "no external service requests",
+          "passed": true
+        },
+        {
+          "name": "no DOM unhandled error or rejection",
+          "passed": true
+        },
+        {
+          "name": "expected diagnostic signature",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "mode": "hard-four",
+      "repeat": 1,
+      "qualified": true,
+      "releaseStable": true,
+      "pageErrors": 0,
+      "domErrors": 0,
+      "canceledRsc": 4,
+      "externalRequests": 0,
+      "checks": [
+        {
+          "name": "all automatic target links present",
+          "passed": true
+        },
+        {
+          "name": "four real Next prefetches held before action",
+          "passed": true
+        },
+        {
+          "name": "no Auth cookies",
+          "passed": true
+        },
+        {
+          "name": "old RSC canceled by document replacement",
+          "passed": true
+        },
+        {
+          "name": "document navigation completed",
+          "passed": true
+        },
+        {
+          "name": "no external service requests",
+          "passed": true
+        },
+        {
+          "name": "no DOM unhandled error or rejection",
+          "passed": true
+        },
+        {
+          "name": "expected diagnostic signature",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "mode": "hard-four",
+      "repeat": 2,
+      "qualified": true,
+      "releaseStable": true,
+      "pageErrors": 0,
+      "domErrors": 0,
+      "canceledRsc": 4,
+      "externalRequests": 0,
+      "checks": [
+        {
+          "name": "all automatic target links present",
+          "passed": true
+        },
+        {
+          "name": "four real Next prefetches held before action",
+          "passed": true
+        },
+        {
+          "name": "no Auth cookies",
+          "passed": true
+        },
+        {
+          "name": "old RSC canceled by document replacement",
+          "passed": true
+        },
+        {
+          "name": "document navigation completed",
+          "passed": true
+        },
+        {
+          "name": "no external service requests",
+          "passed": true
+        },
+        {
+          "name": "no DOM unhandled error or rejection",
+          "passed": true
+        },
+        {
+          "name": "expected diagnostic signature",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "mode": "spa-six",
+      "repeat": 0,
+      "qualified": true,
+      "releaseStable": true,
+      "pageErrors": 0,
+      "domErrors": 0,
+      "canceledRsc": 0,
+      "externalRequests": 0,
+      "checks": [
+        {
+          "name": "all automatic target links present",
+          "passed": true
+        },
+        {
+          "name": "four real Next prefetches held before action",
+          "passed": true
+        },
+        {
+          "name": "no Auth cookies",
+          "passed": true
+        },
+        {
+          "name": "no external service requests",
+          "passed": true
+        },
+        {
+          "name": "no DOM unhandled error or rejection",
+          "passed": true
+        },
+        {
+          "name": "expected diagnostic signature",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "mode": "spa-six",
+      "repeat": 1,
+      "qualified": true,
+      "releaseStable": true,
+      "pageErrors": 0,
+      "domErrors": 0,
+      "canceledRsc": 0,
+      "externalRequests": 0,
+      "checks": [
+        {
+          "name": "all automatic target links present",
+          "passed": true
+        },
+        {
+          "name": "four real Next prefetches held before action",
+          "passed": true
+        },
+        {
+          "name": "no Auth cookies",
+          "passed": true
+        },
+        {
+          "name": "no external service requests",
+          "passed": true
+        },
+        {
+          "name": "no DOM unhandled error or rejection",
+          "passed": true
+        },
+        {
+          "name": "expected diagnostic signature",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "mode": "spa-six",
+      "repeat": 2,
+      "qualified": true,
+      "releaseStable": true,
+      "pageErrors": 0,
+      "domErrors": 0,
+      "canceledRsc": 0,
+      "externalRequests": 0,
+      "checks": [
+        {
+          "name": "all automatic target links present",
+          "passed": true
+        },
+        {
+          "name": "four real Next prefetches held before action",
+          "passed": true
+        },
+        {
+          "name": "no Auth cookies",
+          "passed": true
+        },
+        {
+          "name": "no external service requests",
+          "passed": true
+        },
+        {
+          "name": "no DOM unhandled error or rejection",
+          "passed": true
+        },
+        {
+          "name": "expected diagnostic signature",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "mode": "state-six",
+      "repeat": 0,
+      "qualified": true,
+      "releaseStable": true,
+      "pageErrors": 0,
+      "domErrors": 0,
+      "canceledRsc": 0,
+      "externalRequests": 0,
+      "checks": [
+        {
+          "name": "all automatic target links present",
+          "passed": true
+        },
+        {
+          "name": "four real Next prefetches held before action",
+          "passed": true
+        },
+        {
+          "name": "no Auth cookies",
+          "passed": true
+        },
+        {
+          "name": "local state changed without route/session navigation",
+          "passed": true
+        },
+        {
+          "name": "no external service requests",
+          "passed": true
+        },
+        {
+          "name": "no DOM unhandled error or rejection",
+          "passed": true
+        },
+        {
+          "name": "expected diagnostic signature",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "mode": "state-six",
+      "repeat": 1,
+      "qualified": true,
+      "releaseStable": true,
+      "pageErrors": 0,
+      "domErrors": 0,
+      "canceledRsc": 0,
+      "externalRequests": 0,
+      "checks": [
+        {
+          "name": "all automatic target links present",
+          "passed": true
+        },
+        {
+          "name": "four real Next prefetches held before action",
+          "passed": true
+        },
+        {
+          "name": "no Auth cookies",
+          "passed": true
+        },
+        {
+          "name": "local state changed without route/session navigation",
+          "passed": true
+        },
+        {
+          "name": "no external service requests",
+          "passed": true
+        },
+        {
+          "name": "no DOM unhandled error or rejection",
+          "passed": true
+        },
+        {
+          "name": "expected diagnostic signature",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "mode": "state-six",
+      "repeat": 2,
+      "qualified": true,
+      "releaseStable": true,
+      "pageErrors": 0,
+      "domErrors": 0,
+      "canceledRsc": 0,
+      "externalRequests": 0,
+      "checks": [
+        {
+          "name": "all automatic target links present",
+          "passed": true
+        },
+        {
+          "name": "four real Next prefetches held before action",
+          "passed": true
+        },
+        {
+          "name": "no Auth cookies",
+          "passed": true
+        },
+        {
+          "name": "local state changed without route/session navigation",
+          "passed": true
+        },
+        {
+          "name": "no external service requests",
+          "passed": true
+        },
+        {
+          "name": "no DOM unhandled error or rejection",
+          "passed": true
+        },
+        {
+          "name": "expected diagnostic signature",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "mode": "guard-hard-six",
+      "repeat": 0,
+      "qualified": true,
+      "releaseStable": true,
+      "pageErrors": 0,
+      "domErrors": 0,
+      "canceledRsc": 4,
+      "externalRequests": 0,
+      "checks": [
+        {
+          "name": "all automatic target links present",
+          "passed": true
+        },
+        {
+          "name": "four real Next prefetches held before action",
+          "passed": true
+        },
+        {
+          "name": "no Auth cookies",
+          "passed": true
+        },
+        {
+          "name": "old RSC canceled by document replacement",
+          "passed": true
+        },
+        {
+          "name": "document navigation completed",
+          "passed": true
+        },
+        {
+          "name": "history return remains interactive",
+          "passed": true
+        },
+        {
+          "name": "no external service requests",
+          "passed": true
+        },
+        {
+          "name": "no DOM unhandled error or rejection",
+          "passed": true
+        },
+        {
+          "name": "expected diagnostic signature",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "mode": "guard-hard-six",
+      "repeat": 1,
+      "qualified": true,
+      "releaseStable": true,
+      "pageErrors": 0,
+      "domErrors": 0,
+      "canceledRsc": 4,
+      "externalRequests": 0,
+      "checks": [
+        {
+          "name": "all automatic target links present",
+          "passed": true
+        },
+        {
+          "name": "four real Next prefetches held before action",
+          "passed": true
+        },
+        {
+          "name": "no Auth cookies",
+          "passed": true
+        },
+        {
+          "name": "old RSC canceled by document replacement",
+          "passed": true
+        },
+        {
+          "name": "document navigation completed",
+          "passed": true
+        },
+        {
+          "name": "history return remains interactive",
+          "passed": true
+        },
+        {
+          "name": "no external service requests",
+          "passed": true
+        },
+        {
+          "name": "no DOM unhandled error or rejection",
+          "passed": true
+        },
+        {
+          "name": "expected diagnostic signature",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "mode": "guard-hard-six",
+      "repeat": 2,
+      "qualified": true,
+      "releaseStable": true,
+      "pageErrors": 0,
+      "domErrors": 0,
+      "canceledRsc": 4,
+      "externalRequests": 0,
+      "checks": [
+        {
+          "name": "all automatic target links present",
+          "passed": true
+        },
+        {
+          "name": "four real Next prefetches held before action",
+          "passed": true
+        },
+        {
+          "name": "no Auth cookies",
+          "passed": true
+        },
+        {
+          "name": "old RSC canceled by document replacement",
+          "passed": true
+        },
+        {
+          "name": "document navigation completed",
+          "passed": true
+        },
+        {
+          "name": "history return remains interactive",
+          "passed": true
+        },
+        {
+          "name": "no external service requests",
+          "passed": true
+        },
+        {
+          "name": "no DOM unhandled error or rejection",
+          "passed": true
+        },
+        {
+          "name": "expected diagnostic signature",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "mode": "guard-spa-six",
+      "repeat": 0,
+      "qualified": true,
+      "releaseStable": true,
+      "pageErrors": 0,
+      "domErrors": 0,
+      "canceledRsc": 0,
+      "externalRequests": 0,
+      "checks": [
+        {
+          "name": "all automatic target links present",
+          "passed": true
+        },
+        {
+          "name": "four real Next prefetches held before action",
+          "passed": true
+        },
+        {
+          "name": "no Auth cookies",
+          "passed": true
+        },
+        {
+          "name": "no external service requests",
+          "passed": true
+        },
+        {
+          "name": "no DOM unhandled error or rejection",
+          "passed": true
+        },
+        {
+          "name": "expected diagnostic signature",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "mode": "guard-spa-six",
+      "repeat": 1,
+      "qualified": true,
+      "releaseStable": true,
+      "pageErrors": 0,
+      "domErrors": 0,
+      "canceledRsc": 0,
+      "externalRequests": 0,
+      "checks": [
+        {
+          "name": "all automatic target links present",
+          "passed": true
+        },
+        {
+          "name": "four real Next prefetches held before action",
+          "passed": true
+        },
+        {
+          "name": "no Auth cookies",
+          "passed": true
+        },
+        {
+          "name": "no external service requests",
+          "passed": true
+        },
+        {
+          "name": "no DOM unhandled error or rejection",
+          "passed": true
+        },
+        {
+          "name": "expected diagnostic signature",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "mode": "guard-spa-six",
+      "repeat": 2,
+      "qualified": true,
+      "releaseStable": true,
+      "pageErrors": 0,
+      "domErrors": 0,
+      "canceledRsc": 0,
+      "externalRequests": 0,
+      "checks": [
+        {
+          "name": "all automatic target links present",
+          "passed": true
+        },
+        {
+          "name": "four real Next prefetches held before action",
+          "passed": true
+        },
+        {
+          "name": "no Auth cookies",
+          "passed": true
+        },
+        {
+          "name": "no external service requests",
+          "passed": true
+        },
+        {
+          "name": "no DOM unhandled error or rejection",
+          "passed": true
+        },
+        {
+          "name": "expected diagnostic signature",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "mode": "guard-state-six",
+      "repeat": 0,
+      "qualified": true,
+      "releaseStable": true,
+      "pageErrors": 0,
+      "domErrors": 0,
+      "canceledRsc": 0,
+      "externalRequests": 0,
+      "checks": [
+        {
+          "name": "all automatic target links present",
+          "passed": true
+        },
+        {
+          "name": "four real Next prefetches held before action",
+          "passed": true
+        },
+        {
+          "name": "no Auth cookies",
+          "passed": true
+        },
+        {
+          "name": "local state changed without route/session navigation",
+          "passed": true
+        },
+        {
+          "name": "no external service requests",
+          "passed": true
+        },
+        {
+          "name": "no DOM unhandled error or rejection",
+          "passed": true
+        },
+        {
+          "name": "expected diagnostic signature",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "mode": "guard-state-six",
+      "repeat": 1,
+      "qualified": true,
+      "releaseStable": true,
+      "pageErrors": 0,
+      "domErrors": 0,
+      "canceledRsc": 0,
+      "externalRequests": 0,
+      "checks": [
+        {
+          "name": "all automatic target links present",
+          "passed": true
+        },
+        {
+          "name": "four real Next prefetches held before action",
+          "passed": true
+        },
+        {
+          "name": "no Auth cookies",
+          "passed": true
+        },
+        {
+          "name": "local state changed without route/session navigation",
+          "passed": true
+        },
+        {
+          "name": "no external service requests",
+          "passed": true
+        },
+        {
+          "name": "no DOM unhandled error or rejection",
+          "passed": true
+        },
+        {
+          "name": "expected diagnostic signature",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "mode": "guard-state-six",
+      "repeat": 2,
+      "qualified": true,
+      "releaseStable": true,
+      "pageErrors": 0,
+      "domErrors": 0,
+      "canceledRsc": 0,
+      "externalRequests": 0,
+      "checks": [
+        {
+          "name": "all automatic target links present",
+          "passed": true
+        },
+        {
+          "name": "four real Next prefetches held before action",
+          "passed": true
+        },
+        {
+          "name": "no Auth cookies",
+          "passed": true
+        },
+        {
+          "name": "local state changed without route/session navigation",
+          "passed": true
+        },
+        {
+          "name": "no external service requests",
+          "passed": true
+        },
+        {
+          "name": "no DOM unhandled error or rejection",
+          "passed": true
+        },
+        {
+          "name": "expected diagnostic signature",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "mode": "guard-cancel-six",
+      "repeat": 0,
+      "qualified": true,
+      "releaseStable": true,
+      "pageErrors": 0,
+      "domErrors": 0,
+      "canceledRsc": 0,
+      "externalRequests": 0,
+      "checks": [
+        {
+          "name": "all automatic target links present",
+          "passed": true
+        },
+        {
+          "name": "four real Next prefetches held before action",
+          "passed": true
+        },
+        {
+          "name": "no Auth cookies",
+          "passed": true
+        },
+        {
+          "name": "unsaved form can cancel navigation",
+          "passed": true
+        },
+        {
+          "name": "prefetch resumes after canceled document navigation",
+          "passed": true
+        },
+        {
+          "name": "no external service requests",
+          "passed": true
+        },
+        {
+          "name": "no DOM unhandled error or rejection",
+          "passed": true
+        },
+        {
+          "name": "expected diagnostic signature",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "mode": "guard-cancel-six",
+      "repeat": 1,
+      "qualified": true,
+      "releaseStable": true,
+      "pageErrors": 0,
+      "domErrors": 0,
+      "canceledRsc": 0,
+      "externalRequests": 0,
+      "checks": [
+        {
+          "name": "all automatic target links present",
+          "passed": true
+        },
+        {
+          "name": "four real Next prefetches held before action",
+          "passed": true
+        },
+        {
+          "name": "no Auth cookies",
+          "passed": true
+        },
+        {
+          "name": "unsaved form can cancel navigation",
+          "passed": true
+        },
+        {
+          "name": "prefetch resumes after canceled document navigation",
+          "passed": true
+        },
+        {
+          "name": "no external service requests",
+          "passed": true
+        },
+        {
+          "name": "no DOM unhandled error or rejection",
+          "passed": true
+        },
+        {
+          "name": "expected diagnostic signature",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "mode": "guard-cancel-six",
+      "repeat": 2,
+      "qualified": true,
+      "releaseStable": true,
+      "pageErrors": 0,
+      "domErrors": 0,
+      "canceledRsc": 0,
+      "externalRequests": 0,
+      "checks": [
+        {
+          "name": "all automatic target links present",
+          "passed": true
+        },
+        {
+          "name": "four real Next prefetches held before action",
+          "passed": true
+        },
+        {
+          "name": "no Auth cookies",
+          "passed": true
+        },
+        {
+          "name": "unsaved form can cancel navigation",
+          "passed": true
+        },
+        {
+          "name": "prefetch resumes after canceled document navigation",
+          "passed": true
+        },
+        {
+          "name": "no external service requests",
+          "passed": true
+        },
+        {
+          "name": "no DOM unhandled error or rejection",
+          "passed": true
+        },
+        {
+          "name": "expected diagnostic signature",
+          "passed": true
+        }
+      ]
+    }
+  ],
+  "nativeWebkitFailureExamples": [
+    [
+      {
+        "name": "Fetch API cannot load http",
+        "message": "/127.0.0.1:3206/target/4?_rsc=5CB68i4pnAekjehf due to access control checks.",
+        "stack": "Fetch API cannot load http://127.0.0.1:3206/target/4?_rsc=5CB68i4pnAekjehf due to access control checks.\n    at C (http://127.0.0.1:3206/_next/static/chunks/2e268anpfvdoc.js:1:35530)"
+      },
+      {
+        "name": "Fetch API cannot load http",
+        "message": "/127.0.0.1:3206/target/5?_rsc=5CB68i4pnAekjehf due to access control checks.",
+        "stack": "Fetch API cannot load http://127.0.0.1:3206/target/5?_rsc=5CB68i4pnAekjehf due to access control checks.\n    at C (http://127.0.0.1:3206/_next/static/chunks/2e268anpfvdoc.js:1:35530)"
+      }
+    ],
+    [
+      {
+        "name": "Fetch API cannot load http",
+        "message": "/127.0.0.1:3206/target/4?_rsc=5CB68i4pnAekjehf due to access control checks.",
+        "stack": "Fetch API cannot load http://127.0.0.1:3206/target/4?_rsc=5CB68i4pnAekjehf due to access control checks.\n    at C (http://127.0.0.1:3206/_next/static/chunks/2e268anpfvdoc.js:1:35530)"
+      },
+      {
+        "name": "Fetch API cannot load http",
+        "message": "/127.0.0.1:3206/target/5?_rsc=5CB68i4pnAekjehf due to access control checks.",
+        "stack": "Fetch API cannot load http://127.0.0.1:3206/target/5?_rsc=5CB68i4pnAekjehf due to access control checks.\n    at C (http://127.0.0.1:3206/_next/static/chunks/2e268anpfvdoc.js:1:35530)"
+      }
+    ],
+    [
+      {
+        "name": "Fetch API cannot load http",
+        "message": "/127.0.0.1:3206/target/4?_rsc=5CB68i4pnAekjehf due to access control checks.",
+        "stack": "Fetch API cannot load http://127.0.0.1:3206/target/4?_rsc=5CB68i4pnAekjehf due to access control checks.\n    at C (http://127.0.0.1:3206/_next/static/chunks/2e268anpfvdoc.js:1:35530)"
+      },
+      {
+        "name": "Fetch API cannot load http",
+        "message": "/127.0.0.1:3206/target/5?_rsc=5CB68i4pnAekjehf due to access control checks.",
+        "stack": "Fetch API cannot load http://127.0.0.1:3206/target/5?_rsc=5CB68i4pnAekjehf due to access control checks.\n    at C (http://127.0.0.1:3206/_next/static/chunks/2e268anpfvdoc.js:1:35530)"
+      }
+    ]
+  ],
+  "fullApplicationPrototypeAcceptance": {
+    "runs": 24,
+    "functionalCompleted": 24,
+    "errorFree": 21,
+    "failed": [
+      {
+        "engine": "webkit",
+        "transport": "fixture-only",
+        "repeat": 1,
+        "errors": [
+          {
+            "name": "Fetch API cannot load http",
+            "message": "/127.0.0.1:3199/journey/create?_rsc=7HpfKsao-Y-3aSts due to access control checks."
+          },
+          {
+            "name": "Fetch API cannot load http",
+            "message": "/127.0.0.1:3199/journey/hero?_rsc=h1V2JwCHL8ZaBB3k due to access control checks."
+          },
+          {
+            "name": "Fetch API cannot load http",
+            "message": "/127.0.0.1:3199/journey/guild?_rsc=dJdELX_CODD_f9X6 due to access control checks."
+          },
+          {
+            "name": "Fetch API cannot load http",
+            "message": "/127.0.0.1:3199/journey/guild/ebd?_rsc=jaaZvWUszr1LbV5a due to access control checks."
+          }
+        ]
+      },
+      {
+        "engine": "webkit",
+        "transport": "fixture-only",
+        "repeat": 2,
+        "errors": [
+          {
+            "name": "Fetch API cannot load http",
+            "message": "/127.0.0.1:3199/journey/create?_rsc=7HpfKsao-Y-3aSts due to access control checks."
+          },
+          {
+            "name": "Fetch API cannot load http",
+            "message": "/127.0.0.1:3199/journey/hero?_rsc=h1V2JwCHL8ZaBB3k due to access control checks."
+          },
+          {
+            "name": "Fetch API cannot load http",
+            "message": "/127.0.0.1:3199/journey/guild?_rsc=dJdELX_CODD_f9X6 due to access control checks."
+          },
+          {
+            "name": "Fetch API cannot load http",
+            "message": "/127.0.0.1:3199/journey/guild/ebd?_rsc=jaaZvWUszr1LbV5a due to access control checks."
+          }
+        ]
+      },
+      {
+        "engine": "webkit",
+        "transport": "continue",
+        "repeat": 1,
+        "errors": [
+          {
+            "name": "Fetch API cannot load http",
+            "message": "/127.0.0.1:3199/journey/create?_rsc=7HpfKsao-Y-3aSts due to access control checks."
+          },
+          {
+            "name": "Fetch API cannot load http",
+            "message": "/127.0.0.1:3199/journey/hero?_rsc=h1V2JwCHL8ZaBB3k due to access control checks."
+          },
+          {
+            "name": "Fetch API cannot load http",
+            "message": "/127.0.0.1:3199/journey/guild?_rsc=dJdELX_CODD_f9X6 due to access control checks."
+          },
+          {
+            "name": "Fetch API cannot load http",
+            "message": "/127.0.0.1:3199/journey/guild/ebd?_rsc=jaaZvWUszr1LbV5a due to access control checks."
+          }
+        ]
+      }
+    ],
+    "decision": "Prototype withdrawn from product; remains only in fixture. Partial fixture result is not release approval."
+  },
+  "artifacts": [
+    {
+      "path": "build/rpg-dev-004/concurrency/next-rsc-concurrency.json",
+      "sha256": "5d82d0bc820e5b67f84eb42925d5d79236869b4140614741ab85b054f9aa91f3"
+    },
+    {
+      "path": "build/rpg-dev-004/concurrency/local-app-remount.json",
+      "sha256": "7832d78461c3df2ac074034ebc0da8283eff74e657ba5cd603392a586de24fb0"
+    },
+    {
+      "path": "build/rpg-dev-004/concurrency/hydration-before.log",
+      "sha256": "9501f041779f94f617b5310da88076f4aac522f22ba84b8960cde96482dad3d4"
+    },
+    {
+      "path": "build/rpg-dev-004/concurrency/hydration-after.log",
+      "sha256": "26d0aec7dae88b90727c3cfac417f041b4cb4ffb17bdf6d99a3df5bb757c660a"
+    },
+    {
+      "path": "build/rpg-dev-004/concurrency/remount-before.log",
+      "sha256": "54f56c5856def39d605c118c0d9e90679d9478560d8e7c630c180bdb10f433f3"
+    },
+    {
+      "path": "build/rpg-dev-004/concurrency/remount-after.log",
+      "sha256": "da86446432a9d41d8393e229543dd5633faec8072f93fec54075aea3340f25c2"
+    },
+    {
+      "path": "build/rpg-dev-004/concurrency/final-unit.log",
+      "sha256": "aed2e16a43337a83191b1f59849728b884c5c407e02f825bdb3041c45be0efa7"
+    },
+    {
+      "path": "build/rpg-dev-004/concurrency/final-lint.log",
+      "sha256": "81b120c5e3e4dc5f9e40babe9a05fbeaf1b77017e24e22b69f0233624e945ab9"
+    },
+    {
+      "path": "build/rpg-dev-004/concurrency/final-types.log",
+      "sha256": "485ed618f97eb9efe9ce53039c7a7117a64b94f59d0fb5e487249aed356d30d6"
+    },
+    {
+      "path": "build/rpg-dev-004/concurrency/final-build-restored.log",
+      "sha256": "b13f2988b0a0befbbd9e5edc159d77ee49706a1ddac58a5b0ca6b41730f6b37c"
+    },
+    {
+      "path": "build/rpg-dev-004/concurrency/affected-final.log",
+      "sha256": "189f46d33f6ed0e7d85fbe0f1f5be991130b400285522412c3b68ca82223829b"
+    }
+  ]
+}

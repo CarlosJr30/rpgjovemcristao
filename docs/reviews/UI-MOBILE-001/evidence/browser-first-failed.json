@@ -1,0 +1,481 @@
+{
+  "syntheticData": true,
+  "productionProof": false,
+  "runs": [
+    {
+      "name": "desktop",
+      "checks": [
+        {
+          "name": "current account login works",
+          "pass": true
+        },
+        {
+          "name": "no blocked route exposed by restored home",
+          "pass": true
+        },
+        {
+          "name": "home contains no large navigation card grid",
+          "pass": true
+        },
+        {
+          "name": "EBD reached through principal menu",
+          "pass": true
+        },
+        {
+          "name": "menu closes after navigation",
+          "pass": true
+        },
+        {
+          "name": "existing Guilda screen preserved",
+          "pass": true
+        },
+        {
+          "name": "avatar source loads",
+          "pass": true
+        },
+        {
+          "name": "four attributes are read-only",
+          "pass": true
+        },
+        {
+          "name": "canceling switch preserves current traveler",
+          "pass": true
+        },
+        {
+          "name": "no horizontal overflow",
+          "pass": true
+        },
+        {
+          "name": "protected /journey/arena",
+          "pass": true
+        },
+        {
+          "name": "protected /journey/arena/tower",
+          "pass": true
+        },
+        {
+          "name": "protected /journey/tower",
+          "pass": true
+        },
+        {
+          "name": "protected /journey/equipment",
+          "pass": true
+        },
+        {
+          "name": "protected /journey/shop",
+          "pass": true
+        },
+        {
+          "name": "protected /journey/backpack",
+          "pass": true
+        },
+        {
+          "name": "protected /journey/diary",
+          "pass": true
+        },
+        {
+          "name": "protected /journey/stories/blocked",
+          "pass": true
+        },
+        {
+          "name": "protected /journey/worlds/blocked",
+          "pass": true
+        },
+        {
+          "name": "economy authority remains denied",
+          "pass": true
+        },
+        {
+          "name": "current logout works",
+          "pass": true
+        },
+        {
+          "name": "existing recovery route remains available",
+          "pass": true
+        },
+        {
+          "name": "no page errors",
+          "pass": true
+        },
+        {
+          "name": "no console errors",
+          "pass": true
+        },
+        {
+          "name": "no external origins",
+          "pass": true
+        }
+      ],
+      "errors": [],
+      "consoleErrors": [],
+      "externalOrigins": [],
+      "passed": true
+    },
+    {
+      "name": "mobile",
+      "checks": [
+        {
+          "name": "current account login works",
+          "pass": true
+        },
+        {
+          "name": "no blocked route exposed by restored home",
+          "pass": true
+        },
+        {
+          "name": "home contains no large navigation card grid",
+          "pass": true
+        },
+        {
+          "name": "menu touch target at least44px",
+          "pass": true
+        },
+        {
+          "name": "menu opens with keyboard focus",
+          "pass": true
+        },
+        {
+          "name": "body scroll locked while menu open",
+          "pass": true
+        },
+        {
+          "name": "keyboard focus stays inside menu",
+          "pass": true
+        },
+        {
+          "name": "Escape closes and returns focus",
+          "pass": true
+        },
+        {
+          "name": "outside touch closes menu",
+          "pass": true
+        },
+        {
+          "name": "EBD reached through principal menu",
+          "pass": true
+        },
+        {
+          "name": "menu closes after navigation",
+          "pass": true
+        },
+        {
+          "name": "existing Guilda screen preserved",
+          "pass": true
+        },
+        {
+          "name": "avatar source loads",
+          "pass": true
+        },
+        {
+          "name": "four attributes are read-only",
+          "pass": true
+        },
+        {
+          "name": "canceling switch preserves current traveler",
+          "pass": true
+        },
+        {
+          "name": "no horizontal overflow",
+          "pass": true
+        },
+        {
+          "name": "protected /journey/arena",
+          "pass": true
+        },
+        {
+          "name": "protected /journey/arena/tower",
+          "pass": true
+        },
+        {
+          "name": "protected /journey/tower",
+          "pass": true
+        },
+        {
+          "name": "protected /journey/equipment",
+          "pass": true
+        },
+        {
+          "name": "protected /journey/shop",
+          "pass": true
+        },
+        {
+          "name": "protected /journey/backpack",
+          "pass": true
+        },
+        {
+          "name": "protected /journey/diary",
+          "pass": true
+        },
+        {
+          "name": "protected /journey/stories/blocked",
+          "pass": true
+        },
+        {
+          "name": "protected /journey/worlds/blocked",
+          "pass": true
+        },
+        {
+          "name": "economy authority remains denied",
+          "pass": true
+        },
+        {
+          "name": "current logout works",
+          "pass": true
+        },
+        {
+          "name": "existing recovery route remains available",
+          "pass": false
+        }
+      ],
+      "errors": [],
+      "consoleErrors": [],
+      "externalOrigins": [],
+      "passed": false,
+      "failure": "existing recovery route remains available"
+    },
+    {
+      "name": "small-mobile",
+      "checks": [
+        {
+          "name": "current account login works",
+          "pass": true
+        },
+        {
+          "name": "no blocked route exposed by restored home",
+          "pass": true
+        },
+        {
+          "name": "home contains no large navigation card grid",
+          "pass": true
+        },
+        {
+          "name": "menu touch target at least44px",
+          "pass": true
+        },
+        {
+          "name": "menu opens with keyboard focus",
+          "pass": true
+        },
+        {
+          "name": "body scroll locked while menu open",
+          "pass": true
+        },
+        {
+          "name": "keyboard focus stays inside menu",
+          "pass": true
+        },
+        {
+          "name": "Escape closes and returns focus",
+          "pass": true
+        },
+        {
+          "name": "outside touch closes menu",
+          "pass": true
+        },
+        {
+          "name": "EBD reached through principal menu",
+          "pass": true
+        },
+        {
+          "name": "menu closes after navigation",
+          "pass": true
+        },
+        {
+          "name": "existing Guilda screen preserved",
+          "pass": true
+        },
+        {
+          "name": "avatar source loads",
+          "pass": true
+        },
+        {
+          "name": "four attributes are read-only",
+          "pass": true
+        },
+        {
+          "name": "canceling switch preserves current traveler",
+          "pass": true
+        },
+        {
+          "name": "no horizontal overflow",
+          "pass": true
+        },
+        {
+          "name": "protected /journey/arena",
+          "pass": true
+        },
+        {
+          "name": "protected /journey/arena/tower",
+          "pass": true
+        },
+        {
+          "name": "protected /journey/tower",
+          "pass": true
+        },
+        {
+          "name": "protected /journey/equipment",
+          "pass": true
+        },
+        {
+          "name": "protected /journey/shop",
+          "pass": true
+        },
+        {
+          "name": "protected /journey/backpack",
+          "pass": true
+        },
+        {
+          "name": "protected /journey/diary",
+          "pass": true
+        },
+        {
+          "name": "protected /journey/stories/blocked",
+          "pass": true
+        },
+        {
+          "name": "protected /journey/worlds/blocked",
+          "pass": true
+        },
+        {
+          "name": "economy authority remains denied",
+          "pass": true
+        },
+        {
+          "name": "current logout works",
+          "pass": true
+        },
+        {
+          "name": "existing recovery route remains available",
+          "pass": false
+        }
+      ],
+      "errors": [],
+      "consoleErrors": [],
+      "externalOrigins": [],
+      "passed": false,
+      "failure": "existing recovery route remains available"
+    },
+    {
+      "name": "landscape",
+      "checks": [
+        {
+          "name": "current account login works",
+          "pass": true
+        },
+        {
+          "name": "no blocked route exposed by restored home",
+          "pass": true
+        },
+        {
+          "name": "home contains no large navigation card grid",
+          "pass": true
+        },
+        {
+          "name": "menu touch target at least44px",
+          "pass": true
+        },
+        {
+          "name": "menu opens with keyboard focus",
+          "pass": true
+        },
+        {
+          "name": "body scroll locked while menu open",
+          "pass": true
+        },
+        {
+          "name": "keyboard focus stays inside menu",
+          "pass": true
+        },
+        {
+          "name": "Escape closes and returns focus",
+          "pass": true
+        },
+        {
+          "name": "outside touch closes menu",
+          "pass": true
+        },
+        {
+          "name": "EBD reached through principal menu",
+          "pass": true
+        },
+        {
+          "name": "menu closes after navigation",
+          "pass": true
+        },
+        {
+          "name": "existing Guilda screen preserved",
+          "pass": true
+        },
+        {
+          "name": "avatar source loads",
+          "pass": true
+        },
+        {
+          "name": "four attributes are read-only",
+          "pass": true
+        },
+        {
+          "name": "canceling switch preserves current traveler",
+          "pass": true
+        },
+        {
+          "name": "no horizontal overflow",
+          "pass": true
+        },
+        {
+          "name": "protected /journey/arena",
+          "pass": true
+        },
+        {
+          "name": "protected /journey/arena/tower",
+          "pass": true
+        },
+        {
+          "name": "protected /journey/tower",
+          "pass": true
+        },
+        {
+          "name": "protected /journey/equipment",
+          "pass": true
+        },
+        {
+          "name": "protected /journey/shop",
+          "pass": true
+        },
+        {
+          "name": "protected /journey/backpack",
+          "pass": true
+        },
+        {
+          "name": "protected /journey/diary",
+          "pass": true
+        },
+        {
+          "name": "protected /journey/stories/blocked",
+          "pass": true
+        },
+        {
+          "name": "protected /journey/worlds/blocked",
+          "pass": true
+        },
+        {
+          "name": "economy authority remains denied",
+          "pass": true
+        },
+        {
+          "name": "current logout works",
+          "pass": true
+        },
+        {
+          "name": "existing recovery route remains available",
+          "pass": false
+        }
+      ],
+      "errors": [],
+      "consoleErrors": [],
+      "externalOrigins": [],
+      "passed": false,
+      "failure": "existing recovery route remains available"
+    }
+  ]
+}

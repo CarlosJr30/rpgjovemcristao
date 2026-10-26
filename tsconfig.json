@@ -1,9 +1,23 @@
 {
   "extends": "./tsconfig.base.json",
-  "compilerOptions": { "types": ["node"], "lib": ["ES2022", "DOM"] },
+  "compilerOptions": {
+    "types": ["node"],
+    "lib": ["ES2022", "DOM"],
+    "jsx": "react-jsx"
+  },
   "include": [
     "vitest.config.ts",
     "playwright.config.ts",
+    "playwright.rpg-dev-001.config.ts",
+    "playwright.rpg-dev-003.config.ts",
+    "playwright.gameplay-isolated.config.ts",
+    "tests/protected-preview-route.test.ts",
+    "tests/document-navigation-link.test.tsx",
+    "tests/fixtures/rsc-lifecycle-harness/document-navigation-link.tsx",
+    "tests/fixtures/protected-preview-route.ts",
+    "tests/fixtures/local-release-auth.ts",
+    "tests/fixtures/equipment-recovery-harness/**/*.ts",
+    "tests/fixtures/equipment-recovery-harness/**/*.tsx",
     "playwright.arena-lab.config.ts",
     "playwright.arena-audio-prototype.config.ts",
     "playwright.mobile.config.ts",

@@ -1,5 +1,6 @@
 import type { Equipment, EquipmentSlot, Traveler } from '../domain/traveler';
 import { EQUIPMENT_CATALOG } from './equipmentCatalog';
+import { APPROVED_EQUIPMENT_003 } from './equipmentBodyFit003';
 import {
   APPROVED_ARMOR_COMPOSITION_3,
   APPROVED_BODY_FIT_V3_ASSETS,
@@ -79,6 +80,7 @@ export type CanvasComposition = {
   scaleX: number;
   scaleY?: number;
   transformOrigin?: string;
+  clipPath?: string;
 };
 type HandOcclusion = { source: string; clipPath: string };
 export type EquipmentOverlayDefinition = {
@@ -126,6 +128,7 @@ export type ResolvedOverlayLayer = {
   requiredAvatarSource?: string;
   canvasComposition?: CanvasComposition;
   handOcclusion?: HandOcclusion;
+  chainPath?: string;
 };
 export type ResolvedEquipmentVisual = {
   iconAsset: string;
@@ -434,6 +437,23 @@ export function resolveEquipmentVisual(
   bodyType: BodyType,
   avatarSource?: string,
 ): ResolvedEquipmentVisual {
+  const exact = APPROVED_EQUIPMENT_003.find(
+    (entry) =>
+      entry.itemId === definition.itemId &&
+      entry.slot === definition.slot &&
+      entry.gender === bodyType &&
+      entry.avatarSource === avatarSource,
+  );
+  if (exact)
+    return {
+      iconAsset: definition.iconAsset,
+      layers: exact.layers.map((layer) => ({
+        ...layer,
+        requiredAvatarSource: exact.avatarSource,
+      })),
+      visualQuality: 'READY',
+      visualOverlayUnavailable: false,
+    };
   const composition = APPROVED_ARMOR_COMPOSITION_3;
   if (
     definition.itemId === composition.itemId &&

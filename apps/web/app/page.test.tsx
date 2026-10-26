@@ -15,12 +15,12 @@ vi.mock('../features/journey/state/use-journey', () => ({
   useJourney: () => ({ status: 'logged-out' }),
 }));
 afterEach(cleanup);
-test('apresenta Guilda e EBD e exige autenticação para começar', async () => {
+test('restaura a entrada original e exige a autenticação atual para começar', async () => {
   render(<HomePage />);
   expect(
     screen.getByRole('heading', {
       level: 1,
-      name: 'Aprenda e caminhe com sua Guilda',
+      name: 'RPG Jovem Cristão',
     }),
   ).toBeVisible();
   for (const link of screen.getAllByRole('link', {
