@@ -123,6 +123,78 @@ describe.runIf(process.env.RPG_LOCAL_PG === '1').each([false, true])(
       db.as(3, command(3, 'traveler-boots', null));
       expect(invariants()).toBe(baseline);
     });
+    it('swaps two synthetic weapons atomically only inside this offline database', async () => {
+      const before = invariants();
+      const definition = db.query(
+        "select pg_get_functiondef('economy_private.set_owned_equipment(uuid,text,text,text)'::regprocedure)",
+      );
+      const mapping = "WHEN 'traveler-sword-common' THEN 'weapon'";
+      expect(definition.split(mapping)).toHaveLength(2);
+      // Explicit user authorization for an isolated synthetic second sword.
+      // This test-only mapping is never written to a migration or hosted DB.
+      db.query(
+        definition.replace(
+          mapping,
+          mapping + "\n   WHEN 'offline-sword-alternate' THEN 'weapon'",
+        ),
+      );
+      db.query(
+        `INSERT INTO public.inventory(traveler_id,item_id,quantity) VALUES('${tid(2)}','traveler-sword-common',1),('${tid(2)}','offline-sword-alternate',1)`,
+      );
+      db.as(2, command(2, 'traveler-sword-common', null, 'weapon'));
+      expect(
+        JSON.parse(
+          db.as(
+            2,
+            command(
+              2,
+              'offline-sword-alternate',
+              'traveler-sword-common',
+              'weapon',
+            ),
+          ),
+        ).weapon,
+      ).toBe('offline-sword-alternate');
+      db.as(
+        2,
+        command(
+          2,
+          'offline-sword-alternate',
+          'traveler-sword-common',
+          'weapon',
+        ),
+      );
+      expect(
+        db.query(
+          `select count(*) from public.equipped_items where traveler_id='${tid(2)}' and slot='weapon'`,
+        ),
+      ).toBe('1');
+      const run = (item: string | null) =>
+        db.queryAsync(
+          `BEGIN;SET LOCAL ROLE authenticated;SET LOCAL request.jwt.claim.sub='${uid(2)}';${command(2, item, 'offline-sword-alternate', 'weapon')};COMMIT;`,
+        );
+      const competing = await Promise.allSettled([
+        run('traveler-sword-common'),
+        run(null),
+      ]);
+      expect(competing.filter((r) => r.status === 'fulfilled')).toHaveLength(1);
+      expect(competing.filter((r) => r.status === 'rejected')).toHaveLength(1);
+      expect(
+        db.query(
+          `select count(*)||':'||sum(quantity) from public.inventory where traveler_id='${tid(2)}' and item_id in ('traveler-sword-common','offline-sword-alternate')`,
+        ),
+      ).toBe('2:2');
+      const selected =
+        db.query(
+          `select item_id from public.equipped_items where traveler_id='${tid(2)}' and slot='weapon'`,
+        ) || null;
+      db.as(2, command(2, null, selected, 'weapon'));
+      db.query(
+        `DELETE FROM public.inventory WHERE traveler_id='${tid(2)}' AND item_id IN ('traveler-sword-common','offline-sword-alternate')`,
+      );
+      db.query(definition);
+      expect(invariants()).toBe(before);
+    });
     it('recovers the previous RPC/ACL surface without restoring or modifying player data', () => {
       db.query(`BEGIN;
         DROP FUNCTION public.set_owned_equipment(uuid,text,text,text);
