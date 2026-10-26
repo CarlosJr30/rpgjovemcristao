@@ -1,0 +1,79 @@
+{
+  "passed": true,
+  "scope": "isolated PostgreSQL on loopback only; no hosted account or acquisition",
+  "version": "PostgreSQL 17.10 on x86_64-windows, compiled by msvc-19.44.35226, 64-bit",
+  "results": [
+    {
+      "name": "migration and its recovery probe preserve all player datasets and release scope",
+      "passed": true
+    },
+    {
+      "name": "anonymous role denied",
+      "passed": true
+    },
+    {
+      "name": "service role denied",
+      "passed": true
+    },
+    {
+      "name": "authenticated without subject denied",
+      "passed": true
+    },
+    {
+      "name": "anonymous Auth user denied",
+      "passed": true
+    },
+    {
+      "name": "foreign traveler denied",
+      "passed": true
+    },
+    {
+      "name": "own empty collection is an honest empty result",
+      "passed": true
+    },
+    {
+      "name": "owned receipt-backed card returns exact existing definition and never mutates data",
+      "passed": true
+    },
+    {
+      "name": "other owner cannot see the acquired card",
+      "passed": true
+    },
+    {
+      "name": "revoked inventory card is excluded",
+      "passed": true
+    },
+    {
+      "name": "revoked catalog definition is excluded",
+      "passed": true
+    },
+    {
+      "name": "receipt missing item id is excluded",
+      "passed": true
+    },
+    {
+      "name": "receipt of another account is excluded",
+      "passed": true
+    },
+    {
+      "name": "provenance constraint rejects missing receipt without weakening schema",
+      "passed": true
+    },
+    {
+      "name": "provenance constraint rejects invalid quantity without weakening schema",
+      "passed": true
+    },
+    {
+      "name": "writes and combat authority remain denied",
+      "passed": true
+    },
+    {
+      "name": "recovery removes only new endpoints and rollback restores exact definitions and ACLs",
+      "passed": true
+    },
+    {
+      "name": "duplicate migration aborts without partially changing metadata or player data",
+      "passed": true
+    }
+  ]
+}

@@ -1,2 +1,4 @@
-import { CollectionScreen } from '../../../features/journey/screens/collection';
-export default function Page() { return <CollectionScreen />; }
+import { ArchiveCollection } from '../../../features/release-ebd/archive-screens';
+export default function Page() {
+  return <ArchiveCollection />;
+}

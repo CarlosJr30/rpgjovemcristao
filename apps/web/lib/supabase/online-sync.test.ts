@@ -11,6 +11,7 @@ import {
   hydrateOnlineTravelers,
   listTravelersForCurrentSession,
   reloadOnlineTraveler,
+  readOnlineArchive,
   selectOnlineTraveler,
   setCurrentOnlineUser,
 } from './online-sync';
@@ -113,6 +114,37 @@ describe('online cache ownership', () => {
     vi.spyOn(inventoryRepository, 'getInventory').mockResolvedValue([]);
     vi.spyOn(equipmentRepository, 'getEquippedItems').mockResolvedValue([]);
   }
+  test('archive ignores cached history and reads without saving or changing active traveler', async () => {
+    setCurrentOnlineUser(userA); mockRemoteDetails();
+    vi.spyOn(travelerRepository, 'getTravelerById').mockResolvedValue(remoteRow('Server name'));
+    const cached = getLocalTravelerSnapshot(travelerA)!;
+    cached.progress.devotionalReflection = 'cached private text'; journeyRepository.save(cached);
+    const before = getLocalTravelerSnapshot(travelerA);
+    const save = vi.spyOn(journeyRepository, 'save');
+    const setActive = vi.spyOn(travelerRepository, 'setActiveTraveler');
+    const value = await readOnlineArchive(travelerA);
+    expect(value.persistedProgress).toBe(false);
+    expect(value.traveler.progress.devotionalReflection).not.toBe('cached private text');
+    expect(value.inventory).toEqual([]); expect(value.traveler.inventory).toEqual([]);
+    expect(save).not.toHaveBeenCalled(); expect(setActive).not.toHaveBeenCalled();
+    expect(getLocalTravelerSnapshot(travelerA)).toEqual(before);
+  });
+  test('archive projects stored progress without mutating it or writing', async () => {
+    setCurrentOnlineUser(userA); mockRemoteDetails();
+    const progress = createTraveler('Stored', DEFAULT_APPEARANCE, travelerA, '2026-10-23T00:00:00.000Z').progress;
+    progress.devotionalReflection = 'persisted private text';
+    vi.spyOn(travelerRepository, 'getTravelerById').mockResolvedValue({ ...remoteRow('Stored'), journey_progress: progress });
+    const value = await readOnlineArchive(travelerA);
+    expect(value.persistedProgress).toBe(true);
+    expect(value.traveler.progress.devotionalReflection).toBe('persisted private text');
+  });
+  test('archive rejects a response from the prior login of the same account', async () => {
+    setCurrentOnlineUser(userA); mockRemoteDetails();
+    let complete!: (row: ReturnType<typeof remoteRow>) => void;
+    vi.spyOn(travelerRepository, 'getTravelerById').mockReturnValueOnce(new Promise(resolve => { complete = resolve; }));
+    const pending = readOnlineArchive(travelerA); setCurrentOnlineUser(null); setCurrentOnlineUser(userA);
+    complete(remoteRow('Stale')); await expect(pending).rejects.toThrow();
+  });
   test('rejects a previous login read even after the same account signs back in', async () => {
     setCurrentOnlineUser(userA);
     mockRemoteDetails();

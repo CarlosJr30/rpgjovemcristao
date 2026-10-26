@@ -1,6 +1,8 @@
 # RPG-DEV-007 — Plano de Mochila, Coleção e Diário
 
-Preparação documental de 26/10/2026. [Contrato](../../tasks/backlog/RPG-DEV-007-backpack-collection-diary.md). Branch `codex/rpg-dev-007-preparation`, base `origin/main` em `1a82d2c`. Nenhuma implementação, migration, abertura de rota ou publicação nesta etapa.
+> Plano inicial histórico. O pedido posterior autorizou o runtime de consulta. Estado atual, evidências e limitações no [RPG-DEV-007-REPORT.md](RPG-DEV-007-REPORT.md); [contrato ativo](../../tasks/active/RPG-DEV-007-backpack-collection-diary.md).
+
+Preparação documental de 26/10/2026, preservada no commit 8c9c0c0. Branch `codex/rpg-dev-007-preparation`, base `origin/main` em `1a82d2c`. Nenhuma implementação, migration, abertura de rota ou publicação ocorreu na preparação inicial abaixo.
 
 A [revisão de RPG-DEV-006](https://github.com/CarlosJr30/rpgjovemcristao/blob/61b7177b2ba52a04b955a8306677a0e13dfdeb3c/docs/architecture/RPG-DEV-006-RELEASE-REPORT.md#revisão-da-ordem-dos-gates-e-do-menor-escopo-seguro) preserva TEST e mantém a publicação de escrita de equipamentos bloqueada pela indisponibilidade de uma conferência positiva posterior autorizada em PROD. Não herdar uma suposta integração da PR #12; reconciliar o baseline antes de ativar trabalho funcional.
 

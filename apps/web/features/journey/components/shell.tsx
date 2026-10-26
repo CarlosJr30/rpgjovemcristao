@@ -54,7 +54,7 @@ const releasedLinks = [
     label,
     href: routes[id],
     icon: id,
-    available: id === 'hero' || id === 'guild',
+    available: ['hero', 'guild', 'backpack', 'collection', 'diary'].includes(id),
   })),
   {
     id: 'ebd',
