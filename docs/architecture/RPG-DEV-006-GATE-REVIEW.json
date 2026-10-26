@@ -1,0 +1,428 @@
+{
+  "task": "RPG-DEV-006",
+  "date": "2026-10-26",
+  "status": "BLOCKED_FOR_EQUIPMENT_MUTATION_RELEASE",
+  "candidateSha": "4ece32547015e002f625ebf586131188a0ec107e",
+  "ci": [
+    {
+      "id": 40380283203,
+      "status": "completed",
+      "conclusion": "success",
+      "event": "pull_request",
+      "sha": "4ece32547015e002f625ebf586131188a0ec107e"
+    },
+    {
+      "id": 40380276568,
+      "status": "completed",
+      "conclusion": "success",
+      "event": "push",
+      "sha": "4ece32547015e002f625ebf586131188a0ec107e"
+    }
+  ],
+  "gateOrder": {
+    "beforeDeployment": "Real TEST Preview checks already approved; candidate CI, security, compatibility and recovery",
+    "afterDeployment": "Production READY/SHA/backend/alias, normal QA Auth/RLS and minimal positive owned-equipment cycle",
+    "positiveProductionTestRequiredBeforeDeployment": false,
+    "knownPostDeploymentExecutionPathAvailable": false,
+    "reason": "User reports exclusive QA PROD account has zero owned items; other players protected and grants for testing forbidden"
+  },
+  "minimumMissingEvidence": {
+    "environment": "PROD",
+    "identity": "normal authenticated session of authorized QA account",
+    "inventory": "at least one legitimately pre-existing owned official equipment item",
+    "cycle": [
+      "equip through real RPC",
+      "derived attributes correct",
+      "reload persists server selection",
+      "unequip through real RPC",
+      "restore original functional selection",
+      "inventory, XP, coins and base attributes preserved"
+    ],
+    "secondOfficialVariantRequired": false,
+    "sixProductionFixtureItemsRequired": false,
+    "executed": false
+  },
+  "preservedTestEvidence": {
+    "filesUnchanged": true,
+    "fixtureReapplied": false,
+    "priorResultsRetained": true
+  },
+  "security": {
+    "PROD": {
+      "scope": "guild-ebd-001",
+      "protocol": 3,
+      "functions": [
+        {
+          "name": "release_scope",
+          "config": [
+            "search_path=\"\""
+          ],
+          "schema": "public",
+          "anon_execute": true,
+          "definition_hash": "5fa53382dafc3862552c2345b047e0ab",
+          "service_execute": true,
+          "security_definer": false,
+          "authenticated_execute": true
+        }
+      ],
+      "migrations": 6,
+      "scope_hash": "5fa53382dafc3862552c2345b047e0ab",
+      "owned_public": null,
+      "owned_private": null,
+      "tables_without_rls": 0,
+      "selections_without_owned_item": 0
+    },
+    "TEST": {
+      "scope": "hero-equipment-006",
+      "protocol": 3,
+      "functions": [
+        {
+          "name": "release_scope",
+          "config": [
+            "search_path=\"\""
+          ],
+          "schema": "public",
+          "anon_execute": true,
+          "definition_hash": "524d8ce8d6f0c95b423eaaa249319b66",
+          "service_execute": true,
+          "security_definer": false,
+          "authenticated_execute": true
+        },
+        {
+          "name": "set_owned_equipment",
+          "config": [
+            "search_path=\"\""
+          ],
+          "schema": "public",
+          "anon_execute": false,
+          "definition_hash": "52ce40d920adc332c1c04dc488435e81",
+          "service_execute": false,
+          "security_definer": false,
+          "authenticated_execute": true
+        },
+        {
+          "name": "set_owned_equipment",
+          "config": [
+            "search_path=\"\""
+          ],
+          "schema": "economy_private",
+          "anon_execute": false,
+          "definition_hash": "173181dad078d09c8f9035ad456e838a",
+          "service_execute": false,
+          "security_definer": true,
+          "authenticated_execute": true
+        }
+      ],
+      "migrations": 25,
+      "scope_hash": "524d8ce8d6f0c95b423eaaa249319b66",
+      "owned_public": "set_owned_equipment(uuid,text,text,text)",
+      "owned_private": "economy_private.set_owned_equipment(uuid,text,text,text)",
+      "tables_without_rls": 0,
+      "selections_without_owned_item": 0
+    },
+    "directWritesDenied": [
+      {
+        "role": "anon",
+        "table": "inventory",
+        "denied": true
+      },
+      {
+        "role": "anon",
+        "table": "equipped_items",
+        "denied": true
+      },
+      {
+        "role": "anon",
+        "table": "traveler_stats",
+        "denied": true
+      },
+      {
+        "role": "anon",
+        "table": "wallets",
+        "denied": true
+      },
+      {
+        "role": "authenticated",
+        "table": "inventory",
+        "denied": true
+      },
+      {
+        "role": "authenticated",
+        "table": "equipped_items",
+        "denied": true
+      },
+      {
+        "role": "authenticated",
+        "table": "traveler_stats",
+        "denied": true
+      },
+      {
+        "role": "authenticated",
+        "table": "wallets",
+        "denied": true
+      }
+    ],
+    "compatibility": {
+      "PROD": {
+        "columns": [
+          {
+            "type": "uuid",
+            "table": "equipped_items",
+            "column": "traveler_id"
+          },
+          {
+            "type": "text",
+            "table": "equipped_items",
+            "column": "slot"
+          },
+          {
+            "type": "text",
+            "table": "equipped_items",
+            "column": "item_id"
+          },
+          {
+            "type": "timestamp with time zone",
+            "table": "equipped_items",
+            "column": "equipped_at"
+          },
+          {
+            "type": "uuid",
+            "table": "inventory",
+            "column": "traveler_id"
+          },
+          {
+            "type": "text",
+            "table": "inventory",
+            "column": "item_id"
+          },
+          {
+            "type": "integer",
+            "table": "inventory",
+            "column": "quantity"
+          },
+          {
+            "type": "uuid",
+            "table": "inventory",
+            "column": "card_receipt_id"
+          },
+          {
+            "type": "uuid",
+            "table": "travelers",
+            "column": "id"
+          },
+          {
+            "type": "uuid",
+            "table": "travelers",
+            "column": "user_id"
+          }
+        ],
+        "new_test_hero": null,
+        "user_triggers": 0,
+        "equipment_constraints": [
+          "FOREIGN KEY (traveler_id, item_id) REFERENCES inventory(traveler_id, item_id) ON DELETE CASCADE",
+          "CHECK ((slot = ANY (ARRAY['helmet'::text, 'armor'::text, 'weapon'::text, 'shield'::text, 'boots'::text, 'amulet'::text])))",
+          "PRIMARY KEY (traveler_id, slot)",
+          "FOREIGN KEY (traveler_id) REFERENCES travelers(id) ON DELETE CASCADE"
+        ]
+      },
+      "TEST": {
+        "columns": [
+          {
+            "type": "uuid",
+            "table": "equipped_items",
+            "column": "traveler_id"
+          },
+          {
+            "type": "text",
+            "table": "equipped_items",
+            "column": "slot"
+          },
+          {
+            "type": "text",
+            "table": "equipped_items",
+            "column": "item_id"
+          },
+          {
+            "type": "timestamp with time zone",
+            "table": "equipped_items",
+            "column": "equipped_at"
+          },
+          {
+            "type": "uuid",
+            "table": "inventory",
+            "column": "traveler_id"
+          },
+          {
+            "type": "text",
+            "table": "inventory",
+            "column": "item_id"
+          },
+          {
+            "type": "integer",
+            "table": "inventory",
+            "column": "quantity"
+          },
+          {
+            "type": "uuid",
+            "table": "inventory",
+            "column": "card_receipt_id"
+          },
+          {
+            "type": "uuid",
+            "table": "travelers",
+            "column": "id"
+          },
+          {
+            "type": "uuid",
+            "table": "travelers",
+            "column": "user_id"
+          }
+        ],
+        "new_test_hero": {
+          "xp": 0,
+          "level": 1,
+          "equipment": 0,
+          "inventory": 0
+        },
+        "user_triggers": 0,
+        "equipment_constraints": [
+          "FOREIGN KEY (traveler_id, item_id) REFERENCES inventory(traveler_id, item_id) ON DELETE CASCADE",
+          "CHECK ((slot = ANY (ARRAY['helmet'::text, 'armor'::text, 'weapon'::text, 'shield'::text, 'boots'::text, 'amulet'::text])))",
+          "PRIMARY KEY (traveler_id, slot)",
+          "FOREIGN KEY (traveler_id) REFERENCES travelers(id) ON DELETE CASCADE"
+        ]
+      }
+    },
+    "reviewBy": "author; no independent review claimed",
+    "advisors": {
+      "wspafhlbtlpabypzymjo": [
+        {
+          "name": "rls_enabled_no_policy",
+          "level": "INFO",
+          "count": 14,
+          "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0008_rls_enabled_no_policy"
+        },
+        {
+          "name": "authenticated_security_definer_function_executable",
+          "level": "WARN",
+          "count": 12,
+          "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0029_authenticated_security_definer_function_executable"
+        },
+        {
+          "name": "auth_leaked_password_protection",
+          "level": "WARN",
+          "count": 1,
+          "remediation": "https://supabase.com/docs/guides/auth/password-security#password-strength-and-leaked-password-protection"
+        }
+      ],
+      "wkdvdzfkbwvhyjmamrsg": [
+        {
+          "name": "rls_enabled_no_policy",
+          "level": "INFO",
+          "count": 16,
+          "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0008_rls_enabled_no_policy"
+        },
+        {
+          "name": "authenticated_security_definer_function_executable",
+          "level": "WARN",
+          "count": 12,
+          "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0029_authenticated_security_definer_function_executable"
+        },
+        {
+          "name": "auth_leaked_password_protection",
+          "level": "WARN",
+          "count": 1,
+          "remediation": "https://supabase.com/docs/guides/auth/password-security#password-strength-and-leaked-password-protection"
+        }
+      ]
+    }
+  },
+  "preservation": {
+    "PROD": {
+      "datasets": 38,
+      "changes": []
+    },
+    "TEST": {
+      "datasets": 40,
+      "changes": []
+    },
+    "testExclusions": "only new authorized hero's traveler/stats/wallet rows"
+  },
+  "visual": {
+    "approvedCompositionCaptures": "sword/armor in Chromium and WebKit",
+    "otherSlots": "no invented overlay; current body keeps safe pending-layer message and functional attributes",
+    "newArtwork": false
+  },
+  "recovery": {
+    "migration": "20261026122539_rpg_dev_006_owned_equipment.sql",
+    "onlyThisMigration": true,
+    "refreshMetadataSnapshotAndBaselineImmediatelyBeforeMigration": true,
+    "priorIsolatedPostgresResults": 29,
+    "postgresRerunThisReview": false,
+    "applicationRollbackSha": "1a82d2c058b40b37ae4ae79b82c085bb3488c02b",
+    "ddlRecovery": "verify definitions/hashes, remove only 006 public wrapper and private function, restore release_scope definition/ACL, reload schema; do not rewrite player data or erase migration history",
+    "residualRisk": "application/DDL rollback does not undo legitimate player equipment selections"
+  },
+  "minimalAlternative": {
+    "proposedOnly": true,
+    "scope": "Hero and read-only view of existing equipment/attributes",
+    "equipmentMutation": false,
+    "migration006": false,
+    "economicPermissionExpansion": false,
+    "candidateImplemented": false,
+    "alreadyPublishedHero": true
+  },
+  "production": {
+    "sha": "1a82d2c058b40b37ae4ae79b82c085bb3488c02b",
+    "deployment": "dpl_CJFBMXjTKfm7nRt76FL8BLJLM87M",
+    "state": "READY",
+    "url": "https://rpgjovemcristao-web-inky.vercel.app",
+    "readOnlyHttpChecks": [
+      [
+        "/auth",
+        200
+      ],
+      [
+        "/journey/hero",
+        200
+      ],
+      [
+        "/journey/equipment",
+        403
+      ],
+      [
+        "/journey/arena",
+        403
+      ],
+      [
+        "/journey/tower",
+        403
+      ],
+      [
+        "/journey/shop",
+        403
+      ],
+      [
+        "/journey/backpack",
+        403
+      ],
+      [
+        "/journey/collection",
+        403
+      ],
+      [
+        "/journey/diary",
+        403
+      ]
+    ],
+    "migrationApplied": false,
+    "merge": false,
+    "deploymentCreated": false,
+    "playerMutation": false
+  },
+  "nextTask": {
+    "id": "RPG-DEV-007",
+    "authorization": "prepare separate branch contract/plan only",
+    "runtimeChange": false
+  }
+}

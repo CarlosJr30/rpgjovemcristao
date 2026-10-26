@@ -1,5 +1,7 @@
 # RPG-DEV-006 — Recuperação de Herói e Equipamentos
 
+> Revisão mais recente: CI final de `4ece325` aprovado; teste positivo PROD é conferência após a implantação. Publicação de escrita permanece BLOCKED por ausência de um caminho autorizado para executar esse ciclo posterior. Alternativa mínima somente leitura proposta, sem mudança de runtime. [Ordem dos gates e evidência exata pendente](RPG-DEV-006-RELEASE-REPORT.md#revisão-da-ordem-dos-gates-e-do-menor-escopo-seguro).
+
 > Continuação mais recente: CI de `f7755e7` aprovado; herói TEST criado sem itens automáticos; fixture temporária expressamente autorizada exercitou seis slots e foi totalmente removida. Novos16checksAPI,12fluxos de slot em Chromium/WebKit,4composições compatíveis e7checks pós-limpeza aprovados. **Publicação BLOCKED:** usuário confirmou conta QA PROD sem itens; fluxo positivo produtivo não pode ser homologado sem violar as restrições. Sem migration/merge/deploy PROD. [Resultado e limitações](RPG-DEV-006-RELEASE-REPORT.md#continuação--herói-fixture-e-gate-produtivo).
 
 > Retomada no notebook em 26/10/2026: branch remota recuperada em `62f1eeea9d8599d5bb737743e4b1bf9774e28808`, posterior ao SHA informado no pedido. CI push/PR aprovado para esse SHA. Novos resultados e gates de publicação estão em [RPG-DEV-006-RELEASE-REPORT.md](RPG-DEV-006-RELEASE-REPORT.md#retomada-no-notebook). Produção continua em `1a82d2c`; não houve migration PROD, merge ou publicação nesta retomada até este checkpoint.
