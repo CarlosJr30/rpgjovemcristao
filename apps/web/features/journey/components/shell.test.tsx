@@ -105,21 +105,22 @@ describe('original shell within the released interface', () => {
     ).getAllByRole('link');
     expect(links.map((link) => link.getAttribute('href'))).toEqual([
       '/journey/hero',
+      '/journey/equipment',
       '/journey/guild',
       '/journey/guild/ebd',
     ]);
     expect(links.map((link) => link.textContent)).toEqual([
       'Herói',
+      'Equipamentos',
       'Guilda',
       'EBD',
     ]);
     const nav = screen.getByRole('navigation', { name: 'Navegação principal' });
     const blocked = nav.querySelectorAll('[aria-disabled="true"]');
-    expect(blocked).toHaveLength(8);
+    expect(blocked).toHaveLength(7);
     expect(Array.from(blocked).map((item) => item.textContent)).toEqual([
       'JornadaEm desenvolvimento',
       'MissõesEm desenvolvimento',
-      'EquipamentosEm desenvolvimento',
       'MochilaEm desenvolvimento',
       'LojaEm desenvolvimento',
       'ColeçãoEm desenvolvimento',

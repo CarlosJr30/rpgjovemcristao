@@ -1,5 +1,5 @@
 /** Fixed release boundary. A full launch requires an explicitly reviewed change. */
-export const RELEASE_PROFILE = 'guild-ebd-001' as const;
+export const RELEASE_PROFILE = 'hero-equipment-006' as const;
 export const GAMEPLAY_ENABLED = false;
 const paths = new Set([
   '/',
@@ -8,6 +8,7 @@ const paths = new Set([
   '/journey',
   '/journey/create',
   '/journey/hero',
+  '/journey/equipment',
   '/journey/guild',
   '/journey/guild/manage',
   '/journey/guild/ebd',

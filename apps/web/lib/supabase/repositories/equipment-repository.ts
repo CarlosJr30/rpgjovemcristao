@@ -47,7 +47,7 @@ async function setOwnedEquipment(
   );
   if (error)
     throw new Error(
-      error.code === '40001'
+      error.code === '40001' || error.code === 'PT409'
         ? 'O equipamento mudou em outra aba ou há um combate ativo. Atualize e tente novamente.'
         : 'Não foi possível confirmar o equipamento no servidor. Seus itens foram preservados.',
     );

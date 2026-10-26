@@ -76,7 +76,11 @@ try {
       );
       check(
         'home contains no large navigation card grid',
-        (await page.getByRole('main').getByRole('link').count()) === 0,
+        (await page.getByRole('main').getByRole('link').count()) === 1 &&
+          (await page
+            .getByRole('main')
+            .getByRole('link')
+            .getAttribute('href')) === '/journey/equipment',
       );
       const nav = page.locator('nav[aria-label="Navegação principal"]');
       check(
@@ -84,8 +88,8 @@ try {
         (await nav.evaluate((element) => element.children.length)) === 11,
       );
       check(
-        'eight development modules have no protected actions',
-        (await nav.locator('[aria-disabled="true"]').count()) === 8 &&
+        'seven development modules have no protected actions',
+        (await nav.locator('[aria-disabled="true"]').count()) === 7 &&
           (await nav
             .locator('[aria-disabled="true"] a,[aria-disabled="true"] button')
             .count()) === 0,
@@ -137,6 +141,7 @@ try {
           .getByRole('link', { name: 'EBD', exact: true })
           .tap();
       } else await navigateReleased(page, 'EBD');
+      await page.waitForURL(origin + '/journey/guild/ebd');
       await expect(page.getByLabel('Área da Escola Bíblica')).toBeAttached();
       check('EBD reached through principal menu', true);
       check(
@@ -195,7 +200,6 @@ try {
         '/journey/arena',
         '/journey/arena/tower',
         '/journey/tower',
-        '/journey/equipment',
         '/journey/shop',
         '/journey/backpack',
         '/journey/diary',

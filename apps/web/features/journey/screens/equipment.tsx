@@ -60,7 +60,11 @@ const rarityEffect: Record<string, string> = {
   épico: styles.equipEpicEffect,
   lendário: styles.equipLegendaryEffect,
 };
-export function EquipmentScreen() {
+export function EquipmentScreen({
+  serverConfirmedOnly = false,
+}: {
+  serverConfirmedOnly?: boolean;
+}) {
   const compact = useCompactGameLayout();
   const [inventoryOpen, setInventoryOpen] = useState(false);
   const [selected, setSelected] = useState<{
@@ -177,7 +181,7 @@ export function EquipmentScreen() {
     event: MouseEvent<HTMLButtonElement>,
   ) => {
     if (busy) return;
-    if (getCurrentOnlineUserId()) {
+    if (serverConfirmedOnly || getCurrentOnlineUserId()) {
       void confirmOnline(traveler, item.slot, item.id);
       return;
     }
@@ -212,7 +216,7 @@ export function EquipmentScreen() {
   };
   const unequip = (id: EquipmentSlot, traveler: Traveler) => {
     if (busy) return;
-    if (getCurrentOnlineUserId()) {
+    if (serverConfirmedOnly || getCurrentOnlineUserId()) {
       void confirmOnline(traveler, id, null);
       return;
     }
@@ -248,7 +252,11 @@ export function EquipmentScreen() {
     }, EQUIP_ANIMATION_TIMING.leave);
   };
   return (
-    <Shell back={routes.hero} backLabel="Voltar ao Herói">
+    <Shell
+      navigationMode={serverConfirmedOnly ? 'released' : 'journey'}
+      back={routes.hero}
+      backLabel="Voltar ao Herói"
+    >
       <RequireTraveler>
         {(t) => (
           <section className={portal.portal} data-mobile-screen="equipment">
