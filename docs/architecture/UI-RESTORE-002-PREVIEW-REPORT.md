@@ -1,5 +1,7 @@
 # UI-RESTORE-002 — Preview para aprovação visual
 
+**Atualização26/10: interface visual explicitamente aprovada pelo usuário.** A continuação de merge/publicação está registrada em [UI-RESTORE-002-RELEASE-REPORT.md](UI-RESTORE-002-RELEASE-REPORT.md), sujeita aos gates. O estadoPENDING abaixo documenta a entrega anterior à aprovação.
+
 Data:26/10/2026. PR [#11](https://github.com/CarlosJr30/rpgjovemcristao/pull/11), rascunho. **PREVIEW_READY / PENDING_VISUAL_APPROVAL**. Autorização explícita somente para Preview; sem merge ou publicação em produção.
 
 ## Deployment confirmado

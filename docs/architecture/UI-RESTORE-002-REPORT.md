@@ -1,5 +1,7 @@
 # UI-RESTORE-002 — recuperação da identidade completa do RPG
 
+**Atualização26/10: APROVAÇÃO VISUAL CONFIRMADA pelo usuário.** Publicação autorizada somente após os gates, preservando os bloqueios de gameplay. [Registro e validação da publicação](UI-RESTORE-002-RELEASE-REPORT.md). As pendências de aprovação nos relatos anteriores abaixo são históricas.
+
 Data: 26/10/2026. PR [#11](https://github.com/CarlosJr30/rpgjovemcristao/pull/11), branch `codex/rpg-dev-001`, base `f0abffadee6d4cb75bc1bfd7cd0ebf7f55a3c287`. **VALIDATING / PENDING_VISUAL_APPROVAL**. A proposta UI-MOBILE-001 **não foi aprovada**. Sem merge/publicação produtiva, migration, desbloqueio de gameplay ou recurso pago. Após autorização explícita, a interface está em **PreviewTEST READY/caa682c**: [relatório daPreview](UI-RESTORE-002-PREVIEW-REPORT.md). As etapas anteriores semdeploy abaixo são históricas.
 
 ## Referência e comparação
