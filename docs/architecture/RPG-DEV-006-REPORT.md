@@ -1,5 +1,7 @@
 # RPG-DEV-006 — Recuperação de Herói e Equipamentos
 
+> Atualização de escopo em26/10/2026: usuário autorizou finalizar publicação exclusivamente de equipar/desequipar itens existentes, sem exigir segunda variante oficial. Troca entre variantes permanece fora do lançamento. O resultado BLOCKED abaixo é histórico; execução e gates atuais em [RPG-DEV-006-RELEASE-REPORT.md](RPG-DEV-006-RELEASE-REPORT.md).
+
 Data: 26/10/2026. **BLOCKED para merge/publicação produtiva. Implementação recuperada e validada em Preview TEST.** Branch isolada `codex/rpg-dev-006`, [PR12 em rascunho](https://github.com/CarlosJr30/rpgjovemcristao/pull/12), base de produção `1a82d2c058b40b37ae4ae79b82c085bb3488c02b`. A troca entre variantes oficiais continua BLOCKED por orientação expressa do usuário; não existe segunda variante homologada. Nenhuma liberação de Arena, Torre, Loja, História, compras, baús ou recompensas faz parte desta tarefa.
 
 ## Estado inicial confirmado
