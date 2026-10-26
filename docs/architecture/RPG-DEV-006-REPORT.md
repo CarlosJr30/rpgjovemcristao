@@ -1,5 +1,7 @@
 # RPG-DEV-006 — Recuperação de Herói e Equipamentos
 
+> Continuação mais recente: CI de `f7755e7` aprovado; herói TEST criado sem itens automáticos; fixture temporária expressamente autorizada exercitou seis slots e foi totalmente removida. Novos16checksAPI,12fluxos de slot em Chromium/WebKit,4composições compatíveis e7checks pós-limpeza aprovados. **Publicação BLOCKED:** usuário confirmou conta QA PROD sem itens; fluxo positivo produtivo não pode ser homologado sem violar as restrições. Sem migration/merge/deploy PROD. [Resultado e limitações](RPG-DEV-006-RELEASE-REPORT.md#continuação--herói-fixture-e-gate-produtivo).
+
 > Retomada no notebook em 26/10/2026: branch remota recuperada em `62f1eeea9d8599d5bb737743e4b1bf9774e28808`, posterior ao SHA informado no pedido. CI push/PR aprovado para esse SHA. Novos resultados e gates de publicação estão em [RPG-DEV-006-RELEASE-REPORT.md](RPG-DEV-006-RELEASE-REPORT.md#retomada-no-notebook). Produção continua em `1a82d2c`; não houve migration PROD, merge ou publicação nesta retomada até este checkpoint.
 
 > Login TEST resolvido nesta continuação: usuário confirmou uso da conta PROD, ausente em TEST, e criou uma conta TEST pelo formulário normal. E-mail confirmado e13/13 verificações reais de sessão/reload/RLS aprovadas. A nova conta não tem herói/equipamentos. O usuário determinou **não alterar produção** nesta etapa; PR12 segue sem merge/publicação. Diagnóstico e limites atuais em [Investigação do login TEST](RPG-DEV-006-RELEASE-REPORT.md#investigação-do-login-test--orientação-posterior).

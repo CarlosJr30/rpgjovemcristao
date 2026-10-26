@@ -1,0 +1,565 @@
+{
+  "task": "RPG-DEV-006",
+  "date": "2026-10-26",
+  "status": "BLOCKED_FOR_PRODUCTION",
+  "runtimeSha": "816918e40cf06ae77b9ff442cb46460d1e7e25d5",
+  "reviewedCandidateSha": "f7755e759aae2a4d82b02b8e787ce64fe0f703d2",
+  "ci": {
+    "push": 40372556555,
+    "pullRequest": 40372565962,
+    "result": "success"
+  },
+  "heroCreation": {
+    "environment": "TEST",
+    "userId": "575d92d9-2e5b-4fdc-8e02-3a4a096285a9",
+    "traveler": {
+      "id": "5558c6a7-2faf-4b6f-901f-bfc980c5c687",
+      "user_id": "575d92d9-2e5b-4fdc-8e02-3a4a096285a9",
+      "level": 1,
+      "xp": 0,
+      "is_active": true
+    },
+    "normalForm": true,
+    "inventoryRows": 0,
+    "equipmentRows": 0,
+    "coins": 0,
+    "passed": true
+  },
+  "fixture": {
+    "project": "wkdvdzfkbwvhyjmamrsg",
+    "userId": "575d92d9-2e5b-4fdc-8e02-3a4a096285a9",
+    "travelerId": "5558c6a7-2faf-4b6f-901f-bfc980c5c687",
+    "fixture": "rpg-dev-006-notebook-temporary",
+    "items": [
+      {
+        "id": "e294659c-3ef2-41c4-ad3f-b146271cb6a8",
+        "item_id": "traveler-boots",
+        "quantity": 1
+      },
+      {
+        "id": "d98954cf-c6ca-4924-8da2-42119b195c46",
+        "item_id": "traveler-helmet-rare",
+        "quantity": 1
+      },
+      {
+        "id": "5ae26dca-4993-45da-9452-bcb6ff7c213a",
+        "item_id": "wisdom-amulet",
+        "quantity": 1
+      },
+      {
+        "id": "d4bcc86e-ef53-41fb-b7f9-63e6d68825a3",
+        "item_id": "traveler-sword-common",
+        "quantity": 1
+      },
+      {
+        "id": "d4694846-8a9f-48a1-a7b0-776b22db255c",
+        "item_id": "traveler-armor-uncommon",
+        "quantity": 1
+      },
+      {
+        "id": "0ee64bac-1ef0-4ffa-81df-b8a7018e64d6",
+        "item_id": "traveler-shield-rare",
+        "quantity": 1
+      }
+    ],
+    "userAuthorized": true,
+    "temporaryOnly": true,
+    "cleaned": true,
+    "residualRows": 0,
+    "catalogChanged": false,
+    "permissionsChanged": false
+  },
+  "functionalApi": [
+    {
+      "name": "existing owned boots available without grants",
+      "passed": true
+    },
+    {
+      "name": "unequip confirmed",
+      "passed": true
+    },
+    {
+      "name": "equip confirmed",
+      "passed": true
+    },
+    {
+      "name": "lost-response replay idempotent",
+      "passed": true
+    },
+    {
+      "name": "stale revision conflicts",
+      "passed": true
+    },
+    {
+      "name": "unknown item denied",
+      "passed": true
+    },
+    {
+      "name": "wrong slot denied",
+      "passed": true
+    },
+    {
+      "name": "foreign traveler mutation denied",
+      "passed": true
+    },
+    {
+      "name": "foreign inventory unreadable",
+      "passed": true
+    },
+    {
+      "name": "direct inventory write denied",
+      "passed": true
+    },
+    {
+      "name": "direct selection write denied",
+      "passed": true
+    },
+    {
+      "name": "concurrent retries converge without duplication",
+      "passed": true
+    },
+    {
+      "name": "original selection restored",
+      "passed": true
+    },
+    {
+      "name": "API preserves inventory equipment stats wallet progression",
+      "passed": true
+    },
+    {
+      "name": "final data snapshot preserved",
+      "passed": true
+    },
+    {
+      "name": "manual authentication page had no page errors",
+      "passed": true
+    }
+  ],
+  "functionalBrowser": [
+    {
+      "engine": "chromium",
+      "checks": [
+        {
+          "name": "Hero displays authenticated active traveler",
+          "passed": true
+        },
+        {
+          "name": "boots: equip updates only configured derived attributes",
+          "passed": true
+        },
+        {
+          "name": "boots: selection and attributes persist after reload",
+          "passed": true
+        },
+        {
+          "name": "boots: unequip restores attributes and removes avatar layer",
+          "passed": true
+        },
+        {
+          "name": "helmet: equip updates only configured derived attributes",
+          "passed": true
+        },
+        {
+          "name": "helmet: selection and attributes persist after reload",
+          "passed": true
+        },
+        {
+          "name": "helmet: unequip restores attributes and removes avatar layer",
+          "passed": true
+        },
+        {
+          "name": "weapon: equip updates only configured derived attributes",
+          "passed": true
+        },
+        {
+          "name": "weapon: selection and attributes persist after reload",
+          "passed": true
+        },
+        {
+          "name": "weapon: unequip restores attributes and removes avatar layer",
+          "passed": true
+        },
+        {
+          "name": "armor: equip updates only configured derived attributes",
+          "passed": true
+        },
+        {
+          "name": "armor: selection and attributes persist after reload",
+          "passed": true
+        },
+        {
+          "name": "armor: unequip restores attributes and removes avatar layer",
+          "passed": true
+        },
+        {
+          "name": "shield: equip updates only configured derived attributes",
+          "passed": true
+        },
+        {
+          "name": "shield: selection and attributes persist after reload",
+          "passed": true
+        },
+        {
+          "name": "shield: unequip restores attributes and removes avatar layer",
+          "passed": true
+        },
+        {
+          "name": "amulet: equip updates only configured derived attributes",
+          "passed": true
+        },
+        {
+          "name": "amulet: selection and attributes persist after reload",
+          "passed": true
+        },
+        {
+          "name": "amulet: unequip restores attributes and removes avatar layer",
+          "passed": true
+        }
+      ],
+      "items": [
+        {
+          "slot": "boots",
+          "itemId": "traveler-boots",
+          "functionalPassed": true,
+          "visualOverlayUnavailable": true
+        },
+        {
+          "slot": "helmet",
+          "itemId": "traveler-helmet-rare",
+          "functionalPassed": true,
+          "visualOverlayUnavailable": true
+        },
+        {
+          "slot": "weapon",
+          "itemId": "traveler-sword-common",
+          "functionalPassed": true,
+          "visualOverlayUnavailable": false
+        },
+        {
+          "slot": "armor",
+          "itemId": "traveler-armor-uncommon",
+          "functionalPassed": true,
+          "visualOverlayUnavailable": false
+        },
+        {
+          "slot": "shield",
+          "itemId": "traveler-shield-rare",
+          "functionalPassed": true,
+          "visualOverlayUnavailable": true
+        },
+        {
+          "slot": "amulet",
+          "itemId": "wisdom-amulet",
+          "functionalPassed": true,
+          "visualOverlayUnavailable": true
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "checks": [
+        {
+          "name": "Hero displays authenticated active traveler",
+          "passed": true
+        },
+        {
+          "name": "boots: equip updates only configured derived attributes",
+          "passed": true
+        },
+        {
+          "name": "boots: selection and attributes persist after reload",
+          "passed": true
+        },
+        {
+          "name": "boots: unequip restores attributes and removes avatar layer",
+          "passed": true
+        },
+        {
+          "name": "helmet: equip updates only configured derived attributes",
+          "passed": true
+        },
+        {
+          "name": "helmet: selection and attributes persist after reload",
+          "passed": true
+        },
+        {
+          "name": "helmet: unequip restores attributes and removes avatar layer",
+          "passed": true
+        },
+        {
+          "name": "weapon: equip updates only configured derived attributes",
+          "passed": true
+        },
+        {
+          "name": "weapon: selection and attributes persist after reload",
+          "passed": true
+        },
+        {
+          "name": "weapon: unequip restores attributes and removes avatar layer",
+          "passed": true
+        },
+        {
+          "name": "armor: equip updates only configured derived attributes",
+          "passed": true
+        },
+        {
+          "name": "armor: selection and attributes persist after reload",
+          "passed": true
+        },
+        {
+          "name": "armor: unequip restores attributes and removes avatar layer",
+          "passed": true
+        },
+        {
+          "name": "shield: equip updates only configured derived attributes",
+          "passed": true
+        },
+        {
+          "name": "shield: selection and attributes persist after reload",
+          "passed": true
+        },
+        {
+          "name": "shield: unequip restores attributes and removes avatar layer",
+          "passed": true
+        },
+        {
+          "name": "amulet: equip updates only configured derived attributes",
+          "passed": true
+        },
+        {
+          "name": "amulet: selection and attributes persist after reload",
+          "passed": true
+        },
+        {
+          "name": "amulet: unequip restores attributes and removes avatar layer",
+          "passed": true
+        }
+      ],
+      "items": [
+        {
+          "slot": "boots",
+          "itemId": "traveler-boots",
+          "functionalPassed": true,
+          "visualOverlayUnavailable": true
+        },
+        {
+          "slot": "helmet",
+          "itemId": "traveler-helmet-rare",
+          "functionalPassed": true,
+          "visualOverlayUnavailable": true
+        },
+        {
+          "slot": "weapon",
+          "itemId": "traveler-sword-common",
+          "functionalPassed": true,
+          "visualOverlayUnavailable": false
+        },
+        {
+          "slot": "armor",
+          "itemId": "traveler-armor-uncommon",
+          "functionalPassed": true,
+          "visualOverlayUnavailable": false
+        },
+        {
+          "slot": "shield",
+          "itemId": "traveler-shield-rare",
+          "functionalPassed": true,
+          "visualOverlayUnavailable": true
+        },
+        {
+          "slot": "amulet",
+          "itemId": "wisdom-amulet",
+          "functionalPassed": true,
+          "visualOverlayUnavailable": true
+        }
+      ]
+    }
+  ],
+  "visualReady": {
+    "environment": "TEST",
+    "travelerId": "5558c6a7-2faf-4b6f-901f-bfc980c5c687",
+    "runs": [
+      {
+        "engine": "chromium",
+        "items": [
+          {
+            "slot": "weapon",
+            "itemId": "traveler-sword-common",
+            "readiness": {
+              "decodeMs": 4223,
+              "width": 1024,
+              "height": 1536,
+              "complete": true
+            },
+            "overlayCount": 1,
+            "persisted": true,
+            "removed": true,
+            "passed": true
+          },
+          {
+            "slot": "armor",
+            "itemId": "traveler-armor-uncommon",
+            "readiness": {
+              "decodeMs": 4558,
+              "width": 1024,
+              "height": 1536,
+              "complete": true
+            },
+            "overlayCount": 1,
+            "persisted": true,
+            "removed": true,
+            "passed": true
+          }
+        ],
+        "errors": [],
+        "passed": true
+      },
+      {
+        "engine": "webkit",
+        "items": [
+          {
+            "slot": "weapon",
+            "itemId": "traveler-sword-common",
+            "readiness": {
+              "decodeMs": 4263,
+              "width": 1024,
+              "height": 1536,
+              "complete": true
+            },
+            "overlayCount": 1,
+            "persisted": true,
+            "removed": true,
+            "passed": true
+          },
+          {
+            "slot": "armor",
+            "itemId": "traveler-armor-uncommon",
+            "readiness": {
+              "decodeMs": 4088,
+              "width": 1024,
+              "height": 1536,
+              "complete": true
+            },
+            "overlayCount": 1,
+            "persisted": true,
+            "removed": true,
+            "passed": true
+          }
+        ],
+        "errors": [],
+        "passed": true
+      }
+    ],
+    "passed": true,
+    "restored": true
+  },
+  "postCleanup": {
+    "environment": "TEST",
+    "userId": "575d92d9-2e5b-4fdc-8e02-3a4a096285a9",
+    "travelerId": "5558c6a7-2faf-4b6f-901f-bfc980c5c687",
+    "checks": [
+      {
+        "name": "empty inventory and selection restored",
+        "passed": true
+      },
+      {
+        "name": "empty hero shows only original base attributes",
+        "passed": true
+      },
+      {
+        "name": "empty hero persists after reload",
+        "passed": true
+      },
+      {
+        "name": "no leftover equipment card or derived bonus",
+        "passed": true
+      },
+      {
+        "name": "official item not owned after fixture cleanup is denied",
+        "passed": true
+      },
+      {
+        "name": "Arena Tower Shop Backpack Collection remain denied",
+        "passed": true
+      },
+      {
+        "name": "empty account data preserved",
+        "passed": true
+      }
+    ],
+    "deniedRoutes": [
+      {
+        "path": "/journey/arena",
+        "status": 403
+      },
+      {
+        "path": "/journey/arena/tower",
+        "status": 403
+      },
+      {
+        "path": "/journey/shop",
+        "status": 403
+      },
+      {
+        "path": "/journey/backpack",
+        "status": 403
+      },
+      {
+        "path": "/journey/collection",
+        "status": 403
+      }
+    ],
+    "passed": true,
+    "inventoryRows": 0,
+    "equipmentRows": 0,
+    "xp": 0,
+    "coins": 0
+  },
+  "preservation": {
+    "productionExistingDatasets": 38,
+    "testExistingDatasets": 40,
+    "existingDatasetsUnchanged": true,
+    "newHeroRowsExcluded": [
+      "public.travelers",
+      "public.traveler_stats",
+      "public.wallets"
+    ],
+    "newHero": {
+      "level": 1,
+      "xp": 0,
+      "coins": 0,
+      "baseAttributes": {
+        "life": 1,
+        "strength": 1,
+        "defense": 1,
+        "wisdom": 1
+      },
+      "inventoryRows": 0,
+      "equipmentRows": 0
+    }
+  },
+  "visualLimitations": {
+    "body": "male_short_moss_medium_hd",
+    "slotsWithoutApprovedOverlay": [
+      "boots",
+      "helmet",
+      "shield",
+      "amulet"
+    ],
+    "notClaimedVisualPass": true
+  },
+  "captureRework": {
+    "initialScreenshotsBeforeDecode": true,
+    "secondRoundWebkitImageReadinessTimeout": true,
+    "failuresRetainedPrivately": true,
+    "finalWait": "HTMLImageElement.decode with30s bound",
+    "applicationChanges": false
+  },
+  "releaseBlocker": "User confirms PROD QA account has no owned items; positive real production equipment flow cannot be validated without breaching player/item restrictions.",
+  "production": {
+    "sha": "1a82d2c058b40b37ae4ae79b82c085bb3488c02b",
+    "migrationApplied": false,
+    "mergePerformed": false,
+    "deploymentPerformed": false
+  }
+}
