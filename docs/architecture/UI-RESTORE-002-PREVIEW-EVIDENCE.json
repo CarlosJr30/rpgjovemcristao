@@ -1,0 +1,915 @@
+{
+  "task": "UI-RESTORE-002",
+  "status": "PREVIEW_READY_PENDING_VISUAL_APPROVAL",
+  "deployment": {
+    "id": "dpl_A4MWCmTPepU4HKzJn8X3SRcRXqJg",
+    "url": "rpgjovemcristao-i5a7yhlzq-carlos-junior-s-projects.vercel.app",
+    "readyState": "READY",
+    "target": null,
+    "sha": "caa682c2b19d3f95f7d4d584e7036dd82369266d"
+  },
+  "preflight": {
+    "sha": "caa682c2b19d3f95f7d4d584e7036dd82369266d",
+    "project": "prj_mG2ZSDaSc5i2Pz2uqKSlCzSGiVmG",
+    "team": "team_FWD8MfZ9vARK8EBovoyTn9Ox",
+    "branch": "codex/rpg-dev-001",
+    "rootDirectory": "apps/web",
+    "backend": "wkdvdzfkbwvhyjmamrsg",
+    "publicKeyConfirmed": true,
+    "previewProtection": {
+      "deploymentType": "all_except_custom_domains"
+    },
+    "production": {
+      "id": "dpl_H8VCqQx2vT8sqVzjDbpFYKnE1mSA",
+      "url": "https://rpgjovemcristao-web-inky.vercel.app",
+      "state": "READY",
+      "sha": "808433a780e96a048c4a3f2d7e419351ab85e5a3",
+      "target": "production"
+    },
+    "ci": [
+      {
+        "id": 40268364558,
+        "head_sha": "caa682c2b19d3f95f7d4d584e7036dd82369266d",
+        "event": "pull_request",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 40268360249,
+        "head_sha": "caa682c2b19d3f95f7d4d584e7036dd82369266d",
+        "event": "push",
+        "status": "completed",
+        "conclusion": "success"
+      }
+    ]
+  },
+  "browser": {
+    "deployment": "dpl_A4MWCmTPepU4HKzJn8X3SRcRXqJg",
+    "sha": "caa682c2b19d3f95f7d4d584e7036dd82369266d",
+    "origin": "https://rpgjovemcristao-i5a7yhlzq-carlos-junior-s-projects.vercel.app",
+    "backend": "wkdvdzfkbwvhyjmamrsg.supabase.co",
+    "realHosted": true,
+    "runs": [
+      {
+        "engine": "desktop",
+        "role": "lider",
+        "checks": [
+          {
+            "name": "real TEST login and original active traveler",
+            "passed": true
+          },
+          {
+            "name": "all eleven options in original order",
+            "passed": true
+          },
+          {
+            "name": "eight blocked modules have no links or buttons",
+            "passed": true
+          },
+          {
+            "name": "original hero and current approved avatar load",
+            "passed": true
+          },
+          {
+            "name": "hero no horizontal overflow",
+            "passed": true
+          },
+          {
+            "name": "current Guilda loads original medieval hall",
+            "passed": true
+          },
+          {
+            "name": "leader controls match existing role",
+            "passed": true
+          },
+          {
+            "name": "guild no horizontal overflow",
+            "passed": true
+          },
+          {
+            "name": "existing leader management presentation loads",
+            "passed": true
+          },
+          {
+            "name": "manage no horizontal overflow",
+            "passed": true
+          },
+          {
+            "name": "real EBD workspace and existing role",
+            "passed": true
+          },
+          {
+            "name": "ebd no horizontal overflow",
+            "passed": true
+          },
+          {
+            "name": "protected /journey/arena",
+            "passed": true
+          },
+          {
+            "name": "protected /journey/tower",
+            "passed": true
+          },
+          {
+            "name": "protected /journey/arena/tower",
+            "passed": true
+          },
+          {
+            "name": "protected /journey/equipment",
+            "passed": true
+          },
+          {
+            "name": "protected /journey/shop",
+            "passed": true
+          },
+          {
+            "name": "protected /journey/backpack",
+            "passed": true
+          },
+          {
+            "name": "protected /journey/collection",
+            "passed": true
+          },
+          {
+            "name": "protected /journey/diary",
+            "passed": true
+          },
+          {
+            "name": "protected /journey/worlds/blocked",
+            "passed": true
+          },
+          {
+            "name": "economic authority remains blocked",
+            "passed": true
+          },
+          {
+            "name": "real account logout",
+            "passed": true
+          },
+          {
+            "name": "TEST only and never PROD",
+            "passed": true
+          },
+          {
+            "name": "zero page DOM or console errors",
+            "passed": true
+          }
+        ],
+        "errors": [],
+        "consoleErrors": [],
+        "domErrors": [],
+        "backendHosts": ["wkdvdzfkbwvhyjmamrsg.supabase.co"],
+        "passed": true
+      },
+      {
+        "engine": "desktop",
+        "role": "professor",
+        "checks": [
+          {
+            "name": "real TEST login and original active traveler",
+            "passed": true
+          },
+          {
+            "name": "all eleven options in original order",
+            "passed": true
+          },
+          {
+            "name": "eight blocked modules have no links or buttons",
+            "passed": true
+          },
+          {
+            "name": "original hero and current approved avatar load",
+            "passed": true
+          },
+          {
+            "name": "hero no horizontal overflow",
+            "passed": true
+          },
+          {
+            "name": "current Guilda loads original medieval hall",
+            "passed": true
+          },
+          {
+            "name": "leader controls match existing role",
+            "passed": true
+          },
+          {
+            "name": "guild no horizontal overflow",
+            "passed": true
+          },
+          {
+            "name": "real EBD workspace and existing role",
+            "passed": true
+          },
+          {
+            "name": "ebd no horizontal overflow",
+            "passed": true
+          },
+          {
+            "name": "protected /journey/arena",
+            "passed": true
+          },
+          {
+            "name": "protected /journey/tower",
+            "passed": true
+          },
+          {
+            "name": "protected /journey/arena/tower",
+            "passed": true
+          },
+          {
+            "name": "protected /journey/equipment",
+            "passed": true
+          },
+          {
+            "name": "protected /journey/shop",
+            "passed": true
+          },
+          {
+            "name": "protected /journey/backpack",
+            "passed": true
+          },
+          {
+            "name": "protected /journey/collection",
+            "passed": true
+          },
+          {
+            "name": "protected /journey/diary",
+            "passed": true
+          },
+          {
+            "name": "protected /journey/worlds/blocked",
+            "passed": true
+          },
+          {
+            "name": "economic authority remains blocked",
+            "passed": true
+          },
+          {
+            "name": "real account logout",
+            "passed": true
+          },
+          {
+            "name": "TEST only and never PROD",
+            "passed": true
+          },
+          {
+            "name": "zero page DOM or console errors",
+            "passed": true
+          }
+        ],
+        "errors": [],
+        "consoleErrors": [],
+        "domErrors": [],
+        "backendHosts": ["wkdvdzfkbwvhyjmamrsg.supabase.co"],
+        "passed": true
+      },
+      {
+        "engine": "desktop",
+        "role": "aluno",
+        "checks": [
+          {
+            "name": "real TEST login and original active traveler",
+            "passed": true
+          },
+          {
+            "name": "all eleven options in original order",
+            "passed": true
+          },
+          {
+            "name": "eight blocked modules have no links or buttons",
+            "passed": true
+          },
+          {
+            "name": "original hero and current approved avatar load",
+            "passed": true
+          },
+          {
+            "name": "hero no horizontal overflow",
+            "passed": true
+          },
+          {
+            "name": "current Guilda loads original medieval hall",
+            "passed": true
+          },
+          {
+            "name": "leader controls match existing role",
+            "passed": true
+          },
+          {
+            "name": "guild no horizontal overflow",
+            "passed": true
+          },
+          {
+            "name": "real EBD workspace and existing role",
+            "passed": true
+          },
+          {
+            "name": "ebd no horizontal overflow",
+            "passed": true
+          },
+          {
+            "name": "protected /journey/arena",
+            "passed": true
+          },
+          {
+            "name": "protected /journey/tower",
+            "passed": true
+          },
+          {
+            "name": "protected /journey/arena/tower",
+            "passed": true
+          },
+          {
+            "name": "protected /journey/equipment",
+            "passed": true
+          },
+          {
+            "name": "protected /journey/shop",
+            "passed": true
+          },
+          {
+            "name": "protected /journey/backpack",
+            "passed": true
+          },
+          {
+            "name": "protected /journey/collection",
+            "passed": true
+          },
+          {
+            "name": "protected /journey/diary",
+            "passed": true
+          },
+          {
+            "name": "protected /journey/worlds/blocked",
+            "passed": true
+          },
+          {
+            "name": "economic authority remains blocked",
+            "passed": true
+          },
+          {
+            "name": "real account logout",
+            "passed": true
+          },
+          {
+            "name": "TEST only and never PROD",
+            "passed": true
+          },
+          {
+            "name": "zero page DOM or console errors",
+            "passed": true
+          }
+        ],
+        "errors": [],
+        "consoleErrors": [],
+        "domErrors": [],
+        "backendHosts": ["wkdvdzfkbwvhyjmamrsg.supabase.co"],
+        "passed": true
+      },
+      {
+        "engine": "mobile",
+        "role": "lider",
+        "checks": [
+          {
+            "name": "real TEST login and original active traveler",
+            "passed": true
+          },
+          {
+            "name": "all eleven options in original order",
+            "passed": true
+          },
+          {
+            "name": "eight blocked modules have no links or buttons",
+            "passed": true
+          },
+          {
+            "name": "mobile menu opens and locks body scroll",
+            "passed": true
+          },
+          {
+            "name": "mobile menu closes with focus restored",
+            "passed": true
+          },
+          {
+            "name": "original hero and current approved avatar load",
+            "passed": true
+          },
+          {
+            "name": "hero no horizontal overflow",
+            "passed": true
+          },
+          {
+            "name": "current Guilda loads original medieval hall",
+            "passed": true
+          },
+          {
+            "name": "leader controls match existing role",
+            "passed": true
+          },
+          {
+            "name": "guild no horizontal overflow",
+            "passed": true
+          },
+          {
+            "name": "existing leader management presentation loads",
+            "passed": true
+          },
+          {
+            "name": "manage no horizontal overflow",
+            "passed": true
+          },
+          {
+            "name": "real EBD workspace and existing role",
+            "passed": true
+          },
+          {
+            "name": "ebd no horizontal overflow",
+            "passed": true
+          },
+          {
+            "name": "landscape no horizontal overflow",
+            "passed": true
+          },
+          {
+            "name": "protected /journey/arena",
+            "passed": true
+          },
+          {
+            "name": "protected /journey/tower",
+            "passed": true
+          },
+          {
+            "name": "protected /journey/arena/tower",
+            "passed": true
+          },
+          {
+            "name": "protected /journey/equipment",
+            "passed": true
+          },
+          {
+            "name": "protected /journey/shop",
+            "passed": true
+          },
+          {
+            "name": "protected /journey/backpack",
+            "passed": true
+          },
+          {
+            "name": "protected /journey/collection",
+            "passed": true
+          },
+          {
+            "name": "protected /journey/diary",
+            "passed": true
+          },
+          {
+            "name": "protected /journey/worlds/blocked",
+            "passed": true
+          },
+          {
+            "name": "economic authority remains blocked",
+            "passed": true
+          },
+          {
+            "name": "real account logout",
+            "passed": true
+          },
+          {
+            "name": "TEST only and never PROD",
+            "passed": true
+          },
+          {
+            "name": "zero page DOM or console errors",
+            "passed": true
+          }
+        ],
+        "errors": [],
+        "consoleErrors": [],
+        "domErrors": [],
+        "backendHosts": ["wkdvdzfkbwvhyjmamrsg.supabase.co"],
+        "passed": true
+      },
+      {
+        "engine": "mobile",
+        "role": "professor",
+        "checks": [
+          {
+            "name": "real TEST login and original active traveler",
+            "passed": true
+          },
+          {
+            "name": "all eleven options in original order",
+            "passed": true
+          },
+          {
+            "name": "eight blocked modules have no links or buttons",
+            "passed": true
+          },
+          {
+            "name": "mobile menu opens and locks body scroll",
+            "passed": true
+          },
+          {
+            "name": "mobile menu closes with focus restored",
+            "passed": true
+          },
+          {
+            "name": "original hero and current approved avatar load",
+            "passed": true
+          },
+          {
+            "name": "hero no horizontal overflow",
+            "passed": true
+          },
+          {
+            "name": "current Guilda loads original medieval hall",
+            "passed": true
+          },
+          {
+            "name": "leader controls match existing role",
+            "passed": true
+          },
+          {
+            "name": "guild no horizontal overflow",
+            "passed": true
+          },
+          {
+            "name": "real EBD workspace and existing role",
+            "passed": true
+          },
+          {
+            "name": "ebd no horizontal overflow",
+            "passed": true
+          },
+          {
+            "name": "landscape no horizontal overflow",
+            "passed": true
+          },
+          {
+            "name": "protected /journey/arena",
+            "passed": true
+          },
+          {
+            "name": "protected /journey/tower",
+            "passed": true
+          },
+          {
+            "name": "protected /journey/arena/tower",
+            "passed": true
+          },
+          {
+            "name": "protected /journey/equipment",
+            "passed": true
+          },
+          {
+            "name": "protected /journey/shop",
+            "passed": true
+          },
+          {
+            "name": "protected /journey/backpack",
+            "passed": true
+          },
+          {
+            "name": "protected /journey/collection",
+            "passed": true
+          },
+          {
+            "name": "protected /journey/diary",
+            "passed": true
+          },
+          {
+            "name": "protected /journey/worlds/blocked",
+            "passed": true
+          },
+          {
+            "name": "economic authority remains blocked",
+            "passed": true
+          },
+          {
+            "name": "real account logout",
+            "passed": true
+          },
+          {
+            "name": "TEST only and never PROD",
+            "passed": true
+          },
+          {
+            "name": "zero page DOM or console errors",
+            "passed": true
+          }
+        ],
+        "errors": [],
+        "consoleErrors": [],
+        "domErrors": [],
+        "backendHosts": ["wkdvdzfkbwvhyjmamrsg.supabase.co"],
+        "passed": true
+      },
+      {
+        "engine": "mobile",
+        "role": "aluno",
+        "checks": [
+          {
+            "name": "real TEST login and original active traveler",
+            "passed": true
+          },
+          {
+            "name": "all eleven options in original order",
+            "passed": true
+          },
+          {
+            "name": "eight blocked modules have no links or buttons",
+            "passed": true
+          },
+          {
+            "name": "mobile menu opens and locks body scroll",
+            "passed": true
+          },
+          {
+            "name": "mobile menu closes with focus restored",
+            "passed": true
+          },
+          {
+            "name": "original hero and current approved avatar load",
+            "passed": true
+          },
+          {
+            "name": "hero no horizontal overflow",
+            "passed": true
+          },
+          {
+            "name": "current Guilda loads original medieval hall",
+            "passed": true
+          },
+          {
+            "name": "leader controls match existing role",
+            "passed": true
+          },
+          {
+            "name": "guild no horizontal overflow",
+            "passed": true
+          },
+          {
+            "name": "real EBD workspace and existing role",
+            "passed": true
+          },
+          {
+            "name": "ebd no horizontal overflow",
+            "passed": true
+          },
+          {
+            "name": "landscape no horizontal overflow",
+            "passed": true
+          },
+          {
+            "name": "protected /journey/arena",
+            "passed": true
+          },
+          {
+            "name": "protected /journey/tower",
+            "passed": true
+          },
+          {
+            "name": "protected /journey/arena/tower",
+            "passed": true
+          },
+          {
+            "name": "protected /journey/equipment",
+            "passed": true
+          },
+          {
+            "name": "protected /journey/shop",
+            "passed": true
+          },
+          {
+            "name": "protected /journey/backpack",
+            "passed": true
+          },
+          {
+            "name": "protected /journey/collection",
+            "passed": true
+          },
+          {
+            "name": "protected /journey/diary",
+            "passed": true
+          },
+          {
+            "name": "protected /journey/worlds/blocked",
+            "passed": true
+          },
+          {
+            "name": "economic authority remains blocked",
+            "passed": true
+          },
+          {
+            "name": "real account logout",
+            "passed": true
+          },
+          {
+            "name": "TEST only and never PROD",
+            "passed": true
+          },
+          {
+            "name": "zero page DOM or console errors",
+            "passed": true
+          }
+        ],
+        "errors": [],
+        "consoleErrors": [],
+        "domErrors": [],
+        "backendHosts": ["wkdvdzfkbwvhyjmamrsg.supabase.co"],
+        "passed": true
+      }
+    ]
+  },
+  "authRls": [
+    {
+      "role": "lider",
+      "check": "authenticated UID",
+      "passed": true
+    },
+    {
+      "role": "lider",
+      "check": "own EBD workspace",
+      "passed": true
+    },
+    {
+      "role": "lider",
+      "check": "foreign traveler denied by RLS",
+      "passed": true
+    },
+    {
+      "role": "lider",
+      "check": "foreign Guilda EBD actor denied",
+      "status": 403,
+      "sqlstate": "42501",
+      "passed": true
+    },
+    {
+      "role": "professor",
+      "check": "authenticated UID",
+      "passed": true
+    },
+    {
+      "role": "professor",
+      "check": "own EBD workspace",
+      "passed": true
+    },
+    {
+      "role": "professor",
+      "check": "foreign traveler denied by RLS",
+      "passed": true
+    },
+    {
+      "role": "professor",
+      "check": "foreign Guilda EBD actor denied",
+      "status": 403,
+      "sqlstate": "42501",
+      "passed": true
+    },
+    {
+      "role": "aluno",
+      "check": "authenticated UID",
+      "passed": true
+    },
+    {
+      "role": "aluno",
+      "check": "own EBD workspace",
+      "passed": true
+    },
+    {
+      "role": "aluno",
+      "check": "foreign traveler denied by RLS",
+      "passed": true
+    },
+    {
+      "role": "aluno",
+      "check": "foreign Guilda EBD actor denied",
+      "status": 403,
+      "sqlstate": "42501",
+      "passed": true
+    }
+  ],
+  "testRlsMetadata": {
+    "project": "wkdvdzfkbwvhyjmamrsg",
+    "tablesChecked": 37,
+    "allRlsEnabled": true,
+    "readOnly": true
+  },
+  "assets": {
+    "sha": "caa682c2b19d3f95f7d4d584e7036dd82369266d",
+    "origin": "https://rpgjovemcristao-i5a7yhlzq-carlos-junior-s-projects.vercel.app",
+    "approvedEquipmentPngs": 9,
+    "approvedBodies": 3,
+    "results": [
+      {
+        "path": "/assets/equipment/overlays/body-fit-v3/armor_traveler_uncommon_female_approved.png",
+        "status": 200,
+        "sha256": "ebee2f026c2dd6aac6b47850c8412f243cdc20c51a36d6f91e2d6cf3b46c20cb",
+        "passed": true
+      },
+      {
+        "path": "/assets/equipment/overlays/body-fit-v3/armor_traveler_uncommon_male_approved.png",
+        "status": 200,
+        "sha256": "8ece1c5d4daad2b4b7b0a6d673eb3ad6e2d16a9bcc888082ee33a2bd71c928c2",
+        "passed": true
+      },
+      {
+        "path": "/assets/equipment/overlays/body-fit-v3/sword_path_common_female_approved.png",
+        "status": 200,
+        "sha256": "735000c62ddaee5214cfb895deae17685a1f2e1c0c642f3557e09879d90524f2",
+        "passed": true
+      },
+      {
+        "path": "/assets/equipment/overlays/body-fit-v3/sword_path_common_male_approved.png",
+        "status": 200,
+        "sha256": "73e29fafd9adec500978eae7bb35eca05e8b79d946862b98704f40e95964aec4",
+        "passed": true
+      },
+      {
+        "path": "/assets/equipment/overlays/body-fit-v3/sword_female_long_blue_dark_grip_approved.png",
+        "status": 200,
+        "sha256": "16384445ef43f5545d93e311f9348f16aad9082246eb2f802f6310a5f158beac",
+        "passed": true
+      },
+      {
+        "path": "/assets/equipment/overlays/body-fit-v3/helmet_female_long_blue_dark_approved.png",
+        "status": 200,
+        "sha256": "b06b44ad85dee41b4487bcc1b1c6f853b351b1e276c1e73700eb5090eaba76f0",
+        "passed": true
+      },
+      {
+        "path": "/assets/equipment/overlays/v1/shield_perseverance_rare.png",
+        "status": 200,
+        "sha256": "62523e42ed6b2c7bc807527b6caad0ab71f429824131b1a153e4b4df46f59f55",
+        "passed": true
+      },
+      {
+        "path": "/assets/equipment/overlays/body-fit-v3/boots_female_long_blue_dark_pair_approved.png",
+        "status": 200,
+        "sha256": "ab733b56f949daad7a88e1255c8591b7a2391b932309792a00aa111df32cc288",
+        "passed": true
+      },
+      {
+        "path": "/assets/equipment/overlays/v1/medallion_path_rare.png",
+        "status": 200,
+        "sha256": "7b009cfd5efa85d3de565a17a7d532f6ad781e6b0733790330208a74fe56a732",
+        "passed": true
+      },
+      {
+        "path": "/assets/avatar/hd/female/female_long_blue_dark_hd.png",
+        "status": 200,
+        "sha256": "8965ed75ea6fed37f0f20bda47d1e89cde09ef5bba38bcb977a8331cd2ce6e9a",
+        "passed": true
+      },
+      {
+        "path": "/assets/avatar/hd/female/female_short_moss_medium_hd.png",
+        "status": 200,
+        "sha256": "f260cb9b053b35c328025f1bc7ee602cbb30e57c71ba1f2238a4b1519685f460",
+        "passed": true
+      },
+      {
+        "path": "/assets/avatar/hd/male/male_short_moss_medium_hd.png",
+        "status": 200,
+        "sha256": "b182c2e29b512b337891716a413ab7efaad737e23c6354779fae17fe19b8af34",
+        "passed": true
+      }
+    ]
+  },
+  "buildProof": {
+    "sha": "caa682c2b19d3f95f7d4d584e7036dd82369266d",
+    "deployment": "dpl_A4MWCmTPepU4HKzJn8X3SRcRXqJg",
+    "patchApplicationObserved": true,
+    "approvedCompositionsObserved": true
+  },
+  "ordinaryReviewAccess": {
+    "ordinaryBrowser": true,
+    "noOidcHeader": true,
+    "origin": "https://rpgjovemcristao-i5a7yhlzq-carlos-junior-s-projects.vercel.app",
+    "expires": 1793593999,
+    "runs": [
+      {
+        "name": "desktop",
+        "errors": [],
+        "passed": true
+      },
+      {
+        "name": "mobile",
+        "errors": [],
+        "passed": true
+      }
+    ]
+  },
+  "projectProtectionUnchanged": true,
+  "shareSecretOmitted": true,
+  "productionAfter": {
+    "id": "dpl_H8VCqQx2vT8sqVzjDbpFYKnE1mSA",
+    "url": "https://rpgjovemcristao-web-inky.vercel.app",
+    "state": "READY",
+    "sha": "808433a780e96a048c4a3f2d7e419351ab85e5a3",
+    "target": "production"
+  },
+  "productionPublished": false,
+  "migrationsApplied": 0,
+  "paidResourcesCreated": 0
+}
