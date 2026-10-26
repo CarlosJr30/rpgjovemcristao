@@ -1,0 +1,262 @@
+{
+  "passed": true,
+  "environment": "TEST",
+  "origin": "https://rpgjovemcristao-1mq64afqc-carlos-junior-s-projects.vercel.app",
+  "sha": "71403e67dde672f9d8f789d11d1b1087fb95c460",
+  "checks": [
+    {
+      "name": "authorized profile already exists before Auth bootstrap",
+      "passed": true
+    },
+    {
+      "name": "own inventory read succeeds",
+      "passed": true
+    },
+    {
+      "name": "own card read succeeds",
+      "passed": true
+    },
+    {
+      "name": "authorized new TEST hero remains empty",
+      "passed": true
+    },
+    {
+      "name": "foreign inventory remains invisible",
+      "passed": true
+    },
+    {
+      "name": "foreign traveler remains invisible",
+      "passed": true
+    },
+    {
+      "name": "foreign cards denied",
+      "passed": true
+    },
+    {
+      "name": "anonymous card access denied",
+      "passed": true
+    },
+    {
+      "name": "chromium real nonanonymous Auth verified",
+      "passed": true
+    },
+    {
+      "name": "chromium backpack has no transaction or progression controls",
+      "passed": true
+    },
+    {
+      "name": "chromium backpack has no operational links outside released paths",
+      "passed": true
+    },
+    {
+      "name": "chromium backpack fits viewport",
+      "passed": true
+    },
+    {
+      "name": "chromium collection has no transaction or progression controls",
+      "passed": true
+    },
+    {
+      "name": "chromium collection has no operational links outside released paths",
+      "passed": true
+    },
+    {
+      "name": "chromium collection fits viewport",
+      "passed": true
+    },
+    {
+      "name": "chromium diary has no transaction or progression controls",
+      "passed": true
+    },
+    {
+      "name": "chromium diary has no operational links outside released paths",
+      "passed": true
+    },
+    {
+      "name": "chromium diary fits viewport",
+      "passed": true
+    },
+    {
+      "name": "chromium original eleven menu entries",
+      "passed": true
+    },
+    {
+      "name": "chromium exactly five closed menu entries",
+      "passed": true
+    },
+    {
+      "name": "chromium six released menu paths only",
+      "passed": true
+    },
+    {
+      "name": "chromium zero page errors",
+      "passed": true
+    },
+    {
+      "name": "chromium no mutation requests beyond existing Auth ignore-duplicate bootstrap",
+      "passed": true
+    },
+    {
+      "name": "webkit real nonanonymous Auth verified",
+      "passed": true
+    },
+    {
+      "name": "webkit backpack has no transaction or progression controls",
+      "passed": true
+    },
+    {
+      "name": "webkit backpack has no operational links outside released paths",
+      "passed": true
+    },
+    {
+      "name": "webkit backpack fits viewport",
+      "passed": true
+    },
+    {
+      "name": "webkit collection has no transaction or progression controls",
+      "passed": true
+    },
+    {
+      "name": "webkit collection has no operational links outside released paths",
+      "passed": true
+    },
+    {
+      "name": "webkit collection fits viewport",
+      "passed": true
+    },
+    {
+      "name": "webkit diary has no transaction or progression controls",
+      "passed": true
+    },
+    {
+      "name": "webkit diary has no operational links outside released paths",
+      "passed": true
+    },
+    {
+      "name": "webkit diary fits viewport",
+      "passed": true
+    },
+    {
+      "name": "webkit original eleven menu entries",
+      "passed": true
+    },
+    {
+      "name": "webkit exactly five closed menu entries",
+      "passed": true
+    },
+    {
+      "name": "webkit six released menu paths only",
+      "passed": true
+    },
+    {
+      "name": "webkit zero page errors",
+      "passed": true
+    },
+    {
+      "name": "webkit no mutation requests beyond existing Auth ignore-duplicate bootstrap",
+      "passed": true
+    },
+    {
+      "name": "closed route /journey/arena",
+      "passed": true
+    },
+    {
+      "name": "closed route /journey/arena/tower",
+      "passed": true
+    },
+    {
+      "name": "closed route /journey/tower",
+      "passed": true
+    },
+    {
+      "name": "closed route /journey/equipment",
+      "passed": true
+    },
+    {
+      "name": "closed route /journey/shop",
+      "passed": true
+    },
+    {
+      "name": "closed route /journey/intro",
+      "passed": true
+    },
+    {
+      "name": "closed route /journey/phases/o-jardim-e-a-escolha",
+      "passed": true
+    },
+    {
+      "name": "economic authority remains closed",
+      "passed": true
+    }
+  ],
+  "runs": [
+    {
+      "engine": "chromium",
+      "modules": [
+        {
+          "module": "backpack",
+          "loaded": true,
+          "reloaded": true,
+          "noMutationControls": true,
+          "layout": true
+        },
+        {
+          "module": "collection",
+          "loaded": true,
+          "reloaded": true,
+          "noMutationControls": true,
+          "layout": true
+        },
+        {
+          "module": "diary",
+          "loaded": true,
+          "reloaded": true,
+          "noMutationControls": true,
+          "layout": true
+        }
+      ],
+      "pageErrors": 0,
+      "pageErrorDetails": [],
+      "unexpectedWrites": [],
+      "existingProfileIgnoreDuplicateRequests": 7,
+      "passed": true
+    },
+    {
+      "engine": "webkit",
+      "modules": [
+        {
+          "module": "backpack",
+          "loaded": true,
+          "reloaded": true,
+          "noMutationControls": true,
+          "layout": true
+        },
+        {
+          "module": "collection",
+          "loaded": true,
+          "reloaded": true,
+          "noMutationControls": true,
+          "layout": true
+        },
+        {
+          "module": "diary",
+          "loaded": true,
+          "reloaded": true,
+          "noMutationControls": true,
+          "layout": true
+        }
+      ],
+      "pageErrors": 0,
+      "pageErrorDetails": [],
+      "unexpectedWrites": [],
+      "existingProfileIgnoreDuplicateRequests": 7,
+      "passed": true
+    }
+  ],
+  "hostedPositiveOldAccounts": "NOT_EXECUTED_NO_AUTHORIZED_SESSION",
+  "sessionReuse": true,
+  "syntheticData": false,
+  "authBootstrapIgnoreDuplicateRequests": 14,
+  "dataPreservation": "PASS_ALL_40_TEST_DATASET_HASHES_UNCHANGED",
+  "economicOrProgressionMutationRequestsObserved": false
+}
