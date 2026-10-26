@@ -1,3 +1,5 @@
+> Atualização final de 26/10/2026: aprovação visual confirmada; PR11 integrada e produção READY no SHA `1a82d2c`. Ver [relatório de publicação](UI-RESTORE-002-RELEASE-REPORT.md). Estados de aprovação pendente abaixo são históricos. Gameplay continua bloqueado.
+
 # UI-RESTORE-002 — Preview para aprovação visual
 
 **Atualização26/10: interface visual explicitamente aprovada pelo usuário.** A continuação de merge/publicação está registrada em [UI-RESTORE-002-RELEASE-REPORT.md](UI-RESTORE-002-RELEASE-REPORT.md), sujeita aos gates. O estadoPENDING abaixo documenta a entrega anterior à aprovação.

@@ -1,10 +1,12 @@
 # UI-RESTORE-002 — recuperação da identidade completa
 
+Estado final: DONE no escopo visual; os registros anteriores de pendência abaixo são históricos. Resultado final e evidências: docs/architecture/UI-RESTORE-002-RELEASE-REPORT.md.
+
 ID: UI-RESTORE-002
 TITLE: Restaurar identidade e menu completo sem liberar gameplay
 OBJECTIVE: Reutilizar componentes/aparência de5edc93f; menuHerói/Jornada/Missões/Equipamentos/Mochila/Loja/Coleção/Diário/Guilda/Arena + EBD, itens não homologados visíveis Em desenvolvimento e sem operações protegidas.
 PRIORITY: P1 High
-STATUS: VALIDATING
+STATUS: DONE
 SCOPE: PR11 branchcodex/rpg-dev-001 basef0abffa, shell/apresentação CSS e releasehome/avatar, testes/capturas/inventário/relatório/memória/CI. Autor assume Frontend/QA/Security/DevOps sem delegação. Autorização runtime explícita do usuário; escopo documental ampliado para evidências.
 OUT_OF_SCOPE: Merge/deploy antes de aprovação; alterar Auth/CORS/RLS/proxy/allowlist/API/RPC/economia/migrations/dados/artes aprovadas; recursos pagos/dependências; reverter integralmente commits. UI-MOBILE-001 NÃO aprovada.
 DEPENDENCIES: Referência principal5edc93f confirmada pelo usuário; imagem14/10 citada noChatGPT não disponível neste turno, não inventar comparação pixel a pixel. Captura renderizada do commit deve ser identificada como reconstrução.
@@ -35,3 +37,5 @@ PREVIEW_AUTHORIZATION: Pedido explícito atual autoriza publicar somente o candi
 PREVIEW_RESULT: PREVIEW_READY/PENDING_VISUAL_APPROVAL, dpl_A4MWCmTPepU4HKzJn8X3SRcRXqJg/SHAexatocaa682c/READY, https://rpgjovemcristao-i5a7yhlzq-carlos-junior-s-projects.vercel.app . SupabaseTESTwkdvdzfkbwvhyjmamrsg/variáveisbranch/chavecorreta/hostrealconfirmados.6fluxosreais3perfis×desktop/WebKit151checksPASS,zeroerrosRSCpáginaDOMconsole;12AuthRLS/37tabelasRLS/12hashesassetsPASS. Reviewlinktemporário7diasescopodeployment validado2navegadoressemOIDC,AuthRPG/403Arena mantidos;proteçãoprojetointacta,capacidadenãoGit. Produçãoantes/depoismesmodpl_H8VCqQx2vT8sqVzjDbpFYKnE1mSA/808433a/READY,semSupabasePROD/migrations/merge/promoção/recursospagos. Relatório/evidênciaPREVIEWadjacentes. Runtimeinalterado,docCI finalnaPR;aprovaçãohumana/gameplay/publicaçãoprodutivacontinuampendentes.
 
 VISUAL_APPROVAL_2026_10_26: Usuário confirmou explicitamente aprovação da interface restaurada e autorizou continuarPR11: registraraprovação, confirmarCI/SHA/PreviewTEST, validarlogin/avatar/menu/Guilda/EBD, e então merge/publicação produtiva pelo fluxo normal somente se todos os gates do escopo visual passarem. Esta autorização supera a proibição anterior de merge/produção exclusivamente para o visual homologado e correções preservadas daPR; não homologa Arena/Torre/loja/gameplay/economia. Falha crítica exigeBLOCKED/produçãoatualpreservada. Semrecursospagos/migrationsdesnecessárias. Autor assume QA/Security/DevOps no escopo da autorização, sem delegação.
+
+RELEASE_RESULT_2026_10_26: VISUAL_APPROVED/DEPLOY_COMPLETE/DONE. PR11 merge normal1a82d2c, CI40314497732success tentativa2; primeira tentativaFAIL timeout antes do login preservada, causa indeterminada, sem relaxar checks.804unitPASS74SKIP/lint/types/build/protocolo25PASS;fixture63/app24/UI138/Guilda48PASS. PreviewTEST0d3feb2READY151checks;stagingPROD2x151;URLoficial151checksPASS/zeroRSCpáginaDOMconsole. Deploymentdpl_CJFBMXjTKfm7nRt76FL8BLJLM87M/mergeSHA/production/READY/aliasreconferidos.36datasetsiguais/35RLS/6negativasRLS/16hashesassetsPASS;AuthRLSCORSproteções/economia preservados.11opções8Emdesenvolvimento;semhabilitarArenaTorreloja. Migrations0/recursospagos0. autoAssignCustomDomains restauradotrue/SSOigual. QA/Security/DevOps peloautor;físiconãotestado. Bloqueiosgameplay/economiaanterioresmantidos. Relatório/evidênciaRELEASEadjacentes;docbranchseparadasemdeployartificial.
