@@ -1,3 +1,11 @@
+## 2026-10-27 — RPG-DEV-008A publicado; B/C em preparação
+
+Main/PROD bd9dcb7373fcee2f22fd62e952aa25f9558beb0a, READY/dpl_95c8SJGkM4hUJggpTpX76ER338ga/alias oficial. 008A DONE/DEPLOY_COMPLETE (PR15), 007 preservado. CI candidato e merge aprovados; Preview141/API12+13/PROD150antes+150oficial PASS. Grant SELECT-only TEST20261027101252/PROD20261027102522, RLS/economia/conclusão preservados. Hashes38PROD/40TEST e75funções/39policies intactos exceto grant aprovado. Relatório/evidência008A em docs/architecture. autoAssign true restaurado/proteção mantida. PR12 open/draft61b7177 intacta.
+
+Worktrees/branches008A/B/C separados, trabalhos anteriores preservados. 008A consulta9mundos/5histórias/progresso, sem atividade/economia/conclusão;851unit PASS/74SKIP, lint/types/build/protocolo25/PG16 e RSC24/UI222/Guilda48 sintéticos PASS. B prepara Missões em memória (829unit/74SKIP na base007); C prepara Serpente original (828unit/74SKIP e65direcionados); ainda sem publicaçãoB/C. Primeiros timeouts de assets em suíte paralela preservados, testes individuais e suíte4workers aprovados sem mudar limites. C browserdesktop vitória/derrota/retry PASS; mobilecoletor em rework. Próximo: concluir reconciliação base/gates locais e hosted B/C, sem autoridade persistente/economia. Não declarar toda008DONE. Memória antiga abaixo é histórica.
+
+---
+
 ## 2026-10-27 — RPG-DEV-007: autorização nível50 / domínio em hold / REWORK visual
 
 Usuário substituiu a proibição anterior e autoriza Teste Chat A somente leitura no avatar ativo50, UID78729453-8e04-478c-96ae-d37cead1bc8c/avatar31b70059-deca-44c8-a6df-f21ea68b6e42 confirmados pela sessão. Não selecionar avatar antigo1, conceder ou alterar XP/moedas/inventário/equipamentos/cartas/progresso. 12 checks API preDDL/14 pósDDL PASS; 38 tabelas PROD e hashes próprios idênticos. Segurança/compatibilidade/recuperação revisadas, migration mínima PROD20261027013958rpg_dev_007_owned_cards_read aplicada; RLS/ACL/scope/economia preservados. PR13 integrada normalmente em392e8f761817e217b5f23669decbefb58b8203e8 apósCIae16f71success; CImain40434005462success. PR12 intacta.

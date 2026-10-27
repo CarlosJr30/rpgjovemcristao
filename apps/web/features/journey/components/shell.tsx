@@ -52,9 +52,16 @@ const releasedLinks = [
   ...primaryLinks.map(([id, label]) => ({
     id,
     label,
-    href: routes[id],
+    href: id === 'map' ? '/journey/worlds' : routes[id],
     icon: id,
-    available: ['hero', 'guild', 'backpack', 'collection', 'diary'].includes(id),
+    available: [
+      'hero',
+      'map',
+      'guild',
+      'backpack',
+      'collection',
+      'diary',
+    ].includes(id),
   })),
   {
     id: 'ebd',
