@@ -1,4 +1,10 @@
-## 2026-10-26 — RPG-DEV-007: Preview TEST validada / PROD BLOCKED
+## 2026-10-27 — RPG-DEV-007: autorização nível50 / domínio em hold / REWORK visual
+
+Usuário substituiu a proibição anterior e autoriza Teste Chat A somente leitura no avatar ativo50, UID78729453-8e04-478c-96ae-d37cead1bc8c/avatar31b70059-deca-44c8-a6df-f21ea68b6e42 confirmados pela sessão. Não selecionar avatar antigo1, conceder ou alterar XP/moedas/inventário/equipamentos/cartas/progresso. 12 checks API preDDL/14 pósDDL PASS; 38 tabelas PROD e hashes próprios idênticos. Segurança/compatibilidade/recuperação revisadas, migration mínima PROD20261027013958rpg_dev_007_owned_cards_read aplicada; RLS/ACL/scope/economia preservados. PR13 integrada normalmente em392e8f761817e217b5f23669decbefb58b8203e8 apósCIae16f71success; CImain40434005462success. PR12 intacta.
+
+Deployment Gitdpl_EMmreUzDNwxDFJ78XpVKU3wLUYtbREADYproduction/exatoSHA, ainda SEM promoção. autoAssignCustomDomains temporariamentefalse; domíniooficial continua1a82d2c/dpl_CJFBMXjTKfm7nRt76FL8BLJLM87M. Teste detectou overflow de ícone natural1254px em Mochila preenchida; gatevisualFAIL, promoção interrompida. Correção mínimaCSSescopada/teste de imagem decodificada em codex/rpg-dev-007-mobile-fix baseada no merge13; exige PRnova/CI/Preview e revalidação produtiva antes promoção. VercelOIDC recusou ambienteprod; acesso testado viaCLIcurl autenticado/cookie sómemória/origem, sem mudarTrustedSources/proteção. Evidências anterioresTEST46/PG18 preservadas; novosresultadospendentes. Relatório007contémestadoDDL/hold/recovery. NãoDONE.
+
+## Histórico — 2026-10-26 — RPG-DEV-007: Preview TEST validada / PROD BLOCKED
 
 Retomada de acesso: fixtures líder/professor/aluno de RELEASE-EBD-001 confirmadas só por metadados, sem dados pessoais/credenciais. Preferir QA aluno com herói existente. prod-accounts.dpapi não localizado em .codex e D:/Projetos IA; sem descriptografia. /auth/recover HTTP200 e formulário visível em navegador sem sessão; nenhum envio/reset/login feito. Titular precisa registro protegido/caixa para recuperação normal ou login direto. Acesso continua BLOCKED. Relatório distingue acesso QA e gates técnicos obrigatórios antes PROD, validação DDL/RPC antes app, e conferência das novas páginas/READY/SHA/alias após deploy antes DONE. Nenhuma publicação/alteração de dados; testes anteriores intactos, PR12 separada.
 

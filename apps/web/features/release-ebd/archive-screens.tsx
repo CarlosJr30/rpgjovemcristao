@@ -12,6 +12,7 @@ import { DiaryContents } from '../journey/screens/diary';
 import styles from '../journey/journey.module.css';
 import book from '../journey/components/diary-experience.module.css';
 import cardsCss from '../guild-missions/panel.module.css';
+import archiveCss from './archive.module.css';
 
 export function ArchiveBackpack() {
   return (
@@ -35,7 +36,7 @@ export function BackpackContents({
       <h1>Mochila</h1>
       <p className={styles.phaseLead}>Seus itens guardados, para consulta.</p>
       {!snapshot.inventory.length && <p>Nenhum item guardado neste avatar.</p>}
-      <div className={styles.itemShelf}>
+      <div className={`${styles.itemShelf} ${archiveCss.backpackGrid}`}>
         {snapshot.inventory
           .filter((row) => row.quantity > 0)
           .map((row) => {
@@ -47,12 +48,12 @@ export function BackpackContents({
             )?.card;
             return (
               <article
-                className={styles.itemCard}
+                className={`${styles.itemCard} ${archiveCss.backpackItem}`}
                 key={row.id}
                 data-rarity={equipment?.rarity ?? ownedCard?.rarity}
               >
                 {equipment /* eslint-disable-next-line @next/next/no-img-element -- approved existing inventory icon */ && (
-                  <img src={equipmentAssetForItem(equipment)} alt="" />
+                  <img className={archiveCss.backpackIcon} src={equipmentAssetForItem(equipment)} alt="" />
                 )}
                 <h2>{equipment?.name ?? ownedCard?.name ?? row.item_id}</h2>
                 <p>
