@@ -1,4 +1,4 @@
-import { PhaseScreen } from '../../../../features/journey/screens/phase';
+import { MissionPracticeScreen } from '../../../../features/journey/screens/mission-practice';
 export default function Page() {
-  return <PhaseScreen />;
+  return <MissionPracticeScreen />;
 }

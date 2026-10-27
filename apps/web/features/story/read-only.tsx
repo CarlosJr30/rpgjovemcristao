@@ -141,8 +141,8 @@ export function JourneyReadView({
             'Explore o mapa da aventura bíblica e consulte seus registros existentes.'}
         </p>
         <p>
-          Somente leitura. Atividades e conclusão de novas fases permanecem
-          bloqueadas nesta etapa. Não há concessão de recompensas.
+          Progresso oficial somente leitura. Demonstrações, quando disponíveis,
+          não salvam conclusão nem concedem recompensas.
         </p>
       </header>
       {!world && (
@@ -199,7 +199,10 @@ export function JourneyReadView({
                     {completed(s.id)
                       ? 'Conclusão registrada'
                       : 'Conclusão não registrada'}{' '}
-                    · Atividades bloqueadas
+                    ·{' '}
+                    {s.id === 'garden-choice'
+                      ? 'Demonstração disponível, sem salvar progresso'
+                      : 'Atividades bloqueadas'}
                   </p>
                 </div>
                 <Link className={css.link} href={storyRoute(s.id)}>
@@ -246,6 +249,16 @@ export function JourneyReadView({
               : 'Conclusão bloqueada. Conteúdo, vídeo e autoridade de progressão aguardam homologação.'}
           </p>
         </section>
+      )}
+      {story?.id === 'garden-choice' && (
+        <p>
+          <Link
+            className={css.link}
+            href="/journey/phases/o-jardim-e-a-escolha"
+          >
+            Praticar Missões do Jardim · demonstração sem progressão →
+          </Link>
+        </p>
       )}
       {(!world || world.id === 'origins') && (
         <section
