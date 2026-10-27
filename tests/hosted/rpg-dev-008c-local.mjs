@@ -17,7 +17,7 @@ const results={syntheticData:true,productionProof:false,runs:[]};
 try{
  await new Promise((resolve,reject)=>{const t=setTimeout(()=>reject(Error('Local readiness timeout')),20000);app.stdout.on('data',s=>{if(String(s).includes('Ready in')){clearTimeout(t);resolve();}});});
  simulator=await startLocalAuthSimulator();
- for(const [label,launcher,viewport,touch] of [['desktop',chromium,{width:1440,height:1000},false],['mobile',webkit,{width:390,height:844},true]]){
+ for(const [label,launcher,viewport,touch] of [['desktop',chromium,{width:1440,height:1000},false],['mobile',webkit,{width:390,height:844},true],['android-emulated',chromium,{width:390,height:844},true]]){
   const browser=await launcher.launch(),context=await browser.newContext({viewport,isMobile:touch,hasTouch:touch}),page=await context.newPage();const run={label,errors:[],writes:[],checks:[],passed:false};results.runs.push(run);
   page.on('pageerror',e=>run.errors.push(e.message));
   context.on('request',r=>{const u=new URL(r.url());if(u.origin==='http://127.0.0.1:3202'&&u.pathname.startsWith('/rest/v1/')&&!['GET','HEAD','OPTIONS'].includes(r.method())&&u.pathname!=='/rest/v1/profiles')run.writes.push({path:u.pathname,method:r.method()});});

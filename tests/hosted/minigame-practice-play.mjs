@@ -14,6 +14,16 @@ export async function playMinigame(page, {origin, label, output}) {
  await expect(game).toHaveAttribute('data-status','playing');
  await expect.poll(()=>canvas.evaluate(c=>Number.isFinite(Number(c.dataset.playerX)))).toBe(true);
  const position=()=>canvas.evaluate(c=>({x:Number(c.dataset.playerX),y:Number(c.dataset.playerY)}));
+ if(await page.evaluate(()=>innerWidth<=1024)){
+  const toggle=page.getByRole('button',{name:'Direcional',exact:true});if(await toggle.getAttribute('aria-pressed')!=='true')await toggle.click();
+  const right=page.locator('button[data-direction="arrowright"]');await expect(right).toBeVisible();
+  const box=await right.boundingBox(),before=await position(),point={x:box.x+box.width/2,y:box.y+box.height/2};
+  if(page.context().browser().browserType().name()==='chromium'){
+   const cdp=await page.context().newCDPSession(page);await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{...point,id:1}]});await page.waitForTimeout(350);await cdp.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});await cdp.detach();
+  }else{await page.mouse.move(point.x,point.y);await page.mouse.down();await page.waitForTimeout(350);await page.mouse.up();}
+  await page.waitForTimeout(150);check('mobile direction pointer moves the real player',(await position()).x>before.x);
+  await expect(right).toHaveAttribute('aria-pressed','false');check('mobile direction release clears held input',true);
+ }
  const initial=await position();await page.keyboard.down('ArrowRight');await page.waitForTimeout(400);await page.keyboard.up('ArrowRight');await page.waitForTimeout(150);
  check('ordinary keyboard movement changes player position',(await position()).x>initial.x);
  await page.getByRole('button',{name:'Pausar',exact:true}).click();await expect(game).toHaveAttribute('data-status','paused');
