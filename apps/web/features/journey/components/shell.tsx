@@ -57,6 +57,7 @@ const releasedLinks = [
     available: [
       'hero',
       'map',
+      'garden',
       'guild',
       'backpack',
       'collection',

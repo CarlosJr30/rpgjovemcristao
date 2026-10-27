@@ -199,7 +199,10 @@ export function JourneyReadView({
                     {completed(s.id)
                       ? 'Conclusão registrada'
                       : 'Conclusão não registrada'}{' '}
-                    · Atividades bloqueadas
+                    ·{' '}
+                    {s.id === 'garden-choice'
+                      ? 'Demonstração disponível, sem salvar progresso'
+                      : 'Atividades bloqueadas'}
                   </p>
                 </div>
                 <Link className={css.link} href={storyRoute(s.id)}>
@@ -247,7 +250,23 @@ export function JourneyReadView({
           </p>
         </section>
       )}
-      {story?.id === 'garden-choice' && <p><Link className={css.link} href="/journey/minigames/fuga-da-serpente">Praticar Fuga da Serpente · demonstração sem progressão →</Link></p>}
+      {story?.id === 'garden-choice' && (
+        <p>
+          <Link
+            className={css.link}
+            href="/journey/phases/o-jardim-e-a-escolha"
+          >
+            Praticar Missões do Jardim · demonstração sem progressão →
+          </Link>
+        </p>
+      )}
+      {story?.id === 'garden-choice' && (
+        <p>
+          <Link className={css.link} href="/journey/minigames/fuga-da-serpente">
+            Praticar Fuga da Serpente · demonstração sem progressão →
+          </Link>
+        </p>
+      )}
       {(!world || world.id === 'origins') && (
         <section
           className={css.notice}

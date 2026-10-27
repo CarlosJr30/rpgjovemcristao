@@ -1,5 +1,7 @@
 # RPG-DEV-008 — Recuperação do Modo História
 
+27/10/2026:008B DONE/DEPLOY_COMPLETE, PR16/merge f4e8b82, CI40586736813 success. Preview177/PROD158antes+158oficial PASS, dados40TEST/38PROD e estruturas iguais. Missões demonstrativas sem progressão/economia, zeroSQL. Relatório/evidência008B vinculam resultados e limites. Agregadora permanece ACTIVE: preparar008C em branch própria sem liberação nesta etapa; PR12 independente.
+
 ID: RPG-DEV-008
 TITLE: Recuperar Jornada, Missões e minigames em entregas progressivas
 OBJECTIVE: Recuperar conteúdo existente com consulta de progresso persistido e atividades sem economia.

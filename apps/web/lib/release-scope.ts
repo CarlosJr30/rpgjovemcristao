@@ -12,6 +12,7 @@ const paths = new Set([
   '/journey/collection',
   '/journey/diary',
   '/journey/minigames/fuga-da-serpente',
+  '/journey/phases/o-jardim-e-a-escolha',
   '/journey/worlds',
   '/journey/worlds/origins',
   '/journey/worlds/patriarchs',
