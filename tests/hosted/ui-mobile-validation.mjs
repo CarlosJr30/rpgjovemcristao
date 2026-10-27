@@ -11,7 +11,7 @@ const base = process.argv.includes('--restore')
   ? 'build/ui-restore-002'
   : 'build/ui-mobile-001';
 mkdirSync(base, { recursive: true });
-const simulator = await startLocalAuthSimulator();
+const simulator = await startLocalAuthSimulator({ archiveInventory: true });
 const result = { syntheticData: true, productionProof: false, runs: [] };
 try {
   for (const [name, launcher, viewport, touch] of [
@@ -195,6 +195,14 @@ try {
         path: base + '/' + name + '-validated.png',
         fullPage: true,
       });
+      await navigateReleased(page, 'Mochila');
+      await expect(page.getByRole('heading', { name: 'Botas do Viajante', exact: true })).toBeVisible();
+      await expect(page.getByText(/^Quantidade: 3/)).toBeVisible();
+      await page.locator('main img[src]').evaluateAll(images => Promise.all(images.map(image => image.decode())));
+      check('populated backpack fits after original icon decodes', await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
+      check('inventory icon fits its card', await page.locator('main img[src]').evaluateAll(images => images.every(image => image.getBoundingClientRect().right <= image.closest('article').getBoundingClientRect().right)));
+      check('backpack remains consultation only', await page.getByRole('button', { name: /equipar|vender|comprar|transferir/i }).count() === 0);
+      await page.screenshot({ path: base + '/' + name + '-backpack-populated.png', fullPage: true });
       // HTTP checks are real release guards, not routed or fabricated responses.
       for (const path of [
         '/journey/arena',

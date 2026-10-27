@@ -4,7 +4,7 @@ import type { BrowserContext } from '@playwright/test';
 export async function mockLocalReleaseAuth(
   context: BrowserContext,
   origin: string,
-  options: { guildRole?: 'leader' | 'member' } = {},
+  options: { guildRole?: 'leader' | 'member'; archiveInventory?: boolean } = {},
 ) {
   if (origin !== 'http://127.0.0.1:3199')
     throw new Error('Loopback fixture required');
@@ -67,6 +67,10 @@ export async function mockLocalReleaseAuth(
           base_wisdom: 1,
         };
       if (endpoint === 'wallets') data = { traveler_id: travelerId, coins: 0 };
+      if (options.archiveInventory && endpoint === 'inventory')
+        data = [{ id: '40000000-0000-4000-8000-000000000003', traveler_id: travelerId, item_id: 'traveler-boots', quantity: 3, metadata: {}, created_at: date }];
+      if (options.archiveInventory && endpoint === 'equipped_items')
+        data = [{ traveler_id: travelerId, slot: 'boots', item_id: 'traveler-boots', updated_at: date }];
       if (endpoint === 'guild_members' || endpoint === 'guild_join_requests')
         data = null;
       if (options.guildRole) {
