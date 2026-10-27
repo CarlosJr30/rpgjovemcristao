@@ -23,6 +23,8 @@ Preparação em27/10/2026: branch própria codex/rpg-dev-008b-missions, worktree
 
 ## SELF VALIDATE parcial
 
+Checkpoint posterior: baseA publicada/fechamento2b3ba50 reconciliados por merge normal, com resolução explícita dos menus/rotas/testes; nenhum arquivo da PR12 incluído. 855unit/74SKIP e lint/types PASS na base reconciliada. Browser local real do exercício36checks PASS nas duas engines, sem page errors/mutações REST além do perfil sintético. Sequência original recuperada, resultado/reload somente memória. Regressões adicionais em andamento; gates hospedados/CI/produção PENDING. O parágrafo abaixo preserva a primeira validação na base007.
+
 Modo demonstrativo com callback explícito de estado; callback ausente é no-op, sem fallback à persistência legada. Composição limpa respostas, não exibe reflexão persistida e copia apenas progress para memória; fonte/economia intactas. Unidade integrada percorre leituras/checkpoint/reflexão/três objetivos/quiz/reinício, verifica updateTraveler não chamado/source idêntico; não é prova hospedada.
 
 Base007:829unit PASS/74SKIP (124 arquivos/7 opt-in), lint/types/build PASS. Primeira suíte paralela teve timeout5000ms no scan de mídia existente, sem divergência de hashes; teste individual5PASS e suíte completa4workers PASS, sem alterar assertions/limites. Unitário inicial precisou polyfill showModal/close de jsdom conforme teste existente; tipos do teste corrigidos, sem runtimefix. QA/Security/React/editorial pelo autor. PostgreSQL N/A: zeroSQL/migration/autoridade nova. Browser local/Preview/CI/pós-deploy PENDING; candidato não aprovado para publicação neste checkpoint.

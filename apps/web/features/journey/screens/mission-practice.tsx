@@ -55,6 +55,7 @@ type Stage =
   | 'reading'
   | 'comprehension'
   | 'reflection'
+  | 'mission'
   | 'explore'
   | 'quiz'
   | 'finished';
@@ -117,7 +118,7 @@ export function MissionPractice({ source }: { source: Traveler }) {
             </p>
             <button
               className={styles.primaryLink}
-              onClick={() => setStage('reading')}
+              onClick={() => setStage('explore')}
             >
               Iniciar demonstração →
             </button>
@@ -144,7 +145,7 @@ export function MissionPractice({ source }: { source: Traveler }) {
             demonstration
             traveler={traveler}
             onUpdate={applyUpdate}
-            onComplete={() => setStage('explore')}
+            onComplete={() => setStage('mission')}
           />
         )}
         {stage === 'explore' && (
@@ -157,9 +158,27 @@ export function MissionPractice({ source }: { source: Traveler }) {
               demonstration
               traveler={traveler}
               onUpdate={applyUpdate}
-              onComplete={() => setStage('quiz')}
+              onComplete={() => setStage('reading')}
             />
           </>
+        )}
+        {stage === 'mission' && (
+          <section>
+            <p className={styles.phaseLead}>
+              Missão: Escolhas e Responsabilidade
+            </p>
+            <p>
+              Observe uma decisão cotidiana: qual liberdade existe, que
+              orientação pode ajudar e quem poderá ser afetado? Seu registro
+              devocional permanece privado.
+            </p>
+            <button
+              className={styles.primaryLink}
+              onClick={() => setStage('quiz')}
+            >
+              Continuar para o Quiz →
+            </button>
+          </section>
         )}
         {stage === 'quiz' && question && (
           <section

@@ -28,8 +28,18 @@ const source = () =>
   createTraveler('Lia', DEFAULT_APPEARANCE, 'hero', '2026-10-27T10:00:00Z');
 beforeEach(() => {
   m.save.mockClear();
-  Object.defineProperty(HTMLDialogElement.prototype, 'showModal', { configurable: true, value() { this.setAttribute('open', ''); } });
-  Object.defineProperty(HTMLDialogElement.prototype, 'close', { configurable: true, value() { this.removeAttribute('open'); } });
+  Object.defineProperty(HTMLDialogElement.prototype, 'showModal', {
+    configurable: true,
+    value() {
+      this.setAttribute('open', '');
+    },
+  });
+  Object.defineProperty(HTMLDialogElement.prototype, 'close', {
+    configurable: true,
+    value() {
+      this.removeAttribute('open');
+    },
+  });
   vi.stubGlobal('matchMedia', () => ({
     matches: false,
     addEventListener() {},
@@ -96,6 +106,38 @@ test('reading, comprehension, reflection, three exploration objectives and quiz 
   fireEvent.click(
     screen.getByRole('button', { name: 'Iniciar demonstração →' }),
   );
+  const point = (label: RegExp) => {
+    fireEvent.click(screen.getByRole('button', { name: label }));
+    act(() => vi.advanceTimersByTime(651));
+  };
+  point(/^Sinais de cuidado:/);
+  let dialog = within(screen.getByRole('dialog'));
+  for (const name of [
+    /Água que irriga/,
+    /Solo que pode ser cultivado/,
+    /Vegetação a ser guardada/,
+  ])
+    fireEvent.click(dialog.getByRole('button', { name }));
+  fireEvent.click(dialog.getByRole('button', { name: 'Concluir observação' }));
+  point(/^Sinais do limite:/);
+  dialog = within(screen.getByRole('dialog'));
+  fireEvent.click(dialog.getByRole('button', { name: 'Limite' }));
+  expect(dialog.getByText('Sequência 0 / 3')).toBeVisible();
+  for (const name of ['Liberdade', 'Orientação', 'Limite'])
+    fireEvent.click(dialog.getByRole('button', { name }));
+  point(/^Pistas da escolha:/);
+  dialog = within(screen.getByRole('dialog'));
+  for (const name of [
+    /Orientação lembrada/,
+    /Escolha realizada/,
+    /Mudança percebida/,
+  ])
+    fireEvent.click(dialog.getByRole('button', { name }));
+  for (const name of ['Orientação', 'Escolha', 'Consequência'])
+    fireEvent.click(dialog.getByRole('button', { name }));
+  fireEvent.click(
+    screen.getByRole('button', { name: 'Continuar a jornada →' }),
+  );
   expect(
     screen.getByRole('button', { name: 'Continuar para o checkpoint →' }),
   ).toBeDisabled();
@@ -134,37 +176,8 @@ test('reading, comprehension, reflection, three exploration objectives and quiz 
   fireEvent.click(
     screen.getByRole('button', { name: 'Continuar na demonstração →' }),
   );
-  const point = (label: RegExp) => {
-    fireEvent.click(screen.getByRole('button', { name: label }));
-    act(() => vi.advanceTimersByTime(651));
-  };
-  point(/^Sinais de cuidado:/);
-  let dialog = within(screen.getByRole('dialog'));
-  for (const name of [
-    /Água que irriga/,
-    /Solo que pode ser cultivado/,
-    /Vegetação a ser guardada/,
-  ])
-    fireEvent.click(dialog.getByRole('button', { name }));
-  fireEvent.click(dialog.getByRole('button', { name: 'Concluir observação' }));
-  point(/^Sinais do limite:/);
-  dialog = within(screen.getByRole('dialog'));
-    fireEvent.click(dialog.getByRole('button', { name: 'Limite' }));
-  expect(dialog.getByText('Sequência 0 / 3')).toBeVisible();
-  for (const name of ['Liberdade', 'Orientação', 'Limite'])
-      fireEvent.click(dialog.getByRole('button', { name }));
-  point(/^Pistas da escolha:/);
-  dialog = within(screen.getByRole('dialog'));
-  for (const name of [
-    /Orientação lembrada/,
-    /Escolha realizada/,
-    /Mudança percebida/,
-  ])
-    fireEvent.click(dialog.getByRole('button', { name }));
-  for (const name of ['Orientação', 'Escolha', 'Consequência'])
-      fireEvent.click(dialog.getByRole('button', { name }));
   fireEvent.click(
-    screen.getByRole('button', { name: 'Continuar a jornada →' }),
+    screen.getByRole('button', { name: 'Continuar para o Quiz →' }),
   );
   for (let i = 0; i < 5; i++) {
     const heading = screen.getByRole('heading', { level: 2 });

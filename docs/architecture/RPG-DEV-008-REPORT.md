@@ -14,6 +14,10 @@ Não há bloqueio crítico para a consulta publicada. story_progress hospedado e
 
 ## Conteúdo identificado
 
+Preparação008B posterior à publicaçãoA: branch codex/rpg-dev-008b-missions reconciliada com main publicado bd9dcb7 e fechamento documental2b3ba50. Componentes legados mantêm exploração/leitura/compreensão/reflexão/missão/quiz em demonstração; callback de persistência não é usado. CatálogoA/gates preservados. Menu11/8links/3bloqueios; link do Jardim identifica demonstração sem progressão. Nenhuma migrationB.
+
+ValidaçãoB reconciliada: **855unit PASS/74SKIP**, lint/types e buildNext real PASS; **36 checks de exercícios locais PASS**, Chromium desktop/WebKit390px, links externos, checkpoint errado/correto, oração/reflexão temporárias, três objetivos, quiz, resultado4/5 educativo e recarga descartando execução. Zero page errors/mutações REST além do bootstrap sintético. Não prova leitura humana, conteúdo carregado pelo provedor externo, sessão hospedada ou autoridade persistente. Regressão RSC/UI/Guilda adicional em andamento; CI/Preview/publicaçãoB PENDING. Parecer [B](../biblical/RPG-DEV-008B-PRACTICE-REVIEW.md).
+
 Catálogo existente `features/story/catalog.ts`: nove mundos (As Origens, Os Patriarcas, Libertação, Terra Prometida, Reis e Profetas, Exílio e Retorno, Vida de Jesus, Igreja Primitiva, Apocalipse e Nova Criação). Apenas As Origens tem cinco entradas: Criação; Jardim do Éden e Queda combinados; Caim e Abel; Noé; Babel. Não separar/inventar fases para obter seis. Demais mundos permanecem planejados, sem fases implementadas.
 
 O Jardim e a Escolha é a fase legada de Gênesis 2–3; as outras quatro histórias são candidatas. Vídeos e revisão econômica do catálogo estão pendentes. As telas antigas incluem links/controles operacionais e consulta a story_progress; não podem ser simplesmente desbloqueadas. Progresso legado em travelers.journey_progress é distinto dos registros de histórias e não pode fabricar recibos/conclusões do novo catálogo.
