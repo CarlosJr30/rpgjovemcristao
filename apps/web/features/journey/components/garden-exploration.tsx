@@ -137,14 +137,22 @@ const clamp = (value: number, min: number, max: number) =>
   Math.max(min, Math.min(max, value));
 const distance = (a: { x: number; y: number }, b: { x: number; y: number }) =>
   Math.hypot(a.x - b.x, a.y - b.y);
+const ignorePracticeUpdate = () => {};
 
 export function GardenExploration({
   traveler,
   onComplete,
+  demonstration = false,
+  onUpdate,
 }: {
   traveler: Traveler;
   onComplete: () => void;
+  demonstration?: boolean;
+  onUpdate?: (recipe: (current: Traveler) => Traveler) => void;
 }) {
+  const applyUpdate = demonstration
+    ? (onUpdate ?? ignorePracticeUpdate)
+    : updateTraveler;
   const [position, setPosition] = useState({ x: 49, y: 82 });
   const [activeInteraction, setActiveInteraction] = useState<string | null>(
     null,
@@ -166,14 +174,17 @@ export function GardenExploration({
   const progress = traveler.progress;
   const nearby = useMemo(
     () =>
-      GARDEN_INTERACTIONS.filter((point) => !isResolved(point, traveler)).sort(
-        (a, b) => distance(position, a) - distance(position, b),
-      )[0],
-    [position, traveler],
+      GARDEN_INTERACTIONS.filter(
+        (point) =>
+          (!demonstration || point.kind === 'fragment') &&
+          !isResolved(point, traveler),
+      ).sort((a, b) => distance(position, a) - distance(position, b))[0],
+    [position, traveler, demonstration],
   );
   const nearbyInRange =
     nearby && distance(position, nearby) <= 12 ? nearby : undefined;
   const equipmentPending =
+    !demonstration &&
     progress.gardenOpenedChests.includes('chest-hidden') &&
     !traveler.inventory.some((item) => item.id === GARDEN_HELMET.id);
 
@@ -207,6 +218,7 @@ export function GardenExploration({
 
   const interact = useCallback(
     (point: GardenInteraction) => {
+      if (demonstration && point.kind !== 'fragment') return;
       if (isResolved(point, traveler)) return;
       if (point.kind === 'fragment') {
         setActiveChallenge(
@@ -230,7 +242,7 @@ export function GardenExploration({
         showFeedback('BAÚ PROTEGIDO · Resolva primeiro os Sinais do vento.');
         return;
       }
-      updateTraveler((current) => {
+      applyUpdate((current) => {
         const currentProgress = current.progress;
         if (point.kind === 'coins') {
           if (currentProgress.gardenCollectedLoot.includes(point.id))
@@ -288,12 +300,12 @@ export function GardenExploration({
           : point.text,
       );
     },
-    [progress.gardenEvents, showFeedback, traveler],
+    [progress.gardenEvents, showFeedback, traveler, demonstration, applyUpdate],
   );
 
   const completeFragment = useCallback(
     (pointId: 'water' | 'stones' | 'leaves', objectiveId: string) => {
-      updateTraveler((current) => {
+      applyUpdate((current) => {
         if (current.progress.gardenExploredPoints.includes(pointId))
           return current;
         const gardenExploredPoints = [
@@ -321,7 +333,7 @@ export function GardenExploration({
         `FRAGMENTO DE SABEDORIA · ${Math.min(3, progress.gardenFragments + 1)} / 3`,
       );
     },
-    [progress.gardenFragments, showFeedback],
+    [progress.gardenFragments, showFeedback, applyUpdate],
   );
 
   const approachAndInteract = useCallback(
@@ -416,13 +428,14 @@ export function GardenExploration({
   };
 
   const solvePuzzle = (answer: 'pedras' | 'folhas' | 'agua') => {
+    if (demonstration) return;
     if (answer !== 'folhas') {
       showFeedback(
         'As marcas não reagiram. Observe o que se move com o vento.',
       );
       return;
     }
-    updateTraveler((current) =>
+    applyUpdate((current) =>
       current.progress.gardenEvents.includes('wind-pattern')
         ? current
         : {
@@ -441,7 +454,8 @@ export function GardenExploration({
   };
 
   const claimEquipment = () => {
-    updateTraveler((current) =>
+    if (demonstration) return;
+    applyUpdate((current) =>
       current.inventory.some((item) => item.id === GARDEN_HELMET.id)
         ? current
         : {
@@ -540,15 +554,19 @@ export function GardenExploration({
         <span>
           FRAGMENTOS <strong>◆ {progress.gardenFragments} / 3</strong>
         </span>
-        <span>
-          BAÚS <strong>{progress.gardenOpenedChests.length} / 2</strong>
-        </span>
-        <span>
-          SEGREDOS <strong>{progress.gardenSecrets.length} / 1</strong>
-        </span>
-        <span>
-          MOEDAS <strong>◈ {traveler.coins}</strong>
-        </span>
+        {!demonstration && (
+          <>
+            <span>
+              BAÚS <strong>{progress.gardenOpenedChests.length} / 2</strong>
+            </span>
+            <span>
+              SEGREDOS <strong>{progress.gardenSecrets.length} / 1</strong>
+            </span>
+            <span>
+              MOEDAS <strong>◈ {traveler.coins}</strong>
+            </span>
+          </>
+        )}
       </div>
       <div
         className={styles.gardenScene}
@@ -571,7 +589,9 @@ export function GardenExploration({
         >
           <AvatarRuntime traveler={traveler} decorative />
         </div>
-        {GARDEN_INTERACTIONS.map((point, index) => {
+        {GARDEN_INTERACTIONS.filter(
+          (point) => !demonstration || point.kind === 'fragment',
+        ).map((point, index) => {
           const resolved = isResolved(point, traveler);
           const close = distance(position, point) <= 12;
           return (

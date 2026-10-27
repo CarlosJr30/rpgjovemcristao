@@ -84,16 +84,16 @@ try {
         (await nav.evaluate((element) => element.children.length)) === 11,
       );
       check(
-        'five unreleased modules have no protected actions',
-        (await nav.locator('[aria-disabled="true"]').count()) === 5 &&
+        'four unreleased modules have no protected actions',
+        (await nav.locator('[aria-disabled="true"]').count()) === 4 &&
           (await nav
             .locator('[aria-disabled="true"] a,[aria-disabled="true"] button')
             .count()) === 0,
       );
       check(
-        'only the six approved consultation and guild modules are linked',
+        'only the seven approved modules are linked',
         JSON.stringify(await nav.locator('a[href]').evaluateAll(links => links.map(link => link.getAttribute('href')))) ===
-          JSON.stringify(['/journey/hero','/journey/backpack','/journey/collection','/journey/diary','/journey/guild','/journey/guild/ebd']),
+          JSON.stringify(['/journey/hero','/journey/phases/o-jardim-e-a-escolha','/journey/backpack','/journey/collection','/journey/diary','/journey/guild','/journey/guild/ebd']),
       );
       const trigger = page.getByRole('button', {
         name: 'Abrir menu',
@@ -210,7 +210,7 @@ try {
         '/journey/tower',
         '/journey/equipment',
         '/journey/shop',
-        '/journey/phases/o-jardim-e-a-escolha',
+        '/journey/minigames/unapproved',
         '/journey/stories/blocked',
         '/journey/worlds/blocked',
       ]) {
