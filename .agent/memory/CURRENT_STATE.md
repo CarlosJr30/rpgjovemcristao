@@ -1,8 +1,8 @@
-## 2026-10-27 — RPG-DEV-008A em validação; 007 publicado
+## 2026-10-27 — RPG-DEV-008A publicado; B/C em preparação
 
-Main/PROD confirmado0357b444e191e60ae3d95b58f0ea9b80ff72ad89, READY/dpl_9fGNqsrMoZe3D6qSFQWQdy4Byu8N. 007 DONE; fechamento preservado na branch documental codex/rpg-dev-007-release-report/4fd6810. Os checkpoints007 abaixo são históricos. PR12 open/draft61b7177 intacta.
+Main/PROD bd9dcb7373fcee2f22fd62e952aa25f9558beb0a, READY/dpl_95c8SJGkM4hUJggpTpX76ER338ga/alias oficial. 008A DONE/DEPLOY_COMPLETE (PR15), 007 preservado. CI candidato e merge aprovados; Preview141/API12+13/PROD150antes+150oficial PASS. Grant SELECT-only TEST20261027101252/PROD20261027102522, RLS/economia/conclusão preservados. Hashes38PROD/40TEST e75funções/39policies intactos exceto grant aprovado. Relatório/evidência008A em docs/architecture. autoAssign true restaurado/proteção mantida. PR12 open/draft61b7177 intacta.
 
-Novo worktree008/branch codex/rpg-dev-008a-journey sobre main. Contrato tasks/active/RPG-DEV-008-story-recovery.md e relatório docs/architecture/RPG-DEV-008-REPORT.md. 008A consulta9mundos/5histórias/progresso, sem economia/conclusão. 851unit PASS/74SKIP, lint/types/build/protocolo25/PG16 PASS; RSC24/UI222/Guilda48 sintéticos PASS, falha inicial preservada. Migration SELECT-only preparada, nenhuma008 remota. CI/Preview real pendentes. Baselines38PROD/40TEST iguais007; manifesto52/0diferenças. Sessão PROD autorizada ativa50 confirmada somente leitura. B/C em auditoria; servidor de progressão não aprovado, alternativa demonstrativa sem persistência autorizada.
+Worktrees/branches008A/B/C separados, trabalhos anteriores preservados. 008A consulta9mundos/5histórias/progresso, sem atividade/economia/conclusão;851unit PASS/74SKIP, lint/types/build/protocolo25/PG16 e RSC24/UI222/Guilda48 sintéticos PASS. B prepara Missões em memória (829unit/74SKIP na base007); C prepara Serpente original (828unit/74SKIP e65direcionados); ainda sem publicaçãoB/C. Primeiros timeouts de assets em suíte paralela preservados, testes individuais e suíte4workers aprovados sem mudar limites. C browserdesktop vitória/derrota/retry PASS; mobilecoletor em rework. Próximo: concluir reconciliação base/gates locais e hosted B/C, sem autoridade persistente/economia. Não declarar toda008DONE. Memória antiga abaixo é histórica.
 
 ---
 

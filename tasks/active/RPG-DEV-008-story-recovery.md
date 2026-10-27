@@ -4,7 +4,7 @@ ID: RPG-DEV-008
 TITLE: Recuperar Jornada, Missões e minigames em entregas progressivas
 OBJECTIVE: Recuperar conteúdo existente com consulta de progresso persistido e atividades sem economia.
 PRIORITY: P1 High
-STATUS: VALIDATING
+STATUS: ACTIVE
 SCOPE: 008A mapa/mundos/fases/progresso somente leitura; 008B atividades existentes, sem persistência até autoridade aprovada; 008C Fuga da Serpente e minigames existentes aprovados, sem recompensas. Auditoria, implementação delimitada em apps/web, testes, documentação, GitHub/Preview/produção conforme RELEASE_POLICY.
 OUT_OF_SCOPE: Equipamentos/PR #12, Arena, Torre, Loja, aquisição, baús, XP/moedas/recompensas, novas histórias, alteração de jogadores para testes.
 DEPENDENCIES: main 0357b444e191e60ae3d95b58f0ea9b80ff72ad89, RPG-DEV-007 publicado. Branch documental 007 preservada separadamente.
@@ -34,3 +34,9 @@ Main remoto 0357b44 confirmado. PR #12 open/draft, head 61b7177, não integrada.
 ## SELF VALIDATE / QA / SECURITY — 008A
 
 851 unitários PASS / 74 SKIP; lint/types/build PASS; protocolo25 PASS; PG isolado16 PASS (inclui recuperação). Browser sintético24 RSC/222 UI/48 Guilda PASS; primeira falha WebKit de fetch preservada e reexecução identificada, sem alteração de assertions/Auth/CORS. QA/Security/React/editorial pelo autor. Parecer e limites no relatório008; sem revisão independente. Hashes38PROD/40TEST iguais a007; manifesto52/0 divergências. Sessão normal autorizada PROD/ativo50 confirmada, sem avatar antigo. Migration SELECT-only preparada/isolada, não aplicada remotamente. CI/Preview real e gates produtivos PENDING; 008B/C em auditoria, não liberados.
+
+## ACEITE 008A — DONE / DEPLOY_COMPLETE
+
+PR15/candidato4a6ed0f/merge bd9dcb7373fcee2f22fd62e952aa25f9558beb0a; CI push40485830229/PR40485867782/main40488432305 success. TEST migration20261027101252/PROD20261027102522 somente SELECT sob RLS existente; recuperação ensaiada antes. Preview141checks reais, API PROD12antes/13depois, UI PROD150antes/150após promoção PASS. Deployment dpl_95c8SJGkM4hUJggpTpX76ER338ga READY/production/alias oficial exato. autoAssignCustomDomains true restaurado, proteções mantidas. Hashes38PROD/40TEST iguais ao baseline;75funções/39policies e demais estruturas preservadas exceto grant aprovado. Evidência008A e relatório vinculados. Não se infere positivo hospedado de progresso canônico vazio nem aparelho físico de WebKit.
+
+Tarefa agregadora permanece ACTIVE para008B/C em worktrees/branches próprios; não há liberação de atividades/economia/PR12 por008A. Revisão documental deste fechamento pelo autor; sem deploy adicional de documentação.
