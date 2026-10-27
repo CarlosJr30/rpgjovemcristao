@@ -23,7 +23,7 @@ try{
   context.on('request',r=>{const u=new URL(r.url());if(u.origin==='http://127.0.0.1:3202'&&u.pathname.startsWith('/rest/v1/')&&!['GET','HEAD','OPTIONS'].includes(r.method())&&u.pathname!=='/rest/v1/profiles')run.writes.push({path:u.pathname,method:r.method()});});
   try{
    await page.goto('http://127.0.0.1:3199/auth');await page.getByLabel('E-mail').fill('local-only@fixture.invalid');await page.getByLabel('Senha',{exact:true}).fill('synthetic-local-only');await page.getByRole('button',{name:'Entrar',exact:true}).click();await expect(page.getByRole('heading',{name:'Bem-vindo, Local WebKit',exact:true})).toBeVisible();
-   run.checks=await playMinigame(page,{origin:'http://127.0.0.1:3199',label,output:out});assert.equal(run.errors.length,0);assert.equal(run.writes.length,0);run.passed=true;
+   run.checks=await playMinigame(page,{origin:'http://127.0.0.1:3199',label,output:out,verifySafety:process.argv.includes('--safety')});assert.equal(run.errors.length,0);assert.equal(run.writes.length,0);run.passed=true;
   }catch(e){run.failure=e.message;await page.screenshot({path:out+'/'+label+'-failure.png',fullPage:true}).catch(()=>{});}
   finally{await browser.close();writeFileSync(out+'/browser-results.json',JSON.stringify(results,null,2));}
  }

@@ -247,8 +247,10 @@ export function MissionPractice({ source }: { source: Traveler }) {
               permanecem bloqueados.
             </p>
             <p>
-              Fuga da Serpente aguarda a entrega de minigames, independente
-              deste exercício.
+              <Link href="/journey/minigames/fuga-da-serpente">
+                Praticar Fuga da Serpente · demonstração independente, sem
+                progressão →
+              </Link>
             </p>
           </section>
         )}

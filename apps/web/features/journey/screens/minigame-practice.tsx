@@ -43,9 +43,9 @@ export function MinigamePractice({ traveler }: { traveler: Traveler }) {
         </p>
         <p>
           Ficção de jogo contextualizada em Gênesis 2–3: labirinto, perseguição,
-          portal e maçãs não fazem parte do relato bíblico. As maçãs não
-          identificam o fruto de Gênesis. O Viajante não substitui Adão ou Eva
-          nem altera os acontecimentos.
+          portal e cristais são elementos ficcionais. Os Fragmentos de Sabedoria
+          e de Luz não representam o fruto de Gênesis. O Viajante não substitui
+          Adão ou Eva nem altera os acontecimentos.
         </p>
         {finished ? (
           <section aria-label="Resultado demonstrativo">

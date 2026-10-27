@@ -22,6 +22,12 @@ DEFINITION_OF_DONE: gates e aceite comprovados, relatório/memória atualizados;
 
 ## SELF VALIDATE parcial
 
+## Homologação e publicação autorizadas — retomada27/10/2026
+
+Usuário autoriza concluir CI/Preview TEST/fluxos reais/segurança/produção/conferência conforme RELEASE_POLICY, preservando engine/arte/dificuldade e PR12. Confirma posteriormente publicar a versão existente com fragmentos/cristais, pois esta engine não contém maçãs. Não fabricar esse teste nem inserir outra coleta. Manter858unit/74SKIP e31checks locais anteriores como evidências preservadas; acrescentar colisões/coletas e saída/reload na validação hospedada, sem instrumentar ou alterar runtime. PROD somente consultas e abertura/reload autorizados no ativo50; positivos interativos completos em TEST. Nenhuma migration necessária. Estado VALIDATING; nenhuma evidência remota pendente vira PASS.
+
+Complemento local43checks PASS (13desktop/15WebKit/15Chromiumtoque), mantendo31anteriores +12segurança:colisão/pontuação local/saída/reload.21unitários direcionados/lint/types/buildNext PASS. Apenas aviso de cristais e link de Missões atualizados; engine/arte/dificuldade intactas. CI4ca8081 pushsuccess/PRtentativa2success, primeira pré-condição RSC não atingida preservada. Novo candidato atualizado exige CI/Preview reais antes de merge. Baselines40TEST/38PROD/estruturas renovados iguais008B;0migrationC. QA/Security/React/conteúdo pelo autor.
+
 ## Preparação após008B — validada localmente, NÃO PUBLICADA
 
 27/10/2026. Merge de base b324baeee81c2209f3110fda1b8c5d5def86ad7c preserva as duas demonstrações, menu11/8links/3bloqueios e adiciona somente a rota exata de Serpente na candidata. Conflitos resolvidos explicitamente em read-only/release-scope/teste, sem broadening de economia ou autoridades. Engine/arte originais; somente prop opcional de rótulo final no componente legado. QA/Security/React/Biblical Content pelo autor.
