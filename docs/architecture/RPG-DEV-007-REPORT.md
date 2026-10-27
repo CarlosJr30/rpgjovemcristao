@@ -1,0 +1,120 @@
+# RPG-DEV-007 — Mochila, Coleção e Diário
+
+26/10/2026. **VALIDATING — autorização posterior permite Teste Chat A exclusivamente para leitura com avatar ativo nível 50; sessão confirmada.** A restrição histórica dessa conta foi substituída expressamente pelo usuário. Branch `codex/rpg-dev-007-preparation`, iniciada em `8c9c0c0` sobre main/produção `1a82d2c`. A PR #12 permanece aberta/draft em `61b7177`; nenhuma implementação ou migration de Equipamentos foi incluída nesta branch. As seções abaixo preservam checkpoints anteriores; o estado desta retomada está ao final, sem converter resultados pendentes em PASS.
+
+## Funcionalidades restauradas no candidato
+
+- Mochila: consulta fresca do inventário do avatar autenticado, nome/quantidade/raridade/descrição e indicação de equipamento selecionado. Reutiliza estilos, ícones e metadados existentes; não possui compra, venda, transferência, baús ou ação de equipar.
+- Coleção: apresentação existente de cartas, com descrição, atributos/condições e efeitos, limitada às cartas adquiridas que a fonte canônica confirma por recibo, dono, versão e ausência de revogação. Não usa o catálogo local proposto para fabricar posse nem habilita baralho, aquisição ou combate. Catálogo PROD vazio é um resultado vazio legítimo.
+- Diário: reutiliza o livro, histórico, referências e projeção existentes, em modo de consulta. Somente progresso persistido do servidor é exibido; ausência ou conteúdo inválido não é substituído pelo histórico local. Reflexão privada permanece recolhida e renderizada como texto. Sem participação, conclusão de fase, recompensa ou links operacionais de Jornada.
+- Menu original de onze opções preservado. Somente Mochila, Coleção e Diário acrescentados a Herói/Guilda/EBD. Equipamentos, Jornada/Missões, Arena, Torre, Loja e a API de autoridade econômica continuam bloqueados.
+
+As leituras descartam respostas de sessão anterior e não salvam o snapshot, não trocam o avatar ativo e não atualizam inventário, atributos, XP, moedas ou progresso. Leitura negada/erro não vira coleção vazia de sucesso.
+
+## Banco, Auth, RLS e recuperação
+
+Migration mínima necessária: `20261026192057_rpg_dev_007_owned_cards_read.sql`. A coleção canônica já existe em schema privado, mas o único caminho anterior era a autoridade de combate, cujo EXECUTE está bloqueado. A migration cria somente `public.get_owned_cards(uuid)` INVOKER e a implementação privada STABLE/DEFINER, com search_path vazio, auth.uid, conta não anônima e dono verificados. Concede apenas EXECUTE desta leitura a authenticated; nega PUBLIC/anon/service_role. Não concede EXECUTE da autoridade ou da função privada canônica, nem SELECT geral de catálogo. Não altera Auth/RLS, release_scope, catálogo, tabelas, saldos, inventários ou progressão.
+
+Antes da aplicação remota: ambos endpoints ausentes; scope PROD guild-ebd-001, TEST hero-equipment-006; protocolo 3. A definição de economy_private.collection tem o mesmo hash `77791950c34168c84805aa740d42510d` nos dois ambientes. Baselines de 38 conjuntos PROD e 40 TEST capturados antes de qualquer mudança remota desta tarefa. Não aplicar outras migrations pendentes nem a 006.
+
+Recuperação: renovar snapshot de definições/ACLs/ausência dos dois endpoints e baseline imediatamente antes de eventual migration produtiva. Aplicar somente 007 em transação. Em falha, interromper e manter/restaurar aplicação `1a82d2c`; conferir identidade/hash e remover apenas o wrapper público e a implementação privada novos, sem restaurar dados de jogadores nem apagar histórico de migrations. Compensação remota deve ser rastreável. Migration inclui ensaio de remoção/rollback em subtransação e comparação de definições/ACLs; recuperação também exercitada no PostgreSQL isolado, com dados inalterados. Revalidar negações econômicas e Guilda/EBD antes de seguir.
+
+## Testes e evidências até este checkpoint
+
+| Verificação | Resultado |
+| --- | --- |
+| Unitários integrais | **825 PASS / 74 SKIP**, 123 arquivos aprovados e 7 opt-in não executados nesta suíte. Não converter SKIP em PASS. |
+| PostgreSQL isolado | **18 checks PASS**: migration/recuperação, definições e ACLs, conta/anon/serviço/dono alheio, vazio, carta já adquirida com recibo, revogação, recibo inválido, constraints de proveniência/quantidade, ausência de escrita e repetição indevida de migration. |
+| Lint / TypeScript / build | PASS antes do checkpoint GitHub; o ensaio isolado adicional terá lint conferido junto do diff final. |
+| Protocolo CI | 25 checks PASS. |
+| Navegador hospedado TEST | **46 checks reais PASS**, Chromium desktop e WebKit 390px; três consultas vazias e recarga, Auth real, RLS/negações, onze opções e bloqueios econômicos. Evidência final vinculada abaixo. |
+| Positivo hospedado com contas antigas | **Pendente por falta de acesso confirmado**, conforme orientação posterior do usuário. Não é declarado PASS. |
+| Produção / publicação | **BLOCKED**: sem acesso confirmado à conta exclusiva de QA PROD. Nenhuma publicação ou migration produtiva; conferência pública do baseline sem sessão de jogador. |
+
+Os 18 casos usam PostgreSQL 17.10 temporário em loopback, sem serviço do Windows, credenciais remotas ou dados reais. Binário fixado `@embedded-postgres/windows-x64@17.10.0-beta.17` somente em build ignorado; nenhuma dependência ou lockfile de produto alterado. Script reproduzível: `tests/hosted/rpg-dev-007-postgres.mjs`, reutilizando migrations com hashes revisados e as cartas sintéticas já existentes em `tests/fixtures/arena-deck.ts`. O cluster foi encerrado após a execução; arquivos privados preservados em build/rpg-dev-007. Não é uma instância Supabase nem prova de Auth cliente hospedada.
+
+Falhas preservadas: primeira validação de progresso rejeitou timestamp sem milissegundos; corrigida normalização para o formato canônico já usado pelo projeto. Teste de menu atualizado para as três consultas novas. O coletor PostgreSQL precisou de inicialização Windows por pg_ctl e fixtures com campos obrigatórios; casos impossíveis de recibo/quantidade foram ajustados para esperar a rejeição da constraint, sem removê-la. Uma execução foi interrompida por timeout durante indisponibilidade do notebook. Não houve correção de Auth/RLS ou alteração de dados hospedados para passar.
+
+## Orientação posterior e fronteiras
+
+O usuário confirmou que não tem acesso às contas TEST Homologacao Lider/Professor neste notebook. Determinou preservar essas contas, usar Herói TEST Equipamentos para coleção vazia e fixtures autorizadas somente no PostgreSQL isolado para positivos. Não conceder cartas à conta nova, não alterar inventário PROD e manter como pendentes testes hospedados que dependam das contas antigas. Essa orientação substitui a matriz inicial que previa login dessas contas na Preview; não autoriza declarar seus testes executados. “RPG-RELEASE-007” refere-se à continuação desta mesma RPG-DEV-007.
+
+QA/Security/Frontend/Database/DevOps pelo autor; não se alega revisão independente nem aparelho físico a partir de WebKit emulado. Sem novas artes, permissões econômicas, recursos pagos ou alteração de jogadores para fabricar testes. Somente módulos com gates obrigatórios comprovados poderão ser publicados.
+
+## Commits, Preview e produção
+
+- Base: `1a82d2c058b40b37ae4ae79b82c085bb3488c02b`; preparação: `8c9c0c0afd8b4361cee85dcfae3dcb3a6309f55c`.
+- Implementação `620c608875924d9d9ef6fa137e4991ba8b5832cc`; rework de teste `b7d17183d295ca827100c33e2773763acb561566`; candidato `71403e67dde672f9d8f789d11d1b1087fb95c460`, [PR #13](https://github.com/CarlosJr30/rpgjovemcristao/pull/13). CI [push 40412057158](https://github.com/CarlosJr30/rpgjovemcristao/actions/runs/40412057158) e [PR 40412064805](https://github.com/CarlosJr30/rpgjovemcristao/actions/runs/40412064805) concluídos com **success**, SHA exato.
+- Preview da nova branch recebeu somente suas duas configurações públicas Supabase TEST, copiadas em memória da configuração TEST verificada. Nenhuma variável PROD, alias ou proteção alterados. Backend TEST conferido antes de deploy.
+- [Preview TEST](https://rpgjovemcristao-1mq64afqc-carlos-junior-s-projects.vercel.app): deployment `dpl_BMpYw2PLjWo9VYPRiVcGdQSBf5dz`, **READY**, SHA `71403e6`, target Preview, backend TEST confirmado. Proteção Vercel preservada; acesso automatizado com OIDC temporário restrito à origem, em memória.
+- Produção segue https://rpgjovemcristao-web-inky.vercel.app, baseline `1a82d2c`, deployment `dpl_CJFBMXjTKfm7nRt76FL8BLJLM87M` **READY/production**, alias reconfirmado; nenhuma migration, merge ou deploy desta tarefa.
+
+Próximos passos produtivos dependem da resolução do bloqueio de QA descrito abaixo. Renovar preflight/recuperação/baselines antes de eventual migration PROD; somente depois seguir o fluxo normal da PR #13 e acompanhar o deploy automático e sua conferência. PR #12 não será integrada ou encerrada como dependência desta tarefa.
+
+### Rework do gate de navegação e matriz isolada
+
+[PR #13](https://github.com/CarlosJr30/rpgjovemcristao/pull/13) aberta em draft, sem alteração da #12. Runtime `620c608875924d9d9ef6fa137e4991ba8b5832cc`: CI push 40401370646 aprovou qualidade, mas o job móvel ainda exigia oito módulos bloqueados. Commit de teste `b7d1718` passou a exigir cinco bloqueios e seis links exatos; a execução local identificou que a consulta por role excluía os links do menu recolhido no celular. O seletor agora inspeciona todos os anchors da navegação, mantendo separadas as verificações de visibilidade, foco e abertura do menu. Não há relaxamento de erros ou de guardas de rotas.
+
+Matriz isolada posterior: **24/24 casos RSC** funcionais e sem erros; **142 checks de interface** em desktop, WebKit 390px, WebKit 320px e paisagem, todos aprovados; **48 checks Guilda** em membro/líder e desktop/celular, aprovados. Esses testes usam simulador local e são explicitamente **syntheticData / productionProof=false**, não evidência hospedada. Uma primeira execução RSC local registrou erro de fetch no WebKit; a falha foi preservada, e a reexecução passou sem alteração de Auth/CORS ou filtragem de erros. Logs em build/rpg-dev-007. O CI final de `71403e6` foi confirmado antes das etapas remotas.
+
+## Fechamento dos gates por módulo
+
+| Gate | Mochila | Coleção | Diário |
+| --- | --- | --- | --- |
+| Implementação somente leitura, unitários e CI candidato | PASS | PASS | PASS |
+| Preview real: conta própria vazia, desktop e WebKit, recarga | PASS | PASS | PASS |
+| Auth real, isolamento entre jogadores e dados preservados | PASS em TEST | PASS em TEST; RPC alheia/anônima negadas | PASS em TEST |
+| Conteúdo não vazio | UI local sintética PASS; hospedado não executado | PostgreSQL isolado PASS; cartas antigas hospedadas PENDING sem sessão autorizada | UI/progresso local sintético PASS; persistido hospedado não executado |
+| Conferência autenticada PROD com QA exclusiva | BLOCKED | BLOCKED | BLOCKED |
+| Publicação PROD | NÃO EXECUTADA | NÃO EXECUTADA | NÃO EXECUTADA |
+
+Os gates foram avaliados separadamente; os três compartilham a ausência de sessão QA PROD autorizada. Não há módulo que permita declarar a conferência autenticada produtiva aprovada. O usuário confirmou não possuir acesso à conta exclusiva de QA PROD neste notebook e determinou registrar BLOCKED, preservar Teste Chat A e não criar contas/heróis/itens/cartas apenas para homologação. A janela PROD estava autenticada como Teste Chat A: a identificação mínima detectou isso, o coletor recusou seu uso, e o navegador temporário foi fechado sem executar testes do módulo, mutações, logout remoto ou exportar a sessão. Não usar jogadores reais como alternativa.
+
+## Evidência remota, segurança e preservação
+
+- Aplicada **somente em TEST** a migration `rpg_dev_007_owned_cards_read`, versão remota `20261026222933` (arquivo local `20261026192057`). O ensaio de recuperação em subtransação passou. Os dois endpoints são STABLE, search_path vazio e EXECUTE só para authenticated; anon/service_role negados. Autoridades econômicas e função canônica continuam sem EXECUTE para authenticated/anon/service_role; zero tabelas public/economy_private sem RLS. Scope TEST `hero-equipment-006` preservado. A aplicação 007 não libera as escritas 006.
+- Hashes completos de **40 tabelas TEST e 38 PROD idênticos** ao baseline anterior à tarefa, incluindo perfis, inventários, atributos, carteiras, viajantes, Guilda/EBD, recibos e catálogo. Nenhuma carta/item concedido; contas antigas intactas. Prova agregada em [RPG-DEV-007-REMOTE-EVIDENCE.json](RPG-DEV-007-REMOTE-EVIDENCE.json).
+- [RPG-DEV-007-HOSTED-TEST-EVIDENCE.json](RPG-DEV-007-HOSTED-TEST-EVIDENCE.json): 46 checks reais, duas engines, seis combinações módulo/engine com carregamento e recarga, zero page errors finais, nenhuma requisição econômica ou de progressão. A mesma sessão TEST normal foi reutilizada em memória; não são dois logins independentes. Capturas privadas em `build/rpg-dev-007/test/`, inspecionadas em desktop e celular; não equivalem a aparelho físico.
+- O Auth existente executa `POST /profiles` com `on_conflict=id` e `Prefer: resolution=ignore-duplicates`. Foram verificadas 14 tentativas estritamente para o perfil próprio já existente, com somente id/display_name; o hash de perfis permaneceu idêntico. Não declarar ausência absoluta de POST ou de tentativa de escrita. O primeiro monitor estrito reprovou essas tentativas; a classificação foi corrigida após revisão do código, formato das requisições e preservação do banco, sem mudar Auth ou aplicação.
+- Uma execução WebKit registrou erros de acesso a Auth/travelers durante recarga prematura do próprio coletor. Corrigido o ensaio para inicializar a sessão em memória antes da navegação e aguardar o estado visível “Sua conta está conectada” antes de prosseguir; execução final sem erros. Falhas/progresso anteriores preservados em build; nenhum filtro de erro, bypass de Auth, relaxamento CORS ou correção runtime para mascarar a falha. Capturas e testes vazios não provam conteúdo adquirido/persistido hospedado.
+- Advisors TEST mantêm os mesmos avisos preexistentes: RLS deny-all sem policies (16 INFO), 12 funções públicas legadas SECURITY DEFINER (WARN), proteção de senhas vazadas desabilitada (WARN). Sem novo aviso por esta migration; não se alega segurança geral sem pendências. Referências: [linter RLS](https://supabase.com/docs/guides/database/database-linter?lint=0008_rls_enabled_no_policy), [funções SECURITY DEFINER](https://supabase.com/docs/guides/database/database-linter?lint=0029_authenticated_security_definer_function_executable), [proteção de senhas](https://supabase.com/docs/guides/auth/password-security#password-strength-and-leaked-password-protection).
+- Conferência pública de PROD, sem sessão: `/`, `/auth`, Herói HTTP 200; Mochila/Coleção/Diário/Equipamentos/Arena/Loja HTTP 403, conforme baseline. READY, alias e SHA produtivos preservados. Isso não substitui Auth/fluxos produtivos.
+- Worktree original: 52 caminhos do manifesto conferidos, zero divergências; três worktrees preservados. PR #12 aberta/draft/não integrada, SHA `61b7177` idêntico. Nenhum recurso pago, nova arte, mudança de permissões econômicas ou inventário produtivo.
+
+## Menor escopo seguro e condição de desbloqueio
+
+Manter a entrega em Preview TEST para consultas, com positivos isolados identificados como tais e pendências hospedadas explícitas. Não aplicar DDL PROD nem integrar PR #13 enquanto faltar um caminho confirmado de conferência autenticada autorizada. É possível validar sem jogadores reais usando a conta dedicada TEST e PostgreSQL isolado, além de inspeção pública/estrutural PROD; essas alternativas já foram executadas e não são prova do fluxo autenticado em PROD. Para essa prova, seria necessário acesso normal a uma conta QA PROD já existente, com herói preexistente, sem criar ou conceder dados para testes. Não solicitar senhas/tokens nem usar confirmação administrativa. Nenhum módulo é declarado DONE/DEPLOY_COMPLETE. QA e Security feitos pelo autor, sem independência alegada.
+
+## Retomada — identificação por metadados e recuperação normal
+
+Em 26/10/2026, consulta estritamente de metadados dos três UIDs de fixture já documentados em RELEASE-EBD-001 confirmou contas de líder/professor/aluno existentes, e-mail confirmado, não anônimas, não excluídas/não banidas, com método de senha existente e um herói ativo cada. Nenhum endereço, nome pessoal, senha, hash de senha, token ou link foi retornado. A conta de aluno tem um único herói preexistente e é a primeira opção para o escopo de consulta, pois não exige o papel de líder/professor. Identificação não equivale a sessão autenticada ou a posse atual da caixa de e-mail.
+
+O histórico de RELEASE-EBD-001 registra armazenamento protegido em `prod-accounts.dpapi`. A busca somente por nome de arquivo em `C:/Users/carlo/.codex` e `D:/Projetos IA` não encontrou esse arquivo; o caminho antigo de worktree citado no histórico também não existe neste notebook. Nenhum cofre foi descriptografado. Isso não prova ausência em outros locais ou no computador de origem.
+
+Procedimento necessário: o titular deve identificar o endereço da fixture QA de aluno no registro protegido/gerenciador usado em RELEASE-EBD-001, sem compartilhá-lo no chat; abrir uma janela privada sem sessão de jogadores e acessar a origem oficial `/auth/recover`; solicitar a recuperação no formulário, abrir apenas o e-mail novo na caixa correspondente e seguir o callback oficial para definir a senha pelo próprio formulário; depois entrar normalmente em `/auth` e conservar o herói existente. Se o acesso normal já estiver disponível no registro protegido, o login direto dispensa recuperação. Sem acesso confirmado ao registro/identificador e à caixa, o bloqueio persiste. Não gerar links administrativos, redefinir senha por administração ou criar dados.
+
+Conferência pública atual: `/auth/recover` respondeu HTTP 200; navegador Chromium sem sessão confirmou título de recuperação, campo de e-mail e botão de envio visíveis. Nenhum formulário foi enviado, e-mail disparado, senha alterada ou sessão de jogador utilizada. A existência do formulário não comprova entrega de e-mail, validade de callback ou recuperação concluída agora. As evidências dos três módulos permanecem intocadas.
+
+## Ordem dos gates antes e depois do deploy
+
+Esta classificação esclarece a linha “Conferência autenticada PROD” da matriz: as páginas novas só podem ser conferidas na versão produtiva depois da implantação; antes dela é obrigatório ter um caminho confirmado de acesso à QA e de execução dessa conferência, além dos gates técnicos anteriores. Não exigir que as rotas novas já funcionem no baseline que corretamente as bloqueia.
+
+| Momento | Verificações obrigatórias e condição |
+| --- | --- |
+| Antes de qualquer alteração PROD | Candidato e CI aprovados, Preview TEST real e QA/Security do escopo; limitações de conteúdo não vazio explícitas; conta dedicada identificada **e login normal confirmado**, herói já existente, sem Teste Chat A/jogadores; ambiente/variáveis/SHA/branch corretos; estado de migrations, compatibilidade, baseline e recuperação renovados. A identificação está feita, mas o login QA continua BLOCKED. |
+| Após DDL mínima PROD e antes do deploy da aplicação | Somente quando os gates anteriores passarem: aplicar exclusivamente a migration 007 aprovada; verificar recuperação, Auth/RLS/ACLs, negações econômicas, RPC própria/alheia/anônima com sessão QA confirmada e hashes sem mudanças. Não reaplicar migrations antigas ou a 006. Falha interrompe a sequência e aciona recuperação compatível. |
+| Depois do deploy, antes de DONE/DEPLOY_COMPLETE | READY, SHA de merge, alias e backend PROD; login/retomada da QA, Mochila/Coleção/Diário próprios com recarga em desktop/celular, estados vazios legítimos, isolamento e bloqueios; regressão de Herói/Guilda/EBD sem operações de negócio; hashes preservados. Conteúdo não vazio indisponível continua pendente, sem concessões para fabricar prova. Falha crítica exige parar e reverter conforme plano. |
+
+Nenhuma verificação pendente foi promovida a PASS. A falta de acesso confirmado à QA impede iniciar a sequência produtiva; isso não depende de alterar PR #12, de criar contas ou de tornar fixtures locais em provas hospedadas. Nesta retomada houve somente inspeção de metadados, navegação pública e documentação, sem migration/deploy/recuperação ou alteração de dados PROD. CI do registro anterior `2c409aa` também aprovado (push 40414050634 e PR 40414058093); este adendo é documental, sem novo artefato runtime nem necessidade de deploy artificial.
+
+## Nova autorização — homologação com avatar ativo nível 50
+
+O usuário confirmou que ainda não existem jogadores reais e autorizou expressamente Teste Chat A para homologação somente leitura de Mochila/Coleção/Diário em PROD, substituindo a proibição anterior. Sessão normal validada contra Auth: UID `78729453-8e04-478c-96ae-d37cead1bc8c`; único avatar ativo retornado `31b70059-deca-44c8-a6df-f21ea68b6e42`, nível 50. O coletor exige ambos IDs e nível e não seleciona nem lê o avatar antigo nível 1. Nenhuma credencial foi exportada ou registrada.
+
+Preflight autenticado antes de DDL: **12 checks PASS**, inventário próprio 6 linhas/14 unidades, 6 equipamentos selecionados, atributos/carteira próprios acessíveis e progresso persistido presente. RLS negou leitura de inventário/equipamentos/atributos/carteira/viajante de outro UID dedicado, sem retornar conteúdo alheio. Leitura nova de cartas ainda ausente como esperado. Nenhum item/carta/crédito/progresso foi criado ou alterado.
+
+Segurança/compatibilidade/recuperação revisadas antes de DDL/merge: protocolo 3 e scope guild-ebd-001; somente 6 migrations prévias em PROD; ambos endpoints novos ausentes; schema USAGE existente; hash da coleção canônica idêntico TEST/PROD. Migration aditiva compatível com a aplicação anterior, sem depender da 006 e sem alterar tabelas, RLS ou permissões econômicas. Evidências 18 PG isolados/recuperação e migration TEST aprovadas preservadas. Snapshot estrutural atual de 72 funções/ACLs, 35 tabelas/RLS, 39 policies/defaults e baseline das 38 tabelas armazenados privadamente em build/rpg-dev-007/prod; todas as 38 iguais ao baseline anterior. Recovery compensatória preparada, com hash dos dois novos endpoints e ordem wrapper/privada, sem reset de dados/histórico. Não executá-la como teste em produção.
+
+CI do head documental `3f659e4` aprovado (push 40430950114, PR 40430956257). Runtime/SQL/lockfile idênticos ao candidato Preview `71403e6` READY/TEST e seus 46 checks; os positivos isolados não são tratados como hospedados. Projeto/branch/raiz/backend PROD confirmados. Advisors mantêm apenas os avisos preexistentes (14 deny-all INFO, 12 definer WARN, proteção de senhas WARN). Conector Vercel retornou 403 para a equipe; fallback CLI autenticado na mesma equipe/projeto, sem mudar proteções.
+
+Plano desta retomada: aplicar somente a leitura 007 depois desses gates, verificar RPC/ACL/RLS/preservação por sessão autorizada; merge normal só após CI/segurança aprovados. Segurar associação automática do domínio no valor anterior durante o deploy Git existente; validar progressivamente Mochila, Coleção e Diário na URL produtiva do novo deployment com backend PROD, sem trocar o domínio oficial. Após os três gates e CI do merge aprovados, promover o mesmo deployment, restaurar a configuração anterior, confirmar alias/READY/SHA e repetir a consulta oficial. Falha crítica mantém/restaura a versão anterior e interrompe a sequência. Não há criação/concessão, mudança econômica ou merge da PR #12 autorizados.

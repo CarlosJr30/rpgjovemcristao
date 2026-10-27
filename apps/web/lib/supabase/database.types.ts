@@ -74,6 +74,9 @@ export type WalletRow = {
 };
 
 export type InventoryRow = {
+  card_receipt_id?: string | null;
+  card_version?: string | null;
+  card_revoked_at?: string | null;
   id: string;
   traveler_id: string;
   item_id: string;
@@ -246,6 +249,7 @@ export type Database = {
         };
         Returns: string;
       };
+      get_owned_cards: { Args: { p_traveler_id: string }; Returns: Json };
       set_active_traveler: {
         Args: { p_traveler_id: string };
         Returns: undefined;

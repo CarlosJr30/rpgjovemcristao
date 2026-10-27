@@ -1,2 +1,4 @@
-import { DiaryScreen } from '../../../features/journey/screens/diary';
-export default function Page() { return <DiaryScreen />; }
+import { ArchiveDiary } from '../../../features/release-ebd/archive-screens';
+export default function Page() {
+  return <ArchiveDiary />;
+}

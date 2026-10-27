@@ -84,11 +84,16 @@ try {
         (await nav.evaluate((element) => element.children.length)) === 11,
       );
       check(
-        'eight development modules have no protected actions',
-        (await nav.locator('[aria-disabled="true"]').count()) === 8 &&
+        'five unreleased modules have no protected actions',
+        (await nav.locator('[aria-disabled="true"]').count()) === 5 &&
           (await nav
             .locator('[aria-disabled="true"] a,[aria-disabled="true"] button')
             .count()) === 0,
+      );
+      check(
+        'only the six approved consultation and guild modules are linked',
+        JSON.stringify(await nav.locator('a[href]').evaluateAll(links => links.map(link => link.getAttribute('href')))) ===
+          JSON.stringify(['/journey/hero','/journey/backpack','/journey/collection','/journey/diary','/journey/guild','/journey/guild/ebd']),
       );
       const trigger = page.getByRole('button', {
         name: 'Abrir menu',
@@ -197,15 +202,16 @@ try {
         '/journey/tower',
         '/journey/equipment',
         '/journey/shop',
-        '/journey/backpack',
-        '/journey/diary',
-        '/journey/collection',
         '/journey/phases/o-jardim-e-a-escolha',
         '/journey/stories/blocked',
         '/journey/worlds/blocked',
       ]) {
         const response = await context.request.get(origin + path);
         check('protected ' + path, response.status() === 403);
+      }
+      for (const path of ['/journey/backpack','/journey/collection','/journey/diary']) {
+        const response = await context.request.get(origin + path);
+        check('consultation route ' + path, response.status() === 200);
       }
       const authority = await context.request.post(origin + '/api/authority', {
         data: { operation: 'starter' },

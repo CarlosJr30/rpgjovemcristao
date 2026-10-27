@@ -237,6 +237,59 @@ const toLocalTraveler = (
   };
 };
 
+export type ArchiveSnapshot = {
+  traveler: Traveler;
+  inventory: InventoryRow[];
+  persistedProgress: boolean;
+};
+
+// A fresh read for the archive: never saves, marks active, or uses browser history.
+export async function readOnlineArchive(
+  travelerId: string,
+): Promise<ArchiveSnapshot> {
+  const userId = currentOnlineUserId;
+  const session = onlineSessionRevision;
+  if (!userId || !canUseTravelerInCurrentSession(travelerId))
+    throw new Error('Viajante indisponível nesta conta.');
+  const row = await travelerRepository.getTravelerById(travelerId, userId);
+  if (!row) throw new Error('Viajante indisponível nesta conta.');
+  const [stats, wallet, inventory, equipped] = await Promise.all([
+    statsRepository.getTravelerStats(row.id),
+    walletRepository.getWallet(row.id),
+    inventoryRepository.getInventory(row.id),
+    equipmentRepository.getEquippedItems(row.id),
+  ]);
+  if (
+    !stats ||
+    !wallet ||
+    currentOnlineUserId !== userId ||
+    onlineSessionRevision !== session ||
+    !canUseTravelerInCurrentSession(travelerId)
+  )
+    throw new Error('A sessão mudou. Entre novamente.');
+  const traveler = toLocalTraveler(
+    row,
+    stats,
+    wallet,
+    inventory,
+    equipped,
+    null,
+  );
+  const base = createTraveler(
+    row.name,
+    traveler.appearance,
+    row.id,
+    traveler.createdAt,
+  );
+  const progress = row.journey_progress;
+  const persistedProgress =
+    !!progress &&
+    typeof progress === 'object' &&
+    !Array.isArray(progress) &&
+    !!parseTraveler({ ...base, progress: { ...base.progress, ...progress } });
+  return { traveler, inventory, persistedProgress };
+}
+
 const loadRemoteTraveler = async (
   userId: string,
   row: TravelerRow,
