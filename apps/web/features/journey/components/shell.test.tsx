@@ -105,6 +105,7 @@ describe('original shell within the released interface', () => {
     ).getAllByRole('link');
     expect(links.map((link) => link.getAttribute('href'))).toEqual([
       '/journey/hero',
+      '/journey/worlds',
       '/journey/backpack',
       '/journey/collection',
       '/journey/diary',
@@ -113,6 +114,7 @@ describe('original shell within the released interface', () => {
     ]);
     expect(links.map((link) => link.textContent)).toEqual([
       'Herói',
+      'Jornada',
       'Mochila',
       'Coleção',
       'Diário',
@@ -121,9 +123,8 @@ describe('original shell within the released interface', () => {
     ]);
     const nav = screen.getByRole('navigation', { name: 'Navegação principal' });
     const blocked = nav.querySelectorAll('[aria-disabled="true"]');
-    expect(blocked).toHaveLength(5);
+    expect(blocked).toHaveLength(4);
     expect(Array.from(blocked).map((item) => item.textContent)).toEqual([
-      'JornadaEm desenvolvimento',
       'MissõesEm desenvolvimento',
       'EquipamentosEm desenvolvimento',
       'LojaEm desenvolvimento',
