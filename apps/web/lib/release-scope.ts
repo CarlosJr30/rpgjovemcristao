@@ -1,5 +1,5 @@
 /** Fixed release boundary. A full launch requires an explicitly reviewed change. */
-export const RELEASE_PROFILE = 'archive-read-007' as const;
+export const RELEASE_PROFILE = 'journey-read-008a' as const;
 export const GAMEPLAY_ENABLED = false;
 const paths = new Set([
   '/',
@@ -11,6 +11,21 @@ const paths = new Set([
   '/journey/backpack',
   '/journey/collection',
   '/journey/diary',
+  '/journey/worlds',
+  '/journey/worlds/origins',
+  '/journey/worlds/patriarchs',
+  '/journey/worlds/liberation',
+  '/journey/worlds/promised-land',
+  '/journey/worlds/kings',
+  '/journey/worlds/return',
+  '/journey/worlds/jesus',
+  '/journey/worlds/church',
+  '/journey/worlds/new-creation',
+  '/journey/stories/creation',
+  '/journey/stories/garden-choice',
+  '/journey/stories/cain-abel',
+  '/journey/stories/noah-ark',
+  '/journey/stories/babel',
   '/journey/guild',
   '/journey/guild/manage',
   '/journey/guild/ebd',

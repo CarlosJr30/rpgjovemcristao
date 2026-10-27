@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 test('partial release denies excluded pages and authority API without a session', async ({page,request}) => {
-  for (const path of ['/journey/arena','/journey/tower','/journey/cards','/journey/shop','/journey/equipment','/journey/collection','/journey/stories/garden']) {
+  for (const path of ['/journey/arena','/journey/tower','/journey/cards','/journey/shop','/journey/equipment','/journey/phases/o-jardim-e-a-escolha','/journey/stories/garden']) {
     const response = await page.goto(path);
     expect(response?.status()).toBe(403);
     await expect(page.getByRole('heading',{name:'Este recurso ainda não está disponível'})).toBeVisible();

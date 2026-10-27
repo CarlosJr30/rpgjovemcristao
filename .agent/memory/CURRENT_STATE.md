@@ -1,3 +1,11 @@
+## 2026-10-27 — RPG-DEV-008A em validação; 007 publicado
+
+Main/PROD confirmado0357b444e191e60ae3d95b58f0ea9b80ff72ad89, READY/dpl_9fGNqsrMoZe3D6qSFQWQdy4Byu8N. 007 DONE; fechamento preservado na branch documental codex/rpg-dev-007-release-report/4fd6810. Os checkpoints007 abaixo são históricos. PR12 open/draft61b7177 intacta.
+
+Novo worktree008/branch codex/rpg-dev-008a-journey sobre main. Contrato tasks/active/RPG-DEV-008-story-recovery.md e relatório docs/architecture/RPG-DEV-008-REPORT.md. 008A consulta9mundos/5histórias/progresso, sem economia/conclusão. 851unit PASS/74SKIP, lint/types/build/protocolo25/PG16 PASS; RSC24/UI222/Guilda48 sintéticos PASS, falha inicial preservada. Migration SELECT-only preparada, nenhuma008 remota. CI/Preview real pendentes. Baselines38PROD/40TEST iguais007; manifesto52/0diferenças. Sessão PROD autorizada ativa50 confirmada somente leitura. B/C em auditoria; servidor de progressão não aprovado, alternativa demonstrativa sem persistência autorizada.
+
+---
+
 ## 2026-10-27 — RPG-DEV-007: autorização nível50 / domínio em hold / REWORK visual
 
 Usuário substituiu a proibição anterior e autoriza Teste Chat A somente leitura no avatar ativo50, UID78729453-8e04-478c-96ae-d37cead1bc8c/avatar31b70059-deca-44c8-a6df-f21ea68b6e42 confirmados pela sessão. Não selecionar avatar antigo1, conceder ou alterar XP/moedas/inventário/equipamentos/cartas/progresso. 12 checks API preDDL/14 pósDDL PASS; 38 tabelas PROD e hashes próprios idênticos. Segurança/compatibilidade/recuperação revisadas, migration mínima PROD20261027013958rpg_dev_007_owned_cards_read aplicada; RLS/ACL/scope/economia preservados. PR13 integrada normalmente em392e8f761817e217b5f23669decbefb58b8203e8 apósCIae16f71success; CImain40434005462success. PR12 intacta.
