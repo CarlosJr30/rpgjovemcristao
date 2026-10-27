@@ -1,0 +1,1719 @@
+{
+  "date": "2026-10-27",
+  "status": "DEPLOY_COMPLETE_READ_ONLY",
+  "productionSha": "0357b444e191e60ae3d95b58f0ea9b80ff72ad89",
+  "productionUrl": "https://rpgjovemcristao-web-inky.vercel.app",
+  "deploymentId": "dpl_9fGNqsrMoZe3D6qSFQWQdy4Byu8N",
+  "candidate": "7b610688582bea3ed95212f1d03828dde768b75d",
+  "candidateCi": [
+    {
+      "run": 40477412446,
+      "conclusion": "success"
+    },
+    {
+      "run": 40477446782,
+      "conclusion": "success"
+    }
+  ],
+  "mergeCi": {
+    "run": 40479636858,
+    "attempt": 2,
+    "conclusion": "success",
+    "firstAttempt": "FAILED_NATIVE_DIAGNOSTIC_PREFETCH_PRECONDITION_TIMEOUT",
+    "assertionsChanged": false
+  },
+  "productionMigration": [
+    {
+      "migration": [
+        {
+          "name": "rpg_dev_007_owned_cards_read",
+          "version": "20261027013958"
+        }
+      ],
+      "endpoints": [
+        {
+          "acl": "{postgres=X/postgres,authenticated=X/postgres}",
+          "anon": false,
+          "auth": true,
+          "name": "get_owned_cards",
+          "config": [
+            "search_path=\"\""
+          ],
+          "schema": "public",
+          "stable": true,
+          "definer": false,
+          "service": false,
+          "definition_hash": "d71c7ab168db150dd8e8dfa345651c96"
+        },
+        {
+          "acl": "{postgres=X/postgres,authenticated=X/postgres}",
+          "anon": false,
+          "auth": true,
+          "name": "get_owned_cards",
+          "config": [
+            "search_path=\"\""
+          ],
+          "schema": "economy_private",
+          "stable": true,
+          "definer": true,
+          "service": false,
+          "definition_hash": "79bf1771385ab3e021a3be45355b21da"
+        }
+      ],
+      "scope": "guild-ebd-001"
+    }
+  ],
+  "existingFunctionsAndAclsUnchanged": true,
+  "policiesAndTableAclsAndRlsAndDefaultsUnchanged": true,
+  "preservation": [
+    {
+      "environment": "PROD",
+      "tables": [
+        {
+          "dataset": "economy_private.battles",
+          "beforeRows": 0,
+          "afterRows": 0,
+          "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+          "afterHash": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        {
+          "dataset": "economy_private.card_catalog",
+          "beforeRows": 0,
+          "afterRows": 0,
+          "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+          "afterHash": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        {
+          "dataset": "economy_private.journey_operations",
+          "beforeRows": 0,
+          "afterRows": 0,
+          "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+          "afterHash": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        {
+          "dataset": "economy_private.journey_rewards",
+          "beforeRows": 0,
+          "afterRows": 0,
+          "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+          "afterHash": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        {
+          "dataset": "economy_private.journeys",
+          "beforeRows": 0,
+          "afterRows": 0,
+          "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+          "afterHash": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        {
+          "dataset": "guild_chat_private.rate_limits",
+          "beforeRows": 1,
+          "afterRows": 1,
+          "beforeHash": "be6044fe9f90a09c79c927fac802ec9e",
+          "afterHash": "be6044fe9f90a09c79c927fac802ec9e"
+        },
+        {
+          "dataset": "guild_invite_private.link_invites",
+          "beforeRows": 1,
+          "afterRows": 1,
+          "beforeHash": "c66091ae83bceb0206f00d8ac140656c",
+          "afterHash": "c66091ae83bceb0206f00d8ac140656c"
+        },
+        {
+          "dataset": "public.chest_operations",
+          "beforeRows": 37,
+          "afterRows": 37,
+          "beforeHash": "c2f16d5b8d2d1e3ab440b24ad74b6b7c",
+          "afterHash": "c2f16d5b8d2d1e3ab440b24ad74b6b7c"
+        },
+        {
+          "dataset": "public.equipped_items",
+          "beforeRows": 31,
+          "afterRows": 31,
+          "beforeHash": "1c64227d4d44348db05d75e480660d40",
+          "afterHash": "1c64227d4d44348db05d75e480660d40"
+        },
+        {
+          "dataset": "public.guild_activity_log",
+          "beforeRows": 10,
+          "afterRows": 10,
+          "beforeHash": "b1298fdbfb21d02ea5864832bea9b8c7",
+          "afterHash": "b1298fdbfb21d02ea5864832bea9b8c7"
+        },
+        {
+          "dataset": "public.guild_chat_messages",
+          "beforeRows": 4,
+          "afterRows": 4,
+          "beforeHash": "b874154cdd860b6b4bd376e79764e999",
+          "afterHash": "b874154cdd860b6b4bd376e79764e999"
+        },
+        {
+          "dataset": "public.guild_chat_moderation_log",
+          "beforeRows": 0,
+          "afterRows": 0,
+          "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+          "afterHash": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        {
+          "dataset": "public.guild_chat_reads",
+          "beforeRows": 0,
+          "afterRows": 0,
+          "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+          "afterHash": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        {
+          "dataset": "public.guild_chat_reports",
+          "beforeRows": 0,
+          "afterRows": 0,
+          "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+          "afterHash": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        {
+          "dataset": "public.guild_ebd_activities",
+          "beforeRows": 1,
+          "afterRows": 1,
+          "beforeHash": "61c28092f6a1a532a269e37488a75ed2",
+          "afterHash": "61c28092f6a1a532a269e37488a75ed2"
+        },
+        {
+          "dataset": "public.guild_ebd_answers",
+          "beforeRows": 1,
+          "afterRows": 1,
+          "beforeHash": "f61e2de2840d593a8f05f6e97f073ad3",
+          "afterHash": "f61e2de2840d593a8f05f6e97f073ad3"
+        },
+        {
+          "dataset": "public.guild_ebd_attendance",
+          "beforeRows": 1,
+          "afterRows": 1,
+          "beforeHash": "e95edc08b70b5650ed4d4bb790e23829",
+          "afterHash": "e95edc08b70b5650ed4d4bb790e23829"
+        },
+        {
+          "dataset": "public.guild_ebd_history",
+          "beforeRows": 5,
+          "afterRows": 5,
+          "beforeHash": "ef935e1ed9ea514d215f4f4e7a780f0a",
+          "afterHash": "ef935e1ed9ea514d215f4f4e7a780f0a"
+        },
+        {
+          "dataset": "public.guild_ebd_reward_pending",
+          "beforeRows": 0,
+          "afterRows": 0,
+          "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+          "afterHash": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        {
+          "dataset": "public.guild_ebd_teachers",
+          "beforeRows": 1,
+          "afterRows": 1,
+          "beforeHash": "05ce37c51e8596dfae47a845beb4b0cd",
+          "afterHash": "05ce37c51e8596dfae47a845beb4b0cd"
+        },
+        {
+          "dataset": "public.guild_invites",
+          "beforeRows": 0,
+          "afterRows": 0,
+          "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+          "afterHash": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        {
+          "dataset": "public.guild_join_requests",
+          "beforeRows": 5,
+          "afterRows": 5,
+          "beforeHash": "6bcca00851c539a3a9c24386f72c9539",
+          "afterHash": "6bcca00851c539a3a9c24386f72c9539"
+        },
+        {
+          "dataset": "public.guild_lessons",
+          "beforeRows": 1,
+          "afterRows": 1,
+          "beforeHash": "4b9b60db48a1550997764cc8d51c5893",
+          "afterHash": "4b9b60db48a1550997764cc8d51c5893"
+        },
+        {
+          "dataset": "public.guild_members",
+          "beforeRows": 8,
+          "afterRows": 8,
+          "beforeHash": "60a7b351a7bde59590602b28fb75616e",
+          "afterHash": "60a7b351a7bde59590602b28fb75616e"
+        },
+        {
+          "dataset": "public.guild_mission_attempts",
+          "beforeRows": 0,
+          "afterRows": 0,
+          "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+          "afterHash": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        {
+          "dataset": "public.guild_mission_progress",
+          "beforeRows": 0,
+          "afterRows": 0,
+          "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+          "afterHash": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        {
+          "dataset": "public.guild_missions",
+          "beforeRows": 0,
+          "afterRows": 0,
+          "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+          "afterHash": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        {
+          "dataset": "public.guild_reward_claims",
+          "beforeRows": 0,
+          "afterRows": 0,
+          "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+          "afterHash": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        {
+          "dataset": "public.guilds",
+          "beforeRows": 3,
+          "afterRows": 3,
+          "beforeHash": "efe17f672262d8f60560f6130114a8b6",
+          "afterHash": "efe17f672262d8f60560f6130114a8b6"
+        },
+        {
+          "dataset": "public.inventory",
+          "beforeRows": 37,
+          "afterRows": 37,
+          "beforeHash": "b39da1a154e78959d84ce183218593ca",
+          "afterHash": "b39da1a154e78959d84ce183218593ca"
+        },
+        {
+          "dataset": "public.profiles",
+          "beforeRows": 11,
+          "afterRows": 11,
+          "beforeHash": "8eb319a33f9c4ea98426810a98a28f43",
+          "afterHash": "8eb319a33f9c4ea98426810a98a28f43"
+        },
+        {
+          "dataset": "public.story_definitions",
+          "beforeRows": 5,
+          "afterRows": 5,
+          "beforeHash": "ef0e5e6948bd180d854719fb6d820013",
+          "afterHash": "ef0e5e6948bd180d854719fb6d820013"
+        },
+        {
+          "dataset": "public.story_progress",
+          "beforeRows": 0,
+          "afterRows": 0,
+          "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+          "afterHash": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        {
+          "dataset": "public.traveler_chests",
+          "beforeRows": 8,
+          "afterRows": 8,
+          "beforeHash": "c05d953ef2ef20651574801fdfba1da7",
+          "afterHash": "c05d953ef2ef20651574801fdfba1da7"
+        },
+        {
+          "dataset": "public.traveler_stats",
+          "beforeRows": 24,
+          "afterRows": 24,
+          "beforeHash": "049421a9b457014379fc5f61243494a2",
+          "afterHash": "049421a9b457014379fc5f61243494a2"
+        },
+        {
+          "dataset": "public.travelers",
+          "beforeRows": 24,
+          "afterRows": 24,
+          "beforeHash": "4e90e6067ccd3a789a62ab19b51e1888",
+          "afterHash": "4e90e6067ccd3a789a62ab19b51e1888"
+        },
+        {
+          "dataset": "public.wallets",
+          "beforeRows": 24,
+          "afterRows": 24,
+          "beforeHash": "cb6ddc73f88b551b0fd81dca9ef51a3f",
+          "afterHash": "cb6ddc73f88b551b0fd81dca9ef51a3f"
+        },
+        {
+          "dataset": "story_private.step_receipts",
+          "beforeRows": 0,
+          "afterRows": 0,
+          "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+          "afterHash": "d41d8cd98f00b204e9800998ecf8427e"
+        }
+      ]
+    },
+    {
+      "environment": "TEST",
+      "tables": [
+        {
+          "dataset": "economy_private.battles",
+          "beforeRows": 21,
+          "afterRows": 21,
+          "beforeHash": "6433154454bcab8368cab401a940b2ee",
+          "afterHash": "6433154454bcab8368cab401a940b2ee"
+        },
+        {
+          "dataset": "economy_private.card_catalog",
+          "beforeRows": 7,
+          "afterRows": 7,
+          "beforeHash": "b9534a556ac944825843e8fcce04a75d",
+          "afterHash": "b9534a556ac944825843e8fcce04a75d"
+        },
+        {
+          "dataset": "economy_private.journey_operations",
+          "beforeRows": 0,
+          "afterRows": 0,
+          "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+          "afterHash": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        {
+          "dataset": "economy_private.journey_rewards",
+          "beforeRows": 0,
+          "afterRows": 0,
+          "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+          "afterHash": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        {
+          "dataset": "economy_private.journeys",
+          "beforeRows": 0,
+          "afterRows": 0,
+          "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+          "afterHash": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        {
+          "dataset": "economy_private.tower_reward_claims",
+          "beforeRows": 0,
+          "afterRows": 0,
+          "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+          "afterHash": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        {
+          "dataset": "economy_private.tower_reward_policies",
+          "beforeRows": 1,
+          "afterRows": 1,
+          "beforeHash": "f477b8b35206e7a578aef4bf15c108c6",
+          "afterHash": "f477b8b35206e7a578aef4bf15c108c6"
+        },
+        {
+          "dataset": "guild_chat_private.rate_limits",
+          "beforeRows": 0,
+          "afterRows": 0,
+          "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+          "afterHash": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        {
+          "dataset": "guild_invite_private.link_invites",
+          "beforeRows": 4,
+          "afterRows": 4,
+          "beforeHash": "5d55954a308649dcd1f2b27fe87a3e7b",
+          "afterHash": "5d55954a308649dcd1f2b27fe87a3e7b"
+        },
+        {
+          "dataset": "public.chest_operations",
+          "beforeRows": 23,
+          "afterRows": 23,
+          "beforeHash": "85994530b8a788ed604ca9126b778f1c",
+          "afterHash": "85994530b8a788ed604ca9126b778f1c"
+        },
+        {
+          "dataset": "public.equipped_items",
+          "beforeRows": 4,
+          "afterRows": 4,
+          "beforeHash": "29dd60bc09d8cf72fd19cee54dcdbcea",
+          "afterHash": "29dd60bc09d8cf72fd19cee54dcdbcea"
+        },
+        {
+          "dataset": "public.guild_activity_log",
+          "beforeRows": 15,
+          "afterRows": 15,
+          "beforeHash": "ab02ef1c8ed571dc2e97056b1c318a98",
+          "afterHash": "ab02ef1c8ed571dc2e97056b1c318a98"
+        },
+        {
+          "dataset": "public.guild_chat_messages",
+          "beforeRows": 0,
+          "afterRows": 0,
+          "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+          "afterHash": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        {
+          "dataset": "public.guild_chat_moderation_log",
+          "beforeRows": 0,
+          "afterRows": 0,
+          "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+          "afterHash": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        {
+          "dataset": "public.guild_chat_reads",
+          "beforeRows": 0,
+          "afterRows": 0,
+          "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+          "afterHash": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        {
+          "dataset": "public.guild_chat_reports",
+          "beforeRows": 0,
+          "afterRows": 0,
+          "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+          "afterHash": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        {
+          "dataset": "public.guild_ebd_activities",
+          "beforeRows": 2,
+          "afterRows": 2,
+          "beforeHash": "3cf75fa85cea453f424af20203bef1c6",
+          "afterHash": "3cf75fa85cea453f424af20203bef1c6"
+        },
+        {
+          "dataset": "public.guild_ebd_answers",
+          "beforeRows": 2,
+          "afterRows": 2,
+          "beforeHash": "ee8c098466f9975ca35a34c5063d31fa",
+          "afterHash": "ee8c098466f9975ca35a34c5063d31fa"
+        },
+        {
+          "dataset": "public.guild_ebd_attendance",
+          "beforeRows": 2,
+          "afterRows": 2,
+          "beforeHash": "ff213ca9b086069a5d2f55646ba05765",
+          "afterHash": "ff213ca9b086069a5d2f55646ba05765"
+        },
+        {
+          "dataset": "public.guild_ebd_history",
+          "beforeRows": 11,
+          "afterRows": 11,
+          "beforeHash": "0e3e780ff490ac5b62eca2f3ff1333e3",
+          "afterHash": "0e3e780ff490ac5b62eca2f3ff1333e3"
+        },
+        {
+          "dataset": "public.guild_ebd_reward_pending",
+          "beforeRows": 0,
+          "afterRows": 0,
+          "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+          "afterHash": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        {
+          "dataset": "public.guild_ebd_teachers",
+          "beforeRows": 2,
+          "afterRows": 2,
+          "beforeHash": "bac3800c42ccaddb36e056967550a4df",
+          "afterHash": "bac3800c42ccaddb36e056967550a4df"
+        },
+        {
+          "dataset": "public.guild_invites",
+          "beforeRows": 0,
+          "afterRows": 0,
+          "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+          "afterHash": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        {
+          "dataset": "public.guild_join_requests",
+          "beforeRows": 6,
+          "afterRows": 6,
+          "beforeHash": "439b36f3c75453663a6585172c6553b7",
+          "afterHash": "439b36f3c75453663a6585172c6553b7"
+        },
+        {
+          "dataset": "public.guild_lessons",
+          "beforeRows": 2,
+          "afterRows": 2,
+          "beforeHash": "cffcd3b26e0b931d7455b2351aeddd62",
+          "afterHash": "cffcd3b26e0b931d7455b2351aeddd62"
+        },
+        {
+          "dataset": "public.guild_members",
+          "beforeRows": 11,
+          "afterRows": 11,
+          "beforeHash": "7833bdc6450a331f41ae56a5d32994fa",
+          "afterHash": "7833bdc6450a331f41ae56a5d32994fa"
+        },
+        {
+          "dataset": "public.guild_mission_attempts",
+          "beforeRows": 0,
+          "afterRows": 0,
+          "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+          "afterHash": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        {
+          "dataset": "public.guild_mission_progress",
+          "beforeRows": 0,
+          "afterRows": 0,
+          "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+          "afterHash": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        {
+          "dataset": "public.guild_missions",
+          "beforeRows": 0,
+          "afterRows": 0,
+          "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+          "afterHash": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        {
+          "dataset": "public.guild_reward_claims",
+          "beforeRows": 0,
+          "afterRows": 0,
+          "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+          "afterHash": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        {
+          "dataset": "public.guilds",
+          "beforeRows": 5,
+          "afterRows": 5,
+          "beforeHash": "e1eef8c9c2b5ba7d253841c677c069ae",
+          "afterHash": "e1eef8c9c2b5ba7d253841c677c069ae"
+        },
+        {
+          "dataset": "public.inventory",
+          "beforeRows": 18,
+          "afterRows": 18,
+          "beforeHash": "c25045fe4060dbe62f33e11742a10702",
+          "afterHash": "c25045fe4060dbe62f33e11742a10702"
+        },
+        {
+          "dataset": "public.profiles",
+          "beforeRows": 5,
+          "afterRows": 5,
+          "beforeHash": "cbccce6cb1073bce726290e7273c91ed",
+          "afterHash": "cbccce6cb1073bce726290e7273c91ed"
+        },
+        {
+          "dataset": "public.story_definitions",
+          "beforeRows": 5,
+          "afterRows": 5,
+          "beforeHash": "ef0e5e6948bd180d854719fb6d820013",
+          "afterHash": "ef0e5e6948bd180d854719fb6d820013"
+        },
+        {
+          "dataset": "public.story_progress",
+          "beforeRows": 0,
+          "afterRows": 0,
+          "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+          "afterHash": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        {
+          "dataset": "public.traveler_chests",
+          "beforeRows": 0,
+          "afterRows": 0,
+          "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+          "afterHash": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        {
+          "dataset": "public.traveler_stats",
+          "beforeRows": 13,
+          "afterRows": 13,
+          "beforeHash": "bb533bd38808c20fd59a08076031d955",
+          "afterHash": "bb533bd38808c20fd59a08076031d955"
+        },
+        {
+          "dataset": "public.travelers",
+          "beforeRows": 13,
+          "afterRows": 13,
+          "beforeHash": "517357a5b54bd0cb1925957c7d9aa6a2",
+          "afterHash": "517357a5b54bd0cb1925957c7d9aa6a2"
+        },
+        {
+          "dataset": "public.wallets",
+          "beforeRows": 13,
+          "afterRows": 13,
+          "beforeHash": "3321ac6fad3456f72a8db6a0283858c5",
+          "afterHash": "3321ac6fad3456f72a8db6a0283858c5"
+        },
+        {
+          "dataset": "story_private.step_receipts",
+          "beforeRows": 0,
+          "afterRows": 0,
+          "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+          "afterHash": "d41d8cd98f00b204e9800998ecf8427e"
+        }
+      ]
+    }
+  ],
+  "limitations": {
+    "oldTestCardAccountsHostedPositive": "PENDING_NO_AUTHORIZED_SESSION",
+    "positiveCards": "ISOLATED_POSTGRESQL_ONLY",
+    "mobile": "WEBKIT_EMULATION_NOT_PHYSICAL",
+    "economicModules": "BLOCKED",
+    "pr12": "OPEN_DRAFT_UNMERGED_UNCHANGED"
+  },
+  "preview": {
+    "passed": true,
+    "environment": "TEST",
+    "origin": "https://rpgjovemcristao-k3o35cuwp-carlos-junior-s-projects.vercel.app",
+    "sha": "7b610688582bea3ed95212f1d03828dde768b75d",
+    "checks": [
+      {
+        "name": "authorized profile already exists before Auth bootstrap",
+        "passed": true
+      },
+      {
+        "name": "own inventory read succeeds",
+        "passed": true
+      },
+      {
+        "name": "own card read succeeds",
+        "passed": true
+      },
+      {
+        "name": "authorized new TEST hero remains empty",
+        "passed": true
+      },
+      {
+        "name": "foreign inventory remains invisible",
+        "passed": true
+      },
+      {
+        "name": "foreign traveler remains invisible",
+        "passed": true
+      },
+      {
+        "name": "foreign cards denied",
+        "passed": true
+      },
+      {
+        "name": "anonymous card access denied",
+        "passed": true
+      },
+      {
+        "name": "chromium real nonanonymous Auth verified",
+        "passed": true
+      },
+      {
+        "name": "chromium backpack has no transaction or progression controls",
+        "passed": true
+      },
+      {
+        "name": "chromium backpack has no operational links outside released paths",
+        "passed": true
+      },
+      {
+        "name": "chromium backpack fits viewport",
+        "passed": true
+      },
+      {
+        "name": "chromium collection has no transaction or progression controls",
+        "passed": true
+      },
+      {
+        "name": "chromium collection has no operational links outside released paths",
+        "passed": true
+      },
+      {
+        "name": "chromium collection fits viewport",
+        "passed": true
+      },
+      {
+        "name": "chromium diary has no transaction or progression controls",
+        "passed": true
+      },
+      {
+        "name": "chromium diary has no operational links outside released paths",
+        "passed": true
+      },
+      {
+        "name": "chromium diary fits viewport",
+        "passed": true
+      },
+      {
+        "name": "chromium original eleven menu entries",
+        "passed": true
+      },
+      {
+        "name": "chromium exactly five closed menu entries",
+        "passed": true
+      },
+      {
+        "name": "chromium six released menu paths only",
+        "passed": true
+      },
+      {
+        "name": "chromium zero page errors",
+        "passed": true
+      },
+      {
+        "name": "chromium no mutation requests beyond existing Auth ignore-duplicate bootstrap",
+        "passed": true
+      },
+      {
+        "name": "webkit real nonanonymous Auth verified",
+        "passed": true
+      },
+      {
+        "name": "webkit backpack has no transaction or progression controls",
+        "passed": true
+      },
+      {
+        "name": "webkit backpack has no operational links outside released paths",
+        "passed": true
+      },
+      {
+        "name": "webkit backpack fits viewport",
+        "passed": true
+      },
+      {
+        "name": "webkit collection has no transaction or progression controls",
+        "passed": true
+      },
+      {
+        "name": "webkit collection has no operational links outside released paths",
+        "passed": true
+      },
+      {
+        "name": "webkit collection fits viewport",
+        "passed": true
+      },
+      {
+        "name": "webkit diary has no transaction or progression controls",
+        "passed": true
+      },
+      {
+        "name": "webkit diary has no operational links outside released paths",
+        "passed": true
+      },
+      {
+        "name": "webkit diary fits viewport",
+        "passed": true
+      },
+      {
+        "name": "webkit original eleven menu entries",
+        "passed": true
+      },
+      {
+        "name": "webkit exactly five closed menu entries",
+        "passed": true
+      },
+      {
+        "name": "webkit six released menu paths only",
+        "passed": true
+      },
+      {
+        "name": "webkit zero page errors",
+        "passed": true
+      },
+      {
+        "name": "webkit no mutation requests beyond existing Auth ignore-duplicate bootstrap",
+        "passed": true
+      },
+      {
+        "name": "closed route /journey/arena",
+        "passed": true
+      },
+      {
+        "name": "closed route /journey/arena/tower",
+        "passed": true
+      },
+      {
+        "name": "closed route /journey/tower",
+        "passed": true
+      },
+      {
+        "name": "closed route /journey/equipment",
+        "passed": true
+      },
+      {
+        "name": "closed route /journey/shop",
+        "passed": true
+      },
+      {
+        "name": "closed route /journey/intro",
+        "passed": true
+      },
+      {
+        "name": "closed route /journey/phases/o-jardim-e-a-escolha",
+        "passed": true
+      },
+      {
+        "name": "economic authority remains closed",
+        "passed": true
+      }
+    ],
+    "runs": [
+      {
+        "engine": "chromium",
+        "modules": [
+          {
+            "module": "backpack",
+            "loaded": true,
+            "reloaded": true,
+            "noMutationControls": true,
+            "layout": true
+          },
+          {
+            "module": "collection",
+            "loaded": true,
+            "reloaded": true,
+            "noMutationControls": true,
+            "layout": true
+          },
+          {
+            "module": "diary",
+            "loaded": true,
+            "reloaded": true,
+            "noMutationControls": true,
+            "layout": true
+          }
+        ],
+        "pageErrors": 0,
+        "unexpectedMutationRequests": [],
+        "existingProfileIgnoreDuplicateRequests": 7,
+        "passed": true
+      },
+      {
+        "engine": "webkit",
+        "modules": [
+          {
+            "module": "backpack",
+            "loaded": true,
+            "reloaded": true,
+            "noMutationControls": true,
+            "layout": true
+          },
+          {
+            "module": "collection",
+            "loaded": true,
+            "reloaded": true,
+            "noMutationControls": true,
+            "layout": true
+          },
+          {
+            "module": "diary",
+            "loaded": true,
+            "reloaded": true,
+            "noMutationControls": true,
+            "layout": true
+          }
+        ],
+        "pageErrors": 0,
+        "unexpectedMutationRequests": [],
+        "existingProfileIgnoreDuplicateRequests": 7,
+        "passed": true
+      }
+    ],
+    "sessionReuse": true,
+    "syntheticData": false,
+    "economicOrProgressionMutationRequestsObserved": false,
+    "authBootstrapIgnoreDuplicateRequests": 14
+  },
+  "productionBeforePromotion": {
+    "passed": true,
+    "environment": "PROD",
+    "origin": "https://rpgjovemcristao-4pxx1g4a5-carlos-junior-s-projects.vercel.app",
+    "sha": "0357b444e191e60ae3d95b58f0ea9b80ff72ad89",
+    "checks": [
+      {
+        "name": "authorized profile already exists before Auth bootstrap",
+        "passed": true
+      },
+      {
+        "name": "own inventory read succeeds",
+        "passed": true
+      },
+      {
+        "name": "own card read succeeds",
+        "passed": true
+      },
+      {
+        "name": "foreign inventory remains invisible",
+        "passed": true
+      },
+      {
+        "name": "foreign traveler remains invisible",
+        "passed": true
+      },
+      {
+        "name": "foreign cards denied",
+        "passed": true
+      },
+      {
+        "name": "anonymous card access denied",
+        "passed": true
+      },
+      {
+        "name": "chromium real nonanonymous Auth verified",
+        "passed": true
+      },
+      {
+        "name": "chromium backpack shows exact existing row quantities",
+        "passed": true
+      },
+      {
+        "name": "chromium backpack equipment state shown without equip actions",
+        "passed": true
+      },
+      {
+        "name": "chromium backpack has no transaction or progression controls",
+        "passed": true
+      },
+      {
+        "name": "chromium backpack has no operational links outside released paths",
+        "passed": true
+      },
+      {
+        "name": "chromium backpack fits viewport",
+        "passed": true
+      },
+      {
+        "name": "chromium collection matches existing canonical card count",
+        "passed": true
+      },
+      {
+        "name": "chromium collection has no transaction or progression controls",
+        "passed": true
+      },
+      {
+        "name": "chromium collection has no operational links outside released paths",
+        "passed": true
+      },
+      {
+        "name": "chromium collection fits viewport",
+        "passed": true
+      },
+      {
+        "name": "server persisted diary present",
+        "passed": true
+      },
+      {
+        "name": "chromium persisted diary displayed without opening private reflection",
+        "passed": true
+      },
+      {
+        "name": "chromium diary has no transaction or progression controls",
+        "passed": true
+      },
+      {
+        "name": "chromium diary has no operational links outside released paths",
+        "passed": true
+      },
+      {
+        "name": "chromium diary fits viewport",
+        "passed": true
+      },
+      {
+        "name": "chromium original eleven menu entries",
+        "passed": true
+      },
+      {
+        "name": "chromium exactly five closed menu entries",
+        "passed": true
+      },
+      {
+        "name": "chromium six released menu paths only",
+        "passed": true
+      },
+      {
+        "name": "chromium zero page errors",
+        "passed": true
+      },
+      {
+        "name": "chromium no mutation requests beyond existing Auth ignore-duplicate bootstrap",
+        "passed": true
+      },
+      {
+        "name": "webkit real nonanonymous Auth verified",
+        "passed": true
+      },
+      {
+        "name": "webkit backpack shows exact existing row quantities",
+        "passed": true
+      },
+      {
+        "name": "webkit backpack equipment state shown without equip actions",
+        "passed": true
+      },
+      {
+        "name": "webkit backpack has no transaction or progression controls",
+        "passed": true
+      },
+      {
+        "name": "webkit backpack has no operational links outside released paths",
+        "passed": true
+      },
+      {
+        "name": "webkit backpack fits viewport",
+        "passed": true
+      },
+      {
+        "name": "webkit collection matches existing canonical card count",
+        "passed": true
+      },
+      {
+        "name": "webkit collection has no transaction or progression controls",
+        "passed": true
+      },
+      {
+        "name": "webkit collection has no operational links outside released paths",
+        "passed": true
+      },
+      {
+        "name": "webkit collection fits viewport",
+        "passed": true
+      },
+      {
+        "name": "server persisted diary present",
+        "passed": true
+      },
+      {
+        "name": "webkit persisted diary displayed without opening private reflection",
+        "passed": true
+      },
+      {
+        "name": "webkit diary has no transaction or progression controls",
+        "passed": true
+      },
+      {
+        "name": "webkit diary has no operational links outside released paths",
+        "passed": true
+      },
+      {
+        "name": "webkit diary fits viewport",
+        "passed": true
+      },
+      {
+        "name": "webkit original eleven menu entries",
+        "passed": true
+      },
+      {
+        "name": "webkit exactly five closed menu entries",
+        "passed": true
+      },
+      {
+        "name": "webkit six released menu paths only",
+        "passed": true
+      },
+      {
+        "name": "webkit zero page errors",
+        "passed": true
+      },
+      {
+        "name": "webkit no mutation requests beyond existing Auth ignore-duplicate bootstrap",
+        "passed": true
+      },
+      {
+        "name": "closed route /journey/arena",
+        "passed": true
+      },
+      {
+        "name": "closed route /journey/arena/tower",
+        "passed": true
+      },
+      {
+        "name": "closed route /journey/tower",
+        "passed": true
+      },
+      {
+        "name": "closed route /journey/equipment",
+        "passed": true
+      },
+      {
+        "name": "closed route /journey/shop",
+        "passed": true
+      },
+      {
+        "name": "closed route /journey/intro",
+        "passed": true
+      },
+      {
+        "name": "closed route /journey/phases/o-jardim-e-a-escolha",
+        "passed": true
+      },
+      {
+        "name": "economic authority remains closed",
+        "passed": true
+      }
+    ],
+    "runs": [
+      {
+        "engine": "chromium",
+        "modules": [
+          {
+            "module": "backpack",
+            "loaded": true,
+            "reloaded": true,
+            "noMutationControls": true,
+            "layout": true
+          },
+          {
+            "module": "collection",
+            "loaded": true,
+            "reloaded": true,
+            "noMutationControls": true,
+            "layout": true
+          },
+          {
+            "module": "diary",
+            "loaded": true,
+            "reloaded": true,
+            "noMutationControls": true,
+            "layout": true
+          }
+        ],
+        "pageErrors": 0,
+        "unexpectedMutationRequests": [],
+        "existingProfileIgnoreDuplicateRequests": 7,
+        "passed": true
+      },
+      {
+        "engine": "webkit",
+        "modules": [
+          {
+            "module": "backpack",
+            "loaded": true,
+            "reloaded": true,
+            "noMutationControls": true,
+            "layout": true
+          },
+          {
+            "module": "collection",
+            "loaded": true,
+            "reloaded": true,
+            "noMutationControls": true,
+            "layout": true
+          },
+          {
+            "module": "diary",
+            "loaded": true,
+            "reloaded": true,
+            "noMutationControls": true,
+            "layout": true
+          }
+        ],
+        "pageErrors": 0,
+        "unexpectedMutationRequests": [],
+        "existingProfileIgnoreDuplicateRequests": 7,
+        "passed": true
+      }
+    ],
+    "sessionReuse": true,
+    "syntheticData": false,
+    "economicOrProgressionMutationRequestsObserved": false,
+    "authBootstrapIgnoreDuplicateRequests": 14
+  },
+  "productionAfterPromotion": {
+    "passed": true,
+    "environment": "PROD",
+    "origin": "https://rpgjovemcristao-web-inky.vercel.app",
+    "sha": "0357b444e191e60ae3d95b58f0ea9b80ff72ad89",
+    "checks": [
+      {
+        "name": "authorized profile already exists before Auth bootstrap",
+        "passed": true
+      },
+      {
+        "name": "own inventory read succeeds",
+        "passed": true
+      },
+      {
+        "name": "own card read succeeds",
+        "passed": true
+      },
+      {
+        "name": "foreign inventory remains invisible",
+        "passed": true
+      },
+      {
+        "name": "foreign traveler remains invisible",
+        "passed": true
+      },
+      {
+        "name": "foreign cards denied",
+        "passed": true
+      },
+      {
+        "name": "anonymous card access denied",
+        "passed": true
+      },
+      {
+        "name": "chromium real nonanonymous Auth verified",
+        "passed": true
+      },
+      {
+        "name": "chromium backpack shows exact existing row quantities",
+        "passed": true
+      },
+      {
+        "name": "chromium backpack equipment state shown without equip actions",
+        "passed": true
+      },
+      {
+        "name": "chromium backpack has no transaction or progression controls",
+        "passed": true
+      },
+      {
+        "name": "chromium backpack has no operational links outside released paths",
+        "passed": true
+      },
+      {
+        "name": "chromium backpack fits viewport",
+        "passed": true
+      },
+      {
+        "name": "chromium collection matches existing canonical card count",
+        "passed": true
+      },
+      {
+        "name": "chromium collection has no transaction or progression controls",
+        "passed": true
+      },
+      {
+        "name": "chromium collection has no operational links outside released paths",
+        "passed": true
+      },
+      {
+        "name": "chromium collection fits viewport",
+        "passed": true
+      },
+      {
+        "name": "server persisted diary present",
+        "passed": true
+      },
+      {
+        "name": "chromium persisted diary displayed without opening private reflection",
+        "passed": true
+      },
+      {
+        "name": "chromium diary has no transaction or progression controls",
+        "passed": true
+      },
+      {
+        "name": "chromium diary has no operational links outside released paths",
+        "passed": true
+      },
+      {
+        "name": "chromium diary fits viewport",
+        "passed": true
+      },
+      {
+        "name": "chromium original eleven menu entries",
+        "passed": true
+      },
+      {
+        "name": "chromium exactly five closed menu entries",
+        "passed": true
+      },
+      {
+        "name": "chromium six released menu paths only",
+        "passed": true
+      },
+      {
+        "name": "chromium zero page errors",
+        "passed": true
+      },
+      {
+        "name": "chromium no mutation requests beyond existing Auth ignore-duplicate bootstrap",
+        "passed": true
+      },
+      {
+        "name": "webkit real nonanonymous Auth verified",
+        "passed": true
+      },
+      {
+        "name": "webkit backpack shows exact existing row quantities",
+        "passed": true
+      },
+      {
+        "name": "webkit backpack equipment state shown without equip actions",
+        "passed": true
+      },
+      {
+        "name": "webkit backpack has no transaction or progression controls",
+        "passed": true
+      },
+      {
+        "name": "webkit backpack has no operational links outside released paths",
+        "passed": true
+      },
+      {
+        "name": "webkit backpack fits viewport",
+        "passed": true
+      },
+      {
+        "name": "webkit collection matches existing canonical card count",
+        "passed": true
+      },
+      {
+        "name": "webkit collection has no transaction or progression controls",
+        "passed": true
+      },
+      {
+        "name": "webkit collection has no operational links outside released paths",
+        "passed": true
+      },
+      {
+        "name": "webkit collection fits viewport",
+        "passed": true
+      },
+      {
+        "name": "server persisted diary present",
+        "passed": true
+      },
+      {
+        "name": "webkit persisted diary displayed without opening private reflection",
+        "passed": true
+      },
+      {
+        "name": "webkit diary has no transaction or progression controls",
+        "passed": true
+      },
+      {
+        "name": "webkit diary has no operational links outside released paths",
+        "passed": true
+      },
+      {
+        "name": "webkit diary fits viewport",
+        "passed": true
+      },
+      {
+        "name": "webkit original eleven menu entries",
+        "passed": true
+      },
+      {
+        "name": "webkit exactly five closed menu entries",
+        "passed": true
+      },
+      {
+        "name": "webkit six released menu paths only",
+        "passed": true
+      },
+      {
+        "name": "webkit zero page errors",
+        "passed": true
+      },
+      {
+        "name": "webkit no mutation requests beyond existing Auth ignore-duplicate bootstrap",
+        "passed": true
+      },
+      {
+        "name": "closed route /journey/arena",
+        "passed": true
+      },
+      {
+        "name": "closed route /journey/arena/tower",
+        "passed": true
+      },
+      {
+        "name": "closed route /journey/tower",
+        "passed": true
+      },
+      {
+        "name": "closed route /journey/equipment",
+        "passed": true
+      },
+      {
+        "name": "closed route /journey/shop",
+        "passed": true
+      },
+      {
+        "name": "closed route /journey/intro",
+        "passed": true
+      },
+      {
+        "name": "closed route /journey/phases/o-jardim-e-a-escolha",
+        "passed": true
+      },
+      {
+        "name": "economic authority remains closed",
+        "passed": true
+      }
+    ],
+    "runs": [
+      {
+        "engine": "chromium",
+        "modules": [
+          {
+            "module": "backpack",
+            "loaded": true,
+            "reloaded": true,
+            "noMutationControls": true,
+            "layout": true
+          },
+          {
+            "module": "collection",
+            "loaded": true,
+            "reloaded": true,
+            "noMutationControls": true,
+            "layout": true
+          },
+          {
+            "module": "diary",
+            "loaded": true,
+            "reloaded": true,
+            "noMutationControls": true,
+            "layout": true
+          }
+        ],
+        "pageErrors": 0,
+        "unexpectedMutationRequests": [],
+        "existingProfileIgnoreDuplicateRequests": 7,
+        "passed": true
+      },
+      {
+        "engine": "webkit",
+        "modules": [
+          {
+            "module": "backpack",
+            "loaded": true,
+            "reloaded": true,
+            "noMutationControls": true,
+            "layout": true
+          },
+          {
+            "module": "collection",
+            "loaded": true,
+            "reloaded": true,
+            "noMutationControls": true,
+            "layout": true
+          },
+          {
+            "module": "diary",
+            "loaded": true,
+            "reloaded": true,
+            "noMutationControls": true,
+            "layout": true
+          }
+        ],
+        "pageErrors": 0,
+        "unexpectedMutationRequests": [],
+        "existingProfileIgnoreDuplicateRequests": 7,
+        "passed": true
+      }
+    ],
+    "sessionReuse": true,
+    "syntheticData": false,
+    "economicOrProgressionMutationRequestsObserved": false,
+    "authBootstrapIgnoreDuplicateRequests": 14
+  },
+  "authenticatedPreDdl": {
+    "passed": true,
+    "phase": "before-ddl",
+    "checks": [
+      {
+        "name": "authorized session and active level50 hero only",
+        "passed": true
+      },
+      {
+        "name": "inventory own read",
+        "passed": true
+      },
+      {
+        "name": "inventory foreign denied",
+        "passed": true
+      },
+      {
+        "name": "equipped_items own read",
+        "passed": true
+      },
+      {
+        "name": "equipped_items foreign denied",
+        "passed": true
+      },
+      {
+        "name": "traveler_stats own read",
+        "passed": true
+      },
+      {
+        "name": "traveler_stats foreign denied",
+        "passed": true
+      },
+      {
+        "name": "wallets own read",
+        "passed": true
+      },
+      {
+        "name": "wallets foreign denied",
+        "passed": true
+      },
+      {
+        "name": "own server level50 traveler",
+        "passed": true
+      },
+      {
+        "name": "foreign traveler and diary invisible",
+        "passed": true
+      },
+      {
+        "name": "new read absent before approved DDL",
+        "passed": true
+      }
+    ],
+    "datasets": {
+      "inventory": {
+        "rows": 6,
+        "hash": "66acafd26ad6a00844732c891e004fc05782dd291e6915a7878ab40b8a4d2501",
+        "totalQuantity": 14
+      },
+      "equipped_items": {
+        "rows": 6,
+        "hash": "cc129c3d824c0dea60d1777a9aa1db0d53565c2dfd069196659742c4da36413e"
+      },
+      "traveler_stats": {
+        "rows": 1,
+        "hash": "a2fb5bcb2b5fac7133feeb0f7219af0f2ba3c59c5af1abbea43caa510fe1608e"
+      },
+      "wallets": {
+        "rows": 1,
+        "hash": "db489b316e95f4f9e47c932cbc95ea69bc6662a628d4d3ed28c0220adeb9bf07"
+      },
+      "traveler": {
+        "rows": 1,
+        "hash": "f3ae6acaf6bbe7af487470389b43e0514ad7eec4f8c703d59783f9db39e239a2",
+        "persistedProgressPresent": true
+      }
+    },
+    "uid": "78729453-8e04-478c-96ae-d37cead1bc8c",
+    "activeHero": "31b70059-deca-44c8-a6df-f21ea68b6e42",
+    "level": 50,
+    "noLegacyHeroAccess": true,
+    "mutationRequests": false
+  },
+  "authenticatedPostDdl": {
+    "passed": true,
+    "phase": "after-ddl",
+    "checks": [
+      {
+        "name": "authorized session and active level50 hero only",
+        "passed": true
+      },
+      {
+        "name": "inventory own read",
+        "passed": true
+      },
+      {
+        "name": "inventory foreign denied",
+        "passed": true
+      },
+      {
+        "name": "equipped_items own read",
+        "passed": true
+      },
+      {
+        "name": "equipped_items foreign denied",
+        "passed": true
+      },
+      {
+        "name": "traveler_stats own read",
+        "passed": true
+      },
+      {
+        "name": "traveler_stats foreign denied",
+        "passed": true
+      },
+      {
+        "name": "wallets own read",
+        "passed": true
+      },
+      {
+        "name": "wallets foreign denied",
+        "passed": true
+      },
+      {
+        "name": "own server level50 traveler",
+        "passed": true
+      },
+      {
+        "name": "foreign traveler and diary invisible",
+        "passed": true
+      },
+      {
+        "name": "own stable cards read",
+        "passed": true
+      },
+      {
+        "name": "foreign stable cards denied",
+        "passed": true
+      },
+      {
+        "name": "anonymous stable cards denied",
+        "passed": true
+      }
+    ],
+    "datasets": {
+      "inventory": {
+        "rows": 6,
+        "hash": "66acafd26ad6a00844732c891e004fc05782dd291e6915a7878ab40b8a4d2501",
+        "totalQuantity": 14
+      },
+      "equipped_items": {
+        "rows": 6,
+        "hash": "cc129c3d824c0dea60d1777a9aa1db0d53565c2dfd069196659742c4da36413e"
+      },
+      "traveler_stats": {
+        "rows": 1,
+        "hash": "a2fb5bcb2b5fac7133feeb0f7219af0f2ba3c59c5af1abbea43caa510fe1608e"
+      },
+      "wallets": {
+        "rows": 1,
+        "hash": "db489b316e95f4f9e47c932cbc95ea69bc6662a628d4d3ed28c0220adeb9bf07"
+      },
+      "traveler": {
+        "rows": 1,
+        "hash": "f3ae6acaf6bbe7af487470389b43e0514ad7eec4f8c703d59783f9db39e239a2",
+        "persistedProgressPresent": true
+      },
+      "cards": {
+        "rows": 0,
+        "hash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      }
+    },
+    "uid": "78729453-8e04-478c-96ae-d37cead1bc8c",
+    "activeHero": "31b70059-deca-44c8-a6df-f21ea68b6e42",
+    "level": 50,
+    "noLegacyHeroAccess": true,
+    "mutationRequests": false
+  },
+  "remoteMetadata": {
+    "id": "dpl_9fGNqsrMoZe3D6qSFQWQdy4Byu8N",
+    "sha": "0357b444e191e60ae3d95b58f0ea9b80ff72ad89",
+    "state": "READY",
+    "target": "production",
+    "aliasDeployment": "dpl_9fGNqsrMoZe3D6qSFQWQdy4Byu8N",
+    "autoAssignCustomDomains": true,
+    "ssoProtection": {
+      "deploymentType": "all_except_custom_domains"
+    }
+  },
+  "publicSmoke": {
+    "passed": true,
+    "authenticated": false,
+    "checks": [
+      {
+        "path": "/",
+        "status": 200
+      },
+      {
+        "path": "/auth",
+        "status": 200
+      },
+      {
+        "path": "/auth/recover",
+        "status": 200
+      },
+      {
+        "path": "/journey/hero",
+        "status": 200
+      },
+      {
+        "path": "/journey/backpack",
+        "status": 200
+      },
+      {
+        "path": "/journey/collection",
+        "status": 200
+      },
+      {
+        "path": "/journey/diary",
+        "status": 200
+      },
+      {
+        "path": "/journey/guild",
+        "status": 200
+      },
+      {
+        "path": "/journey/guild/ebd",
+        "status": 200
+      }
+    ]
+  },
+  "existingDataCoverage": {
+    "inventoryRows": 6,
+    "totalQuantity": 14,
+    "equippedRows": 6,
+    "canonicalCards": 0,
+    "persistedDiary": true,
+    "grants": false,
+    "legacyLevel1Selected": false
+  }
+}

@@ -1,6 +1,44 @@
 # RPG-DEV-007 — Mochila, Coleção e Diário
 
-26/10/2026. **VALIDATING — autorização posterior permite Teste Chat A exclusivamente para leitura com avatar ativo nível 50; sessão confirmada.** A restrição histórica dessa conta foi substituída expressamente pelo usuário. Branch `codex/rpg-dev-007-preparation`, iniciada em `8c9c0c0` sobre main/produção `1a82d2c`. A PR #12 permanece aberta/draft em `61b7177`; nenhuma implementação ou migration de Equipamentos foi incluída nesta branch. As seções abaixo preservam checkpoints anteriores; o estado desta retomada está ao final, sem converter resultados pendentes em PASS.
+27/10/2026. **DONE / DEPLOY_COMPLETE para Mochila, Coleção e Diário somente leitura.** Produção oficial confirmada no merge `0357b444e191e60ae3d95b58f0ea9b80ff72ad89`, com testes reais após publicação e dados preservados. O usuário autorizou expressamente Teste Chat A somente no avatar ativo nível 50, substituindo a restrição anterior. PR #12 permanece aberta/draft em `61b7177`. A matriz final desta seção prevalece sobre os checkpoints históricos preservados abaixo.
+
+## Resultado final da publicação
+
+- URL oficial: https://rpgjovemcristao-web-inky.vercel.app . Deployment existente `dpl_9fGNqsrMoZe3D6qSFQWQdy4Byu8N`, **READY / production**, SHA `0357b44`, backend PROD confirmado pelos fluxos reais. Alias remoto aponta para esse mesmo ID. Associação automática de domínios restaurada ao valor anterior `true`; proteção Vercel/Trusted Sources preservadas.
+- [PR #13](https://github.com/CarlosJr30/rpgjovemcristao/pull/13) integrada normalmente em `392e8f7`; correção visual complementar na [PR #14](https://github.com/CarlosJr30/rpgjovemcristao/pull/14), head `7b610688582bea3ed95212f1d03828dde768b75d`, integrada em `0357b44`. Nenhum force push/bypass ou merge da #12.
+- CI do head da correção: [push 40477412446](https://github.com/CarlosJr30/rpgjovemcristao/actions/runs/40477412446) e [PR 40477446782](https://github.com/CarlosJr30/rpgjovemcristao/actions/runs/40477446782), **success**. CI do merge [40479636858](https://github.com/CarlosJr30/rpgjovemcristao/actions/runs/40479636858), **success na tentativa 2**, mesmo SHA. A primeira tentativa falhou por pré-condição não atingida no diagnóstico nativo de prefetch, sem o patch; repetido apenas o job após analisar/preservar o log, sem mudar código, assertions ou limites. Não se declara a primeira tentativa PASS.
+- [Preview corrigida TEST](https://rpgjovemcristao-k3o35cuwp-carlos-junior-s-projects.vercel.app), `dpl_533jhtGBkpAJX6AnBUuaj2sKMAvT`, READY/SHA `7b61068`: **46 checks reais PASS**. Preview original `71403e6` e suas evidências preservadas separadamente.
+- Migration única deste escopo: arquivo `20261026192057_rpg_dev_007_owned_cards_read.sql`, aplicado como **TEST 20261026222933** e **PROD 20261027013958**. Sem reaplicar migrations anteriores ou importar a 006. Recuperação/compatibilidade/segurança aprovadas antes do DDL e merge; snapshot estrutural privado SHA-256 `8b8c154f2222f052a186200d0b56595efe78f382276965980412ef2e04966863`. Probe transacional de recuperação aprovado; reversão efetiva da produção não foi necessária.
+
+| Gate final | Mochila | Coleção | Diário |
+| --- | --- | --- | --- |
+| Implementação, unitários, lint, tipos, build e CI | PASS | PASS | PASS |
+| Preview TEST real, Auth/RLS, consulta/recarga desktop e WebKit | PASS | PASS, estado vazio | PASS, estado vazio |
+| Homologação PROD antes de mover domínio | PASS, inventário existente | PASS, vazio canônico | PASS, progresso persistido |
+| Após publicação na URL oficial | PASS | PASS | PASS |
+| Preservação de dados e isolamento de outro UID | PASS | PASS | PASS |
+| Publicação do escopo de consulta | CONCLUÍDA | CONCLUÍDA | CONCLUÍDA |
+
+Validação progressiva na mesma implantação produtiva: Mochila, depois Coleção e Diário; promoção única do artefato somente após os três gates e CI do merge aprovados. O domínio ficou na versão anterior durante a falha visual e todo o rework. O deploy Git já existente foi promovido, sem rebuild duplicado para publicação.
+
+## Testes finais e preservação
+
+- **825 unitários PASS / 74 SKIP**, 123 arquivos aprovados/7 opt-in omitidos, confirmado no job de qualidade do merge; SKIP não convertido em PASS. 6 unitários pertinentes adicionais na revisão local da correção. Lint/typecheck/build PASS; protocolo 25 PASS; 18 PostgreSQL isolados PASS, incluindo positivos de cartas, constraints, ACLs e recuperação. Fixtures locais não são provas hospedadas.
+- Regressão local da correção: **24 RSC, 154 interface e 48 Guilda PASS**, sintética, sem prova produtiva inferida. Interface inclui inventário preenchido e decode da imagem original em desktop, 390px, 320px e paisagem. PNGs originais intactos; apenas escala de apresentação/grid da Mochila corrigidos.
+- Sessão normal confirmada contra Auth, UID `78729453-8e04-478c-96ae-d37cead1bc8c`, avatar ativo `31b70059-deca-44c8-a6df-f21ea68b6e42`, nível **50**. Avatar antigo nível 1 não selecionado ou usado para homologar. Sem criação/concessão ou operações de equipamento/progressão.
+- **12 checks API pré-DDL e 14 pós-DDL PASS**; RLS nega inventário/equipamentos/atributos/carteira/viajante de outro UID dedicado, e a leitura de cartas nega dono alheio/anon. Leitura própria retorna cartas canônicas vazias, sem fabricar posse.
+- **55 checks reais no deployment PROD corrigido antes da promoção + 55 após promoção na URL oficial**, Chromium desktop/WebKit móvel, zero page errors finais. Mochila confere **6 linhas/14 unidades** e indicação dos **6 equipamentos existentes** sem equipar/desequipar; Coleção confere **0 cartas** canônicas existentes; Diário mostra registros/referências/progresso persistidos, com reflexão privada recolhida. Consultas e recargas sem compras, vendas, concessões, participação ou conclusão de fase. Nove rotas públicas de Auth/Herói/consultas/Guilda/EBD HTTP200 após a publicação; rotas não homologadas e API de autoridade continuam403.
+- **38 tabelas PROD e 40 TEST com contagens/hashes idênticos** ao baseline, conferidas novamente após publicação. Incluem todos os avatares, XP, moedas, inventários, equipamentos, cartas/recibos, progresso e Guilda/EBD. **72 funções/ACLs preexistentes, policies, ACLs de tabelas, defaults e RLS idênticos**. Apenas dois endpoints novos STABLE de leitura, EXECUTE authenticated vinculado ao dono; anon/service_role e autoridades econômicas permanecem negados. Scope PROD guild-ebd-001 preservado.
+- O Auth preexistente tenta preparar o perfil próprio com POST `ignore-duplicates`. Cada rodada final de navegador confirmou **14 tentativas no perfil já existente**, sem alteração de hash. Não declarar ausência absoluta de POST; nenhuma mutação econômica/de progresso foi observada. Login/refresh normais podem atualizar metadados de sessão Auth, que não são descritos como dados de jogo imutáveis.
+- Evidência final sanitizada em [RPG-DEV-007-RELEASE-EVIDENCE.json](RPG-DEV-007-RELEASE-EVIDENCE.json). Evidências iniciais PG/TEST/38+40 hashes continuam nos três JSONs anteriores. Logs/capturas/falhas/snapshot e procedimento de compensação ficam em build/rpg-dev-007, sem tokens, estado de sessão ou reflexão privada publicados. QA/Security pelo autor; sem alegação de revisão independente.
+
+## Limitações e próximos passos
+
+Não há bloqueio crítico aberto para as três consultas publicadas. Positivos hospedados de cartas adquiridas nas contas TEST antigas continuam **PENDING sem sessão autorizada**; cartas positivas foram verificadas apenas em PostgreSQL isolado. Coleção produtiva vazia é cobertura real de vazio, não prova hospedada de carta adquirida. WebKit móvel é emulação, não teste físico de aparelho. Os avisos legados de advisors (deny-all RLS/12 definer/proteção de senhas) permanecem registrados abaixo, sem configuração alterada ou novo aviso da migration.
+
+Equipar/desequipar e PR #12, Jornada/Missões, Arena/Torre, Loja, aquisição de cartas/baús e economia continuam bloqueados e fora do aceite. Não reconciliados ou alterados dados econômicos anteriores. Worktrees/52 caminhos originais preservados, sem recurso pago novo, novas dependências, arte ou alteração de jogadores para fabricar testes. Registro final em branch documental própria; sem novo deploy de documentação.
+
+## Histórico de implementação, bloqueios superados e rework
 
 ## Funcionalidades restauradas no candidato
 
