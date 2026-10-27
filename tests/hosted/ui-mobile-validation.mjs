@@ -84,16 +84,16 @@ try {
         (await nav.evaluate((element) => element.children.length)) === 11,
       );
       check(
-        'four unreleased modules have no protected actions',
-        (await nav.locator('[aria-disabled="true"]').count()) === 4 &&
+        'three unreleased modules have no protected actions',
+        (await nav.locator('[aria-disabled="true"]').count()) === 3 &&
           (await nav
             .locator('[aria-disabled="true"] a,[aria-disabled="true"] button')
             .count()) === 0,
       );
       check(
-        'only the seven approved modules are linked',
+        'only the eight approved modules are linked',
         JSON.stringify(await nav.locator('a[href]').evaluateAll(links => links.map(link => link.getAttribute('href')))) ===
-          JSON.stringify(['/journey/hero','/journey/phases/o-jardim-e-a-escolha','/journey/backpack','/journey/collection','/journey/diary','/journey/guild','/journey/guild/ebd']),
+          JSON.stringify(['/journey/hero','/journey/worlds','/journey/phases/o-jardim-e-a-escolha','/journey/backpack','/journey/collection','/journey/diary','/journey/guild','/journey/guild/ebd']),
       );
       const trigger = page.getByRole('button', {
         name: 'Abrir menu',
@@ -203,6 +203,28 @@ try {
       check('inventory icon fits its card', await page.locator('main img[src]').evaluateAll(images => images.every(image => image.getBoundingClientRect().right <= image.closest('article').getBoundingClientRect().right)));
       check('backpack remains consultation only', await page.getByRole('button', { name: /equipar|vender|comprar|transferir/i }).count() === 0);
       await page.screenshot({ path: base + '/' + name + '-backpack-populated.png', fullPage: true });
+      await navigateReleased(page, 'Jornada');
+      await expect(page.locator('[data-story-mode="read-only"]')).toBeVisible();
+      check('Jornada preserves nine existing worlds', await page.getByRole('list', { name: 'Mundos bíblicos' }).getByRole('listitem').count() === 9);
+      check('Jornada shows honest empty official progress', await page.getByText('0/5 histórias com conclusão registrada', { exact: true }).count() === 1);
+      check('Jornada does not promote local progress', await page.getByText('Nenhum progresso legado persistido válido. O histórico local não substitui o servidor.', { exact: true }).count() === 1);
+      check('Jornada has no completion or economic controls', await page.locator('main button').count() === 0);
+      await page.screenshot({ path: base + '/' + name + '-journey-map.png', fullPage: true });
+      await page.getByRole('link', { name: 'Consultar As Origens →', exact: true }).click();
+      await expect(page.getByRole('list', { name: 'Histórias de As Origens' })).toBeVisible();
+      check('origins preserves five stories without splitting Eden and Fall', await page.getByRole('list', { name: 'Histórias de As Origens' }).getByRole('listitem').count() === 5);
+      for (const id of ['creation','garden-choice','cain-abel','noah-ark','babel']) {
+        await page.goto(origin + '/journey/stories/' + id);
+        await expect(page.getByRole('region', { name: 'Objetivos e requisitos' })).toBeVisible();
+        check('read-only story ' + id + ' has no completion action', await page.locator('main button,main textarea,main input').count() === 0);
+        check('read-only story ' + id + ' fits mobile viewport', await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
+      }
+      await page.reload();
+      await expect(page.getByRole('region', { name: 'Objetivos e requisitos' })).toBeVisible();
+      check('Jornada reload remains read only', await page.locator('[data-story-mode="read-only"]').count() === 1);
+      await page.goto(origin + '/journey/worlds/patriarchs');
+      await expect(page.getByText('Bloqueado · As histórias deste mundo ainda estão em preparação.', { exact: true })).toBeVisible();
+      check('planned world remains blocked without invented activities', await page.locator('main button,main input,main textarea').count() === 0);
       // HTTP checks are real release guards, not routed or fabricated responses.
       for (const path of [
         '/journey/arena',
