@@ -4,7 +4,7 @@ ID: RPG-DEV-008B
 TITLE: Recuperar atividades existentes do Jardim sem persistência ou economia
 OBJECTIVE: Leitura obrigatória, compreensão, oração opcional, reflexão, exploração e quiz existentes, claramente demonstrativos.
 PRIORITY: P1 High
-STATUS: VALIDATING
+STATUS: DONE / DEPLOY_COMPLETE
 SCOPE: apps/web componentes legados com modo demonstrativo/injeção de estado em memória, nova composição de Missões, rota controlada/menu, testes/docs/memória/CI/Preview/publicação conforme RELEASE_POLICY. Autor assume Frontend/Backend/Game Designer/Biblical Content/QA/Security/DevOps nos limites explícitos; não há delegação.
 OUT_OF_SCOPE: Escritas de progresso/XP/moedas/itens/cartas, equipamentos/PR12, Guilda/EBD, novos roteiros, histórias candidatas não homologadas, minigame ainda separado em008C, migrations.
 DEPENDENCIES: base main0357b44; manter008A/PR15 em branch separada e reconciliar somente alterações aprovadas no fluxo normal.
@@ -22,6 +22,10 @@ DEFINITION_OF_DONE: critérios/gates aplicáveis comprovados e documentação/me
 Preparação em27/10/2026: branch própria codex/rpg-dev-008b-missions, worktree separado sobre main; sem alterações remotas ou liberaçãoB. Autoridade complete_story exige recibos/vídeo/recompensa e EXECUTE está bloqueado; não será concedido. Alternativa demonstrativa explicitamente autorizada pelo usuário.
 
 ## SELF VALIDATE parcial
+
+## Aceite final em27/10/2026
+
+Gates obrigatórios PASS:855unit/74SKIP, lint/tipos/build/protocolo25, CI64fbf1c e merge f4e8b828f71cf46f9620a6265ec4414d2a7f2f98 (40586736813). Preview177reais/36Missões; PROD158antes+158oficial, Chromium/WebKit390px emulado. Exercícios completos sóTEST; PROD consultas/abertura/reload, ativo50 autorizado. Auth/RLS/negações/economia403 e regressões preservadas.40TEST/38PROD hashes/contagens e estruturas iguais; semSQL/migration/concessões/progressão.58profile ignore-duplicates por rodada completa, sem mudança de hash. Rollback app008A preparado, não necessário. Oficial READY/dpl_3znajcb3iDY5Xq3DNRSqoL8p8UBu/alias exato/configuração restaurada. Relatório/evidência008B contêm URLs, CI, limitações e falhas do coletor. QA/Security/editorial pelo autor. Sem bloqueio críticoB; mobile não físico, cartas antigas hospedadas pendentes. Documentação isolada sem deploy adicional. Checkpoints abaixo são históricos.
 
 Checkpoint posterior: baseA publicada/fechamento2b3ba50 reconciliados por merge normal, com resolução explícita dos menus/rotas/testes; nenhum arquivo da PR12 incluído. 855unit/74SKIP e lint/types PASS na base reconciliada. Browser local real do exercício36checks PASS nas duas engines, sem page errors/mutações REST além do perfil sintético. Sequência original recuperada, resultado/reload somente memória. Regressões adicionais em andamento; gates hospedados/CI/produção PENDING. O parágrafo abaixo preserva a primeira validação na base007.
 

@@ -260,6 +260,13 @@ export function JourneyReadView({
           </Link>
         </p>
       )}
+      {story?.id === 'garden-choice' && (
+        <p>
+          <Link className={css.link} href="/journey/minigames/fuga-da-serpente">
+            Praticar Fuga da Serpente · demonstração sem progressão →
+          </Link>
+        </p>
+      )}
       {(!world || world.id === 'origins') && (
         <section
           className={css.notice}

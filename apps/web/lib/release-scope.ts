@@ -1,5 +1,5 @@
 /** Fixed release boundary. A full launch requires an explicitly reviewed change. */
-export const RELEASE_PROFILE = 'mission-demo-008b' as const;
+export const RELEASE_PROFILE = 'minigame-demo-008c' as const;
 export const GAMEPLAY_ENABLED = false;
 const paths = new Set([
   '/',
@@ -11,6 +11,7 @@ const paths = new Set([
   '/journey/backpack',
   '/journey/collection',
   '/journey/diary',
+  '/journey/minigames/fuga-da-serpente',
   '/journey/phases/o-jardim-e-a-escolha',
   '/journey/worlds',
   '/journey/worlds/origins',

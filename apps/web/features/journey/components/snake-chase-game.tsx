@@ -49,6 +49,7 @@ type Props = {
   tutorialCompleted: boolean;
   onTutorialComplete: () => void;
   onComplete: () => void;
+  completionLabel?: string;
 };
 type Status = 'ready' | 'playing' | 'paused' | 'won' | 'lost';
 type PowerKind = 'shield' | 'speed' | 'heal';
@@ -196,6 +197,7 @@ export function SnakeChaseGame({
   tutorialCompleted,
   onTutorialComplete,
   onComplete,
+  completionLabel = 'Continuar para o Quiz →',
 }: Props) {
   const fallbackUrl = portrait.fallback?.imageUrl;
   const fallbackX = portrait.fallback?.source.x ?? 0;
@@ -1066,7 +1068,7 @@ export function SnakeChaseGame({
                 {status === 'won' ? 'Jogar novamente' : 'Tentar novamente'}
               </button>
               {status === 'won' && (
-                <button onClick={onComplete}>Continuar para o Quiz →</button>
+                <button onClick={onComplete}>{completionLabel}</button>
               )}
               <button onClick={() => void exitGame()}>Sair</button>
             </div>
