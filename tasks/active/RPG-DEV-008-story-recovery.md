@@ -1,5 +1,7 @@
 # RPG-DEV-008 — Recuperação do Modo História
 
+27/10/2026 — fechamento008C:PR17/head8f14949/merge c14fd5e, CI40591880684/40591887605/40595207248success, oficial READY/dpl_8Pi4mXQUCaMcirqq5kLpXZdH9sRk/alias exato. TEST241(43Serpente/36Missões), PROD179antes+179oficial PASS;40TEST/38PROD/estruturas iguais, zeroSQL/migration/economia.858unit/74SKIP, lint/tipos/build/protocolo25 e43checks locais PASS. Contrato008C concluído/evidência/relatório registram confirmação de fragmentos existentes, emulação móvel e limitações, sem prova física ou partidas completas PROD. A/B/C entregues nos escopos reduzidos aprovados, sem autoridade persistente, recompensas ou novas histórias. Agregadora permanece como acompanhamento da recuperação geral; não ampliar sua autorização por inferência. PR12 preservada.
+
 27/10/2026:008B DONE/DEPLOY_COMPLETE, PR16/merge f4e8b82, CI40586736813 success. Preview177/PROD158antes+158oficial PASS, dados40TEST/38PROD e estruturas iguais. Missões demonstrativas sem progressão/economia, zeroSQL. Relatório/evidência008B vinculam resultados e limites. Agregadora permanece ACTIVE: preparar008C em branch própria sem liberação nesta etapa; PR12 independente.
 
 ID: RPG-DEV-008

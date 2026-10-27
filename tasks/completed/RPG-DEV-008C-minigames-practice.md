@@ -4,7 +4,7 @@ ID: RPG-DEV-008C
 TITLE: Recuperar minigame existente sem progressão ou economia
 OBJECTIVE: Reutilizar Fuga da Serpente, arte e controles aprovados, com resultado/reinício apenas em memória.
 PRIORITY: P1 High
-STATUS: VALIDATING
+STATUS: DONE
 SCOPE: Composição segura em apps/web/features/journey/screens, rota dedicada, testes pertinentes e documentação. Frontend/Game Designer/Biblical Content/QA/Security/DevOps assumidos pelo autor nos limites autorizados; sem delegação. GitHub/Preview/produção somente após RELEASE_POLICY e gates aprovados.
 OUT_OF_SCOPE: Alterar engine/arte aprovada sem falha comprovada, recompensas, XP/moedas/itens/cartas, escrita de progresso/tutorial, completion RPC, equipamentos/PR12, Arena/Torre/Loja, novas histórias/minigames.
 DEPENDENCIES: branch própria reconciliada por merge normal com008B publicada em f4e8b82 e registro documental c7e90b7. PR12 não incluída. Sem migration ou novos serviços/dependências de produto.
@@ -21,6 +21,16 @@ DEFINITION_OF_DONE: gates e aceite comprovados, relatório/memória atualizados;
 27/10/2026: preparação independente; componente SnakeChaseGame possui callbacks de tutorial/onComplete e estado próprio, sem acesso direto à persistência. A composição não usará callbacks legados da fase. Outros minigames de quatro histórias permanecem candidatos editoriais; não serão publicados como aprovados.
 
 ## SELF VALIDATE parcial
+
+## ACEITE FINAL — DONE / DEPLOY_COMPLETE27/10/2026
+
+PR17/candidato8f14949db19df76b8dc2878ec502483bf8a318d1/merge c14fd5e560f6e4930e18a1e493a901dea2ba0ed0; CI push40591880684/PR40591887605/main40595207248 success.858unit PASS/74SKIP, lint/tipos/build/protocolo25 PASS;21direcionados incluídos,24RSC/222UI/48Guilda sintéticos.31checks locais preservados;43superset (13desktop/15WebKit/15Chromiumtoque) PASS. Engine/arte/dificuldade originais, fragmentos/cristais confirmados pelo usuário, sem nova coleta de maçãs.
+
+Preview TEST READY/exatoSHA/dpl_9N7B5kzHtCevad2G8G4DDNJichis:241checks reais PASS (231UI/API e10finais retomados),43Serpente/36Missões/Auth/RLS/isolamento/Guilda/EBD/consultas e bloqueios. Falhas de coletor/CI antigo preservadas no relatório, sem chamar rodadas interrompidas PASS ou alterar runtime/asserções/limites para ocultá-las. Mobile emulado, não físico; mesma sessão normal reutilizada em memória.73profile ignore-duplicates e4RPCs revisadas de leitura, sem escrita inesperada. Partidas completas sóTEST.
+
+PROD dpl_8Pi4mXQUCaMcirqq5kLpXZdH9sRk/READY/production/merge exato, alias oficial https://rpgjovemcristao-web-inky.vercel.app confirmado após promoção do mesmo artefato.179checks antes+179oficial PASS, Chromium/WebKit: leituras/abertura/reload somente, ativo50 autorizado confirmado, sem antigo1.70profile ignore-duplicates e8RPCs revisadas de leitura por rodada produtiva, hashes iguais.40TEST/38PROD e estruturas idênticos;75funções/39policies PROD e24funções privadas Guilda/EBD adicionais preservadas. Nenhuma migration/SQL, progressão, XP/moedas/itens/cartas concedidos ou recompensa econômica. Auth/RLS/bloqueios/PR12 independentes.
+
+Recuperação app008B preparada antes de merge, domínio retido atéCImerge/179checks; reversão não necessária. autoAssign true/proteções restauradas, sem rebuild/deploy duplicado. QA/Security/React/conteúdo pelo autor, sem independência. Evidência RPG-DEV-008C-RELEASE-EVIDENCE.json e relatório008 contêm hashes/URLs/CI/proveniência/limitações; avisos legados e cartas TEST antigas pendentes sem fabricar prova. Sem bloqueio críticoC. Documentação final isolada não exige deploy. Checkpoints seguintes são históricos, substituídos por este aceite.
 
 ## Homologação e publicação autorizadas — retomada27/10/2026
 
