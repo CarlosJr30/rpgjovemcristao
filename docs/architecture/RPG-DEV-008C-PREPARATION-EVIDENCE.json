@@ -1,0 +1,191 @@
+{
+  "release": "RPG-DEV-008C",
+  "date": "2026-10-27",
+  "status": "PREPARATION_ONLY_NOT_PUBLISHED",
+  "branch": "codex/rpg-dev-008c-minigames",
+  "publishedBase": "f4e8b828f71cf46f9620a6265ec4414d2a7f2f98",
+  "reconciledCheckpoint": "b324baeee81c2209f3110fda1b8c5d5def86ad7c",
+  "local": {
+    "unitPass": 858,
+    "unitSkip": 74,
+    "lint": "PASS",
+    "types": "PASS",
+    "nextBuild": "PASS",
+    "syntheticData": true,
+    "productionProof": false,
+    "mobileEmulated": true,
+    "physicalDeviceTest": false,
+    "runs": [
+      {
+        "label": "desktop",
+        "errors": [],
+        "writes": [],
+        "checks": [
+          {
+            "name": "demonstration explains no progression",
+            "passed": true
+          },
+          {
+            "name": "ordinary keyboard movement changes player position",
+            "passed": true
+          },
+          {
+            "name": "pause holds player position",
+            "passed": true
+          },
+          {
+            "name": "real engine victory through normal controls",
+            "passed": true
+          },
+          {
+            "name": "winning callback ends only the demonstration",
+            "passed": true
+          },
+          {
+            "name": "real idle pursuit reaches defeat",
+            "passed": true
+          },
+          {
+            "name": "defeat has no completion action",
+            "passed": true
+          },
+          {
+            "name": "retry starts another real round",
+            "passed": true
+          },
+          {
+            "name": "minigame fits viewport",
+            "passed": true
+          }
+        ],
+        "passed": true
+      },
+      {
+        "label": "mobile",
+        "errors": [],
+        "writes": [],
+        "checks": [
+          {
+            "name": "demonstration explains no progression",
+            "passed": true
+          },
+          {
+            "name": "mobile direction pointer moves the real player",
+            "passed": true
+          },
+          {
+            "name": "mobile direction release clears held input",
+            "passed": true
+          },
+          {
+            "name": "ordinary keyboard movement changes player position",
+            "passed": true
+          },
+          {
+            "name": "pause holds player position",
+            "passed": true
+          },
+          {
+            "name": "real engine victory through normal controls",
+            "passed": true
+          },
+          {
+            "name": "winning callback ends only the demonstration",
+            "passed": true
+          },
+          {
+            "name": "real idle pursuit reaches defeat",
+            "passed": true
+          },
+          {
+            "name": "defeat has no completion action",
+            "passed": true
+          },
+          {
+            "name": "retry starts another real round",
+            "passed": true
+          },
+          {
+            "name": "minigame fits viewport",
+            "passed": true
+          }
+        ],
+        "passed": true
+      },
+      {
+        "label": "android-emulated",
+        "errors": [],
+        "writes": [],
+        "checks": [
+          {
+            "name": "demonstration explains no progression",
+            "passed": true
+          },
+          {
+            "name": "mobile direction pointer moves the real player",
+            "passed": true
+          },
+          {
+            "name": "mobile direction release clears held input",
+            "passed": true
+          },
+          {
+            "name": "ordinary keyboard movement changes player position",
+            "passed": true
+          },
+          {
+            "name": "pause holds player position",
+            "passed": true
+          },
+          {
+            "name": "real engine victory through normal controls",
+            "passed": true
+          },
+          {
+            "name": "winning callback ends only the demonstration",
+            "passed": true
+          },
+          {
+            "name": "real idle pursuit reaches defeat",
+            "passed": true
+          },
+          {
+            "name": "defeat has no completion action",
+            "passed": true
+          },
+          {
+            "name": "retry starts another real round",
+            "passed": true
+          },
+          {
+            "name": "minigame fits viewport",
+            "passed": true
+          }
+        ],
+        "passed": true
+      }
+    ]
+  },
+  "priorFailure": {
+    "file": "packages/database/src/index.test.ts",
+    "reason": "unchanged import timed out at5000ms in4worker run",
+    "firstPass": 857,
+    "firstFail": 1,
+    "firstSkip": 74,
+    "isolatedPass": 2,
+    "serialFullPass": 858,
+    "codeOrAssertionOrTimeoutChanged": false
+  },
+  "gates": {
+    "ci": "PENDING",
+    "hostedPreview": "NOT_EXECUTED",
+    "hostedAuthRls": "PENDING",
+    "hostedDataHashes": "PENDING",
+    "production": "NOT_DEPLOYED"
+  },
+  "economicGrants": 0,
+  "persistedProgressWrites": 0,
+  "migrations": 0,
+  "independentReview": false,
+  "preservedEvidence": "build/rpg-dev-008c-before-008b"
+}
