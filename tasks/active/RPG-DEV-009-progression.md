@@ -4,7 +4,7 @@ ID: RPG-DEV-009
 TITLE: Auditar, recuperar e homologar autoridade de progresso e desbloqueio sequencial
 OBJECTIVE: Reutilizar story_progress/receipts e componentes publicados; nenhuma conclusão baseada apenas em confirmação cliente ou concessão econômica.
 PRIORITY: P1 High
-STATUS: ACTIVE
+STATUS: BLOCKED
 SCOPE: 009A autoridade/persistência em packages/database e adaptações mínimas apps/web quando comprovadas;009B projeção/desbloqueio só conteúdo aprovado;009C integrar apenas evidências verificáveis. Testes unitários/PG isolado/API/Chromium/WebKit, CI/TEST/Preview/produção conforme RELEASE_POLICY e gates reais. Documentação/segurança/memória e recuperação. Perfis Backend/Database/Frontend/Game Designer/Biblical Content/QA/Security/DevOps assumidos pelo autor no escopo explícito do usuário, sem delegação ou independência alegada.
 OUT_OF_SCOPE: XP/moedas/baús/cartas/recompensas, PR12/equipamentos, Arena/Torre/Loja, corrigir16XP/6moedas, novas fases/artes/engine, alteração indevida de legado ou dados produtivos para fabricar testes, recursos pagos.
 DEPENDENCIES: Main/produção a conferir c14fd5e; branch codex/rpg-dev-009-progression criada de origin/main, fechamento008C439567c incorporado apenas documentalmente. Homologação editorial e evidência dos requisitos permanecem gates, nunca presumidas por esta autorização técnica.
@@ -26,3 +26,7 @@ DEFINITION_OF_DONE: aceite/gates comprovados por subentrega, relatório009/commi
 ## 28/10/2026 — contrato da continuação TEST
 
 Usuário confirmou que não há aceite posterior e autorizou concluir somente autoridade/testes independentes em TEST, com proposta editorial separada para revisão. Migration009A exclusivamente TEST, cinco políticas fechadas, sem emissores reais de evidência; nenhuma conclusão oficial ou deploy PROD autorizado por esta preparação.32PG isolados PASS, lint/types/build/protocolo25 PASS; positivos locais não são prova hospedada. CI/migration TEST/API/Preview ainda pendentes neste checkpoint. Segurança/QA pelo autor, sem independência alegada. Preservar demonstrações008 e PR12. Aceite editorial e verificadores reais continuam BLOCKED para009B/C; não declarar toda009DONE.
+
+## Fechamento independente28/10/2026
+
+009A consumidor fechado implementado/validado TEST, PR18 draft/candidato f39a05d. CI40659891641/40659934208success,858unit/74SKIP/qualidade/protocolo25 e32PG PASS. Migration TEST20261028085900 somente, cinco políticas fechadas/zero evidência/conclusão. Preview READY dpl_5eE8NeY2RvvhWr5Cqjt1t2Sc9cme/backendTEST.23API reais PASS e244regressões agregadas (43Serpente/36Missões), com partes/falhas preservadas no relatório/evidência; mobile emulado, sem prova física. Zero erros finais nas partes aprovadas; não declarar rodadas falhas integralmente PASS. Contexto isolado do jogo sem monitor de requests, preservação global conferida separadamente.40TEST/38PROD hashes/contagens iguais; estruturas antigas preservadas com apenas delta009A esperadoTEST. PROD008C/PR12 intactas; sem progressão/recompensa/criação artificial ou merge. Proposta editorial separada NÃO HOMOLOGADA. BLOCKED para009B/C/PROD por aceite humano, vídeo e emissores reais, seguido de positivo hospedado normal. Não promover fixture isolada a prova remota; não aplicar payload TEST em PROD. QA/Security pelo autor.

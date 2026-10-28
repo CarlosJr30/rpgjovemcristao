@@ -1,0 +1,2108 @@
+{
+  "task": "RPG-DEV-009",
+  "date": "2026-10-28",
+  "status": "009A_CLOSED_TEST_VALIDATED; OFFICIAL_PROGRESSION_BLOCKED",
+  "candidate": "f39a05dcd7431ddf785cab654ea3b51598a3c316",
+  "pr": "https://github.com/CarlosJr30/rpgjovemcristao/pull/18",
+  "productionChanged": false,
+  "production": {
+    "sha": "c14fd5e560f6e4930e18a1e493a901dea2ba0ed0",
+    "deployment": "dpl_8Pi4mXQUCaMcirqq5kLpXZdH9sRk",
+    "url": "https://rpgjovemcristao-web-inky.vercel.app",
+    "migration009Applied": false
+  },
+  "preview": {
+    "id": "dpl_5eE8NeY2RvvhWr5Cqjt1t2Sc9cme",
+    "url": "rpgjovemcristao-7r1bc745c-carlos-junior-s-projects.vercel.app",
+    "state": "READY",
+    "target": null,
+    "sha": "f39a05dcd7431ddf785cab654ea3b51598a3c316"
+  },
+  "ci": [
+    {
+      "run": 40659891641,
+      "event": "push",
+      "sha": "f39a05dcd7431ddf785cab654ea3b51598a3c316",
+      "conclusion": "success"
+    },
+    {
+      "run": 40659934208,
+      "event": "pull_request",
+      "sha": "f39a05dcd7431ddf785cab654ea3b51598a3c316",
+      "conclusion": "success"
+    }
+  ],
+  "migration": {
+    "environment": "TEST",
+    "version": "20261028085900",
+    "source": "20261028012313_rpg_dev_009a_progress_authority_test.sql",
+    "sha256": "1698b8e252c9bd5603ca28d36b62900c652ee2af0ea5dadc5dfb109502329966",
+    "allPoliciesClosed": true,
+    "evidenceRows": 0,
+    "completionRows": 0,
+    "officialRows": 0,
+    "realEvidenceIssuers": false
+  },
+  "local": {
+    "unitPassed": 858,
+    "unitSkipped": 74,
+    "lint": true,
+    "typecheck": true,
+    "build": true,
+    "publicationProtocolPassed": 25,
+    "postgres": {
+      "passed": 32,
+      "isolated": true,
+      "hostedProof": false,
+      "positiveEvidence": "TRUSTED SYNTHETIC FIXTURES; NO EDITORIAL APPROVAL OR VERIFIER CLAIMED",
+      "checks": [
+        {
+          "name": "production-scope guard rejects before any DDL",
+          "passed": true
+        },
+        {
+          "name": "migration installs only closed policies and preserves legacy/economy",
+          "passed": true
+        },
+        {
+          "name": "recovery roundtrip restores prior constraint ACL and data",
+          "passed": true
+        },
+        {
+          "name": "owner readiness distinguishes sequence eligibility from approval/evidence",
+          "passed": true
+        },
+        {
+          "name": "closed editorial policy denies real completion",
+          "passed": true
+        },
+        {
+          "name": "foreign identity denied even with known request UUID",
+          "passed": true
+        },
+        {
+          "name": "foreign readiness denied",
+          "passed": true
+        },
+        {
+          "name": "inactive own avatar denied",
+          "passed": true
+        },
+        {
+          "name": "missing subject denied",
+          "passed": true
+        },
+        {
+          "name": "anonymous account cannot spoof nonanonymous claim",
+          "passed": true
+        },
+        {
+          "name": "anonymous claim denied for existing account",
+          "passed": true
+        },
+        {
+          "name": "anon denied both public RPCs",
+          "passed": true
+        },
+        {
+          "name": "service_role denied both public RPCs",
+          "passed": true
+        },
+        {
+          "name": "authenticated cannot mint or alter policy/evidence/completion rows",
+          "passed": true
+        },
+        {
+          "name": "service_role cannot mint or alter policy/evidence/completion rows",
+          "passed": true
+        },
+        {
+          "name": "direct public projection DML and legacy authority remain denied",
+          "passed": true
+        },
+        {
+          "name": "out of order completion rejected independently of browser flags",
+          "passed": true
+        },
+        {
+          "name": "approved fixture without trusted evidence cannot complete",
+          "passed": true
+        },
+        {
+          "name": "stale command revision denied",
+          "passed": true
+        },
+        {
+          "name": "null request key denied",
+          "passed": true
+        },
+        {
+          "name": "participation cannot impersonate a verified quiz",
+          "passed": true
+        },
+        {
+          "name": "all six stale-policy proofs still rejected",
+          "passed": true
+        },
+        {
+          "name": "trusted isolated fixture evidence enables one idempotent concurrent completion without rewards",
+          "passed": true
+        },
+        {
+          "name": "reconnect and exact request replay return identical canonical outcome",
+          "passed": true
+        },
+        {
+          "name": "request UUID cannot be replayed for another payload",
+          "passed": true
+        },
+        {
+          "name": "readback unlocks next sequential entry, not unapproved subsequent stories",
+          "passed": true
+        },
+        {
+          "name": "revoked prerequisite content blocks the next completion despite otherwise valid fixture evidence",
+          "passed": true
+        },
+        {
+          "name": "legacy progress is preserved and never converted to v2",
+          "passed": true
+        },
+        {
+          "name": "official projection is immutable even to accidental trusted update",
+          "passed": true
+        },
+        {
+          "name": "recovery refuses to discard any issued evidence or completion",
+          "passed": true
+        },
+        {
+          "name": "duplicate migration fails atomically",
+          "passed": true
+        },
+        {
+          "name": "all non-progress datasets and economic permissions preserved",
+          "passed": true
+        }
+      ]
+    }
+  },
+  "hosted": {
+    "environment": "TEST",
+    "authority": {
+      "checks": 23,
+      "assertions": [
+        {
+          "name": "normal nonanonymous TEST identity verified",
+          "passed": true
+        },
+        {
+          "name": "own readiness available",
+          "passed": true
+        },
+        {
+          "name": "five canonical stories only",
+          "passed": true
+        },
+        {
+          "name": "no editorial requirements approved",
+          "passed": true
+        },
+        {
+          "name": "no official completions or evidence fabricated",
+          "passed": true
+        },
+        {
+          "name": "sequence eligibility is not content approval",
+          "passed": true
+        },
+        {
+          "name": "no rewards and no real issuers declared",
+          "passed": true
+        },
+        {
+          "name": "own official completion blocked by closed policy",
+          "passed": true
+        },
+        {
+          "name": "concurrent and repeated denied commands stay denied",
+          "passed": true
+        },
+        {
+          "name": "foreign readiness denied",
+          "passed": true
+        },
+        {
+          "name": "foreign completion denied",
+          "passed": true
+        },
+        {
+          "name": "anonymous readiness denied",
+          "passed": true
+        },
+        {
+          "name": "anonymous completion denied",
+          "passed": true
+        },
+        {
+          "name": "browser flags and score are not accepted command fields",
+          "passed": true
+        },
+        {
+          "name": "missing idempotency UUID denied",
+          "passed": true
+        },
+        {
+          "name": "legacy application projection remains readable and empty",
+          "passed": true
+        },
+        {
+          "name": "foreign projection invisible under RLS",
+          "passed": true
+        },
+        {
+          "name": "private REST schema not exposed progression_policies",
+          "passed": true
+        },
+        {
+          "name": "private REST schema not exposed progression_evidence",
+          "passed": true
+        },
+        {
+          "name": "private REST schema not exposed progression_completions",
+          "passed": true
+        },
+        {
+          "name": "private REST schema not exposed step_receipts",
+          "passed": true
+        },
+        {
+          "name": "legacy economic completion still denied",
+          "passed": true
+        },
+        {
+          "name": "readiness identical after denied/replayed/concurrent commands",
+          "passed": true
+        }
+      ],
+      "realPositiveCompletion": false,
+      "closedError": {
+        "sqlstate": "55000",
+        "httpStatus": 500,
+        "expectedMessage": "Approved requirements unavailable"
+      }
+    },
+    "regressions": {
+      "checks": 244,
+      "assertions": [
+        {
+          "name": "chromium real nonanonymous Auth verified",
+          "passed": true
+        },
+        {
+          "name": "chromium backpack has no transaction or progression controls",
+          "passed": true
+        },
+        {
+          "name": "chromium backpack has no operational links outside released paths",
+          "passed": true
+        },
+        {
+          "name": "chromium backpack fits viewport",
+          "passed": true
+        },
+        {
+          "name": "chromium collection has no transaction or progression controls",
+          "passed": true
+        },
+        {
+          "name": "chromium collection has no operational links outside released paths",
+          "passed": true
+        },
+        {
+          "name": "chromium collection fits viewport",
+          "passed": true
+        },
+        {
+          "name": "chromium diary has no transaction or progression controls",
+          "passed": true
+        },
+        {
+          "name": "chromium diary has no operational links outside released paths",
+          "passed": true
+        },
+        {
+          "name": "chromium diary fits viewport",
+          "passed": true
+        },
+        {
+          "name": "chromium nine worlds from existing catalog",
+          "passed": true
+        },
+        {
+          "name": "chromium empty official story projection is honest",
+          "passed": true
+        },
+        {
+          "name": "chromium no journey mutation controls",
+          "passed": true
+        },
+        {
+          "name": "chromium legacy server progress correctly distinguished",
+          "passed": true
+        },
+        {
+          "name": "chromium world consultation origins",
+          "passed": true
+        },
+        {
+          "name": "chromium five existing stories",
+          "passed": true
+        },
+        {
+          "name": "chromium world fits viewport origins",
+          "passed": true
+        },
+        {
+          "name": "chromium world consultation patriarchs",
+          "passed": true
+        },
+        {
+          "name": "chromium world stays unavailable patriarchs",
+          "passed": true
+        },
+        {
+          "name": "chromium world fits viewport patriarchs",
+          "passed": true
+        },
+        {
+          "name": "chromium world consultation liberation",
+          "passed": true
+        },
+        {
+          "name": "chromium world stays unavailable liberation",
+          "passed": true
+        },
+        {
+          "name": "chromium world fits viewport liberation",
+          "passed": true
+        },
+        {
+          "name": "chromium world consultation promised-land",
+          "passed": true
+        },
+        {
+          "name": "chromium world stays unavailable promised-land",
+          "passed": true
+        },
+        {
+          "name": "chromium world fits viewport promised-land",
+          "passed": true
+        },
+        {
+          "name": "chromium world consultation kings",
+          "passed": true
+        },
+        {
+          "name": "chromium world stays unavailable kings",
+          "passed": true
+        },
+        {
+          "name": "chromium world fits viewport kings",
+          "passed": true
+        },
+        {
+          "name": "chromium world consultation return",
+          "passed": true
+        },
+        {
+          "name": "chromium world stays unavailable return",
+          "passed": true
+        },
+        {
+          "name": "chromium world fits viewport return",
+          "passed": true
+        },
+        {
+          "name": "chromium world consultation jesus",
+          "passed": true
+        },
+        {
+          "name": "chromium world stays unavailable jesus",
+          "passed": true
+        },
+        {
+          "name": "chromium world fits viewport jesus",
+          "passed": true
+        },
+        {
+          "name": "chromium world consultation church",
+          "passed": true
+        },
+        {
+          "name": "chromium world stays unavailable church",
+          "passed": true
+        },
+        {
+          "name": "chromium world fits viewport church",
+          "passed": true
+        },
+        {
+          "name": "chromium world consultation new-creation",
+          "passed": true
+        },
+        {
+          "name": "chromium world stays unavailable new-creation",
+          "passed": true
+        },
+        {
+          "name": "chromium world fits viewport new-creation",
+          "passed": true
+        },
+        {
+          "name": "chromium story consultation creation",
+          "passed": true
+        },
+        {
+          "name": "chromium story fits viewport creation",
+          "passed": true
+        },
+        {
+          "name": "chromium story reload creation",
+          "passed": true
+        },
+        {
+          "name": "chromium story consultation garden-choice",
+          "passed": true
+        },
+        {
+          "name": "chromium story fits viewport garden-choice",
+          "passed": true
+        },
+        {
+          "name": "chromium story reload garden-choice",
+          "passed": true
+        },
+        {
+          "name": "chromium story consultation cain-abel",
+          "passed": true
+        },
+        {
+          "name": "chromium story fits viewport cain-abel",
+          "passed": true
+        },
+        {
+          "name": "chromium story reload cain-abel",
+          "passed": true
+        },
+        {
+          "name": "chromium story consultation noah-ark",
+          "passed": true
+        },
+        {
+          "name": "chromium story fits viewport noah-ark",
+          "passed": true
+        },
+        {
+          "name": "chromium story reload noah-ark",
+          "passed": true
+        },
+        {
+          "name": "chromium story consultation babel",
+          "passed": true
+        },
+        {
+          "name": "chromium story fits viewport babel",
+          "passed": true
+        },
+        {
+          "name": "chromium story reload babel",
+          "passed": true
+        },
+        {
+          "name": "chromium missions demonstration is explicit",
+          "passed": true
+        },
+        {
+          "name": "chromium missions only three non-economic objective points",
+          "passed": true
+        },
+        {
+          "name": "chromium missions no grant or inventory controls",
+          "passed": true
+        },
+        {
+          "name": "chromium missions incorrect objective sequence does not finish",
+          "passed": true
+        },
+        {
+          "name": "chromium missions two existing external chapter references",
+          "passed": true
+        },
+        {
+          "name": "chromium missions chapter link remains NVI external 0",
+          "passed": true
+        },
+        {
+          "name": "chromium missions chapter link remains NVI external 1",
+          "passed": true
+        },
+        {
+          "name": "chromium missions wrong comprehension stays blocked",
+          "passed": true
+        },
+        {
+          "name": "chromium missions blank reflection cannot advance",
+          "passed": true
+        },
+        {
+          "name": "chromium missions quiz answer disables replayed submission 0",
+          "passed": true
+        },
+        {
+          "name": "chromium missions quiz answer disables replayed submission 1",
+          "passed": true
+        },
+        {
+          "name": "chromium missions quiz answer disables replayed submission 2",
+          "passed": true
+        },
+        {
+          "name": "chromium missions quiz answer disables replayed submission 3",
+          "passed": true
+        },
+        {
+          "name": "chromium missions quiz answer disables replayed submission 4",
+          "passed": true
+        },
+        {
+          "name": "chromium missions quiz reports educational score only",
+          "passed": true
+        },
+        {
+          "name": "chromium missions completed exercise has no economic action",
+          "passed": true
+        },
+        {
+          "name": "chromium missions full practice fits viewport",
+          "passed": true
+        },
+        {
+          "name": "chromium missions reload discards exercise instead of completing phase",
+          "passed": true
+        },
+        {
+          "name": "chromium regression reads existing /journey/guild",
+          "passed": true
+        },
+        {
+          "name": "chromium regression reload without business actions /journey/guild",
+          "passed": true
+        },
+        {
+          "name": "chromium regression reads existing /journey/guild/ebd",
+          "passed": true
+        },
+        {
+          "name": "chromium regression reload without business actions /journey/guild/ebd",
+          "passed": true
+        },
+        {
+          "name": "chromium serpent demonstration explains no progression",
+          "passed": true
+        },
+        {
+          "name": "chromium serpent wall collision stops ordinary held movement without crossing",
+          "passed": true
+        },
+        {
+          "name": "chromium serpent ordinary keyboard movement changes player position",
+          "passed": true
+        },
+        {
+          "name": "chromium serpent pause holds player position",
+          "passed": true
+        },
+        {
+          "name": "chromium serpent existing light crystal collection changes local engine score",
+          "passed": true
+        },
+        {
+          "name": "chromium serpent real engine victory through normal controls",
+          "passed": true
+        },
+        {
+          "name": "chromium serpent winning callback ends only the demonstration",
+          "passed": true
+        },
+        {
+          "name": "chromium serpent real idle pursuit reaches defeat",
+          "passed": true
+        },
+        {
+          "name": "chromium serpent defeat has no completion action",
+          "passed": true
+        },
+        {
+          "name": "chromium serpent retry starts another real round",
+          "passed": true
+        },
+        {
+          "name": "chromium serpent safe exit returns to ready and releases game mode",
+          "passed": true
+        },
+        {
+          "name": "chromium serpent reload discards round and tutorial instead of persisting",
+          "passed": true
+        },
+        {
+          "name": "chromium serpent minigame fits viewport",
+          "passed": true
+        },
+        {
+          "name": "chromium original eleven menu entries",
+          "passed": true
+        },
+        {
+          "name": "chromium exactly three closed menu entries",
+          "passed": true
+        },
+        {
+          "name": "chromium eight released menu paths only",
+          "passed": true
+        },
+        {
+          "name": "chromium zero page errors",
+          "passed": true
+        },
+        {
+          "name": "chromium no mutation requests beyond existing Auth ignore-duplicate bootstrap",
+          "passed": true
+        },
+        {
+          "name": "authorized profile already exists before Auth bootstrap",
+          "passed": true
+        },
+        {
+          "name": "own inventory read succeeds",
+          "passed": true
+        },
+        {
+          "name": "own card read succeeds",
+          "passed": true
+        },
+        {
+          "name": "authorized new TEST hero remains empty",
+          "passed": true
+        },
+        {
+          "name": "own persisted story projection accessible",
+          "passed": true
+        },
+        {
+          "name": "foreign story projection invisible",
+          "passed": true
+        },
+        {
+          "name": "anonymous story projection denied",
+          "passed": true
+        },
+        {
+          "name": "foreign inventory remains invisible",
+          "passed": true
+        },
+        {
+          "name": "foreign traveler remains invisible",
+          "passed": true
+        },
+        {
+          "name": "foreign cards denied",
+          "passed": true
+        },
+        {
+          "name": "anonymous card access denied",
+          "passed": true
+        },
+        {
+          "name": "foreign traveler_stats invisible",
+          "passed": true
+        },
+        {
+          "name": "foreign wallets invisible",
+          "passed": true
+        },
+        {
+          "name": "foreign equipped_items invisible",
+          "passed": true
+        },
+        {
+          "name": "own guild membership read succeeds",
+          "passed": true
+        },
+        {
+          "name": "EBD read respects existing membership without granting it",
+          "passed": true
+        },
+        {
+          "name": "webkit real nonanonymous Auth verified",
+          "passed": true
+        },
+        {
+          "name": "webkit backpack has no transaction or progression controls",
+          "passed": true
+        },
+        {
+          "name": "webkit backpack has no operational links outside released paths",
+          "passed": true
+        },
+        {
+          "name": "webkit backpack fits viewport",
+          "passed": true
+        },
+        {
+          "name": "webkit collection has no transaction or progression controls",
+          "passed": true
+        },
+        {
+          "name": "webkit collection has no operational links outside released paths",
+          "passed": true
+        },
+        {
+          "name": "webkit collection fits viewport",
+          "passed": true
+        },
+        {
+          "name": "webkit diary has no transaction or progression controls",
+          "passed": true
+        },
+        {
+          "name": "webkit diary has no operational links outside released paths",
+          "passed": true
+        },
+        {
+          "name": "webkit diary fits viewport",
+          "passed": true
+        },
+        {
+          "name": "webkit nine worlds from existing catalog",
+          "passed": true
+        },
+        {
+          "name": "webkit empty official story projection is honest",
+          "passed": true
+        },
+        {
+          "name": "webkit no journey mutation controls",
+          "passed": true
+        },
+        {
+          "name": "webkit legacy server progress correctly distinguished",
+          "passed": true
+        },
+        {
+          "name": "webkit world consultation origins",
+          "passed": true
+        },
+        {
+          "name": "webkit five existing stories",
+          "passed": true
+        },
+        {
+          "name": "webkit world fits viewport origins",
+          "passed": true
+        },
+        {
+          "name": "webkit world consultation patriarchs",
+          "passed": true
+        },
+        {
+          "name": "webkit world stays unavailable patriarchs",
+          "passed": true
+        },
+        {
+          "name": "webkit world fits viewport patriarchs",
+          "passed": true
+        },
+        {
+          "name": "webkit world consultation liberation",
+          "passed": true
+        },
+        {
+          "name": "webkit world stays unavailable liberation",
+          "passed": true
+        },
+        {
+          "name": "webkit world fits viewport liberation",
+          "passed": true
+        },
+        {
+          "name": "webkit world consultation promised-land",
+          "passed": true
+        },
+        {
+          "name": "webkit world stays unavailable promised-land",
+          "passed": true
+        },
+        {
+          "name": "webkit world fits viewport promised-land",
+          "passed": true
+        },
+        {
+          "name": "webkit world consultation kings",
+          "passed": true
+        },
+        {
+          "name": "webkit world stays unavailable kings",
+          "passed": true
+        },
+        {
+          "name": "webkit world fits viewport kings",
+          "passed": true
+        },
+        {
+          "name": "webkit world consultation return",
+          "passed": true
+        },
+        {
+          "name": "webkit world stays unavailable return",
+          "passed": true
+        },
+        {
+          "name": "webkit world fits viewport return",
+          "passed": true
+        },
+        {
+          "name": "webkit world consultation jesus",
+          "passed": true
+        },
+        {
+          "name": "webkit world stays unavailable jesus",
+          "passed": true
+        },
+        {
+          "name": "webkit world fits viewport jesus",
+          "passed": true
+        },
+        {
+          "name": "webkit world consultation church",
+          "passed": true
+        },
+        {
+          "name": "webkit world stays unavailable church",
+          "passed": true
+        },
+        {
+          "name": "webkit world fits viewport church",
+          "passed": true
+        },
+        {
+          "name": "webkit world consultation new-creation",
+          "passed": true
+        },
+        {
+          "name": "webkit world stays unavailable new-creation",
+          "passed": true
+        },
+        {
+          "name": "webkit world fits viewport new-creation",
+          "passed": true
+        },
+        {
+          "name": "webkit story consultation creation",
+          "passed": true
+        },
+        {
+          "name": "webkit story fits viewport creation",
+          "passed": true
+        },
+        {
+          "name": "webkit story reload creation",
+          "passed": true
+        },
+        {
+          "name": "webkit story consultation garden-choice",
+          "passed": true
+        },
+        {
+          "name": "webkit story fits viewport garden-choice",
+          "passed": true
+        },
+        {
+          "name": "webkit story reload garden-choice",
+          "passed": true
+        },
+        {
+          "name": "webkit story consultation cain-abel",
+          "passed": true
+        },
+        {
+          "name": "webkit story fits viewport cain-abel",
+          "passed": true
+        },
+        {
+          "name": "webkit story reload cain-abel",
+          "passed": true
+        },
+        {
+          "name": "webkit story consultation noah-ark",
+          "passed": true
+        },
+        {
+          "name": "webkit story fits viewport noah-ark",
+          "passed": true
+        },
+        {
+          "name": "webkit story reload noah-ark",
+          "passed": true
+        },
+        {
+          "name": "webkit story consultation babel",
+          "passed": true
+        },
+        {
+          "name": "webkit story fits viewport babel",
+          "passed": true
+        },
+        {
+          "name": "webkit story reload babel",
+          "passed": true
+        },
+        {
+          "name": "webkit missions demonstration is explicit",
+          "passed": true
+        },
+        {
+          "name": "webkit missions only three non-economic objective points",
+          "passed": true
+        },
+        {
+          "name": "webkit missions no grant or inventory controls",
+          "passed": true
+        },
+        {
+          "name": "webkit missions incorrect objective sequence does not finish",
+          "passed": true
+        },
+        {
+          "name": "webkit missions two existing external chapter references",
+          "passed": true
+        },
+        {
+          "name": "webkit missions chapter link remains NVI external 0",
+          "passed": true
+        },
+        {
+          "name": "webkit missions chapter link remains NVI external 1",
+          "passed": true
+        },
+        {
+          "name": "webkit missions wrong comprehension stays blocked",
+          "passed": true
+        },
+        {
+          "name": "webkit missions blank reflection cannot advance",
+          "passed": true
+        },
+        {
+          "name": "webkit missions quiz answer disables replayed submission 0",
+          "passed": true
+        },
+        {
+          "name": "webkit missions quiz answer disables replayed submission 1",
+          "passed": true
+        },
+        {
+          "name": "webkit missions quiz answer disables replayed submission 2",
+          "passed": true
+        },
+        {
+          "name": "webkit missions quiz answer disables replayed submission 3",
+          "passed": true
+        },
+        {
+          "name": "webkit missions quiz answer disables replayed submission 4",
+          "passed": true
+        },
+        {
+          "name": "webkit missions quiz reports educational score only",
+          "passed": true
+        },
+        {
+          "name": "webkit missions completed exercise has no economic action",
+          "passed": true
+        },
+        {
+          "name": "webkit missions full practice fits viewport",
+          "passed": true
+        },
+        {
+          "name": "webkit missions reload discards exercise instead of completing phase",
+          "passed": true
+        },
+        {
+          "name": "webkit regression reads existing /journey/guild",
+          "passed": true
+        },
+        {
+          "name": "webkit regression reload without business actions /journey/guild",
+          "passed": true
+        },
+        {
+          "name": "webkit regression reads existing /journey/guild/ebd",
+          "passed": true
+        },
+        {
+          "name": "webkit regression reload without business actions /journey/guild/ebd",
+          "passed": true
+        },
+        {
+          "name": "webkit serpent memory-only disclaimer visible",
+          "passed": true
+        },
+        {
+          "name": "webkit serpent opening fits viewport",
+          "passed": true
+        },
+        {
+          "name": "webkit serpent reload without starting a productive round",
+          "passed": true
+        },
+        {
+          "name": "webkit original eleven menu entries",
+          "passed": true
+        },
+        {
+          "name": "webkit exactly three closed menu entries",
+          "passed": true
+        },
+        {
+          "name": "webkit eight released menu paths only",
+          "passed": true
+        },
+        {
+          "name": "webkit zero page errors",
+          "passed": true
+        },
+        {
+          "name": "webkit no mutation requests beyond existing Auth ignore-duplicate bootstrap",
+          "passed": true
+        },
+        {
+          "name": "chromium-touch real nonanonymous Auth verified",
+          "passed": true
+        },
+        {
+          "name": "chromium-touch serpent demonstration explains no progression",
+          "passed": true
+        },
+        {
+          "name": "chromium-touch serpent wall collision stops ordinary held movement without crossing",
+          "passed": true
+        },
+        {
+          "name": "chromium-touch serpent mobile direction pointer moves the real player",
+          "passed": true
+        },
+        {
+          "name": "chromium-touch serpent mobile direction release clears held input",
+          "passed": true
+        },
+        {
+          "name": "chromium-touch serpent ordinary keyboard movement changes player position",
+          "passed": true
+        },
+        {
+          "name": "chromium-touch serpent pause holds player position",
+          "passed": true
+        },
+        {
+          "name": "chromium-touch serpent existing light crystal collection changes local engine score",
+          "passed": true
+        },
+        {
+          "name": "chromium-touch serpent real engine victory through normal controls",
+          "passed": true
+        },
+        {
+          "name": "chromium-touch serpent winning callback ends only the demonstration",
+          "passed": true
+        },
+        {
+          "name": "chromium-touch serpent real idle pursuit reaches defeat",
+          "passed": true
+        },
+        {
+          "name": "chromium-touch serpent defeat has no completion action",
+          "passed": true
+        },
+        {
+          "name": "chromium-touch serpent retry starts another real round",
+          "passed": true
+        },
+        {
+          "name": "chromium-touch serpent safe exit returns to ready and releases game mode",
+          "passed": true
+        },
+        {
+          "name": "chromium-touch serpent reload discards round and tutorial instead of persisting",
+          "passed": true
+        },
+        {
+          "name": "chromium-touch serpent minigame fits viewport",
+          "passed": true
+        },
+        {
+          "name": "chromium-touch original eleven menu entries",
+          "passed": true
+        },
+        {
+          "name": "chromium-touch exactly three closed menu entries",
+          "passed": true
+        },
+        {
+          "name": "chromium-touch eight released menu paths only",
+          "passed": true
+        },
+        {
+          "name": "chromium-touch zero page errors",
+          "passed": true
+        },
+        {
+          "name": "chromium-touch no mutation requests beyond existing Auth ignore-duplicate bootstrap",
+          "passed": true
+        },
+        {
+          "name": "anonymous UI redirects to same-origin normal login",
+          "passed": true
+        },
+        {
+          "name": "anonymous UI has no private minigame",
+          "passed": true
+        },
+        {
+          "name": "closed route /journey/arena",
+          "passed": true
+        },
+        {
+          "name": "closed route /journey/arena/tower",
+          "passed": true
+        },
+        {
+          "name": "closed route /journey/tower",
+          "passed": true
+        },
+        {
+          "name": "closed route /journey/equipment",
+          "passed": true
+        },
+        {
+          "name": "closed route /journey/shop",
+          "passed": true
+        },
+        {
+          "name": "closed route /journey/intro",
+          "passed": true
+        },
+        {
+          "name": "closed route /journey/minigames/invented",
+          "passed": true
+        },
+        {
+          "name": "economic authority remains closed",
+          "passed": true
+        },
+        {
+          "name": "webkit serpent demonstration explains no progression",
+          "passed": true
+        },
+        {
+          "name": "webkit serpent wall collision stops ordinary held movement without crossing",
+          "passed": true
+        },
+        {
+          "name": "webkit serpent mobile direction pointer moves the real player",
+          "passed": true
+        },
+        {
+          "name": "webkit serpent mobile direction release clears held input",
+          "passed": true
+        },
+        {
+          "name": "webkit serpent ordinary keyboard movement changes player position",
+          "passed": true
+        },
+        {
+          "name": "webkit serpent pause holds player position",
+          "passed": true
+        },
+        {
+          "name": "webkit serpent existing light crystal collection changes local engine score",
+          "passed": true
+        },
+        {
+          "name": "webkit serpent real engine victory through normal controls",
+          "passed": true
+        },
+        {
+          "name": "webkit serpent winning callback ends only the demonstration",
+          "passed": true
+        },
+        {
+          "name": "webkit serpent real idle pursuit reaches defeat",
+          "passed": true
+        },
+        {
+          "name": "webkit serpent defeat has no completion action",
+          "passed": true
+        },
+        {
+          "name": "webkit serpent retry starts another real round",
+          "passed": true
+        },
+        {
+          "name": "webkit serpent safe exit returns to ready and releases game mode",
+          "passed": true
+        },
+        {
+          "name": "webkit serpent reload discards round and tutorial instead of persisting",
+          "passed": true
+        },
+        {
+          "name": "webkit serpent minigame fits viewport",
+          "passed": true
+        }
+      ],
+      "isolatedGame": {
+        "passed": true,
+        "checks": [
+          {
+            "name": "demonstration explains no progression",
+            "passed": true
+          },
+          {
+            "name": "wall collision stops ordinary held movement without crossing",
+            "passed": true
+          },
+          {
+            "name": "mobile direction pointer moves the real player",
+            "passed": true
+          },
+          {
+            "name": "mobile direction release clears held input",
+            "passed": true
+          },
+          {
+            "name": "ordinary keyboard movement changes player position",
+            "passed": true
+          },
+          {
+            "name": "pause holds player position",
+            "passed": true
+          },
+          {
+            "name": "existing light crystal collection changes local engine score",
+            "passed": true
+          },
+          {
+            "name": "real engine victory through normal controls",
+            "passed": true
+          },
+          {
+            "name": "winning callback ends only the demonstration",
+            "passed": true
+          },
+          {
+            "name": "real idle pursuit reaches defeat",
+            "passed": true
+          },
+          {
+            "name": "defeat has no completion action",
+            "passed": true
+          },
+          {
+            "name": "retry starts another real round",
+            "passed": true
+          },
+          {
+            "name": "safe exit returns to ready and releases game mode",
+            "passed": true
+          },
+          {
+            "name": "reload discards round and tutorial instead of persisting",
+            "passed": true
+          },
+          {
+            "name": "minigame fits viewport",
+            "passed": true
+          }
+        ],
+        "pageErrors": 0,
+        "emulated": true,
+        "physical": false,
+        "requestMonitoring": false,
+        "dataPreservation": "Separate global before/after hashes"
+      },
+      "contexts": 4,
+      "browserEngines": 2,
+      "runs": [
+        {
+          "engine": "chromium",
+          "passed": true,
+          "pageErrors": 0,
+          "unexpectedWrites": [],
+          "existingProfileIgnoreDuplicateRequests": 35,
+          "reviewedReadRpcRequests": 2,
+          "modules": [
+            {
+              "module": "backpack",
+              "loaded": true,
+              "reloaded": true,
+              "noMutationControls": true,
+              "layout": true
+            },
+            {
+              "module": "collection",
+              "loaded": true,
+              "reloaded": true,
+              "noMutationControls": true,
+              "layout": true
+            },
+            {
+              "module": "diary",
+              "loaded": true,
+              "reloaded": true,
+              "noMutationControls": true,
+              "layout": true
+            },
+            {
+              "module": "missions",
+              "demonstration": true,
+              "fullExercise": true,
+              "progressionWrites": false
+            },
+            {
+              "module": "serpent",
+              "fullExercise": true,
+              "memoryOnly": true
+            }
+          ]
+        },
+        {
+          "engine": "webkit",
+          "passed": true,
+          "pageErrors": 0,
+          "unexpectedWrites": [],
+          "existingProfileIgnoreDuplicateRequests": 35,
+          "reviewedReadRpcRequests": 2,
+          "modules": [
+            {
+              "module": "backpack",
+              "loaded": true,
+              "reloaded": true,
+              "noMutationControls": true,
+              "layout": true
+            },
+            {
+              "module": "collection",
+              "loaded": true,
+              "reloaded": true,
+              "noMutationControls": true,
+              "layout": true
+            },
+            {
+              "module": "diary",
+              "loaded": true,
+              "reloaded": true,
+              "noMutationControls": true,
+              "layout": true
+            },
+            {
+              "module": "missions",
+              "demonstration": true,
+              "fullExercise": true,
+              "progressionWrites": false
+            },
+            {
+              "module": "serpent",
+              "fullExercise": false,
+              "memoryOnly": true
+            }
+          ]
+        },
+        {
+          "engine": "chromium-touch",
+          "passed": true,
+          "pageErrors": 0,
+          "unexpectedWrites": [],
+          "existingProfileIgnoreDuplicateRequests": 3,
+          "reviewedReadRpcRequests": 0,
+          "modules": [
+            {
+              "module": "serpent",
+              "fullExercise": true,
+              "memoryOnly": true
+            }
+          ]
+        }
+      ],
+      "provenance": "Chromium successful segment from second round; fresh settled WebKit queries/Missions and Chromium emulated touch from split follow-up; 15 WebKit engine checks from isolated normal-controls run. Earlier rounds were not wholly PASS.",
+      "mobile": "WebKit390px and Chromium390px CDP touch emulation; NOT a physical device",
+      "sameNormalSessionReusedInMemory": true,
+      "minigameFullEngineChecks": 43,
+      "missionExerciseChecks": 36,
+      "additionalOpeningOnlyChecks": 3
+    }
+  },
+  "structure": {
+    "checks": [
+      {
+        "name": "all 95 preexisting function definitions owners and ACLs identical",
+        "passed": true
+      },
+      {
+        "name": "39 existing policies identical",
+        "passed": true
+      },
+      {
+        "name": "default privileges identical",
+        "passed": true
+      },
+      {
+        "name": "39 unrelated existing table definitions RLS ACLs and triggers identical",
+        "passed": true
+      },
+      {
+        "name": "story projection preserves existing columns ACLs RLS and unrelated constraints",
+        "passed": true
+      },
+      {
+        "name": "only three new private tables all have RLS and deny role grants",
+        "passed": true
+      },
+      {
+        "name": "only five new functions and schema usage change limited to story_private",
+        "passed": true
+      }
+    ],
+    "preexistingTestFunctionsUnchanged": 95,
+    "preexistingProdFunctionsUnchanged": 92,
+    "existingPoliciesUnchanged": 39,
+    "newPrivateTables": 3,
+    "newFunctions": 5,
+    "priorTableCountTEST": 40,
+    "finalTableCountTEST": 43
+  },
+  "data": [
+    {
+      "environment": "TEST",
+      "originalDatasets": 40,
+      "unchanged": true,
+      "fingerprints": [
+        {
+          "dataset": "economy_private.battles",
+          "beforeRows": 21,
+          "afterRows": 21,
+          "beforeHash": "6433154454bcab8368cab401a940b2ee",
+          "afterHash": "6433154454bcab8368cab401a940b2ee"
+        },
+        {
+          "dataset": "economy_private.card_catalog",
+          "beforeRows": 7,
+          "afterRows": 7,
+          "beforeHash": "b9534a556ac944825843e8fcce04a75d",
+          "afterHash": "b9534a556ac944825843e8fcce04a75d"
+        },
+        {
+          "dataset": "economy_private.journey_operations",
+          "beforeRows": 0,
+          "afterRows": 0,
+          "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+          "afterHash": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        {
+          "dataset": "economy_private.journey_rewards",
+          "beforeRows": 0,
+          "afterRows": 0,
+          "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+          "afterHash": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        {
+          "dataset": "economy_private.journeys",
+          "beforeRows": 0,
+          "afterRows": 0,
+          "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+          "afterHash": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        {
+          "dataset": "economy_private.tower_reward_claims",
+          "beforeRows": 0,
+          "afterRows": 0,
+          "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+          "afterHash": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        {
+          "dataset": "economy_private.tower_reward_policies",
+          "beforeRows": 1,
+          "afterRows": 1,
+          "beforeHash": "f477b8b35206e7a578aef4bf15c108c6",
+          "afterHash": "f477b8b35206e7a578aef4bf15c108c6"
+        },
+        {
+          "dataset": "guild_chat_private.rate_limits",
+          "beforeRows": 0,
+          "afterRows": 0,
+          "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+          "afterHash": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        {
+          "dataset": "guild_invite_private.link_invites",
+          "beforeRows": 4,
+          "afterRows": 4,
+          "beforeHash": "5d55954a308649dcd1f2b27fe87a3e7b",
+          "afterHash": "5d55954a308649dcd1f2b27fe87a3e7b"
+        },
+        {
+          "dataset": "public.chest_operations",
+          "beforeRows": 23,
+          "afterRows": 23,
+          "beforeHash": "85994530b8a788ed604ca9126b778f1c",
+          "afterHash": "85994530b8a788ed604ca9126b778f1c"
+        },
+        {
+          "dataset": "public.equipped_items",
+          "beforeRows": 4,
+          "afterRows": 4,
+          "beforeHash": "29dd60bc09d8cf72fd19cee54dcdbcea",
+          "afterHash": "29dd60bc09d8cf72fd19cee54dcdbcea"
+        },
+        {
+          "dataset": "public.guild_activity_log",
+          "beforeRows": 15,
+          "afterRows": 15,
+          "beforeHash": "ab02ef1c8ed571dc2e97056b1c318a98",
+          "afterHash": "ab02ef1c8ed571dc2e97056b1c318a98"
+        },
+        {
+          "dataset": "public.guild_chat_messages",
+          "beforeRows": 0,
+          "afterRows": 0,
+          "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+          "afterHash": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        {
+          "dataset": "public.guild_chat_moderation_log",
+          "beforeRows": 0,
+          "afterRows": 0,
+          "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+          "afterHash": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        {
+          "dataset": "public.guild_chat_reads",
+          "beforeRows": 0,
+          "afterRows": 0,
+          "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+          "afterHash": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        {
+          "dataset": "public.guild_chat_reports",
+          "beforeRows": 0,
+          "afterRows": 0,
+          "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+          "afterHash": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        {
+          "dataset": "public.guild_ebd_activities",
+          "beforeRows": 2,
+          "afterRows": 2,
+          "beforeHash": "3cf75fa85cea453f424af20203bef1c6",
+          "afterHash": "3cf75fa85cea453f424af20203bef1c6"
+        },
+        {
+          "dataset": "public.guild_ebd_answers",
+          "beforeRows": 2,
+          "afterRows": 2,
+          "beforeHash": "ee8c098466f9975ca35a34c5063d31fa",
+          "afterHash": "ee8c098466f9975ca35a34c5063d31fa"
+        },
+        {
+          "dataset": "public.guild_ebd_attendance",
+          "beforeRows": 2,
+          "afterRows": 2,
+          "beforeHash": "ff213ca9b086069a5d2f55646ba05765",
+          "afterHash": "ff213ca9b086069a5d2f55646ba05765"
+        },
+        {
+          "dataset": "public.guild_ebd_history",
+          "beforeRows": 11,
+          "afterRows": 11,
+          "beforeHash": "0e3e780ff490ac5b62eca2f3ff1333e3",
+          "afterHash": "0e3e780ff490ac5b62eca2f3ff1333e3"
+        },
+        {
+          "dataset": "public.guild_ebd_reward_pending",
+          "beforeRows": 0,
+          "afterRows": 0,
+          "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+          "afterHash": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        {
+          "dataset": "public.guild_ebd_teachers",
+          "beforeRows": 2,
+          "afterRows": 2,
+          "beforeHash": "bac3800c42ccaddb36e056967550a4df",
+          "afterHash": "bac3800c42ccaddb36e056967550a4df"
+        },
+        {
+          "dataset": "public.guild_invites",
+          "beforeRows": 0,
+          "afterRows": 0,
+          "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+          "afterHash": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        {
+          "dataset": "public.guild_join_requests",
+          "beforeRows": 6,
+          "afterRows": 6,
+          "beforeHash": "439b36f3c75453663a6585172c6553b7",
+          "afterHash": "439b36f3c75453663a6585172c6553b7"
+        },
+        {
+          "dataset": "public.guild_lessons",
+          "beforeRows": 2,
+          "afterRows": 2,
+          "beforeHash": "cffcd3b26e0b931d7455b2351aeddd62",
+          "afterHash": "cffcd3b26e0b931d7455b2351aeddd62"
+        },
+        {
+          "dataset": "public.guild_members",
+          "beforeRows": 11,
+          "afterRows": 11,
+          "beforeHash": "7833bdc6450a331f41ae56a5d32994fa",
+          "afterHash": "7833bdc6450a331f41ae56a5d32994fa"
+        },
+        {
+          "dataset": "public.guild_mission_attempts",
+          "beforeRows": 0,
+          "afterRows": 0,
+          "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+          "afterHash": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        {
+          "dataset": "public.guild_mission_progress",
+          "beforeRows": 0,
+          "afterRows": 0,
+          "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+          "afterHash": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        {
+          "dataset": "public.guild_missions",
+          "beforeRows": 0,
+          "afterRows": 0,
+          "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+          "afterHash": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        {
+          "dataset": "public.guild_reward_claims",
+          "beforeRows": 0,
+          "afterRows": 0,
+          "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+          "afterHash": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        {
+          "dataset": "public.guilds",
+          "beforeRows": 5,
+          "afterRows": 5,
+          "beforeHash": "e1eef8c9c2b5ba7d253841c677c069ae",
+          "afterHash": "e1eef8c9c2b5ba7d253841c677c069ae"
+        },
+        {
+          "dataset": "public.inventory",
+          "beforeRows": 18,
+          "afterRows": 18,
+          "beforeHash": "c25045fe4060dbe62f33e11742a10702",
+          "afterHash": "c25045fe4060dbe62f33e11742a10702"
+        },
+        {
+          "dataset": "public.profiles",
+          "beforeRows": 5,
+          "afterRows": 5,
+          "beforeHash": "cbccce6cb1073bce726290e7273c91ed",
+          "afterHash": "cbccce6cb1073bce726290e7273c91ed"
+        },
+        {
+          "dataset": "public.story_definitions",
+          "beforeRows": 5,
+          "afterRows": 5,
+          "beforeHash": "ef0e5e6948bd180d854719fb6d820013",
+          "afterHash": "ef0e5e6948bd180d854719fb6d820013"
+        },
+        {
+          "dataset": "public.story_progress",
+          "beforeRows": 0,
+          "afterRows": 0,
+          "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+          "afterHash": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        {
+          "dataset": "public.traveler_chests",
+          "beforeRows": 0,
+          "afterRows": 0,
+          "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+          "afterHash": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        {
+          "dataset": "public.traveler_stats",
+          "beforeRows": 13,
+          "afterRows": 13,
+          "beforeHash": "bb533bd38808c20fd59a08076031d955",
+          "afterHash": "bb533bd38808c20fd59a08076031d955"
+        },
+        {
+          "dataset": "public.travelers",
+          "beforeRows": 13,
+          "afterRows": 13,
+          "beforeHash": "517357a5b54bd0cb1925957c7d9aa6a2",
+          "afterHash": "517357a5b54bd0cb1925957c7d9aa6a2"
+        },
+        {
+          "dataset": "public.wallets",
+          "beforeRows": 13,
+          "afterRows": 13,
+          "beforeHash": "3321ac6fad3456f72a8db6a0283858c5",
+          "afterHash": "3321ac6fad3456f72a8db6a0283858c5"
+        },
+        {
+          "dataset": "story_private.step_receipts",
+          "beforeRows": 0,
+          "afterRows": 0,
+          "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+          "afterHash": "d41d8cd98f00b204e9800998ecf8427e"
+        }
+      ]
+    },
+    {
+      "environment": "PROD",
+      "originalDatasets": 38,
+      "unchanged": true,
+      "fingerprints": [
+        {
+          "dataset": "economy_private.battles",
+          "beforeRows": 0,
+          "afterRows": 0,
+          "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+          "afterHash": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        {
+          "dataset": "economy_private.card_catalog",
+          "beforeRows": 0,
+          "afterRows": 0,
+          "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+          "afterHash": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        {
+          "dataset": "economy_private.journey_operations",
+          "beforeRows": 0,
+          "afterRows": 0,
+          "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+          "afterHash": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        {
+          "dataset": "economy_private.journey_rewards",
+          "beforeRows": 0,
+          "afterRows": 0,
+          "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+          "afterHash": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        {
+          "dataset": "economy_private.journeys",
+          "beforeRows": 0,
+          "afterRows": 0,
+          "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+          "afterHash": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        {
+          "dataset": "guild_chat_private.rate_limits",
+          "beforeRows": 1,
+          "afterRows": 1,
+          "beforeHash": "be6044fe9f90a09c79c927fac802ec9e",
+          "afterHash": "be6044fe9f90a09c79c927fac802ec9e"
+        },
+        {
+          "dataset": "guild_invite_private.link_invites",
+          "beforeRows": 1,
+          "afterRows": 1,
+          "beforeHash": "c66091ae83bceb0206f00d8ac140656c",
+          "afterHash": "c66091ae83bceb0206f00d8ac140656c"
+        },
+        {
+          "dataset": "public.chest_operations",
+          "beforeRows": 37,
+          "afterRows": 37,
+          "beforeHash": "c2f16d5b8d2d1e3ab440b24ad74b6b7c",
+          "afterHash": "c2f16d5b8d2d1e3ab440b24ad74b6b7c"
+        },
+        {
+          "dataset": "public.equipped_items",
+          "beforeRows": 31,
+          "afterRows": 31,
+          "beforeHash": "1c64227d4d44348db05d75e480660d40",
+          "afterHash": "1c64227d4d44348db05d75e480660d40"
+        },
+        {
+          "dataset": "public.guild_activity_log",
+          "beforeRows": 10,
+          "afterRows": 10,
+          "beforeHash": "b1298fdbfb21d02ea5864832bea9b8c7",
+          "afterHash": "b1298fdbfb21d02ea5864832bea9b8c7"
+        },
+        {
+          "dataset": "public.guild_chat_messages",
+          "beforeRows": 4,
+          "afterRows": 4,
+          "beforeHash": "b874154cdd860b6b4bd376e79764e999",
+          "afterHash": "b874154cdd860b6b4bd376e79764e999"
+        },
+        {
+          "dataset": "public.guild_chat_moderation_log",
+          "beforeRows": 0,
+          "afterRows": 0,
+          "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+          "afterHash": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        {
+          "dataset": "public.guild_chat_reads",
+          "beforeRows": 0,
+          "afterRows": 0,
+          "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+          "afterHash": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        {
+          "dataset": "public.guild_chat_reports",
+          "beforeRows": 0,
+          "afterRows": 0,
+          "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+          "afterHash": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        {
+          "dataset": "public.guild_ebd_activities",
+          "beforeRows": 1,
+          "afterRows": 1,
+          "beforeHash": "61c28092f6a1a532a269e37488a75ed2",
+          "afterHash": "61c28092f6a1a532a269e37488a75ed2"
+        },
+        {
+          "dataset": "public.guild_ebd_answers",
+          "beforeRows": 1,
+          "afterRows": 1,
+          "beforeHash": "f61e2de2840d593a8f05f6e97f073ad3",
+          "afterHash": "f61e2de2840d593a8f05f6e97f073ad3"
+        },
+        {
+          "dataset": "public.guild_ebd_attendance",
+          "beforeRows": 1,
+          "afterRows": 1,
+          "beforeHash": "e95edc08b70b5650ed4d4bb790e23829",
+          "afterHash": "e95edc08b70b5650ed4d4bb790e23829"
+        },
+        {
+          "dataset": "public.guild_ebd_history",
+          "beforeRows": 5,
+          "afterRows": 5,
+          "beforeHash": "ef935e1ed9ea514d215f4f4e7a780f0a",
+          "afterHash": "ef935e1ed9ea514d215f4f4e7a780f0a"
+        },
+        {
+          "dataset": "public.guild_ebd_reward_pending",
+          "beforeRows": 0,
+          "afterRows": 0,
+          "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+          "afterHash": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        {
+          "dataset": "public.guild_ebd_teachers",
+          "beforeRows": 1,
+          "afterRows": 1,
+          "beforeHash": "05ce37c51e8596dfae47a845beb4b0cd",
+          "afterHash": "05ce37c51e8596dfae47a845beb4b0cd"
+        },
+        {
+          "dataset": "public.guild_invites",
+          "beforeRows": 0,
+          "afterRows": 0,
+          "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+          "afterHash": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        {
+          "dataset": "public.guild_join_requests",
+          "beforeRows": 5,
+          "afterRows": 5,
+          "beforeHash": "6bcca00851c539a3a9c24386f72c9539",
+          "afterHash": "6bcca00851c539a3a9c24386f72c9539"
+        },
+        {
+          "dataset": "public.guild_lessons",
+          "beforeRows": 1,
+          "afterRows": 1,
+          "beforeHash": "4b9b60db48a1550997764cc8d51c5893",
+          "afterHash": "4b9b60db48a1550997764cc8d51c5893"
+        },
+        {
+          "dataset": "public.guild_members",
+          "beforeRows": 8,
+          "afterRows": 8,
+          "beforeHash": "60a7b351a7bde59590602b28fb75616e",
+          "afterHash": "60a7b351a7bde59590602b28fb75616e"
+        },
+        {
+          "dataset": "public.guild_mission_attempts",
+          "beforeRows": 0,
+          "afterRows": 0,
+          "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+          "afterHash": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        {
+          "dataset": "public.guild_mission_progress",
+          "beforeRows": 0,
+          "afterRows": 0,
+          "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+          "afterHash": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        {
+          "dataset": "public.guild_missions",
+          "beforeRows": 0,
+          "afterRows": 0,
+          "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+          "afterHash": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        {
+          "dataset": "public.guild_reward_claims",
+          "beforeRows": 0,
+          "afterRows": 0,
+          "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+          "afterHash": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        {
+          "dataset": "public.guilds",
+          "beforeRows": 3,
+          "afterRows": 3,
+          "beforeHash": "efe17f672262d8f60560f6130114a8b6",
+          "afterHash": "efe17f672262d8f60560f6130114a8b6"
+        },
+        {
+          "dataset": "public.inventory",
+          "beforeRows": 37,
+          "afterRows": 37,
+          "beforeHash": "b39da1a154e78959d84ce183218593ca",
+          "afterHash": "b39da1a154e78959d84ce183218593ca"
+        },
+        {
+          "dataset": "public.profiles",
+          "beforeRows": 11,
+          "afterRows": 11,
+          "beforeHash": "8eb319a33f9c4ea98426810a98a28f43",
+          "afterHash": "8eb319a33f9c4ea98426810a98a28f43"
+        },
+        {
+          "dataset": "public.story_definitions",
+          "beforeRows": 5,
+          "afterRows": 5,
+          "beforeHash": "ef0e5e6948bd180d854719fb6d820013",
+          "afterHash": "ef0e5e6948bd180d854719fb6d820013"
+        },
+        {
+          "dataset": "public.story_progress",
+          "beforeRows": 0,
+          "afterRows": 0,
+          "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+          "afterHash": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        {
+          "dataset": "public.traveler_chests",
+          "beforeRows": 8,
+          "afterRows": 8,
+          "beforeHash": "c05d953ef2ef20651574801fdfba1da7",
+          "afterHash": "c05d953ef2ef20651574801fdfba1da7"
+        },
+        {
+          "dataset": "public.traveler_stats",
+          "beforeRows": 24,
+          "afterRows": 24,
+          "beforeHash": "049421a9b457014379fc5f61243494a2",
+          "afterHash": "049421a9b457014379fc5f61243494a2"
+        },
+        {
+          "dataset": "public.travelers",
+          "beforeRows": 24,
+          "afterRows": 24,
+          "beforeHash": "4e90e6067ccd3a789a62ab19b51e1888",
+          "afterHash": "4e90e6067ccd3a789a62ab19b51e1888"
+        },
+        {
+          "dataset": "public.wallets",
+          "beforeRows": 24,
+          "afterRows": 24,
+          "beforeHash": "cb6ddc73f88b551b0fd81dca9ef51a3f",
+          "afterHash": "cb6ddc73f88b551b0fd81dca9ef51a3f"
+        },
+        {
+          "dataset": "story_private.step_receipts",
+          "beforeRows": 0,
+          "afterRows": 0,
+          "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+          "afterHash": "d41d8cd98f00b204e9800998ecf8427e"
+        }
+      ]
+    }
+  ],
+  "newTestDatasets": [
+    {
+      "dataset": "story_private.progression_policies",
+      "rows": 5,
+      "hash": "bc1503dbf3b5be5b561539c9b3f79fc6"
+    },
+    {
+      "dataset": "story_private.progression_evidence",
+      "rows": 0,
+      "hash": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "dataset": "story_private.progression_completions",
+      "rows": 0,
+      "hash": "d41d8cd98f00b204e9800998ecf8427e"
+    }
+  ],
+  "advisors": {
+    "testDenyAllInfoBefore": 16,
+    "testDenyAllInfoAfter": 19,
+    "prodDenyAllInfo": 14,
+    "legacyPublicDefinerWarnings": 12,
+    "leakedPasswordProtectionWarning": true,
+    "note": "Three intentional new private RLS deny-all tables; no grants or policies added to hide notices."
+  },
+  "recovery": {
+    "source": "packages/database/proposals/rpg-dev-009a-recovery.sql",
+    "isolatedRoundtripPassed": true,
+    "refusesIssuedData": true,
+    "remoteCompensationExecuted": false,
+    "snapshotBeforeSha256": "ca2b92e683c1e2392ddcf7e7548ca9db400b6444cbd3f4000da02495ef4f0d56"
+  },
+  "collector": {
+    "authoritySha256": "6995ae4b5c4be184c8a0e58770574a74b525758b510a413d075224d4d4018ffc",
+    "archiveSettledSha256": "209f13051f6d1be106f83ac280bfdab474fd1a506f053adea70c3c37238de7a4",
+    "failuresPreserved": [
+      "Fixture SQL concat error corrected only in fixture",
+      "Wrong collector HTTP400 expectation for SQLSTATE55000 corrected to documented HTTP500 and exact code/message",
+      "First UI attempt timed out on promised-land; page later visible",
+      "Two WebKit navigation/reload rounds had access-control fetch errors; collector now awaits network completion before transitions, without modifying runtime/Auth/RLS/assertions or limits",
+      "Wall collision timing measurement failed in full WebKit round; preserved FAIL. Separate fresh WebKit engine run passed all15 unchanged assertions, with actual wall positions logged; no engine or timeout changes"
+    ]
+  },
+  "limitations": [
+    "Human editorial proposal NOT APPROVED",
+    "Mandatory video/media rights/accessibility and verifier pending",
+    "No real evidence issuers implemented",
+    "Positive completion/idempotency/concurrency/unlock proven only in isolated PostgreSQL fixtures; NOT hosted positive proof",
+    "Old TEST acquired-card accounts unavailable; no inventory/card grants fabricated",
+    "No PROD009 migration, merge or deployment; PR12 independent"
+  ]
+}

@@ -1,5 +1,44 @@
 # RPG-DEV-009 — Progressão persistente e desbloqueio
 
+## Fechamento da etapa independente — 28/10/2026
+
+**009A implementada e validada fechada em TEST. RPG-DEV-009 permanece BLOCKED para progressão oficial/publicação PROD.** Nenhuma aprovação editorial, conclusão ou recompensa foi fabricada. A proposta editorial está entregue separadamente, sem itens aprovados: [A Criação — proposta para revisão](../biblical/RPG-DEV-009-CREATION-EDITORIAL-PROPOSAL.md).
+
+- [PR18](https://github.com/CarlosJr30/rpgjovemcristao/pull/18) aberta/draft, branch `codex/rpg-dev-009-progression`, candidato `f39a05dcd7431ddf785cab654ea3b51598a3c316`. CI [push40659891641](https://github.com/CarlosJr30/rpgjovemcristao/actions/runs/40659891641) e [PR40659934208](https://github.com/CarlosJr30/rpgjovemcristao/actions/runs/40659934208) **success no SHA exato**, qualidade, PG e RSC aprovados. Job automático de publicação por SHA foi SKIP pela condição de branch; não é declarado PASS.
+- [Preview TEST](https://rpgjovemcristao-7r1bc745c-carlos-junior-s-projects.vercel.app), `dpl_5eE8NeY2RvvhWr5Cqjt1t2Sc9cme`, **READY / Preview / f39a05d**, backend TEST confirmado. Somente duas configurações públicas TEST acrescentadas à nova branch; proteção Vercel mantida. Conector Vercel recusou o escopo403; utilizada CLI já autenticada na mesma equipe/projeto, sem ampliar Trusted Sources ou alterar aliases.
+- Migration única aplicada **somente TEST**, versão `20261028085900_rpg_dev_009a_progress_authority_test`, arquivo local `20261028012313`. TEST passou27→28 migrations e40→43 tabelas: as três novas são privadas, com cinco políticas fechadas, zero evidências e zero conclusões. PROD mantém8 migrations/38 tabelas, sem os endpoints009.
+- Produção permanece008C, `c14fd5e560f6e4930e18a1e493a901dea2ba0ed0`, `dpl_8Pi4mXQUCaMcirqq5kLpXZdH9sRk`, **READY/production**, alias [oficial](https://rpgjovemcristao-web-inky.vercel.app) confirmado. autoAssignCustomDomains=true/SSO originais preservados. PR12 continua aberta/draft/não integrada em `61b7177`; nenhum merge009 ou deploy produtivo executado.
+
+| Gate independente | Resultado real |
+| --- | --- |
+|Unitários / qualidade / protocolo|858 PASS /74 SKIP; lint/types/build e protocolo25 PASS, local e CI candidato.127 arquivos aprovados/7 opt-in omitidos.|
+|PostgreSQL isolado|32 PASS; fixtures positivas de persistência, concorrência, idempotência/reconexão, sequência e recuperação. Não são prova hospedada ou aceite editorial.|
+|Autoridade hospedada TEST|23 checks PASS pela sessão normal autorizada: dono/anon/alheio, cinco entradas fechadas, flags/score rejeitados, comando sem requisitos negado, replay/concorrência de comandos negados sem dados novos.|
+|Regressões hospedadas|244 checks PASS agregados de partes identificadas; consultas, Jornada, Guilda/EBD conforme vínculo real,36 de Missões e43 do minigame. Chromium/WebKit, quatro contextos da mesma sessão em memória. Toque Chromium CDP e viewport WebKit390px são emulados, não aparelho físico.|
+|Compatibilidade e segurança|95 funções/ACLs preexistentes TEST e39 policies idênticas;39 tabelas não relacionadas idênticas. Somente três colunas/constraint/trigger da projeção, três tabelas, cinco funções e USAGE mínimo de schema previstos. Sete comparações estruturais PASS.|
+|Preservação final|40 conjuntos originais TEST e38 PROD com contagens/hashes iguais antes/depois e ao008C. Incluem todos os avatares, inventário, atributos, XP, moedas, equipamento, cartas, progresso e Guilda/EBD.92 funções/ACLs e39 policies PROD idênticas.|
+|Conclusão positiva hospedada e desbloqueio oficial|**BLOCKED**: requisitos/editorial/vídeo e emissores reais ausentes. Não habilitados para fabricar prova.|
+
+Evidência sanitizada: [RPG-DEV-009-TEST-EVIDENCE.json](RPG-DEV-009-TEST-EVIDENCE.json). Logs/falhas/capturas/snapshots privados em `build/rpg-dev-009`. Hash do snapshot e recuperação isolada registrados; compensação remota não foi necessária. O ensaio isolado testa recusa de recuperação quando há evidências/conclusões: não apagar progresso para voltar uma versão. Nenhum reset/histórico de migration removido.
+
+### Proveniência e falhas preservadas
+
+Os244 checks de regressão combinam Chromium aprovado na segunda rodada, consultas/Missões WebKit e toque Chromium em seguimento com espera das requisições antes de navegar/recarregar, e15 checks WebKit de engine isolada pelos controles normais. Não são244 novos casos exclusivos em relação à008C. As rodadas anteriores não foram integralmente PASS. Uma navegação para Terra Prometida ultrapassou5s; inspeção posterior encontrou a página correta. Duas rodadas WebKit registraram erros de fetch durante transições/recarga. A sincronização do coletor foi corrigida, sem modificar Auth/RLS/runtime, filtrar erros, relaxar assertions ou limites.
+
+A rodada WebKit com consultas completas falhou na medição temporal de colisão; permanece FAIL no artefato. A execução isolada subsequente passou os mesmos15 checks sem alteração de engine/dificuldade/limites: posição inicial x90, parede x42.389 e posição parada x42.389, fora de obstáculo. Não se declara corrigida uma causa física não demonstrada; a evidência positiva é a execução isolada identificada. Os quatro contextos reutilizam a sessão normal, não quatro logins independentes.
+
+Nos três contextos com monitor de requests,73 tentativas próprias de `profiles` ignore-duplicates e4 RPCs revisadas de leitura, sem requisição REST de mutação inesperada. O contexto isolado da engine registra erros/controles, sem esse monitor de requests; a preservação global de dados foi conferida separadamente depois de todos os contextos. Não declarar ausência absoluta de POST. Auth/refresh podem atualizar metadados normais de sessão, fora dos dados de jogo.
+
+As negações por requisitos indisponíveis usam SQLSTATE55000, mapeado a HTTP500 pelo [PostgREST](https://docs.postgrest.org/en/stable/references/errors.html#http-status-codes). A primeira expectativa do coletor era HTTP400 e falhou; corrigida para HTTP500 **com código e mensagem exatos**, sem transformar resposta negativa em sucesso de conclusão. API nova não está integrada às demonstrações.
+
+Advisors: deny-all RLS TEST16→19 INFO pelas três tabelas privadas intencionalmente fechadas; PROD14 INFO permanece.12 funções públicas definer WARN e proteção de senhas vazadas WARN legadas permanecem; não foram alteradas para forçar gates. Referências: [RLS deny-all](https://supabase.com/docs/guides/database/database-linter?lint=0008_rls_enabled_no_policy), [definer](https://supabase.com/docs/guides/database/database-linter?lint=0029_authenticated_security_definer_function_executable), [senhas](https://supabase.com/docs/guides/auth/password-security#password-strength-and-leaked-password-protection). QA/Security/editorial pelo autor, sem revisão independente alegada.
+
+### Bloqueios e próximo passo mínimo
+
+Faltam **aceite editorial humano versionado**, definição do vídeo obrigatório/licenças/acessibilidade e **emissores/verificadores reais** das atividades/quiz/vídeo e participação declarada. Depois desses contratos, implementar e homologar o fluxo positivo normal em TEST, incluindo conclusão, reload/reconexão e sequência sem economia. Fixtures locais e negações reais não substituem essa prova. Disponibilidade sequencial não equivale a aprovação da história seguinte. Legado existente exige contrato de reconciliação próprio.
+
+Manter009A fechada em TEST e a PR18 em draft; não aplicar esta migration TEST-only em PROD.009B/C e publicação de progresso oficial continuam bloqueadas. Demonstrações008B/C, consultas008A/007, Auth/RLS/Guilda/EBD e PR12 preservados; Arena/Torre/Loja/economia não liberadas.52 caminhos do manifesto original sem divergência, sete worktrees preservados, sem novo recurso pago/dependência de produto/arte ou concessão de dados. Registro de fechamento é documental, sem deploy adicional artificial.
+
 ## 28/10/2026 — autoridade preparada; conclusões oficiais BLOCKED
 
 O usuário confirmou ausência de homologação posterior de A Criação. Autorizou concluir a implementação e os testes independentes em TEST e preparar uma proposta separada, sem promover conteúdo, criar progresso ou conceder recompensas. Produção008C permanece a referência, sem migration/deploy009 ou merge da PR12.
