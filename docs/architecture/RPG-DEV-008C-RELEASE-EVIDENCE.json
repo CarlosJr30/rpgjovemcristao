@@ -1,0 +1,652 @@
+{
+  "release": "RPG-DEV-008C",
+  "date": "2026-10-27",
+  "status": "DONE/DEPLOY_COMPLETE",
+  "pr": 17,
+  "candidate": "8f14949db19df76b8dc2878ec502483bf8a318d1",
+  "merge": "c14fd5e560f6e4930e18a1e493a901dea2ba0ed0",
+  "ci": {
+    "push": 40591880684,
+    "pr": 40591887605,
+    "merge": 40595207248,
+    "conclusion": "success"
+  },
+  "scope": "Existing fragment/crystal demonstration, memory only. No apples introduced; user confirmed existing mechanics.",
+  "preview": {
+    "id": "dpl_9N7B5kzHtCevad2G8G4DDNJichis",
+    "url": "https://rpgjovemcristao-s49x1u3w2-carlos-junior-s-projects.vercel.app",
+    "state": "READY",
+    "backend": "TEST",
+    "checks": 241,
+    "uiApiChecks": 231,
+    "resumedFinalChecks": 10,
+    "serpentChecks": 43,
+    "missionsChecks": 36,
+    "contexts": 3,
+    "browserEngines": [
+      "Chromium",
+      "WebKit"
+    ],
+    "profileIgnoreDuplicateRequests": 73,
+    "reviewedGuildEbdReadRpcRequests": 4,
+    "provenance": "All43 serpent checks,36 Missions checks and final Auth/nav/error/write assertions for all3 contexts passed before the anonymous-title collector failure; original raw status flags are preserved unchanged.",
+    "interruptedRawUiRunPreserved": true
+  },
+  "production": {
+    "id": "dpl_8Pi4mXQUCaMcirqq5kLpXZdH9sRk",
+    "url": "https://rpgjovemcristao-web-inky.vercel.app",
+    "state": "READY",
+    "backend": "PROD",
+    "aliasConfirmed": true,
+    "beforePromotionChecks": 179,
+    "officialChecks": 179,
+    "activeLevel": 50,
+    "oldLevel1Used": false,
+    "interactiveRoundsExecuted": false,
+    "profileIgnoreDuplicateRequestsPerRound": 70,
+    "reviewedGuildEbdReadRpcRequestsPerRound": 8,
+    "autoAssignRestored": true,
+    "protectionPreserved": true
+  },
+  "tests": {
+    "unitPass": 858,
+    "unitSkip": 74,
+    "protocolPass": 25,
+    "targetedPass": 21,
+    "originalLocalBrowserChecks": 31,
+    "additionalLocalBrowserSuiteChecks": 43,
+    "realAppRsc": 24,
+    "interface": 222,
+    "guild": 48,
+    "localFixturesAreHostedProof": false,
+    "mobileEmulated": true,
+    "physicalDeviceTest": false,
+    "independentReview": false
+  },
+  "security": {
+    "authRlsEconomicControlsPreserved": true,
+    "gameWritesObserved": 0,
+    "officialProgressWrites": 0,
+    "economicGrants": 0,
+    "migrationsApplied": 0,
+    "enginePhysicsArtDifficultyChanged": false,
+    "extraPrivateGuildFunctionsIdentical": 24,
+    "legacyAdvisorsUnchanged": true
+  },
+  "data": [
+    {
+      "environment": "TEST",
+      "datasets": 40,
+      "structuresIdentical": true,
+      "fingerprints": [
+        {
+          "dataset": "economy_private.battles",
+          "beforeRows": 21,
+          "afterRows": 21,
+          "beforeHash": "6433154454bcab8368cab401a940b2ee",
+          "afterHash": "6433154454bcab8368cab401a940b2ee"
+        },
+        {
+          "dataset": "economy_private.card_catalog",
+          "beforeRows": 7,
+          "afterRows": 7,
+          "beforeHash": "b9534a556ac944825843e8fcce04a75d",
+          "afterHash": "b9534a556ac944825843e8fcce04a75d"
+        },
+        {
+          "dataset": "economy_private.journey_operations",
+          "beforeRows": 0,
+          "afterRows": 0,
+          "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+          "afterHash": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        {
+          "dataset": "economy_private.journey_rewards",
+          "beforeRows": 0,
+          "afterRows": 0,
+          "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+          "afterHash": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        {
+          "dataset": "economy_private.journeys",
+          "beforeRows": 0,
+          "afterRows": 0,
+          "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+          "afterHash": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        {
+          "dataset": "economy_private.tower_reward_claims",
+          "beforeRows": 0,
+          "afterRows": 0,
+          "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+          "afterHash": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        {
+          "dataset": "economy_private.tower_reward_policies",
+          "beforeRows": 1,
+          "afterRows": 1,
+          "beforeHash": "f477b8b35206e7a578aef4bf15c108c6",
+          "afterHash": "f477b8b35206e7a578aef4bf15c108c6"
+        },
+        {
+          "dataset": "guild_chat_private.rate_limits",
+          "beforeRows": 0,
+          "afterRows": 0,
+          "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+          "afterHash": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        {
+          "dataset": "guild_invite_private.link_invites",
+          "beforeRows": 4,
+          "afterRows": 4,
+          "beforeHash": "5d55954a308649dcd1f2b27fe87a3e7b",
+          "afterHash": "5d55954a308649dcd1f2b27fe87a3e7b"
+        },
+        {
+          "dataset": "public.chest_operations",
+          "beforeRows": 23,
+          "afterRows": 23,
+          "beforeHash": "85994530b8a788ed604ca9126b778f1c",
+          "afterHash": "85994530b8a788ed604ca9126b778f1c"
+        },
+        {
+          "dataset": "public.equipped_items",
+          "beforeRows": 4,
+          "afterRows": 4,
+          "beforeHash": "29dd60bc09d8cf72fd19cee54dcdbcea",
+          "afterHash": "29dd60bc09d8cf72fd19cee54dcdbcea"
+        },
+        {
+          "dataset": "public.guild_activity_log",
+          "beforeRows": 15,
+          "afterRows": 15,
+          "beforeHash": "ab02ef1c8ed571dc2e97056b1c318a98",
+          "afterHash": "ab02ef1c8ed571dc2e97056b1c318a98"
+        },
+        {
+          "dataset": "public.guild_chat_messages",
+          "beforeRows": 0,
+          "afterRows": 0,
+          "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+          "afterHash": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        {
+          "dataset": "public.guild_chat_moderation_log",
+          "beforeRows": 0,
+          "afterRows": 0,
+          "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+          "afterHash": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        {
+          "dataset": "public.guild_chat_reads",
+          "beforeRows": 0,
+          "afterRows": 0,
+          "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+          "afterHash": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        {
+          "dataset": "public.guild_chat_reports",
+          "beforeRows": 0,
+          "afterRows": 0,
+          "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+          "afterHash": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        {
+          "dataset": "public.guild_ebd_activities",
+          "beforeRows": 2,
+          "afterRows": 2,
+          "beforeHash": "3cf75fa85cea453f424af20203bef1c6",
+          "afterHash": "3cf75fa85cea453f424af20203bef1c6"
+        },
+        {
+          "dataset": "public.guild_ebd_answers",
+          "beforeRows": 2,
+          "afterRows": 2,
+          "beforeHash": "ee8c098466f9975ca35a34c5063d31fa",
+          "afterHash": "ee8c098466f9975ca35a34c5063d31fa"
+        },
+        {
+          "dataset": "public.guild_ebd_attendance",
+          "beforeRows": 2,
+          "afterRows": 2,
+          "beforeHash": "ff213ca9b086069a5d2f55646ba05765",
+          "afterHash": "ff213ca9b086069a5d2f55646ba05765"
+        },
+        {
+          "dataset": "public.guild_ebd_history",
+          "beforeRows": 11,
+          "afterRows": 11,
+          "beforeHash": "0e3e780ff490ac5b62eca2f3ff1333e3",
+          "afterHash": "0e3e780ff490ac5b62eca2f3ff1333e3"
+        },
+        {
+          "dataset": "public.guild_ebd_reward_pending",
+          "beforeRows": 0,
+          "afterRows": 0,
+          "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+          "afterHash": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        {
+          "dataset": "public.guild_ebd_teachers",
+          "beforeRows": 2,
+          "afterRows": 2,
+          "beforeHash": "bac3800c42ccaddb36e056967550a4df",
+          "afterHash": "bac3800c42ccaddb36e056967550a4df"
+        },
+        {
+          "dataset": "public.guild_invites",
+          "beforeRows": 0,
+          "afterRows": 0,
+          "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+          "afterHash": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        {
+          "dataset": "public.guild_join_requests",
+          "beforeRows": 6,
+          "afterRows": 6,
+          "beforeHash": "439b36f3c75453663a6585172c6553b7",
+          "afterHash": "439b36f3c75453663a6585172c6553b7"
+        },
+        {
+          "dataset": "public.guild_lessons",
+          "beforeRows": 2,
+          "afterRows": 2,
+          "beforeHash": "cffcd3b26e0b931d7455b2351aeddd62",
+          "afterHash": "cffcd3b26e0b931d7455b2351aeddd62"
+        },
+        {
+          "dataset": "public.guild_members",
+          "beforeRows": 11,
+          "afterRows": 11,
+          "beforeHash": "7833bdc6450a331f41ae56a5d32994fa",
+          "afterHash": "7833bdc6450a331f41ae56a5d32994fa"
+        },
+        {
+          "dataset": "public.guild_mission_attempts",
+          "beforeRows": 0,
+          "afterRows": 0,
+          "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+          "afterHash": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        {
+          "dataset": "public.guild_mission_progress",
+          "beforeRows": 0,
+          "afterRows": 0,
+          "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+          "afterHash": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        {
+          "dataset": "public.guild_missions",
+          "beforeRows": 0,
+          "afterRows": 0,
+          "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+          "afterHash": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        {
+          "dataset": "public.guild_reward_claims",
+          "beforeRows": 0,
+          "afterRows": 0,
+          "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+          "afterHash": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        {
+          "dataset": "public.guilds",
+          "beforeRows": 5,
+          "afterRows": 5,
+          "beforeHash": "e1eef8c9c2b5ba7d253841c677c069ae",
+          "afterHash": "e1eef8c9c2b5ba7d253841c677c069ae"
+        },
+        {
+          "dataset": "public.inventory",
+          "beforeRows": 18,
+          "afterRows": 18,
+          "beforeHash": "c25045fe4060dbe62f33e11742a10702",
+          "afterHash": "c25045fe4060dbe62f33e11742a10702"
+        },
+        {
+          "dataset": "public.profiles",
+          "beforeRows": 5,
+          "afterRows": 5,
+          "beforeHash": "cbccce6cb1073bce726290e7273c91ed",
+          "afterHash": "cbccce6cb1073bce726290e7273c91ed"
+        },
+        {
+          "dataset": "public.story_definitions",
+          "beforeRows": 5,
+          "afterRows": 5,
+          "beforeHash": "ef0e5e6948bd180d854719fb6d820013",
+          "afterHash": "ef0e5e6948bd180d854719fb6d820013"
+        },
+        {
+          "dataset": "public.story_progress",
+          "beforeRows": 0,
+          "afterRows": 0,
+          "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+          "afterHash": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        {
+          "dataset": "public.traveler_chests",
+          "beforeRows": 0,
+          "afterRows": 0,
+          "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+          "afterHash": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        {
+          "dataset": "public.traveler_stats",
+          "beforeRows": 13,
+          "afterRows": 13,
+          "beforeHash": "bb533bd38808c20fd59a08076031d955",
+          "afterHash": "bb533bd38808c20fd59a08076031d955"
+        },
+        {
+          "dataset": "public.travelers",
+          "beforeRows": 13,
+          "afterRows": 13,
+          "beforeHash": "517357a5b54bd0cb1925957c7d9aa6a2",
+          "afterHash": "517357a5b54bd0cb1925957c7d9aa6a2"
+        },
+        {
+          "dataset": "public.wallets",
+          "beforeRows": 13,
+          "afterRows": 13,
+          "beforeHash": "3321ac6fad3456f72a8db6a0283858c5",
+          "afterHash": "3321ac6fad3456f72a8db6a0283858c5"
+        },
+        {
+          "dataset": "story_private.step_receipts",
+          "beforeRows": 0,
+          "afterRows": 0,
+          "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+          "afterHash": "d41d8cd98f00b204e9800998ecf8427e"
+        }
+      ]
+    },
+    {
+      "environment": "PROD",
+      "datasets": 38,
+      "structuresIdentical": true,
+      "fingerprints": [
+        {
+          "dataset": "economy_private.battles",
+          "beforeRows": 0,
+          "afterRows": 0,
+          "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+          "afterHash": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        {
+          "dataset": "economy_private.card_catalog",
+          "beforeRows": 0,
+          "afterRows": 0,
+          "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+          "afterHash": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        {
+          "dataset": "economy_private.journey_operations",
+          "beforeRows": 0,
+          "afterRows": 0,
+          "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+          "afterHash": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        {
+          "dataset": "economy_private.journey_rewards",
+          "beforeRows": 0,
+          "afterRows": 0,
+          "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+          "afterHash": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        {
+          "dataset": "economy_private.journeys",
+          "beforeRows": 0,
+          "afterRows": 0,
+          "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+          "afterHash": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        {
+          "dataset": "guild_chat_private.rate_limits",
+          "beforeRows": 1,
+          "afterRows": 1,
+          "beforeHash": "be6044fe9f90a09c79c927fac802ec9e",
+          "afterHash": "be6044fe9f90a09c79c927fac802ec9e"
+        },
+        {
+          "dataset": "guild_invite_private.link_invites",
+          "beforeRows": 1,
+          "afterRows": 1,
+          "beforeHash": "c66091ae83bceb0206f00d8ac140656c",
+          "afterHash": "c66091ae83bceb0206f00d8ac140656c"
+        },
+        {
+          "dataset": "public.chest_operations",
+          "beforeRows": 37,
+          "afterRows": 37,
+          "beforeHash": "c2f16d5b8d2d1e3ab440b24ad74b6b7c",
+          "afterHash": "c2f16d5b8d2d1e3ab440b24ad74b6b7c"
+        },
+        {
+          "dataset": "public.equipped_items",
+          "beforeRows": 31,
+          "afterRows": 31,
+          "beforeHash": "1c64227d4d44348db05d75e480660d40",
+          "afterHash": "1c64227d4d44348db05d75e480660d40"
+        },
+        {
+          "dataset": "public.guild_activity_log",
+          "beforeRows": 10,
+          "afterRows": 10,
+          "beforeHash": "b1298fdbfb21d02ea5864832bea9b8c7",
+          "afterHash": "b1298fdbfb21d02ea5864832bea9b8c7"
+        },
+        {
+          "dataset": "public.guild_chat_messages",
+          "beforeRows": 4,
+          "afterRows": 4,
+          "beforeHash": "b874154cdd860b6b4bd376e79764e999",
+          "afterHash": "b874154cdd860b6b4bd376e79764e999"
+        },
+        {
+          "dataset": "public.guild_chat_moderation_log",
+          "beforeRows": 0,
+          "afterRows": 0,
+          "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+          "afterHash": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        {
+          "dataset": "public.guild_chat_reads",
+          "beforeRows": 0,
+          "afterRows": 0,
+          "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+          "afterHash": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        {
+          "dataset": "public.guild_chat_reports",
+          "beforeRows": 0,
+          "afterRows": 0,
+          "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+          "afterHash": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        {
+          "dataset": "public.guild_ebd_activities",
+          "beforeRows": 1,
+          "afterRows": 1,
+          "beforeHash": "61c28092f6a1a532a269e37488a75ed2",
+          "afterHash": "61c28092f6a1a532a269e37488a75ed2"
+        },
+        {
+          "dataset": "public.guild_ebd_answers",
+          "beforeRows": 1,
+          "afterRows": 1,
+          "beforeHash": "f61e2de2840d593a8f05f6e97f073ad3",
+          "afterHash": "f61e2de2840d593a8f05f6e97f073ad3"
+        },
+        {
+          "dataset": "public.guild_ebd_attendance",
+          "beforeRows": 1,
+          "afterRows": 1,
+          "beforeHash": "e95edc08b70b5650ed4d4bb790e23829",
+          "afterHash": "e95edc08b70b5650ed4d4bb790e23829"
+        },
+        {
+          "dataset": "public.guild_ebd_history",
+          "beforeRows": 5,
+          "afterRows": 5,
+          "beforeHash": "ef935e1ed9ea514d215f4f4e7a780f0a",
+          "afterHash": "ef935e1ed9ea514d215f4f4e7a780f0a"
+        },
+        {
+          "dataset": "public.guild_ebd_reward_pending",
+          "beforeRows": 0,
+          "afterRows": 0,
+          "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+          "afterHash": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        {
+          "dataset": "public.guild_ebd_teachers",
+          "beforeRows": 1,
+          "afterRows": 1,
+          "beforeHash": "05ce37c51e8596dfae47a845beb4b0cd",
+          "afterHash": "05ce37c51e8596dfae47a845beb4b0cd"
+        },
+        {
+          "dataset": "public.guild_invites",
+          "beforeRows": 0,
+          "afterRows": 0,
+          "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+          "afterHash": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        {
+          "dataset": "public.guild_join_requests",
+          "beforeRows": 5,
+          "afterRows": 5,
+          "beforeHash": "6bcca00851c539a3a9c24386f72c9539",
+          "afterHash": "6bcca00851c539a3a9c24386f72c9539"
+        },
+        {
+          "dataset": "public.guild_lessons",
+          "beforeRows": 1,
+          "afterRows": 1,
+          "beforeHash": "4b9b60db48a1550997764cc8d51c5893",
+          "afterHash": "4b9b60db48a1550997764cc8d51c5893"
+        },
+        {
+          "dataset": "public.guild_members",
+          "beforeRows": 8,
+          "afterRows": 8,
+          "beforeHash": "60a7b351a7bde59590602b28fb75616e",
+          "afterHash": "60a7b351a7bde59590602b28fb75616e"
+        },
+        {
+          "dataset": "public.guild_mission_attempts",
+          "beforeRows": 0,
+          "afterRows": 0,
+          "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+          "afterHash": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        {
+          "dataset": "public.guild_mission_progress",
+          "beforeRows": 0,
+          "afterRows": 0,
+          "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+          "afterHash": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        {
+          "dataset": "public.guild_missions",
+          "beforeRows": 0,
+          "afterRows": 0,
+          "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+          "afterHash": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        {
+          "dataset": "public.guild_reward_claims",
+          "beforeRows": 0,
+          "afterRows": 0,
+          "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+          "afterHash": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        {
+          "dataset": "public.guilds",
+          "beforeRows": 3,
+          "afterRows": 3,
+          "beforeHash": "efe17f672262d8f60560f6130114a8b6",
+          "afterHash": "efe17f672262d8f60560f6130114a8b6"
+        },
+        {
+          "dataset": "public.inventory",
+          "beforeRows": 37,
+          "afterRows": 37,
+          "beforeHash": "b39da1a154e78959d84ce183218593ca",
+          "afterHash": "b39da1a154e78959d84ce183218593ca"
+        },
+        {
+          "dataset": "public.profiles",
+          "beforeRows": 11,
+          "afterRows": 11,
+          "beforeHash": "8eb319a33f9c4ea98426810a98a28f43",
+          "afterHash": "8eb319a33f9c4ea98426810a98a28f43"
+        },
+        {
+          "dataset": "public.story_definitions",
+          "beforeRows": 5,
+          "afterRows": 5,
+          "beforeHash": "ef0e5e6948bd180d854719fb6d820013",
+          "afterHash": "ef0e5e6948bd180d854719fb6d820013"
+        },
+        {
+          "dataset": "public.story_progress",
+          "beforeRows": 0,
+          "afterRows": 0,
+          "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+          "afterHash": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        {
+          "dataset": "public.traveler_chests",
+          "beforeRows": 8,
+          "afterRows": 8,
+          "beforeHash": "c05d953ef2ef20651574801fdfba1da7",
+          "afterHash": "c05d953ef2ef20651574801fdfba1da7"
+        },
+        {
+          "dataset": "public.traveler_stats",
+          "beforeRows": 24,
+          "afterRows": 24,
+          "beforeHash": "049421a9b457014379fc5f61243494a2",
+          "afterHash": "049421a9b457014379fc5f61243494a2"
+        },
+        {
+          "dataset": "public.travelers",
+          "beforeRows": 24,
+          "afterRows": 24,
+          "beforeHash": "4e90e6067ccd3a789a62ab19b51e1888",
+          "afterHash": "4e90e6067ccd3a789a62ab19b51e1888"
+        },
+        {
+          "dataset": "public.wallets",
+          "beforeRows": 24,
+          "afterRows": 24,
+          "beforeHash": "cb6ddc73f88b551b0fd81dca9ef51a3f",
+          "afterHash": "cb6ddc73f88b551b0fd81dca9ef51a3f"
+        },
+        {
+          "dataset": "story_private.step_receipts",
+          "beforeRows": 0,
+          "afterRows": 0,
+          "beforeHash": "d41d8cd98f00b204e9800998ecf8427e",
+          "afterHash": "d41d8cd98f00b204e9800998ecf8427e"
+        }
+      ]
+    }
+  ],
+  "recovery": {
+    "applicationSha": "f4e8b828f71cf46f9620a6265ec4414d2a7f2f98",
+    "deployment": "dpl_3znajcb3iDY5Xq3DNRSqoL8p8UBu",
+    "required": false,
+    "ddlOrDataRestoreRequired": false
+  },
+  "limitations": [
+    "Mobile input emulation, not physical device or real Android",
+    "Full interactive rounds tested in TEST, production checks are authorized reads/opening/reload",
+    "Old TEST acquired-card positive accounts still unavailable; not fabricated",
+    "First collector attempts failed and are preserved; final241checks explicitly aggregate231UI/API and10resumedchecks",
+    "Existing dependency/advisor notices remain, no new configuration or permissions to hide them",
+    "Official progression, rewards, Equipment/PR12, Arena, Tower and Shop remain blocked"
+  ]
+}
