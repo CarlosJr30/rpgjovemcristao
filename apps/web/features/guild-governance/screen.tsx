@@ -38,8 +38,10 @@ export function GovernanceScreen() {
   return (
     <ReleaseAccess>
       <ReleaseShell back="/journey/guild" backLabel="Voltar à Guilda">
-        <GuildHall>
-          <h1>Administração das comunidades</h1>
+        <GuildHall className={css.guildScene}>
+          <header className={css.card}>
+            <h1>Administração das comunidades</h1>
+          </header>
           {owner ? <GovernancePanel key={identity} owner={owner} /> : null}
         </GuildHall>
       </ReleaseShell>
