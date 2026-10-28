@@ -1,19 +1,21 @@
 {
   "task": "RPG-DEV-010A.1",
-  "state": "REWORK_VISUAL",
+  "state": "TEST_FOUNDATION_VALIDATED_PRODUCTION_BLOCKED",
   "date": "2026-10-28",
   "scope": "TEST foundation only; not full 010A or production",
   "base": "c14fd5e560f6e4930e18a1e493a901dea2ba0ed0",
-  "candidate": "912075436d1bf78635451d9501b8812b79470889",
+  "candidate": "6ef1e305afe7a6636112a97e20480b1a3aa50f53",
   "pr": "https://github.com/CarlosJr30/rpgjovemcristao/pull/19",
   "CI": [
     {
-      "run": 40762121024,
-      "conclusion": "success"
+      "run": 40765146499,
+      "conclusion": "success",
+      "event": "push"
     },
     {
-      "run": 40762162771,
-      "conclusion": "success"
+      "run": 40765152430,
+      "conclusion": "success",
+      "event": "pull_request"
     }
   ],
   "migration": {
@@ -24,10 +26,11 @@
     "productionApplied": false
   },
   "preview": {
-    "url": "https://rpgjovemcristao-fza5mfso0-carlos-junior-s-projects.vercel.app",
-    "id": "dpl_FeLttEJkACFjbuFbfVgnFciTq15D",
+    "url": "https://rpgjovemcristao-mqn1kannf-carlos-junior-s-projects.vercel.app",
+    "id": "dpl_BFJddcCjAeVix86DsxcfK6Xsgd1H",
     "state": "READY",
-    "backend": "TEST"
+    "backend": "TEST",
+    "sha": "6ef1e305afe7a6636112a97e20480b1a3aa50f53"
   },
   "tests": {
     "unit": {
@@ -46,7 +49,69 @@
     "sameNormalSession": true,
     "mobileEmulated": true,
     "physicalDevice": false,
-    "visualAcceptance": false
+    "visualAcceptance": true,
+    "afterTitleFixReadOnlyBrowserAPI": 44,
+    "isolationAfterAdministratorGrant": 15,
+    "regression": {
+      "pass": 241,
+      "uniqueLabels": 241,
+      "serpent": 43,
+      "missions": 36,
+      "realHosted": true,
+      "physicalDevice": false,
+      "sameNormalSession": true,
+      "wholeFailedRunsClaimedPass": false,
+      "parts": [
+        {
+          "artifact": "regression-first-progress.json",
+          "select": "chromium-prefixed checks",
+          "checks": 96,
+          "wholeRunPass": false
+        },
+        {
+          "artifact": "regression-followup-progress.json",
+          "select": "webkit-prefixed checks",
+          "checks": 98,
+          "wholeRunPass": false
+        },
+        {
+          "artifact": "test-touch-followup-hosted-results.json",
+          "select": "all checks",
+          "checks": 47,
+          "wholeRunPass": true
+        }
+      ],
+      "contexts": [
+        {
+          "engine": "chromium",
+          "pass": true,
+          "pageErrors": 0,
+          "unexpectedRESTWrites": 0,
+          "existingProfileIgnoreDuplicates": 35,
+          "reviewedReadRPCs": 2
+        },
+        {
+          "engine": "webkit",
+          "pass": true,
+          "pageErrors": 0,
+          "unexpectedRESTWrites": 0,
+          "existingProfileIgnoreDuplicates": 35,
+          "reviewedReadRPCs": 2
+        },
+        {
+          "engine": "chromium-touch",
+          "pass": true,
+          "pageErrors": 0,
+          "unexpectedRESTWrites": 0,
+          "existingProfileIgnoreDuplicates": 3,
+          "reviewedReadRPCs": 0
+        }
+      ],
+      "failuresPreserved": [
+        "WebKit Babel region timeout5000ms; diagnostic passed unchanged but cause not proved",
+        "Chromium emulated touch ordinary route lost before expected victory; isolated same controls/assertions passed with telemetry, no engine change"
+      ]
+    }
   },
   "governanceChanges": {
     "explicitUserDesignation": "Only normally authenticated TEST account",
@@ -892,8 +957,11 @@
     "newFunctions": 16
   },
   "requests": {
-    "ownExistingProfileIgnoreDuplicates": 15,
-    "unexpectedRESTWrites": 0,
+    "profileAttemptsInSelectedEvidence": 94,
+    "includesFailedDiagnosticAttempts": false,
+    "classification": "Existing own-profile ignore-duplicates; hashes unchanged",
+    "unexpectedRESTWritesInSelectedEvidence": 0,
+    "reviewedReadRPCsInRegression": 4,
     "normalGovernanceCommandsAudited": true,
     "zeroPOSTClaim": false
   },
@@ -903,11 +971,71 @@
     "auth_leaked_password_protection": 1
   },
   "limitations": [
-    "Title over artwork found by visual inspection; source fix pending new candidate CI/Preview",
-    "Full 010A multi-guild/legacy privilege revocation not implemented by this foundation",
-    "No authorized PROD administrator",
-    "Real positive multi-account transfer/races covered only in isolated PostgreSQL",
-    "Regression of full published flows pending this candidate",
-    "No economic grants or progression"
-  ]
+    "Full 010A multi-guild and legacy privilege revocation not implemented by this foundation",
+    "No designated PROD administrator; TEST-only migration is not eligible for PROD",
+    "Hosted multi-account acceptance/races remain isolated PostgreSQL coverage",
+    "RPG-DEV-010B/C/E pending dependent implementation and gates; 010D grants blocked",
+    "Old TEST account positive card content not exercised without an authorized normal session",
+    "Mobile input is emulated, not a physical device"
+  ],
+  "initialCandidate": "912075436d1bf78635451d9501b8812b79470889",
+  "initialCI": [
+    {
+      "run": 40762121024,
+      "conclusion": "success"
+    },
+    {
+      "run": 40762162771,
+      "conclusion": "success"
+    }
+  ],
+  "initialPreview": {
+    "url": "https://rpgjovemcristao-fza5mfso0-carlos-junior-s-projects.vercel.app",
+    "id": "dpl_FeLttEJkACFjbuFbfVgnFciTq15D",
+    "state": "READY",
+    "backend": "TEST"
+  },
+  "governanceData": {
+    "beforeInitialGrant": {
+      "admin_grants": 0,
+      "leadership_invites": 0,
+      "leader_authorizations": 0,
+      "audit": 0
+    },
+    "after": [
+      {
+        "dataset": "guild_admin_private.admin_grants",
+        "rows": 1,
+        "hash": "d93c80a4c57ab5f9664296df8f98787d"
+      },
+      {
+        "dataset": "guild_admin_private.audit",
+        "rows": 4,
+        "hash": "4594baebe8d19a4b9d58db0e810d9407"
+      },
+      {
+        "dataset": "guild_admin_private.leader_authorizations",
+        "rows": 1,
+        "hash": "e88a414ad0303ae4874992e5cc14636b"
+      },
+      {
+        "dataset": "guild_admin_private.leadership_invites",
+        "rows": 1,
+        "hash": "6a111e212634dc1f556563e9a811fa79"
+      }
+    ],
+    "authorizedTESTChanges": true,
+    "removeAfterQA": false
+  },
+  "production": {
+    "official": "https://rpgjovemcristao-web-inky.vercel.app",
+    "id": "dpl_8Pi4mXQUCaMcirqq5kLpXZdH9sRk",
+    "state": "READY",
+    "target": "production",
+    "sha": "c14fd5e560f6e4930e18a1e493a901dea2ba0ed0",
+    "autoAssignCustomDomains": true,
+    "SSO": "all_except_custom_domains",
+    "root": "apps/web"
+  },
+  "testProvenance": "Functional role/invitation lifecycle at 9120754. 6ef1e30 changes only the heading frame; SQL and role/invitation runtime behavior unchanged. New SHA has full CI, 44 read-only governance checks, visual acceptance and 241 regression checks in identified parts. No repeated grants to manufacture evidence."
 }

@@ -1,5 +1,11 @@
 # RPG-DEV-010 — Guilda, Células e EBD 2.0
 
+## Checkpoint atual — 010A.1 validada somente em TEST
+
+Designação humana **somente TEST por login normal** executada após verificar Auth/UID e gates técnicos: um Admin com quatro permissões protegidas, sem inferência pelo avatar. [PR19](https://github.com/CarlosJr30/rpgjovemcristao/pull/19) draft, runtime6ef1e30/CI push40765146499 ePR40765152430 success.894unit/74SKIP,45PG, qualidade/protocolo/RSC PASS. Migration única TEST20261028202642:29migrations/47tabelas, mantendo os43conjuntos anteriores. API12+15, navegador38+55 e revalidação visual44 PASS; regressão241 em partes identificadas, com falhas anteriores preservadas, duas engines/três contextos selecionados da mesma sessão e toque emulado. Relatório/evidência detalhados em [010A](RPG-DEV-010A-REPORT.md).
+
+Concessão inicial, um convite consumido, uma liderança depois revogada e quatro auditorias são mudanças autorizadas TEST; dados de jogo/vínculos anteriores intactos.43TESToriginais/38PROD e estruturas anteriores iguais. PROD continua008C/c14fd5e READY/oficial/sem010DDL/merge/deploy/Admin. PR12/18 independentes. **010A completa ainda BLOCKED** por multiguild/autoridades legadas e gates produtivos. [Compatibilidade010A.2](RPG-DEV-010A-MULTIGUILD-COMPATIBILITY.md) e [privacidade010E](RPG-DEV-010E-PRIVACY-REVIEW.md) preparadas, sem declarar implementadas ou aprovadas. Restante abaixo registra a auditoria inicial.
+
 28/10/2026 — **ACTIVE: auditoria e implementação por etapas; nenhuma publicação010.** Branch010A `codex/rpg-dev-010a-administration` criada diretamente da main remota `c14fd5e560f6e4930e18a1e493a901dea2ba0ed0`. Não incorpora PR12/18 ou migrations pendentes dessas branches. Todos os worktrees anteriores preservados.
 
 ## Estado remoto confirmado

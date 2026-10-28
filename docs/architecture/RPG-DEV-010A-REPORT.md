@@ -1,5 +1,44 @@
 # RPG-DEV-010A — Administração e liderança
 
+## Fechamento do incremento 010A.1 em TEST — 28/10/2026
+
+**Fundação validada em TEST. 010A completa e publicação PROD continuam BLOCKED.** A conta autenticada normalmente e designada pelo usuário recebeu somente em TEST a concessão inicial protegida de Administrador Geral. O Admin TEST permanece ativo; a autorização de liderança usada no ensaio foi revogada pelo fluxo normal. Preservados convite consumido e quatro registros de auditoria, sem modificar vínculos antigos ou dados de jogo. Login comprova a identidade; o privilégio decorre da designação explícita e do registro protegido, nunca do nome/e-mail/nível.
+
+| Gate do incremento | Resultado |
+| --- | --- |
+| Candidato/PR | `6ef1e305afe7a6636112a97e20480b1a3aa50f53`, [PR19 aberta/draft](https://github.com/CarlosJr30/rpgjovemcristao/pull/19), sem merge |
+| CI exato | [push40765146499](https://github.com/CarlosJr30/rpgjovemcristao/actions/runs/40765146499) e [PR40765152430](https://github.com/CarlosJr30/rpgjovemcristao/actions/runs/40765152430) **success**; qualidade, PostgreSQL e RSC aprovados. Publicação condicional SKIP, não PASS |
+| Qualidade | **894 unitários PASS / 74 SKIP**, lint, tipos, build e protocolo25 PASS; seis pertinentes da correção incluídos, não somar novamente |
+| PostgreSQL isolado | **45 PASS**, permissões/destinatário/replay/concorrência/recuperação. Fixtures não são prova hospedada |
+| Auth e concessão | Sessão normal confirmada contra Auth; um Admin TEST, quatro permissões, bootstrap privado com motivo/nonce. Nenhum Admin PROD |
+| API hospedada | **12 antes do grant + 15 de isolamento depois PASS**. Admin não contorna RLS de dados de jogo alheios; tabelas privadas/bootstrap fora da API pública |
+| Navegador/API inicial | **38 sem grant + 55 com grant PASS** no candidato9120754. Emissão, QR, retorno Auth, aceite explícito, replay sem segredo e revogação real |
+| Correção visual | **44 checks somente leitura PASS** no candidato6ef1e30, Chromium desktop/WebKit390px; título na moldura opaca, capturas inspecionadas |
+| Regressão publicada | **241 checks PASS nas partes identificadas**, incluindo43Serpente/36Missões, consultas/Jornada/Guilda/EBD conforme vínculo real, Auth/RLS/anon e negações econômicas |
+| Preservação final | **43 conjuntos originais TEST e38 PROD com hashes/contagens idênticos** após todos os ensaios.108funções/ACLs/43tabelas/39policies anteriores TEST e100funções/38tabelas/39policies PROD preservadas |
+| Produção | 008C `c14fd5e`, `dpl_8Pi4mXQUCaMcirqq5kLpXZdH9sRk`, READY/production/[alias oficial](https://rpgjovemcristao-web-inky.vercel.app), autoAssign=true/SSO originais. Sem010DDL/deploy/merge/Admin PROD |
+
+[Preview corrigida TEST](https://rpgjovemcristao-mqn1kannf-carlos-junior-s-projects.vercel.app/journey/guild/administration), `dpl_BFJddcCjAeVix86DsxcfK6Xsgd1H`, READY/Preview/SHA6ef1e30/backend TEST. Migration única TEST20261028202642,29migrations/47tabelas; nenhum DDL adicional para a correção visual. Preview/evidências anteriores preservadas. Não promover esta Preview TEST para produção. Sem senha administrativa, link de autenticação artificial, conta nova ou mensagem WhatsApp enviada.
+
+### Proveniência e limitações
+
+Os241 checks combinam **96 Chromium** da primeira rodada, **98 WebKit** da segunda e **47 do seguimento de toque/API/negações finais**, com nomes únicos. São três contextos válidos da mesma sessão normal em memória, não logins independentes nem241 novos casos exclusivos em relação à008C. Chromium com toque CDP e WebKit390px são **emulados**, sem aparelho físico/Android real.
+
+A primeira rodada não foi integralmente PASS: WebKit excedeu5000ms esperando a região de Babel na recarga. Diagnóstico isolado carregou/recarregou em2390/3531ms sem erro, sem demonstrar a causa do timeout anterior. A segunda concluiu WebKit e falhou no caminho automatizado de vitória do toque emulado, com derrota antes do objetivo esperado. O seguimento isolado passou15checks, incluindo vitória/derrota/replay/saída, com251 amostras de posição/entrada e estado final `won`. Não houve alteração de engine/arte/dificuldade/rota/limites/assertions, edição de runtime ou filtragem de erros. Não se alega corrigida uma causa física não demonstrada nem se declaram as duas rodadas interrompidas PASS.
+
+Nas partes selecionadas da regressão:73 tentativas próprias de perfil `ignore-duplicates` e quatro RPCs revisadas de leitura; no recheck visual: seis tentativas; nos dois ensaios iniciais:15. São **94 tentativas nas evidências selecionadas**, não a contagem de todas as tentativas/diagnósticos. Nenhuma escrita REST inesperada nesses trechos; hashes globais conferidos depois de todos os contextos. Auth pode atualizar metadados normais da sessão. Não alegar zero POST.
+
+[Evidência sanitizada](RPG-DEV-010A-TEST-EVIDENCE.json). Artefatos/falhas/telemetria/capturas privados em build/rpg-dev-010a. QA/Security/React pelo autor, sem revisão independente. Positivos com outros destinatários/corridas entre contas permanecem cobertura PG isolada; não foram fabricados em contas hospedadas. Cartas antigas TEST continuam pendentes sem sessão autorizada.
+
+### Bloqueios e trabalho independente preparado
+
+- **010A.2:** implementar e homologar escopo explícito por Guilda, criação múltipla autorizada e revogação nos caminhos legados. [Contrato de compatibilidade](RPG-DEV-010A-MULTIGUILD-COMPATIBILITY.md),15 interfaces remotas separadas para revisão. O índice de uma Guilda ativa permanece; não há multiguild declarado pronto.
+- **PROD:** nenhum Admin produtivo designado. Migration atual TEST-only não é candidata PROD. A autorização somente TEST não será ampliada por inferência.
+- **010B/C/E:** implementação e gates próprios dependem do modelo escopado. [Revisão preparatória de privacidade010E](RPG-DEV-010E-PRIVACY-REVIEW.md) com fontes oficiais atuais e decisões humanas pendentes; sem aceite jurídico/liberação de comunicação.
+- **010D:** contratos/testes isolados autorizados, concessões reais bloqueadas; sem crédito, baú, XP, moeda ou reconciliação histórica.
+
+PR12/18 reconfirmadas abertas/draft/não integradas nos mesmos SHAs;52caminhos originais sem divergência/oito worktrees preservados. Fechamento documental, sem deploy artificial adicional. As seções abaixo são históricas. **Não declarar010A completa,010DONE ou DEPLOY_COMPLETE produtivo.**
+
 ## 28/10/2026 — fundação hospedada TEST; REWORK visual
 
 PR [19](https://github.com/CarlosJr30/rpgjovemcristao/pull/19) aberta/draft, candidato `912075436d1bf78635451d9501b8812b79470889`. CI [push40762121024](https://github.com/CarlosJr30/rpgjovemcristao/actions/runs/40762121024) e [PR40762162771](https://github.com/CarlosJr30/rpgjovemcristao/actions/runs/40762162771) **success no SHA exato**:894unit PASS/74SKIP,45PG isolados, qualidade/protocolo25/RSC aprovados. Fixture PG não equivale a prova hospedada.
