@@ -1,0 +1,23 @@
+# RPG-DEV-010A — Administração e liderança
+
+28/10/2026 — **ACTIVE / implementação e testes independentes**. Base main c14fd5e, branch codex/rpg-dev-010a-administration; PR12/18 independentes. Ver matriz e ambientes em [RPG-DEV-010-REPORT.md](RPG-DEV-010-REPORT.md).
+
+Fundação prevista: concessões globais privadas por UID verificado e permissões explícitas, auditoria append-only com motivo, convite individual vinculado a destinatário confirmado, expiração/revogação/uso único e consumo concorrente seguro. Nenhuma identidade recebe Admin por inferência. Primeiro grant permanece ausente até autorização explícita.
+
+Criação multiguild exige remover a limitação de uma Guilda **junto** da adaptação das RPCs/clientes: getContext/maybeSingle, ebd_ops.workspace/command, leadership/guild_invite_private e saídas/remoções ambíguas. A API antiga create_guild não pode continuar permitindo contornar nova autorização. Revogação deve cobrir caminhos legados antes de publicar esse poder. Não desativar funções publicadas sem alternativa compatível/testada.
+
+010A pode ser validada em incrementos internos, sem declarar a etapa completa quando só a fundação estiver pronta. Positivos PG isolados não substituem Admin/líder autenticados em TEST. Faltam implementação, recuperação, CI/Preview, QA/API/RLS/browser e gates produtivos. Nenhuma migration/deploy/grant010 executados neste checkpoint.
+
+## 010A.1 — fundação implementada e validada localmente
+
+Migration TEST-only `20261028110010_rpg_dev_010a_governance_foundation_test.sql`: quatro tabelas privadas com RLS deny-all e funções limitadas para grants por UID/permissão, convite individual, autorização nova e auditoria append-only. Zero concessões iniciais. Bootstrap é função INVOKER privada acessível somente ao proprietário SQL, sem wrapper público/EXECUTE para aplicação; exige conta não anônima/e-mail confirmado, motivo e nonce. O usuário autorizou designar **somente a conta TEST por login normal**, com UID verificado antes do grant. Não há autorização de Admin PROD.
+
+Convite:32 bytes aleatórios/SHA-256, destinatário conhecido preso ao UID, destinatário ainda sem identidade vinculado atomicamente ao endereço confirmado/UID no aceite. Não infere Admin por e-mail. Validade1–7dias nesta fundação de liderança, uso único/revogação e checagem após espera do lock. Convites comuns010B continuam contrato separado até30dias/100usos. Só administrador com leadership.manage emite/revoga; perda dessa permissão invalida pendentes. Convite não concede Admin.
+
+UI reutiliza ReleaseShell/GuildHall/cores/menu11. Nova página de autorizações dentro da Guilda; apresentação pública em caminho fixo, token no fragmento retirado do histórico e preservado por cookie host-only HttpOnly/Secure/SameSite=Lax. Retorno Auth/avatar só caminho limpo. QR PNG pela dependência existente, sem serviço externo; WhatsApp só link acionado pelo usuário, não envio pelo agente. Erros redigidos, origem de configuração/plataforma, Auth normal em cada operação protegida; descarta resposta de conta/sessão anterior. Sem logs de token/e-mail/payload no código novo.
+
+894 unitários PASS /74 SKIP (131 arquivos aprovados/7 opt-in omitidos);45 PG isolados PASS: bootstrap, spoof metadata, destinatário/conta transferida, aceite posterior com e-mail verificado, uso único/replay/concorrência, expiração/revogação durante espera, permissão revogada sem refreshJWT, histórico antes/depois e contenção. Positivos são fixtures sintéticas isoladas, não contas hospedadas. Lint/typecheck/build/protocolo25 PASS. Primeiro lint reprovou Date.now no render; captura movida para a consulta, sem desativar regra. Logs/falha preservados em build/rpg-dev-010a.
+
+Recuperação vazia remove só objetos novos quando as quatro tabelas estão vazias; recusa descartar dados emitidos. Após grant/auditoria, contenção revoga apenas novos EXECUTEs, preservando registros. Ambos ensaiados no PG isolado, com dados/funções/ACLs legadas preservados. Não executar remoção vazia após bootstrap ou apagar histórico de migrations; compensação remota somente quando necessária e rastreável.
+
+**A.1 não conclui010A.** Status retorna multiGuildReady/canCreateAdditionalGuilds=false; create_guild, índice único e RPCs/EBD publicados permanecem intactos. Revogação da autorização nova não é alegada como revogação completa dos poderes legados. Adaptar/testar esses caminhos em010A.2 antes de publicação da etapa completa. Intervenções econômicas, transferências e reativação ficam nos contratos próprios; sem RPC administrativa arbitrária. CI exato, migration/preview TEST e QA real pendentes neste checkpoint. Nenhuma alteração PROD.

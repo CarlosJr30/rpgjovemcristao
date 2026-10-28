@@ -220,6 +220,7 @@ function GuildForTraveler({
             Atualizar Guilda
           </button>
         )}
+        <Link href="/journey/guild/administration">Autorizações e administração</Link>
       </GuildHall>
     </ReleaseShell>
   );

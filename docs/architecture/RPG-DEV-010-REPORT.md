@@ -1,0 +1,57 @@
+# RPG-DEV-010 — Guilda, Células e EBD 2.0
+
+28/10/2026 — **ACTIVE: auditoria e implementação por etapas; nenhuma publicação010.** Branch010A `codex/rpg-dev-010a-administration` criada diretamente da main remota `c14fd5e560f6e4930e18a1e493a901dea2ba0ed0`. Não incorpora PR12/18 ou migrations pendentes dessas branches. Todos os worktrees anteriores preservados.
+
+## Estado remoto confirmado
+
+- PR12 aberta/draft, head `61b7177b2ba52a04b955a8306677a0e13dfdeb3c`; PR18 aberta/draft, head `fd6f1498783d00c2a338cc42968bc7d0d4f3f822`. CI009 [push40667834183](https://github.com/CarlosJr30/rpgjovemcristao/actions/runs/40667834183) e [PR40667841973](https://github.com/CarlosJr30/rpgjovemcristao/actions/runs/40667841973) success. Nenhuma integração dessas PRs como dependência010.
+- [Produção oficial](https://rpgjovemcristao-web-inky.vercel.app): `dpl_8Pi4mXQUCaMcirqq5kLpXZdH9sRk`, READY/production, SHA/main `c14fd5e`, alias exato, raiz apps/web, autoAssignCustomDomains=true e SSO originais. Conector Vercel403 para a equipe; leitura pela CLI já autenticada no mesmo projeto/equipe, sem mudar acesso.
+- Supabase PROD `wspafhlbtlpabypzymjo`: scope guild-ebd-001,8 migrations/38 tabelas. TEST `wkdvdzfkbwvhyjmamrsg`: hero-equipment-006,28 migrations/43 tabelas, incluindo009A fechada que não será importada para esta branch.
+- Contagens/hashes das43 tabelas TEST e38 PROD idênticos ao fechamento009; baseline privado em build/rpg-dev-010a. Nenhuma concessão, modificação de dados ou DDL010 remota.
+
+## Matriz de recuperação e diferenças
+
+EXISTENTE identifica o artefato encontrado; REUTILIZAR mantém sua responsabilidade; ADAPTAR exige mudança; NOVO não tem equivalente comprovado; BLOQUEADO impede publicação até o gate indicado.
+
+| Área | Classificação | Evidência existente / destino |
+| --- | --- | --- |
+|Shell medieval e menu11|EXISTENTE / REUTILIZAR|features/release-ebd/shell.tsx, release.module.css, GuildHall/GuildHero e navegação original|
+|Auth/avatar/retorno após login|EXISTENTE / REUTILIZAR / ADAPTAR|features/auth, lib/supabase/auth*, destino interno validado; convite de liderança não é login|
+|Admin Geral protegido|NOVO / BLOQUEADO para concessão inicial|guild_admin_stats é contador do líder, não papel global; nenhuma concessão global comprovada. Identidade inicial exige autorização explícita|
+|Convite individual de liderança|NOVO|Invites existentes só solicitam entrada comum; destinatário confirmado, uso único, expiração/revogação/nonce e auditoria exigidos|
+|Guildas/membros|EXISTENTE / ADAPTAR|public.guilds/guild_members; preservar PKs/vínculos e ampliar suporte sem transferir avatar|
+|Múltiplas Guildas por avatar|ADAPTAR / BLOQUEADO até compatibilidade|Índice guild_members_one_active_guild_per_traveler_idx limita a uma; guildRepository.getContext usa maybeSingle. Não remover somente o índice|
+|RPCs com escopo de Guilda|ADAPTAR|EBD workspace/command e APIs de liderança inferem uma Guilda pelo avatar. Exigir escopo explícito e verificar cada chamada legada antes de multivínculo|
+|Criar Guilda/liderança|EXISTENTE / ADAPTAR|create_guild atualmente atribui liderança ao criador sem grant global; novo modelo exige autorização protegida e evitar bypass pela API antiga|
+|Link/QR e validação de origem|EXISTENTE / REUTILIZAR / ADAPTAR|lib/guild-invites/server.ts usa qrcode, HTTPS configurado/no-store/no-referrer; ampliar regras, sem enviar WhatsApp automaticamente|
+|Convites comuns automáticos|ADAPTAR|guild_invite_private.link_invites expira até7dias e request_invite cria pedido pendente; faltam uso máximo100, até30dias e entrada atômica automática|
+|Convites privados sem token em URL de servidor|ADAPTAR|Fluxo antigo inclui token no caminho; nova apresentação deve evitar token em logs/referrer e preservá-lo no retorno Auth/avatar|
+|Classes de EBD|NOVO sobre estruturas existentes|Aulas/professores estão escopados à Guilda, sem entidade classe/matrícula múltipla. Não duplicar aulas/históricos|
+|Nomeação/revogação de professor|EXISTENTE / REUTILIZAR / ADAPTAR|ebd_ops.command teacher e guild_ebd_teachers; acrescentar classe/escopo e preservar conteúdo ao revogar|
+|Aulas/agenda/atividades/presença/histórico|EXISTENTE / REUTILIZAR / ADAPTAR|features/guild-ebd, ebd_ops, guild_lessons e tabelas guild_ebd_*; professor já pode publicar quando concedido|
+|Questionário exatamente7|ADAPTAR|Discussões legadas aceitam até12 e atividades choice são perguntas individuais; falta contrato de questionário7. Aulas sem questionário continuam válidas|
+|Encontros/desafios educativos|EXISTENTE parcial / ADAPTAR|guild_missions, guild_ops, painéis e ledger de revisão; ampliar tipos/validação mista sem prêmio automático|
+|Eventos conjuntos e equipes|NOVO|Aceite de todos os líderes, regras fixadas, elegibilidade proporcional, conta não pode competir contra si, deduplicação global|
+|Economia e recibos|EXISTENTE parcial / BLOQUEADO|guild_reward_claims, reward_pending, código legado e fronteira RELEASE-EBD. Regras1500XP/semana,50presença,7comuns/semana,4épicos/mês e2eventos/líder/mês exigem novo contrato agregado isolado|
+|Catálogo e sorteio|EXISTENTE parcial / BLOQUEADO|Autoridade econômica e catálogo privado continuam fechados; não inventar equipamentos/cartas oficiais ou fabricar saldos|
+|Contestações|NOVO / BLOQUEADO para liberação econômica|Decisões auditadas, segregação de responsável/beneficiário e suspensão só da concessão suspeita|
+|Chat supervisionado|EXISTENTE / ADAPTAR / BLOQUEADO para nova publicação|guild_chat_private e componentes já têm rate limit/report/moderate; integrar escalonamento global e revisar privacidade de adolescentes antes de liberar|
+|Notificações internas|NOVO / ADAPTAR|Distinguir histórico operacional de inbox pessoal; sem mensagens privadas ou disparos externos|
+|Substitutos temporários|NOVO|Escopo, validade/revogação e permissões explícitas, sem herança de poderes globais/econômicos|
+|Pausa/arquivo/transferência|EXISTENTE parcial / ADAPTAR|guilds.status só active/archived; falta paused, reativação administrada e confirmação de transferência|
+
+## Etapas e dependências reais
+
+| Etapa | Estado | Ordem segura |
+| --- | --- | --- |
+|[010A](RPG-DEV-010A-REPORT.md)|ACTIVE|Fundação protegida de administração/convites; depois adaptar criação, revogação e multiguild sem chamadas ambíguas|
+|[010B](RPG-DEV-010B-REPORT.md)|PENDING|Classes/convites comuns dependem do escopo explícito de Guilda e autorização010A|
+|[010C](RPG-DEV-010C-REPORT.md)|PENDING|Reutilizar atividades existentes, eventos conjuntos com aceite/participação globalmente única|
+|[010D](RPG-DEV-010D-REPORT.md)|BLOQUEADO para créditos; contratos isolados autorizados|Deduplicar por jogador/atividade compartilhada, limites globais e catálogo homologado antes de grants|
+|[010E](RPG-DEV-010E-REPORT.md)|PENDING|Reutilizar chat/moderação; grants temporários, privacidade e ciclo de comunidade antes da exposição|
+
+Não há Admin presumido por Teste Chat A, nível50, nome, e-mail ou propriedade de Guilda. Pergunta assíncrona solicita o caminho de concessão inicial; ausência de resposta não autoriza concessão. Fixtures positivas são exclusivamente isoladas até haver sessões/grants explicitamente autorizados para QA.
+
+Resposta posterior autoriza **somente a conta TEST por login normal**. Sessão TEST normal reconfirmada, sem exportar credenciais; grant aguarda CI/segurança/recuperação e confirmação do UID no instante da operação. Não atribuir Admin PROD. FundaçãoA.1 local:894unit/74SKIP,45PG e qualidade/protocolo25 PASS; CI/QA hospedada pendentes. Nenhum DDL/grant010 aplicado. Ver relatórioA para limites de criação/revogação/multiguild ainda não integrados.52 caminhos originais idênticos, oito worktrees preservados.
+
+Fontes lidas: RELEASE-EBD-001-REPORT.md; fechamento007 na branch documental4fd6810; fechamento008C439567c; relatório009/aceite editorial pendente na PR18fd6f149. São referências de auditoria, não merges de runtime. Sem revisão independente alegada. Nenhum gate010, teste hospedado010 ou publicação010 declarado PASS/DONE nesta preparação.

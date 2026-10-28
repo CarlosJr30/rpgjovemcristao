@@ -22,6 +22,9 @@ it.each([
   '/journey/guild/manage',
   '/journey/guild/ebd',
   '/api/guild-invites',
+  '/api/guild-governance',
+  '/journey/guild/administration',
+  '/guilda/lideranca/convite',
   '/guilda/convite/' + 'a'.repeat(64),
 ])('releases only reviewed route %s', (p) =>
   expect(isReleasedPath(p)).toBe(true),
@@ -40,6 +43,8 @@ it.each([
   '/journey/%61rena',
   '/journey/guild/../arena',
   '/journey/guild-extra',
+  '/journey/guild/administration/arbitrary',
+  '/guilda/lideranca/convite/arbitrary',
 ])('rejects unreleased route %s', (p) => expect(isReleasedPath(p)).toBe(false));
 it('denies a direct authenticated economy API call without constructing an authority client', async () => {
   const r = await POST(
