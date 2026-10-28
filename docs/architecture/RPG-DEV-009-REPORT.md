@@ -1,5 +1,22 @@
 # RPG-DEV-009 — Progressão persistente e desbloqueio
 
+## Revisão editorial preparada — 28/10/2026
+
+[Proposta completa de A Criação](../biblical/RPG-DEV-009-CREATION-EDITORIAL-PROPOSAL.md) organizada em decisões D1–D7, **todas PENDENTES**. Inclui textos completos das quatro cenas existentes, referências NVI, objetivo, leituras, sete respostas do mosaico, quatro associações de exploração propostas, seis perguntas com alternativas/gabaritos e justificativas, duas reflexões, oração opcional, dossiê de vídeo obrigatório, critérios cumulativos de conclusão e elegibilidade da história seguinte. “Definido no candidato” não significa aprovado; as três perguntas adicionais e o desafio contextual não estão implementados. Nenhum vídeo foi selecionado.
+
+Trabalho técnico independente desta retomada: reconferida PR18 aberta/draft/não integrada em `c4c4d60b4e368b87177de51fa4fbbc4a4444cd36`; CI [push40664203865](https://github.com/CarlosJr30/rpgjovemcristao/actions/runs/40664203865) e [PR40664211556](https://github.com/CarlosJr30/rpgjovemcristao/actions/runs/40664211556) **success no SHA exato**. Preparada a matriz abaixo para os futuros emissores, sem escolher gabaritos/requisitos no código ou executar positivos artificiais. Não há mudança runtime, SQL, testes ou evidência009 aprovada nesta revisão documental; nenhum acesso/mutação de banco, merge ou deploy executado.
+
+| Fronteira técnica independente do tema | Já comprovado no consumidor fechado | Gate futuro do emissor — não executado |
+| --- | --- | --- |
+|Identidade e isolamento|Auth não anônimo/dono/avatar ativo; alheio e anon negados|Desafio e envio vinculados à sessão, avatar e revisão; não confiar em user_metadata|
+|Revisão e política|Evidência de revisão/política incompatível negada no PG isolado|Fixar contrato/gabarito no servidor; rejeitar desafio após alteração da revisão|
+|Integridade da prova|Cliente não emite atestações privadas; kind de participação não substitui quiz|Validar conteúdo/evento real antes de emitir recibo; flags/score/ended livres não bastam|
+|Nonce, validade e replay|Comando de conclusão exige UUID; idempotência/concorrência isoladas|Expiração e consumo atômico de desafio; replay de submissão/evento e assinatura do provedor quando aplicável|
+|Privacidade|Consumidor não exige texto de reflexão|Participação sem texto pessoal; logs redigidos, sem payload devocional ou credenciais|
+|Publicação e economia|Consumidor TEST fechado, sem concessões; dados preservados no fechamento anterior|Positivo normal hospedado após contrato aprovado; comparação de dados, recuperação e gates completos antes de qualquer proposta PROD|
+
+Esta matriz é preparação de aceite técnico, **não implementação ou prova hospedada dos emissores**. Mantêm-se os32PG isolados,23API e244regressões anteriores, com suas falhas e limitações. Não repetidos testes funcionais para apenas editar Markdown; revisão estrutural/textual pelo autor conforme WORKFLOW. Não há aprovação editorial humana ou liberação de progressão/recompensas. A publicação permanece BLOCKED nos mesmos gates.
+
 ## Fechamento da etapa independente — 28/10/2026
 
 **009A implementada e validada fechada em TEST. RPG-DEV-009 permanece BLOCKED para progressão oficial/publicação PROD.** Nenhuma aprovação editorial, conclusão ou recompensa foi fabricada. A proposta editorial está entregue separadamente, sem itens aprovados: [A Criação — proposta para revisão](../biblical/RPG-DEV-009-CREATION-EDITORIAL-PROPOSAL.md).
