@@ -124,14 +124,22 @@ function ScopeForAccount({
     contexts?.find((c) => c.guild.id === selected) ??
     (contexts?.length === 1 ? contexts[0] : undefined);
   useEffect(() => {
-    if (!contexts) return;
+    if (!contexts || snapshot?.generation !== reload || busy) return;
     const id = context?.guild.id ?? null;
     if (
       (selected && !contexts.some((c) => c.guild.id === selected)) ||
       (!selected && id)
     )
       selectGuild(actor, id);
-  }, [actor, contexts, context?.guild.id, selected]);
+  }, [
+    actor,
+    contexts,
+    context?.guild.id,
+    selected,
+    snapshot?.generation,
+    reload,
+    busy,
+  ]);
   if (error)
     return (
       <section className={css.card}>

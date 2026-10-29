@@ -30,7 +30,10 @@ vi.mock('../../lib/supabase/repositories/guild-repository', () => ({
   guildRepository: { listContexts: mock.list, getStatus: mock.status },
 }));
 import { GuildScope } from './scope';
-import { beginGuildWork } from '../../lib/guild-governance/selection';
+import {
+  beginGuildWork,
+  selectGuild,
+} from '../../lib/guild-governance/selection';
 const a = '11111111-1111-4111-8111-111111111111',
   b = '22222222-2222-4222-8222-222222222222';
 const context = (id: string, name: string) => ({
@@ -164,4 +167,45 @@ test('pending commands disable community changes until their response finishes',
   expect(screen.getByLabelText('Guilda ativa')).toBeDisabled();
   act(() => finish());
   expect(screen.getByLabelText('Guilda ativa')).not.toBeDisabled();
+});
+
+test('confirmed new community stays selected after refreshing previous memberships', async () => {
+  mock.list.mockResolvedValueOnce([context(a, 'Comunidade A')]);
+  render(
+    <GuildScope actor="actor">
+      {(scope) => (
+        <>
+          <div data-testid="selected">{scope.context?.guild.name}</div>
+          <button
+            onClick={() => {
+              selectGuild('actor', b);
+              scope.refresh();
+            }}
+          >
+            Confirmar nova comunidade
+          </button>
+        </>
+      )}
+    </GuildScope>,
+  );
+  await waitFor(() =>
+    expect(screen.getByTestId('selected')).toHaveTextContent('Comunidade A'),
+  );
+  let resolve!: (value: unknown) => void;
+  mock.list.mockImplementationOnce(
+    () =>
+      new Promise((r) => {
+        resolve = r;
+      }),
+  );
+  fireEvent.click(
+    screen.getByRole('button', { name: 'Confirmar nova comunidade' }),
+  );
+  expect(screen.queryByTestId('selected')).toBeNull();
+  await act(async () =>
+    resolve([context(a, 'Comunidade A'), context(b, 'Comunidade B')]),
+  );
+  expect(await screen.findByTestId('selected')).toHaveTextContent(
+    'Comunidade B',
+  );
 });
