@@ -2,7 +2,7 @@
 
 ## Pacote produtivo independente — 29/10/2026
 
-Revisão final do guard: o conector atribui a versão remota automaticamente. O segundo arquivo agora confere nome exato `rpg_dev_010a_governance_production`, nove registros e39 definições/ACLs/donos, sem supor que a versão remota será o timestamp local.26PGisolados PASS; versões locais permanecem82857/82907, nenhuma aplicada em PROD. Mapear as versões remotas efetivamente retornadas e hashes dos arquivos no registro de aplicação, sem renomear/apagar histórico. Novo SHA/CI/Preview serão registrados; f606 abaixo é a evidência anterior preservada.
+Guard final validado no pacote `7abca21dfa5c29973a1e768d17767af00a45a27b`, CIpush40847640704/PR40847651864 success:927unit/74SKIP,132PGisolados/qualidade/RSC/protocolo25. Previewjm1pteqzt/dpl_Bm3vxkPmmBM8R2M5DcPajEk2JMm8 READY/TEST/SHAexato,52checks reais finais PASS,49TEST38PROD iguais. O conector atribui a versão remota automaticamente; segundo arquivo confere nome exato `rpg_dev_010a_governance_production`, nove registros e39 definições/ACLs/donos, sem supor timestamp remoto.26PG do pacote aceitam versão atribuída e recusam nome alheio. Versões locais82857/82907 permanecem não aplicadas; mapear versões remotas e hashes quando executadas, sem renomear/apagar histórico. Este fechamento supersede f606 abaixo. Proposta administrativa continua não aprovada.
 
 **PREPARADO / aplicação PROD BLOCKED.** Homologação multiguild TEST concluída com dois logins normais, mantendo falhas e limites no relatório. Não há concessão Admin PROD autorizada. O novo pacote e o ensaio abaixo substituem os bloqueios históricos de geração descritos ao final; nenhum arquivo TEST-only será aplicado em produção.
 

@@ -1,5 +1,7 @@
 # RPG-DEV-010 — Guilda, Células e EBD 2.0
 
+Fechamento atual29/10: pacote produtivo7abca21CIpush40847640704/PR40847651864success,927unit/74SKIP/132PG(26do pacote)/qualidadeRSCprotocolo25. Guard do conector corrigido/testado por nome aprovado e hashes/ACLs. Previewjm1pteqzt/dpl_Bm3vxkPmmBM8R2M5DcPajEk2JMm8READY/TEST/SHAexato/52checksreaisPASS,49TEST38PROD iguais. [Proposta Admin PROD](RPG-DEV-010A-PROD-ADMIN-PROPOSAL.md) ainda não aprovada; semProdDDL/grant/merge/deploy,008C/PR12/18 preservados. Fonte atual: fechamento superior do relatório010A/evidênciaprodutiva; checkpoints abaixo históricos.
+
 ## 29/10 — 010A.2 TEST homologada; pacote PROD pronto para revisão do proprietário
 
 f606e5a CI push40845009558/PR40845018213 success:927unit/74SKIP,131PGisolados/qualidade/protocolo25/RSC. Previewjtnhfa1sy READY/TEST/SHAexato,52checks reais finais Chromium/WebKit390 emulado,49TEST/38PROD iguais. Preservadas homologação com doisUIDs e todas as falhas anteriores. Migrations PROD próprias82857/82907,25checks de instalação/recuperação/contenção e preflightProd19readonlyPASS concluídos. [Proposta Admin PROD](RPG-DEV-010A-PROD-ADMIN-PROPOSAL.md) fixada à conta normalmente autenticada, **NÃO APROVADA**. Nenhum grant/DDL/merge/deploy010PROD;008C/PR12/18 preservados. Bloqueio atual é aprovação explícita de privilégio; depois executar gates remotos conforme plano. Não DEPLOY_COMPLETE produtivo010A/010A.2 nem010DONE. Fonte: relatório010A/evidênciasmultiusuário eprodutiva.

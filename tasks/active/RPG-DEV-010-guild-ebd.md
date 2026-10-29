@@ -3,7 +3,7 @@
 ID: RPG-DEV-010
 TITLE: Evoluir Guilda/EBD existentes em etapas independentes
 STATUS: ACTIVE
-LATEST_GATE: revisão do procedimento de aplicação corrigiu guard PROD para nome aprovado/metadata em vez de timestamp remoto inferido.26PGisoladosPASS; novoCI/Preview do SHA corretivo pendentes. Migrations PROD continuam não aplicadas; Administração PROD não aprovada. Checkpoints abaixo preservados.
+LATEST_GATE: pacote7abca21CIpush40847640704/PR40847651864success,927unit74SKIP/132PG/qualidadeRSCprotocolo25. Previewjm1pteqzt READY/TEST/SHAexato/52checksreaisPASS/49TEST38PROD iguais. Guard de nome/versão remota aprovado em26PGisolados; doisUIDsfuncionais anteriores preservados. PropostaAdmin010A-PROD-ADMIN-20261029 entregue, aprovação humana ausente: BLOCKED para PROD. Não executar DDL/grant/merge/deploy antes da aprovação/gates; fontes relatório010A/proposta/evidências. Checkpoints abaixo históricos.
 CURRENT_INCREMENT: 010A.2 VALIDATED_TEST / pacote PROD preparado, BLOCKED por aprovação administrativa humana. Bootstrap PROD exige aprovação explícita ausente; migrations82857/82907 e recuperação/ativação protegidas ensaiadas em25PGisolados; preflightProd19readonlyPASS/38hashes/estrutura intactos. f606e5aCIpush40845009558/PR40845018213success,927unit74SKIP/131PG,Previewjtnhfa1syREADY/TEST/52checksreais finais e49TEST38PROD iguais. Proposta010A-PROD-ADMIN-20261029 entregue separada, ownerApproved=false. Não executar DDL/grant/merge/deploy enquanto faltar gate crítico. Relatório010A e evidências MULTIUSER/PRODUCTION-PREPARATION são fontes atuais.
 PRIORITY: P1 High
 OBJECTIVE: Executar a especificação autorizada pelo usuário em 28/10/2026, preservando dados, interface medieval e sistemas publicados; não habilitar economia antes da homologação.
