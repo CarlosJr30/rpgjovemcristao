@@ -8,8 +8,9 @@ export type InviteRecord = {
 };
 export type CreatedInvite = {
   id: string;
-  url: string;
-  qr: string;
+  url?: string;
+  qr?: string;
+  replayed?: boolean;
   expires_at: string;
 };
 export type ResolvedInvite = { guild_name: string; expires_at: string };

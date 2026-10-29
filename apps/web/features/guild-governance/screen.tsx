@@ -59,7 +59,7 @@ function GovernancePanel({ owner }: { owner: string }) {
   const key = `${owner}:${offset}:${refresh}`;
   useEffect(() => {
     let active = true;
-    void governanceAction<unknown>({ action: 'status' }, owner)
+    void governanceAction<unknown>({ action: 'scopeStatus' }, owner)
       .then(async (value) => {
         const status = parseGovernanceStatus(value);
         const [workspace, history] = await Promise.all([
@@ -180,9 +180,10 @@ function GovernancePanel({ owner }: { owner: string }) {
           .
         </p>
         <p>
-          Esta etapa prepara as autorizações. A criação de múltiplas Guildas e
-          as novas operações de gestão ainda não estão disponíveis. Nenhuma
-          recompensa é concedida.
+          {status.multiGuildReady
+            ? 'A comunidade ativa é selecionada na Guilda ou na EBD. A criação exige autorização individual de liderança; permissões são conferidas em cada operação.'
+            : 'Esta etapa prepara as autorizações. A criação de múltiplas Guildas ainda não está disponível.'}{' '}
+          Nenhuma recompensa é concedida.
         </p>
         {status.permissions.length ? (
           <ul>
@@ -193,7 +194,8 @@ function GovernancePanel({ owner }: { owner: string }) {
         ) : null}
       </section>
       {message ? <p role="status">{message}</p> : null}
-      {status.permissions.includes('leadership.manage') ? (
+      {status.permissions.includes('leadership.manage') &&
+      status.writesEnabled !== false ? (
         <>
           <form className={css.card} onSubmit={issue}>
             <h2>Convidar uma liderança</h2>
@@ -271,9 +273,9 @@ function GovernancePanel({ owner }: { owner: string }) {
           <form className={css.card} onSubmit={revoke}>
             <h2>Revogar autorização de liderança</h2>
             <p>
-              A revogação desta fundação altera a autorização nova. Os vínculos
-              de Guilda existentes são preservados; a integração completa de
-              gestão permanece pendente.
+              {status.multiGuildReady
+                ? 'A revogação bloqueia a criação e os poderes de liderança nas Guildas, inclusive em sessões autenticadas. Vínculos, registros e histórico permanecem preservados.'
+                : 'A revogação desta fundação altera a autorização nova. Os vínculos existentes são preservados; a integração de gestão permanece pendente.'}
             </p>
             <Account />
             <Reason />
@@ -281,7 +283,8 @@ function GovernancePanel({ owner }: { owner: string }) {
           </form>
         </>
       ) : null}
-      {status.permissions.includes('admins.manage') ? (
+      {status.permissions.includes('admins.manage') &&
+      status.writesEnabled !== false ? (
         <form className={css.card} onSubmit={grant}>
           <h2>Permissões administrativas</h2>
           <p>

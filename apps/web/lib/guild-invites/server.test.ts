@@ -27,6 +27,8 @@ function request(
 }
 beforeEach(() => {
   vi.resetAllMocks();
+  vi.stubEnv('VERCEL_ENV', '');
+  vi.stubEnv('VERCEL_URL', '');
   vi.stubEnv('NEXT_PUBLIC_SUPABASE_URL', 'https://fixture.invalid');
   vi.stubEnv('NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY', 'synthetic-public-key');
   vi.stubEnv('APP_BASE_URL', 'https://rpgjovemcristao-web-inky.vercel.app');
@@ -34,6 +36,89 @@ beforeEach(() => {
   getUser.mockResolvedValue({
     data: { user: { id, is_anonymous: false } },
     error: null,
+  });
+});
+
+test('scoped creation binds Guild and idempotency nonce and keeps TEST links on Preview', async () => {
+  vi.stubEnv('VERCEL_ENV', 'preview');
+  vi.stubEnv('VERCEL_URL', 'review-010a2.vercel.app');
+  vi.stubEnv(
+    'NEXT_PUBLIC_SUPABASE_URL',
+    'https://wkdvdzfkbwvhyjmamrsg.supabase.co',
+  );
+  rpc.mockResolvedValue({
+    data: { id, token, expires_at: '2026-11-01T00:00:00Z' },
+    error: null,
+  });
+  const response = await handleGuildInvite(
+    request({ action: 'create', travelerId: id, guildId: id, requestId: id }),
+  );
+  expect(response.status).toBe(200);
+  expect(rpc).toHaveBeenCalledWith('guild_scoped_create_invite', {
+    p_actor: id,
+    p_guild: id,
+    p_request: id,
+  });
+  expect((await response.json()).url).toBe(
+    `https://review-010a2.vercel.app/guilda/convite/${token}`,
+  );
+});
+test('scoped create requires a valid nonce and rejects misplaced Guild fields', async () => {
+  expect(
+    (
+      await handleGuildInvite(
+        request({ action: 'create', travelerId: id, guildId: id }),
+      )
+    ).status,
+  ).toBe(400);
+  expect(
+    (
+      await handleGuildInvite(
+        request({ action: 'preview', token, guildId: id }),
+      )
+    ).status,
+  ).toBe(400);
+  expect(rpc).not.toHaveBeenCalled();
+});
+test('replayed scoped invitation exposes its receipt without recreating a link or QR', async () => {
+  rpc.mockResolvedValue({
+    data: {
+      id,
+      token: null,
+      replayed: true,
+      expires_at: '2026-11-01T00:00:00Z',
+    },
+    error: null,
+  });
+  const response = await handleGuildInvite(
+    request({ action: 'create', travelerId: id, guildId: id, requestId: id }),
+  );
+  expect(response.status).toBe(200);
+  const data = await response.json();
+  expect(data).toEqual({
+    id,
+    replayed: true,
+    expires_at: '2026-11-01T00:00:00Z',
+  });
+});
+test('scoped revoke binds the invitation and selected community', async () => {
+  rpc.mockResolvedValue({ data: null, error: null });
+  expect(
+    (
+      await handleGuildInvite(
+        request({
+          action: 'revoke',
+          travelerId: id,
+          guildId: id,
+          inviteId: id,
+        }),
+      )
+    ).status,
+  ).toBe(200);
+  expect(rpc).toHaveBeenCalledWith('guild_scoped_revoke_invite', {
+    p_id: id,
+    p_actor: id,
+    p_guild: id,
   });
 });
 test('authenticates with getUser, uses configured origin rather than Host, and encodes QR locally', async () => {

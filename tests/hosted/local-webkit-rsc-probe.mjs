@@ -8,7 +8,9 @@ import { startLocalAuthSimulator } from '../fixtures/local-auth-http-server.mjs'
 // Diagnostic matrix. Intentional cancellation errors are recorded, never suppressed.
 const origin = 'http://127.0.0.1:3199';
 const nativeBackend = process.argv.includes('--native-backend');
-const simulator = nativeBackend ? await startLocalAuthSimulator() : null;
+const simulator = nativeBackend
+  ? await startLocalAuthSimulator({ guildRole: 'member' })
+  : null;
 const settledOnly = process.argv.includes('--settled-only');
 const outputOption = process.argv.indexOf('--output');
 const selectedOutput =
@@ -115,7 +117,8 @@ for (const [engine, launcher] of [
             };
           });
         }
-        if (!nativeBackend) await mockLocalReleaseAuth(context, origin);
+        if (!nativeBackend)
+          await mockLocalReleaseAuth(context, origin, { guildRole: 'member' });
         if (!['fixture-only', 'settled'].includes(cell.transport))
           await context.route(origin + '/**', async (route) => {
             const req = route.request();
@@ -208,6 +211,14 @@ for (const [engine, launcher] of [
           await navigate('/journey/guild', 'Guilda');
           await page
             .getByRole('heading', { name: 'Minha Guilda', exact: true })
+            .waitFor();
+          // The title precedes the scoped permission/member reads. Finish this
+          // normal screen load before navigating; RSC prefetch remains exercised.
+          await page
+            .getByRole('heading', {
+              name: 'Companheiros da Jornada',
+              exact: true,
+            })
             .waitFor();
           run.checks.push('Guilda');
           await navigate('/journey/guild/ebd', 'EBD');

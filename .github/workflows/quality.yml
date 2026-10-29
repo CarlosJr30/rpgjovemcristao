@@ -123,6 +123,8 @@ jobs:
         run: npm install --prefix build/rpg-dev-010a/postgres-tool --no-save --package-lock=false --ignore-scripts --no-audit --no-fund @embedded-postgres/windows-x64@17.10.0-beta.17
       - name: Exigir isolamento autorização convites concorrência e recuperação
         run: node tests/hosted/rpg-dev-010a-postgres.mjs
+      - name: Exigir múltiplas Guildas escopo legado revogação e recuperação
+        run: node tests/hosted/rpg-dev-010a2-postgres.mjs
 
   pinned-preview:
     name: Preview do SHA aprovado

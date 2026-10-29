@@ -53,7 +53,7 @@ test('normal account with forged user metadata gets no admin forms or private wo
 });
 test('read-only administrative scope displays existing aliases and no management controls', async () => {
   mock.action.mockImplementation(async ({ action }: { action: string }) =>
-    action === 'status'
+    action === 'scopeStatus'
       ? { ...status, administrator: true, permissions: ['guilds.read'] }
       : {
           version: 1,

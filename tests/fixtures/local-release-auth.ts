@@ -41,6 +41,19 @@ export async function mockLocalReleaseAuth(
       }
       const endpoint = url.pathname.split('/').at(-1);
       let data: unknown = [];
+      if (endpoint === 'guild_scoped_status')
+        data = {
+          version: 2,
+          administrator: false,
+          permissions: [],
+          leadership: 'none',
+          multiGuildReady: true,
+          canCreateAdditionalGuilds: false,
+          writesEnabled: true,
+          economicRewardsEnabled: false,
+        };
+      if (endpoint === 'guild_scoped_contexts')
+        data = { version: 1, guilds: [] };
       const traveler = {
         id: travelerId,
         user_id: user.id,
@@ -68,9 +81,25 @@ export async function mockLocalReleaseAuth(
         };
       if (endpoint === 'wallets') data = { traveler_id: travelerId, coins: 0 };
       if (options.archiveInventory && endpoint === 'inventory')
-        data = [{ id: '40000000-0000-4000-8000-000000000003', traveler_id: travelerId, item_id: 'traveler-boots', quantity: 3, metadata: {}, created_at: date }];
+        data = [
+          {
+            id: '40000000-0000-4000-8000-000000000003',
+            traveler_id: travelerId,
+            item_id: 'traveler-boots',
+            quantity: 3,
+            metadata: {},
+            created_at: date,
+          },
+        ];
       if (options.archiveInventory && endpoint === 'equipped_items')
-        data = [{ traveler_id: travelerId, slot: 'boots', item_id: 'traveler-boots', updated_at: date }];
+        data = [
+          {
+            traveler_id: travelerId,
+            slot: 'boots',
+            item_id: 'traveler-boots',
+            updated_at: date,
+          },
+        ];
       if (endpoint === 'guild_members' || endpoint === 'guild_join_requests')
         data = null;
       if (options.guildRole) {
@@ -79,6 +108,34 @@ export async function mockLocalReleaseAuth(
           options.guildRole === 'leader'
             ? travelerId
             : '10000000-0000-4000-8000-000000000001';
+        if (endpoint === 'guild_scoped_contexts')
+          data = {
+            version: 1,
+            guilds: [
+              {
+                guild: {
+                  id: guildId,
+                  name: 'Companheiros da Jornada',
+                  description: 'Comunidade sintética para revisão visual',
+                  created_by_user_id: user.id,
+                  leader_traveler_id: leaderId,
+                  status: 'active',
+                  created_at: date,
+                  updated_at: date,
+                },
+                membership: {
+                  id: '30000000-0000-4000-8000-000000000001',
+                  guild_id: guildId,
+                  traveler_id: travelerId,
+                  role: options.guildRole,
+                  status: 'active',
+                  joined_at: date,
+                  updated_at: date,
+                },
+                canManage: options.guildRole === 'leader',
+              },
+            ],
+          };
         if (endpoint === 'guild_members') {
           const membership = {
             id: '30000000-0000-4000-8000-000000000001',
@@ -106,7 +163,10 @@ export async function mockLocalReleaseAuth(
           };
           data = req.headers().accept?.includes('object') ? guild : [guild];
         }
-        if (endpoint === 'list_guild_members')
+        if (
+          endpoint === 'list_guild_members' ||
+          endpoint === 'guild_scoped_members'
+        )
           data = [
             {
               traveler_id: leaderId,
@@ -133,12 +193,21 @@ export async function mockLocalReleaseAuth(
               joined_at: date,
             },
           ];
-        if (endpoint === 'list_guild_join_requests') data = [];
+        if (
+          endpoint === 'list_guild_join_requests' ||
+          endpoint === 'guild_scoped_requests'
+        )
+          data = [];
       }
-      if (endpoint === 'guild_ebd_workspace')
+      if (
+        endpoint === 'guild_ebd_workspace' ||
+        endpoint === 'guild_scoped_ebd_workspace'
+      )
         data = {
           version: 1,
-          guildId: 'local-fixture',
+          guildId: options.guildRole
+            ? '20000000-0000-4000-8000-000000000001'
+            : 'local-fixture',
           leader: false,
           teacher: false,
           total: 0,

@@ -52,6 +52,40 @@ beforeEach(() => {
   });
   mock.rpc.mockResolvedValue({ data: preview, error: null });
 });
+
+test('new scoped status is authenticated and keeps the original status endpoint distinct', async () => {
+  mock.rpc.mockResolvedValue({ data: { version: 2 }, error: null });
+  expect(
+    (await handleGovernance(request({ action: 'scopeStatus' }))).status,
+  ).toBe(200);
+  expect(mock.getUser).toHaveBeenCalledWith('synthetic-session');
+  expect(mock.rpc).toHaveBeenCalledWith('guild_scoped_status', {});
+});
+test('versioned capabilities never convert inactive leadership or paused writes into creation', () => {
+  const value = {
+    version: 2,
+    administrator: false,
+    permissions: [],
+    leadership: 'none',
+    multiGuildReady: true,
+    canCreateAdditionalGuilds: false,
+    writesEnabled: true,
+    economicRewardsEnabled: false,
+  };
+  expect(parseGovernanceStatus(value).version).toBe(2);
+  expect(() => parseGovernanceStatus({ ...value, version: '2' })).toThrow();
+  expect(() =>
+    parseGovernanceStatus({ ...value, canCreateAdditionalGuilds: true }),
+  ).toThrow();
+  expect(() =>
+    parseGovernanceStatus({
+      ...value,
+      leadership: 'active',
+      canCreateAdditionalGuilds: true,
+      writesEnabled: false,
+    }),
+  ).toThrow();
+});
 afterEach(() => vi.unstubAllEnvs());
 test('verifies normal account and leaves authorization to database rather than user metadata', async () => {
   await handleGovernance(request({ action: 'status' }));

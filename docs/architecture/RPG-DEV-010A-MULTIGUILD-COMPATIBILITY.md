@@ -1,6 +1,32 @@
 # 010A.2 — contrato de compatibilidade para múltiplas Guildas
 
-28/10/2026. **Preparação técnica; não implementada ou publicada.** A fundação010A.1 não remove o índice de uma Guilda ativa nem transforma Admin em líder. As definições remotas atuais de15 interfaces pertinentes foram separadas para revisão privada, preservando as respectivas ACLs. Nenhuma alteração remota nesta preparação.
+28/10/2026. **010A.2 implementada localmente; homologação hospedada e publicação pendentes.** A migration própria TEST adapta as interfaces conjuntamente antes de retirar o índice global de um vínculo. A fundação010A.1 e suas evidências permanecem preservadas. Ser Admin não substitui autorização explícita de liderança. O histórico abaixo descreve o baseline anterior.
+
+## Resultado da auditoria das 15 interfaces
+
+Todas as linhas estão implementadas no candidato local e cobertas pela suíte PostgreSQL isolada ou por testes de cliente pertinentes; nenhuma linha é declarada homologada remotamente nesta tabela.
+
+| # | Interface | Adaptação e limite |
+| --- | --- | --- |
+|1|`create_guild`|Exige autorização explícita ativa; cliente antigo só cria a primeira comunidade. Nova criação escopada usa ID/nonce persistentes e recibo auditado.|
+|2|Índice de vínculo ativo|Retirada conjunta; unicidade Guilda/avatar preservada. Recuperação recusa perder vínculos múltiplos.|
+|3|`getContext` / `getOwnJoinRequest`|Arrays próprios, escolha explícita quando múltiplos, sem `maybeSingle` global; respostas de contexto anterior descartadas.|
+|4|`request_join_guild`|Duplicação verificada apenas na Guilda alvo; conserva outros vínculos e retorna pedido pendente idempotente.|
+|5|`review_guild_join_request`|Líder da comunidade do pedido; nonce/revisão normal; outro escopo negado mesmo quando o líder administra ambos.|
+|6|`leave_guild`|Legado recusa ambiguidade. Nova saída altera somente o vínculo indicado e seu grant de professor, sem apagar aulas/histórico.|
+|7|`remove_guild_member`|Líder autorizado da Guilda explícita; não remove vínculos de outras comunidades nem outro líder.|
+|8|`list_guild_members`|Leitura própria escopada; wrapper antigo exige alvo inequívoco.|
+|9|`list_guild_join_requests`|Pedidos pendentes da comunidade administrada; legado exige Guilda inequívoca.|
+|10|`guild_admin_stats`|Legado recusa múltiplos contextos; nova tela usa apenas dados carregados da Guilda selecionada.|
+|11|`ebd_ops.workspace`|Sobrecarga Guilda explícita, projeção pedagógica existente e verificação do escopo recebido pelo cliente.|
+|12|`ebd_ops.command`|Sobrecarga escopada; alvo aula/atividade/resposta deve pertencer à mesma Guilda; professor limitado à aula atribuída.|
+|13|`guild_invite_private.leader_guild`|Sobrecarga explícita; mantém checagem do avatar próprio ativo, papel e revogação atual. Legado não escolhe arbitrariamente.|
+|14|Criar/listar/revogar convite comum|Guilda explícita; emissão idempotente com segredo exposto uma vez; repetição devolve recibo sem token. Convite continua sete dias e pedido sujeito à aprovação, sem antecipar010B.|
+|15|Validar/solicitar convite e helpers de liderança|Revogação consultada no banco; convite pendente de líder revogado deixa de valer. `is_guild_leader`, `can_lead_mission`, atores Guilda/EBD/chat revisados conjuntamente, sem liberar chat.|
+
+Status antigo de governança permanece versão1 compatível; novo `guild_scoped_status` fornece versão2. Comandos serializam com revogação no lock administrativo e travam o avatar ativo antes da escrita. Seleção local é preferência vinculada à conta/avatar, nunca autorização. UI reconfirma permissões e remonta editores ao trocar Guilda; comandos pendentes bloqueiam troca de comunidade. Vínculos existentes de liderança continuam legítimos para administrar suas próprias comunidades, sem conceder criação adicional nem ignorar revogação explícita.
+
+Professores usam o modelo publicado de autorização por Guilda/aula. Não há modelo novo de múltiplas classes nesta etapa. Seu aceite hospedado exige a segunda conta TEST normal; fixtures não comprovam esse gate.
 
 ## Mudanças que precisam entrar juntas
 

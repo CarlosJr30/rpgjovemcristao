@@ -220,6 +220,54 @@ export type Database = {
     };
     Views: Record<string, never>;
     Functions: {
+      guild_scoped_status: { Args: Record<string, never>; Returns: Json };
+      guild_scoped_contexts: { Args: { p_actor: string }; Returns: Json };
+      guild_scoped_command: {
+        Args: {
+          p_actor: string;
+          p_guild: string;
+          p_action: string;
+          p_id: string;
+          p_request: string;
+          p_data: Json;
+        };
+        Returns: Json;
+      };
+      guild_scoped_members: {
+        Args: { p_actor: string; p_guild: string };
+        Returns: GuildMemberSummary[];
+      };
+      guild_scoped_requests: {
+        Args: { p_actor: string; p_guild: string };
+        Returns: GuildJoinRequestSummary[];
+      };
+      guild_scoped_ebd_workspace: {
+        Args: { p_actor: string; p_guild: string; p_offset: number };
+        Returns: Json;
+      };
+      guild_scoped_ebd_command: {
+        Args: {
+          p_actor: string;
+          p_guild: string;
+          p_action: string;
+          p_id: string;
+          p_revision: number;
+          p_data: Json;
+        };
+        Returns: Json;
+      };
+      guild_scoped_create_invite: {
+        Args: { p_actor: string; p_guild: string; p_request: string };
+        Returns: Json;
+      };
+      guild_scoped_list_invites: {
+        Args: { p_actor: string; p_guild: string };
+        Returns: Json;
+      };
+      guild_scoped_revoke_invite: {
+        Args: { p_actor: string; p_guild: string; p_id: string };
+        Returns: undefined;
+      };
       guild_governance_status: { Args: Record<string, never>; Returns: Json };
       guild_governance_workspace: { Args: { p_offset: number }; Returns: Json };
       guild_governance_history: { Args: { p_offset: number }; Returns: Json };

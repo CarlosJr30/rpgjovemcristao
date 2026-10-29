@@ -1,0 +1,254 @@
+{
+  "status": "LOCAL_VALIDATED_HOSTED_PENDING",
+  "date": "2026-10-28",
+  "branch": "codex/rpg-dev-010a-administration",
+  "hostedProof": false,
+  "productionProof": false,
+  "unit": {
+    "completePassed": 921,
+    "skipped": 74,
+    "followupPassed": 15,
+    "additionalFollowup": 4,
+    "notAdditive": true
+  },
+  "postgres": {
+    "foundationPassed": 45,
+    "multiguildPassed": 50,
+    "checks": [
+      {
+        "name": "TEST target guard refuses production scope before DDL",
+        "pass": true
+      },
+      {
+        "name": "reviewed migration applies and preserves foundation grant and audit",
+        "pass": true
+      },
+      {
+        "name": "empty rollback restores foundation definitions ACLs and original memberships",
+        "pass": true
+      },
+      {
+        "name": "old one-Guild index replaced without removing pair uniqueness",
+        "pass": true
+      },
+      {
+        "name": "anon denied every new API",
+        "pass": true
+      },
+      {
+        "name": "service_role denied every new API",
+        "pass": true
+      },
+      {
+        "name": "anonymous account cannot spoof authenticated role",
+        "pass": true
+      },
+      {
+        "name": "foreign and inactive avatars denied",
+        "pass": true
+      },
+      {
+        "name": "administrator alone is not leadership authorization",
+        "pass": true
+      },
+      {
+        "name": "foundation status remains version one and scoped capabilities use version two",
+        "pass": true
+      },
+      {
+        "name": "legacy leader retains community authority but cannot create without new authorization",
+        "pass": true
+      },
+      {
+        "name": "authorized same leader creates two additional Guilds preserving legacy membership",
+        "pass": true
+      },
+      {
+        "name": "same creation nonce is idempotent and conflicting payload denied",
+        "pass": true
+      },
+      {
+        "name": "concurrent create produces one Guild and one canonical receipt",
+        "pass": true
+      },
+      {
+        "name": "legacy leave refuses multiple Guild ambiguity",
+        "pass": true
+      },
+      {
+        "name": "legacy remove refuses multiple Guild ambiguity",
+        "pass": true
+      },
+      {
+        "name": "legacy members refuses multiple Guild ambiguity",
+        "pass": true
+      },
+      {
+        "name": "legacy requests refuses multiple Guild ambiguity",
+        "pass": true
+      },
+      {
+        "name": "legacy EBD refuses multiple Guild ambiguity",
+        "pass": true
+      },
+      {
+        "name": "legacy invites refuses multiple Guild ambiguity",
+        "pass": true
+      },
+      {
+        "name": "old create RPC cannot create additional Guilds even for authorized leader",
+        "pass": true
+      },
+      {
+        "name": "same avatar can join two Guilds without replacing memberships",
+        "pass": true
+      },
+      {
+        "name": "join is idempotent per pending Guild request",
+        "pass": true
+      },
+      {
+        "name": "leader and member cannot access unrelated Guild scope",
+        "pass": true
+      },
+      {
+        "name": "cross-Guild review denied even when leader controls both",
+        "pass": true
+      },
+      {
+        "name": "scoped teacher assignment does not grant authority in another Guild",
+        "pass": true
+      },
+      {
+        "name": "teacher edits assigned lesson only, never another community lesson",
+        "pass": true
+      },
+      {
+        "name": "leader controlling both cannot mix selected context and lesson",
+        "pass": true
+      },
+      {
+        "name": "teacher cannot edit or publish another teacher lesson in the same Guild",
+        "pass": true
+      },
+      {
+        "name": "lesson reward request remains denied through new and old APIs",
+        "pass": true
+      },
+      {
+        "name": "ordinary invitations created and listed only inside selected Guild",
+        "pass": true
+      },
+      {
+        "name": "ordinary invite retry reuses receipt without exposing token or creating another link",
+        "pass": true
+      },
+      {
+        "name": "concurrent ordinary invite creation consumes one nonce and reveals one secret",
+        "pass": true
+      },
+      {
+        "name": "concurrent ordinary invite requests reuse one pending membership request",
+        "pass": true
+      },
+      {
+        "name": "invite revocation cannot target another selected Guild",
+        "pass": true
+      },
+      {
+        "name": "removal affects one community and revokes teacher only there",
+        "pass": true
+      },
+      {
+        "name": "leaving preserves other membership and same nonce replay",
+        "pass": true
+      },
+      {
+        "name": "rejoining does not silently restore teacher grant",
+        "pass": true
+      },
+      {
+        "name": "leader cannot leave itself or remove another leader",
+        "pass": true
+      },
+      {
+        "name": "global revocation covers legacy leaders and pending invites without changing membership",
+        "pass": true
+      },
+      {
+        "name": "revocation wins after waiting create without refreshing JWT",
+        "pass": true
+      },
+      {
+        "name": "revoked authenticated leader cannot use old or scoped privileged APIs",
+        "pass": true
+      },
+      {
+        "name": "old acceptance replay cannot clear later global revocation",
+        "pass": true
+      },
+      {
+        "name": "fresh individual invitation can explicitly restore leadership",
+        "pass": true
+      },
+      {
+        "name": "direct foundation private command cannot bypass new revocation wrapper",
+        "pass": true
+      },
+      {
+        "name": "avatar change while creation waits rejects the formerly active actor",
+        "pass": true
+      },
+      {
+        "name": "rollback refuses to erase multiple memberships or new audit records",
+        "pass": true
+      },
+      {
+        "name": "contained writes fail closed while multi-Guild reads remain usable",
+        "pass": true
+      },
+      {
+        "name": "all original Guild and leader membership rows remain byte-equivalent",
+        "pass": true
+      },
+      {
+        "name": "no XP coins stats inventory chests or economic permissions changed",
+        "pass": true
+      }
+    ],
+    "syntheticData": true,
+    "hostedProof": false,
+    "identityRaceFixtureTimestampsExcludedOnly": true
+  },
+  "quality": {
+    "lint": true,
+    "types": true,
+    "build": true,
+    "releaseProtocolPassed": 25
+  },
+  "browser": {
+    "rscPassed": 24,
+    "interfacePassed": 222,
+    "guildPassed": 48,
+    "syntheticData": true,
+    "mobileEmulated": true,
+    "physicalDevice": false
+  },
+  "recovery": {
+    "emptyRoundtripDefinitionsACLs": true,
+    "refusesDestructiveRollback": true,
+    "containmentPreservesMultiGuildReads": true
+  },
+  "hashes": {
+    "migration": "f2e9dab61f2b7c260d7cd4be29a1a727b309380a91b70f93d688b3bd583c2541",
+    "postgres": "27c80be23463ab0d042d6569a563e3fcfee2f05261aa2eda0bf9bc4d34dda405",
+    "recovery": "aaca3e6192ea12c86f71ec20f266d27345aa9fac27b624e7017ef5bb7b768eec",
+    "containment": "757da77423001363fa63b019af3e586f7ab22aa863107014e274c5bba9198ddb"
+  },
+  "remote": {
+    "newMigrationApplied": false,
+    "newPreview": false,
+    "productionChanges": false,
+    "secondAccountAuthenticated": false
+  }
+}

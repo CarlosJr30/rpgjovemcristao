@@ -1,6 +1,6 @@
 'use client';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { guildInviteAction } from '../../lib/guild-invites/client';
 import type {
   CreatedInvite,
@@ -9,21 +9,32 @@ import type {
 import styles from '../auth/auth.module.css';
 import journeyStyles from '../journey/journey.module.css';
 
-export function GuildInvitePanel({ travelerId }: { travelerId: string }) {
+export function GuildInvitePanel({
+  travelerId,
+  guildId,
+}: {
+  travelerId: string;
+  guildId?: string;
+}) {
+  const mutation = useRef(false);
   const [open, setOpen] = useState(false);
   const [pending, setPending] = useState(false);
   const [created, setCreated] = useState<CreatedInvite | null>(null);
   const [invites, setInvites] = useState<InviteRecord[]>([]);
   const [message, setMessage] = useState('');
+  const issuedURL = created?.url,
+    issuedQR = created?.qr;
   const refresh = async () => {
     const result = await guildInviteAction<{ data: InviteRecord[] }>({
       action: 'list',
       travelerId,
+      ...(guildId ? { guildId } : {}),
     });
     setInvites(result.data);
   };
   const run = async (action: () => Promise<void>) => {
-    if (pending) return;
+    if (mutation.current) return;
+    mutation.current = true;
     setPending(true);
     setMessage('');
     try {
@@ -35,6 +46,7 @@ export function GuildInvitePanel({ travelerId }: { travelerId: string }) {
           : 'Não foi possível preparar o convite.',
       );
     } finally {
+      mutation.current = false;
       setPending(false);
     }
   };
@@ -73,6 +85,7 @@ export function GuildInvitePanel({ travelerId }: { travelerId: string }) {
                   await guildInviteAction<CreatedInvite>({
                     action: 'create',
                     travelerId,
+                    ...(guildId ? { guildId } : {}),
                   }),
                 );
                 await refresh();
@@ -81,10 +94,10 @@ export function GuildInvitePanel({ travelerId }: { travelerId: string }) {
           >
             Gerar convite
           </button>
-          {created && (
+          {created && issuedURL && issuedQR ? (
             <>
               <Image
-                src={created.qr}
+                src={issuedQR}
                 unoptimized
                 width={256}
                 height={256}
@@ -96,7 +109,7 @@ export function GuildInvitePanel({ travelerId }: { travelerId: string }) {
                 <input
                   aria-label="Link do convite"
                   readOnly
-                  value={created.url}
+                  value={issuedURL}
                 />
               </label>
               <p>
@@ -107,7 +120,7 @@ export function GuildInvitePanel({ travelerId }: { travelerId: string }) {
                 type="button"
                 onClick={() =>
                   void run(async () => {
-                    await navigator.clipboard.writeText(created.url);
+                    await navigator.clipboard.writeText(issuedURL);
                     setMessage('Link copiado.');
                   })
                 }
@@ -115,7 +128,7 @@ export function GuildInvitePanel({ travelerId }: { travelerId: string }) {
                 Copiar link
               </button>
               <a
-                href={`https://wa.me/?text=${encodeURIComponent(created.url)}`}
+                href={`https://wa.me/?text=${encodeURIComponent(issuedURL)}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 referrerPolicy="no-referrer"
@@ -123,7 +136,12 @@ export function GuildInvitePanel({ travelerId }: { travelerId: string }) {
                 Compartilhar pelo WhatsApp
               </a>
             </>
-          )}
+          ) : created ? (
+            <p role="status">
+              Essa emissão já foi confirmada. O link não pode ser recuperado.
+              Revogue o convite antes de emitir outro.
+            </p>
+          ) : null}
           <ul>
             {invites.map((invite) => (
               <li key={invite.id}>
@@ -141,6 +159,7 @@ export function GuildInvitePanel({ travelerId }: { travelerId: string }) {
                         await guildInviteAction({
                           action: 'revoke',
                           travelerId,
+                          ...(guildId ? { guildId } : {}),
                           inviteId: invite.id,
                         });
                         if (created?.id === invite.id) setCreated(null);
