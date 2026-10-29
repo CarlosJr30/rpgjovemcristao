@@ -6,7 +6,7 @@ DO $production_compatibility$ BEGIN
  IF session_user<>'postgres' OR current_user<>'postgres' OR auth.uid() IS NOT NULL
  OR public.release_scope() IS DISTINCT FROM 'guild-ebd-001' OR public.economy_protocol_version()<>3
  OR (SELECT count(*) FROM supabase_migrations.schema_migrations)<>9
- OR NOT EXISTS(SELECT 1 FROM supabase_migrations.schema_migrations WHERE version='20261029082857')
+ OR NOT EXISTS(SELECT 1 FROM supabase_migrations.schema_migrations WHERE name='rpg_dev_010a_governance_production')
  OR to_regclass('guild_admin_private.admin_grants') IS NULL
  OR to_regclass('guild_admin_private.multiguild_control') IS NOT NULL
  OR to_regclass('public.guild_members_one_active_guild_per_traveler_idx') IS NULL

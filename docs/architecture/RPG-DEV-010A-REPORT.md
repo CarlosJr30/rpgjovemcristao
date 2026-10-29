@@ -1,5 +1,9 @@
 # RPG-DEV-010A — Administração e liderança
 
+## 29/10 — ajuste final do guard produtivo em validação
+
+Revisão do procedimento remoto identificou que o conector Supabase gera sua própria versão temporal. A migration PROD de compatibilidade passou a exigir o **nome exato da fundação aprovada**, além da contagem e das39 definições/ACLs/donos, em vez de fixar o timestamp local como se fosse o remoto. Nenhuma migration aplicada foi alterada; somente pacote PROD ainda não executado. **26 PG isolados PASS**, incluindo versão remota distinta aceita e nome alheio recusado antes do DDL. Novo CI exato obrigatório; os resultados f606/52Preview abaixo são preservados como versão anterior, não prova desse novo guard. Proposta administrativa e conta candidata não mudam; concessão continua não aprovada. PROD008C/38hashes intactos, semDDL/grant/merge/deploy.
+
 ## 29/10/2026 — pacote PROD próprio preparado; concessão não autorizada
 
 **TEST homologada; PROD BLOCKED pela designação administrativa pendente e gates do novo pacote.** Geradas pela CLI as migrations produtivas próprias `20261029082857` (fundação vazia) e `20261029082907` (compatibilidade completa, escritas inicialmente contidas). Nenhum arquivo TEST-only será aplicado em produção. Código web idêntico ao df9e0b7 homologado; ajustes VOLATILE/PT409 incluídos desde a instalação.

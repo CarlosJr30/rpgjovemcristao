@@ -1,21 +1,10 @@
 {
-  "status": "PRODUCTION_PACKAGE_PREPARED_OWNER_DESIGNATION_BLOCKED",
+  "status": "PRODUCTION_PACKAGE_FINAL_GUARD_VALIDATING",
   "date": "2026-10-29",
   "TESTHomologation": "RPG-DEV-010A2-MULTIUSER-EVIDENCE.json",
   "hostedRuntimeCandidate": "df9e0b740fc8d103b6d179474ad2ac4d260f9d4c",
   "productionPackageCI": {
-    "sha": "f606e5a9230ddb8cdac6536b15fc7d0770670b91",
-    "pushSuccess": true,
-    "prSuccess": true,
-    "push": 40845009558,
-    "pr": 40845018213,
-    "quality": 927,
-    "skipped": 74,
-    "isolatedPostgres": 131,
-    "conditionalPublish": "SKIP",
-    "noRuntimeChangeFromHostedDf9": true,
-    "pushURL": "https://github.com/CarlosJr30/rpgjovemcristao/actions/runs/40845009558",
-    "prURL": "https://github.com/CarlosJr30/rpgjovemcristao/actions/runs/40845018213"
+    "status": "PENDING_EXACT_SHA_AFTER_CONNECTOR_VERSION_GUARD_REVIEW"
   },
   "artifacts": [
     {
@@ -25,7 +14,7 @@
     },
     {
       "path": "supabase/migrations/20261029082907_rpg_dev_010a2_multiguild_production.sql",
-      "sha256": "cdebb68f72e66f9e4e0f92cdc3cc7a83e8281f673b99406c3f72d45fb63ff593",
+      "sha256": "86e3240739de0c5e5bcc3e0c35d7d8e72d96422cef58823dc4efffdc62f42034",
       "appliedPROD": false
     },
     {
@@ -55,13 +44,13 @@
     }
   ],
   "isolated": {
-    "checks": 25,
+    "checks": 26,
     "passed": true,
     "syntheticData": true,
     "productionProof": false,
     "accountOrGameDataImported": false,
     "source": "tests/hosted/rpg-dev-010a-production-postgres.mjs",
-    "evidenceSHA256": "ca9dc2201bcc50ae50362b12b94b404e74bc06c3810da5bd861c323defc528f8",
+    "evidenceSHA256": "3934780bcba91f41614045fa6f5a7dba56f8d2c534363e8cb32c6f4dde6780bc",
     "baselineSource": "read-only PROD structure, no Auth identities or game rows",
     "functionsBefore": 100,
     "functionsAfter": 145,
@@ -431,12 +420,13 @@
   },
   "remaining": {
     "ownerPrivilegeApproval": true,
-    "CIExactProductionPackage": false,
+    "CIExactProductionPackage": true,
     "productionDDLNotExecuted": true,
     "normalMergeAndProductionArtifactPending": true,
     "postPublicationChecksPending": true,
     "DEPLOY_COMPLETE": false,
-    "PR12And18Independent": true
+    "PR12And18Independent": true,
+    "finalGuardPreview": true
   },
   "review": {
     "QAAndSecurityByAuthor": true,
@@ -480,5 +470,29 @@
     "firstAttemptNotReportedAsPass": true,
     "screenshotsInspected": true,
     "rawEvidenceSHA256": "ab83962d65bcf947c43d1566376964286059db297751a1b1963da0023c47e2bf"
+  },
+  "previousApprovedPackageCI": {
+    "sha": "f606e5a9230ddb8cdac6536b15fc7d0770670b91",
+    "pushSuccess": true,
+    "prSuccess": true,
+    "push": 40845009558,
+    "pr": 40845018213,
+    "quality": 927,
+    "skipped": 74,
+    "isolatedPostgres": 131,
+    "conditionalPublish": "SKIP",
+    "noRuntimeChangeFromHostedDf9": true,
+    "pushURL": "https://github.com/CarlosJr30/rpgjovemcristao/actions/runs/40845009558",
+    "prURL": "https://github.com/CarlosJr30/rpgjovemcristao/actions/runs/40845018213"
+  },
+  "connectorMigrationVersionReview": {
+    "remoteTimestampGeneratedByConnector": true,
+    "exactApprovedFoundationNameRequired": true,
+    "reviewedFunctionAndACLGuardsRetained": 39,
+    "localIsolatedChecks": 26,
+    "remoteAssignedDifferentVersionAccepted": true,
+    "foreignNameRejectedBeforeDDL": true,
+    "appliedMigrationFileChanged": false,
+    "productionMigrationExecuted": false
   }
 }

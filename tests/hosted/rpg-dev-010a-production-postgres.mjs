@@ -135,7 +135,7 @@ const setScope = (s) =>
 const apply = async () => {
   await tx(foundation);
   await q(
-    "insert into supabase_migrations.schema_migrations values('20261029082857')",
+    "insert into supabase_migrations.schema_migrations(version,name) values('20990101000000','rpg_dev_010a_governance_production')",
   );
   await tx(compatibility);
 };
@@ -194,7 +194,7 @@ try {
   }
   await q('SET check_function_bodies=on');
   await q(
-    'CREATE SCHEMA supabase_migrations;CREATE TABLE supabase_migrations.schema_migrations(version text primary key);insert into supabase_migrations.schema_migrations select generate_series(1,8)::text',
+    'CREATE SCHEMA supabase_migrations;CREATE TABLE supabase_migrations.schema_migrations(version text primary key,name text);insert into supabase_migrations.schema_migrations(version) select generate_series(1,8)::text',
   );
   for (const n of [1, 2]) {
     await q('insert into auth.users values($1,false,$2,now())', [
@@ -245,7 +245,7 @@ try {
     'production package rejects unexpected migration history',
     async () => {
       await q(
-        "insert into supabase_migrations.schema_migrations values('unexpected')",
+        "insert into supabase_migrations.schema_migrations(version) values('unexpected')",
       );
       await denied(() => tx(foundation), 'P0001');
       await q(
@@ -275,7 +275,31 @@ try {
     },
   );
   await check(
-    'independent foundation and compatibility install without grants or player changes',
+    'compatibility rejects a foreign migration name despite valid schema and row count',
+    async () => {
+      await tx(foundation);
+      await q(
+        "insert into supabase_migrations.schema_migrations(version,name) values('20990101000000','unapproved_foreign_foundation')",
+      );
+      await denied(() => tx(compatibility), 'P0001');
+      assert.equal(
+        (
+          await q(
+            "select to_regclass('guild_admin_private.multiguild_control') x",
+          )
+        ).rows[0].x,
+        null,
+      );
+      // Local synthetic history only; remote compensation must append a new migration.
+      await q(
+        "delete from supabase_migrations.schema_migrations where version='20990101000000'",
+      );
+      await tx(proposal('foundation-recovery-empty'));
+      assert.deepEqual(await definitions(), beforeDefinitions);
+    },
+  );
+  await check(
+    'independent package accepts connector-assigned version with exact reviewed migration name',
     async () => {
       await apply();
       assert.deepEqual(await data(), beforeData);
@@ -428,7 +452,7 @@ try {
         ).rows[0].x,
       );
       await q(
-        "delete from supabase_migrations.schema_migrations where version='20261029082857'",
+        "delete from supabase_migrations.schema_migrations where version='20990101000000'",
       );
     },
   );
