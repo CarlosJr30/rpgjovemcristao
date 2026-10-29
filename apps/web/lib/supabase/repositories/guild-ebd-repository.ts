@@ -78,7 +78,7 @@ export const ebdRepository = {
             p_data: payload as Json,
           });
       verify();
-      if (error?.code === '40001')
+      if (error?.code === 'PT409' || error?.code === '40001')
         throw new EbdConflict(
           'Outra atualização foi salva. Seu texto continua no editor. Copie-o antes de recarregar a versão atual.',
         );

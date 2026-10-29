@@ -666,6 +666,146 @@ try {
       await q('ROLLBACK');
     },
   );
+  const conflictFix = sql(
+    'supabase/migrations/20261029070620_rpg_dev_010a2_ebd_conflict_test.sql',
+  );
+  const conflictId = uid(490);
+  await check(
+    'business conflict is reproduced before tracked TEST containment',
+    async () => {
+      await rejects(
+        () => ebd(3, g1, 'lesson', conflictId, 99, lesson(3)),
+        '40001',
+      );
+      const data = await gameData();
+      await q(
+        `BEGIN;${sql('packages/database/proposals/rpg-dev-010a2-containment.sql')}\nCOMMIT;`,
+      );
+      assert.equal(await gameData(), data);
+      assert.equal(
+        (
+          await q(
+            'select writes_enabled from guild_admin_private.multiguild_control',
+          )
+        ).rows[0].writes_enabled,
+        false,
+      );
+    },
+  );
+  await check(
+    'non-retryable conflict migration refuses production',
+    async () => {
+      await q(
+        "create or replace function public.release_scope() returns text language sql immutable as $$select 'guild-ebd-001'::text$$",
+      );
+      await rejects(() => q(`BEGIN;${conflictFix}\nCOMMIT;`), 'P0001');
+      await q('ROLLBACK');
+      await q(
+        "create or replace function public.release_scope() returns text language sql immutable as $$select 'hero-equipment-006'::text$$",
+      );
+    },
+  );
+  await check(
+    'only eight business SQLSTATE values change with ACLs and containment preserved',
+    async () => {
+      const metadata = async () =>
+        (
+          await q(
+            "select proacl,proowner,proconfig,prosecdef,provolatile from pg_proc where oid='ebd_ops.command(uuid,uuid,text,uuid,integer,jsonb)'::regprocedure",
+          )
+        ).rows[0];
+      const definition = async () =>
+        (
+          await q(
+            "select pg_get_functiondef('ebd_ops.command(uuid,uuid,text,uuid,integer,jsonb)'::regprocedure) definition",
+          )
+        ).rows[0].definition;
+      const before = await metadata(),
+        old = await definition(),
+        data = await gameData();
+      await q(`BEGIN;${conflictFix}\nCOMMIT;`);
+      assert.deepEqual(await metadata(), before);
+      assert.equal(
+        await definition(),
+        old.replaceAll("ERRCODE='40001'", "ERRCODE='PT409'"),
+      );
+      assert.equal(await gameData(), data);
+      assert.equal(
+        (
+          await q(
+            'select writes_enabled from guild_admin_private.multiguild_control',
+          )
+        ).rows[0].writes_enabled,
+        false,
+      );
+    },
+  );
+  await check(
+    'writes remain contained until separately reviewed TEST resumption',
+    async () => {
+      await rejects(
+        () => ebd(3, g1, 'lesson', conflictId, 0, lesson(3)),
+        '55000',
+      );
+      await q(
+        `BEGIN;${sql('packages/database/proposals/rpg-dev-010a2-resume-test.sql')}\nCOMMIT;`,
+      );
+      await ebd(3, g1, 'lesson', conflictId, 0, lesson(3));
+      await rejects(
+        () => ebd(3, g1, 'lesson', conflictId, 99, lesson(3)),
+        'PT409',
+      );
+    },
+  );
+  await check(
+    'two independent concurrent EBD edits yield one commit and one non-retryable conflict',
+    async () => {
+      const c1 = await newConnection(),
+        c2 = await newConnection();
+      const results = await Promise.all(
+        [c1, c2].map((c, i) =>
+          as(
+            3,
+            'select public.guild_scoped_ebd_command($1,$2,$3,$4,$5,$6) result',
+            [
+              tid(3),
+              g1,
+              'lesson',
+              conflictId,
+              1,
+              lesson(3, 'Concurrent isolated edit ' + i),
+            ],
+            true,
+            c,
+          ).then(
+            (r) => ({ ok: true, value: r.rows[0].result }),
+            (e) => ({ ok: false, code: e.code }),
+          ),
+        ),
+      );
+      assert.equal(results.filter((r) => r.ok).length, 1);
+      assert.equal(results.filter((r) => r.code === 'PT409').length, 1);
+      assert.equal(
+        (
+          await q('select ebd_revision from public.guild_lessons where id=$1', [
+            conflictId,
+          ])
+        ).rows[0].ebd_revision,
+        2,
+      );
+    },
+  );
+  await check(
+    'non-retryable conflict migration rejects replay after correction',
+    async () => {
+      await q('BEGIN');
+      await q(
+        'UPDATE guild_admin_private.multiguild_control SET writes_enabled=false WHERE singleton',
+      );
+      await rejects(() => q(conflictFix), 'P0001');
+      await q('ROLLBACK');
+    },
+  );
   await check(
     'scoped teacher assignment does not grant authority in another Guild',
     async () => {

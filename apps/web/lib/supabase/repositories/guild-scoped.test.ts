@@ -18,7 +18,7 @@ vi.mock('../../guild-governance/selection', () => ({
   beginGuildWork: () => () => {},
 }));
 import { guildRepository } from './guild-repository';
-import { ebdRepository } from './guild-ebd-repository';
+import { EbdConflict, ebdRepository } from './guild-ebd-repository';
 const a = '11111111-1111-4111-8111-111111111111',
   b = '22222222-2222-4222-8222-222222222222';
 const context = (id: string, canManage = false) => ({
@@ -175,4 +175,18 @@ test('EBD command binds selected Guild and preserves conflict handling', async (
       p_revision: 2,
     }),
   );
+});
+
+test('non-retryable EBD revision conflict preserves the editor conflict path', async () => {
+  mock.rpc.mockResolvedValue({ data: null, error: { code: 'PT409' } });
+  await expect(
+    ebdRepository.command(
+      'actor-a',
+      'lesson',
+      b,
+      2,
+      { title: 'Unsaved draft' },
+      a,
+    ),
+  ).rejects.toBeInstanceOf(EbdConflict);
 });
