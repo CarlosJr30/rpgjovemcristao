@@ -11,7 +11,7 @@ const base = process.argv.includes('--restore')
   ? 'build/ui-restore-002'
   : 'build/ui-mobile-001';
 mkdirSync(base, { recursive: true });
-const simulator = await startLocalAuthSimulator({ archiveInventory: true });
+const simulator = await startLocalAuthSimulator({ archiveInventory: true, guildRole: 'member' });
 const result = { syntheticData: true, productionProof: false, runs: [] };
 try {
   for (const [name, launcher, viewport, touch] of [

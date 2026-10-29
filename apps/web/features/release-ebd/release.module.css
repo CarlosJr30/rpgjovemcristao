@@ -25,7 +25,8 @@
 }
 .card button,
 .card input,
-.card textarea {
+.card textarea,
+.card select {
   font: inherit;
   border-radius: 8px;
   padding: 10px 14px;
@@ -48,7 +49,8 @@
   margin: 16px 0;
 }
 .card input,
-.card textarea {
+.card textarea,
+.card select {
   width: 100%;
   background: #fffdf5;
   color: #25392e;

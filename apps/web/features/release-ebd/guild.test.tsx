@@ -25,7 +25,31 @@ vi.mock('../guild-invites/invite-panel', () => ({
   GuildInvitePanel: () => <div>Convites existentes</div>,
 }));
 vi.mock('../../lib/supabase/repositories/guild-repository', () => ({
-  guildRepository: mock,
+  guildRepository: {
+    ...mock,
+    listMembersScoped: mock.listMembers,
+    listRequestsScoped: mock.listJoinRequests,
+  },
+}));
+vi.mock('../guild-governance/scope', () => ({
+  GuildScope: ({ children }: { children: (scope: unknown) => ReactNode }) =>
+    children({
+      context: {
+        guild: {
+          id: 'synthetic-guild',
+          name: 'Guilda sintética',
+          description: 'Comunidade local',
+        },
+        membership: { role: mock.role },
+      },
+      contexts: [],
+      guildId: 'synthetic-guild',
+      canManage: mock.role === 'leader',
+      canCreate: false,
+      writesEnabled: true,
+      generation: 0,
+      refresh: () => {},
+    }),
 }));
 import { ReleaseGuild } from './guild';
 
@@ -79,7 +103,10 @@ test('leader management restores original table artwork and keeps current member
   expect(
     screen.getByRole('heading', { name: 'Solicitações de entrada' }),
   ).toBeInTheDocument();
-  expect(mock.listJoinRequests).toHaveBeenCalledWith('synthetic-traveler');
+  expect(mock.listJoinRequests).toHaveBeenCalledWith(
+    'synthetic-traveler',
+    'synthetic-guild',
+  );
   expect(
     screen.getByRole('link', { name: 'Acessar Escola Bíblica Dominical' }),
   ).toHaveAttribute('href', '/journey/guild/ebd');

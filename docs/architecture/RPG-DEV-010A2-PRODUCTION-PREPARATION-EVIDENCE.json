@@ -1,0 +1,544 @@
+{
+  "status": "PRODUCTION_PACKAGE_PREPARED_OWNER_DESIGNATION_BLOCKED",
+  "date": "2026-10-29",
+  "TESTHomologation": "RPG-DEV-010A2-MULTIUSER-EVIDENCE.json",
+  "hostedRuntimeCandidate": "df9e0b740fc8d103b6d179474ad2ac4d260f9d4c",
+  "productionPackageCI": {
+    "sha": "7abca21dfa5c29973a1e768d17767af00a45a27b",
+    "pushSuccess": true,
+    "prSuccess": true,
+    "push": 40847640704,
+    "pr": 40847651864,
+    "quality": 927,
+    "skipped": 74,
+    "isolatedPostgres": 132,
+    "conditionalPublish": "SKIP",
+    "noRuntimeChangeFromHostedDf9": true,
+    "pushURL": "https://github.com/CarlosJr30/rpgjovemcristao/actions/runs/40847640704",
+    "prURL": "https://github.com/CarlosJr30/rpgjovemcristao/actions/runs/40847651864"
+  },
+  "artifacts": [
+    {
+      "path": "supabase/migrations/20261029082857_rpg_dev_010a_governance_production.sql",
+      "sha256": "f65f73ec59cc7147a71e04e8d4ffe9fdc59f4dad106fbabc1c71ee205593ebfa",
+      "appliedPROD": false
+    },
+    {
+      "path": "supabase/migrations/20261029082907_rpg_dev_010a2_multiguild_production.sql",
+      "sha256": "86e3240739de0c5e5bcc3e0c35d7d8e72d96422cef58823dc4efffdc62f42034",
+      "appliedPROD": false
+    },
+    {
+      "path": "packages/database/proposals/rpg-dev-010a-production-foundation-recovery-empty.sql",
+      "sha256": "fd2293540849a4be400d91eff7d9dcbabbc07763723cd0ef03bd3af89d9bb05c",
+      "appliedPROD": false
+    },
+    {
+      "path": "packages/database/proposals/rpg-dev-010a-production-recovery-empty.sql",
+      "sha256": "2ce2af30ab8629051993cc6b9b03ce4096e6a1b306c55a5584353b4b1fa3201e",
+      "appliedPROD": false
+    },
+    {
+      "path": "packages/database/proposals/rpg-dev-010a-production-containment.sql",
+      "sha256": "1dd8e45c0795897c534a7c4c47ef79c5b1ddbd8cba5481fbae46c78991893d13",
+      "appliedPROD": false
+    },
+    {
+      "path": "packages/database/proposals/rpg-dev-010a-production-bootstrap.sql",
+      "sha256": "fb64e9e7b229a32098ab578ebece7e989df8add1ede2e84360ebefa4e74e2a56",
+      "appliedPROD": false
+    },
+    {
+      "path": "packages/database/proposals/rpg-dev-010a-production-activate.sql",
+      "sha256": "07e0d029d4934b7ca9e28234537434fd8b6b0ff9cda19546fb054275745e6652",
+      "appliedPROD": false
+    }
+  ],
+  "isolated": {
+    "checks": 26,
+    "passed": true,
+    "syntheticData": true,
+    "productionProof": false,
+    "accountOrGameDataImported": false,
+    "source": "tests/hosted/rpg-dev-010a-production-postgres.mjs",
+    "evidenceSHA256": "3934780bcba91f41614045fa6f5a7dba56f8d2c534363e8cb32c6f4dde6780bc",
+    "baselineSource": "read-only PROD structure, no Auth identities or game rows",
+    "functionsBefore": 100,
+    "functionsAfter": 145,
+    "functionsMatchingHostedTEST": 68,
+    "otherProductionDefinitionsUnchanged": 77,
+    "preexistingTableColumnGrantsRLSPoliciesPreserved": true,
+    "emptyRecoveryRoundtripExact": true,
+    "foundationOnlyRecoveryExact": true,
+    "issuedStateDestructiveRecoveryRefused": true,
+    "multiguildPreservingContainment": true,
+    "initialAdminGrants": 0,
+    "writesInitiallyContained": true
+  },
+  "readOnlyPROD": {
+    "checks": [
+      {
+        "name": "normal existing PROD Auth confirmed only as candidate, no grant",
+        "pass": true
+      },
+      {
+        "name": "only confirmed active owned level50 avatar accepted; old level1 not read",
+        "pass": true
+      },
+      {
+        "name": "own inventory readable under existing RLS",
+        "pass": true
+      },
+      {
+        "name": "other owner inventory remains invisible",
+        "pass": true
+      },
+      {
+        "name": "own equipped_items readable under existing RLS",
+        "pass": true
+      },
+      {
+        "name": "other owner equipped_items remains invisible",
+        "pass": true
+      },
+      {
+        "name": "own traveler_stats readable under existing RLS",
+        "pass": true
+      },
+      {
+        "name": "other owner traveler_stats remains invisible",
+        "pass": true
+      },
+      {
+        "name": "own wallets readable under existing RLS",
+        "pass": true
+      },
+      {
+        "name": "other owner wallets remains invisible",
+        "pass": true
+      },
+      {
+        "name": "own story_progress readable under existing RLS",
+        "pass": true
+      },
+      {
+        "name": "other owner story_progress remains invisible",
+        "pass": true
+      },
+      {
+        "name": "other owner avatar remains invisible",
+        "pass": true
+      },
+      {
+        "name": "anonymous inventory read remains denied",
+        "pass": true
+      },
+      {
+        "name": "unhomologated route blocked /journey/equipment",
+        "pass": true
+      },
+      {
+        "name": "unhomologated route blocked /journey/arena",
+        "pass": true
+      },
+      {
+        "name": "unhomologated route blocked /journey/tower",
+        "pass": true
+      },
+      {
+        "name": "unhomologated route blocked /journey/shop",
+        "pass": true
+      },
+      {
+        "name": "unhomologated route blocked /api/authority",
+        "pass": true
+      }
+    ],
+    "total": 19,
+    "normalAuthConfirmed": true,
+    "activeLevel50Only": true,
+    "oldLevel1NotRead": true,
+    "profileIgnoreDuplicateAttempts": 1,
+    "noUnexpectedWrites": true,
+    "priorSession403Preserved": true,
+    "normalLoginRepeatedWithoutBypass": true,
+    "fullDataSetsCompared": 38,
+    "data": [
+      {
+        "dataset": "economy_private.battles",
+        "count": 0,
+        "hash": "d41d8cd98f00b204e9800998ecf8427e",
+        "unchanged": true
+      },
+      {
+        "dataset": "economy_private.card_catalog",
+        "count": 0,
+        "hash": "d41d8cd98f00b204e9800998ecf8427e",
+        "unchanged": true
+      },
+      {
+        "dataset": "economy_private.journey_operations",
+        "count": 0,
+        "hash": "d41d8cd98f00b204e9800998ecf8427e",
+        "unchanged": true
+      },
+      {
+        "dataset": "economy_private.journey_rewards",
+        "count": 0,
+        "hash": "d41d8cd98f00b204e9800998ecf8427e",
+        "unchanged": true
+      },
+      {
+        "dataset": "economy_private.journeys",
+        "count": 0,
+        "hash": "d41d8cd98f00b204e9800998ecf8427e",
+        "unchanged": true
+      },
+      {
+        "dataset": "guild_chat_private.rate_limits",
+        "count": 1,
+        "hash": "8cf40e51d01dee78ad0526cca6780e51",
+        "unchanged": true
+      },
+      {
+        "dataset": "guild_invite_private.link_invites",
+        "count": 1,
+        "hash": "1faefa58a3dd95cffb28beaaa065c5c9",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.chest_operations",
+        "count": 37,
+        "hash": "419c47bf4a028129ea4544035d2ffeb2",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.equipped_items",
+        "count": 31,
+        "hash": "224f27fa31efbcd36d02e81fbe05a292",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.guild_activity_log",
+        "count": 10,
+        "hash": "b9fa612c0929e364659e53c6879ee8a3",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.guild_chat_messages",
+        "count": 4,
+        "hash": "b4e565deb761dc4d175798bac520674e",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.guild_chat_moderation_log",
+        "count": 0,
+        "hash": "d41d8cd98f00b204e9800998ecf8427e",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.guild_chat_reads",
+        "count": 0,
+        "hash": "d41d8cd98f00b204e9800998ecf8427e",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.guild_chat_reports",
+        "count": 0,
+        "hash": "d41d8cd98f00b204e9800998ecf8427e",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.guild_ebd_activities",
+        "count": 1,
+        "hash": "04054ad2a1be7c4f1f0bf6ecf44c2c03",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.guild_ebd_answers",
+        "count": 1,
+        "hash": "b45a0a2198173fdda0bcdc78f61963fa",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.guild_ebd_attendance",
+        "count": 1,
+        "hash": "fa4cbf88a4d29b45dd3622caeda3f3c5",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.guild_ebd_history",
+        "count": 5,
+        "hash": "f067e9a781e8952498cba8df01145f40",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.guild_ebd_reward_pending",
+        "count": 0,
+        "hash": "d41d8cd98f00b204e9800998ecf8427e",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.guild_ebd_teachers",
+        "count": 1,
+        "hash": "71e5885fce0ca50b318f95206218b41e",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.guild_invites",
+        "count": 0,
+        "hash": "d41d8cd98f00b204e9800998ecf8427e",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.guild_join_requests",
+        "count": 5,
+        "hash": "1ab6816b87f83e4bdc72fc06d6fdc9f5",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.guild_lessons",
+        "count": 1,
+        "hash": "3664bc27b6981c1291b5f91b3d865c90",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.guild_members",
+        "count": 8,
+        "hash": "921b06260da72803cb94ae12379b7f1f",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.guild_mission_attempts",
+        "count": 0,
+        "hash": "d41d8cd98f00b204e9800998ecf8427e",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.guild_mission_progress",
+        "count": 0,
+        "hash": "d41d8cd98f00b204e9800998ecf8427e",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.guild_missions",
+        "count": 0,
+        "hash": "d41d8cd98f00b204e9800998ecf8427e",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.guild_reward_claims",
+        "count": 0,
+        "hash": "d41d8cd98f00b204e9800998ecf8427e",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.guilds",
+        "count": 3,
+        "hash": "7c1eb8c1b768c2866e8cf3eb007de1f2",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.inventory",
+        "count": 37,
+        "hash": "9adc255124118da074fddf112a565ac5",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.profiles",
+        "count": 11,
+        "hash": "d8efc063fc0bd6e378e6ec48f585ad22",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.story_definitions",
+        "count": 5,
+        "hash": "414c69e783d2e1a016d7f03d8fa37f23",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.story_progress",
+        "count": 0,
+        "hash": "d41d8cd98f00b204e9800998ecf8427e",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.traveler_chests",
+        "count": 8,
+        "hash": "5f0868385b7b6d86fa3cd3fc74d8f526",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.traveler_stats",
+        "count": 24,
+        "hash": "617841fcfe6b59ba7e1cd1b8ea8cb364",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.travelers",
+        "count": 24,
+        "hash": "5c8f386e03d1603612a4dc7f430d91bd",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.wallets",
+        "count": 24,
+        "hash": "bec58057cc799f097303463bc8c96729",
+        "unchanged": true
+      },
+      {
+        "dataset": "story_private.step_receipts",
+        "count": 0,
+        "hash": "d41d8cd98f00b204e9800998ecf8427e",
+        "unchanged": true
+      }
+    ],
+    "structureUnchanged": true,
+    "functions": 100,
+    "tables": 38,
+    "policies": 39,
+    "migrations": 8,
+    "tablesWithoutRLS": 0,
+    "economicAndOfficialProgressAuthoritiesDenied": true,
+    "structuralSnapshotSHA256": "c2b03682aabfcbc8b61412de86ba58a9f17770977d1b52b7b4023e79c55e85dc",
+    "profileCountScope": "Final authenticated window; earlier normal-login attempts remain separate"
+  },
+  "designation": {
+    "proposalId": "010A-PROD-ADMIN-20261029",
+    "UIDSHA256": "51f8f162f5bfca59c89cb5acf428c1406b729e6a5723b66280451440f1eebe11",
+    "identityVerifiedOnly": true,
+    "permissions": [
+      "admins.manage",
+      "leadership.manage",
+      "guilds.read",
+      "audit.read"
+    ],
+    "ownerApproved": false,
+    "grantExecuted": false,
+    "leadershipAutomaticallyGranted": false,
+    "gameDataAccessBypass": false,
+    "protectedDetails": "ignored local build/rpg-dev-010a2/prod-admin-designation-proposal.json; no personal identifiers published"
+  },
+  "production": {
+    "sha": "c14fd5e560f6e4930e18a1e493a901dea2ba0ed0",
+    "id": "dpl_8Pi4mXQUCaMcirqq5kLpXZdH9sRk",
+    "state": "READY",
+    "target": "production",
+    "officialAliasMatches": true,
+    "autoAssign": true,
+    "sso": "all_except_custom_domains",
+    "root": "apps/web"
+  },
+  "remaining": {
+    "ownerPrivilegeApproval": true,
+    "CIExactProductionPackage": false,
+    "productionDDLNotExecuted": true,
+    "normalMergeAndProductionArtifactPending": true,
+    "postPublicationChecksPending": true,
+    "DEPLOY_COMPLETE": false,
+    "PR12And18Independent": true,
+    "finalGuardPreview": false
+  },
+  "review": {
+    "QAAndSecurityByAuthor": true,
+    "independenceClaimed": false,
+    "paidResourceOrEconomyEnabled": false
+  },
+  "failuresPreserved": [
+    "Initial package guard used TEST body hashes; ten PROD function bodies retain CRLF and now have independent guards and exact recovery bytes",
+    "Collector used memberships instead of the actual guilds property, an incorrect economy signature and raw aclitem representation; fixed collector contracts without relaxing authorization",
+    "Old normal PROD Auth token was non-expired but its session no longer existed; no administrative bypass, fresh normal login verified separately",
+    "New Preview smoke collector first opened legacy /preview route, correctly blocked. Correct published Missions route was used in a complete repeat:52PASS without runtime or authorization changes",
+    "Previous f606 Preview collector first opened legacy /preview route, correctly blocked. Correct published Missions route was used in a complete repeat:52PASS without runtime or authorization changes"
+  ],
+  "preview": {
+    "id": "dpl_Bm3vxkPmmBM8R2M5DcPajEk2JMm8",
+    "url": "https://rpgjovemcristao-jm1pteqzt-carlos-junior-s-projects.vercel.app",
+    "state": "READY",
+    "target": "preview",
+    "sha": "7abca21dfa5c29973a1e768d17767af00a45a27b",
+    "backend": "Supabase TEST",
+    "checks": 52,
+    "engines": [
+      "Chromium desktop",
+      "WebKit390 emulated"
+    ],
+    "normalPasswordLogins": 2,
+    "sessionCopies": false,
+    "mobileEmulated": true,
+    "physicalDeviceProof": false,
+    "ownExistingProfileIgnoreDuplicates": 24,
+    "reviewedReadRPCs": 30,
+    "unexpectedWrites": 0,
+    "pageErrors": 0,
+    "earlier203RegressionAndTwoIdentityHomologationRetained": true,
+    "applicationSourceTreeParity": {
+      "approvedPreviewSHA": "df9e0b740fc8d103b6d179474ad2ac4d260f9d4c",
+      "newSHA": "7abca21dfa5c29973a1e768d17767af00a45a27b",
+      "sourceTreeSHA256": "02a3e90bb317ea41b48c74e0e0084a824c57c3379304ecf6155df0e6f33825cc",
+      "identical": true
+    },
+    "firstAttemptWrongLegacyPreviewPathPreserved": true,
+    "firstAttemptNotReportedAsPass": true,
+    "screenshotsInspected": true,
+    "rawEvidenceSHA256": "efe85afaa42aa66016900f733e6747c4eca9cad176bd2368f7921399e025b43c",
+    "sameQAIdentityAcrossTwoEngines": true,
+    "previousTwoIdentityFunctionalTestsRetained": true
+  },
+  "previousApprovedPackageCI": {
+    "sha": "f606e5a9230ddb8cdac6536b15fc7d0770670b91",
+    "pushSuccess": true,
+    "prSuccess": true,
+    "push": 40845009558,
+    "pr": 40845018213,
+    "quality": 927,
+    "skipped": 74,
+    "isolatedPostgres": 131,
+    "conditionalPublish": "SKIP",
+    "noRuntimeChangeFromHostedDf9": true,
+    "pushURL": "https://github.com/CarlosJr30/rpgjovemcristao/actions/runs/40845009558",
+    "prURL": "https://github.com/CarlosJr30/rpgjovemcristao/actions/runs/40845018213"
+  },
+  "connectorMigrationVersionReview": {
+    "remoteTimestampGeneratedByConnector": true,
+    "exactApprovedFoundationNameRequired": true,
+    "reviewedFunctionAndACLGuardsRetained": 39,
+    "localIsolatedChecks": 26,
+    "remoteAssignedDifferentVersionAccepted": true,
+    "foreignNameRejectedBeforeDDL": true,
+    "appliedMigrationFileChanged": false,
+    "productionMigrationExecuted": false
+  },
+  "previousApprovedPreview": {
+    "id": "dpl_CJ1ykwWfCFyxmjxdmrCdta3x5T1m",
+    "url": "https://rpgjovemcristao-jtnhfa1sy-carlos-junior-s-projects.vercel.app",
+    "state": "READY",
+    "target": "preview",
+    "sha": "f606e5a9230ddb8cdac6536b15fc7d0770670b91",
+    "backend": "Supabase TEST",
+    "checks": 52,
+    "engines": [
+      "Chromium desktop",
+      "WebKit390 emulated"
+    ],
+    "normalPasswordLogins": 2,
+    "sessionCopies": false,
+    "mobileEmulated": true,
+    "physicalDeviceProof": false,
+    "ownExistingProfileIgnoreDuplicates": 24,
+    "reviewedReadRPCs": 30,
+    "unexpectedWrites": 0,
+    "pageErrors": 0,
+    "earlier203RegressionAndTwoIdentityHomologationRetained": true,
+    "applicationSourceTreeParity": {
+      "approvedPreviewSHA": "df9e0b740fc8d103b6d179474ad2ac4d260f9d4c",
+      "newSHA": "f606e5a9230ddb8cdac6536b15fc7d0770670b91",
+      "sourceTreeSHA256": "02a3e90bb317ea41b48c74e0e0084a824c57c3379304ecf6155df0e6f33825cc",
+      "identical": true
+    },
+    "firstAttemptWrongLegacyPreviewPathPreserved": true,
+    "firstAttemptNotReportedAsPass": true,
+    "screenshotsInspected": true,
+    "rawEvidenceSHA256": "ab83962d65bcf947c43d1566376964286059db297751a1b1963da0023c47e2bf"
+  }
+}

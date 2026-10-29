@@ -1,0 +1,353 @@
+{
+  "source": "68 final 010A function definitions homologated in TEST on df9e0b7; no account or game data",
+  "functions": [
+    {
+      "signature": "ebd_ops.command(uuid,text,uuid,integer,jsonb)",
+      "definitionMD5": "0f8f9a149fb216628855ffe0b3d396fe",
+      "acl": ["postgres=X/postgres", "authenticated=X/postgres"]
+    },
+    {
+      "signature": "ebd_ops.command(uuid,uuid,text,uuid,integer,jsonb)",
+      "definitionMD5": "03780d57b32a22733dd0967807f51503",
+      "acl": ["postgres=X/postgres", "authenticated=X/postgres"]
+    },
+    {
+      "signature": "ebd_ops.manager(uuid,uuid,text)",
+      "definitionMD5": "f187285193d8dd606fad7167e88bb82f",
+      "acl": ["postgres=X/postgres"]
+    },
+    {
+      "signature": "ebd_ops.workspace(uuid,uuid,integer)",
+      "definitionMD5": "b4c8464bc7260145f8e0e36516dd7205",
+      "acl": ["postgres=X/postgres", "authenticated=X/postgres"]
+    },
+    {
+      "signature": "ebd_ops.workspace(uuid,integer)",
+      "definitionMD5": "caa883b030ba7047f8fae43beaff9c80",
+      "acl": ["postgres=X/postgres", "authenticated=X/postgres"]
+    },
+    {
+      "signature": "guild_admin_private.account_uid()",
+      "definitionMD5": "44416350d1f76a0960c60565c628932b",
+      "acl": ["postgres=X/postgres"]
+    },
+    {
+      "signature": "guild_admin_private.active_actor(uuid)",
+      "definitionMD5": "05ae51c71fa24e9bcd40a14eaa8451b9",
+      "acl": ["postgres=X/postgres"]
+    },
+    {
+      "signature": "guild_admin_private.allowed_permissions(text[])",
+      "definitionMD5": "655e56fab6483988b2677fb2948396eb",
+      "acl": ["postgres=X/postgres"]
+    },
+    {
+      "signature": "guild_admin_private.bootstrap_admin(uuid,text[],text,uuid)",
+      "definitionMD5": "4c24a887186b1697194f59bf060b9c4a",
+      "acl": ["postgres=X/postgres"]
+    },
+    {
+      "signature": "guild_admin_private.command(text,uuid,uuid,jsonb)",
+      "definitionMD5": "274f578aa492fcaf9c12faf80c8baff9",
+      "acl": ["postgres=X/postgres"]
+    },
+    {
+      "signature": "guild_admin_private.contexts(uuid)",
+      "definitionMD5": "b789098b0cafa7d9e952c14f29ff9728",
+      "acl": ["postgres=X/postgres", "authenticated=X/postgres"]
+    },
+    {
+      "signature": "guild_admin_private.create_scoped_invite(uuid,uuid,uuid)",
+      "definitionMD5": "0e554780475dfb86f40212daa07d8301",
+      "acl": ["postgres=X/postgres", "authenticated=X/postgres"]
+    },
+    {
+      "signature": "guild_admin_private.current_status()",
+      "definitionMD5": "3346bf8300f03c4c2ac1680e7725e8fe",
+      "acl": ["postgres=X/postgres", "authenticated=X/postgres"]
+    },
+    {
+      "signature": "guild_admin_private.exact_keys(jsonb,text[])",
+      "definitionMD5": "88baa8537542e67e7e11fb788c40cdc8",
+      "acl": ["postgres=X/postgres"]
+    },
+    {
+      "signature": "guild_admin_private.governance_command(text,uuid,uuid,jsonb)",
+      "definitionMD5": "26a73b95e2d616cf0ac126c23e530f7e",
+      "acl": ["postgres=X/postgres", "authenticated=X/postgres"]
+    },
+    {
+      "signature": "guild_admin_private.guild_command(uuid,uuid,text,uuid,uuid,jsonb)",
+      "definitionMD5": "6a08e2bf098136540ee14de433ab3d8c",
+      "acl": ["postgres=X/postgres", "authenticated=X/postgres"]
+    },
+    {
+      "signature": "guild_admin_private.guild_role(uuid,uuid,boolean)",
+      "definitionMD5": "69f1231558149c36917b3f6937472acb",
+      "acl": ["postgres=X/postgres"]
+    },
+    {
+      "signature": "guild_admin_private.history(integer)",
+      "definitionMD5": "b4d09a12cb8a953a6ddc5d7734fbe86f",
+      "acl": ["postgres=X/postgres", "authenticated=X/postgres"]
+    },
+    {
+      "signature": "guild_admin_private.immutable_audit()",
+      "definitionMD5": "0ee8905ac5a78d80a5ab5927d413d608",
+      "acl": ["postgres=X/postgres"]
+    },
+    {
+      "signature": "guild_admin_private.leader_not_revoked(uuid)",
+      "definitionMD5": "9884a68d250d3cc744fd1b8fd2ef0891",
+      "acl": ["postgres=X/postgres"]
+    },
+    {
+      "signature": "guild_admin_private.members(uuid,uuid)",
+      "definitionMD5": "ee4b76289d90aacc6613ffa75c7aec06",
+      "acl": ["postgres=X/postgres", "authenticated=X/postgres"]
+    },
+    {
+      "signature": "guild_admin_private.only_guild(uuid,boolean)",
+      "definitionMD5": "e26a65d8db282904d0f3b3d5bb8cf038",
+      "acl": ["postgres=X/postgres"]
+    },
+    {
+      "signature": "guild_admin_private.preview(text)",
+      "definitionMD5": "663c6c982d4377756bc82a8ed39a603a",
+      "acl": [
+        "postgres=X/postgres",
+        "authenticated=X/postgres",
+        "anon=X/postgres"
+      ]
+    },
+    {
+      "signature": "guild_admin_private.requests(uuid,uuid)",
+      "definitionMD5": "726abbe1f6f2e2d1cfd583b72481bbca",
+      "acl": ["postgres=X/postgres", "authenticated=X/postgres"]
+    },
+    {
+      "signature": "guild_admin_private.require_admin(text)",
+      "definitionMD5": "8f4bf562e9893b2093b73c9225196a4c",
+      "acl": ["postgres=X/postgres"]
+    },
+    {
+      "signature": "guild_admin_private.require_creation(uuid)",
+      "definitionMD5": "1d6baa903eaed7b5d89d5a6dd03ab707",
+      "acl": ["postgres=X/postgres"]
+    },
+    {
+      "signature": "guild_admin_private.require_writes()",
+      "definitionMD5": "7b0491ee6ef8b6c22e69624c4dab3920",
+      "acl": ["postgres=X/postgres"]
+    },
+    {
+      "signature": "guild_admin_private.status()",
+      "definitionMD5": "19fd846b42b0817bae4d19b30a7213f6",
+      "acl": ["postgres=X/postgres", "authenticated=X/postgres"]
+    },
+    {
+      "signature": "guild_admin_private.workspace(integer)",
+      "definitionMD5": "020cc7caffbbf5c9801af9dddc8862eb",
+      "acl": ["postgres=X/postgres", "authenticated=X/postgres"]
+    },
+    {
+      "signature": "guild_chat_private.actor(uuid,uuid)",
+      "definitionMD5": "72097e1dd58a5cabc58a8258637ec3af",
+      "acl": ["postgres=X/postgres"]
+    },
+    {
+      "signature": "guild_chat_private.can_access(uuid,boolean)",
+      "definitionMD5": "12cd9810e6db7d35066150bf0045030d",
+      "acl": ["postgres=X/postgres", "authenticated=X/postgres"]
+    },
+    {
+      "signature": "guild_invite_private.create_invite(uuid)",
+      "definitionMD5": "75b4f6920e3eb1633877f7e18dfdfc08",
+      "acl": ["postgres=X/postgres", "authenticated=X/postgres"]
+    },
+    {
+      "signature": "guild_invite_private.create_invite(uuid,uuid)",
+      "definitionMD5": "d7988482b4ba947adf76defa90244781",
+      "acl": ["postgres=X/postgres"]
+    },
+    {
+      "signature": "guild_invite_private.leader_guild(uuid)",
+      "definitionMD5": "664c2817e17d7f81a150666729aa8fd0",
+      "acl": ["postgres=X/postgres"]
+    },
+    {
+      "signature": "guild_invite_private.leader_guild(uuid,uuid)",
+      "definitionMD5": "2b92affaf9330030152d7d72edcbb4d8",
+      "acl": ["postgres=X/postgres"]
+    },
+    {
+      "signature": "guild_invite_private.list_invites(uuid)",
+      "definitionMD5": "a412f0c912093d68943393220c774c62",
+      "acl": ["postgres=X/postgres", "authenticated=X/postgres"]
+    },
+    {
+      "signature": "guild_invite_private.list_invites(uuid,uuid)",
+      "definitionMD5": "4c9a2f5b76392583d8394bf9dae0058f",
+      "acl": ["postgres=X/postgres", "authenticated=X/postgres"]
+    },
+    {
+      "signature": "guild_invite_private.request_invite(text,uuid)",
+      "definitionMD5": "9d05a55e759c336b0e6c66f9727cd8dd",
+      "acl": ["postgres=X/postgres", "authenticated=X/postgres"]
+    },
+    {
+      "signature": "guild_invite_private.revoke_invite(uuid,uuid)",
+      "definitionMD5": "506b418be831941b3b7847d7a662940e",
+      "acl": ["postgres=X/postgres", "authenticated=X/postgres"]
+    },
+    {
+      "signature": "guild_invite_private.revoke_invite(uuid,uuid,uuid)",
+      "definitionMD5": "9a48cdf57bb0d03171b445baf0d7652a",
+      "acl": ["postgres=X/postgres", "authenticated=X/postgres"]
+    },
+    {
+      "signature": "guild_invite_private.valid_invite(text)",
+      "definitionMD5": "5df49c92576e0c30c5dfc08ee4c10466",
+      "acl": ["postgres=X/postgres"]
+    },
+    {
+      "signature": "guild_ops.actor(uuid,uuid,boolean)",
+      "definitionMD5": "d2de9d5e49d3f2f99ce38f69c6b6aa2b",
+      "acl": ["postgres=X/postgres"]
+    },
+    {
+      "signature": "guild_ops.visible(uuid)",
+      "definitionMD5": "7183bba7293554710f49c0800cb07aba",
+      "acl": ["postgres=X/postgres", "authenticated=X/postgres"]
+    },
+    {
+      "signature": "can_lead_mission(uuid)",
+      "definitionMD5": "23deee15c4515cc1ddbbafccda7d79ec",
+      "acl": ["postgres=X/postgres"]
+    },
+    {
+      "signature": "create_guild(uuid,text,text)",
+      "definitionMD5": "cc793fdc3e83b51047d9102ac231dba5",
+      "acl": ["postgres=X/postgres", "authenticated=X/postgres"]
+    },
+    {
+      "signature": "guild_admin_stats(uuid)",
+      "definitionMD5": "c8b70c41883ae132d69d3843a6006e15",
+      "acl": ["postgres=X/postgres", "authenticated=X/postgres"]
+    },
+    {
+      "signature": "guild_governance_command(text,uuid,uuid,jsonb)",
+      "definitionMD5": "3937732092d9eeb91fbc0d23e53d1ab1",
+      "acl": ["postgres=X/postgres", "authenticated=X/postgres"]
+    },
+    {
+      "signature": "guild_governance_history(integer)",
+      "definitionMD5": "c7470507009842158caefa7805ea99ca",
+      "acl": ["postgres=X/postgres", "authenticated=X/postgres"]
+    },
+    {
+      "signature": "guild_governance_status()",
+      "definitionMD5": "d8b52b08e1f3c25f3d13ddfdb71debaf",
+      "acl": ["postgres=X/postgres", "authenticated=X/postgres"]
+    },
+    {
+      "signature": "guild_governance_workspace(integer)",
+      "definitionMD5": "8a11f4dc5022ec35bd7a879b52c0daeb",
+      "acl": ["postgres=X/postgres", "authenticated=X/postgres"]
+    },
+    {
+      "signature": "guild_leadership_preview(text)",
+      "definitionMD5": "9017c751d99d7ca7b7024cd86470dd10",
+      "acl": [
+        "postgres=X/postgres",
+        "authenticated=X/postgres",
+        "anon=X/postgres"
+      ]
+    },
+    {
+      "signature": "guild_scoped_command(uuid,uuid,text,uuid,uuid,jsonb)",
+      "definitionMD5": "698c791ffb195dfa57b318609d450c6c",
+      "acl": ["postgres=X/postgres", "authenticated=X/postgres"]
+    },
+    {
+      "signature": "guild_scoped_contexts(uuid)",
+      "definitionMD5": "583776907a4ba025ea96bfa12bf6cb85",
+      "acl": ["postgres=X/postgres", "authenticated=X/postgres"]
+    },
+    {
+      "signature": "guild_scoped_create_invite(uuid,uuid,uuid)",
+      "definitionMD5": "afd08483cfafc6aaef223f60960bffd2",
+      "acl": ["postgres=X/postgres", "authenticated=X/postgres"]
+    },
+    {
+      "signature": "guild_scoped_ebd_command(uuid,uuid,text,uuid,integer,jsonb)",
+      "definitionMD5": "0850396b4f877d8b1629720b64d16884",
+      "acl": ["postgres=X/postgres", "authenticated=X/postgres"]
+    },
+    {
+      "signature": "guild_scoped_ebd_workspace(uuid,uuid,integer)",
+      "definitionMD5": "370c9e71e6e3b864ffc9ab76998b7c1d",
+      "acl": ["postgres=X/postgres", "authenticated=X/postgres"]
+    },
+    {
+      "signature": "guild_scoped_list_invites(uuid,uuid)",
+      "definitionMD5": "eb2ca212b6f41555f24b1228b0c20ecd",
+      "acl": ["postgres=X/postgres", "authenticated=X/postgres"]
+    },
+    {
+      "signature": "guild_scoped_members(uuid,uuid)",
+      "definitionMD5": "3d1468f78aab34f4c87c4642c1afebb8",
+      "acl": ["postgres=X/postgres", "authenticated=X/postgres"]
+    },
+    {
+      "signature": "guild_scoped_requests(uuid,uuid)",
+      "definitionMD5": "203fcd790fd59af14209340b62982905",
+      "acl": ["postgres=X/postgres", "authenticated=X/postgres"]
+    },
+    {
+      "signature": "guild_scoped_revoke_invite(uuid,uuid,uuid)",
+      "definitionMD5": "e959469d72be00fb01ef26a9d1a963d5",
+      "acl": ["postgres=X/postgres", "authenticated=X/postgres"]
+    },
+    {
+      "signature": "guild_scoped_status()",
+      "definitionMD5": "dad7cd79ac00cb19a3d509660f8c1605",
+      "acl": ["postgres=X/postgres", "authenticated=X/postgres"]
+    },
+    {
+      "signature": "is_guild_leader(uuid)",
+      "definitionMD5": "3d3a01f4dd56b468adc3582d4e5f5d87",
+      "acl": ["postgres=X/postgres", "authenticated=X/postgres"]
+    },
+    {
+      "signature": "leave_guild(uuid)",
+      "definitionMD5": "50762ee9651925450a20c60a18d0147f",
+      "acl": ["postgres=X/postgres", "authenticated=X/postgres"]
+    },
+    {
+      "signature": "list_guild_join_requests(uuid)",
+      "definitionMD5": "d33b715cbec4091a8151035c59c6d0ed",
+      "acl": ["postgres=X/postgres", "authenticated=X/postgres"]
+    },
+    {
+      "signature": "list_guild_members(uuid)",
+      "definitionMD5": "e0ef2134a4aaf0c79d5408a43506fc97",
+      "acl": ["postgres=X/postgres", "authenticated=X/postgres"]
+    },
+    {
+      "signature": "remove_guild_member(uuid,uuid)",
+      "definitionMD5": "fd6c2f5269a45244c23a26bbab6c33d5",
+      "acl": ["postgres=X/postgres", "authenticated=X/postgres"]
+    },
+    {
+      "signature": "request_join_guild(uuid,uuid)",
+      "definitionMD5": "6f8294295201b5d4109c6ad5a78ba430",
+      "acl": ["postgres=X/postgres", "authenticated=X/postgres"]
+    },
+    {
+      "signature": "review_guild_join_request(uuid,uuid,boolean)",
+      "definitionMD5": "58cd41c8a0c6bd62334086cd8cd8e7f6",
+      "acl": ["postgres=X/postgres", "authenticated=X/postgres"]
+    }
+  ]
+}

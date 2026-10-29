@@ -15,7 +15,8 @@ function AuthGate({ children }: { children: ReactNode }) {
       auth.status !== 'signedOut' ||
       pathname === '/' ||
       pathname === '/auth' ||
-      pathname === '/auth/recover'
+      pathname === '/auth/recover' ||
+      pathname === '/guilda/lideranca/convite'
     )
       return;
     const next = safeEntryReturn(
@@ -35,7 +36,8 @@ function AuthGate({ children }: { children: ReactNode }) {
     if (
       pathname === '/' ||
       pathname === '/auth' ||
-      pathname === '/auth/recover'
+      pathname === '/auth/recover' ||
+      pathname === '/guilda/lideranca/convite'
     )
       return children;
     const inviteToken = pathname.match(

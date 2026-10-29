@@ -1,5 +1,5 @@
 /** Fixed release boundary. A full launch requires an explicitly reviewed change. */
-export const RELEASE_PROFILE = 'minigame-demo-008c' as const;
+export const RELEASE_PROFILE = 'governance-foundation-010a-test' as const;
 export const GAMEPLAY_ENABLED = false;
 const paths = new Set([
   '/',
@@ -31,6 +31,9 @@ const paths = new Set([
   '/journey/guild',
   '/journey/guild/manage',
   '/journey/guild/ebd',
+  '/journey/guild/administration',
+  '/guilda/lideranca/convite',
+  '/api/guild-governance',
   '/api/guild-invites',
 ]);
 export function isReleasedPath(path: string): boolean {

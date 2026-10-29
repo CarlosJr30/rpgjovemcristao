@@ -19,7 +19,7 @@ import {
 } from './contracts';
 import { LessonEditor } from './lesson-editor';
 import { ActivityEditor } from './activity-editor';
-import {GAMEPLAY_ENABLED}from '../../lib/release-scope';
+import { GAMEPLAY_ENABLED } from '../../lib/release-scope';
 import { ActivityCard, type Command } from './participation';
 import { AttendanceForm, TeacherForm } from './administration';
 import css from '../guild-missions/panel.module.css';
@@ -46,7 +46,13 @@ const historyLabels: Record<string, string> = {
   teacher: 'Permissão de professor atualizada',
 };
 
-export function EbdPanel({ traveler }: { traveler: Traveler }) {
+export function EbdPanel({
+  traveler,
+  guildId,
+}: {
+  traveler: Traveler;
+  guildId?: string;
+}) {
   const [data, setData] = useState<Workspace | null>(null);
   const [error, setError] = useState('');
   const [message, setMessage] = useState('');
@@ -63,8 +69,11 @@ export function EbdPanel({ traveler }: { traveler: Traveler }) {
   } | null>(null);
   const [selected, setSelected] = useState<string | null>(null);
   const fetchData = useCallback(
-    () => repository.load(traveler.id, offset),
-    [traveler.id, offset],
+    () =>
+      guildId
+        ? repository.load(traveler.id, offset, guildId)
+        : repository.load(traveler.id, offset),
+    [traveler.id, offset, guildId],
   );
   useEffect(() => {
     let live = true;
@@ -97,7 +106,17 @@ export function EbdPanel({ traveler }: { traveler: Traveler }) {
       setError('');
       setMessage('');
       try {
-        await repository.command(traveler.id, action, id, revision, payload);
+        if (guildId)
+          await repository.command(
+            traveler.id,
+            action,
+            id,
+            revision,
+            payload,
+            guildId,
+          );
+        else
+          await repository.command(traveler.id, action, id, revision, payload);
         setData(await fetchData());
         setMessage(feedback);
         return true;
@@ -115,7 +134,7 @@ export function EbdPanel({ traveler }: { traveler: Traveler }) {
         setBusy(false);
       }
     },
-    [traveler.id, fetchData],
+    [traveler.id, fetchData, guildId],
   );
   if (!data)
     return (
@@ -634,13 +653,14 @@ export function EbdPanel({ traveler }: { traveler: Traveler }) {
               {a.feedback && ` · ${a.feedback}`}
             </p>
           ))}
-          {GAMEPLAY_ENABLED && data.rewards.map((r) => (
-            <p className={css.notice} key={`${r.lesson_id}-${r.traveler_id}`}>
-              Recompensa pendente · {rewardLabel(r.tier)} ·{' '}
-              {data.lessons.find((l) => l.id === r.lesson_id)?.title}. Sem
-              concessão econômica.
-            </p>
-          ))}
+          {GAMEPLAY_ENABLED &&
+            data.rewards.map((r) => (
+              <p className={css.notice} key={`${r.lesson_id}-${r.traveler_id}`}>
+                Recompensa pendente · {rewardLabel(r.tier)} ·{' '}
+                {data.lessons.find((l) => l.id === r.lesson_id)?.title}. Sem
+                concessão econômica.
+              </p>
+            ))}
           {teacher && (
             <>
               <h3>Auditoria recente</h3>

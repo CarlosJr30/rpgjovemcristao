@@ -1,0 +1,1127 @@
+{
+  "status": "VALIDATED_TEST_PRODUCTION_BLOCKED",
+  "date": "2026-10-29",
+  "pullRequest": "https://github.com/CarlosJr30/rpgjovemcristao/pull/19",
+  "candidate": "df9e0b740fc8d103b6d179474ad2ac4d260f9d4c",
+  "previousFixCandidate": "3552f466048c73553d25fa8113e57024e18ba54e",
+  "identity": {
+    "normalSignupInTEST": true,
+    "controlledMailboxAlias": true,
+    "emailConfirmationRequired": true,
+    "receivedEmailLinkUsedUnmodified": true,
+    "legacyCallbackNotFollowedOrImported": true,
+    "normalPasswordLoginVerifiedByAuth": true,
+    "primaryUIDFingerprint": "84367854a72989f49d54d8c16b7b759495b9bfb14e867a11081ddcda36879981",
+    "secondaryUIDFingerprint": "dd4936a145a6345fae441ccb543ae925e923c6115339437b4ca1602d07f1a730",
+    "distinctUIDsVerified": true,
+    "originalAuthorizedAvatarActive": true,
+    "bothOriginalAvatarsPreserved": true,
+    "newQAHeroCreatedByNormalUI": true,
+    "newQAAdmin": false,
+    "temporaryQALeadershipRevoked": true,
+    "activeAdmins": 1,
+    "newQALevel": 1,
+    "newQAXP": 0,
+    "newQACoins": 0,
+    "newQAInventory": 0,
+    "newQAEquipment": 0,
+    "newQAOfficialStoryProgress": 0,
+    "artificialJWTGenerated": false,
+    "supabaseSessionCopiedOrExported": false,
+    "adminAuthResetOrConfirmationBypass": false,
+    "credentialsDisclosed": false,
+    "plaintextCredentialsPersisted": false,
+    "qaAccessStoredWithWindowsCurrentUserDPAPI": true
+  },
+  "local": {
+    "unitPassed": 927,
+    "unitSkipped": 74,
+    "filesPassed": 135,
+    "optInFilesSkipped": 7,
+    "postgresFoundation": 45,
+    "postgresMultiguild": 61,
+    "postgresTotal": 106,
+    "localFixturesAreHostedProof": false,
+    "lint": "PASS",
+    "typecheck": "PASS",
+    "build": "PASS",
+    "releaseProtocol": 25,
+    "sourceAndApprovedArtPreserved": true
+  },
+  "ci": [
+    {
+      "sha": "df9e0b740fc8d103b6d179474ad2ac4d260f9d4c",
+      "push": 40834498581,
+      "pullRequest": 40834504087,
+      "result": "success",
+      "qualityPostgresAndRSC": "PASS",
+      "conditionalPublishingJob": "SKIP"
+    },
+    {
+      "sha": "3552f466048c73553d25fa8113e57024e18ba54e",
+      "push": 40830713995,
+      "pullRequest": 40830718899,
+      "result": "success"
+    }
+  ],
+  "preview": {
+    "url": "https://rpgjovemcristao-mza53rgto-carlos-junior-s-projects.vercel.app",
+    "deployment": "dpl_58Nys6dp4j2AHPLVG9jCoGhFthxH",
+    "state": "READY",
+    "target": "preview",
+    "sha": "df9e0b740fc8d103b6d179474ad2ac4d260f9d4c",
+    "backend": "TEST",
+    "productionProtectionUnchanged": true
+  },
+  "functional": {
+    "creation": {
+      "source": "build/rpg-dev-010a2/normalqa-leader-create-results.json",
+      "sha256": "fbd6d150331728d64350ada20d43b531d30bcd1a1600f9330d7316b80c281126",
+      "checks": 13,
+      "wholeRunPassed": true,
+      "completedPrefixOnly": false,
+      "interruptedRunNeverPromotedToPass": false,
+      "assertionNames": [
+        "normal primary identity remains designated TEST Admin",
+        "no ambiguous existing QA community 0",
+        "normal UI creates authorized community 0",
+        "no ambiguous existing QA community 1",
+        "normal UI creates authorized community 1",
+        "same active avatar leads both communities simultaneously",
+        "creation replay returns original community 0",
+        "creation replay returns original community 1",
+        "legacy creation refuses additional community despite current JWT",
+        "selected community persists after normal reload",
+        "explicit community selection switches the loaded members",
+        "no page errors in normal leader flow",
+        "only reviewed own bootstrap and scoped writes observed"
+      ]
+    },
+    "membershipBeforeWorkspaceFailure": {
+      "source": "build/rpg-dev-010a2/normalqa-multiguild-progress.json",
+      "sha256": "98dbff0a0aa1fd303d261fe2c7eb4c3117ab17cdcb13722a5fb2c9306fbb002e",
+      "checks": 24,
+      "wholeRunPassed": false,
+      "completedPrefixOnly": true,
+      "interruptedRunNeverPromotedToPass": true,
+      "assertionNames": [
+        "two confirmed normal Auth users are distinct",
+        "primary status loads",
+        "secondary status loads",
+        "primary Admin and four permissions retained",
+        "new QA has no inferred Admin or leadership",
+        "economic rewards remain disabled",
+        "B cannot impersonate original A actor",
+        "A cannot impersonate B actor",
+        "B cannot create Guild before leadership authorization",
+        "A creates ordinary invite in g1",
+        "g2 invite list loads",
+        "g1 invitation does not appear in g2 list",
+        "concurrent normal invite requests reuse one pending request",
+        "request cannot be reviewed using a different Guild",
+        "leader approves g1 request",
+        "concurrent second Guild join is idempotent",
+        "leader approves g2 request",
+        "own scoped contexts load B",
+        "one QA avatar participates in two Guilds",
+        "legacy leave cannot choose between two memberships",
+        "member cannot remove another member",
+        "member cannot create community invite",
+        "A assigns B teacher only in g1",
+        "teacher grant uses revision one"
+      ]
+    },
+    "teacherChecksBeforeRetryIncident": {
+      "source": "build/rpg-dev-010a2/normalqa-multiguild-resume-progress.json",
+      "sha256": "4954939ea839ff70aa4e4d22ce8c9f35ccae73eaa5c116e2d377391a788a6c0d",
+      "checks": 15,
+      "wholeRunPassed": false,
+      "completedPrefixOnly": true,
+      "interruptedRunNeverPromotedToPass": true,
+      "assertionNames": [
+        "two normal identities reverified for continuation",
+        "own scoped contexts load B",
+        "existing two memberships preserved at resume",
+        "fresh ordinary invite for revoke continuation",
+        "teacher workspace g1 loads",
+        "member workspace g2 loads",
+        "teacher role is scoped to g1",
+        "assigned teacher creates own draft in g1",
+        "leader creates draft in g2",
+        "leader creates separate own draft in g1",
+        "teacher cannot edit another teacher lesson same Guild",
+        "teacher cannot edit lesson in second Guild",
+        "leader of both cannot mix selected Guild and lesson",
+        "teacher cannot award itself a teacher grant",
+        "lesson reward tier remains denied"
+      ]
+    },
+    "membersTeacherLeaveAndConcurrency": {
+      "source": "build/rpg-dev-010a2/normalqa-multiguild-remainder-fixed-results.json",
+      "sha256": "a21b0ca94233cadfc7bfb22f88ef08e108e80a11f9634acbc086a9f81dcc91b5",
+      "checks": 36,
+      "wholeRunPassed": true,
+      "completedPrefixOnly": false,
+      "interruptedRunNeverPromotedToPass": false,
+      "assertionNames": [
+        "normal identities preserved after transport failure",
+        "reconcile persisted draft revision after timeout",
+        "prior committed edit is retained without reset",
+        "normal browser concurrent same-revision edits have one success and one conflict",
+        "fresh ordinary invite for revoke remainder",
+        "leader revokes teacher without session refresh",
+        "teacher revoke increments revision",
+        "same B JWT loses teacher edit immediately",
+        "g2 workspace after revoke",
+        "g2 member role unchanged by g1 teacher revoke",
+        "teacher reauthorized in g1 for membership-removal check",
+        "invite revoke cannot target another selected Guild",
+        "ordinary invitation revoked in its Guild",
+        "revoked ordinary invite no longer resolves",
+        "A browser explicit Guild selection QA 010A2 Comunidade Norte",
+        "A browser explicit Guild selection QA 010A2 Comunidade Sul",
+        "A browser selected Guild survives reload",
+        "B browser explicit Guild selection QA 010A2 Comunidade Norte",
+        "B browser explicit Guild selection QA 010A2 Comunidade Sul",
+        "B browser selected Guild survives reload",
+        "remove B only from g1",
+        "own scoped contexts load B",
+        "removal preserves membership g2 and removes g1",
+        "removed member no longer reads g1 workspace",
+        "B requests rejoin g1",
+        "A approves rejoin g1",
+        "rejoined workspace g1",
+        "rejoin does not restore removed teacher privilege",
+        "rejoined B cannot edit old teacher draft",
+        "B leaves only g2",
+        "B leave replay is idempotent",
+        "leave replay explicitly reported",
+        "own scoped contexts load B",
+        "leaving g2 preserves g1 membership",
+        "leader cannot leave without ownership transfer",
+        "no page errors during hosted multi-user flow"
+      ]
+    },
+    "differentLeaderAndImmediateRevocation": {
+      "source": "build/rpg-dev-010a2/normalqa-leadership-results.json",
+      "sha256": "bda3e635aeb5f21540ef16d5cc1bd549839cd798e31b619c99a951bc5f0d6168",
+      "checks": 19,
+      "wholeRunPassed": true,
+      "completedPrefixOnly": false,
+      "interruptedRunNeverPromotedToPass": false,
+      "assertionNames": [
+        "Admin issues individual leadership through normal UI",
+        "recipient accepts explicitly without receiving Admin",
+        "distinct leader concurrent creation produces one Guild and one replay",
+        "Admin A cannot manage secondary leader community",
+        "secondary leader cannot manage A community",
+        "secondary leader creates own ordinary invitation",
+        "Admin revokes temporary leadership through normal UI",
+        "same B JWT observes revoked leadership immediately",
+        "revocation preserves memberships and downgrades only management",
+        "same JWT cannot create after revocation",
+        "same JWT cannot replay privileged creation after revocation",
+        "same JWT cannot create ordinary invite after revocation",
+        "same JWT cannot list privileged ordinary invites after revocation",
+        "same JWT cannot use legacy creation after revocation",
+        "same JWT cannot grant teacher after leadership revocation",
+        "pending ordinary invitation invalidated by leader revocation",
+        "original Admin grant and leadership remain active",
+        "revoked browser retains own community read without leader create control",
+        "no page errors in distinct leadership and revoke flow"
+      ]
+    },
+    "finalAuthorizationAndBlocks": {
+      "source": "build/rpg-dev-010a2/normalqa-final-security-results.json",
+      "sha256": "04b8f0d7724e4bf2e18a1e62b44b596706319ce7be77ad8ade837bb7c1d6e366",
+      "checks": 14,
+      "wholeRunPassed": true,
+      "completedPrefixOnly": false,
+      "interruptedRunNeverPromotedToPass": false,
+      "assertionNames": [
+        "remaining invitations created for this new QA community revoked normally",
+        "original Admin four permissions and leadership retained",
+        "QA has no Admin and temporary leadership remains revoked",
+        "TEST management resumed with economy disabled",
+        "same original active avatar still manages both created Guilds",
+        "QA memberships preserved independently from revoked privileges",
+        "removed teacher grant is not silently restored on rejoin",
+        "A legacy EBD refuses ambiguous community",
+        "B legacy EBD refuses ambiguous community",
+        "unreleased path stays forbidden /journey/equipment",
+        "unreleased path stays forbidden /journey/arena",
+        "unreleased path stays forbidden /journey/arena/tower",
+        "unreleased path stays forbidden /journey/shop",
+        "unreleased path stays forbidden /api/authority"
+      ]
+    },
+    "finalTwoIdentityRLS": {
+      "source": "build/rpg-dev-010a2/normalqa-isolation-results.json",
+      "sha256": "dcf0bbc5970fb46b3b4e24858446bb6dfe5096b6c71b0819f3e6c8c3495453a8",
+      "checks": 19,
+      "wholeRunPassed": true,
+      "completedPrefixOnly": false,
+      "interruptedRunNeverPromotedToPass": false,
+      "assertionNames": [
+        "Admin A cannot read foreign inventory",
+        "Admin A cannot read foreign equipped_items",
+        "Admin A cannot read foreign traveler_stats",
+        "Admin A cannot read foreign wallets",
+        "Admin A cannot read foreign traveler rows",
+        "Admin A cannot impersonate foreign Guild actor",
+        "Admin A cannot read foreign canonical cards",
+        "QA B cannot read foreign inventory",
+        "QA B cannot read foreign equipped_items",
+        "QA B cannot read foreign traveler_stats",
+        "QA B cannot read foreign wallets",
+        "QA B cannot read foreign traveler rows",
+        "QA B cannot impersonate foreign Guild actor",
+        "QA B cannot read foreign canonical cards",
+        "anonymous cannot execute guild_scoped_status",
+        "anonymous cannot execute guild_scoped_contexts",
+        "anonymous cannot execute guild_scoped_ebd_workspace",
+        "Admin private grants have no public table API",
+        "primary Admin and economic denial retained"
+      ]
+    },
+    "realEditorConflict": {
+      "source": "build/rpg-dev-010a2/normalqa-conflict-ui-results.json",
+      "sha256": "165d283316058b8756ab3577fdff2783bc81238a40fae326720e257a1a1fe5bb",
+      "checks": 14,
+      "wholeRunPassed": true,
+      "completedPrefixOnly": false,
+      "interruptedRunNeverPromotedToPass": false,
+      "assertionNames": [
+        "chromium-desktop authorized other editor commits next revision",
+        "chromium-desktop stale UI save returns immediate HTTP409/PT409",
+        "chromium-desktop conflict is visible and typed draft retained",
+        "chromium-desktop editor remains open",
+        "chromium-desktop stale submission does not overwrite committed server draft",
+        "chromium-desktop normal discard closes only local editor",
+        "chromium-desktop no page errors",
+        "webkit-390-emulated authorized other editor commits next revision",
+        "webkit-390-emulated stale UI save returns immediate HTTP409/PT409",
+        "webkit-390-emulated conflict is visible and typed draft retained",
+        "webkit-390-emulated editor remains open",
+        "webkit-390-emulated stale submission does not overwrite committed server draft",
+        "webkit-390-emulated normal discard closes only local editor",
+        "webkit-390-emulated no page errors"
+      ]
+    },
+    "revokedWebKit": {
+      "source": "build/rpg-dev-010a2/normalqa-revoked-mobile-results.json",
+      "sha256": "9ee9f760d60f45de789f1eb3b16185509ed4c704ed66a81fee03659b264e5afc",
+      "checks": 10,
+      "wholeRunPassed": true,
+      "completedPrefixOnly": false,
+      "interruptedRunNeverPromotedToPass": false,
+      "assertionNames": [
+        "normal revoked QA login confirmed",
+        "left Guild is absent from own active selector",
+        "revoked QA EBD read belongs to selected Guild [QA guild 1]",
+        "revoked teacher editor absent in selected Guild [QA guild 1]",
+        "final revoked EBD mobile fits [QA guild 1]",
+        "revoked QA EBD read belongs to selected Guild [QA guild 3]",
+        "revoked teacher editor absent in selected Guild [QA guild 3]",
+        "final revoked EBD mobile fits [QA guild 3]",
+        "no mobile page errors after revocation",
+        "only reviewed reads and existing own bootstrap after revocation"
+      ]
+    },
+    "containedChecks": {
+      "source": "build/rpg-dev-010a2/normalqa-contained-results.json",
+      "sha256": "f98248e5417efaa444e469fa9c9f1ae80ac90ac59d240a5c12a8804133895968",
+      "checks": 4,
+      "wholeRunPassed": true,
+      "completedPrefixOnly": false,
+      "interruptedRunNeverPromotedToPass": false,
+      "assertionNames": [
+        "normal QA status confirms contained writes without Admin or economy",
+        "contained normal teacher read remains usable",
+        "contained EBD command terminates with precise denial",
+        "contained Guild command terminates with precise denial"
+      ]
+    },
+    "legacySurfaces": {
+      "source": "build/rpg-dev-010a2/normalqa-legacy-surface-results.json",
+      "sha256": "7f64893b77f2acf00127578285e47139f02246cea3351bd2c42bb6253738fba0",
+      "checks": 11,
+      "wholeRunPassed": true,
+      "completedPrefixOnly": false,
+      "interruptedRunNeverPromotedToPass": false,
+      "assertionNames": [
+        "list_guild_members refuses unsafe legacy or foreign scope",
+        "list_guild_join_requests refuses unsafe legacy or foreign scope",
+        "guild_admin_stats refuses unsafe legacy or foreign scope",
+        "leave_guild refuses unsafe legacy or foreign scope",
+        "remove_guild_member refuses unsafe legacy or foreign scope",
+        "create_guild_link_invite refuses unsafe legacy or foreign scope",
+        "list_guild_link_invites refuses unsafe legacy or foreign scope",
+        "guild_ebd_command refuses unsafe legacy or foreign scope",
+        "guild_governance_command refuses unsafe legacy or foreign scope",
+        "guild_scoped_requests refuses unsafe legacy or foreign scope",
+        "guild_scoped_members refuses unsafe legacy or foreign scope"
+      ]
+    }
+  },
+  "regression": {
+    "selectedAssertions": 203,
+    "missionsIncluded": 36,
+    "serpentIncluded": 43,
+    "source": "build/rpg-dev-010a2/normalqa-regression-aggregate.json",
+    "sha256": "188b4755d947bcc0aadb49e0b875b369c859f46dd4aa9208102341827ef347e4",
+    "previousApproved241Retained": true,
+    "notExclusiveNewCases": true,
+    "interruptedFirstRoundCountedAsPass": false,
+    "prematureEBDReadinessChecksExcluded": 12,
+    "replacedByReadyEBDChecks": 45,
+    "currentEBDReadySource": "build/rpg-dev-010a2/normalqa-ebd-ready/results.json",
+    "currentEBDReadySHA256": "d2b277354743b7b530b91e086d9e9ee80e9fd85c558c96efbe7a69cb5b444337",
+    "currentEBDReadySHA": "df9e0b740fc8d103b6d179474ad2ac4d260f9d4c",
+    "unchangedSubsystemPartsOnPreviousSHA": "3552f466048c73553d25fa8113e57024e18ba54e",
+    "normalPasswordLoginsInFreshContexts": true,
+    "sessionCopies": false,
+    "mobileEmulated": true,
+    "physicalDeviceOrAndroidProof": false,
+    "isolatedWebKitEngineSamples": 705,
+    "isolatedEngineRequestMonitor": false,
+    "dataIntegrityCheckedAfterAllContexts": true,
+    "monitoredOwnExistingProfileIgnoreDuplicateRequests": 48,
+    "monitoredReviewedReadRPCs": 105,
+    "countsAreSelectedSegmentsNotAllDiagnostics": true,
+    "noUnexpectedRequestsInMonitoredSegments": true,
+    "noAbsoluteZeroPOSTClaim": true
+  },
+  "migrations": {
+    "TESTOnly": true,
+    "initialCount": 30,
+    "finalCount": 33,
+    "workspace": {
+      "local": "supabase/migrations/20261029063610_rpg_dev_010a2_workspace_locking_test.sql",
+      "remote": "20261029064844",
+      "all49DatasetsUnchangedByMigration": true,
+      "bodyAndACLUnchanged": true,
+      "structuralRecoveryProbePassed": true
+    },
+    "containment": {
+      "source": "packages/database/proposals/rpg-dev-010a2-containment.sql",
+      "remote": "20261029070517",
+      "writesEnabled": false,
+      "controlRevision": 2,
+      "noBackendTerminatedOrProjectRestarted": true
+    },
+    "nonRetryableConflict": {
+      "local": "supabase/migrations/20261029070620_rpg_dev_010a2_ebd_conflict_test.sql",
+      "remote": "20261029072522",
+      "onlyEightBusinessErrorCodesChanged": true,
+      "old": "40001",
+      "new": "PT409",
+      "all49DatasetsUnchangedByMigration": true,
+      "keptWritesContained": true,
+      "ACLBodyAuthorizationAndRecoveryVerified": true
+    },
+    "protectedResumption": {
+      "source": "packages/database/proposals/rpg-dev-010a2-resume-test.sql",
+      "execution": "protected DML transaction after exact CI Preview normal Auth and RLS gates",
+      "additionalMigration": false,
+      "finalWritesEnabled": true,
+      "finalControlRevision": 3,
+      "economicPermissionsEnabled": false
+    },
+    "productionApplied": false
+  },
+  "retryIncident": {
+    "observedPostgREST": "14.18",
+    "nodeAndBrowserBothTimedOutAt15000ms": true,
+    "committedDraftEditsReconciledAndPreserved": true,
+    "original40001Events": 299,
+    "observationWindowUTC": "2026-10-29T06:55:00Z/2026-10-29T07:05:30Z",
+    "afterContainment40001Events": 0,
+    "afterContainmentWindowUTC": "2026-10-29T07:06:00Z/2026-10-29T07:12:30Z",
+    "afterResumption40001Events": 0,
+    "afterResumptionPT409Events": 3,
+    "afterResumptionWindowUTC": "2026-10-29T07:35:00Z/2026-10-29T07:49:00Z",
+    "guidance": "https://supabase.com/docs/guides/troubleshooting/high-cpu-and-infinite-transaction-retries-when-using-custom-error-codes-in-rpc-functions-77326b"
+  },
+  "preservation": {
+    "completeDatasetCountsAndHashesObservedBeforeAndAfter": true,
+    "originalRecordSetsCompared": 48,
+    "originalRecordsPreserved": true,
+    "exclusions": "Only the newly authorized QA account/avatar rows and the three new QA communities, their scoped records and temporary leadership records; control state separately accounted",
+    "noRecordDeletedRestoredOrNormalized": true,
+    "controlDelta": "true/revision1 -> contained false/revision2 -> resumed true/revision3",
+    "newAuthorizedGuilds": 3,
+    "newAuthorizedDraftLessons": 3,
+    "oldRows": [
+      {
+        "dataset": "economy_private.battles",
+        "count": 21,
+        "hash": "9f5097991cf8226e5c58da320ca69aa9",
+        "unchanged": true
+      },
+      {
+        "dataset": "economy_private.card_catalog",
+        "count": 7,
+        "hash": "a333252631165b98044ff6c69ac32355",
+        "unchanged": true
+      },
+      {
+        "dataset": "economy_private.journey_operations",
+        "count": 0,
+        "hash": "d41d8cd98f00b204e9800998ecf8427e",
+        "unchanged": true
+      },
+      {
+        "dataset": "economy_private.journey_rewards",
+        "count": 0,
+        "hash": "d41d8cd98f00b204e9800998ecf8427e",
+        "unchanged": true
+      },
+      {
+        "dataset": "economy_private.journeys",
+        "count": 0,
+        "hash": "d41d8cd98f00b204e9800998ecf8427e",
+        "unchanged": true
+      },
+      {
+        "dataset": "economy_private.tower_reward_claims",
+        "count": 0,
+        "hash": "d41d8cd98f00b204e9800998ecf8427e",
+        "unchanged": true
+      },
+      {
+        "dataset": "economy_private.tower_reward_policies",
+        "count": 1,
+        "hash": "c584356e19255fa97ba10b160029c013",
+        "unchanged": true
+      },
+      {
+        "dataset": "guild_admin_private.admin_grants",
+        "count": 1,
+        "hash": "d93c80a4c57ab5f9664296df8f98787d",
+        "unchanged": true
+      },
+      {
+        "dataset": "guild_admin_private.audit",
+        "count": 6,
+        "hash": "421f38675efdcae3111ccfc2a85dd0af",
+        "unchanged": true
+      },
+      {
+        "dataset": "guild_admin_private.leader_authorizations",
+        "count": 1,
+        "hash": "62d84817638917010cce9228ad8773ed",
+        "unchanged": true
+      },
+      {
+        "dataset": "guild_admin_private.leadership_invites",
+        "count": 2,
+        "hash": "c36c2d89949507cf912f37b78fc51b19",
+        "unchanged": true
+      },
+      {
+        "dataset": "guild_admin_private.leadership_revocations",
+        "count": 0,
+        "hash": "d41d8cd98f00b204e9800998ecf8427e",
+        "unchanged": true
+      },
+      {
+        "dataset": "guild_chat_private.rate_limits",
+        "count": 0,
+        "hash": "d41d8cd98f00b204e9800998ecf8427e",
+        "unchanged": true
+      },
+      {
+        "dataset": "guild_invite_private.link_invites",
+        "count": 4,
+        "hash": "7688a39a033abb404c02c552ea2c6fc7",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.chest_operations",
+        "count": 23,
+        "hash": "3ea9dfc1fb89162c45cd7b1d200e719e",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.equipped_items",
+        "count": 4,
+        "hash": "bd47ec1a027e092a039d56b4f4625515",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.guild_activity_log",
+        "count": 15,
+        "hash": "a63af22d2aaad69ae29309463b2d119c",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.guild_chat_messages",
+        "count": 0,
+        "hash": "d41d8cd98f00b204e9800998ecf8427e",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.guild_chat_moderation_log",
+        "count": 0,
+        "hash": "d41d8cd98f00b204e9800998ecf8427e",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.guild_chat_reads",
+        "count": 0,
+        "hash": "d41d8cd98f00b204e9800998ecf8427e",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.guild_chat_reports",
+        "count": 0,
+        "hash": "d41d8cd98f00b204e9800998ecf8427e",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.guild_ebd_activities",
+        "count": 2,
+        "hash": "e154dc4e5463427480b337cdcc0e8625",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.guild_ebd_answers",
+        "count": 2,
+        "hash": "07297586116b284b346e166e4e8f85a0",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.guild_ebd_attendance",
+        "count": 2,
+        "hash": "601d165f23534af4d0ad3d83eb5c6776",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.guild_ebd_history",
+        "count": 11,
+        "hash": "5eb13a7cabe7a915113b985aeb3781be",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.guild_ebd_reward_pending",
+        "count": 0,
+        "hash": "d41d8cd98f00b204e9800998ecf8427e",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.guild_ebd_teachers",
+        "count": 2,
+        "hash": "648dafef34e6340b5b108a6426281691",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.guild_invites",
+        "count": 0,
+        "hash": "d41d8cd98f00b204e9800998ecf8427e",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.guild_join_requests",
+        "count": 6,
+        "hash": "aa8200bb69deb1ab8f51e25a22efe1ab",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.guild_lessons",
+        "count": 2,
+        "hash": "007dcc18fab0f1335d4305cad6c7ca41",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.guild_members",
+        "count": 11,
+        "hash": "1d3146c594635bafb85c577a82702468",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.guild_mission_attempts",
+        "count": 0,
+        "hash": "d41d8cd98f00b204e9800998ecf8427e",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.guild_mission_progress",
+        "count": 0,
+        "hash": "d41d8cd98f00b204e9800998ecf8427e",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.guild_missions",
+        "count": 0,
+        "hash": "d41d8cd98f00b204e9800998ecf8427e",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.guild_reward_claims",
+        "count": 0,
+        "hash": "d41d8cd98f00b204e9800998ecf8427e",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.guilds",
+        "count": 5,
+        "hash": "8dc8168f6948e23b3debb61961d8d4e3",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.inventory",
+        "count": 18,
+        "hash": "973a5b0008f0b8ce64fecbbb7660eae0",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.profiles",
+        "count": 5,
+        "hash": "c2543237db67fe3d2d029069204fe1da",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.story_definitions",
+        "count": 5,
+        "hash": "414c69e783d2e1a016d7f03d8fa37f23",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.story_progress",
+        "count": 0,
+        "hash": "d41d8cd98f00b204e9800998ecf8427e",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.traveler_chests",
+        "count": 0,
+        "hash": "d41d8cd98f00b204e9800998ecf8427e",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.traveler_stats",
+        "count": 14,
+        "hash": "fc7029d87c04bb74f6dabaa1c00669c8",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.travelers",
+        "count": 14,
+        "hash": "ea036d1fd379d4624452ac7cc36222cb",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.wallets",
+        "count": 14,
+        "hash": "0d1c78cf610bf2fe60f9def3e9ca0944",
+        "unchanged": true
+      },
+      {
+        "dataset": "story_private.progression_completions",
+        "count": 0,
+        "hash": "d41d8cd98f00b204e9800998ecf8427e",
+        "unchanged": true
+      },
+      {
+        "dataset": "story_private.progression_evidence",
+        "count": 0,
+        "hash": "d41d8cd98f00b204e9800998ecf8427e",
+        "unchanged": true
+      },
+      {
+        "dataset": "story_private.progression_policies",
+        "count": 5,
+        "hash": "50eb1472c0c6e4f465d3a24f697726a9",
+        "unchanged": true
+      },
+      {
+        "dataset": "story_private.step_receipts",
+        "count": 0,
+        "hash": "d41d8cd98f00b204e9800998ecf8427e",
+        "unchanged": true
+      }
+    ],
+    "newDataAndStateDeltas": [
+      {
+        "dataset": "guild_admin_private.audit",
+        "beforeCount": 6,
+        "afterCount": 25,
+        "authorizedQAOrControlChange": true
+      },
+      {
+        "dataset": "guild_admin_private.leader_authorizations",
+        "beforeCount": 1,
+        "afterCount": 2,
+        "authorizedQAOrControlChange": true
+      },
+      {
+        "dataset": "guild_admin_private.leadership_invites",
+        "beforeCount": 2,
+        "afterCount": 3,
+        "authorizedQAOrControlChange": true
+      },
+      {
+        "dataset": "guild_admin_private.leadership_revocations",
+        "beforeCount": 0,
+        "afterCount": 1,
+        "authorizedQAOrControlChange": true
+      },
+      {
+        "dataset": "guild_admin_private.multiguild_control",
+        "beforeCount": 1,
+        "afterCount": 1,
+        "authorizedQAOrControlChange": true
+      },
+      {
+        "dataset": "guild_invite_private.link_invites",
+        "beforeCount": 4,
+        "afterCount": 8,
+        "authorizedQAOrControlChange": true
+      },
+      {
+        "dataset": "public.guild_activity_log",
+        "beforeCount": 15,
+        "afterCount": 26,
+        "authorizedQAOrControlChange": true
+      },
+      {
+        "dataset": "public.guild_ebd_history",
+        "beforeCount": 11,
+        "afterCount": 22,
+        "authorizedQAOrControlChange": true
+      },
+      {
+        "dataset": "public.guild_ebd_teachers",
+        "beforeCount": 2,
+        "afterCount": 3,
+        "authorizedQAOrControlChange": true
+      },
+      {
+        "dataset": "public.guild_join_requests",
+        "beforeCount": 6,
+        "afterCount": 9,
+        "authorizedQAOrControlChange": true
+      },
+      {
+        "dataset": "public.guild_lessons",
+        "beforeCount": 2,
+        "afterCount": 5,
+        "authorizedQAOrControlChange": true
+      },
+      {
+        "dataset": "public.guild_members",
+        "beforeCount": 11,
+        "afterCount": 16,
+        "authorizedQAOrControlChange": true
+      },
+      {
+        "dataset": "public.guilds",
+        "beforeCount": 5,
+        "afterCount": 8,
+        "authorizedQAOrControlChange": true
+      }
+    ],
+    "testTravelers": 15,
+    "XPWalletsStatsInventoryEquipmentCardsProgressUnchangedAfterNormalHeroSetup": true,
+    "rlsTables": 49,
+    "tablesWithoutRLS": 0,
+    "tablePolicyAndACLHash": "df3160ccf60d3c70a18cb2f771faf7c6",
+    "tableSecurityHashUnchangedAfterResumption": true,
+    "functionDefinitionsAndACLsReviewed": 153,
+    "functionChanges": [
+      {
+        "signature": "ebd_ops.command(uuid,uuid,text,uuid,integer,jsonb)",
+        "before": "afd0278973e1c0a6235a83d1c8ebcf20",
+        "after": "03780d57b32a22733dd0967807f51503",
+        "aclUnchanged": true
+      },
+      {
+        "signature": "public.guild_scoped_ebd_workspace(uuid,uuid,integer)",
+        "before": "fd60068b2c904e53cce65b3604e1ce20",
+        "after": "370c9e71e6e3b864ffc9ab76998b7c1d",
+        "aclUnchanged": true
+      }
+    ],
+    "functionACLsUnchanged": true,
+    "economicGuard": {
+      "signature": "release_ebd.no_new_rewards()",
+      "hash": "a4375ed58a25f6d22866e7b6e500c00b",
+      "ownerAndACLUnchanged": true
+    },
+    "advisors": {
+      "rlsDenyAllInfo": 25,
+      "legacyPublicDefinerWarnings": 12,
+      "leakedPasswordProtectionWarning": 1,
+      "newFindings": false,
+      "comparisonIgnoresOnlyObservedAtTimestamps": true
+    }
+  },
+  "production": {
+    "url": "https://rpgjovemcristao-web-inky.vercel.app",
+    "deployment": "dpl_8Pi4mXQUCaMcirqq5kLpXZdH9sRk",
+    "sha": "c14fd5e560f6e4930e18a1e493a901dea2ba0ed0",
+    "state": "READY",
+    "target": "production",
+    "officialAliasConfirmed": true,
+    "autoAssignCustomDomains": true,
+    "sso": "all_except_custom_domains",
+    "migrations": 8,
+    "gameDataSetsUnchanged": 38,
+    "data": [
+      {
+        "dataset": "economy_private.battles",
+        "count": 0,
+        "hash": "d41d8cd98f00b204e9800998ecf8427e",
+        "unchanged": true
+      },
+      {
+        "dataset": "economy_private.card_catalog",
+        "count": 0,
+        "hash": "d41d8cd98f00b204e9800998ecf8427e",
+        "unchanged": true
+      },
+      {
+        "dataset": "economy_private.journey_operations",
+        "count": 0,
+        "hash": "d41d8cd98f00b204e9800998ecf8427e",
+        "unchanged": true
+      },
+      {
+        "dataset": "economy_private.journey_rewards",
+        "count": 0,
+        "hash": "d41d8cd98f00b204e9800998ecf8427e",
+        "unchanged": true
+      },
+      {
+        "dataset": "economy_private.journeys",
+        "count": 0,
+        "hash": "d41d8cd98f00b204e9800998ecf8427e",
+        "unchanged": true
+      },
+      {
+        "dataset": "guild_chat_private.rate_limits",
+        "count": 1,
+        "hash": "8cf40e51d01dee78ad0526cca6780e51",
+        "unchanged": true
+      },
+      {
+        "dataset": "guild_invite_private.link_invites",
+        "count": 1,
+        "hash": "1faefa58a3dd95cffb28beaaa065c5c9",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.chest_operations",
+        "count": 37,
+        "hash": "419c47bf4a028129ea4544035d2ffeb2",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.equipped_items",
+        "count": 31,
+        "hash": "224f27fa31efbcd36d02e81fbe05a292",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.guild_activity_log",
+        "count": 10,
+        "hash": "b9fa612c0929e364659e53c6879ee8a3",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.guild_chat_messages",
+        "count": 4,
+        "hash": "b4e565deb761dc4d175798bac520674e",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.guild_chat_moderation_log",
+        "count": 0,
+        "hash": "d41d8cd98f00b204e9800998ecf8427e",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.guild_chat_reads",
+        "count": 0,
+        "hash": "d41d8cd98f00b204e9800998ecf8427e",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.guild_chat_reports",
+        "count": 0,
+        "hash": "d41d8cd98f00b204e9800998ecf8427e",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.guild_ebd_activities",
+        "count": 1,
+        "hash": "04054ad2a1be7c4f1f0bf6ecf44c2c03",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.guild_ebd_answers",
+        "count": 1,
+        "hash": "b45a0a2198173fdda0bcdc78f61963fa",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.guild_ebd_attendance",
+        "count": 1,
+        "hash": "fa4cbf88a4d29b45dd3622caeda3f3c5",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.guild_ebd_history",
+        "count": 5,
+        "hash": "f067e9a781e8952498cba8df01145f40",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.guild_ebd_reward_pending",
+        "count": 0,
+        "hash": "d41d8cd98f00b204e9800998ecf8427e",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.guild_ebd_teachers",
+        "count": 1,
+        "hash": "71e5885fce0ca50b318f95206218b41e",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.guild_invites",
+        "count": 0,
+        "hash": "d41d8cd98f00b204e9800998ecf8427e",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.guild_join_requests",
+        "count": 5,
+        "hash": "1ab6816b87f83e4bdc72fc06d6fdc9f5",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.guild_lessons",
+        "count": 1,
+        "hash": "3664bc27b6981c1291b5f91b3d865c90",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.guild_members",
+        "count": 8,
+        "hash": "921b06260da72803cb94ae12379b7f1f",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.guild_mission_attempts",
+        "count": 0,
+        "hash": "d41d8cd98f00b204e9800998ecf8427e",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.guild_mission_progress",
+        "count": 0,
+        "hash": "d41d8cd98f00b204e9800998ecf8427e",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.guild_missions",
+        "count": 0,
+        "hash": "d41d8cd98f00b204e9800998ecf8427e",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.guild_reward_claims",
+        "count": 0,
+        "hash": "d41d8cd98f00b204e9800998ecf8427e",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.guilds",
+        "count": 3,
+        "hash": "7c1eb8c1b768c2866e8cf3eb007de1f2",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.inventory",
+        "count": 37,
+        "hash": "9adc255124118da074fddf112a565ac5",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.profiles",
+        "count": 11,
+        "hash": "d8efc063fc0bd6e378e6ec48f585ad22",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.story_definitions",
+        "count": 5,
+        "hash": "414c69e783d2e1a016d7f03d8fa37f23",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.story_progress",
+        "count": 0,
+        "hash": "d41d8cd98f00b204e9800998ecf8427e",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.traveler_chests",
+        "count": 8,
+        "hash": "5f0868385b7b6d86fa3cd3fc74d8f526",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.traveler_stats",
+        "count": 24,
+        "hash": "617841fcfe6b59ba7e1cd1b8ea8cb364",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.travelers",
+        "count": 24,
+        "hash": "5c8f386e03d1603612a4dc7f430d91bd",
+        "unchanged": true
+      },
+      {
+        "dataset": "public.wallets",
+        "count": 24,
+        "hash": "bec58057cc799f097303463bc8c96729",
+        "unchanged": true
+      },
+      {
+        "dataset": "story_private.step_receipts",
+        "count": 0,
+        "hash": "d41d8cd98f00b204e9800998ecf8427e",
+        "unchanged": true
+      }
+    ],
+    "accountsGrantsMigrationsDeploysOrMergesCreatedInPROD": false
+  },
+  "remaining": {
+    "testCriticalBlocker": false,
+    "productionPublicationBlocked": true,
+    "productionSpecificMigrationPackageAndRecoveryRequired": true,
+    "productionAdminIdentityNotDesignated": true,
+    "productionBusinessHomologationNotAuthorizedByTESTDesignation": true,
+    "pullRequest19StillDraft": true,
+    "PR12And18Separate": true,
+    "collectionOldAccountHostedPositiveStillPendingUnrelated": true,
+    "authorQAAndSecurity": true,
+    "independentReviewClaimed": false,
+    "paidResourcesCreated": false
+  },
+  "failureProvenance": [
+    "Signup collector first failed before submission because no worktree .env.local; exactly one normal signup was submitted",
+    "Native fetch .ok() collector inspection failed after real confirmation/login; normal password login was repeated and Auth verified",
+    "Initial hero locator timed out before clicking; ordinary flow completed after inspecting the actual form",
+    "Workspace STABLE wrapper failed HTTP405/25006 and was corrected by a separate versioned TEST migration",
+    "Two revision disputes exposed server retry behavior; both aborted rounds preserved, no reset of the committed edits",
+    "Original WebKit timed wall check failed; unchanged isolated engine checks passed with telemetry, no general physics cause or engine fix claimed",
+    "Early EBD screenshots were loading; twelve readiness/layout assertions excluded and replaced by the 45 truly-ready UI checks",
+    "Two editor locator attempts stopped before mutation; exact-label selector did not match populated textarea, a shell accent replacement did not apply; inspected textbox selector fixed collector only",
+    "Admin verification refused the empty tracked form despite an earlier user confirmation; only the subsequently verified normal login was used"
+  ]
+}

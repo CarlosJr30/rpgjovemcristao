@@ -60,7 +60,20 @@ export async function handleGuildInvite(request: Request): Promise<Response> {
   } catch {
     return fail(400);
   }
-  const { action, token, travelerId, inviteId } = input;
+  const { action, token, travelerId, inviteId, guildId, requestId } = input;
+  if (
+    guildId !== undefined &&
+    (typeof guildId !== 'string' ||
+      !INVITE_UUID.test(guildId) ||
+      !['create', 'list', 'revoke'].includes(String(action)))
+  )
+    return fail(400);
+  if (
+    guildId !== undefined &&
+    action === 'create' &&
+    (typeof requestId !== 'string' || !INVITE_UUID.test(requestId))
+  )
+    return fail(400);
   if (
     typeof action !== 'string' ||
     !['preview', 'create', 'list', 'resolve', 'request', 'revoke'].includes(
@@ -69,6 +82,16 @@ export async function handleGuildInvite(request: Request): Promise<Response> {
   )
     return fail(400);
   const preview = action === 'preview';
+  if (guildId !== undefined) {
+    const allowed =
+      action === 'create'
+        ? ['action', 'guildId', 'requestId', 'travelerId']
+        : action === 'revoke'
+          ? ['action', 'guildId', 'inviteId', 'travelerId']
+          : ['action', 'guildId', 'travelerId'];
+    if (Object.keys(input).sort().join(',') !== allowed.sort().join(','))
+      return fail(400);
+  }
   if (
     !preview &&
     (!bearer ||
@@ -115,10 +138,19 @@ export async function handleGuildInvite(request: Request): Promise<Response> {
         return fail(401);
     }
     // Resolve the deployment origin solely from validated server configuration, never Host/forwarded headers.
+    if (
+      action === 'create' &&
+      process.env.VERCEL_ENV === 'preview' &&
+      (!process.env.VERCEL_URL?.endsWith('.vercel.app') ||
+        config.url !== 'https://wkdvdzfkbwvhyjmamrsg.supabase.co')
+    )
+      return fail(503);
     const base =
       action === 'create'
         ? inviteBaseURL(
-            process.env.APP_BASE_URL,
+            process.env.VERCEL_ENV === 'preview'
+              ? `https://${process.env.VERCEL_URL}`
+              : process.env.APP_BASE_URL,
             process.env.NODE_ENV === 'production',
           )
         : null;
@@ -128,13 +160,24 @@ export async function handleGuildInvite(request: Request): Promise<Response> {
           p_token: token as string,
         })
       : action === 'create'
-        ? await client.rpc('create_guild_link_invite', {
-            p_leader_traveler_id: leader,
-          })
-        : action === 'list'
-          ? await client.rpc('list_guild_link_invites', {
+        ? guildId
+          ? await client.rpc('guild_scoped_create_invite', {
+              p_actor: leader,
+              p_guild: guildId as string,
+              p_request: requestId as string,
+            })
+          : await client.rpc('create_guild_link_invite', {
               p_leader_traveler_id: leader,
             })
+        : action === 'list'
+          ? guildId
+            ? await client.rpc('guild_scoped_list_invites', {
+                p_actor: leader,
+                p_guild: guildId as string,
+              })
+            : await client.rpc('list_guild_link_invites', {
+                p_leader_traveler_id: leader,
+              })
           : action === 'resolve'
             ? await client.rpc('resolve_guild_link_invite', {
                 p_token: token as string,
@@ -144,10 +187,16 @@ export async function handleGuildInvite(request: Request): Promise<Response> {
                   p_token: token as string,
                   p_traveler_id: leader,
                 })
-              : await client.rpc('revoke_guild_link_invite', {
-                  p_invite_id: inviteId as string,
-                  p_leader_traveler_id: leader,
-                });
+              : guildId
+                ? await client.rpc('guild_scoped_revoke_invite', {
+                    p_id: inviteId as string,
+                    p_actor: leader,
+                    p_guild: guildId as string,
+                  })
+                : await client.rpc('revoke_guild_link_invite', {
+                    p_invite_id: inviteId as string,
+                    p_leader_traveler_id: leader,
+                  });
     if (result.error)
       return fail(
         result.error.code === '42501'
@@ -179,7 +228,21 @@ export async function handleGuildInvite(request: Request): Promise<Response> {
         id?: unknown;
         token?: unknown;
         expires_at?: unknown;
+        replayed?: unknown;
       } | null;
+      if (
+        guildId &&
+        created?.replayed === true &&
+        created.token === null &&
+        typeof created.id === 'string' &&
+        INVITE_UUID.test(created.id) &&
+        typeof created.expires_at === 'string'
+      )
+        return reply({
+          id: created.id,
+          expires_at: created.expires_at,
+          replayed: true,
+        });
       if (
         !created ||
         typeof created.token !== 'string' ||

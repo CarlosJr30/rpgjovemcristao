@@ -1,0 +1,852 @@
+{
+  "scope": "guild-ebd-001",
+  "source": "read-only PROD metadata preflight 2026-10-29; no player or Auth account data",
+  "functions": [
+    {
+      "acl": [
+        "postgres=X/postgres"
+      ],
+      "owner": "postgres",
+      "signature": "act_guild_mission_v2(uuid,uuid,text,text,uuid,integer)",
+      "definition": "CREATE OR REPLACE FUNCTION public.act_guild_mission_v2(p_actor uuid, p_mission uuid, p_action text, p_note text, p_request uuid, p_expected_attempt integer)\n RETURNS text\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO ''\nAS $function$\nDECLARE m public.guild_missions; p public.guild_mission_progress; a public.guild_mission_attempts; v_attempt integer;\nBEGIN\n SELECT * INTO m FROM public.guild_missions WHERE id=p_mission FOR UPDATE;\n PERFORM guild_ops.actor(p_actor,m.guild_id);\n IF p_request IS NULL OR p_action IS NULL OR p_action NOT IN ('start','submit') OR p_expected_attempt IS NULL OR p_expected_attempt<0 THEN RAISE EXCEPTION 'Invalid action'; END IF;\n IF m.audience='selected' AND NOT p_actor=ANY(m.target_traveler_ids) THEN RAISE EXCEPTION 'Not eligible' USING ERRCODE='42501'; END IF;\n SELECT * INTO p FROM public.guild_mission_progress WHERE mission_id=p_mission AND traveler_id=p_actor FOR UPDATE;\n IF p_action='submit' THEN\n   SELECT * INTO a FROM public.guild_mission_attempts WHERE mission_id=p_mission AND traveler_id=p_actor AND request_id=p_request;\n   IF FOUND THEN IF a.note IS DISTINCT FROM btrim(p_note) THEN RAISE EXCEPTION 'Submission key reused'; END IF; RETURN coalesce(a.decision,'pending_approval'); END IF;\n END IF;\n IF m.status<>'published' OR (m.starts_at IS NOT NULL AND m.starts_at>clock_timestamp()) OR (m.due_at IS NOT NULL AND m.due_at<=clock_timestamp()) THEN RAISE EXCEPTION 'Mission not available'; END IF;\n IF p_action='start' THEN\n   IF p.status='started' THEN RETURN 'started'; END IF;\n   IF p.status IS NOT NULL AND p.status NOT IN ('available','rejected','changes_requested') THEN RAISE EXCEPTION 'Mission already submitted'; END IF;\n   INSERT INTO public.guild_mission_progress(mission_id,traveler_id,status,started_at) VALUES(p_mission,p_actor,'started',clock_timestamp()) ON CONFLICT(mission_id,traveler_id) DO UPDATE SET status='started',started_at=coalesce(public.guild_mission_progress.started_at,clock_timestamp());\n   RETURN 'started';\n END IF;\n IF p.status IS DISTINCT FROM 'started' OR p.submission_revision<>p_expected_attempt OR length(btrim(coalesce(p_note,''))) NOT BETWEEN 1 AND 500 THEN RAISE EXCEPTION 'Submission unavailable or evidence missing'; END IF;\n v_attempt:=p.submission_revision+1;\n INSERT INTO public.guild_mission_attempts(mission_id,traveler_id,revision,request_id,note) VALUES(p_mission,p_actor,v_attempt,p_request,btrim(p_note));\n UPDATE public.guild_mission_progress SET status='pending_approval',completion_note=btrim(p_note),submitted_at=clock_timestamp(),submission_revision=v_attempt,review_note=NULL,approved_at=NULL,approved_by_traveler_id=NULL WHERE id=p.id;\n RETURN 'pending_approval';\nEND $function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres"
+      ],
+      "owner": "postgres",
+      "signature": "add_coins(uuid,integer)",
+      "definition": "CREATE OR REPLACE FUNCTION public.add_coins(p_traveler_id uuid, p_amount integer)\n RETURNS integer\n LANGUAGE plpgsql\n SET search_path TO ''\nAS $function$\r\nDECLARE\r\n  resulting_coins integer;\r\nBEGIN\r\n  IF p_amount <= 0 THEN\r\n    RAISE EXCEPTION 'Amount must be positive' USING ERRCODE = '22023';\r\n  END IF;\r\n\r\n  UPDATE public.wallets\r\n  SET coins = coins + p_amount\r\n  WHERE traveler_id = p_traveler_id\r\n  RETURNING coins INTO resulting_coins;\r\n\r\n  IF resulting_coins IS NULL THEN\r\n    RAISE EXCEPTION 'Wallet not found' USING ERRCODE = 'P0002';\r\n  END IF;\r\n\r\n  RETURN resulting_coins;\r\nEND;\r\n$function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres"
+      ],
+      "owner": "postgres",
+      "signature": "apply_guild_mission_reward(uuid,uuid)",
+      "definition": "CREATE OR REPLACE FUNCTION public.apply_guild_mission_reward(p_mission_id uuid, p_traveler_id uuid)\n RETURNS boolean\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO ''\nAS $function$\r\nDECLARE\r\n  tier text;\r\n  xp_value integer;\r\n  coin_value integer;\r\n  chest_type_value text;\r\n  chest_quantity_value integer := 1;\r\n  previous_xp integer;\r\n  next_xp integer;\r\n  level_bonus integer := 0;\r\nBEGIN\r\n  SELECT reward_tier INTO tier FROM public.guild_missions WHERE id = p_mission_id;\r\n  xp_value := CASE tier WHEN 'normal' THEN 80 WHEN 'great' THEN 240 WHEN 'epic' THEN 480 WHEN 'extraordinary' THEN 720 ELSE NULL END;\r\n  coin_value := CASE tier WHEN 'normal' THEN 25 WHEN 'great' THEN 100 WHEN 'epic' THEN 220 WHEN 'extraordinary' THEN 360 ELSE NULL END;\r\n  chest_type_value := CASE tier WHEN 'normal' THEN 'common' WHEN 'great' THEN 'uncommon' WHEN 'epic' THEN 'rare' WHEN 'extraordinary' THEN 'epic' ELSE NULL END;\r\n  IF xp_value IS NULL OR chest_type_value IS NULL OR chest_quantity_value <> 1 THEN\r\n    RAISE EXCEPTION 'Invalid reward tier' USING ERRCODE = '22023';\r\n  END IF;\r\n\r\n  INSERT INTO public.guild_reward_claims(mission_id, traveler_id, reward_tier, xp_awarded, coins_awarded)\r\n  VALUES (p_mission_id, p_traveler_id, tier, xp_value, coin_value)\r\n  ON CONFLICT (mission_id, traveler_id) DO NOTHING;\r\n  IF NOT FOUND THEN RETURN false; END IF;\r\n\r\n  SELECT xp INTO previous_xp FROM public.travelers WHERE id = p_traveler_id FOR UPDATE;\r\n  next_xp := previous_xp + xp_value;\r\n  IF previous_xp < 200 AND next_xp >= 200 THEN level_bonus := 10; END IF;\r\n  UPDATE public.travelers\r\n  SET xp = next_xp,\r\n      level = LEAST(50, GREATEST(1, floor((1 + sqrt(1 + next_xp::numeric / 25)) / 2)::integer))\r\n  WHERE id = p_traveler_id;\r\n  UPDATE public.wallets SET coins = coins + coin_value + level_bonus WHERE traveler_id = p_traveler_id;\r\n  PERFORM public.grant_traveler_chest(\r\n    p_traveler_id,\r\n    chest_type_value,\r\n    'guild_mission',\r\n    'guild_mission:' || p_mission_id::text || ':' || p_traveler_id::text\r\n  );\r\n  RETURN true;\r\nEND $function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres"
+      ],
+      "owner": "postgres",
+      "signature": "arena_authority_v3(uuid,uuid,text,jsonb)",
+      "definition": "CREATE OR REPLACE FUNCTION public.arena_authority_v3(p_user uuid, p_traveler uuid, p_operation text, p_payload jsonb DEFAULT '{}'::jsonb)\n RETURNS jsonb\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO ''\nAS $function$\nDECLARE t public.travelers%ROWTYPE; b economy_private.battles%ROWTYPE;\n r public.chest_operations%ROWTYPE; c jsonb; version_value text; ids jsonb;\n context_value jsonb; quota integer; won boolean; result_value jsonb; old_xp integer;\nBEGIN\n IF jsonb_typeof(p_payload) IS DISTINCT FROM 'object' THEN RAISE EXCEPTION 'Invalid payload' USING ERRCODE='22023'; END IF;\n -- One lock order for cross-Traveler starter claims, starts, commands and payout.\n PERFORM 1 FROM auth.users WHERE id=p_user AND NOT coalesce(is_anonymous,false) FOR UPDATE;\n IF NOT FOUND THEN RAISE EXCEPTION 'Account denied' USING ERRCODE='42501'; END IF;\n SELECT * INTO t FROM public.travelers WHERE id=p_traveler AND user_id=p_user FOR UPDATE;\n IF NOT FOUND THEN RAISE EXCEPTION 'Ownership denied' USING ERRCODE='42501'; END IF;\n IF p_operation='collection' THEN RETURN economy_private.collection(p_user,t.id); END IF;\n IF p_operation='starter' THEN\n  -- Program identity is stable across catalog revisions and Traveler creation.\n  SELECT * INTO r FROM public.chest_operations WHERE identity_key='arena-starter-v1:'||p_user;\n  IF FOUND THEN RETURN to_jsonb(r); END IF;\n  IF (SELECT count(DISTINCT version) FROM economy_private.card_catalog WHERE starter AND revoked_at IS NULL)<>1 THEN RAISE EXCEPTION 'Approved starter unavailable' USING ERRCODE='42501'; END IF;\n  SELECT min(version) INTO version_value FROM economy_private.card_catalog WHERE starter AND revoked_at IS NULL;\n  SELECT jsonb_agg(id ORDER BY id) INTO ids FROM economy_private.card_catalog WHERE version=version_value AND starter AND revoked_at IS NULL;\n  IF jsonb_array_length(ids) IS DISTINCT FROM 7 OR (SELECT count(DISTINCT definition->>'action') FROM economy_private.card_catalog WHERE version=version_value AND starter AND revoked_at IS NULL)<>7\n  THEN RAISE EXCEPTION 'Approved starter unavailable' USING ERRCODE='42501'; END IF;\n  INSERT INTO public.chest_operations(traveler_id,operation_key,operation_type,source,identity_key,account_id,rewards)\n   VALUES(t.id,'arena-starter-v1','card-starter','approved-starter','arena-starter-v1:'||p_user,p_user,\n   jsonb_build_object('schemaVersion',2,'catalogVersion',version_value,'cardIds',ids)) RETURNING * INTO r;\n  INSERT INTO public.inventory(traveler_id,item_id,quantity,metadata,card_receipt_id,card_version)\n   SELECT t.id,c.id,1,jsonb_build_object('source','approved-starter'),r.id,c.version\n   FROM economy_private.card_catalog c WHERE c.version=version_value AND c.starter AND c.revoked_at IS NULL;\n  RETURN to_jsonb(r);\n END IF;\n IF p_operation='revoke-card' THEN\n  IF length(coalesce(p_payload->>'reason','')) NOT BETWEEN 1 AND 500 OR length(coalesce(p_payload->>'reviewRef','')) NOT BETWEEN 1 AND 160 THEN RAISE EXCEPTION 'Reviewed reason required'; END IF;\n  SELECT * INTO r FROM public.chest_operations WHERE traveler_id=t.id AND operation_key='card-revoke:'||(p_payload->>'cardId');\n  IF FOUND THEN\n   IF r.rewards->>'reviewRef' IS DISTINCT FROM p_payload->>'reviewRef' OR r.rewards->>'reason' IS DISTINCT FROM p_payload->>'reason' THEN RAISE EXCEPTION 'Revocation conflict' USING ERRCODE='40001'; END IF;\n   RETURN to_jsonb(r);\n  END IF;\n  IF NOT EXISTS(SELECT 1 FROM public.inventory WHERE traveler_id=t.id AND item_id=p_payload->>'cardId' AND card_receipt_id IS NOT NULL) THEN RAISE EXCEPTION 'Card missing'; END IF;\n  INSERT INTO public.chest_operations(traveler_id,operation_key,operation_type,source,account_id,rewards)\n   VALUES(t.id,'card-revoke:'||(p_payload->>'cardId'),'card-revocation','reviewed-revocation',p_user,jsonb_build_object('cardId',p_payload->>'cardId','reason',p_payload->>'reason','reviewRef',p_payload->>'reviewRef')) RETURNING * INTO r;\n  UPDATE public.inventory SET card_revoked_at=now(),card_revocation_receipt_id=r.id WHERE traveler_id=t.id AND item_id=p_payload->>'cardId';\n  RETURN to_jsonb(r);\n END IF;\n IF p_operation='context' THEN\n  RETURN economy_private.base_authority(p_user,t.id,'context','{}');\n ELSIF p_operation='purchase' THEN\n  IF t.economic_verified_at IS NULL THEN RAISE EXCEPTION 'Legacy reconciliation required' USING ERRCODE='42501'; END IF;\n  RETURN economy_private.base_authority(p_user,t.id,'purchase',p_payload);\n ELSIF p_operation='start' THEN\n  IF t.economic_verified_at IS NULL THEN RAISE EXCEPTION 'Legacy reconciliation required' USING ERRCODE='42501'; END IF;\n  SELECT * INTO b FROM economy_private.battles WHERE traveler_id=t.id AND request_id=(p_payload->>'requestId')::uuid;\n  IF FOUND THEN\n   IF b.request_digest IS DISTINCT FROM p_payload->>'digest' THEN RAISE EXCEPTION 'Request conflict' USING ERRCODE='40001'; END IF;\n   RETURN to_jsonb(b);\n  END IF;\n  IF p_payload->>'mode' NOT IN ('arena-v3','tower-v3') OR p_payload->>'requestId' IS NULL THEN RAISE EXCEPTION 'Invalid mode'; END IF;\n  c:=economy_private.collection(p_user,t.id); ids:=p_payload->'ids';\n  IF jsonb_typeof(ids) IS DISTINCT FROM 'array' OR jsonb_array_length(ids)<>7 OR (SELECT count(DISTINCT value) FROM jsonb_array_elements(ids))<>7 THEN RAISE EXCEPTION 'Invalid deck' USING ERRCODE='22023'; END IF;\n  IF (SELECT count(*) FROM jsonb_array_elements(c) e WHERE ids ? (e->'card'->>'id'))<>7 THEN RAISE EXCEPTION 'Card ownership denied' USING ERRCODE='42501'; END IF;\n  SELECT min(e->>'version') INTO version_value FROM jsonb_array_elements(c) e WHERE ids ? (e->'card'->>'id');\n  IF EXISTS(SELECT 1 FROM jsonb_array_elements(c) e WHERE ids ? (e->'card'->>'id') AND e->>'version'<>version_value) THEN RAISE EXCEPTION 'Mixed catalog'; END IF;\n  context_value:=economy_private.base_authority(p_user,t.id,'context','{}');\n  IF p_payload->'context' IS DISTINCT FROM context_value THEN RAISE EXCEPTION 'Context changed' USING ERRCODE='40001'; END IF;\n  IF p_payload->>'mode'='tower-v3' THEN\n   SELECT coalesce(max(floor),0)+1 INTO quota FROM economy_private.battles WHERE traveler_id=t.id AND mode='tower-v3'\n    AND tower_version='permanent-v1' AND settled_at IS NOT NULL AND reward->>'outcome'='victory';\n   IF (p_payload->>'floor')::integer IS DISTINCT FROM quota OR quota>7 OR p_payload->>'towerVersion' IS DISTINCT FROM 'permanent-v1' THEN RAISE EXCEPTION 'Tower order denied' USING ERRCODE='42501'; END IF;\n  END IF;\n  INSERT INTO economy_private.battles(traveler_id,seed,player,opponent,mode,context,catalog_version,rules_version,cards,floor,tower_version,request_id,request_digest)\n  VALUES(t.id,('x'||encode(extensions.gen_random_bytes(4),'hex'))::bit(32)::bigint,p_payload->'player',p_payload->'opponent',p_payload->>'mode',context_value,version_value,\n   p_payload->>'rulesVersion',(SELECT jsonb_agg(e->'card' ORDER BY e->'card'->>'id') FROM jsonb_array_elements(c) e WHERE ids ? (e->'card'->>'id')),\n   (p_payload->>'floor')::integer,p_payload->>'towerVersion',(p_payload->>'requestId')::uuid,p_payload->>'digest') RETURNING * INTO b;\n  RETURN to_jsonb(b);\n ELSIF p_operation='latest' THEN\n  SELECT * INTO b FROM economy_private.battles WHERE traveler_id=t.id AND mode=p_payload->>'mode' ORDER BY created_at DESC,id DESC LIMIT 1;\n  RETURN CASE WHEN b.id IS NULL THEN 'null'::jsonb ELSE to_jsonb(b) END;\n ELSIF p_operation IN ('battle','commit') THEN\n  SELECT * INTO b FROM economy_private.battles WHERE traveler_id=t.id AND id=(p_payload->>'battleId')::uuid AND mode IN ('arena-v3','tower-v3') FOR UPDATE;\n  IF NOT FOUND THEN RAISE EXCEPTION 'Battle ownership denied' USING ERRCODE='42501'; END IF;\n  IF p_operation='battle' THEN RETURN to_jsonb(b); END IF;\n  IF b.settled_at IS NOT NULL OR b.revision IS DISTINCT FROM (p_payload->>'revision')::integer OR (p_payload->>'commandId')::uuid=ANY(b.command_ids)\n   THEN RAISE EXCEPTION 'Stale or finished battle' USING ERRCODE='40001'; END IF;\n  IF p_payload->>'commandId' IS NULL OR jsonb_typeof(p_payload->'state') IS DISTINCT FROM 'object' OR p_payload->'state'->>'id' IS DISTINCT FROM b.id::text\n   THEN RAISE EXCEPTION 'Invalid server state'; END IF;\n  IF p_payload->>'rulesVersion' IS DISTINCT FROM b.rules_version THEN RAISE EXCEPTION 'Rules unavailable' USING ERRCODE='40001'; END IF;\n  c:=economy_private.collection(p_user,t.id);\n  IF (SELECT count(*) FROM jsonb_array_elements(c) e WHERE e->>'version'=b.catalog_version AND EXISTS(SELECT 1 FROM jsonb_array_elements(b.cards) selected WHERE selected->>'id'=e->'card'->>'id'))<>7 THEN RAISE EXCEPTION 'Card ownership revoked' USING ERRCODE='42501'; END IF;\n  -- The trusted TypeScript server alone supplies the derived state. CAS commits\n  -- the accepted round, card consumption, result, receipt and credits together.\n  UPDATE economy_private.battles SET state=p_payload->'state',revision=revision+1,\n   command_ids=array_append(command_ids,(p_payload->>'commandId')::uuid),commands=commands||jsonb_build_array(p_payload->'command') WHERE id=b.id RETURNING * INTO b;\n  IF b.state->>'status'='finished' THEN\n   won:=coalesce(b.state->>'winnerId'=t.id::text,false);\n   IF b.mode='arena-v3' THEN\n    SELECT count(*) INTO quota FROM economy_private.battles WHERE traveler_id=t.id AND mode IN ('arena-v3','card','classic')\n      AND opponent->>'id'=b.opponent->>'id' AND settled_at>=date_trunc('day',now() AT TIME ZONE 'UTC') AT TIME ZONE 'UTC' AND reward->>'rewarded'='true';\n    result_value:=jsonb_build_object('xp',CASE WHEN won AND quota<3 THEN 8 ELSE 0 END,'coins',CASE WHEN won AND quota<3 THEN 3 ELSE 0 END,\n     'rewarded',won AND quota<3,'reason',CASE WHEN NOT won THEN 'defeat' WHEN quota>=3 THEN 'daily-limit' ELSE 'victory' END,\n     'outcome',CASE WHEN won THEN 'victory' ELSE 'defeat' END,'status','confirmed',\n     'levelBonusCoins',CASE WHEN won AND quota<3 AND t.xp<200 AND t.xp+8>=200 THEN 10 ELSE 0 END);\n    IF won AND quota<3 THEN\n     old_xp:=t.xp;\n     UPDATE public.travelers SET xp=xp+8,level=least(50,greatest(1,floor((1+sqrt(1+(xp+8)::numeric/25))/2)::integer)) WHERE id=t.id;\n     UPDATE public.wallets SET coins=coins+3+CASE WHEN old_xp<200 AND old_xp+8>=200 THEN 10 ELSE 0 END WHERE traveler_id=t.id;\n     IF NOT FOUND THEN RAISE EXCEPTION 'Wallet missing'; END IF;\n    END IF;\n   ELSE\n    result_value:=jsonb_build_object('xp',0,'coins',0,'rewarded',false,'reason','tower-economy-unapproved','status','blocked',\n     'outcome',CASE WHEN won THEN 'victory' ELSE 'defeat' END,'towerVersion',b.tower_version,'floor',b.floor);\n   END IF;\n   INSERT INTO public.chest_operations(traveler_id,operation_key,operation_type,source,account_id,rewards)\n    VALUES(t.id,'battle:'||b.id,CASE WHEN b.mode='arena-v3' THEN 'arena-result' ELSE 'tower-result' END,'server-battle-v3',p_user,result_value) RETURNING * INTO r;\n   UPDATE economy_private.battles SET settled_at=now(),reward=result_value,receipt_id=r.id WHERE id=b.id RETURNING * INTO b;\n  END IF;\n  RETURN to_jsonb(b);\n ELSIF p_operation='tower' THEN\n  SELECT coalesce(max(floor),0)+1 INTO quota FROM economy_private.battles WHERE traveler_id=t.id AND mode='tower-v3' AND tower_version='permanent-v1' AND reward->>'outcome'='victory' AND settled_at IS NOT NULL;\n  RETURN jsonb_build_object('nextFloor',quota,'version','permanent-v1','rewardStatus','blocked');\n ELSE RAISE EXCEPTION 'Operation denied' USING ERRCODE='42501'; END IF;\nEND $function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres"
+      ],
+      "owner": "postgres",
+      "signature": "can_lead_mission(uuid)",
+      "definition": "CREATE OR REPLACE FUNCTION public.can_lead_mission(p_mission_id uuid)\n RETURNS boolean\n LANGUAGE sql\n STABLE SECURITY DEFINER\n SET search_path TO ''\nAS $function$ SELECT EXISTS (\r\n  SELECT 1 FROM public.guild_missions m\r\n  JOIN public.guild_members gm ON gm.guild_id = m.guild_id\r\n  JOIN public.travelers t ON t.id = gm.traveler_id\r\n  WHERE m.id = p_mission_id AND gm.status = 'active' AND gm.role = 'leader' AND t.user_id = auth.uid()\r\n) $function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres"
+      ],
+      "owner": "postgres",
+      "signature": "claim_chest_reward(uuid,text)",
+      "definition": "CREATE OR REPLACE FUNCTION public.claim_chest_reward(p_traveler_id uuid, p_reward_key text)\n RETURNS boolean\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO ''\nAS $function$\r\nBEGIN\r\n  IF NOT public.owns_traveler(p_traveler_id) THEN RAISE EXCEPTION 'Traveler not owned' USING ERRCODE = '42501'; END IF;\r\n  IF p_reward_key = 'phase:garden-choice' THEN\r\n    RETURN public.grant_traveler_chest(p_traveler_id, 'common', 'phase_completion', p_reward_key);\r\n  END IF;\r\n  RAISE EXCEPTION 'Unknown chest reward' USING ERRCODE = '22023';\r\nEND $function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres"
+      ],
+      "owner": "postgres",
+      "signature": "close_guild_mission(uuid,uuid)",
+      "definition": "CREATE OR REPLACE FUNCTION public.close_guild_mission(p_mission_id uuid, p_leader_traveler_id uuid)\n RETURNS void\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO ''\nAS $function$\r\nBEGIN\r\n  IF NOT public.owns_traveler(p_leader_traveler_id) THEN RAISE EXCEPTION 'Leader not owned' USING ERRCODE = '42501'; END IF;\r\n  UPDATE public.guild_missions m SET status = 'closed', closed_at = now(), updated_at = now()\r\n  WHERE m.id = p_mission_id AND m.status = 'published'\r\n    AND EXISTS (SELECT 1 FROM public.guild_members gm WHERE gm.guild_id = m.guild_id\r\n      AND gm.traveler_id = p_leader_traveler_id AND gm.role = 'leader' AND gm.status = 'active');\r\n  IF NOT FOUND THEN RAISE EXCEPTION 'Mission unavailable' USING ERRCODE = '42501'; END IF;\r\nEND $function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres"
+      ],
+      "owner": "postgres",
+      "signature": "complete_story(uuid,text)",
+      "definition": "CREATE OR REPLACE FUNCTION public.complete_story(p_traveler_id uuid, p_story_id text)\n RETURNS boolean\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO ''\nAS $function$\nDECLARE v_definition public.story_definitions; v_progress public.story_progress; v_steps text[];\nBEGIN\n  -- Identity is the existing Auth account; no leader role or guild membership.\n  PERFORM 1 FROM public.travelers t JOIN auth.users u ON u.id=t.user_id\n    WHERE t.id=p_traveler_id AND t.user_id=auth.uid() AND u.is_anonymous IS FALSE FOR UPDATE OF t;\n  IF NOT FOUND THEN RAISE EXCEPTION 'Story access denied' USING ERRCODE='42501'; END IF;\n  SELECT * INTO v_definition FROM public.story_definitions WHERE id=p_story_id FOR SHARE;\n  IF NOT FOUND THEN RAISE EXCEPTION 'Unknown story'; END IF;\n  SELECT * INTO v_progress FROM public.story_progress WHERE traveler_id=p_traveler_id AND story_id=p_story_id;\n  IF v_progress.completed_at IS NOT NULL THEN RETURN false; END IF;\n  IF NOT (v_definition.content_ready AND v_definition.video_ready AND v_definition.reward_ready) THEN\n    RAISE EXCEPTION 'Story dependencies pending';\n  END IF;\n  IF EXISTS (SELECT 1 FROM public.story_definitions d WHERE d.narrative_order < v_definition.narrative_order\n    AND NOT EXISTS (SELECT 1 FROM public.story_progress p WHERE p.traveler_id=p_traveler_id AND p.story_id=d.id AND p.completed_at IS NOT NULL)) THEN\n    RAISE EXCEPTION 'Previous story incomplete';\n  END IF;\n  SELECT array_agg(step) INTO v_steps FROM story_private.step_receipts\n    WHERE traveler_id=p_traveler_id AND story_id=p_story_id AND revision=v_definition.revision;\n  IF v_steps IS NULL OR NOT (v_steps @> v_definition.required_steps)\n    OR NOT COALESCE(v_progress.video_completed,false) OR v_progress.reward_receipt IS NULL THEN\n    RAISE EXCEPTION 'Story requirements incomplete';\n  END IF;\n  UPDATE public.story_progress SET completed_at=clock_timestamp() WHERE traveler_id=p_traveler_id AND story_id=p_story_id;\n  RETURN true;\nEND $function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres",
+        "authenticated=X/postgres"
+      ],
+      "owner": "postgres",
+      "signature": "create_guild_link_invite(uuid)",
+      "definition": "CREATE OR REPLACE FUNCTION public.create_guild_link_invite(p_leader_traveler_id uuid)\n RETURNS jsonb\n LANGUAGE sql\n SET search_path TO ''\nAS $function$ SELECT guild_invite_private.create_invite(p_leader_traveler_id) $function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres"
+      ],
+      "owner": "postgres",
+      "signature": "create_guild_mission(uuid,text,text,text,text,text,text,text,timestamp with time zone,timestamp with time zone,boolean,jsonb)",
+      "definition": "CREATE OR REPLACE FUNCTION public.create_guild_mission(p_creator_traveler_id uuid, p_title text, p_description text, p_mission_type text, p_bible_reference text, p_bible_url text, p_completion_mode text, p_reward_tier text, p_starts_at timestamp with time zone, p_due_at timestamp with time zone, p_publish boolean DEFAULT false, p_metadata jsonb DEFAULT NULL::jsonb)\n RETURNS uuid\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO ''\nAS $function$\r\nDECLARE creator_guild_id uuid; new_mission_id uuid;\r\nBEGIN\r\n  IF NOT public.owns_traveler(p_creator_traveler_id) THEN RAISE EXCEPTION 'Creator not owned' USING ERRCODE = '42501'; END IF;\r\n  SELECT guild_id INTO creator_guild_id FROM public.guild_members WHERE traveler_id = p_creator_traveler_id AND role = 'leader' AND status = 'active';\r\n  IF creator_guild_id IS NULL THEN RAISE EXCEPTION 'Leader role required' USING ERRCODE = '42501'; END IF;\r\n  IF p_mission_type NOT IN ('bible_reading','lesson','quiz','practical_activity','individual_challenge','collective_challenge','special_mission','journey_gate') OR p_completion_mode NOT IN ('self_complete','leader_approval') OR p_reward_tier NOT IN ('normal','great','epic','extraordinary') THEN RAISE EXCEPTION 'Invalid mission domain value' USING ERRCODE = '22023'; END IF;\r\n  INSERT INTO public.guild_missions(guild_id, created_by_traveler_id, title, description, mission_type, bible_reference, bible_url, completion_mode, requires_leader_approval, reward_tier, status, starts_at, due_at, metadata, published_at)\r\n  VALUES (creator_guild_id, p_creator_traveler_id, btrim(p_title), nullif(btrim(coalesce(p_description,'')),''), p_mission_type, nullif(btrim(coalesce(p_bible_reference,'')),''), nullif(btrim(coalesce(p_bible_url,'')),''), p_completion_mode, p_completion_mode = 'leader_approval', p_reward_tier, CASE WHEN p_publish THEN 'published' ELSE 'draft' END, p_starts_at, p_due_at, p_metadata, CASE WHEN p_publish THEN now() ELSE NULL END)\r\n  RETURNING id INTO new_mission_id;\r\n  RETURN new_mission_id;\r\nEND $function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres",
+        "authenticated=X/postgres"
+      ],
+      "owner": "postgres",
+      "signature": "create_guild(uuid,text,text)",
+      "definition": "CREATE OR REPLACE FUNCTION public.create_guild(p_leader_traveler_id uuid, p_name text, p_description text DEFAULT NULL::text)\n RETURNS uuid\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO ''\nAS $function$\r\nDECLARE new_guild_id uuid;\r\nBEGIN\r\n  IF NOT public.owns_traveler(p_leader_traveler_id) THEN RAISE EXCEPTION 'Traveler not owned' USING ERRCODE = '42501'; END IF;\r\n  IF char_length(btrim(p_name)) NOT BETWEEN 2 AND 60 OR char_length(coalesce(p_description, '')) > 500 THEN RAISE EXCEPTION 'Invalid guild data' USING ERRCODE = '22023'; END IF;\r\n  IF EXISTS (SELECT 1 FROM public.guild_members WHERE traveler_id = p_leader_traveler_id AND status = 'active') THEN RAISE EXCEPTION 'Traveler already belongs to a guild' USING ERRCODE = '23505'; END IF;\r\n  INSERT INTO public.guilds(name, description, created_by_user_id, leader_traveler_id)\r\n  VALUES (btrim(p_name), nullif(btrim(coalesce(p_description, '')), ''), auth.uid(), p_leader_traveler_id) RETURNING id INTO new_guild_id;\r\n  INSERT INTO public.guild_members(guild_id, traveler_id, role, status) VALUES (new_guild_id, p_leader_traveler_id, 'leader', 'active');\r\n  RETURN new_guild_id;\r\nEND $function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres",
+        "authenticated=X/postgres"
+      ],
+      "owner": "postgres",
+      "signature": "create_traveler(uuid,text,text,text,text,text,text)",
+      "definition": "CREATE OR REPLACE FUNCTION public.create_traveler(p_id uuid, p_name text, p_body_type text, p_skin_tone text, p_hair_style text, p_hair_color text, p_avatar_variant text)\n RETURNS uuid\n LANGUAGE sql\n SET search_path TO ''\nAS $function$\n  SELECT economy_private.create_traveler(p_id,p_name,p_body_type,p_skin_tone,p_hair_style,p_hair_color,p_avatar_variant)\n$function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres"
+      ],
+      "owner": "postgres",
+      "signature": "delete_guild_mission_draft(uuid,uuid)",
+      "definition": "CREATE OR REPLACE FUNCTION public.delete_guild_mission_draft(p_mission_id uuid, p_leader_traveler_id uuid)\n RETURNS void\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO ''\nAS $function$\r\nBEGIN\r\n  IF NOT public.owns_traveler(p_leader_traveler_id) THEN RAISE EXCEPTION 'Leader not owned' USING ERRCODE = '42501'; END IF;\r\n  UPDATE public.guild_missions m SET status = 'cancelled', updated_at = now()\r\n  WHERE m.id = p_mission_id AND m.status = 'draft'\r\n    AND NOT EXISTS (SELECT 1 FROM public.guild_mission_progress p WHERE p.mission_id = m.id)\r\n    AND EXISTS (SELECT 1 FROM public.guild_members gm WHERE gm.guild_id = m.guild_id\r\n      AND gm.traveler_id = p_leader_traveler_id AND gm.role = 'leader' AND gm.status = 'active');\r\n  IF NOT FOUND THEN RAISE EXCEPTION 'Draft unavailable' USING ERRCODE = '42501'; END IF;\r\nEND $function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres",
+        "authenticated=X/postgres"
+      ],
+      "owner": "postgres",
+      "signature": "ebd_ops.command(uuid,text,uuid,integer,jsonb)",
+      "definition": "CREATE OR REPLACE FUNCTION ebd_ops.command(p_actor uuid, p_action text, p_id uuid, p_revision integer, p_data jsonb)\n RETURNS jsonb\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO ''\nAS $function$\nDECLARE v_guild uuid; v_role text; l public.guild_lessons; a public.guild_ebd_activities;\n ans public.guild_ebd_answers; att public.guild_ebd_attendance; et public.guild_ebd_teachers;\n v_teacher uuid; v_target uuid; v_targets uuid[]; v_state text; v_revision integer; v_count integer;\n v_item jsonb; v_options jsonb; v_key integer; v_choice integer; v_snapshot jsonb;\nBEGIN\n IF p_actor IS NULL OR p_id IS NULL OR p_action IS NULL OR p_revision IS NULL OR p_revision<0\n OR p_data IS NULL OR jsonb_typeof(p_data)<>'object' OR length(p_data::text)>60000 THEN RAISE EXCEPTION 'Invalid EBD request'; END IF;\n SELECT guild_id INTO v_guild FROM public.guild_members WHERE traveler_id=p_actor AND status='active';\n PERFORM pg_catalog.pg_advisory_xact_lock(pg_catalog.hashtextextended(v_guild::text,83));\n v_role:=guild_ops.actor(p_actor,v_guild);\n -- Serialize EBD commands per Guilda, including grant revocations/member eligibility.\n PERFORM 1 FROM public.guilds WHERE id=v_guild FOR UPDATE;\n IF p_action='teacher' THEN\n  PERFORM guild_ops.actor(p_actor,v_guild,true);\n  PERFORM 1 FROM public.guild_members WHERE guild_id=v_guild AND traveler_id=p_id AND status='active' AND role<>'leader' FOR SHARE;\n  IF NOT FOUND OR jsonb_typeof(p_data->'active') IS DISTINCT FROM 'boolean'\n   OR jsonb_typeof(p_data->'publish') IS DISTINCT FROM 'boolean' OR jsonb_typeof(p_data->'attend') IS DISTINCT FROM 'boolean' THEN RAISE EXCEPTION 'Teacher unavailable'; END IF;\n  SELECT * INTO et FROM public.guild_ebd_teachers WHERE guild_id=v_guild AND traveler_id=p_id FOR UPDATE;\n  IF coalesce(et.revision,0)<>p_revision THEN RAISE EXCEPTION 'EBD conflict' USING ERRCODE='40001'; END IF;\n  INSERT INTO public.guild_ebd_teachers VALUES(v_guild,p_id,(p_data->>'active')::boolean,(p_data->>'publish')::boolean,(p_data->>'attend')::boolean,p_revision+1,clock_timestamp())\n   ON CONFLICT(guild_id,traveler_id) DO UPDATE SET active=excluded.active,can_publish=excluded.can_publish,can_attend=excluded.can_attend,revision=excluded.revision,updated_at=excluded.updated_at;\n  INSERT INTO public.guild_ebd_history(guild_id,actor_id,action,entity_id,revision,snapshot) VALUES(v_guild,p_actor,'teacher',p_id,p_revision+1,p_data);\n  RETURN jsonb_build_object('id',p_id,'revision',p_revision+1);\n ELSIF p_action='lesson' THEN\n  v_teacher:=(p_data->>'teacherId')::uuid;\n  IF v_role<>'leader' AND (v_teacher IS DISTINCT FROM p_actor OR NOT EXISTS(SELECT 1 FROM public.guild_ebd_teachers WHERE guild_id=v_guild AND traveler_id=p_actor AND active)) THEN RAISE EXCEPTION 'EBD access denied' USING ERRCODE='42501'; END IF;\n  IF NOT EXISTS(SELECT 1 FROM public.guild_members gm JOIN public.guilds g ON g.id=gm.guild_id\n   LEFT JOIN public.guild_ebd_teachers t ON t.guild_id=gm.guild_id AND t.traveler_id=gm.traveler_id\n   WHERE gm.guild_id=v_guild AND gm.traveler_id=v_teacher AND gm.status='active' AND ((gm.role='leader' AND g.leader_traveler_id=v_teacher) OR t.active)) THEN RAISE EXCEPTION 'Teacher unavailable'; END IF;\n  IF jsonb_typeof(p_data->'targetIds') IS DISTINCT FROM 'array' OR jsonb_array_length(p_data->'targetIds')>100\n   OR jsonb_typeof(p_data->'materials') IS DISTINCT FROM 'array' OR jsonb_array_length(p_data->'materials')>20\n   OR coalesce(p_data->>'audience','') NOT IN ('all','selected')\n   OR length(btrim(coalesce(p_data->>'title',''))) NOT BETWEEN 2 AND 100\n   OR length(btrim(coalesce(p_data->>'theme',''))) NOT BETWEEN 2 AND 100\n   OR length(coalesce(p_data->>'description',''))>2000 OR length(coalesce(p_data->>'content',''))>10000\n   OR length(coalesce(p_data->>'reference',''))>100 OR length(coalesce(p_data->>'objectives',''))>2000\n   OR coalesce(p_data->>'rewardTier','') NOT IN ('','normal','great','epic','extraordinary') THEN RAISE EXCEPTION 'Invalid lesson'; END IF;\n  SELECT coalesce(array_agg(value::uuid),'{}') INTO v_targets FROM jsonb_array_elements_text(p_data->'targetIds');\n  IF (p_data->>'audience'='selected' AND cardinality(v_targets)=0) OR (p_data->>'audience'='all' AND cardinality(v_targets)>0)\n   OR EXISTS(SELECT 1 FROM unnest(v_targets) t WHERE NOT EXISTS(SELECT 1 FROM public.guild_members WHERE guild_id=v_guild AND traveler_id=t AND status='active')) THEN RAISE EXCEPTION 'Audience unavailable'; END IF;\n  FOR v_item IN SELECT value FROM jsonb_array_elements(p_data->'materials') LOOP\n   IF jsonb_typeof(v_item) IS DISTINCT FROM 'object' OR coalesce(v_item->>'kind','') NOT IN ('link','image','pdf','text','reference')\n    OR length(btrim(coalesce(v_item->>'title',''))) NOT BETWEEN 1 AND 100 OR length(btrim(coalesce(v_item->>'value',''))) NOT BETWEEN 1 AND 2000 THEN RAISE EXCEPTION 'Invalid material'; END IF;\n   -- References only: never fetch/embed remote files or render HTML; no credentials/ports/local hosts.\n   IF v_item->>'kind' IN ('link','image','pdf') AND\n    (length(v_item->>'value')>500 OR (v_item->>'value') !~ '^https://[A-Za-z0-9]([A-Za-z0-9-]*[A-Za-z0-9])?(\\.[A-Za-z0-9]([A-Za-z0-9-]*[A-Za-z0-9])?)*\\.[A-Za-z]{2,}(/[A-Za-z0-9/._~!$&()*+,;=:@%?#-]*)?$'\n     OR (v_item->>'value') ~* '^https://([^/]*\\.)?(localhost|local|internal|invalid|test|example)(/|$)' OR (v_item->>'value') ~* '^https://[^/]*\\.(local|internal|invalid|test|example)(/|$)') THEN RAISE EXCEPTION 'Unsafe material URL'; END IF;\n  END LOOP;\n  SELECT * INTO l FROM public.guild_lessons WHERE id=p_id FOR UPDATE;\n  IF FOUND THEN\n   IF l.guild_id<>v_guild OR NOT ebd_ops.manager(p_actor,p_id) THEN RAISE EXCEPTION 'EBD access denied' USING ERRCODE='42501'; END IF;\n   IF p_revision=0 AND l.creation_hash=md5(p_data::text) THEN RETURN jsonb_build_object('id',p_id,'revision',l.ebd_revision); END IF;\n   IF l.status<>'draft' OR l.ebd_revision<>p_revision THEN RAISE EXCEPTION 'EBD conflict' USING ERRCODE='40001'; END IF;\n   UPDATE public.guild_lessons SET title=btrim(p_data->>'title'),theme=btrim(p_data->>'theme'),introduction=coalesce(p_data->>'description',''),content=coalesce(p_data->>'content',''),bible_reference=coalesce(p_data->>'reference',''),scheduled_at=nullif(p_data->>'scheduledAt','')::timestamptz,teacher_id=v_teacher,audience=p_data->>'audience',target_ids=v_targets,materials=p_data->'materials',objectives=coalesce(p_data->>'objectives',''),reward_tier=nullif(p_data->>'rewardTier',''),ebd_revision=ebd_revision+1 WHERE id=p_id;\n  ELSE\n   IF p_revision<>0 THEN RAISE EXCEPTION 'EBD conflict' USING ERRCODE='40001'; END IF;\n   INSERT INTO public.guild_lessons(id,guild_id,created_by_traveler_id,teacher_id,title,theme,introduction,content,bible_reference,scheduled_at,audience,target_ids,materials,objectives,reward_tier,creation_hash)\n    VALUES(p_id,v_guild,p_actor,v_teacher,btrim(p_data->>'title'),btrim(p_data->>'theme'),coalesce(p_data->>'description',''),coalesce(p_data->>'content',''),coalesce(p_data->>'reference',''),nullif(p_data->>'scheduledAt','')::timestamptz,p_data->>'audience',v_targets,p_data->'materials',coalesce(p_data->>'objectives',''),nullif(p_data->>'rewardTier',''),md5(p_data::text));\n  END IF;\n  SELECT to_jsonb(x),x.ebd_revision INTO v_snapshot,v_revision FROM public.guild_lessons x WHERE id=p_id;\n  INSERT INTO public.guild_ebd_history(guild_id,lesson_id,actor_id,action,entity_id,revision,snapshot) VALUES(v_guild,p_id,p_actor,'lesson_saved',p_id,v_revision,v_snapshot);\n ELSIF p_action='state' THEN\n  SELECT * INTO l FROM public.guild_lessons WHERE id=p_id FOR UPDATE;\n  IF l.guild_id IS DISTINCT FROM v_guild OR NOT ebd_ops.manager(p_actor,p_id,'publish') THEN RAISE EXCEPTION 'EBD access denied' USING ERRCODE='42501'; END IF;\n  v_state:=p_data->>'state';\n  IF l.ebd_revision<>p_revision THEN RAISE EXCEPTION 'EBD conflict' USING ERRCODE='40001'; END IF;\n  IF v_state IS NULL OR NOT ((l.status='draft' AND v_state IN ('scheduled','published','archived')) OR (l.status='scheduled' AND v_state IN ('draft','published','archived')) OR (l.status='published' AND v_state='closed') OR (l.status IN ('closed','completed','cancelled') AND v_state='archived')) THEN RAISE EXCEPTION 'Invalid EBD state'; END IF;\n  IF v_state IN ('scheduled','published') AND (length(btrim(l.content))=0 OR l.scheduled_at IS NULL) THEN RAISE EXCEPTION 'Lesson needs content and date'; END IF;\n  UPDATE public.guild_lessons SET status=v_state,ebd_revision=ebd_revision+1,published_at=CASE WHEN v_state='published' THEN clock_timestamp() ELSE published_at END,completed_at=CASE WHEN v_state='closed' THEN clock_timestamp() ELSE completed_at END WHERE id=p_id;\n  SELECT to_jsonb(x),x.ebd_revision INTO v_snapshot,v_revision FROM public.guild_lessons x WHERE id=p_id;\n  INSERT INTO public.guild_ebd_history(guild_id,lesson_id,actor_id,action,entity_id,revision,snapshot) VALUES(v_guild,p_id,p_actor,'state',p_id,v_revision,v_snapshot);\n ELSIF p_action='activity' THEN\n  SELECT * INTO l FROM public.guild_lessons WHERE id=(p_data->>'lessonId')::uuid FOR UPDATE;\n  IF l.guild_id IS DISTINCT FROM v_guild OR NOT ebd_ops.manager(p_actor,l.id) OR l.status<>'draft' THEN RAISE EXCEPTION 'EBD access denied' USING ERRCODE='42501'; END IF;\n  IF jsonb_typeof(p_data->'options') IS DISTINCT FROM 'array' OR jsonb_array_length(p_data->'options')>6\n   OR coalesce(p_data->>'kind','') NOT IN ('choice','open','reflective','in_person','homework')\n   OR coalesce(p_data->>'criterion','') NOT IN ('participation','correct','manual') THEN RAISE EXCEPTION 'Invalid activity'; END IF;\n  v_options:=p_data->'options'; v_key:=nullif(p_data->>'answerKey','')::integer;\n  IF EXISTS(SELECT 1 FROM jsonb_array_elements(v_options) x WHERE jsonb_typeof(x)<>'string' OR length(btrim(x#>>'{}')) NOT BETWEEN 1 AND 300)\n   OR (p_data->>'kind'='choice' AND p_data->>'criterion'='manual') THEN RAISE EXCEPTION 'Invalid choices'; END IF;\n  SELECT * INTO a FROM public.guild_ebd_activities WHERE id=p_id FOR UPDATE;\n  IF FOUND THEN\n   IF a.lesson_id<>l.id THEN RAISE EXCEPTION 'EBD access denied'; END IF;\n   IF p_revision=0 AND a.creation_hash=md5(p_data::text) THEN RETURN jsonb_build_object('id',p_id,'revision',a.revision); END IF;\n   IF a.revision<>p_revision THEN RAISE EXCEPTION 'EBD conflict' USING ERRCODE='40001'; END IF;\n   UPDATE public.guild_ebd_activities SET title=btrim(p_data->>'title'),kind=p_data->>'kind',prompt=p_data->>'prompt',options=v_options,answer_key=v_key,deadline=nullif(p_data->>'deadline','')::timestamptz,attempt_limit=(p_data->>'attemptLimit')::integer,criterion=p_data->>'criterion',revision=revision+1 WHERE id=p_id;\n  ELSE\n   IF p_revision<>0 THEN RAISE EXCEPTION 'EBD conflict' USING ERRCODE='40001'; END IF;\n   IF (SELECT count(*) FROM public.guild_ebd_activities WHERE lesson_id=l.id)>=20 THEN RAISE EXCEPTION 'Activity limit reached'; END IF;\n   INSERT INTO public.guild_ebd_activities(id,lesson_id,title,kind,prompt,options,answer_key,deadline,attempt_limit,criterion,creation_hash)\n    VALUES(p_id,l.id,btrim(p_data->>'title'),p_data->>'kind',p_data->>'prompt',v_options,v_key,nullif(p_data->>'deadline','')::timestamptz,(p_data->>'attemptLimit')::integer,p_data->>'criterion',md5(p_data::text));\n  END IF;\n  SELECT to_jsonb(x),x.revision INTO v_snapshot,v_revision FROM public.guild_ebd_activities x WHERE id=p_id;\n  INSERT INTO public.guild_ebd_history(guild_id,lesson_id,actor_id,action,entity_id,revision,snapshot) VALUES(v_guild,l.id,p_actor,'activity_saved',p_id,v_revision,v_snapshot);\n ELSIF p_action='submit' THEN\n  SELECT * INTO a FROM public.guild_ebd_activities WHERE id=(p_data->>'activityId')::uuid FOR UPDATE;\n  SELECT * INTO l FROM public.guild_lessons WHERE id=a.lesson_id;\n  IF l.guild_id IS DISTINCT FROM v_guild OR NOT ebd_ops.eligible(p_actor,l.id) THEN RAISE EXCEPTION 'EBD access denied' USING ERRCODE='42501'; END IF;\n  v_choice:=nullif(p_data->>'choice','')::integer;\n  SELECT * INTO ans FROM public.guild_ebd_answers WHERE id=p_id;\n  IF FOUND THEN\n   IF ans.traveler_id=p_actor AND ans.activity_id=a.id AND ans.response=btrim(p_data->>'response') AND ans.choice IS NOT DISTINCT FROM v_choice THEN RETURN jsonb_build_object('id',p_id,'revision',ans.revision); END IF;\n   RAISE EXCEPTION 'Submission key conflict';\n  END IF;\n  IF l.status<>'published' OR (a.deadline IS NOT NULL AND a.deadline<=clock_timestamp()) THEN RAISE EXCEPTION 'Activity closed'; END IF;\n  SELECT count(*) INTO v_count FROM public.guild_ebd_answers WHERE activity_id=a.id AND traveler_id=p_actor;\n  IF v_count<>p_revision OR v_count>=a.attempt_limit OR EXISTS(SELECT 1 FROM public.guild_ebd_answers WHERE activity_id=a.id AND traveler_id=p_actor AND status IN ('completed','pending')) THEN RAISE EXCEPTION 'Attempt unavailable'; END IF;\n  IF (a.kind='choice' AND (v_choice IS NULL OR v_choice<0 OR v_choice>=jsonb_array_length(a.options))) OR (a.kind<>'choice' AND v_choice IS NOT NULL) THEN RAISE EXCEPTION 'Invalid answer'; END IF;\n  v_state:=CASE WHEN a.kind<>'choice' THEN 'pending' WHEN a.criterion='participation' OR v_choice=a.answer_key THEN 'completed' ELSE 'revise' END;\n  INSERT INTO public.guild_ebd_answers(id,activity_id,traveler_id,attempt,response,choice,status,evaluated_at)\n   VALUES(p_id,a.id,p_actor,v_count+1,btrim(p_data->>'response'),v_choice,v_state,CASE WHEN a.kind='choice' THEN clock_timestamp() END);\n  v_revision:=1;\n ELSIF p_action='grade' THEN\n  SELECT * INTO ans FROM public.guild_ebd_answers WHERE id=p_id FOR UPDATE;\n  SELECT * INTO a FROM public.guild_ebd_activities WHERE id=ans.activity_id;\n  SELECT * INTO l FROM public.guild_lessons WHERE id=a.lesson_id;\n  IF l.guild_id IS DISTINCT FROM v_guild OR NOT ebd_ops.manager(p_actor,l.id) OR EXISTS(SELECT 1 FROM public.travelers WHERE id=ans.traveler_id AND user_id=auth.uid()) THEN RAISE EXCEPTION 'EBD access denied' USING ERRCODE='42501'; END IF;\n  IF ans.revision<>p_revision THEN RAISE EXCEPTION 'EBD conflict' USING ERRCODE='40001'; END IF;\n  IF ans.status<>'pending' OR coalesce(p_data->>'status','') NOT IN ('completed','revise') THEN RAISE EXCEPTION 'Answer already evaluated'; END IF;\n  UPDATE public.guild_ebd_answers SET status=p_data->>'status',feedback=coalesce(p_data->>'feedback',''),reviewer_id=p_actor,evaluated_at=clock_timestamp(),revision=revision+1 WHERE id=p_id;\n  SELECT to_jsonb(x),x.revision INTO v_snapshot,v_revision FROM public.guild_ebd_answers x WHERE id=p_id;\n  INSERT INTO public.guild_ebd_history(guild_id,lesson_id,actor_id,action,entity_id,revision,snapshot) VALUES(v_guild,l.id,p_actor,'grade',p_id,v_revision,v_snapshot);\n ELSIF p_action='attendance' THEN\n  SELECT * INTO l FROM public.guild_lessons WHERE id=p_id FOR UPDATE;\n  v_target:=(p_data->>'travelerId')::uuid;\n  IF l.guild_id IS DISTINCT FROM v_guild OR NOT ebd_ops.manager(p_actor,p_id,'attend') OR l.status NOT IN ('published','closed','completed') THEN RAISE EXCEPTION 'EBD access denied' USING ERRCODE='42501'; END IF;\n  PERFORM 1 FROM public.guild_members WHERE guild_id=v_guild AND traveler_id=v_target AND status='active' FOR SHARE;\n  IF NOT FOUND OR (l.audience='selected' AND NOT v_target=ANY(l.target_ids)) THEN RAISE EXCEPTION 'Student unavailable'; END IF;\n  SELECT * INTO att FROM public.guild_ebd_attendance WHERE lesson_id=p_id AND traveler_id=v_target FOR UPDATE;\n  IF coalesce(att.revision,0)<>p_revision THEN RAISE EXCEPTION 'EBD conflict' USING ERRCODE='40001'; END IF;\n  INSERT INTO public.guild_ebd_attendance VALUES(p_id,v_target,p_data->>'status',coalesce(p_data->>'reason',''),p_revision+1,p_actor,clock_timestamp())\n   ON CONFLICT(lesson_id,traveler_id) DO UPDATE SET status=excluded.status,reason=excluded.reason,revision=excluded.revision,marked_by=excluded.marked_by,updated_at=excluded.updated_at;\n  SELECT to_jsonb(x) INTO v_snapshot FROM public.guild_ebd_attendance x WHERE lesson_id=p_id AND traveler_id=v_target;\n  v_revision:=p_revision+1;\n  INSERT INTO public.guild_ebd_history(guild_id,lesson_id,actor_id,action,entity_id,revision,snapshot) VALUES(v_guild,p_id,p_actor,'attendance',v_target,v_revision,jsonb_build_object('before',to_jsonb(att),'after',v_snapshot));\n ELSE RAISE EXCEPTION 'Unknown EBD action'; END IF;\n IF p_action IN ('submit','grade') THEN\n  INSERT INTO public.guild_ebd_reward_pending(lesson_id,traveler_id,activity_id,answer_id,tier,criterion)\n   SELECT l.id,x.traveler_id,a.id,x.id,l.reward_tier,a.criterion FROM public.guild_ebd_answers x\n   WHERE x.id=p_id AND x.status='completed' AND l.reward_tier IS NOT NULL ON CONFLICT(lesson_id,traveler_id) DO NOTHING;\n END IF;\n RETURN jsonb_build_object('id',p_id,'revision',v_revision);\nEND $function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres"
+      ],
+      "owner": "postgres",
+      "signature": "ebd_ops.eligible(uuid,uuid)",
+      "definition": "CREATE OR REPLACE FUNCTION ebd_ops.eligible(p_actor uuid, p_lesson uuid)\n RETURNS boolean\n LANGUAGE sql\n STABLE SECURITY DEFINER\n SET search_path TO ''\nAS $function$\n SELECT EXISTS(SELECT 1 FROM public.guild_lessons l JOIN public.guild_members gm ON gm.guild_id=l.guild_id\n JOIN public.guilds g ON g.id=gm.guild_id JOIN public.travelers t ON t.id=gm.traveler_id JOIN auth.users u ON u.id=t.user_id\n WHERE l.id=p_lesson AND gm.traveler_id=p_actor AND gm.status='active' AND g.status='active'\n AND t.user_id=auth.uid() AND u.is_anonymous IS FALSE AND l.status IN ('published','closed','completed')\n AND (l.audience='all' OR p_actor=ANY(l.target_ids)))\n$function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres"
+      ],
+      "owner": "postgres",
+      "signature": "ebd_ops.manager(uuid,uuid,text)",
+      "definition": "CREATE OR REPLACE FUNCTION ebd_ops.manager(p_actor uuid, p_lesson uuid, p_permission text DEFAULT 'edit'::text)\n RETURNS boolean\n LANGUAGE sql\n STABLE SECURITY DEFINER\n SET search_path TO ''\nAS $function$\n SELECT EXISTS(SELECT 1 FROM public.guild_lessons l JOIN public.guild_members gm ON gm.guild_id=l.guild_id AND gm.traveler_id=p_actor\n JOIN public.guilds g ON g.id=gm.guild_id JOIN public.travelers t ON t.id=gm.traveler_id JOIN auth.users u ON u.id=t.user_id\n LEFT JOIN public.guild_ebd_teachers et ON et.guild_id=l.guild_id AND et.traveler_id=p_actor\n WHERE l.id=p_lesson AND gm.status='active' AND g.status='active' AND t.user_id=auth.uid() AND u.is_anonymous IS FALSE\n AND ((gm.role='leader' AND g.leader_traveler_id=p_actor) OR\n (l.teacher_id=p_actor AND et.active AND CASE p_permission WHEN 'publish' THEN et.can_publish WHEN 'attend' THEN et.can_attend ELSE true END)))\n$function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres",
+        "authenticated=X/postgres"
+      ],
+      "owner": "postgres",
+      "signature": "ebd_ops.visible(uuid)",
+      "definition": "CREATE OR REPLACE FUNCTION ebd_ops.visible(p_lesson uuid)\n RETURNS boolean\n LANGUAGE sql\n STABLE SECURITY DEFINER\n SET search_path TO ''\nAS $function$\n SELECT EXISTS(SELECT 1 FROM public.travelers t WHERE t.user_id=auth.uid()\n AND (ebd_ops.manager(t.id,p_lesson) OR ebd_ops.eligible(t.id,p_lesson)))\n$function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres",
+        "authenticated=X/postgres"
+      ],
+      "owner": "postgres",
+      "signature": "ebd_ops.workspace(uuid,integer)",
+      "definition": "CREATE OR REPLACE FUNCTION ebd_ops.workspace(p_actor uuid, p_offset integer)\n RETURNS jsonb\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO ''\nAS $function$\nDECLARE g uuid; r text; ids uuid[]; total integer; teacher boolean;\nBEGIN\n IF p_offset IS NULL OR p_offset<0 OR p_offset>100000 THEN RAISE EXCEPTION 'Invalid EBD page'; END IF;\n SELECT guild_id INTO g FROM public.guild_members WHERE traveler_id=p_actor AND status='active';\n r:=guild_ops.actor(p_actor,g);\n teacher:=r='leader' OR EXISTS(SELECT 1 FROM public.guild_ebd_teachers WHERE guild_id=g AND traveler_id=p_actor AND active);\n SELECT count(*) INTO total FROM public.guild_lessons l WHERE guild_id=g AND (ebd_ops.manager(p_actor,l.id) OR ebd_ops.eligible(p_actor,l.id));\n SELECT coalesce(array_agg(id),'{}') INTO ids FROM (SELECT id FROM public.guild_lessons l WHERE guild_id=g AND (ebd_ops.manager(p_actor,l.id) OR ebd_ops.eligible(p_actor,l.id)) ORDER BY created_at DESC,id LIMIT 20 OFFSET p_offset) page;\n RETURN jsonb_build_object('version',1,'guildId',g,'leader',r='leader','teacher',teacher,'total',total,\n  'lessons',coalesce((SELECT jsonb_agg(to_jsonb(l)||jsonb_build_object('canEdit',ebd_ops.manager(p_actor,l.id),'canPublish',ebd_ops.manager(p_actor,l.id,'publish'),'canAttend',ebd_ops.manager(p_actor,l.id,'attend')) ORDER BY created_at DESC,id) FROM public.guild_lessons l WHERE id=ANY(ids)),'[]'::jsonb),\n  'activities',coalesce((SELECT jsonb_agg((to_jsonb(a)-'answer_key'-'creation_hash')||CASE WHEN ebd_ops.manager(p_actor,a.lesson_id) OR EXISTS(SELECT 1 FROM public.guild_ebd_answers x WHERE x.activity_id=a.id AND x.traveler_id=p_actor AND (x.status='completed' OR (x.status='revise' AND x.attempt>=a.attempt_limit))) THEN jsonb_build_object('answer_key',a.answer_key) ELSE '{}'::jsonb END) FROM public.guild_ebd_activities a WHERE lesson_id=ANY(ids)),'[]'::jsonb),\n  'answers',coalesce((SELECT jsonb_agg(to_jsonb(x)||jsonb_build_object('traveler_name',t.name) ORDER BY submitted_at DESC) FROM public.guild_ebd_answers x JOIN public.guild_ebd_activities a ON a.id=x.activity_id JOIN public.travelers t ON t.id=x.traveler_id WHERE a.lesson_id=ANY(ids) AND (x.traveler_id=p_actor OR ebd_ops.manager(p_actor,a.lesson_id))),'[]'::jsonb),\n  'attendance',coalesce((SELECT jsonb_agg(to_jsonb(x)) FROM public.guild_ebd_attendance x WHERE lesson_id=ANY(ids) AND (x.traveler_id=p_actor OR ebd_ops.manager(p_actor,x.lesson_id))),'[]'::jsonb),\n  'rewards',coalesce((SELECT jsonb_agg(to_jsonb(x)) FROM public.guild_ebd_reward_pending x WHERE lesson_id=ANY(ids) AND (x.traveler_id=p_actor OR ebd_ops.manager(p_actor,x.lesson_id))),'[]'::jsonb),\n  'members',CASE WHEN teacher THEN coalesce((SELECT jsonb_agg(jsonb_build_object('id',t.id,'name',t.name,'leader',gm.role='leader')) FROM public.guild_members gm JOIN public.travelers t ON t.id=gm.traveler_id WHERE gm.guild_id=g AND gm.status='active'),'[]'::jsonb) ELSE '[]'::jsonb END,\n  'teachers',CASE WHEN teacher THEN coalesce((SELECT jsonb_agg(to_jsonb(t)) FROM public.guild_ebd_teachers t WHERE guild_id=g AND (r='leader' OR traveler_id=p_actor OR active)),'[]'::jsonb) ELSE '[]'::jsonb END,\n  'history',coalesce((SELECT jsonb_agg(to_jsonb(h)) FROM (SELECT id,lesson_id,actor_id,action,entity_id,revision,created_at FROM public.guild_ebd_history h WHERE guild_id=g AND (r='leader' OR (lesson_id=ANY(ids) AND ebd_ops.manager(p_actor,lesson_id))) ORDER BY id DESC LIMIT 100) h),'[]'::jsonb));\nEND $function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres"
+      ],
+      "owner": "postgres",
+      "signature": "economy_authority(uuid,uuid,text,jsonb)",
+      "definition": "CREATE OR REPLACE FUNCTION public.economy_authority(p_user_id uuid, p_traveler_id uuid, p_operation text, p_payload jsonb)\n RETURNS jsonb\n LANGUAGE sql\n SET search_path TO ''\nAS $function$ SELECT economy_private.authority(p_user_id,p_traveler_id,p_operation,p_payload) $function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres"
+      ],
+      "owner": "postgres",
+      "signature": "economy_private.authority(uuid,uuid,text,jsonb)",
+      "definition": "CREATE OR REPLACE FUNCTION economy_private.authority(p_user_id uuid, p_traveler_id uuid, p_operation text, p_payload jsonb)\n RETURNS jsonb\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO ''\nAS $function$\nDECLARE t public.travelers%ROWTYPE; j economy_private.journeys%ROWTYPE; prior_digest text;\n result_value jsonb; reward_key_value text; coin_value integer:=0; xp_value integer:=0; item_value text; old_xp integer; new_xp integer; fresh boolean:=false;\nBEGIN\n SELECT * INTO t FROM public.travelers WHERE id=p_traveler_id AND user_id=p_user_id FOR UPDATE;\n IF NOT FOUND OR NOT EXISTS(SELECT 1 FROM auth.users WHERE id=p_user_id AND NOT coalesce(is_anonymous,false)) THEN RAISE EXCEPTION 'Not authorized' USING ERRCODE='42501'; END IF;\n IF p_operation IN ('journey-context','journey-commit') THEN\n   SELECT * INTO j FROM economy_private.journeys WHERE traveler_id=t.id FOR UPDATE;\n   IF NOT FOUND THEN RAISE EXCEPTION 'Journey not initialized' USING ERRCODE='P0002'; END IF;\n   IF p_operation='journey-context' THEN RETURN jsonb_build_object('state',j.state,'revision',j.revision); END IF;\n   IF p_payload->>'operationId' IS NULL OR p_payload->>'digest' IS NULL OR length(p_payload->>'digest')<>64 THEN RAISE EXCEPTION 'Invalid operation' USING ERRCODE='22023'; END IF;\n   SELECT digest INTO prior_digest FROM economy_private.journey_operations WHERE traveler_id=t.id AND operation_id=(p_payload->>'operationId')::uuid;\n   IF FOUND THEN\n     IF prior_digest IS DISTINCT FROM p_payload->>'digest' THEN RAISE EXCEPTION 'Operation payload conflict' USING ERRCODE='22023'; END IF;\n     RETURN jsonb_build_object('progress',j.state->'progress','revision',j.revision,'duplicate',true);\n   END IF;\n   IF (p_payload->>'revision')::integer IS DISTINCT FROM j.revision THEN RAISE EXCEPTION 'Stale journey' USING ERRCODE='40001'; END IF;\n   IF jsonb_typeof(p_payload->'state') IS DISTINCT FROM 'object' OR octet_length((p_payload->'state')::text)>131072 THEN RAISE EXCEPTION 'Invalid state' USING ERRCODE='22023'; END IF;\n   reward_key_value:=p_payload->>'rewardKey';\n   IF reward_key_value IS NOT NULL THEN\n     coin_value:=CASE reward_key_value WHEN 'coins-grove' THEN 8 WHEN 'coins-river' THEN 12 WHEN 'chest-path' THEN 10 WHEN 'chest-hidden' THEN 18 WHEN 'hidden-corner' THEN 7 WHEN 'wind-pattern' THEN 5 WHEN 'garden-equipment' THEN 0 WHEN 'phase:garden-choice' THEN 30 ELSE NULL END;\n     IF coin_value IS NULL THEN RAISE EXCEPTION 'Invalid reward source' USING ERRCODE='22023'; END IF;\n     INSERT INTO economy_private.journey_rewards(traveler_id,reward_key) VALUES(t.id,reward_key_value) ON CONFLICT DO NOTHING;\n     fresh:=FOUND;\n     IF fresh THEN\n       IF reward_key_value='phase:garden-choice' THEN xp_value:=120;item_value:='wisdom-amulet'; END IF;\n       IF reward_key_value='garden-equipment' THEN item_value:='traveler-helmet-rare'; END IF;\n       old_xp:=t.xp;new_xp:=old_xp+xp_value;\n       UPDATE public.travelers SET xp=new_xp,level=least(50,greatest(1,floor((1+sqrt(1+new_xp::numeric/25))/2)::integer)) WHERE id=t.id;\n       UPDATE public.wallets SET coins=coins+coin_value+CASE WHEN old_xp<200 AND new_xp>=200 THEN 10 ELSE 0 END WHERE traveler_id=t.id;\n       IF NOT FOUND THEN RAISE EXCEPTION 'Wallet missing'; END IF;\n       IF item_value IS NOT NULL THEN INSERT INTO public.inventory(traveler_id,item_id,quantity,metadata) VALUES(t.id,item_value,1,jsonb_build_object('source',reward_key_value)) ON CONFLICT(traveler_id,item_id) DO NOTHING; END IF;\n       IF reward_key_value='phase:garden-choice' THEN PERFORM public.grant_traveler_chest(t.id,'common','phase_completion','phase:garden-choice'); END IF;\n     END IF;\n   END IF;\n   UPDATE economy_private.journeys SET revision=revision+1,state=p_payload->'state' WHERE traveler_id=t.id RETURNING * INTO j;\n   UPDATE public.travelers SET journey_progress=coalesce(journey_progress,'{}')||(j.state->'progress')||CASE WHEN j.state->'progress'->>'gardenCompleted'='true' AND coalesce(t.journey_progress->>'guildId','')<>'' AND t.journey_progress->>'guildChallengeStatus'='locked' THEN jsonb_build_object('guildChallengeStatus','available') ELSE '{}'::jsonb END WHERE id=t.id;\n   INSERT INTO economy_private.journey_operations(traveler_id,operation_id,digest) VALUES(t.id,(p_payload->>'operationId')::uuid,p_payload->>'digest');\n   RETURN jsonb_build_object('progress',j.state->'progress','revision',j.revision,'duplicate',false,'rewardGranted',fresh);\n END IF;\n result_value:=economy_private.base_authority(p_user_id,p_traveler_id,p_operation,p_payload);\n IF p_operation='start' THEN\n   IF coalesce(p_payload->>'mode','card') NOT IN ('card','classic') THEN RAISE EXCEPTION 'Invalid mode' USING ERRCODE='22023'; END IF;\n   UPDATE economy_private.battles SET mode=coalesce(p_payload->>'mode','card') WHERE id=(result_value->>'id')::uuid;\n END IF;\n IF p_operation IN ('start','battle') THEN SELECT result_value||jsonb_build_object('mode',mode) INTO result_value FROM economy_private.battles WHERE id=(result_value->>'id')::uuid; END IF;\n RETURN result_value;\nEND $function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres"
+      ],
+      "owner": "postgres",
+      "signature": "economy_private.base_authority(uuid,uuid,text,jsonb)",
+      "definition": "CREATE OR REPLACE FUNCTION economy_private.base_authority(p_user_id uuid, p_traveler_id uuid, p_operation text, p_payload jsonb)\n RETURNS jsonb\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO ''\nAS $function$\nDECLARE\n  t public.travelers%ROWTYPE;\n  b economy_private.battles%ROWTYPE;\n  result_value jsonb;\n  price_value integer;\n  prior_xp integer;\n  next_xp integer;\n  new_level integer;\n  quota integer;\n  balance integer;\n  won boolean;\nBEGIN\n  IF p_user_id IS NULL OR p_traveler_id IS NULL OR p_operation IS NULL OR p_payload IS NULL\n     OR jsonb_typeof(p_payload) <> 'object' THEN\n    RAISE EXCEPTION 'Invalid operation' USING ERRCODE = '22023';\n  END IF;\n  -- Serializes every Arena reward and purchase for this owner; unrelated owners do not block each other.\n  SELECT * INTO t FROM public.travelers WHERE id=p_traveler_id AND user_id=p_user_id FOR UPDATE;\n  IF NOT FOUND OR NOT EXISTS (SELECT 1 FROM auth.users WHERE id=p_user_id AND NOT coalesce(is_anonymous,false)) THEN\n    RAISE EXCEPTION 'Not authorized' USING ERRCODE='42501';\n  END IF;\n  IF p_operation = 'context' THEN\n    RETURN jsonb_build_object('name',t.name,'xp',t.xp,\n      'coins',(SELECT coins FROM public.wallets WHERE traveler_id=t.id),\n      'attributes',(SELECT jsonb_build_object('life',base_life,'strength',base_strength,'defense',base_defense,'wisdom',base_wisdom)\n         FROM public.traveler_stats WHERE traveler_id=t.id),\n      'inventory',coalesce((SELECT jsonb_agg(jsonb_build_object('item_id',item_id,'quantity',quantity)) FROM public.inventory WHERE traveler_id=t.id),'[]'::jsonb),\n      'equipped',coalesce((SELECT jsonb_object_agg(slot,item_id) FROM public.equipped_items WHERE traveler_id=t.id),'{}'::jsonb));\n  ELSIF p_operation = 'start' THEN\n    IF p_payload->'player'->>'id' IS DISTINCT FROM t.id::text\n       OR (p_payload->'opponent'->>'id' NOT IN ('training-apprentice','training-balanced','training-guardian','training-tactician') AND NOT EXISTS(SELECT 1 FROM public.travelers WHERE user_id=p_user_id AND id::text=p_payload->'opponent'->>'id'))\n       OR p_payload->'opponent'->>'id' IS NULL THEN\n      RAISE EXCEPTION 'Invalid battle' USING ERRCODE='22023';\n    END IF;\n    IF (SELECT count(*) FROM economy_private.battles WHERE traveler_id=t.id AND created_at > now()-interval '1 minute') >= 10 THEN\n      RAISE EXCEPTION 'Too many battles' USING ERRCODE='54000';\n    END IF;\n    INSERT INTO economy_private.battles(traveler_id,seed,player,opponent)\n      VALUES(t.id, floor(random()*4294967296)::bigint,p_payload->'player',p_payload->'opponent') RETURNING * INTO b;\n  ELSIF p_operation IN ('battle','settle') THEN\n    SELECT * INTO b FROM economy_private.battles WHERE id=(p_payload->>'battleId')::uuid AND traveler_id=t.id FOR UPDATE;\n    IF NOT FOUND THEN RAISE EXCEPTION 'Not authorized' USING ERRCODE='42501'; END IF;\n    IF p_operation = 'settle' THEN\n      IF b.settled_at IS NOT NULL THEN RETURN b.reward; END IF;\n      -- won is supplied ONLY by the server replay; authenticated cannot call this function.\n      IF jsonb_typeof(p_payload->'won') IS DISTINCT FROM 'boolean' THEN\n        RAISE EXCEPTION 'Invalid result' USING ERRCODE='22023';\n      END IF;\n      won := (p_payload->>'won')::boolean;\n      IF b.created_at < now()-interval '24 hours' THEN\n        RAISE EXCEPTION 'Battle expired' USING ERRCODE='22023';\n      END IF;\n      SELECT count(*) INTO quota FROM economy_private.battles\n        WHERE traveler_id=t.id AND opponent->>'id'=b.opponent->>'id'\n          AND settled_at >= date_trunc('day',now() AT TIME ZONE 'UTC') AT TIME ZONE 'UTC'\n          AND reward->>'rewarded'='true';\n      result_value := jsonb_build_object('xp',CASE WHEN won AND quota<3 THEN 8 ELSE 0 END,\n        'coins',CASE WHEN won AND quota<3 THEN 3 ELSE 0 END,'rewarded',won AND quota<3,\n        'reason',CASE WHEN NOT won THEN 'defeat' WHEN quota>=3 THEN 'daily-limit' ELSE 'victory' END);\n      IF won AND quota<3 THEN\n        prior_xp := t.xp; next_xp := prior_xp+8;\n        new_level := least(50,greatest(1,floor((1+sqrt(1+next_xp::numeric/25))/2)::integer));\n        UPDATE public.travelers SET xp=next_xp,level=new_level WHERE id=t.id;\n        UPDATE public.wallets SET coins=coins+3+CASE WHEN prior_xp<200 AND next_xp>=200 THEN 10 ELSE 0 END WHERE traveler_id=t.id;\n        IF NOT FOUND THEN RAISE EXCEPTION 'Wallet missing'; END IF;\n      END IF;\n      UPDATE economy_private.battles SET settled_at=now(),reward=result_value WHERE id=b.id;\n      RETURN result_value;\n    END IF;\n  ELSIF p_operation = 'purchase' THEN\n    price_value := CASE p_payload->>'itemId' WHEN 'traveler-sword-common' THEN 35 WHEN 'traveler-armor-uncommon' THEN 65 WHEN 'traveler-shield-rare' THEN 115 ELSE NULL END;\n    IF price_value IS NULL THEN RAISE EXCEPTION 'Invalid offer' USING ERRCODE='22023'; END IF;\n    IF EXISTS(SELECT 1 FROM public.inventory WHERE traveler_id=t.id AND item_id=p_payload->>'itemId') THEN\n      RETURN jsonb_build_object('status','owned');\n    END IF;\n    UPDATE public.wallets SET coins=coins-price_value WHERE traveler_id=t.id AND coins>=price_value RETURNING coins INTO balance;\n    IF NOT FOUND THEN RAISE EXCEPTION 'Insufficient balance' USING ERRCODE='P0001'; END IF;\n    INSERT INTO public.inventory(traveler_id,item_id,quantity,metadata)\n      VALUES(t.id,p_payload->>'itemId',1,jsonb_build_object('source','shop','pricePaid',price_value));\n    RETURN jsonb_build_object('status','purchased','coins',balance,'pricePaid',price_value);\n  ELSE\n    RAISE EXCEPTION 'Invalid operation' USING ERRCODE='22023';\n  END IF;\n  RETURN jsonb_build_object('id',b.id,'travelerId',b.traveler_id,'seed',b.seed,'player',b.player,'opponent',b.opponent);\nEND $function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres"
+      ],
+      "owner": "postgres",
+      "signature": "economy_private.chest(uuid,text,uuid,boolean)",
+      "definition": "CREATE OR REPLACE FUNCTION economy_private.chest(p_traveler_id uuid, p_chest_type text, p_operation_id uuid, p_open boolean)\n RETURNS jsonb\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO ''\nAS $function$\nDECLARE previous_type text;\nBEGIN\n IF auth.uid() IS NULL OR NOT public.owns_traveler(p_traveler_id) OR NOT EXISTS(SELECT 1 FROM auth.users WHERE id=auth.uid() AND NOT coalesce(is_anonymous,false)) THEN RAISE EXCEPTION 'Account denied' USING ERRCODE='42501'; END IF;\n IF p_operation_id IS NULL OR p_chest_type IS NULL OR p_open IS NULL THEN RAISE EXCEPTION 'Invalid operation' USING ERRCODE='22023'; END IF;\n PERFORM 1 FROM public.travelers WHERE id=p_traveler_id AND economic_verified_at IS NOT NULL FOR UPDATE;\n IF NOT FOUND THEN RAISE EXCEPTION 'Legacy reconciliation required' USING ERRCODE='42501'; END IF;\n SELECT chest_type INTO previous_type FROM public.chest_operations WHERE traveler_id=p_traveler_id AND operation_key=(CASE WHEN p_open THEN 'open:' ELSE 'purchase:' END)||p_operation_id;\n IF FOUND AND previous_type IS DISTINCT FROM p_chest_type THEN RAISE EXCEPTION 'Operation conflict' USING ERRCODE='22023'; END IF;\n IF p_open THEN RETURN economy_private.open_chest(p_traveler_id,p_chest_type,p_operation_id); END IF;\n RETURN economy_private.purchase_chest(p_traveler_id,p_chest_type,p_operation_id);\nEND $function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres"
+      ],
+      "owner": "postgres",
+      "signature": "economy_private.claim_phase_chest(uuid,text)",
+      "definition": "CREATE OR REPLACE FUNCTION economy_private.claim_phase_chest(p_traveler_id uuid, p_reward_key text)\n RETURNS boolean\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO ''\nAS $function$\nBEGIN\n IF auth.uid() IS NULL OR NOT public.owns_traveler(p_traveler_id) THEN RAISE EXCEPTION 'Not authorized' USING ERRCODE='42501'; END IF;\n PERFORM 1 FROM public.travelers WHERE id=p_traveler_id FOR UPDATE;\n IF p_reward_key IS DISTINCT FROM 'phase:garden-choice' OR NOT EXISTS(SELECT 1 FROM economy_private.journey_rewards WHERE traveler_id=p_traveler_id AND reward_key=p_reward_key) THEN RAISE EXCEPTION 'Phase not verified' USING ERRCODE='42501'; END IF;\n RETURN public.grant_traveler_chest(p_traveler_id,'common','phase_completion',p_reward_key);\nEND $function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres"
+      ],
+      "owner": "postgres",
+      "signature": "economy_private.collection(uuid,uuid)",
+      "definition": "CREATE OR REPLACE FUNCTION economy_private.collection(p_user uuid, p_traveler uuid)\n RETURNS jsonb\n LANGUAGE sql\n STABLE SECURITY DEFINER\n SET search_path TO ''\nAS $function$\n SELECT coalesce(jsonb_agg(jsonb_build_object('card',c.definition,'version',c.version,'receiptId',r.id) ORDER BY c.id),'[]')\n FROM public.inventory i JOIN public.travelers t ON t.id=i.traveler_id\n JOIN public.chest_operations r ON r.id=i.card_receipt_id AND r.traveler_id=t.id AND r.account_id=t.user_id AND r.operation_type='card-starter'\n JOIN economy_private.card_catalog c ON c.id=i.item_id AND c.version=i.card_version\n WHERE t.id=p_traveler AND t.user_id=p_user AND i.quantity=1 AND i.card_revoked_at IS NULL AND c.revoked_at IS NULL\n AND r.rewards->'cardIds' ? i.item_id;\n$function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres",
+        "authenticated=X/postgres"
+      ],
+      "owner": "postgres",
+      "signature": "economy_private.create_traveler(uuid,text,text,text,text,text,text)",
+      "definition": "CREATE OR REPLACE FUNCTION economy_private.create_traveler(p_id uuid, p_name text, p_body_type text, p_skin_tone text, p_hair_style text, p_hair_color text, p_avatar_variant text)\n RETURNS uuid\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO ''\nAS $function$\nDECLARE current_user_id uuid:=auth.uid();\nBEGIN\n IF current_user_id IS NULL THEN RAISE EXCEPTION 'Authentication required' USING ERRCODE='42501'; END IF;\n UPDATE public.travelers SET is_active=false WHERE user_id=current_user_id AND is_active=true;\n INSERT INTO public.travelers(id,user_id,name,body_type,skin_tone,hair_style,hair_color,avatar_variant,level,xp,is_active)\n VALUES(p_id,current_user_id,p_name,p_body_type,p_skin_tone,p_hair_style,p_hair_color,p_avatar_variant,1,0,true);\n INSERT INTO public.traveler_stats(traveler_id) VALUES(p_id);\n INSERT INTO public.wallets(traveler_id) VALUES(p_id);\n RETURN p_id;\nEND $function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres",
+        "authenticated=X/postgres"
+      ],
+      "owner": "postgres",
+      "signature": "economy_private.get_owned_cards(uuid)",
+      "definition": "CREATE OR REPLACE FUNCTION economy_private.get_owned_cards(p_traveler_id uuid)\n RETURNS jsonb\n LANGUAGE plpgsql\n STABLE SECURITY DEFINER\n SET search_path TO ''\nAS $function$\nDECLARE actor uuid := auth.uid();\nBEGIN\n IF actor IS NULL OR NOT EXISTS(SELECT 1 FROM auth.users\n   WHERE id=actor AND NOT coalesce(is_anonymous,false)) THEN\n  RAISE EXCEPTION 'Account denied' USING ERRCODE='42501';\n END IF;\n IF NOT EXISTS(SELECT 1 FROM public.travelers\n   WHERE id=p_traveler_id AND user_id=actor) THEN\n  RAISE EXCEPTION 'Ownership denied' USING ERRCODE='42501';\n END IF;\n RETURN economy_private.collection(actor,p_traveler_id);\nEND $function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres"
+      ],
+      "owner": "postgres",
+      "signature": "economy_private.initial_journey()",
+      "definition": "CREATE OR REPLACE FUNCTION economy_private.initial_journey()\n RETURNS jsonb\n LANGUAGE sql\n IMMUTABLE\n SET search_path TO ''\nAS $function$ SELECT jsonb_build_object('progress','{\"gardenStep\":\"opening\",\"gardenExploredPoints\":[],\"gardenFragments\":0,\"explorationObjectives\":[],\"gardenCollectedLoot\":[],\"gardenOpenedChests\":[],\"gardenSecrets\":[],\"gardenEvents\":[],\"bibleReading\":{\"genesis2Opened\":null,\"genesis2Confirmed\":false,\"genesis3Opened\":null,\"genesis3Confirmed\":false,\"comprehensionCompleted\":false},\"devotionalCompleted\":false,\"devotionalReflection\":\"\",\"quizAttemptId\":0,\"gardenRewardGranted\":false,\"gardenCompleted\":false,\"gardenDiscoveryFound\":false}'::jsonb,'snakeWon',false,'quizAnswers','{}'::jsonb,'legacyQuizCompleted',false) $function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres"
+      ],
+      "owner": "postgres",
+      "signature": "economy_private.initialize_journey()",
+      "definition": "CREATE OR REPLACE FUNCTION economy_private.initialize_journey()\n RETURNS trigger\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO ''\nAS $function$ BEGIN INSERT INTO economy_private.journeys(traveler_id,state) VALUES(NEW.id,economy_private.initial_journey()); RETURN NEW; END $function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres"
+      ],
+      "owner": "postgres",
+      "signature": "economy_private.mark_new_traveler()",
+      "definition": "CREATE OR REPLACE FUNCTION economy_private.mark_new_traveler()\n RETURNS trigger\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO ''\nAS $function$\n BEGIN NEW.economic_verified_at:=now(); RETURN NEW; END $function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres"
+      ],
+      "owner": "postgres",
+      "signature": "economy_private.open_chest(uuid,text,uuid)",
+      "definition": "CREATE OR REPLACE FUNCTION economy_private.open_chest(p_traveler_id uuid, p_chest_type text, p_operation_id uuid)\n RETURNS jsonb\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO ''\nAS $function$\r\nDECLARE\r\n  operation_key_value text := 'open:' || p_operation_id::text;\r\n  chest_row public.traveler_chests%ROWTYPE;\r\n  reward_coins integer;\r\n  reward_item_id text;\r\n  reward_item_name text;\r\n  roll_value double precision;\r\n  origin_value text;\r\n  remaining integer;\r\n  result_value jsonb;\r\nBEGIN\r\n  IF NOT public.owns_traveler(p_traveler_id) THEN RAISE EXCEPTION 'Traveler not owned' USING ERRCODE = '42501'; END IF;\r\n  SELECT rewards INTO result_value FROM public.chest_operations WHERE traveler_id = p_traveler_id AND operation_key = operation_key_value;\r\n  IF FOUND THEN RETURN result_value || jsonb_build_object('duplicate', true); END IF;\r\n  SELECT * INTO chest_row FROM public.traveler_chests WHERE traveler_id = p_traveler_id AND chest_type = p_chest_type AND quantity > 0 FOR UPDATE;\r\n  IF NOT FOUND THEN RAISE EXCEPTION 'Chest unavailable' USING ERRCODE = 'P0002'; END IF;\r\n  origin_value := coalesce(chest_row.sources->>0, 'unknown');\r\n  roll_value := random();\r\n  IF p_chest_type = 'common' THEN\r\n    IF roll_value < .80 THEN reward_coins := 25; ELSE reward_coins := 10; reward_item_id := 'traveler-sword-common'; reward_item_name := 'Espada do Caminho'; END IF;\r\n  ELSIF p_chest_type = 'uncommon' THEN\r\n    IF roll_value < .70 THEN reward_coins := 55; ELSE reward_coins := 20; reward_item_id := 'traveler-armor-uncommon'; reward_item_name := 'Couraça do Viajante'; END IF;\r\n  ELSIF p_chest_type = 'rare' THEN\r\n    IF roll_value < .65 THEN reward_coins := 105; ELSE reward_coins := 35; reward_item_id := 'traveler-shield-rare'; reward_item_name := 'Escudo da Perseverança'; END IF;\r\n  ELSIF p_chest_type = 'epic' THEN\r\n    IF roll_value < .55 THEN reward_coins := 190; ELSE reward_coins := 70; reward_item_id := 'traveler-helmet-rare'; reward_item_name := 'Elmo do Viajante'; END IF;\r\n  ELSIF p_chest_type = 'extraordinary' THEN\r\n    IF roll_value < .50 THEN reward_coins := 360; ELSE reward_coins := 120; reward_item_id := 'wisdom-amulet'; reward_item_name := 'Medalhão do Caminho'; END IF;\r\n  ELSE RAISE EXCEPTION 'Invalid chest type' USING ERRCODE = '22023';\r\n  END IF;\r\n  remaining := chest_row.quantity - 1;\r\n  IF remaining = 0 THEN\r\n    DELETE FROM public.traveler_chests WHERE traveler_id = p_traveler_id AND chest_type = p_chest_type;\r\n  ELSE\r\n    UPDATE public.traveler_chests SET quantity = remaining, sources = sources - 0 WHERE traveler_id = p_traveler_id AND chest_type = p_chest_type;\r\n  END IF;\r\n  PERFORM public.add_coins(p_traveler_id, reward_coins);\r\n  IF reward_item_id IS NOT NULL THEN\r\n    INSERT INTO public.inventory(traveler_id, item_id, quantity, metadata)\r\n    VALUES (p_traveler_id, reward_item_id, 1, jsonb_build_object('source', 'chest', 'chestType', p_chest_type))\r\n    ON CONFLICT (traveler_id, item_id) DO UPDATE SET quantity = public.inventory.quantity + 1;\r\n  END IF;\r\n  result_value := jsonb_build_object('chestType', p_chest_type, 'coins', reward_coins, 'itemId', reward_item_id, 'itemName', reward_item_name, 'source', origin_value, 'remainingQuantity', remaining, 'duplicate', false);\r\n  INSERT INTO public.chest_operations(traveler_id, operation_key, operation_type, chest_type, source, rewards)\r\n  VALUES (p_traveler_id, operation_key_value, 'open', p_chest_type, origin_value, result_value);\r\n  RETURN result_value;\r\nEND $function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres"
+      ],
+      "owner": "postgres",
+      "signature": "economy_private.protect_journey_checkpoint()",
+      "definition": "CREATE OR REPLACE FUNCTION economy_private.protect_journey_checkpoint()\n RETURNS trigger\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO ''\nAS $function$\nDECLARE p jsonb;\nBEGIN\n SELECT state->'progress' INTO p FROM economy_private.journeys WHERE traveler_id=NEW.id;\n IF p IS NOT NULL THEN NEW.journey_progress:=coalesce(NEW.journey_progress,'{}'::jsonb)||p; END IF;\n RETURN NEW;\nEND $function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres"
+      ],
+      "owner": "postgres",
+      "signature": "economy_private.purchase_chest(uuid,text,uuid)",
+      "definition": "CREATE OR REPLACE FUNCTION economy_private.purchase_chest(p_traveler_id uuid, p_chest_type text, p_operation_id uuid)\n RETURNS jsonb\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO ''\nAS $function$\r\nDECLARE\r\n  operation_key_value text := 'purchase:' || p_operation_id::text;\r\n  price_value integer;\r\n  required_level integer;\r\n  resulting_coins integer;\r\n  prior_result jsonb;\r\nBEGIN\r\n  IF NOT public.owns_traveler(p_traveler_id) THEN RAISE EXCEPTION 'Traveler not owned' USING ERRCODE = '42501'; END IF;\r\n  SELECT rewards INTO prior_result FROM public.chest_operations WHERE traveler_id = p_traveler_id AND operation_key = operation_key_value;\r\n  IF FOUND THEN RETURN prior_result || jsonb_build_object('duplicate', true); END IF;\r\n  price_value := CASE p_chest_type WHEN 'common' THEN 40 WHEN 'uncommon' THEN 90 WHEN 'rare' THEN 180 ELSE NULL END;\r\n  required_level := CASE p_chest_type WHEN 'common' THEN 1 WHEN 'uncommon' THEN 1 WHEN 'rare' THEN 3 ELSE NULL END;\r\n  IF price_value IS NULL THEN RAISE EXCEPTION 'Chest unavailable for purchase' USING ERRCODE = '22023'; END IF;\r\n  IF NOT EXISTS (SELECT 1 FROM public.travelers WHERE id = p_traveler_id AND level >= required_level) THEN RAISE EXCEPTION 'Traveler level too low' USING ERRCODE = 'P0001'; END IF;\r\n  INSERT INTO public.chest_operations(traveler_id, operation_key, operation_type, chest_type, source, price_paid, rewards)\r\n  VALUES (p_traveler_id, operation_key_value, 'purchase', p_chest_type, 'shop', price_value, '{}'::jsonb)\r\n  ON CONFLICT (traveler_id, operation_key) DO NOTHING;\r\n  IF NOT FOUND THEN\r\n    SELECT rewards INTO prior_result FROM public.chest_operations WHERE traveler_id = p_traveler_id AND operation_key = operation_key_value;\r\n    RETURN prior_result || jsonb_build_object('duplicate', true);\r\n  END IF;\r\n  resulting_coins := public.spend_coins(p_traveler_id, price_value);\r\n  INSERT INTO public.traveler_chests(traveler_id, chest_type, quantity, sources)\r\n  VALUES (p_traveler_id, p_chest_type, 1, jsonb_build_array('shop'))\r\n  ON CONFLICT (traveler_id, chest_type) DO UPDATE\r\n  SET quantity = public.traveler_chests.quantity + 1,\r\n      sources = public.traveler_chests.sources || jsonb_build_array('shop'),\r\n      updated_at = now();\r\n  prior_result := jsonb_build_object('chestType', p_chest_type, 'quantityAdded', 1, 'coins', resulting_coins, 'pricePaid', price_value, 'duplicate', false);\r\n  UPDATE public.chest_operations SET rewards = prior_result WHERE traveler_id = p_traveler_id AND operation_key = operation_key_value;\r\n  RETURN prior_result;\r\nEND $function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres"
+      ],
+      "owner": "postgres",
+      "signature": "economy_protocol_version()",
+      "definition": "CREATE OR REPLACE FUNCTION public.economy_protocol_version()\n RETURNS integer\n LANGUAGE sql\n SET search_path TO ''\nAS $function$ SELECT 3 $function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres",
+        "authenticated=X/postgres"
+      ],
+      "owner": "postgres",
+      "signature": "get_owned_cards(uuid)",
+      "definition": "CREATE OR REPLACE FUNCTION public.get_owned_cards(p_traveler_id uuid)\n RETURNS jsonb\n LANGUAGE sql\n STABLE\n SET search_path TO ''\nAS $function$\n SELECT economy_private.get_owned_cards(p_traveler_id);\n$function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres"
+      ],
+      "owner": "postgres",
+      "signature": "grant_traveler_chest(uuid,text,text,text)",
+      "definition": "CREATE OR REPLACE FUNCTION public.grant_traveler_chest(p_traveler_id uuid, p_chest_type text, p_source text, p_operation_key text)\n RETURNS boolean\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO ''\nAS $function$\r\nBEGIN\r\n  IF p_chest_type NOT IN ('common','uncommon','rare','epic','extraordinary') OR char_length(p_source) NOT BETWEEN 1 AND 120 OR char_length(p_operation_key) NOT BETWEEN 1 AND 160 THEN\r\n    RAISE EXCEPTION 'Invalid chest grant' USING ERRCODE = '22023';\r\n  END IF;\r\n  IF NOT EXISTS (SELECT 1 FROM public.travelers WHERE id = p_traveler_id) THEN\r\n    RAISE EXCEPTION 'Traveler not found' USING ERRCODE = 'P0002';\r\n  END IF;\r\n  INSERT INTO public.chest_operations(traveler_id, operation_key, operation_type, chest_type, source)\r\n  VALUES (p_traveler_id, p_operation_key, 'grant', p_chest_type, p_source)\r\n  ON CONFLICT (traveler_id, operation_key) DO NOTHING;\r\n  IF NOT FOUND THEN RETURN false; END IF;\r\n  INSERT INTO public.traveler_chests(traveler_id, chest_type, quantity, sources)\r\n  VALUES (p_traveler_id, p_chest_type, 1, jsonb_build_array(p_source))\r\n  ON CONFLICT (traveler_id, chest_type) DO UPDATE\r\n  SET quantity = public.traveler_chests.quantity + 1,\r\n      sources = public.traveler_chests.sources || jsonb_build_array(p_source),\r\n      updated_at = now();\r\n  RETURN true;\r\nEND $function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres"
+      ],
+      "owner": "postgres",
+      "signature": "guild_activity_capture()",
+      "definition": "CREATE OR REPLACE FUNCTION public.guild_activity_capture()\n RETURNS trigger\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO ''\nAS $function$\r\nDECLARE event_name text; guild_key uuid; actor_key uuid; entity_kind text; entity_key uuid;\r\nBEGIN\r\n  IF TG_TABLE_NAME = 'guilds' THEN\r\n    IF TG_OP <> 'INSERT' THEN RETURN NEW; END IF;\r\n    event_name := 'guild_created'; guild_key := NEW.id; actor_key := NEW.leader_traveler_id; entity_kind := 'guild'; entity_key := NEW.id;\r\n  ELSIF TG_TABLE_NAME = 'guild_members' THEN\r\n    IF TG_OP = 'INSERT' AND NEW.role <> 'leader' AND NEW.status = 'active' THEN event_name := 'member_joined';\r\n    ELSIF TG_OP = 'UPDATE' AND NEW.status IS DISTINCT FROM OLD.status THEN\r\n      event_name := CASE NEW.status WHEN 'active' THEN 'member_joined' WHEN 'left' THEN 'member_left' WHEN 'removed' THEN 'member_removed' ELSE NULL END;\r\n    END IF;\r\n    guild_key := NEW.guild_id; actor_key := NEW.traveler_id; entity_kind := 'member'; entity_key := NEW.traveler_id;\r\n    IF event_name = 'member_removed' THEN\r\n      SELECT gm.traveler_id INTO actor_key FROM public.guild_members gm JOIN public.travelers t ON t.id = gm.traveler_id\r\n      WHERE gm.guild_id = NEW.guild_id AND gm.role = 'leader' AND gm.status = 'active' AND t.user_id = auth.uid() LIMIT 1;\r\n    END IF;\r\n  ELSIF TG_TABLE_NAME = 'guild_missions' THEN\r\n    IF TG_OP = 'INSERT' THEN event_name := 'mission_created';\r\n    ELSIF NEW.status IS DISTINCT FROM OLD.status THEN\r\n      event_name := CASE NEW.status WHEN 'published' THEN 'mission_published' WHEN 'closed' THEN 'mission_closed' WHEN 'cancelled' THEN 'draft_deleted' ELSE NULL END;\r\n    END IF;\r\n    guild_key := NEW.guild_id; actor_key := NEW.created_by_traveler_id; entity_kind := 'mission'; entity_key := NEW.id;\r\n  ELSIF TG_TABLE_NAME = 'guild_mission_progress' THEN\r\n    IF TG_OP = 'UPDATE' AND NEW.status IS DISTINCT FROM OLD.status THEN\r\n      event_name := CASE NEW.status WHEN 'pending_approval' THEN 'mission_submitted' WHEN 'completed' THEN 'mission_completed' WHEN 'rejected' THEN 'mission_rejected' ELSE NULL END;\r\n    END IF;\r\n    SELECT guild_id INTO guild_key FROM public.guild_missions WHERE id = NEW.mission_id;\r\n    actor_key := coalesce(NEW.approved_by_traveler_id, NEW.traveler_id); entity_kind := 'mission'; entity_key := NEW.mission_id;\r\n  ELSIF TG_TABLE_NAME = 'guild_reward_claims' THEN\r\n    IF TG_OP = 'INSERT' THEN event_name := 'reward_processed'; END IF;\r\n    SELECT guild_id INTO guild_key FROM public.guild_missions WHERE id = NEW.mission_id;\r\n    actor_key := NEW.traveler_id; entity_kind := 'mission'; entity_key := NEW.mission_id;\r\n  END IF;\r\n  IF event_name IS NOT NULL THEN\r\n    INSERT INTO public.guild_activity_log(guild_id, actor_traveler_id, event_type, entity_type, entity_id)\r\n    VALUES (guild_key, actor_key, event_name, entity_kind, entity_key);\r\n  END IF;\r\n  RETURN NEW;\r\nEND $function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres",
+        "authenticated=X/postgres"
+      ],
+      "owner": "postgres",
+      "signature": "guild_admin_stats(uuid)",
+      "definition": "CREATE OR REPLACE FUNCTION public.guild_admin_stats(p_leader_traveler_id uuid)\n RETURNS TABLE(mission_id uuid, participants bigint, completed bigint, pending bigint, completed_recent bigint)\n LANGUAGE plpgsql\n STABLE SECURITY DEFINER\n SET search_path TO ''\nAS $function$\r\nBEGIN\r\n  IF NOT public.owns_traveler(p_leader_traveler_id) OR NOT EXISTS\r\n    (SELECT 1 FROM public.guild_members WHERE traveler_id = p_leader_traveler_id AND role = 'leader' AND status = 'active')\r\n  THEN RAISE EXCEPTION 'Leader role required' USING ERRCODE = '42501'; END IF;\r\n  RETURN QUERY SELECT m.id, count(p.id), count(p.id) FILTER (WHERE p.status = 'completed'),\r\n    count(p.id) FILTER (WHERE p.status = 'pending_approval' AND EXISTS\r\n      (SELECT 1 FROM public.guild_members participant WHERE participant.guild_id = m.guild_id\r\n        AND participant.traveler_id = p.traveler_id AND participant.status = 'active')),\r\n    count(p.id) FILTER (WHERE p.status = 'completed' AND p.completed_at >= now() - interval '30 days')\r\n  FROM public.guild_missions m JOIN public.guild_members own ON own.guild_id = m.guild_id\r\n  LEFT JOIN public.guild_mission_progress p ON p.mission_id = m.id\r\n  WHERE own.traveler_id = p_leader_traveler_id AND own.role = 'leader' AND own.status = 'active'\r\n    AND m.status <> 'cancelled' GROUP BY m.id;\r\nEND $function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres"
+      ],
+      "owner": "postgres",
+      "signature": "guild_chat_private.actor(uuid,uuid)",
+      "definition": "CREATE OR REPLACE FUNCTION guild_chat_private.actor(p_guild_id uuid, p_traveler_id uuid)\n RETURNS text\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO ''\nAS $function$\nDECLARE actor_role text;\nBEGIN\n  IF auth.uid() IS NULL THEN RAISE EXCEPTION 'Chat access denied' USING ERRCODE='42501'; END IF;\n  SELECT gm.role INTO actor_role FROM public.guild_members gm\n    JOIN public.travelers t ON t.id=gm.traveler_id JOIN public.guilds g ON g.id=gm.guild_id JOIN auth.users u ON u.id=t.user_id\n    WHERE gm.guild_id=p_guild_id AND t.id=p_traveler_id AND t.user_id=auth.uid()\n      AND gm.status='active' AND g.status='active' AND NOT coalesce(u.is_anonymous,false)\n    FOR SHARE OF gm,t,g;\n  IF actor_role IS NULL THEN RAISE EXCEPTION 'Chat access denied' USING ERRCODE='42501'; END IF;\n  RETURN actor_role;\nEND $function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres",
+        "authenticated=X/postgres"
+      ],
+      "owner": "postgres",
+      "signature": "guild_chat_private.can_access(uuid,boolean)",
+      "definition": "CREATE OR REPLACE FUNCTION guild_chat_private.can_access(p_guild_id uuid, p_moderate boolean DEFAULT false)\n RETURNS boolean\n LANGUAGE sql\n STABLE SECURITY DEFINER\n SET search_path TO ''\nAS $function$\n  SELECT auth.uid() IS NOT NULL AND EXISTS (\n    SELECT 1 FROM public.guild_members gm JOIN public.travelers t ON t.id=gm.traveler_id\n    JOIN public.guilds g ON g.id=gm.guild_id JOIN auth.users u ON u.id=t.user_id\n    WHERE gm.guild_id=p_guild_id AND gm.status='active' AND g.status='active'\n      AND u.id=auth.uid() AND NOT coalesce(u.is_anonymous,false)\n      AND (NOT p_moderate OR gm.role IN ('leader','co_leader','moderator'))\n  )\n$function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres",
+        "authenticated=X/postgres"
+      ],
+      "owner": "postgres",
+      "signature": "guild_chat_private.mark_read(uuid,uuid,bigint)",
+      "definition": "CREATE OR REPLACE FUNCTION guild_chat_private.mark_read(p_guild_id uuid, p_traveler_id uuid, p_sequence bigint)\n RETURNS void\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO ''\nAS $function$\nBEGIN\n  PERFORM guild_chat_private.actor(p_guild_id,p_traveler_id);\n  IF p_sequence IS NULL OR NOT EXISTS(SELECT 1 FROM public.guild_chat_messages WHERE guild_id=p_guild_id AND sequence=p_sequence) THEN RAISE EXCEPTION 'Invalid read cursor' USING ERRCODE='22023'; END IF;\n  INSERT INTO public.guild_chat_reads(guild_id,user_id,last_read_sequence) VALUES(p_guild_id,auth.uid(),p_sequence)\n    ON CONFLICT(guild_id,user_id) DO UPDATE SET last_read_sequence=greatest(public.guild_chat_reads.last_read_sequence,excluded.last_read_sequence);\nEND $function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres",
+        "authenticated=X/postgres"
+      ],
+      "owner": "postgres",
+      "signature": "guild_chat_private.moderate(uuid,uuid,uuid,text,text)",
+      "definition": "CREATE OR REPLACE FUNCTION guild_chat_private.moderate(p_guild_id uuid, p_traveler_id uuid, p_message_id uuid, p_action text, p_reason text)\n RETURNS void\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO ''\nAS $function$\nDECLARE actor_role text; message public.guild_chat_messages%ROWTYPE;\nBEGIN\n  actor_role:=guild_chat_private.actor(p_guild_id,p_traveler_id);\n  IF actor_role NOT IN ('leader','co_leader','moderator') THEN RAISE EXCEPTION 'Moderator required' USING ERRCODE='42501'; END IF;\n  IF p_action IS NULL OR p_action NOT IN ('remove','dismiss_reports') OR p_reason IS NULL OR char_length(btrim(p_reason)) NOT BETWEEN 3 AND 200 THEN RAISE EXCEPTION 'Invalid moderation' USING ERRCODE='22023'; END IF;\n  SELECT * INTO message FROM public.guild_chat_messages WHERE id=p_message_id AND guild_id=p_guild_id FOR UPDATE;\n  IF NOT FOUND THEN RAISE EXCEPTION 'Message unavailable' USING ERRCODE='42501'; END IF;\n  IF p_action='remove' THEN\n    IF message.removed_at IS NOT NULL THEN RETURN; END IF;\n    UPDATE public.guild_chat_messages SET body=NULL,removed_at=clock_timestamp() WHERE id=p_message_id;\n    UPDATE public.guild_chat_reports SET status='removed' WHERE message_id=p_message_id AND status='pending';\n  ELSE\n    UPDATE public.guild_chat_reports SET status='dismissed' WHERE message_id=p_message_id AND status='pending';\n    IF NOT FOUND THEN RETURN; END IF;\n  END IF;\n  INSERT INTO public.guild_chat_moderation_log(guild_id,message_id,actor_traveler_id,action,reason) VALUES(p_guild_id,p_message_id,p_traveler_id,p_action,btrim(p_reason));\nEND $function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres",
+        "authenticated=X/postgres"
+      ],
+      "owner": "postgres",
+      "signature": "guild_chat_private.report(uuid,uuid,uuid,text)",
+      "definition": "CREATE OR REPLACE FUNCTION guild_chat_private.report(p_guild_id uuid, p_traveler_id uuid, p_message_id uuid, p_reason text)\n RETURNS void\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO ''\nAS $function$\nBEGIN\n  PERFORM guild_chat_private.actor(p_guild_id,p_traveler_id);\n  IF p_reason IS NULL OR p_reason NOT IN ('bullying','personal_data','sexual_content','violence','other') THEN RAISE EXCEPTION 'Invalid report reason' USING ERRCODE='22023'; END IF;\n  PERFORM 1 FROM public.guild_chat_messages WHERE id=p_message_id AND guild_id=p_guild_id AND removed_at IS NULL FOR SHARE;\n  IF NOT FOUND THEN RAISE EXCEPTION 'Message unavailable' USING ERRCODE='42501'; END IF;\n  IF EXISTS(SELECT 1 FROM public.guild_chat_reports WHERE message_id=p_message_id AND reporter_traveler_id=p_traveler_id) THEN RETURN; END IF;\n  PERFORM guild_chat_private.take_rate('report');\n  INSERT INTO public.guild_chat_reports(guild_id,message_id,reporter_traveler_id,reason) VALUES(p_guild_id,p_message_id,p_traveler_id,p_reason) ON CONFLICT DO NOTHING;\nEND $function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres",
+        "authenticated=X/postgres"
+      ],
+      "owner": "postgres",
+      "signature": "guild_chat_private.send(uuid,uuid,uuid,text,boolean)",
+      "definition": "CREATE OR REPLACE FUNCTION guild_chat_private.send(p_guild_id uuid, p_traveler_id uuid, p_client_id uuid, p_body text, p_announcement boolean)\n RETURNS uuid\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO ''\nAS $function$\nDECLARE actor_role text; author public.travelers%ROWTYPE; previous public.guild_chat_messages%ROWTYPE; result_id uuid;\nBEGIN\n  actor_role:=guild_chat_private.actor(p_guild_id,p_traveler_id);\n  IF p_body IS NULL OR char_length(btrim(p_body)) NOT BETWEEN 1 AND 1000 OR octet_length(p_body)>4000 OR p_client_id IS NULL OR p_announcement IS NULL THEN RAISE EXCEPTION 'Invalid chat message' USING ERRCODE='22023'; END IF;\n  IF p_announcement AND actor_role<>'leader' THEN RAISE EXCEPTION 'Leader required' USING ERRCODE='42501'; END IF;\n  -- Serialize guild insert commits so read cursors cannot skip a late commit.\n  PERFORM pg_catalog.pg_advisory_xact_lock(pg_catalog.hashtextextended(p_guild_id::text,63));\n  PERFORM pg_catalog.pg_advisory_xact_lock(pg_catalog.hashtextextended(auth.uid()::text,62));\n  SELECT * INTO previous FROM public.guild_chat_messages WHERE author_traveler_id=p_traveler_id AND client_id=p_client_id;\n  IF FOUND THEN\n    IF previous.guild_id<>p_guild_id OR previous.body IS DISTINCT FROM btrim(p_body) OR previous.is_announcement<>p_announcement THEN RAISE EXCEPTION 'Chat retry conflict' USING ERRCODE='22023'; END IF;\n    RETURN previous.id;\n  END IF;\n  PERFORM guild_chat_private.take_rate('send');\n  SELECT * INTO author FROM public.travelers WHERE id=p_traveler_id;\n  INSERT INTO public.guild_chat_messages(guild_id,author_traveler_id,client_id,author_name,author_body_type,author_skin_tone,author_hair_style,author_outfit,body,is_announcement)\n    VALUES(p_guild_id,p_traveler_id,p_client_id,author.name,author.body_type,author.skin_tone,author.hair_style,coalesce(author.avatar_variant,'musgo'),btrim(p_body),p_announcement) RETURNING id INTO result_id;\n  RETURN result_id;\nEND $function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres",
+        "authenticated=X/postgres"
+      ],
+      "owner": "postgres",
+      "signature": "guild_chat_private.summary(uuid,uuid)",
+      "definition": "CREATE OR REPLACE FUNCTION guild_chat_private.summary(p_guild_id uuid, p_traveler_id uuid)\n RETURNS TABLE(unread_count bigint, last_read_sequence bigint, can_announce boolean, can_moderate boolean)\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO ''\nAS $function$\nDECLARE actor_role text; checkpoint bigint;\nBEGIN\n  actor_role:=guild_chat_private.actor(p_guild_id,p_traveler_id);\n  SELECT r.last_read_sequence INTO checkpoint FROM public.guild_chat_reads r WHERE r.guild_id=p_guild_id AND r.user_id=auth.uid();\n  checkpoint:=coalesce(checkpoint,0);\n  RETURN QUERY SELECT count(*),checkpoint,actor_role='leader',actor_role IN ('leader','co_leader','moderator') FROM public.guild_chat_messages m\n    WHERE m.guild_id=p_guild_id AND m.sequence>checkpoint AND m.removed_at IS NULL\n      AND NOT EXISTS(SELECT 1 FROM public.travelers t WHERE t.id=m.author_traveler_id AND t.user_id=auth.uid());\nEND $function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres"
+      ],
+      "owner": "postgres",
+      "signature": "guild_chat_private.take_rate(text)",
+      "definition": "CREATE OR REPLACE FUNCTION guild_chat_private.take_rate(p_kind text)\n RETURNS void\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO ''\nAS $function$\nDECLARE bucket guild_chat_private.rate_limits%ROWTYPE; stamp timestamptz; cap integer;\nBEGIN\n  IF auth.uid() IS NULL OR p_kind NOT IN ('send','report') THEN RAISE EXCEPTION 'Chat access denied' USING ERRCODE='42501'; END IF;\n  cap:=CASE WHEN p_kind='send' THEN 10 ELSE 5 END;\n  INSERT INTO guild_chat_private.rate_limits(user_id,kind) VALUES(auth.uid(),p_kind) ON CONFLICT DO NOTHING;\n  SELECT * INTO bucket FROM guild_chat_private.rate_limits WHERE user_id=auth.uid() AND kind=p_kind FOR UPDATE;\n  stamp:=clock_timestamp();\n  IF bucket.last_at > stamp-interval '3 seconds' THEN RAISE EXCEPTION 'Chat rate limit' USING ERRCODE='P0001'; END IF;\n  IF bucket.window_at <= stamp-interval '1 minute' THEN bucket.hits:=0; bucket.window_at:=stamp; END IF;\n  IF bucket.hits>=cap THEN RAISE EXCEPTION 'Chat rate limit' USING ERRCODE='P0001'; END IF;\n  UPDATE guild_chat_private.rate_limits SET last_at=stamp,window_at=bucket.window_at,hits=bucket.hits+1 WHERE user_id=auth.uid() AND kind=p_kind;\nEND $function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres"
+      ],
+      "owner": "postgres",
+      "signature": "guild_chat_summary(uuid,uuid)",
+      "definition": "CREATE OR REPLACE FUNCTION public.guild_chat_summary(p_guild_id uuid, p_traveler_id uuid)\n RETURNS TABLE(unread_count bigint, last_read_sequence bigint, can_announce boolean, can_moderate boolean)\n LANGUAGE sql\n SET search_path TO ''\nAS $function$ SELECT * FROM guild_chat_private.summary(p_guild_id,p_traveler_id) $function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres",
+        "authenticated=X/postgres"
+      ],
+      "owner": "postgres",
+      "signature": "guild_ebd_command(uuid,text,uuid,integer,jsonb)",
+      "definition": "CREATE OR REPLACE FUNCTION public.guild_ebd_command(p_actor uuid, p_action text, p_id uuid, p_revision integer, p_data jsonb)\n RETURNS jsonb\n LANGUAGE plpgsql\n SET search_path TO ''\nAS $function$\nBEGIN\n IF p_action='lesson' AND coalesce(p_data->>'rewardTier','')<>'' THEN\n  RAISE EXCEPTION 'Rewards are unavailable in this release' USING ERRCODE='42501';\n END IF;\n RETURN ebd_ops.command(p_actor,p_action,p_id,p_revision,p_data);\nEND $function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres",
+        "authenticated=X/postgres"
+      ],
+      "owner": "postgres",
+      "signature": "guild_ebd_workspace(uuid,integer)",
+      "definition": "CREATE OR REPLACE FUNCTION public.guild_ebd_workspace(p_actor uuid, p_offset integer DEFAULT 0)\n RETURNS jsonb\n LANGUAGE sql\n SET search_path TO ''\nAS $function$ SELECT ebd_ops.workspace(p_actor,p_offset) $function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres",
+        "authenticated=X/postgres"
+      ],
+      "owner": "postgres",
+      "signature": "guild_invite_private.create_invite(uuid)",
+      "definition": "CREATE OR REPLACE FUNCTION guild_invite_private.create_invite(p_leader uuid)\n RETURNS jsonb\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO ''\nAS $function$\nDECLARE guild_key uuid; raw_token text; new_row guild_invite_private.link_invites;\n  issued_at timestamptz := clock_timestamp();\nBEGIN\n  guild_key := guild_invite_private.leader_guild(p_leader);\n  IF (SELECT count(*) FROM guild_invite_private.link_invites\n      WHERE guild_id = guild_key AND revoked_at IS NULL AND expires_at > clock_timestamp()) >= 10 THEN\n    RAISE EXCEPTION 'Active invite limit reached' USING ERRCODE = '54000';\n  END IF;\n  raw_token := encode(extensions.gen_random_bytes(32), 'hex');\n  INSERT INTO guild_invite_private.link_invites(guild_id, leader_traveler_id, token_hash, created_at, expires_at)\n    VALUES (guild_key, p_leader, extensions.digest(raw_token, 'sha256'), issued_at, issued_at + interval '7 days')\n    RETURNING * INTO new_row;\n  RETURN jsonb_build_object('id', new_row.id, 'token', raw_token, 'expires_at', new_row.expires_at);\nEND $function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres"
+      ],
+      "owner": "postgres",
+      "signature": "guild_invite_private.leader_guild(uuid)",
+      "definition": "CREATE OR REPLACE FUNCTION guild_invite_private.leader_guild(p_leader uuid)\n RETURNS uuid\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO ''\nAS $function$\nDECLARE guild_key uuid;\nBEGIN\n  PERFORM guild_invite_private.require_account();\n  SELECT g.id INTO guild_key FROM public.guilds g\n    JOIN public.guild_members gm ON gm.guild_id = g.id\n    JOIN public.travelers t ON t.id = gm.traveler_id\n    WHERE t.id = p_leader AND t.user_id = auth.uid()\n      AND gm.role = 'leader' AND gm.status = 'active' AND g.status = 'active'\n    FOR UPDATE OF g;\n  IF guild_key IS NULL THEN RAISE EXCEPTION 'Leader required' USING ERRCODE = '42501'; END IF;\n  RETURN guild_key;\nEND $function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres",
+        "authenticated=X/postgres"
+      ],
+      "owner": "postgres",
+      "signature": "guild_invite_private.list_invites(uuid)",
+      "definition": "CREATE OR REPLACE FUNCTION guild_invite_private.list_invites(p_leader uuid)\n RETURNS jsonb\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO ''\nAS $function$\nDECLARE guild_key uuid;\nBEGIN\n  guild_key := guild_invite_private.leader_guild(p_leader);\n  RETURN coalesce((SELECT jsonb_agg(to_jsonb(v)) FROM (\n    SELECT id, created_at, expires_at, revoked_at FROM guild_invite_private.link_invites\n    WHERE guild_id = guild_key ORDER BY created_at DESC LIMIT 50\n  ) v), '[]'::jsonb);\nEND $function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres",
+        "anon=X/postgres",
+        "authenticated=X/postgres"
+      ],
+      "owner": "postgres",
+      "signature": "guild_invite_private.preview_invite(text)",
+      "definition": "CREATE OR REPLACE FUNCTION guild_invite_private.preview_invite(p_token text)\n RETURNS jsonb\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO ''\nAS $function$\nDECLARE invite_row guild_invite_private.link_invites; guild_name text;\nBEGIN\n  invite_row := guild_invite_private.valid_invite(p_token);\n  SELECT name INTO guild_name FROM public.guilds WHERE id = invite_row.guild_id;\n  RETURN jsonb_build_object('guild_name', guild_name, 'expires_at', invite_row.expires_at);\nEND $function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres",
+        "authenticated=X/postgres"
+      ],
+      "owner": "postgres",
+      "signature": "guild_invite_private.request_invite(text,uuid)",
+      "definition": "CREATE OR REPLACE FUNCTION guild_invite_private.request_invite(p_token text, p_traveler uuid)\n RETURNS uuid\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO ''\nAS $function$\nDECLARE invite_row guild_invite_private.link_invites;\nBEGIN\n  PERFORM guild_invite_private.require_account();\n  invite_row := guild_invite_private.valid_invite(p_token);\n  IF NOT public.owns_traveler(p_traveler) THEN\n    RAISE EXCEPTION 'Traveler not owned' USING ERRCODE = '42501';\n  END IF;\n  -- Existing RPC creates/reuses a PENDING request; only its normal review may add membership.\n  RETURN public.request_join_guild(invite_row.guild_id, p_traveler);\nEND $function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres"
+      ],
+      "owner": "postgres",
+      "signature": "guild_invite_private.require_account()",
+      "definition": "CREATE OR REPLACE FUNCTION guild_invite_private.require_account()\n RETURNS void\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO ''\nAS $function$\nBEGIN\n  IF auth.uid() IS NULL OR NOT EXISTS (\n    SELECT 1 FROM auth.users WHERE id = auth.uid() AND NOT coalesce(is_anonymous, false)\n  ) THEN RAISE EXCEPTION 'Account required' USING ERRCODE = '42501'; END IF;\nEND $function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres",
+        "authenticated=X/postgres"
+      ],
+      "owner": "postgres",
+      "signature": "guild_invite_private.resolve_invite(text)",
+      "definition": "CREATE OR REPLACE FUNCTION guild_invite_private.resolve_invite(p_token text)\n RETURNS jsonb\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO ''\nAS $function$\nDECLARE invite_row guild_invite_private.link_invites; guild_name text;\nBEGIN\n  PERFORM guild_invite_private.require_account();\n  invite_row := guild_invite_private.valid_invite(p_token);\n  SELECT name INTO guild_name FROM public.guilds WHERE id = invite_row.guild_id;\n  RETURN jsonb_build_object('guild_name', guild_name, 'expires_at', invite_row.expires_at);\nEND $function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres",
+        "authenticated=X/postgres"
+      ],
+      "owner": "postgres",
+      "signature": "guild_invite_private.revoke_invite(uuid,uuid)",
+      "definition": "CREATE OR REPLACE FUNCTION guild_invite_private.revoke_invite(p_id uuid, p_leader uuid)\n RETURNS void\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO ''\nAS $function$\nDECLARE guild_key uuid;\nBEGIN\n  guild_key := guild_invite_private.leader_guild(p_leader);\n  UPDATE guild_invite_private.link_invites SET revoked_at = coalesce(revoked_at, clock_timestamp())\n    WHERE id = p_id AND guild_id = guild_key;\n  IF NOT FOUND THEN RAISE EXCEPTION 'Invite unavailable' USING ERRCODE = 'P0002'; END IF;\nEND $function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres"
+      ],
+      "owner": "postgres",
+      "signature": "guild_invite_private.valid_invite(text)",
+      "definition": "CREATE OR REPLACE FUNCTION guild_invite_private.valid_invite(p_token text)\n RETURNS guild_invite_private.link_invites\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO ''\nAS $function$\nDECLARE invite_row guild_invite_private.link_invites;\nBEGIN\n  IF p_token IS NULL OR p_token !~ '^[a-f0-9]{64}$' THEN\n    RAISE EXCEPTION 'Invite unavailable' USING ERRCODE = 'P0002';\n  END IF;\n  SELECT i.* INTO invite_row FROM guild_invite_private.link_invites i\n    JOIN public.guilds g ON g.id = i.guild_id\n    JOIN public.guild_members gm ON gm.guild_id = g.id AND gm.traveler_id = i.leader_traveler_id\n    WHERE i.token_hash = extensions.digest(p_token, 'sha256')\n      AND i.revoked_at IS NULL AND i.expires_at > clock_timestamp()\n      AND g.status = 'active' AND gm.role = 'leader' AND gm.status = 'active'\n    FOR SHARE OF i, g, gm;\n  -- A row lock can wait beyond expiry even when the WHERE matched before waiting.\n  IF NOT FOUND OR invite_row.expires_at <= clock_timestamp() THEN\n    RAISE EXCEPTION 'Invite unavailable' USING ERRCODE = 'P0002';\n  END IF;\n  RETURN invite_row;\nEND $function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres"
+      ],
+      "owner": "postgres",
+      "signature": "guild_lesson_activity_capture()",
+      "definition": "CREATE OR REPLACE FUNCTION public.guild_lesson_activity_capture()\n RETURNS trigger\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO ''\nAS $function$\nBEGIN\n  IF TG_OP = 'INSERT' THEN\n    INSERT INTO public.guild_activity_log(guild_id, actor_traveler_id, event_type, entity_type, entity_id)\n    VALUES (NEW.guild_id, NEW.created_by_traveler_id,\n      CASE WHEN NEW.status = 'published' THEN 'lesson_published' ELSE 'lesson_created' END, 'lesson', NEW.id);\n  ELSIF NEW.status IS DISTINCT FROM OLD.status THEN\n    INSERT INTO public.guild_activity_log(guild_id, actor_traveler_id, event_type, entity_type, entity_id)\n    VALUES (NEW.guild_id, NEW.created_by_traveler_id,\n      CASE WHEN NEW.status = 'published' THEN 'lesson_published'\n           WHEN NEW.status = 'completed' THEN 'lesson_completed'\n           WHEN NEW.status = 'cancelled' THEN 'lesson_cancelled' ELSE 'lesson_created' END,\n      'lesson', NEW.id);\n  END IF;\n  RETURN NEW;\nEND $function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres"
+      ],
+      "owner": "postgres",
+      "signature": "guild_mission_workspace(uuid,integer)",
+      "definition": "CREATE OR REPLACE FUNCTION public.guild_mission_workspace(p_actor uuid, p_history_offset integer DEFAULT 0)\n RETURNS jsonb\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO ''\nAS $function$\nDECLARE v_guild uuid; v_role text; v_result jsonb;\nBEGIN\n SELECT guild_id INTO v_guild FROM public.guild_members WHERE traveler_id=p_actor AND status='active';\n v_role:=guild_ops.actor(p_actor,v_guild);\n IF p_history_offset IS NULL OR p_history_offset<0 OR p_history_offset>10000 THEN RAISE EXCEPTION 'Invalid history page'; END IF;\n SELECT jsonb_build_object('version',1,'guildId',v_guild,'missions',coalesce((SELECT jsonb_agg(to_jsonb(m) ORDER BY m.created_at DESC) FROM public.guild_missions m WHERE m.guild_id=v_guild AND guild_ops.visible(m.id) AND (v_role='leader' OR (m.status<>'draft' AND ((m.status='published' AND (m.audience='all' OR p_actor=ANY(m.target_traveler_ids))) OR EXISTS(SELECT 1 FROM public.guild_mission_progress own WHERE own.mission_id=m.id AND own.traveler_id=p_actor))))),'[]'::jsonb),\n 'progress',coalesce((SELECT jsonb_agg(to_jsonb(p)) FROM public.guild_mission_progress p JOIN public.guild_missions m ON m.id=p.mission_id WHERE m.guild_id=v_guild AND (v_role='leader' OR p.traveler_id=p_actor) AND guild_ops.visible(m.id)),'[]'::jsonb),\n 'attempts',coalesce((SELECT jsonb_agg(to_jsonb(a)||jsonb_build_object('traveler_name',t.name) ORDER BY a.submitted_at) FROM public.guild_mission_attempts a JOIN public.guild_missions m ON m.id=a.mission_id JOIN public.travelers t ON t.id=a.traveler_id WHERE m.guild_id=v_guild AND (v_role='leader' OR a.traveler_id=p_actor) AND guild_ops.visible(m.id)),'[]'::jsonb),\n 'history',CASE WHEN v_role='leader' THEN coalesce((SELECT jsonb_agg(to_jsonb(h)) FROM (SELECT * FROM public.guild_activity_log WHERE guild_id=v_guild ORDER BY created_at DESC,id DESC LIMIT 20 OFFSET p_history_offset) h),'[]'::jsonb) ELSE '[]'::jsonb END) INTO v_result;\n RETURN v_result;\nEND $function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres"
+      ],
+      "owner": "postgres",
+      "signature": "guild_ops.actor(uuid,uuid,boolean)",
+      "definition": "CREATE OR REPLACE FUNCTION guild_ops.actor(p_actor uuid, p_guild uuid, p_leader boolean DEFAULT false)\n RETURNS text\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO ''\nAS $function$\nDECLARE v_role text;\nBEGIN\n SELECT gm.role INTO v_role FROM public.guild_members gm JOIN public.travelers t ON t.id=gm.traveler_id\n JOIN auth.users u ON u.id=t.user_id JOIN public.guilds g ON g.id=gm.guild_id\n WHERE gm.traveler_id=p_actor AND gm.guild_id=p_guild AND gm.status='active' AND g.status='active'\n   AND t.user_id=auth.uid() AND u.is_anonymous IS FALSE\n   AND (gm.role<>'leader' OR g.leader_traveler_id=p_actor)\n   AND (NOT p_leader OR (gm.role='leader' AND g.leader_traveler_id=p_actor)) FOR SHARE OF gm,g;\n IF v_role IS NULL THEN RAISE EXCEPTION 'Guild access denied' USING ERRCODE='42501'; END IF;\n RETURN v_role;\nEND $function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres",
+        "authenticated=X/postgres"
+      ],
+      "owner": "postgres",
+      "signature": "guild_ops.visible(uuid)",
+      "definition": "CREATE OR REPLACE FUNCTION guild_ops.visible(p_mission uuid)\n RETURNS boolean\n LANGUAGE sql\n STABLE SECURITY DEFINER\n SET search_path TO ''\nAS $function$\n SELECT EXISTS(SELECT 1 FROM public.guild_missions m JOIN public.guild_members gm ON gm.guild_id=m.guild_id\n JOIN public.travelers t ON t.id=gm.traveler_id JOIN auth.users u ON u.id=t.user_id JOIN public.guilds g ON g.id=gm.guild_id\n WHERE m.id=p_mission AND gm.status='active' AND g.status='active' AND t.user_id=auth.uid() AND u.is_anonymous IS FALSE\n AND ((gm.role='leader' AND g.leader_traveler_id=gm.traveler_id) OR\n   (m.status<>'draft' AND ((m.status='published' AND (m.audience='all' OR gm.traveler_id=ANY(m.target_traveler_ids))) OR\n     EXISTS(SELECT 1 FROM public.guild_mission_progress p WHERE p.mission_id=m.id AND p.traveler_id=gm.traveler_id)))))\n$function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres",
+        "authenticated=X/postgres"
+      ],
+      "owner": "postgres",
+      "signature": "guild_public_member_profile(uuid,uuid)",
+      "definition": "CREATE OR REPLACE FUNCTION public.guild_public_member_profile(p_requester_traveler_id uuid, p_member_traveler_id uuid)\n RETURNS TABLE(level integer, completed_missions bigint)\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO ''\nAS $function$\nDECLARE guild_key uuid;\nBEGIN\n  IF NOT public.owns_traveler(p_requester_traveler_id) THEN\n    RAISE EXCEPTION 'Member unavailable' USING ERRCODE = '42501';\n  END IF;\n  SELECT guild_id INTO guild_key FROM public.guild_members\n    WHERE traveler_id = p_requester_traveler_id AND status = 'active';\n  IF guild_key IS NULL OR NOT EXISTS (\n    SELECT 1 FROM public.guild_members WHERE guild_id = guild_key\n      AND traveler_id = p_member_traveler_id AND status = 'active'\n  ) THEN RAISE EXCEPTION 'Member unavailable' USING ERRCODE = '42501'; END IF;\n  RETURN QUERY SELECT t.level,\n    (SELECT count(*) FROM public.guild_mission_progress p JOIN public.guild_missions m ON m.id = p.mission_id\n      WHERE m.guild_id = guild_key AND p.traveler_id = p_member_traveler_id AND p.status = 'completed')\n    FROM public.travelers t WHERE t.id = p_member_traveler_id;\nEND $function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres",
+        "authenticated=X/postgres"
+      ],
+      "owner": "postgres",
+      "signature": "is_active_guild_member(uuid)",
+      "definition": "CREATE OR REPLACE FUNCTION public.is_active_guild_member(p_guild_id uuid)\n RETURNS boolean\n LANGUAGE sql\n STABLE SECURITY DEFINER\n SET search_path TO ''\nAS $function$ SELECT EXISTS (\r\n  SELECT 1 FROM public.guild_members gm\r\n  JOIN public.travelers t ON t.id = gm.traveler_id\r\n  WHERE gm.guild_id = p_guild_id AND gm.status = 'active' AND t.user_id = auth.uid()\r\n) $function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres",
+        "authenticated=X/postgres"
+      ],
+      "owner": "postgres",
+      "signature": "is_guild_leader(uuid)",
+      "definition": "CREATE OR REPLACE FUNCTION public.is_guild_leader(p_guild_id uuid)\n RETURNS boolean\n LANGUAGE sql\n STABLE SECURITY DEFINER\n SET search_path TO ''\nAS $function$ SELECT EXISTS (\r\n  SELECT 1 FROM public.guild_members gm\r\n  JOIN public.travelers t ON t.id = gm.traveler_id\r\n  WHERE gm.guild_id = p_guild_id AND gm.status = 'active' AND gm.role = 'leader' AND t.user_id = auth.uid()\r\n) $function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres",
+        "authenticated=X/postgres"
+      ],
+      "owner": "postgres",
+      "signature": "leave_guild(uuid)",
+      "definition": "CREATE OR REPLACE FUNCTION public.leave_guild(p_traveler_id uuid)\n RETURNS void\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO ''\nAS $function$\r\nBEGIN\r\n  IF NOT public.owns_traveler(p_traveler_id) THEN RAISE EXCEPTION 'Traveler not owned' USING ERRCODE = '42501'; END IF;\r\n  UPDATE public.guild_members SET status = 'left' WHERE traveler_id = p_traveler_id AND status = 'active' AND role <> 'leader';\r\n  IF NOT FOUND THEN RAISE EXCEPTION 'Membership unavailable or leader must transfer leadership' USING ERRCODE = 'P0001'; END IF;\r\nEND $function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres",
+        "authenticated=X/postgres"
+      ],
+      "owner": "postgres",
+      "signature": "list_guild_join_requests(uuid)",
+      "definition": "CREATE OR REPLACE FUNCTION public.list_guild_join_requests(p_leader_traveler_id uuid)\n RETURNS TABLE(request_id uuid, traveler_id uuid, traveler_name text, request_status text, created_at timestamp with time zone)\n LANGUAGE sql\n STABLE SECURITY DEFINER\n SET search_path TO ''\nAS $function$\r\n  SELECT r.id, t.id, t.name, r.status, r.created_at FROM public.guild_members own\r\n  JOIN public.guild_join_requests r ON r.guild_id = own.guild_id JOIN public.travelers t ON t.id = r.traveler_id\r\n  WHERE own.traveler_id = p_leader_traveler_id AND own.role = 'leader' AND own.status = 'active' AND public.owns_traveler(p_leader_traveler_id) ORDER BY r.created_at\r\n$function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres",
+        "authenticated=X/postgres"
+      ],
+      "owner": "postgres",
+      "signature": "list_guild_link_invites(uuid)",
+      "definition": "CREATE OR REPLACE FUNCTION public.list_guild_link_invites(p_leader_traveler_id uuid)\n RETURNS jsonb\n LANGUAGE sql\n SET search_path TO ''\nAS $function$ SELECT guild_invite_private.list_invites(p_leader_traveler_id) $function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres",
+        "authenticated=X/postgres"
+      ],
+      "owner": "postgres",
+      "signature": "list_guild_members(uuid)",
+      "definition": "CREATE OR REPLACE FUNCTION public.list_guild_members(p_requester_traveler_id uuid)\n RETURNS TABLE(traveler_id uuid, traveler_name text, role text, member_status text, joined_at timestamp with time zone)\n LANGUAGE sql\n STABLE SECURITY DEFINER\n SET search_path TO ''\nAS $function$\r\n  SELECT t.id, t.name, gm.role, gm.status, gm.joined_at FROM public.guild_members own\r\n  JOIN public.guild_members gm ON gm.guild_id = own.guild_id JOIN public.travelers t ON t.id = gm.traveler_id\r\n  WHERE own.traveler_id = p_requester_traveler_id AND own.status = 'active' AND public.owns_traveler(p_requester_traveler_id) ORDER BY gm.joined_at\r\n$function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres"
+      ],
+      "owner": "postgres",
+      "signature": "list_guild_mission_progress(uuid,uuid)",
+      "definition": "CREATE OR REPLACE FUNCTION public.list_guild_mission_progress(p_mission_id uuid, p_leader_traveler_id uuid)\n RETURNS TABLE(traveler_id uuid, traveler_name text, progress_status text, completion_note text, submitted_at timestamp with time zone, completed_at timestamp with time zone)\n LANGUAGE sql\n STABLE SECURITY DEFINER\n SET search_path TO ''\nAS $function$\r\n  SELECT t.id, t.name, coalesce(p.status, 'available'), p.completion_note, p.submitted_at, p.completed_at\r\n  FROM public.guild_missions m JOIN public.guild_members gm ON gm.guild_id = m.guild_id AND gm.status = 'active'\r\n  JOIN public.travelers t ON t.id = gm.traveler_id LEFT JOIN public.guild_mission_progress p ON p.mission_id = m.id AND p.traveler_id = gm.traveler_id\r\n  WHERE m.id = p_mission_id AND EXISTS (SELECT 1 FROM public.guild_members own WHERE own.guild_id = m.guild_id AND own.traveler_id = p_leader_traveler_id AND own.role = 'leader' AND own.status = 'active') AND public.owns_traveler(p_leader_traveler_id) ORDER BY t.name\r\n$function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres"
+      ],
+      "owner": "postgres",
+      "signature": "mark_guild_chat_read(uuid,uuid,bigint)",
+      "definition": "CREATE OR REPLACE FUNCTION public.mark_guild_chat_read(p_guild_id uuid, p_traveler_id uuid, p_sequence bigint)\n RETURNS void\n LANGUAGE sql\n SET search_path TO ''\nAS $function$ SELECT guild_chat_private.mark_read(p_guild_id,p_traveler_id,p_sequence) $function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres"
+      ],
+      "owner": "postgres",
+      "signature": "moderate_guild_chat_message(uuid,uuid,uuid,text,text)",
+      "definition": "CREATE OR REPLACE FUNCTION public.moderate_guild_chat_message(p_guild_id uuid, p_traveler_id uuid, p_message_id uuid, p_action text, p_reason text)\n RETURNS void\n LANGUAGE sql\n SET search_path TO ''\nAS $function$ SELECT guild_chat_private.moderate(p_guild_id,p_traveler_id,p_message_id,p_action,p_reason) $function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres"
+      ],
+      "owner": "postgres",
+      "signature": "open_chest(uuid,text,uuid)",
+      "definition": "CREATE OR REPLACE FUNCTION public.open_chest(p_traveler_id uuid, p_chest_type text, p_operation_id uuid)\n RETURNS jsonb\n LANGUAGE sql\n SET search_path TO ''\nAS $function$\n  SELECT economy_private.chest(p_traveler_id,p_chest_type,p_operation_id,true)\n$function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres",
+        "authenticated=X/postgres"
+      ],
+      "owner": "postgres",
+      "signature": "owns_traveler(uuid)",
+      "definition": "CREATE OR REPLACE FUNCTION public.owns_traveler(p_traveler_id uuid)\n RETURNS boolean\n LANGUAGE sql\n STABLE SECURITY DEFINER\n SET search_path TO ''\nAS $function$ SELECT EXISTS (SELECT 1 FROM public.travelers t WHERE t.id = p_traveler_id AND t.user_id = auth.uid()) $function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres",
+        "authenticated=X/postgres",
+        "anon=X/postgres"
+      ],
+      "owner": "postgres",
+      "signature": "preview_guild_link_invite(text)",
+      "definition": "CREATE OR REPLACE FUNCTION public.preview_guild_link_invite(p_token text)\n RETURNS jsonb\n LANGUAGE sql\n SET search_path TO ''\nAS $function$ SELECT guild_invite_private.preview_invite(p_token) $function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres"
+      ],
+      "owner": "postgres",
+      "signature": "publish_guild_mission(uuid,uuid)",
+      "definition": "CREATE OR REPLACE FUNCTION public.publish_guild_mission(p_mission_id uuid, p_leader_traveler_id uuid)\n RETURNS void\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO ''\nAS $function$\r\nBEGIN\r\n  IF NOT public.owns_traveler(p_leader_traveler_id) THEN RAISE EXCEPTION 'Leader not owned' USING ERRCODE = '42501'; END IF;\r\n  UPDATE public.guild_missions m SET status = 'published', published_at = coalesce(published_at, now())\r\n  WHERE m.id = p_mission_id AND m.status = 'draft' AND EXISTS (SELECT 1 FROM public.guild_members gm WHERE gm.guild_id = m.guild_id AND gm.traveler_id = p_leader_traveler_id AND gm.role = 'leader' AND gm.status = 'active');\r\n  IF NOT FOUND THEN RAISE EXCEPTION 'Mission unavailable' USING ERRCODE = '42501'; END IF;\r\nEND $function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres"
+      ],
+      "owner": "postgres",
+      "signature": "purchase_chest(uuid,text,uuid)",
+      "definition": "CREATE OR REPLACE FUNCTION public.purchase_chest(p_traveler_id uuid, p_chest_type text, p_operation_id uuid)\n RETURNS jsonb\n LANGUAGE sql\n SET search_path TO ''\nAS $function$\n  SELECT economy_private.chest(p_traveler_id,p_chest_type,p_operation_id,false)\n$function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres"
+      ],
+      "owner": "postgres",
+      "signature": "release_ebd.no_new_rewards()",
+      "definition": "CREATE OR REPLACE FUNCTION release_ebd.no_new_rewards()\n RETURNS trigger\n LANGUAGE plpgsql\n SET search_path TO ''\nAS $function$\nBEGIN RETURN NULL; END $function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres",
+        "anon=X/postgres",
+        "authenticated=X/postgres",
+        "service_role=X/postgres"
+      ],
+      "owner": "postgres",
+      "signature": "release_scope()",
+      "definition": "CREATE OR REPLACE FUNCTION public.release_scope()\n RETURNS text\n LANGUAGE sql\n IMMUTABLE\n SET search_path TO ''\nAS $function$ SELECT 'guild-ebd-001'::text $function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres",
+        "authenticated=X/postgres"
+      ],
+      "owner": "postgres",
+      "signature": "remove_guild_member(uuid,uuid)",
+      "definition": "CREATE OR REPLACE FUNCTION public.remove_guild_member(p_member_traveler_id uuid, p_leader_traveler_id uuid)\n RETURNS void\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO ''\nAS $function$\r\nBEGIN\r\n  IF NOT public.owns_traveler(p_leader_traveler_id) THEN RAISE EXCEPTION 'Leader not owned' USING ERRCODE = '42501'; END IF;\r\n  UPDATE public.guild_members target SET status = 'removed', updated_at = now()\r\n  WHERE target.traveler_id = p_member_traveler_id AND target.role = 'member' AND target.status = 'active'\r\n    AND EXISTS (SELECT 1 FROM public.guild_members own WHERE own.guild_id = target.guild_id\r\n      AND own.traveler_id = p_leader_traveler_id AND own.role = 'leader' AND own.status = 'active');\r\n  IF NOT FOUND THEN RAISE EXCEPTION 'Member unavailable' USING ERRCODE = '42501'; END IF;\r\nEND $function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres"
+      ],
+      "owner": "postgres",
+      "signature": "report_guild_chat_message(uuid,uuid,uuid,text)",
+      "definition": "CREATE OR REPLACE FUNCTION public.report_guild_chat_message(p_guild_id uuid, p_traveler_id uuid, p_message_id uuid, p_reason text)\n RETURNS void\n LANGUAGE sql\n SET search_path TO ''\nAS $function$ SELECT guild_chat_private.report(p_guild_id,p_traveler_id,p_message_id,p_reason) $function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres",
+        "authenticated=X/postgres"
+      ],
+      "owner": "postgres",
+      "signature": "request_guild_link_invite(text,uuid)",
+      "definition": "CREATE OR REPLACE FUNCTION public.request_guild_link_invite(p_token text, p_traveler_id uuid)\n RETURNS uuid\n LANGUAGE sql\n SET search_path TO ''\nAS $function$ SELECT guild_invite_private.request_invite(p_token, p_traveler_id) $function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres",
+        "authenticated=X/postgres"
+      ],
+      "owner": "postgres",
+      "signature": "request_join_guild(uuid,uuid)",
+      "definition": "CREATE OR REPLACE FUNCTION public.request_join_guild(p_guild_id uuid, p_traveler_id uuid)\n RETURNS uuid\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO ''\nAS $function$\r\nDECLARE request_id uuid;\r\nBEGIN\r\n  IF NOT public.owns_traveler(p_traveler_id) THEN RAISE EXCEPTION 'Traveler not owned' USING ERRCODE = '42501'; END IF;\r\n  IF NOT EXISTS (SELECT 1 FROM public.guilds WHERE id = p_guild_id AND status = 'active') THEN RAISE EXCEPTION 'Guild unavailable' USING ERRCODE = 'P0002'; END IF;\r\n  IF EXISTS (SELECT 1 FROM public.guild_members WHERE traveler_id = p_traveler_id AND status = 'active') THEN RAISE EXCEPTION 'Traveler already belongs to a guild' USING ERRCODE = '23505'; END IF;\r\n  INSERT INTO public.guild_join_requests(guild_id, traveler_id) VALUES (p_guild_id, p_traveler_id)\r\n  ON CONFLICT (guild_id, traveler_id) WHERE status = 'pending' DO UPDATE SET updated_at = now()\r\n  RETURNING id INTO request_id;\r\n  RETURN request_id;\r\nEND $function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres",
+        "authenticated=X/postgres"
+      ],
+      "owner": "postgres",
+      "signature": "resolve_guild_link_invite(text)",
+      "definition": "CREATE OR REPLACE FUNCTION public.resolve_guild_link_invite(p_token text)\n RETURNS jsonb\n LANGUAGE sql\n SET search_path TO ''\nAS $function$ SELECT guild_invite_private.resolve_invite(p_token) $function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres",
+        "authenticated=X/postgres"
+      ],
+      "owner": "postgres",
+      "signature": "review_guild_join_request(uuid,uuid,boolean)",
+      "definition": "CREATE OR REPLACE FUNCTION public.review_guild_join_request(p_request_id uuid, p_reviewer_traveler_id uuid, p_approve boolean)\n RETURNS void\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO ''\nAS $function$\r\nDECLARE request_row public.guild_join_requests%ROWTYPE;\r\nBEGIN\r\n  IF NOT public.owns_traveler(p_reviewer_traveler_id) THEN RAISE EXCEPTION 'Reviewer not owned' USING ERRCODE = '42501'; END IF;\r\n  SELECT * INTO request_row FROM public.guild_join_requests WHERE id = p_request_id AND status = 'pending' FOR UPDATE;\r\n  IF NOT FOUND OR NOT EXISTS (SELECT 1 FROM public.guild_members WHERE guild_id = request_row.guild_id AND traveler_id = p_reviewer_traveler_id AND role = 'leader' AND status = 'active') THEN RAISE EXCEPTION 'Request unavailable' USING ERRCODE = '42501'; END IF;\r\n  IF p_approve AND EXISTS (SELECT 1 FROM public.guild_members WHERE traveler_id = request_row.traveler_id AND status = 'active') THEN RAISE EXCEPTION 'Traveler already belongs to a guild' USING ERRCODE = '23505'; END IF;\r\n  UPDATE public.guild_join_requests SET status = CASE WHEN p_approve THEN 'accepted' ELSE 'rejected' END, reviewed_by_traveler_id = p_reviewer_traveler_id, reviewed_at = now() WHERE id = p_request_id;\r\n  IF p_approve THEN\r\n    INSERT INTO public.guild_members(guild_id, traveler_id, role, status) VALUES (request_row.guild_id, request_row.traveler_id, 'member', 'active')\r\n    ON CONFLICT (guild_id, traveler_id) DO UPDATE SET role = 'member', status = 'active', joined_at = now(), updated_at = now();\r\n  END IF;\r\nEND $function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres"
+      ],
+      "owner": "postgres",
+      "signature": "review_guild_mission_v2(uuid,uuid,integer,text,text,uuid)",
+      "definition": "CREATE OR REPLACE FUNCTION public.review_guild_mission_v2(p_actor uuid, p_attempt uuid, p_revision integer, p_decision text, p_reason text, p_request uuid)\n RETURNS text\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO ''\nAS $function$\nDECLARE a public.guild_mission_attempts; m public.guild_missions; p public.guild_mission_progress;\nBEGIN\n SELECT * INTO a FROM public.guild_mission_attempts WHERE id=p_attempt;\n SELECT * INTO m FROM public.guild_missions WHERE id=a.mission_id FOR UPDATE;\n PERFORM guild_ops.actor(p_actor,m.guild_id,true);\n PERFORM 1 FROM public.guild_members gm WHERE gm.guild_id=m.guild_id AND gm.traveler_id=a.traveler_id AND gm.status='active' FOR SHARE;\n IF NOT FOUND OR EXISTS(SELECT 1 FROM public.travelers WHERE id=a.traveler_id AND user_id=auth.uid()) THEN RAISE EXCEPTION 'Self review or inactive member' USING ERRCODE='42501'; END IF;\n SELECT * INTO a FROM public.guild_mission_attempts WHERE id=p_attempt FOR UPDATE;\n IF p_request IS NULL OR p_revision IS NULL OR p_revision<1 OR p_decision NOT IN ('approved','rejected','changes_requested') OR p_decision IS NULL OR length(coalesce(p_reason,''))>500 OR (p_decision<>'approved' AND length(btrim(coalesce(p_reason,'')))=0) THEN RAISE EXCEPTION 'Decision needs a valid reason'; END IF;\n IF a.decision IS NOT NULL THEN\n   IF a.decision_request_id=p_request AND a.decision=p_decision AND coalesce(a.reason,'')=btrim(coalesce(p_reason,'')) THEN RETURN a.decision; END IF;\n   RAISE EXCEPTION 'Submission already reviewed';\n END IF;\n SELECT * INTO p FROM public.guild_mission_progress WHERE mission_id=a.mission_id AND traveler_id=a.traveler_id FOR UPDATE;\n IF m.status='cancelled' OR a.revision<>p_revision OR p.submission_revision<>a.revision OR p.status<>'pending_approval' THEN RAISE EXCEPTION 'Stale submission'; END IF;\n IF p_decision='approved' AND length(btrim(a.note))=0 THEN RAISE EXCEPTION 'Evidence missing; request correction'; END IF;\n UPDATE public.guild_mission_attempts SET decision=p_decision,reason=nullif(btrim(coalesce(p_reason,'')),''),reviewer_traveler_id=p_actor,decided_at=clock_timestamp(),decision_request_id=p_request WHERE id=p_attempt;\n UPDATE public.guild_mission_progress SET status=p_decision,review_note=nullif(btrim(coalesce(p_reason,'')),''),approved_by_traveler_id=p_actor,approved_at=CASE WHEN p_decision='approved' THEN clock_timestamp() ELSE NULL END WHERE id=p.id;\n INSERT INTO public.guild_activity_log(guild_id,actor_traveler_id,event_type,entity_type,entity_id,metadata) VALUES(m.guild_id,p_actor,'mission_decision','mission',m.id,jsonb_build_object('decision',p_decision,'revision',a.revision));\n RETURN p_decision;\nEND $function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres"
+      ],
+      "owner": "postgres",
+      "signature": "review_guild_mission_with_guidance(uuid,uuid,uuid,boolean,text)",
+      "definition": "CREATE OR REPLACE FUNCTION public.review_guild_mission_with_guidance(p_mission_id uuid, p_member_traveler_id uuid, p_reviewer_traveler_id uuid, p_approve boolean, p_guidance text)\n RETURNS text\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO ''\nAS $function$\r\nDECLARE next_status text;\r\nBEGIN\r\n  IF char_length(coalesce(p_guidance,'')) > 500 THEN RAISE EXCEPTION 'Guidance too long' USING ERRCODE = '22023'; END IF;\r\n  next_status := public.review_guild_mission(p_mission_id, p_member_traveler_id, p_reviewer_traveler_id, p_approve);\r\n  UPDATE public.guild_mission_progress SET review_note = CASE WHEN p_approve THEN NULL ELSE nullif(btrim(coalesce(p_guidance,'')),'') END\r\n  WHERE mission_id = p_mission_id AND traveler_id = p_member_traveler_id;\r\n  RETURN next_status;\r\nEND $function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres"
+      ],
+      "owner": "postgres",
+      "signature": "review_guild_mission(uuid,uuid,uuid,boolean)",
+      "definition": "CREATE OR REPLACE FUNCTION public.review_guild_mission(p_mission_id uuid, p_member_traveler_id uuid, p_reviewer_traveler_id uuid, p_approve boolean)\n RETURNS text\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO ''\nAS $function$\r\nDECLARE mission_guild_id uuid; next_status text;\r\nBEGIN\r\n  IF NOT public.owns_traveler(p_reviewer_traveler_id) THEN RAISE EXCEPTION 'Reviewer not owned' USING ERRCODE = '42501'; END IF;\r\n  SELECT guild_id INTO mission_guild_id FROM public.guild_missions WHERE id = p_mission_id AND completion_mode = 'leader_approval';\r\n  IF mission_guild_id IS NULL OR NOT EXISTS (SELECT 1 FROM public.guild_members WHERE guild_id = mission_guild_id AND traveler_id = p_reviewer_traveler_id AND role = 'leader' AND status = 'active') THEN RAISE EXCEPTION 'Leader role required' USING ERRCODE = '42501'; END IF;\r\n  next_status := CASE WHEN p_approve THEN 'completed' ELSE 'rejected' END;\r\n  UPDATE public.guild_mission_progress SET status = next_status, approved_at = CASE WHEN p_approve THEN now() ELSE NULL END, approved_by_traveler_id = p_reviewer_traveler_id, completed_at = CASE WHEN p_approve THEN now() ELSE NULL END WHERE mission_id = p_mission_id AND traveler_id = p_member_traveler_id AND status = 'pending_approval';\r\n  IF NOT FOUND THEN RAISE EXCEPTION 'Pending submission unavailable' USING ERRCODE = 'P0001'; END IF;\r\n  IF p_approve THEN\r\n    PERFORM public.apply_guild_mission_reward(p_mission_id, p_member_traveler_id);\r\n    UPDATE public.guild_mission_progress SET reward_claimed_at = now() WHERE mission_id = p_mission_id AND traveler_id = p_member_traveler_id;\r\n  END IF;\r\n  RETURN next_status;\r\nEND $function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres",
+        "authenticated=X/postgres"
+      ],
+      "owner": "postgres",
+      "signature": "revoke_guild_link_invite(uuid,uuid)",
+      "definition": "CREATE OR REPLACE FUNCTION public.revoke_guild_link_invite(p_invite_id uuid, p_leader_traveler_id uuid)\n RETURNS void\n LANGUAGE sql\n SET search_path TO ''\nAS $function$ SELECT guild_invite_private.revoke_invite(p_invite_id, p_leader_traveler_id) $function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres"
+      ],
+      "owner": "postgres",
+      "signature": "save_guild_lesson(uuid,uuid,text,text,text,text,text,text,jsonb,jsonb,text,timestamp with time zone,uuid,boolean)",
+      "definition": "CREATE OR REPLACE FUNCTION public.save_guild_lesson(p_lesson_id uuid, p_leader_traveler_id uuid, p_title text, p_theme text, p_bible_reference text, p_bible_url text, p_introduction text, p_content text, p_main_points jsonb, p_discussion_questions jsonb, p_activity_text text, p_scheduled_at timestamp with time zone, p_related_mission_id uuid, p_publish boolean)\n RETURNS uuid\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO ''\nAS $function$\nDECLARE guild_key uuid; lesson_key uuid; current_status text; point text;\nBEGIN\n  IF NOT public.owns_traveler(p_leader_traveler_id) THEN RAISE EXCEPTION 'Leader unavailable' USING ERRCODE = '42501'; END IF;\n  SELECT guild_id INTO guild_key FROM public.guild_members\n    WHERE traveler_id = p_leader_traveler_id AND role = 'leader' AND status = 'active';\n  IF guild_key IS NULL THEN RAISE EXCEPTION 'Leader unavailable' USING ERRCODE = '42501'; END IF;\n  IF p_related_mission_id IS NOT NULL AND NOT EXISTS (\n    SELECT 1 FROM public.guild_missions WHERE id = p_related_mission_id AND guild_id = guild_key AND status <> 'cancelled'\n  ) THEN RAISE EXCEPTION 'Mission unavailable' USING ERRCODE = '42501'; END IF;\n  IF jsonb_typeof(p_main_points) IS DISTINCT FROM 'array' OR jsonb_typeof(p_discussion_questions) IS DISTINCT FROM 'array'\n  THEN RAISE EXCEPTION 'Invalid lesson list' USING ERRCODE = '22023'; END IF;\n  IF jsonb_array_length(p_main_points) > 12 OR jsonb_array_length(p_discussion_questions) > 12\n    OR EXISTS (SELECT 1 FROM jsonb_array_elements(p_main_points) AS entry(value) WHERE jsonb_typeof(value) <> 'string')\n    OR EXISTS (SELECT 1 FROM jsonb_array_elements(p_discussion_questions) AS entry(value) WHERE jsonb_typeof(value) <> 'string')\n  THEN RAISE EXCEPTION 'Invalid lesson list' USING ERRCODE = '22023'; END IF;\n  FOR point IN SELECT value FROM jsonb_array_elements_text(p_main_points) AS entry(value)\n    UNION ALL SELECT value FROM jsonb_array_elements_text(p_discussion_questions) AS entry(value)\n  LOOP\n    IF char_length(btrim(point)) < 2 OR char_length(point) > 300 THEN\n      RAISE EXCEPTION 'Invalid lesson entry' USING ERRCODE = '22023';\n    END IF;\n  END LOOP;\n  IF p_lesson_id IS NULL THEN\n    INSERT INTO public.guild_lessons(guild_id, created_by_traveler_id, related_mission_id, title, theme,\n      bible_reference, bible_url, introduction, content, main_points, discussion_questions, activity_text,\n      scheduled_at, status, published_at)\n    VALUES (guild_key, p_leader_traveler_id, p_related_mission_id, btrim(p_title), btrim(p_theme),\n      btrim(p_bible_reference), nullif(btrim(coalesce(p_bible_url, '')), ''), coalesce(p_introduction, ''),\n      coalesce(p_content, ''), p_main_points, p_discussion_questions, nullif(btrim(coalesce(p_activity_text, '')), ''),\n      p_scheduled_at, CASE WHEN p_publish THEN 'published' ELSE 'draft' END, CASE WHEN p_publish THEN now() END)\n    RETURNING id INTO lesson_key;\n  ELSE\n    SELECT status INTO current_status FROM public.guild_lessons\n      WHERE id = p_lesson_id AND guild_id = guild_key FOR UPDATE;\n    IF current_status IS DISTINCT FROM 'draft' THEN RAISE EXCEPTION 'Draft unavailable' USING ERRCODE = '42501'; END IF;\n    UPDATE public.guild_lessons SET related_mission_id = p_related_mission_id, title = btrim(p_title), theme = btrim(p_theme),\n      bible_reference = btrim(p_bible_reference), bible_url = nullif(btrim(coalesce(p_bible_url, '')), ''),\n      introduction = coalesce(p_introduction, ''), content = coalesce(p_content, ''),\n      main_points = p_main_points, discussion_questions = p_discussion_questions,\n      activity_text = nullif(btrim(coalesce(p_activity_text, '')), ''), scheduled_at = p_scheduled_at,\n      status = CASE WHEN p_publish THEN 'published' ELSE 'draft' END,\n      published_at = CASE WHEN p_publish THEN now() ELSE NULL END\n    WHERE id = p_lesson_id RETURNING id INTO lesson_key;\n  END IF;\n  RETURN lesson_key;\nEND $function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres"
+      ],
+      "owner": "postgres",
+      "signature": "save_guild_mission_v2(uuid,uuid,integer,jsonb)",
+      "definition": "CREATE OR REPLACE FUNCTION public.save_guild_mission_v2(p_actor uuid, p_mission uuid, p_expected_revision integer, p_data jsonb)\n RETURNS uuid\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO ''\nAS $function$\nDECLARE v_guild uuid; v_old public.guild_missions; v_targets uuid[]; v_start timestamptz; v_due timestamptz; v_key text;\nBEGIN\n IF p_actor IS NULL OR p_mission IS NULL OR p_expected_revision IS NULL OR p_expected_revision<0 THEN RAISE EXCEPTION 'Invalid mission request'; END IF;\n IF jsonb_typeof(p_data)<>'object' OR p_data IS NULL THEN RAISE EXCEPTION 'Invalid mission'; END IF;\n FOR v_key IN SELECT jsonb_object_keys(p_data) LOOP\n   IF v_key NOT IN ('title','description','objective','instructions','evidenceCriterion','bibleReference','startsAt','dueAt','kind','rewardTier','audience','targetIds') THEN RAISE EXCEPTION 'Unexpected mission field'; END IF;\n END LOOP;\n FOREACH v_key IN ARRAY ARRAY['title','description','objective','instructions','evidenceCriterion','bibleReference','startsAt','dueAt','kind','rewardTier','audience'] LOOP\n   IF jsonb_typeof(p_data->v_key) IS DISTINCT FROM 'string' THEN RAISE EXCEPTION 'Invalid mission field'; END IF;\n END LOOP;\n IF jsonb_typeof(p_data->'targetIds') IS DISTINCT FROM 'array' OR jsonb_array_length(p_data->'targetIds')>100 THEN RAISE EXCEPTION 'Invalid audience'; END IF;\n SELECT coalesce(array_agg(value::uuid),'{}'::uuid[]) INTO v_targets FROM jsonb_array_elements_text(p_data->'targetIds');\n v_start:=nullif(p_data->>'startsAt','')::timestamptz;v_due:=nullif(p_data->>'dueAt','')::timestamptz;\n IF length(btrim(p_data->>'title')) NOT BETWEEN 2 AND 100 OR length(btrim(p_data->>'description')) NOT BETWEEN 1 AND 1000\n OR length(btrim(p_data->>'objective')) NOT BETWEEN 1 AND 500 OR length(btrim(p_data->>'instructions')) NOT BETWEEN 1 AND 1000\n OR length(btrim(p_data->>'evidenceCriterion')) NOT BETWEEN 1 AND 300 OR length(p_data->>'bibleReference')>100\n OR p_data->>'rewardTier' NOT IN ('normal','great','epic','extraordinary') OR p_data->>'kind' NOT IN ('mission','special')\n OR p_data->>'audience' NOT IN ('all','selected') OR (p_data->>'audience'='selected' AND cardinality(v_targets)=0)\n OR (p_data->>'audience'='all' AND cardinality(v_targets)>0) OR (v_start IS NOT NULL AND v_due IS NOT NULL AND v_due<=v_start)\n THEN RAISE EXCEPTION 'Invalid mission data' USING ERRCODE='22023'; END IF;\n IF p_expected_revision=0 THEN\n   SELECT gm.guild_id INTO v_guild FROM public.guild_members gm WHERE gm.traveler_id=p_actor AND gm.status='active';\n ELSE SELECT * INTO v_old FROM public.guild_missions WHERE id=p_mission FOR UPDATE;v_guild:=v_old.guild_id; END IF;\n PERFORM guild_ops.actor(p_actor,v_guild,true);\n IF EXISTS(SELECT 1 FROM unnest(v_targets) target WHERE NOT EXISTS(SELECT 1 FROM public.guild_members gm WHERE gm.traveler_id=target AND gm.guild_id=v_guild AND gm.status='active')) THEN RAISE EXCEPTION 'Audience outside guild'; END IF;\n IF p_expected_revision=0 THEN\n   -- Client UUID makes repeated create requests idempotent; fingerprint rejects changed payloads.\n   INSERT INTO public.guild_missions(id,guild_id,created_by_traveler_id,title,description,mission_type,completion_mode,requires_leader_approval,reward_tier,objective,instructions,evidence_criterion,bible_reference,starts_at,due_at,audience,target_traveler_ids,creation_fingerprint)\n   VALUES(p_mission,v_guild,p_actor,btrim(p_data->>'title'),btrim(p_data->>'description'),CASE WHEN p_data->>'kind'='special' THEN 'special_mission' ELSE 'practical_activity' END,'leader_approval',true,p_data->>'rewardTier',btrim(p_data->>'objective'),btrim(p_data->>'instructions'),btrim(p_data->>'evidenceCriterion'),nullif(btrim(p_data->>'bibleReference'),''),v_start,v_due,p_data->>'audience',v_targets,md5(p_data::text)) ON CONFLICT(id) DO NOTHING;\n   IF NOT FOUND AND NOT EXISTS(SELECT 1 FROM public.guild_missions WHERE id=p_mission AND created_by_traveler_id=p_actor AND guild_id=v_guild AND creation_fingerprint=md5(p_data::text)) THEN RAISE EXCEPTION 'Mission request conflict'; END IF;\n ELSE\n   IF v_old.status<>'draft' OR v_old.workspace_revision<>p_expected_revision THEN RAISE EXCEPTION 'Stale draft'; END IF;\n   UPDATE public.guild_missions SET title=btrim(p_data->>'title'),description=btrim(p_data->>'description'),objective=btrim(p_data->>'objective'),instructions=btrim(p_data->>'instructions'),evidence_criterion=btrim(p_data->>'evidenceCriterion'),bible_reference=nullif(btrim(p_data->>'bibleReference'),''),starts_at=v_start,due_at=v_due,reward_tier=p_data->>'rewardTier',mission_type=CASE WHEN p_data->>'kind'='special' THEN 'special_mission' ELSE 'practical_activity' END,audience=p_data->>'audience',target_traveler_ids=v_targets,completion_mode='leader_approval',requires_leader_approval=true,workspace_revision=workspace_revision+1 WHERE id=p_mission;\n   INSERT INTO public.guild_activity_log(guild_id,actor_traveler_id,event_type,entity_type,entity_id) VALUES(v_guild,p_actor,'mission_draft_updated','mission',p_mission);\n END IF;\n RETURN p_mission;\nEND $function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres"
+      ],
+      "owner": "postgres",
+      "signature": "send_guild_chat_message(uuid,uuid,uuid,text,boolean)",
+      "definition": "CREATE OR REPLACE FUNCTION public.send_guild_chat_message(p_guild_id uuid, p_traveler_id uuid, p_client_id uuid, p_body text, p_announcement boolean DEFAULT false)\n RETURNS uuid\n LANGUAGE sql\n SET search_path TO ''\nAS $function$ SELECT guild_chat_private.send(p_guild_id,p_traveler_id,p_client_id,p_body,p_announcement) $function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres",
+        "authenticated=X/postgres"
+      ],
+      "owner": "postgres",
+      "signature": "set_active_traveler(uuid)",
+      "definition": "CREATE OR REPLACE FUNCTION public.set_active_traveler(p_traveler_id uuid)\n RETURNS void\n LANGUAGE plpgsql\n SET search_path TO ''\nAS $function$\r\nBEGIN\r\n  UPDATE public.travelers\r\n  SET is_active = false\r\n  WHERE user_id = auth.uid() AND is_active = true;\r\n\r\n  UPDATE public.travelers\r\n  SET is_active = true\r\n  WHERE id = p_traveler_id AND user_id = auth.uid();\r\n\r\n  IF NOT FOUND THEN\r\n    RAISE EXCEPTION 'Traveler not found' USING ERRCODE = 'P0002';\r\n  END IF;\r\nEND;\r\n$function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres"
+      ],
+      "owner": "postgres",
+      "signature": "set_guild_lesson_status(uuid,uuid,text)",
+      "definition": "CREATE OR REPLACE FUNCTION public.set_guild_lesson_status(p_lesson_id uuid, p_leader_traveler_id uuid, p_status text)\n RETURNS void\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO ''\nAS $function$\nBEGIN\n  IF NOT public.owns_traveler(p_leader_traveler_id) OR p_status NOT IN ('completed', 'cancelled') THEN\n    RAISE EXCEPTION 'Action unavailable' USING ERRCODE = '42501';\n  END IF;\n  UPDATE public.guild_lessons lesson\n    SET status = p_status, completed_at = CASE WHEN p_status = 'completed' THEN now() ELSE NULL END\n    WHERE lesson.id = p_lesson_id AND lesson.status = 'published'\n      AND EXISTS (SELECT 1 FROM public.guild_members gm WHERE gm.guild_id = lesson.guild_id\n        AND gm.traveler_id = p_leader_traveler_id AND gm.role = 'leader' AND gm.status = 'active');\n  IF NOT FOUND THEN RAISE EXCEPTION 'Lesson unavailable' USING ERRCODE = '42501'; END IF;\nEND $function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres"
+      ],
+      "owner": "postgres",
+      "signature": "set_updated_at()",
+      "definition": "CREATE OR REPLACE FUNCTION public.set_updated_at()\n RETURNS trigger\n LANGUAGE plpgsql\n SET search_path TO ''\nAS $function$\r\nBEGIN\r\n  NEW.updated_at = now();\r\n  RETURN NEW;\r\nEND;\r\n$function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres"
+      ],
+      "owner": "postgres",
+      "signature": "spend_coins(uuid,integer)",
+      "definition": "CREATE OR REPLACE FUNCTION public.spend_coins(p_traveler_id uuid, p_amount integer)\n RETURNS integer\n LANGUAGE plpgsql\n SET search_path TO ''\nAS $function$\r\nDECLARE\r\n  resulting_coins integer;\r\nBEGIN\r\n  IF p_amount <= 0 THEN\r\n    RAISE EXCEPTION 'Amount must be positive' USING ERRCODE = '22023';\r\n  END IF;\r\n\r\n  UPDATE public.wallets\r\n  SET coins = coins - p_amount\r\n  WHERE traveler_id = p_traveler_id AND coins >= p_amount\r\n  RETURNING coins INTO resulting_coins;\r\n\r\n  IF resulting_coins IS NULL THEN\r\n    RAISE EXCEPTION 'Insufficient balance or wallet not found' USING ERRCODE = 'P0001';\r\n  END IF;\r\n\r\n  RETURN resulting_coins;\r\nEND;\r\n$function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres"
+      ],
+      "owner": "postgres",
+      "signature": "start_guild_mission(uuid,uuid)",
+      "definition": "CREATE OR REPLACE FUNCTION public.start_guild_mission(p_mission_id uuid, p_traveler_id uuid)\n RETURNS uuid\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO ''\nAS $function$\r\nDECLARE progress_id uuid;\r\nBEGIN\r\n  IF NOT public.owns_traveler(p_traveler_id) THEN RAISE EXCEPTION 'Traveler not owned' USING ERRCODE = '42501'; END IF;\r\n  IF NOT EXISTS (SELECT 1 FROM public.guild_missions m JOIN public.guild_members gm ON gm.guild_id = m.guild_id WHERE m.id = p_mission_id AND m.status = 'published' AND (m.starts_at IS NULL OR m.starts_at <= now()) AND (m.due_at IS NULL OR m.due_at > now()) AND gm.traveler_id = p_traveler_id AND gm.status = 'active') THEN RAISE EXCEPTION 'Mission unavailable' USING ERRCODE = '42501'; END IF;\r\n  INSERT INTO public.guild_mission_progress(mission_id, traveler_id, status, started_at) VALUES (p_mission_id, p_traveler_id, 'started', now())\r\n  ON CONFLICT (mission_id, traveler_id) DO UPDATE SET status = 'started', started_at = coalesce(public.guild_mission_progress.started_at, now()), submitted_at = NULL WHERE public.guild_mission_progress.status IN ('available','rejected')\r\n  RETURNING id INTO progress_id;\r\n  IF progress_id IS NULL THEN RAISE EXCEPTION 'Mission already submitted or completed' USING ERRCODE = 'P0001'; END IF;\r\n  RETURN progress_id;\r\nEND $function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres"
+      ],
+      "owner": "postgres",
+      "signature": "story_private.refresh_progress()",
+      "definition": "CREATE OR REPLACE FUNCTION story_private.refresh_progress()\n RETURNS trigger\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO ''\nAS $function$\nDECLARE v_revision integer; v_steps text[]; v_video boolean; v_reward text;\nBEGIN\n  -- Same traveler lock as complete_story: concurrent steps/completions serialize.\n  PERFORM 1 FROM public.travelers WHERE id = NEW.traveler_id FOR UPDATE;\n  IF EXISTS (SELECT 1 FROM public.story_progress WHERE traveler_id=NEW.traveler_id AND story_id=NEW.story_id AND completed_at IS NOT NULL) THEN\n    RAISE EXCEPTION 'Story already completed';\n  END IF;\n  SELECT revision INTO STRICT v_revision FROM public.story_definitions WHERE id=NEW.story_id;\n  IF NEW.revision <> v_revision THEN RAISE EXCEPTION 'Stale story revision'; END IF;\n  SELECT array_agg(step ORDER BY step), bool_or(step='video'), max(proof_reference) FILTER (WHERE step='reward')\n    INTO v_steps,v_video,v_reward FROM story_private.step_receipts\n    WHERE traveler_id=NEW.traveler_id AND story_id=NEW.story_id AND revision=v_revision;\n  INSERT INTO public.story_progress(traveler_id,story_id,completed_steps,video_completed,reward_receipt)\n    VALUES(NEW.traveler_id,NEW.story_id,v_steps,COALESCE(v_video,false),v_reward)\n    ON CONFLICT(traveler_id,story_id) DO UPDATE SET completed_steps=EXCLUDED.completed_steps,\n      video_completed=EXCLUDED.video_completed,reward_receipt=EXCLUDED.reward_receipt;\n  RETURN NEW;\nEND $function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres"
+      ],
+      "owner": "postgres",
+      "signature": "submit_guild_mission(uuid,uuid,text)",
+      "definition": "CREATE OR REPLACE FUNCTION public.submit_guild_mission(p_mission_id uuid, p_traveler_id uuid, p_completion_note text DEFAULT NULL::text)\n RETURNS text\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO ''\nAS $function$\r\nDECLARE mission_mode text; next_status text;\r\nBEGIN\r\n  IF NOT public.owns_traveler(p_traveler_id) THEN RAISE EXCEPTION 'Traveler not owned' USING ERRCODE = '42501'; END IF;\r\n  IF char_length(coalesce(p_completion_note,'')) > 500 THEN RAISE EXCEPTION 'Completion note too long' USING ERRCODE = '22023'; END IF;\r\n  SELECT m.completion_mode INTO mission_mode FROM public.guild_missions m JOIN public.guild_members gm ON gm.guild_id = m.guild_id WHERE m.id = p_mission_id AND m.status = 'published' AND (m.due_at IS NULL OR m.due_at > now()) AND gm.traveler_id = p_traveler_id AND gm.status = 'active';\r\n  IF mission_mode IS NULL THEN RAISE EXCEPTION 'Mission unavailable' USING ERRCODE = '42501'; END IF;\r\n  next_status := CASE WHEN mission_mode = 'self_complete' THEN 'completed' ELSE 'pending_approval' END;\r\n  UPDATE public.guild_mission_progress SET status = next_status, submitted_at = now(), completion_note = nullif(btrim(coalesce(p_completion_note,'')),''), completed_at = CASE WHEN next_status = 'completed' THEN now() ELSE NULL END WHERE mission_id = p_mission_id AND traveler_id = p_traveler_id AND status = 'started';\r\n  IF NOT FOUND THEN RAISE EXCEPTION 'Mission must be started first' USING ERRCODE = 'P0001'; END IF;\r\n  IF next_status = 'completed' THEN\r\n    PERFORM public.apply_guild_mission_reward(p_mission_id, p_traveler_id);\r\n    UPDATE public.guild_mission_progress SET reward_claimed_at = now() WHERE mission_id = p_mission_id AND traveler_id = p_traveler_id;\r\n  END IF;\r\n  RETURN next_status;\r\nEND $function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres"
+      ],
+      "owner": "postgres",
+      "signature": "transition_guild_mission_v2(uuid,uuid,integer,text)",
+      "definition": "CREATE OR REPLACE FUNCTION public.transition_guild_mission_v2(p_actor uuid, p_mission uuid, p_expected_revision integer, p_action text)\n RETURNS void\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO ''\nAS $function$\nDECLARE m public.guild_missions; v_status text;\nBEGIN\n IF p_expected_revision IS NULL OR p_expected_revision<1 THEN RAISE EXCEPTION 'Invalid mission revision'; END IF;\n SELECT * INTO m FROM public.guild_missions WHERE id=p_mission FOR UPDATE;\n PERFORM guild_ops.actor(p_actor,m.guild_id,true);\n v_status:=CASE p_action WHEN 'publish' THEN 'published' WHEN 'close' THEN 'closed' WHEN 'cancel' THEN 'cancelled' END;\n IF v_status IS NULL THEN RAISE EXCEPTION 'Invalid transition'; END IF;\n IF m.status=v_status THEN RETURN; END IF;\n IF m.workspace_revision<>p_expected_revision OR NOT ((m.status='draft' AND p_action IN ('publish','cancel')) OR (m.status='published' AND p_action IN ('close','cancel'))) THEN RAISE EXCEPTION 'Stale mission or invalid transition'; END IF;\n IF p_action='publish' AND (m.objective IS NULL OR m.instructions IS NULL OR m.evidence_criterion IS NULL OR (m.due_at IS NOT NULL AND m.due_at<=clock_timestamp())) THEN RAISE EXCEPTION 'Complete the draft before publication'; END IF;\n UPDATE public.guild_missions SET status=v_status,published_at=CASE WHEN p_action='publish' THEN clock_timestamp() ELSE published_at END,closed_at=CASE WHEN p_action IN ('close','cancel') THEN clock_timestamp() ELSE closed_at END,workspace_revision=workspace_revision+1 WHERE id=p_mission;\n INSERT INTO public.guild_activity_log(guild_id,actor_traveler_id,event_type,entity_type,entity_id,metadata) VALUES(m.guild_id,p_actor,'mission_state_changed','mission',p_mission,jsonb_build_object('action',p_action));\nEND $function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres"
+      ],
+      "owner": "postgres",
+      "signature": "update_guild_mission_draft(uuid,uuid,text,text,text,text,text,text,text,timestamp with time zone,timestamp with time zone)",
+      "definition": "CREATE OR REPLACE FUNCTION public.update_guild_mission_draft(p_mission_id uuid, p_leader_traveler_id uuid, p_title text, p_description text, p_mission_type text, p_bible_reference text, p_bible_url text, p_completion_mode text, p_reward_tier text, p_starts_at timestamp with time zone, p_due_at timestamp with time zone)\n RETURNS void\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO ''\nAS $function$\r\nBEGIN\r\n  IF NOT public.owns_traveler(p_leader_traveler_id) THEN RAISE EXCEPTION 'Leader not owned' USING ERRCODE = '42501'; END IF;\r\n  UPDATE public.guild_missions m SET title = btrim(p_title), description = nullif(btrim(coalesce(p_description,'')),''),\r\n    mission_type = p_mission_type, bible_reference = nullif(btrim(coalesce(p_bible_reference,'')),''),\r\n    bible_url = nullif(btrim(coalesce(p_bible_url,'')),''), completion_mode = p_completion_mode,\r\n    requires_leader_approval = p_completion_mode = 'leader_approval', reward_tier = p_reward_tier,\r\n    starts_at = p_starts_at, due_at = p_due_at, updated_at = now()\r\n  WHERE m.id = p_mission_id AND m.status = 'draft'\r\n    AND NOT EXISTS (SELECT 1 FROM public.guild_mission_progress p WHERE p.mission_id = m.id)\r\n    AND EXISTS (SELECT 1 FROM public.guild_members gm WHERE gm.guild_id = m.guild_id\r\n      AND gm.traveler_id = p_leader_traveler_id AND gm.role = 'leader' AND gm.status = 'active');\r\n  IF NOT FOUND THEN RAISE EXCEPTION 'Draft unavailable' USING ERRCODE = '42501'; END IF;\r\nEND $function$\n"
+    }
+  ]
+}

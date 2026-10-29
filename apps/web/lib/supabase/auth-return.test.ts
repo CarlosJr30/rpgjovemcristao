@@ -9,6 +9,14 @@ import {
 
 afterEach(() => window.history.replaceState({}, '', '/'));
 
+test('keeps the clean leadership invitation destination without a token in the return URL', () => {
+  const target='/guilda/lideranca/convite';
+  window.history.replaceState({}, '', `/auth?next=${encodeURIComponent(target)}`);
+  expect(entryReturn('/')).toBe(target);
+  expect(registrationDestination()).toBe(`/journey/create?next=${encodeURIComponent(target)}`);
+  expect(safeEntryReturn(target+'/arbitrary',window.location.origin)).toBeNull();
+});
+
 test('keeps an internal guild destination and its query without granting membership', () => {
   const target = '/journey/guild?code=test-invite';
   window.history.replaceState(

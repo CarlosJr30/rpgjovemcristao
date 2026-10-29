@@ -1,0 +1,25 @@
+.content {
+  min-width: 0;
+}
+.invite {
+  display: block;
+  overflow-wrap: anywhere;
+  margin: 12px 0;
+}
+.content img {
+  max-width: 100%;
+  height: auto;
+}
+.content .check {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.content .check input {
+  width: auto;
+}
+.content fieldset {
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  min-width: 0;
+}
