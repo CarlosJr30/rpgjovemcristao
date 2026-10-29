@@ -1,5 +1,38 @@
 # RPG-DEV-010A — Administração e liderança
 
+## 010A.2 — CI e migration TEST aprovados; homologação entre contas BLOCKED
+
+28/10/2026. Candidato runtime/SQL `3f1b7c57e99802510dd609e66afad7cb574246d5`, [PR19 aberta/draft](https://github.com/CarlosJr30/rpgjovemcristao/pull/19), sem merge. CI [push40801463043](https://github.com/CarlosJr30/rpgjovemcristao/actions/runs/40801463043) e [PR40801469891](https://github.com/CarlosJr30/rpgjovemcristao/actions/runs/40801469891) **success no SHA exato**: **925unit PASS/74SKIP**, qualidade, protocolo25, PostgreSQL e RSC. Os quatro testes adicionais estão incluídos nos925; não somar novamente o seguimento local. Publicação condicional SKIP, não PASS.
+
+Aplicada **somente TEST** a migration `20261029014423_rpg_dev_010a2_multiguild_test`, arquivo local `20261028213600`, SHA256 `f2e9dab61f2b7c260d7cd4be29a1a727b309380a91b70f93d688b3bd583c2541`. TEST30migrations/49tabelas/153funções. Comparação estrutural:99funções/ACLs anteriores intactas,25 alterações previstas (24 definições e ACL do comando privado legado),29 funções novas; schemas/defaults/39policies intactos. Somente constraint de ações da auditoria alterada nas47tabelas anteriores; duas novas tabelas privadas RLS deny-all, sem DML/SELECT de aplicação. Índice global antigo removido conjuntamente; unicidade por Guilda/avatar preservada. Zero tabela sem RLS; novos wrappers públicos INVOKER, anon/service_role e acesso direto aos comandos privados inferiores negados. Avisos legados de advisors preservados; as duas tabelas privadas acrescentam deny-all intencional, sem novo wrapper público DEFINER.
+
+[Preview TEST](https://rpgjovemcristao-dfdfm9clg-carlos-junior-s-projects.vercel.app), deployment `dpl_9mS6khDcuJb5Lzhgd5VX2u6hsMSk`, **READY/Preview/SHA3f1b7c5**, somente configurações TEST da branch. Proteção Vercel mantida; sessão normal Admin reutilizada apenas em memória. **6 verificações reais de preflight PASS**: status legado1 e escopado2, Admin com quatro permissões sem liderança implícita, consulta própria, avatar alheio negado, anonimato negado e tela Admin. Emissão e aceite de nova autorização de liderança própria pela UI normal foram comprovados; Admin permanece ativo, autorização TEST agora ativa, dois registros de auditoria acrescentados e um convite novo consumido. Registros010A.1 anteriores preservados, sem bootstrap repetido.
+
+**Roteiro completo de criação: FAIL/BLOCKED**, interrompido antes de criar Guildas. Durante a preparação das janelas surgiu um novo avatar na mesma conta, e o avatar original “Herói TEST Equipamentos” ficou inativo. A tela não apresentou o seletor esperado e o coletor recusou o contexto por não corresponder ao avatar ativo autorizado. Nenhum bypass do guard, nova identidade presumida pelo nome, criação de Guilda, grant de professor ou teste positivo entre contas foi executado para contornar isso. O usuário informou duas janelas, uma por viajante; Auth confirmou o mesmo UID nas duas. Janelas/avatares diferentes da mesma conta não comprovam isolamento entre jogadores. O acesso normal a uma segunda identidade Auth distinta continua **não comprovado**.
+
+### Preservação e limites reais do baseline
+
+Imediatamente após DDL, **todos os43conjuntos anteriores TEST e os4 da fundação estavam idênticos**, assim como38PROD. Depois da criação/seleção de avatar observada nas janelas, TEST passou13→14 viajantes, carteiras e atributos:40 dos43conjuntos anteriores continuam idênticos, e as13 carteiras/atributos anteriores também permanecem idênticos quando comparados separadamente. O novo avatar está com0XP/0moedas/zero inventário. O hash integral de `travelers` mudou e **não é declarado preservado**; houve mudança do avatar ativo e timestamps. O roteiro automatizado não executou criação de avatar. Não apagar o novo avatar nem restaurar o baseline por SQL para fabricar resultado. Preservar esse delta e renovar um baseline de QA apenas após estabilizar os logins/avatares autorizados, mantendo as evidências anteriores.
+
+Quatro auditorias e o convite anterior à010A.2 mantêm seus hashes exatos; a nova emissão/aceite legítima são mudanças esperadas da governança TEST. Nenhuma concessão econômica, operação de equipamento, progresso oficial ou modificação PROD pelo coletor. PROD mantém38conjuntos idênticos,8migrations/38tabelas/100funções/39policies,008C `c14fd5e`, deployment `dpl_8Pi4mXQUCaMcirqq5kLpXZdH9sRk` READY/production/alias oficial, autoAssign=true/SSO originais. PR12/18 continuam independentes.
+
+### Gates pendentes e sequência mínima
+
+| Gate | Estado |
+| --- | --- |
+|15interfaces, testes unitários/PG, recuperação, build/qualidade/CI|PASS local/CI;50PG multiguild+45fundação;24RSC/222UI/48Guilda sintéticos|
+|Migration/ACL/RLS/dados antes da preparação das janelas|PASS somente TEST|
+|Preflight normal Admin e emissão/aceite próprios|PASS nas verificações identificadas; não conclui o roteiro multiguild|
+|Duas Guildas, dois logins distintos, professor, remoção/saída, revogação e concorrência hospedadas|BLOCKED por identidades/avatares; cobertura PG não substitui esse gate|
+|Regressões hospedadas completas no candidato010A.2, desktop/WebKit|PENDING; evidências010A.1 e locais preservadas, sem alegar nova prova hospedada|
+|Migrations específicas PROD/configuração administrativa/publicação|BLOCKED; designação humana existente somente TEST; nenhuma DDL/deploy/merge PROD|
+
+Procedimento de retomada: selecionar o avatar original na conta Admin pelo fluxo normal; autenticar a janela separada com **outro login/e-mail TEST** já existente, sem compartilhar credenciais; confirmar dois UIDs pela sessão e um avatar próprio ativo em cada conta; renovar baseline preservando o novo avatar; então executar os fluxos normais da Preview e revalidar segurança/regressões. Não pedir senhas/tokens, alterar Auth administrativamente ou usar contas antigas sem acesso confirmado. Se só existir acesso a uma identidade, o gate permanece BLOCKED.
+
+[Plano produtivo e recuperação](RPG-DEV-010A2-PRODUCTION-PLAN.md): documentação preparatória, não pacote produtivo aprovado. Migrations PROD próprias serão geradas somente após homologação TEST completa, conforme pedido. **Não DONE/DEPLOY_COMPLETE010A.2/010A.** QA/Security pelo autor; ausência de prova hospedada completa impede o aceite final. Os checkpoints abaixo são históricos.
+
+Trabalho independente adicional concluído: **36Missões/43Serpente PASS** no bundle real já compilado, com Auth/API sintéticos em loopback; zero page errors/escritas REST inesperadas. Chromium desktop, WebKit390px e Chromium390px com toque CDP emulado; sem aparelho físico/Android real, sem nova prova hospedada ou alteração da engine. Evidência consolidada sanitizada: [RPG-DEV-010A2-TEST-EVIDENCE.json](RPG-DEV-010A2-TEST-EVIDENCE.json). Logs/capturas/baselines/falhas privados em `build/rpg-dev-010a2`; evidências010A.1 preservadas. As interfaces de consulta anteriores, menu11, bloqueios econômicos e PR12/18 permanecem fora de alterações desta etapa. Nenhum gate pendente convertido em PASS.
+
 ## 010A.2 — VALIDATING local, sem publicação
 
 28/10/2026. Implementação multiguild na mesma branch/PR19, preservando a fundação010A.1 e seus registros. [Auditoria das15 interfaces](RPG-DEV-010A-MULTIGUILD-COMPATIBILITY.md) atualizada: criação e participação múltiplas, seleção explícita, escopo de membros/convites/EBD, legado ambíguo negado e revogação global consultada no servidor. UI mantém o salão/menu/arte; trocar conta/avatar/Guilda descarta respostas e editores anteriores e reconfirma permissões. Nenhum modelo novo de classes010B ou operação econômica liberado.

@@ -1,6 +1,6 @@
 # 010A.2 — contrato de compatibilidade para múltiplas Guildas
 
-28/10/2026. **010A.2 implementada localmente; homologação hospedada e publicação pendentes.** A migration própria TEST adapta as interfaces conjuntamente antes de retirar o índice global de um vínculo. A fundação010A.1 e suas evidências permanecem preservadas. Ser Admin não substitui autorização explícita de liderança. O histórico abaixo descreve o baseline anterior.
+28/10/2026. **010A.2 implementada e instalada em TEST; homologação entre contas BLOCKED e publicação pendente.** CI do runtime3f1b7c5 aprovado; migration TEST20261029014423 aplicada, Preview dfdfm9clg READY. O preflight normal Admin passou; faltam dois logins Auth distintos e os fluxos positivos multiguild hospedados. Duas janelas com avatares da mesma identidade não comprovam esse gate. A migration adapta as interfaces conjuntamente antes de retirar o índice global de um vínculo. A fundação010A.1 e suas evidências permanecem preservadas. Ser Admin não substitui autorização explícita de liderança. O histórico abaixo descreve o baseline anterior.
 
 ## Resultado da auditoria das 15 interfaces
 
