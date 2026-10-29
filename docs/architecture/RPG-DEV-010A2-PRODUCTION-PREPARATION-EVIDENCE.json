@@ -3,7 +3,20 @@
   "date": "2026-10-29",
   "TESTHomologation": "RPG-DEV-010A2-MULTIUSER-EVIDENCE.json",
   "hostedRuntimeCandidate": "df9e0b740fc8d103b6d179474ad2ac4d260f9d4c",
-  "productionPackageCI": "PENDING_NEW_COMMIT",
+  "productionPackageCI": {
+    "sha": "f606e5a9230ddb8cdac6536b15fc7d0770670b91",
+    "pushSuccess": true,
+    "prSuccess": true,
+    "push": 40845009558,
+    "pr": 40845018213,
+    "quality": 927,
+    "skipped": 74,
+    "isolatedPostgres": 131,
+    "conditionalPublish": "SKIP",
+    "noRuntimeChangeFromHostedDf9": true,
+    "pushURL": "https://github.com/CarlosJr30/rpgjovemcristao/actions/runs/40845009558",
+    "prURL": "https://github.com/CarlosJr30/rpgjovemcristao/actions/runs/40845018213"
+  },
   "artifacts": [
     {
       "path": "supabase/migrations/20261029082857_rpg_dev_010a_governance_production.sql",
@@ -387,7 +400,8 @@
     "migrations": 8,
     "tablesWithoutRLS": 0,
     "economicAndOfficialProgressAuthoritiesDenied": true,
-    "structuralSnapshotSHA256": "c2b03682aabfcbc8b61412de86ba58a9f17770977d1b52b7b4023e79c55e85dc"
+    "structuralSnapshotSHA256": "c2b03682aabfcbc8b61412de86ba58a9f17770977d1b52b7b4023e79c55e85dc",
+    "profileCountScope": "Final authenticated window; earlier normal-login attempts remain separate"
   },
   "designation": {
     "proposalId": "010A-PROD-ADMIN-20261029",
@@ -417,7 +431,7 @@
   },
   "remaining": {
     "ownerPrivilegeApproval": true,
-    "CIExactProductionPackage": true,
+    "CIExactProductionPackage": false,
     "productionDDLNotExecuted": true,
     "normalMergeAndProductionArtifactPending": true,
     "postPublicationChecksPending": true,
@@ -432,6 +446,39 @@
   "failuresPreserved": [
     "Initial package guard used TEST body hashes; ten PROD function bodies retain CRLF and now have independent guards and exact recovery bytes",
     "Collector used memberships instead of the actual guilds property, an incorrect economy signature and raw aclitem representation; fixed collector contracts without relaxing authorization",
-    "Old normal PROD Auth token was non-expired but its session no longer existed; no administrative bypass, fresh normal login verified separately"
-  ]
+    "Old normal PROD Auth token was non-expired but its session no longer existed; no administrative bypass, fresh normal login verified separately",
+    "New Preview smoke collector first opened legacy /preview route, correctly blocked. Correct published Missions route was used in a complete repeat:52PASS without runtime or authorization changes"
+  ],
+  "preview": {
+    "id": "dpl_CJ1ykwWfCFyxmjxdmrCdta3x5T1m",
+    "url": "https://rpgjovemcristao-jtnhfa1sy-carlos-junior-s-projects.vercel.app",
+    "state": "READY",
+    "target": "preview",
+    "sha": "f606e5a9230ddb8cdac6536b15fc7d0770670b91",
+    "backend": "Supabase TEST",
+    "checks": 52,
+    "engines": [
+      "Chromium desktop",
+      "WebKit390 emulated"
+    ],
+    "normalPasswordLogins": 2,
+    "sessionCopies": false,
+    "mobileEmulated": true,
+    "physicalDeviceProof": false,
+    "ownExistingProfileIgnoreDuplicates": 24,
+    "reviewedReadRPCs": 30,
+    "unexpectedWrites": 0,
+    "pageErrors": 0,
+    "earlier203RegressionAndTwoIdentityHomologationRetained": true,
+    "applicationSourceTreeParity": {
+      "approvedPreviewSHA": "df9e0b740fc8d103b6d179474ad2ac4d260f9d4c",
+      "newSHA": "f606e5a9230ddb8cdac6536b15fc7d0770670b91",
+      "sourceTreeSHA256": "02a3e90bb317ea41b48c74e0e0084a824c57c3379304ecf6155df0e6f33825cc",
+      "identical": true
+    },
+    "firstAttemptWrongLegacyPreviewPathPreserved": true,
+    "firstAttemptNotReportedAsPass": true,
+    "screenshotsInspected": true,
+    "rawEvidenceSHA256": "ab83962d65bcf947c43d1566376964286059db297751a1b1963da0023c47e2bf"
+  }
 }

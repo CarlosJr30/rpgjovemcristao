@@ -1,5 +1,9 @@
 # RPG-DEV-010 — Guilda, Células e EBD 2.0
 
+## 29/10 — 010A.2 TEST homologada; pacote PROD pronto para revisão do proprietário
+
+f606e5a CI push40845009558/PR40845018213 success:927unit/74SKIP,131PGisolados/qualidade/protocolo25/RSC. Previewjtnhfa1sy READY/TEST/SHAexato,52checks reais finais Chromium/WebKit390 emulado,49TEST/38PROD iguais. Preservadas homologação com doisUIDs e todas as falhas anteriores. Migrations PROD próprias82857/82907,25checks de instalação/recuperação/contenção e preflightProd19readonlyPASS concluídos. [Proposta Admin PROD](RPG-DEV-010A-PROD-ADMIN-PROPOSAL.md) fixada à conta normalmente autenticada, **NÃO APROVADA**. Nenhum grant/DDL/merge/deploy010PROD;008C/PR12/18 preservados. Bloqueio atual é aprovação explícita de privilégio; depois executar gates remotos conforme plano. Não DEPLOY_COMPLETE produtivo010A/010A.2 nem010DONE. Fonte: relatório010A/evidênciasmultiusuário eprodutiva.
+
 ## 29/10/2026 — 010A.2 homologada TEST; pacote PROD em preparação
 
 Duas identidades Auth legítimas confirmadas após cadastro/e-mail/login normal de QA exclusivamenteTEST; Admin e avatares originais preservados. Fluxos de múltiplas Guildas, seleção, participação, professor por aula/comunidade, convites, concorrência, remoção/saída/reentrada e revogação imediata concluídos em fases identificadas. Corrigidos workspace com locks em transação somente leitura e conflito40001 retentável do PostgREST14.18; cliente agora trataPT409 sem perder edição.927unit/74SKIP,61+45PG,qualidade/protocolo/CI df9e0b7 success; Preview mza53rgto/dpl_58Nys6dp4j2AHPLVG9jCoGhFthxH READY/TEST.203assertions de regressão selecionadas (36Missões/43Serpente incluídas),14conflitoUI/19liderança/36seguimento funcional/19RLS/14segurança/10móvel revogado, com sobreposição explícita e falhas preservadas. Não somar como casos exclusivos.
