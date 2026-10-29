@@ -590,6 +590,82 @@ try {
   );
   const l1 = uid(401),
     l2 = uid(402);
+  const workspaceFix = sql(
+    'supabase/migrations/20261029063610_rpg_dev_010a2_workspace_locking_test.sql',
+  );
+  await check(
+    'hosted read-only workspace failure is reproduced before followup',
+    async () => {
+      await auth(db, 2);
+      await q('SET TRANSACTION READ ONLY');
+      await rejects(
+        () =>
+          q('select public.guild_scoped_ebd_workspace($1,$2,0)', [tid(2), g1]),
+        '25006',
+      );
+      await q('ROLLBACK');
+    },
+  );
+  await check(
+    'workspace followup refuses production without changing its definition',
+    async () => {
+      await q(
+        "create or replace function public.release_scope() returns text language sql immutable as $$select 'guild-ebd-001'::text$$",
+      );
+      await rejects(() => q(`BEGIN;${workspaceFix}\nCOMMIT;`), 'P0001');
+      await q('ROLLBACK');
+      assert.equal(
+        (
+          await q(
+            "select provolatile from pg_proc where oid='public.guild_scoped_ebd_workspace(uuid,uuid,integer)'::regprocedure",
+          )
+        ).rows[0].provolatile,
+        's',
+      );
+      await q(
+        "create or replace function public.release_scope() returns text language sql immutable as $$select 'hero-equipment-006'::text$$",
+      );
+    },
+  );
+  await check(
+    'workspace followup preserves body ACL owner search path and game data',
+    async () => {
+      const metadata = async () =>
+        (
+          await q(
+            "select prosrc,proacl,proconfig,proowner,prosecdef from pg_proc where oid='public.guild_scoped_ebd_workspace(uuid,uuid,integer)'::regprocedure",
+          )
+        ).rows[0];
+      const before = await metadata(),
+        data = await gameData();
+      await q(`BEGIN;${workspaceFix}\nCOMMIT;`);
+      assert.deepEqual(await metadata(), before);
+      assert.equal(await gameData(), data);
+      assert.equal(
+        (
+          await q(
+            "select provolatile from pg_proc where oid='public.guild_scoped_ebd_workspace(uuid,uuid,integer)'::regprocedure",
+          )
+        ).rows[0].provolatile,
+        'v',
+      );
+    },
+  );
+  await check(
+    'workspace POST transaction contract supports leader member and rejects foreign scope',
+    async () => {
+      assert.equal((await workspace(3, g1)).rows[0].result.leader, true);
+      assert.equal((await workspace(2, g1)).rows[0].result.teacher, false);
+      await rejects(() => workspace(2, uid(203)), '42501');
+    },
+  );
+  await check(
+    'workspace followup cannot be reapplied against another definition',
+    async () => {
+      await rejects(() => q(`BEGIN;${workspaceFix}\nCOMMIT;`), 'P0001');
+      await q('ROLLBACK');
+    },
+  );
   await check(
     'scoped teacher assignment does not grant authority in another Guild',
     async () => {

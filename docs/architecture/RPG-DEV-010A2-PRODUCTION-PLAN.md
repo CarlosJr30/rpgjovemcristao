@@ -4,6 +4,10 @@
 
 ## Antes de qualquer DDL produtiva
 
+Retomada29/10: segunda identidade TEST criada/confirmada/autenticada normalmente e baseline renovado; criação de duas Guildas passou. A homologação ainda não terminou: workspace EBD falhou405/25006 no wrapperSTABLE. Ajuste adicional TEST-only20261029063610 em validação. Nenhum pacote PROD será gerado/aplicado antes de retestar essa fronteira e os fluxos restantes. A classificação VOLATILE apenas alinha POST às rotinas existentes que adquirem locks; não concede DML, poderes econômicos ou acesso de outro ator.
+
+Recuperação deste ajuste TEST: transação e guardas de definição/ambiente antes do ALTER, comparações de corpo/ACL/dono/search_path e probe de restauração estrutural em subtransação. Se o preflight divergir, interromper sem aplicar. Depois de vínculos emitidos, nunca executar recuperação vazia010A.2 ou recriar o índice global; preservar todos os dados. Para falha posterior de segurança, usar contenção já preparada de comandos e, se necessário, negar EXECUTE apenas do novo wrapper escopado, com compensação versionada/rastreável. Restaurar STABLE repõe a falha conhecida e serve só ao ensaio estrutural isolado, não como alegação de recuperação funcional. PROD008C não depende desse wrapper ausente em produção e permanece intacta.
+
 1. Concluir os fluxos positivos e negativos hospedados com duas identidades Auth TEST distintas: múltiplas Guildas, membros/professores, convites/revogação, saída/remoção, seleção/recarga, concorrência/idempotência e regressões. Preservar também todas as falhas e baselines anteriores.
 2. Confirmar designação administrativa produtiva explícita e identidade por login normal, além das operações produtivas legítimas autorizadas para conferência. A autorização histórica de consulta de Teste Chat A não concede gestão administrativa ou criação de comunidades para fabricar testes.
 3. Conferir main/PR19/SHA e CI, projeto/raiz/ambiente Vercel, backend PROD, migrations e compatibilidade com a aplicação publicada. Renovar snapshot de funções/ACLs/RLS/policies/defaults/índices e dados, com hashes/contagens antes de executar qualquer alteração.
