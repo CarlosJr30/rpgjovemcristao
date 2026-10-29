@@ -1,10 +1,34 @@
 # 010A.2 — contrato de compatibilidade para múltiplas Guildas
 
+## Fechamento TEST — 29/10/2026
+
+**As 15 interfaces foram homologadas no escopo público aplicável com dois UIDs Auth distintos.** Candidato `df9e0b7`, CI push40834498581/PR40834504087 success; Preview `mza53rgto` READY/TEST. Evidência por fase em [MULTIUSER-EVIDENCE](RPG-DEV-010A2-MULTIUSER-EVIDENCE.json), sem transformar prefixos de rodadas interrompidas em rodadas PASS. As 241 verificações independentes anteriores permanecem preservadas. As correções workspace VOLATILE e conflito PT409 fazem parte do contrato final; somente aprovação isolada não teria fechado esta homologação.
+
+| # | Interface | Prova hospedada selecionada |
+| --- | --- | --- |
+|1|Criação antiga/escopada|Duas Guildas por líder; outra por segundo líder; replay/concorrência; criação legada indevida negada.|
+|2|Índice/vínculos|Mesmo avatar simultaneamente em duas comunidades, dados antigos preservados; saída/remoção altera somente alvo.|
+|3|Contexto/seleção|Seleção explícita, recarga e painéis EBD realmente prontos em Chromium/WebKit/toque emulado.|
+|4|Pedido de entrada|Duas comunidades sem substituir vínculo, pedido/repetição concorrente e convite.|
+|5|Revisão de pedido|Aprovação na comunidade correta; pedido/ator/escopo misturados negados.|
+|6|Saída|Só comunidade selecionada, replay e histórico preservados; líder não sai; legado ambíguo negado.|
+|7|Remoção|Só vínculo alvo, professor desse vínculo revogado; reentrada não restaura professor.|
+|8|Listagem de membros|Comunidade própria explícita; outra liderança/Admin global sem vínculo negados; legado ambíguo negado.|
+|9|Listagem de pedidos|Líder no escopo; membro/outra comunidade/legado ambíguo negados.|
+|10|Contadores legados|Ambiguidade negada; nova interface deriva somente comunidade carregada.|
+|11|Workspace EBD|Líder/professor em seu escopo; recarga e autorização; wrapper corrigido para locks em POST.|
+|12|Comando EBD|Professor só na aula/comunidade atribuída; remoção/revogação imediata; disputa real HTTP409/PT409 preserva edição.|
+|13|Resolução de liderança|Guardas exercitadas pelos convites/EBD/Guilda públicos; não há chamada direta privilegiada apresentada como fluxo público.|
+|14|Convites comuns|Emissão/listagem/revogação escopadas, replay sem reexpor segredo; líder revogado perde poderes no mesmo JWT.|
+|15|Aceite/helpers|Destinatário e comunidade verificados, convite pendente invalida com revogação; anônimo/alheio negados.|
+
+Onze checks negativos adicionais das superfícies legadas passaram depois dos fluxos positivos. Permanecem os limites da evidência: mobile emulado, revisão pelo autor, ausência de teste físico e positivos de cartas antigas não ligados a esta entrega. Nenhuma recompensa, missão oficial ou chat foi habilitado. **PROD ainda BLOCKED** por gates próprios e designação administrativa não aprovada; ver [plano produtivo](RPG-DEV-010A2-PRODUCTION-PLAN.md). O restante descreve checkpoints históricos e a auditoria de implementação.
+
 29/10/2026. **010A.2 implementada e instalada em TEST; homologação entre contas BLOCKED e publicação pendente.** Runtime atualf45e9ef/CI push40807345731 ePR40807354870 aprovados; migration TEST20261029014423 preservada, Preview5qvh4t0ht READY. Avatar original confirmado; usuário dispõe de dois avatares do mesmo login.241regressões reais independentes passaram com a conta Admin, sem positivos multiguild ou professor. Correção de seleção aguarda a resposta atualizada antes de validar a comunidade recém-criada. Faltam dois logins Auth distintos e os fluxos positivos multiguild hospedados; janelas diferentes da mesma identidade não comprovam esse gate. A migration adapta as interfaces conjuntamente antes de retirar o índice global de um vínculo. A fundação010A.1 e suas evidências permanecem preservadas. Ser Admin não substitui autorização explícita de liderança. O histórico abaixo descreve o baseline anterior.
 
 ## Resultado da auditoria das 15 interfaces
 
-Todas as linhas estão implementadas no candidato local e cobertas pela suíte PostgreSQL isolada ou por testes de cliente pertinentes; nenhuma linha é declarada homologada remotamente nesta tabela.
+Tabela histórica de implementação: todas as linhas foram implementadas e cobertas por PostgreSQL isolado ou testes de cliente. O fechamento hospedado posterior está na tabela acima; não inferir execução de helpers privados pela API.
 
 | # | Interface | Adaptação e limite |
 | --- | --- | --- |
