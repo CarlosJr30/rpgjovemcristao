@@ -1,0 +1,1949 @@
+{
+  "scope": "RPG-DEV-010B.1/010B.2 common invitations and scoped classes",
+  "date": "2026-10-30",
+  "status": "DONE / DEPLOY_COMPLETE for this increment only",
+  "full010BComplete": false,
+  "lessonsQuizAttendance010B3": "PENDING separate implementation",
+  "head": "96436ec3bc3aa1f94c237234e8308d57447828a1",
+  "merge": "4670ac6f908536ff1f181b926f727bbd522d3511",
+  "pullRequest": "https://github.com/CarlosJr30/rpgjovemcristao/pull/20",
+  "ci": {
+    "headPush": 41132216691,
+    "headPR": 41132225957,
+    "merge": 41133708988,
+    "conclusion": "success",
+    "conditionalPinnedPreview": "SKIP, not PASS"
+  },
+  "preview": {
+    "id": "dpl_GGMJHvCwGrpyeb462BMTaK6kywtm",
+    "url": "rpgjovemcristao-dsmxqr624-carlos-junior-s-projects.vercel.app",
+    "state": "READY",
+    "sha": "96436ec3bc3aa1f94c237234e8308d57447828a1",
+    "target": "preview",
+    "backend": "TEST"
+  },
+  "production": {
+    "url": "https://rpgjovemcristao-web-inky.vercel.app",
+    "id": "dpl_5VYBhCSmSwMJCYPmbregfDe5mWAj",
+    "sha": "4670ac6f908536ff1f181b926f727bbd522d3511",
+    "state": "READY",
+    "target": "production",
+    "backend": "PROD",
+    "autoAssignCustomDomains": true,
+    "protectionPreserved": true,
+    "pass": true
+  },
+  "migrations": {
+    "TEST": [
+      "20261030114546_rpg_dev_010b_classes_test",
+      "20261030114553_rpg_dev_010b_member_invites_test",
+      "20261030213237_rpg_dev_010b_legacy_invites_test"
+    ],
+    "PROD": [
+      "20261030214647_rpg_dev_010b_classes_production",
+      "20261030214654_rpg_dev_010b_member_invites_production",
+      "20261030214701_rpg_dev_010b_legacy_invites_production"
+    ],
+    "testOnlyAppliedToProduction": false,
+    "productivePackage": [
+      {
+        "source": "20261030105539_rpg_dev_010b_classes_test.sql",
+        "target": "20261030212748_rpg_dev_010b_classes_production.sql",
+        "sourceSHA256": "3542280586cbb25d1ca2806f3a69c5e47536cc29dd9958ff7d23b41ec3dd88ba",
+        "productionSHA256": "189e2d1053235e3ac6a03b078232e1c0abddd62334981f62e57eaabf0d693c4e"
+      },
+      {
+        "source": "20261030110258_rpg_dev_010b_member_invites_test.sql",
+        "target": "20261030212801_rpg_dev_010b_member_invites_production.sql",
+        "sourceSHA256": "cf9057e4630b99d25d95bf5261f7a5bb5e1881557be831a00e291aef1d50af1a",
+        "productionSHA256": "0c22e6b805c5fd873ac0592ebac888eb0c8e20cce8bf3610087773d340103c02"
+      },
+      {
+        "source": "20261030131230_rpg_dev_010b_legacy_invites_test.sql",
+        "target": "20261030212807_rpg_dev_010b_legacy_invites_production.sql",
+        "sourceSHA256": "86fce2cb7b32292b9b3819e97ffafdb112a7498f9d213c8a570d48ed6e82b779",
+        "productionSHA256": "084168490c9425df7632f861f005fb54f58ae11dd8518ffd870348861300fe63"
+      }
+    ],
+    "productionTables": 54,
+    "testTables": 59
+  },
+  "tests": {
+    "directedUnit": 61,
+    "qualityLintTypesBuildProtocol": "PASS",
+    "protocol": 25,
+    "previousFullUnitEvidence": {
+      "candidate": "eafa1d2750ba51b83699bd25476ba4359b702992",
+      "pass": 963,
+      "skip": 74,
+      "preserved": true
+    },
+    "finalCIQualityPass": true,
+    "isolatedPostgres": {
+      "TEST": 50,
+      "productivePackage": 50,
+      "distinctCaseCount": 50,
+      "synthetic": true,
+      "hostedProof": false
+    },
+    "sources": [
+      {
+        "artifact": "hosted-preflight.json",
+        "sha256": "aacf50c25199faf02576854609df8680f629f89351cef94f49c8244a5b6a787c",
+        "candidate": "eafa1d2750ba51b83699bd25476ba4359b702992",
+        "environment": "Supabase TEST",
+        "total": 13,
+        "checks": [
+          {
+            "name": "two normally authenticated confirmed nonanonymous TEST identities, original Admin avatar active",
+            "pass": true
+          },
+          {
+            "name": "Admin keeps exactly the four designated permissions without inferring leadership",
+            "pass": true
+          },
+          {
+            "name": "second identity is not implicitly an administrator or economic authority",
+            "pass": true
+          },
+          {
+            "name": "existing Guild contexts remain readable for both own avatars",
+            "pass": true
+          },
+          {
+            "name": "class API denies another users active avatar",
+            "pass": true
+          },
+          {
+            "name": "class API denies an unrelated Guild",
+            "pass": true
+          },
+          {
+            "name": "anonymous caller cannot execute authenticated class workspace",
+            "pass": true
+          },
+          {
+            "name": "anonymous preview can execute only safe lookup, with invalid token denied",
+            "pass": true
+          },
+          {
+            "name": "admin owns existing wallets while the other identity remains invisible",
+            "pass": true
+          },
+          {
+            "name": "admin owns existing traveler_stats while the other identity remains invisible",
+            "pass": true
+          },
+          {
+            "name": "qa owns existing wallets while the other identity remains invisible",
+            "pass": true
+          },
+          {
+            "name": "qa owns existing traveler_stats while the other identity remains invisible",
+            "pass": true
+          },
+          {
+            "name": "economic authority still denies the authorized Admin session",
+            "pass": true
+          }
+        ],
+        "pass": true
+      },
+      {
+        "artifact": "hosted-classes-results.json",
+        "sha256": "ea53b1b04c68822e885193e66ba1a53b6de831a5beaf1b3d3e72f40bb0e6b6c2",
+        "candidate": "eafa1d2750ba51b83699bd25476ba4359b702992",
+        "environment": "Supabase TEST",
+        "total": 11,
+        "checks": [
+          {
+            "name": "existing shared QA Guild and explicit leadership are verified without new Admin grant",
+            "pass": true
+          },
+          {
+            "name": "authorized leader creates one additional QA Guild through normal scoped API, preserving prior Guilds",
+            "pass": true
+          },
+          {
+            "name": "leader UI loads Guild selection and class list with no implicit class",
+            "pass": true
+          },
+          {
+            "name": "first class is created through real UI and selected explicitly",
+            "pass": true
+          },
+          {
+            "name": "second class creation while first selected preserves first class",
+            "pass": true
+          },
+          {
+            "name": "third class belongs only to the newly selected second Guild",
+            "pass": true
+          },
+          {
+            "name": "new classes persist after reload and remain restricted to selected Guild",
+            "pass": true
+          },
+          {
+            "name": "class API rejects cross Guild class ID despite authorized leader identity",
+            "pass": true
+          },
+          {
+            "name": "student in the existing Guild does not see any class before enrollment",
+            "pass": true
+          },
+          {
+            "name": "student cannot appoint teacher or create class",
+            "pass": true
+          },
+          {
+            "name": "new class UI fits emulated390 viewport with original art and decoded images",
+            "pass": true
+          }
+        ],
+        "pass": true
+      },
+      {
+        "artifact": "hosted-invites-results.json",
+        "sha256": "f8f34915ef42264df1f1fc2b7200a5d0ec2a1840194ea445bafe3d6d703b9423",
+        "candidate": "eafa1d2750ba51b83699bd25476ba4359b702992",
+        "environment": "Supabase TEST",
+        "total": 12,
+        "checks": [
+          {
+            "name": "leader issues HTTPS fragment invitation with bounds, rendered PNG QR and WhatsApp link without sending a message",
+            "pass": true
+          },
+          {
+            "name": "Guild-only invitation creates real membership automatically without replacing other Guild links",
+            "pass": true
+          },
+          {
+            "name": "leader issues invitation specifically bound to selected Guild and class",
+            "pass": true
+          },
+          {
+            "name": "clean WebKit mobile context has only Vercel protection and no imported Supabase session",
+            "pass": true
+          },
+          {
+            "name": "anonymous safe preview exposes class and Guild labels without private roster or identifiers",
+            "pass": true
+          },
+          {
+            "name": "normal password login preserves the clean invitation destination, without copying either existing session",
+            "pass": true
+          },
+          {
+            "name": "explicit UI acceptance enrolls the student directly in the correct class without leader approval",
+            "pass": true
+          },
+          {
+            "name": "membership persists after mobile reload with own class and safe private labels",
+            "pass": true
+          },
+          {
+            "name": "same avatar joins another class in a different Guild without losing existing enrollment",
+            "pass": true
+          },
+          {
+            "name": "replayed acceptance consumes no extra usage or duplicate enrollment",
+            "pass": true
+          },
+          {
+            "name": "revoked invitation is immediately refused even with already authenticated student session",
+            "pass": true
+          },
+          {
+            "name": "two distinct authenticated identities compete for the last slot: one success and one exact denial",
+            "pass": true
+          }
+        ],
+        "pass": true
+      },
+      {
+        "artifact": "hosted-permissions-results.json",
+        "sha256": "2a23e679275ce42189c1a4dc67c7168a67f29b68d8627ad7a1ed4ceca20d52fe",
+        "candidate": "eafa1d2750ba51b83699bd25476ba4359b702992",
+        "environment": "Supabase TEST",
+        "total": 13,
+        "checks": [
+          {
+            "name": "leader explicitly appoints the second authenticated account through class UI",
+            "pass": true
+          },
+          {
+            "name": "WebKit teacher UI is limited to assigned class and cannot appoint teachers or create classes",
+            "pass": true
+          },
+          {
+            "name": "teacher legitimately issues a common student invitation for the authorized class",
+            "pass": true
+          },
+          {
+            "name": "teacher role cannot issue Guild-only or other class invitations or grant another teacher",
+            "pass": true
+          },
+          {
+            "name": "leader revokes class teacher through UI without refreshing either authenticated QA JWT",
+            "pass": true
+          },
+          {
+            "name": "pending teacher-issued invite is invalidated immediately after revocation",
+            "pass": true
+          },
+          {
+            "name": "revoked WebKit teacher becomes student and privileged controls disappear on server reconfirmation",
+            "pass": true
+          },
+          {
+            "name": "leader removes only the selected class enrollment, retaining other Guild and class participation",
+            "pass": true
+          },
+          {
+            "name": "student leaves a class through mobile UI, preserving the Guild membership and other Guilds",
+            "pass": true
+          },
+          {
+            "name": "Guild exit revokes its teacher grant and preserves all other Guild memberships",
+            "pass": true
+          },
+          {
+            "name": "consumed invitation replay cannot restore a removed Guild membership",
+            "pass": true
+          },
+          {
+            "name": "fresh legitimate Guild invite permits reentry but cannot revive old class or teacher permissions",
+            "pass": true
+          },
+          {
+            "name": "concurrent class revisions produce exactly one commit and one409/PT409, then legitimate state correction preserves history",
+            "pass": true
+          }
+        ],
+        "pass": true
+      },
+      {
+        "artifact": "hosted-legacy-results.json",
+        "sha256": "1a7070325ffb879587531f7fb0539a9546f8a32665d2b5b7388aee8a237b6a25",
+        "candidate": "a3b65d119d9c286b8ec5b3be422fb8245d910581",
+        "environment": "Supabase TEST",
+        "total": 9,
+        "checks": [
+          {
+            "name": "existing normal Auth sessions remain distinct with original Admin avatar",
+            "pass": true
+          },
+          {
+            "name": "old leader API issues a seven-day link without changing prior Guild memberships",
+            "pass": true
+          },
+          {
+            "name": "only the newly created QA Guild is left through its normal scoped command",
+            "pass": true
+          },
+          {
+            "name": "historical-style pending request is created deliberately without enrollment",
+            "pass": true
+          },
+          {
+            "name": "old URL reaches anonymous safe preview through the clean fixed route",
+            "pass": true
+          },
+          {
+            "name": "normal WebKit QA login retains invitation then explicit confirmation enrolls without manual review",
+            "pass": true
+          },
+          {
+            "name": "old request API and new API replay one existing enrollment without duplicated use",
+            "pass": true
+          },
+          {
+            "name": "common legacy invitation grants neither leadership nor teacher permissions",
+            "pass": true
+          },
+          {
+            "name": "revocation from new management invalidates old and new entrypoints immediately",
+            "pass": true
+          }
+        ],
+        "pass": true
+      },
+      {
+        "artifact": "hosted-essential-results.json",
+        "sha256": "40a6e543aeee4d234c4ac296c5ee508c8ff6b42783e0c299eeb4dc0de839e7e0",
+        "candidate": "a3b65d119d9c286b8ec5b3be422fb8245d910581",
+        "environment": "Supabase TEST",
+        "total": 24,
+        "checks": [
+          {
+            "name": "Chromium desktop separate normal QA login",
+            "pass": true
+          },
+          {
+            "name": "Chromium desktop Herói loads and reloads with data access intact",
+            "pass": true
+          },
+          {
+            "name": "Chromium desktop Mochila loads and reloads with data access intact",
+            "pass": true
+          },
+          {
+            "name": "Chromium desktop Coleção loads and reloads with data access intact",
+            "pass": true
+          },
+          {
+            "name": "Chromium desktop Diário loads and reloads with data access intact",
+            "pass": true
+          },
+          {
+            "name": "Chromium desktop Jornada loads and reloads with data access intact",
+            "pass": true
+          },
+          {
+            "name": "Chromium desktop Guilda loads and reloads with data access intact",
+            "pass": true
+          },
+          {
+            "name": "Chromium desktop EBD loads and reloads with data access intact",
+            "pass": true
+          },
+          {
+            "name": "Chromium desktop Missões loads and reloads with data access intact",
+            "pass": true
+          },
+          {
+            "name": "Chromium desktop Serpente loads and reloads with data access intact",
+            "pass": true
+          },
+          {
+            "name": "Chromium desktop own avatar visible, other avatar and anonymous class API denied",
+            "pass": true
+          },
+          {
+            "name": "Chromium desktop no page errors or unexpected REST mutations during read-only smoke",
+            "pass": true
+          },
+          {
+            "name": "WebKit390 emulated separate normal QA login",
+            "pass": true
+          },
+          {
+            "name": "WebKit390 emulated Herói loads and reloads with data access intact",
+            "pass": true
+          },
+          {
+            "name": "WebKit390 emulated Mochila loads and reloads with data access intact",
+            "pass": true
+          },
+          {
+            "name": "WebKit390 emulated Coleção loads and reloads with data access intact",
+            "pass": true
+          },
+          {
+            "name": "WebKit390 emulated Diário loads and reloads with data access intact",
+            "pass": true
+          },
+          {
+            "name": "WebKit390 emulated Jornada loads and reloads with data access intact",
+            "pass": true
+          },
+          {
+            "name": "WebKit390 emulated Guilda loads and reloads with data access intact",
+            "pass": true
+          },
+          {
+            "name": "WebKit390 emulated EBD loads and reloads with data access intact",
+            "pass": true
+          },
+          {
+            "name": "WebKit390 emulated Missões loads and reloads with data access intact",
+            "pass": true
+          },
+          {
+            "name": "WebKit390 emulated Serpente loads and reloads with data access intact",
+            "pass": true
+          },
+          {
+            "name": "WebKit390 emulated own avatar visible, other avatar and anonymous class API denied",
+            "pass": true
+          },
+          {
+            "name": "WebKit390 emulated no page errors or unexpected REST mutations during read-only smoke",
+            "pass": true
+          }
+        ],
+        "pass": true
+      },
+      {
+        "artifact": "hosted-package-preview-results.json",
+        "sha256": "c425beca96813f3b6ac1254b37ecddf635750e5e774c593a58fa282b7d2804be",
+        "candidate": "96436ec3bc3aa1f94c237234e8308d57447828a1",
+        "environment": "Supabase TEST",
+        "total": 5,
+        "checks": [
+          {
+            "name": "exact final CI-approved SHA Preview READY and TEST-only configuration",
+            "pass": true
+          },
+          {
+            "name": "fresh normal QA login on final artifact without session import",
+            "pass": true
+          },
+          {
+            "name": "final Guild/EBD explicit Guild selection, class UI and original frame load correctly",
+            "pass": true
+          },
+          {
+            "name": "final normal identity still cannot query another class actor",
+            "pass": true
+          },
+          {
+            "name": "old URL redirects cleanly and invalid invitation remains denied",
+            "pass": true
+          }
+        ],
+        "pass": true
+      },
+      {
+        "artifact": "postgres-results.json",
+        "sha256": "5915c63c65d5144fd33f657f7521938683153d965f1454e243f6a2b771eee1a7",
+        "candidate": null,
+        "environment": "PostgreSQL17.10 loopback",
+        "total": 50,
+        "checks": [
+          {
+            "name": "reject productive scope before DDL",
+            "pass": true
+          },
+          {
+            "name": "empty recovery restores preexisting functions, tables and data",
+            "pass": true
+          },
+          {
+            "name": "migration cannot run twice",
+            "pass": true
+          },
+          {
+            "name": "private tables deny direct reads and writes",
+            "pass": true
+          },
+          {
+            "name": "anon and service cannot call class wrappers",
+            "pass": true
+          },
+          {
+            "name": "owned active identity required",
+            "pass": true
+          },
+          {
+            "name": "same leader creates two classes in one Guild and another Guild",
+            "pass": true
+          },
+          {
+            "name": "creation replay does not create a duplicate class or history",
+            "pass": true
+          },
+          {
+            "name": "same request different payload rejected",
+            "pass": true
+          },
+          {
+            "name": "no leader privilege inferred for ordinary member",
+            "pass": true
+          },
+          {
+            "name": "cross Guild class id rejected",
+            "pass": true
+          },
+          {
+            "name": "members see no classes before explicit enrollment",
+            "pass": true
+          },
+          {
+            "name": "same student joins classes in multiple Guilds without losing links",
+            "pass": true
+          },
+          {
+            "name": "class teacher grant does not grant legacy Guild teacher or leadership",
+            "pass": true
+          },
+          {
+            "name": "teacher roster isolated to assigned class",
+            "pass": true
+          },
+          {
+            "name": "teacher revocation immediate with same subject and JWT claims",
+            "pass": true
+          },
+          {
+            "name": "student leaves only selected class, history and other classes preserved",
+            "pass": true
+          },
+          {
+            "name": "removed member loses class access without changing another Guild",
+            "pass": true
+          },
+          {
+            "name": "simultaneous edits produce one success and one PT409, no retry code40001",
+            "pass": true
+          },
+          {
+            "name": "Guild removal revokes only its class memberships and teacher grants permanently",
+            "pass": true
+          },
+          {
+            "name": "common invite limits enforce 30days and100uses",
+            "pass": true
+          },
+          {
+            "name": "common invitation stores only token hash and replays without secret",
+            "pass": true
+          },
+          {
+            "name": "anonymous preview shows only Guild/class labels and expiry",
+            "pass": true
+          },
+          {
+            "name": "student cannot issue Guild or class invites",
+            "pass": true
+          },
+          {
+            "name": "teacher issues invite only to own class, never Guild-only or another class",
+            "pass": true
+          },
+          {
+            "name": "class invitation accepts automatically with no leader request and no privileged role",
+            "pass": true
+          },
+          {
+            "name": "accept replay cannot use another slot or create duplicate enrollment",
+            "pass": true
+          },
+          {
+            "name": "a new student joins Guild and class atomically, without manual approval or teacher grant",
+            "pass": true
+          },
+          {
+            "name": "paused or archived class denies new invitations",
+            "pass": true
+          },
+          {
+            "name": "teacher revocation invalidates unconsumed old invitations immediately",
+            "pass": true
+          },
+          {
+            "name": "revoked and expired invitations reject new acceptance",
+            "pass": true
+          },
+          {
+            "name": "one remaining use under concurrent different accounts is consumed once",
+            "pass": true
+          },
+          {
+            "name": "a removed enrollment cannot be revived by replaying the consumed invite",
+            "pass": true
+          },
+          {
+            "name": "private tokens, uses and history deny application reads and writes",
+            "pass": true
+          },
+          {
+            "name": "invitation never authenticates anonymous user or another owned avatar",
+            "pass": true
+          },
+          {
+            "name": "legacy invitation is safe for anonymous preview and preserves expiry",
+            "pass": true
+          },
+          {
+            "name": "historical pending request stays byte-identical after explicit invitation enrollment",
+            "pass": true
+          },
+          {
+            "name": "old and new invitation entrypoints share idempotent automatic membership",
+            "pass": true
+          },
+          {
+            "name": "existing Guild bindings and roles survive invitation use without privileged grants",
+            "pass": true
+          },
+          {
+            "name": "idempotency nonce cannot be reused across old and new invitation contracts",
+            "pass": true
+          },
+          {
+            "name": "revocation through old API invalidates both versions with a single audit event",
+            "pass": true
+          },
+          {
+            "name": "legacy expiration never becomes eligible again",
+            "pass": true
+          },
+          {
+            "name": "legacy last available use is atomic across distinct connections and cannot exceed100",
+            "pass": true
+          },
+          {
+            "name": "legacy private receipts and helpers deny all application roles",
+            "pass": true
+          },
+          {
+            "name": "issued legacy evidence prevents destructive empty recovery",
+            "pass": true
+          },
+          {
+            "name": "protected containment stops old invitation entrypoint without deleting bindings",
+            "pass": true
+          },
+          {
+            "name": "recovery refuses to erase issued classes, grants or audit",
+            "pass": true
+          },
+          {
+            "name": "containment preserves reads and state but denies class writes",
+            "pass": true
+          },
+          {
+            "name": "all preexisting game data unchanged; no XP or economic execution",
+            "pass": true
+          },
+          {
+            "name": "reviewed legacy EBD and invitation definitions and ACLs are unchanged",
+            "pass": true
+          }
+        ],
+        "pass": true
+      },
+      {
+        "artifact": "postgres-production-results.json",
+        "sha256": "95fdae88c25968774534cbbf13809a59c954b89f82552e83f03ffd6b7c412ac9",
+        "candidate": null,
+        "environment": "PostgreSQL17.10 loopback",
+        "total": 50,
+        "checks": [
+          {
+            "name": "reject productive scope before DDL",
+            "pass": true
+          },
+          {
+            "name": "empty recovery restores preexisting functions, tables and data",
+            "pass": true
+          },
+          {
+            "name": "migration cannot run twice",
+            "pass": true
+          },
+          {
+            "name": "private tables deny direct reads and writes",
+            "pass": true
+          },
+          {
+            "name": "anon and service cannot call class wrappers",
+            "pass": true
+          },
+          {
+            "name": "owned active identity required",
+            "pass": true
+          },
+          {
+            "name": "same leader creates two classes in one Guild and another Guild",
+            "pass": true
+          },
+          {
+            "name": "creation replay does not create a duplicate class or history",
+            "pass": true
+          },
+          {
+            "name": "same request different payload rejected",
+            "pass": true
+          },
+          {
+            "name": "no leader privilege inferred for ordinary member",
+            "pass": true
+          },
+          {
+            "name": "cross Guild class id rejected",
+            "pass": true
+          },
+          {
+            "name": "members see no classes before explicit enrollment",
+            "pass": true
+          },
+          {
+            "name": "same student joins classes in multiple Guilds without losing links",
+            "pass": true
+          },
+          {
+            "name": "class teacher grant does not grant legacy Guild teacher or leadership",
+            "pass": true
+          },
+          {
+            "name": "teacher roster isolated to assigned class",
+            "pass": true
+          },
+          {
+            "name": "teacher revocation immediate with same subject and JWT claims",
+            "pass": true
+          },
+          {
+            "name": "student leaves only selected class, history and other classes preserved",
+            "pass": true
+          },
+          {
+            "name": "removed member loses class access without changing another Guild",
+            "pass": true
+          },
+          {
+            "name": "simultaneous edits produce one success and one PT409, no retry code40001",
+            "pass": true
+          },
+          {
+            "name": "Guild removal revokes only its class memberships and teacher grants permanently",
+            "pass": true
+          },
+          {
+            "name": "common invite limits enforce 30days and100uses",
+            "pass": true
+          },
+          {
+            "name": "common invitation stores only token hash and replays without secret",
+            "pass": true
+          },
+          {
+            "name": "anonymous preview shows only Guild/class labels and expiry",
+            "pass": true
+          },
+          {
+            "name": "student cannot issue Guild or class invites",
+            "pass": true
+          },
+          {
+            "name": "teacher issues invite only to own class, never Guild-only or another class",
+            "pass": true
+          },
+          {
+            "name": "class invitation accepts automatically with no leader request and no privileged role",
+            "pass": true
+          },
+          {
+            "name": "accept replay cannot use another slot or create duplicate enrollment",
+            "pass": true
+          },
+          {
+            "name": "a new student joins Guild and class atomically, without manual approval or teacher grant",
+            "pass": true
+          },
+          {
+            "name": "paused or archived class denies new invitations",
+            "pass": true
+          },
+          {
+            "name": "teacher revocation invalidates unconsumed old invitations immediately",
+            "pass": true
+          },
+          {
+            "name": "revoked and expired invitations reject new acceptance",
+            "pass": true
+          },
+          {
+            "name": "one remaining use under concurrent different accounts is consumed once",
+            "pass": true
+          },
+          {
+            "name": "a removed enrollment cannot be revived by replaying the consumed invite",
+            "pass": true
+          },
+          {
+            "name": "private tokens, uses and history deny application reads and writes",
+            "pass": true
+          },
+          {
+            "name": "invitation never authenticates anonymous user or another owned avatar",
+            "pass": true
+          },
+          {
+            "name": "legacy invitation is safe for anonymous preview and preserves expiry",
+            "pass": true
+          },
+          {
+            "name": "historical pending request stays byte-identical after explicit invitation enrollment",
+            "pass": true
+          },
+          {
+            "name": "old and new invitation entrypoints share idempotent automatic membership",
+            "pass": true
+          },
+          {
+            "name": "existing Guild bindings and roles survive invitation use without privileged grants",
+            "pass": true
+          },
+          {
+            "name": "idempotency nonce cannot be reused across old and new invitation contracts",
+            "pass": true
+          },
+          {
+            "name": "revocation through old API invalidates both versions with a single audit event",
+            "pass": true
+          },
+          {
+            "name": "legacy expiration never becomes eligible again",
+            "pass": true
+          },
+          {
+            "name": "legacy last available use is atomic across distinct connections and cannot exceed100",
+            "pass": true
+          },
+          {
+            "name": "legacy private receipts and helpers deny all application roles",
+            "pass": true
+          },
+          {
+            "name": "issued legacy evidence prevents destructive empty recovery",
+            "pass": true
+          },
+          {
+            "name": "protected containment stops old invitation entrypoint without deleting bindings",
+            "pass": true
+          },
+          {
+            "name": "recovery refuses to erase issued classes, grants or audit",
+            "pass": true
+          },
+          {
+            "name": "containment preserves reads and state but denies class writes",
+            "pass": true
+          },
+          {
+            "name": "all preexisting game data unchanged; no XP or economic execution",
+            "pass": true
+          },
+          {
+            "name": "reviewed legacy EBD and invitation definitions and ACLs are unchanged",
+            "pass": true
+          }
+        ],
+        "pass": true
+      },
+      {
+        "artifact": "production-preflight.json",
+        "sha256": "caca6087b6842b461f02ed6b13910d3113ca305d5a38fe8e8bf897f80ed202c2",
+        "candidate": "96436ec3bc3aa1f94c237234e8308d57447828a1",
+        "environment": "PROD baseline010A",
+        "total": 10,
+        "checks": [
+          {
+            "name": "normal confirmed nonanonymous approved identity and active50 only",
+            "pass": true
+          },
+          {
+            "name": "exactly four existing explicit Admin permissions; no new bootstrap or economics",
+            "pass": true
+          },
+          {
+            "name": "own existing Guild contexts readable without creating memberships",
+            "pass": true
+          },
+          {
+            "name": "own inventory readable while another identity stays invisible",
+            "pass": true
+          },
+          {
+            "name": "own equipped_items readable while another identity stays invisible",
+            "pass": true
+          },
+          {
+            "name": "own traveler_stats readable while another identity stays invisible",
+            "pass": true
+          },
+          {
+            "name": "own wallets readable while another identity stays invisible",
+            "pass": true
+          },
+          {
+            "name": "owned canonical collection is readable while another owner is denied",
+            "pass": true
+          },
+          {
+            "name": "economic authority remains denied for the actual approved Admin",
+            "pass": true
+          },
+          {
+            "name": "010B is absent before productive DDL as expected",
+            "pass": true
+          }
+        ],
+        "pass": true
+      },
+      {
+        "artifact": "production-afterddl.json",
+        "sha256": "fa95d128b02d8eb4acefb30be7df1f5625a2ef6d3ccfd0141663db45acd87a05",
+        "candidate": null,
+        "environment": "PROD",
+        "total": 8,
+        "checks": [
+          {
+            "name": "exact existing Admin permissions remain and no economics enabled",
+            "pass": true
+          },
+          {
+            "name": "existing own Guild contexts remain readable after additive DDL",
+            "pass": true
+          },
+          {
+            "name": "another identity cannot be used as class actor",
+            "pass": true
+          },
+          {
+            "name": "anonymous class workspace stays denied",
+            "pass": true
+          },
+          {
+            "name": "service-independent anonymous preview returns only exact invalid-invite denial",
+            "pass": true
+          },
+          {
+            "name": "own authorized Guild class workspace returns legitimate empty classes",
+            "pass": true
+          },
+          {
+            "name": "old and new member invitation APIs deny invalid token without writing",
+            "pass": true
+          },
+          {
+            "name": "economic authority remains denied to actual Admin after DDL",
+            "pass": true
+          }
+        ],
+        "pass": true
+      },
+      {
+        "artifact": "production-retained-results.json",
+        "sha256": "8ba48b931a9873695aa85d4e5157a94aebc6b271a3a36fc155d3e10b0a01fc2b",
+        "candidate": "4670ac6f908536ff1f181b926f727bbd522d3511",
+        "environment": "PROD",
+        "total": 22,
+        "checks": [
+          {
+            "name": "desktop Hero existing data loads and reloads",
+            "pass": true
+          },
+          {
+            "name": "desktop Mochila existing data loads and reloads",
+            "pass": true
+          },
+          {
+            "name": "desktop Colecao existing data loads and reloads",
+            "pass": true
+          },
+          {
+            "name": "desktop Diario existing data loads and reloads",
+            "pass": true
+          },
+          {
+            "name": "desktop Jornada existing data loads and reloads",
+            "pass": true
+          },
+          {
+            "name": "desktop Guilda existing data loads and reloads",
+            "pass": true
+          },
+          {
+            "name": "desktop EBD existing data loads and reloads",
+            "pass": true
+          },
+          {
+            "name": "desktop Missoes existing data loads and reloads",
+            "pass": true
+          },
+          {
+            "name": "desktop Serpente existing data loads and reloads",
+            "pass": true
+          },
+          {
+            "name": "desktop explicit own Guild selection yields legitimate empty class list",
+            "pass": true
+          },
+          {
+            "name": "390px emulated Hero existing data loads and reloads",
+            "pass": true
+          },
+          {
+            "name": "390px emulated Mochila existing data loads and reloads",
+            "pass": true
+          },
+          {
+            "name": "390px emulated Colecao existing data loads and reloads",
+            "pass": true
+          },
+          {
+            "name": "390px emulated Diario existing data loads and reloads",
+            "pass": true
+          },
+          {
+            "name": "390px emulated Jornada existing data loads and reloads",
+            "pass": true
+          },
+          {
+            "name": "390px emulated Guilda existing data loads and reloads",
+            "pass": true
+          },
+          {
+            "name": "390px emulated EBD existing data loads and reloads",
+            "pass": true
+          },
+          {
+            "name": "390px emulated Missoes existing data loads and reloads",
+            "pass": true
+          },
+          {
+            "name": "390px emulated Serpente existing data loads and reloads",
+            "pass": true
+          },
+          {
+            "name": "390px emulated explicit own Guild selection yields legitimate empty class list",
+            "pass": true
+          },
+          {
+            "name": "no unexpected browser errors or REST writes in both viewport runs",
+            "pass": true
+          },
+          {
+            "name": "economic, equipment and unapproved routes stay blocked",
+            "pass": true
+          }
+        ],
+        "pass": true
+      },
+      {
+        "artifact": "production-official-results.json",
+        "sha256": "d95d73d6a046b5c024b93c67f47bdd05dc9b5282ae1d71a975ec570352ceca1e",
+        "candidate": "4670ac6f908536ff1f181b926f727bbd522d3511",
+        "environment": "PROD",
+        "total": 22,
+        "checks": [
+          {
+            "name": "desktop Hero existing data loads and reloads",
+            "pass": true
+          },
+          {
+            "name": "desktop Mochila existing data loads and reloads",
+            "pass": true
+          },
+          {
+            "name": "desktop Colecao existing data loads and reloads",
+            "pass": true
+          },
+          {
+            "name": "desktop Diario existing data loads and reloads",
+            "pass": true
+          },
+          {
+            "name": "desktop Jornada existing data loads and reloads",
+            "pass": true
+          },
+          {
+            "name": "desktop Guilda existing data loads and reloads",
+            "pass": true
+          },
+          {
+            "name": "desktop EBD existing data loads and reloads",
+            "pass": true
+          },
+          {
+            "name": "desktop Missoes existing data loads and reloads",
+            "pass": true
+          },
+          {
+            "name": "desktop Serpente existing data loads and reloads",
+            "pass": true
+          },
+          {
+            "name": "desktop explicit own Guild selection yields legitimate empty class list",
+            "pass": true
+          },
+          {
+            "name": "390px emulated Hero existing data loads and reloads",
+            "pass": true
+          },
+          {
+            "name": "390px emulated Mochila existing data loads and reloads",
+            "pass": true
+          },
+          {
+            "name": "390px emulated Colecao existing data loads and reloads",
+            "pass": true
+          },
+          {
+            "name": "390px emulated Diario existing data loads and reloads",
+            "pass": true
+          },
+          {
+            "name": "390px emulated Jornada existing data loads and reloads",
+            "pass": true
+          },
+          {
+            "name": "390px emulated Guilda existing data loads and reloads",
+            "pass": true
+          },
+          {
+            "name": "390px emulated EBD existing data loads and reloads",
+            "pass": true
+          },
+          {
+            "name": "390px emulated Missoes existing data loads and reloads",
+            "pass": true
+          },
+          {
+            "name": "390px emulated Serpente existing data loads and reloads",
+            "pass": true
+          },
+          {
+            "name": "390px emulated explicit own Guild selection yields legitimate empty class list",
+            "pass": true
+          },
+          {
+            "name": "no unexpected browser errors or REST writes in both viewport runs",
+            "pass": true
+          },
+          {
+            "name": "economic, equipment and unapproved routes stay blocked",
+            "pass": true
+          }
+        ],
+        "pass": true
+      },
+      {
+        "artifact": "production-http-results.json",
+        "sha256": "f3de222a4aa7f0d5241ca767b99476e25b98fa78b89c35388b0c8650f5503e73",
+        "candidate": "4670ac6f908536ff1f181b926f727bbd522d3511",
+        "environment": "PROD official",
+        "total": 6,
+        "checks": [
+          {
+            "name": "official public invalid invitation reaches correctly configured PROD lookup and stays denied",
+            "pass": true
+          },
+          {
+            "name": "official invite listing requires normal Auth",
+            "pass": true
+          },
+          {
+            "name": "another origin is denied before any invitation lookup",
+            "pass": true
+          },
+          {
+            "name": "real Admin normal Auth respects own Guild leadership when listing invitation metadata",
+            "pass": true
+          },
+          {
+            "name": "normal account cannot substitute another identity in the productive Next API",
+            "pass": true
+          },
+          {
+            "name": "old valid-shaped URL redirects to fixed flow without authenticating a visitor",
+            "pass": true
+          }
+        ],
+        "pass": true
+      }
+    ]
+  },
+  "preservation": {
+    "all44PRODExactBeforeAndAfterOfficial": true,
+    "all49TESTOriginalRowsetsExact": true,
+    "productivePostDDLStructureUnchanged": true,
+    "production": [
+      {
+        "dataset": "economy_private.battles",
+        "rows": 0,
+        "before": "d41d8cd98f00b204e9800998ecf8427e",
+        "after": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "dataset": "economy_private.card_catalog",
+        "rows": 0,
+        "before": "d41d8cd98f00b204e9800998ecf8427e",
+        "after": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "dataset": "economy_private.journey_operations",
+        "rows": 0,
+        "before": "d41d8cd98f00b204e9800998ecf8427e",
+        "after": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "dataset": "economy_private.journey_rewards",
+        "rows": 0,
+        "before": "d41d8cd98f00b204e9800998ecf8427e",
+        "after": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "dataset": "economy_private.journeys",
+        "rows": 0,
+        "before": "d41d8cd98f00b204e9800998ecf8427e",
+        "after": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "dataset": "guild_admin_private.admin_grants",
+        "rows": 1,
+        "before": "ad39d35ec2b6c70a39a228fe0e75cc11",
+        "after": "ad39d35ec2b6c70a39a228fe0e75cc11"
+      },
+      {
+        "dataset": "guild_admin_private.audit",
+        "rows": 1,
+        "before": "9a16acf6a468c3dbae2f2518e5372970",
+        "after": "9a16acf6a468c3dbae2f2518e5372970"
+      },
+      {
+        "dataset": "guild_admin_private.leader_authorizations",
+        "rows": 0,
+        "before": "d41d8cd98f00b204e9800998ecf8427e",
+        "after": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "dataset": "guild_admin_private.leadership_invites",
+        "rows": 0,
+        "before": "d41d8cd98f00b204e9800998ecf8427e",
+        "after": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "dataset": "guild_admin_private.leadership_revocations",
+        "rows": 0,
+        "before": "d41d8cd98f00b204e9800998ecf8427e",
+        "after": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "dataset": "guild_admin_private.multiguild_control",
+        "rows": 1,
+        "before": "2772a5fd224198b904b6b71d05dec7c0",
+        "after": "2772a5fd224198b904b6b71d05dec7c0"
+      },
+      {
+        "dataset": "guild_chat_private.rate_limits",
+        "rows": 1,
+        "before": "8cf40e51d01dee78ad0526cca6780e51",
+        "after": "8cf40e51d01dee78ad0526cca6780e51"
+      },
+      {
+        "dataset": "guild_invite_private.link_invites",
+        "rows": 1,
+        "before": "1faefa58a3dd95cffb28beaaa065c5c9",
+        "after": "1faefa58a3dd95cffb28beaaa065c5c9"
+      },
+      {
+        "dataset": "public.chest_operations",
+        "rows": 37,
+        "before": "419c47bf4a028129ea4544035d2ffeb2",
+        "after": "419c47bf4a028129ea4544035d2ffeb2"
+      },
+      {
+        "dataset": "public.equipped_items",
+        "rows": 31,
+        "before": "224f27fa31efbcd36d02e81fbe05a292",
+        "after": "224f27fa31efbcd36d02e81fbe05a292"
+      },
+      {
+        "dataset": "public.guild_activity_log",
+        "rows": 10,
+        "before": "b9fa612c0929e364659e53c6879ee8a3",
+        "after": "b9fa612c0929e364659e53c6879ee8a3"
+      },
+      {
+        "dataset": "public.guild_chat_messages",
+        "rows": 4,
+        "before": "b4e565deb761dc4d175798bac520674e",
+        "after": "b4e565deb761dc4d175798bac520674e"
+      },
+      {
+        "dataset": "public.guild_chat_moderation_log",
+        "rows": 0,
+        "before": "d41d8cd98f00b204e9800998ecf8427e",
+        "after": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "dataset": "public.guild_chat_reads",
+        "rows": 0,
+        "before": "d41d8cd98f00b204e9800998ecf8427e",
+        "after": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "dataset": "public.guild_chat_reports",
+        "rows": 0,
+        "before": "d41d8cd98f00b204e9800998ecf8427e",
+        "after": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "dataset": "public.guild_ebd_activities",
+        "rows": 1,
+        "before": "04054ad2a1be7c4f1f0bf6ecf44c2c03",
+        "after": "04054ad2a1be7c4f1f0bf6ecf44c2c03"
+      },
+      {
+        "dataset": "public.guild_ebd_answers",
+        "rows": 1,
+        "before": "b45a0a2198173fdda0bcdc78f61963fa",
+        "after": "b45a0a2198173fdda0bcdc78f61963fa"
+      },
+      {
+        "dataset": "public.guild_ebd_attendance",
+        "rows": 1,
+        "before": "fa4cbf88a4d29b45dd3622caeda3f3c5",
+        "after": "fa4cbf88a4d29b45dd3622caeda3f3c5"
+      },
+      {
+        "dataset": "public.guild_ebd_history",
+        "rows": 5,
+        "before": "f067e9a781e8952498cba8df01145f40",
+        "after": "f067e9a781e8952498cba8df01145f40"
+      },
+      {
+        "dataset": "public.guild_ebd_reward_pending",
+        "rows": 0,
+        "before": "d41d8cd98f00b204e9800998ecf8427e",
+        "after": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "dataset": "public.guild_ebd_teachers",
+        "rows": 1,
+        "before": "71e5885fce0ca50b318f95206218b41e",
+        "after": "71e5885fce0ca50b318f95206218b41e"
+      },
+      {
+        "dataset": "public.guild_invites",
+        "rows": 0,
+        "before": "d41d8cd98f00b204e9800998ecf8427e",
+        "after": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "dataset": "public.guild_join_requests",
+        "rows": 5,
+        "before": "1ab6816b87f83e4bdc72fc06d6fdc9f5",
+        "after": "1ab6816b87f83e4bdc72fc06d6fdc9f5"
+      },
+      {
+        "dataset": "public.guild_lessons",
+        "rows": 1,
+        "before": "3664bc27b6981c1291b5f91b3d865c90",
+        "after": "3664bc27b6981c1291b5f91b3d865c90"
+      },
+      {
+        "dataset": "public.guild_members",
+        "rows": 8,
+        "before": "921b06260da72803cb94ae12379b7f1f",
+        "after": "921b06260da72803cb94ae12379b7f1f"
+      },
+      {
+        "dataset": "public.guild_mission_attempts",
+        "rows": 0,
+        "before": "d41d8cd98f00b204e9800998ecf8427e",
+        "after": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "dataset": "public.guild_mission_progress",
+        "rows": 0,
+        "before": "d41d8cd98f00b204e9800998ecf8427e",
+        "after": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "dataset": "public.guild_missions",
+        "rows": 0,
+        "before": "d41d8cd98f00b204e9800998ecf8427e",
+        "after": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "dataset": "public.guild_reward_claims",
+        "rows": 0,
+        "before": "d41d8cd98f00b204e9800998ecf8427e",
+        "after": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "dataset": "public.guilds",
+        "rows": 3,
+        "before": "7c1eb8c1b768c2866e8cf3eb007de1f2",
+        "after": "7c1eb8c1b768c2866e8cf3eb007de1f2"
+      },
+      {
+        "dataset": "public.inventory",
+        "rows": 37,
+        "before": "9adc255124118da074fddf112a565ac5",
+        "after": "9adc255124118da074fddf112a565ac5"
+      },
+      {
+        "dataset": "public.profiles",
+        "rows": 11,
+        "before": "d8efc063fc0bd6e378e6ec48f585ad22",
+        "after": "d8efc063fc0bd6e378e6ec48f585ad22"
+      },
+      {
+        "dataset": "public.story_definitions",
+        "rows": 5,
+        "before": "414c69e783d2e1a016d7f03d8fa37f23",
+        "after": "414c69e783d2e1a016d7f03d8fa37f23"
+      },
+      {
+        "dataset": "public.story_progress",
+        "rows": 0,
+        "before": "d41d8cd98f00b204e9800998ecf8427e",
+        "after": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "dataset": "public.traveler_chests",
+        "rows": 8,
+        "before": "5f0868385b7b6d86fa3cd3fc74d8f526",
+        "after": "5f0868385b7b6d86fa3cd3fc74d8f526"
+      },
+      {
+        "dataset": "public.traveler_stats",
+        "rows": 24,
+        "before": "617841fcfe6b59ba7e1cd1b8ea8cb364",
+        "after": "617841fcfe6b59ba7e1cd1b8ea8cb364"
+      },
+      {
+        "dataset": "public.travelers",
+        "rows": 24,
+        "before": "5c8f386e03d1603612a4dc7f430d91bd",
+        "after": "5c8f386e03d1603612a4dc7f430d91bd"
+      },
+      {
+        "dataset": "public.wallets",
+        "rows": 24,
+        "before": "bec58057cc799f097303463bc8c96729",
+        "after": "bec58057cc799f097303463bc8c96729"
+      },
+      {
+        "dataset": "story_private.step_receipts",
+        "rows": 0,
+        "before": "d41d8cd98f00b204e9800998ecf8427e",
+        "after": "d41d8cd98f00b204e9800998ecf8427e"
+      }
+    ],
+    "testOriginalRows": [
+      {
+        "dataset": "economy_private.battles",
+        "originalRows": 21,
+        "before": "9f5097991cf8226e5c58da320ca69aa9",
+        "afterProjection": "9f5097991cf8226e5c58da320ca69aa9",
+        "wholeDatasetUnchanged": true
+      },
+      {
+        "dataset": "economy_private.card_catalog",
+        "originalRows": 7,
+        "before": "a333252631165b98044ff6c69ac32355",
+        "afterProjection": "a333252631165b98044ff6c69ac32355",
+        "wholeDatasetUnchanged": true
+      },
+      {
+        "dataset": "economy_private.journey_operations",
+        "originalRows": 0,
+        "before": "d41d8cd98f00b204e9800998ecf8427e",
+        "afterProjection": "d41d8cd98f00b204e9800998ecf8427e",
+        "wholeDatasetUnchanged": true
+      },
+      {
+        "dataset": "economy_private.journey_rewards",
+        "originalRows": 0,
+        "before": "d41d8cd98f00b204e9800998ecf8427e",
+        "afterProjection": "d41d8cd98f00b204e9800998ecf8427e",
+        "wholeDatasetUnchanged": true
+      },
+      {
+        "dataset": "economy_private.journeys",
+        "originalRows": 0,
+        "before": "d41d8cd98f00b204e9800998ecf8427e",
+        "afterProjection": "d41d8cd98f00b204e9800998ecf8427e",
+        "wholeDatasetUnchanged": true
+      },
+      {
+        "dataset": "economy_private.tower_reward_claims",
+        "originalRows": 0,
+        "before": "d41d8cd98f00b204e9800998ecf8427e",
+        "afterProjection": "d41d8cd98f00b204e9800998ecf8427e",
+        "wholeDatasetUnchanged": true
+      },
+      {
+        "dataset": "economy_private.tower_reward_policies",
+        "originalRows": 1,
+        "before": "c584356e19255fa97ba10b160029c013",
+        "afterProjection": "c584356e19255fa97ba10b160029c013",
+        "wholeDatasetUnchanged": true
+      },
+      {
+        "dataset": "guild_admin_private.admin_grants",
+        "originalRows": 1,
+        "before": "d93c80a4c57ab5f9664296df8f98787d",
+        "afterProjection": "d93c80a4c57ab5f9664296df8f98787d",
+        "wholeDatasetUnchanged": true
+      },
+      {
+        "dataset": "guild_admin_private.audit",
+        "originalRows": 25,
+        "before": "a9c50448d3afbc4b49e5a99ff5e76678",
+        "afterProjection": "a9c50448d3afbc4b49e5a99ff5e76678",
+        "wholeDatasetUnchanged": false
+      },
+      {
+        "dataset": "guild_admin_private.leader_authorizations",
+        "originalRows": 2,
+        "before": "110fbb908835fb0e73b07a7ce5b6c1b5",
+        "afterProjection": "110fbb908835fb0e73b07a7ce5b6c1b5",
+        "wholeDatasetUnchanged": true
+      },
+      {
+        "dataset": "guild_admin_private.leadership_invites",
+        "originalRows": 3,
+        "before": "6cbcd527f644d8a8a6bd0338ff98bb11",
+        "afterProjection": "6cbcd527f644d8a8a6bd0338ff98bb11",
+        "wholeDatasetUnchanged": true
+      },
+      {
+        "dataset": "guild_admin_private.leadership_revocations",
+        "originalRows": 1,
+        "before": "7d95547c9a98c3691a3e9f87f038ae3f",
+        "afterProjection": "7d95547c9a98c3691a3e9f87f038ae3f",
+        "wholeDatasetUnchanged": true
+      },
+      {
+        "dataset": "guild_admin_private.multiguild_control",
+        "originalRows": 1,
+        "before": "2087a705712dd22259d68ce6a9d03102",
+        "afterProjection": "2087a705712dd22259d68ce6a9d03102",
+        "wholeDatasetUnchanged": true
+      },
+      {
+        "dataset": "guild_chat_private.rate_limits",
+        "originalRows": 0,
+        "before": "d41d8cd98f00b204e9800998ecf8427e",
+        "afterProjection": "d41d8cd98f00b204e9800998ecf8427e",
+        "wholeDatasetUnchanged": true
+      },
+      {
+        "dataset": "guild_invite_private.link_invites",
+        "originalRows": 8,
+        "before": "6228bf5ab12a29123360c7eebd9acb5d",
+        "afterProjection": "6228bf5ab12a29123360c7eebd9acb5d",
+        "wholeDatasetUnchanged": false
+      },
+      {
+        "dataset": "public.chest_operations",
+        "originalRows": 23,
+        "before": "3ea9dfc1fb89162c45cd7b1d200e719e",
+        "afterProjection": "3ea9dfc1fb89162c45cd7b1d200e719e",
+        "wholeDatasetUnchanged": true
+      },
+      {
+        "dataset": "public.equipped_items",
+        "originalRows": 4,
+        "before": "bd47ec1a027e092a039d56b4f4625515",
+        "afterProjection": "bd47ec1a027e092a039d56b4f4625515",
+        "wholeDatasetUnchanged": true
+      },
+      {
+        "dataset": "public.guild_activity_log",
+        "originalRows": 26,
+        "before": "ac743a0e12559276094a28c0acec4a1b",
+        "afterProjection": "ac743a0e12559276094a28c0acec4a1b",
+        "wholeDatasetUnchanged": false
+      },
+      {
+        "dataset": "public.guild_chat_messages",
+        "originalRows": 0,
+        "before": "d41d8cd98f00b204e9800998ecf8427e",
+        "afterProjection": "d41d8cd98f00b204e9800998ecf8427e",
+        "wholeDatasetUnchanged": true
+      },
+      {
+        "dataset": "public.guild_chat_moderation_log",
+        "originalRows": 0,
+        "before": "d41d8cd98f00b204e9800998ecf8427e",
+        "afterProjection": "d41d8cd98f00b204e9800998ecf8427e",
+        "wholeDatasetUnchanged": true
+      },
+      {
+        "dataset": "public.guild_chat_reads",
+        "originalRows": 0,
+        "before": "d41d8cd98f00b204e9800998ecf8427e",
+        "afterProjection": "d41d8cd98f00b204e9800998ecf8427e",
+        "wholeDatasetUnchanged": true
+      },
+      {
+        "dataset": "public.guild_chat_reports",
+        "originalRows": 0,
+        "before": "d41d8cd98f00b204e9800998ecf8427e",
+        "afterProjection": "d41d8cd98f00b204e9800998ecf8427e",
+        "wholeDatasetUnchanged": true
+      },
+      {
+        "dataset": "public.guild_ebd_activities",
+        "originalRows": 2,
+        "before": "e154dc4e5463427480b337cdcc0e8625",
+        "afterProjection": "e154dc4e5463427480b337cdcc0e8625",
+        "wholeDatasetUnchanged": true
+      },
+      {
+        "dataset": "public.guild_ebd_answers",
+        "originalRows": 2,
+        "before": "07297586116b284b346e166e4e8f85a0",
+        "afterProjection": "07297586116b284b346e166e4e8f85a0",
+        "wholeDatasetUnchanged": true
+      },
+      {
+        "dataset": "public.guild_ebd_attendance",
+        "originalRows": 2,
+        "before": "601d165f23534af4d0ad3d83eb5c6776",
+        "afterProjection": "601d165f23534af4d0ad3d83eb5c6776",
+        "wholeDatasetUnchanged": true
+      },
+      {
+        "dataset": "public.guild_ebd_history",
+        "originalRows": 22,
+        "before": "891067ba5296046fe9967289cf05d7ca",
+        "afterProjection": "891067ba5296046fe9967289cf05d7ca",
+        "wholeDatasetUnchanged": true
+      },
+      {
+        "dataset": "public.guild_ebd_reward_pending",
+        "originalRows": 0,
+        "before": "d41d8cd98f00b204e9800998ecf8427e",
+        "afterProjection": "d41d8cd98f00b204e9800998ecf8427e",
+        "wholeDatasetUnchanged": true
+      },
+      {
+        "dataset": "public.guild_ebd_teachers",
+        "originalRows": 3,
+        "before": "e5ad8d4d785f70b8eb154db89eacda67",
+        "afterProjection": "e5ad8d4d785f70b8eb154db89eacda67",
+        "wholeDatasetUnchanged": true
+      },
+      {
+        "dataset": "public.guild_invites",
+        "originalRows": 0,
+        "before": "d41d8cd98f00b204e9800998ecf8427e",
+        "afterProjection": "d41d8cd98f00b204e9800998ecf8427e",
+        "wholeDatasetUnchanged": true
+      },
+      {
+        "dataset": "public.guild_join_requests",
+        "originalRows": 9,
+        "before": "4e5f8bf6e1e5d5c6179051cfc36c144e",
+        "afterProjection": "4e5f8bf6e1e5d5c6179051cfc36c144e",
+        "wholeDatasetUnchanged": false
+      },
+      {
+        "dataset": "public.guild_lessons",
+        "originalRows": 5,
+        "before": "e60c79478e6bebeea7a8dd9cc189bc6b",
+        "afterProjection": "e60c79478e6bebeea7a8dd9cc189bc6b",
+        "wholeDatasetUnchanged": true
+      },
+      {
+        "dataset": "public.guild_members",
+        "originalRows": 16,
+        "before": "883054ab23ff3d932cee1c992f47e8fc",
+        "afterProjection": "883054ab23ff3d932cee1c992f47e8fc",
+        "wholeDatasetUnchanged": false
+      },
+      {
+        "dataset": "public.guild_mission_attempts",
+        "originalRows": 0,
+        "before": "d41d8cd98f00b204e9800998ecf8427e",
+        "afterProjection": "d41d8cd98f00b204e9800998ecf8427e",
+        "wholeDatasetUnchanged": true
+      },
+      {
+        "dataset": "public.guild_mission_progress",
+        "originalRows": 0,
+        "before": "d41d8cd98f00b204e9800998ecf8427e",
+        "afterProjection": "d41d8cd98f00b204e9800998ecf8427e",
+        "wholeDatasetUnchanged": true
+      },
+      {
+        "dataset": "public.guild_missions",
+        "originalRows": 0,
+        "before": "d41d8cd98f00b204e9800998ecf8427e",
+        "afterProjection": "d41d8cd98f00b204e9800998ecf8427e",
+        "wholeDatasetUnchanged": true
+      },
+      {
+        "dataset": "public.guild_reward_claims",
+        "originalRows": 0,
+        "before": "d41d8cd98f00b204e9800998ecf8427e",
+        "afterProjection": "d41d8cd98f00b204e9800998ecf8427e",
+        "wholeDatasetUnchanged": true
+      },
+      {
+        "dataset": "public.guilds",
+        "originalRows": 8,
+        "before": "f1d2a1840b961bf8ddce9afd55816f16",
+        "afterProjection": "f1d2a1840b961bf8ddce9afd55816f16",
+        "wholeDatasetUnchanged": false
+      },
+      {
+        "dataset": "public.inventory",
+        "originalRows": 18,
+        "before": "973a5b0008f0b8ce64fecbbb7660eae0",
+        "afterProjection": "973a5b0008f0b8ce64fecbbb7660eae0",
+        "wholeDatasetUnchanged": true
+      },
+      {
+        "dataset": "public.profiles",
+        "originalRows": 6,
+        "before": "dc46b172f937d13c2ea364e5a78f1c52",
+        "afterProjection": "dc46b172f937d13c2ea364e5a78f1c52",
+        "wholeDatasetUnchanged": true
+      },
+      {
+        "dataset": "public.story_definitions",
+        "originalRows": 5,
+        "before": "414c69e783d2e1a016d7f03d8fa37f23",
+        "afterProjection": "414c69e783d2e1a016d7f03d8fa37f23",
+        "wholeDatasetUnchanged": true
+      },
+      {
+        "dataset": "public.story_progress",
+        "originalRows": 0,
+        "before": "d41d8cd98f00b204e9800998ecf8427e",
+        "afterProjection": "d41d8cd98f00b204e9800998ecf8427e",
+        "wholeDatasetUnchanged": true
+      },
+      {
+        "dataset": "public.traveler_chests",
+        "originalRows": 0,
+        "before": "d41d8cd98f00b204e9800998ecf8427e",
+        "afterProjection": "d41d8cd98f00b204e9800998ecf8427e",
+        "wholeDatasetUnchanged": true
+      },
+      {
+        "dataset": "public.traveler_stats",
+        "originalRows": 15,
+        "before": "9b0bf43b4292342e33ac8b2349a2be54",
+        "afterProjection": "9b0bf43b4292342e33ac8b2349a2be54",
+        "wholeDatasetUnchanged": true
+      },
+      {
+        "dataset": "public.travelers",
+        "originalRows": 15,
+        "before": "dab6e8ca89b13a5f7a847fa00d5bc1a9",
+        "afterProjection": "dab6e8ca89b13a5f7a847fa00d5bc1a9",
+        "wholeDatasetUnchanged": true
+      },
+      {
+        "dataset": "public.wallets",
+        "originalRows": 15,
+        "before": "849d45bdb97250a33066f0adef65e532",
+        "afterProjection": "849d45bdb97250a33066f0adef65e532",
+        "wholeDatasetUnchanged": true
+      },
+      {
+        "dataset": "story_private.progression_completions",
+        "originalRows": 0,
+        "before": "d41d8cd98f00b204e9800998ecf8427e",
+        "afterProjection": "d41d8cd98f00b204e9800998ecf8427e",
+        "wholeDatasetUnchanged": true
+      },
+      {
+        "dataset": "story_private.progression_evidence",
+        "originalRows": 0,
+        "before": "d41d8cd98f00b204e9800998ecf8427e",
+        "afterProjection": "d41d8cd98f00b204e9800998ecf8427e",
+        "wholeDatasetUnchanged": true
+      },
+      {
+        "dataset": "story_private.progression_policies",
+        "originalRows": 5,
+        "before": "50eb1472c0c6e4f465d3a24f697726a9",
+        "afterProjection": "50eb1472c0c6e4f465d3a24f697726a9",
+        "wholeDatasetUnchanged": true
+      },
+      {
+        "dataset": "story_private.step_receipts",
+        "originalRows": 0,
+        "before": "d41d8cd98f00b204e9800998ecf8427e",
+        "afterProjection": "d41d8cd98f00b204e9800998ecf8427e",
+        "wholeDatasetUnchanged": true
+      }
+    ],
+    "testProjection": "Only the one newly created QA Guild and its new bindings/links/request/activity are excluded; five new immutable QA audit rows after the captured baseline are accounted separately. All original rows compare exactly.",
+    "pending": {
+      "before": [
+        {
+          "count": 10,
+          "hash": "a13610a5ee1cd8e303dccd10910b8cdd"
+        }
+      ],
+      "after": [
+        {
+          "count": 10,
+          "hash": "a13610a5ee1cd8e303dccd10910b8cdd"
+        }
+      ]
+    },
+    "productionDDL": {
+      "all44ExistingDataIdentical": true,
+      "all21NewFunctionsExactTEST": true,
+      "changedOldFunctions": [
+        "guild_invite_private.request_invite(text,uuid)",
+        "guild_invite_private.revoke_invite(uuid,uuid,uuid)"
+      ],
+      "changedOldACLsIdentical": true,
+      "policiesIdentical": true
+    },
+    "productionAdditional": {
+      "oldSchemasUnchanged": true,
+      "oldDefaultsUnchanged": true,
+      "onlyOldTableChanged": [
+        "public.guild_members"
+      ]
+    },
+    "preservedPullRequests": [
+      {
+        "pr": 12,
+        "state": "open",
+        "draft": true,
+        "merged": false,
+        "head": "61b7177b2ba52a04b955a8306677a0e13dfdeb3c"
+      },
+      {
+        "pr": 18,
+        "state": "open",
+        "draft": true,
+        "merged": false,
+        "head": "fd6f1498783d00c2a338cc42968bc7d0d4f3f822"
+      }
+    ]
+  },
+  "recovery": {
+    "snapshotSHA256": "6e13f9bbb1da5dc434337803b09563407eff7b72e0920f46e81fd6a81ce0b458",
+    "isolatedEmptyRoundtrip": "PASS",
+    "issuedStateRemovalRefused": "PASS",
+    "preservingContainment": "PASS isolated; not executed remotely",
+    "appRollbackTo": "994fe9d3323ba193aafc873fc2774d8a33637206 / dpl_BdKmqu1JYDH845BKoGH1qXiQTsTe",
+    "restorationOfPlayerDataNeeded": false
+  },
+  "security": {
+    "newAdministratorGrants": 0,
+    "activeProductionAdministrators": 1,
+    "AuthRLSWeakened": false,
+    "economicAuthority": "denied",
+    "gameDataMutatedForTestingInProduction": false,
+    "productionClassesCreated": 0,
+    "productionInvitationsCreated": 0,
+    "productionLegacyUses": 0,
+    "publicWrappers": "INVOKER",
+    "newPrivateTablesDenyAll": 10,
+    "newFunctionsExactTEST": 21
+  },
+  "limitations": [
+    "Mobile TEST WebKit390px and Chromium touch are emulated, not physical/Android.",
+    "PROD checks use one normal owner identity active50, Chromium desktop and390px emulation; no independent mobile login claimed.",
+    "Class/invitation positives only in TEST; PROD read/empty/denial without fabricated players or grants.",
+    "Initial cookie assertion failed in Windows WebKit jar; actual SameSite=Lax/HttpOnly/Secure header verified, Chromium jarLax, Origin403 and noBearer401. WebKit cross-site cookie enforcement not claimed.",
+    "Old route may stream an HTTP200 redirect signal; actual anonymous browser follows to fixed route and clears token. See Next redirect documentation.",
+    "QA/Security by author, no independent review claimed.",
+    "Legacy advisors remain: PROD30/TEST35 deny-all INFO,12 public definer WARN and leaked-password protection WARN. No configuration weakened.",
+    "Existing unrelated cards-positive TEST limitation remains; no fabricated ownership."
+  ],
+  "economicRewardsEnabled": false,
+  "newPaidResources": 0
+}

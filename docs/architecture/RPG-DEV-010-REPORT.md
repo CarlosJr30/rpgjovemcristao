@@ -1,5 +1,9 @@
 # RPG-DEV-010 — Guilda, Células e EBD 2.0
 
+## 30/10 — 010B.1/010B.2 DONE / DEPLOY_COMPLETE
+
+Convites comuns antigos e novos automáticos, classes e professores escopados publicados pelaPR20/merge4670ac6, CIhead96436ec/merge41133708988success. [Oficial](https://rpgjovemcristao-web-inky.vercel.app)→dpl_5VYBhCSmSwMJCYPmbregfDe5mWAjREADY/production/backendPROD/SHAexato; mesmo Git deployment promovido, autoAssigntrue/proteções originais. Três migrations PROD próprias214647/214654/214701, sem aplicar TEST-only;13migrations54tabelas.61unitdirecionados/50PG por pacote/qualidadeprotocoloPASS; TESTdoisUIDs/9compatibilidade24regressãoessencial5PreviewfinalPASS e positivos anteriores preservados; PROD10preflight8API22retida22oficial6HTTP PASS, ativo50/somenteleitura/semnovosdadosouAdmin.44dadosPRODidênticos e49rowsets originaisTEST preservados excluindo só novosQA autorizados;10pedidos históricos inalterados apósaceite. [Relatório010B](RPG-DEV-010B-REPORT.md)/[evidência](RPG-DEV-010B-RELEASE-EVIDENCE.json) distinguem emulação, fontes, falhas, recuperação e limites. PR12/18 intactas; sem XP/moedas/baús/economia.010B.3(aulas/quiz/presença)continuaPENDING, sem alegar010integralDONE. Checkpoints abaixo históricos.
+
 ## 30/10 — 010B em implementação própria; produção010A preservada
 
 Branch `codex/rpg-dev-010b-ebd-classes` parte de994fe9d e preserva fechamento8e7797c. Auditoria reutiliza Guilda/EBD/convites publicados; base de classes/permissões010B.2 precede destino Guilda+classe010B.1 por dependência real. Implementação e testes isolados em curso, sem economia, nova concessão administrativa, DDL/deploy010B remoto ou alteração dasPR12/18. [Relatório010B](RPG-DEV-010B-REPORT.md) distingue provas sintéticas, gates pendentes e preservação.010A permanece a produção aceita;010B não DONE/DEPLOY_COMPLETE.
