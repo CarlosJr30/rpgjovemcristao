@@ -1,5 +1,13 @@
 # 010A.2 — preparação produtiva e recuperação
 
+## Execução concluída — 29/10/2026
+
+**DONE/DEPLOY_COMPLETE do escopo publicado**,conforme [relatório](RPG-DEV-010A-REPORT.md)/[evidência](RPG-DEV-010A2-RELEASE-EVIDENCE.json). Aprovação expressa da proposta010A-PROD-ADMIN-20261029 recebida antes da concessão. Preflight/snapshot renovados,27API prégrant/28pósgrantPASS;somente duas migrationsPRODpróprias93830/93912 aplicadas (arquivos82857/82907).44tabelas/145funções/39policies;38conjuntos anteriores intactos. UmAdmin ativo4perms+um evento de auditoria,sem liderança automática.
+
+PR19merge994fe9d/CI40852856242success,GitdeploymentexistenteBdKmqu1JYDH845BKoGH1qXiQTsTeREADY/production/backendPROD. Domínio retido008C durante62UI/12anon/5checks ativação;apósgates,promovido mesmoartefato econfirmados62UI+28API+17HTTP oficiais/38PROD49TESTpreservados. AutoAssigntrue/SSOoriginal restaurados. GestãoativadaporDMLprotegido controletrue/rev2,sem migration extraou permissões econômicas. Nenhum reset,compensação destrutiva ou criação de dados produtivos para testes.
+
+**Não reaplicar a fundação/bootstrap.** Existe estado emitido: grant/auditoria. Recuperação futura aplicável é contenção preservadora e aplicação compatível com vínculos multiguild,sem remover dados/histórico ou restaurar cegamente o índice global. Os26PG isolados validam os dois caminhos,masnão se executouDROP/restore como testePROD. Plano e propostas anteriores abaixo são registros da sequência autorizada, não nova autorização para repetir a concessão.
+
 ## Pacote produtivo independente — 29/10/2026
 
 Guard final validado no pacote `7abca21dfa5c29973a1e768d17767af00a45a27b`, CIpush40847640704/PR40847651864 success:927unit/74SKIP,132PGisolados/qualidade/RSC/protocolo25. Previewjm1pteqzt/dpl_Bm3vxkPmmBM8R2M5DcPajEk2JMm8 READY/TEST/SHAexato,52checks reais finais PASS,49TEST38PROD iguais. O conector atribui a versão remota automaticamente; segundo arquivo confere nome exato `rpg_dev_010a_governance_production`, nove registros e39 definições/ACLs/donos, sem supor timestamp remoto.26PG do pacote aceitam versão atribuída e recusam nome alheio. Versões locais82857/82907 permanecem não aplicadas; mapear versões remotas e hashes quando executadas, sem renomear/apagar histórico. Este fechamento supersede f606 abaixo. Proposta administrativa continua não aprovada.

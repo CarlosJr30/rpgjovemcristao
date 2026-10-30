@@ -1,0 +1,794 @@
+{
+  "status": "DONE_DEPLOY_COMPLETE",
+  "date": "2026-10-29T20:49:39.623Z",
+  "scope": "010A.1 foundation and010A.2 multiguild compatibility; no010B/C/D/E or economics",
+  "pullRequest": 19,
+  "pullRequestURL": "https://github.com/CarlosJr30/rpgjovemcristao/pull/19",
+  "technicalSHA": "7abca21dfa5c29973a1e768d17767af00a45a27b",
+  "reviewedDocumentationHead": "adb2381c16f11ab3e1fb050c1fbd5c3805cad484",
+  "publishedMergeSHA": "994fe9d3323ba193aafc873fc2774d8a33637206",
+  "CI": {
+    "technicalPush": 40847640704,
+    "technicalPR": 40847651864,
+    "documentationPush": 40849728386,
+    "documentationPR": 40849736484,
+    "merge": {
+      "id": 40852856242,
+      "sha": "994fe9d3323ba193aafc873fc2774d8a33637206",
+      "status": "completed",
+      "conclusion": "success",
+      "attempt": 1
+    },
+    "allConclusions": "success",
+    "firstAttempt": true,
+    "conditionalPublishJob": "SKIP not PASS"
+  },
+  "quality": {
+    "unitPassed": 927,
+    "unitSkipped": 74,
+    "unitFilesPassed": 135,
+    "optInFilesOmitted": 7,
+    "isolatedPostgres": 132,
+    "postgresParts": {
+      "foundation": 45,
+      "multiguild": 61,
+      "productionPackage": 26
+    },
+    "lint": "PASS",
+    "typecheck": "PASS",
+    "build": "PASS",
+    "publishProtocolTests": 25,
+    "localFixturesAreHostedProof": false
+  },
+  "TEST": {
+    "preview": {
+      "id": "dpl_Bm3vxkPmmBM8R2M5DcPajEk2JMm8",
+      "url": "https://rpgjovemcristao-jm1pteqzt-carlos-junior-s-projects.vercel.app",
+      "state": "READY",
+      "target": "preview",
+      "sha": "7abca21dfa5c29973a1e768d17767af00a45a27b",
+      "backend": "Supabase TEST",
+      "checks": 52,
+      "engines": [
+        "Chromium desktop",
+        "WebKit390 emulated"
+      ],
+      "normalPasswordLogins": 2,
+      "sessionCopies": false,
+      "mobileEmulated": true,
+      "physicalDeviceProof": false,
+      "ownExistingProfileIgnoreDuplicates": 24,
+      "reviewedReadRPCs": 30,
+      "unexpectedWrites": 0,
+      "pageErrors": 0,
+      "earlier203RegressionAndTwoIdentityHomologationRetained": true,
+      "applicationSourceTreeParity": {
+        "approvedPreviewSHA": "df9e0b740fc8d103b6d179474ad2ac4d260f9d4c",
+        "newSHA": "7abca21dfa5c29973a1e768d17767af00a45a27b",
+        "sourceTreeSHA256": "02a3e90bb317ea41b48c74e0e0084a824c57c3379304ecf6155df0e6f33825cc",
+        "identical": true
+      },
+      "firstAttemptWrongLegacyPreviewPathPreserved": true,
+      "firstAttemptNotReportedAsPass": true,
+      "screenshotsInspected": true,
+      "rawEvidenceSHA256": "efe85afaa42aa66016900f733e6747c4eca9cad176bd2368f7921399e025b43c",
+      "sameQAIdentityAcrossTwoEngines": true,
+      "previousTwoIdentityFunctionalTestsRetained": true
+    },
+    "fullTwoNormalAuthIdentityHomologation": "RPG-DEV-010A2-MULTIUSER-EVIDENCE.json",
+    "original241AndSelected203RegressionsPreserved": true,
+    "skippedNotConvertedToPassed": true,
+    "all49FinalTestRecordSetsUnchanged": [
+      {
+        "dataset": "economy_private.battles",
+        "count": 21,
+        "hash": "9f5097991cf8226e5c58da320ca69aa9"
+      },
+      {
+        "dataset": "economy_private.card_catalog",
+        "count": 7,
+        "hash": "a333252631165b98044ff6c69ac32355"
+      },
+      {
+        "dataset": "economy_private.journey_operations",
+        "count": 0,
+        "hash": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "dataset": "economy_private.journey_rewards",
+        "count": 0,
+        "hash": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "dataset": "economy_private.journeys",
+        "count": 0,
+        "hash": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "dataset": "economy_private.tower_reward_claims",
+        "count": 0,
+        "hash": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "dataset": "economy_private.tower_reward_policies",
+        "count": 1,
+        "hash": "c584356e19255fa97ba10b160029c013"
+      },
+      {
+        "dataset": "guild_admin_private.admin_grants",
+        "count": 1,
+        "hash": "d93c80a4c57ab5f9664296df8f98787d"
+      },
+      {
+        "dataset": "guild_admin_private.audit",
+        "count": 25,
+        "hash": "a9c50448d3afbc4b49e5a99ff5e76678"
+      },
+      {
+        "dataset": "guild_admin_private.leader_authorizations",
+        "count": 2,
+        "hash": "110fbb908835fb0e73b07a7ce5b6c1b5"
+      },
+      {
+        "dataset": "guild_admin_private.leadership_invites",
+        "count": 3,
+        "hash": "6cbcd527f644d8a8a6bd0338ff98bb11"
+      },
+      {
+        "dataset": "guild_admin_private.leadership_revocations",
+        "count": 1,
+        "hash": "7d95547c9a98c3691a3e9f87f038ae3f"
+      },
+      {
+        "dataset": "guild_admin_private.multiguild_control",
+        "count": 1,
+        "hash": "2087a705712dd22259d68ce6a9d03102"
+      },
+      {
+        "dataset": "guild_chat_private.rate_limits",
+        "count": 0,
+        "hash": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "dataset": "guild_invite_private.link_invites",
+        "count": 8,
+        "hash": "6228bf5ab12a29123360c7eebd9acb5d"
+      },
+      {
+        "dataset": "public.chest_operations",
+        "count": 23,
+        "hash": "3ea9dfc1fb89162c45cd7b1d200e719e"
+      },
+      {
+        "dataset": "public.equipped_items",
+        "count": 4,
+        "hash": "bd47ec1a027e092a039d56b4f4625515"
+      },
+      {
+        "dataset": "public.guild_activity_log",
+        "count": 26,
+        "hash": "ac743a0e12559276094a28c0acec4a1b"
+      },
+      {
+        "dataset": "public.guild_chat_messages",
+        "count": 0,
+        "hash": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "dataset": "public.guild_chat_moderation_log",
+        "count": 0,
+        "hash": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "dataset": "public.guild_chat_reads",
+        "count": 0,
+        "hash": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "dataset": "public.guild_chat_reports",
+        "count": 0,
+        "hash": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "dataset": "public.guild_ebd_activities",
+        "count": 2,
+        "hash": "e154dc4e5463427480b337cdcc0e8625"
+      },
+      {
+        "dataset": "public.guild_ebd_answers",
+        "count": 2,
+        "hash": "07297586116b284b346e166e4e8f85a0"
+      },
+      {
+        "dataset": "public.guild_ebd_attendance",
+        "count": 2,
+        "hash": "601d165f23534af4d0ad3d83eb5c6776"
+      },
+      {
+        "dataset": "public.guild_ebd_history",
+        "count": 22,
+        "hash": "891067ba5296046fe9967289cf05d7ca"
+      },
+      {
+        "dataset": "public.guild_ebd_reward_pending",
+        "count": 0,
+        "hash": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "dataset": "public.guild_ebd_teachers",
+        "count": 3,
+        "hash": "e5ad8d4d785f70b8eb154db89eacda67"
+      },
+      {
+        "dataset": "public.guild_invites",
+        "count": 0,
+        "hash": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "dataset": "public.guild_join_requests",
+        "count": 9,
+        "hash": "4e5f8bf6e1e5d5c6179051cfc36c144e"
+      },
+      {
+        "dataset": "public.guild_lessons",
+        "count": 5,
+        "hash": "e60c79478e6bebeea7a8dd9cc189bc6b"
+      },
+      {
+        "dataset": "public.guild_members",
+        "count": 16,
+        "hash": "883054ab23ff3d932cee1c992f47e8fc"
+      },
+      {
+        "dataset": "public.guild_mission_attempts",
+        "count": 0,
+        "hash": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "dataset": "public.guild_mission_progress",
+        "count": 0,
+        "hash": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "dataset": "public.guild_missions",
+        "count": 0,
+        "hash": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "dataset": "public.guild_reward_claims",
+        "count": 0,
+        "hash": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "dataset": "public.guilds",
+        "count": 8,
+        "hash": "f1d2a1840b961bf8ddce9afd55816f16"
+      },
+      {
+        "dataset": "public.inventory",
+        "count": 18,
+        "hash": "973a5b0008f0b8ce64fecbbb7660eae0"
+      },
+      {
+        "dataset": "public.profiles",
+        "count": 6,
+        "hash": "dc46b172f937d13c2ea364e5a78f1c52"
+      },
+      {
+        "dataset": "public.story_definitions",
+        "count": 5,
+        "hash": "414c69e783d2e1a016d7f03d8fa37f23"
+      },
+      {
+        "dataset": "public.story_progress",
+        "count": 0,
+        "hash": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "dataset": "public.traveler_chests",
+        "count": 0,
+        "hash": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "dataset": "public.traveler_stats",
+        "count": 15,
+        "hash": "9b0bf43b4292342e33ac8b2349a2be54"
+      },
+      {
+        "dataset": "public.travelers",
+        "count": 15,
+        "hash": "dab6e8ca89b13a5f7a847fa00d5bc1a9"
+      },
+      {
+        "dataset": "public.wallets",
+        "count": 15,
+        "hash": "849d45bdb97250a33066f0adef65e532"
+      },
+      {
+        "dataset": "story_private.progression_completions",
+        "count": 0,
+        "hash": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "dataset": "story_private.progression_evidence",
+        "count": 0,
+        "hash": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "dataset": "story_private.progression_policies",
+        "count": 5,
+        "hash": "50eb1472c0c6e4f465d3a24f697726a9"
+      },
+      {
+        "dataset": "story_private.step_receipts",
+        "count": 0,
+        "hash": "d41d8cd98f00b204e9800998ecf8427e"
+      }
+    ],
+    "existingAdminAndBothOriginalAvatarsPreserved": true,
+    "authorizedQAAndAllGovernanceHistoryKept": true
+  },
+  "production": {
+    "url": "https://rpgjovemcristao-web-inky.vercel.app",
+    "deploymentURL": "https://rpgjovemcristao-iic8hkcq1-carlos-junior-s-projects.vercel.app",
+    "id": "dpl_BdKmqu1JYDH845BKoGH1qXiQTsTe",
+    "sha": "994fe9d3323ba193aafc873fc2774d8a33637206",
+    "state": "READY",
+    "target": "production",
+    "aliasMatches": true,
+    "autoAssignCustomDomains": true,
+    "originalSSOAndRootPreserved": true,
+    "sameExistingGitDeploymentPromoted": true,
+    "duplicateBuildOrDeployment": false,
+    "phases": {
+      "beforeBootstrap": {
+        "checks": 27,
+        "source": "private build/rpg-dev-010a2/prod-before-bootstrap-results.json",
+        "rawEvidenceSHA256": "e8d3ce64b1f559f74ebeb175c9e9774eb515d1ef9590d1a52adea72c2185e822",
+        "pass": true
+      },
+      "afterBootstrap": {
+        "checks": 28,
+        "source": "private build/rpg-dev-010a2/prod-after-bootstrap-results.json",
+        "rawEvidenceSHA256": "ed9866f17fcc5add1c15a445e157d23f4632f9a515eb11d7c35ce75ed1f8b93d",
+        "pass": true
+      },
+      "heldUI": {
+        "checks": 62,
+        "source": "private build/rpg-dev-010a2/prod-held-contained/results.json",
+        "rawEvidenceSHA256": "93a5b172a6ffb9b2d4a6e3f5a1a61cd77f3bbbcd7f3944ab70e93bd1f972322e",
+        "pass": true
+      },
+      "activeControls": {
+        "checks": 5,
+        "source": "private build/rpg-dev-010a2/prod-active-controls-results.json",
+        "rawEvidenceSHA256": "0c0edbb9990f9811cdd28a0fab93676b6b0bfb7f48d3e5b32abdff3abe50af6d",
+        "pass": true
+      },
+      "anonymousSecurity": {
+        "checks": 12,
+        "source": "private build/rpg-dev-010a2/prod-independent-security-results.json",
+        "rawEvidenceSHA256": "19d5d1874d712ef3fdb10e9eb759aa1eb63349e91c403e035391e18ba0a2bc42",
+        "pass": true
+      },
+      "officialUI": {
+        "checks": 62,
+        "source": "private build/rpg-dev-010a2/prod-official-active/results.json",
+        "rawEvidenceSHA256": "0da59dc20c7aee02c47856113eb0af15691e8e1a8b572b4b279aa1643fab01c7",
+        "pass": true
+      },
+      "officialAuthRLS": {
+        "checks": 28,
+        "source": "private build/rpg-dev-010a2/prod-official-results.json",
+        "rawEvidenceSHA256": "f3b2f1033d21432eb161c30ae9d98d2eb750ee335ea2a0ac6b076884d1119206",
+        "pass": true
+      },
+      "publicHTTP": {
+        "checks": 17,
+        "source": "private build/rpg-dev-010a2/final-official-http.json",
+        "rawEvidenceSHA256": "59600797d427bea95cb46baa2955fb3630147b5e110b29b14aa50f49c8a42572",
+        "pass": true
+      }
+    },
+    "readOnlyPreDDLChecks": 19,
+    "mainCIConfirmedAfterNormalMerge": true,
+    "domainHeldOn008CUntilAllGatesPassed": true,
+    "noSupabaseSessionCopied": true,
+    "heldNormalHumanLogin": true,
+    "officialOriginalNormalSessionReusedInSameOrigin": true,
+    "approvedActiveLevel50Only": true,
+    "oldLevel1NeverSelectedOrUsed": true,
+    "webKitAuthenticatedProof": "TEST only",
+    "desktopAndMobileViewport": "PROD Chromium desktop and390px same normal session, viewport emulation",
+    "physicalOrAndroidDeviceProof": false,
+    "mutatingMultiGuildPositive": "normal TEST flows only; no production state manufactured",
+    "UIData": {
+      "inventoryRows": 6,
+      "inventoryUnits": 14,
+      "equippedIndications": 6,
+      "canonicalCards": 0,
+      "persistedDiary": true,
+      "privateReflectionKeptCollapsed": true,
+      "missionsAndSerpentOpenedOnlyNoPlayOrExerciseInPROD": true
+    },
+    "requestAccounting": {
+      "heldUI": {
+        "ownExistingProfileIgnoreDuplicates": 29,
+        "reviewedReadRPCs": 32,
+        "reviewedGovernanceServerReads": 6,
+        "unexpectedWrites": 0,
+        "pageErrors": 0
+      },
+      "officialUI": {
+        "ownExistingProfileIgnoreDuplicates": 28,
+        "reviewedReadRPCs": 32,
+        "reviewedGovernanceServerReads": 6,
+        "unexpectedWrites": 0,
+        "pageErrors": 0
+      },
+      "countsAreSelectedPhasesNotEveryLoginOrDiagnostic": true,
+      "notAnAbsoluteZeroPOSTClaim": true,
+      "normalAuthMayUpdateSessionMetadata": true
+    }
+  },
+  "database": {
+    "projectEnvironment": "PROD verified",
+    "baselineMigrations": 8,
+    "finalMigrations": 10,
+    "applied": [
+      {
+        "local": "20261029082857_rpg_dev_010a_governance_production.sql",
+        "remote": "20261029093830_rpg_dev_010a_governance_production",
+        "sha256": "f65f73ec59cc7147a71e04e8d4ffe9fdc59f4dad106fbabc1c71ee205593ebfa"
+      },
+      {
+        "local": "20261029082907_rpg_dev_010a2_multiguild_production.sql",
+        "remote": "20261029093912_rpg_dev_010a2_multiguild_production",
+        "sha256": "86e3240739de0c5e5bcc3e0c35d7d8e72d96422cef58823dc4efffdc62f42034"
+      }
+    ],
+    "TESTOnlyMigrationAppliedPROD": false,
+    "baselineTables": 38,
+    "finalTables": 44,
+    "baselineFunctions": 100,
+    "finalFunctions": 145,
+    "functionsCanonicalToHostedTEST": 68,
+    "otherProductionFunctionsUnchanged": 77,
+    "preexistingTablesColumnsGrantsRLSAndPoliciesPreserved": true,
+    "preexistingPolicyCount": 39,
+    "newPrivateRLSTables": 6,
+    "tablesWithoutRLS": 0,
+    "scope": "guild-ebd-001",
+    "economyProtocol": 3,
+    "economicAndOfficialProgressionAuthoritiesDenied": true,
+    "bootstrapApplicationAnonAndServiceExecuteDenied": true,
+    "preDDLStructuralSnapshotSHA256": "cd8cb483e90bb2877557fc0ac61e06a3a2c9ddd3eed4c7d85b5d7996f9f6e703",
+    "productionStructureUnchangedAfterApprovedDDL": true,
+    "recovery": {
+      "isolated26Checks": true,
+      "emptyRoundtripExact": true,
+      "emptyRollbackAfterIssuedStateRefused": true,
+      "issuedStateContainmentPreservesLinksAndAudit": true,
+      "productionRollbackDropOrDataRestoreExecuted": false,
+      "compatibleApplicationRequiredIfFutureMultiGuildLinksExist": true,
+      "migrationHistoryDeleted": false
+    },
+    "advisors": {
+      "intentionalPrivateDenyAllInfoBefore": 14,
+      "after": 20,
+      "legacyPublicDefinerWarnings": 12,
+      "legacyLeakedPasswordProtectionWarning": 1,
+      "newPublicDefinerWarnings": false,
+      "settingsChangedToForceRelease": false
+    }
+  },
+  "designation": {
+    "proposalId": "010A-PROD-ADMIN-20261029",
+    "UIDSHA256": "51f8f162f5bfca59c89cb5acf428c1406b729e6a5723b66280451440f1eebe11",
+    "source": "Explicit owner approval call_bb28579e0ad24170ba5c52aac708fc7b after normal Auth verification",
+    "ownerApproved": true,
+    "bootstrapExecuted": true,
+    "activeAdminCount": 1,
+    "permissions": [
+      "admins.manage",
+      "leadership.manage",
+      "guilds.read",
+      "audit.read"
+    ],
+    "immutableBootstrapAuditCount": 1,
+    "administratorInferredFromNameLevelEmailMetadataOrTEST": false,
+    "leadershipAutomaticallyGranted": false,
+    "leadershipAuthorizations": 0,
+    "invites": 0,
+    "revocations": 0,
+    "protectedBootstrapNotPublicRPC": true
+  },
+  "activation": {
+    "source": "packages/database/proposals/rpg-dev-010a-production-activate.sql",
+    "operation": "protected owner-only DML transaction after verified mergeCI READY Auth RLS and heldUI gates",
+    "newMigration": false,
+    "controlBefore": {
+      "writes_enabled": false,
+      "revision": 1
+    },
+    "controlAfter": {
+      "writes_enabled": true,
+      "revision": 2
+    },
+    "newGameOrEconomicPermissions": false
+  },
+  "preservation": {
+    "all38PreexistingProductionRecordSetsUnchanged": [
+      {
+        "dataset": "economy_private.battles",
+        "count": 0,
+        "hash": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "dataset": "economy_private.card_catalog",
+        "count": 0,
+        "hash": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "dataset": "economy_private.journey_operations",
+        "count": 0,
+        "hash": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "dataset": "economy_private.journey_rewards",
+        "count": 0,
+        "hash": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "dataset": "economy_private.journeys",
+        "count": 0,
+        "hash": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "dataset": "guild_chat_private.rate_limits",
+        "count": 1,
+        "hash": "8cf40e51d01dee78ad0526cca6780e51"
+      },
+      {
+        "dataset": "guild_invite_private.link_invites",
+        "count": 1,
+        "hash": "1faefa58a3dd95cffb28beaaa065c5c9"
+      },
+      {
+        "dataset": "public.chest_operations",
+        "count": 37,
+        "hash": "419c47bf4a028129ea4544035d2ffeb2"
+      },
+      {
+        "dataset": "public.equipped_items",
+        "count": 31,
+        "hash": "224f27fa31efbcd36d02e81fbe05a292"
+      },
+      {
+        "dataset": "public.guild_activity_log",
+        "count": 10,
+        "hash": "b9fa612c0929e364659e53c6879ee8a3"
+      },
+      {
+        "dataset": "public.guild_chat_messages",
+        "count": 4,
+        "hash": "b4e565deb761dc4d175798bac520674e"
+      },
+      {
+        "dataset": "public.guild_chat_moderation_log",
+        "count": 0,
+        "hash": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "dataset": "public.guild_chat_reads",
+        "count": 0,
+        "hash": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "dataset": "public.guild_chat_reports",
+        "count": 0,
+        "hash": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "dataset": "public.guild_ebd_activities",
+        "count": 1,
+        "hash": "04054ad2a1be7c4f1f0bf6ecf44c2c03"
+      },
+      {
+        "dataset": "public.guild_ebd_answers",
+        "count": 1,
+        "hash": "b45a0a2198173fdda0bcdc78f61963fa"
+      },
+      {
+        "dataset": "public.guild_ebd_attendance",
+        "count": 1,
+        "hash": "fa4cbf88a4d29b45dd3622caeda3f3c5"
+      },
+      {
+        "dataset": "public.guild_ebd_history",
+        "count": 5,
+        "hash": "f067e9a781e8952498cba8df01145f40"
+      },
+      {
+        "dataset": "public.guild_ebd_reward_pending",
+        "count": 0,
+        "hash": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "dataset": "public.guild_ebd_teachers",
+        "count": 1,
+        "hash": "71e5885fce0ca50b318f95206218b41e"
+      },
+      {
+        "dataset": "public.guild_invites",
+        "count": 0,
+        "hash": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "dataset": "public.guild_join_requests",
+        "count": 5,
+        "hash": "1ab6816b87f83e4bdc72fc06d6fdc9f5"
+      },
+      {
+        "dataset": "public.guild_lessons",
+        "count": 1,
+        "hash": "3664bc27b6981c1291b5f91b3d865c90"
+      },
+      {
+        "dataset": "public.guild_members",
+        "count": 8,
+        "hash": "921b06260da72803cb94ae12379b7f1f"
+      },
+      {
+        "dataset": "public.guild_mission_attempts",
+        "count": 0,
+        "hash": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "dataset": "public.guild_mission_progress",
+        "count": 0,
+        "hash": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "dataset": "public.guild_missions",
+        "count": 0,
+        "hash": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "dataset": "public.guild_reward_claims",
+        "count": 0,
+        "hash": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "dataset": "public.guilds",
+        "count": 3,
+        "hash": "7c1eb8c1b768c2866e8cf3eb007de1f2"
+      },
+      {
+        "dataset": "public.inventory",
+        "count": 37,
+        "hash": "9adc255124118da074fddf112a565ac5"
+      },
+      {
+        "dataset": "public.profiles",
+        "count": 11,
+        "hash": "d8efc063fc0bd6e378e6ec48f585ad22"
+      },
+      {
+        "dataset": "public.story_definitions",
+        "count": 5,
+        "hash": "414c69e783d2e1a016d7f03d8fa37f23"
+      },
+      {
+        "dataset": "public.story_progress",
+        "count": 0,
+        "hash": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "dataset": "public.traveler_chests",
+        "count": 8,
+        "hash": "5f0868385b7b6d86fa3cd3fc74d8f526"
+      },
+      {
+        "dataset": "public.traveler_stats",
+        "count": 24,
+        "hash": "617841fcfe6b59ba7e1cd1b8ea8cb364"
+      },
+      {
+        "dataset": "public.travelers",
+        "count": 24,
+        "hash": "5c8f386e03d1603612a4dc7f430d91bd"
+      },
+      {
+        "dataset": "public.wallets",
+        "count": 24,
+        "hash": "bec58057cc799f097303463bc8c96729"
+      },
+      {
+        "dataset": "story_private.step_receipts",
+        "count": 0,
+        "hash": "d41d8cd98f00b204e9800998ecf8427e"
+      }
+    ],
+    "all49TESTRecordSetsUnchanged": true,
+    "onlyNewProductionState": "one approved Admin grant,one immutable audit,one control row/revision2; other three new tables empty",
+    "newGovernanceCountsAndHashes": [
+      {
+        "dataset": "guild_admin_private.admin_grants",
+        "count": 1,
+        "hash": "ad39d35ec2b6c70a39a228fe0e75cc11"
+      },
+      {
+        "dataset": "guild_admin_private.audit",
+        "count": 1,
+        "hash": "9a16acf6a468c3dbae2f2518e5372970"
+      },
+      {
+        "dataset": "guild_admin_private.leader_authorizations",
+        "count": 0,
+        "hash": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "dataset": "guild_admin_private.leadership_invites",
+        "count": 0,
+        "hash": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "dataset": "guild_admin_private.leadership_revocations",
+        "count": 0,
+        "hash": "d41d8cd98f00b204e9800998ecf8427e"
+      },
+      {
+        "dataset": "guild_admin_private.multiguild_control",
+        "count": 1,
+        "hash": "2772a5fd224198b904b6b71d05dec7c0"
+      }
+    ],
+    "XPWalletInventoryEquipmentCardsProgressAndExistingGuildEBDUnchanged": true,
+    "createdProductionAccountsHeroesGuildsLessonsItemsCardsChestsOrRewards": 0,
+    "oldGameDataRestoredDeletedOrNormalized": false
+  },
+  "independentPullRequests": {
+    "PR12": {
+      "state": "open draft unmerged",
+      "sha": "61b7177b2ba52a04b955a8306677a0e13dfdeb3c"
+    },
+    "PR18": {
+      "state": "open draft unmerged",
+      "sha": "fd6f1498783d00c2a338cc42968bc7d0d4f3f822"
+    }
+  },
+  "limitations": {
+    "criticalBlockersInPublishedScope": [],
+    "physicalMobileNotTested": true,
+    "authenticatedWebKitPRODNotClaimed": true,
+    "oldTESTCollectionPositivePendingUnrelated": true,
+    "productionBusinessMutationsNotManufactured": true,
+    "other010StagesAndEconomicReleaseStillPending": true,
+    "dependencyAndAdvisorLegacyWarningsRemain": true,
+    "QAAndSecurityByAuthor": true,
+    "independentReviewClaimed": false,
+    "paidResourcesOrNewProductDependenciesCreated": false
+  },
+  "failureProvenance": [
+    "Earlier signup identity and TEST UI/database incidents remain in the preparation and multiuser evidence",
+    "Initial production package guards used TEST newline hashes; actual PROD CRLF bodies were independently pinned and exact recovery proved",
+    "Final production guard was reviewed against connector-assigned migration versions; changed to exact approved name plus definition/ACL guards, then CI and Preview repeated on7abca21",
+    "Earlier f606 Preview collector opened correctly blocked legacy /preview; complete corrected52-check repeat preserved separately",
+    "First anonymous held check inspected URL before router.replace; corrected to await the same safe destination, without runtime changes or relaxed timeout; final12PASS",
+    "Document checkpoint41e6043 CI cancelled by superseding7abca21, never claimed PASS"
+  ],
+  "finalReadOnlyReconfirmation": {
+    "date": "2026-10-30T10:39:05.018Z",
+    "samePublishedSHA": "994fe9d3323ba193aafc873fc2774d8a33637206",
+    "readyProductionAlias": true,
+    "autoAssignAndSSOOriginal": true,
+    "preexistingPROD38AndTEST49HashesUnchanged": true,
+    "activeAdmins": 1,
+    "immutableAuditRows": 1,
+    "leadershipAuthorizations": 0,
+    "controlEnabled": true,
+    "controlRevision": 2,
+    "newBusinessOperationExecuted": false
+  }
+}

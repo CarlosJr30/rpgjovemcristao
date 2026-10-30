@@ -1,5 +1,9 @@
 # RPG-DEV-010 — Guilda, Células e EBD 2.0
 
+## 29/10 — 010A.1/010A.2 DONE / DEPLOY_COMPLETE
+
+Administração/liderança e compatibilidade multiguild publicadas: PR19merge994fe9d3323ba193aafc873fc2774d8a33637206/CI40852856242success;[oficial](https://rpgjovemcristao-web-inky.vercel.app/journey/guild),deploymentdpl_BdKmqu1JYDH845BKoGH1qXiQTsTeREADY/production/SHAexato/alias/backendPROD,mesmoGitdeploypromovido/autoAssigntrue/SSOoriginal.927unit74SKIP/132PG/qualidadeRSCprotocolo25;TEST52finais epositivosdoisUIDs preservados;PROD27APIprégrant28pósgrant,62UIretida/12anon/5ativação,62UIoficial28API17HTTP PASS. WebKitautenticadoTEST,mobilePRODviewportChromium,semfísico.38dadosanterioresPROD/49TEST preservados;DDLprod93830/93912próprias,1Admin4perms explicitamente aprovado+1audit,zero liderançaautomática/economia/dadosfabricados. PR12draft61b7177/PR18draftfd6f149intactas. SemblockcríticoescopoA;projeto010continuaACTIVE paraB/C/E econtratosDsemeconomia. [Relatório010A](RPG-DEV-010A-REPORT.md)/[evidênciafinal](RPG-DEV-010A2-RELEASE-EVIDENCE.json) prevalecem sobre checkpoints abaixo.
+
 Fechamento atual29/10: pacote produtivo7abca21CIpush40847640704/PR40847651864success,927unit/74SKIP/132PG(26do pacote)/qualidadeRSCprotocolo25. Guard do conector corrigido/testado por nome aprovado e hashes/ACLs. Previewjm1pteqzt/dpl_Bm3vxkPmmBM8R2M5DcPajEk2JMm8READY/TEST/SHAexato/52checksreaisPASS,49TEST38PROD iguais. [Proposta Admin PROD](RPG-DEV-010A-PROD-ADMIN-PROPOSAL.md) ainda não aprovada; semProdDDL/grant/merge/deploy,008C/PR12/18 preservados. Fonte atual: fechamento superior do relatório010A/evidênciaprodutiva; checkpoints abaixo históricos.
 
 ## 29/10 — 010A.2 TEST homologada; pacote PROD pronto para revisão do proprietário
