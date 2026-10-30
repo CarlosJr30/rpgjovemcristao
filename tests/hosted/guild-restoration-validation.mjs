@@ -102,7 +102,10 @@ for (const guildRole of ['member', 'leader']) {
         check(
           'leader controls follow existing role',
           (await page
-            .getByRole('button', { name: 'Convidar membros', exact: true })
+            .getByRole('button', {
+              name: 'Convidar membros',
+              exact: true,
+            })
             .count()) === (guildRole === 'leader' ? 1 : 0),
         );
         check(
@@ -139,7 +142,10 @@ for (const guildRole of ['member', 'leader']) {
         } else {
           await expect(scene).toHaveCount(0);
           await expect(
-            page.getByRole('button', { name: 'Convidar membros', exact: true }),
+            page.getByRole('button', {
+              name: 'Convidar membros',
+              exact: true,
+            }),
           ).toHaveCount(0);
         }
         check('management appearance cannot grant leader controls', true);

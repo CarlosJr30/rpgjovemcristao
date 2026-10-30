@@ -1,6 +1,6 @@
 # 010A.2 — proposta de Administrador Geral PROD
 
-**AGUARDA APROVAÇÃO DO PROPRIETÁRIO. Nenhuma concessão foi executada.**
+**APROVADA E EXECUTADA para a identidade fixada; aplicação publicada e conferida.** Resposta explícita do proprietário `call_bb28579e0ad24170ba5c52aac708fc7b`,29/10/2026. Bootstrap owner-only criou uma concessão ativa com as quatro permissões e um evento imutável;27checks pré-grant/28pós-grant no mesmoJWT PASS, inclusive RLS alheia. Dados de jogo preservados; nenhuma liderança automática. Merge994fe9d/CI40852856242success/deploymentdpl_BdKmqu1JYDH845BKoGH1qXiQTsTeREADY/production/aliasoficial confirmados;62checksUI e28API após publicação PASS. Gestão ativada por operação protegida após gates,controletrue/rev2,economia negada. [Fechamento](RPG-DEV-010A-REPORT.md) e [evidência](RPG-DEV-010A2-RELEASE-EVIDENCE.json). O texto abaixo é histórico do contrato aprovado e não autoriza repetição para outra identidade.
 
 Proposta `010A-PROD-ADMIN-20261029`. Destino: somente a conta PROD existente apresentada pelo proprietário e confirmada pelo login normal na janela oficial, com avatar ativo nível50. Identidade fixada pelo fingerprint SHA-256 do UID, prefixo **51f8f162f5bf**; UID completo, avatar e nonce estão no registro local ignorado `build/rpg-dev-010a2/prod-admin-designation-proposal.json`, sem senha/token/cookie. O nível identifica o avatar conferido e não concede privilégio. Avatar antigo nível1 excluído do ensaio.
 

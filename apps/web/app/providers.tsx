@@ -16,7 +16,9 @@ function AuthGate({ children }: { children: ReactNode }) {
       pathname === '/' ||
       pathname === '/auth' ||
       pathname === '/auth/recover' ||
-      pathname === '/guilda/lideranca/convite'
+      pathname === '/guilda/lideranca/convite' ||
+      pathname === '/guilda/participar' ||
+      /^\/guilda\/convite\/[a-f0-9]{64}$/.test(pathname)
     )
       return;
     const next = safeEntryReturn(
@@ -37,7 +39,9 @@ function AuthGate({ children }: { children: ReactNode }) {
       pathname === '/' ||
       pathname === '/auth' ||
       pathname === '/auth/recover' ||
-      pathname === '/guilda/lideranca/convite'
+      pathname === '/guilda/lideranca/convite' ||
+      pathname === '/guilda/participar' ||
+      /^\/guilda\/convite\/[a-f0-9]{64}$/.test(pathname)
     )
       return children;
     const inviteToken = pathname.match(

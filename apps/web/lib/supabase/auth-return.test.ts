@@ -8,6 +8,11 @@ import {
 } from './auth-return';
 
 afterEach(() => window.history.replaceState({}, '', '/'));
+test('member invitation returns through login registration and confirmation without its fragment',()=>{
+ const next='/guilda/participar';window.history.replaceState({},'',`/auth?next=${encodeURIComponent(next)}`);
+ expect(entryReturn('/')).toBe(next);expect(registrationDestination()).toBe('/journey/create?next=%2Fguilda%2Fparticipar');expect(authCallbackPath()).toBe('/auth?next=%2Fguilda%2Fparticipar');
+ expect(safeEntryReturn(next+'#secret',window.location.origin)).toBe(next);
+});
 
 test('keeps the clean leadership invitation destination without a token in the return URL', () => {
   const target='/guilda/lideranca/convite';

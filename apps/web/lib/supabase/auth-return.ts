@@ -12,7 +12,8 @@ export function safeEntryReturn(
       !(
         (url.pathname.startsWith('/journey') && isReleasedPath(url.pathname)) ||
         /^\/guilda\/convite\/[a-f0-9]{64}$/.test(url.pathname) ||
-        url.pathname === '/guilda/lideranca/convite'
+        url.pathname === '/guilda/lideranca/convite' ||
+        url.pathname === '/guilda/participar'
       )
     )
       return null;

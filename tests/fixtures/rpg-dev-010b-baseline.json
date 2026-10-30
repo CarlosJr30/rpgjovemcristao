@@ -1,0 +1,1004 @@
+{
+  "tables": [
+    {
+      "rls": true,
+      "name": "link_invites",
+      "schema": "guild_invite_private",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "default": "gen_random_uuid()",
+          "notnull": true
+        },
+        {
+          "name": "guild_id",
+          "type": "uuid",
+          "default": null,
+          "notnull": true
+        },
+        {
+          "name": "leader_traveler_id",
+          "type": "uuid",
+          "default": null,
+          "notnull": true
+        },
+        {
+          "name": "token_hash",
+          "type": "bytea",
+          "default": null,
+          "notnull": true
+        },
+        {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "default": "clock_timestamp()",
+          "notnull": true
+        },
+        {
+          "name": "expires_at",
+          "type": "timestamp with time zone",
+          "default": null,
+          "notnull": true
+        },
+        {
+          "name": "revoked_at",
+          "type": "timestamp with time zone",
+          "default": null,
+          "notnull": false
+        }
+      ],
+      "constraints": [
+        "CHECK (((expires_at > created_at) AND (expires_at <= (created_at + '7 days'::interval))))",
+        "FOREIGN KEY (guild_id) REFERENCES guilds(id)",
+        "FOREIGN KEY (leader_traveler_id) REFERENCES travelers(id)",
+        "PRIMARY KEY (id)",
+        "CHECK ((octet_length(token_hash) = 32))",
+        "UNIQUE (token_hash)"
+      ]
+    },
+    {
+      "rls": true,
+      "name": "guild_ebd_activities",
+      "schema": "public",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "default": null,
+          "notnull": true
+        },
+        {
+          "name": "lesson_id",
+          "type": "uuid",
+          "default": null,
+          "notnull": true
+        },
+        {
+          "name": "title",
+          "type": "text",
+          "default": null,
+          "notnull": true
+        },
+        {
+          "name": "kind",
+          "type": "text",
+          "default": null,
+          "notnull": true
+        },
+        {
+          "name": "prompt",
+          "type": "text",
+          "default": null,
+          "notnull": true
+        },
+        {
+          "name": "options",
+          "type": "jsonb",
+          "default": "'[]'::jsonb",
+          "notnull": true
+        },
+        {
+          "name": "answer_key",
+          "type": "integer",
+          "default": null,
+          "notnull": false
+        },
+        {
+          "name": "deadline",
+          "type": "timestamp with time zone",
+          "default": null,
+          "notnull": false
+        },
+        {
+          "name": "attempt_limit",
+          "type": "integer",
+          "default": null,
+          "notnull": true
+        },
+        {
+          "name": "criterion",
+          "type": "text",
+          "default": null,
+          "notnull": true
+        },
+        {
+          "name": "revision",
+          "type": "integer",
+          "default": "1",
+          "notnull": true
+        },
+        {
+          "name": "creation_hash",
+          "type": "text",
+          "default": null,
+          "notnull": false
+        }
+      ],
+      "constraints": [
+        "CHECK (((attempt_limit >= 1) AND (attempt_limit <= 5)))",
+        "CHECK ((((kind = 'choice'::text) AND ((jsonb_array_length(options) >= 2) AND (jsonb_array_length(options) <= 6)) AND (answer_key IS NOT NULL) AND (answer_key >= 0) AND (answer_key < jsonb_array_length(options))) OR ((kind <> 'choice'::text) AND (options = '[]'::jsonb) AND (answer_key IS NULL) AND (criterion = 'manual'::text))))",
+        "CHECK ((criterion = ANY (ARRAY['participation'::text, 'correct'::text, 'manual'::text])))",
+        "CHECK ((kind = ANY (ARRAY['choice'::text, 'open'::text, 'reflective'::text, 'in_person'::text, 'homework'::text])))",
+        "FOREIGN KEY (lesson_id) REFERENCES guild_lessons(id) ON DELETE CASCADE",
+        "PRIMARY KEY (id)",
+        "CHECK (((length(btrim(prompt)) >= 1) AND (length(btrim(prompt)) <= 2000)))",
+        "CHECK ((revision > 0))",
+        "CHECK (((length(btrim(title)) >= 2) AND (length(btrim(title)) <= 100)))"
+      ]
+    },
+    {
+      "rls": true,
+      "name": "guild_ebd_answers",
+      "schema": "public",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "default": null,
+          "notnull": true
+        },
+        {
+          "name": "activity_id",
+          "type": "uuid",
+          "default": null,
+          "notnull": true
+        },
+        {
+          "name": "traveler_id",
+          "type": "uuid",
+          "default": null,
+          "notnull": true
+        },
+        {
+          "name": "attempt",
+          "type": "integer",
+          "default": null,
+          "notnull": true
+        },
+        {
+          "name": "response",
+          "type": "text",
+          "default": null,
+          "notnull": true
+        },
+        {
+          "name": "choice",
+          "type": "integer",
+          "default": null,
+          "notnull": false
+        },
+        {
+          "name": "status",
+          "type": "text",
+          "default": null,
+          "notnull": true
+        },
+        {
+          "name": "feedback",
+          "type": "text",
+          "default": "''::text",
+          "notnull": true
+        },
+        {
+          "name": "revision",
+          "type": "integer",
+          "default": "1",
+          "notnull": true
+        },
+        {
+          "name": "reviewer_id",
+          "type": "uuid",
+          "default": null,
+          "notnull": false
+        },
+        {
+          "name": "submitted_at",
+          "type": "timestamp with time zone",
+          "default": "now()",
+          "notnull": true
+        },
+        {
+          "name": "evaluated_at",
+          "type": "timestamp with time zone",
+          "default": null,
+          "notnull": false
+        }
+      ],
+      "constraints": [
+        "FOREIGN KEY (activity_id) REFERENCES guild_ebd_activities(id) ON DELETE CASCADE",
+        "UNIQUE (activity_id, traveler_id, attempt)",
+        "CHECK ((length(feedback) <= 1000))",
+        "PRIMARY KEY (id)",
+        "CHECK (((length(btrim(response)) >= 1) AND (length(btrim(response)) <= 2000)))",
+        "FOREIGN KEY (reviewer_id) REFERENCES travelers(id)",
+        "CHECK ((status = ANY (ARRAY['pending'::text, 'completed'::text, 'revise'::text])))",
+        "FOREIGN KEY (traveler_id) REFERENCES travelers(id) ON DELETE RESTRICT"
+      ]
+    },
+    {
+      "rls": true,
+      "name": "guild_ebd_attendance",
+      "schema": "public",
+      "columns": [
+        {
+          "name": "lesson_id",
+          "type": "uuid",
+          "default": null,
+          "notnull": true
+        },
+        {
+          "name": "traveler_id",
+          "type": "uuid",
+          "default": null,
+          "notnull": true
+        },
+        {
+          "name": "status",
+          "type": "text",
+          "default": null,
+          "notnull": true
+        },
+        {
+          "name": "reason",
+          "type": "text",
+          "default": null,
+          "notnull": true
+        },
+        {
+          "name": "revision",
+          "type": "integer",
+          "default": null,
+          "notnull": true
+        },
+        {
+          "name": "marked_by",
+          "type": "uuid",
+          "default": null,
+          "notnull": true
+        },
+        {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "default": "now()",
+          "notnull": true
+        }
+      ],
+      "constraints": [
+        "FOREIGN KEY (lesson_id) REFERENCES guild_lessons(id) ON DELETE CASCADE",
+        "FOREIGN KEY (marked_by) REFERENCES travelers(id)",
+        "PRIMARY KEY (lesson_id, traveler_id)",
+        "CHECK ((length(reason) <= 500))",
+        "CHECK ((status = ANY (ARRAY['present'::text, 'absent'::text])))",
+        "FOREIGN KEY (traveler_id) REFERENCES travelers(id) ON DELETE RESTRICT"
+      ]
+    },
+    {
+      "rls": true,
+      "name": "guild_ebd_history",
+      "schema": "public",
+      "columns": [
+        {
+          "name": "id",
+          "type": "bigint",
+          "default": null,
+          "notnull": true
+        },
+        {
+          "name": "guild_id",
+          "type": "uuid",
+          "default": null,
+          "notnull": true
+        },
+        {
+          "name": "lesson_id",
+          "type": "uuid",
+          "default": null,
+          "notnull": false
+        },
+        {
+          "name": "actor_id",
+          "type": "uuid",
+          "default": null,
+          "notnull": true
+        },
+        {
+          "name": "action",
+          "type": "text",
+          "default": null,
+          "notnull": true
+        },
+        {
+          "name": "entity_id",
+          "type": "uuid",
+          "default": null,
+          "notnull": true
+        },
+        {
+          "name": "revision",
+          "type": "integer",
+          "default": null,
+          "notnull": true
+        },
+        {
+          "name": "snapshot",
+          "type": "jsonb",
+          "default": null,
+          "notnull": true
+        },
+        {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "default": "now()",
+          "notnull": true
+        }
+      ],
+      "constraints": [
+        "FOREIGN KEY (actor_id) REFERENCES travelers(id)",
+        "FOREIGN KEY (guild_id) REFERENCES guilds(id) ON DELETE CASCADE",
+        "FOREIGN KEY (lesson_id) REFERENCES guild_lessons(id) ON DELETE CASCADE",
+        "PRIMARY KEY (id)"
+      ]
+    },
+    {
+      "rls": true,
+      "name": "guild_ebd_reward_pending",
+      "schema": "public",
+      "columns": [
+        {
+          "name": "lesson_id",
+          "type": "uuid",
+          "default": null,
+          "notnull": true
+        },
+        {
+          "name": "traveler_id",
+          "type": "uuid",
+          "default": null,
+          "notnull": true
+        },
+        {
+          "name": "activity_id",
+          "type": "uuid",
+          "default": null,
+          "notnull": true
+        },
+        {
+          "name": "answer_id",
+          "type": "uuid",
+          "default": null,
+          "notnull": true
+        },
+        {
+          "name": "tier",
+          "type": "text",
+          "default": null,
+          "notnull": true
+        },
+        {
+          "name": "criterion",
+          "type": "text",
+          "default": null,
+          "notnull": true
+        },
+        {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "default": "now()",
+          "notnull": true
+        }
+      ],
+      "constraints": [
+        "FOREIGN KEY (activity_id) REFERENCES guild_ebd_activities(id)",
+        "FOREIGN KEY (answer_id) REFERENCES guild_ebd_answers(id)",
+        "FOREIGN KEY (lesson_id) REFERENCES guild_lessons(id) ON DELETE CASCADE",
+        "PRIMARY KEY (lesson_id, traveler_id)",
+        "CHECK ((tier = ANY (ARRAY['normal'::text, 'great'::text, 'epic'::text, 'extraordinary'::text])))",
+        "FOREIGN KEY (traveler_id) REFERENCES travelers(id)"
+      ]
+    },
+    {
+      "rls": true,
+      "name": "guild_ebd_teachers",
+      "schema": "public",
+      "columns": [
+        {
+          "name": "guild_id",
+          "type": "uuid",
+          "default": null,
+          "notnull": true
+        },
+        {
+          "name": "traveler_id",
+          "type": "uuid",
+          "default": null,
+          "notnull": true
+        },
+        {
+          "name": "active",
+          "type": "boolean",
+          "default": null,
+          "notnull": true
+        },
+        {
+          "name": "can_publish",
+          "type": "boolean",
+          "default": null,
+          "notnull": true
+        },
+        {
+          "name": "can_attend",
+          "type": "boolean",
+          "default": null,
+          "notnull": true
+        },
+        {
+          "name": "revision",
+          "type": "integer",
+          "default": null,
+          "notnull": true
+        },
+        {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "default": "now()",
+          "notnull": true
+        }
+      ],
+      "constraints": [
+        "FOREIGN KEY (guild_id) REFERENCES guilds(id) ON DELETE CASCADE",
+        "PRIMARY KEY (guild_id, traveler_id)",
+        "CHECK ((revision > 0))",
+        "FOREIGN KEY (traveler_id) REFERENCES travelers(id) ON DELETE CASCADE"
+      ]
+    },
+    {
+      "rls": true,
+      "name": "guild_lessons",
+      "schema": "public",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "default": "gen_random_uuid()",
+          "notnull": true
+        },
+        {
+          "name": "guild_id",
+          "type": "uuid",
+          "default": null,
+          "notnull": true
+        },
+        {
+          "name": "created_by_traveler_id",
+          "type": "uuid",
+          "default": null,
+          "notnull": true
+        },
+        {
+          "name": "related_mission_id",
+          "type": "uuid",
+          "default": null,
+          "notnull": false
+        },
+        {
+          "name": "title",
+          "type": "text",
+          "default": null,
+          "notnull": true
+        },
+        {
+          "name": "theme",
+          "type": "text",
+          "default": null,
+          "notnull": true
+        },
+        {
+          "name": "bible_reference",
+          "type": "text",
+          "default": null,
+          "notnull": true
+        },
+        {
+          "name": "bible_url",
+          "type": "text",
+          "default": null,
+          "notnull": false
+        },
+        {
+          "name": "introduction",
+          "type": "text",
+          "default": "''::text",
+          "notnull": true
+        },
+        {
+          "name": "content",
+          "type": "text",
+          "default": "''::text",
+          "notnull": true
+        },
+        {
+          "name": "main_points",
+          "type": "jsonb",
+          "default": "'[]'::jsonb",
+          "notnull": true
+        },
+        {
+          "name": "discussion_questions",
+          "type": "jsonb",
+          "default": "'[]'::jsonb",
+          "notnull": true
+        },
+        {
+          "name": "activity_text",
+          "type": "text",
+          "default": null,
+          "notnull": false
+        },
+        {
+          "name": "status",
+          "type": "text",
+          "default": "'draft'::text",
+          "notnull": true
+        },
+        {
+          "name": "scheduled_at",
+          "type": "timestamp with time zone",
+          "default": null,
+          "notnull": false
+        },
+        {
+          "name": "published_at",
+          "type": "timestamp with time zone",
+          "default": null,
+          "notnull": false
+        },
+        {
+          "name": "completed_at",
+          "type": "timestamp with time zone",
+          "default": null,
+          "notnull": false
+        },
+        {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "default": "now()",
+          "notnull": true
+        },
+        {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "default": "now()",
+          "notnull": true
+        },
+        {
+          "name": "teacher_id",
+          "type": "uuid",
+          "default": null,
+          "notnull": true
+        },
+        {
+          "name": "ebd_revision",
+          "type": "integer",
+          "default": "1",
+          "notnull": true
+        },
+        {
+          "name": "audience",
+          "type": "text",
+          "default": "'all'::text",
+          "notnull": true
+        },
+        {
+          "name": "target_ids",
+          "type": "uuid[]",
+          "default": "'{}'::uuid[]",
+          "notnull": true
+        },
+        {
+          "name": "materials",
+          "type": "jsonb",
+          "default": "'[]'::jsonb",
+          "notnull": true
+        },
+        {
+          "name": "objectives",
+          "type": "text",
+          "default": "''::text",
+          "notnull": true
+        },
+        {
+          "name": "reward_tier",
+          "type": "text",
+          "default": null,
+          "notnull": false
+        },
+        {
+          "name": "creation_hash",
+          "type": "text",
+          "default": null,
+          "notnull": false
+        }
+      ],
+      "constraints": [
+        "CHECK (((activity_text IS NULL) OR (char_length(activity_text) <= 2000)))",
+        "CHECK ((audience = ANY (ARRAY['all'::text, 'selected'::text])))",
+        "CHECK ((char_length(content) <= 10000))",
+        "FOREIGN KEY (created_by_traveler_id) REFERENCES travelers(id) ON DELETE RESTRICT",
+        "CHECK ((ebd_revision > 0))",
+        "FOREIGN KEY (guild_id) REFERENCES guilds(id) ON DELETE CASCADE",
+        "CHECK ((char_length(introduction) <= 2000))",
+        "CHECK ((length(objectives) <= 2000))",
+        "PRIMARY KEY (id)",
+        "CHECK (((jsonb_typeof(main_points) = 'array'::text) AND (jsonb_array_length(main_points) <= 12)))",
+        "CHECK (((status <> ALL (ARRAY['published'::text, 'completed'::text])) OR ((char_length(btrim(content)) > 0) AND (scheduled_at IS NOT NULL))))",
+        "CHECK (((jsonb_typeof(discussion_questions) = 'array'::text) AND (jsonb_array_length(discussion_questions) <= 12)))",
+        "CHECK ((length(bible_reference) <= 100))",
+        "FOREIGN KEY (related_mission_id) REFERENCES guild_missions(id) ON DELETE SET NULL",
+        "CHECK ((reward_tier = ANY (ARRAY['normal'::text, 'great'::text, 'epic'::text, 'extraordinary'::text])))",
+        "CHECK ((status = ANY (ARRAY['draft'::text, 'scheduled'::text, 'published'::text, 'closed'::text, 'archived'::text, 'completed'::text, 'cancelled'::text])))",
+        "FOREIGN KEY (teacher_id) REFERENCES travelers(id) ON DELETE RESTRICT",
+        "CHECK (((char_length(btrim(theme)) >= 2) AND (char_length(btrim(theme)) <= 100)))",
+        "CHECK (((char_length(btrim(title)) >= 2) AND (char_length(btrim(title)) <= 100)))",
+        "CHECK (((bible_url IS NULL) OR (bible_url ~ '^https://www\\.bible\\.com/[A-Za-z0-9/._?=&%-]{1,240}$'::text)))"
+      ]
+    },
+    {
+      "rls": true,
+      "name": "guild_members",
+      "schema": "public",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "default": "gen_random_uuid()",
+          "notnull": true
+        },
+        {
+          "name": "guild_id",
+          "type": "uuid",
+          "default": null,
+          "notnull": true
+        },
+        {
+          "name": "traveler_id",
+          "type": "uuid",
+          "default": null,
+          "notnull": true
+        },
+        {
+          "name": "role",
+          "type": "text",
+          "default": "'member'::text",
+          "notnull": true
+        },
+        {
+          "name": "status",
+          "type": "text",
+          "default": "'active'::text",
+          "notnull": true
+        },
+        {
+          "name": "joined_at",
+          "type": "timestamp with time zone",
+          "default": "now()",
+          "notnull": true
+        },
+        {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "default": "now()",
+          "notnull": true
+        }
+      ],
+      "constraints": [
+        "FOREIGN KEY (guild_id) REFERENCES guilds(id) ON DELETE CASCADE",
+        "UNIQUE (guild_id, traveler_id)",
+        "PRIMARY KEY (id)",
+        "CHECK ((role = ANY (ARRAY['leader'::text, 'co_leader'::text, 'moderator'::text, 'member'::text])))",
+        "CHECK ((status = ANY (ARRAY['active'::text, 'pending'::text, 'left'::text, 'removed'::text])))",
+        "FOREIGN KEY (traveler_id) REFERENCES travelers(id) ON DELETE CASCADE"
+      ]
+    },
+    {
+      "rls": true,
+      "name": "guilds",
+      "schema": "public",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "default": "gen_random_uuid()",
+          "notnull": true
+        },
+        {
+          "name": "name",
+          "type": "text",
+          "default": null,
+          "notnull": true
+        },
+        {
+          "name": "description",
+          "type": "text",
+          "default": null,
+          "notnull": false
+        },
+        {
+          "name": "created_by_user_id",
+          "type": "uuid",
+          "default": null,
+          "notnull": true
+        },
+        {
+          "name": "leader_traveler_id",
+          "type": "uuid",
+          "default": null,
+          "notnull": true
+        },
+        {
+          "name": "status",
+          "type": "text",
+          "default": "'active'::text",
+          "notnull": true
+        },
+        {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "default": "now()",
+          "notnull": true
+        },
+        {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "default": "now()",
+          "notnull": true
+        }
+      ],
+      "constraints": [
+        "FOREIGN KEY (created_by_user_id) REFERENCES auth.users(id) ON DELETE RESTRICT",
+        "CHECK (((description IS NULL) OR (char_length(description) <= 500)))",
+        "FOREIGN KEY (leader_traveler_id) REFERENCES travelers(id) ON DELETE RESTRICT",
+        "CHECK (((char_length(btrim(name)) >= 2) AND (char_length(btrim(name)) <= 60)))",
+        "PRIMARY KEY (id)",
+        "CHECK ((status = ANY (ARRAY['active'::text, 'archived'::text])))"
+      ]
+    }
+  ],
+  "functions": [
+    {
+      "acl": [
+        "postgres=X/postgres",
+        "authenticated=X/postgres"
+      ],
+      "hash": "0f8f9a149fb216628855ffe0b3d396fe",
+      "signature": "ebd_ops.command(uuid,text,uuid,integer,jsonb)",
+      "definition": "CREATE OR REPLACE FUNCTION ebd_ops.command(p_actor uuid, p_action text, p_id uuid, p_revision integer, p_data jsonb)\n RETURNS jsonb\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO ''\nAS $function$\nBEGIN RETURN ebd_ops.command(p_actor,guild_admin_private.only_guild(p_actor),p_action,p_id,p_revision,p_data);END\n$function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres",
+        "authenticated=X/postgres"
+      ],
+      "hash": "03780d57b32a22733dd0967807f51503",
+      "signature": "ebd_ops.command(uuid,uuid,text,uuid,integer,jsonb)",
+      "definition": "CREATE OR REPLACE FUNCTION ebd_ops.command(p_actor uuid, p_guild uuid, p_action text, p_id uuid, p_revision integer, p_data jsonb)\n RETURNS jsonb\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO ''\nAS $function$\nDECLARE v_guild uuid; v_role text; l public.guild_lessons; a public.guild_ebd_activities;\n ans public.guild_ebd_answers; att public.guild_ebd_attendance; et public.guild_ebd_teachers;\n v_teacher uuid; v_target uuid; v_targets uuid[]; v_state text; v_revision integer; v_count integer;\n v_item jsonb; v_options jsonb; v_key integer; v_choice integer; v_snapshot jsonb;\nBEGIN\n PERFORM pg_catalog.pg_advisory_xact_lock(1010,1); PERFORM guild_admin_private.require_writes();\n PERFORM 1 FROM public.travelers WHERE id=p_actor AND user_id=auth.uid() AND is_active FOR SHARE;\n IF NOT FOUND THEN RAISE EXCEPTION 'Active owned avatar required' USING ERRCODE='42501';END IF;\n IF p_actor IS NULL OR p_id IS NULL OR p_action IS NULL OR p_revision IS NULL OR p_revision<0\n OR p_data IS NULL OR jsonb_typeof(p_data)<>'object' OR length(p_data::text)>60000 THEN RAISE EXCEPTION 'Invalid EBD request'; END IF;\nv_guild:=p_guild;\n PERFORM guild_admin_private.active_actor(p_actor);PERFORM guild_admin_private.guild_role(p_actor,p_guild);\n IF p_action='lesson' AND coalesce(p_data->>'rewardTier','')<>'' THEN RAISE EXCEPTION 'Rewards are unavailable in this release' USING ERRCODE='42501';END IF;\n IF p_action IN('state','attendance') AND NOT EXISTS(SELECT 1 FROM public.guild_lessons WHERE id=p_id AND guild_id=p_guild)\n OR p_action='lesson' AND EXISTS(SELECT 1 FROM public.guild_lessons WHERE id=p_id AND guild_id<>p_guild)\n OR p_action='activity' AND(NOT EXISTS(SELECT 1 FROM public.guild_lessons WHERE id=(p_data->>'lessonId')::uuid AND guild_id=p_guild)\n  OR EXISTS(SELECT 1 FROM public.guild_ebd_activities scoped_a JOIN public.guild_lessons scoped_l ON scoped_l.id=scoped_a.lesson_id WHERE scoped_a.id=p_id AND scoped_l.guild_id<>p_guild))\n OR p_action='submit' AND(NOT EXISTS(SELECT 1 FROM public.guild_ebd_activities scoped_a JOIN public.guild_lessons scoped_l ON scoped_l.id=scoped_a.lesson_id WHERE scoped_a.id=(p_data->>'activityId')::uuid AND scoped_l.guild_id=p_guild)\n  OR EXISTS(SELECT 1 FROM public.guild_ebd_answers x JOIN public.guild_ebd_activities scoped_a ON scoped_a.id=x.activity_id JOIN public.guild_lessons scoped_l ON scoped_l.id=scoped_a.lesson_id WHERE x.id=p_id AND scoped_l.guild_id<>p_guild))\n OR p_action='grade' AND NOT EXISTS(SELECT 1 FROM public.guild_ebd_answers x JOIN public.guild_ebd_activities scoped_a ON scoped_a.id=x.activity_id JOIN public.guild_lessons scoped_l ON scoped_l.id=scoped_a.lesson_id WHERE x.id=p_id AND scoped_l.guild_id=p_guild)\n THEN RAISE EXCEPTION 'Resource is unavailable in selected Guild' USING ERRCODE='42501';END IF;\n\n PERFORM pg_catalog.pg_advisory_xact_lock(pg_catalog.hashtextextended(v_guild::text,83));\n v_role:=guild_ops.actor(p_actor,v_guild);\n -- Serialize EBD commands per Guilda, including grant revocations/member eligibility.\n PERFORM 1 FROM public.guilds WHERE id=v_guild FOR UPDATE;\n IF p_action='teacher' THEN\n  PERFORM guild_ops.actor(p_actor,v_guild,true);\n  PERFORM 1 FROM public.guild_members WHERE guild_id=v_guild AND traveler_id=p_id AND status='active' AND role<>'leader' FOR SHARE;\n  IF NOT FOUND OR jsonb_typeof(p_data->'active') IS DISTINCT FROM 'boolean'\n   OR jsonb_typeof(p_data->'publish') IS DISTINCT FROM 'boolean' OR jsonb_typeof(p_data->'attend') IS DISTINCT FROM 'boolean' THEN RAISE EXCEPTION 'Teacher unavailable'; END IF;\n  SELECT * INTO et FROM public.guild_ebd_teachers WHERE guild_id=v_guild AND traveler_id=p_id FOR UPDATE;\n  IF coalesce(et.revision,0)<>p_revision THEN RAISE EXCEPTION 'EBD conflict' USING ERRCODE='PT409'; END IF;\n  INSERT INTO public.guild_ebd_teachers VALUES(v_guild,p_id,(p_data->>'active')::boolean,(p_data->>'publish')::boolean,(p_data->>'attend')::boolean,p_revision+1,clock_timestamp())\n   ON CONFLICT(guild_id,traveler_id) DO UPDATE SET active=excluded.active,can_publish=excluded.can_publish,can_attend=excluded.can_attend,revision=excluded.revision,updated_at=excluded.updated_at;\n  INSERT INTO public.guild_ebd_history(guild_id,actor_id,action,entity_id,revision,snapshot) VALUES(v_guild,p_actor,'teacher',p_id,p_revision+1,p_data);\n  RETURN jsonb_build_object('id',p_id,'revision',p_revision+1);\n ELSIF p_action='lesson' THEN\n  v_teacher:=(p_data->>'teacherId')::uuid;\n  IF v_role<>'leader' AND (v_teacher IS DISTINCT FROM p_actor OR NOT EXISTS(SELECT 1 FROM public.guild_ebd_teachers WHERE guild_id=v_guild AND traveler_id=p_actor AND active)) THEN RAISE EXCEPTION 'EBD access denied' USING ERRCODE='42501'; END IF;\n  IF NOT EXISTS(SELECT 1 FROM public.guild_members gm JOIN public.guilds g ON g.id=gm.guild_id\n   LEFT JOIN public.guild_ebd_teachers t ON t.guild_id=gm.guild_id AND t.traveler_id=gm.traveler_id\n   WHERE gm.guild_id=v_guild AND gm.traveler_id=v_teacher AND gm.status='active' AND ((gm.role='leader' AND g.leader_traveler_id=v_teacher AND guild_admin_private.leader_not_revoked(v_teacher)) OR t.active)) THEN RAISE EXCEPTION 'Teacher unavailable'; END IF;\n  IF jsonb_typeof(p_data->'targetIds') IS DISTINCT FROM 'array' OR jsonb_array_length(p_data->'targetIds')>100\n   OR jsonb_typeof(p_data->'materials') IS DISTINCT FROM 'array' OR jsonb_array_length(p_data->'materials')>20\n   OR coalesce(p_data->>'audience','') NOT IN ('all','selected')\n   OR length(btrim(coalesce(p_data->>'title',''))) NOT BETWEEN 2 AND 100\n   OR length(btrim(coalesce(p_data->>'theme',''))) NOT BETWEEN 2 AND 100\n   OR length(coalesce(p_data->>'description',''))>2000 OR length(coalesce(p_data->>'content',''))>10000\n   OR length(coalesce(p_data->>'reference',''))>100 OR length(coalesce(p_data->>'objectives',''))>2000\n   OR coalesce(p_data->>'rewardTier','') NOT IN ('','normal','great','epic','extraordinary') THEN RAISE EXCEPTION 'Invalid lesson'; END IF;\n  SELECT coalesce(array_agg(value::uuid),'{}') INTO v_targets FROM jsonb_array_elements_text(p_data->'targetIds');\n  IF (p_data->>'audience'='selected' AND cardinality(v_targets)=0) OR (p_data->>'audience'='all' AND cardinality(v_targets)>0)\n   OR EXISTS(SELECT 1 FROM unnest(v_targets) t WHERE NOT EXISTS(SELECT 1 FROM public.guild_members WHERE guild_id=v_guild AND traveler_id=t AND status='active')) THEN RAISE EXCEPTION 'Audience unavailable'; END IF;\n  FOR v_item IN SELECT value FROM jsonb_array_elements(p_data->'materials') LOOP\n   IF jsonb_typeof(v_item) IS DISTINCT FROM 'object' OR coalesce(v_item->>'kind','') NOT IN ('link','image','pdf','text','reference')\n    OR length(btrim(coalesce(v_item->>'title',''))) NOT BETWEEN 1 AND 100 OR length(btrim(coalesce(v_item->>'value',''))) NOT BETWEEN 1 AND 2000 THEN RAISE EXCEPTION 'Invalid material'; END IF;\n   -- References only: never fetch/embed remote files or render HTML; no credentials/ports/local hosts.\n   IF v_item->>'kind' IN ('link','image','pdf') AND\n    (length(v_item->>'value')>500 OR (v_item->>'value') !~ '^https://[A-Za-z0-9]([A-Za-z0-9-]*[A-Za-z0-9])?(\\.[A-Za-z0-9]([A-Za-z0-9-]*[A-Za-z0-9])?)*\\.[A-Za-z]{2,}(/[A-Za-z0-9/._~!$&()*+,;=:@%?#-]*)?$'\n     OR (v_item->>'value') ~* '^https://([^/]*\\.)?(localhost|local|internal|invalid|test|example)(/|$)' OR (v_item->>'value') ~* '^https://[^/]*\\.(local|internal|invalid|test|example)(/|$)') THEN RAISE EXCEPTION 'Unsafe material URL'; END IF;\n  END LOOP;\n  SELECT * INTO l FROM public.guild_lessons WHERE id=p_id FOR UPDATE;\n  IF FOUND THEN\n   IF l.guild_id<>v_guild OR NOT ebd_ops.manager(p_actor,p_id) THEN RAISE EXCEPTION 'EBD access denied' USING ERRCODE='42501'; END IF;\n   IF p_revision=0 AND l.creation_hash=md5(p_data::text) THEN RETURN jsonb_build_object('id',p_id,'revision',l.ebd_revision); END IF;\n   IF l.status<>'draft' OR l.ebd_revision<>p_revision THEN RAISE EXCEPTION 'EBD conflict' USING ERRCODE='PT409'; END IF;\n   UPDATE public.guild_lessons SET title=btrim(p_data->>'title'),theme=btrim(p_data->>'theme'),introduction=coalesce(p_data->>'description',''),content=coalesce(p_data->>'content',''),bible_reference=coalesce(p_data->>'reference',''),scheduled_at=nullif(p_data->>'scheduledAt','')::timestamptz,teacher_id=v_teacher,audience=p_data->>'audience',target_ids=v_targets,materials=p_data->'materials',objectives=coalesce(p_data->>'objectives',''),reward_tier=nullif(p_data->>'rewardTier',''),ebd_revision=ebd_revision+1 WHERE id=p_id;\n  ELSE\n   IF p_revision<>0 THEN RAISE EXCEPTION 'EBD conflict' USING ERRCODE='PT409'; END IF;\n   INSERT INTO public.guild_lessons(id,guild_id,created_by_traveler_id,teacher_id,title,theme,introduction,content,bible_reference,scheduled_at,audience,target_ids,materials,objectives,reward_tier,creation_hash)\n    VALUES(p_id,v_guild,p_actor,v_teacher,btrim(p_data->>'title'),btrim(p_data->>'theme'),coalesce(p_data->>'description',''),coalesce(p_data->>'content',''),coalesce(p_data->>'reference',''),nullif(p_data->>'scheduledAt','')::timestamptz,p_data->>'audience',v_targets,p_data->'materials',coalesce(p_data->>'objectives',''),nullif(p_data->>'rewardTier',''),md5(p_data::text));\n  END IF;\n  SELECT to_jsonb(x),x.ebd_revision INTO v_snapshot,v_revision FROM public.guild_lessons x WHERE id=p_id;\n  INSERT INTO public.guild_ebd_history(guild_id,lesson_id,actor_id,action,entity_id,revision,snapshot) VALUES(v_guild,p_id,p_actor,'lesson_saved',p_id,v_revision,v_snapshot);\n ELSIF p_action='state' THEN\n  SELECT * INTO l FROM public.guild_lessons WHERE id=p_id FOR UPDATE;\n  IF l.guild_id IS DISTINCT FROM v_guild OR NOT ebd_ops.manager(p_actor,p_id,'publish') THEN RAISE EXCEPTION 'EBD access denied' USING ERRCODE='42501'; END IF;\n  v_state:=p_data->>'state';\n  IF l.ebd_revision<>p_revision THEN RAISE EXCEPTION 'EBD conflict' USING ERRCODE='PT409'; END IF;\n  IF v_state IS NULL OR NOT ((l.status='draft' AND v_state IN ('scheduled','published','archived')) OR (l.status='scheduled' AND v_state IN ('draft','published','archived')) OR (l.status='published' AND v_state='closed') OR (l.status IN ('closed','completed','cancelled') AND v_state='archived')) THEN RAISE EXCEPTION 'Invalid EBD state'; END IF;\n  IF v_state IN ('scheduled','published') AND (length(btrim(l.content))=0 OR l.scheduled_at IS NULL) THEN RAISE EXCEPTION 'Lesson needs content and date'; END IF;\n  UPDATE public.guild_lessons SET status=v_state,ebd_revision=ebd_revision+1,published_at=CASE WHEN v_state='published' THEN clock_timestamp() ELSE published_at END,completed_at=CASE WHEN v_state='closed' THEN clock_timestamp() ELSE completed_at END WHERE id=p_id;\n  SELECT to_jsonb(x),x.ebd_revision INTO v_snapshot,v_revision FROM public.guild_lessons x WHERE id=p_id;\n  INSERT INTO public.guild_ebd_history(guild_id,lesson_id,actor_id,action,entity_id,revision,snapshot) VALUES(v_guild,p_id,p_actor,'state',p_id,v_revision,v_snapshot);\n ELSIF p_action='activity' THEN\n  SELECT * INTO l FROM public.guild_lessons WHERE id=(p_data->>'lessonId')::uuid FOR UPDATE;\n  IF l.guild_id IS DISTINCT FROM v_guild OR NOT ebd_ops.manager(p_actor,l.id) OR l.status<>'draft' THEN RAISE EXCEPTION 'EBD access denied' USING ERRCODE='42501'; END IF;\n  IF jsonb_typeof(p_data->'options') IS DISTINCT FROM 'array' OR jsonb_array_length(p_data->'options')>6\n   OR coalesce(p_data->>'kind','') NOT IN ('choice','open','reflective','in_person','homework')\n   OR coalesce(p_data->>'criterion','') NOT IN ('participation','correct','manual') THEN RAISE EXCEPTION 'Invalid activity'; END IF;\n  v_options:=p_data->'options'; v_key:=nullif(p_data->>'answerKey','')::integer;\n  IF EXISTS(SELECT 1 FROM jsonb_array_elements(v_options) x WHERE jsonb_typeof(x)<>'string' OR length(btrim(x#>>'{}')) NOT BETWEEN 1 AND 300)\n   OR (p_data->>'kind'='choice' AND p_data->>'criterion'='manual') THEN RAISE EXCEPTION 'Invalid choices'; END IF;\n  SELECT * INTO a FROM public.guild_ebd_activities WHERE id=p_id FOR UPDATE;\n  IF FOUND THEN\n   IF a.lesson_id<>l.id THEN RAISE EXCEPTION 'EBD access denied'; END IF;\n   IF p_revision=0 AND a.creation_hash=md5(p_data::text) THEN RETURN jsonb_build_object('id',p_id,'revision',a.revision); END IF;\n   IF a.revision<>p_revision THEN RAISE EXCEPTION 'EBD conflict' USING ERRCODE='PT409'; END IF;\n   UPDATE public.guild_ebd_activities SET title=btrim(p_data->>'title'),kind=p_data->>'kind',prompt=p_data->>'prompt',options=v_options,answer_key=v_key,deadline=nullif(p_data->>'deadline','')::timestamptz,attempt_limit=(p_data->>'attemptLimit')::integer,criterion=p_data->>'criterion',revision=revision+1 WHERE id=p_id;\n  ELSE\n   IF p_revision<>0 THEN RAISE EXCEPTION 'EBD conflict' USING ERRCODE='PT409'; END IF;\n   IF (SELECT count(*) FROM public.guild_ebd_activities WHERE lesson_id=l.id)>=20 THEN RAISE EXCEPTION 'Activity limit reached'; END IF;\n   INSERT INTO public.guild_ebd_activities(id,lesson_id,title,kind,prompt,options,answer_key,deadline,attempt_limit,criterion,creation_hash)\n    VALUES(p_id,l.id,btrim(p_data->>'title'),p_data->>'kind',p_data->>'prompt',v_options,v_key,nullif(p_data->>'deadline','')::timestamptz,(p_data->>'attemptLimit')::integer,p_data->>'criterion',md5(p_data::text));\n  END IF;\n  SELECT to_jsonb(x),x.revision INTO v_snapshot,v_revision FROM public.guild_ebd_activities x WHERE id=p_id;\n  INSERT INTO public.guild_ebd_history(guild_id,lesson_id,actor_id,action,entity_id,revision,snapshot) VALUES(v_guild,l.id,p_actor,'activity_saved',p_id,v_revision,v_snapshot);\n ELSIF p_action='submit' THEN\n  SELECT * INTO a FROM public.guild_ebd_activities WHERE id=(p_data->>'activityId')::uuid FOR UPDATE;\n  SELECT * INTO l FROM public.guild_lessons WHERE id=a.lesson_id;\n  IF l.guild_id IS DISTINCT FROM v_guild OR NOT ebd_ops.eligible(p_actor,l.id) THEN RAISE EXCEPTION 'EBD access denied' USING ERRCODE='42501'; END IF;\n  v_choice:=nullif(p_data->>'choice','')::integer;\n  SELECT * INTO ans FROM public.guild_ebd_answers WHERE id=p_id;\n  IF FOUND THEN\n   IF ans.traveler_id=p_actor AND ans.activity_id=a.id AND ans.response=btrim(p_data->>'response') AND ans.choice IS NOT DISTINCT FROM v_choice THEN RETURN jsonb_build_object('id',p_id,'revision',ans.revision); END IF;\n   RAISE EXCEPTION 'Submission key conflict';\n  END IF;\n  IF l.status<>'published' OR (a.deadline IS NOT NULL AND a.deadline<=clock_timestamp()) THEN RAISE EXCEPTION 'Activity closed'; END IF;\n  SELECT count(*) INTO v_count FROM public.guild_ebd_answers WHERE activity_id=a.id AND traveler_id=p_actor;\n  IF v_count<>p_revision OR v_count>=a.attempt_limit OR EXISTS(SELECT 1 FROM public.guild_ebd_answers WHERE activity_id=a.id AND traveler_id=p_actor AND status IN ('completed','pending')) THEN RAISE EXCEPTION 'Attempt unavailable'; END IF;\n  IF (a.kind='choice' AND (v_choice IS NULL OR v_choice<0 OR v_choice>=jsonb_array_length(a.options))) OR (a.kind<>'choice' AND v_choice IS NOT NULL) THEN RAISE EXCEPTION 'Invalid answer'; END IF;\n  v_state:=CASE WHEN a.kind<>'choice' THEN 'pending' WHEN a.criterion='participation' OR v_choice=a.answer_key THEN 'completed' ELSE 'revise' END;\n  INSERT INTO public.guild_ebd_answers(id,activity_id,traveler_id,attempt,response,choice,status,evaluated_at)\n   VALUES(p_id,a.id,p_actor,v_count+1,btrim(p_data->>'response'),v_choice,v_state,CASE WHEN a.kind='choice' THEN clock_timestamp() END);\n  v_revision:=1;\n ELSIF p_action='grade' THEN\n  SELECT * INTO ans FROM public.guild_ebd_answers WHERE id=p_id FOR UPDATE;\n  SELECT * INTO a FROM public.guild_ebd_activities WHERE id=ans.activity_id;\n  SELECT * INTO l FROM public.guild_lessons WHERE id=a.lesson_id;\n  IF l.guild_id IS DISTINCT FROM v_guild OR NOT ebd_ops.manager(p_actor,l.id) OR EXISTS(SELECT 1 FROM public.travelers WHERE id=ans.traveler_id AND user_id=auth.uid()) THEN RAISE EXCEPTION 'EBD access denied' USING ERRCODE='42501'; END IF;\n  IF ans.revision<>p_revision THEN RAISE EXCEPTION 'EBD conflict' USING ERRCODE='PT409'; END IF;\n  IF ans.status<>'pending' OR coalesce(p_data->>'status','') NOT IN ('completed','revise') THEN RAISE EXCEPTION 'Answer already evaluated'; END IF;\n  UPDATE public.guild_ebd_answers SET status=p_data->>'status',feedback=coalesce(p_data->>'feedback',''),reviewer_id=p_actor,evaluated_at=clock_timestamp(),revision=revision+1 WHERE id=p_id;\n  SELECT to_jsonb(x),x.revision INTO v_snapshot,v_revision FROM public.guild_ebd_answers x WHERE id=p_id;\n  INSERT INTO public.guild_ebd_history(guild_id,lesson_id,actor_id,action,entity_id,revision,snapshot) VALUES(v_guild,l.id,p_actor,'grade',p_id,v_revision,v_snapshot);\n ELSIF p_action='attendance' THEN\n  SELECT * INTO l FROM public.guild_lessons WHERE id=p_id FOR UPDATE;\n  v_target:=(p_data->>'travelerId')::uuid;\n  IF l.guild_id IS DISTINCT FROM v_guild OR NOT ebd_ops.manager(p_actor,p_id,'attend') OR l.status NOT IN ('published','closed','completed') THEN RAISE EXCEPTION 'EBD access denied' USING ERRCODE='42501'; END IF;\n  PERFORM 1 FROM public.guild_members WHERE guild_id=v_guild AND traveler_id=v_target AND status='active' FOR SHARE;\n  IF NOT FOUND OR (l.audience='selected' AND NOT v_target=ANY(l.target_ids)) THEN RAISE EXCEPTION 'Student unavailable'; END IF;\n  SELECT * INTO att FROM public.guild_ebd_attendance WHERE lesson_id=p_id AND traveler_id=v_target FOR UPDATE;\n  IF coalesce(att.revision,0)<>p_revision THEN RAISE EXCEPTION 'EBD conflict' USING ERRCODE='PT409'; END IF;\n  INSERT INTO public.guild_ebd_attendance VALUES(p_id,v_target,p_data->>'status',coalesce(p_data->>'reason',''),p_revision+1,p_actor,clock_timestamp())\n   ON CONFLICT(lesson_id,traveler_id) DO UPDATE SET status=excluded.status,reason=excluded.reason,revision=excluded.revision,marked_by=excluded.marked_by,updated_at=excluded.updated_at;\n  SELECT to_jsonb(x) INTO v_snapshot FROM public.guild_ebd_attendance x WHERE lesson_id=p_id AND traveler_id=v_target;\n  v_revision:=p_revision+1;\n  INSERT INTO public.guild_ebd_history(guild_id,lesson_id,actor_id,action,entity_id,revision,snapshot) VALUES(v_guild,p_id,p_actor,'attendance',v_target,v_revision,jsonb_build_object('before',to_jsonb(att),'after',v_snapshot));\n ELSE RAISE EXCEPTION 'Unknown EBD action'; END IF;\n IF p_action IN ('submit','grade') THEN\n  INSERT INTO public.guild_ebd_reward_pending(lesson_id,traveler_id,activity_id,answer_id,tier,criterion)\n   SELECT l.id,x.traveler_id,a.id,x.id,l.reward_tier,a.criterion FROM public.guild_ebd_answers x\n   WHERE x.id=p_id AND x.status='completed' AND l.reward_tier IS NOT NULL ON CONFLICT(lesson_id,traveler_id) DO NOTHING;\n END IF;\n RETURN jsonb_build_object('id',p_id,'revision',v_revision);\nEND $function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres"
+      ],
+      "hash": "c806a1810a3a3ea01cc859fdb7e89073",
+      "signature": "ebd_ops.eligible(uuid,uuid)",
+      "definition": "CREATE OR REPLACE FUNCTION ebd_ops.eligible(p_actor uuid, p_lesson uuid)\n RETURNS boolean\n LANGUAGE sql\n STABLE SECURITY DEFINER\n SET search_path TO ''\nAS $function$\n SELECT EXISTS(SELECT 1 FROM public.guild_lessons l JOIN public.guild_members gm ON gm.guild_id=l.guild_id\n JOIN public.guilds g ON g.id=gm.guild_id JOIN public.travelers t ON t.id=gm.traveler_id JOIN auth.users u ON u.id=t.user_id\n WHERE l.id=p_lesson AND gm.traveler_id=p_actor AND gm.status='active' AND g.status='active'\n AND t.user_id=auth.uid() AND u.is_anonymous IS FALSE AND l.status IN ('published','closed','completed')\n AND (l.audience='all' OR p_actor=ANY(l.target_ids)))\n$function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres"
+      ],
+      "hash": "f187285193d8dd606fad7167e88bb82f",
+      "signature": "ebd_ops.manager(uuid,uuid,text)",
+      "definition": "CREATE OR REPLACE FUNCTION ebd_ops.manager(p_actor uuid, p_lesson uuid, p_permission text DEFAULT 'edit'::text)\n RETURNS boolean\n LANGUAGE sql\n STABLE SECURITY DEFINER\n SET search_path TO ''\nAS $function$\n SELECT EXISTS(SELECT 1 FROM public.guild_lessons l JOIN public.guild_members gm ON gm.guild_id=l.guild_id AND gm.traveler_id=p_actor\n JOIN public.guilds g ON g.id=gm.guild_id JOIN public.travelers t ON t.id=gm.traveler_id JOIN auth.users u ON u.id=t.user_id\n LEFT JOIN public.guild_ebd_teachers et ON et.guild_id=l.guild_id AND et.traveler_id=p_actor\n WHERE l.id=p_lesson AND gm.status='active' AND g.status='active' AND t.user_id=auth.uid() AND u.is_anonymous IS FALSE\n AND ((gm.role='leader' AND g.leader_traveler_id=p_actor AND guild_admin_private.leader_not_revoked(p_actor)) OR\n (l.teacher_id=p_actor AND et.active AND CASE p_permission WHEN 'publish' THEN et.can_publish WHEN 'attend' THEN et.can_attend ELSE true END)))\n$function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres",
+        "authenticated=X/postgres"
+      ],
+      "hash": "c1b7afd2fc8d4ceedb61e498a1edfcc3",
+      "signature": "ebd_ops.visible(uuid)",
+      "definition": "CREATE OR REPLACE FUNCTION ebd_ops.visible(p_lesson uuid)\n RETURNS boolean\n LANGUAGE sql\n STABLE SECURITY DEFINER\n SET search_path TO ''\nAS $function$\n SELECT EXISTS(SELECT 1 FROM public.travelers t WHERE t.user_id=auth.uid()\n AND (ebd_ops.manager(t.id,p_lesson) OR ebd_ops.eligible(t.id,p_lesson)))\n$function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres",
+        "authenticated=X/postgres"
+      ],
+      "hash": "caa883b030ba7047f8fae43beaff9c80",
+      "signature": "ebd_ops.workspace(uuid,integer)",
+      "definition": "CREATE OR REPLACE FUNCTION ebd_ops.workspace(p_actor uuid, p_offset integer)\n RETURNS jsonb\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO ''\nAS $function$\nBEGIN RETURN ebd_ops.workspace(p_actor,guild_admin_private.only_guild(p_actor),p_offset);END\n$function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres",
+        "authenticated=X/postgres"
+      ],
+      "hash": "b4c8464bc7260145f8e0e36516dd7205",
+      "signature": "ebd_ops.workspace(uuid,uuid,integer)",
+      "definition": "CREATE OR REPLACE FUNCTION ebd_ops.workspace(p_actor uuid, p_guild uuid, p_offset integer)\n RETURNS jsonb\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO ''\nAS $function$\nDECLARE g uuid; r text; ids uuid[]; total integer; teacher boolean;\nBEGIN\n IF p_offset IS NULL OR p_offset<0 OR p_offset>100000 THEN RAISE EXCEPTION 'Invalid EBD page'; END IF;\n g:=p_guild; PERFORM guild_admin_private.guild_role(p_actor,p_guild);\n r:=guild_ops.actor(p_actor,g);\n teacher:=r='leader' OR EXISTS(SELECT 1 FROM public.guild_ebd_teachers WHERE guild_id=g AND traveler_id=p_actor AND active);\n SELECT count(*) INTO total FROM public.guild_lessons l WHERE guild_id=g AND (ebd_ops.manager(p_actor,l.id) OR ebd_ops.eligible(p_actor,l.id));\n SELECT coalesce(array_agg(id),'{}') INTO ids FROM (SELECT id FROM public.guild_lessons l WHERE guild_id=g AND (ebd_ops.manager(p_actor,l.id) OR ebd_ops.eligible(p_actor,l.id)) ORDER BY created_at DESC,id LIMIT 20 OFFSET p_offset) page;\n RETURN jsonb_build_object('version',1,'guildId',g,'leader',r='leader','teacher',teacher,'total',total,\n  'lessons',coalesce((SELECT jsonb_agg(to_jsonb(l)||jsonb_build_object('canEdit',ebd_ops.manager(p_actor,l.id),'canPublish',ebd_ops.manager(p_actor,l.id,'publish'),'canAttend',ebd_ops.manager(p_actor,l.id,'attend')) ORDER BY created_at DESC,id) FROM public.guild_lessons l WHERE id=ANY(ids)),'[]'::jsonb),\n  'activities',coalesce((SELECT jsonb_agg((to_jsonb(a)-'answer_key'-'creation_hash')||CASE WHEN ebd_ops.manager(p_actor,a.lesson_id) OR EXISTS(SELECT 1 FROM public.guild_ebd_answers x WHERE x.activity_id=a.id AND x.traveler_id=p_actor AND (x.status='completed' OR (x.status='revise' AND x.attempt>=a.attempt_limit))) THEN jsonb_build_object('answer_key',a.answer_key) ELSE '{}'::jsonb END) FROM public.guild_ebd_activities a WHERE lesson_id=ANY(ids)),'[]'::jsonb),\n  'answers',coalesce((SELECT jsonb_agg(to_jsonb(x)||jsonb_build_object('traveler_name',t.name) ORDER BY submitted_at DESC) FROM public.guild_ebd_answers x JOIN public.guild_ebd_activities a ON a.id=x.activity_id JOIN public.travelers t ON t.id=x.traveler_id WHERE a.lesson_id=ANY(ids) AND (x.traveler_id=p_actor OR ebd_ops.manager(p_actor,a.lesson_id))),'[]'::jsonb),\n  'attendance',coalesce((SELECT jsonb_agg(to_jsonb(x)) FROM public.guild_ebd_attendance x WHERE lesson_id=ANY(ids) AND (x.traveler_id=p_actor OR ebd_ops.manager(p_actor,x.lesson_id))),'[]'::jsonb),\n  'rewards',coalesce((SELECT jsonb_agg(to_jsonb(x)) FROM public.guild_ebd_reward_pending x WHERE lesson_id=ANY(ids) AND (x.traveler_id=p_actor OR ebd_ops.manager(p_actor,x.lesson_id))),'[]'::jsonb),\n  'members',CASE WHEN teacher THEN coalesce((SELECT jsonb_agg(jsonb_build_object('id',t.id,'name',t.name,'leader',gm.role='leader')) FROM public.guild_members gm JOIN public.travelers t ON t.id=gm.traveler_id WHERE gm.guild_id=g AND gm.status='active'),'[]'::jsonb) ELSE '[]'::jsonb END,\n  'teachers',CASE WHEN teacher THEN coalesce((SELECT jsonb_agg(to_jsonb(t)) FROM public.guild_ebd_teachers t WHERE guild_id=g AND (r='leader' OR traveler_id=p_actor OR active)),'[]'::jsonb) ELSE '[]'::jsonb END,\n  'history',coalesce((SELECT jsonb_agg(to_jsonb(h)) FROM (SELECT id,lesson_id,actor_id,action,entity_id,revision,created_at FROM public.guild_ebd_history h WHERE guild_id=g AND (r='leader' OR (lesson_id=ANY(ids) AND ebd_ops.manager(p_actor,lesson_id))) ORDER BY id DESC LIMIT 100) h),'[]'::jsonb));\nEND $function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres"
+      ],
+      "hash": "05ae51c71fa24e9bcd40a14eaa8451b9",
+      "signature": "guild_admin_private.active_actor(uuid)",
+      "definition": "CREATE OR REPLACE FUNCTION guild_admin_private.active_actor(p_actor uuid)\n RETURNS uuid\n LANGUAGE plpgsql\n STABLE SECURITY DEFINER\n SET search_path TO ''\nAS $function$\nDECLARE actor uuid:=guild_admin_private.account_uid(); BEGIN\n IF NOT EXISTS(SELECT 1 FROM public.travelers WHERE id=p_actor AND user_id=actor AND is_active)\n THEN RAISE EXCEPTION 'Active owned avatar required' USING ERRCODE='42501'; END IF;\n RETURN actor;\nEND $function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres",
+        "authenticated=X/postgres"
+      ],
+      "hash": "6a08e2bf098136540ee14de433ab3d8c",
+      "signature": "guild_admin_private.guild_command(uuid,uuid,text,uuid,uuid,jsonb)",
+      "definition": "CREATE OR REPLACE FUNCTION guild_admin_private.guild_command(p_actor uuid, p_guild uuid, p_action text, p_id uuid, p_request uuid, p_data jsonb)\n RETURNS jsonb\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO ''\nAS $function$\nDECLARE actor uuid; signature text; prior guild_admin_private.audit; response jsonb; req public.guild_join_requests;\n name_value text; description_value text; target uuid; status_value text; BEGIN\n -- Same lock order as administrative grants/revocations and EBD writes.\n PERFORM pg_catalog.pg_advisory_xact_lock(1010,1);\n PERFORM guild_admin_private.require_writes();\n actor:=guild_admin_private.active_actor(p_actor);\n PERFORM 1 FROM public.travelers WHERE id=p_actor AND user_id=actor AND is_active FOR SHARE;\n IF NOT FOUND THEN RAISE EXCEPTION 'Active owned avatar required' USING ERRCODE='42501';END IF;\n IF p_guild IS NULL OR p_id IS NULL OR p_request IS NULL OR p_action IS NULL\n OR p_action NOT IN('create','join','review','leave','remove') OR jsonb_typeof(p_data) IS DISTINCT FROM 'object' OR octet_length(p_data::text)>4096\n THEN RAISE EXCEPTION 'Invalid scoped Guild command' USING ERRCODE='22023'; END IF;\n IF p_action='create' THEN PERFORM guild_admin_private.require_creation(p_actor);\n ELSIF p_action IN('review','remove') THEN PERFORM guild_admin_private.guild_role(p_actor,p_guild,true);\n END IF;\n signature:=encode(extensions.digest(jsonb_build_object('kind','scoped-guild','actor',p_actor,'guild',p_guild,'action',p_action,'id',p_id,'data',p_data)::text,'sha256'),'hex');\n SELECT * INTO prior FROM guild_admin_private.audit WHERE actor_uid=actor AND request_id=p_request;\n IF FOUND THEN\n  IF prior.payload_hash<>signature THEN RAISE EXCEPTION 'Request payload conflict' USING ERRCODE='22023'; END IF;\n  RETURN prior.result||jsonb_build_object('replayed',true);\n END IF;\n IF p_action='leave' THEN PERFORM guild_admin_private.guild_role(p_actor,p_guild); END IF;\n IF p_action='create' THEN\n  PERFORM guild_admin_private.exact_keys(p_data,ARRAY['name','description']);\n  name_value:=btrim(p_data->>'name');description_value:=btrim(p_data->>'description');\n  IF p_id<>p_guild OR jsonb_typeof(p_data->'name') IS DISTINCT FROM 'string' OR length(name_value) NOT BETWEEN 2 AND 60\n  OR jsonb_typeof(p_data->'description') IS DISTINCT FROM 'string' OR length(description_value)>500\n  THEN RAISE EXCEPTION 'Invalid Guild data' USING ERRCODE='22023'; END IF;\n  INSERT INTO public.guilds(id,name,description,created_by_user_id,leader_traveler_id)\n  VALUES(p_guild,name_value,NULLIF(description_value,''),actor,p_actor);\n  INSERT INTO public.guild_members(guild_id,traveler_id,role,status) VALUES(p_guild,p_actor,'leader','active');\n  response:=jsonb_build_object('id',p_guild,'status','created');\n ELSIF p_action='join' THEN\n  PERFORM guild_admin_private.exact_keys(p_data,'{}'::text[]);\n  IF NOT EXISTS(SELECT 1 FROM public.guilds WHERE id=p_guild AND status='active')\n  THEN RAISE EXCEPTION 'Guild unavailable' USING ERRCODE='P0002'; END IF;\n  IF EXISTS(SELECT 1 FROM public.guild_members WHERE guild_id=p_guild AND traveler_id=p_actor AND status='active')\n  THEN RAISE EXCEPTION 'Already a member of this Guild' USING ERRCODE='23505'; END IF;\n  INSERT INTO public.guild_join_requests(id,guild_id,traveler_id) VALUES(p_id,p_guild,p_actor)\n  ON CONFLICT(guild_id,traveler_id) WHERE status='pending' DO UPDATE SET updated_at=guild_join_requests.updated_at\n  RETURNING * INTO req;\n  response:=jsonb_build_object('id',req.id,'status',req.status);\n ELSIF p_action='review' THEN\n  PERFORM guild_admin_private.exact_keys(p_data,ARRAY['approve']);\n  IF jsonb_typeof(p_data->'approve') IS DISTINCT FROM 'boolean' THEN RAISE EXCEPTION 'Invalid review' USING ERRCODE='22023'; END IF;\n  SELECT * INTO req FROM public.guild_join_requests WHERE id=p_id AND guild_id=p_guild AND status='pending' FOR UPDATE;\n  IF NOT FOUND THEN RAISE EXCEPTION 'Request unavailable' USING ERRCODE='P0002'; END IF;\n  IF (p_data->>'approve')::boolean AND EXISTS(SELECT 1 FROM public.guild_members WHERE guild_id=p_guild AND traveler_id=req.traveler_id AND(status='active' OR role='leader'))\n  THEN RAISE EXCEPTION 'Membership unavailable' USING ERRCODE='23505'; END IF;\n  status_value:=CASE WHEN(p_data->>'approve')::boolean THEN 'accepted' ELSE 'rejected' END;\n  UPDATE public.guild_join_requests SET status=status_value,reviewed_by_traveler_id=p_actor,reviewed_at=clock_timestamp() WHERE id=p_id;\n  IF status_value='accepted' THEN\n   INSERT INTO public.guild_members(guild_id,traveler_id,role,status) VALUES(p_guild,req.traveler_id,'member','active')\n   ON CONFLICT(guild_id,traveler_id) DO UPDATE SET status='active',joined_at=clock_timestamp(),updated_at=clock_timestamp();\n  END IF;\n  response:=jsonb_build_object('id',p_id,'status',status_value);\n ELSE\n  PERFORM guild_admin_private.exact_keys(p_data,'{}'::text[]);\n  target:=CASE WHEN p_action='leave' THEN p_actor ELSE p_id END;\n  IF p_action='leave' AND p_id<>p_actor THEN RAISE EXCEPTION 'Owned membership required' USING ERRCODE='42501'; END IF;\n  status_value:=CASE WHEN p_action='leave' THEN 'left' ELSE 'removed' END;\n  UPDATE public.guild_members SET status=status_value,updated_at=clock_timestamp()\n   WHERE guild_id=p_guild AND traveler_id=target AND status='active' AND role='member';\n  IF NOT FOUND THEN RAISE EXCEPTION 'Member unavailable or leader must transfer' USING ERRCODE='42501'; END IF;\n  UPDATE public.guild_ebd_teachers SET active=false,revision=revision+1,updated_at=clock_timestamp()\n   WHERE guild_id=p_guild AND traveler_id=target AND active;\n  response:=jsonb_build_object('id',target,'status',status_value);\n END IF;\n INSERT INTO guild_admin_private.audit(actor_uid,request_id,action,resource_id,reason,payload_hash,result)\n VALUES(actor,p_request,'guild_'||p_action,p_guild,'Authenticated account confirmed scoped Guild action: '||p_action,signature,response);\n RETURN response||jsonb_build_object('replayed',false);\nEND $function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres"
+      ],
+      "hash": "69f1231558149c36917b3f6937472acb",
+      "signature": "guild_admin_private.guild_role(uuid,uuid,boolean)",
+      "definition": "CREATE OR REPLACE FUNCTION guild_admin_private.guild_role(p_actor uuid, p_guild uuid, p_leader boolean DEFAULT false)\n RETURNS text\n LANGUAGE plpgsql\n STABLE SECURITY DEFINER\n SET search_path TO ''\nAS $function$\nDECLARE role_value text; BEGIN\n PERFORM guild_admin_private.active_actor(p_actor);\n SELECT gm.role INTO role_value FROM public.guild_members gm JOIN public.guilds g ON g.id=gm.guild_id\n WHERE gm.guild_id=p_guild AND gm.traveler_id=p_actor AND gm.status='active' AND g.status='active'\n AND(gm.role<>'leader' OR g.leader_traveler_id=p_actor);\n IF role_value='leader' AND NOT guild_admin_private.leader_not_revoked(p_actor) THEN role_value:='member'; END IF;\n IF role_value IS NULL OR(p_leader AND role_value<>'leader')\n THEN RAISE EXCEPTION 'Guild permission required' USING ERRCODE='42501'; END IF;\n RETURN role_value;\nEND $function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres"
+      ],
+      "hash": "9884a68d250d3cc744fd1b8fd2ef0891",
+      "signature": "guild_admin_private.leader_not_revoked(uuid)",
+      "definition": "CREATE OR REPLACE FUNCTION guild_admin_private.leader_not_revoked(p_actor uuid)\n RETURNS boolean\n LANGUAGE sql\n STABLE SECURITY DEFINER\n SET search_path TO ''\nAS $function$\n SELECT EXISTS(SELECT 1 FROM public.travelers t WHERE t.id=p_actor\n AND NOT EXISTS(SELECT 1 FROM guild_admin_private.leadership_revocations r WHERE r.user_id=t.user_id AND r.cleared_at IS NULL)\n AND NOT EXISTS(SELECT 1 FROM guild_admin_private.leader_authorizations a WHERE a.user_id=t.user_id AND a.revoked_at IS NOT NULL))\n$function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres"
+      ],
+      "hash": "7b0491ee6ef8b6c22e69624c4dab3920",
+      "signature": "guild_admin_private.require_writes()",
+      "definition": "CREATE OR REPLACE FUNCTION guild_admin_private.require_writes()\n RETURNS void\n LANGUAGE plpgsql\n STABLE SECURITY DEFINER\n SET search_path TO ''\nAS $function$ BEGIN\n IF NOT EXISTS(SELECT 1 FROM guild_admin_private.multiguild_control WHERE singleton AND writes_enabled)\n THEN RAISE EXCEPTION 'Guild management temporarily unavailable' USING ERRCODE='55000'; END IF;\nEND $function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres"
+      ],
+      "hash": "d7988482b4ba947adf76defa90244781",
+      "signature": "guild_invite_private.create_invite(uuid,uuid)",
+      "definition": "CREATE OR REPLACE FUNCTION guild_invite_private.create_invite(p_leader uuid, p_guild uuid)\n RETURNS jsonb\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO ''\nAS $function$\nDECLARE guild_key uuid; raw_token text; new_row guild_invite_private.link_invites;\n  issued_at timestamptz := clock_timestamp();\nBEGIN\n PERFORM pg_catalog.pg_advisory_xact_lock(1010,1); PERFORM guild_admin_private.require_writes();\n  guild_key := guild_invite_private.leader_guild(p_leader,p_guild);\n  IF (SELECT count(*) FROM guild_invite_private.link_invites\n      WHERE guild_id = guild_key AND revoked_at IS NULL AND expires_at > clock_timestamp()) >= 10 THEN\n    RAISE EXCEPTION 'Active invite limit reached' USING ERRCODE = '54000';\n  END IF;\n  raw_token := encode(extensions.gen_random_bytes(32), 'hex');\n  INSERT INTO guild_invite_private.link_invites(guild_id, leader_traveler_id, token_hash, created_at, expires_at)\n    VALUES (guild_key, p_leader, extensions.digest(raw_token, 'sha256'), issued_at, issued_at + interval '7 days')\n    RETURNING * INTO new_row;\n  RETURN jsonb_build_object('id', new_row.id, 'token', raw_token, 'expires_at', new_row.expires_at);\nEND $function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres",
+        "authenticated=X/postgres"
+      ],
+      "hash": "75b4f6920e3eb1633877f7e18dfdfc08",
+      "signature": "guild_invite_private.create_invite(uuid)",
+      "definition": "CREATE OR REPLACE FUNCTION guild_invite_private.create_invite(p_leader uuid)\n RETURNS jsonb\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO ''\nAS $function$\nBEGIN RETURN guild_invite_private.create_invite(p_leader,guild_admin_private.only_guild(p_leader,true));END\n$function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres"
+      ],
+      "hash": "2b92affaf9330030152d7d72edcbb4d8",
+      "signature": "guild_invite_private.leader_guild(uuid,uuid)",
+      "definition": "CREATE OR REPLACE FUNCTION guild_invite_private.leader_guild(p_leader uuid, p_guild uuid)\n RETURNS uuid\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO ''\nAS $function$\nBEGIN\n PERFORM pg_catalog.pg_advisory_xact_lock(1010,1);PERFORM guild_admin_private.guild_role(p_leader,p_guild,true);\n PERFORM 1 FROM public.travelers WHERE id=p_leader AND user_id=auth.uid() AND is_active FOR SHARE;\n IF NOT FOUND THEN RAISE EXCEPTION 'Active owned avatar required' USING ERRCODE='42501';END IF;\n PERFORM 1 FROM public.guilds WHERE id=p_guild FOR UPDATE;RETURN p_guild;\nEND $function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres"
+      ],
+      "hash": "664c2817e17d7f81a150666729aa8fd0",
+      "signature": "guild_invite_private.leader_guild(uuid)",
+      "definition": "CREATE OR REPLACE FUNCTION guild_invite_private.leader_guild(p_leader uuid)\n RETURNS uuid\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO ''\nAS $function$\nBEGIN RETURN guild_invite_private.leader_guild(p_leader,guild_admin_private.only_guild(p_leader,true));END\n$function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres",
+        "authenticated=X/postgres"
+      ],
+      "hash": "4c9a2f5b76392583d8394bf9dae0058f",
+      "signature": "guild_invite_private.list_invites(uuid,uuid)",
+      "definition": "CREATE OR REPLACE FUNCTION guild_invite_private.list_invites(p_leader uuid, p_guild uuid)\n RETURNS jsonb\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO ''\nAS $function$\nDECLARE guild_key uuid;\nBEGIN\n  guild_key := guild_invite_private.leader_guild(p_leader,p_guild);\n  RETURN coalesce((SELECT jsonb_agg(to_jsonb(v)) FROM (\n    SELECT id, created_at, expires_at, revoked_at FROM guild_invite_private.link_invites\n    WHERE guild_id = guild_key ORDER BY created_at DESC LIMIT 50\n  ) v), '[]'::jsonb);\nEND $function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres",
+        "authenticated=X/postgres"
+      ],
+      "hash": "a412f0c912093d68943393220c774c62",
+      "signature": "guild_invite_private.list_invites(uuid)",
+      "definition": "CREATE OR REPLACE FUNCTION guild_invite_private.list_invites(p_leader uuid)\n RETURNS jsonb\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO ''\nAS $function$\nBEGIN RETURN guild_invite_private.list_invites(p_leader,guild_admin_private.only_guild(p_leader,true));END\n$function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres",
+        "anon=X/postgres",
+        "authenticated=X/postgres"
+      ],
+      "hash": "ffdbc4b94ea8b16f17831143cdd76d0d",
+      "signature": "guild_invite_private.preview_invite(text)",
+      "definition": "CREATE OR REPLACE FUNCTION guild_invite_private.preview_invite(p_token text)\n RETURNS jsonb\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO ''\nAS $function$\nDECLARE invite_row guild_invite_private.link_invites; guild_name text;\nBEGIN\n  invite_row := guild_invite_private.valid_invite(p_token);\n  SELECT name INTO guild_name FROM public.guilds WHERE id = invite_row.guild_id;\n  RETURN jsonb_build_object('guild_name', guild_name, 'expires_at', invite_row.expires_at);\nEND $function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres",
+        "authenticated=X/postgres"
+      ],
+      "hash": "9d05a55e759c336b0e6c66f9727cd8dd",
+      "signature": "guild_invite_private.request_invite(text,uuid)",
+      "definition": "CREATE OR REPLACE FUNCTION guild_invite_private.request_invite(p_token text, p_traveler uuid)\n RETURNS uuid\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO ''\nAS $function$\nDECLARE invite_row guild_invite_private.link_invites;\nBEGIN\n PERFORM pg_catalog.pg_advisory_xact_lock(1010,1); PERFORM guild_admin_private.require_writes();\n  PERFORM guild_invite_private.require_account();\n  invite_row := guild_invite_private.valid_invite(p_token);\n  IF NOT public.owns_traveler(p_traveler) THEN\n    RAISE EXCEPTION 'Traveler not owned' USING ERRCODE = '42501';\n  END IF;\n  -- Existing RPC creates/reuses a PENDING request; only its normal review may add membership.\n  RETURN public.request_join_guild(invite_row.guild_id, p_traveler);\nEND $function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres"
+      ],
+      "hash": "cfde5459971dd81d962919b22c42f546",
+      "signature": "guild_invite_private.require_account()",
+      "definition": "CREATE OR REPLACE FUNCTION guild_invite_private.require_account()\n RETURNS void\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO ''\nAS $function$\nBEGIN\n  IF auth.uid() IS NULL OR NOT EXISTS (\n    SELECT 1 FROM auth.users WHERE id = auth.uid() AND NOT coalesce(is_anonymous, false)\n  ) THEN RAISE EXCEPTION 'Account required' USING ERRCODE = '42501'; END IF;\nEND $function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres",
+        "authenticated=X/postgres"
+      ],
+      "hash": "7760d6621bb65994cc973416da70d523",
+      "signature": "guild_invite_private.resolve_invite(text)",
+      "definition": "CREATE OR REPLACE FUNCTION guild_invite_private.resolve_invite(p_token text)\n RETURNS jsonb\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO ''\nAS $function$\nDECLARE invite_row guild_invite_private.link_invites; guild_name text;\nBEGIN\n  PERFORM guild_invite_private.require_account();\n  invite_row := guild_invite_private.valid_invite(p_token);\n  SELECT name INTO guild_name FROM public.guilds WHERE id = invite_row.guild_id;\n  RETURN jsonb_build_object('guild_name', guild_name, 'expires_at', invite_row.expires_at);\nEND $function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres",
+        "authenticated=X/postgres"
+      ],
+      "hash": "9a48cdf57bb0d03171b445baf0d7652a",
+      "signature": "guild_invite_private.revoke_invite(uuid,uuid,uuid)",
+      "definition": "CREATE OR REPLACE FUNCTION guild_invite_private.revoke_invite(p_id uuid, p_leader uuid, p_guild uuid)\n RETURNS void\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO ''\nAS $function$\nDECLARE guild_key uuid;\nBEGIN\n PERFORM pg_catalog.pg_advisory_xact_lock(1010,1); PERFORM guild_admin_private.require_writes();\n  guild_key := guild_invite_private.leader_guild(p_leader,p_guild);\n  UPDATE guild_invite_private.link_invites SET revoked_at = coalesce(revoked_at, clock_timestamp())\n    WHERE id = p_id AND guild_id = guild_key;\n  IF NOT FOUND THEN RAISE EXCEPTION 'Invite unavailable' USING ERRCODE = 'P0002'; END IF;\nEND $function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres",
+        "authenticated=X/postgres"
+      ],
+      "hash": "506b418be831941b3b7847d7a662940e",
+      "signature": "guild_invite_private.revoke_invite(uuid,uuid)",
+      "definition": "CREATE OR REPLACE FUNCTION guild_invite_private.revoke_invite(p_id uuid, p_leader uuid)\n RETURNS void\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO ''\nAS $function$\nBEGIN PERFORM guild_invite_private.revoke_invite(p_id,p_leader,guild_admin_private.only_guild(p_leader,true));END\n$function$\n"
+    },
+    {
+      "acl": [
+        "postgres=X/postgres"
+      ],
+      "hash": "5df49c92576e0c30c5dfc08ee4c10466",
+      "signature": "guild_invite_private.valid_invite(text)",
+      "definition": "CREATE OR REPLACE FUNCTION guild_invite_private.valid_invite(p_token text)\n RETURNS guild_invite_private.link_invites\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO ''\nAS $function$\nDECLARE invite_row guild_invite_private.link_invites;\nBEGIN\n  IF p_token IS NULL OR p_token !~ '^[a-f0-9]{64}$' THEN\n    RAISE EXCEPTION 'Invite unavailable' USING ERRCODE = 'P0002';\n  END IF;\n  SELECT i.* INTO invite_row FROM guild_invite_private.link_invites i\n    JOIN public.guilds g ON g.id = i.guild_id\n    JOIN public.guild_members gm ON gm.guild_id = g.id AND gm.traveler_id = i.leader_traveler_id\n    WHERE i.token_hash = extensions.digest(p_token, 'sha256')\n      AND i.revoked_at IS NULL AND i.expires_at > clock_timestamp()\n      AND g.status = 'active' AND gm.role = 'leader' AND gm.status = 'active' AND guild_admin_private.leader_not_revoked(gm.traveler_id)\n    FOR SHARE OF i, g, gm;\n  -- A row lock can wait beyond expiry even when the WHERE matched before waiting.\n  IF NOT FOUND OR invite_row.expires_at <= clock_timestamp() THEN\n    RAISE EXCEPTION 'Invite unavailable' USING ERRCODE = 'P0002';\n  END IF;\n  RETURN invite_row;\nEND $function$\n"
+    }
+  ]
+}

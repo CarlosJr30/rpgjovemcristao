@@ -21,8 +21,8 @@ vi.mock('../journey/state/use-journey', () => ({
     traveler: { id: 'synthetic-traveler' },
   }),
 }));
-vi.mock('../guild-invites/invite-panel', () => ({
-  GuildInvitePanel: () => <div>Convites existentes</div>,
+vi.mock('../guild-ebd/common-invites', () => ({
+  CommonInvites: () => <div>Convites existentes</div>,
 }));
 vi.mock('../../lib/supabase/repositories/guild-repository', () => ({
   guildRepository: {

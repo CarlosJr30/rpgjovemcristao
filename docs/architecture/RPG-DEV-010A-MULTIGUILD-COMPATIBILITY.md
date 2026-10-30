@@ -1,5 +1,9 @@
 # 010A.2 — contrato de compatibilidade para múltiplas Guildas
 
+## Publicação confirmada — 29/10/2026
+
+**15interfaces entregues;010A.2 DONE/DEPLOY_COMPLETE no escopo.** PR19merge994fe9d/CI40852856242success;deploymentdpl_BdKmqu1JYDH845BKoGH1qXiQTsTeREADY/production/aliasoficial/backendPROD,62UI+28API+17HTTP após promoção PASS. DoisUIDs e positivos mutáveis comprovados emTEST,sem fabricar dadosPROD. Migrations produtivas próprias93830/93912,68rotinas finais iguaisTEST/77anteriores intactas,38dadosanterioresPROD/49TEST preservados. UmAdmin4perms explicitamente aprovado,um evento imutável,zero liderança automática;controleativado/protocoloeconômiconegado. [Relatório final](RPG-DEV-010A-REPORT.md) e [evidência](RPG-DEV-010A2-RELEASE-EVIDENCE.json). Tabelas de implementação/TEST abaixo mantêm proveniência histórica; expressões antigas de bloqueio não substituem este fechamento.
+
 ## Fechamento TEST — 29/10/2026
 
 **As 15 interfaces foram homologadas no escopo público aplicável com dois UIDs Auth distintos.** Candidato `df9e0b7`, CI push40834498581/PR40834504087 success; Preview `mza53rgto` READY/TEST. Evidência por fase em [MULTIUSER-EVIDENCE](RPG-DEV-010A2-MULTIUSER-EVIDENCE.json), sem transformar prefixos de rodadas interrompidas em rodadas PASS. As 241 verificações independentes anteriores permanecem preservadas. As correções workspace VOLATILE e conflito PT409 fazem parte do contrato final; somente aprovação isolada não teria fechado esta homologação.

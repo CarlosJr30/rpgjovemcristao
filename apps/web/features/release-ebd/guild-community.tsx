@@ -14,7 +14,7 @@ import {
 import { selectGuild } from '../../lib/guild-governance/selection';
 import { GuildScope, type GuildScopeValue } from '../guild-governance/scope';
 import { useJourney } from '../journey/state/use-journey';
-import { GuildInvitePanel } from '../guild-invites/invite-panel';
+import { CommonInvites } from '../guild-ebd/common-invites';
 import { GuildHall } from '../journey/components/guild-artwork';
 import { GuildHero } from '../journey/components/guild-hero';
 import { ReleaseShell } from './shell';
@@ -135,12 +135,13 @@ function GuildCommunity({
               Acessar Escola Bíblica Dominical
             </Link>
           </GuildHero>
-          {canManage && writesEnabled ? (
+          {canManage && writesEnabled && guildId ? (
             <>
-              <GuildInvitePanel
+              <CommonInvites
                 key={`${id}:${guildId}`}
-                travelerId={id}
+                actor={id}
                 guildId={guildId}
+                classId={null}
               />
               <section className={css.card}>
                 <h2>Solicitações de entrada</h2>

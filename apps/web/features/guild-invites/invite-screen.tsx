@@ -40,12 +40,9 @@ export function GuildInviteScreen({ token }: { token: string }) {
         {invite && (
           <>
             <h2>{invite.guild_name}</h2>
-            <p>
-              Confirme se deseja solicitar entrada nesta Guilda. O líder ainda
-              precisará aprovar seu pedido.
-            </p>
+            <p>Confirme sua participação nesta Guilda pelo convite válido.</p>
             {submitted ? (
-              <p role="status">Pedido enviado. Aguarde a aprovação do líder.</p>
+              <p role="status">Participação confirmada nesta Guilda.</p>
             ) : journey.status === 'ready' ? (
               <button
                 type="button"
@@ -63,14 +60,14 @@ export function GuildInviteScreen({ token }: { token: string }) {
                     setSubmitted(true);
                   } catch {
                     setError(
-                      'Não foi possível solicitar entrada. O convite pode ter expirado, sido revogado ou seu Viajante já pode pertencer a uma Guilda.',
+                      'Não foi possível participar. O convite pode estar expirado, revogado, esgotado ou indisponível para este Viajante.',
                     );
                   } finally {
                     setPending(false);
                   }
                 }}
               >
-                Confirmar e solicitar entrada
+                Confirmar participação
               </button>
             ) : (
               <Link

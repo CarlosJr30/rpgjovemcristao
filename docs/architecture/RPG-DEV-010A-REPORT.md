@@ -1,5 +1,58 @@
 # RPG-DEV-010A — Administração e liderança
 
+## 29/10/2026 — DONE / DEPLOY_COMPLETE no escopo010A.1/010A.2
+
+Encerramento documental em30/10/2026: reconfirmados remotamente o mesmo994fe9d/READY/production/alias/autoAssigntrue/SSOoriginal,10migrations,umAdmin/umaauditoria,zero liderança econtroletrue/rev2.38hashesPROD/49TEST novamente iguais. Nenhuma nova operação de negócio nesta reconferência; os testes autenticados abaixo foram executados em29/10 e seus artefatos originais preservados.
+
+**Administração protegida, liderança e compatibilidade multiguild publicadas e conferidas.** [URL oficial](https://rpgjovemcristao-web-inky.vercel.app/journey/guild) no merge normal **994fe9d3323ba193aafc873fc2774d8a33637206**, [PR19](https://github.com/CarlosJr30/rpgjovemcristao/pull/19) integrada. Deployment Git existente único `dpl_BdKmqu1JYDH845BKoGH1qXiQTsTe` READY/production/SHAexato/backendPROD, alias oficial confirmado. Mesmo artefato retido foi promovido, sem rebuild/deploy duplicado; autoAssignCustomDomains restaurado **true**, SSO/Trusted Sources originais. Esta seção prevalece sobre os checkpoints abaixo; não declara010B/C/D/E ou economia concluídos.
+
+### Gates e evidências finais
+
+| Gate | Resultado real |
+| --- | --- |
+|Candidato técnico7abca21|[push40847640704](https://github.com/CarlosJr30/rpgjovemcristao/actions/runs/40847640704)/[PR40847651864](https://github.com/CarlosJr30/rpgjovemcristao/actions/runs/40847651864) success tentativa1;927unit PASS/74SKIP,132PGisolados (45+61+26),lint/tipos/build/protocolo25/RSC PASS.|
+|Registro pré-mergeadb2381|push40849728386/PR40849736484 success, somente documentação.|
+|CI do merge publicado994fe9d|[40852856242](https://github.com/CarlosJr30/rpgjovemcristao/actions/runs/40852856242) **success tentativa1**, SHAexato. Publicação condicional SKIP, não PASS.|
+|Preview finalTEST|[jm1pteqzt](https://rpgjovemcristao-jm1pteqzt-carlos-junior-s-projects.vercel.app),dpl_Bm3vxkPmmBM8R2M5DcPajEk2JMm8 READY/7abca21/TEST;52checks reais PASS,Chromium/WebKit390emulado. Homologação funcional anterior com doisUIDs e203regressões preservada.|
+|Preflight PROD|19readonlyPASS; snapshot/identidade/ACL/RLS/policies/dados/compatibilidade/recuperação renovados antes deDDL.|
+|Auth/RLS pós-DDL e grant|27API antes+28depois PASS, mesmoJWT; quatro permissões somente do UID expressamente aprovado, EBD própria/legado e negações de outro dono/anon.|
+|Deployment PROD retido|62checks UI PASS, desktop+Chromium390 viewport emulado,login humano normal sem copiar sessão;12checks independentes anônimos/segurança PASS.|
+|Ativação protegida|5checks PASS;controlefalse/rev1→true/rev2 apósCI/READY/Auth/RLS/UI,sem novo privilégio econômico ou liderança.|
+|Pós-publicação oficial|**62checks UI +28API +17HTTP PASS**,alias/READY/SHA/backend conferidos. Login oficial anterior reutilizado na própria origem, sem importar sessão da URL retida.|
+|Preservação|**38conjuntos anterioresPROD/49TEST com hashes e contagens idênticos** após todos os testes.38tabelas/39policies/defaults anteriores preservados,77funções intactas e68rotinas finais iguais às homologadasTEST.|
+
+Desktop e móvel PROD são a mesma sessão Chrome normalmente autenticada, com viewport redimensionado; **WebKit autenticado pertence à cobertura TEST**, não se alega WebKit PROD, aparelho físico ou Android real. Dois logins na Preview final também são a mesma QA em engines diferentes; a prova de doisUIDs distintos é a homologação funcional identificada separadamente. Positivos de criação de múltiplas Guildas/professores/convites/concorrência/revogação foram executados emTEST. Não se fabricaram esses dados emPROD para repetir o positivo.
+
+### Banco, concessão aprovada e recuperação
+
+Aplicadas somente versões produtivas próprias **20261029093830_rpg_dev_010a_governance_production** (arquivo20261029082857) e **20261029093912_rpg_dev_010a2_multiguild_production** (arquivo20261029082907). Guard confere nome aprovado/contagem/definições/ACLs, sem presumir timestamp remoto. Nenhuma migration TEST-only/009/Equipamentos importada ou reaplicada. PROD8→10migrations,38→44tabelas,100→145funções,39policies existentes;zero tabela semRLS. As seis tabelas novas são privadas/deny-all; bootstrap sem wrapper público e semEXECUTE para authenticated/anon/service_role. Scopeguild-ebd-001/protocolo3 e autoridades econômicas/progresso oficial negadas.
+
+O proprietário aprovou a proposta010A-PROD-ADMIN-20261029 na resposta `call_bb28579e0ad24170ba5c52aac708fc7b`. UID e ativo50 reconferidos por Auth normal, sem inferência por nome/nível/e-mail/TEST. Bootstrap privado owner-only, motivo/referência e nonce, criou **um Admin ativo/quatro permissões/revisão1 e um evento imutável de auditoria**. Permissões: admins.manage,leadership.manage,guilds.read,audit.read. **Zero autorizações de liderança, convites ou revogações PROD**; ser Admin não concede criação adicional ou gestão de comunidades alheias por inferência. Avatar antigo nível1 não selecionado/usado. Nenhuma conta/herói/Guilda/aula/item/carta/XP/moeda/baú/recompensa produtiva criada para testes.
+
+Snapshot estrutural privado pré-DDL SHA256 `cd8cb483e90bb2877557fc0ac61e06a3a2c9ddd3eed4c7d85b5d7996f9f6e703`. Recuperação vazia exata e recusa após estado emitido/contenção multiguild comprovadas nos26PGisolados. Não se executou DROP/restore como ensaio emPROD, reset de dados ou remoção de histórico. Após concessão/auditoria/vínculos, recuperação aplicável é **contenção preservadora** e aplicação compatível; não restaurar cegamente índice global/cliente antigo. Ativação foi transação DML protegida comSHA do merge/READY/gates verificados e fonte versionada, sem migration adicional. Rollback não foi necessário.
+
+### Conferência e limites
+
+UI produtiva antes/depois: inventário existente **6linhas/14unidades**,indicação dos6equipamentos sem equipar/desequipar;Coleção0canônica;Diário persistido/reflexão recolhida;seleção/reload de comunidade existente/EBD própria;Admin4permissões/histórico;Jornada9mundos;Missões/Serpente abertas sem exercício/partida. Menu11/8links/3bloqueios,Equipamentos/Arena/Torre/Loja/API econômica403. Nenhum comando de gestão foi submetido pela UI emPROD para fabricar evidência.
+
+Não afirmar zeroPOST: UI retida62 registrou **29**preparações de perfil próprio existente ignore-duplicates,32RPCs de leitura e6leituras viaAPI de governança;UI oficial62 registrou **28**,32e6,respectivamente,zero erros ou requisições inesperadas nos trechos. Ativação eAPI têm registros separados;esses números não somam todos os logins/diagnósticos. Hashes conferidos depois de todos os contextos;Auth normal pode atualizar metadados de sessão fora dos dados de jogo. Capturas privadas inspecionadas,sem publicar sessão,reflexão ou credenciais.
+
+[RPG-DEV-010A2-RELEASE-EVIDENCE.json](RPG-DEV-010A2-RELEASE-EVIDENCE.json) contém proveniência,CI,URLs,hashes/contagens,concessão aprovada,ativação e gates. [MULTIUSER](RPG-DEV-010A2-MULTIUSER-EVIDENCE.json)/[preparaçãoPROD](RPG-DEV-010A2-PRODUCTION-PREPARATION-EVIDENCE.json) preservam falhas e checkpoints. Logs/capturas/snapshots ficam embuild/rpg-dev-010a2,ignorados. QA/Security pelo autor,sem revisão independente alegada. Final documental embranchprópria `codex/rpg-dev-010a-release-report`,sem novo deploy da aplicação.
+
+**Sem bloqueio crítico aberto neste escopo.** Persistem limitações de emulação/positivos mutáveis somenteTEST,cartas antigasTEST sem sessão autorizada e avisos legados. AdvisorsPROD14→20deny-allINFO pelas seis tabelas privadas intencionalmente fechadas;12definerWARN e proteção de senhasWARN mantidos,sem config alterada para forçar gates. Dependências legadas não atualizadas. PR12 aberta/draft61b7177 ePR18 aberta/draftfd6f149 preservadas;010B/C/E têm contratos/gates próprios,010D segue sem concessões econômicas. Dados econômicos anteriores não reconciliados. Sem recurso pago,dependência de produto,arte/engine ou dados produtivos fabricados.
+
+## 29/10/2026 — PROD configurada; deployment retido em validação
+
+**VALIDATING, não DEPLOY_COMPLETE.** O proprietário aprovou expressamente a proposta010A-PROD-ADMIN-20261029, quatro permissões, na resposta `call_bb28579e0ad24170ba5c52aac708fc7b`. Identidade/ativo50 reconferidos por Auth normal e vinculados ao registro protegido; nenhum Admin inferido. Proposta anterior pendente abaixo é histórica.
+
+Snapshot pré-DDL privado SHA256 `cd8cb483e90bb2877557fc0ac61e06a3a2c9ddd3eed4c7d85b5d7996f9f6e703`,100 funções/38 tabelas/39policies/oito migrations e38 hashes renovados antes de executar. Aplicadas somente migrations PROD próprias: **20261029093830_rpg_dev_010a_governance_production** (arquivo82857) e **20261029093912_rpg_dev_010a2_multiguild_production** (arquivo82907). Guard de nome funcionou com versões remotas atribuídas. Agora10migrations/44tabelas/145funções;68rotinas iguais às finaisTEST,77funções e38tabelas anteriores/39policies/defaults preservados. Seis tabelas privadas RLS deny-all, nenhuma semRLS. Advisors14→20INFO intencionais,12definerWARN/proteção de senhasWARN legadas mantidas; sem nova função pública DEFINER.
+
+**27checks API pós-DDL/prégrant +28pósgrant PASS**, incluindo EBD escopada e wrapper legado sob contenção, Auth/RLS própria/alheia/anon, cartas canônicas/negações e economia bloqueada. Bootstrap protegido aprovado criou **uma concessão Admin ativa/quatro permissões/revisão1 e um evento imutável de auditoria**; zero liderança/convite concedidos. Mesmo JWT confirmado antes/depois, sem privilégio em claims fabricadas.38conjuntos anteriores PROD idênticos após grant; dados novos apenas governança autorizada. Controle de gestão ainda **false/revisão1**. Recuperação vazia não é mais aplicável depois desse estado emitido; usar contenção preservadora, sem apagar auditoria/vínculos.
+
+PR19 integrada por merge normal **994fe9d3323ba193aafc873fc2774d8a33637206**, sem bypass; [CI merge40852856242](https://github.com/CarlosJr30/rpgjovemcristao/actions/runs/40852856242) **success**. Deployment Git existente único `dpl_BdKmqu1JYDH845BKoGH1qXiQTsTe`, [URL retida PROD](https://rpgjovemcristao-iic8hkcq1-carlos-junior-s-projects.vercel.app), READY/production/SHAexato; bundle confirma backendPROD/semTEST. Nenhum rebuild duplicado. Domínio oficial continua008C/c14fd5e; autoAssign temporariamentefalse, SSO/Trusted Sources originais. Nova janela limpa aberta para login normal da conta aprovada, sem copiar sessão; validação UI autenticada antes da promoção está **PENDING**.
+
+**12checks independentes anônimos PASS** no deployment: AuthGate com next seguro, ausência de sessão, API401/403/400, rotas403 e bootstrap privado fora da API. Primeira medição imediata da URL ocorreu antes do router.replace; falha preservada, repetição aguardou a URL com o mesmo prazo/critério e passou, sem alterar aplicação. Autenticação positiva nova não é inferida destes checks. PR12/18 preservadas, nenhuma criação de conta/herói/Guilda/aula/item/recompensa PROD para testes. Fontes/evidências de preparação anteriores permanecem; fechamento produtivo e hashes finais serão registrados após gates reais.
+
 ## 29/10/2026 — preparação concluída; aguarda aprovação administrativa PROD
 
 **010A.2 homologada em TEST e pacote PROD próprio validado. Publicação PROD BLOCKED por aprovação de privilégio ainda ausente.** Esta seção prevalece sobre os checkpoints preservados abaixo. PR19 continua aberta/draft; PR12/18 intactas.

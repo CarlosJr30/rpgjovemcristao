@@ -4,6 +4,7 @@ import { RequireTraveler } from '../journey/components/shell';
 import { ReleaseShell as Shell } from '../release-ebd/shell';
 import { GuildHub } from '../journey/screens/guild-hub';
 import { EbdPanel } from './panel';
+import { EbdClasses } from './classes';
 import { GuildHall } from '../journey/components/guild-artwork';
 import { GuildScope } from '../guild-governance/scope';
 import releaseStyles from '../release-ebd/release.module.css';
@@ -25,11 +26,16 @@ export function EbdScreen() {
               <GuildScope actor={traveler.id}>
                 {(scope) =>
                   scope.guildId ? (
-                    <EbdPanel
+                    <div
                       key={`${traveler.id}:${scope.guildId}:${scope.generation}`}
-                      traveler={traveler}
-                      guildId={scope.guildId}
-                    />
+                    >
+                      <EbdClasses actor={traveler.id} guildId={scope.guildId} />
+                      <EbdPanel
+                        key={`${traveler.id}:${scope.guildId}:${scope.generation}`}
+                        traveler={traveler}
+                        guildId={scope.guildId}
+                      />
+                    </div>
                   ) : (
                     <section className={releaseStyles.card}>
                       <h1>Escola Bíblica</h1>
