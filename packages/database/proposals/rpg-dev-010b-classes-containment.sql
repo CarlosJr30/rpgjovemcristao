@@ -1,4 +1,7 @@
 -- Preserve all classes, members, grants and history. Reads remain available.
+-- The existing protected write barrier also covers legacy SECURITY DEFINER entrypoints.
+SELECT pg_catalog.pg_advisory_xact_lock(1010,1);
+UPDATE guild_admin_private.multiguild_control SET writes_enabled=false,revision=revision+1 WHERE writes_enabled;
 REVOKE EXECUTE ON FUNCTION public.ebd_classes_command(uuid,uuid,uuid,text,uuid,integer,jsonb),ebd_class_private.command(uuid,uuid,uuid,text,uuid,integer,jsonb) FROM PUBLIC,anon,authenticated,service_role;
 DO $contain$ DECLARE f record; BEGIN
  FOR f IN SELECT p.oid::regprocedure signature FROM pg_proc p JOIN pg_namespace n ON n.oid=p.pronamespace

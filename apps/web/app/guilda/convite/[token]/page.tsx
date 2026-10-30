@@ -1,5 +1,5 @@
-import { notFound } from 'next/navigation';
-import { GuildInviteScreen } from '../../../../features/guild-invites/invite-screen';
+import { notFound, redirect } from 'next/navigation';
+import { MEMBER_INVITE_PATH } from '../../../../lib/ebd-classes/invites-contracts';
 import { INVITE_TOKEN } from '../../../../lib/guild-invites/contracts';
 
 export const dynamic = 'force-dynamic';
@@ -15,5 +15,5 @@ export default async function Page({
 }) {
   const { token } = await params;
   if (!INVITE_TOKEN.test(token)) notFound();
-  return <GuildInviteScreen token={token} />;
+  redirect(`${MEMBER_INVITE_PATH}#${token}`);
 }

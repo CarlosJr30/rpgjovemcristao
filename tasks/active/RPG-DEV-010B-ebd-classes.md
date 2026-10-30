@@ -22,4 +22,6 @@ DEFINITION_OF_DONE: Somente incremento integralmente homologado pode ser publica
 
 ## Preparação
 
+30/10 — orientação acelerada posterior: fechar compatibilidade de convites antigos, mantendo pedidos históricos pendentes intactos; testes locais direcionados, CI/gates obrigatórios preservados e publicação incremental. Não antecipar010B.3 como dependência deste incremento. Recuperação/contenção cobre APIs antigas; nunca apagar vínculos/consumos para restaurar versão. Relatório010B registra resultados e pendências reais.
+
 30/10: branch própria criada da main publicada e fechamento documental preservado. Main/CI994fe9d success; PR12draft61b7177 e PR18draftfd6f149 intactas. TEST33migrations/PROD10 reconfirmadas. Sem DDL ou mutações de dados010B neste checkpoint. Ordem dos incrementos será fixada pela auditoria antes de alterações de autoridade.

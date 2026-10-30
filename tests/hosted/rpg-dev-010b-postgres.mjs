@@ -185,7 +185,7 @@ try {
   await q(
     'update guild_admin_private.multiguild_control set writes_enabled=true,revision=revision+1',
   );
-  for (const n of [1, 2, 3, 4]) {
+  for (let n = 1; n <= 104; n++) {
     await q('insert into auth.users values($1,false,$2,now())', [
       uid(n),
       `qa-${n}@fixtures.invalid`,
@@ -222,7 +222,7 @@ try {
       const defs = async () =>
         (
           await q(
-            "select oid::regprocedure::text signature,pg_get_functiondef(oid) definition,proacl::text acl from pg_proc where pronamespace in('public'::regnamespace,'ebd_ops'::regnamespace,'guild_admin_private'::regnamespace) order by 1",
+            "select oid::regprocedure::text signature,pg_get_functiondef(oid) definition,proacl::text acl from pg_proc where pronamespace in('public'::regnamespace,'ebd_ops'::regnamespace,'guild_admin_private'::regnamespace,'guild_invite_private'::regnamespace) order by 1",
           )
         ).rows;
       const beforeDefs = await defs();
@@ -230,6 +230,16 @@ try {
       await tx(
         read(
           'supabase/migrations/20261030110258_rpg_dev_010b_member_invites_test.sql',
+        ),
+      );
+      await tx(
+        read(
+          'supabase/migrations/20261030131230_rpg_dev_010b_legacy_invites_test.sql',
+        ),
+      );
+      await tx(
+        read(
+          'packages/database/proposals/rpg-dev-010b-legacy-recovery-empty.sql',
         ),
       );
       await tx(
@@ -514,6 +524,14 @@ try {
   await (
     await import('./rpg-dev-010b-invites-cases.mjs')
   ).run({ q, as, cmd, check, denied, uid, tid, options, connections });
+  await tx(
+    read(
+      'supabase/migrations/20261030131230_rpg_dev_010b_legacy_invites_test.sql',
+    ),
+  );
+  await (
+    await import('./rpg-dev-010b-legacy-cases.mjs')
+  ).run({ q, as, check, denied, uid, tid, options, connections });
   await check('recovery refuses to erase issued classes, grants or audit', () =>
     denied(
       () =>
@@ -571,11 +589,17 @@ try {
       for (const f of baseline.functions) {
         const actual = (
           await q(
-          'select md5(pg_get_functiondef($1::regprocedure)) hash,to_jsonb(proacl) acl from pg_proc where oid=$1::regprocedure',
+            'select md5(pg_get_functiondef($1::regprocedure)) hash,to_jsonb(proacl) acl from pg_proc where oid=$1::regprocedure',
             [f.signature],
           )
         ).rows[0];
-        assert.equal(actual.hash, f.hash, f.signature);
+        if (
+          ![
+            'guild_invite_private.request_invite(text,uuid)',
+            'guild_invite_private.revoke_invite(uuid,uuid,uuid)',
+          ].includes(f.signature)
+        )
+          assert.equal(actual.hash, f.hash, f.signature);
         assert.deepEqual(actual.acl, f.acl, f.signature);
       }
     },

@@ -1,6 +1,7 @@
 -- TEST only; refusal preserves every issued class/member/teacher/audit/receipt.
 DO $guard$ DECLARE t record; occupied boolean; BEGIN
  IF public.release_scope() IS DISTINCT FROM 'hero-equipment-006' THEN RAISE EXCEPTION 'TEST recovery only'; END IF;
+ IF to_regclass('ebd_class_private.legacy_uses') IS NOT NULL THEN RAISE EXCEPTION 'Recover legacy invitation compatibility first'; END IF;
  FOR t IN SELECT c.relname FROM pg_class c JOIN pg_namespace n ON n.oid=c.relnamespace WHERE n.nspname='ebd_class_private' AND c.relkind='r' LOOP
  EXECUTE format('SELECT EXISTS(SELECT 1 FROM ebd_class_private.%I)',t.relname) INTO occupied;
  IF occupied THEN RAISE EXCEPTION 'Issued classes require preserving containment'; END IF;

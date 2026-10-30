@@ -33,7 +33,7 @@ export function GuildInvitePreview({ token }: { token: string }) {
           <h2>{invite.guild_name}</h2>
           <p>
             Esta Guilda convidou você. Entre ou crie sua conta para continuar.
-            Seu pedido ainda dependerá da aprovação do líder.
+            Um convite válido permite confirmar sua participação após entrar.
           </p>
         </>
       ) : (
