@@ -220,6 +220,52 @@ export type Database = {
     };
     Views: Record<string, never>;
     Functions: {
+      ebd_member_invite_create: {
+        Args: {
+          p_actor: string;
+          p_guild: string;
+          p_class: string | null;
+          p_request: string;
+          p_days: number;
+          p_uses: number;
+        };
+        Returns: Json;
+      };
+      ebd_member_invite_list: {
+        Args: { p_actor: string; p_guild: string; p_class: string | null };
+        Returns: Json;
+      };
+      ebd_member_invite_revoke: {
+        Args: {
+          p_actor: string;
+          p_guild: string;
+          p_class: string | null;
+          p_id: string;
+        };
+        Returns: Json;
+      };
+      ebd_member_invite_preview: { Args: { p_token: string }; Returns: Json };
+      ebd_member_invite_accept: {
+        Args: { p_actor: string; p_token: string; p_request: string };
+        Returns: Json;
+      };
+      ebd_classes_workspace: {
+        Args: { p_actor: string; p_guild: string; p_class: string | null };
+        Returns: Json;
+      };
+      ebd_classes_command: {
+        Args: {
+          p_actor: string;
+          p_guild: string;
+          p_class: string;
+          p_action: string;
+          p_request: string;
+          p_revision: number;
+          p_data: Json;
+        };
+        Returns: Json;
+      };
+
       guild_scoped_status: { Args: Record<string, never>; Returns: Json };
       guild_scoped_contexts: { Args: { p_actor: string }; Returns: Json };
       guild_scoped_command: {

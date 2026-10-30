@@ -13,7 +13,7 @@ export async function startLocalAuthSimulator(options = {}) {
     'http://127.0.0.1:3199',
     options,
   );
-  const server = createServer((req, res) => {
+  const server = createServer(async (req, res) => {
     // Explicit local cross-origin contract for the simulator only.
     if (req.headers.origin !== 'http://127.0.0.1:3199') {
       res.writeHead(403);
@@ -35,10 +35,14 @@ export async function startLocalAuthSimulator(options = {}) {
       res.end();
       return;
     }
+    const chunks = [];
+    for await (const chunk of req) chunks.push(chunk);
+    const body = Buffer.concat(chunks).toString('utf8');
     void respond({
       request: () => ({
         url: () => 'https://fixture.invalid' + req.url,
         headers: () => req.headers,
+        postDataJSON: () => (body ? JSON.parse(body) : {}),
       }),
       abort: async () => {
         res.writeHead(403);

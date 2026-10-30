@@ -127,6 +127,8 @@ jobs:
         run: node tests/hosted/rpg-dev-010a2-postgres.mjs
       - name: Ensaiar pacote PROD independente e contenção preservadora
         run: node tests/hosted/rpg-dev-010a-production-postgres.mjs
+      - name: Exigir classes convites escopo idempotência e concorrência sem economia
+        run: node tests/hosted/rpg-dev-010b-postgres.mjs
 
   pinned-preview:
     name: Preview do SHA aprovado

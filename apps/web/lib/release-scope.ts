@@ -35,6 +35,8 @@ const paths = new Set([
   '/guilda/lideranca/convite',
   '/api/guild-governance',
   '/api/guild-invites',
+  '/api/ebd-member-invites',
+  '/guilda/participar',
 ]);
 export function isReleasedPath(path: string): boolean {
   return paths.has(path) || /^\/guilda\/convite\/[a-f0-9]{64}$/.test(path);

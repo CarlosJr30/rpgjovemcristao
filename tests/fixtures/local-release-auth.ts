@@ -10,6 +10,9 @@ export async function mockLocalReleaseAuth(
     throw new Error('Loopback fixture required');
   const date = '2026-10-24T12:00:00.000Z';
   const travelerId = '10000000-0000-4000-8000-000000000003';
+  await context.route(origin + '/api/ebd-member-invites', (route) =>
+    route.fulfill({ json: { data: [] } }),
+  );
   const user = {
     id: '00000000-0000-4000-8000-000000000003',
     aud: 'authenticated',
@@ -41,6 +44,17 @@ export async function mockLocalReleaseAuth(
       }
       const endpoint = url.pathname.split('/').at(-1);
       let data: unknown = [];
+      if (endpoint === 'ebd_classes_workspace')
+        data = {
+          version: 1,
+          guildId: req.postDataJSON().p_guild,
+          classId: null,
+          leader: options.guildRole === 'leader',
+          classes: [],
+          members: [],
+          teachers: [],
+          history: [],
+        };
       if (endpoint === 'guild_scoped_status')
         data = {
           version: 2,

@@ -1,5 +1,9 @@
 # RPG-DEV-010 — Guilda, Células e EBD 2.0
 
+## 30/10 — 010B em implementação própria; produção010A preservada
+
+Branch `codex/rpg-dev-010b-ebd-classes` parte de994fe9d e preserva fechamento8e7797c. Auditoria reutiliza Guilda/EBD/convites publicados; base de classes/permissões010B.2 precede destino Guilda+classe010B.1 por dependência real. Implementação e testes isolados em curso, sem economia, nova concessão administrativa, DDL/deploy010B remoto ou alteração dasPR12/18. [Relatório010B](RPG-DEV-010B-REPORT.md) distingue provas sintéticas, gates pendentes e preservação.010A permanece a produção aceita;010B não DONE/DEPLOY_COMPLETE.
+
 ## 29/10 — 010A.1/010A.2 DONE / DEPLOY_COMPLETE
 
 Administração/liderança e compatibilidade multiguild publicadas: PR19merge994fe9d3323ba193aafc873fc2774d8a33637206/CI40852856242success;[oficial](https://rpgjovemcristao-web-inky.vercel.app/journey/guild),deploymentdpl_BdKmqu1JYDH845BKoGH1qXiQTsTeREADY/production/SHAexato/alias/backendPROD,mesmoGitdeploypromovido/autoAssigntrue/SSOoriginal.927unit74SKIP/132PG/qualidadeRSCprotocolo25;TEST52finais epositivosdoisUIDs preservados;PROD27APIprégrant28pósgrant,62UIretida/12anon/5ativação,62UIoficial28API17HTTP PASS. WebKitautenticadoTEST,mobilePRODviewportChromium,semfísico.38dadosanterioresPROD/49TEST preservados;DDLprod93830/93912próprias,1Admin4perms explicitamente aprovado+1audit,zero liderançaautomática/economia/dadosfabricados. PR12draft61b7177/PR18draftfd6f149intactas. SemblockcríticoescopoA;projeto010continuaACTIVE paraB/C/E econtratosDsemeconomia. [Relatório010A](RPG-DEV-010A-REPORT.md)/[evidênciafinal](RPG-DEV-010A2-RELEASE-EVIDENCE.json) prevalecem sobre checkpoints abaixo.
