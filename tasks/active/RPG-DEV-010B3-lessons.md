@@ -1,0 +1,12 @@
+# RPG-DEV-010B.3 — Aulas, questionários e presença
+ID: RPG-DEV-010B3
+STATUS: VALIDATING
+PRIORITY: P1 High
+OBJECTIVE: Concluir EBD por classe reutilizando aulas, editores, atividades, respostas, presença e histórico publicados; quiz opcional exatamente7perguntas, correção servidor e elegibilidade50XP sem crédito.
+AUTHORIZATION: Pedido anexado pelo proprietário em30/10/2026, modo acelerado, publicação após gates RELEASE_POLICY. Não reconstruir EBD, não alterar legado automaticamente ou dados PROD para fabricar testes.
+BASE: origin/main4670ac6, branch codex/rpg-dev-010b3-lessons. Fechamento documental7a5b16b incorporado por fast-forward, sem runtime extra; branch anterior e todos os worktrees preservados.
+SCOPE: apps/web/features/guild-ebd, lib/ebd-classes e contratos/repositórios/DBtypes pertinentes; packages/database, supabase/migrations próprias, testes direcionados, CI obrigatório, relatórios/memória. Autor assume Frontend/Backend/Database/QA/Security/DevOps; atuação ampliada exclusivamente nesses caminhos e no escopo autorizado, sem subagentes/revisão independente alegada.
+OUT_OF_SCOPE: XP/moedas/baús reais, Loja/Arena/Torre/chat/notificações, PR12/18, artes/dependências/recursos pagos, reconciliação16XP/6moedas.
+ACCEPTANCE: Professor limitado à classe/autorização atual; aula flexível e estados auditados; quiz7x4/uma correta/gabarito servidor/resultado individual persistido e replay sem duplicar oficial; atividade prática sem texto pessoal; presença4estados/única aluno+aula/correção auditada/eligibilidade50XP somente; histórico próprio e revisão pedagógica autorizada; nenhuma mistura após troca Guilda/classe ou revogação com JWT antigo; preservação integral do legado.
+TEST_PLAN: Testes unitários/PG direcionados, lint/types/build/protocolo; CI normal exato; TEST/Preview com professor e aluno normais distintos, concorrência/Auth/RLS/reload/regressão essencial/desktop e móvel emulado; recuperação/contenção; pacote PROD específico e conferência posterior. Reutilizar provas de código/contratos inalterados, sem omitir gates críticos.
+DEFINITION_OF_DONE: Todos os gates aplicáveis comprovados, migration/merge/deployment/READY/SHA/backend/alias/consulta final e dados preservados; documentação objetiva atualizada. Falha→REWORK; impedimento externo→BLOCKED, produção preservada.

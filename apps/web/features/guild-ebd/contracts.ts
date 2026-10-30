@@ -21,6 +21,8 @@ export type LessonInput = {
   rewardTier: GuildRewardTier | '';
 };
 export type Lesson = GuildLessonRow & {
+  ebd_class_id?: string | null;
+  canParticipate?: boolean;
   teacher_id: string;
   ebd_revision: number;
   audience: 'all' | 'selected';
@@ -73,7 +75,7 @@ export type Answer = {
 export type Attendance = {
   lesson_id: string;
   traveler_id: string;
-  status: 'present' | 'absent';
+  status: 'pending' | 'present' | 'absent' | 'justified';
   reason: string;
   revision: number;
   marked_by: string;
@@ -87,7 +89,18 @@ export type Teacher = {
   revision: number;
 };
 export type Workspace = {
-  version: 1;
+  version: 1 | 2;
+  classId?: string;
+  teacherCandidates?: { id: string; name: string }[];
+  quizzes?: ClassQuiz[];
+  quizResults?: QuizResult[];
+  eligibility?: {
+    lesson_id: string;
+    traveler_id: string;
+    eligible: boolean;
+    xp_contract: 50;
+    xp_issued: 0;
+  }[];
   guildId: string;
   leader: boolean;
   teacher: boolean;
@@ -183,11 +196,11 @@ export function safeMaterialUrl(value: string) {
   const host = new URL(value).hostname.toLowerCase();
   return !/(^|\.)(localhost|local|internal|invalid|test|example)$/.test(host);
 }
-export function validateLesson(f: LessonInput) {
+export function validateLesson(f: LessonInput, classMode = false) {
   if (
     f.title.trim().length < 2 ||
     f.title.length > 100 ||
-    f.theme.trim().length < 2 ||
+    (!classMode && f.theme.trim().length < 2) ||
     f.theme.length > 100
   )
     return 'Informe título e tema (2 a 100 caracteres).';
@@ -221,6 +234,39 @@ export function validateLesson(f: LessonInput) {
     return 'Revise os materiais: texto limitado ou link HTTPS público válido, sem credenciais ou portas.';
   return '';
 }
+export type QuizQuestion = {
+  id?: string;
+  position?: number;
+  prompt: string;
+  options: string[];
+  answerKey?: number;
+  reference: string;
+  feedback?: string;
+};
+export type ClassQuiz = {
+  id: string;
+  lessonId: string;
+  revision: number;
+  difficulty: 'easy' | 'medium' | 'hard';
+  questions: QuizQuestion[];
+};
+export type QuizResult = {
+  quiz_id: string;
+  traveler_id: string;
+  traveler_name: string;
+  lessonId: string;
+  quizRevision: number;
+  score: number;
+  attempt: number;
+  attempts: number;
+  submitted_at: string;
+  latest: {
+    position: number;
+    choice: number;
+    correct: boolean;
+    feedback: string;
+  }[];
+};
 export const rewardLabel = (tier: GuildRewardTier) => {
   const r = guildMissionRewards[tier];
   return `${r.xp} XP · ${r.coins} moedas · ${r.chestQuantity} ${r.chestLabel}`;

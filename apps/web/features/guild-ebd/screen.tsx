@@ -1,4 +1,6 @@
 'use client';
+import { useState } from 'react';
+import type { Traveler } from '../journey/domain/traveler';
 import { useAuth } from '../../lib/supabase/auth-context';
 import { RequireTraveler } from '../journey/components/shell';
 import { ReleaseShell as Shell } from '../release-ebd/shell';
@@ -29,12 +31,7 @@ export function EbdScreen() {
                     <div
                       key={`${traveler.id}:${scope.guildId}:${scope.generation}`}
                     >
-                      <EbdClasses actor={traveler.id} guildId={scope.guildId} />
-                      <EbdPanel
-                        key={`${traveler.id}:${scope.guildId}:${scope.generation}`}
-                        traveler={traveler}
-                        guildId={scope.guildId}
-                      />
+                      <Classroom traveler={traveler} guildId={scope.guildId} />
                     </div>
                   ) : (
                     <section className={releaseStyles.card}>
@@ -51,5 +48,48 @@ export function EbdScreen() {
         )}
       </RequireTraveler>
     </Shell>
+  );
+}
+function Classroom({
+  traveler,
+  guildId,
+}: {
+  traveler: Traveler;
+  guildId: string;
+}) {
+  const [selected, setSelected] = useState<string | null>(null),
+    [legacy, setLegacy] = useState(false),
+    [busy, setBusy] = useState(false);
+  return (
+    <>
+      <EbdClasses
+        actor={traveler.id}
+        guildId={guildId}
+        onSelect={setSelected}
+        selectionDisabled={busy}
+      />
+      {selected ? (
+        <EbdPanel
+          key={selected}
+          traveler={traveler}
+          guildId={guildId}
+          classId={selected}
+          onBusyChange={setBusy}
+        />
+      ) : (
+        <section className={releaseStyles.card}>
+          <h1>Escola Bíblica</h1>
+          <p>
+            Selecione sua classe para estudar, preparar aulas ou consultar
+            presença.
+          </p>
+        </section>
+      )}
+      <details onToggle={(e) => setLegacy(e.currentTarget.open)}>
+        <summary>Aulas anteriores da Guilda</summary>
+        <p>Aulas legadas preservadas, sem conversão automática para classes.</p>
+        {legacy && <EbdPanel traveler={traveler} guildId={guildId} />}
+      </details>
+    </>
   );
 }

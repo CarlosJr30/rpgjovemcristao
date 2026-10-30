@@ -26,6 +26,7 @@ export function ActivityCard({
   busy,
   command,
   onEdit,
+  classMode = false,
 }: {
   activity: Activity;
   answers: Answer[];
@@ -35,6 +36,7 @@ export function ActivityCard({
   busy: boolean;
   command: Command;
   onEdit?: () => void;
+  classMode?: boolean;
 }) {
   const [response, setResponse] = useState('');
   const [choice, setChoice] = useState('');
@@ -76,8 +78,9 @@ export function ActivityCard({
             e.preventDefault();
             const payload = {
               activityId: activity.id,
-              response:
-                activity.kind === 'choice'
+              response: classMode
+                ? 'Participação declarada'
+                : activity.kind === 'choice'
                   ? activity.options[Number(choice)]
                   : response,
               choice: activity.kind === 'choice' ? Number(choice) : null,
@@ -97,7 +100,13 @@ export function ActivityCard({
             );
           }}
         >
-          {activity.kind === 'choice' ? (
+          {classMode ? (
+            <label className={css.check}>
+              <input type="checkbox" required />
+              Confirmo minha participação e solicito validação do responsável,
+              sem enviar texto pessoal.
+            </label>
+          ) : activity.kind === 'choice' ? (
             <label>
               Sua resposta
               <select

@@ -1,5 +1,13 @@
 # RPG-DEV-010B — Convites, classes e EBD
 
+## 010B.3 — REWORK local, 30/10/2026
+
+Branch `codex/rpg-dev-010b3-lessons` da main4670ac6, com fechamento documental7a5b16b preservado. Reutilizados painel, editores, aulas, atividades, respostas, presença e histórico; acrescentado escopo explícito por classe, aula flexível/agenda, quiz opcional7x4 corrigido no servidor, tentativas gratuitas com um resultado oficial por versão, participação prática sem texto privado, quatro estados de presença e elegibilidade50XP com emissão0. Legado separado, sem conversão; APIs antigas não operam aulas novas e reflexões legadas são mascaradas para terceiros sem alterar o registro original.
+
+**32unitários direcionados e26checks PG isolados PASS**, lint/tipos/build/protocolo25 aprovados nos checkpoints. Falha inicial de alias PL/pgSQL corrigida antes de qualquer DDL remoto. Uma execução de TypeScript terminou por memória do notebook; encerrados somente contextos automatizados descartáveis, preservando janelas principais, e reexecução completa PASS. Fixtures PG são sintéticas, não prova hospedada. Sem grandes suítes locais repetidas; CI obrigatório mantém execução normal e ganha o caso PG010B.3.
+
+Migration TEST-only local `20261030221400_rpg_dev_010b3_lessons_test.sql`, recuperação vazia condicionada à ausência de dados emitidos/reflexões legadas e contenção preservadora preparadas, **não aplicadas remotamente**. Baselines59TEST/54PROD capturados; definições EBD coincidem entre ambientes. Coluna nullable de classe altera o formato do hash integral de aulas: apósDDL comparar campos legados pela projeção sem ebd_class_id, sem fingir igualdade do hash estrutural. CI/PR/Preview e homologação professor/aluno ainda pendentes. PROD continua010B.1/010B.2, sem nova migration/deploy/grant/recompensa. QA/Security pelo autor. Os resultados publicados abaixo permanecem preservados.
+
 ## 010B.1/010B.2 — DONE / DEPLOY_COMPLETE em 30/10/2026
 
 **Convites automáticos antigos e novos e classes por Guilda publicados.** Convite comum não concede liderança/professor ou recompensas. Não duplica vínculos e preserva outras Guildas, expiração, revogação e pedidos pendentes históricos. Aulas, quiz e presença010B.3 continuam pendentes e separados; não se declara todo010B concluído.

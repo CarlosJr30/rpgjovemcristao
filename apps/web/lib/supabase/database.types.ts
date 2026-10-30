@@ -253,6 +253,14 @@ export type Database = {
         Args: { p_actor: string; p_guild: string; p_class: string | null };
         Returns: Json;
       };
+      ebd_class_lessons_workspace: {
+        Args: { p_actor:string; p_guild:string; p_class:string; p_offset:number };
+        Returns: Json;
+      };
+      ebd_class_lessons_command: {
+        Args: { p_actor:string; p_guild:string; p_class:string; p_action:string; p_id:string; p_request:string; p_revision:number; p_data:Json };
+        Returns: Json;
+      };
       ebd_classes_command: {
         Args: {
           p_actor: string;

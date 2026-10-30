@@ -21,9 +21,13 @@ const roles = { leader: 'Líder', teacher: 'Professor', student: 'Aluno' };
 export function EbdClasses({
   actor,
   guildId,
+  onSelect,
+  selectionDisabled = false,
 }: {
   actor: string;
   guildId: string;
+  onSelect?: (id: string | null) => void;
+  selectionDisabled?: boolean;
 }) {
   const [selected, setSelected] = useState<string | null>(null);
   return (
@@ -32,7 +36,11 @@ export function EbdClasses({
       actor={actor}
       guildId={guildId}
       selected={selected}
-      choose={setSelected}
+      selectionDisabled={selectionDisabled}
+      choose={(id) => {
+        setSelected(id);
+        onSelect?.(id);
+      }}
     />
   );
 }
@@ -41,11 +49,13 @@ function ClassesBody({
   guildId,
   selected,
   choose,
+  selectionDisabled = false,
 }: {
   actor: string;
   guildId: string;
   selected: string | null;
   choose: (id: string | null) => void;
+  selectionDisabled?: boolean;
 }) {
   const [data, setData] = useState<ClassesWorkspace>();
   const [people, setPeople] = useState<{ id: string; name: string }[]>([]);
@@ -164,7 +174,7 @@ function ClassesBody({
             <select
               aria-label="Classe ativa"
               value={selected ?? ''}
-              disabled={busy}
+              disabled={busy || selectionDisabled}
               onChange={(e) => choose(e.target.value || null)}
             >
               <option value="">Selecione uma classe</option>

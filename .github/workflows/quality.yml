@@ -133,6 +133,8 @@ jobs:
         run: node tests/hosted/rpg-dev-010b-postgres.mjs
         env:
           RPG_010B_PRODUCTION_PACKAGE: '1'
+      - name: Exigir aulas questionário7 presença e isolamento sem XP
+        run: node tests/hosted/rpg-dev-010b3-postgres.mjs
 
   pinned-preview:
     name: Preview do SHA aprovado
