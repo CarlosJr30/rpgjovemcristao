@@ -2,7 +2,6 @@
 import assert from 'node:assert/strict';
 import { randomUUID } from 'node:crypto';
 import { Client } from 'pg';
-import { readFileSync } from 'node:fs';
 export async function run({
   q,
   as,
@@ -12,6 +11,7 @@ export async function run({
   tid,
   options,
   connections,
+  recoverySQL,
 }) {
   const issue = () =>
     as(1, 'select public.guild_scoped_create_invite($1,$2,$3) x', [
@@ -299,16 +299,7 @@ export async function run({
     async () => {
       await q('BEGIN');
       try {
-        await denied(
-          () =>
-            q(
-              readFileSync(
-                'packages/database/proposals/rpg-dev-010b-legacy-recovery-empty.sql',
-                'utf8',
-              ),
-            ),
-          'P0001',
-        );
+        await denied(() => q(recoverySQL), 'P0001');
       } finally {
         await q('ROLLBACK');
       }

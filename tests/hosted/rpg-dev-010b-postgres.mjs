@@ -12,7 +12,23 @@ const root = path.resolve('build/rpg-dev-010b'),
     process.env.RPG_POSTGRES_BIN ??
       '../rpgjovemcristao-rpg-dev-007/build/rpg-dev-007/postgres-tool/node_modules/@embedded-postgres/windows-x64/native/bin',
   );
-const read = (p) => fs.readFileSync(p, 'utf8').replaceAll('\r\n', '\n');
+const productionPackage = process.env.RPG_010B_PRODUCTION_PACKAGE === '1';
+const mapped = productionPackage
+  ? {
+      'supabase/migrations/20261030105539_rpg_dev_010b_classes_test.sql':
+        'supabase/migrations/20261030212748_rpg_dev_010b_classes_production.sql',
+      'supabase/migrations/20261030110258_rpg_dev_010b_member_invites_test.sql':
+        'supabase/migrations/20261030212801_rpg_dev_010b_member_invites_production.sql',
+      'supabase/migrations/20261030131230_rpg_dev_010b_legacy_invites_test.sql':
+        'supabase/migrations/20261030212807_rpg_dev_010b_legacy_invites_production.sql',
+      'packages/database/proposals/rpg-dev-010b-classes-recovery-empty.sql':
+        'packages/database/proposals/rpg-dev-010b-production-recovery-empty.sql',
+      'packages/database/proposals/rpg-dev-010b-classes-containment.sql':
+        'packages/database/proposals/rpg-dev-010b-production-containment.sql',
+    }
+  : {};
+const read = (p) =>
+  fs.readFileSync(mapped[p] ?? p, 'utf8').replaceAll('\r\n', '\n');
 const migration = read(
   'supabase/migrations/20261030105539_rpg_dev_010b_classes_test.sql',
 );
@@ -206,14 +222,18 @@ try {
         [uid(g), tid(n), n === 1 ? 'leader' : 'member'],
       );
   }
-  const before = await snapshot();
-  await check('reject productive scope before DDL', async () => {
+  if (productionPackage)
     await q(
       "create or replace function public.release_scope() returns text language sql immutable as $$select 'guild-ebd-001'::text$$",
     );
+  const before = await snapshot();
+  await check('reject productive scope before DDL', async () => {
+    await q(
+      `create or replace function public.release_scope() returns text language sql immutable as $$select '${productionPackage ? 'hero-equipment-006' : 'guild-ebd-001'}'::text$$`,
+    );
     await denied(() => tx(migration), 'P0001');
     await q(
-      "create or replace function public.release_scope() returns text language sql immutable as $$select 'hero-equipment-006'::text$$",
+      `create or replace function public.release_scope() returns text language sql immutable as $$select '${productionPackage ? 'guild-ebd-001' : 'hero-equipment-006'}'::text$$`,
     );
   });
   await check(
@@ -237,11 +257,12 @@ try {
           'supabase/migrations/20261030131230_rpg_dev_010b_legacy_invites_test.sql',
         ),
       );
-      await tx(
-        read(
-          'packages/database/proposals/rpg-dev-010b-legacy-recovery-empty.sql',
-        ),
-      );
+      if (!productionPackage)
+        await tx(
+          read(
+            'packages/database/proposals/rpg-dev-010b-legacy-recovery-empty.sql',
+          ),
+        );
       await tx(
         read(
           'packages/database/proposals/rpg-dev-010b-classes-recovery-empty.sql',
@@ -531,7 +552,23 @@ try {
   );
   await (
     await import('./rpg-dev-010b-legacy-cases.mjs')
-  ).run({ q, as, check, denied, uid, tid, options, connections });
+  ).run({
+    q,
+    as,
+    check,
+    denied,
+    uid,
+    tid,
+    options,
+    connections,
+    recoverySQL: productionPackage
+      ? read(
+          'packages/database/proposals/rpg-dev-010b-classes-recovery-empty.sql',
+        )
+      : read(
+          'packages/database/proposals/rpg-dev-010b-legacy-recovery-empty.sql',
+        ),
+  });
   await check('recovery refuses to erase issued classes, grants or audit', () =>
     denied(
       () =>
@@ -609,12 +646,18 @@ try {
     productionProof: false,
     environment: 'PostgreSQL17.10 loopback',
     remoteMigrationExecuted: false,
+    productionPackage,
     total: checks.length,
     pass: true,
     checks,
   };
   fs.writeFileSync(
-    path.join(root, 'postgres-results.json'),
+    path.join(
+      root,
+      productionPackage
+        ? 'postgres-production-results.json'
+        : 'postgres-results.json',
+    ),
     JSON.stringify(result, null, 2),
   );
   console.log(
