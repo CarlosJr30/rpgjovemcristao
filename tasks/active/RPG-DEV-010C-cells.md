@@ -1,6 +1,7 @@
 # RPG-DEV-010C — Células, atividades e desafios
 ID: RPG-DEV-010C
-STATUS: ACTIVE
+STATUS: VALIDATING
+CHECKPOINT_C1_TEST: PR22/runtime90c1d86/CIpush41167646035 ePR41167649219 success;980unit74SKIP/qualidadeRSCprotocolo25/9PG adicionais+2bootstrap. TESTDDL20261031042002/38migrations68tabelas187funções;180rotinas39policies anteriores intactas. Previewi6l93i48fREADY/TEST;6+14+3+3checks reais/duasidentidadesnormais/Unicode250/legado190bytes/replay409/revogação/histórico fechado/WebKitemulado.59hashesestritos+4projetados=63originais iguais;58PROD iguais. PacotePROD043045 próprio/12PGisolados/10preflightreadonlyPASS;semDDLProd/grant. CI do pacote/Previewfinal/releasegates pendentes. QA/Security autor; nãoDONE.
 CHECKPOINT_C1: Histórico privado integral autorizado expressamente pelo proprietário, sem ampliar512bytes legado. 9PG adicionais+2bootstrap PASS,23anteriores arquivados;17unit direcionados/lint/types/build/protocolo25 PASS nos checkpoints. Histórico só responsáveis atuais, append-only/replay/concorrência/revogação; orientação atual própria separada. CI/TEST/Preview/homologação real pendentes; sem PROD/economia. Falha inicial de revisão de delegação na fixture preservada; reexecução adicional PASS. QA/Security/React pelo autor.
 PRIORITY: P1 High
 OBJECTIVE: Preparar encontros, desafios cooperativos, gincanas e eventos conjuntos com validação e escopo explícitos, reutilizando Guildas/missões e sem economia.

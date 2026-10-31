@@ -1,0 +1,186 @@
+{
+  "scope": "RPG-DEV-010C.1",
+  "status": "TEST_HOMOLOGATED_PRODUCTION_PACKAGE_PREPARED_NOT_APPLIED",
+  "candidate": "90c1d86779017b66cbf4bfac1cd35759cd43232b",
+  "pr": "https://github.com/CarlosJr30/rpgjovemcristao/pull/22",
+  "ci": {
+    "push": {
+      "id": 41167646035,
+      "conclusion": "success",
+      "attempt": 1
+    },
+    "pullRequest": {
+      "id": 41167649219,
+      "conclusion": "success",
+      "attempt": 1
+    },
+    "unit": {
+      "passed": 980,
+      "skipped": 74,
+      "filesPassed": 148,
+      "filesSkipped": 7
+    },
+    "lint": "PASS",
+    "types": "PASS",
+    "build": "PASS",
+    "rsc": "PASS",
+    "publicationProtocol": 25,
+    "conditionalPublication": "SKIP, not PASS"
+  },
+  "isolated": {
+    "previousChecks": 23,
+    "additionalHistoryChecks": 9,
+    "sharedBootstrapChecks": 2,
+    "fullSuiteRepeatedLocally": false,
+    "syntheticData": true,
+    "productionProof": false,
+    "source": "RPG-DEV-010C1-LOCAL-EVIDENCE.json"
+  },
+  "migration": {
+    "environment": "Supabase TEST",
+    "remoteVersion": "20261031042002",
+    "name": "rpg_dev_010c1_meetings_test",
+    "localFile": "supabase/migrations/20261031033721_rpg_dev_010c1_meetings_test.sql",
+    "sourceSha256": "ee1a9dbfa7a4c78cd787085c12f0bf0c0981728ec7aed5575b35ead091854e63",
+    "applied": true,
+    "tablesBefore": 63,
+    "tablesAfter": 68,
+    "migrationsBefore": 37,
+    "migrationsAfter": 38,
+    "privateTablesEmptyAfterDDL": true,
+    "allOriginal63DataSetsEqual": true,
+    "allOriginal180FunctionsAndACLsEqual": true,
+    "allOriginal39PoliciesEqual": true,
+    "changedOriginalTables": [
+      "public.guild_missions: nullable community protocol",
+      "public.guild_mission_progress: nullable account/revision columns and unique index"
+    ],
+    "newFunctions": 7,
+    "newPrivateTables": 5,
+    "recovery": "Empty roundtrip and issued containment tested in isolated PostgreSQL; remote compensation not required",
+    "baselineSnapshotSha256": "49a531a1b3f04d9d125448e8148980dfc024fd39930a785ccfcc6c78df79d6a7"
+  },
+  "preview": {
+    "id": "dpl_D8YCUNRAudpKzCDXx78hH9jKTcJM",
+    "url": "https://rpgjovemcristao-i6l93i48f-carlos-junior-s-projects.vercel.app",
+    "state": "READY",
+    "target": "Preview",
+    "backend": "TEST",
+    "sameCandidate": true,
+    "productionEnvironmentChanged": false,
+    "protectionChanged": false
+  },
+  "hosted": {
+    "groups": [
+      {
+        "source": "build/rpg-dev-010c/qa-preflight-results.json",
+        "sha256": "b0d119dbb8d6011ac472bb640f55f8907ff98157eb31e70ffdeda36c5f5c441d",
+        "checks": 6,
+        "pass": true
+      },
+      {
+        "source": "build/rpg-dev-010c/hosted-results.json",
+        "sha256": "7122e6b5616bc2dc72d705c3b51db1bfd06206a4a65df497d0f56de9db1cd940",
+        "checks": 14,
+        "pass": true
+      },
+      {
+        "source": "build/rpg-dev-010c/webkit-history-results.json",
+        "sha256": "7f2c71d79e82bcafb1b3fcd5e05a221ea145b2032ec1149b02a43ead72dcf6f5",
+        "checks": 3,
+        "pass": true
+      },
+      {
+        "source": "build/rpg-dev-010c/activity-history-results.json",
+        "sha256": "3a1dba97a399b16cb915a112547a0bc671b7b95ccbc2a38bebba2c8cdb7c23e2",
+        "checks": 3,
+        "pass": true
+      }
+    ],
+    "distinctUIDs": true,
+    "adminOriginalAvatar": true,
+    "normalLogins": true,
+    "sessionImported": false,
+    "mobile": "WebKit390 viewport emulated; not physical device",
+    "newCommunityRecordsCreated": true,
+    "privateDelegationsRevoked": true,
+    "fullReasonsUnicodeCharacters": 250,
+    "maximumObservedLegacyLogBytes": 190,
+    "xpIssued": 0,
+    "chestsIssued": 0,
+    "selectedMonitors": {
+      "ownProfileIgnoreDuplicates": 10,
+      "reviewedReadRPCs": 55,
+      "authorizedBrowserCommands": 4,
+      "pageErrors": 0,
+      "unexpected": 0,
+      "limit": "Counts only selected browser monitors. Direct API commands and first WebKit read context are documented separately. No zero-POST claim."
+    }
+  },
+  "advisors": [
+    {
+      "name": "rls_enabled_no_policy",
+      "level": "INFO",
+      "count": 44,
+      "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0008_rls_enabled_no_policy"
+    },
+    {
+      "name": "authenticated_security_definer_function_executable",
+      "level": "WARN",
+      "count": 12,
+      "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0029_authenticated_security_definer_function_executable"
+    },
+    {
+      "name": "auth_leaked_password_protection",
+      "level": "WARN",
+      "count": 1,
+      "remediation": "https://supabase.com/docs/guides/auth/password-security#password-strength-and-leaked-password-protection"
+    }
+  ],
+  "production": {
+    "changed": false,
+    "sha": "4ded3c5f7c305d090a27a344cdf69b8fb0b57d04",
+    "deployment": "dpl_4s1wFrncQr8xrod1HTyzRmNxmx7o",
+    "ready": true,
+    "officialAliasConfirmed": true,
+    "autoAssignCustomDomains": true,
+    "ssoPreserved": true,
+    "all58DataSetsEqual": true,
+    "no010CMigration": true,
+    "noEconomicGrant": true
+  },
+  "remaining": [
+    "Exact CI for own production package and final Preview",
+    "Renewed preflight and all productive migration/merge/retained/official gates"
+  ],
+  "provenance": [
+    "Initial new history run stopped on wrong fixture delegation revision; fixture corrected and only additional subset repeated.",
+    "First workflow addition had invalid indentation; corrected before the final SHA. Superseded CI cancellation is not PASS.",
+    "Final one-line UI change reuses existing notice style to wrap long reasons. Exact final SHA has both CIs approved.",
+    "First hosted collector stopped before saving because Description matched two forms; scoped selector to new panel only, with no runtime/assertion/timeout change. Interrupted run retained and not PASS."
+  ],
+  "privacy": "Full reasons restricted to current scoped validators; beneficiary sees own current feedback. No credentials or private devotional content in published evidence. Normal Auth may update session metadata; no zero-POST claim.",
+  "review": "QA/Security/React by author; no independent review claimed.",
+  "preservationAfterHosted": {
+    "strictlyEqualOriginalSets": 59,
+    "expectedChangedSets": [
+      "public.guild_activity_log",
+      "public.guild_missions",
+      "public.guild_mission_progress",
+      "public.guild_mission_attempts"
+    ],
+    "all63OriginalSetsEqualWhenExcludingOnlyNew010CRecords": true,
+    "production58SetsEqual": true,
+    "privateRecordsPreserved": true
+  },
+  "productionPackage": {
+    "file": "supabase/migrations/20261031043045_rpg_dev_010c1_meetings_production.sql",
+    "isolatedChecks": 12,
+    "historyCasesReused": 9,
+    "sharedBootstrap": 2,
+    "ownEnvironmentGuard": 1,
+    "applied": false,
+    "preflightReadonlyChecks": 10,
+    "plan": "RPG-DEV-010C1-PRODUCTION-PLAN.md"
+  }
+}

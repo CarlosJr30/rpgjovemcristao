@@ -8,10 +8,14 @@ import { randomUUID, createHash } from 'node:crypto';
 import { Client } from 'pg';
 
 const communityCases = process.env.RPG_010C1_CASES === '1';
+const communityProductionPackage =
+  process.env.RPG_010C1_PRODUCTION_PACKAGE === '1';
 const lessonCases = process.env.RPG_010B3_CASES === '1' || communityCases;
 const root = path.resolve(
     communityCases
-      ? 'build/rpg-dev-010c'
+      ? communityProductionPackage
+        ? 'build/rpg-dev-010c-production'
+        : 'build/rpg-dev-010c'
       : lessonCases
         ? process.env.RPG_010B3_PRODUCTION_PACKAGE === '1'
           ? 'build/rpg-dev-010b3-production'
@@ -37,6 +41,15 @@ const mapped = productionPackage
         'packages/database/proposals/rpg-dev-010b-production-containment.sql',
     }
   : {};
+if (communityProductionPackage)
+  Object.assign(mapped, {
+    'supabase/migrations/20261031033721_rpg_dev_010c1_meetings_test.sql':
+      'supabase/migrations/20261031043045_rpg_dev_010c1_meetings_production.sql',
+    'packages/database/proposals/rpg-dev-010c1-recovery-empty.sql':
+      'packages/database/proposals/rpg-dev-010c1-production-recovery-empty.sql',
+    'packages/database/proposals/rpg-dev-010c1-containment.sql':
+      'packages/database/proposals/rpg-dev-010c1-production-containment.sql',
+  });
 const read = (p) =>
   fs.readFileSync(mapped[p] ?? p, 'utf8').replaceAll('\r\n', '\n');
 const migration = read(
@@ -300,6 +313,24 @@ try {
           'supabase/migrations/20261030221400_rpg_dev_010b3_lessons_test.sql',
         ),
       );
+      if (communityProductionPackage) {
+        await check(
+          'own 010C1 productive envelope refuses TEST before DDL',
+          () =>
+            denied(
+              () =>
+                tx(
+                  read(
+                    'supabase/migrations/20261031033721_rpg_dev_010c1_meetings_test.sql',
+                  ),
+                ),
+              'P0001',
+            ),
+        );
+        await q(
+          "create or replace function public.release_scope() returns text language sql immutable as $$select 'guild-ebd-001'::text$$",
+        );
+      }
       await (
         await import('./rpg-dev-010c1-cases.mjs')
       ).run({ q, tx, as, check, denied, uid, tid, options, connections, read });

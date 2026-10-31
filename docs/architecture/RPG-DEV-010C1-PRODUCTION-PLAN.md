@@ -1,0 +1,20 @@
+# 010C.1 — pacote produtivo próprio
+
+31/10/2026 — PREPARED; aplicação produtiva depende do CI do pacote, Preview final e preflight renovado. Homologação técnica TEST:6preflight+14fluxo+3WebKit+3atividade/histórico, duas identidades normais distintas. Mobile emulado; não físico. Sem nova homologação de conteúdo bíblico ou economia.
+
+- Arquivo próprio `supabase/migrations/20261031043045_rpg_dev_010c1_meetings_production.sql`, SHA256 `d13f18a0bc5760a195d560cfea9c0e8943d956548702a182ff36ede8191ee05f`. **Não aplicar o arquivo TEST-only033721 em PROD.** Guardas scopeguild-ebd-001, ausência do schema novo, dependência010B.3, oito definições canônicas/ACLs owner-only e antigas escritas fechadas. Comandos/leituras novos têm os mesmos corpos/ACLs homologados em TEST.
+- Uma definição legada de captura difere entre ambientes somente em LF/CRLF, conferido integralmente. O guard produtivo normaliza exclusivamente CRLF para conferir o hash canônico; não substitui nem altera a função. Comparação estrutural antes/depois exige preservar também seu hash remoto bruto `d1e554d37f93637c083ad32f0ac7ca85`, além das outras171funções existentes.
+- Baseline PROD:14migrations/58tabelas/172funções/39policies. Snapshot estrutural privado em build/rpg-dev-010c/baseline-prod.json, SHA256 `c19d52da5492c928bd751b9836ef00f7e587af12285eb240289079ea886afdee`. Renovar imediatamente antes do DDL.58conjuntos de dados sem mudanças; missões/progresso/tentativas existentes vazios. Mudança prevista: cinco tabelas privadas deny-all vazias, sete funções, schema mínimo e três colunas nullable/constraints/índice nas duas tabelas antigas. Expectativa:15migrations/63tabelas/179funções/39policies.
+-12checks PostgreSQL isolados PASS:9de histórico/autorização+2bootstrap compartilhados+1recusa de TEST pelo envelope PROD; os9não são casos novos em relação ao pacote TEST. Positivos são fixtures em loopback, não dados ou provas produtivas.10checks preflight PROD somente leitura PASS:Auth normal/ativo50, quatro permissões administrativas já existentes, RLS própria/alheia, consultas, economia negada e ausência dos endpoints010C antesDDL. Nenhum grant/conta/avatar/atividade criado.
+
+## Recuperação e contenção
+
+Reversão da aplicação: manter/restaurar010B.3 `4ded3c5` / `dpl_4s1wFrncQr8xrod1HTyzRmNxmx7o`. A mudança é aditiva e compatível com essa aplicação. Snapshot guarda definições/ACLs/RLS/policies/defaults/contagens/hashes; não restaurar dados de jogadores para voltar versão.
+
+`packages/database/proposals/rpg-dev-010c1-production-recovery-empty.sql` remove somente os objetos novos quando **nenhum registro010C foi emitido**. Roundtrip isolado restaura o estado anterior. Se houver encontro, declaração, comando, delegação, elegibilidade ou histórico, a recuperação destrutiva recusa execução. Não apagar vínculos/histórico, truncar tabelas ou retirar registros de migrations.
+
+Após emissão, usar `rpg-dev-010c1-production-containment.sql`: scope PROD obrigatório; revoga somente EXECUTE dos dois caminhos de escrita novos, preservando leitura e dados, sem desligar gestão/Guilda/EBD. Motivos integrais têm trigger append-only e ACLs privadas; log legado mantém512bytes. Compensação remota apenas se necessária, rastreável; não executar recuperação produtiva como teste.
+
+## Gates restantes
+
+CI exato do pacote e Preview final com backendTEST/runtime idêntico; revisão de segurança pelo autor; renovar estrutura/dados/Auth/projeto/variáveis/backup. Aplicar só esta migration própria e validar funções/RLS/ACLs/negações/dados. Merge normal após gates, sem integrar PR12/18. Reter domínio em010B.3 enquanto o deployment Git produtivo é construído e conferido; confirmar READY/SHA/backend e CImerge. Publicar o mesmo artefato, restaurar autoAssignCustomDomains ao valor anterior true, preservar SSO/TrustedSources e repetir consultas oficiais/hash/alias. Não criar encontros/atividades/Guildas/avatares ou recompensas PROD para testes; vazio canônico é legítimo. Falha crítica interrompe a sequência e mantém/restaura a aplicação compatível. Não DEPLOY_COMPLETE antes da conferência final.
