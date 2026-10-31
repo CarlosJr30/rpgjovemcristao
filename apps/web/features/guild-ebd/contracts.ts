@@ -235,6 +235,7 @@ export function validateLesson(f: LessonInput, classMode = false) {
   return '';
 }
 export type QuizQuestion = {
+  difficulty?: 'easy' | 'medium' | 'hard';
   id?: string;
   position?: number;
   prompt: string;

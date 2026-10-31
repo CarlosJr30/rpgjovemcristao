@@ -7,12 +7,13 @@ import { execFileSync } from 'node:child_process';
 import { randomUUID, createHash } from 'node:crypto';
 import { Client } from 'pg';
 
-const communityCases = process.env.RPG_010C1_CASES === '1';
+const challengeCases = process.env.RPG_010C2_CASES === '1';
+const communityCases = process.env.RPG_010C1_CASES === '1' || challengeCases;
 const communityProductionPackage =
   process.env.RPG_010C1_PRODUCTION_PACKAGE === '1';
 const lessonCases = process.env.RPG_010B3_CASES === '1' || communityCases;
 const root = path.resolve(
-    communityCases
+    challengeCases ? 'build/rpg-dev-010c2' : communityCases
       ? communityProductionPackage
         ? 'build/rpg-dev-010c-production'
         : 'build/rpg-dev-010c'
@@ -331,9 +332,10 @@ try {
           "create or replace function public.release_scope() returns text language sql immutable as $$select 'guild-ebd-001'::text$$",
         );
       }
-      await (
-        await import('./rpg-dev-010c1-cases.mjs')
-      ).run({ q, tx, as, check, denied, uid, tid, options, connections, read });
+      if (challengeCases) {
+        await tx(read('supabase/migrations/20261031033721_rpg_dev_010c1_meetings_test.sql'));
+        await (await import('./rpg-dev-010c2-cases.mjs')).run({ q, tx, as, check, denied, uid, tid, options, connections, read });
+      } else await (await import('./rpg-dev-010c1-cases.mjs')).run({ q, tx, as, check, denied, uid, tid, options, connections, read });
     } else
       await (
         await import('./rpg-dev-010b3-cases.mjs')
@@ -732,7 +734,7 @@ try {
   );
   console.log(
     JSON.stringify({
-      state: communityCases
+      state: challengeCases ? '010C2_CHALLENGES_ISOLATED_PASS' : communityCases
         ? '010C1_COMMUNITY_ISOLATED_PASS'
         : lessonCases
           ? '010B3_LESSONS_ISOLATED_PASS'

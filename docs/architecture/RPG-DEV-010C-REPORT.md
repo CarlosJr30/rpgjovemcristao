@@ -1,5 +1,17 @@
 # RPG-DEV-010C — Células e atividades
 
+## 010C.2 — validação local, sem publicação
+
+31/10/2026. Branch própria `codex/rpg-dev-010c2-guild-challenges`, baseada na produção010C.1/main9e50614 e fechamento85995a1. Gincanas individuais/cooperativas/equipes por Guilda, quiz7×4 corrigido no servidor, adesão explícita por identidade Auth, lista/equipes congeladas, média com ausentes zero e empates compartilhados. Editor e estilos existentes reutilizados, sem arte/dependência nova.
+
+Decisão humana aplicada: resultado oficial único e imutável; placar encerrado preservado. Aprendizagem somente após encerramento, sem afetar ranking. APIs ocultam gabaritos, explicações, notas e resultados alheios durante a disputa, inclusive para liderança; gabarito de elaboração somente no rascunho autorizado. Sem recompensas.
+
+**28PG isolados PASS** (incluem2checks compartilhados), **17unitários direcionados PASS** (13novos+4EBD), protocolo25PASS. Qualidade final/CI/PreviewTEST e homologação real ainda pendentes. Fixtures técnicas não são conteúdo bíblico nem prova hospedada. Falhas de alias, fixture, pré-condição de fechamentoC1, lint do efeito e codificação documental preservadas/corrigidas, sem alterar Auth/RLS/assertions para passar.
+
+Baseline renovado:68conjuntosTEST/63PROD e estruturas guardadas privadamente. MigrationTEST-only20261031061321 e recuperação/contenção preparadas, **nenhuma aplicada remotamente**. Diferença preexistente de codificação em três rótulos fixos da funçãoC1 hospedada revisada: guard aceita ambos hashes exatos, sem substituir a rotina. Não alegar identidade textual entre essas duas definições.
+
+Produção010C.1/PR12/18/dados anteriores preservados. Ensaios reais Chromium/WebKit320–390 emulados e pacotePROD próprio/gates **PENDING**; não DONE/DEPLOY_COMPLETE010C.2. QA/Security/React pelo autor, sem independência. Os fechamentos abaixo mantêm validade para seus respectivos incrementos.
+
 ## 010C.1 — DONE / DEPLOY_COMPLETE em31/10/2026
 
 **[Encontros e atividades publicados na Guilda](https://rpgjovemcristao-web-inky.vercel.app/journey/guild), sem recompensas.** Criação/agenda/publicação/encerramento/cancelamento por comunidade, participação declarada e validação por líder ou substituto temporário explícito. Motivos integrais ficam em histórico privado append-only; somente responsáveis atuais consultam o histórico completo, e o participante mantém seu resultado/orientação atuais. Replay não duplica auditoria; revisão/corrida409 e revogação na mesma sessão comprovadas. Log legado permanece **512bytes**, maior evento observado190bytes com motivo Unicode250caracteres íntegro. Sem ampliar contrato antigo, converter legado, medir fé ou guardar texto devocional privado.

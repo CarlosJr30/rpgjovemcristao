@@ -195,12 +195,14 @@ export function ClassQuizPanel({
     </section>
   );
 }
-function QuizEditor({
+export function QuizEditor({
   initial,
   busy,
   onSave,
   onClose,
+  perQuestionDifficulty = false,
 }: {
+  perQuestionDifficulty?: boolean;
   initial?: ClassQuiz;
   busy: boolean;
   onSave: (
@@ -217,6 +219,9 @@ function QuizEditor({
             answerKey: q.answerKey ?? 0,
             reference: q.reference,
             feedback: q.feedback ?? '',
+            ...(perQuestionDifficulty
+              ? { difficulty: q.difficulty ?? 'easy' }
+              : {}),
           }))
         : blankQuizQuestions(),
     ),
@@ -234,33 +239,63 @@ function QuizEditor({
       aria-label="Editor de sete perguntas"
       onSubmit={async (e) => {
         e.preventDefault();
-        if (!validateQuiz(questions)) {
+        if (
+          !validateQuiz(questions) ||
+          (perQuestionDifficulty && questions.some((q) => !q.feedback?.trim()))
+        ) {
           setError(
             'Preencha sete perguntas com quatro alternativas distintas e uma resposta correta em cada.',
           );
           return;
         }
         setError('');
-        await onSave(difficulty, questions);
+        await onSave(
+          difficulty,
+          perQuestionDifficulty
+            ? questions.map((q) => ({
+                ...q,
+                difficulty: q.difficulty ?? 'easy',
+              }))
+            : questions,
+        );
       }}
     >
       {error && <p role="alert">{error}</p>}
-      <label>
-        Dificuldade
-        <select
-          value={difficulty}
-          onChange={(e) =>
-            setDifficulty(e.target.value as ClassQuiz['difficulty'])
-          }
-        >
-          <option value="easy">Inicial</option>
-          <option value="medium">Intermediária</option>
-          <option value="hard">Avançada</option>
-        </select>
-      </label>
+      {!perQuestionDifficulty && (
+        <label>
+          Dificuldade
+          <select
+            value={difficulty}
+            onChange={(e) =>
+              setDifficulty(e.target.value as ClassQuiz['difficulty'])
+            }
+          >
+            <option value="easy">Inicial</option>
+            <option value="medium">Intermediária</option>
+            <option value="hard">Avançada</option>
+          </select>
+        </label>
+      )}
       {questions.map((q, index) => (
         <fieldset key={index}>
           <legend>Pergunta {index + 1}</legend>
+          {perQuestionDifficulty && (
+            <label>
+              Dificuldade da pergunta
+              <select
+                value={q.difficulty ?? 'easy'}
+                onChange={(e) =>
+                  update(index, {
+                    difficulty: e.target.value as ClassQuiz['difficulty'],
+                  })
+                }
+              >
+                <option value="easy">Inicial</option>
+                <option value="medium">Intermediária</option>
+                <option value="hard">Avançada</option>
+              </select>
+            </label>
+          )}
           <label>
             Enunciado
             <textarea
@@ -314,6 +349,7 @@ function QuizEditor({
             Feedback educativo
             <textarea
               maxLength={1000}
+              required={perQuestionDifficulty}
               value={q.feedback}
               onChange={(e) => update(index, { feedback: e.target.value })}
             />
