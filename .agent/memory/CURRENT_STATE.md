@@ -1,3 +1,7 @@
+## 2026-10-31 — 010C.1 histórico privado / validação local
+
+Branchcodex/rpg-dev-010c-guild-activities de4ded3c5+a03c1c0; autorização expressa para motivos completos privados, log legado512bytes preservado. 9PG adicionais+2bootstrap PASS/23anteriores arquivados;17unitdirecionados/lint/types/build/protocolo25 nos checkpoints. Cinco tabelas privadas/migrationTEST-only033721 local; sem DDL/deploy010C remoto. Histórico append-only, somente responsáveis atuais, replay/corrida/revogação/zeroeconomia/contenção ensaiados. CI/PreviewTEST/homologação real pendentes; nãoDONE. PROD010B.3/4ded3c5 preservada,PR12/18 independentes/dezworktrees. Fonte:contratoativo010C/relatório010C. C3decisãohumana:Guilda=equipe/média rosterfixo/ausentezero/UIDúnico;C2/C3separados.
+
 ## 2026-10-31 — 010B.3 DONE / DEPLOY_COMPLETE
 
 Preparação010C entregue em documento e backlog próprios, foraPR21, semruntime/SQL/testes/publicação010C. DecisõesD1–D6 sobre responsáveis, equilíbrio, verificador, aceite conjunto, privacidade e conteúdo continuam pendentes. FonteRPG-DEV-010C-PREPARATION.md; nenhuma aprovação de regra/conteúdo inferida.

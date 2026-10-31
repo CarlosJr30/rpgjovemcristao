@@ -1,0 +1,46 @@
+{
+  "scope": "010C.1",
+  "status": "LOCAL_VALIDATED_REMOTE_PENDING",
+  "syntheticData": true,
+  "productionProof": false,
+  "previousChecks": 23,
+  "additionalHistoryChecks": 9,
+  "sharedBootstrapChecks": 2,
+  "sourceArtifacts": [
+    {
+      "file": "build/rpg-dev-010c/postgres-baseline-23-results.json",
+      "sha256": "e7b4f1c1b15ebec4b19245e417d04ecbc4d9ea7ad915b659243e6f85685b5e78",
+      "checks": 23,
+      "allListedChecksPass": true,
+      "complete": true
+    },
+    {
+      "file": "build/rpg-dev-010c/postgres-results.json",
+      "sha256": "cc9f971aa15d536c95bb3e131157770f9d9c715b44c200eb09eaf713d1df5cd4",
+      "checks": 11,
+      "allListedChecksPass": true,
+      "complete": true
+    },
+    {
+      "file": "build/rpg-dev-010c/history-first-progress.json",
+      "sha256": "b31fe58d0f3a25b47166c35be721f90cf453314e9c403999a63c30fc6a8fbdae",
+      "checks": 7,
+      "allListedChecksPass": true,
+      "complete": false
+    }
+  ],
+  "quality": {
+    "directedUnitTests": 17,
+    "lint": "PASS",
+    "typecheck": "PASS",
+    "build": "PASS",
+    "publicationProtocolChecks": 25
+  },
+  "failure": "First history run stopped at an incorrect delegation revision in the fixture; corrected only fixture and reran history subset. Interrupted run is not PASS.",
+  "remote": {
+    "migrationApplied": false,
+    "previewCreated": false,
+    "productionChanged": false
+  },
+  "review": "Author; no independent review claimed."
+}

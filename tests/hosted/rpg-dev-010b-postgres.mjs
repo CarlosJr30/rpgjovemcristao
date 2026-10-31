@@ -7,13 +7,16 @@ import { execFileSync } from 'node:child_process';
 import { randomUUID, createHash } from 'node:crypto';
 import { Client } from 'pg';
 
-const lessonCases = process.env.RPG_010B3_CASES === '1';
+const communityCases = process.env.RPG_010C1_CASES === '1';
+const lessonCases = process.env.RPG_010B3_CASES === '1' || communityCases;
 const root = path.resolve(
-    lessonCases
-      ? process.env.RPG_010B3_PRODUCTION_PACKAGE === '1'
-        ? 'build/rpg-dev-010b3-production'
-        : 'build/rpg-dev-010b3'
-      : 'build/rpg-dev-010b',
+    communityCases
+      ? 'build/rpg-dev-010c'
+      : lessonCases
+        ? process.env.RPG_010B3_PRODUCTION_PACKAGE === '1'
+          ? 'build/rpg-dev-010b3-production'
+          : 'build/rpg-dev-010b3'
+        : 'build/rpg-dev-010b',
   ),
   bin = path.resolve(
     process.env.RPG_POSTGRES_BIN ??
@@ -291,9 +294,19 @@ try {
         'supabase/migrations/20261030131230_rpg_dev_010b_legacy_invites_test.sql',
       ),
     );
-    await (
-      await import('./rpg-dev-010b3-cases.mjs')
-    ).run({ q, tx, as, check, denied, uid, tid, options, connections, read });
+    if (communityCases) {
+      await tx(
+        read(
+          'supabase/migrations/20261030221400_rpg_dev_010b3_lessons_test.sql',
+        ),
+      );
+      await (
+        await import('./rpg-dev-010c1-cases.mjs')
+      ).run({ q, tx, as, check, denied, uid, tid, options, connections, read });
+    } else
+      await (
+        await import('./rpg-dev-010b3-cases.mjs')
+      ).run({ q, tx, as, check, denied, uid, tid, options, connections, read });
   } else {
     await check('migration cannot run twice', () =>
       denied(() => tx(migration), 'P0001'),
@@ -688,9 +701,11 @@ try {
   );
   console.log(
     JSON.stringify({
-      state: lessonCases
-        ? '010B3_LESSONS_ISOLATED_PASS'
-        : '010B_CLASSES_ISOLATED_PASS',
+      state: communityCases
+        ? '010C1_COMMUNITY_ISOLATED_PASS'
+        : lessonCases
+          ? '010B3_LESSONS_ISOLATED_PASS'
+          : '010B_CLASSES_ISOLATED_PASS',
       checks: checks.length,
     }),
   );

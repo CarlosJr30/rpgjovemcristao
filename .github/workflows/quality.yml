@@ -137,6 +137,8 @@ jobs:
         run: node tests/hosted/rpg-dev-010b3-postgres.mjs
       - name: Ensaiar pacote produtivo próprio de aulas e contenção sem perdas
         run: node tests/hosted/rpg-dev-010b3-production-postgres.mjs
+        - name: Exigir histórico privado010C1 autorização concorrência e contenção sem economia
+          run: node tests/hosted/rpg-dev-010c1-postgres.mjs --history-only
 
   pinned-preview:
     name: Preview do SHA aprovado
