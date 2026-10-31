@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useState, type ReactNode } from 'react';
 import { guildMissionRewards, type GuildRewardTier } from '@rpg/game-engine';
 import type { GuildMemberSummary } from '../../lib/supabase/database.types';
 import {
@@ -15,6 +15,8 @@ export function MissionEditor({
   busy,
   onSave,
   onCancel,
+  cellMode = false,
+  children,
 }: {
   initial?: MissionFormData;
   special?: boolean;
@@ -22,6 +24,8 @@ export function MissionEditor({
   busy: boolean;
   onSave: (value: MissionFormData) => Promise<void>;
   onCancel: () => void;
+  cellMode?: boolean;
+  children?: ReactNode;
 }) {
   const [value, setValue] = useState(initial ?? emptyMission(special));
   const [error, setError] = useState('');
@@ -33,11 +37,21 @@ export function MissionEditor({
   return (
     <section className={css.card}>
       <h2>
-        {initial
-          ? 'Editar rascunho'
-          : special
-            ? 'Novo desafio especial'
-            : 'Nova missão'}
+        {cellMode ? (
+          initial ? (
+            'Editar rascunho da comunidade'
+          ) : (
+            'Novo encontro ou atividade'
+          )
+        ) : (
+          <>
+            {initial
+              ? 'Editar rascunho'
+              : special
+                ? 'Novo desafio especial'
+                : 'Nova missão'}
+          </>
+        )}
       </h2>
       <form
         className={css.form}
@@ -128,42 +142,53 @@ export function MissionEditor({
           />
         </label>
         <p className={css.meta}>
-          Peça somente um registro objetivo da atividade. Evite dados pessoais,
-          relatos sensíveis e conteúdos do Diário privado. Esta versão recebe
-          texto, sem anexos.
+          {cellMode ? (
+            'A participação será declarada sem texto pessoal, foto ou localização. Informe critérios objetivos para validação humana.'
+          ) : (
+            <>
+              Peça somente um registro objetivo da atividade. Evite dados
+              pessoais, relatos sensíveis e conteúdos do Diário privado. Esta
+              versão recebe texto, sem anexos.
+            </>
+          )}
         </p>
-        <label>
-          Tipo
-          <select
-            value={value.kind}
-            onChange={(e) =>
-              set('kind', e.target.value as MissionFormData['kind'])
-            }
-          >
-            <option value="mission">Missão</option>
-            <option value="special">Desafio especial</option>
-          </select>
-        </label>
-        <label>
-          Recompensa prevista
-          <select
-            value={value.rewardTier}
-            onChange={(e) =>
-              set('rewardTier', e.target.value as GuildRewardTier)
-            }
-          >
-            {Object.entries(guildMissionRewards).map(([tier, r]) => (
-              <option key={tier} value={tier}>
-                {r.xp} XP · {r.coins} moedas · {r.chestLabel}
-              </option>
-            ))}
-          </select>
-        </label>
-        <p className={css.notice}>
-          {reward.xp} XP · {reward.coins} moedas · {reward.chestLabel}. A
-          concessão ficará pendente após a aprovação até a integração econômica
-          estar disponível.
-        </p>
+        {!cellMode && (
+          <>
+            <label>
+              Tipo
+              <select
+                value={value.kind}
+                onChange={(e) =>
+                  set('kind', e.target.value as MissionFormData['kind'])
+                }
+              >
+                <option value="mission">Missão</option>
+                <option value="special">Desafio especial</option>
+              </select>
+            </label>
+            <label>
+              Recompensa prevista
+              <select
+                value={value.rewardTier}
+                onChange={(e) =>
+                  set('rewardTier', e.target.value as GuildRewardTier)
+                }
+              >
+                {Object.entries(guildMissionRewards).map(([tier, r]) => (
+                  <option key={tier} value={tier}>
+                    {r.xp} XP · {r.coins} moedas · {r.chestLabel}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <p className={css.notice}>
+              {reward.xp} XP · {reward.coins} moedas · {reward.chestLabel}. A
+              concessão ficará pendente após a aprovação até a integração
+              econômica estar disponível.
+            </p>
+          </>
+        )}
+        {children}
         <label>
           Público-alvo
           <select
@@ -216,7 +241,7 @@ export function MissionEditor({
             Salvar rascunho
           </button>
           <button disabled={busy} type="button" onClick={onCancel}>
-            Voltar às missões
+            {cellMode ? 'Cancelar edição' : 'Voltar às missões'}
           </button>
         </div>
       </form>

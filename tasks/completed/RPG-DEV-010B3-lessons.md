@@ -1,6 +1,6 @@
 # RPG-DEV-010B.3 — Aulas, questionários e presença
 ID: RPG-DEV-010B3
-STATUS: VALIDATING
+STATUS: DONE
 PRIORITY: P1 High
 OBJECTIVE: Concluir EBD por classe reutilizando aulas, editores, atividades, respostas, presença e histórico publicados; quiz opcional exatamente7perguntas, correção servidor e elegibilidade50XP sem crédito.
 AUTHORIZATION: Pedido anexado pelo proprietário em30/10/2026, modo acelerado, publicação após gates RELEASE_POLICY. Não reconstruir EBD, não alterar legado automaticamente ou dados PROD para fabricar testes.
@@ -12,3 +12,5 @@ TEST_PLAN: Testes unitários/PG direcionados, lint/types/build/protocolo; CI nor
 DEFINITION_OF_DONE: Todos os gates aplicáveis comprovados, migration/merge/deployment/READY/SHA/backend/alias/consulta final e dados preservados; documentação objetiva atualizada. Falha→REWORK; impedimento externo→BLOCKED, produção preservada.
 
 CHECKPOINT: Runtimef22ed74/PR21draft/CIpush41160300527+PR41160305086success; TESTmigration20261031023710 e Previewpbggbjft2READY.47checks reais essenciais PASS em partes identificadas, duas identidades normais/Chromium/WebKit emulado; 28PG por envelope TEST/PROD isolado, sem serem56casos exclusivos. Pacote produtivo próprio24847/recuperação/contenção preparados;preflightProd10readonlyPASS/ativo50/Admin existente. Preservação e limites no relatório/evidência010B3. NovosCI/Previewfinal e gatesPROD continuam obrigatórios. NãoDONE/DEPLOY_COMPLETE.
+
+CLOSURE: 31/10/2026 PR21merge4ded3c5/candidatocbfb518/CIpush41162142517+PR41162146073+merge41162803090success. TEST47+Previewfinal5PASS/TEST;PROD10preflight7API10retida10oficial6HTTPPASS/ativo50/semcriação. PRODmigration20261031030523(local24847),14migrations58tabelas/54dadosiguais;TEST37/63/54de59projetadosiguais/cincoQAdeltasretidos. Oficialdpl_4s1wFrncQr8xrod1HTyzRmNxmx7oREADY/production/SHA4ded3c5/backendPROD/aliasconfirmado,autoAssigntrue/proteçõespreservadas.972unit74SKIP,28PGporpacote/qualidadeprotocoloRSCaprovados;semfísico/independênciaalegada. QA/SecurityautorPASS/aceitefuncional010B3comprovado;nenhumaeconomia/grant/fabricaçãoPROD/alteraçãoPR12/18. EvidênciaRPG-DEV-010B3-RELEASE-EVIDENCE.json. Registrodocumentalsemdeployextra. Preparação010CsomentedocumentalforaPR21.

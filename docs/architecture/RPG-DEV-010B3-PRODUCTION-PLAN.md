@@ -1,6 +1,6 @@
 # 010B.3 — pacote produtivo próprio
 
-VALIDATING; nenhuma aplicação produtiva deste incremento neste checkpoint. Requer CI do SHA final, Preview TEST no backend correto, revisão de segurança, baseline e sessão normal PROD renovados. Não aplicar arquivo TEST-only em PROD.
+Executado em31/10/2026: pacote próprio aplicado como PROD20261031030523, PR21merge4ded3c5/CI41162803090success, deploymentdpl_4s1wFrncQr8xrod1HTyzRmNxmx7o promovido e conferido na URL oficial, dados preservados. Recuperação/contenção não necessárias remotamente. [Fechamento](RPG-DEV-010B3-RELEASE-EVIDENCE.json). As condições abaixo registram o plano cumprido; não autorizam reaplicar migrations. Nenhum arquivo TEST-only aplicado em PROD.
 
 Arquivo próprio `20261031024847_rpg_dev_010b3_lessons_production.sql`, gerado com CLI2.122.0 após47checks hospedados TEST e28PG isolados. Envelope exige proprietário SQL, auth.uid ausente, scope PROD, definições/ACLs de dependências e constraints/RLS/ACLs anteriores exatas. Os corpos das seis rotinas novas e duas adaptações legadas são os homologados em TEST. Não há bootstrap, concessão administrativa, conversão de aulas ou emissão econômica. A presença registra somente elegibilidade50XP, xp_issued=0 por constraint.
 

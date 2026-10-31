@@ -7,13 +7,20 @@ import { execFileSync } from 'node:child_process';
 import { randomUUID, createHash } from 'node:crypto';
 import { Client } from 'pg';
 
-const lessonCases = process.env.RPG_010B3_CASES === '1';
+const communityCases = process.env.RPG_010C1_CASES === '1';
+const communityProductionPackage =
+  process.env.RPG_010C1_PRODUCTION_PACKAGE === '1';
+const lessonCases = process.env.RPG_010B3_CASES === '1' || communityCases;
 const root = path.resolve(
-    lessonCases
-      ? process.env.RPG_010B3_PRODUCTION_PACKAGE === '1'
-        ? 'build/rpg-dev-010b3-production'
-        : 'build/rpg-dev-010b3'
-      : 'build/rpg-dev-010b',
+    communityCases
+      ? communityProductionPackage
+        ? 'build/rpg-dev-010c-production'
+        : 'build/rpg-dev-010c'
+      : lessonCases
+        ? process.env.RPG_010B3_PRODUCTION_PACKAGE === '1'
+          ? 'build/rpg-dev-010b3-production'
+          : 'build/rpg-dev-010b3'
+        : 'build/rpg-dev-010b',
   ),
   bin = path.resolve(
     process.env.RPG_POSTGRES_BIN ??
@@ -34,6 +41,15 @@ const mapped = productionPackage
         'packages/database/proposals/rpg-dev-010b-production-containment.sql',
     }
   : {};
+if (communityProductionPackage)
+  Object.assign(mapped, {
+    'supabase/migrations/20261031033721_rpg_dev_010c1_meetings_test.sql':
+      'supabase/migrations/20261031043045_rpg_dev_010c1_meetings_production.sql',
+    'packages/database/proposals/rpg-dev-010c1-recovery-empty.sql':
+      'packages/database/proposals/rpg-dev-010c1-production-recovery-empty.sql',
+    'packages/database/proposals/rpg-dev-010c1-containment.sql':
+      'packages/database/proposals/rpg-dev-010c1-production-containment.sql',
+  });
 const read = (p) =>
   fs.readFileSync(mapped[p] ?? p, 'utf8').replaceAll('\r\n', '\n');
 const migration = read(
@@ -291,9 +307,37 @@ try {
         'supabase/migrations/20261030131230_rpg_dev_010b_legacy_invites_test.sql',
       ),
     );
-    await (
-      await import('./rpg-dev-010b3-cases.mjs')
-    ).run({ q, tx, as, check, denied, uid, tid, options, connections, read });
+    if (communityCases) {
+      await tx(
+        read(
+          'supabase/migrations/20261030221400_rpg_dev_010b3_lessons_test.sql',
+        ),
+      );
+      if (communityProductionPackage) {
+        await check(
+          'own 010C1 productive envelope refuses TEST before DDL',
+          () =>
+            denied(
+              () =>
+                tx(
+                  read(
+                    'supabase/migrations/20261031033721_rpg_dev_010c1_meetings_test.sql',
+                  ),
+                ),
+              'P0001',
+            ),
+        );
+        await q(
+          "create or replace function public.release_scope() returns text language sql immutable as $$select 'guild-ebd-001'::text$$",
+        );
+      }
+      await (
+        await import('./rpg-dev-010c1-cases.mjs')
+      ).run({ q, tx, as, check, denied, uid, tid, options, connections, read });
+    } else
+      await (
+        await import('./rpg-dev-010b3-cases.mjs')
+      ).run({ q, tx, as, check, denied, uid, tid, options, connections, read });
   } else {
     await check('migration cannot run twice', () =>
       denied(() => tx(migration), 'P0001'),
@@ -688,9 +732,11 @@ try {
   );
   console.log(
     JSON.stringify({
-      state: lessonCases
-        ? '010B3_LESSONS_ISOLATED_PASS'
-        : '010B_CLASSES_ISOLATED_PASS',
+      state: communityCases
+        ? '010C1_COMMUNITY_ISOLATED_PASS'
+        : lessonCases
+          ? '010B3_LESSONS_ISOLATED_PASS'
+          : '010B_CLASSES_ISOLATED_PASS',
       checks: checks.length,
     }),
   );
