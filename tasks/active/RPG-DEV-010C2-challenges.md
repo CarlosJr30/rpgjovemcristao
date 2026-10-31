@@ -1,6 +1,7 @@
 # RPG-DEV-010C.2 — Gincanas e equipes
 ID: RPG-DEV-010C2
 STATUS: REWORK
+LAYOUT_DIAGNOSIS: e9412a8CI/Preview aprovados,320WebKitainda376FAIL. CSSprobe reversível e descartável mediu376original/grid/flex,320block,376restaurado; semDBmutation/semprovaHomologação. LayoutCSS escopadoaC2 controla pais diretosdosselects emblock,semclipping/aparêncianativa.17unit/lint/types/buildPASS; novoCI/Preview/gate320aindapendentes. MigrationsTEST/PROD nãoalteradas.
 OWNER_DECISION: Proprietário confirmou separação entre tentativa competitiva oficial e aprendizagem somente após encerramento. Nenhuma API revela gabaritos, explicações protegidas ou resultados alheios antes do encerramento; editor autorizado acessa gabarito somente no rascunho. Resultado oficial confirmado e placar encerrado imutáveis, inclusive diante de tentativas educativas posteriores; sem recompensas. Substitui a proposta anterior de retificação do placar encerrado.
 AUTHORIZATION: Pedido completo anexado pelo proprietário31/10/2026 autoriza implementação acelerada e publicação após RELEASE_POLICY; sem economia, eventos entreGuildas010C.3, chat, PR12/18 ou reconstrução.
 BASE: main9e50614 publicada/CI41170033020success; fechamento documental85995a1 incorporado sem runtime extra. Branch própria codex/rpg-dev-010c2-guild-challenges/worktree010c2, anteriores preservados.

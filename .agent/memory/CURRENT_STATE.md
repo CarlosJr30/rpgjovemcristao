@@ -1,5 +1,7 @@
 ## 2026-10-31 — 010C.2 validação local, sem publicação
 
+Reworkatual: e9412a8CI41201441154/41201445893success/Previewp9READY,WebKit320ainda376. CSSprobetransitóriocontextoQA:376original/grid/flex→320block→376restaurado,semDBmutation/semaceite. CSSescopadoC2selectpaisblock/semclipping/aparêncianativapreservada,17unit/lint/types/buildPASS; novoCI/Previewpendentes. Produção9einalterada. Históricoabaixo.
+
 Último:01da19aCIpush41197730107/PR41197733859success,Preview8kbcREADY/TEST;recheckChromium1365/390/320+WebKit390PASS,WebKit320ainda376FAIL. REWORKestrutura label/select separados/ID/minmax,17unit/lint/types/buildPASS,novoCI/Previewpendentes. Componenteisoladoloopback cabe320 antes/depois/nãoreproduzhospedado.5cooperativo/revogaçãoAPInormalPASS/média8/8/revogaçãoJWTválido/restauração normalTEST,semnovoAdmin;delegadorevogado/2convites6auditoriaspreservados.55dadosestritos66projetadosTESTiguais+2governançasdeltasautorizados/identidadesativasrestauradas. Produção010C.1preservada. Históricosabaixo.
 
 Atualização: doisUIDsAuthnormais confirmados/Adminoriginal;14checks hospedados identificados de competição PASS (oficial4/7/learning7/7semrankchange/200409/sigilo),WebKit390pass/320FAILscroll376 comresultado carregado. REWORK: reutilizar classesform/check nos controles,semocultaroverflow;17unit/lint/types/buildPASS,novoCI/Preview/320pendentes. SemSQLnovo/produçãoalterada. Origemda falha identificada no seletor fora do estiloform; diagnóstico anterior semresultado carregado não é aceite. Históricoabaixo.

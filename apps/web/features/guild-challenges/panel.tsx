@@ -7,6 +7,7 @@ import {
 import type { ChallengeAction, ChallengeWorkspace } from './contracts';
 import { ChallengeEditor } from './editor';
 import css from '../guild-missions/panel.module.css';
+import layout from './panel.module.css';
 const labels = {
   draft: 'Rascunho',
   published: 'Publicado',
@@ -134,7 +135,10 @@ export function GuildChallenges({
     setMessage('');
   };
   return (
-    <section className={css.panel} aria-label="Gincanas e desafios em equipe">
+    <section
+      className={`${css.panel} ${layout.controls}`}
+      aria-label="Gincanas e desafios em equipe"
+    >
       <h2>Gincanas e desafios em equipe</h2>
       <p className={css.notice}>
         Exercícios da comunidade, sem recompensas. Uma participação por conta.
@@ -155,10 +159,7 @@ export function GuildChallenges({
         !error && <p role="status">Carregando gincanas…</p>
       ) : (
         <>
-          <div
-            className={css.form}
-            style={{ gridTemplateColumns: 'minmax(0, 1fr)' }}
-          >
+          <div className={css.form}>
             <label htmlFor={selectionId}>Gincana selecionada</label>
             <select
               id={selectionId}
