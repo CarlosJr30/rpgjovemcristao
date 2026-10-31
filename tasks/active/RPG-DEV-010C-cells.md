@@ -1,6 +1,8 @@
 # RPG-DEV-010C — Células, atividades e desafios
 ID: RPG-DEV-010C
-STATUS: VALIDATING
+STATUS: ACTIVE
+CURRENT_INCREMENT: 010C.1 DONE / DEPLOY_COMPLETE; 010C.2 e010C.3 PENDING separados.
+CHECKPOINT_C1_RELEASE: PR22merge9e50614/CI41170033020success;oficialdpl_DnkuCtuuGYgB4cD7bh8NDXVgJtSnREADY/PROD/alias/SHA/autoAssigntrue/proteçõespreservadas;10+8+11+11+6checksprodreadonlyPASS/ativo50/semantigo1. TEST6+14+3+3+5PASS/doisUIDsnormais/mobileemulado. DDLTEST042002/PROD044653própria;63dadosPRODpósDDLiguais/63originaisTESTprojetadosiguais;zeroeconomia/semnovoAdmin.980unit74SKIP/23PGanteriores+9históricoreusados11TEST12PROD. SemblockcríticoC1;positivosTEST/Prodvaziolegítimo. EvidênciaRELEASE/relatório/planofontesatuais;QAautorsemindependência. Histórico de checkpoints abaixo.
 CHECKPOINT_C1_TEST: PR22/runtime90c1d86/CIpush41167646035 ePR41167649219 success;980unit74SKIP/qualidadeRSCprotocolo25/9PG adicionais+2bootstrap. TESTDDL20261031042002/38migrations68tabelas187funções;180rotinas39policies anteriores intactas. Previewi6l93i48fREADY/TEST;6+14+3+3checks reais/duasidentidadesnormais/Unicode250/legado190bytes/replay409/revogação/histórico fechado/WebKitemulado.59hashesestritos+4projetados=63originais iguais;58PROD iguais. PacotePROD043045 próprio/12PGisolados/10preflightreadonlyPASS;semDDLProd/grant. CI do pacote/Previewfinal/releasegates pendentes. QA/Security autor; nãoDONE.
 CHECKPOINT_C1: Histórico privado integral autorizado expressamente pelo proprietário, sem ampliar512bytes legado. 9PG adicionais+2bootstrap PASS,23anteriores arquivados;17unit direcionados/lint/types/build/protocolo25 PASS nos checkpoints. Histórico só responsáveis atuais, append-only/replay/concorrência/revogação; orientação atual própria separada. CI/TEST/Preview/homologação real pendentes; sem PROD/economia. Falha inicial de revisão de delegação na fixture preservada; reexecução adicional PASS. QA/Security/React pelo autor.
 PRIORITY: P1 High

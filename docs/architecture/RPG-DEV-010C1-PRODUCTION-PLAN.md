@@ -1,5 +1,7 @@
 # 010C.1 — pacote produtivo próprio
 
+**EXECUTED / DEPLOY_COMPLETE em31/10/2026.** Migration própria PROD20261031044653 aplicada, merge9e50614 publicado/conferido e dados anteriores preservados. Snapshot renovado antesDDL:2341990fdc8b902f5ff383dbb2a92e7918550f60c4a74b4713c7481e9ebd3da5. [Evidência final](RPG-DEV-010C1-RELEASE-EVIDENCE.json). O plano abaixo foi preparado antes da execução e permanece como histórico/procedimento de recuperação; não reaplicar migrations.
+
 31/10/2026 — PREPARED; aplicação produtiva depende do CI do pacote, Preview final e preflight renovado. Homologação técnica TEST:6preflight+14fluxo+3WebKit+3atividade/histórico, duas identidades normais distintas. Mobile emulado; não físico. Sem nova homologação de conteúdo bíblico ou economia.
 
 - Arquivo próprio `supabase/migrations/20261031043045_rpg_dev_010c1_meetings_production.sql`, SHA256 `d13f18a0bc5760a195d560cfea9c0e8943d956548702a182ff36ede8191ee05f`. **Não aplicar o arquivo TEST-only033721 em PROD.** Guardas scopeguild-ebd-001, ausência do schema novo, dependência010B.3, oito definições canônicas/ACLs owner-only e antigas escritas fechadas. Comandos/leituras novos têm os mesmos corpos/ACLs homologados em TEST.
