@@ -86,9 +86,14 @@ test('official confirmation sends seven choices only; protected explanation and 
   }));
   mocks.command.mockResolvedValue({});
   render(<GuildChallenges actor="actor" guildId="guild" />);
-  fireEvent.change(await screen.findByLabelText('Gincana selecionada'), {
-    target: { value: 'event' },
-  });
+  fireEvent.change(
+    await screen.findByRole('combobox', {
+      name: 'Gincana selecionada',
+    }),
+    {
+      target: { value: 'event' },
+    },
+  );
   const form = await screen.findByRole('form', { name: 'Respostas oficiais' });
   for (const group of within(form).getAllByRole('group'))
     fireEvent.click(within(group).getAllByRole('radio')[0]);
@@ -119,9 +124,14 @@ test('learning uses its own action and preserves the displayed official first re
   }));
   mocks.command.mockResolvedValue({});
   render(<GuildChallenges actor="actor" guildId="guild" />);
-  fireEvent.change(await screen.findByLabelText('Gincana selecionada'), {
-    target: { value: 'event' },
-  });
+  fireEvent.change(
+    await screen.findByRole('combobox', {
+      name: 'Gincana selecionada',
+    }),
+    {
+      target: { value: 'event' },
+    },
+  );
   const form = await screen.findByRole('form', { name: 'Tentativa educativa' });
   for (const group of within(form).getAllByRole('group'))
     fireEvent.click(within(group).getAllByRole('radio')[0]);

@@ -1,5 +1,5 @@
 'use client';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useId, useRef, useState } from 'react';
 import {
   guildChallengeRepository as repository,
   ChallengeRejected,
@@ -26,6 +26,7 @@ export function GuildChallenges({
   actor: string;
   guildId: string;
 }) {
+  const selectionId = useId();
   const [data, setData] = useState<ChallengeWorkspace | null>(null),
     [selected, setSelected] = useState<string | null>(null),
     [offset, setOffset] = useState(0),
@@ -154,9 +155,13 @@ export function GuildChallenges({
         !error && <p role="status">Carregando gincanas…</p>
       ) : (
         <>
-          <label className={css.form}>
-            Gincana selecionada
+          <div
+            className={css.form}
+            style={{ gridTemplateColumns: 'minmax(0, 1fr)' }}
+          >
+            <label htmlFor={selectionId}>Gincana selecionada</label>
             <select
+              id={selectionId}
               disabled={busy}
               value={selected ?? ''}
               onChange={(e) => select(e.target.value || null)}
@@ -171,7 +176,7 @@ export function GuildChallenges({
                 <option value={data.event.id}>{data.event.title}</option>
               )}
             </select>
-          </label>
+          </div>
           <div className={css.actions}>
             <button
               disabled={busy || offset === 0}
@@ -546,7 +551,7 @@ function ChallengeAnswers({
                 : 'Avançada'}
           </legend>
           {q.options.map((v, j) => (
-              <label key={j} className={css.check}>
+            <label key={j} className={css.check}>
               <input
                 type="radio"
                 required
