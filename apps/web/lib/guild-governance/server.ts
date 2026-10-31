@@ -102,6 +102,7 @@ export async function handleGovernance(request: Request): Promise<Response> {
       'scopeStatus',
       'workspace',
       'history',
+      'leaders',
       'command',
       'remember',
       'preview',
@@ -149,7 +150,9 @@ export async function handleGovernance(request: Request): Promise<Response> {
         ? ['action', 'id', 'requestId', 'travelerId']
         : action === 'remember'
           ? ['action', 'token']
-          : action === 'workspace' || action === 'history'
+          : action === 'workspace' ||
+              action === 'history' ||
+              action === 'leaders'
             ? ['action', 'offset']
             : ['action'];
   if (!keys(data, expected)) return fail(400);
@@ -167,7 +170,7 @@ export async function handleGovernance(request: Request): Promise<Response> {
   )
     return fail(400);
   if (
-    (action === 'workspace' || action === 'history') &&
+    (action === 'workspace' || action === 'history' || action === 'leaders') &&
     (!Number.isInteger(data.offset) ||
       (data.offset as number) < 0 ||
       (data.offset as number) > 100000)
@@ -220,29 +223,33 @@ export async function handleGovernance(request: Request): Promise<Response> {
             ? await client.rpc('guild_governance_workspace', {
                 p_offset: data.offset as number,
               })
-            : action === 'history'
-              ? await client.rpc('guild_governance_history', {
+            : action === 'leaders'
+              ? await client.rpc('guild_governance_leaders', {
                   p_offset: data.offset as number,
                 })
-              : action === 'remember' || action === 'preview'
-                ? await client.rpc('guild_leadership_preview', {
-                    p_token: token as string,
+              : action === 'history'
+                ? await client.rpc('guild_governance_history', {
+                    p_offset: data.offset as number,
                   })
-                : await client.rpc('guild_governance_command', {
-                    p_action:
-                      action === 'accept'
-                        ? 'accept_leadership'
-                        : (data.kind as string),
-                    p_id: data.id as string,
-                    p_request: data.requestId as string,
-                    p_data:
-                      action === 'accept'
-                        ? {
-                            token: token as string,
-                            travelerId: data.travelerId as string,
-                          }
-                        : (data.data as Json),
-                  });
+                : action === 'remember' || action === 'preview'
+                  ? await client.rpc('guild_leadership_preview', {
+                      p_token: token as string,
+                    })
+                  : await client.rpc('guild_governance_command', {
+                      p_action:
+                        action === 'accept'
+                          ? 'accept_leadership'
+                          : (data.kind as string),
+                      p_id: data.id as string,
+                      p_request: data.requestId as string,
+                      p_data:
+                        action === 'accept'
+                          ? {
+                              token: token as string,
+                              travelerId: data.travelerId as string,
+                            }
+                          : (data.data as Json),
+                    });
     if (result.error)
       return fail(
         result.error.code === '42501'
