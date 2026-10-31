@@ -12,7 +12,12 @@ export type EbdAction =
   | 'activity'
   | 'submit'
   | 'grade'
-  | 'attendance';
+  | 'attendance'
+  | 'quiz'
+  | 'quiz_remove'
+  | 'quiz_submit';
+// Class authority keeps quizzes separate from legacy single-question activities.
+export type ClassEbdAction = EbdAction | 'quiz' | 'quiz_submit';
 export const ebdRepository = {
   async load(actor: string, offset = 0, guildId?: string): Promise<Workspace> {
     const verify = guildId ? guardGuildContext(actor, guildId) : () => {};

@@ -3,7 +3,7 @@ import { chromium, webkit, expect } from '@playwright/test';
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { startLocalAuthSimulator } from '../fixtures/local-auth-http-server.mjs';
 import { isReleasedPath } from '../../apps/web/lib/release-scope.ts';
-import { navigateReleased, accountAction } from './released-navigation.mjs';
+import { navigateReleased, accountAction, openLegacyLessons } from './released-navigation.mjs';
 
 // Full production application, loopback-only synthetic data. Never hosted users.
 const origin = 'http://127.0.0.1:3199';
@@ -142,6 +142,7 @@ try {
           .getByRole('link', { name: 'EBD', exact: true })
           .tap();
       } else await navigateReleased(page, 'EBD');
+      await openLegacyLessons(page);
       await expect(page.getByLabel('Área da Escola Bíblica')).toBeAttached();
       check('EBD reached through principal menu', true);
       check(

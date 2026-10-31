@@ -68,15 +68,21 @@ export function AttendanceForm({
   records,
   busy,
   command,
+  classMode = false,
+  actor,
 }: {
   lesson: Lesson;
   members: Workspace['members'];
   records: Attendance[];
   busy: boolean;
   command: Command;
+  classMode?: boolean;
+  actor?: string;
 }) {
   const eligible = members.filter(
-    (m) => lesson.audience === 'all' || lesson.target_ids.includes(m.id),
+    (m) =>
+      (!classMode || m.id !== actor) &&
+      (lesson.audience === 'all' || lesson.target_ids.includes(m.id)),
   );
   const selectId = useId();
   const [target, setTarget] = useState(eligible[0]?.id ?? '');
@@ -101,6 +107,7 @@ export function AttendanceForm({
       </select>
       {target && (
         <AttendanceEntry
+          classMode={classMode}
           key={`${target}-${current?.revision ?? 0}`}
           lessonId={lesson.id}
           target={target}
@@ -118,14 +125,18 @@ function AttendanceEntry({
   record,
   busy,
   command,
+  classMode = false,
 }: {
   lessonId: string;
   target: string;
   record?: Attendance;
   busy: boolean;
   command: Command;
+  classMode?: boolean;
 }) {
-  const [status, setStatus] = useState(record?.status ?? 'present');
+  const [status, setStatus] = useState(
+    record?.status ?? (classMode ? 'pending' : 'present'),
+  );
   const [reason, setReason] = useState(record?.reason ?? '');
   return (
     <form
@@ -146,10 +157,16 @@ function AttendanceEntry({
         <select
           aria-label="Registro"
           value={status}
-          onChange={(e) => setStatus(e.target.value as 'present' | 'absent')}
+          onChange={(e) => setStatus(e.target.value as Attendance['status'])}
         >
           <option value="present">Presente</option>
           <option value="absent">Ausente</option>
+          {classMode && (
+            <>
+              <option value="pending">Pendente</option>
+              <option value="justified">Justificada</option>
+            </>
+          )}
         </select>
       </label>
       <label>
@@ -165,6 +182,12 @@ function AttendanceEntry({
         registro anterior para auditoria.
       </p>
       <button disabled={busy}>Registrar presença</button>
+      {classMode && (
+        <p>
+          Somente elegibilidade de50XP por presença legítima. Nenhum XP é
+          emitido nesta etapa.
+        </p>
+      )}
     </form>
   );
 }

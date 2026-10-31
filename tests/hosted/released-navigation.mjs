@@ -46,3 +46,19 @@ export async function accountAction(page, name) {
       .click();
   }
 }
+
+// Legacy lessons remain available by an explicit disclosure, without assigning
+// them to a class or selecting a class implicitly for the visitor.
+export async function openLegacyLessons(page) {
+  await page
+    .getByRole('heading', { name: 'Minhas classes de EBD', exact: true })
+    .waitFor();
+  await page.getByText('Aulas anteriores da Guilda', { exact: true }).click();
+  await page
+    .getByRole('navigation', {
+      name: 'Áreas da Escola Bíblica',
+      exact: true,
+      includeHidden: true,
+    })
+    .waitFor({ state: 'attached' });
+}

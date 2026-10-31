@@ -14,12 +14,14 @@ export function ActivityEditor({
   busy,
   onSave,
   onClose,
+  classMode = false,
 }: {
   lessonId: string;
   activity?: Activity;
   busy: boolean;
   onSave: (v: ActivityInput) => Promise<boolean>;
   onClose: () => void;
+  classMode?: boolean;
 }) {
   const [form, setForm] = useState<ActivityInput>({
     lessonId,
@@ -61,6 +63,8 @@ export function ActivityEditor({
       <p>
         Atividades ficam disponíveis ao publicar a aula. O gabarito permanece
         protegido durante as tentativas.
+        {classMode &&
+          ' Registre somente participação; não solicite reflexão pessoal, fotos, localização ou dados sensíveis. Questionários são preparados separadamente com sete perguntas.'}
       </p>
       {error && <p role="alert">{error}</p>}
       <label>
@@ -86,11 +90,13 @@ export function ActivityEditor({
             }))
           }
         >
-          {Object.entries(kinds).map(([k, v]) => (
-            <option key={k} value={k}>
-              {v}
-            </option>
-          ))}
+          {Object.entries(kinds)
+            .filter(([k]) => !classMode || k !== 'choice')
+            .map(([k, v]) => (
+              <option key={k} value={k}>
+                {v}
+              </option>
+            ))}
         </select>
       </label>
       <label>

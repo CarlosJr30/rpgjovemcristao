@@ -22,6 +22,12 @@ DEFINITION_OF_DONE: Somente incremento integralmente homologado pode ser publica
 
 ## Preparação
 
+## Aceite incremental — 30/10/2026
+
+- **010B.1/010B.2 DONE / DEPLOY_COMPLETE:** PR20/merge4670ac6, CIexato e merge41133708988success, três migrations PROD próprias214647/214654/214701, mesmo Git deploymentdpl_5VYBhCSmSwMJCYPmbregfDe5mWAj READY/production/oficial/backendPROD confirmado. AutoAssigntrue/proteção original. Relatório010B e RELEASE-EVIDENCE são as fontes de aceite e limitações; nenhuma conclusão antecipada do contrato integral.
+- Autor: SELF VALIDATE/QA/Security, sem revisão independente.61unitdirecionados/50PGTEST+50pacotePROD/qualidade/protocolo25PASS; duas identidades TEST, compatibilidade/concorrência/convites/classes/permissões e24regressões essenciais/5Preview final reais;PROD10preflight8API22retida22oficial6HTTP.44PRODidênticos e49rowsets TEST originais preservados excluindo apenas novos QA explícitos;10pedidos intactos, zero recompensas/Adminextra. Falhas e emulação documentadas.
+- **010B.3 permanece PENDING**, sem implementação/liberação de aulas flexíveis, quiz7 ou novos estados de presença. Contrato fica ACTIVE para essa entrega separada. Não iniciar economia010D ou comunicação010E por inferência. PR12/18 preservadas.
+
 30/10 — orientação acelerada posterior: fechar compatibilidade de convites antigos, mantendo pedidos históricos pendentes intactos; testes locais direcionados, CI/gates obrigatórios preservados e publicação incremental. Não antecipar010B.3 como dependência deste incremento. Recuperação/contenção cobre APIs antigas; nunca apagar vínculos/consumos para restaurar versão. Relatório010B registra resultados e pendências reais.
 
 30/10: branch própria criada da main publicada e fechamento documental preservado. Main/CI994fe9d success; PR12draft61b7177 e PR18draftfd6f149 intactas. TEST33migrations/PROD10 reconfirmadas. Sem DDL ou mutações de dados010B neste checkpoint. Ordem dos incrementos será fixada pela auditoria antes de alterações de autoridade.

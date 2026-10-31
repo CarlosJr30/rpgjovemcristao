@@ -22,6 +22,11 @@ import { ActivityEditor } from './activity-editor';
 import { GAMEPLAY_ENABLED } from '../../lib/release-scope';
 import { ActivityCard, type Command } from './participation';
 import { AttendanceForm, TeacherForm } from './administration';
+import {
+  classLessonsRepository,
+  LessonCommandRejected,
+} from '../../lib/ebd-classes/lessons-client';
+import { ClassQuizPanel } from './quiz';
 import css from '../guild-missions/panel.module.css';
 const tabs = [
   ['overview', 'Visão geral'],
@@ -49,15 +54,31 @@ const historyLabels: Record<string, string> = {
 export function EbdPanel({
   traveler,
   guildId,
+  classId,
+  onBusyChange,
 }: {
   traveler: Traveler;
   guildId?: string;
+  classId?: string;
+  onBusyChange?: (busy: boolean) => void;
 }) {
   const [data, setData] = useState<Workspace | null>(null);
   const [error, setError] = useState('');
   const [message, setMessage] = useState('');
   const [busy, setBusy] = useState(false);
+  useEffect(() => {
+    onBusyChange?.(busy);
+    return () => onBusyChange?.(false);
+  }, [busy, onBusyChange]);
   const pending = useRef(false);
+  const mounted = useRef(true);
+  const intent = useRef<{ signature: string; request: string } | null>(null);
+  useEffect(() => {
+    mounted.current = true;
+    return () => {
+      mounted.current = false;
+    };
+  }, []);
   const [reload, setReload] = useState(0);
   const [offset, setOffset] = useState(0);
   const [tab, setTab] = useState<Tab>('overview');
@@ -70,10 +91,12 @@ export function EbdPanel({
   const [selected, setSelected] = useState<string | null>(null);
   const fetchData = useCallback(
     () =>
-      guildId
-        ? repository.load(traveler.id, offset, guildId)
-        : repository.load(traveler.id, offset),
-    [traveler.id, offset, guildId],
+      guildId && classId
+        ? classLessonsRepository.load(traveler.id, guildId, classId, offset)
+        : guildId
+          ? repository.load(traveler.id, offset, guildId)
+          : repository.load(traveler.id, offset),
+    [traveler.id, offset, guildId, classId],
   );
   useEffect(() => {
     let live = true;
@@ -106,7 +129,24 @@ export function EbdPanel({
       setError('');
       setMessage('');
       try {
-        if (guildId)
+        if (guildId && classId) {
+          const signature = JSON.stringify([action, id, revision, payload]);
+          if (intent.current && intent.current.signature !== signature)
+            throw Error(
+              'Uma operação ainda precisa de confirmação. Atualize a consulta e confira o histórico antes de alterar o pedido.',
+            );
+          intent.current ??= { signature, request: crypto.randomUUID() };
+          await classLessonsRepository.command(
+            traveler.id,
+            guildId,
+            classId,
+            action,
+            id,
+            revision,
+            payload,
+            intent.current.request,
+          );
+        } else if (guildId)
           await repository.command(
             traveler.id,
             action,
@@ -117,24 +157,31 @@ export function EbdPanel({
           );
         else
           await repository.command(traveler.id, action, id, revision, payload);
-        setData(await fetchData());
-        setMessage(feedback);
+        const fresh = await fetchData();
+        if (mounted.current) {
+          setData(fresh);
+          setMessage(feedback);
+          intent.current = null;
+        }
         return true;
       } catch (e) {
-        setError(
-          e instanceof EbdConflict
-            ? e.message
-            : e instanceof Error
+        if (e instanceof LessonCommandRejected || e instanceof EbdConflict)
+          intent.current = null;
+        if (mounted.current)
+          setError(
+            e instanceof EbdConflict
               ? e.message
-              : 'Operação indisponível.',
-        );
+              : e instanceof Error
+                ? e.message
+                : 'Operação indisponível.',
+          );
         return false;
       } finally {
         pending.current = false;
-        setBusy(false);
+        if (mounted.current) setBusy(false);
       }
     },
-    [traveler.id, fetchData, guildId],
+    [traveler.id, fetchData, guildId, classId],
   );
   if (!data)
     return (
@@ -164,7 +211,8 @@ export function EbdPanel({
   const teacher = data.teacher;
   const visibleTabs = tabs.filter(
     ([id]) =>
-      teacher || !['create', 'drafts', 'students', 'teachers'].includes(id),
+      (!classId || id !== 'teachers') &&
+      (teacher || !['create', 'drafts', 'students', 'teachers'].includes(id)),
   );
   const lesson = data.lessons.find((l) => l.id === selected);
   const managed = data.lessons.filter((l) => l.canEdit);
@@ -177,12 +225,13 @@ export function EbdPanel({
       .map((a) => (
         <ActivityCard
           key={a.id}
+          classMode={!!classId}
           activity={a}
           answers={data.answers.filter((x) => x.activity_id === a.id)}
           actor={traveler.id}
           manage={l.canEdit}
           published={
-            l.status === 'published' &&
+            (classId ? l.canParticipate === true : l.status === 'published') &&
             (l.audience === 'all' || l.target_ids.includes(traveler.id))
           }
           busy={busy}
@@ -287,13 +336,39 @@ export function EbdPanel({
         </p>
       )}
       {error && (
-        <button disabled={busy} onClick={() => setReload((v) => v + 1)}>
+        <button
+          disabled={busy}
+          onClick={() => {
+            if (!classId) {
+              setReload((v) => v + 1);
+              return;
+            }
+            void fetchData()
+              .then((fresh) => {
+                if (mounted.current) {
+                  setData(fresh);
+                  intent.current = null;
+                  setError('');
+                  setMessage(
+                    'Dados atuais carregados. Confira o histórico antes de iniciar outro pedido; seu editor foi preservado.',
+                  );
+                }
+              })
+              .catch(() => {
+                if (mounted.current)
+                  setError(
+                    'Ainda não foi possível confirmar o estado. Preserve o editor e tente consultar novamente.',
+                  );
+              });
+          }}
+        >
           Recarregar dados (preservar editor)
         </button>
       )}
       {editor && teacher && (
         <LessonEditor
           key={editor.id}
+          classMode={!!classId}
           initial={
             editor.lesson ? fromLesson(editor.lesson) : blankLesson(traveler.id)
           }
@@ -324,6 +399,7 @@ export function EbdPanel({
       {activityEditor && (
         <ActivityEditor
           key={activityEditor.id}
+          classMode={!!classId}
           lessonId={activityEditor.lessonId}
           activity={activityEditor.activity}
           busy={busy}
@@ -443,6 +519,19 @@ export function EbdPanel({
             <button onClick={() => setSelected(null)}>Fechar aula</button>
           </div>
           {renderActivities(lesson)}
+          {classId && (
+            <ClassQuizPanel
+              key={`${lesson.id}:${data.quizzes?.find((q) => q.lessonId === lesson.id)?.revision ?? 0}`}
+              lesson={lesson}
+              quiz={data.quizzes?.find((q) => q.lessonId === lesson.id)}
+              results={
+                data.quizResults?.filter((r) => r.lessonId === lesson.id) ?? []
+              }
+              actor={traveler.id}
+              busy={busy}
+              command={command}
+            />
+          )}
         </article>
       )}
       {tab === 'overview' && (
@@ -551,7 +640,7 @@ export function EbdPanel({
             Registros do responsável. Alunos consultam apenas suas próprias
             presenças.
           </p>
-          {managed
+          {(classId ? data.lessons : managed)
             .filter(
               (l) =>
                 l.canAttend &&
@@ -560,6 +649,8 @@ export function EbdPanel({
             .map((l) => (
               <AttendanceForm
                 key={l.id}
+                classMode={!!classId}
+                actor={traveler.id}
                 lesson={l}
                 members={data.members}
                 records={data.attendance}
@@ -573,8 +664,16 @@ export function EbdPanel({
               {data.lessons.find((l) => l.id === r.lesson_id)?.title} ·{' '}
               {data.members.find((m) => m.id === r.traveler_id)?.name ??
                 'Seu registro'}
-              : {r.status === 'present' ? 'Presente' : 'Ausente'} · v
-              {r.revision}
+              :{' '}
+              {
+                {
+                  pending: 'Pendente',
+                  present: 'Presente',
+                  absent: 'Ausente',
+                  justified: 'Justificada',
+                }[r.status]
+              }{' '}
+              · v{r.revision}
               {r.reason && ` · ${r.reason}`}
             </p>
           ))}
@@ -729,9 +828,13 @@ function PublicationActions({
             : lesson.status === 'scheduled'
               ? ['draft', 'published', 'archived']
               : lesson.status === 'published'
-                ? ['closed']
+                ? lesson.ebd_class_id
+                  ? ['draft', 'closed', 'archived']
+                  : ['closed']
                 : ['closed', 'completed', 'cancelled'].includes(lesson.status)
-                  ? ['archived']
+                  ? lesson.ebd_class_id
+                    ? ['draft', 'archived']
+                    : ['archived']
                   : []) as string[]
         ).map((s) => (
           <button

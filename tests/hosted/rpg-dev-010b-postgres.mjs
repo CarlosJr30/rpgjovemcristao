@@ -7,7 +7,14 @@ import { execFileSync } from 'node:child_process';
 import { randomUUID, createHash } from 'node:crypto';
 import { Client } from 'pg';
 
-const root = path.resolve('build/rpg-dev-010b'),
+const lessonCases = process.env.RPG_010B3_CASES === '1';
+const root = path.resolve(
+    lessonCases
+      ? process.env.RPG_010B3_PRODUCTION_PACKAGE === '1'
+        ? 'build/rpg-dev-010b3-production'
+        : 'build/rpg-dev-010b3'
+      : 'build/rpg-dev-010b',
+  ),
   bin = path.resolve(
     process.env.RPG_POSTGRES_BIN ??
       '../rpgjovemcristao-rpg-dev-007/build/rpg-dev-007/postgres-tool/node_modules/@embedded-postgres/windows-x64/native/bin',
@@ -273,374 +280,393 @@ try {
     },
   );
   await tx(migration);
-  await check('migration cannot run twice', () =>
-    denied(() => tx(migration), 'P0001'),
-  );
-  await check('private tables deny direct reads and writes', async () => {
-    for (const role of ['anon', 'authenticated', 'service_role'])
-      for (const table of [
-        'classes',
-        'members',
-        'teachers',
-        'history',
-        'commands',
-      ]) {
+  if (lessonCases) {
+    await tx(
+      read(
+        'supabase/migrations/20261030110258_rpg_dev_010b_member_invites_test.sql',
+      ),
+    );
+    await tx(
+      read(
+        'supabase/migrations/20261030131230_rpg_dev_010b_legacy_invites_test.sql',
+      ),
+    );
+    await (
+      await import('./rpg-dev-010b3-cases.mjs')
+    ).run({ q, tx, as, check, denied, uid, tid, options, connections, read });
+  } else {
+    await check('migration cannot run twice', () =>
+      denied(() => tx(migration), 'P0001'),
+    );
+    await check('private tables deny direct reads and writes', async () => {
+      for (const role of ['anon', 'authenticated', 'service_role'])
+        for (const table of [
+          'classes',
+          'members',
+          'teachers',
+          'history',
+          'commands',
+        ]) {
+          await denied(
+            () => as(2, `select * from ebd_class_private.${table}`, [], role),
+            '42501',
+          );
+          await denied(
+            () => as(2, `delete from ebd_class_private.${table}`, [], role),
+            '42501',
+          );
+        }
+    });
+    await check('anon and service cannot call class wrappers', async () => {
+      for (const role of ['anon', 'service_role'])
         await denied(
-          () => as(2, `select * from ebd_class_private.${table}`, [], role),
+          () =>
+            as(
+              null,
+              'select public.ebd_classes_workspace($1,$2,null)',
+              [tid(1), uid(100)],
+              role,
+            ),
           '42501',
         );
-        await denied(
-          () => as(2, `delete from ebd_class_private.${table}`, [], role),
-          '42501',
-        );
-      }
-  });
-  await check('anon and service cannot call class wrappers', async () => {
-    for (const role of ['anon', 'service_role'])
-      await denied(
+    });
+    await check('owned active identity required', () =>
+      denied(
         () =>
-          as(
-            null,
-            'select public.ebd_classes_workspace($1,$2,null)',
-            [tid(1), uid(100)],
-            role,
-          ),
+          as(2, 'select public.ebd_classes_workspace($1,$2,null)', [
+            tid(1),
+            uid(100),
+          ]),
         '42501',
-      );
-  });
-  await check('owned active identity required', () =>
-    denied(
-      () =>
-        as(2, 'select public.ebd_classes_workspace($1,$2,null)', [
-          tid(1),
-          uid(100),
-        ]),
-      '42501',
-    ),
-  );
-  const request = randomUUID();
-  await check(
-    'same leader creates two classes in one Guild and another Guild',
-    async () => {
-      for (const [g, c] of [
-        [100, 200],
-        [100, 201],
-        [101, 202],
-      ])
-        await cmd(
-          1,
-          g,
-          c,
-          'save',
-          0,
-          { name: 'Class ' + c, description: 'Synthetic' },
-          c === 200 ? request : randomUUID(),
-        );
-      assert.equal((await workspace(1, 100)).classes.length, 2);
-      assert.equal((await workspace(1, 101)).classes.length, 1);
-    },
-  );
-  await check(
-    'creation replay does not create a duplicate class or history',
-    async () => {
-      const h = (
-        await q('select count(*)::int n from ebd_class_private.history')
-      ).rows[0].n;
-      assert.equal(
-        (
+      ),
+    );
+    const request = randomUUID();
+    await check(
+      'same leader creates two classes in one Guild and another Guild',
+      async () => {
+        for (const [g, c] of [
+          [100, 200],
+          [100, 201],
+          [101, 202],
+        ])
           await cmd(
+            1,
+            g,
+            c,
+            'save',
+            0,
+            { name: 'Class ' + c, description: 'Synthetic' },
+            c === 200 ? request : randomUUID(),
+          );
+        assert.equal((await workspace(1, 100)).classes.length, 2);
+        assert.equal((await workspace(1, 101)).classes.length, 1);
+      },
+    );
+    await check(
+      'creation replay does not create a duplicate class or history',
+      async () => {
+        const h = (
+          await q('select count(*)::int n from ebd_class_private.history')
+        ).rows[0].n;
+        assert.equal(
+          (
+            await cmd(
+              1,
+              100,
+              200,
+              'save',
+              0,
+              { name: 'Class 200', description: 'Synthetic' },
+              request,
+            )
+          ).replayed,
+          true,
+        );
+        assert.equal(
+          (await q('select count(*)::int n from ebd_class_private.history'))
+            .rows[0].n,
+          h,
+        );
+      },
+    );
+    await check('same request different payload rejected', () =>
+      denied(
+        () =>
+          cmd(
             1,
             100,
             200,
             'save',
             0,
-            { name: 'Class 200', description: 'Synthetic' },
+            { name: 'Changed', description: '' },
             request,
-          )
-        ).replayed,
-        true,
-      );
-      assert.equal(
-        (await q('select count(*)::int n from ebd_class_private.history'))
-          .rows[0].n,
-        h,
-      );
-    },
-  );
-  await check('same request different payload rejected', () =>
-    denied(
-      () =>
-        cmd(
-          1,
-          100,
-          200,
-          'save',
-          0,
-          { name: 'Changed', description: '' },
-          request,
-        ),
-      '22023',
-    ),
-  );
-  await check('no leader privilege inferred for ordinary member', () =>
-    denied(
-      () => cmd(2, 100, 203, 'save', 0, { name: 'Denied', description: '' }),
-      '42501',
-    ),
-  );
-  await check('cross Guild class id rejected', () =>
-    denied(() => cmd(1, 101, 200, 'state', 1, { status: 'paused' }), '42501'),
-  );
-  await check('members see no classes before explicit enrollment', async () =>
-    assert.equal((await workspace(2, 100)).classes.length, 0),
-  );
-  await check(
-    'same student joins classes in multiple Guilds without losing links',
-    async () => {
-      for (const [g, c] of [
-        [100, 200],
-        [100, 201],
-        [101, 202],
-      ])
-        await cmd(1, g, c, 'member', 0, { travelerId: tid(2), active: true });
-      assert.equal((await workspace(2, 100)).classes.length, 2);
-      assert.equal((await workspace(2, 101)).classes.length, 1);
-    },
-  );
-  await check(
-    'class teacher grant does not grant legacy Guild teacher or leadership',
-    async () => {
-      await cmd(1, 100, 200, 'teacher', 0, {
-        travelerId: tid(2),
-        active: true,
-        publish: true,
-        attend: true,
-      });
-      assert.equal(
-        (await workspace(2, 100, 200)).classes.find((c) => c.id === uid(200))
-          .role,
-        'teacher',
-      );
-      assert.equal(
-        (await q('select count(*)::int n from public.guild_ebd_teachers'))
-          .rows[0].n,
-        0,
-      );
-      await denied(
-        () =>
-          cmd(2, 100, 200, 'teacher', 0, {
-            travelerId: tid(3),
-            active: true,
-            publish: true,
-            attend: true,
-          }),
-        '42501',
-      );
-    },
-  );
-  await check('teacher roster isolated to assigned class', async () => {
-    assert.equal((await workspace(2, 100, 200)).members.length, 1);
-    assert(
-      (await workspace(2, 100, 201)).members.every((m) => m.id === tid(2)),
-    );
-  });
-  await check(
-    'teacher revocation immediate with same subject and JWT claims',
-    async () => {
-      await cmd(1, 100, 200, 'teacher', 1, {
-        travelerId: tid(2),
-        active: false,
-        publish: false,
-        attend: false,
-      });
-      assert(
-        (await workspace(2, 100, 200)).members.every((m) => m.id === tid(2)),
-      );
-      assert.equal(
-        (await workspace(2, 100, 200)).classes.find((c) => c.id === uid(200))
-          .role,
-        'student',
-      );
-    },
-  );
-  await check(
-    'student leaves only selected class, history and other classes preserved',
-    async () => {
-      await cmd(2, 100, 200, 'leave', 1, {});
-      await denied(() => workspace(2, 100, 200), '42501');
-      assert.equal((await workspace(2, 100)).classes.length, 1);
-      assert.equal((await workspace(2, 101)).classes.length, 1);
-    },
-  );
-  await check(
-    'removed member loses class access without changing another Guild',
-    async () => {
-      await cmd(1, 100, 201, 'member', 1, {
-        travelerId: tid(2),
-        active: false,
-      });
-      await denied(() => workspace(2, 100, 201), '42501');
-      assert.equal((await workspace(2, 101)).classes.length, 1);
-    },
-  );
-  await check(
-    'simultaneous edits produce one success and one PT409, no retry code40001',
-    async () => {
-      const a = new Client(options),
-        b = new Client(options);
-      await a.connect();
-      await b.connect();
-      connections.push(a, b);
-      const results = await Promise.allSettled([
-        cmd(1, 100, 200, 'state', 1, { status: 'paused' }, randomUUID(), a),
-        cmd(1, 100, 200, 'state', 1, { status: 'archived' }, randomUUID(), b),
-      ]);
-      assert.equal(results.filter((x) => x.status === 'fulfilled').length, 1);
-      assert.deepEqual(
-        results
-          .filter((x) => x.status === 'rejected')
-          .map((x) => x.reason.code),
-        ['PT409'],
-      );
-    },
-  );
-  await check(
-    'Guild removal revokes only its class memberships and teacher grants permanently',
-    async () => {
-      await cmd(1, 101, 202, 'teacher', 0, {
-        travelerId: tid(2),
-        active: true,
-        publish: true,
-        attend: true,
-      });
-      await as(1, 'select public.guild_scoped_command($1,$2,$3,$4,$5,$6)', [
-        tid(1),
-        uid(101),
-        'remove',
-        tid(2),
-        randomUUID(),
-        {},
-      ]);
-      assert.equal(
-        (
-          await q(
-            'select active from ebd_class_private.teachers where class_id=$1 and traveler_id=$2',
-            [uid(202), tid(2)],
-          )
-        ).rows[0].active,
-        false,
-      );
-      await q(
-        "update public.guild_members set status='active' where guild_id=$1 and traveler_id=$2",
-        [uid(101), tid(2)],
-      );
-      assert.equal((await workspace(2, 101)).classes.length, 0);
-    },
-  );
-  await tx(
-    read(
-      'supabase/migrations/20261030110258_rpg_dev_010b_member_invites_test.sql',
-    ),
-  );
-  await (
-    await import('./rpg-dev-010b-invites-cases.mjs')
-  ).run({ q, as, cmd, check, denied, uid, tid, options, connections });
-  await tx(
-    read(
-      'supabase/migrations/20261030131230_rpg_dev_010b_legacy_invites_test.sql',
-    ),
-  );
-  await (
-    await import('./rpg-dev-010b-legacy-cases.mjs')
-  ).run({
-    q,
-    as,
-    check,
-    denied,
-    uid,
-    tid,
-    options,
-    connections,
-    recoverySQL: productionPackage
-      ? read(
-          'packages/database/proposals/rpg-dev-010b-classes-recovery-empty.sql',
-        )
-      : read(
-          'packages/database/proposals/rpg-dev-010b-legacy-recovery-empty.sql',
-        ),
-  });
-  await check('recovery refuses to erase issued classes, grants or audit', () =>
-    denied(
-      () =>
-        tx(
-          read(
-            'packages/database/proposals/rpg-dev-010b-classes-recovery-empty.sql',
           ),
-        ),
-      'P0001',
-    ),
-  );
-  await check(
-    'containment preserves reads and state but denies class writes',
-    async () => {
-      const count = (
-        await q('select count(*)::int n from ebd_class_private.history')
-      ).rows[0].n;
-      await tx(
-        read(
-          'packages/database/proposals/rpg-dev-010b-classes-containment.sql',
-        ),
-      );
-      await denied(
-        () => cmd(1, 100, 204, 'save', 0, { name: 'Denied', description: '' }),
+        '22023',
+      ),
+    );
+    await check('no leader privilege inferred for ordinary member', () =>
+      denied(
+        () => cmd(2, 100, 203, 'save', 0, { name: 'Denied', description: '' }),
         '42501',
+      ),
+    );
+    await check('cross Guild class id rejected', () =>
+      denied(() => cmd(1, 101, 200, 'state', 1, { status: 'paused' }), '42501'),
+    );
+    await check('members see no classes before explicit enrollment', async () =>
+      assert.equal((await workspace(2, 100)).classes.length, 0),
+    );
+    await check(
+      'same student joins classes in multiple Guilds without losing links',
+      async () => {
+        for (const [g, c] of [
+          [100, 200],
+          [100, 201],
+          [101, 202],
+        ])
+          await cmd(1, g, c, 'member', 0, { travelerId: tid(2), active: true });
+        assert.equal((await workspace(2, 100)).classes.length, 2);
+        assert.equal((await workspace(2, 101)).classes.length, 1);
+      },
+    );
+    await check(
+      'class teacher grant does not grant legacy Guild teacher or leadership',
+      async () => {
+        await cmd(1, 100, 200, 'teacher', 0, {
+          travelerId: tid(2),
+          active: true,
+          publish: true,
+          attend: true,
+        });
+        assert.equal(
+          (await workspace(2, 100, 200)).classes.find((c) => c.id === uid(200))
+            .role,
+          'teacher',
+        );
+        assert.equal(
+          (await q('select count(*)::int n from public.guild_ebd_teachers'))
+            .rows[0].n,
+          0,
+        );
+        await denied(
+          () =>
+            cmd(2, 100, 200, 'teacher', 0, {
+              travelerId: tid(3),
+              active: true,
+              publish: true,
+              attend: true,
+            }),
+          '42501',
+        );
+      },
+    );
+    await check('teacher roster isolated to assigned class', async () => {
+      assert.equal((await workspace(2, 100, 200)).members.length, 1);
+      assert(
+        (await workspace(2, 100, 201)).members.every((m) => m.id === tid(2)),
       );
-      assert.equal((await workspace(1, 100)).classes.length, 2);
-      assert.equal(
-        (await q('select count(*)::int n from ebd_class_private.history'))
-          .rows[0].n,
-        count,
-      );
-    },
-  );
-  await check(
-    'all preexisting game data unchanged; no XP or economic execution',
-    async () => {
-      assert.deepEqual(await snapshot(), before);
-      assert.equal(
-        (
-          await q(
-            "select has_function_privilege('authenticated','public.economy_authority(uuid,uuid,text,jsonb)','EXECUTE') allowed",
+    });
+    await check(
+      'teacher revocation immediate with same subject and JWT claims',
+      async () => {
+        await cmd(1, 100, 200, 'teacher', 1, {
+          travelerId: tid(2),
+          active: false,
+          publish: false,
+          attend: false,
+        });
+        assert(
+          (await workspace(2, 100, 200)).members.every((m) => m.id === tid(2)),
+        );
+        assert.equal(
+          (await workspace(2, 100, 200)).classes.find((c) => c.id === uid(200))
+            .role,
+          'student',
+        );
+      },
+    );
+    await check(
+      'student leaves only selected class, history and other classes preserved',
+      async () => {
+        await cmd(2, 100, 200, 'leave', 1, {});
+        await denied(() => workspace(2, 100, 200), '42501');
+        assert.equal((await workspace(2, 100)).classes.length, 1);
+        assert.equal((await workspace(2, 101)).classes.length, 1);
+      },
+    );
+    await check(
+      'removed member loses class access without changing another Guild',
+      async () => {
+        await cmd(1, 100, 201, 'member', 1, {
+          travelerId: tid(2),
+          active: false,
+        });
+        await denied(() => workspace(2, 100, 201), '42501');
+        assert.equal((await workspace(2, 101)).classes.length, 1);
+      },
+    );
+    await check(
+      'simultaneous edits produce one success and one PT409, no retry code40001',
+      async () => {
+        const a = new Client(options),
+          b = new Client(options);
+        await a.connect();
+        await b.connect();
+        connections.push(a, b);
+        const results = await Promise.allSettled([
+          cmd(1, 100, 200, 'state', 1, { status: 'paused' }, randomUUID(), a),
+          cmd(1, 100, 200, 'state', 1, { status: 'archived' }, randomUUID(), b),
+        ]);
+        assert.equal(results.filter((x) => x.status === 'fulfilled').length, 1);
+        assert.deepEqual(
+          results
+            .filter((x) => x.status === 'rejected')
+            .map((x) => x.reason.code),
+          ['PT409'],
+        );
+      },
+    );
+    await check(
+      'Guild removal revokes only its class memberships and teacher grants permanently',
+      async () => {
+        await cmd(1, 101, 202, 'teacher', 0, {
+          travelerId: tid(2),
+          active: true,
+          publish: true,
+          attend: true,
+        });
+        await as(1, 'select public.guild_scoped_command($1,$2,$3,$4,$5,$6)', [
+          tid(1),
+          uid(101),
+          'remove',
+          tid(2),
+          randomUUID(),
+          {},
+        ]);
+        assert.equal(
+          (
+            await q(
+              'select active from ebd_class_private.teachers where class_id=$1 and traveler_id=$2',
+              [uid(202), tid(2)],
+            )
+          ).rows[0].active,
+          false,
+        );
+        await q(
+          "update public.guild_members set status='active' where guild_id=$1 and traveler_id=$2",
+          [uid(101), tid(2)],
+        );
+        assert.equal((await workspace(2, 101)).classes.length, 0);
+      },
+    );
+    await tx(
+      read(
+        'supabase/migrations/20261030110258_rpg_dev_010b_member_invites_test.sql',
+      ),
+    );
+    await (
+      await import('./rpg-dev-010b-invites-cases.mjs')
+    ).run({ q, as, cmd, check, denied, uid, tid, options, connections });
+    await tx(
+      read(
+        'supabase/migrations/20261030131230_rpg_dev_010b_legacy_invites_test.sql',
+      ),
+    );
+    await (
+      await import('./rpg-dev-010b-legacy-cases.mjs')
+    ).run({
+      q,
+      as,
+      check,
+      denied,
+      uid,
+      tid,
+      options,
+      connections,
+      recoverySQL: productionPackage
+        ? read(
+            'packages/database/proposals/rpg-dev-010b-classes-recovery-empty.sql',
           )
-        ).rows[0].allowed,
-        false,
-      );
-    },
-  );
-  await check(
-    'reviewed legacy EBD and invitation definitions and ACLs are unchanged',
-    async () => {
-      const baseline = JSON.parse(
-        read('tests/fixtures/rpg-dev-010b-baseline.json'),
-      );
-      for (const f of baseline.functions) {
-        const actual = (
-          await q(
-            'select md5(pg_get_functiondef($1::regprocedure)) hash,to_jsonb(proacl) acl from pg_proc where oid=$1::regprocedure',
-            [f.signature],
+        : read(
+            'packages/database/proposals/rpg-dev-010b-legacy-recovery-empty.sql',
+          ),
+    });
+    await check(
+      'recovery refuses to erase issued classes, grants or audit',
+      () =>
+        denied(
+          () =>
+            tx(
+              read(
+                'packages/database/proposals/rpg-dev-010b-classes-recovery-empty.sql',
+              ),
+            ),
+          'P0001',
+        ),
+    );
+    await check(
+      'containment preserves reads and state but denies class writes',
+      async () => {
+        const count = (
+          await q('select count(*)::int n from ebd_class_private.history')
+        ).rows[0].n;
+        await tx(
+          read(
+            'packages/database/proposals/rpg-dev-010b-classes-containment.sql',
+          ),
+        );
+        await denied(
+          () =>
+            cmd(1, 100, 204, 'save', 0, { name: 'Denied', description: '' }),
+          '42501',
+        );
+        assert.equal((await workspace(1, 100)).classes.length, 2);
+        assert.equal(
+          (await q('select count(*)::int n from ebd_class_private.history'))
+            .rows[0].n,
+          count,
+        );
+      },
+    );
+    await check(
+      'all preexisting game data unchanged; no XP or economic execution',
+      async () => {
+        assert.deepEqual(await snapshot(), before);
+        assert.equal(
+          (
+            await q(
+              "select has_function_privilege('authenticated','public.economy_authority(uuid,uuid,text,jsonb)','EXECUTE') allowed",
+            )
+          ).rows[0].allowed,
+          false,
+        );
+      },
+    );
+    await check(
+      'reviewed legacy EBD and invitation definitions and ACLs are unchanged',
+      async () => {
+        const baseline = JSON.parse(
+          read('tests/fixtures/rpg-dev-010b-baseline.json'),
+        );
+        for (const f of baseline.functions) {
+          const actual = (
+            await q(
+              'select md5(pg_get_functiondef($1::regprocedure)) hash,to_jsonb(proacl) acl from pg_proc where oid=$1::regprocedure',
+              [f.signature],
+            )
+          ).rows[0];
+          if (
+            ![
+              'guild_invite_private.request_invite(text,uuid)',
+              'guild_invite_private.revoke_invite(uuid,uuid,uuid)',
+            ].includes(f.signature)
           )
-        ).rows[0];
-        if (
-          ![
-            'guild_invite_private.request_invite(text,uuid)',
-            'guild_invite_private.revoke_invite(uuid,uuid,uuid)',
-          ].includes(f.signature)
-        )
-          assert.equal(actual.hash, f.hash, f.signature);
-        assert.deepEqual(actual.acl, f.acl, f.signature);
-      }
-    },
-  );
+            assert.equal(actual.hash, f.hash, f.signature);
+          assert.deepEqual(actual.acl, f.acl, f.signature);
+        }
+      },
+    );
+  }
   const result = {
     syntheticData: true,
     productionProof: false,
@@ -662,7 +688,9 @@ try {
   );
   console.log(
     JSON.stringify({
-      state: '010B_CLASSES_ISOLATED_PASS',
+      state: lessonCases
+        ? '010B3_LESSONS_ISOLATED_PASS'
+        : '010B_CLASSES_ISOLATED_PASS',
       checks: checks.length,
     }),
   );

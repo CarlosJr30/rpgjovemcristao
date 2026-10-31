@@ -1,6 +1,6 @@
 # 010B.1/010B.2 — Plano produtivo incremental
 
-Estado: pacote preparado, **não aplicado nem aprovado para promoção**. Produção anterior:010A/994fe9d/dpl_BdKmqu1JYDH845BKoGH1qXiQTsTe. PR12/18 independentes. Aulas/quiz/presença010B.3 não fazem parte deste incremento.
+Estado: **pacote aplicado e promoção concluída em30/10/2026**, após gates descritos abaixo. Migrations PROD214647/214654/214701; PR20/merge4670ac6, deploymentdpl_5VYBhCSmSwMJCYPmbregfDe5mWAjREADY/production/oficial,22checks retidos+22oficiais+6HTTP aprovados,44dados preservados. [Fechamento e evidências](RPG-DEV-010B-REPORT.md). Produção anterior para reversão:010A/994fe9d/dpl_BdKmqu1JYDH845BKoGH1qXiQTsTe. PR12/18 independentes. Aulas/quiz/presença010B.3 não fazem parte deste incremento. O procedimento abaixo registra a ordem cumprida e a recuperação disponível, sem autorizar reaplicação de migrations.
 
 ## Gates e ordem
 

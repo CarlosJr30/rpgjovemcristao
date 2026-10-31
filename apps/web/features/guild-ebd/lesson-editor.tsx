@@ -11,12 +11,14 @@ export function LessonEditor({
   busy,
   onSave,
   onClose,
+  classMode = false,
 }: {
   initial: LessonInput;
   workspace: Workspace;
   busy: boolean;
   onSave: (v: LessonInput) => Promise<boolean>;
   onClose: () => void;
+  classMode?: boolean;
 }) {
   const [form, setForm] = useState(initial);
   const [error, setError] = useState('');
@@ -41,7 +43,7 @@ export function LessonEditor({
       aria-label="Editor de aula"
       onSubmit={async (e) => {
         e.preventDefault();
-        const message = validateLesson(form);
+        const message = validateLesson(form, classMode);
         setError(message);
         if (!message)
           await onSave(GAMEPLAY_ENABLED ? form : { ...form, rewardTier: '' });
@@ -68,10 +70,10 @@ export function LessonEditor({
         />
       </label>
       <label>
-        Tema
+        Tema {classMode ? '(opcional)' : ''}
         <input
-          required
-          minLength={2}
+          required={!classMode}
+          minLength={classMode ? undefined : 2}
           maxLength={100}
           value={form.theme}
           onChange={(e) => update('theme', e.target.value)}
@@ -117,19 +119,20 @@ export function LessonEditor({
           disabled={!workspace.leader}
           onChange={(e) => update('teacherId', e.target.value)}
         >
-          {workspace.members
-            .filter(
-              (m) =>
-                m.leader ||
-                workspace.teachers.some(
-                  (t) => t.traveler_id === m.id && t.active,
-                ),
-            )
-            .map((m) => (
-              <option key={m.id} value={m.id}>
-                {m.name}
-              </option>
-            ))}
+          {(classMode
+            ? (workspace.teacherCandidates ?? [])
+            : workspace.members.filter(
+                (m) =>
+                  m.leader ||
+                  workspace.teachers.some(
+                    (t) => t.traveler_id === m.id && t.active,
+                  ),
+              )
+          ).map((m) => (
+            <option key={m.id} value={m.id}>
+              {m.name}
+            </option>
+          ))}
         </select>
       </label>
       <label>
