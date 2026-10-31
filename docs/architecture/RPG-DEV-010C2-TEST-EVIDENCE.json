@@ -1,6 +1,6 @@
 {
   "scope": "RPG-DEV-010C.2",
-  "status": "VALIDATING",
+  "status": "REWORK_MOBILE_320",
   "releaseComplete": false,
   "candidate": "4a48b6952fd3f386314f622a8679611bc7b4a29e",
   "pullRequest": "https://github.com/CarlosJr30/rpgjovemcristao/pull/23",
@@ -40,7 +40,7 @@
     "frozenBalancedRosterAbsentPlayersZero": true,
     "serverGradingOnly": true,
     "economicRewardsEnabled": false,
-    "proofLevel": "isolated PostgreSQL and directed client tests; hosted positive proof pending"
+    "proofLevel": "isolated PostgreSQL, directed client tests and the 14 identified hosted competitive checks; complete acceptance pending"
   },
   "testMigration": {
     "version": "20261031111753",
@@ -74,9 +74,16 @@
     "normalQaAuthConfirmed": true,
     "sessionImported": false,
     "qaReadAndDenialPreflightChecksPassed": 9,
-    "adminNormalLoginOnNewOrigin": "PENDING",
-    "twoIdentityPositiveChallengeFlow": "PENDING",
-    "chromiumAndWebkitEssentialRegression": "PENDING",
+    "adminNormalLoginOnNewOrigin": "CONFIRMED",
+    "twoDistinctNormalAuthIdentities": true,
+    "twoIdentityPositiveChallengeFlow": "14 identified checks PASS; interrupted run is not a complete PASS",
+    "chromiumAndWebkitEssentialRegression": "WebKit390 PASS; WebKit320 FAIL after result loaded; targeted rework pending",
+    "officialGrade": 4,
+    "officialGradeMaximum": 7,
+    "educationalGrade": 7,
+    "officialGradeAndRankingPreservedAfterLearning": true,
+    "mobile320ObservedScrollWidth": 376,
+    "mobile320ExpectedViewportWidth": 320,
     "mobileLimit": "Any future 320/390 viewport or touch tests are emulated; no physical-device proof"
   },
   "production": {
@@ -93,8 +100,8 @@
     "adminPrivilegeGranted": false
   },
   "limitations": [
-    "No complete hosted challenge run or production release claimed.",
-    "Normal Admin authentication is still required in the newly opened TEST Preview origin; sessions will not be copied.",
+    "No complete hosted acceptance or production release claimed. WebKit320 layout is in REWORK.",
+    "Both identities authenticated normally in the TEST Preview; sessions were not copied.",
     "The preexisting hosted C1 command differs from the local fixture only in three encoded fixed participation labels. Both exact reviewed hashes are guarded; no legacy routine replaced.",
     "Prior failed fixture, alias, lifecycle precondition, effect-lint and documentary encoding attempts are retained separately; failed attempts are not PASS.",
     "Legacy advisors preserved; TEST deny-all INFO rises from 44 to 51 for seven intentionally closed private tables. Twelve public-definer warnings and leaked-password warning remain unchanged.",

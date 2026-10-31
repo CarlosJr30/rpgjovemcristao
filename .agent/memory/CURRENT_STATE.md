@@ -1,5 +1,7 @@
 ## 2026-10-31 — 010C.2 validação local, sem publicação
 
+Atualização: doisUIDsAuthnormais confirmados/Adminoriginal;14checks hospedados identificados de competição PASS (oficial4/7/learning7/7semrankchange/200409/sigilo),WebKit390pass/320FAILscroll376 comresultado carregado. REWORK: reutilizar classesform/check nos controles,semocultaroverflow;17unit/lint/types/buildPASS,novoCI/Preview/320pendentes. SemSQLnovo/produçãoalterada. Origemda falha identificada no seletor fora do estiloform; diagnóstico anterior semresultado carregado não é aceite. Históricoabaixo.
+
 Checkpoint remoto: PR23draft/4a48b69,CIpush41195741645/PR41195759088success/993PASS74SKIP/qualidadePGRSCprotocolo25. TESTDDL111753(local061321),39migrations75tabelas199funções;68dados anteriores/187rotinasACLs/39policies/defaults iguais,12novas/7privadasvazias/triggerencontro. Previewjlrs49b1vREADY/4a/TEST,QAloginnormal/Adminnovoorigempreparado,semcopiarsessão. PositivosTEST/móvel/pacotePRODpendentes. PROD010C.1inalterada. NãoDONE. Registroabaixoépreparaçãoanterior.
 
 QA preflight real9PASS/Authnormal/RLS/anon/IDOR/autoria negada/semAdmininferido/EBDleitura;68TEST/63PROD iguais depois. Último status confirma ADMIN_NORMAL_LOGIN_REQUIRED na nova Preview, QA válida; pergunta de login pendente. Sem sessões copiadas, sem concessões/DDL/deployPROD. Relatório/evidência parcial010C2 atualizados; aguardar login humano para os positivos. Somente documentação neste checkpoint, sem rebuild artificial.

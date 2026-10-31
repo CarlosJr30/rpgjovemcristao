@@ -154,7 +154,7 @@ export function GuildChallenges({
         !error && <p role="status">Carregando gincanas…</p>
       ) : (
         <>
-          <label>
+          <label className={css.form}>
             Gincana selecionada
             <select
               disabled={busy}
@@ -304,7 +304,7 @@ function ChallengeDetails({
           )}
           {e.status === 'published' && (
             <>
-              <label>
+              <label className={css.form}>
                 Convidar membro
                 <select
                   value={invite}
@@ -348,7 +348,7 @@ function ChallengeDetails({
           )}
           {['draft', 'published', 'running'].includes(e.status) && (
             <>
-              <label>
+              <label className={css.form}>
                 Motivo objetivo do cancelamento
                 <input
                   maxLength={300}
@@ -400,7 +400,7 @@ function ChallengeDetails({
             e.status === 'published' &&
             e.mode !== 'individual' &&
             r.status === 'accepted' ? (
-              <label>
+              <label className={css.form}>
                 Equipe de {r.alias}
                 <select
                   disabled={busy}
@@ -546,7 +546,7 @@ function ChallengeAnswers({
                 : 'Avançada'}
           </legend>
           {q.options.map((v, j) => (
-            <label key={j}>
+              <label key={j} className={css.check}>
               <input
                 type="radio"
                 required

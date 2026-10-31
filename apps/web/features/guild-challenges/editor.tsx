@@ -150,7 +150,7 @@ export function ChallengeEditor({
             <p>Nenhuma atividade publicada disponível.</p>
           )}
           {data.manualActivities.map((m) => (
-            <label key={m.id}>
+            <label key={m.id} className={css.check}>
               <input
                 type="checkbox"
                 checked={manualIds.includes(m.id)}
