@@ -14,7 +14,7 @@ CREATE INDEX guild_lessons_class_idx ON public.guild_lessons(ebd_class_id,create
 ALTER TABLE public.guild_lessons DROP CONSTRAINT guild_lessons_theme_check;
 ALTER TABLE public.guild_lessons ADD CONSTRAINT guild_lessons_theme_check CHECK(length(theme)<=100 AND(ebd_class_id IS NOT NULL OR length(btrim(theme))>=2));
 ALTER TABLE public.guild_lessons DROP CONSTRAINT guild_lessons_published_content_check;
-ALTER TABLE public.guild_lessons ADD CONSTRAINT guild_lessons_published_content_check CHECK(status NOT IN('published','completed') OR(length(btrim(content))>0 AND(ebd_class_id IS NOT NULL OR scheduled_at IS NOT NULL)));
+ALTER TABLE public.guild_lessons ADD CONSTRAINT guild_lessons_published_content_check CHECK(ebd_class_id IS NOT NULL OR status NOT IN('published','completed') OR(length(btrim(content))>0 AND scheduled_at IS NOT NULL));
 ALTER TABLE public.guild_ebd_attendance DROP CONSTRAINT guild_ebd_attendance_status_check;
 ALTER TABLE public.guild_ebd_attendance ADD CONSTRAINT guild_ebd_attendance_status_check CHECK(status IN('pending','present','absent','justified'));
 CREATE TABLE ebd_class_private.quizzes(
@@ -150,7 +150,11 @@ BEGIN
  PERFORM guild_admin_private.exact_keys(p_data,ARRAY['state']);v_state:=p_data->>'state';
  IF l.ebd_revision<>p_revision THEN RAISE EXCEPTION 'EBD conflict' USING ERRCODE='PT409';END IF;
  IF NOT((l.status='draft' AND v_state IN('scheduled','published','archived')) OR(l.status='scheduled' AND v_state IN('draft','published','archived')) OR(l.status='published' AND v_state IN('draft','closed','archived')) OR(l.status='closed' AND v_state IN('draft','archived'))) THEN RAISE EXCEPTION 'Invalid lesson transition' USING ERRCODE='22023';END IF;
- IF v_state='scheduled' AND l.scheduled_at IS NULL OR v_state IN('scheduled','published') AND length(btrim(l.content))=0 THEN RAISE EXCEPTION 'Lesson content required' USING ERRCODE='22023';END IF;
+ IF v_state='scheduled' AND l.scheduled_at IS NULL THEN RAISE EXCEPTION 'Lesson date required' USING ERRCODE='22023';END IF;
+ IF v_state IN('scheduled','published') AND length(btrim(l.content))=0
+ AND NOT EXISTS(SELECT 1 FROM ebd_class_private.quizzes q WHERE q.lesson_id=l.id AND q.current)
+ AND NOT EXISTS(SELECT 1 FROM public.guild_ebd_activities practice_item WHERE practice_item.lesson_id=l.id AND practice_item.kind IN('open','reflective','in_person','homework'))
+ THEN RAISE EXCEPTION 'Lesson content or learning activity required' USING ERRCODE='22023';END IF;
  IF v_state='published' AND EXISTS(SELECT 1 FROM ebd_class_private.quizzes q WHERE q.lesson_id=l.id AND q.current AND(SELECT count(*) FROM ebd_class_private.quiz_questions x WHERE x.quiz_id=q.id)<>7) THEN RAISE EXCEPTION 'Exactly seven questions required' USING ERRCODE='22023';END IF;
  UPDATE public.guild_lessons SET status=v_state,ebd_revision=ebd_revision+1,published_at=CASE WHEN v_state='published' THEN coalesce(published_at,v_now) ELSE published_at END WHERE id=l.id;next_rev:=p_revision+1;
  ELSIF p_action='quiz' THEN

@@ -671,6 +671,47 @@ export async function run({
     },
   );
   await check(
+    'quiz-only lesson publishes but an empty lesson does not',
+    async () => {
+      await command(1, 200, 'lesson', 307, 0, { ...lesson(1), content: '' });
+      await denied(
+        () => command(1, 200, 'state', 307, 1, { state: 'published' }),
+        '22023',
+      );
+      await command(1, 200, 'quiz', 307, 1, {
+        lessonId: uid(307),
+        difficulty: 'hard',
+        questions,
+      });
+      await command(1, 200, 'state', 307, 2, { state: 'published' });
+      const w = await workspace(2, 200);
+      assert.equal(w.lessons.find((x) => x.id === uid(307)).content, '');
+      assert.equal(
+        w.quizzes.find((x) => x.lessonId === uid(307)).questions.length,
+        7,
+      );
+    },
+  );
+  await check(
+    'practice-only lesson publishes without requiring a quiz or prose',
+    async () => {
+      await command(1, 200, 'lesson', 306, 0, { ...lesson(1), content: '' });
+      await command(1, 200, 'activity', 411, 0, {
+        ...activity,
+        lessonId: uid(306),
+      });
+      await command(1, 200, 'state', 306, 1, { state: 'published' });
+      const w = await workspace(2, 200);
+      assert.equal(w.lessons.find((x) => x.id === uid(306)).content, '');
+      assert.equal(
+        w.lessons.find((x) => x.id === uid(306)).status,
+        'published',
+      );
+      assert(!w.quizzes.some((x) => x.lessonId === uid(306)));
+      assert(w.activities.some((x) => x.lesson_id === uid(306)));
+    },
+  );
+  await check(
     'preserving containment blocks new writes without removing lessons or results',
     async () => {
       const count = (

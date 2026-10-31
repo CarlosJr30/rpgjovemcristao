@@ -1,5 +1,9 @@
 import { chromium, webkit, expect } from '@playwright/test';
-import { navigateReleased, accountAction } from './released-navigation.mjs';
+import {
+  navigateReleased,
+  accountAction,
+  openLegacyLessons,
+} from './released-navigation.mjs';
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { dirname } from 'node:path';
 import { mockLocalReleaseAuth } from '../fixtures/local-release-auth.ts';
@@ -222,11 +226,13 @@ for (const [engine, launcher] of [
             .waitFor();
           run.checks.push('Guilda');
           await navigate('/journey/guild/ebd', 'EBD');
+          await openLegacyLessons(page);
           await page.getByLabel('Área da Escola Bíblica').waitFor();
           run.checks.push('EBD');
           if (cell.transport === 'settled')
             await page.waitForLoadState('networkidle');
           await page.reload();
+          await openLegacyLessons(page);
           await page.getByLabel('Área da Escola Bíblica').waitFor();
           run.checks.push('reload');
           if (cell.transport === 'settled')
