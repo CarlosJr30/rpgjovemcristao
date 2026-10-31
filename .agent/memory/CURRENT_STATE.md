@@ -1,5 +1,9 @@
 ## 2026-10-31 — 010C.2 validação local, sem publicação
 
+Checkpoint remoto: PR23draft/4a48b69,CIpush41195741645/PR41195759088success/993PASS74SKIP/qualidadePGRSCprotocolo25. TESTDDL111753(local061321),39migrations75tabelas199funções;68dados anteriores/187rotinasACLs/39policies/defaults iguais,12novas/7privadasvazias/triggerencontro. Previewjlrs49b1vREADY/4a/TEST,QAloginnormal/Adminnovoorigempreparado,semcopiarsessão. PositivosTEST/móvel/pacotePRODpendentes. PROD010C.1inalterada. NãoDONE. Registroabaixoépreparaçãoanterior.
+
+QA preflight real9PASS/Authnormal/RLS/anon/IDOR/autoria negada/semAdmininferido/EBDleitura;68TEST/63PROD iguais depois. Último status confirma ADMIN_NORMAL_LOGIN_REQUIRED na nova Preview, QA válida; pergunta de login pendente. Sem sessões copiadas, sem concessões/DDL/deployPROD. Relatório/evidência parcial010C2 atualizados; aguardar login humano para os positivos. Somente documentação neste checkpoint, sem rebuild artificial.
+
 Branch própria010c2 de9e50614+85995a1. Proprietário confirmou oficial imutável/educativas após encerramento, sem vazamento precoce viaAPI.28PGisolados (2bootstrap incluídos),17unitdirecionados (13novos4EBD),protocolo25PASS; qualidade final/CI/TESTreal pendentes. Nova migrationTEST-only061321 e recuperação/contenção locais, nenhumDDLremoto. Baselines68TEST/63PROD capturados, produção010C.1 preservada, PR12/18 separadas. Fontes: contratoRPG-DEV-010C2 e relatório010C. NãoDONE.
 
 ## 2026-10-31 — 010C.1 DONE / DEPLOY_COMPLETE
