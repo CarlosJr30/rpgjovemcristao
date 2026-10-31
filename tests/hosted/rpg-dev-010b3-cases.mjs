@@ -11,8 +11,22 @@ export async function run({
   tid,
   options,
   connections,
-  read,
+  read: sourceRead,
 }) {
+  const production = process.env.RPG_010B3_PRODUCTION_PACKAGE === '1';
+  const paths = {
+    'supabase/migrations/20261030221400_rpg_dev_010b3_lessons_test.sql':
+      'supabase/migrations/20261031024847_rpg_dev_010b3_lessons_production.sql',
+    'packages/database/proposals/rpg-dev-010b3-recovery-empty.sql':
+      'packages/database/proposals/rpg-dev-010b3-production-recovery-empty.sql',
+    'packages/database/proposals/rpg-dev-010b3-containment.sql':
+      'packages/database/proposals/rpg-dev-010b3-production-containment.sql',
+  };
+  const read = (p) => sourceRead(production ? (paths[p] ?? p) : p);
+  if (production)
+    await q(
+      "create or replace function public.release_scope() returns text language sql immutable as $$select 'guild-ebd-001'::text$$",
+    );
   const migration = read(
     'supabase/migrations/20261030221400_rpg_dev_010b3_lessons_test.sql',
   );
@@ -94,15 +108,18 @@ export async function run({
       )
     ).rows;
   const definitions = await defs();
-  await check('010B3 rejects productive scope before any DDL', async () => {
-    await q(
-      "create or replace function public.release_scope() returns text language sql immutable as $$select 'guild-ebd-001'::text$$",
-    );
-    await denied(() => tx(migration), 'P0001');
-    await q(
-      "create or replace function public.release_scope() returns text language sql immutable as $$select 'hero-equipment-006'::text$$",
-    );
-  });
+  await check(
+    '010B3 rejects the wrong environment before any DDL',
+    async () => {
+      await q(
+        `create or replace function public.release_scope() returns text language sql immutable as $$select '${production ? 'hero-equipment-006' : 'guild-ebd-001'}'::text$$`,
+      );
+      await denied(() => tx(migration), 'P0001');
+      await q(
+        `create or replace function public.release_scope() returns text language sql immutable as $$select '${production ? 'guild-ebd-001' : 'hero-equipment-006'}'::text$$`,
+      );
+    },
+  );
   await check(
     'empty recovery restores EBD definitions ACLs constraints and original lesson values',
     async () => {

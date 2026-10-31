@@ -1,0 +1,109 @@
+{
+  "state": "TEST_VALIDATED_PROD_PENDING",
+  "runtimeCandidate": "f22ed745b047bc7c6d04de25c659f94206033d20",
+  "pr": 21,
+  "ci": {
+    "push": 41160300527,
+    "pullRequest": 41160305086,
+    "conclusion": "success",
+    "conditionalPreview": "SKIP"
+  },
+  "testMigration": "20261031023710_rpg_dev_010b3_lessons_test",
+  "preview": {
+    "id": "dpl_HK2bwPLftEdfEyD1kKWomxmeCSCM",
+    "url": "rpgjovemcristao-pbggbjft2-carlos-junior-s-projects.vercel.app",
+    "state": "READY",
+    "sha": "f22ed745b047bc7c6d04de25c659f94206033d20",
+    "target": "preview",
+    "backend": "TEST"
+  },
+  "unit": {
+    "ciPassed": 972,
+    "skipped": 74,
+    "directedLocal": 32
+  },
+  "isolatedPostgres": {
+    "testPackage": 28,
+    "productionPackage": 28,
+    "sameCases": true,
+    "hostedProof": false
+  },
+  "hosted": {
+    "checks": 47,
+    "distinctNormalAuthIdentities": 2,
+    "sessionImported": false,
+    "mobileEmulated": true,
+    "physicalDevice": false,
+    "parts": [
+      {
+        "artifact": "hosted-preflight-results.json",
+        "checks": 7,
+        "pass": true,
+        "sha256": "92e111d120cae79bc82832667f334998e0d9723ea5f8cda334912ae19e2d5df8"
+      },
+      {
+        "artifact": "hosted-lessons-results.json",
+        "checks": 10,
+        "pass": true,
+        "sha256": "4468ffcb1b37b8485762ef618ffa394525af2220291182fc717837c4e7379dd6"
+      },
+      {
+        "artifact": "hosted-attendance-results.json",
+        "checks": 7,
+        "pass": true,
+        "sha256": "55e7c3ca62986c5e808504093892d82a2160eb83fbab0e24f4dcefa14776aa41"
+      },
+      {
+        "artifact": "hosted-teachers-results.json",
+        "checks": 6,
+        "pass": true,
+        "sha256": "ace919c605eac212a2cfc0fc20737631e6130fd505972745dc4657670180d88e"
+      },
+      {
+        "artifact": "hosted-mobile-results.json",
+        "checks": 7,
+        "pass": true,
+        "sha256": "b33eb79bbcb72cb402bc22c65b45dcb516d40088283e1ce90bfadc5b275fd533",
+        "parts": [
+          "hosted-mobile-first-interrupted.json:first5",
+          "hosted-mobile-consultations.mjs:last2"
+        ]
+      },
+      {
+        "artifact": "hosted-essential-results.json",
+        "checks": 10,
+        "pass": true,
+        "sha256": "01b198e8e699ae9db2d6796e5682009c32d811fa1746b11b9fe5bdacc736c35e",
+        "parts": [
+          "hosted-essential-first-interrupted.json:Chromium4",
+          "hosted-essential-resume.mjs:remaining6"
+        ]
+      }
+    ],
+    "profileIgnoreDuplicateAttempts": 25,
+    "monitoredUnexpected": 0,
+    "pageErrors": 0
+  },
+  "preservation": {
+    "originalTestDatasets": 59,
+    "unchangedProjected": 54,
+    "expectedQaChanges": [
+      "ebd_class_private.commands",
+      "ebd_class_private.history",
+      "ebd_class_private.members",
+      "ebd_class_private.teachers",
+      "public.guild_activity_log"
+    ],
+    "legacyEbdProjection": "Original lessons exclude the new structural column and new class lesson rows; original activities/answers/attendance/history filter by legacy lesson. All seven legacy EBD rowsets unchanged.",
+    "originalProdDatasets": 54,
+    "prodUnchanged": true,
+    "economicCredits": false
+  },
+  "limitations": [
+    "Local PG fixtures are synthetic, not hosted proof.",
+    "Interrupted collector attempts remain FAIL; final aggregate identifies successful parts.",
+    "Hosted attendance sequence includes an extra present correction revision2 sent before UI settled, justified revision3 then race revision4; one row and audit retained, zero XP.",
+    "No physical mobile device tested.",
+    "PROD-specific package prepared but not applied; no merge/deploy010B3 yet."
+  ]
+}

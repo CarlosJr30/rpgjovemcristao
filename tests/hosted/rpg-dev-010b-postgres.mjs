@@ -9,7 +9,11 @@ import { Client } from 'pg';
 
 const lessonCases = process.env.RPG_010B3_CASES === '1';
 const root = path.resolve(
-    lessonCases ? 'build/rpg-dev-010b3' : 'build/rpg-dev-010b',
+    lessonCases
+      ? process.env.RPG_010B3_PRODUCTION_PACKAGE === '1'
+        ? 'build/rpg-dev-010b3-production'
+        : 'build/rpg-dev-010b3'
+      : 'build/rpg-dev-010b',
   ),
   bin = path.resolve(
     process.env.RPG_POSTGRES_BIN ??
