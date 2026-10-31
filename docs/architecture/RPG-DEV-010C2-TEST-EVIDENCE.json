@@ -1,12 +1,12 @@
 {
   "scope": "RPG-DEV-010C.2",
-  "status": "REWORK_MOBILE_320",
+  "status": "TEST_ACCEPTED_PRODUCTION_PENDING",
   "releaseComplete": false,
-  "candidate": "4a48b6952fd3f386314f622a8679611bc7b4a29e",
+  "candidate": "b9027bdc07cdca83d3ef93b09f46d007ac7ee8ca",
   "pullRequest": "https://github.com/CarlosJr30/rpgjovemcristao/pull/23",
   "ci": {
-    "push": 41195741645,
-    "pullRequest": 41195759088,
+    "push": 41202842528,
+    "pullRequest": 41202847978,
     "exactSha": true,
     "conclusion": "success",
     "unitPassed": 993,
@@ -40,7 +40,7 @@
     "frozenBalancedRosterAbsentPlayersZero": true,
     "serverGradingOnly": true,
     "economicRewardsEnabled": false,
-    "proofLevel": "isolated PostgreSQL, directed client tests and the 14 identified hosted competitive checks; complete acceptance pending"
+    "proofLevel": "Directed isolated proof and normal hosted TEST parts: 9 preflight,14 competitive,5 cooperative/revocation,10 final corrected UI. Reused cases are not exclusive new cases."
   },
   "testMigration": {
     "version": "20261031111753",
@@ -59,14 +59,15 @@
     "oldPoliciesUnchanged": 39,
     "oldDefaultsUnchanged": true,
     "oldTableDelta": "Only the reviewed parent-lifecycle trigger on public.guild_missions",
-    "recovery": "Empty recovery and preservation containment passed in isolated PostgreSQL; not required remotely"
+    "recovery": "Empty recovery and preservation containment passed in isolated PostgreSQL; not required remotely",
+    "preservationStage": "Immediately after DDL, before authorized QA records"
   },
   "preview": {
-    "deployment": "dpl_GAkNYxdYzcz5nkt42DY9SZooAM8z",
-    "url": "https://rpgjovemcristao-jlrs49b1v-carlos-junior-s-projects.vercel.app",
+    "deployment": "dpl_EKAxpgku1wGXs6nFvdwoGJzo6h6M",
+    "url": "https://rpgjovemcristao-nx1lhmnw1-carlos-junior-s-projects.vercel.app",
     "state": "READY",
     "backend": "Supabase TEST",
-    "sha": "4a48b6952fd3f386314f622a8679611bc7b4a29e",
+    "sha": "b9027bdc07cdca83d3ef93b09f46d007ac7ee8ca",
     "protectionPreserved": true,
     "onlyTwoPublicTestBranchConfigurationsAdded": true
   },
@@ -76,15 +77,26 @@
     "qaReadAndDenialPreflightChecksPassed": 9,
     "adminNormalLoginOnNewOrigin": "CONFIRMED",
     "twoDistinctNormalAuthIdentities": true,
-    "twoIdentityPositiveChallengeFlow": "14 identified checks PASS; interrupted run is not a complete PASS",
-    "chromiumAndWebkitEssentialRegression": "WebKit390 PASS; WebKit320 FAIL after result loaded; targeted rework pending",
+    "twoIdentityPositiveChallengeFlow": "PASS in the identified competitive and cooperative parts",
+    "chromiumAndWebkitEssentialRegression": "PASS on b9027bd after the scoped native-select fix",
     "officialGrade": 4,
     "officialGradeMaximum": 7,
     "educationalGrade": 7,
     "officialGradeAndRankingPreservedAfterLearning": true,
-    "mobile320ObservedScrollWidth": 376,
     "mobile320ExpectedViewportWidth": 320,
-    "mobileLimit": "Any future 320/390 viewport or touch tests are emulated; no physical-device proof"
+    "mobileLimit": "Any future 320/390 viewport or touch tests are emulated; no physical-device proof",
+    "previousFailedScrollWidth": 376,
+    "mobile320WidthGate": "PASS: documentElement.scrollWidth <= innerWidth, including after result and board load",
+    "emulatedTouchEducationalSubmissionPassed": true,
+    "officialResultAndBoardUnchangedAfterTouch": true,
+    "finalUiChecks": 10,
+    "finalUiMonitor": {
+      "ownProfileIgnoreDuplicates": 17,
+      "reviewedReadRpcs": 43,
+      "authorizedLearningCommands": 1,
+      "unexpectedWrites": 0,
+      "pageOrConsoleErrors": 0
+    }
   },
   "production": {
     "c2MigrationApplied": false,
@@ -100,12 +112,33 @@
     "adminPrivilegeGranted": false
   },
   "limitations": [
-    "No complete hosted acceptance or production release claimed. WebKit320 layout is in REWORK.",
+    "TEST acceptance completed; no production release claimed yet.",
     "Both identities authenticated normally in the TEST Preview; sessions were not copied.",
     "The preexisting hosted C1 command differs from the local fixture only in three encoded fixed participation labels. Both exact reviewed hashes are guarded; no legacy routine replaced.",
     "Prior failed fixture, alias, lifecycle precondition, effect-lint and documentary encoding attempts are retained separately; failed attempts are not PASS.",
     "Legacy advisors preserved; TEST deny-all INFO rises from 44 to 51 for seven intentionally closed private tables. Twelve public-definer warnings and leaked-password warning remain unchanged.",
     "QA, Security and React review by the author; no independent review claimed.",
-    "PR12 and PR18 remain independent and unmerged."
-  ]
+    "PR12 and PR18 remain independent and unmerged.",
+    "The first mobile corrections did not solve WebKit320. The final native-control block-layout correction passed in the real b9027bd artifact. Transient CSS diagnostics were not counted as deployment proof."
+  ],
+  "originalAuthorityCandidate": "4a48b6952fd3f386314f622a8679611bc7b4a29e",
+  "testDataAfterQa": {
+    "originalDataSets": 68,
+    "strictEqual": 55,
+    "projectedEqual": 66,
+    "authorizedGovernanceChanges": 2,
+    "otherAuthorizationsAndRevocationsIdentical": true,
+    "originalAuthorizationIdentityAndActiveStatePreserved": true,
+    "temporaryActivityDelegateRevoked": true,
+    "leadershipInvitesConsumedAndKept": 2,
+    "governanceAuditRecordsAddedAndKept": 6,
+    "noGeneralAdministratorGrant": true
+  },
+  "productionPackage": {
+    "file": "supabase/migrations/20261031130131_rpg_dev_010c2_challenges_production.sql",
+    "remoteApplied": false,
+    "postgresCasesPassed": 28,
+    "reusesSameTestCases": true,
+    "emptyRecoveryAndContainmentPassed": true
+  }
 }

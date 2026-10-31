@@ -8,12 +8,13 @@ import { randomUUID, createHash } from 'node:crypto';
 import { Client } from 'pg';
 
 const challengeCases = process.env.RPG_010C2_CASES === '1';
+const challengeProductionPackage = process.env.RPG_010C2_PRODUCTION_PACKAGE === '1';
 const communityCases = process.env.RPG_010C1_CASES === '1' || challengeCases;
 const communityProductionPackage =
   process.env.RPG_010C1_PRODUCTION_PACKAGE === '1';
 const lessonCases = process.env.RPG_010B3_CASES === '1' || communityCases;
 const root = path.resolve(
-    challengeCases ? 'build/rpg-dev-010c2' : communityCases
+    challengeCases ? (challengeProductionPackage ? 'build/rpg-dev-010c2-production' : 'build/rpg-dev-010c2') : communityCases
       ? communityProductionPackage
         ? 'build/rpg-dev-010c-production'
         : 'build/rpg-dev-010c'
@@ -51,6 +52,14 @@ if (communityProductionPackage)
     'packages/database/proposals/rpg-dev-010c1-containment.sql':
       'packages/database/proposals/rpg-dev-010c1-production-containment.sql',
   });
+if (challengeProductionPackage) {
+  const files = JSON.parse(fs.readFileSync('packages/database/proposals/rpg-dev-010c2-production-files.json', 'utf8'));
+  Object.assign(mapped, {
+    'supabase/migrations/20261031061321_rpg_dev_010c2_challenges_test.sql': files.migration,
+    'packages/database/proposals/rpg-dev-010c2-recovery-empty.sql': files.recovery,
+    'packages/database/proposals/rpg-dev-010c2-containment.sql': files.containment,
+  });
+}
 const read = (p) =>
   fs.readFileSync(mapped[p] ?? p, 'utf8').replaceAll('\r\n', '\n');
 const migration = read(
@@ -334,6 +343,7 @@ try {
       }
       if (challengeCases) {
         await tx(read('supabase/migrations/20261031033721_rpg_dev_010c1_meetings_test.sql'));
+        if (challengeProductionPackage) await q("create or replace function public.release_scope() returns text language sql immutable as $$select 'guild-ebd-001'::text$$");
         await (await import('./rpg-dev-010c2-cases.mjs')).run({ q, tx, as, check, denied, uid, tid, options, connections, read });
       } else await (await import('./rpg-dev-010c1-cases.mjs')).run({ q, tx, as, check, denied, uid, tid, options, connections, read });
     } else
@@ -718,7 +728,7 @@ try {
     productionProof: false,
     environment: 'PostgreSQL17.10 loopback',
     remoteMigrationExecuted: false,
-    productionPackage,
+    productionPackage: productionPackage || challengeProductionPackage,
     total: checks.length,
     pass: true,
     checks,
@@ -734,7 +744,7 @@ try {
   );
   console.log(
     JSON.stringify({
-      state: challengeCases ? '010C2_CHALLENGES_ISOLATED_PASS' : communityCases
+      state: challengeCases ? (challengeProductionPackage ? '010C2_PRODUCTION_ENVELOPE_ISOLATED_PASS' : '010C2_CHALLENGES_ISOLATED_PASS') : communityCases
         ? '010C1_COMMUNITY_ISOLATED_PASS'
         : lessonCases
           ? '010B3_LESSONS_ISOLATED_PASS'

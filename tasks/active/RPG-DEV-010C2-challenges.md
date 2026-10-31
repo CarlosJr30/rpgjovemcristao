@@ -1,6 +1,7 @@
 # RPG-DEV-010C.2 — Gincanas e equipes
 ID: RPG-DEV-010C2
-STATUS: REWORK
+STATUS: VALIDATING
+CORRECTED_TEST_ACCEPTANCE: b9027bdCI41202842528/41202847978success/Previewnx1READY/TEST,10rechecksPASS/Chromium1365/390/320/WebKit390/320/toqueeducativo7/7semalteraroficial4/7ouplacar.17profiles43reads1practicemonitores/0errosinesperados.9preflight14competição5coop/revogaçãoanterioresidentificados; mobileemulado/nãofísico. PacotePRODpróprio130131geradoapósaceite,28PGemcadaenvelopePASS(mesmoscasos),semDDLPROD. CI pacote/produção pendentes. HistóricosREWORKpreservados.
 LAYOUT_DIAGNOSIS: e9412a8CI/Preview aprovados,320WebKitainda376FAIL. CSSprobe reversível e descartável mediu376original/grid/flex,320block,376restaurado; semDBmutation/semprovaHomologação. LayoutCSS escopadoaC2 controla pais diretosdosselects emblock,semclipping/aparêncianativa.17unit/lint/types/buildPASS; novoCI/Preview/gate320aindapendentes. MigrationsTEST/PROD nãoalteradas.
 OWNER_DECISION: Proprietário confirmou separação entre tentativa competitiva oficial e aprendizagem somente após encerramento. Nenhuma API revela gabaritos, explicações protegidas ou resultados alheios antes do encerramento; editor autorizado acessa gabarito somente no rascunho. Resultado oficial confirmado e placar encerrado imutáveis, inclusive diante de tentativas educativas posteriores; sem recompensas. Substitui a proposta anterior de retificação do placar encerrado.
 AUTHORIZATION: Pedido completo anexado pelo proprietário31/10/2026 autoriza implementação acelerada e publicação após RELEASE_POLICY; sem economia, eventos entreGuildas010C.3, chat, PR12/18 ou reconstrução.

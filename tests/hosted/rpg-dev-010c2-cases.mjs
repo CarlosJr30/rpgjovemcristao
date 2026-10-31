@@ -13,6 +13,9 @@ export async function run({
   connections,
   read,
 }) {
+  const production = process.env.RPG_010C2_PRODUCTION_PACKAGE === '1';
+  const expectedScope = production ? 'guild-ebd-001' : 'hero-equipment-006';
+  const rejectedScope = production ? 'hero-equipment-006' : 'guild-ebd-001';
   const migration = read(
       'supabase/migrations/20261031061321_rpg_dev_010c2_challenges_test.sql',
     ),
@@ -91,13 +94,13 @@ export async function run({
   );
   const baseline = await snapshot(),
     originalMetadata = await metadata();
-  await check('010C2 refuses productive scope before DDL', async () => {
+  await check('010C2 refuses the wrong environment before DDL', async () => {
     await q(
-      "create or replace function public.release_scope() returns text language sql immutable as $$select 'guild-ebd-001'::text$$",
+      `create or replace function public.release_scope() returns text language sql immutable as $$select '${rejectedScope}'::text$$`,
     );
     await denied(() => tx(migration), 'P0001');
     await q(
-      "create or replace function public.release_scope() returns text language sql immutable as $$select 'hero-equipment-006'::text$$",
+      `create or replace function public.release_scope() returns text language sql immutable as $$select '${expectedScope}'::text$$`,
     );
   });
   await check(
