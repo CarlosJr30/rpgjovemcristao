@@ -6,6 +6,7 @@ import type { ReactNode } from 'react';
 
 const mock = vi.hoisted(() => ({
   role: 'member',
+  withoutGuild: false,
   getContext: vi.fn(),
   listMembers: vi.fn(),
   listJoinRequests: vi.fn(),
@@ -34,7 +35,7 @@ vi.mock('../../lib/supabase/repositories/guild-repository', () => ({
 vi.mock('../guild-governance/scope', () => ({
   GuildScope: ({ children }: { children: (scope: unknown) => ReactNode }) =>
     children({
-      context: {
+      context: mock.withoutGuild ? null : {
         guild: {
           id: 'synthetic-guild',
           name: 'Guilda sintética',
@@ -55,6 +56,7 @@ import { ReleaseGuild } from './guild';
 
 beforeEach(() => {
   mock.role = 'member';
+  mock.withoutGuild = false;
   vi.clearAllMocks();
   mock.getContext.mockImplementation(async () => ({
     guild: { name: 'Guilda sintética', description: 'Comunidade local' },
@@ -70,6 +72,16 @@ beforeEach(() => {
   mock.listJoinRequests.mockResolvedValue([]);
 });
 afterEach(cleanup);
+
+test('a player without a Guild receives automatic-invite guidance without querying another community', async () => {
+  mock.withoutGuild = true;
+  render(<ReleaseGuild />);
+  expect(await screen.findByRole('heading', { name: 'Participar de uma Guilda' })).toBeVisible();
+  expect(screen.getByText(/permite entrada automática após o login/)).toBeVisible();
+  expect(screen.getByText(/sem pertencer a uma Guilda/)).toBeVisible();
+  expect(mock.listMembers).not.toHaveBeenCalled();
+  expect(mock.listJoinRequests).not.toHaveBeenCalled();
+});
 
 test('member sees original hall/banner without leader actions or fabricated mission metrics', async () => {
   const { container } = render(<ReleaseGuild management />);

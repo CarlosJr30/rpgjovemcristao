@@ -5,6 +5,7 @@ import { useAuth } from '../../lib/supabase/auth-context';
 import { Shell } from '../journey/components/shell';
 import { isReleasedPath } from '../../lib/release-scope';
 import css from './release.module.css';
+import { EarlyAccessNotice } from '../early-access/notice';
 export function ReleaseShell({
   children,
   back,
@@ -21,6 +22,7 @@ export function ReleaseShell({
       back={back ? (isReleasedPath(back) ? back : '/journey') : undefined}
       backLabel={backLabel ?? 'Voltar'}
     >
+      <EarlyAccessNotice />
       {children}
     </Shell>
   );

@@ -4,6 +4,7 @@ import { useState, type FormEvent } from 'react';
 import { useAuth } from '../../lib/supabase/auth-context';
 import { getSupabaseBrowserClient } from '../../lib/supabase/client';
 import css from './auth.module.css';
+import { EarlyAccessNotice } from '../early-access/notice';
 export function RecoveryScreen() {
   const auth = useAuth(),
     [busy, setBusy] = useState(false),
@@ -53,6 +54,7 @@ export function RecoveryScreen() {
             ? 'Definir nova senha'
             : 'Recuperar acesso'}
         </h1>
+        <EarlyAccessNotice />
         <form onSubmit={submit}>
           {auth.status === 'signedIn' ? (
             <>
