@@ -279,7 +279,7 @@ export function CellActivityPanel({
             </p>
           ))}
           {data.validations.map((h, i) => (
-            <p key={`${h.missionId}-${h.revision}-${i}`}>
+            <p className={css.notice} key={`${h.missionId}-${h.revision}-${i}`}>
               {new Date(h.createdAt).toLocaleString('pt-BR')} ·{' '}
               {results[h.beforeStatus] ?? h.beforeStatus} →{' '}
               {results[h.afterStatus] ?? h.afterStatus}
