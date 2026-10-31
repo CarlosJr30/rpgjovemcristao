@@ -1,0 +1,265 @@
+{
+  "scope": "RPG-DEV-010C.2",
+  "status": "DONE / DEPLOY_COMPLETE",
+  "candidate": "e281b7fb08fa8d54b0d6e0b59073d42232500ed1",
+  "acceptedRuntime": "b9027bdc07cdca83d3ef93b09f46d007ac7ee8ca",
+  "merge": "fa4d1a126316fa535d7a21f3ad508729746cb134",
+  "pullRequest": "https://github.com/CarlosJr30/rpgjovemcristao/pull/23",
+  "runtimeEquivalent": true,
+  "ci": {
+    "candidatePush": 41204139040,
+    "candidatePullRequest": 41204147126,
+    "merge": 41219240744,
+    "exactSha": true,
+    "success": true,
+    "unitPassed": 993,
+    "unitSkipped": 74,
+    "filesPassed": 151,
+    "filesSkipped": 7,
+    "lint": true,
+    "typescript": true,
+    "build": true,
+    "protocol": 25,
+    "rsc": true,
+    "conditionalPublication": "SKIP"
+  },
+  "postgres": {
+    "testEnvelope": 28,
+    "productionEnvelope": 28,
+    "sameCases": true,
+    "syntheticData": true,
+    "hostedProof": false,
+    "recoveryEmpty": true,
+    "containmentPreservesData": true
+  },
+  "hostedTEST": {
+    "parts": [
+      {
+        "artifact": "qa-preflight-results.json",
+        "count": 9,
+        "allSelectedChecksPass": true
+      },
+      {
+        "artifact": "hosted-approved-parts-4a.json",
+        "count": 14,
+        "allSelectedChecksPass": true
+      },
+      {
+        "artifact": "followup-results.json",
+        "count": 5,
+        "allSelectedChecksPass": true
+      },
+      {
+        "artifact": "block-recheck-results.json",
+        "count": 10,
+        "allSelectedChecksPass": true
+      },
+      {
+        "artifact": "package-preview-results.json",
+        "count": 3,
+        "allSelectedChecksPass": true
+      }
+    ],
+    "exclusiveNewCasesNotClaimed": true,
+    "twoNormalDistinctAuthIdentities": true,
+    "sessionImported": false,
+    "officialQuizScore": 4,
+    "learningScore": 7,
+    "quizMaximum": 7,
+    "cooperativeMaximum": 8,
+    "cooperativeAverage": 8,
+    "officialResultAndBoardImmutable": true,
+    "preclosureApiKeysExplanationsScoresHidden": true,
+    "replayAndConcurrent409Verified": true,
+    "leadershipRevocationSameJwt": true,
+    "mobileEmulated": true,
+    "physicalDevice": false,
+    "preview": {
+      "id": "dpl_FrQB9V95LgRTq2Xv2s83Naz49B4j",
+      "url": "rpgjovemcristao-94dfr1d75-carlos-junior-s-projects.vercel.app",
+      "state": "READY",
+      "sha": "e281b7fb08fa8d54b0d6e0b59073d42232500ed1",
+      "target": "preview",
+      "backend": "TEST"
+    }
+  },
+  "production": {
+    "deployment": {
+      "id": "dpl_4VNVhSgqKYuHNLpLDPy2zx9jYJy9",
+      "sha": "fa4d1a126316fa535d7a21f3ad508729746cb134",
+      "state": "READY",
+      "target": "production",
+      "url": "https://rpgjovemcristao-web-inky.vercel.app",
+      "autoAssignCustomDomains": true,
+      "protectionsPreserved": true,
+      "existingGitDeploymentPromoted": true,
+      "duplicateProductionBuild": false
+    },
+    "backendProof": {
+      "deployment": "dpl_4VNVhSgqKYuHNLpLDPy2zx9jYJy9",
+      "sha": "fa4d1a126316fa535d7a21f3ad508729746cb134",
+      "chunks": 8,
+      "backend": "PROD",
+      "testBackendAbsent": true,
+      "gameSessionRead": false
+    },
+    "migration": {
+      "version": "20261031161924",
+      "file": "supabase/migrations/20261031130131_rpg_dev_010c2_challenges_production.sql",
+      "testOnlyApplied": false
+    },
+    "testMigration": "20261031111753",
+    "preflightChecks": 10,
+    "postDdlChecks": 9,
+    "retainedChecks": 12,
+    "officialChecks": 12,
+    "httpApiChecks": 6,
+    "normalPreviouslyApprovedIdentity": true,
+    "activeLevel": 50,
+    "oldLevelOneUsed": false,
+    "administratorGrant": false,
+    "positiveChallengesOnlyTEST": true,
+    "newGameDataCreated": false,
+    "retainedMonitor": {
+      "profiles": 18,
+      "readRPCs": 66,
+      "errors": [],
+      "unexpectedWrites": []
+    },
+    "officialMonitor": {
+      "profiles": 18,
+      "readRPCs": 66,
+      "errors": [],
+      "unexpectedWrites": []
+    }
+  },
+  "preservation": {
+    "productionAll70Exact": true,
+    "productionOriginal63Exact": true,
+    "productionNew7TablesEmpty": true,
+    "test66ProjectedExact": true,
+    "test55StrictUnchangedFromAcceptedQA": true,
+    "testGovernancePreserved": true,
+    "testPriorAuthorizationActive": true,
+    "testNewGovernanceDeltasKept": {
+      "consumedLeadershipInvites": 2,
+      "auditRecords": 6
+    },
+    "counts": {
+      "PROD": {
+        "migrations": 16,
+        "tables": 70,
+        "functions": 191,
+        "policies": 39
+      },
+      "TEST": {
+        "migrations": 39,
+        "tables": 75,
+        "functions": 199,
+        "policies": 39
+      }
+    },
+    "old179ProductionFunctionsAclExact": true,
+    "new12FunctionsAclExactTEST": true,
+    "policiesDefaultsSchemasExact": true,
+    "metadataBothEnvironmentsUnchangedSinceDDL": true,
+    "gameDataUnchanged": true,
+    "oldLevelOneAvatarUsed": false,
+    "newProductionGameData": false,
+    "recoveryExecutedRemotely": false,
+    "containmentExecutedRemotely": false,
+    "rollbackRequired": false,
+    "physicalDevice": false,
+    "authorReview": true,
+    "independentReview": false,
+    "pass": true
+  },
+  "safety": {
+    "xp": 0,
+    "coins": 0,
+    "chests": 0,
+    "cards": 0,
+    "equipment": 0,
+    "economicReceipts": 0,
+    "storyProgression": 0,
+    "authRlsUnchanged": true,
+    "newPublicWrappers": "INVOKER",
+    "legacy179FunctionsAclExact": true,
+    "new12FunctionsExactTEST": true,
+    "policies39Exact": true,
+    "privateTables7DenyAll": true,
+    "pr12DraftUnmerged": true,
+    "pr18DraftUnmerged": true,
+    "ssoprotected": true,
+    "trustedSourcesPreserved": true,
+    "autoAssignRestored": true,
+    "duplicateProductionBuild": false
+  },
+  "limits": [
+    "Mobile and touch tests are emulated; no physical-device claim.",
+    "Positive competitive and cooperative flows only in TEST; PROD reads/denials and legitimate empty states.",
+    "Earlier interrupted/failed layout and collector attempts remain preserved; only identified passing parts count.",
+    "Educational and official attempts remain separate; no rewards enabled.",
+    "Supabase legacy warnings preserved:12 public definer warnings and leaked-password warning;46 intentional deny-all INFO in PROD.",
+    "QA/Security/React by author, no independent review claimed.",
+    "010C.3 and010D separate; PR12/18 untouched."
+  ],
+  "artifacts": [
+    {
+      "name": "qa-preflight-results.json",
+      "sha256": "ddd233032bdf43e7bef6f63ee7564b7cf8e96ac7af8cb6ab7d6990091fb3f724"
+    },
+    {
+      "name": "hosted-approved-parts-4a.json",
+      "sha256": "95b3741042fbfe8e9c513496d2646590149af04854a658ac27b7b71a2744cc2c"
+    },
+    {
+      "name": "followup-results.json",
+      "sha256": "ffe76e7d92d513694f1bc08ab179ef3093a2dc71cb540818c7078a845ac6c82d"
+    },
+    {
+      "name": "block-recheck-results.json",
+      "sha256": "d2ec62acabe3ed0aff64b297dd60ad35ea7612f5a270057b644a3ac4c2fecdfc"
+    },
+    {
+      "name": "package-preview-results.json",
+      "sha256": "7fae0044c8e763beb376cc329be400c1660b16ac4c63f2b1a21718fa6810fd4d"
+    },
+    {
+      "name": "production-preflight.json",
+      "sha256": "6d2b1cdab8cdf69ee75e4db6ee25e68287f8935ac9b9c753e10202fbef670edd"
+    },
+    {
+      "name": "production-afterddl.json",
+      "sha256": "a4f38a953e1b4260bcf85e98fc1c25104d2431351b511c3c7c9e30eb580310a1"
+    },
+    {
+      "name": "production-retained-results.json",
+      "sha256": "830a1f24a05e2e4ba351eab83e8dd6c1f2be6e82c2dab9a391ecc49e4f977086"
+    },
+    {
+      "name": "production-official-results.json",
+      "sha256": "e6da75a01bfc0f9abfe61d6c68cec8148f4548a009e95c9e5078de4a7259c969"
+    },
+    {
+      "name": "production-http-results.json",
+      "sha256": "20aa71879df175b17331c411b5c36e9a40710d9aa58856aa8489630c8d97413c"
+    },
+    {
+      "name": "production-data-preserved.json",
+      "sha256": "ff63bc85d0a499cde256c9f89f33ab8035b3989dde21c13b97209c99675de226"
+    },
+    {
+      "name": "final-preservation.json",
+      "sha256": "53627337e2ce577d48b3afb171afccd71a1d61b8dd6f573ea41833caf3f8a70b"
+    },
+    {
+      "name": "retained-backend-probe.json",
+      "sha256": "23fee40d69f0d567088f5f72ce8e07283d85b26f02f1ca0b466f721476e7e27b"
+    },
+    {
+      "name": "final-deployment-proof.json",
+      "sha256": "4f89fda22ebcb00585a4126722365c0b040abd58dacf982fb673117a40522374"
+    }
+  ]
+}

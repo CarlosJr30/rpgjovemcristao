@@ -52,6 +52,17 @@ export type IssuedLeadershipInvite = LeadershipPreview & {
   qr?: string;
   replayed?: boolean;
 };
+export type GovernanceLeaders = {
+  version: 1;
+  leaders: {
+    id: string;
+    name: string;
+    emailHint: string;
+    active: boolean;
+    grantedAt: string;
+    revision: number;
+  }[];
+};
 
 export function parseGovernanceStatus(value: unknown): GovernanceStatus {
   if (!value || typeof value !== 'object')

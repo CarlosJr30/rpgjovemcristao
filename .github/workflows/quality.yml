@@ -125,6 +125,8 @@ jobs:
         run: node tests/hosted/rpg-dev-010a-postgres.mjs
       - name: Exigir múltiplas Guildas escopo legado revogação e recuperação
         run: node tests/hosted/rpg-dev-010a2-postgres.mjs
+      - name: Exigir leitura administrativa sem enumeração pública ou mudança de autoridades
+        run: node tests/hosted/ui-admin-001-postgres.mjs
       - name: Ensaiar pacote PROD independente e contenção preservadora
         run: node tests/hosted/rpg-dev-010a-production-postgres.mjs
       - name: Exigir classes convites escopo idempotência e concorrência sem economia

@@ -38,5 +38,7 @@ export async function governanceAction<T>(
     throw Error(
       'Não foi possível confirmar esta operação. Confira sua permissão e os dados.',
     );
+  if (data.action === 'command' && typeof window !== 'undefined')
+    window.dispatchEvent(new Event('rpg:governance-updated'));
   return value.data as T;
 }

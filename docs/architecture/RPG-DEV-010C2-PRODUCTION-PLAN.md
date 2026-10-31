@@ -1,5 +1,7 @@
 # 010C.2 — pacote produtivo e recuperação
 
+**Executado em31/10/2026:** somente migration própria aplicada como20261031161924;PR23mergefa4d1a1/CI41219240744success,mesmoGitdeploymentdpl_4VNVhSgqKYuHNLpLDPy2zx9jYJy9READY/PROD promovido e alias oficial confirmado.70conjuntos finais/estruturas preservados, recuperação/contenção não necessárias. [Fechamento](RPG-DEV-010C-REPORT.md) e [evidência final](RPG-DEV-010C2-RELEASE-EVIDENCE.json) prevalecem sobre a preparação abaixo; manifesto e arquivos SQL mantêm o conteúdo testado. Não executar novamente migrations/compensações como teste.
+
 Preparado após homologação TEST corrigida no runtime `b9027bd`: nove checks de preflight,14 checks competitivos identificados, cinco de cooperação/revogação e dez de UI/regressão, com proveniência e falhas preservadas separadamente. DoisUIDs normais; Chromium/WebKit320–390 e toque são emulados. Oficial4/7 preservado após aprendizagem7/7. Não é aprovação de conteúdo bíblico, prova física ou autorização econômica.
 
 Aplicar exclusivamente `20261031130131_rpg_dev_010c2_challenges_production.sql`. Arquivo próprio criado pela CLI2.122.0, scope obrigatório `guild-ebd-001`, namespace novo ausente, dependências/definições/ACLs canônicas conferidas. Autoridade, tabelas e ACLs novas idênticas ao TEST; não aplicar o arquivo TEST-only061321, migrations pendentes alheias ou a009. Sem grants de Administrador, dados iniciais, conversão de legado ou concessões econômicas. Manifesto em `packages/database/proposals/rpg-dev-010c2-production-files.json`.
