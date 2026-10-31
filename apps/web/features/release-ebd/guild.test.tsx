@@ -35,14 +35,16 @@ vi.mock('../../lib/supabase/repositories/guild-repository', () => ({
 vi.mock('../guild-governance/scope', () => ({
   GuildScope: ({ children }: { children: (scope: unknown) => ReactNode }) =>
     children({
-      context: mock.withoutGuild ? null : {
-        guild: {
-          id: 'synthetic-guild',
-          name: 'Guilda sintética',
-          description: 'Comunidade local',
-        },
-        membership: { role: mock.role },
-      },
+      context: mock.withoutGuild
+        ? null
+        : {
+            guild: {
+              id: 'synthetic-guild',
+              name: 'Guilda sintética',
+              description: 'Comunidade local',
+            },
+            membership: { role: mock.role },
+          },
       contexts: [],
       guildId: 'synthetic-guild',
       canManage: mock.role === 'leader',
@@ -76,8 +78,12 @@ afterEach(cleanup);
 test('a player without a Guild receives automatic-invite guidance without querying another community', async () => {
   mock.withoutGuild = true;
   render(<ReleaseGuild />);
-  expect(await screen.findByRole('heading', { name: 'Participar de uma Guilda' })).toBeVisible();
-  expect(screen.getByText(/permite entrada automática após o login/)).toBeVisible();
+  expect(
+    await screen.findByRole('heading', { name: 'Participar de uma Guilda' }),
+  ).toBeVisible();
+  expect(
+    screen.getByText(/permite entrada automática após o login/),
+  ).toBeVisible();
   expect(screen.getByText(/sem pertencer a uma Guilda/)).toBeVisible();
   expect(mock.listMembers).not.toHaveBeenCalled();
   expect(mock.listJoinRequests).not.toHaveBeenCalled();

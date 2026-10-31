@@ -31,6 +31,14 @@ test('restaura a entrada original e exige a autenticação atual para começar',
     screen.queryByRole('button', { name: 'Criar Viajante' }),
   ).not.toBeInTheDocument();
   expect(
-    screen.queryByText(/Arena|Torre|Loja|Recompensa/),
+    screen.queryByRole('link', { name: /Arena|Torre|Loja|Recompensa/ }),
   ).not.toBeInTheDocument();
+  expect(
+    screen.queryByRole('button', {
+      name: /Jogar Arena|Entrar na Torre|Comprar|Resgatar/,
+    }),
+  ).not.toBeInTheDocument();
+  const notice = screen.getByText(/Equipamentos, Loja, Arena, Torre/);
+  expect(notice).toHaveTextContent('estão indisponíveis');
+  expect(notice.closest('details')).not.toHaveAttribute('open');
 });
