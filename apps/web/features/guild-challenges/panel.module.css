@@ -1,0 +1,5 @@
+/* Keep native select overflow out of WebKit's grid/flex item sizing. */
+.controls label:has(> select),
+.controls div:has(> select) {
+  display: block;
+}

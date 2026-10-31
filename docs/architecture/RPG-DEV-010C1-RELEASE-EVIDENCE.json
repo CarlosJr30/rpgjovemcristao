@@ -1,0 +1,321 @@
+{
+  "scope": "RPG-DEV-010C.1",
+  "status": "DONE / DEPLOY_COMPLETE",
+  "date": "2026-10-31",
+  "pr": "https://github.com/CarlosJr30/rpgjovemcristao/pull/22",
+  "candidate": "822b64542d0f4d7f66da3e586b4610f57cfe1c60",
+  "runtimeHomologated": "90c1d86779017b66cbf4bfac1cd35759cd43232b",
+  "merge": "9e5061467323725786a431b067f207f04c078f4e",
+  "functionality": [
+    "Meetings and manual activities scoped to an explicit Guild",
+    "Participation declaration and current validator permissions",
+    "Complete correction reasons in private append-only history",
+    "Legacy audit contract retains 512-byte limit",
+    "Nonce idempotency, revision conflicts and immediate revocation",
+    "No official Journey completion or economic rewards"
+  ],
+  "ci": {
+    "push": {
+      "id": 41169201744,
+      "success": true,
+      "attempt": 1
+    },
+    "pr": {
+      "id": 41169205296,
+      "success": true,
+      "attempt": 1
+    },
+    "merge": {
+      "id": 41170033020,
+      "success": true,
+      "attempt": 1
+    },
+    "unitPass": 980,
+    "unitSkip": 74,
+    "filesPass": 148,
+    "filesSkip": 7,
+    "lint": "PASS",
+    "types": "PASS",
+    "build": "PASS",
+    "rsc": "PASS",
+    "publicationProtocol": 25,
+    "conditionalPreview": "SKIP, not PASS"
+  },
+  "isolated": {
+    "prior23ChecksPreserved": true,
+    "additionalHistoryCases": 9,
+    "testEnvelope": {
+      "checks": 11,
+      "sharedBootstrap": 2
+    },
+    "productionEnvelope": {
+      "checks": 12,
+      "sharedBootstrap": 2,
+      "ownEnvironmentGuard": 1
+    },
+    "sameNineCasesAcrossEnvelopes": true,
+    "productionProof": false,
+    "source": "RPG-DEV-010C1-LOCAL-EVIDENCE.json"
+  },
+  "hostedTest": {
+    "preflight": 6,
+    "flow": 14,
+    "webkitHistory": 3,
+    "activityHistory": 3,
+    "finalPreview": 5,
+    "distinctAuthIdentities": 2,
+    "normalLogins": true,
+    "sessionImported": false,
+    "mobileEmulated": true,
+    "physicalDevice": false,
+    "unicodeReasonCharacters": 250,
+    "largestObservedLegacyLogBytes": 190,
+    "privateHistoryRows": 4,
+    "uniqueHistoryRequests": 4,
+    "qaMeetingsAndActivities": 2,
+    "qaParticipations": 2,
+    "activeTemporaryDelegations": 0,
+    "completeReasonsOnlyCurrentValidators": true,
+    "ownCurrentFeedbackPreserved": true
+  },
+  "preview": {
+    "id": "dpl_9hLdVA6nCSSN2FReV7owxPQdV7PK",
+    "url": "rpgjovemcristao-k8rjyq9qk-carlos-junior-s-projects.vercel.app",
+    "state": "READY",
+    "sha": "822b64542d0f4d7f66da3e586b4610f57cfe1c60",
+    "target": "preview",
+    "backend": "TEST"
+  },
+  "originalPreview": {
+    "id": "dpl_D8YCUNRAudpKzCDXx78hH9jKTcJM",
+    "url": "rpgjovemcristao-i6l93i48f-carlos-junior-s-projects.vercel.app",
+    "state": "READY",
+    "sha": "90c1d86779017b66cbf4bfac1cd35759cd43232b",
+    "target": "preview",
+    "backend": "TEST"
+  },
+  "migrations": {
+    "test": {
+      "version": "20261031042002",
+      "file": "supabase/migrations/20261031033721_rpg_dev_010c1_meetings_test.sql",
+      "sourceSha256": "ee1a9dbfa7a4c78cd787085c12f0bf0c0981728ec7aed5575b35ead091854e63",
+      "migrations": 38,
+      "tables": 68,
+      "functions": 187
+    },
+    "production": {
+      "version": "20261031044653",
+      "file": "supabase/migrations/20261031043045_rpg_dev_010c1_meetings_production.sql",
+      "sourceSha256": "d13f18a0bc5760a195d560cfea9c0e8943d956548702a182ff36ede8191ee05f",
+      "ownGuardedPackage": true,
+      "testOnlyFileApplied": false,
+      "migrations": 15,
+      "tables": 63,
+      "functions": 179
+    },
+    "priorTestFunctionsUnchanged": 180,
+    "priorProdFunctionsUnchanged": 172,
+    "priorPoliciesUnchangedEach": 39,
+    "newFunctions": 7,
+    "newPrivateTables": 5,
+    "prodNewFunctionDefinitionsAndACLsEqualTest": true,
+    "prodNewTablesEmpty": true,
+    "legacyCaptureOnlyLineEndingDifferenceReviewed": true,
+    "legacyProdRawCaptureHashPreserved": "d1e554d37f93637c083ad32f0ac7ca85"
+  },
+  "production": {
+    "id": "dpl_DnkuCtuuGYgB4cD7bh8NDXVgJtSn",
+    "sha": "9e5061467323725786a431b067f207f04c078f4e",
+    "state": "READY",
+    "target": "production",
+    "url": "https://rpgjovemcristao-web-inky.vercel.app",
+    "autoAssignCustomDomains": true,
+    "protectionsPreserved": true,
+    "existingGitDeploymentPromoted": true,
+    "duplicateProductionBuild": false,
+    "backend": "PROD",
+    "backendRuntimeProbe": {
+      "deployment": "dpl_DnkuCtuuGYgB4cD7bh8NDXVgJtSn",
+      "sha": "9e5061467323725786a431b067f207f04c078f4e",
+      "chunks": 8,
+      "backend": "PROD",
+      "testBackendAbsent": true,
+      "gameSessionRead": false
+    },
+    "preflight": 10,
+    "afterDDL": 8,
+    "retained": 11,
+    "official": 11,
+    "httpApi": 6,
+    "normalApprovedIdentity": true,
+    "activeAvatarLevel": 50,
+    "oldLevel1AvatarUsed": false,
+    "newAdminGrant": false,
+    "newAccountsOrAvatars": false,
+    "newGuildsOrCommunityRecords": false,
+    "retainedBrowser": {
+      "engine": "Chromium",
+      "mobileEmulated": true,
+      "profileIgnoreDuplicates": 16,
+      "readRPCs": 52,
+      "errors": [],
+      "unexpectedWrites": []
+    },
+    "officialBrowser": {
+      "engine": "Chromium",
+      "mobileEmulated": true,
+      "profileIgnoreDuplicates": 16,
+      "readRPCs": 52,
+      "errors": [],
+      "unexpectedWrites": []
+    }
+  },
+  "preservation": {
+    "pass": true,
+    "prodOriginalSets": 58,
+    "prodAllPostDDLSetCount": 63,
+    "prodAllPostDDLSetsEqual": true,
+    "newFiveProdTablesEmpty": true,
+    "testOriginalProjectedSets": 63,
+    "testOriginalProjectedSetsEqual": true,
+    "prodMetadataUnchangedAfterDDL": true,
+    "testMetadataUnchangedAfterDDL": true,
+    "gameEconomicGrant": false,
+    "productionCommunityRecordsCreated": false,
+    "testStrictOriginalSets": 59,
+    "testFourExpectedDeltas": [
+      "public.guild_missions",
+      "public.guild_mission_progress",
+      "public.guild_mission_attempts",
+      "public.guild_activity_log"
+    ],
+    "testProjectionExcludesOnlyNew010CRecords": true,
+    "xpIssued": 0,
+    "coinsIssued": 0,
+    "chestsIssued": 0,
+    "itemsIssued": 0,
+    "cardsIssued": 0,
+    "officialJourneyProgressChanged": false,
+    "authSessionMetadataMayUpdateNormally": true,
+    "noZeroPOSTClaim": true
+  },
+  "recovery": {
+    "snapshot": "build/rpg-dev-010c/prod-preddl-snapshot.json",
+    "sha256": "2341990fdc8b902f5ff383dbb2a92e7918550f60c4a74b4713c7481e9ebd3da5",
+    "plan": "RPG-DEV-010C1-PRODUCTION-PLAN.md",
+    "emptyRecoveryAndIssuedContainmentIsolatedPass": true,
+    "remoteCompensationRequired": false,
+    "oldCompatibleApplication": "4ded3c5f7c305d090a27a344cdf69b8fb0b57d04",
+    "oldDeployment": "dpl_4s1wFrncQr8xrod1HTyzRmNxmx7o",
+    "issuedHistoryDeletionPermitted": false
+  },
+  "artifacts": [
+    {
+      "file": "build/rpg-dev-010c/qa-preflight-results.json",
+      "sha256": "b0d119dbb8d6011ac472bb640f55f8907ff98157eb31e70ffdeda36c5f5c441d",
+      "checks": 6,
+      "pass": true
+    },
+    {
+      "file": "build/rpg-dev-010c/hosted-results.json",
+      "sha256": "7122e6b5616bc2dc72d705c3b51db1bfd06206a4a65df497d0f56de9db1cd940",
+      "checks": 14,
+      "pass": true
+    },
+    {
+      "file": "build/rpg-dev-010c/webkit-history-results.json",
+      "sha256": "7f2c71d79e82bcafb1b3fcd5e05a221ea145b2032ec1149b02a43ead72dcf6f5",
+      "checks": 3,
+      "pass": true
+    },
+    {
+      "file": "build/rpg-dev-010c/activity-history-results.json",
+      "sha256": "3a1dba97a399b16cb915a112547a0bc671b7b95ccbc2a38bebba2c8cdb7c23e2",
+      "checks": 3,
+      "pass": true
+    },
+    {
+      "file": "build/rpg-dev-010c/package-preview-results.json",
+      "sha256": "1317e6f22fb65183f66fc324c99bd755f8902dc9171cefae386cd4fe2863cb1d",
+      "checks": 5,
+      "pass": true
+    },
+    {
+      "file": "build/rpg-dev-010c/production-preflight.json",
+      "sha256": "839d8c11a890f1300bc1d0b094b7eeff345ea2ba4b75d4a3d9b3c90296722d12",
+      "checks": 10,
+      "pass": true
+    },
+    {
+      "file": "build/rpg-dev-010c/production-afterddl.json",
+      "sha256": "ad6158e7c26ac99ad96eb2bca4fa7e12e6274e27f5fad3f731e9b5e16613c62c",
+      "checks": 8,
+      "pass": true
+    },
+    {
+      "file": "build/rpg-dev-010c/production-retained-results.json",
+      "sha256": "45f9172b6f9aa3f7b7f7b5dd9cf00b46101a07bf06fc11ad4720811751249019",
+      "checks": 11,
+      "pass": true
+    },
+    {
+      "file": "build/rpg-dev-010c/production-official-results.json",
+      "sha256": "af6df3ffdf00985e18fa134bb5fa96c0906cb1bfeb3e3c9147d0f6c59ee95107",
+      "checks": 11,
+      "pass": true
+    },
+    {
+      "file": "build/rpg-dev-010c/production-http-results.json",
+      "sha256": "b2bc8bbd73ef7f9b0e75c1b9dfe4adfacb8e57e78b2d081b56d44676af1a50c6",
+      "checks": 6,
+      "pass": true
+    }
+  ],
+  "failuresPreserved": [
+    "Initial additional PostgreSQL delegation fixture used a wrong revision; corrected only fixture and repeated additional subset.",
+    "Initial workflow step indentation corrected; superseded/cancelled workflow is not PASS.",
+    "First hosted collector matched two Description fields and stopped before saving; scoped selector to the existing new panel.",
+    "Retained collector first imported a duplicate Playwright package across worktrees, before executing tests.",
+    "Shell editing corrupted one private collector selector encoding; regenerated UTF-8 and reran essential retained checks with unchanged runtime/Auth/RLS/assertions/timeouts.",
+    "No interrupted attempt is declared entirely PASS."
+  ],
+  "advisors": {
+    "test": {
+      "denyAllInfo": 44,
+      "legacyPublicDefinerWarn": 12,
+      "leakedPasswordProtectionWarn": 1
+    },
+    "production": {
+      "denyAllInfo": 39,
+      "legacyPublicDefinerWarn": 12,
+      "leakedPasswordProtectionWarn": 1
+    },
+    "newPrivateTablesIntentionallyDenyAll": 5,
+    "newPublicDefinerWarning": false,
+    "configurationChangedToPass": false
+  },
+  "protectedWork": {
+    "pr12": {
+      "open": true,
+      "draft": true,
+      "head": "61b7177b2ba52a04b955a8306677a0e13dfdeb3c"
+    },
+    "pr18": {
+      "open": true,
+      "draft": true,
+      "head": "fd6f1498783d00c2a338cc42968bc7d0d4f3f822"
+    },
+    "worktrees": 10,
+    "originalDirtyPathsPreserved": 52
+  },
+  "limitations": [
+    "Mobile tests are emulated, not physical devices.",
+    "Positive community records only in TEST; PROD verified with legitimate empty state and read/denial flows.",
+    "Selected browser-monitor counts exclude direct API commands and unmonitored diagnostic contexts.",
+    "Legacy Supabase/dependency notices remain.",
+    "010C.2 and 010C.3 are separate pending increments; no economic authority enabled."
+  ],
+  "criticalBlockers": [],
+  "review": "QA/Security/React by author; no independent review claimed.",
+  "documentaryRecord": "Separate branch; no extra app deployment"
+}

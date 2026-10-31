@@ -141,6 +141,10 @@ jobs:
         run: node tests/hosted/rpg-dev-010c1-postgres.mjs --history-only
       - name: Ensaiar envelope produtivo próprio do histórico sem dados remotos
         run: node tests/hosted/rpg-dev-010c1-production-postgres.mjs
+      - name: Exigir sigilo competitivo resultado oficial imutável e aprendizagem sem recompensas
+        run: node tests/hosted/rpg-dev-010c2-postgres.mjs
+      - name: Ensaiar pacote produtivo próprio de gincanas e contenção sem apagar vínculos
+        run: node tests/hosted/rpg-dev-010c2-production-postgres.mjs
 
   pinned-preview:
     name: Preview do SHA aprovado

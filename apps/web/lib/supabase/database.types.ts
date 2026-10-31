@@ -261,6 +261,14 @@ export type Database = {
         Args: { p_actor: string; p_guild: string; p_offset?: number };
         Returns: Json;
       };
+      guild_challenges_workspace: {
+        Args: { p_actor: string; p_guild: string; p_event?: string | null; p_offset?: number };
+        Returns: Json;
+      };
+      guild_challenges_command: {
+        Args: { p_actor: string; p_guild: string; p_action: string; p_event: string; p_request: string; p_revision: number; p_data: Json };
+        Returns: Json;
+      };
       guild_activity_command: {
         Args: { p_actor: string; p_guild: string; p_action: string; p_id: string; p_request: string; p_revision: number; p_data: Json };
         Returns: Json;

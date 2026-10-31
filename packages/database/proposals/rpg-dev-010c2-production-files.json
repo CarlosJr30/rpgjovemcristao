@@ -1,0 +1,10 @@
+{
+  "migration": "supabase/migrations/20261031130131_rpg_dev_010c2_challenges_production.sql",
+  "recovery": "packages/database/proposals/rpg-dev-010c2-production-recovery-empty.sql",
+  "containment": "packages/database/proposals/rpg-dev-010c2-production-containment.sql",
+  "environment": "PROD",
+  "testOnlyApplied": false,
+  "remoteApplied": false,
+  "testSourceSha256": "8a60dcdaa70b6a0dcbfb9c02080215940fd95314317e10c77c821f0af0203eca",
+  "authorityAndAclEquivalent": true
+}

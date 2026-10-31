@@ -16,6 +16,7 @@ import { GuildScope, type GuildScopeValue } from '../guild-governance/scope';
 import { useJourney } from '../journey/state/use-journey';
 import { CommonInvites } from '../guild-ebd/common-invites';
 import { CellActivityPanel } from '../guild-missions/cell-panel';
+import { GuildChallenges } from '../guild-challenges/panel';
 import { GuildHall } from '../journey/components/guild-artwork';
 import { GuildHero } from '../journey/components/guild-hero';
 import { ReleaseShell } from './shell';
@@ -60,6 +61,7 @@ function GuildCommunity({
     [message, setMessage] = useState(''),
     [busy, setBusy] = useState(false);
   const [activitiesOpen, setActivitiesOpen] = useState(false);
+  const [challengesOpen, setChallengesOpen] = useState(false);
   const pending = useRef(false);
   useEffect(() => {
     let live = true;
@@ -200,6 +202,19 @@ function GuildCommunity({
             <summary>Encontros e atividades da comunidade</summary>
             {activitiesOpen && (
               <CellActivityPanel actor={id} guildId={context.guild.id} />
+            )}
+          </details>
+          <details
+            className={css.card}
+            onToggle={(e) => setChallengesOpen(e.currentTarget.open)}
+          >
+            <summary>Gincanas e desafios em equipe</summary>
+            {challengesOpen && (
+              <GuildChallenges
+                key={`${id}:${context.guild.id}:${scope.generation}`}
+                actor={id}
+                guildId={context.guild.id}
+              />
             )}
           </details>
           <section className={css.card}>
