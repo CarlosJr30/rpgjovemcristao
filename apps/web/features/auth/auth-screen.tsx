@@ -14,6 +14,7 @@ import { hasPersistedSupabaseSession } from '../../lib/supabase/client';
 import styles from './auth.module.css';
 import { GuildInvitePreview } from '../guild-invites/invite-preview';
 import Link from 'next/link';
+import { EarlyAccessNotice } from '../early-access/notice';
 import {
   entryReturn,
   registrationDestination,
@@ -164,6 +165,7 @@ export function AuthScreen({ inviteToken }: { inviteToken?: string }) {
       <section className={styles.card} aria-labelledby="auth-title">
         <p className={styles.eyebrow}>JORNADA ONLINE</p>
         <h1 id="auth-title">{mode === 'signIn' ? 'Entrar' : 'Criar conta'}</h1>
+        <EarlyAccessNotice />
         {inviteToken && (
           <GuildInvitePreview key={inviteToken} token={inviteToken} />
         )}

@@ -1,10 +1,12 @@
 'use client';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import type { ReactNode } from 'react';
 import { useAuth } from '../../lib/supabase/auth-context';
 import { Shell } from '../journey/components/shell';
 import { isReleasedPath } from '../../lib/release-scope';
 import css from './release.module.css';
+import { EarlyAccessNotice } from '../early-access/notice';
 export function ReleaseShell({
   children,
   back,
@@ -14,6 +16,7 @@ export function ReleaseShell({
   back?: string;
   backLabel?: string;
 }) {
+  const administration = usePathname() === '/journey/guild/administration';
   return (
     <Shell
       navigationMode="released"
@@ -21,6 +24,7 @@ export function ReleaseShell({
       back={back ? (isReleasedPath(back) ? back : '/journey') : undefined}
       backLabel={backLabel ?? 'Voltar'}
     >
+      {!administration && <EarlyAccessNotice />}
       {children}
     </Shell>
   );

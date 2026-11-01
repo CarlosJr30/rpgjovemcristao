@@ -1,0 +1,226 @@
+{
+  "task": "RELEASE-EARLY-003",
+  "date": "2026-11-01",
+  "status": "BLOCKED_PENDING_OWNER_AND_EXTERNAL_CONFIGURATION",
+  "incomingHead": "ca9f1e3057a49a32880bed4141797f719ed5d240",
+  "ci": [
+    {
+      "id": 41300391750,
+      "event": "push",
+      "conclusion": "success"
+    },
+    {
+      "id": 41300394633,
+      "event": "pull_request",
+      "conclusion": "success"
+    }
+  ],
+  "conditionalPublishJob": "skipped_not_pass",
+  "runtime": "9b23c4b97419a1653aefb0e26821997b3265c912",
+  "reusedEvidence": "docs/architecture/RELEASE-EARLY-002-EVIDENCE.json",
+  "newBroadHomologation": false,
+  "authPublicFlags": [
+    {
+      "environment": "TEST",
+      "mailerAutoconfirm": false,
+      "signupDisabled": false,
+      "emailProvider": true,
+      "phoneProvider": false,
+      "anonymousProvider": false
+    },
+    {
+      "environment": "PROD",
+      "mailerAutoconfirm": true,
+      "signupDisabled": false,
+      "emailProvider": true,
+      "phoneProvider": false,
+      "anonymousProvider": false
+    }
+  ],
+  "smtpOffOwnerReportedIn002": true,
+  "providerAlreadyConfigured": false,
+  "recommendation": {
+    "provider": "Resend Free",
+    "ownerDecision": "DECLINED",
+    "use": "Supabase Auth SMTP only",
+    "configured": false,
+    "paidServicesAuthorized": false,
+    "ownerHasOwnedSenderDomain": false,
+    "domainAuthorized": false,
+    "credentialCreationAuthorized": false,
+    "externalRecipientAuthorized": false
+  },
+  "privacy": {
+    "minimumAge": 8,
+    "proposalVersion": "0.2",
+    "approved": false,
+    "ownerConfirmedOperator": "Carlos Faustino",
+    "confirmedFunctions": [
+      "Privacy requests",
+      "Initial guardian relationship verification"
+    ],
+    "guardianProcedureExisting": false,
+    "newControlsImplemented": false,
+    "noTechnicalPrivilegeGrant": true
+  },
+  "platformAudit": {
+    "readOnly": true,
+    "providerInstalled": false,
+    "credentialsCreated": false,
+    "configurationChanged": false,
+    "projectDomains": [
+      {
+        "name": "rpgjovemcristao-web-inky.vercel.app",
+        "verified": true,
+        "gitBranch": null
+      }
+    ],
+    "ownedDomains": {
+      "count": 1,
+      "projectRelated": [],
+      "pagination": {
+        "count": 1,
+        "next": null,
+        "prev": 1780893962237
+      }
+    },
+    "integrationAudit": {
+      "count": 0,
+      "projectRelated": [],
+      "emailRelated": []
+    },
+    "project": {
+      "id": "prj_mG2ZSDaSc5i2Pz2uqKSlCzSGiVmG",
+      "region": "iad1",
+      "analytics": null,
+      "speedInsights": {
+        "enabledAt": null,
+        "disabledAt": null
+      },
+      "webAnalytics": {
+        "enabledAt": null,
+        "disabledAt": null
+      }
+    },
+    "logDrains": {
+      "count": 0,
+      "sources": []
+    },
+    "hostingPlan": "hobby"
+  },
+  "supabaseMetadata": [
+    {
+      "environment": "TEST",
+      "id": "wkdvdzfkbwvhyjmamrsg",
+      "region": "sa-east-1",
+      "status": "ACTIVE_HEALTHY",
+      "databaseVersion": "17.11.0.003"
+    },
+    {
+      "environment": "PROD",
+      "id": "wspafhlbtlpabypzymjo",
+      "region": "sa-east-1",
+      "status": "ACTIVE_HEALTHY",
+      "databaseVersion": "17.6.1.166"
+    }
+  ],
+  "observation": {
+    "scope": "Anonymous home and auth only; not a new browser homologation",
+    "pages": 2,
+    "requestOrigins": [
+      "https://rpgjovemcristao-web-inky.vercel.app"
+    ],
+    "scriptOrigins": [
+      "https://rpgjovemcristao-web-inky.vercel.app"
+    ],
+    "unexpectedWriteRequests": [],
+    "cookies": [],
+    "errors": [],
+    "accountCreated": false,
+    "emailSent": false,
+    "productionChanged": false
+  },
+  "preservation": {
+    "TEST": {
+      "sets": 75,
+      "equalTo002": true,
+      "structureEqualTo002": true,
+      "dataHash": "c4a8ff847659e498062f444f60b1a8149ae013c2e183d219d44cb3a226a34a4b",
+      "structureHash": "542a665fe540e5dbf9a17fad270d602376f476d5cff1f24912658a977ffec87f"
+    },
+    "PROD": {
+      "sets": 70,
+      "equalTo002": true,
+      "structureEqualTo002": true,
+      "dataHash": "1f654acdc92871b0479ba43e640a8311f43447995e5eadf0c1e5a271e22ddbc5",
+      "structureHash": "2f68c91bacf6a0f897f53cfe5366ecb478e2d704a66a5b05c23eedaa7fcca1d3"
+    }
+  },
+  "production": {
+    "sha": "c853d9b732b0a7b828e0bfdc97456a463fd4e9b3",
+    "deployment": "dpl_J3wVPLJt3xCDdadoGddRpd5JQeNU",
+    "ready": true,
+    "target": "production",
+    "backend": "PROD",
+    "alias": "https://rpgjovemcristao-web-inky.vercel.app",
+    "autoAssignCustomDomains": true,
+    "changed": false
+  },
+  "preview": {
+    "url": "https://rpgjovemcristao-b0otimxdk-carlos-junior-s-projects.vercel.app",
+    "sha": "9b23c4b97419a1653aefb0e26821997b3265c912",
+    "backend": "TEST",
+    "reused": true,
+    "newDeployment": false
+  },
+  "changes": {
+    "runtime": false,
+    "migrations": 0,
+    "configuration": false,
+    "accounts": 0,
+    "avatars": 0,
+    "grants": 0,
+    "emailsSent": 0,
+    "rewards": 0,
+    "invitationAutomaticEmailCancelled": true
+  },
+  "remainingGates": [
+    "Approve free provider and owned sender domain; approve credential creation and external recipient; real external TEST transport verification.",
+    "Approve privacy, age/guardian/supervision and retention procedures; implement and verify necessary controls.",
+    "Confirm processor contractual/privacy settings and approve sensitive changes before application.",
+    "Only after prior gates: exact candidate CI, PROD sensitive configuration/preflight, deployment and official verification."
+  ],
+  "qa": "Author review, no independence claimed",
+  "limitations": [
+    "Anonymous two-page sample does not cover all routes or processor telemetry.",
+    "Processor model-training opt-out state not exposed by audited metadata; no claim of training or opt-out.",
+    "No Android distribution approval claimed.",
+    "No external email test performed before authorization."
+  ],
+  "artifacts": [
+    {
+      "path": "build/release-early-003/platform-metadata.json",
+      "sha256": "c34a286dff92dd1bea121057018fc14aa61ff812857eccfdd10715d796d9c6d6"
+    },
+    {
+      "path": "build/release-early-003/auth-settings-current.json",
+      "sha256": "d5a7a3534338ff560fa9d4cbe37311208a2f6248c2fe801025a2356562fb0ff4"
+    },
+    {
+      "path": "build/release-early-003/public-observation.json",
+      "sha256": "122d7422280b3939407393df9cf1134494db7e7c67f261fab78f37589d8c1206"
+    },
+    {
+      "path": "build/release-early-003/supabase-metadata.json",
+      "sha256": "1c2276611060b1b9bd11fee33581c515e317ddc183025d236291471769aa1919"
+    },
+    {
+      "path": "build/release-early-003/baseline-TEST.json",
+      "sha256": "9ff895db7b0712abef6fa7f152b40f483054ba175025652374bc0b266347a92c"
+    },
+    {
+      "path": "build/release-early-003/baseline-PROD.json",
+      "sha256": "3227f2d288a55c2caa9ba97e978d7f916fd6e42eb0c3677efd24a08a3a5250a3"
+    }
+  ]
+}

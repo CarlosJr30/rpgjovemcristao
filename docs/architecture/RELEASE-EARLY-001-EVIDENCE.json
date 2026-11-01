@@ -1,0 +1,179 @@
+{
+  "task": "RELEASE-EARLY-001",
+  "status": "BLOCKED",
+  "publicLaunchAccepted": false,
+  "candidate": "9b3d8752e0606d2970023ebae9f73e296b934922",
+  "pullRequest": "https://github.com/CarlosJr30/rpgjovemcristao/pull/24",
+  "draft": true,
+  "newCommunicationPublishedToPROD": false,
+  "ci": {
+    "sha": "9b3d8752e0606d2970023ebae9f73e296b934922",
+    "pushSuccess": true,
+    "prSuccess": true,
+    "pushRun": 41222115375,
+    "prRun": 41222119758,
+    "unitPass": 994,
+    "unitSkip": 74,
+    "filesPass": 151,
+    "filesSkip": 7,
+    "quality": true,
+    "postgres": true,
+    "rsc": true,
+    "conditionalPublication": "SKIP",
+    "firstCandidate": "3b7c0e00e6f080de81f0a4df35a3e9cbc9fcdfb1",
+    "firstCandidateQuality": "FAIL:993PASS/1FAIL/74SKIP",
+    "failureRetained": true,
+    "testsAdjustedForAuthorizedUnavailableDisclosure": true,
+    "runtimeChangedToHideFailure": false
+  },
+  "preview": {
+    "id": "dpl_4iobKedfwHehgMnpTLc1SHWgYKiQ",
+    "url": "rpgjovemcristao-gepu3jfl5-carlos-junior-s-projects.vercel.app",
+    "state": "READY",
+    "sha": "9b3d8752e0606d2970023ebae9f73e296b934922",
+    "target": "preview",
+    "backend": "TEST"
+  },
+  "previewValidation": {
+    "pass": false,
+    "accepted": false,
+    "plannedChecks": 14,
+    "passedChecks": 13,
+    "failedChecks": [
+      "WebKit320 no page errors or unexpected REST mutations"
+    ],
+    "rawParts": [
+      "preview-failed-1793466453541.json",
+      "preview-webkit-failed-1793466576710.json",
+      "preview-webkit-toolbar-failed-1793466757990.json"
+    ],
+    "toolbarHeaderResolvedFailure": false,
+    "rootCause": "PENDING; protected Preview validation call and WebKit fetch/CORS failure observed; not proven to be an application or toolbar defect",
+    "normalControlledTestLogins": true,
+    "normalLogout": true,
+    "sessionImported": false,
+    "accountOrAvatarCreated": false,
+    "deliveryTested": false,
+    "mobileEmulated": true,
+    "physicalDevice": false,
+    "monitors": [
+      {
+        "engine": "Chromium390",
+        "errors": [],
+        "unexpectedWrites": [],
+        "profilePosts": 7,
+        "readRPCs": 4
+      },
+      {
+        "engine": "WebKit320",
+        "errors": [
+          "Fetch API cannot load https"
+        ],
+        "unexpectedWrites": [],
+        "profilePosts": 7,
+        "readRPCs": 4
+      }
+    ]
+  },
+  "existingOfficial": {
+    "sha": "fa4d1a126316fa535d7a21f3ad508729746cb134",
+    "deployment": "dpl_4VNVhSgqKYuHNLpLDPy2zx9jYJy9",
+    "ready": true,
+    "target": "production",
+    "backend": "PROD",
+    "domain": "https://rpgjovemcristao-web-inky.vercel.app",
+    "autoAssign": true,
+    "protectionsPreserved": true,
+    "signupCurrentlyEnabled": true,
+    "anonymousReadChecks": 12,
+    "normalExistingIdentityRead": true,
+    "newPermanentFictitiousPlayer": false,
+    "configurationChanged": false,
+    "gameMutation": false
+  },
+  "authConfiguration": {
+    "emailProvider": true,
+    "mailerAutoconfirm": true,
+    "signupDisabled": false,
+    "emailPossessionGate": "FAIL",
+    "smtpDeliveryAndRedirectAllowlist": "PENDING",
+    "newPrivilegesGranted": false,
+    "confirmationOrRecoveryEmailSentToProduction": false
+  },
+  "privacy": {
+    "intendedAgeRange": "NOT_SUPPLIED",
+    "controller": "NOT_SUPPLIED",
+    "publicContact": "NOT_SUPPLIED",
+    "approvedPolicy": "NOT_LOCATED_OR_SUPPLIED",
+    "minorSafeguards": "PENDING_HUMAN_DECISION_AND_RELEVANT_IMPLEMENTATION",
+    "genericDoneRepliesNotTreatedAsApproval": true,
+    "legalComplianceClaimed": false
+  },
+  "preservation": {
+    "production70DatasetsExact": true,
+    "test75DatasetsExact": true,
+    "production191FunctionsAcl39PoliciesSchemasDefaultsExact": true,
+    "test199FunctionsAcl39PoliciesSchemasDefaultsExact": true,
+    "authConfigurationChangedByAgent": false,
+    "productionStillC2": true,
+    "productionReadyShaDomainBackendVerified": true,
+    "autoAssignTrueAndProtectionsPreserved": true,
+    "productionAccountsOrAvatarsCreated": false,
+    "testAccountsOrAvatarsCreated": false,
+    "qaNormalLogoutOnly": true,
+    "normalAuthMayChangeSessionMetadata": true,
+    "xpCoinsChestsCardsItemsEquipmentOfficialProgressGranted": false,
+    "migrations": 0,
+    "pr12And18DraftUnmergedOriginalHeads": true,
+    "pass": true
+  },
+  "existingHostedProofsReused": [
+    "RPG-DEV-010A2-RELEASE-EVIDENCE.json",
+    "RPG-DEV-010B-RELEASE-EVIDENCE.json",
+    "RPG-DEV-010B3-RELEASE-EVIDENCE.json",
+    "RPG-DEV-010C1-RELEASE-EVIDENCE.json",
+    "RPG-DEV-010C2-RELEASE-EVIDENCE.json"
+  ],
+  "notClaimed": [
+    "New positive signup or recovery-email cycle in PROD",
+    "New hosted two-identity activity flows after a static copy change",
+    "Physical-device validation",
+    "Public launch accepted despite unresolved gates"
+  ],
+  "migrations": 0,
+  "economicRewardsGranted": 0,
+  "pr12Preserved": true,
+  "pr18Preserved": true,
+  "qaSecurityByAuthor": true,
+  "independentReview": false,
+  "artifacts": [
+    {
+      "name": "public-results.json",
+      "sha256": "ff96cea45260a634bb3c464c5df856c1e4671a6cc6c9d4baad96ae75473dd4f3"
+    },
+    {
+      "name": "auth-settings-proof.json",
+      "sha256": "4ead9d193f9c215552babeebe560c13451f4c291f26489446a247bb7e0920712"
+    },
+    {
+      "name": "auth-settings-public-final.json",
+      "sha256": "777bca6cd7010e3504ea592359a35d30543feead64f8d4fd316479846c850877"
+    },
+    {
+      "name": "preview-results.json",
+      "sha256": "872097c40ead3e8deca72a6a0a3a8d7854c20c11d270fbb51af43ec7d7e31c0c"
+    },
+    {
+      "name": "final-preservation.json",
+      "sha256": "0888337bde4e72b5b5fc05882eb75c27efc8b5a4fea72e5212085faa72aa94da"
+    },
+    {
+      "name": "first-ci-failure.json",
+      "sha256": "36869147b92480a46615e3957ff931db36f894c2c2f75705c07e8b1808de9cc6"
+    },
+    {
+      "name": "readiness-review.json",
+      "sha256": "3e0af66f6547b3a993b152443ca5d7a33e818213e17e7a939af1574f2b0b952f"
+    }
+  ]
+}

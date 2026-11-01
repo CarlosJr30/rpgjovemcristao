@@ -271,10 +271,15 @@ function GuildCommunity({
         <section className={css.card}>
           <h2>Participar de uma Guilda</h2>
           <p>
-            Peça ao líder um convite por link ou QR Code. Sua entrada depende da
-            aprovação dele, sem remover participações em outras comunidades.
+            Peça ao líder um convite por link ou QR Code. Um convite válido e
+            elegível permite entrada automática após o login e a escolha do
+            avatar, sem remover participações em outras comunidades.
           </p>
-          <p>Já enviou um pedido? Atualize para conferir a aprovação.</p>
+          <p>
+            Pedidos antigos continuam aguardando tratamento explícito. Você
+            pode explorar os demais módulos disponíveis sem pertencer a uma
+            Guilda.
+          </p>
         </section>
       )}
       {canCreate && writesEnabled ? (

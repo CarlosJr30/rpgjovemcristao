@@ -1,0 +1,280 @@
+{
+  "task": "RELEASE-EARLY-002",
+  "date": "2026-11-01",
+  "status": "BLOCKED_FOR_PUBLIC_8_PLUS_LAUNCH",
+  "runtimeCandidate": "9b23c4b97419a1653aefb0e26821997b3265c912",
+  "pr": {
+    "number": 24,
+    "draft": true,
+    "merged": false
+  },
+  "ci": [
+    {
+      "id": 41275632926,
+      "event": "pull_request",
+      "status": "completed",
+      "conclusion": "success",
+      "sha": "9b23c4b97419a1653aefb0e26821997b3265c912"
+    },
+    {
+      "id": 41275630839,
+      "event": "push",
+      "status": "completed",
+      "conclusion": "success",
+      "sha": "9b23c4b97419a1653aefb0e26821997b3265c912"
+    }
+  ],
+  "unit": {
+    "pass": 1010,
+    "skip": 74,
+    "targetedLocal": 10,
+    "targetedLocalCountIncludedNotAdditional": true
+  },
+  "preview": {
+    "id": "dpl_FVFhUQGw2ZDetMRZ1mjRcfKL6So6",
+    "url": "rpgjovemcristao-b0otimxdk-carlos-junior-s-projects.vercel.app",
+    "state": "READY",
+    "sha": "9b23c4b97419a1653aefb0e26821997b3265c912",
+    "target": "preview",
+    "backend": "TEST"
+  },
+  "webkit": {
+    "affectedFormsPass": true,
+    "validationResponses": 4,
+    "errors": 0,
+    "scope": "Settled document navigation; signup/recovery forms only, WebKit320 emulated",
+    "originalFastSettledFastErrors": [
+      2,
+      0,
+      1
+    ],
+    "errorFiltering": false,
+    "broaderInterruptedDiagnosticsNotDeclaredPass": true
+  },
+  "testAuth": {
+    "functionalChecks": [
+      "TEST confirmation required; no Auth bypass",
+      "Normal signup accepted without session before email confirmation",
+      "Received signup email followed unchanged to exact Preview callback; Auth confirms identity",
+      "Normal logout completed before password login",
+      "Confirmed dedicated TEST account signs in normally",
+      "Normal recovery form accepted exactly one request",
+      "Received recovery email followed unchanged to exact Preview recovery form",
+      "Password updated only for dedicated TEST QA and recovery session signed out",
+      "New password normal login validated by Auth for same confirmed TEST identity"
+    ],
+    "normalSignupAttempts": 1,
+    "normalRecoveryRequests": 1,
+    "realEmailsReceived": 2,
+    "originalLinksFollowedWithoutRewriting": true,
+    "confirmedDistinctIdentityFingerprint": "710b5ec32cde",
+    "avatarCreated": false,
+    "implicitAdmin": false,
+    "essentialSecurityChecks": 3,
+    "originalConsoleErrors": 1,
+    "originalConsoleError": {
+      "status": 403,
+      "semanticCode": "session_not_found",
+      "conclusion": "Expected refusal of recovery session invalidated by concurrent normal logout"
+    },
+    "sessionInvalidationChecks": {
+      "pass": true,
+      "checks": 5,
+      "normalLoginBefore": true,
+      "userBefore": 200,
+      "logoutStatus": 204,
+      "anonymousUIAndStorageCleared": true,
+      "oldSessionUserStatus": 403,
+      "oldSessionErrorCode": "session_not_found",
+      "newNormalLoginSameConfirmedUser": true,
+      "emailsSent": 0,
+      "authConfigurationChanged": false,
+      "sessionImported": false,
+      "errorFiltersApplied": false,
+      "browserErrors": []
+    },
+    "errorSuppression": false,
+    "existingPlayerPasswordsChanged": false,
+    "dedicatedQAOnly": true
+  },
+  "configuration": {
+    "source": "Owner visual Dashboard report and explicit TEST save confirmation; received email callbacks verify current TEST return paths",
+    "customSMTP": {
+      "TEST": false,
+      "PROD": false
+    },
+    "testAddedRedirects": [
+      "https://rpgjovemcristao-b0otimxdk-carlos-junior-s-projects.vercel.app/auth",
+      "https://rpgjovemcristao-b0otimxdk-carlos-junior-s-projects.vercel.app/auth/recover"
+    ],
+    "testSiteURLAndOldRedirectsPreserved": true,
+    "prodChanged": false,
+    "confirmationSettingsChanged": false,
+    "mailerAutoconfirm": {
+      "TEST": false,
+      "PROD": true
+    },
+    "migrationsApplied": 0
+  },
+  "production": {
+    "id": "dpl_J3wVPLJt3xCDdadoGddRpd5JQeNU",
+    "state": "READY",
+    "target": "production",
+    "sha": "c853d9b732b0a7b828e0bfdc97456a463fd4e9b3",
+    "backend": "PROD",
+    "officialAlias": "https://rpgjovemcristao-web-inky.vercel.app",
+    "autoAssignCustomDomains": true,
+    "newEarlyDeployment": false,
+    "newAccountOrAvatar": false,
+    "newGrant": false
+  },
+  "preservation": {
+    "TEST": {
+      "sets": 75,
+      "strictSetsEqual": 74,
+      "allOriginalSetsEqualByDocumentedProjection": true,
+      "structureEqual": true,
+      "structureDigest": "542a665fe540e5dbf9a17fad270d602376f476d5cff1f24912658a977ffec87f",
+      "originalDataDigestBefore": "9e9fb47d57a5f2b4d288b4780629ae2db87238d3914d48704000b01b7e54e613",
+      "originalDataDigestAfterProjection": "9e9fb47d57a5f2b4d288b4780629ae2db87238d3914d48704000b01b7e54e613",
+      "deltas": [
+        {
+          "table": "public.profiles",
+          "beforeCount": 6,
+          "afterCount": 7,
+          "beforeHash": "92a53d877e4e5adaab3ba9d8cb3cf2fb2a35b4b9ca1924f9d04610435ce07ffd",
+          "afterHash": "6da8f16ade55874b9db232de2c3f55c5142c108697de82bfa936104a697619a4"
+        }
+      ]
+    },
+    "PROD": {
+      "sets": 70,
+      "strictSetsEqual": 70,
+      "allOriginalSetsEqualByDocumentedProjection": true,
+      "structureEqual": true,
+      "structureDigest": "2f68c91bacf6a0f897f53cfe5366ecb478e2d704a66a5b05c23eedaa7fcca1d3",
+      "originalDataDigestBefore": "1f654acdc92871b0479ba43e640a8311f43447995e5eadf0c1e5a271e22ddbc5",
+      "originalDataDigestAfterProjection": "1f654acdc92871b0479ba43e640a8311f43447995e5eadf0c1e5a271e22ddbc5",
+      "deltas": []
+    }
+  },
+  "blockers": [
+    "Security email delivery for arbitrary real players not configured; default SMTP is restricted. PROD still autoconfirms email.",
+    "Privacy proposal and real age/guardian admission, linkage and supervision safeguards for intended 8+ public not approved/implemented."
+  ],
+  "invitations": {
+    "automaticEmailCancelled": true,
+    "manualLinkQRWhatsAppPreserved": true
+  },
+  "economyEnabled": false,
+  "prsPreserved": [
+    {
+      "number": 12,
+      "head": "61b7177b2ba52a04b955a8306677a0e13dfdeb3c"
+    },
+    {
+      "number": 18,
+      "head": "fd6f1498783d00c2a338cc42968bc7d0d4f3f822"
+    }
+  ],
+  "qa": "Author; no independent review claimed",
+  "limitations": [
+    "Mobile emulated, not physical.",
+    "Default sender delivery to controlled QA mailbox does not prove arbitrary public delivery.",
+    "Original console denial and failed collector attempts retained, not relabeled as zero errors."
+  ],
+  "artifacts": [
+    {
+      "path": "build/release-early-002/ci-approved.json",
+      "sha256": "290277506c9b09acd7003f27f14adef36d37fbfb132b01ea991ffc55d92881d7"
+    },
+    {
+      "path": "build/release-early-002/preview.json",
+      "sha256": "cb828d4863e22a8db0d9d88ffe413f565abcb01d5cbf14c7c9f17b9da5cf9da7"
+    },
+    {
+      "path": "build/release-early-002/preview-backend-probe.json",
+      "sha256": "912a22617d1108415e0e11bb078eada2aac4ac5e74969d065affc3c097a2942f"
+    },
+    {
+      "path": "build/release-early-002/webkit-auth-diagnostic.json",
+      "sha256": "8527b018c8ba79cd445faf3032c7fa96d85c7c5e8f39f718d6831850c89c223f"
+    },
+    {
+      "path": "build/release-early-002/final-webkit-focused.json",
+      "sha256": "5aaca51fa1994c9624cfb9a20883b7a78e0ba7131d4f95c1701dbb0d773cf34d"
+    },
+    {
+      "path": "build/release-early-002/final-webkit-gate.json",
+      "sha256": "9a728ffc7cc0364ed71422415a3769b03db413768323feb25d70e702f9680694"
+    },
+    {
+      "path": "build/release-early-002/auth-settings.json",
+      "sha256": "2947c6b76203ba9ce314cc8ab0efbc9843e8c015b72e5d1383ba4dcbfd656eb1"
+    },
+    {
+      "path": "build/release-early-002/prod-security-delivery.json",
+      "sha256": "c3114352c511970de0e8eece5ff23c56f8f9fae2450ffea9a4add7302073a1a8"
+    },
+    {
+      "path": "build/release-early-002/prod-security-receipt.json",
+      "sha256": "8b397a14178c82bdaec4c34ae7edce78c844edb22d17d284142f0fd59fa62cef"
+    },
+    {
+      "path": "build/release-early-002/auth-signup-receipt.json",
+      "sha256": "b83b569f813015b8ecce732c57e4676960f98da072aba1763093d2916797bd35"
+    },
+    {
+      "path": "build/release-early-002/auth-recovery-receipt.json",
+      "sha256": "dd956bc7ddf7e5071f4222758b4f53c5bdca2d5db474f35b71bbfbc403d74cd2"
+    },
+    {
+      "path": "build/release-early-002/auth-qa-first-collector-failure.json",
+      "sha256": "876a298b30ed6e58bdca5913d65556b9d71f0f57fb7f69011caa4514e06222e5"
+    },
+    {
+      "path": "build/release-early-002/auth-qa-first-full-flow.json",
+      "sha256": "22ae0a338ee15598de8cb1f77e5ce7fe37a8f45404b0aa087fb55afe518afef5"
+    },
+    {
+      "path": "build/release-early-002/auth-password-console-diagnostic.json",
+      "sha256": "d4ad6b918de3b51ce20ada58509d94d3ae4cab8bda454aca8ba5de950bfcad9a"
+    },
+    {
+      "path": "build/release-early-002/auth-qa-essential-security.json",
+      "sha256": "e3b3168c0f7e3a2d86996cd6aa05bbb4d3c778bcfd3a49cc6ed89175aa77bc8d"
+    },
+    {
+      "path": "build/release-early-002/auth-recovery-timeline.json",
+      "sha256": "1ff9346cd8a39ea82f65022168fa68b89ae48806d3ebb24fddd4c3887498e696"
+    },
+    {
+      "path": "build/release-early-002/auth-recovery-server-events.json",
+      "sha256": "c611cf544a1c4310f6f8b891f04b45e2423ca7a27a9848669c8e011b52ca6b1d"
+    },
+    {
+      "path": "build/release-early-002/session-invalidation-collector-failure.json",
+      "sha256": "5739b42c26659e3db3f5d0837dd9a9c3aa3d095ec4b243e414374bbec5f565ca"
+    },
+    {
+      "path": "build/release-early-002/session-invalidation-check.json",
+      "sha256": "927a243200e77785827acf7de4ae9314afa7fa115bef24cf65a03b72687c8df0"
+    },
+    {
+      "path": "build/release-early-002/baseline-TEST.json",
+      "sha256": "436c0252306af1e68e769ba7732b0a0c026d6987d0903c676e9181193833f7c6"
+    },
+    {
+      "path": "build/release-early-002/baseline-PROD.json",
+      "sha256": "dfd3a575217267644727324d117d5568e174327747bff9c1e34721252be38591"
+    },
+    {
+      "path": "build/release-early-002/final-after-auth-TEST.json",
+      "sha256": "4f8b986f7c4a7477eccfb24baacb3a12e6015079ee7a97d08cb45f8a044ca004"
+    },
+    {
+      "path": "build/release-early-002/final-after-auth-PROD.json",
+      "sha256": "3227f2d288a55c2caa9ba97e978d7f916fd6e42eb0c3677efd24a08a3a5250a3"
+    }
+  ]
+}

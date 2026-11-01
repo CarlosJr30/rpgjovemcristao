@@ -1,5 +1,7 @@
 # UI-ADMIN-001 — pacote produtivo
 
+Fechamento01/11/2026: pacote aplicado como20261101041317, PR25mergec853d9b/CI41272321063success, deploymentdpl_J3wVPLJt3xCDdadoGddRpd5JQeNUREADY/PROD/aliasoficialconfirmado.10preflight5pósDDL9retida9oficiais8HTTPPASS; recuperação/contenção não necessárias remotamente.68dadosPRODestritos/70originaisprojetados preservados após convite/auditoria de uso real confirmados pelo proprietário. Estado final no relatório/evidência. Preparação abaixo histórica.
+
 01/11/2026. Preparação; aplicação/publicação ainda pendentes dos gates finais. Leitura administrativa homologada em TEST com duas identidades normais, sem concessões implícitas. A confirmação de nova emissão recebe recheck próprio antes de qualquer promoção.
 
 Arquivo produtivo próprio `20261101035710_ui_admin_001_leaders_read_production.sql`; não aplicar o envelope TEST-only. Rotinas e ACLs idênticas às duas funções TEST homologadas; muda apenas a guarda de ambiente. Nenhuma tabela, grant administrativo, dado de jogador ou operação econômica. Aplicação anterior permanece compatível.
