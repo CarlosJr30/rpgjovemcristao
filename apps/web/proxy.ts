@@ -1,7 +1,16 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { isReleasedPath, unavailableResponse } from './lib/release-scope';
+import {
+  isArenaTestPath,
+  isArenaTestServerEnabled,
+} from './lib/arena-test-scope';
 export function proxy(request: NextRequest) {
-  if (isReleasedPath(request.nextUrl.pathname)) return NextResponse.next();
+  const path = request.nextUrl.pathname;
+  if (
+    isReleasedPath(path) &&
+    (!isArenaTestPath(path) || isArenaTestServerEnabled())
+  )
+    return NextResponse.next();
   if (request.nextUrl.pathname.startsWith('/api/'))
     return unavailableResponse();
   return new NextResponse(

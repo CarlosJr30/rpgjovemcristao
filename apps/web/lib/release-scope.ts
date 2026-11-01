@@ -1,4 +1,5 @@
 /** Fixed release boundary. A full launch requires an explicitly reviewed change. */
+import { isArenaTestAvailable, isArenaTestPath } from './arena-test-scope';
 export const RELEASE_PROFILE = 'governance-foundation-010a-test' as const;
 export const GAMEPLAY_ENABLED = false;
 const paths = new Set([
@@ -39,7 +40,11 @@ const paths = new Set([
   '/guilda/participar',
 ]);
 export function isReleasedPath(path: string): boolean {
-  return paths.has(path) || /^\/guilda\/convite\/[a-f0-9]{64}$/.test(path);
+  return (
+    paths.has(path) ||
+    /^\/guilda\/convite\/[a-f0-9]{64}$/.test(path) ||
+    (isArenaTestAvailable() && isArenaTestPath(path))
+  );
 }
 export function unavailableResponse(): Response {
   return Response.json(

@@ -1,0 +1,15 @@
+# RPG-ARENA-TORRE-001 — recuperação em TEST
+
+01/11/2026. **Implementação local validada; homologação positiva hospedada BLOCKED por ausência de acesso a conta com sete cartas.** O proprietário confirmou não possuir esse acesso. Não conceder cartas, emprestar coleção ou fabricar posse para encerrar o gate. Produção fora do escopo.
+
+[Inventário anterior às alterações](RPG-ARENA-TORRE-001-INVENTORY.md): Arena V2, sete efeitos/cartas, seis assets aprovados e Torre de sete andares com Campeão final já existem. Nenhuma carta funcional ausente; ilustrações individuais das cartas e retratos exclusivos da Torre não têm aprovação/mapeamento localizado. Não foram produzidos novos assets ou cartas.
+
+Reutilizados motor, IA, atributos, equipamentos, editor, deck de sete cartas distintas/uso único e checkpoints da Torre. A integração acrescenta entrada de treino somente na Preview com backend TEST e flag explícita. Proxy e páginas recusam outros ambientes. A coleção usa exclusivamente a leitura própria existente `get_owned_cards`, seus recibos e o catálogo homologado TEST; coleção vazia ou parcial não é completada. A API econômica permanece bloqueada.
+
+Treino não consulta adversários de outros jogadores, não atualiza viajante, não registra resultado oficial e não executa settlement/recompensas. Batalhas e andares são demonstrativos locais, não autoridade de progresso. A troca de identidade/avatar remonta a tela; a leitura existente valida sessão/avatar e o catálogo é reconferido durante comandos.
+
+Verificação local: **58 testes direcionados PASS em partes identificadas** (ambiente/rotas, posse/catálogo, vitória/recarga sem concessões, deck e Torre existentes), lint/TypeScript/build TEST e protocolo **25 PASS**. Não repetida a suíte geral local. Duas interrupções do novo teste preservadas: mock de `matchMedia` incompleto; expectativa de avanço de rodada que não aceitava término na própria rodada. TypeScript também rejeitou opção `exact` no seletor. Corrigidos somente testes, sem mudar motor ou relaxar controles de posse/economia. Reexecução dos dois casos afetados PASS. Fixtures sintéticas locais não são prova hospedada.
+
+GitHub/CI e Preview: pendentes neste checkpoint. Branch independente `codex/rpg-arena-torre-001`, base publicada `c853d9b`. PR12/18/24 reconfirmadas abertas/draft nos mesmos SHAs. Zero migrations, dependências, configurações Auth/RLS, concessões ou alterações PROD. Baseline TEST de 75 conjuntos e estrutura capturado somente por leitura antes de ensaio hospedado.
+
+Próximo gate: CI exato e Preview TEST; conferir acesso normal sem cartas, negativa de batalha e isolamento das rotas afetadas. Batalha positiva hospedada e conclusão dos sete andares permanecem pendentes até acesso normal autorizado a conta que já possua as sete cartas. Sem publicação PROD ou declaração de entrega integral homologada. QA/Security/React pelo autor, sem revisão independente alegada. Artefatos/falhas privados em `build/rpg-arena-torre-001`.
