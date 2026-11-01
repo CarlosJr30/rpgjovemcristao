@@ -449,6 +449,7 @@ export function Shell({
               <button
                 className={styles.primaryLink}
                 onClick={() => {
+                  setConfirmingTravelerSwitch(false);
                   if (switchTraveler()) router.replace('/');
                 }}
               >

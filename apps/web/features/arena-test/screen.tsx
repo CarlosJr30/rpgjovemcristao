@@ -58,7 +58,7 @@ function Practice({
     <>
       {profile.level === 50 && (
         <p role="note">
-          Perfil QA: nível de treino 50. Avatar canônico nível 1, XP 0;
+          Treinamento TEST — Nível 50. Avatar canônico nível 1, XP 0;
           atributos e equipamentos preservados.
         </p>
       )}
