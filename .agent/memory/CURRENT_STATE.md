@@ -1,6 +1,6 @@
-## 2026-11-01 ? RPG-ARENA-TORRE-001 / TEST em valida??o
+## 2026-11-01 — RPG-ARENA-TORRE-001 / TEST em validação
 
-Branch independente codex/rpg-arena-torre-001 da produ??o c853d9b. Arena V2, sete cartas/efeitos e Torre7 j? existentes reutilizados; seis assets aprovados ?ntegros. Integra??o de treino Preview+TEST sem economia, cole??o pr?pria007/recibos, deck7 e uso ?nico preservados.58 direcionados/lint/types/build/protocolo25 PASS em partes; CI/Preview pendentes. Positivo hospedado BLOCKED: usu?rio n?o tem acesso a conta com cartas; nenhuma posse/concess?o fabricada. Sem migrations/Auth/RLS/PROD. PR12/18/24 preservadas. Ver docs/architecture/RPG-ARENA-TORRE-001-REPORT.md e invent?rio.
+Branch independente codex/rpg-arena-torre-001 da produção c853d9b. Arena V2, sete cartas/efeitos e Torre7 já existentes reutilizados; seis assets aprovados íntegros. Integração de treino Preview+TEST sem economia, coleção própria007/recibos, deck7 e uso único preservados.58 direcionados/lint/types/build/protocolo25 PASS em partes; CI/Preview pendentes. Positivo hospedado BLOCKED: usuário não tem acesso a conta com cartas; nenhuma posse/concessão fabricada. Sem migrations/Auth/RLS/PROD. PR12/18/24 preservadas. Ver docs/architecture/RPG-ARENA-TORRE-001-REPORT.md e inventário.
 
 ## 2026-10-31 — 010C.2 DONE / DEPLOY_COMPLETE
 
