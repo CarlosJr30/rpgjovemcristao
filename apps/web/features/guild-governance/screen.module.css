@@ -1,6 +1,29 @@
 .content {
   min-width: 0;
 }
+.sections {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 16px 0;
+}
+.sections button {
+  min-height: 44px;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  background: var(--color-parchment);
+  color: var(--color-ink, #25392e);
+  padding: 10px 14px;
+  font: inherit;
+  cursor: pointer;
+}
+.sections button[aria-pressed='true'] {
+  background: var(--color-accent);
+  color: var(--color-parchment);
+}
+.content article {
+  overflow-wrap: anywhere;
+}
 .invite {
   display: block;
   overflow-wrap: anywhere;

@@ -1,0 +1,257 @@
+{
+  "task": "UI-ADMIN-001",
+  "status": "DONE / DEPLOY_COMPLETE",
+  "closedOn": "2026-11-01",
+  "pr": 25,
+  "candidate": "6b4f7b907947452bc8d8827e7c934f3c5db4296a",
+  "merge": "c853d9b732b0a7b828e0bfdc97456a463fd4e9b3",
+  "ci": {
+    "candidatePush": 41271361013,
+    "candidatePR": 41271364281,
+    "merge": 41272321063,
+    "success": true,
+    "unitPass": 1008,
+    "unitSkip": 74,
+    "conditionalPreview": "SKIP, not PASS"
+  },
+  "publication": {
+    "deployment": "dpl_J3wVPLJt3xCDdadoGddRpd5JQeNU",
+    "url": "https://rpgjovemcristao-web-inky.vercel.app/journey/guild/administration",
+    "ready": true,
+    "target": "production",
+    "backend": "PROD",
+    "aliasConfirmed": true,
+    "sameGitArtifactPromoted": true,
+    "duplicateProductionBuild": false,
+    "autoAssignCustomDomains": true,
+    "protectionsPreserved": true
+  },
+  "features": {
+    "adminOnlyMenu": true,
+    "fourSeparateAreas": true,
+    "leaderSelectionWithoutUIDTyping": true,
+    "revocationConfirmationAndReason": true,
+    "manualIndividualLinkAndQR": true,
+    "explicitNewEmissionConfirmation": true,
+    "retryUsesOriginalNonce": true,
+    "automaticEmailOperational": false,
+    "providerConfigured": false,
+    "providerTemplateAndDisconnectedAdapterOnly": true,
+    "newAdminGrants": false,
+    "economicRewards": false
+  },
+  "tests": {
+    "directedInitial": 44,
+    "directedFollowup": 9,
+    "followupIncludes7PreviousAnd2Additional": true,
+    "pgCasesPerEnvelope": 10,
+    "envelopes": [
+      "TEST",
+      "PROD isolated"
+    ],
+    "pgCasesNot20Distinct": true,
+    "hostedNegative": 5,
+    "initialFunctionalChecks": 12,
+    "initialWholeRunPass": false,
+    "initialFinalMonitorFailed": true,
+    "consoleDiagnosis": {
+      "expectedWrongRecipientHTTP": 404,
+      "originalGenericConsoleEntryRetained": true,
+      "controlledReproductionConfirmed": true,
+      "denialNotChangedTo200": true,
+      "cleanFourAreaRecheckErrors": 0
+    },
+    "finalPreview": 6,
+    "prodPreflight": 10,
+    "prodAfterDDL": 5,
+    "retained": 9,
+    "official": 9,
+    "http": 8,
+    "normalUIDsDistinct": true,
+    "sessionImported": false,
+    "mobileEmulated": true,
+    "physicalDevice": false,
+    "adminPositiveEngine": "Chromium",
+    "qaNegativeEngine": "WebKit",
+    "positiveInvitationFlowsOnlyTEST": true
+  },
+  "migrations": {
+    "TEST": {
+      "remote": "20261031182355",
+      "source": "20261031180623",
+      "migrations": 40,
+      "tables": 75,
+      "functions": 201
+    },
+    "PROD": {
+      "remote": "20261101041317",
+      "source": "20261101035710",
+      "migrations": 17,
+      "tables": 70,
+      "functions": 193
+    },
+    "newFunctionsPerEnvironment": 2,
+    "newTables": 0,
+    "oldFunctionsAndACLsPreserved": {
+      "TEST": 199,
+      "PROD": 191
+    },
+    "policiesPerEnvironment": 39,
+    "ownProductionEnvelope": true,
+    "testOnlyAppliedPROD": false,
+    "recoveryAndContainmentIsolatedPass": true,
+    "remoteCompensationNeeded": false
+  },
+  "preservation": {
+    "PROD": {
+      "strict": 68,
+      "originalProjected": 70,
+      "ownerConfirmedRealUse": true,
+      "ownerAddedInvites": 1,
+      "ownerAddedAudit": 1,
+      "ownerInviteNotConsumed": true,
+      "allPriorRowsPreserved": true,
+      "allGameDataPreserved": true
+    },
+    "TEST": {
+      "strict": 71,
+      "originalSets": 75,
+      "authorizedDeltaTables": [
+        "audit",
+        "leadership_invites",
+        "leader_authorizations",
+        "leadership_revocations"
+      ],
+      "newQAInvites": 5,
+      "consumed": 1,
+      "revoked": 4,
+      "auditAdded": 11,
+      "oldAuditRows": 36,
+      "oldInvites": 5,
+      "oldAuditAndInviteHashesPreserved": true,
+      "allGameDataPreserved": true
+    }
+  },
+  "monitors": {
+    "finalTEST": {
+      "profileIgnoreDuplicates": 3,
+      "readRPCs": 6,
+      "issueRequests": 3,
+      "replayedIssueRequests": 1,
+      "intentionalNewInvites": 2,
+      "cleanupRevokesOutsidePageRequestMonitor": 2,
+      "errors": [],
+      "unexpectedRESTWrites": []
+    },
+    "retained": {
+      "profileIgnoreDuplicates": 3,
+      "readRPCs": 9,
+      "errors": [],
+      "unexpectedWrites": []
+    },
+    "official": {
+      "profileIgnoreDuplicates": 3,
+      "readRPCs": 9,
+      "errors": [],
+      "unexpectedWrites": []
+    },
+    "notZeroPOST": true,
+    "normalAuthMetadataMayChange": true,
+    "ownerRealUseOutsideSelectedMonitors": true
+  },
+  "preservedPRs": {
+    "12": "61b7177b2ba52a04b955a8306677a0e13dfdeb3c",
+    "18": "fd6f1498783d00c2a338cc42968bc7d0d4f3f822",
+    "24": "55e32891f5f38e4c54ad9cc9e8f9e560c247e99d"
+  },
+  "limitations": [
+    "No transactional provider or verified sender; automatic email disabled",
+    "Mobile emulated, not physical",
+    "Initial interrupted monitor run is not entirely PASS",
+    "QA/Security by author, no independence claimed",
+    "Early public-launch privacy/Auth gates remain separate and blocked",
+    "Prepared delivery adapter requires durable protected outbox, frequency controls, audit, real provider TEST and PROD configuration before activation"
+  ],
+  "privateArtifacts": [
+    {
+      "path": "ci-approved.json",
+      "sha256": "3345eaca8bc82564113e005861e0f08156a32a2c56fb24fa4a52e060eb0bcf1c"
+    },
+    {
+      "path": "final-ci-approved.json",
+      "sha256": "993328e68486801f16d9bcf7f289c31a3c96a770ff8593714b267645ea7639dc"
+    },
+    {
+      "path": "merge-ci-approved.json",
+      "sha256": "64fd8d22e587ddaf0757d93e3a00857f721a912fc361f18b0f7011369acfd784"
+    },
+    {
+      "path": "identity-proof.json",
+      "sha256": "8e1463eb9646960a7efb1f18ad1794bf0b69c3d70cb34dd8c5e5fa1e5ae50235"
+    },
+    {
+      "path": "final-identity-proof.json",
+      "sha256": "8e1463eb9646960a7efb1f18ad1794bf0b69c3d70cb34dd8c5e5fa1e5ae50235"
+    },
+    {
+      "path": "qa-negative-results.json",
+      "sha256": "3c5b698b0c9d7547800224836e3c69c99ebc84016c095e5c6ae34205002425d0"
+    },
+    {
+      "path": "hosted-progress.json",
+      "sha256": "be28d56c031fd0b86d7a8f09886d64b588d0f054d9b9fd0d410aef2193e5cc3a"
+    },
+    {
+      "path": "denial-recheck.json",
+      "sha256": "7e0d1cb2db2b9fdc40ca6506479d12418738f6cc4e6643b0a246b7f75b9bf31a"
+    },
+    {
+      "path": "final-preview-results.json",
+      "sha256": "de1f28f2b6e424731448d9e51a13315dea5b0718de38a7c0e330b9d95067592f"
+    },
+    {
+      "path": "postgres-results.json",
+      "sha256": "d3d62cf7a15ae4b9b615cd43de85e1b5357358d01c8180e790926b9969821f4b"
+    },
+    {
+      "path": "pg-production/postgres-results.json",
+      "sha256": "d3d62cf7a15ae4b9b615cd43de85e1b5357358d01c8180e790926b9969821f4b"
+    },
+    {
+      "path": "production-preflight.json",
+      "sha256": "8d7c844a8bc84660c31e972adb024a9344dcd43dc6cdc30074be4fc759881f5c"
+    },
+    {
+      "path": "production-afterddl.json",
+      "sha256": "f7df8eefe415ad83b68dd48e47062d4bebf3e01c1d2c3d448d58339100c1de67"
+    },
+    {
+      "path": "production-afterddl-structure.json",
+      "sha256": "226aa5b70091543d934f9edec8d447176185b4cc12feb4c64a4b20251d54ff42"
+    },
+    {
+      "path": "retained-backend-probe.json",
+      "sha256": "8875d89a846a7ddb6c6d9e8111aee95056da403f9304ff75fc96f41657097dc5"
+    },
+    {
+      "path": "production-retained-results.json",
+      "sha256": "31f01f1934b330e42a6d47e0ca04fdc91114ba305c837f4ca00154277d07c2a9"
+    },
+    {
+      "path": "production-official-results.json",
+      "sha256": "73ecab173559a1820cee97fae1cf156fa35e63f97f45d0bd143ba8d82aacf2ca"
+    },
+    {
+      "path": "production-http-results.json",
+      "sha256": "09be6532b66ff01de1fdbab074804e35d52e96f7f768f821851029558d3401de"
+    },
+    {
+      "path": "production-final-preservation.json",
+      "sha256": "214ec3d15bae73d660410ddda657e328cf324b5a0d747bb4f1c02651a41783eb"
+    },
+    {
+      "path": "official-deployment-proof.json",
+      "sha256": "c88fd655622f3a6b469dcadc03c1e2095398b541825691e1499312a18c9e204d"
+    }
+  ]
+}

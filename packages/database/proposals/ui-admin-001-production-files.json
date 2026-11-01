@@ -1,0 +1,8 @@
+{
+  "migration": "supabase/migrations/20261101035710_ui_admin_001_leaders_read_production.sql",
+  "recovery": "packages/database/proposals/ui-admin-001-leaders-recovery-production.sql",
+  "authorityAndAclEquivalent": true,
+  "testSourceSha256": "dd55fa53e2215709463814beb0eb29a0d6d312871b67f3fc64e1fc6b3d78492e",
+  "productionSha256": "b749f3cf3523b4dbcfb7c7d44d91f9a04b3e9527804f020506950962a5ce0002",
+  "remoteApplied": false
+}
