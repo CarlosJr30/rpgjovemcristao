@@ -1,0 +1,116 @@
+{
+  "task": "RPG-ARENA-TORRE-001",
+  "date": "2026-11-01",
+  "status": "BLOCKED",
+  "runtime": "629462d13c8950350b48918d6d0e5a3827a0257b",
+  "pullRequest": 26,
+  "local": {
+    "targetedCases": 58,
+    "passedInIdentifiedParts": true,
+    "protocol": 25,
+    "lint": true,
+    "types": true,
+    "testBuild": true,
+    "priorInterruptedRunsPreserved": true
+  },
+  "ci": {
+    "sha": "629462d13c8950350b48918d6d0e5a3827a0257b",
+    "pushSuccess": true,
+    "prSuccess": true,
+    "runs": [
+      {
+        "id": 41306924637,
+        "status": "completed",
+        "conclusion": "success",
+        "event": "pull_request",
+        "sha": "629462d13c8950350b48918d6d0e5a3827a0257b"
+      },
+      {
+        "id": 41306920235,
+        "status": "completed",
+        "conclusion": "success",
+        "event": "push",
+        "sha": "629462d13c8950350b48918d6d0e5a3827a0257b"
+      }
+    ],
+    "unitPassed": 1022,
+    "unitSkipped": 74,
+    "conditionalDeployment": "SKIP"
+  },
+  "preview": {
+    "id": "dpl_Gz75KSzALwApdsygVpMd9JxMCRL3",
+    "url": "rpgjovemcristao-8wyixdqwo-carlos-junior-s-projects.vercel.app",
+    "state": "READY",
+    "sha": "629462d13c8950350b48918d6d0e5a3827a0257b",
+    "target": "preview",
+    "backend": "TEST"
+  },
+  "hosted": {
+    "functionalParts": {
+      "chromium390": 9,
+      "webkit320": 9
+    },
+    "apiDenials": {
+      "sha": "629462d13c8950350b48918d6d0e5a3827a0257b",
+      "checks": 2,
+      "economy": 403,
+      "shop": 403,
+      "applicationSession": false,
+      "productionChanged": false
+    },
+    "fullRoundsPass": false,
+    "monitor": "FAIL/PENDING: navigation cancellations; first WebKit console error preserved; final focused WebKit console clear but TEST read cancelled",
+    "mobile": "emulated",
+    "positive": "BLOCKED: owner has no normal access to an account with seven owned cards",
+    "fakeCardsOrGrants": false
+  },
+  "preservation": {
+    "testDatasets": 75,
+    "dataExact": true,
+    "structureExact": true,
+    "migrationsApplied": 0,
+    "authOrRlsChanged": false,
+    "productionDeployment": "dpl_J3wVPLJt3xCDdadoGddRpd5JQeNU",
+    "productionSha": "c853d9b732b0a7b828e0bfdc97456a463fd4e9b3",
+    "productionState": "READY",
+    "productionChanged": false
+  },
+  "artifacts": [
+    {
+      "file": "inventory.json",
+      "sha256": "bf6f5957025ba5b5c0d1fd9c6c5ad5fac1b41996eb747c2366b195e12b6b27f7"
+    },
+    {
+      "file": "practice-result-final.json",
+      "sha256": "648dc3eb4be7f4b038709e80d07b0645d1a0301de36813b7b4c1bdde6d5eb08c"
+    },
+    {
+      "file": "ci-approved.json",
+      "sha256": "957f8dfc5a002967b40b65f3895fe965ceaf2a3ba080a1616ee1cffc07bba8c3"
+    },
+    {
+      "file": "preview.json",
+      "sha256": "e6b23eeb29436560964806aad72f0de15fcdba1ac53b06af334edd3b20db6984"
+    },
+    {
+      "file": "api-denials.json",
+      "sha256": "9e9f11432f5c0b54e03680d8737789341d1ab59973827e8624c50f7a00a24a8a"
+    },
+    {
+      "file": "hosted-negative-first-failure.json",
+      "sha256": "6735b23057e97004a117abf63dc73b5fd5d4819f5127b0c06b9433aea97c109d"
+    },
+    {
+      "file": "hosted-negative-second-failure.json",
+      "sha256": "6b2e97748473f3c5ca90163ce6e8e0c8f55050b1b38ca375b995fb766b03e97e"
+    },
+    {
+      "file": "hosted-negative-webkit-failure.json",
+      "sha256": "f33a6981e33f6f7b65ba466089fe9183a00d6e7b1e7fa39f8c643140d577ac07"
+    },
+    {
+      "file": "hosted-negative.json",
+      "sha256": "96740dbb3e4c76c2120bc91a642d0e542345ec9e8ee37f7d7e6ff3a4236fc215"
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 # RPG-ARENA-TORRE-001 — recuperar Arena e reutilizar Torre
 
-STATUS: ACTIVE
+STATUS: BLOCKED
 DATE: 2026-11-01
 AUTHORIZATION: Pedido do proprietário autoriza recuperar Arena original e entregar Torre reaproveitando engine/cartas/assets, inicialmente somenteTEST. Inventariar antes de qualquer carta/arte nova; preservar deck7/uso único, personagens/atributos/equipamentos. Não conceder cartas/XP/moedas/baús e não alterarPROD ou misturar PRs pendentes.
 BASE: Branch própria codex/rpg-arena-torre-001/worktree independente sobre origin/mainc853d9b publicado. Root com alterações antigas e PR12/18/24 preservados. Não incorporar runtime pendente dessas PRs.
@@ -10,5 +10,5 @@ FINDINGS: ArenaV2/deck7/editor/palco/animações existem; Torre7andares/chefão/
 SECURITY: Preservar posse real/recibo/identidade; nenhuma coleção sintética hospedada ou JWT artificial. Não abrir autoridade econômica, service_role, starter ou conceder dados para testes. Treino recuperado deve impedir toda mutação de viajante/economia e não alegar progresso oficial. AmbienteTEST e acesso autenticado obrigatórios, PRODe rotas econômicas continuam fechados.
 TEST_PLAN: Somente novos gates afetados de ambiente/rota/leitura de cartas/supressão de economia/deck/recuperação, mais CI/Preview obrigatórios. Reutilizar engine/Torre/aprovações existentes. Positivos sintéticos isolados não substituem sessão normal com sete cartas reais emTEST.
 ACCEPTANCE: Inventário apresentado antes de produção de carta/arte; Arena/Torre reutilizadas, IA/dificuldade/chefão/deck7/uso único preservados; atributos/equipamentos/contas/dados iguais; zero economia/novas cartas; CI/PreviewTEST/ensaios relevantes reais antes de declarar aceiteTEST. Sem PROD nesta autorização inicial.
-CURRENT: Integração TEST local validada: 58 testes direcionados em partes, lint/types/build e protocolo25 PASS. Usuário confirmou ausência de acesso normal a conta com cartas; positivo hospedado BLOCKED. CI/Preview e negativo normal sem cartas pendentes. Zero migrations/concessões/PROD.
+CURRENT: Runtime629462d/PR26draft, CIpush41306920235/PR41306924637success/1022PASS74SKIP; Preview8wyixdqwo READY/TEST.58 direcionados e protocolo25 PASS; 9Chromium+9WebKit funcionais identificados e2HTTP403, sem rodadas integralmentePASS. Monitor de cancelamentos pendente; positivo hospedado BLOCKED por ausência de conta acessível com sete cartas.75dadosTEST/estrutura exatos. Zero migrations/concessões/PROD; nenhum novo asset/carta. Ver relatório/evidência.
 DEFINITION_OF_DONE: EntregaTEST implementada e aceita com evidências mínimas; se faltar identidade com posse legítima, manter esse gatependente e não fabricar cartas/contas/atributos. Atualizar memória/status/relatório com limites reais.

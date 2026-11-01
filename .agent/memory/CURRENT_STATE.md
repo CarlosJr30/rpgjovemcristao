@@ -1,6 +1,6 @@
-## 2026-11-01 — RPG-ARENA-TORRE-001 / TEST em validação
+## 2026-11-01 — RPG-ARENA-TORRE-001 / Preview TEST; aceite BLOCKED
 
-Branch independente codex/rpg-arena-torre-001 da produção c853d9b. Arena V2, sete cartas/efeitos e Torre7 já existentes reutilizados; seis assets aprovados íntegros. Integração de treino Preview+TEST sem economia, coleção própria007/recibos, deck7 e uso único preservados.58 direcionados/lint/types/build/protocolo25 PASS em partes; CI/Preview pendentes. Positivo hospedado BLOCKED: usuário não tem acesso a conta com cartas; nenhuma posse/concessão fabricada. Sem migrations/Auth/RLS/PROD. PR12/18/24 preservadas. Ver docs/architecture/RPG-ARENA-TORRE-001-REPORT.md e inventário.
+Branch independente codex/rpg-arena-torre-001 da produção c853d9b; PR26draft/runtime629462d, CI41306920235/41306924637success/1022PASS74SKIP, Preview8wyixdqwo READY/TEST. ArenaV2/sete efeitos/Torre7 existentes reutilizados, seis assets íntegros, zero nova carta/arte/recompensa.58direcionados/lint/types/build/protocolo25PASS;9Chromium+9WebKit funcionais identificados e2HTTP403. Rodadas não integralmentePASS: monitor de cancelamentos pendente; primeiro WebKit teve consoleVercel, seguimento zero console mas leitura cancelada.75dadosTEST/estrutura exatos. Positivo hospedado BLOCKED: usuário não tem acesso a conta com cartas; não fabricar posse. Sem migrations/Auth/RLS/PROD; oficialc853 READY/proteções originais, PR12/18/24 preservadas. Ver relatório/evidência/inventário. Não promover PreviewTEST ou declarar DONE.
 
 ## 2026-10-31 — 010C.2 DONE / DEPLOY_COMPLETE
 
