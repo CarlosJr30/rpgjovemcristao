@@ -53,6 +53,26 @@ beforeEach(() => {
   mock.rpc.mockResolvedValue({ data: preview, error: null });
 });
 
+test('leader listing verifies normal Auth and uses only the protected paginated RPC', async () => {
+  mock.rpc.mockResolvedValue({
+    data: { version: 1, leaders: [] },
+    error: null,
+  });
+  expect(
+    (await handleGovernance(request({ action: 'leaders', offset: 25 }))).status,
+  ).toBe(200);
+  expect(mock.getUser).toHaveBeenCalledWith('synthetic-session');
+  expect(mock.rpc).toHaveBeenCalledWith('guild_governance_leaders', {
+    p_offset: 25,
+  });
+  mock.rpc.mockResolvedValue({
+    data: null,
+    error: { code: '42501', message: 'Not allowed' },
+  });
+  expect(
+    (await handleGovernance(request({ action: 'leaders', offset: 0 }))).status,
+  ).toBe(403);
+});
 test('new scoped status is authenticated and keeps the original status endpoint distinct', async () => {
   mock.rpc.mockResolvedValue({ data: { version: 2 }, error: null });
   expect(

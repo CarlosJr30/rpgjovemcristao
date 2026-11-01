@@ -36,6 +36,7 @@ import { useGameAudio } from '../hooks/use-game-audio';
 import { DEFAULT_AUDIO_PREFERENCES, gameAudio } from '../audio/audio-manager';
 import { MUSIC_ASSETS } from '../audio/audio-assets';
 import { safeEntryReturn } from '../../../lib/supabase/auth-return';
+import { AdminMenuItem } from '../../guild-governance/admin-menu-item';
 const primaryLinks = [
   ['hero', 'Herói', '✦'],
   ['map', 'Jornada', '⌁'],
@@ -536,6 +537,12 @@ export function Shell({
                     {label}
                   </Link>
                 ),
+              )}
+              {released && (
+                <AdminMenuItem
+                  close={() => setMenuOpen(false)}
+                  current={pathname === '/journey/guild/administration'}
+                />
               )}
             </nav>
           </aside>

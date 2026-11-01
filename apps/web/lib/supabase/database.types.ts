@@ -340,6 +340,7 @@ export type Database = {
       };
       guild_governance_status: { Args: Record<string, never>; Returns: Json };
       guild_governance_workspace: { Args: { p_offset: number }; Returns: Json };
+      guild_governance_leaders: { Args: { p_offset: number }; Returns: Json };
       guild_governance_history: { Args: { p_offset: number }; Returns: Json };
       guild_leadership_preview: { Args: { p_token: string }; Returns: Json };
       guild_governance_command: { Args: { p_action: string; p_id: string; p_request: string; p_data: Json }; Returns: Json };
