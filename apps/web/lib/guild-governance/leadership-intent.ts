@@ -38,3 +38,8 @@ export function clearLeadershipIntent(owner: string, confirmedId: string) {
   if (raw && (JSON.parse(raw) as Intent).id === confirmedId)
     sessionStorage.removeItem(key(owner));
 }
+// Only explicit confirmation of another emission clears local request IDs.
+// This never revokes, resends or changes a server invitation.
+export function prepareNewLeadershipIntent(owner: string) {
+  sessionStorage.removeItem(key(owner));
+}

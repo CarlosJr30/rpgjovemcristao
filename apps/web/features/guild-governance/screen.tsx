@@ -7,6 +7,7 @@ import { governanceAction } from '../../lib/guild-governance/client';
 import {
   clearLeadershipIntent,
   leadershipIntent,
+  prepareNewLeadershipIntent,
 } from '../../lib/guild-governance/leadership-intent';
 import {
   GOVERNANCE_PERMISSIONS,
@@ -83,6 +84,7 @@ function GovernancePanel({ owner }: { owner: string }) {
     [message, setMessage] = useState('');
   const [issued, setIssued] = useState<IssuedLeadershipInvite>(),
     [recipient, setRecipient] = useState('');
+  const [confirmNew, setConfirmNew] = useState(false);
   const key = `${owner}:${pane}:${offset}:${refresh}`;
   useEffect(() => {
     let active = true;
@@ -287,7 +289,48 @@ function GovernancePanel({ owner }: { owner: string }) {
             </label>
             <Reason />
             <button disabled={busy || !writes}>Gerar link e QR Code</button>
+            <button
+              type="button"
+              disabled={busy}
+              onClick={() => setConfirmNew(true)}
+            >
+              Preparar outro convite
+            </button>
           </form>
+          {confirmNew && (
+            <section className={css.card} aria-label="Confirmar nova emissão">
+              <h2>Preparar outra emissão?</h2>
+              <p>
+                Isso não reenvia, cancela ou revoga o convite anterior. Se
+                perdeu um link ainda válido, revogue-o em Configurações
+                avançadas antes de emitir outro para a mesma pessoa. Convites já
+                aceitos permanecem no histórico.
+              </p>
+              <button
+                disabled={busy}
+                onClick={() => {
+                  try {
+                    prepareNewLeadershipIntent(owner);
+                    setIssued(undefined);
+                    setRecipient('');
+                    setConfirmNew(false);
+                    setMessage(
+                      'Nova emissão preparada. Nenhum convite foi criado ou enviado.',
+                    );
+                  } catch {
+                    setMessage(
+                      'Não foi possível preparar outra emissão. Tente novamente.',
+                    );
+                  }
+                }}
+              >
+                Confirmar nova emissão
+              </button>
+              <button disabled={busy} onClick={() => setConfirmNew(false)}>
+                Cancelar
+              </button>
+            </section>
+          )}
           {issued && (
             <section className={css.card} aria-label="Convite emitido">
               <h2>Convite emitido</h2>
@@ -342,15 +385,6 @@ function GovernancePanel({ owner }: { owner: string }) {
                       Compartilhar por e-mail
                     </a>
                   </div>
-                  <button
-                    onClick={() => {
-                      clearLeadershipIntent(owner, issued.id);
-                      setIssued(undefined);
-                      setRecipient('');
-                    }}
-                  >
-                    Preparar outro convite
-                  </button>
                 </>
               ) : (
                 <p>

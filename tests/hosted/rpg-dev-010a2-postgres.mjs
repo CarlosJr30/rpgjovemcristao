@@ -7,7 +7,7 @@ import { execFileSync } from 'node:child_process';
 import { createHash, randomUUID } from 'node:crypto';
 import { Client } from 'pg';
 const adminUiCases = process.env.RPG_UI_ADMIN_CASES === '1';
-const root = path.resolve(adminUiCases ? 'build/ui-admin-001' : 'build/rpg-dev-010a2'),
+const root = path.resolve(adminUiCases ? (process.env.RPG_UI_ADMIN_PROD === '1' ? 'build/ui-admin-001/pg-production' : 'build/ui-admin-001') : 'build/rpg-dev-010a2'),
   bin = path.resolve(
     process.env.RPG_POSTGRES_BIN ??
       '../rpgjovemcristao-rpg-dev-007/build/rpg-dev-007/postgres-tool/node_modules/@embedded-postgres/windows-x64/native/bin',

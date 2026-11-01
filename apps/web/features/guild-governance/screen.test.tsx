@@ -33,11 +33,52 @@ const status = {
   economicRewardsEnabled: false,
 };
 beforeEach(() => {
+  sessionStorage.clear();
   mock.owner = 'owner-a';
   mock.action.mockReset();
   mock.action.mockResolvedValue(status);
 });
 afterEach(cleanup);
+test('pending request after navigation is released only by explicit new-emission confirmation without a server command', async () => {
+  sessionStorage.setItem(
+    'rpg:leadership-intent:owner-a',
+    '{"id":"old-local-request"}',
+  );
+  mock.action.mockResolvedValue({
+    ...status,
+    administrator: true,
+    permissions: ['leadership.manage'],
+  });
+  render(<GovernanceScreen />);
+  await screen.findByRole('button', { name: 'Preparar outro convite' });
+  fireEvent.click(
+    screen.getByRole('button', { name: 'Preparar outro convite' }),
+  );
+  expect(
+    sessionStorage.getItem('rpg:leadership-intent:owner-a'),
+  ).not.toBeNull();
+  fireEvent.click(
+    screen.getByRole('button', { name: 'Cancelar' }),
+  );
+  expect(
+    sessionStorage.getItem('rpg:leadership-intent:owner-a'),
+  ).not.toBeNull();
+  fireEvent.click(
+    screen.getByRole('button', { name: 'Preparar outro convite' }),
+  );
+  fireEvent.click(
+    screen.getByRole('button', { name: 'Confirmar nova emissão' }),
+  );
+  expect(sessionStorage.getItem('rpg:leadership-intent:owner-a')).toBeNull();
+  expect(mock.action.mock.calls.some(([x]) => x.action === 'command')).toBe(
+    false,
+  );
+  expect(
+    screen.getByText(
+      'Nova emissão preparada. Nenhum convite foi criado ou enviado.',
+    ),
+  ).toBeInTheDocument();
+});
 test('administration starts with invitation only and loads private lists only in their area', async () => {
   mock.action.mockImplementation(async ({ action }: { action: string }) =>
     action === 'scopeStatus'

@@ -1,7 +1,18 @@
 // @vitest-environment jsdom
 import { beforeEach, expect, test } from 'vitest';
-import { clearLeadershipIntent, leadershipIntent } from './leadership-intent';
+import {
+  clearLeadershipIntent,
+  leadershipIntent,
+  prepareNewLeadershipIntent,
+} from './leadership-intent';
 beforeEach(() => sessionStorage.clear());
+test('explicit new emission clears only this account request, preserving retries for another account', async () => {
+  const a = await leadershipIntent('a', { days: 7 });
+  const b = await leadershipIntent('b', { days: 7 });
+  prepareNewLeadershipIntent('a');
+  expect((await leadershipIntent('a', { days: 7 })).id).not.toBe(a.id);
+  expect(await leadershipIntent('b', { days: 7 })).toEqual(b);
+});
 test('retry and reload reuse identifiers without storing recipient reason or secret', async () => {
   const data = {
     email: 'qa@controlled.test',

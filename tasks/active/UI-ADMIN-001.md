@@ -1,6 +1,7 @@
 # UI-ADMIN-001 — administração simples e convite por e-mail
 ID: UI-ADMIN-001
 STATUS: ACTIVE
+CHECKPOINT_20261101: Usuário aprovou confirmação explícita de outra emissão; IDs de retry preservados até confirmação. CI inicial190c4f2 push41228715943/PR41228731074success(1006unit74SKIP). TESTmigration20261031182355 somente2reads/75dados199rotinas39policiesanterioresiguais. Cinco negativas+12funcionais reais identificadas/duasidentidades/320390emulado. Monitor originalFAIL por consolegenérico; diagnóstico reproduziu404esperado de aceite pelo destinatário errado, preservoustatus/falha, quatroáreasrechecksemerrors. Noveunitários tela/intenção e10PGTEST PASS; novoCI/Preview/recheckconfirmação/pacotePROD/gatespendentes. ProduçãoC2preservada; semautomail/economia. QA/Securityautor.
 PRIORITY: P1 High
 AUTHORIZATION: Pedido do proprietário31/10/2026 autoriza simplificar/publicar painel homologado independentemente do provedor de e-mail; envio só após TEST real/configuraçãoPROD confirmada. Sem recursos pagos/SMTP pessoal, segredos em logs ou novas concessões implícitas.
 BASE: mainfa4d1a1 e fechamento documental23e1ac0, sem runtime da PR24(EarlyBLOCKED). Preservar PR12/18/24 e worktrees anteriores.
