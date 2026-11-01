@@ -112,5 +112,25 @@
       "file": "hosted-negative.json",
       "sha256": "96740dbb3e4c76c2120bc91a642d0e542345ec9e8ee37f7d7e6ff3a4236fc215"
     }
-  ]
+  ],
+  "qaCollectionFollowup": {
+    "date": "2026-11-01",
+    "readOnly": true,
+    "targetTestMatches": 0,
+    "targetProductionActiveLevel": 50,
+    "targetProductionInactiveLevel": 1,
+    "sameProductionAuthOwner": true,
+    "productionInventoryCards": 0,
+    "eligibleTestCards": 7,
+    "qaAuthorityAvailable": false,
+    "cardsGranted": 0,
+    "accountsOrAvatarsCreated": 0,
+    "mutations": 0,
+    "productionChanged": false,
+    "alternativeAuthorization": "PENDING",
+    "proof": {
+      "file": "qa-identity-audit.json",
+      "sha256": "4ebfed6bd8b5cdce9e552af5c4dae35de49bc30346f334ed0d0dd9a73bbf8f72"
+    }
+  }
 }

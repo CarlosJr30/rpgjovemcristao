@@ -1,5 +1,7 @@
 ## 2026-11-01 — RPG-ARENA-TORRE-001 / Preview TEST; aceite BLOCKED
 
+RetomadaColeçãoQA: auditoriareadonlyTEST/PROD confirma TesteChatA sóPROD(nível50ativo/1inativo,mesmoAuth,0cartas); não copiar/alterar. TESTcatálogo7aprovadas,não40; Adminoriginal eCarlosTeste nível1semcartas preservados. SemautoridadeQAexistente localizada; get_owned_cards exigecard-starter econômico, que não foi chamado. Zeroescritas/grants/migrations/novosavatares/runtime/deploy. Menoralternativa privadaTEST/proveniênciaQA no mesmo inventário proposta no relatório; designação deavatarQA e implementação dependem de autorização correspondente. Semnova homologação/suítes.
+
 Branch independente codex/rpg-arena-torre-001 da produção c853d9b; PR26draft/runtime629462d, CI41306920235/41306924637success/1022PASS74SKIP, Preview8wyixdqwo READY/TEST. ArenaV2/sete efeitos/Torre7 existentes reutilizados, seis assets íntegros, zero nova carta/arte/recompensa.58direcionados/lint/types/build/protocolo25PASS;9Chromium+9WebKit funcionais identificados e2HTTP403. Rodadas não integralmentePASS: monitor de cancelamentos pendente; primeiro WebKit teve consoleVercel, seguimento zero console mas leitura cancelada.75dadosTEST/estrutura exatos. Positivo hospedado BLOCKED: usuário não tem acesso a conta com cartas; não fabricar posse. Sem migrations/Auth/RLS/PROD; oficialc853 READY/proteções originais, PR12/18/24 preservadas. Ver relatório/evidência/inventário. Não promover PreviewTEST ou declarar DONE.
 
 ## 2026-10-31 — 010C.2 DONE / DEPLOY_COMPLETE

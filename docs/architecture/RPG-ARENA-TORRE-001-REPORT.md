@@ -1,5 +1,26 @@
 # RPG-ARENA-TORRE-001 — recuperação em TEST
 
+## Coleção QA solicitada — auditoria de 01/11/2026
+
+**Concessão não executada.** Consulta somente leitura nos projetos distintos confirmou: `Teste Chat A` não existe em TEST. Em PROD há dois avatares desse nome na mesma identidade Auth real: nível1 inativo e **nível50 ativo**, com e-mail confirmado e zero cartas de combate no inventário. Nenhum deles foi alterado, selecionado para ensaio ou copiado para TEST. Essa conferência de banco não é um novo login normal.
+
+| Item solicitado | Resultado |
+| --- | --- |
+|Avatar autorizado em TEST|Não localizado; UID/avatar TEST desse nome não confirmados.|
+|Alternativa TEST já conhecida|Herói TEST Equipamentos nível1 ativo e Carlos Teste nível1 inativo, mesma conta Admin TEST; ambos sem cartas. Preservados, sem elevar nível ou trocar avatar.|
+|Catálogo elegível|**7 cartas**, mesmas versões/ações/raridades homologadas TEST; não existem40 fichas elegíveis nesse catálogo. Nenhuma carta funcional faltante; artes individuais continuam pendências separadas.|
+|Cartas disponibilizadas nesta retomada|**0**. Não há autoridade administrativa de concessão QA localizada na implementação/rotinas auditadas.|
+|Proveniência atual|`get_owned_cards` exige vínculo próprio e encaminha à coleção que valida inventário + recibo `card-starter` em `chest_operations`. A única emissão de cartas auditada é o starter econômico anterior; não é uma concessão QA e não foi chamada.|
+|Arena/Torre|Preview629462d preservada; batalha positiva e sete andares continuam bloqueados sem posse legítima e identidade TEST autorizada. Motor, IA e checkpoints inalterados.|
+
+**Menor alternativa preparada para aprovação:** usar uma identidade QA já acessível por login normal em TEST, sem copiar a conta PROD, e designar um avatar QA dedicado para o ensaio nível50. Não elevar os dois avatares existentes nem conceder XP para atingir o nível. A forma de preparação desse avatar precisa de contrato TEST próprio compatível com os invariantes atuais antes de qualquer escrita. A identidade/novo avatar e a criação da autoridade abaixo ainda não estão autorizados por inferência.
+
+A autoridade proposta seria privada, exclusiva do proprietário SQL e somenteTEST: destinatário explícito revalidado por UID/avatar, catálogo/versionamento congelado nas sete fichas, transação/lock, razão e identificação da aprovação, unicidade/idempotência e auditoria append-only. Proveniência **QA**, distinta de recompensa/starter, nas mesmas linhas de inventário; ampliar de forma compatível a leitura própria `get_owned_cards` para validar essa proveniência e identificá-la como QA, sem coleção paralela ou posse enviada pelo navegador. Exige migration TEST-only revisada/testada, ACL fechada sem endpoint público de concessão e contenção preservando inventário anterior e histórico. Não inserir recibo econômico nem chamar RPC de jogador, desativar constraints/RLS ou editar inventário diretamente para imitar o starter. Nada disso foi instalado ou executado.
+
+A autorização correspondente precisa designar a alternativa TEST e aprovar esse mecanismo antes da implementação/concessão. Não basta autorizar genericamente o avatar de mesmo nome que só existe em PROD. Nesta retomada houve somente auditoria e preparação documental: zero cartas, contas, avatares, migrations, mudanças runtime ou deploys. Resultados anteriores e PR12/18/24 reutilizados/preservados; nenhuma suíte repetida. As evidências do candidato anterior abaixo continuam válidas com seus limites.
+
+## Checkpoint anterior — Preview e validação parcial
+
 01/11/2026. **Integração entregue em Preview TEST; aceite integral BLOCKED.** O proprietário confirmou não possuir acesso a conta com sete cartas. Não conceder cartas, emprestar coleção ou fabricar posse para encerrar o gate. Produção fora do escopo.
 
 Candidato **`629462d13c8950350b48918d6d0e5a3827a0257b`**, [PR26 aberta/draft](https://github.com/CarlosJr30/rpgjovemcristao/pull/26). CI [push41306920235](https://github.com/CarlosJr30/rpgjovemcristao/actions/runs/41306920235) e [PR41306924637](https://github.com/CarlosJr30/rpgjovemcristao/actions/runs/41306924637) **success no SHA exato**: 1022 unitários PASS/74 SKIP, qualidade, PostgreSQL e RSC/móvel. Job condicional de publicação SKIP, não PASS. [Preview TEST](https://rpgjovemcristao-8wyixdqwo-carlos-junior-s-projects.vercel.app/journey/arena), `dpl_Gz75KSzALwApdsygVpMd9JxMCRL3`, **READY/Preview/629462d**, backend TEST confirmado por login normal e leitura real. Não promover esta Preview para PROD.
