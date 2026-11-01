@@ -5,6 +5,7 @@ import {
   arenaProfiles,
   arenaProbableIntent,
   calculateCombatPowerBreakdown,
+  calculateCombatPower,
   calculateTrainingReward,
   isWithinMatchmakingRange,
   type ArenaProductAction,
@@ -88,12 +89,14 @@ export function ArenaExperience({
   collectionSource = loadArenaCollection,
   localTower,
   practiceOnly = false,
+  trainingLevel,
 }: {
   traveler: Traveler;
   ownerId: string;
   collectionSource?: CollectionSource;
   localTower?: LocalTowerMode;
   practiceOnly?: boolean;
+  trainingLevel?: 50;
 }) {
   const session = localTower?.session ?? arenaDeckStorage;
   useAudioScene(
@@ -101,10 +104,12 @@ export function ArenaExperience({
     localTower ? Math.min(1, 0.65 + localTower.opponent.level * 0.035) : 1,
   );
   const [towerConfirmed, setTowerConfirmed] = useState(false);
-  const playerSnapshot = useMemo(
-    () => travelerBattleSnapshot(traveler),
-    [traveler],
-  );
+  const playerSnapshot = useMemo(() => {
+    const base = travelerBattleSnapshot(traveler);
+    if (!practiceOnly || trainingLevel !== 50) return base;
+    const training = { ...base, level: trainingLevel };
+    return { ...training, combatPower: calculateCombatPower(training) };
+  }, [traveler, practiceOnly, trainingLevel]);
   const [deckData, setDeckData] = useState<{
     cards: readonly ArenaCard[];
     selection: readonly string[];
@@ -420,7 +425,11 @@ export function ArenaExperience({
         <div className={styles.combatPower}>
           <small>PODER DE COMBATE</small>
           <strong>{playerSnapshot.combatPower}</strong>
-          <span>Nível {traveler.level}</span>
+          <span>
+            {practiceOnly && trainingLevel === 50
+              ? 'Nível de treino 50'
+              : `Nível ${traveler.level}`}
+          </span>
           <details>
             <summary>Como é calculado?</summary>
             <p>

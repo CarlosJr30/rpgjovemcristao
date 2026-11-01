@@ -149,6 +149,8 @@ jobs:
         run: node tests/hosted/rpg-dev-010c2-postgres.mjs
       - name: Ensaiar pacote produtivo próprio de gincanas e contenção sem apagar vínculos
         run: node tests/hosted/rpg-dev-010c2-production-postgres.mjs
+      - name: Exigir autoridade QA TEST privada sem XP ou recibo economico
+        run: node tests/hosted/rpg-arena-qa-postgres.mjs
 
   pinned-preview:
     name: Preview do SHA aprovado

@@ -87,12 +87,19 @@ test('practice victory and reload never settle rewards, mutate traveler or add l
       ownerId="owner"
       collectionSource={source}
       practiceOnly
+      trainingLevel={50}
     />,
   );
   await screen.findByText('Cartas selecionadas: 7/7');
   fireEvent.click(screen.getByRole('button', { name: /Davi, o Aprendiz/ }));
   fireEvent.click(screen.getByRole('button', { name: 'Iniciar batalha' }));
   await screen.findByRole('group', { name: 'Ações da batalha' });
+  expect(
+    arenaDeckStorage.load('owner', hero.id, cards).battle?.player.snapshot
+      .level,
+  ).toBe(50);
+  expect(hero.level).toBe(1);
+  expect(hero.xp).toBe(0);
   for (let i = 0; i < 12; i++) {
     const b = arenaDeckStorage.load('owner', hero.id, cards).battle!;
     if (b.status === 'finished') break;

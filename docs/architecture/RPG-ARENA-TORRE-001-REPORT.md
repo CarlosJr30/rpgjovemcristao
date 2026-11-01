@@ -1,5 +1,15 @@
 # RPG-ARENA-TORRE-001 — recuperação em TEST
 
+## Alternativa QA autorizada — validação local
+
+01/11/2026. Proprietário autorizou a alternativa exclusivamenteTEST: conta AdminTEST conhecida, novo avatar **QA Arena Torre**, sete cartas existentes e autoridade privada auditada/idempotente. A implementação não usa o starter econômico. O novo avatar será canônico nível1/XP0/inativo, preservando seleção e dados anteriores; o perfil privado fornece **nível de treino50 somente ao snapshot de Arena/Torre**. Nível real deriva deXP, portanto não gravar nível50 incoerente nem emitirXP. Atributos/equipamentos e fórmulas permanecem iguais; nível de treino não garante vencer adversários mais fortes.
+
+Migration TEST-only candidata `20261101130000_rpg_arena_qa_test.sql`: duas tabelas privadas RLS deny-all com auditoria append-only, preparo INVOKER somente proprietárioSQL, vínculo composto do inventário ao avatar/reciboQA, catálogo congelado e emissão única sob lock. `get_owned_cards` preserva seu contrato e validação de dono, acrescentando proveniência QA explícita; **a coleção econômica original não vê QA**. Leitura de perfil é própria e sem grant público. Contenção retira só visibilidade/usoQA, preservando todos os registros; recuperação vazia recusa dados emitidos.
+
+**19 PostgreSQL isolados PASS**, incluindo corrida entre duas conexões, replay/conflito, owner/anon/alheio/service_role, revogação do catálogo, proveniência, recuperação/contenção e preservação dos avatares originais; **26 unitários direcionados PASS**, tipos/lint/buildTEST/protocolo25 PASS. Não somar às suítes anteriores nem repetir motor/Torre. Nova suíte PG adicionada ao CI obrigatório. QA/Security/React pelo autor, sem independência. CI exato, aplicaçãoTEST, Preview e login normalAdmin antes da alocação real pendentes. Nenhuma conta/avatar/carta emitida ou mutationPROD neste checkpoint.
+
+## Histórico — auditoria anterior à autorização
+
 ## Coleção QA solicitada — auditoria de 01/11/2026
 
 **Concessão não executada.** Consulta somente leitura nos projetos distintos confirmou: `Teste Chat A` não existe em TEST. Em PROD há dois avatares desse nome na mesma identidade Auth real: nível1 inativo e **nível50 ativo**, com e-mail confirmado e zero cartas de combate no inventário. Nenhum deles foi alterado, selecionado para ensaio ou copiado para TEST. Essa conferência de banco não é um novo login normal.
