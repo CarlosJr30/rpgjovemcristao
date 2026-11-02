@@ -5,10 +5,18 @@ import { useAuth } from '../../lib/supabase/auth-context';
 import { RequireTraveler, Shell } from '../journey/components/shell';
 import type { Traveler } from '../journey/domain/traveler';
 import { DeckEditor } from './editor';
-import { loadArenaCollection } from './collection';
+import { loadArenaCollection, type CollectionSource } from './collection';
 import { arenaDeckStorage } from './storage';
 import type { ArenaCard } from '@rpg/game-engine';
-function Content({ owner, traveler }: { owner: string; traveler: Traveler }) {
+export function ArenaDeckContent({
+  owner,
+  traveler,
+  collectionSource = loadArenaCollection,
+}: {
+  owner: string;
+  traveler: Traveler;
+  collectionSource?: CollectionSource;
+}) {
   const [data, setData] = useState<{
     cards: readonly ArenaCard[];
     selection: string[];
@@ -18,7 +26,7 @@ function Content({ owner, traveler }: { owner: string; traveler: Traveler }) {
   const [busy, setBusy] = useState(false);
   useEffect(() => {
     let live = true;
-    loadArenaCollection(owner, traveler.id)
+    collectionSource(owner, traveler.id)
       .then((cards) => {
         const saved = arenaDeckStorage.load(owner, traveler.id, cards);
         if (live)
@@ -39,7 +47,7 @@ function Content({ owner, traveler }: { owner: string; traveler: Traveler }) {
     return () => {
       live = false;
     };
-  }, [owner, traveler.id]);
+  }, [owner, traveler.id, collectionSource]);
   return (
     <>
       <h1>Meu Baralho — Arena</h1>
@@ -55,7 +63,7 @@ function Content({ owner, traveler }: { owner: string; traveler: Traveler }) {
           onSave={async (ids) => {
             setBusy(true);
             try {
-              const cards = await loadArenaCollection(owner, traveler.id);
+              const cards = await collectionSource(owner, traveler.id);
               await arenaDeckStorage.save(owner, traveler.id, cards, ids);
               setData({ cards, selection: [...ids], locked: false });
             } finally {
@@ -76,7 +84,7 @@ export function ArenaDeckScreen() {
     <Shell back="/journey/arena" backLabel="Voltar à Arena">
       <RequireTraveler>
         {(traveler) => (
-          <Content
+          <ArenaDeckContent
             key={`${auth.user?.id}:${traveler.id}`}
             owner={auth.user?.id ?? ''}
             traveler={traveler}

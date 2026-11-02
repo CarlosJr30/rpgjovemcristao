@@ -98,7 +98,7 @@ describe('Shell account and traveler actions', () => {
 });
 
 describe('original shell within the released interface', () => {
-  test('keeps Guilda/EBD in the original menu without exposing gameplay links', () => {
+  test('keeps Guilda/EBD and reviewed Arena access while equipment and shop stay blocked', () => {
     render(<Shell navigationMode="released">Conteúdo</Shell>);
     const links = within(
       screen.getByRole('navigation', { name: 'Navegação principal' }),
@@ -111,6 +111,7 @@ describe('original shell within the released interface', () => {
       '/journey/collection',
       '/journey/diary',
       '/journey/guild',
+      '/journey/arena',
       '/journey/guild/ebd',
     ]);
     expect(links.map((link) => link.textContent)).toEqual([
@@ -121,15 +122,15 @@ describe('original shell within the released interface', () => {
       'Coleção',
       'Diário',
       'Guilda',
+      'Arena',
       'EBD',
     ]);
     const nav = screen.getByRole('navigation', { name: 'Navegação principal' });
     const blocked = nav.querySelectorAll('[aria-disabled="true"]');
-    expect(blocked).toHaveLength(3);
+    expect(blocked).toHaveLength(2);
     expect(Array.from(blocked).map((item) => item.textContent)).toEqual([
       'EquipamentosEm desenvolvimento',
       'LojaEm desenvolvimento',
-      'ArenaEm desenvolvimento',
     ]);
     for (const item of blocked) {
       expect(item.querySelector('a,button')).toBeNull();

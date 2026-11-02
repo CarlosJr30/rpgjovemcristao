@@ -84,16 +84,16 @@ try {
         (await nav.evaluate((element) => element.children.length)) === 11,
       );
       check(
-        'three unreleased modules have no protected actions',
-        (await nav.locator('[aria-disabled="true"]').count()) === 3 &&
+        'two unreleased modules have no protected actions',
+        (await nav.locator('[aria-disabled="true"]').count()) === 2 &&
           (await nav
             .locator('[aria-disabled="true"] a,[aria-disabled="true"] button')
             .count()) === 0,
       );
       check(
-        'only the eight approved modules are linked',
+        'only the nine approved modules are linked',
         JSON.stringify(await nav.locator('a[href]').evaluateAll(links => links.map(link => link.getAttribute('href')))) ===
-          JSON.stringify(['/journey/hero','/journey/worlds','/journey/phases/o-jardim-e-a-escolha','/journey/backpack','/journey/collection','/journey/diary','/journey/guild','/journey/guild/ebd']),
+          JSON.stringify(['/journey/hero','/journey/worlds','/journey/phases/o-jardim-e-a-escolha','/journey/backpack','/journey/collection','/journey/diary','/journey/guild','/journey/arena','/journey/guild/ebd']),
       );
       const trigger = page.getByRole('button', {
         name: 'Abrir menu',
@@ -228,8 +228,6 @@ try {
       check('planned world remains blocked without invented activities', await page.locator('main button,main input,main textarea').count() === 0);
       // HTTP checks are real release guards, not routed or fabricated responses.
       for (const path of [
-        '/journey/arena',
-        '/journey/arena/tower',
         '/journey/tower',
         '/journey/equipment',
         '/journey/shop',
@@ -240,7 +238,7 @@ try {
         const response = await context.request.get(origin + path);
         check('protected ' + path, response.status() === 403);
       }
-      for (const path of ['/journey/backpack','/journey/collection','/journey/diary']) {
+      for (const path of ['/journey/backpack','/journey/collection','/journey/diary','/journey/arena','/journey/arena/deck','/journey/arena/tower']) {
         const response = await context.request.get(origin + path);
         check('consultation route ' + path, response.status() === 200);
       }

@@ -1,5 +1,5 @@
-import { ArenaScreen } from '../../../features/journey/screens/arena';
+import { ArenaPlayerScreen } from '../../../features/arena-deck/player-screen';
 
 export default function Page() {
-  return <ArenaScreen />;
+  return <ArenaPlayerScreen mode="arena" />;
 }
