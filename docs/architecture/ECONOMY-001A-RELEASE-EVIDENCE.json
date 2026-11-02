@@ -1,0 +1,330 @@
+{
+  "task": "ECONOMY-001A",
+  "date": "2026-11-02",
+  "state": "DEPLOY_COMPLETE",
+  "candidate": "3b63b7aafc7a1599d93e09f5fb9ac6346ed35467",
+  "merge": "120804ea244a4b98cec2ba93e0ff1e544870720a",
+  "ci": {
+    "sha": "3b63b7aafc7a1599d93e09f5fb9ac6346ed35467",
+    "pushSuccess": true,
+    "prSuccess": true,
+    "runs": [
+      {
+        "id": 41414114549,
+        "sha": "3b63b7aafc7a1599d93e09f5fb9ac6346ed35467",
+        "event": "pull_request",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 41414107992,
+        "sha": "3b63b7aafc7a1599d93e09f5fb9ac6346ed35467",
+        "event": "push",
+        "status": "completed",
+        "conclusion": "success"
+      }
+    ]
+  },
+  "preview": {
+    "id": "dpl_8HdFbCjQmkFhuWmuUB9KZRBnNwMk",
+    "url": "rpgjovemcristao-4k54w3xol-carlos-junior-s-projects.vercel.app",
+    "state": "READY",
+    "target": "preview",
+    "sha": "3b63b7aafc7a1599d93e09f5fb9ac6346ed35467",
+    "backend": "TEST"
+  },
+  "production": {
+    "id": "dpl_G6itbGwVcynvt1tWSbEEKdPRmh8K",
+    "url": "rpgjovemcristao-57ei5pcki-carlos-junior-s-projects.vercel.app",
+    "state": "READY",
+    "target": "production",
+    "sha": "120804ea244a4b98cec2ba93e0ff1e544870720a",
+    "official": "dpl_G6itbGwVcynvt1tWSbEEKdPRmh8K"
+  },
+  "migration": {
+    "name": "economy_001a_starter_production",
+    "version": "20261102103152"
+  },
+  "tests": {
+    "unit": 1040,
+    "skipped": 74,
+    "testPostgres": 26,
+    "productionPostgres": 27,
+    "overlap": "Same26 + one production empty-recovery case; not53distinct",
+    "hostedSteps": [
+      {
+        "name": "normal confirmed TEST identity and own active avatar",
+        "pass": true,
+        "fingerprint": "dd4936a145a6",
+        "canonicalLevel": 1,
+        "canonicalXp": 0
+      },
+      {
+        "name": "page load reads collection but issues no starter",
+        "pass": true
+      },
+      {
+        "name": "explicit confirmation required before a write",
+        "pass": true
+      },
+      {
+        "name": "one normal confirmed request returned a legitimate server receipt",
+        "pass": true,
+        "receiptId": "f2429db1-a9c6-472e-9445-3e0c35719948"
+      },
+      {
+        "name": "seven owned cards and explicit deck selection persist normally",
+        "pass": true
+      },
+      {
+        "name": "confirmed panel fits 390 and 320 emulated viewports without UI errors",
+        "pass": true
+      },
+      {
+        "name": "concurrent replays return the original receipt; foreign and anonymous denied",
+        "pass": true
+      }
+    ],
+    "realReceiptsIssuedTEST": 1,
+    "ownedCardsTEST": 7,
+    "finalWebkit": {
+      "sha": "3b63b7aafc7a1599d93e09f5fb9ac6346ed35467",
+      "normalLogin": true,
+      "sessionImported": false,
+      "freshDeckSelection": 0,
+      "serverCards": 7,
+      "automaticClaims": 0,
+      "errors": [],
+      "failed": [],
+      "width": 320,
+      "physical": false
+    },
+    "battlesRetested": false,
+    "largeLocalSuiteRepeated": false
+  },
+  "preservation": {
+    "testOriginalDatasets": 77,
+    "testStrictDatasets": 75,
+    "testProjectedEqual": true,
+    "testExpectedDelta": "One real requested receipt and its seven inventory rows",
+    "prodTables": 70,
+    "prodStrictDatasets": 69,
+    "prodExpectedDelta": "Only previously empty approved catalog now seven definitions",
+    "oldProdFunctionsUnchanged": 192,
+    "policies": 39,
+    "authSettingsChanged": false,
+    "rlsChanged": false,
+    "prodPlayerClaims": 0
+  },
+  "boundaries": {
+    "sourceManifestPreserved": true,
+    "qaProvenanceExcluded": true,
+    "explicitRequestRequired": true,
+    "oncePerAuthIdentity": true,
+    "genericAuthorityClosed": true,
+    "xp": false,
+    "coins": false,
+    "chests": false,
+    "shop": false,
+    "combatRewards": false,
+    "pr12pr18pr24Independent": true
+  },
+  "artifacts": [
+    {
+      "file": "private/build/economy-001/ci-approved.json",
+      "sha256": "36fde588ccc2bde5142ca7f90bffd86ff0ea7770d3eed08ded75ac696daf16b1"
+    },
+    {
+      "file": "private/build/economy-001/preview.json",
+      "sha256": "979ec123ee61eb8664e3a5c33965ed9ec479c485659e64f613d88ad6cb8b702a"
+    },
+    {
+      "file": "private/build/economy-001/hosted-starter.json",
+      "sha256": "ec817f46a73dacf189eb043a6ce7dd53167f0644bced1ac08801e99bcb648637"
+    },
+    {
+      "file": "private/build/economy-001/webkit-starter-read.json",
+      "sha256": "d36e489ccbe71a9e6fcb2f579cc540f554714391dd00ef5fba8810663c937009"
+    },
+    {
+      "file": "private/build/economy-001/webkit-starter-read-final.json",
+      "sha256": "847163c7b8f8d262abeaa309509103c0f37d16b18f9eaf4d6748c537e8a28ef4"
+    },
+    {
+      "file": "private/build/economy-001/after-ddl-test.json",
+      "sha256": "031f6a2369f94d1b74e9f77386dd00ba51edc50f3f51101fb4044086823c21dd"
+    },
+    {
+      "file": "private/build/economy-001/after-hosted-test.json",
+      "sha256": "5a4904c259ab3f1767c88d1e769d9b9f128e95559d11230e18cdd92a42e36c73"
+    },
+    {
+      "file": "private/build/economy-001/pg-production/results.json",
+      "sha256": "7cb6ccf015479a00f11f4a66075a82e36d71f3dc6000e2a1c6f9a4fda4eb8a61"
+    },
+    {
+      "file": "private/build/economy-001/production-db-evidence.json",
+      "sha256": "3e6adb1c06741290ef396877c7226691fc51111c9724527247b3e6f395c02fbc"
+    },
+    {
+      "file": "private/build/economy-001/production-preflight.json",
+      "sha256": "30ba535c4e9b75e8533929e88b5da72c5a3c23989fddda32ab32cea8f5e3a35e"
+    },
+    {
+      "file": "private/build/economy-001/production-post-ddl.json",
+      "sha256": "d0fe4e617b4278c78149c09e815ecfaa60389fd04c590be4e47b9843372fd349"
+    },
+    {
+      "file": "private/build/economy-001/production-retained.json",
+      "sha256": "2ed290b1a2b6694f108def9c73e1aabff9a4f1d728641479526a7add048229c5"
+    },
+    {
+      "file": "private/build/economy-001/release-controls-hold.json",
+      "sha256": "9b388ace7937b0b5bb15b8819b946926479796e2da849ad1d43c8624d91492e7"
+    },
+    {
+      "file": "private/build/economy-001/merge-ci-approved.json",
+      "sha256": "2c8eaa25743ec6bbccbd3ca9d2865a2acb58d3f703335e88f7dc785ec1c3a0f0"
+    },
+    {
+      "file": "private/build/economy-001/production-retained-checks.json",
+      "sha256": "9e1374baae74d52e1bc905e5a9287e100088709384122a68f44c1f9d602f080f"
+    },
+    {
+      "file": "private/build/economy-001/production-official-checks.json",
+      "sha256": "4411fb36d5882203dfc2cf31d74937651504afe743d868a4420d1ebe40e67bd8"
+    },
+    {
+      "file": "private/build/economy-001/release-controls-restore.json",
+      "sha256": "afd1d6724daa6ad5ec2b5d5a6a3c2fb65a44f09c3b7eec5195d5ee83d0a11849"
+    },
+    {
+      "file": "private/build/economy-001/production-http.json",
+      "sha256": "865c9189d5e1d5a7eed51990e6f3f6b01f8ce05707505478bda9253571e726d7"
+    },
+    {
+      "file": "private/build/economy-001/promoted.json",
+      "sha256": "c11d04a581cdd6052fef34f0ca1281182f61359c2785ebefc46e7e65fd6e8375"
+    }
+  ],
+  "limits": [
+    "Author QA/Security; no independent review",
+    "Mobile emulated, no physical device",
+    "Positive acquisition only TEST",
+    "Intentional negative HTTP console errors preserved separately",
+    "Initial collector duplicate Playwright import corrected without runtime change",
+    "First alias assertion occurred before asynchronous propagation; subsequent GET confirmed same deployment without second promotion POST",
+    "Initial HTTP probe expected a nonexistent /api/shop; corrected only collector to actual /journey/shop403"
+  ],
+  "mergeCI": {
+    "sha": "120804ea244a4b98cec2ba93e0ff1e544870720a",
+    "runs": [
+      {
+        "id": 41429713795,
+        "status": "completed",
+        "conclusion": "success",
+        "event": "push",
+        "sha": "120804ea244a4b98cec2ba93e0ff1e544870720a"
+      }
+    ]
+  },
+  "productionChecks": {
+    "preflight": {
+      "phase": "preflight",
+      "normalAuth": true,
+      "activeLevel": 50,
+      "ownCards": 0,
+      "genericEconomyDenied": 403,
+      "automaticClaims": 0
+    },
+    "postDDL": {
+      "phase": "post-ddl",
+      "normalAuth": true,
+      "activeLevel": 50,
+      "ownCards": 0,
+      "genericEconomyDenied": 403,
+      "automaticClaims": 0,
+      "starterGuards": [
+        {
+          "status": 403,
+          "code": "42501"
+        },
+        {
+          "status": 401,
+          "code": "42501"
+        }
+      ]
+    },
+    "retained": {
+      "phase": "retained-checks",
+      "normalAuth": true,
+      "activeLevel": 50,
+      "ownCards": 0,
+      "genericEconomyDenied": 403,
+      "automaticClaims": 0,
+      "starterVisible": true,
+      "confirmationRequired": true,
+      "widths": [
+        1365,
+        390,
+        320
+      ]
+    },
+    "official": {
+      "phase": "official-checks",
+      "normalAuth": true,
+      "activeLevel": 50,
+      "ownCards": 0,
+      "genericEconomyDenied": 403,
+      "automaticClaims": 0,
+      "starterVisible": true,
+      "confirmationRequired": true,
+      "widths": [
+        1365,
+        390,
+        320
+      ]
+    },
+    "http": {
+      "checks": [
+        {
+          "path": "/",
+          "status": 200
+        },
+        {
+          "path": "/auth",
+          "status": 200
+        },
+        {
+          "path": "/auth/recover",
+          "status": 200
+        },
+        {
+          "path": "/journey/arena/deck",
+          "status": 200
+        },
+        {
+          "path": "/api/authority",
+          "status": 403
+        },
+        {
+          "path": "/journey/shop",
+          "status": 403
+        }
+      ],
+      "ready": true,
+      "sha": "120804ea244a4b98cec2ba93e0ff1e544870720a",
+      "backend": "PROD",
+      "deployment": "dpl_G6itbGwVcynvt1tWSbEEKdPRmh8K",
+      "official": "dpl_G6itbGwVcynvt1tWSbEEKdPRmh8K",
+      "autoAssign": true
+    },
+    "restore": {
+      "mode": "restore",
+      "autoAssignCustomDomains": true,
+      "ssoUnchanged": true,
+      "trustedSourcesUnchanged": true
+    }
+  },
+  "nextIncrement": "001B/C pending; no XP/coins/chests/shop/combat rewards enabled"
+}
