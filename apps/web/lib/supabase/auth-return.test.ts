@@ -57,7 +57,7 @@ test('refuses external, protocol-relative, auth-loop and malformed return paths'
     'javascript:alert(1)',
     '/auth',
     '/journey/../auth',
-    '/journey/arena',
+    '/journey/arena/arbitrary',
     '/journey/tower',
     '/journey/shop',
     null,
@@ -65,5 +65,7 @@ test('refuses external, protocol-relative, auth-loop and malformed return paths'
     expect(safeEntryReturn(candidate, window.location.origin)).toBeNull();
   }
   expect(entryReturn('/')).toBe('/');
+  for (const path of ['/journey/arena', '/journey/arena/deck', '/journey/arena/tower'])
+    expect(safeEntryReturn(path, window.location.origin)).toBe(path);
   expect(registrationDestination()).toBe('/journey/create');
 });
