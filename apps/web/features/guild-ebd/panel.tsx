@@ -27,6 +27,7 @@ import {
   LessonCommandRejected,
 } from '../../lib/ebd-classes/lessons-client';
 import { ClassQuizPanel } from './quiz';
+import { AttendanceXp, CommunityXpHistory } from './attendance-xp';
 import css from '../guild-missions/panel.module.css';
 const tabs = [
   ['overview', 'Visão geral'],
@@ -660,22 +661,36 @@ export function EbdPanel({
             ))}
           {data.attendance.length === 0 && <p>Nenhuma presença registrada.</p>}
           {data.attendance.map((r) => (
-            <p className={css.notice} key={`${r.lesson_id}-${r.traveler_id}`}>
-              {data.lessons.find((l) => l.id === r.lesson_id)?.title} ·{' '}
-              {data.members.find((m) => m.id === r.traveler_id)?.name ??
-                'Seu registro'}
-              :{' '}
-              {
+            <div key={`${r.lesson_id}-${r.traveler_id}`}>
+              <p className={css.notice}>
+                {data.lessons.find((l) => l.id === r.lesson_id)?.title} ·{' '}
+                {data.members.find((m) => m.id === r.traveler_id)?.name ??
+                  'Seu registro'}
+                :{' '}
                 {
-                  pending: 'Pendente',
-                  present: 'Presente',
-                  absent: 'Ausente',
-                  justified: 'Justificada',
-                }[r.status]
-              }{' '}
-              · v{r.revision}
-              {r.reason && ` · ${r.reason}`}
-            </p>
+                  {
+                    pending: 'Pendente',
+                    present: 'Presente',
+                    absent: 'Ausente',
+                    justified: 'Justificada',
+                  }[r.status]
+                }{' '}
+                · v{r.revision}
+                {r.reason && ` · ${r.reason}`}
+              </p>
+              {guildId &&
+                classId &&
+                r.traveler_id === traveler.id &&
+                r.status === 'present' && (
+                  <AttendanceXp
+                    actor={traveler.id}
+                    guild={guildId}
+                    lesson={r.lesson_id}
+                    onBusyChange={setBusy}
+                    disabled={busy}
+                  />
+                )}
+            </div>
           ))}
         </>
       )}
@@ -738,6 +753,13 @@ export function EbdPanel({
       {tab === 'history' && (
         <>
           <h2>Histórico de aprendizado</h2>
+          {guildId && classId && (
+            <CommunityXpHistory
+              key={`${traveler.id}:${guildId}`}
+              actor={traveler.id}
+              guild={guildId}
+            />
+          )}
           <p>Envios e avaliações desta página de aulas.</p>
           {data.answers.map((a) => (
             <p className={css.notice} key={a.id}>
