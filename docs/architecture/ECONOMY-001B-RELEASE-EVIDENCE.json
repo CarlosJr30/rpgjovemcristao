@@ -1,0 +1,295 @@
+{
+  "task": "ECONOMY-001B",
+  "date": "2026-11-02",
+  "state": "DONE / DEPLOY_COMPLETE",
+  "candidate": "7d6bcbc4d0904a7f9b25abbb08cec1878b2cacbf",
+  "runtime": "87f368be9f10fc858eb11a3958fd80d1544d2b28",
+  "merge": "5f38914fd3e9d728b63ff103d505d736f4dcc677",
+  "ci": {
+    "sha": "7d6bcbc4d0904a7f9b25abbb08cec1878b2cacbf",
+    "pushSuccess": true,
+    "prSuccess": true,
+    "runs": [
+      {
+        "id": 41441134004,
+        "sha": "7d6bcbc4d0904a7f9b25abbb08cec1878b2cacbf",
+        "event": "pull_request",
+        "status": "completed",
+        "conclusion": "success",
+        "attempt": 1
+      },
+      {
+        "id": 41441126371,
+        "sha": "7d6bcbc4d0904a7f9b25abbb08cec1878b2cacbf",
+        "event": "push",
+        "status": "completed",
+        "conclusion": "success",
+        "attempt": 2
+      }
+    ]
+  },
+  "mergeCI": {
+    "sha": "5f38914fd3e9d728b63ff103d505d736f4dcc677",
+    "runs": [
+      {
+        "id": 41445623993,
+        "status": "completed",
+        "conclusion": "success",
+        "event": "push",
+        "sha": "5f38914fd3e9d728b63ff103d505d736f4dcc677",
+        "attempt": 1
+      }
+    ]
+  },
+  "preview": {
+    "id": "dpl_9AGKA2hyWzNaw3e9ANzzWaoDRRvq",
+    "url": "rpgjovemcristao-prudx6wg4-carlos-junior-s-projects.vercel.app",
+    "state": "READY",
+    "target": "preview",
+    "sha": "7d6bcbc4d0904a7f9b25abbb08cec1878b2cacbf",
+    "backend": "TEST"
+  },
+  "finalPreviewRead": {
+    "sha": "7d6bcbc4d0904a7f9b25abbb08cec1878b2cacbf",
+    "normalLogin": true,
+    "sessionImported": false,
+    "width": 320,
+    "physical": false,
+    "xp": 50,
+    "officialHistory": true,
+    "automaticClaims": 0,
+    "errors": [],
+    "failed": [],
+    "scope": "Read-only history after normal login and settled Guild/class document"
+  },
+  "production": {
+    "checks": [
+      {
+        "path": "/",
+        "status": 200
+      },
+      {
+        "path": "/auth",
+        "status": 200
+      },
+      {
+        "path": "/auth/recover",
+        "status": 200
+      },
+      {
+        "path": "/journey/guild/ebd",
+        "status": 200
+      },
+      {
+        "path": "/api/authority",
+        "status": 403
+      },
+      {
+        "path": "/journey/shop",
+        "status": 403
+      }
+    ],
+    "sha": "5f38914fd3e9d728b63ff103d505d736f4dcc677",
+    "ready": true,
+    "deployment": "dpl_FncdPh2AHMbpGKPsLQ6moVb7xgcG",
+    "official": "dpl_FncdPh2AHMbpGKPsLQ6moVb7xgcG",
+    "backend": "PROD",
+    "autoAssign": true,
+    "ssoUnchanged": true,
+    "trustedSourcesUnchanged": true
+  },
+  "migrations": {
+    "TEST": "20261102112426",
+    "PROD": {
+      "name": "economy_001b_attendance_xp_production",
+      "version": "20261102123120"
+    },
+    "sourcePROD": "20261102115244_economy_001b_attendance_xp_production.sql"
+  },
+  "enabled": {
+    "attendanceXp": 50,
+    "weeklyLimitByAuth": 1500,
+    "timezone": "America/Sao_Paulo",
+    "start": "Monday00:00",
+    "reference": "lesson-date",
+    "coins": false,
+    "chests": false,
+    "shop": false,
+    "arenaTowerRewards": false,
+    "economy001c": false
+  },
+  "proof": {
+    "unitCI": 1067,
+    "skipped": 74,
+    "localTargeted": 35,
+    "newUnitIncluded": 27,
+    "pgTEST": 29,
+    "pgPROD": 30,
+    "pgOverlap": "same29+oneproductionguard",
+    "testEvidence": "ECONOMY-001B-TEST-EVIDENCE.json",
+    "hostedStages": 12,
+    "realTESTXp": 50,
+    "testReceipts": 1,
+    "prodPlayerCreditsIssued": 0,
+    "retained": {
+      "phase": "retained-checks",
+      "normalAuth": true,
+      "approvedIdentity": true,
+      "activeLevel": 50,
+      "backend": "PROD",
+      "cards": 0,
+      "genericEconomyDenied": 403,
+      "playerDataCreated": false,
+      "ownReceipts": 0,
+      "emptyClassesCanonical": true,
+      "automaticClaims": 0,
+      "unchangedXp": true,
+      "widths": [
+        1365,
+        390,
+        320
+      ],
+      "errors": [],
+      "failed": [],
+      "backendRequestsOnlyProd": true,
+      "monitorScope": "Settled EBD document and own history read; navigation preparation excluded from zero-error claim"
+    },
+    "official": {
+      "phase": "official-checks",
+      "normalAuth": true,
+      "approvedIdentity": true,
+      "activeLevel": 50,
+      "backend": "PROD",
+      "cards": 0,
+      "genericEconomyDenied": 403,
+      "playerDataCreated": false,
+      "ownReceipts": 0,
+      "emptyClassesCanonical": true,
+      "automaticClaims": 0,
+      "unchangedXp": true,
+      "widths": [
+        1365,
+        390,
+        320
+      ],
+      "errors": [],
+      "failed": [],
+      "backendRequestsOnlyProd": true,
+      "monitorScope": "Settled EBD document and own history read; navigation preparation excluded from zero-error claim"
+    },
+    "postDDL": {
+      "phase": "post-ddl",
+      "normalAuth": true,
+      "approvedIdentity": true,
+      "activeLevel": 50,
+      "backend": "PROD",
+      "cards": 0,
+      "genericEconomyDenied": 403,
+      "playerDataCreated": false,
+      "foreignDenied": 403,
+      "anonDenied": 401,
+      "legacyBlocked": true,
+      "ownReceipts": 0,
+      "noActualEventOrGrant": true
+    }
+  },
+  "preservation": {
+    "oldProdDatasetsStrict": 70,
+    "oldProdFunctionsExact": 194,
+    "newFunctionsMatchTEST": 10,
+    "prodTables": 73,
+    "policies": 39,
+    "newPolicyRows": 1,
+    "newEvents": 0,
+    "newHolds": 0,
+    "legacyUnreconciledPreserved": 20,
+    "privateQaTransported": false,
+    "testProjectedDatasets": 80,
+    "testOriginalStrict": 67,
+    "normalSelectionDeltaPreserved": true,
+    "deletedRows": false,
+    "authChanged": false,
+    "rlsWeakened": false,
+    "recovery": "empty recovery and preserving containment tested, not executed remotely",
+    "prs12_18_24_26": "open draft unchanged"
+  },
+  "limits": [
+    "Author QA/Security/React, no independent review",
+    "Mobile emulated; positives only TEST",
+    "Other XP sources without approved values remain closed",
+    "Legacy avatars require separate reconciliation; no automatic amnesty",
+    "Push CI attempt1 monitorFAIL preserved; same-SHA attempt2 and PRattempt1 and mergeattempt1 approved, no application/assertion changes, general root cause not claimed fixed",
+    "Initial hosted claim monitorFAIL retained; settled-document readonly and independent normal-login WebKit passed without another credit",
+    "Runtime evidence files archived with original hashes before final candidate metadata superseded filenames"
+  ],
+  "artifacts": [
+    {
+      "file": "private/build/economy-001b/ci-approved.json",
+      "sha256": "c50f51465044123b44d6c00eb1f9dcf8a98d1f383b6c494d0a774fe83ede444b"
+    },
+    {
+      "file": "private/build/economy-001b/runtime-ci-approved.json",
+      "sha256": "36c044ea46136eb69131505cc33b5766ec956a59c78dc273031dba5ccca1fe62"
+    },
+    {
+      "file": "private/build/economy-001b/runtime-preview.json",
+      "sha256": "2849c0f3bd786e366ccf5aaae979c3e4e8049471e9d09366ebc72fa705f659ee"
+    },
+    {
+      "file": "private/build/economy-001b/preview.json",
+      "sha256": "a53b676454d8182fc6a4c14339fe9427aab6f902b2edc1ab82c568f78676c385"
+    },
+    {
+      "file": "private/build/economy-001b/webkit-read-final.json",
+      "sha256": "88edc93915feedd2fe1a55ac9feae84b6055ee4aa418653fde0813ec6baee8fc"
+    },
+    {
+      "file": "private/build/economy-001b/package-ci-failure.json",
+      "sha256": "947d2b07c4cfd020a31a0b5cfc235031635d5a0295f9994cb34a26011f76fc06"
+    },
+    {
+      "file": "private/build/economy-001b/merge.json",
+      "sha256": "5be712b939cd56e5f19c02a38d25530a9705d1ce4c676b0078fc2bcba80abfba"
+    },
+    {
+      "file": "private/build/economy-001b/merge-ci-approved.json",
+      "sha256": "c53c8299c824b667d9db4aaffd8169b16dfe9a30437f7c89e4e25ddf741c5072"
+    },
+    {
+      "file": "private/build/economy-001b/production-db-evidence.json",
+      "sha256": "12753f4a40e87ffbe9bb58d6d3e8364116c0f31c7d5867443a289fdc38708e51"
+    },
+    {
+      "file": "private/build/economy-001b/production-final-preservation.json",
+      "sha256": "686d1459db3dc59b9438f9bf052bc24cf6dedbd19eae3572dd2739f1ceb8b869"
+    },
+    {
+      "file": "private/build/economy-001b/production-preflight.json",
+      "sha256": "156f846f41045a9fe75849d1041fd11a73dafaa4d0664da1ea38376a89f9ed41"
+    },
+    {
+      "file": "private/build/economy-001b/production-post-ddl.json",
+      "sha256": "0da170cf09e3079da94e5b470a30b2e1ea973a69de7eee454be299d83b2fdf65"
+    },
+    {
+      "file": "private/build/economy-001b/production-retained-checks.json",
+      "sha256": "eb84518426f4fefac739a45085637ff46913d1cfeb58fcb52a75e625edc68b7d"
+    },
+    {
+      "file": "private/build/economy-001b/production-official-checks.json",
+      "sha256": "5960325aa478dd6cb490ffa4aa4fa94f731be2835abd4787de4d1798636471cb"
+    },
+    {
+      "file": "private/build/economy-001b/production-http.json",
+      "sha256": "b4ae16774a0fa2bf26049b3106b96a0f05a9fbb09202336c93efb02f034e9d80"
+    },
+    {
+      "file": "private/build/economy-001b/promoted.json",
+      "sha256": "1bc8c3dce46770cbef43275504d6222b18787e1b997f5a992e890ff3d1fcae1b"
+    },
+    {
+      "file": "private/build/economy-001b/release-controls-restore.json",
+      "sha256": "afd1d6724daa6ad5ec2b5d5a6a3c2fb65a44f09c3b7eec5195d5ee83d0a11849"
+    }
+  ]
+}
