@@ -1,0 +1,351 @@
+{
+  "task": "RPG-ARENA-TORRE-002",
+  "date": "2026-11-02",
+  "status": "DEPLOY_COMPLETE_SAFE_ACCESS",
+  "scope": "Navigation, own collection and existing local training without rewards. Official combat is not released.",
+  "candidate": "2dda9b720b077d0a820000a17b90bab66b2986b0",
+  "merge": "43647ef026e76172e67e611e2fe33f28c7d7ff69",
+  "pullRequest": 27,
+  "ci": {
+    "candidate": {
+      "sha": "2dda9b720b077d0a820000a17b90bab66b2986b0",
+      "pushSuccess": true,
+      "prSuccess": true,
+      "runs": [
+        {
+          "id": 41368707495,
+          "sha": "2dda9b720b077d0a820000a17b90bab66b2986b0",
+          "event": "pull_request",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 41368701703,
+          "sha": "2dda9b720b077d0a820000a17b90bab66b2986b0",
+          "event": "push",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    },
+    "merge": {
+      "id": 41369820010,
+      "sha": "43647ef026e76172e67e611e2fe33f28c7d7ff69",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    "unitPassed": 1022,
+    "unitSkipped": 74,
+    "conditionalPublication": "SKIP",
+    "firstCandidate": "d83ec5fa18624baf4199b6967c22be1c9a6e8099",
+    "firstCandidateFailure": "1021PASS/1FAIL: stale test refused Arena login return. Only test expectation changed; Auth runtime unchanged."
+  },
+  "local": {
+    "targetedCases": 71,
+    "authReturnCases": 5,
+    "parts": "Initial70PASS/1stale-menuFAIL; affected shell5PASS. Auth-return5PASS after CI finding.",
+    "lint": true,
+    "types": true,
+    "build": true,
+    "protocol": 25,
+    "generalSuiteRepeated": false
+  },
+  "preview": {
+    "id": "dpl_2181d7GWGgzSYLTaKm9URjiDjXCL",
+    "url": "rpgjovemcristao-6jlmasa9e-carlos-junior-s-projects.vercel.app",
+    "state": "READY",
+    "target": "preview",
+    "sha": "2dda9b720b077d0a820000a17b90bab66b2986b0",
+    "backend": "TEST"
+  },
+  "test": {
+    "sha": "2dda9b720b077d0a820000a17b90bab66b2986b0",
+    "backend": "TEST",
+    "sessionImported": false,
+    "engines": [
+      {
+        "name": "chromium",
+        "width": 390,
+        "normalAuth": true,
+        "ownCollectionEmpty": true,
+        "foreignQaDenied": true,
+        "ui": [
+          "arena",
+          "arena/deck",
+          "arena/tower"
+        ],
+        "uiErrors": [],
+        "apiPhaseErrors": [
+          "Failed to load resource: the server responded with a status of 403 ()"
+        ],
+        "failed": []
+      },
+      {
+        "name": "webkit",
+        "width": 320,
+        "normalAuth": true,
+        "ownCollectionEmpty": true,
+        "foreignQaDenied": true,
+        "ui": [
+          "arena",
+          "arena/deck",
+          "arena/tower"
+        ],
+        "uiErrors": [],
+        "apiPhaseErrors": [
+          "Failed to load resource: the server responded with a status of 403 ()"
+        ],
+        "failed": []
+      }
+    ]
+  },
+  "production": {
+    "id": "dpl_E3c29592vaGXsECXZXZKnaNHXUdq",
+    "url": "rpgjovemcristao-be0wycdhe-carlos-junior-s-projects.vercel.app",
+    "state": "READY",
+    "target": "production",
+    "sha": "43647ef026e76172e67e611e2fe33f28c7d7ff69",
+    "official": {
+      "phase": "official",
+      "normalAuth": true,
+      "approvedIdentity": true,
+      "activeLevel": 50,
+      "ownCards": 0,
+      "foreignDenied": 403,
+      "anonymousDenied": 401,
+      "economyDenied": 403,
+      "ui": [
+        "arena",
+        "arena/deck",
+        "arena/tower"
+      ],
+      "pageErrors": []
+    },
+    "backend": "PROD",
+    "preflight": {
+      "phase": "preflight",
+      "normalAuth": true,
+      "approvedIdentity": true,
+      "activeLevel": 50,
+      "ownCards": 0,
+      "anonymousDenied": 401,
+      "economyDenied": 403,
+      "ui": [],
+      "unownedIdentifierDenied": 403
+    },
+    "realForeign": {
+      "realOtherOwner": true,
+      "denied": 403,
+      "code": "42501"
+    },
+    "retained": {
+      "phase": "retained",
+      "normalAuth": true,
+      "approvedIdentity": true,
+      "activeLevel": 50,
+      "ownCards": 0,
+      "foreignDenied": 403,
+      "anonymousDenied": 401,
+      "economyDenied": 403,
+      "ui": [
+        "arena",
+        "arena/deck",
+        "arena/tower"
+      ],
+      "pageErrors": []
+    },
+    "http": [
+      {
+        "path": "/journey/arena",
+        "status": 200
+      },
+      {
+        "path": "/journey/arena/deck",
+        "status": 200
+      },
+      {
+        "path": "/journey/arena/tower",
+        "status": 200
+      },
+      {
+        "path": "/journey/arena/arbitrary",
+        "status": 403
+      },
+      {
+        "path": "/journey/equipment",
+        "status": 403
+      },
+      {
+        "path": "/journey/shop",
+        "status": 403
+      },
+      {
+        "path": "/api/authority",
+        "status": 403,
+        "noStore": true
+      }
+    ],
+    "controls": {
+      "mode": "restore",
+      "autoAssignCustomDomains": true,
+      "ssoUnchanged": true,
+      "trustedSourcesUnchanged": true
+    },
+    "newDeploymentBuiltForPromotion": false
+  },
+  "security": {
+    "qaAuthorityImported": false,
+    "qaPresetImported": false,
+    "qaMigrationImported": false,
+    "engineChanged": false,
+    "authRuntimeChanged": false,
+    "rlsChanged": false,
+    "noEconomyEndpoint": true,
+    "officialOnlyRead": true,
+    "sourceFiles": 17,
+    "reviewer": "author",
+    "independent": false
+  },
+  "preservation": {
+    "productionSets": 70,
+    "testSets": 75,
+    "strictlyEqual": true,
+    "structuresAclsPoliciesMigrationsEqual": true,
+    "qaPrivateRowsMatch001": true,
+    "qaSeparateComparison": [
+      {
+        "dataset": "arena_qa_private.allocations",
+        "rows": 1,
+        "hash": "2e3ed933220577eba337ecc974ac7d4b"
+      },
+      {
+        "dataset": "arena_qa_private.revocations",
+        "rows": 0,
+        "hash": "d41d8cd98f00b204e9800998ecf8427e"
+      }
+    ],
+    "productionMigrations": 17,
+    "newMigrations": 0,
+    "newGrants": 0,
+    "newCards": 0,
+    "playerBalancesChanged": false
+  },
+  "remaining": {
+    "officialCards": "PROD approved catalog is empty; seven legitimate eligible cards are still required. No starter or grant enabled.",
+    "officialBattles": "Blocked until ownership and own authority contract are enabled and proven.",
+    "economy": "No XP, coins, chests, items, equipment, official result or progression granted.",
+    "privacyLaunch": "Unrestricted public launch and prior PR24 gates unchanged."
+  },
+  "preservedPullRequests": [
+    12,
+    18,
+    24,
+    26
+  ],
+  "limitations": [
+    "Mobile emulated, not physical hardware.",
+    "No positive PROD battle is claimed.",
+    "Expected negative HTTP403 console messages retained separately; UI phases had no errors.",
+    "QA/Security by author, no independent review.",
+    "Vercel connector scope403; same-team CLI used without expanding protection.",
+    "Promotion accepted with empty response; collector JSON parsing failed, target alias checked before proceeding, no POST retry."
+  ],
+  "artifacts": [
+    {
+      "file": "baseline.json",
+      "sha256": "720b58ea1c9667ccf5ba357e11d56dd2b88c8fc10fd06bce1b4234041c58d549"
+    },
+    {
+      "file": "prepublish-preservation.json",
+      "sha256": "eb36ad6317b3f512722f89124948de9ac683f029a92d113b8c85c61d2b419290"
+    },
+    {
+      "file": "final-preservation.json",
+      "sha256": "eb36ad6317b3f512722f89124948de9ac683f029a92d113b8c85c61d2b419290"
+    },
+    {
+      "file": "qa-preservation.json",
+      "sha256": "50ac873b0de0475652eb4cda8e2a0a3dce111d60a3e8a80a655909c54a6ed409"
+    },
+    {
+      "file": "security-source-review.json",
+      "sha256": "eb3dc153a5202a5474148923fc6f3f0d2552f11580063a1bd718566a4e7afab1"
+    },
+    {
+      "file": "ci-approved.json",
+      "sha256": "5f4a3ad883ccd6ea70ce2839406fc26b3f8b61bfb67627255aab8e419a818798"
+    },
+    {
+      "file": "merge-ci-approved.json",
+      "sha256": "8472e9ec405e9fa7d26bd46031a466deb55f78aabea16fd1213a9742802e4c18"
+    },
+    {
+      "file": "preview.json",
+      "sha256": "52aee1e0ab80ef74e2ecc97ddf910dc1687b43cb948c10504ee1a1c8dfedd0a9"
+    },
+    {
+      "file": "preview-config.json",
+      "sha256": "17fec30546605ef7a8da75db3875525aaddb42cf8e5b8e0dd00afeb37ebd1137"
+    },
+    {
+      "file": "test-preview.json",
+      "sha256": "ab641738f95d090960380c897caed4b296338fd1bcc261d63f16287f95adf301"
+    },
+    {
+      "file": "production-preflight.json",
+      "sha256": "367868834ed9016ea6d446fcb00b12f813461980d9f4759dadfdfcb836f69c04"
+    },
+    {
+      "file": "production-real-foreign.json",
+      "sha256": "7ab83c46adf29b9c82d641f121629e7c300b5366fb29e346644802d8ddeb638f"
+    },
+    {
+      "file": "production-retained.json",
+      "sha256": "c27e2f3adb4fa7cfdd8cf3a077fb1ab49965e553250652b832960c3fa44bf14c"
+    },
+    {
+      "file": "production-retained-checks.json",
+      "sha256": "32e9bd2928cae04e89e29fd1cf8cac3b5a042e695691152f58b899134d843c74"
+    },
+    {
+      "file": "production-retained-combat-guard.json",
+      "sha256": "c0fb163c766076541f9dbd85682a115a3a9853b89a58656fe176a3f09e67d4bd"
+    },
+    {
+      "file": "production-official-checks.json",
+      "sha256": "0440473409371f12cae9c5c8f662468ec95832a91ba5fa19f2498c861cd74f57"
+    },
+    {
+      "file": "production-bundle.json",
+      "sha256": "7ff393f62dd5a47f56fdb782e12db170f4d6319cec92be830f650a08f76401eb"
+    },
+    {
+      "file": "post-http.json",
+      "sha256": "c4ee4c7cf522dbc7f048da9a8f9668453c588c2d8c4dc74e3cd9eb5903528ef1"
+    },
+    {
+      "file": "release-controls-hold.json",
+      "sha256": "5b5362c8197ba8b40d078c3fe86fbc5584fa5287c9b63626ce8de5988249628a"
+    },
+    {
+      "file": "release-controls-restore.json",
+      "sha256": "b20b69ba030be659e700d47673151780ece6343165218527049cde128a6f3e68"
+    },
+    {
+      "file": "promotion-response-note.json",
+      "sha256": "275a843d887e4b6e8321b2b57eaf470e803c88d235852625c6b27ca679e61a39"
+    },
+    {
+      "file": "test-webkit-arena-tower.png",
+      "sha256": "a3a9bab85634357131eb60ecde91d229442f99e15668a266b430cd617d2d431c"
+    },
+    {
+      "file": "retained-arena-320.png",
+      "sha256": "f153a1d0fcbe7f02c64b9654d72cea8790683c81f0dc857448411c81430ae14f"
+    },
+    {
+      "file": "official-arena-320.png",
+      "sha256": "6ef3b6434a5240bdad4053e77a35342e1a6b500cee06fbdf0ae3a21b03142f62"
+    }
+  ]
+}
