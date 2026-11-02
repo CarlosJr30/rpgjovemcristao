@@ -1,4 +1,8 @@
-import { ArenaDeckScreen } from '../../../../features/arena-deck/screen';
+import { notFound } from 'next/navigation';
+import { ArenaTestScreen } from '../../../../features/arena-test/screen';
+import { isArenaTestServerEnabled } from '../../../../lib/arena-test-scope';
+export const dynamic = 'force-dynamic';
 export default function Page() {
-  return <ArenaDeckScreen />;
+  if (!isArenaTestServerEnabled()) notFound();
+  return <ArenaTestScreen mode="deck" />;
 }

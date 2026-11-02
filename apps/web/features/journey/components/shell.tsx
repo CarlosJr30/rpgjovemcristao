@@ -37,6 +37,7 @@ import { DEFAULT_AUDIO_PREFERENCES, gameAudio } from '../audio/audio-manager';
 import { MUSIC_ASSETS } from '../audio/audio-assets';
 import { safeEntryReturn } from '../../../lib/supabase/auth-return';
 import { AdminMenuItem } from '../../guild-governance/admin-menu-item';
+import { isArenaTestAvailable } from '../../../lib/arena-test-scope';
 const primaryLinks = [
   ['hero', 'Herói', '✦'],
   ['map', 'Jornada', '⌁'],
@@ -63,7 +64,7 @@ const releasedLinks = [
       'backpack',
       'collection',
       'diary',
-    ].includes(id),
+    ].includes(id) || (id === 'arena' && isArenaTestAvailable()),
   })),
   {
     id: 'ebd',
@@ -448,6 +449,7 @@ export function Shell({
               <button
                 className={styles.primaryLink}
                 onClick={() => {
+                  setConfirmingTravelerSwitch(false);
                   if (switchTraveler()) router.replace('/');
                 }}
               >

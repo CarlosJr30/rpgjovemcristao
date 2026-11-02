@@ -1,4 +1,19 @@
 /** Fixed release boundary. A full launch requires an explicitly reviewed change. */
+// Kept self-contained: Node-based release checks import this file directly.
+export function isArenaTestAvailable() {
+  return (
+    process.env.NEXT_PUBLIC_ARENA_TEST_PRACTICE === '1' &&
+    process.env.NEXT_PUBLIC_SUPABASE_URL ===
+      'https://wkdvdzfkbwvhyjmamrsg.supabase.co'
+  );
+}
+export function isArenaTestPath(path: string) {
+  return [
+    '/journey/arena',
+    '/journey/arena/deck',
+    '/journey/arena/tower',
+  ].includes(path);
+}
 export const RELEASE_PROFILE = 'governance-foundation-010a-test' as const;
 export const GAMEPLAY_ENABLED = false;
 const paths = new Set([
@@ -39,7 +54,11 @@ const paths = new Set([
   '/guilda/participar',
 ]);
 export function isReleasedPath(path: string): boolean {
-  return paths.has(path) || /^\/guilda\/convite\/[a-f0-9]{64}$/.test(path);
+  return (
+    paths.has(path) ||
+    /^\/guilda\/convite\/[a-f0-9]{64}$/.test(path) ||
+    (isArenaTestAvailable() && isArenaTestPath(path))
+  );
 }
 export function unavailableResponse(): Response {
   return Response.json(

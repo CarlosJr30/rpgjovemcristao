@@ -1,5 +1,9 @@
-import { ArenaScreen } from '../../../features/journey/screens/arena';
+import { notFound } from 'next/navigation';
+import { ArenaTestScreen } from '../../../features/arena-test/screen';
+import { isArenaTestServerEnabled } from '../../../lib/arena-test-scope';
+export const dynamic = 'force-dynamic';
 
 export default function Page() {
-  return <ArenaScreen />;
+  if (!isArenaTestServerEnabled()) notFound();
+  return <ArenaTestScreen mode="arena" />;
 }

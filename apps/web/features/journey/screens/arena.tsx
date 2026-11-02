@@ -5,6 +5,7 @@ import {
   arenaProfiles,
   arenaProbableIntent,
   calculateCombatPowerBreakdown,
+  calculateCombatPower,
   calculateTrainingReward,
   isWithinMatchmakingRange,
   type ArenaProductAction,
@@ -87,11 +88,17 @@ export function ArenaExperience({
   ownerId,
   collectionSource = loadArenaCollection,
   localTower,
+  practiceOnly = false,
+  trainingLevel,
+  trainingAttributes,
 }: {
   traveler: Traveler;
   ownerId: string;
   collectionSource?: CollectionSource;
   localTower?: LocalTowerMode;
+  practiceOnly?: boolean;
+  trainingLevel?: 50;
+  trainingAttributes?: Readonly<BattleParticipantSnapshot['attributes']>;
 }) {
   const session = localTower?.session ?? arenaDeckStorage;
   useAudioScene(
@@ -99,10 +106,18 @@ export function ArenaExperience({
     localTower ? Math.min(1, 0.65 + localTower.opponent.level * 0.035) : 1,
   );
   const [towerConfirmed, setTowerConfirmed] = useState(false);
-  const playerSnapshot = useMemo(
-    () => travelerBattleSnapshot(traveler),
-    [traveler],
-  );
+  const playerSnapshot = useMemo(() => {
+    const base = travelerBattleSnapshot(traveler);
+    if (!practiceOnly || trainingLevel !== 50) return base;
+    const training = {
+      ...base,
+      level: trainingLevel,
+      attributes: trainingAttributes
+        ? { ...trainingAttributes }
+        : base.attributes,
+    };
+    return { ...training, combatPower: calculateCombatPower(training) };
+  }, [traveler, practiceOnly, trainingLevel, trainingAttributes]);
   const [deckData, setDeckData] = useState<{
     cards: readonly ArenaCard[];
     selection: readonly string[];
@@ -139,7 +154,7 @@ export function ArenaExperience({
   }, [stage]);
 
   useEffect(() => {
-    if (localTower) return;
+    if (localTower || practiceOnly) return;
     const sync = window.setTimeout(() => {
       const saved = journeyRepository
         .listSaved()
@@ -159,7 +174,7 @@ export function ArenaExperience({
       setHistory(arenaRepository.list(traveler.id));
     }, 0);
     return () => window.clearTimeout(sync);
-  }, [traveler.id, localTower]);
+  }, [traveler.id, localTower, practiceOnly]);
 
   useEffect(() => {
     let live = true;
@@ -177,7 +192,7 @@ export function ArenaExperience({
               : 'saved',
           });
           setStage(saved.battle.status === 'in_progress' ? 'battle' : 'result');
-          if (!localTower)
+          if (!localTower && !practiceOnly)
             setReward(
               arenaRepository
                 .list(traveler.id)
@@ -192,7 +207,14 @@ export function ArenaExperience({
     return () => {
       live = false;
     };
-  }, [ownerId, traveler.id, collectionSource, session, localTower]);
+  }, [
+    ownerId,
+    traveler.id,
+    collectionSource,
+    session,
+    localTower,
+    practiceOnly,
+  ]);
   function pickClosest() {
     const match = [...options].sort(
       (a, b) =>
@@ -241,7 +263,7 @@ export function ArenaExperience({
   }
 
   function settle(finished: BattleState) {
-    if (localTower) return;
+    if (localTower || practiceOnly) return;
     const active = journeyRepository.load();
     if (
       getCurrentOnlineUserId() !== ownerId ||
@@ -309,10 +331,13 @@ export function ArenaExperience({
     setDeckBusy(true);
     setDeckError('');
     try {
+      const currentCards = practiceOnly
+        ? await collectionSource(ownerId, traveler.id)
+        : deckData.cards;
       const next = await session.command(
         ownerId,
         traveler.id,
-        deckData.cards,
+        currentCards,
         battle.id,
         battle.round,
         action,
@@ -328,11 +353,22 @@ export function ArenaExperience({
                   next.winnerId === traveler.id ? 'victory' : 'defeat',
                 );
               })
-            : session
-                .claimSettlement(ownerId, traveler.id, deckData.cards, next.id)
-                .then((claimed) => {
-                  if (claimed) settle(next);
-                });
+            : practiceOnly
+              ? Promise.resolve().then(() => {
+                  emitArenaSound(
+                    next.winnerId === traveler.id ? 'victory' : 'defeat',
+                  );
+                })
+              : session
+                  .claimSettlement(
+                    ownerId,
+                    traveler.id,
+                    deckData.cards,
+                    next.id,
+                  )
+                  .then((claimed) => {
+                    if (claimed) settle(next);
+                  });
           void confirmation
             .catch((e) =>
               setDeckError(
@@ -384,7 +420,7 @@ export function ArenaExperience({
       <header className={styles.arenaHeader}>
         <div>
           <span>
-            {localTower
+            {localTower || practiceOnly
               ? 'TREINO LOCAL · SEM RECOMPENSAS OFICIAIS'
               : 'ÁREA DE TREINO'}
           </span>
@@ -397,7 +433,11 @@ export function ArenaExperience({
         <div className={styles.combatPower}>
           <small>PODER DE COMBATE</small>
           <strong>{playerSnapshot.combatPower}</strong>
-          <span>Nível {traveler.level}</span>
+          <span>
+            {practiceOnly && trainingLevel === 50
+              ? 'Nível de treino 50'
+              : `Nível ${traveler.level}`}
+          </span>
           <details>
             <summary>Como é calculado?</summary>
             <p>
@@ -462,7 +502,7 @@ export function ArenaExperience({
           busy={deckBusy}
           onSave={async (ids) => {
             const cards = await collectionSource(ownerId, traveler.id);
-            await arenaDeckStorage.save(ownerId, traveler.id, cards, ids);
+            await session.save(ownerId, traveler.id, cards, ids);
             setDeckData({ cards, selection: [...ids] });
             setShowDeck(false);
           }}
@@ -473,8 +513,9 @@ export function ArenaExperience({
         stage !== 'battle' && (
           <p>
             Monte um baralho com sete cartas de combate válidas para iniciar. O
-            catálogo e a aquisição de cartas ainda aguardam integração
-            autorizada.
+            {practiceOnly
+              ? 'treino não concede cartas; são necessárias sete já possuídas.'
+              : 'catálogo e a aquisição de cartas ainda aguardam integração autorizada.'}
           </p>
         )}
       {stage === 'lobby' && (
@@ -748,15 +789,17 @@ export function ArenaExperience({
                     ? towerConfirmed
                       ? 'Resultado demonstrativo registrado neste navegador. Nenhuma recompensa ou conquista oficial concedida.'
                       : 'Resultado local pendente de registro. Nenhuma recompensa ou conquista oficial concedida.'
-                    : !reward
-                      ? 'Resultado salvo; recompensa ainda não confirmada. Recarregar não repete a concessão.'
-                      : reward.rewarded
-                        ? `Recompensa: +${reward.xp} XP e +${reward.coins} moedas.`
-                        : reward?.reason === 'daily-limit'
-                          ? 'Limite diário de recompensas contra este adversário atingido. Você pode continuar treinando.'
-                          : 'Treinos sem vitória não concedem recursos.'}
+                    : practiceOnly
+                      ? 'Resultado demonstrativo local. Nenhum XP, moeda, baú, carta ou progresso oficial concedido.'
+                      : !reward
+                        ? 'Resultado salvo; recompensa ainda não confirmada. Recarregar não repete a concessão.'
+                        : reward.rewarded
+                          ? `Recompensa: +${reward.xp} XP e +${reward.coins} moedas.`
+                          : reward?.reason === 'daily-limit'
+                            ? 'Limite diário de recompensas contra este adversário atingido. Você pode continuar treinando.'
+                            : 'Treinos sem vitória não concedem recursos.'}
                 </p>
-                {reward?.rewarded && (
+                {!practiceOnly && reward?.rewarded && (
                   <ol
                     className={styles.arenaRewardSequence}
                     aria-label="Recompensas do treino"
@@ -765,7 +808,7 @@ export function ArenaExperience({
                     <li>+{reward.coins} moedas</li>
                   </ol>
                 )}
-                {levelNotice && (
+                {!practiceOnly && levelNotice && (
                   <ArenaUnlockNotice
                     before={levelNotice.before}
                     after={levelNotice.after}
@@ -827,14 +870,21 @@ export function ArenaScreen() {
   return (
     <Shell back={routes.map} backLabel="Voltar à Jornada">
       <RequireTraveler>
-        {(traveler) => (
-          auth.user ? <AuthoritativeArena key={`${auth.user.id}:${traveler.id}`} travelerId={traveler.id} mode="arena-v3" /> :
-          <ArenaExperience
-            key={`offline:${traveler.id}`}
-            traveler={traveler}
-            ownerId=""
-          />
-        )}
+        {(traveler) =>
+          auth.user ? (
+            <AuthoritativeArena
+              key={`${auth.user.id}:${traveler.id}`}
+              travelerId={traveler.id}
+              mode="arena-v3"
+            />
+          ) : (
+            <ArenaExperience
+              key={`offline:${traveler.id}`}
+              traveler={traveler}
+              ownerId=""
+            />
+          )
+        }
       </RequireTraveler>
     </Shell>
   );

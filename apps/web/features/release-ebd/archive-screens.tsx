@@ -53,7 +53,11 @@ export function BackpackContents({
                 data-rarity={equipment?.rarity ?? ownedCard?.rarity}
               >
                 {equipment /* eslint-disable-next-line @next/next/no-img-element -- approved existing inventory icon */ && (
-                  <img className={archiveCss.backpackIcon} src={equipmentAssetForItem(equipment)} alt="" />
+                  <img
+                    className={archiveCss.backpackIcon}
+                    src={equipmentAssetForItem(equipment)}
+                    alt=""
+                  />
                 )}
                 <h2>{equipment?.name ?? ownedCard?.name ?? row.item_id}</h2>
                 <p>
@@ -105,7 +109,7 @@ export function CollectionContents({ cards }: { cards: ArchiveCard[] }) {
       <p>Cartas na sua coleção: {cards.length}.</p>
       {!cards.length && <p>Nenhuma carta adquirida neste avatar.</p>}
       <div className={cardsCss.grid}>
-        {cards.map(({ card }) => {
+        {cards.map(({ card, provenance }) => {
           const detail = describeArenaAction(card.action);
           return (
             <article
@@ -114,6 +118,9 @@ export function CollectionContents({ cards }: { cards: ArchiveCard[] }) {
               aria-label={`Carta: ${card.name}`}
             >
               <h2>{card.name}</h2>
+              {provenance === 'qa-training' && (
+                <p>QA TEST — uso em treino, sem recompensa oficial.</p>
+              )}
               <p>
                 {card.rarity} ·{' '}
                 {card.type === 'OFFENSIVE'

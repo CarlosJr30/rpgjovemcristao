@@ -29,10 +29,16 @@ export function TowerExperience({
   ownerId,
   traveler,
   collectionSource = loadArenaCollection,
+  practiceOnly = false,
+  trainingLevel,
+  trainingAttributes,
 }: {
   ownerId: string;
   traveler: Traveler;
   collectionSource?: CollectionSource;
+  practiceOnly?: boolean;
+  trainingLevel?: 50;
+  trainingAttributes?: Readonly<Traveler['attributes']>;
 }) {
   const [data, setData] = useState<{
     view: View;
@@ -88,6 +94,9 @@ export function TowerExperience({
         ownerId={ownerId}
         collectionSource={collectionSource}
         localTower={mode}
+        practiceOnly={practiceOnly}
+        trainingLevel={trainingLevel}
+        trainingAttributes={trainingAttributes}
       />
     );
   const current = data?.view.progress.wins.length ?? 0;
@@ -270,14 +279,21 @@ export function TowerScreen() {
   return (
     <Shell back="/journey/arena" backLabel="Voltar à Arena">
       <RequireTraveler>
-        {(traveler) => (
-          auth.user ? <AuthoritativeArena key={`${auth.user.id}:${traveler.id}`} travelerId={traveler.id} mode="tower-v3" /> :
-          <TowerExperience
-            key={`offline:${traveler.id}`}
-            ownerId=""
-            traveler={traveler}
-          />
-        )}
+        {(traveler) =>
+          auth.user ? (
+            <AuthoritativeArena
+              key={`${auth.user.id}:${traveler.id}`}
+              travelerId={traveler.id}
+              mode="tower-v3"
+            />
+          ) : (
+            <TowerExperience
+              key={`offline:${traveler.id}`}
+              ownerId=""
+              traveler={traveler}
+            />
+          )
+        }
       </RequireTraveler>
     </Shell>
   );

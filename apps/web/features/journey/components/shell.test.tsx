@@ -83,6 +83,7 @@ describe('Shell account and traveler actions', () => {
     expect(mocks.switchTraveler).toHaveBeenCalledTimes(1);
     expect(mocks.signOutAccount).not.toHaveBeenCalled();
     expect(mocks.replace).toHaveBeenCalledWith('/');
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
   });
 
   test('signing out the account uses the account action and navigates to auth', async () => {
