@@ -58,9 +58,9 @@ export function DeckEditor({
       )}
       {cards.filter((c) => c.action).length < 7 && (
         <p className={css.notice}>
-          Você precisa de sete cartas de combate válidas para iniciar. A coleção
-          de combate aguarda catálogo e aquisição autorizados; nenhuma carta
-          será concedida automaticamente.
+          Você precisa de sete cartas de combate válidas para iniciar. Sua
+          coleção ainda não possui sete cartas homologadas. Nenhuma carta será
+          concedida automaticamente ao acessar esta tela.
         </p>
       )}
       <ol aria-label="Sete posições do baralho">

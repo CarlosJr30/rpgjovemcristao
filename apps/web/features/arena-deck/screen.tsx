@@ -8,14 +8,17 @@ import { DeckEditor } from './editor';
 import { loadArenaCollection, type CollectionSource } from './collection';
 import { arenaDeckStorage } from './storage';
 import type { ArenaCard } from '@rpg/game-engine';
+import { ArenaStarterPanel } from './starter-panel';
 export function ArenaDeckContent({
   owner,
   traveler,
   collectionSource = loadArenaCollection,
+  starterEnabled = false,
 }: {
   owner: string;
   traveler: Traveler;
   collectionSource?: CollectionSource;
+  starterEnabled?: boolean;
 }) {
   const [data, setData] = useState<{
     cards: readonly ArenaCard[];
@@ -24,17 +27,20 @@ export function ArenaDeckContent({
   } | null>(null);
   const [error, setError] = useState('');
   const [busy, setBusy] = useState(false);
+  const [refresh, setRefresh] = useState(0);
   useEffect(() => {
     let live = true;
     collectionSource(owner, traveler.id)
       .then((cards) => {
         const saved = arenaDeckStorage.load(owner, traveler.id, cards);
-        if (live)
+        if (live) {
+          setError('');
           setData({
             cards,
             selection: saved.selection,
             locked: saved.battle?.status === 'in_progress',
           });
+        }
       })
       .catch((e) => {
         if (live)
@@ -47,10 +53,18 @@ export function ArenaDeckContent({
     return () => {
       live = false;
     };
-  }, [owner, traveler.id, collectionSource]);
+  }, [owner, traveler.id, collectionSource, refresh]);
   return (
     <>
       <h1>Meu Baralho — Arena</h1>
+      {starterEnabled && (
+        <ArenaStarterPanel
+          key={`${owner}:${traveler.id}`}
+          owner={owner}
+          traveler={traveler.id}
+          onGranted={() => setRefresh((v) => v + 1)}
+        />
+      )}
       {error && <p role="alert">{error}</p>}
       {!data && !error && <p role="status">Carregando coleção…</p>}
       {data && (

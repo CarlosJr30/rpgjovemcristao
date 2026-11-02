@@ -374,6 +374,7 @@ export type Database = {
         Returns: string;
       };
       get_owned_cards: { Args: { p_traveler_id: string }; Returns: Json };
+      claim_arena_starter: { Args: { p_traveler_id: string }; Returns: Json };
       set_active_traveler: {
         Args: { p_traveler_id: string };
         Returns: undefined;

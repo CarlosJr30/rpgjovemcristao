@@ -150,6 +150,9 @@ jobs:
       - name: Ensaiar pacote produtivo próprio de gincanas e contenção sem apagar vínculos
         run: node tests/hosted/rpg-dev-010c2-production-postgres.mjs
 
+      - name: Exigir starter explícito por conta sessão posse idempotência e contenção
+        run: node tests/hosted/economy-001a-postgres.mjs
+
   pinned-preview:
     name: Preview do SHA aprovado
     needs: [quality, rsc-regression, governance-postgres]
