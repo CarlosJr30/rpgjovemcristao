@@ -192,11 +192,11 @@
   },
   "artifacts": [
     {
-      "file": "private/build/economy-001b/ci-approved.json",
+      "file": "private/build/economy-001b/runtime-ci-approved.json",
       "sha256": "36c044ea46136eb69131505cc33b5766ec956a59c78dc273031dba5ccca1fe62"
     },
     {
-      "file": "private/build/economy-001b/preview.json",
+      "file": "private/build/economy-001b/runtime-preview.json",
       "sha256": "2849c0f3bd786e366ccf5aaae979c3e4e8049471e9d09366ebc72fa705f659ee"
     },
     {

@@ -137,5 +137,59 @@ test('practice refuses start with no possessed cards rather than issuing a start
   expect(
     screen.getByRole('button', { name: 'Iniciar batalha' }),
   ).toBeDisabled();
+  expect(
+    screen.getByRole('button', { name: 'Iniciar batalha' }),
+  ).toHaveAccessibleDescription(/Você possui 0\/7 cartas/);
+  expect(
+    screen
+      .getAllByRole('link', { name: 'Meu Baralho' })
+      .some((link) => link.getAttribute('href') === '/journey/arena/deck'),
+  ).toBe(true);
+  expect(m.update).not.toHaveBeenCalled();
+});
+
+test('owned but unselected cards explain how to prepare seven without starting a battle', async () => {
+  render(
+    <ArenaExperience
+      traveler={hero}
+      ownerId="owner"
+      collectionSource={async () => cards}
+      practiceOnly
+    />,
+  );
+  await screen.findByText('Cartas selecionadas: 0/7');
+  fireEvent.click(screen.getByRole('button', { name: /Noemi/ }));
+  const start = screen.getByRole('button', { name: 'Iniciar batalha' });
+  expect(start).toBeDisabled();
+  expect(start).toHaveAccessibleDescription(
+    /Selecione e salve sete cartas próprias distintas/,
+  );
+  expect(arenaDeckStorage.load('owner', hero.id, cards).battle).toBeNull();
+});
+
+test('fresh ownership failure is displayed beside start and never creates a battle', async () => {
+  await arenaDeckStorage.save('owner', hero.id, cards, ids);
+  const source = vi
+    .fn()
+    .mockResolvedValueOnce(cards)
+    .mockRejectedValueOnce(new Error('Sua coleção não pôde ser confirmada.'));
+  render(
+    <ArenaExperience
+      traveler={hero}
+      ownerId="owner"
+      collectionSource={source}
+      practiceOnly
+    />,
+  );
+  await screen.findByText('Cartas selecionadas: 7/7');
+  fireEvent.click(screen.getByRole('button', { name: /Noemi/ }));
+  const start = screen.getByRole('button', { name: 'Iniciar batalha' });
+  expect(start).toBeEnabled();
+  fireEvent.click(start);
+  await screen.findByRole('alert');
+  expect(start).toHaveAccessibleDescription(
+    'Sua coleção não pôde ser confirmada.',
+  );
+  expect(arenaDeckStorage.load('owner', hero.id, cards).battle).toBeNull();
   expect(m.update).not.toHaveBeenCalled();
 });

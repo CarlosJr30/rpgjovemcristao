@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useId, useMemo, useRef, useState } from 'react';
 import {
   arenaProfiles,
   arenaProbableIntent,
@@ -113,6 +113,22 @@ export function ArenaExperience({
   const [deckBusy, setDeckBusy] = useState(false);
   const pending = useRef(false);
   const [showDeck, setShowDeck] = useState(false);
+  const startHelpId = useId();
+  const invalidDeck =
+    !deckData || !!validateArenaDeck(deckData.selection, deckData.cards);
+  const startHelp =
+    deckError ||
+    (deckBusy
+      ? 'Conferindo suas cartas antes de iniciar...'
+      : !deckData
+        ? 'Aguarde o carregamento do seu baralho.'
+        : showDeck
+          ? 'Salve o baralho ou feche o editor antes de iniciar.'
+          : deckData.cards.length < 7
+            ? `Você possui ${deckData.cards.length}/7 cartas de combate válidas. São necessárias sete cartas próprias. Acesse Meu Baralho para consultar sua coleção e o pacote inicial.`
+            : invalidDeck
+              ? `Seu baralho tem ${deckData.selection.length}/7 cartas selecionadas. Selecione e salve sete cartas próprias distintas em Meu Baralho ou no editor desta tela.`
+              : 'Baralho pronto: sete cartas próprias selecionadas.');
   const [stage, setStage] = useState<Stage>(localTower ? 'preview' : 'lobby');
   const [options, setOptions] = useState<OpponentOption[]>(
     TRAINING_OPPONENTS.map((snapshot) => ({ snapshot, source: 'training' })),
@@ -466,7 +482,7 @@ export function ArenaExperience({
           Voltar à Torre
         </button>
       )}
-      {deckError && <p role="alert">{deckError}</p>}
+      {deckError && stage !== 'preview' && <p role="alert">{deckError}</p>}
       {!deckData && !deckError && <p role="status">Carregando baralho...</p>}
       {deckData && stage !== 'battle' && !localTower && (
         <>
@@ -651,16 +667,16 @@ export function ArenaExperience({
             <button
               className={styles.arenaPrimary}
               onClick={() => void begin()}
-              disabled={
-                deckBusy ||
-                showDeck ||
-                !deckData ||
-                !!validateArenaDeck(deckData.selection, deckData.cards)
-              }
+              aria-describedby={startHelpId}
+              disabled={deckBusy || showDeck || invalidDeck}
             >
               Iniciar batalha
             </button>
           </div>
+          <p id={startHelpId} role={deckError ? 'alert' : 'status'}>
+            {startHelp}
+          </p>
+          <Link href="/journey/arena/deck">Meu Baralho</Link>
         </section>
       )}
 
