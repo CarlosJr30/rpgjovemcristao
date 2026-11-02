@@ -63,6 +63,7 @@ const releasedLinks = [
       'backpack',
       'collection',
       'diary',
+      'arena',
     ].includes(id),
   })),
   {

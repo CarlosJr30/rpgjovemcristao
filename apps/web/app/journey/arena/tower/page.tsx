@@ -1,4 +1,4 @@
-import { TowerScreen } from '../../../../features/arena-tower/screen';
+import { ArenaPlayerScreen } from '../../../../features/arena-deck/player-screen';
 export default function Page() {
-  return <TowerScreen />;
+  return <ArenaPlayerScreen mode="tower" />;
 }

@@ -13,6 +13,7 @@ export type ArchiveCard = {
 };
 export async function readOwnedCards(
   travelerId: string,
+  officialOnly = false,
 ): Promise<ArchiveCard[]> {
   const owner = getCurrentOnlineUserId(),
     session = getOnlineSessionRevision();
@@ -36,8 +37,12 @@ export async function readOwnedCards(
       Array.isArray(value) ||
       !isArenaCard(value.card) ||
       typeof value.version !== 'string' ||
+      (officialOnly &&
+        ('provenance' in value || /test|qa|training/i.test(value.version))) ||
       typeof value.receiptId !== 'string' ||
-      !/^[\da-f]{8}-[\da-f]{4}-[\da-f]{4}-[\da-f]{4}-[\da-f]{12}$/i.test(value.receiptId)
+      !/^[\da-f]{8}-[\da-f]{4}-[\da-f]{4}-[\da-f]{4}-[\da-f]{12}$/i.test(
+        value.receiptId,
+      )
     )
       throw new Error('Carta indisponível para consulta.');
     return {

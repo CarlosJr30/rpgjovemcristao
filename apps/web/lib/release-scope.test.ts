@@ -11,6 +11,9 @@ it.each([
   '/journey/backpack',
   '/journey/collection',
   '/journey/diary',
+  '/journey/arena',
+  '/journey/arena/tower',
+  '/journey/arena/deck',
   '/journey/minigames/fuga-da-serpente',
   '/journey/phases/o-jardim-e-a-escolha',
   '/journey/worlds',
@@ -30,9 +33,7 @@ it.each([
   expect(isReleasedPath(p)).toBe(true),
 );
 it.each([
-  '/journey/arena',
-  '/journey/arena/tower',
-  '/journey/arena/deck',
+  '/journey/arena/arbitrary',
   '/journey/equipment',
   '/journey/shop',
   '/journey/stories/1',
