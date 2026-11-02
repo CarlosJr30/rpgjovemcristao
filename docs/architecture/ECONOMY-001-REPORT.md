@@ -1,5 +1,7 @@
 # ECONOMY-001 — recuperação por incrementos
 
+Publicação posterior: [ARENA-FIX-001](ARENA-FIX-001-REPORT.md), merge86ae074/PR30, preserva integralmente o XP001B. O deployment5f38914 abaixo registra o fechamento econômico, anterior à correção isolada da Arena.
+
 ## 001B — DONE / DEPLOY_COMPLETE em02/11/2026
 
 **[XP de presença publicado na EBD](https://rpgjovemcristao-web-inky.vercel.app/journey/guild/ebd):50XP por presença elegível, teto1500por conta Auth/semana entre Guildas/classes/avatares.** Segunda00h America/Sao_Paulo, referência à data da aula, uma decisão por conta/evento; sem retroativo anterior à ativação. Recibo, cota e XP/nível são transacionais e canônicos; atributos/equipamentos/cartas preservados. Suspeitas permanecem suspensas, sem liberação automática. Moedas, baús, Loja, outras fontes sem valor aprovado e001C continuam bloqueados.

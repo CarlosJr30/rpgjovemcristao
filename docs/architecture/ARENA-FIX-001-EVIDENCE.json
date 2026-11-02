@@ -1,0 +1,223 @@
+{
+  "status": "DONE / DEPLOY_COMPLETE",
+  "date": "2026-11-02",
+  "pr": 30,
+  "candidate": "14dfb4a14fa96fd13a4a8acf13ff23047a94c62e",
+  "merge": "86ae074656c8fac8da3ae18c9636114906edcf0a",
+  "diagnosis": {
+    "nativeDisabled": true,
+    "possessedCards": 0,
+    "selectedCards": 0,
+    "clickFailureDemonstrated": false,
+    "javascriptFailureDemonstrated": false,
+    "defect": "Disabled start looked available and its prerequisite was distant from the prebattle action."
+  },
+  "fix": "Adjacent accessible prerequisite/failure description, Meu Baralho link and disabled style; original ownership and battle transition preserved.",
+  "directedTests": 6,
+  "ci": {
+    "unitPass": 1069,
+    "skip": 74,
+    "push": 41448927034,
+    "pr": 41448944825,
+    "merge": 41452725336,
+    "conditionalPublication": "SKIP"
+  },
+  "test": {
+    "sha": "14dfb4a14fa96fd13a4a8acf13ff23047a94c62e",
+    "normalLogin": true,
+    "sessionImported": false,
+    "engine": "chromium",
+    "emulated": true,
+    "widths": [
+      320,
+      390,
+      1365
+    ],
+    "ownCards": 7,
+    "initialSelection": 0,
+    "disabledExplanation": true,
+    "deckLink": true,
+    "normalLocalSelectionAndStart": true,
+    "errors": [],
+    "failed": [],
+    "writes": [
+      {
+        "method": "POST",
+        "path": "/rest/v1/rpc/get_owned_cards"
+      },
+      {
+        "method": "POST",
+        "path": "/rest/v1/rpc/get_owned_cards"
+      }
+    ],
+    "awards": 0
+  },
+  "webkit": {
+    "sha": "14dfb4a14fa96fd13a4a8acf13ff23047a94c62e",
+    "normalLogin": true,
+    "sessionImported": false,
+    "engine": "webkit",
+    "emulated": true,
+    "widths": [
+      320,
+      390,
+      1365
+    ],
+    "ownCards": 7,
+    "initialSelection": 0,
+    "disabledExplanation": true,
+    "deckLink": true,
+    "normalLocalSelectionAndStart": false,
+    "errors": [],
+    "failed": [],
+    "writes": [],
+    "awards": 0
+  },
+  "production": {
+    "phase": "official-checks",
+    "normalAuth": true,
+    "backendRequestsOnlyProd": true,
+    "active50": true,
+    "unchangedXp": true,
+    "ownCards": 0,
+    "disabledConfirmed": true,
+    "reasonBesideButton": true,
+    "manualDeckLink": true,
+    "widths": [
+      1365,
+      390,
+      320
+    ],
+    "automaticClaims": 0,
+    "errors": [],
+    "failed": [],
+    "requests": [
+      "/rest/v1/rpc/get_owned_cards"
+    ]
+  },
+  "release": {
+    "checks": [
+      {
+        "path": "/",
+        "status": 200
+      },
+      {
+        "path": "/auth",
+        "status": 200
+      },
+      {
+        "path": "/auth/recover",
+        "status": 200
+      },
+      {
+        "path": "/journey/guild/ebd",
+        "status": 200
+      },
+      {
+        "path": "/api/authority",
+        "status": 403
+      },
+      {
+        "path": "/journey/shop",
+        "status": 403
+      }
+    ],
+    "sha": "86ae074656c8fac8da3ae18c9636114906edcf0a",
+    "ready": true,
+    "deployment": "dpl_8iGErYZYufcMGx2KAJ1UdTdUqQ1p",
+    "official": "dpl_8iGErYZYufcMGx2KAJ1UdTdUqQ1p",
+    "backend": "PROD",
+    "autoAssign": true,
+    "ssoUnchanged": true,
+    "trustedSourcesUnchanged": true
+  },
+  "preservation": {
+    "testDatasets": 80,
+    "prodDatasets": 73,
+    "allDataIdentical": true,
+    "metadataUnchanged": true,
+    "migrations": 0,
+    "grants": 0
+  },
+  "limits": [
+    "Emulated viewports, no physical mobile device.",
+    "Positive start with legitimately owned cards only in TEST; PROD approved player owns zero and remains blocked.",
+    "Final zero-error monitors cover identified settled documents; interrupted collector attempts remain failures.",
+    "QA/Security by author; no independent review claimed.",
+    "No new economy or combat rewards; coins/chests/shop remain closed."
+  ],
+  "artifacts": [
+    {
+      "path": "build/arena-fix-001/diagnosis.json",
+      "sha256": "e26bdf43772d869bcf16b294ab5a39968aeca3bb429483496f53641260466ea4"
+    },
+    {
+      "path": "build/arena-fix-001/ci-approved.json",
+      "sha256": "fc344a4b43e8520ce4ccc5f756d89c7db07dc728518fbc5bc4233890adc55f41"
+    },
+    {
+      "path": "build/arena-fix-001/preview.json",
+      "sha256": "d071dc5992a13a6a11365fb8e29987ade1f497b0a44ccf0ca37b67cf7501f841"
+    },
+    {
+      "path": "build/arena-fix-001/preview-checks-chromium.json",
+      "sha256": "843aed768faa373e73c920cfbfb0a6fa79862391bb5b4123751a647cbaa79b37"
+    },
+    {
+      "path": "build/arena-fix-001/preview-checks-webkit.json",
+      "sha256": "659dbf21f5fb58b04818328bf67769c2251ea115e2343ed8303d8eac7562a3f4"
+    },
+    {
+      "path": "build/arena-fix-001/preflight-integrity.json",
+      "sha256": "ed55d8520f3fb6ff5671ce122256b3b81c35c42f5b0a941eaa2d5a7551fa504f"
+    },
+    {
+      "path": "build/arena-fix-001/production-retained-checks.json",
+      "sha256": "4394a250e063fcd0d1038502bb472bb45a69a6d420642274737a44a68ebc6d67"
+    },
+    {
+      "path": "build/arena-fix-001/production-official-checks.json",
+      "sha256": "29e4b80d21c3a750cbb4a8e149ca102bbbe78d7767b3a878a9dfca313d3d8216"
+    },
+    {
+      "path": "build/arena-fix-001/production-http.json",
+      "sha256": "ddbe62954a5bb2e03f7c4524217d6eed5f914808c88556d26ff146604ad302fb"
+    },
+    {
+      "path": "build/arena-fix-001/merge.json",
+      "sha256": "48c1c1f7c9baadee0947425749eeed978a57dc18dd6ef44669f83ff223ab176b"
+    },
+    {
+      "path": "build/arena-fix-001/merge-ci-approved.json",
+      "sha256": "682dfab128efa090cdacd1e4981d6cff2d5431d2b264d75b4104c1b124d3336b"
+    },
+    {
+      "path": "build/arena-fix-001/promoted.json",
+      "sha256": "72c9264b92b8cff95150a6540aec6d8518896e853f8bc4a2b95b44a66f07ce27"
+    },
+    {
+      "path": "build/arena-fix-001/preserved-prs.json",
+      "sha256": "cea479268935172449d94204f3ea48f574afde4e77308a1f39313b501e133cda"
+    },
+    {
+      "path": "build/arena-fix-001/failure-observations.json",
+      "sha256": "168a777d3c2d4a5c5707d457323c849975aad65555637236c8199b4194e181ef"
+    },
+    {
+      "path": "build/arena-fix-001/test-before-data.json",
+      "sha256": "7986b9fa6cf97b802592a78e36f7bcce8f96c226410f81cb40617cf27d45c726"
+    },
+    {
+      "path": "build/arena-fix-001/test-after-data.json",
+      "sha256": "7986b9fa6cf97b802592a78e36f7bcce8f96c226410f81cb40617cf27d45c726"
+    },
+    {
+      "path": "build/arena-fix-001/prod-before-data.json",
+      "sha256": "28883c5ef7438ae7df36a94914d92d2db754da4501cd6fa27b221eead740a1ef"
+    },
+    {
+      "path": "build/arena-fix-001/prod-after-data.json",
+      "sha256": "28883c5ef7438ae7df36a94914d92d2db754da4501cd6fa27b221eead740a1ef"
+    }
+  ]
+}
