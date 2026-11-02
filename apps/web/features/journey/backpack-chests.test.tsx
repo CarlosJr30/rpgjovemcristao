@@ -17,8 +17,10 @@ import {
 const mocks = vi.hoisted(() => ({
   online: false,
   open: vi.fn(),
+  openCommunity: vi.fn(),
   operation: vi.fn(),
   history: vi.fn(),
+  grants: vi.fn(),
   list: vi.fn(),
   localOpen: vi.fn(),
   buy: vi.fn(),
@@ -45,8 +47,10 @@ vi.mock('./state/use-journey', () => ({
 vi.mock('../../lib/supabase/repositories/chest-repository', () => ({
   chestRepository: {
     open: mocks.open,
+    openCommunity: mocks.openCommunity,
     operation: mocks.operation,
     history: mocks.history,
+    communityGrants: mocks.grants,
     list: mocks.list,
   },
 }));
@@ -81,6 +85,7 @@ beforeEach(() => {
   });
   mocks.list.mockResolvedValue([{ chest_type: 'uncommon', quantity: 1 }]);
   mocks.history.mockResolvedValue([]);
+  mocks.grants.mockResolvedValue([]);
   mocks.sync.mockResolvedValue(true);
   mocks.open.mockResolvedValue({ coins: 999999, ignored: true });
   mocks.operation.mockImplementation(async (_t: string, key: string) => ({
@@ -100,6 +105,16 @@ function panel() {
     />,
   );
 }
+test('community chests require confirmation and never expose merchant or legacy opening',async()=>{
+  mocks.list.mockResolvedValue([{chest_type:'common',quantity:1}]);mocks.openCommunity.mockResolvedValue({});
+  mocks.operation.mockImplementation(async(_t:string,key:string)=>({...chestRow,operation_key:key,chest_type:'common',rewards:{...(chestRow.rewards as Record<string,unknown>),chestType:'common'}}));
+  render(<ChestPanel ownerId={OWNER} traveler={fixtureTraveler()} online communityOnly onCountChange={vi.fn()} onViewEquipment={vi.fn()}/>);
+  fireEvent.click(await screen.findByRole('button',{name:/^Abrir$/}));
+  expect(mocks.openCommunity).not.toHaveBeenCalled();expect(screen.queryByText('Mercador de Baús')).not.toBeInTheDocument();
+  fireEvent.click(screen.getByRole('button',{name:'Cancelar abertura'}));expect(mocks.openCommunity).not.toHaveBeenCalled();
+  fireEvent.click(screen.getByRole('button',{name:/^Abrir$/}));fireEvent.click(screen.getByRole('button',{name:'Confirmar abertura'}));
+  await waitFor(()=>expect(mocks.openCommunity).toHaveBeenCalledTimes(1));expect(mocks.open).not.toHaveBeenCalled();expect(mocks.buy).not.toHaveBeenCalled();
+});
 test('Mochila keeps existing tabs, empty state and centralized shop prices', async () => {
   render(<BackpackScreen />);
   fireEvent.click(screen.getByRole('tab', { name: /^Ba/ }));

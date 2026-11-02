@@ -9,6 +9,7 @@ export function requestChestOpening(
   traveler: string,
   type: ChestType,
   retry = false,
+  communityOnly = false,
 ) {
   return openingLock(owner, traveler, async () => {
     const prior = readVisual(owner, traveler).intent;
@@ -21,7 +22,9 @@ export function requestChestOpening(
       ? await chestRepository.operation(traveler, operationKey)
       : null;
     if (!existing)
-      await chestRepository.open(traveler, type, intent.operationId);
+      await (communityOnly
+        ? chestRepository.openCommunity(traveler, type, intent.operationId)
+        : chestRepository.open(traveler, type, intent.operationId));
     const row =
       existing ?? (await chestRepository.operation(traveler, operationKey));
     if (!row)

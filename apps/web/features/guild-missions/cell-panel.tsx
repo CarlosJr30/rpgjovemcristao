@@ -18,6 +18,7 @@ import {
   type CellProgress,
 } from './cell-contracts';
 import css from './panel.module.css';
+import {CommunityChestClaim} from './chest-claim';
 const labels = {
   draft: 'Rascunho',
   published: 'Publicado',
@@ -26,7 +27,7 @@ const labels = {
 };
 const results: Record<string, string> = {
   pending_approval: 'Aguardando validação',
-  approved: 'Participação validada · sem recompensa',
+  approved: 'Participação validada',
   rejected: 'Não validada',
   changes_requested: 'Correção solicitada',
 };
@@ -166,8 +167,8 @@ export function CellActivityPanel({
       <h2>Encontros e atividades da comunidade</h2>
       <p>
         Guilda selecionada. Participação educativa, sem medir fé ou
-        espiritualidade. Recompensas futuras estão indisponíveis; nenhum XP,
-        moeda ou baú é emitido.
+        espiritualidade. Registrar participação não emite prêmios. Após validação,
+        consulte a elegibilidade do baú; o conteúdo só é concedido ao confirmar a abertura na Mochila.
       </p>
       <div className={css.actions}>
         <button disabled={busy} onClick={() => void refresh()}>
@@ -344,8 +345,8 @@ export function CellActivityPanel({
                 prova automática de presença ou fé.
               </p>
               <p>
-                Categoria futura: {futureCategories[m.futureCategory]}.
-                Integração econômica010D indisponível.
+                Categoria: {futureCategories[m.futureCategory]}.
+                O baú depende de elegibilidade verificada e dos limites por conta; não é concedido pela declaração de participação.
               </p>
             </details>
             {m.canEdit && (
@@ -405,6 +406,7 @@ export function CellActivityPanel({
               busy={busy}
               action={action}
             />
+            {m.kind==='activity' && ['common','epic'].includes(m.futureCategory) && data.progress.some(p=>p.missionId===m.id && p.travelerId===actor && p.status==='approved') && <CommunityChestClaim actor={actor} guild={guildId} mission={m.id}/>}
             {m.canEdit && (
               <Delegate
                 mission={m}
@@ -563,7 +565,7 @@ function CellFields({
         </>
       )}
       <label>
-        Classificação futura (não concede recompensa)
+        Categoria de elegibilidade (não concede recompensa automaticamente)
         <select
           aria-label="Classificação futura"
           value={value.futureCategory}

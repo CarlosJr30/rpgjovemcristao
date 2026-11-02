@@ -1,5 +1,17 @@
 # ECONOMY-001 — recuperação por incrementos
 
+## 001C.1 — VALIDATING local, sem ativação remota
+
+02/11/2026. [Inventário e aprovações](ECONOMY-001C-INVENTORY.md): proprietário aprovou as tabelas legadas de comuns/épicos (moedas e Espada do Caminho/Elmo do Viajante), calendário segunda00h/mês civil America/Sao_Paulo pela data do evento, identidade do líder/evento fixadas. Cartas por baú não têm tabela aprovada; starter001A independente. Raros/outros tiers, Loja, ações de equipar/PR12 e recompensas de combate continuam bloqueados.
+
+Implementação na branch própria codex/economy-001c-chests: ponte restrita à elegibilidade010C.1 e grant/open existentes, sete comuns/Auth/semana, quatro épicos/Auth/mês e dois eventos épicos/Authlíder/mês; filhos de encontro compartilham identidade. Para épico, revisão explícita pelo líder atual; substitutos autorizados validam comuns. Sem consultar o tetoXP para negar baús. Recibo, pilha, sorteio e inventário reutilizados, sem mecanismo paralelo. Abertura reconfirma fonte/validador/posse/sessão/saldo canônico; suspeitas ficam suspensas sem liberação automática. Datas/agrupamento ficam congelados. Ledger próprio não expõe o UID Auth do líder.
+
+UI reutiliza o painel e a revelação existentes, com confirmação de abertura, pausa2000ms, histórico e leitura fresca após a apresentação. Equipamento adquirido permanece em consulta; não equipa ou muda atributos. Solicitação de baú após validação é explícita, não ocorre ao carregar a página. Troca de conta/avatar/Guilda descarta resposta antiga.
+
+**26 verificações PG isoladas PASS**, somente casos deste incremento com bootstrap anterior; recuperação vazia/contenção, cotas, duas conexões, replay, origem, sessão, revogação e rollback. **24 unitários direcionados nas partes identificadas**, incluindo seis novos de contrato/solicitação/confirmação; reexecuções dos mesmos casos não somadas. Lint/tipos/build aprovados nos checkpoints; CI do candidato cobrirá o código final. Falhas preservadas: duas preparações sintéticas usaram enum incorreto e foram corrigidas conforme schema, sem mudar constraints; build apontou tipos do novo teste (spread JSON/option exact), corrigidos somente no teste. Revisão QA/Security/React pelo autor, sem independência.
+
+Migration somente TEST preparada pela CLI fixada2.122.0:20261102135323, com guardas de projeto/escopo e hashes/ACLs de loot/grant antigos. Recuperação vazia/contenção próprias preparadas. **Nenhuma migration001C aplicada, baú/loot emitido, novo avatar ou mudança PROD nesta etapa.** Baselines80TEST/73PROD e metadados capturados só por leitura; main86ae074/CImerge41452725336success/oficialREADY reconfirmados. PR12/18/24/26 abertas/draft nos mesmos SHAs. Próximos gates: CI exato → TEST/Preview → fluxos normais novos → pacote PROD próprio/gates. Não DONE/DEPLOY_COMPLETE001C; não levar TEST-only a PROD.
+
 Publicação posterior: [ARENA-FIX-001](ARENA-FIX-001-REPORT.md), merge86ae074/PR30, preserva integralmente o XP001B. O deployment5f38914 abaixo registra o fechamento econômico, anterior à correção isolada da Arena.
 
 ## 001B — DONE / DEPLOY_COMPLETE em02/11/2026

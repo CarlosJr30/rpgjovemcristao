@@ -12,9 +12,9 @@ export const activityCategories = {
 } as const;
 export const futureCategories = {
   none: 'Sem categoria',
-  common: 'Comum · indisponível',
+  common: 'Comum · sujeito à elegibilidade',
   rare: 'Raro · indisponível',
-  epic: 'Épico · indisponível',
+  epic: 'Épico · sujeito à elegibilidade',
 } as const;
 export type CellDetails = {
   kind: 'meeting' | 'activity';

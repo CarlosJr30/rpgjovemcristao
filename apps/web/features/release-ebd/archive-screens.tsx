@@ -13,15 +13,26 @@ import styles from '../journey/journey.module.css';
 import book from '../journey/components/diary-experience.module.css';
 import cardsCss from '../guild-missions/panel.module.css';
 import archiveCss from './archive.module.css';
+import {useState} from 'react';
+import {useAuth} from '../../lib/supabase/auth-context';
+import {useJourney} from '../journey/state/use-journey';
+import {ChestPanel} from '../journey/components/chest-panel';
 
 export function ArchiveBackpack() {
+  const [revision,setRevision]=useState(0);
   return (
-    <ArchiveAccess includeCards>
+    <ArchiveAccess key={revision} includeCards>
       {(snapshot, cards) => (
-        <BackpackContents snapshot={snapshot} cards={cards} />
+        <><BackpackContents snapshot={snapshot} cards={cards} /><CommunityChests onRefresh={()=>setRevision(v=>v+1)}/></>
       )}
     </ArchiveAccess>
   );
+}
+const ignoreCount=()=>{};
+function CommunityChests({onRefresh}:{onRefresh:()=>void}){
+ const auth=useAuth(),journey=useJourney();
+ if(auth.status!=='signedIn'||journey.status!=='ready')return null;
+ return <section aria-label="Baús de atividades"><h2>Baús de atividades</h2><p>Saldo confirmado: {journey.traveler.coins} moedas. Equipamentos adquiridos ficam em consulta; ações de equipar e Loja continuam bloqueadas.</p><ChestPanel key={`${auth.user.id}:${journey.traveler.id}`} ownerId={auth.user.id} traveler={journey.traveler} online communityOnly onCountChange={ignoreCount} onViewEquipment={onRefresh} onRefreshInventory={onRefresh}/></section>;
 }
 export function BackpackContents({
   snapshot,
