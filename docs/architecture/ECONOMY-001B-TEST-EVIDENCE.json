@@ -1,0 +1,243 @@
+{
+  "task": "ECONOMY-001B",
+  "date": "2026-11-02",
+  "state": "TEST_VALIDATED_PRODUCTION_PENDING",
+  "runtimeSha": "87f368be9f10fc858eb11a3958fd80d1544d2b28",
+  "pr": 29,
+  "ci": {
+    "sha": "87f368be9f10fc858eb11a3958fd80d1544d2b28",
+    "pushSuccess": true,
+    "prSuccess": true,
+    "runs": [
+      {
+        "id": 41435589304,
+        "sha": "87f368be9f10fc858eb11a3958fd80d1544d2b28",
+        "event": "pull_request",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 41435533456,
+        "sha": "87f368be9f10fc858eb11a3958fd80d1544d2b28",
+        "event": "push",
+        "status": "completed",
+        "conclusion": "success"
+      }
+    ]
+  },
+  "preview": {
+    "id": "dpl_2veykkZhB34qQThndbHHtstYko5e",
+    "url": "rpgjovemcristao-qo5rh7hgf-carlos-junior-s-projects.vercel.app",
+    "state": "READY",
+    "target": "preview",
+    "sha": "87f368be9f10fc858eb11a3958fd80d1544d2b28",
+    "backend": "TEST"
+  },
+  "migrationTEST": {
+    "version": "20261102112426",
+    "source": "20261102105639_economy_001b_attendance_xp_test.sql"
+  },
+  "decisions": {
+    "weeklyLimit": 1500,
+    "attendanceXp": 50,
+    "weekStart": "Monday00:00",
+    "timezone": "America/Sao_Paulo",
+    "reference": "lesson-date",
+    "retroactiveBeforeActivation": false,
+    "suspiciousAwards": "suspended; no automatic release"
+  },
+  "tests": {
+    "unitCI": 1067,
+    "unitSkipped": 74,
+    "localTargeted": 35,
+    "newUnitIncluded": 27,
+    "postgresTEST": 29,
+    "postgresPROD": 30,
+    "postgresOverlap": "Same29cases+oneproductiveScopeGuard; not59distinct",
+    "steps": [
+      {
+        "label": "qa normal Auth, own history, foreign/anon denial and starter preserved",
+        "pass": true,
+        "fingerprint": "dd4936a145a6",
+        "ownHistory": 0,
+        "ownCards": 7,
+        "foreign": 403,
+        "anon": 401
+      },
+      {
+        "label": "admin normal Auth, own history, foreign/anon denial and starter preserved",
+        "pass": true,
+        "fingerprint": "84367854a729",
+        "ownHistory": 0,
+        "ownCards": 0,
+        "foreign": 403,
+        "anon": 401
+      },
+      {
+        "label": "existing authorized leader created and published only a new TEST lesson after activation",
+        "pass": true
+      },
+      {
+        "label": "normal student opened the new controlled lesson through existing Guilda/class selection",
+        "pass": true
+      },
+      {
+        "label": "authorized normal leader marked eligible present through published EBD command",
+        "pass": true
+      },
+      {
+        "label": "confirmed XP header and own history read on settled document, no repeat grant",
+        "pass": true,
+        "xp": 50,
+        "totalXp": 50,
+        "headerLiveUpdated": true,
+        "widths": [
+          390,
+          320
+        ],
+        "automaticClaims": 0,
+        "errors": [],
+        "failed": []
+      },
+      {
+        "label": "two actual concurrent normal-session replays retained the same receipt and total50",
+        "pass": true
+      },
+      {
+        "label": "existing scoped authority temporarily assigned QA teacher, no global privileges",
+        "pass": true
+      },
+      {
+        "label": "normal scoped teacher prepared second controlled lesson and validated another Auth owner",
+        "pass": true
+      },
+      {
+        "label": "normal leader revoked temporary teacher and preserved audit",
+        "pass": true
+      },
+      {
+        "label": "revoked teacher cannot validate again with the very same JWT",
+        "pass": true,
+        "status": 403
+      },
+      {
+        "label": "recipient claim suspended after validator revocation, zero receipt or XP for that event",
+        "pass": true
+      }
+    ],
+    "uiRead": {
+      "pass": true,
+      "xp": 50,
+      "totalXp": 50,
+      "coins": 0,
+      "headerLiveUpdated": true,
+      "officialHistory": true,
+      "widths": [
+        390,
+        320
+      ],
+      "automaticClaims": 0,
+      "errors": [],
+      "failed": [],
+      "originalMonitorFailurePreserved": true
+    },
+    "webkit": {
+      "sha": "87f368be9f10fc858eb11a3958fd80d1544d2b28",
+      "normalLogin": true,
+      "sessionImported": false,
+      "width": 320,
+      "physical": false,
+      "xp": 50,
+      "officialHistory": true,
+      "automaticClaims": 0,
+      "errors": [],
+      "failed": [],
+      "scope": "Read-only history after normal login and settled Guild/class document"
+    }
+  },
+  "preservation": {
+    "originalTESTDatasets": 77,
+    "strictOriginalAfterQa": 67,
+    "projectedDatasets": 80,
+    "allProjectedExact": true,
+    "originalFunctionsPreserved": 208,
+    "policies": 39,
+    "coins": 0,
+    "cardRows": 7,
+    "realAttendanceReceipts": 1,
+    "realXp": 50,
+    "holds": 1,
+    "activeAvatarSelection": "Normal UI selected original Admin traveler; preselection traveler hash legitimately changed. New QA baseline captured afterward.",
+    "teacher": "Temporary teacher inactive before/after; only revision4to6/timestamps/history change",
+    "deletedData": false,
+    "productionUnchanged": true
+  },
+  "limits": [
+    "Author QA/Security/React, no independent review",
+    "Mobile emulated, no physical device",
+    "Positive XP only TEST, technical controlled attendance",
+    "Native covers cap and canonical level transition; not30hostedlessons",
+    "Initial claim succeeded but navigation-preparation monitor failed with ERR_ABORTED for /.well-known/vercel/jwe, / and /journey/guild/ebd; failure preserved, settled-document read recheck passed without issuing again",
+    "Collector avatar selector corrected to actual Entrar com este Viajante; Guilda label matched its accessible name including options",
+    "Initial nullable-history projection omitted five old null-lesson audit rows; corrected and original full hash verified, all80 projections exact"
+  ],
+  "outsideScope": {
+    "coins": true,
+    "chests": true,
+    "equipment": true,
+    "shop": true,
+    "arenaTowerRewards": true,
+    "storyRewards": true,
+    "economy001c": true
+  },
+  "artifacts": [
+    {
+      "file": "private/build/economy-001b/ci-approved.json",
+      "sha256": "36c044ea46136eb69131505cc33b5766ec956a59c78dc273031dba5ccca1fe62"
+    },
+    {
+      "file": "private/build/economy-001b/preview.json",
+      "sha256": "2849c0f3bd786e366ccf5aaae979c3e4e8049471e9d09366ebc72fa705f659ee"
+    },
+    {
+      "file": "private/build/economy-001b/after-ddl-test.json",
+      "sha256": "89e9ea10bfff080dd7c097e877360020abe0869ce0ba7e03278046f22c4a8312"
+    },
+    {
+      "file": "private/build/economy-001b/after-hosted-test.json",
+      "sha256": "962affd4b14083b56264984ddcde4fb72e585ad9956a5ff81c88846c7162f3fe"
+    },
+    {
+      "file": "private/build/economy-001b/baseline-hosted-after-selection.json",
+      "sha256": "fb6855f17d6b3aad3847fd9f2e709264539eef9c9c2efc1259e705219ae16af1"
+    },
+    {
+      "file": "private/build/economy-001b/baseline-projected-verified.json",
+      "sha256": "809e50ec655250693f1a43174a71058e687b2204b1d152f856e39f62d1066fdf"
+    },
+    {
+      "file": "private/build/economy-001b/hosted-progress.json",
+      "sha256": "4d46cbf99348f0e3111147709f0a9979038d3d3e1edaee23a6610d126f430c33"
+    },
+    {
+      "file": "private/build/economy-001b/hosted-ui-read.json",
+      "sha256": "ce2c793942bd8f6ffe978fe367a63f74e66c1754f6db01f54483da5cab7ee746"
+    },
+    {
+      "file": "private/build/economy-001b/hosted-first-ui-monitor-failure.json",
+      "sha256": "a4228ff62edd54fba641675df1e9553c77f8ceb29936a90b95ce76e7f4cf0c90"
+    },
+    {
+      "file": "private/build/economy-001b/webkit-read.json",
+      "sha256": "13de7df6c261f5053e0f32c76e0463307fa52e5204c43d78e490863f3cab69cc"
+    },
+    {
+      "file": "private/build/economy-001b/pg/postgres-results.json",
+      "sha256": "3b0a0e49106db4841921667d38b18428c005141a0feaac453c193afa240acee3"
+    },
+    {
+      "file": "private/build/economy-001b/pg-production/postgres-results.json",
+      "sha256": "c5b8487816d5c4ad1287fad87a495bcb86ca9488ead87b13d61ea570851acc5d"
+    }
+  ]
+}

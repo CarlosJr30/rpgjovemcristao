@@ -1,13 +1,18 @@
 import assert from'node:assert/strict';import{Client}from'pg';
-export async function run({q,tx,as,check,denied,uid,tid,options,connections,read}){
+export async function run({q,tx,as,check,denied,uid,tid,options,connections,read:sourceRead}){
+ const production=process.env.RPG_ECONOMY_001B_PRODUCTION_PACKAGE==='1';
+ const files=production?JSON.parse(sourceRead('packages/database/proposals/economy-001b-production-files.json')):null;
+ const map=production?{'supabase/migrations/20261102105639_economy_001b_attendance_xp_test.sql':files.migration,'packages/database/proposals/economy-001b-containment-test.sql':files.containment,'packages/database/proposals/economy-001b-recovery-empty-test.sql':files.recovery}:{};
+ const read=p=>sourceRead(map[p]??p);
  await q("SET timezone='UTC'");
  const migration=read('supabase/migrations/20261102105639_economy_001b_attendance_xp_test.sql');
- const wrap=s=>"BEGIN;SET LOCAL economy001b.target_project='wkdvdzfkbwvhyjmamrsg';"+s+';COMMIT;';
+ const wrap=s=>"BEGIN;SET LOCAL economy001b.target_project='"+(production?files.target:'wkdvdzfkbwvhyjmamrsg')+"';"+s+';COMMIT;';
  const core=async()=>(await q("select oid::regprocedure::text signature,pg_get_functiondef(oid) body,proacl::text acl from pg_proc where pronamespace in('economy_private'::regnamespace,'ebd_class_private'::regnamespace,'guild_admin_private'::regnamespace,'public'::regnamespace) order by 1")).rows;
  await q("revoke execute on function public.arena_authority_v3(uuid,uuid,text,jsonb) from service_role;alter table auth.users add column banned_until timestamptz;create table auth.sessions(id uuid primary key,user_id uuid not null references auth.users(id),not_after timestamptz);");
  for(let n=1;n<=104;n++)await q('insert into auth.sessions values($1,$2,null)',[uid(5000+n),uid(n)]);
  for(const n of[2,3]){await q('insert into public.wallets(traveler_id) values($1) on conflict do nothing',[tid(n)]);await q('insert into public.traveler_stats(traveler_id) values($1) on conflict do nothing',[tid(n)]);}
  const tableShape=async()=>(await q("select c.oid::regclass::text name,c.relacl::text acl,c.relrowsecurity rls,(select jsonb_agg(jsonb_build_object('name',conname,'definition',pg_get_constraintdef(oid)) order by conname) from pg_constraint where conrelid=c.oid) constraints,(select jsonb_agg(pg_get_indexdef(indexrelid) order by indexrelid::regclass::text) from pg_index where indrelid=c.oid) indexes,(select jsonb_agg(pg_get_triggerdef(oid) order by tgname) from pg_trigger where tgrelid=c.oid and not tgisinternal) triggers from pg_class c where c.oid in('public.chest_operations'::regclass,'public.guild_ebd_attendance'::regclass,'public.guild_lessons'::regclass,'ebd_class_private.attendance_eligibility'::regclass) order by 1")).rows;
+ if(production){await check('001B own production package refuses TEST scope before DDL',async()=>{await denied(()=>q(wrap(migration)),'42501');await q('ROLLBACK');assert.equal((await q("select to_regclass('economy_private.community_xp_policy') x")).rows[0].x,null);});await q("create or replace function public.release_scope() returns text language sql immutable as $$select 'guild-ebd-001'::text$$");}
  const original=await core(),originalShape=await tableShape();
  await check('001B refuses wrong project before DDL',async()=>{await denied(()=>tx(migration),'42501');assert.equal((await q("select to_regclass('economy_private.community_xp_policy') x")).rows[0].x,null);});
  await q(wrap(migration));

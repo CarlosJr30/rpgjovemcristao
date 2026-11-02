@@ -8,6 +8,7 @@ import { randomUUID, createHash } from 'node:crypto';
 import { Client } from 'pg';
 
 const economyBCases = process.env.RPG_ECONOMY_001B_CASES === '1';
+const economyBProductionPackage = process.env.RPG_ECONOMY_001B_PRODUCTION_PACKAGE === '1';
 const challengeCases = process.env.RPG_010C2_CASES === '1';
 const challengeProductionPackage = process.env.RPG_010C2_PRODUCTION_PACKAGE === '1';
 const communityCases = process.env.RPG_010C1_CASES === '1' || challengeCases;
@@ -15,7 +16,7 @@ const communityProductionPackage =
   process.env.RPG_010C1_PRODUCTION_PACKAGE === '1';
 const lessonCases = process.env.RPG_010B3_CASES === '1' || communityCases || economyBCases;
 const root = path.resolve(
-    economyBCases ? 'build/economy-001b/pg' : challengeCases ? (challengeProductionPackage ? 'build/rpg-dev-010c2-production' : 'build/rpg-dev-010c2') : communityCases
+    economyBCases ? (economyBProductionPackage ? 'build/economy-001b/pg-production' : 'build/economy-001b/pg') : challengeCases ? (challengeProductionPackage ? 'build/rpg-dev-010c2-production' : 'build/rpg-dev-010c2') : communityCases
       ? communityProductionPackage
         ? 'build/rpg-dev-010c-production'
         : 'build/rpg-dev-010c'
@@ -734,7 +735,7 @@ try {
     productionProof: false,
     environment: 'PostgreSQL17.10 loopback',
     remoteMigrationExecuted: false,
-    productionPackage: productionPackage || challengeProductionPackage,
+    productionPackage: productionPackage || challengeProductionPackage || economyBProductionPackage,
     total: checks.length,
     pass: true,
     checks,
@@ -750,7 +751,7 @@ try {
   );
   console.log(
     JSON.stringify({
-      state: economyBCases ? 'ECONOMY_001B_ISOLATED_PASS' : challengeCases ? (challengeProductionPackage ? '010C2_PRODUCTION_ENVELOPE_ISOLATED_PASS' : '010C2_CHALLENGES_ISOLATED_PASS') : communityCases
+      state: economyBCases ? (economyBProductionPackage ? 'ECONOMY_001B_PRODUCTION_PACKAGE_ISOLATED_PASS' : 'ECONOMY_001B_ISOLATED_PASS') : challengeCases ? (challengeProductionPackage ? '010C2_PRODUCTION_ENVELOPE_ISOLATED_PASS' : '010C2_CHALLENGES_ISOLATED_PASS') : communityCases
         ? '010C1_COMMUNITY_ISOLATED_PASS'
         : lessonCases
           ? '010B3_LESSONS_ISOLATED_PASS'

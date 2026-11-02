@@ -159,6 +159,9 @@ jobs:
       - name: Exigir presença50XP cota global data da aula sessão e preservação monetária
         run: node tests/hosted/economy-001b-postgres.mjs
 
+      - name: Ensaiar pacote produtivo próprio XP sem emitir concessões remotas
+        run: node tests/hosted/economy-001b-production-postgres.mjs
+
   pinned-preview:
     name: Preview do SHA aprovado
     needs: [quality, rsc-regression, governance-postgres]
