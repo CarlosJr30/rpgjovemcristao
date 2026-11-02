@@ -88,6 +88,7 @@ test('practice victory and reload never settle rewards, mutate traveler or add l
       collectionSource={source}
       practiceOnly
       trainingLevel={50}
+      trainingAttributes={{ life: 8, strength: 11, defense: 6, wisdom: 7 }}
     />,
   );
   await screen.findByText('Cartas selecionadas: 7/7');
@@ -100,6 +101,10 @@ test('practice victory and reload never settle rewards, mutate traveler or add l
   ).toBe(50);
   expect(hero.level).toBe(1);
   expect(hero.xp).toBe(0);
+  expect(
+    arenaDeckStorage.load('owner', hero.id, cards).battle?.player.snapshot
+      .attributes,
+  ).toEqual({ life: 8, strength: 11, defense: 6, wisdom: 7 });
   for (let i = 0; i < 12; i++) {
     const b = arenaDeckStorage.load('owner', hero.id, cards).battle!;
     if (b.status === 'finished') break;

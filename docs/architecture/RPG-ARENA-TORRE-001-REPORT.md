@@ -1,5 +1,11 @@
 # RPG-ARENA-TORRE-001 — recuperação em TEST
 
+## Preset temporário aprovado — sem nova concessão
+
+O QA e as sete cartas já estão preparados. Arena venceu Davi; Torre registrou derrota sem avanço e vitória no andar1, liberando o2, onde ocorreu derrota legítima. Não são falhas de posse, engine ou checkpoint. O nível de treino50 mantém atributos1/1/1/1: `LEVEL_ATTRIBUTE_BONUSES` já era vazio. Não acrescentar bônus silencioso, diminuir adversários, editar seed, salvar vitória artificial ou alterar atributos econômicos para encerrar o gate. Os andares3–7 ainda não têm prova positiva hospedada deste QA.
+
+**Proprietário aprovou explicitamente** o preset temporário já existente no Campeão da Torre (`TOWER_FLOORS[6].snapshot.attributes`): **Vida8, Força11, Defesa6, Sabedoria7**, sem equipamentos emprestados/concedidos. Somente ao snapshot Arena/Torre do QA, validado pelo servidor privado; canônico continua nível1/XP0/atributos1/1/1/1. Cartas, raridades, fórmulas, IA, dificuldade e demais jogadores não mudam. Migration TEST-only235900 candidata adapta apenas a leitura de configuração, sem editar registro canônico ou alocação; histórico da migration e Git versionam a aprovação/preset. **7unit afetados/22PG (incluem19anteriores+3novos), lint/buildTEST PASS**, sem suíte geral local. CI/aplicaçãoTEST/Preview do preset ainda pendentes. Snapshots anteriores e resultados de atributos1 permanecem preservados, sem conversão em vitórias.
+
 ## Alternativa QA autorizada — validação local
 
 **Seguimento hospedado:** `f571469` aprovado no CI push41311425091/PR41311428999. Migration **TEST20261101232758** (arquivo130000), 41migrations/77tabelas. Dois registros privados deny-all; 75conjuntos antigos exatos apósDDL pela projeção sem nova colunaQA, 199das200rotinas rastreadas idênticas e apenas leitura privada de cartas adaptada; seis novas. Políticas/schemas/defaults/ACLs antigos preservados. Advisors51→53INFO pelas duas privadas, 12definerWARN/senhasWARN legados mantidos.

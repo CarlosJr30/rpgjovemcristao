@@ -9,7 +9,7 @@ import { ArenaExperience } from '../journey/screens/arena';
 import { TowerExperience } from '../arena-tower/screen';
 import { ArenaDeckContent } from '../arena-deck/screen';
 import { loadTestArenaCollection } from './collection';
-import { readArenaQaProfile } from './profile';
+import { readArenaQaProfile, type QaTrainingProfile } from './profile';
 import type { Traveler } from '../journey/domain/traveler';
 
 function Practice({
@@ -22,18 +22,18 @@ function Practice({
   mode: 'arena' | 'tower' | 'deck';
 }) {
   const [profile, setProfile] = useState<{
-    level: 50 | null;
+    qa: QaTrainingProfile | null;
     error?: boolean;
   }>();
   const [retry, setRetry] = useState(0);
   useEffect(() => {
     let live = true;
     readArenaQaProfile(owner, traveler.id)
-      .then((level) => {
-        if (live) setProfile({ level });
+      .then((qa) => {
+        if (live) setProfile({ qa });
       })
       .catch(() => {
-        if (live) setProfile({ level: null, error: true });
+        if (live) setProfile({ qa: null, error: true });
       });
     return () => {
       live = false;
@@ -56,10 +56,14 @@ function Practice({
     );
   return (
     <>
-      {profile.level === 50 && (
+      {profile.qa && (
         <p role="note">
-          Treinamento TEST — Nível 50. Avatar canônico nível 1, XP 0;
-          atributos e equipamentos preservados.
+          Treinamento TEST — Nível 50. Avatar canônico nível 1, XP 0; atributos
+          e equipamentos canônicos preservados. Preset temporário do Campeão:
+          Vida {profile.qa.attributes.life}, Força{' '}
+          {profile.qa.attributes.strength}, Defesa{' '}
+          {profile.qa.attributes.defense}, Sabedoria{' '}
+          {profile.qa.attributes.wisdom}, sem equipamentos de treino.
         </p>
       )}
       {mode === 'arena' ? (
@@ -68,7 +72,8 @@ function Practice({
           ownerId={owner}
           collectionSource={loadTestArenaCollection}
           practiceOnly
-          trainingLevel={profile.level ?? undefined}
+          trainingLevel={profile.qa?.level}
+          trainingAttributes={profile.qa?.attributes}
         />
       ) : mode === 'tower' ? (
         <TowerExperience
@@ -76,7 +81,8 @@ function Practice({
           ownerId={owner}
           collectionSource={loadTestArenaCollection}
           practiceOnly
-          trainingLevel={profile.level ?? undefined}
+          trainingLevel={profile.qa?.level}
+          trainingAttributes={profile.qa?.attributes}
         />
       ) : (
         <ArenaDeckContent

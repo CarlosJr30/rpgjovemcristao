@@ -31,12 +31,14 @@ export function TowerExperience({
   collectionSource = loadArenaCollection,
   practiceOnly = false,
   trainingLevel,
+  trainingAttributes,
 }: {
   ownerId: string;
   traveler: Traveler;
   collectionSource?: CollectionSource;
   practiceOnly?: boolean;
   trainingLevel?: 50;
+  trainingAttributes?: Readonly<Traveler['attributes']>;
 }) {
   const [data, setData] = useState<{
     view: View;
@@ -94,6 +96,7 @@ export function TowerExperience({
         localTower={mode}
         practiceOnly={practiceOnly}
         trainingLevel={trainingLevel}
+        trainingAttributes={trainingAttributes}
       />
     );
   const current = data?.view.progress.wins.length ?? 0;

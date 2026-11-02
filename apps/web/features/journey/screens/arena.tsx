@@ -90,6 +90,7 @@ export function ArenaExperience({
   localTower,
   practiceOnly = false,
   trainingLevel,
+  trainingAttributes,
 }: {
   traveler: Traveler;
   ownerId: string;
@@ -97,6 +98,7 @@ export function ArenaExperience({
   localTower?: LocalTowerMode;
   practiceOnly?: boolean;
   trainingLevel?: 50;
+  trainingAttributes?: Readonly<BattleParticipantSnapshot['attributes']>;
 }) {
   const session = localTower?.session ?? arenaDeckStorage;
   useAudioScene(
@@ -107,9 +109,15 @@ export function ArenaExperience({
   const playerSnapshot = useMemo(() => {
     const base = travelerBattleSnapshot(traveler);
     if (!practiceOnly || trainingLevel !== 50) return base;
-    const training = { ...base, level: trainingLevel };
+    const training = {
+      ...base,
+      level: trainingLevel,
+      attributes: trainingAttributes
+        ? { ...trainingAttributes }
+        : base.attributes,
+    };
     return { ...training, combatPower: calculateCombatPower(training) };
-  }, [traveler, practiceOnly, trainingLevel]);
+  }, [traveler, practiceOnly, trainingLevel, trainingAttributes]);
   const [deckData, setDeckData] = useState<{
     cards: readonly ArenaCard[];
     selection: readonly string[];

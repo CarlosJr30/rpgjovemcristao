@@ -19,6 +19,8 @@ const profile = {
   trainingLevel: 50,
   canonicalLevel: 1,
   canonicalXp: 0,
+  trainingPreset: 'tower-champion-attributes-v1',
+  trainingAttributes: { life: 8, strength: 11, defense: 6, wisdom: 7 },
 };
 beforeEach(() => {
   m.owner = 'owner';
@@ -34,7 +36,10 @@ beforeEach(() => {
 afterEach(() => vi.unstubAllEnvs());
 test('only server QA profile enables training50; normal avatar remains ordinary', async () => {
   m.rpc.mockResolvedValue({ data: profile, error: null });
-  expect(await readArenaQaProfile('owner', 'hero')).toBe(50);
+  expect(await readArenaQaProfile('owner', 'hero')).toEqual({
+    level: 50,
+    attributes: profile.trainingAttributes,
+  });
   expect(m.rpc).toHaveBeenCalledWith('get_arena_qa_profile', {
     p_traveler_id: 'hero',
   });
@@ -64,6 +69,12 @@ test('unknown profile or canonical XP cannot become training50', async () => {
     { ...profile, kind: 'official' },
     { ...profile, canonicalXp: 245000 },
     { ...profile, trainingLevel: 49 },
+    { ...profile, trainingPreset: 'unapproved' },
+    {
+      ...profile,
+      trainingAttributes: { life: 999, strength: 11, defense: 6, wisdom: 7 },
+    },
+    { ...profile, trainingAttributes: null },
     {},
   ]) {
     m.rpc.mockResolvedValue({ data, error: null });

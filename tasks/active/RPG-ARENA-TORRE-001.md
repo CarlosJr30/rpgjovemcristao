@@ -1,6 +1,7 @@
 # RPG-ARENA-TORRE-001 — recuperar Arena e reutilizar Torre
 
-STATUS: BLOCKED
+STATUS: VALIDATING
+PRESET_AUTHORIZED: Proprietário aprovou explicitamente preset temporário TEST do Campeão: Vida8/Força11/Defesa6/Sabedoria7, sem equipamentos, canônico1/XP0/atributos1 preservados. Implementação somente no snapshot de combate do QA; leitura própria server e configuração versionada por migration235900. Não alterar IA/dificuldade/cartas/fórmulas nem registrar vitória oficial.7unit e22PG(19anteriores+3novos)/lint/buildTESTPASS; novoCI/TEST/Preview e sete andares reais pendentes.
 QA_AUTHORIZED: Proprietário aprovou explicitamente a alternativa QA exclusivamenteTEST na resposta à proposta: conta AdminTEST já conhecida, novo avatar dedicado QA Arena Torre, nível de treino50, sete cartas existentes por autoridade privada auditada/idempotente. Sem XP/recibo econômico ou alteração dos avatares existentes. Autor assume Backend/DB/Frontend/QA/Security nos arquivos estritamente necessários desta PR; overrides de escopo documental anteriores aplicam-se somente a essa alternativa.
 QA_INVARIANT: Nível canônico deriva deXP; portanto novo avatar canônico1/XP0/inativo preserva invariantes e seleção anterior, e perfil de servidor fornece nível50 somente para snapshot de treino Arena/Torre. Nenhuma alteração de fórmula, atributos/equipamentos ou projeção oficial. Perfil e cartasQA deixam de ser utilizáveis por revogação/contenção; coleção econômica não vê QA. Positivos hospedados e identidade normalAdmin antes da preparação real continuam obrigatórios.
 DATE: 2026-11-01
