@@ -1,0 +1,8 @@
+{
+  "migration": "supabase/migrations/20261102073220_economy_001a_starter_production.sql",
+  "recovery": "packages/database/proposals/economy-001a-starter-recovery-production.sql",
+  "containment": "packages/database/proposals/economy-001a-starter-containment-production.sql",
+  "catalog": "packages/database/deployments/economy001a/production-catalog.json",
+  "target": "wspafhlbtlpabypzymjo",
+  "scope": "guild-ebd-001"
+}
