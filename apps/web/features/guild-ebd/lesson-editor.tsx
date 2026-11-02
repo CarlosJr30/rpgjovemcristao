@@ -282,8 +282,9 @@ export function LessonEditor({
         </p>
       )}
       <p className={css.meta}>
-        A participação e o aprendizado são registrados sem recompensas neste
-        lançamento.
+        {classMode
+          ? 'Questionários e atividades não concedem recompensas. A presença elegível pode gerar 50 XP pelo servidor, respeitando a semana da aula e o limite por conta. Moedas e baús permanecem indisponíveis.'
+          : 'A participação e o aprendizado são registrados sem recompensas neste lançamento.'}
       </p>
       <div className={css.actions}>
         <button disabled={busy}>Salvar rascunho</button>

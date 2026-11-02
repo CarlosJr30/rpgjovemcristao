@@ -1,0 +1,8 @@
+{
+  "migration": "supabase/migrations/20261102115244_economy_001b_attendance_xp_production.sql",
+  "containment": "packages/database/proposals/economy-001b-containment-production.sql",
+  "recovery": "packages/database/proposals/economy-001b-recovery-empty-production.sql",
+  "target": "wspafhlbtlpabypzymjo",
+  "scope": "guild-ebd-001",
+  "source": "supabase/migrations/20261102105639_economy_001b_attendance_xp_test.sql"
+}

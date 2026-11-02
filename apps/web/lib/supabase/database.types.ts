@@ -375,6 +375,14 @@ export type Database = {
       };
       get_owned_cards: { Args: { p_traveler_id: string }; Returns: Json };
       claim_arena_starter: { Args: { p_traveler_id: string }; Returns: Json };
+      claim_ebd_attendance_xp: {
+        Args: { p_actor: string; p_lesson: string };
+        Returns: Json;
+      };
+      get_community_xp_history: {
+        Args: { p_actor: string };
+        Returns: Json;
+      };
       set_active_traveler: {
         Args: { p_traveler_id: string };
         Returns: undefined;

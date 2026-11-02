@@ -7,14 +7,16 @@ import { execFileSync } from 'node:child_process';
 import { randomUUID, createHash } from 'node:crypto';
 import { Client } from 'pg';
 
+const economyBCases = process.env.RPG_ECONOMY_001B_CASES === '1';
+const economyBProductionPackage = process.env.RPG_ECONOMY_001B_PRODUCTION_PACKAGE === '1';
 const challengeCases = process.env.RPG_010C2_CASES === '1';
 const challengeProductionPackage = process.env.RPG_010C2_PRODUCTION_PACKAGE === '1';
 const communityCases = process.env.RPG_010C1_CASES === '1' || challengeCases;
 const communityProductionPackage =
   process.env.RPG_010C1_PRODUCTION_PACKAGE === '1';
-const lessonCases = process.env.RPG_010B3_CASES === '1' || communityCases;
+const lessonCases = process.env.RPG_010B3_CASES === '1' || communityCases || economyBCases;
 const root = path.resolve(
-    challengeCases ? (challengeProductionPackage ? 'build/rpg-dev-010c2-production' : 'build/rpg-dev-010c2') : communityCases
+    economyBCases ? (economyBProductionPackage ? 'build/economy-001b/pg-production' : 'build/economy-001b/pg') : challengeCases ? (challengeProductionPackage ? 'build/rpg-dev-010c2-production' : 'build/rpg-dev-010c2') : communityCases
       ? communityProductionPackage
         ? 'build/rpg-dev-010c-production'
         : 'build/rpg-dev-010c'
@@ -260,6 +262,7 @@ try {
       "create or replace function public.release_scope() returns text language sql immutable as $$select 'guild-ebd-001'::text$$",
     );
   const before = await snapshot();
+  if (!economyBCases) {
   await check('reject productive scope before DDL', async () => {
     await q(
       `create or replace function public.release_scope() returns text language sql immutable as $$select '${productionPackage ? 'hero-equipment-006' : 'guild-ebd-001'}'::text$$`,
@@ -305,6 +308,7 @@ try {
       assert.deepEqual(await snapshot(), before);
     },
   );
+  }
   await tx(migration);
   if (lessonCases) {
     await tx(
@@ -317,7 +321,10 @@ try {
         'supabase/migrations/20261030131230_rpg_dev_010b_legacy_invites_test.sql',
       ),
     );
-    if (communityCases) {
+    if (economyBCases) {
+      await tx(read('supabase/migrations/20261030221400_rpg_dev_010b3_lessons_test.sql'));
+      await (await import('./economy-001b-cases.mjs')).run({q,tx,as,check,denied,uid,tid,options,connections,read});
+    } else if (communityCases) {
       await tx(
         read(
           'supabase/migrations/20261030221400_rpg_dev_010b3_lessons_test.sql',
@@ -728,7 +735,7 @@ try {
     productionProof: false,
     environment: 'PostgreSQL17.10 loopback',
     remoteMigrationExecuted: false,
-    productionPackage: productionPackage || challengeProductionPackage,
+    productionPackage: productionPackage || challengeProductionPackage || economyBProductionPackage,
     total: checks.length,
     pass: true,
     checks,
@@ -744,7 +751,7 @@ try {
   );
   console.log(
     JSON.stringify({
-      state: challengeCases ? (challengeProductionPackage ? '010C2_PRODUCTION_ENVELOPE_ISOLATED_PASS' : '010C2_CHALLENGES_ISOLATED_PASS') : communityCases
+      state: economyBCases ? (economyBProductionPackage ? 'ECONOMY_001B_PRODUCTION_PACKAGE_ISOLATED_PASS' : 'ECONOMY_001B_ISOLATED_PASS') : challengeCases ? (challengeProductionPackage ? '010C2_PRODUCTION_ENVELOPE_ISOLATED_PASS' : '010C2_CHALLENGES_ISOLATED_PASS') : communityCases
         ? '010C1_COMMUNITY_ISOLATED_PASS'
         : lessonCases
           ? '010B3_LESSONS_ISOLATED_PASS'
@@ -752,6 +759,9 @@ try {
       checks: checks.length,
     }),
   );
+} catch (error) {
+  fs.writeFileSync(path.join(root,'postgres-failure.json'),JSON.stringify({message:error.message,code:error.code,checks},null,2));
+  throw error;
 } finally {
   await q('ROLLBACK').catch(() => {});
   for (const c of connections) await c.end().catch(() => {});
