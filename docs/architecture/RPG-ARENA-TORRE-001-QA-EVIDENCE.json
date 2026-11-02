@@ -1,0 +1,514 @@
+{
+  "task": "RPG-ARENA-TORRE-001",
+  "date": "2026-11-01",
+  "status": "TEST_FUNCTIONAL_VALIDATED",
+  "runtime": "3ca29d7f295f2daf9e1db01d517187df5321113f",
+  "pullRequest": 26,
+  "draft": true,
+  "merge": false,
+  "preview": {
+    "id": "dpl_8CXckdaeHA795cfMkybcsnL1pYbZ",
+    "url": "rpgjovemcristao-lczo7qdb0-carlos-junior-s-projects.vercel.app",
+    "state": "READY",
+    "sha": "3ca29d7f295f2daf9e1db01d517187df5321113f",
+    "target": "preview",
+    "backend": "TEST"
+  },
+  "identity": {
+    "normalLogin": true,
+    "confirmedNonAnonymous": true,
+    "ownerFingerprint": "84367854a729",
+    "activeAvatar": "QA Arena Torre",
+    "sessionCopied": false
+  },
+  "qa": {
+    "canonical": {
+      "level": 1,
+      "xp": 0,
+      "base_life": 1,
+      "base_strength": 1,
+      "base_defense": 1,
+      "base_wisdom": 1,
+      "coins": 0,
+      "equipment": 0,
+      "inventory": 7,
+      "economic_receipts": 0,
+      "qa_allocations": 1,
+      "qa_revocations": 0
+    },
+    "privateAllocationAuthorized": true,
+    "presetSeparatelyAuthorized": true,
+    "trainingLevel": 50,
+    "temporaryAttributes": {
+      "life": 8,
+      "wisdom": 7,
+      "defense": 6,
+      "strength": 11
+    },
+    "newCardDefinitions": 0,
+    "newArt": 0
+  },
+  "ci": {
+    "sha": "3ca29d7f295f2daf9e1db01d517187df5321113f",
+    "pushSuccess": true,
+    "prSuccess": true,
+    "runs": [
+      {
+        "id": 41365223591,
+        "status": "completed",
+        "conclusion": "success",
+        "event": "pull_request",
+        "sha": "3ca29d7f295f2daf9e1db01d517187df5321113f"
+      },
+      {
+        "id": 41365218921,
+        "status": "completed",
+        "conclusion": "success",
+        "event": "push",
+        "sha": "3ca29d7f295f2daf9e1db01d517187df5321113f"
+      }
+    ],
+    "unitPassed": 1028,
+    "unitSkipped": 74,
+    "filesPassed": 158,
+    "filesSkipped": 7,
+    "conditionalPublication": "SKIP"
+  },
+  "targeted": {
+    "previousUnitCases": 26,
+    "presetUnitCases": 7,
+    "postgresCases": 22,
+    "postgresPreviouslyApprovedIncluded": 19,
+    "presetPostgresNew": 3,
+    "generalLocalSuiteRepeated": false
+  },
+  "migrations": {
+    "environment": "TEST",
+    "initial": "20261101232758",
+    "preset": "20261102001235",
+    "localFiles": [
+      "20261101130000_rpg_arena_qa_test.sql",
+      "20261101235900_rpg_arena_qa_training_preset_test.sql"
+    ],
+    "productionApplied": false
+  },
+  "gameplay": {
+    "arena": {
+      "mode": "arena",
+      "battleId": "83200abf-ed29-4ff7-982d-bcec6240a70d",
+      "winner": "player",
+      "round": 2,
+      "actions": [
+        "card:arena-card-basic-attack",
+        "card:arena-card-measured-strike"
+      ],
+      "usedCards": [
+        "arena-card-basic-attack",
+        "arena-card-measured-strike"
+      ],
+      "trainingLevel": 50,
+      "attributes": {
+        "life": 8,
+        "strength": 11,
+        "defense": 6,
+        "wisdom": 7
+      },
+      "playerHp": 67,
+      "opponentHp": 0,
+      "canonicalXpExpected": 0,
+      "seedUntouched": true
+    },
+    "wins": [
+      {
+        "floorId": "tower-floor-1",
+        "battleId": "6faff4ac-d767-4433-ace0-cbd5b1d8e8b1",
+        "outcome": "victory",
+        "mode": "tower",
+        "winner": "player",
+        "round": 2,
+        "actions": [
+          "card:arena-card-basic-attack",
+          "card:arena-card-measured-strike"
+        ],
+        "usedCards": [
+          "arena-card-basic-attack",
+          "arena-card-measured-strike"
+        ],
+        "trainingLevel": 50,
+        "attributes": {
+          "life": 8,
+          "strength": 11,
+          "defense": 6,
+          "wisdom": 7
+        },
+        "playerHp": 67,
+        "opponentHp": 0,
+        "canonicalXpExpected": 0,
+        "seedUntouched": true
+      },
+      {
+        "floorId": "tower-floor-2",
+        "battleId": "05dcb7a2-dcbd-420b-a5e4-d88fe1b1a44e",
+        "outcome": "victory",
+        "mode": "tower",
+        "winner": "player",
+        "round": 2,
+        "actions": [
+          "card:arena-card-basic-attack",
+          "card:arena-card-measured-strike"
+        ],
+        "usedCards": [
+          "arena-card-basic-attack",
+          "arena-card-measured-strike"
+        ],
+        "trainingLevel": 50,
+        "attributes": {
+          "life": 8,
+          "strength": 11,
+          "defense": 6,
+          "wisdom": 7
+        },
+        "playerHp": 67,
+        "opponentHp": 0,
+        "canonicalXpExpected": 0,
+        "seedUntouched": true
+      },
+      {
+        "floorId": "tower-floor-3",
+        "battleId": "d3b5a4c4-b1fd-4923-bb92-946fdf834fa0",
+        "outcome": "victory",
+        "mode": "tower",
+        "winner": "player",
+        "round": 3,
+        "actions": [
+          "card:arena-card-basic-attack",
+          "card:arena-card-measured-strike",
+          "attack"
+        ],
+        "usedCards": [
+          "arena-card-basic-attack",
+          "arena-card-measured-strike"
+        ],
+        "trainingLevel": 50,
+        "attributes": {
+          "life": 8,
+          "strength": 11,
+          "defense": 6,
+          "wisdom": 7
+        },
+        "playerHp": 65,
+        "opponentHp": 0,
+        "canonicalXpExpected": 0,
+        "seedUntouched": true
+      },
+      {
+        "floorId": "tower-floor-4",
+        "battleId": "3cc60e83-39ad-40d9-bdbc-84bb8dc84e12",
+        "outcome": "victory",
+        "mode": "tower",
+        "winner": "player",
+        "round": 4,
+        "actions": [
+          "card:arena-card-basic-attack",
+          "card:arena-card-measured-strike",
+          "attack",
+          "attack"
+        ],
+        "usedCards": [
+          "arena-card-basic-attack",
+          "arena-card-measured-strike"
+        ],
+        "trainingLevel": 50,
+        "attributes": {
+          "life": 8,
+          "strength": 11,
+          "defense": 6,
+          "wisdom": 7
+        },
+        "playerHp": 63,
+        "opponentHp": 0,
+        "canonicalXpExpected": 0,
+        "seedUntouched": true
+      },
+      {
+        "floorId": "tower-floor-5",
+        "battleId": "7c494171-ecc3-4cc5-bc9d-bdd26023c391",
+        "outcome": "victory",
+        "mode": "tower",
+        "winner": "player",
+        "round": 3,
+        "actions": [
+          "card:arena-card-basic-attack",
+          "attack",
+          "card:arena-card-path-strike"
+        ],
+        "usedCards": [
+          "arena-card-basic-attack",
+          "arena-card-path-strike"
+        ],
+        "trainingLevel": 50,
+        "attributes": {
+          "life": 8,
+          "strength": 11,
+          "defense": 6,
+          "wisdom": 7
+        },
+        "playerHp": 52,
+        "opponentHp": 0,
+        "canonicalXpExpected": 0,
+        "seedUntouched": true
+      },
+      {
+        "floorId": "tower-floor-6",
+        "battleId": "405eddf5-7f25-48ae-bae8-5e62d3f67d53",
+        "outcome": "victory",
+        "mode": "tower",
+        "winner": "player",
+        "round": 4,
+        "actions": [
+          "card:arena-card-basic-attack",
+          "card:arena-card-measured-strike",
+          "attack",
+          "attack"
+        ],
+        "usedCards": [
+          "arena-card-basic-attack",
+          "arena-card-measured-strike"
+        ],
+        "trainingLevel": 50,
+        "attributes": {
+          "life": 8,
+          "strength": 11,
+          "defense": 6,
+          "wisdom": 7
+        },
+        "playerHp": 30,
+        "opponentHp": 0,
+        "canonicalXpExpected": 0,
+        "seedUntouched": true
+      },
+      {
+        "floorId": "tower-floor-7",
+        "battleId": "be359e09-d72e-4fd8-a2b3-3d950f266a19",
+        "outcome": "victory",
+        "mode": "tower",
+        "winner": "player",
+        "round": 6,
+        "actions": [
+          "card:arena-card-basic-attack",
+          "attack",
+          "attack",
+          "card:arena-card-steadfast-guard",
+          "card:arena-card-measured-strike",
+          "attack"
+        ],
+        "usedCards": [
+          "arena-card-basic-attack",
+          "arena-card-steadfast-guard",
+          "arena-card-measured-strike"
+        ],
+        "trainingLevel": 50,
+        "attributes": {
+          "life": 8,
+          "strength": 11,
+          "defense": 6,
+          "wisdom": 7
+        },
+        "playerHp": 9,
+        "opponentHp": 0,
+        "canonicalXpExpected": 0,
+        "seedUntouched": true
+      }
+    ],
+    "sevenFloors": true,
+    "championDefeated": true,
+    "localOnly": true,
+    "checkpointsEdited": false,
+    "engineOrAiChanged": false,
+    "oneUsePerCard": true,
+    "completionSurvivedReload": true,
+    "widthsEmulated": [
+      320,
+      390
+    ],
+    "physicalDevice": false
+  },
+  "preservation": {
+    "datasets": 77,
+    "strictlyEqualToBeforePreset": 76,
+    "changed": [
+      "public.travelers"
+    ],
+    "change": "Normal active-avatar selection and timestamps; full travelers hash is not declared preserved.",
+    "structures": {
+      "delta": {
+        "functions": [
+          {
+            "schema": "arena_qa_private",
+            "signature": "arena_qa_private.profile(uuid)"
+          }
+        ],
+        "tables": [],
+        "policies": [],
+        "schemas": [],
+        "defaults": []
+      },
+      "migrations": 42,
+      "functions": 206,
+      "tables": 77,
+      "policies": 39
+    },
+    "canonicalAndEconomicValues": {
+      "level": 1,
+      "xp": 0,
+      "base_life": 1,
+      "base_strength": 1,
+      "base_defense": 1,
+      "base_wisdom": 1,
+      "coins": 0,
+      "equipment": 0,
+      "inventory": 7,
+      "economic_receipts": 0,
+      "qa_allocations": 1,
+      "qa_revocations": 0
+    },
+    "allocationRepeated": false
+  },
+  "monitor": {
+    "stableCompletion": {
+      "errors": [],
+      "failedRequests": []
+    },
+    "transitionRun": "FAIL: ERR_ABORTED requests during navigation/reload; preserved without filtering. Functional completion/reload passed. No general cause claimed resolved.",
+    "floor7FirstNavigation": "Title exceeded 5000ms before combat. Later inspection found six wins and available champion. Retried only this navigation; no battle or checkpoint reset.",
+    "previousWebKit": "Earlier functional negative checks retained; no new positive WebKit combat claimed."
+  },
+  "production": {
+    "id": "dpl_J3wVPLJt3xCDdadoGddRpd5JQeNU",
+    "url": "rpgjovemcristao-6tynmsjsv-carlos-junior-s-projects.vercel.app",
+    "state": "READY",
+    "target": "production",
+    "sha": "c853d9b732b0a7b828e0bfdc97456a463fd4e9b3",
+    "aliases": [
+      "rpgjovemcristao-web-carlos-junior-s-projects.vercel.app",
+      "rpgjovemcristao-web-git-main-carlos-junior-s-projects.vercel.app"
+    ],
+    "officialAlias": "rpgjovemcristao-web-inky.vercel.app",
+    "officialAliasDeploymentId": "dpl_J3wVPLJt3xCDdadoGddRpd5JQeNU",
+    "changed": false
+  },
+  "preservedPullRequests": [
+    {
+      "number": 12,
+      "sha": "61b7177b2ba52a04b955a8306677a0e13dfdeb3c"
+    },
+    {
+      "number": 18,
+      "sha": "fd6f1498783d00c2a338cc42968bc7d0d4f3f822"
+    },
+    {
+      "number": 24,
+      "sha": "0c484e8bb97ccae2aec2cf44e1adc30a08cdb3ce"
+    }
+  ],
+  "limits": [
+    "TEST training only; no PROD promotion authorized.",
+    "No official win/progression/rewards.",
+    "Transition network monitor is not declared wholly PASS.",
+    "QA and Security by author, no independent review claimed."
+  ],
+  "artifacts": [
+    {
+      "file": "qa-preset-ci-approved.json",
+      "sha256": "26511f48d0b04db4d679c56bdd5cb06c2242d589179e0a1e28181a868900be8f"
+    },
+    {
+      "file": "qa-preset-preview.json",
+      "sha256": "154fc1284aa2310b90e052c50782cd5436ce289842c6617a2690265bd7f1183d"
+    },
+    {
+      "file": "qa-preset-before.json",
+      "sha256": "e7e34f9ef3835a5477771077b9f4d380db4a5cca3b158650925dc9b3f5047ad7"
+    },
+    {
+      "file": "qa-preset-after.json",
+      "sha256": "220a68f1c4379fb180b5811a9f0dae9c0b997e5c1f3eb534527338fa93cc0b33"
+    },
+    {
+      "file": "qa-hosted-read-final.json",
+      "sha256": "b9352e28f68597a738ab7fbeda81a9fed720bfd7dc9eabedc77b69670ce054c3"
+    },
+    {
+      "file": "qa-final-canonical-check.json",
+      "sha256": "c35da2f7012fb1a36cbcd3d0bb4b78f0851ba29036cccccc867839fcdc4dc48b"
+    },
+    {
+      "file": "qa-final-postgames-data.json",
+      "sha256": "f9e596b4d6eb5547a1476c56d1bec89dde67d32c40223fda8182c10fb77388cc"
+    },
+    {
+      "file": "qa-final-structure-comparison.json",
+      "sha256": "0fc514d1396e27e9d1b28902271fd757e07ea4d24681c906ba0ce5d4c02447d0"
+    },
+    {
+      "file": "qa-final-completion.json",
+      "sha256": "01e2b7d2559d76097390847dd9a4fcc40870b4bbe9e250e61adc6c1638d5294f"
+    },
+    {
+      "file": "qa-final-completion320.png",
+      "sha256": "38e4647706ccf21c14f249a49ff204690f5dd0f5aa273c61ff0813ee9166367b"
+    },
+    {
+      "file": "qa-final-completion390.png",
+      "sha256": "75445f59af2c8ce5cfca8d189d84b42f26140c3c932233d7928443c4e2966998"
+    },
+    {
+      "file": "qa-final-deck320.png",
+      "sha256": "eb713017af139a48e101a371e052eb6b0ae0b0a0c28191ef49a217f968e6c027"
+    },
+    {
+      "file": "qa-final-floor7-navigation-timeout.json",
+      "sha256": "7806cc051941b9bc62045c147d85651ee84b398e9ecb61d8f06a45972b050994"
+    },
+    {
+      "file": "qa-final-completion-monitor-failure.json",
+      "sha256": "b4367626e7bdd2f78a5a36a46f77c4c9c99615b95fb65dffd94ec28f3e4ecdc7"
+    },
+    {
+      "file": "qa-final-production-read.json",
+      "sha256": "284aaf02184403c8c9e959e14691016b8a6aaec1847a19e28afcc4a2c445fc30"
+    },
+    {
+      "file": "qa-tower-6faff4ac-d767-4433-ace0-cbd5b1d8e8b1-result.json",
+      "sha256": "3153101beff5125c8e4e0574c0b101649073b404f99fd7f35c222bf9b46d7b8e"
+    },
+    {
+      "file": "qa-tower-05dcb7a2-dcbd-420b-a5e4-d88fe1b1a44e-result.json",
+      "sha256": "43f099033ef44bc4f6e21570520b878b5fedca058a69765cbc98ff8f6be7215e"
+    },
+    {
+      "file": "qa-tower-d3b5a4c4-b1fd-4923-bb92-946fdf834fa0-result.json",
+      "sha256": "640553acc1bf3ccec77bf67c45adad3fe261a22a10f8a00b2c5bc8fdf53a29bc"
+    },
+    {
+      "file": "qa-tower-3cc60e83-39ad-40d9-bdbc-84bb8dc84e12-result.json",
+      "sha256": "a0b2c975286919790779b59f090d9a6094d4b2ec6254927e5eb107f9fdb17677"
+    },
+    {
+      "file": "qa-tower-7c494171-ecc3-4cc5-bc9d-bdd26023c391-result.json",
+      "sha256": "8c956bff8d5516b7802f48756f73d9d690943ab7442aa649cf45c8f5f00ac0cd"
+    },
+    {
+      "file": "qa-tower-405eddf5-7f25-48ae-bae8-5e62d3f67d53-result.json",
+      "sha256": "9aaba1f5665c70684811f35f17e4069eb2c2951355a76ea781b1839f3039c1e1"
+    },
+    {
+      "file": "qa-tower-be359e09-d72e-4fd8-a2b3-3d950f266a19-result.json",
+      "sha256": "be190f09fcbec635af07392d646740d98e49542b022519ad83377ce533096adf"
+    },
+    {
+      "file": "qa-arena-83200abf-ed29-4ff7-982d-bcec6240a70d-result.json",
+      "sha256": "c62e9c2e9c8a7e38e1ddce53c3510ea57f4655601f86b1211a49fc18539e1639"
+    }
+  ]
+}
