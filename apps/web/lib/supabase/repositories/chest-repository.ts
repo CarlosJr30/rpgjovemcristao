@@ -8,6 +8,7 @@ import type {
 } from '../database.types';
 import { requireData } from './errors';
 import {canUseTravelerInCurrentSession,getCurrentOnlineUserId,getOnlineSessionRevision} from '../online-sync';
+import {CommunityOpeningSuspended} from '../../community-chests/errors';
 
 export const chestRepository = {
   async communityGrants(travelerId:string):Promise<ChestOperationRow[]>{
@@ -20,7 +21,7 @@ export const chestRepository = {
     const result=await getSupabaseBrowserClient().rpc('open_community_chest',{p_actor:travelerId,p_chest_type:type,p_operation_id:operationId});
     if(owner!==getCurrentOnlineUserId()||session!==getOnlineSessionRevision()||!canUseTravelerInCurrentSession(travelerId))throw Error('A conta ou avatar mudou. Consulte o resultado na conta original.');
     const data=requireData(result,'Não foi possível abrir este baú. Verifique elegibilidade, reconciliação e autorização atuais.');
-    if(data&&typeof data==='object'&&!Array.isArray(data)&&data.status==='suspended')throw Error('Recompensa suspensa para revisão. Nenhum conteúdo foi concedido por esta tentativa.');
+    if(data&&typeof data==='object'&&!Array.isArray(data)&&data.status==='suspended')throw new CommunityOpeningSuspended('Recompensa suspensa para revisão. Nenhum conteúdo foi concedido por esta tentativa.');
     return data as unknown as ChestOpenResult;
   },
   async claimPhaseReward(

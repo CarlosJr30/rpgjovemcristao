@@ -2,6 +2,8 @@ import { chestRepository } from '../../lib/supabase/repositories/chest-repositor
 import type { ChestType } from '../journey/data/chests';
 import { receiptFromOperation } from './receipt';
 import { openingLock, readVisual, startIntent } from './visual-store';
+import { rejectOpeningIntent } from './visual-store';
+import { CommunityOpeningSuspended } from '../../lib/community-chests/errors';
 
 /** Economic intent goes to the existing RPC; animation is not involved. */
 export function requestChestOpening(
@@ -21,10 +23,16 @@ export function requestChestOpening(
     const existing = retry
       ? await chestRepository.operation(traveler, operationKey)
       : null;
-    if (!existing)
-      await (communityOnly
-        ? chestRepository.openCommunity(traveler, type, intent.operationId)
-        : chestRepository.open(traveler, type, intent.operationId));
+    try {
+      if (!existing)
+        await (communityOnly
+          ? chestRepository.openCommunity(traveler, type, intent.operationId)
+          : chestRepository.open(traveler, type, intent.operationId));
+    } catch (e) {
+      if (communityOnly && e instanceof CommunityOpeningSuspended)
+        rejectOpeningIntent(owner, traveler, intent.operationId);
+      throw e;
+    }
     const row =
       existing ?? (await chestRepository.operation(traveler, operationKey));
     if (!row)

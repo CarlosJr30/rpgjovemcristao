@@ -25,7 +25,7 @@ import {
 } from '../../chest-reveal/visual-store';
 import type { ChestOperationRow } from '../../../lib/supabase/database.types';
 
-type OwnedChest = { type: ChestType; quantity: number };
+type OwnedChest = { type: ChestType; quantity: number; communityOrigin?: boolean };
 const chestTypes = Object.keys(chestCatalog) as ChestType[];
 
 export function ChestPanel({
@@ -143,6 +143,7 @@ export function ChestPanel({
         .map((row) => ({
           type: row.chest_type as ChestType,
           quantity: row.quantity,
+          communityOrigin: Array.isArray(row.sources)&&typeof row.sources[0]==='string'&&row.sources[0].startsWith('community001c:'),
         }));
       setOwned(remote);
       onCountChange(remote.reduce((sum, entry) => sum + entry.quantity, 0));
@@ -322,14 +323,14 @@ export function ChestPanel({
           </div>
         ) : (
           <div className={styles.chestGrid}>
-            {owned.map(({ type, quantity }) => (
+            {owned.map(({ type, quantity,communityOrigin }) => (
               <ChestCard
                 key={type}
                 type={type}
                 quantity={quantity}
                 action="open"
                 busy={busy === `open:${type}`}
-                disabled={!!busy || !!pending || !online || !ownerId || (communityOnly && !['common','epic'].includes(type))}
+                disabled={!!busy || !!pending || !online || !ownerId || (communityOnly && (!communityOrigin || !['common','epic'].includes(type)))}
                 onAction={() => communityOnly ? setConfirmType(type) : void open(type)}
               />
             ))}
@@ -409,7 +410,7 @@ export function ChestPanel({
           )}
         </section>
       )}
-      {communityOnly && <section aria-label="Histórico de baús conquistados"><h2>Baús conquistados</h2>{grants.length?grants.filter(r=>r.traveler_id===traveler.id&&isChestType(r.chest_type)).map(r=><p key={r.id}>{chestCatalog[r.chest_type as ChestType].name} · {new Date(r.created_at).toLocaleString('pt-BR')} · recibo {r.id}</p>):<p>Nenhum baú comunitário confirmado carregado.</p>}</section>}
+      {communityOnly && <section aria-label="Histórico de baús conquistados"><h2>Baús conquistados</h2>{grants.length?grants.filter(r=>r.traveler_id===traveler.id&&isChestType(r.chest_type)).map(r=><p key={r.id}>{chestCatalog[r.chest_type as ChestType].name} · {new Date(r.created_at).toLocaleString('pt-BR')}</p>):<p>Nenhum baú comunitário confirmado carregado.</p>}</section>}
       {message && (
         <p className={styles.notice} role="status">
           {message}

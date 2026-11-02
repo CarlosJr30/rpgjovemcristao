@@ -106,7 +106,7 @@ function panel() {
   );
 }
 test('community chests require confirmation and never expose merchant or legacy opening',async()=>{
-  mocks.list.mockResolvedValue([{chest_type:'common',quantity:1}]);mocks.openCommunity.mockResolvedValue({});
+  mocks.list.mockResolvedValue([{chest_type:'common',quantity:1,sources:['community001c:00000000-0000-4000-8000-000000000700']}]);mocks.openCommunity.mockResolvedValue({});
   mocks.operation.mockImplementation(async(_t:string,key:string)=>({...chestRow,operation_key:key,chest_type:'common',rewards:{...(chestRow.rewards as Record<string,unknown>),chestType:'common'}}));
   render(<ChestPanel ownerId={OWNER} traveler={fixtureTraveler()} online communityOnly onCountChange={vi.fn()} onViewEquipment={vi.fn()}/>);
   fireEvent.click(await screen.findByRole('button',{name:/^Abrir$/}));
@@ -114,6 +114,10 @@ test('community chests require confirmation and never expose merchant or legacy 
   fireEvent.click(screen.getByRole('button',{name:'Cancelar abertura'}));expect(mocks.openCommunity).not.toHaveBeenCalled();
   fireEvent.click(screen.getByRole('button',{name:/^Abrir$/}));fireEvent.click(screen.getByRole('button',{name:'Confirmar abertura'}));
   await waitFor(()=>expect(mocks.openCommunity).toHaveBeenCalledTimes(1));expect(mocks.open).not.toHaveBeenCalled();expect(mocks.buy).not.toHaveBeenCalled();
+});
+test('community shelf preserves legacy stacks as read-only without requesting an opening',async()=>{
+ mocks.list.mockResolvedValue([{chest_type:'common',quantity:1,sources:['legacy']}]);render(<ChestPanel ownerId={OWNER} traveler={fixtureTraveler()} online communityOnly onCountChange={vi.fn()} onViewEquipment={vi.fn()}/>);
+ expect(await screen.findByRole('button',{name:/^Abrir$/})).toBeDisabled();expect(mocks.openCommunity).not.toHaveBeenCalled();expect(mocks.open).not.toHaveBeenCalled();
 });
 test('Mochila keeps existing tabs, empty state and centralized shop prices', async () => {
   render(<BackpackScreen />);

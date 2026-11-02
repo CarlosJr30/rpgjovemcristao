@@ -131,3 +131,11 @@ export async function openingLock<T>(
     fn,
   );
 }
+
+/** A committed server hold confirms that this intent did not produce an opening.
+ * Network errors and ambiguous responses must never call this function. */
+export function rejectOpeningIntent(owner:string,traveler:string,operationId:string){
+ const state=readVisual(owner,traveler);
+ if(state.intent?.operationId!==operationId)throw Error('Outra solicitação está em andamento. Consulte seu resultado.');
+ write(owner,traveler,{...state,intent:null});
+}

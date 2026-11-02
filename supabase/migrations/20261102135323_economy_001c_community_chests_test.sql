@@ -142,7 +142,7 @@ BEGIN
  SELECT * INTO r FROM public.chest_operations WHERE traveler_id=p_actor AND account_id=who AND operation_type='grant' AND chest_type=p_type AND source=c.sources->>0 AND rewards->>'catalogVersion'=policy.catalog_version;
  IF r.id IS NULL THEN RAISE EXCEPTION 'Grant receipt unavailable' USING ERRCODE='42501';END IF;
  event_uid:=(r.rewards->>'eventId')::uuid;m:=(r.rewards->>'missionId')::uuid;v:=(r.rewards->>'validatorId')::uuid;revision:=(r.rewards->>'participationRevision')::integer;
- IF EXISTS(SELECT 1 FROM economy_private.community_chest_holds WHERE account_id=who AND event_id=event_uid) THEN RAISE EXCEPTION 'Reward suspended' USING ERRCODE='42501';END IF;
+ IF EXISTS(SELECT 1 FROM economy_private.community_chest_holds WHERE account_id=who AND event_id=event_uid) THEN RETURN jsonb_build_object('version',1,'status','suspended');END IF;
  IF NOT EXISTS(SELECT 1 FROM guild_activity_private.future_eligibility e JOIN public.guild_mission_progress gp ON gp.mission_id=e.mission_id AND gp.traveler_id=e.traveler_id AND gp.participant_uid=e.owner_id
  JOIN public.guild_missions mission ON mission.id=e.mission_id JOIN public.guild_missions root ON root.id=event_uid
  JOIN public.guild_members gm ON gm.guild_id=mission.guild_id AND gm.traveler_id=p_actor AND gm.status='active'
