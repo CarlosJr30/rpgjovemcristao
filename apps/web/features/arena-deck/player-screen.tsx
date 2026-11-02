@@ -20,7 +20,8 @@ export function ArenaPlayerScreen({
         <p role="note">
           Arena e Torre — treino local, sem recompensas ou progresso oficial.
           São necessárias sete cartas próprias homologadas. Acesso não concede
-          cartas; aquisição e batalhas oficiais continuam indisponíveis.
+          cartas. O pacote inicial exige solicitação explícita em Meu Baralho;
+          compras e batalhas oficiais continuam indisponíveis.
         </p>
         <nav aria-label="Arena e Torre">
           <Link href="/journey/arena">Arena</Link>
@@ -49,6 +50,7 @@ export function ArenaPlayerScreen({
                 traveler={traveler}
                 owner={auth.user.id}
                 collectionSource={loadPlayerArenaCollection}
+                starterEnabled
               />
             );
           }}

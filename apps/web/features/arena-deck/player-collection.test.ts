@@ -1,4 +1,4 @@
-import { beforeEach, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, expect, it, vi } from 'vitest';
 import { getArenaCardCatalog } from '@rpg/game-engine';
 import { loadPlayerArenaCollection } from './player-collection';
 const m = vi.hoisted(() => ({
@@ -19,6 +19,26 @@ const row = () => ({
   card: { ...getArenaCardCatalog()[0] },
   version: 'isolated-production-fixture',
   receiptId: '11111111-1111-4111-8111-111111111111',
+});
+afterEach(() => vi.unstubAllEnvs());
+it('accepts the existing legitimate TEST catalog only on TEST and still rejects QA provenance', async () => {
+  vi.stubEnv(
+    'NEXT_PUBLIC_SUPABASE_URL',
+    'https://wkdvdzfkbwvhyjmamrsg.supabase.co',
+  );
+  const value = {
+    ...row(),
+    version: 'arena-cards-2026-10-20.2-fixprod003-test',
+  };
+  m.rpc.mockResolvedValue({ data: [value], error: null });
+  await expect(loadPlayerArenaCollection('owner', 'hero')).resolves.toEqual([
+    value.card,
+  ]);
+  m.rpc.mockResolvedValue({
+    data: [{ ...value, provenance: 'qa-training' }],
+    error: null,
+  });
+  await expect(loadPlayerArenaCollection('owner', 'hero')).rejects.toThrow();
 });
 beforeEach(() => {
   vi.clearAllMocks();
