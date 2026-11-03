@@ -25,7 +25,13 @@ import {
 } from '../../chest-reveal/visual-store';
 import type { ChestOperationRow } from '../../../lib/supabase/database.types';
 
-type OwnedChest = { type: ChestType; quantity: number };
+type OwnedChest = {
+  type: ChestType;
+  quantity: number;
+  communityOrigin?: boolean;
+  qaOrigin?: boolean;
+  shopOrigin?: boolean;
+};
 const chestTypes = Object.keys(chestCatalog) as ChestType[];
 
 export function ChestPanel({
@@ -34,12 +40,20 @@ export function ChestPanel({
   online,
   onCountChange,
   onViewEquipment,
+  communityOnly = false,
+  qaShop = false,
+  releaseShop = false,
+  onRefreshInventory,
 }: {
   ownerId: string;
   traveler: Traveler;
   online: boolean;
   onCountChange: (count: number) => void;
   onViewEquipment: () => void;
+  communityOnly?: boolean;
+  qaShop?: boolean;
+  releaseShop?: boolean;
+  onRefreshInventory?: () => void;
 }) {
   const [owned, setOwned] = useState<OwnedChest[]>(() =>
     chestTypes
@@ -49,11 +63,13 @@ export function ChestPanel({
   const [loading, setLoading] = useState(online);
   const [busy, setBusy] = useState<string | null>(null);
   const [message, setMessage] = useState('');
+  const [confirmType, setConfirmType] = useState<ChestType | null>(null);
   const [reveal, setReveal] = useState<{
     receipt: RevealReceipt;
     cursor: VisualCursor;
   } | null>(null);
   const [history, setHistory] = useState<ChestOperationRow[]>([]);
+  const [grants, setGrants] = useState<ChestOperationRow[]>([]);
   const [pending, setPending] = useState<OpeningIntent | null>(null);
   const [resumable, setResumable] = useState<RevealReceipt | null>(null);
   const opening = useRef(false);
@@ -78,14 +94,18 @@ export function ChestPanel({
     const operationKey = saved?.intent
       ? `open:${saved.intent.operationId}`
       : saved?.view?.operationKey;
-    const [rows, row] = await Promise.all([
+    const [rows, row, earned] = await Promise.all([
       chestRepository.history(traveler.id),
       operationKey
         ? chestRepository.operation(traveler.id, operationKey)
         : Promise.resolve(null),
+      communityOnly
+        ? chestRepository.communityGrants(traveler.id)
+        : Promise.resolve([]),
     ]);
     if (!mounted.current) return;
     setHistory(rows);
+    setGrants(earned);
     if (!saved) throw visualError;
     setPending(saved.intent);
     if (row) {
@@ -94,7 +114,7 @@ export function ChestPanel({
       setPending(null);
       setResumable(receipt);
     }
-  }, [ownerId, online, traveler.id]);
+  }, [ownerId, online, traveler.id, communityOnly]);
   useEffect(() => {
     let live = true;
     const timer = window.setTimeout(
@@ -135,6 +155,18 @@ export function ChestPanel({
         .map((row) => ({
           type: row.chest_type as ChestType,
           quantity: row.quantity,
+          communityOrigin:
+            Array.isArray(row.sources) &&
+            typeof row.sources[0] === 'string' &&
+            row.sources[0].startsWith('community001c:'),
+          qaOrigin:
+            Array.isArray(row.sources) &&
+            typeof row.sources[0] === 'string' &&
+            row.sources[0].startsWith('qa-shop001c:'),
+          shopOrigin:
+            Array.isArray(row.sources) &&
+            typeof row.sources[0] === 'string' &&
+            row.sources[0].startsWith('shop001c:'),
         }));
       setOwned(remote);
       onCountChange(remote.reduce((sum, entry) => sum + entry.quantity, 0));
@@ -227,6 +259,8 @@ export function ChestPanel({
         traveler.id,
         type,
         retry,
+        communityOnly,
+        qaShop,
       );
       // Sync is separate from receipt confirmation; failure never opens again.
       await reloadOnlineTraveler(traveler.id);
@@ -299,6 +333,36 @@ export function ChestPanel({
           Retomar apresentação registrada
         </button>
       )}
+      {communityOnly && (
+        <p className={styles.notice}>
+          {releaseShop
+            ? 'Baús elegíveis de atividades e baús comuns comprados na Loja podem ser abertos após confirmação. Baús legados e demais categorias aguardam liberação.'
+            : qaShop
+              ? 'Somente baús comuns comprados pela Loja QA podem ser abertos neste avatar TEST.'
+              : 'Somente baús comuns e épicos de atividades verificadas podem ser abertos. Baús legados e demais categorias aguardam liberação. Compras e ações de equipar continuam indisponíveis.'}
+        </p>
+      )}
+      {confirmType && (
+        <section aria-label="Confirmar abertura">
+          <p>
+            Confirma abrir {chestCatalog[confirmType].name}? O servidor registra
+            o resultado uma única vez antes da animação.
+          </p>
+          <button
+            disabled={!!busy}
+            onClick={() => {
+              const type = confirmType;
+              setConfirmType(null);
+              void open(type);
+            }}
+          >
+            Confirmar abertura
+          </button>
+          <button disabled={!!busy} onClick={() => setConfirmType(null)}>
+            Cancelar abertura
+          </button>
+        </section>
+      )}
       <section aria-labelledby="owned-chests-title">
         <p className={styles.eyebrow}>SEUS BAÚS</p>
         <h2 id="owned-chests-title">Tesouros guardados</h2>
@@ -307,41 +371,65 @@ export function ChestPanel({
         ) : owned.length === 0 ? (
           <div className={styles.chestEmpty}>
             <b>Você ainda não possui Baús.</b>
-            <span>Conclua missões, desafios ou compre um Baú.</span>
+            <span>
+              {communityOnly
+                ? 'Participe de atividades elegíveis e solicite o baú após a validação.'
+                : 'Conclua missões, desafios ou compre um Baú.'}
+            </span>
           </div>
         ) : (
           <div className={styles.chestGrid}>
-            {owned.map(({ type, quantity }) => (
-              <ChestCard
-                key={type}
-                type={type}
-                quantity={quantity}
-                action="open"
-                busy={busy === `open:${type}`}
-                disabled={!!busy || !!pending || !online || !ownerId}
-                onAction={() => void open(type)}
-              />
-            ))}
+            {owned.map(
+              ({ type, quantity, communityOrigin, qaOrigin, shopOrigin }) => (
+                <ChestCard
+                  key={type}
+                  type={type}
+                  quantity={quantity}
+                  action="open"
+                  busy={busy === `open:${type}`}
+                  disabled={
+                    !!busy ||
+                    !!pending ||
+                    !online ||
+                    !ownerId ||
+                    (releaseShop
+                      ? (!communityOrigin && !shopOrigin) ||
+                        !['common', 'epic'].includes(type) ||
+                        (shopOrigin && type !== 'common')
+                      : qaShop
+                        ? !qaOrigin || type !== 'common'
+                        : communityOnly &&
+                          (!communityOrigin ||
+                            !['common', 'epic'].includes(type)))
+                  }
+                  onAction={() =>
+                    communityOnly ? setConfirmType(type) : void open(type)
+                  }
+                />
+              ),
+            )}
           </div>
         )}
       </section>
 
-      <section aria-labelledby="available-chests-title">
-        <p className={styles.eyebrow}>BAÚS DISPONÍVEIS</p>
-        <h2 id="available-chests-title">Mercador de Baús</h2>
-        <div className={styles.chestGrid}>
-          {chestTypes.map((type) => (
-            <ChestCard
-              key={type}
-              type={type}
-              action="purchase"
-              busy={busy === `purchase:${type}`}
-              disabled={!!busy || !!pending}
-              onAction={() => void purchase(type)}
-            />
-          ))}
-        </div>
-      </section>
+      {!communityOnly && (
+        <section aria-labelledby="available-chests-title">
+          <p className={styles.eyebrow}>BAÚS DISPONÍVEIS</p>
+          <h2 id="available-chests-title">Mercador de Baús</h2>
+          <div className={styles.chestGrid}>
+            {chestTypes.map((type) => (
+              <ChestCard
+                key={type}
+                type={type}
+                action="purchase"
+                busy={busy === `purchase:${type}`}
+                disabled={!!busy || !!pending}
+                onAction={() => void purchase(type)}
+              />
+            ))}
+          </div>
+        </section>
+      )}
       {online && (
         <section aria-label="Histórico de aberturas">
           <h2>Aberturas registradas</h2>
@@ -398,6 +486,26 @@ export function ChestPanel({
           )}
         </section>
       )}
+      {communityOnly && (
+        <section aria-label="Histórico de baús conquistados">
+          <h2>Baús conquistados</h2>
+          {grants.length ? (
+            grants
+              .filter(
+                (r) =>
+                  r.traveler_id === traveler.id && isChestType(r.chest_type),
+              )
+              .map((r) => (
+                <p key={r.id}>
+                  {chestCatalog[r.chest_type as ChestType].name} ·{' '}
+                  {new Date(r.created_at).toLocaleString('pt-BR')}
+                </p>
+              ))
+          ) : (
+            <p>Nenhum baú comunitário confirmado carregado.</p>
+          )}
+        </section>
+      )}
       {message && (
         <p className={styles.notice} role="status">
           {message}
@@ -410,7 +518,10 @@ export function ChestPanel({
           traveler={traveler}
           cursor={reveal.cursor}
           onProgress={(cursor) => saveCursor(ownerId, traveler.id, cursor)}
-          onClose={() => setReveal(null)}
+          onClose={() => {
+            setReveal(null);
+            onRefreshInventory?.();
+          }}
           onViewEquipment={() => {
             setReveal(null);
             onViewEquipment();

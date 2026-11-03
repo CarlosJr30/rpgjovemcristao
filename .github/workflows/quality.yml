@@ -162,6 +162,15 @@ jobs:
       - name: Ensaiar pacote produtivo próprio XP sem emitir concessões remotas
         run: node tests/hosted/economy-001b-production-postgres.mjs
 
+      - name: Exigir elegibilidade cotas globais loot legado aprovado e contenção de baús
+        run: node tests/hosted/economy-001c-postgres.mjs
+      - name: Exigir orçamento QA isolado compras atômicas e recuperação da Loja TEST
+        run: node tests/hosted/economy-001c-shop-postgres.mjs
+      - name: Exigir fronteira produtiva sem QA saldo após compras e recuperação
+        run: node tests/hosted/economy-001c-release-postgres.mjs
+      - name: Exigir compatibilidade do pacote incremental com o orçamento QA TEST existente
+        run: node tests/hosted/economy-001c-release-postgres.mjs --test-envelope
+
   pinned-preview:
     name: Preview do SHA aprovado
     needs: [quality, rsc-regression, governance-postgres]

@@ -1,11 +1,12 @@
 // @vitest-environment jsdom
 import { beforeEach, expect, test, vi } from 'vitest';
-const mocks = vi.hoisted(() => ({ open: vi.fn(), operation: vi.fn() }));
+const mocks = vi.hoisted(() => ({ open: vi.fn(), openCommunity:vi.fn(), operation: vi.fn() }));
 vi.mock('../../lib/supabase/repositories/chest-repository', () => ({
   chestRepository: mocks,
 }));
 import { requestChestOpening } from './opening';
 import { readVisual, bindReceipt } from './visual-store';
+import {CommunityOpeningSuspended} from '../../lib/community-chests/errors';
 import {
   OWNER,
   TRAVELER,
@@ -30,6 +31,14 @@ beforeEach(() => {
     ...chestRow,
     operation_key: key,
   }));
+});
+test('definitive server suspension clears only its intent, but a lost response stays pending',async()=>{
+ mocks.openCommunity.mockRejectedValueOnce(new Error('Network unavailable'));
+ await expect(requestChestOpening(OWNER,TRAVELER,'common',false,true)).rejects.toThrow('Network unavailable');
+ const id=readVisual(OWNER,TRAVELER).intent!.operationId;
+ mocks.operation.mockResolvedValueOnce(null);mocks.openCommunity.mockRejectedValueOnce(new CommunityOpeningSuspended('Recompensa suspensa.'));
+ await expect(requestChestOpening(OWNER,TRAVELER,'common',true,true)).rejects.toThrow('Recompensa suspensa.');
+ expect(mocks.openCommunity.mock.calls[1][2]).toBe(id);expect(readVisual(OWNER,TRAVELER).intent).toBeNull();expect(mocks.open).not.toHaveBeenCalled();
 });
 test('opening uses existing RPC exactly once; duplicate tabs are serialized; response alone is not displayed', async () => {
   const calls = await Promise.allSettled([

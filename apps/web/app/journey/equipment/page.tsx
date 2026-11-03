@@ -1,4 +1,4 @@
-import { EquipmentScreen } from '../../../features/journey/screens/equipment';
+import { QAShopAccess } from '../../../features/qa-shop/access';
 export default function Page() {
-  return <EquipmentScreen />;
+  return <QAShopAccess equipment />;
 }

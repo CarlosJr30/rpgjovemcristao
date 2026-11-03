@@ -1,2 +1,2 @@
-import { ShopScreen } from '../../../features/journey/screens/shop';
-export default function Page() { return <ShopScreen />; }
+import { QAShopAccess } from '../../../features/qa-shop/access';
+export default function Page() { return <QAShopAccess />; }

@@ -2,6 +2,10 @@ import { chestRepository } from '../../lib/supabase/repositories/chest-repositor
 import type { ChestType } from '../journey/data/chests';
 import { receiptFromOperation } from './receipt';
 import { openingLock, readVisual, startIntent } from './visual-store';
+import { rejectOpeningIntent } from './visual-store';
+import { CommunityOpeningSuspended } from '../../lib/community-chests/errors';
+import { openQAShop, openShopChest } from '../../lib/qa-shop/client';
+import { isShopRelease } from '../../lib/release-scope';
 
 /** Economic intent goes to the existing RPC; animation is not involved. */
 export function requestChestOpening(
@@ -9,6 +13,8 @@ export function requestChestOpening(
   traveler: string,
   type: ChestType,
   retry = false,
+  communityOnly = false,
+  qaShop = false,
 ) {
   return openingLock(owner, traveler, async () => {
     const prior = readVisual(owner, traveler).intent;
@@ -20,8 +26,27 @@ export function requestChestOpening(
     const existing = retry
       ? await chestRepository.operation(traveler, operationKey)
       : null;
-    if (!existing)
-      await chestRepository.open(traveler, type, intent.operationId);
+    try {
+      if (!existing)
+        await (isShopRelease()
+          ? openShopChest(traveler, type, intent.operationId)
+          : qaShop
+            ? openQAShop(traveler, intent.operationId)
+            : communityOnly
+              ? chestRepository.openCommunity(
+                  traveler,
+                  type,
+                  intent.operationId,
+                )
+              : chestRepository.open(traveler, type, intent.operationId));
+    } catch (e) {
+      if (
+        (communityOnly || isShopRelease()) &&
+        e instanceof CommunityOpeningSuspended
+      )
+        rejectOpeningIntent(owner, traveler, intent.operationId);
+      throw e;
+    }
     const row =
       existing ?? (await chestRepository.operation(traveler, operationKey));
     if (!row)
