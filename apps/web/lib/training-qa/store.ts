@@ -28,6 +28,8 @@ export type TrainingBinding = {
   selected: boolean;
 };
 let binding: TrainingBinding | null = null;
+let epoch = 0;
+export const trainingEpoch = () => epoch;
 const listeners = new Set<() => void>();
 export const trainingSnapshot = () => binding;
 export const emptyTrainingSnapshot = () => null;
@@ -38,6 +40,16 @@ export function subscribeTraining(fn: () => void) {
   };
 }
 export function setTraining(next: TrainingBinding | null) {
+  if (
+    !next ||
+    !binding ||
+    next.actor !== binding.actor ||
+    next.owner !== binding.owner ||
+    next.session !== binding.session ||
+    next.selected !== binding.selected ||
+    next.state.activation !== binding.state.activation
+  )
+    epoch++;
   binding = next;
   listeners.forEach((fn) => fn());
 }

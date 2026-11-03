@@ -12,6 +12,7 @@ import type {
 import {
   selectedTraining,
   trainingSnapshot,
+  trainingEpoch,
   setTraining,
   type TrainingState,
   type TrainingReceipt,
@@ -113,11 +114,17 @@ export async function readTraining(actor: string) {
 }
 export async function refreshTraining(actor: string) {
   const b = trainingSnapshot(),
+    epoch = trainingEpoch(),
     state = await readTraining(actor);
-  if (b && trainingSnapshot() === b) {
+  const current = trainingSnapshot();
+  if (b && current && trainingEpoch() === epoch && current.actor === actor) {
     setTraining(
       state
-        ? { ...b, state: state.revision >= b.state.revision ? state : b.state }
+        ? {
+            ...current,
+            state:
+              state.revision >= current.state.revision ? state : current.state,
+          }
         : null,
     );
   }
@@ -132,6 +139,7 @@ export async function commandTraining(
   const b = activeTraining(actor);
   if (!b) throw Error('Ative o treino isolado antes de continuar.');
   const g = guard(actor);
+  const epoch = trainingEpoch();
   const { data, error } = await getSupabaseBrowserClient().rpc(
     'command_training_qa',
     {
@@ -142,7 +150,7 @@ export async function commandTraining(
     },
   );
   g.verify();
-  if (trainingSnapshot() !== b)
+  if (trainingEpoch() !== epoch)
     throw Error('O contexto mudou. Consulte o recibo no treino original.');
   if (error)
     throw Error(

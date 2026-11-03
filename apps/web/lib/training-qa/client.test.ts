@@ -46,6 +46,47 @@ beforeEach(() => {
 });
 afterEach(() => setTraining(null));
 describe('isolated training client boundary', () => {
+  it('an independent balance read does not invalidate an in-flight command in the same training context', async () => {
+    let finish!: (v: unknown) => void;
+    mock.rpc.mockImplementation((name: string) =>
+      name === 'command_training_qa'
+        ? new Promise((resolve) => {
+            finish = resolve;
+          })
+        : Promise.resolve({
+            data: { ...state(), coins: 9960, chests: 1, revision: 1 },
+            error: null,
+          }),
+    );
+    const binding = {
+      owner,
+      actor,
+      session: 1,
+      state: state(),
+      selected: true,
+    };
+    setTraining(binding);
+    const pending = commandTraining(
+      actor,
+      'purchase',
+      { kind: 'chest', offer: 'common' },
+      crypto.randomUUID(),
+    );
+    setTraining({ ...binding, state: { ...state() } });
+    finish({
+      data: {
+        version: 1,
+        qaOnly: true,
+        receiptId: '00000000-0000-4000-8000-000000000102',
+        kind: 'chest',
+        offer: 'common',
+        pricePaid: 40,
+      },
+      error: null,
+    });
+    await expect(pending).resolves.toMatchObject({ pricePaid: 40 });
+    expect(trainingSnapshot()?.state.coins).toBe(9960);
+  });
   it('disabled state never fabricates a budget', () => {
     expect(
       decodeTraining({ version: 1, qaOnly: true, enabled: false }),
