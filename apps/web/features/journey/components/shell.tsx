@@ -10,7 +10,7 @@ import {
 } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import { GAME_NAME } from '@rpg/shared';
-import {isShopTestPreview} from '../../../lib/release-scope';
+import { isShopTestPreview, isShopRelease } from '../../../lib/release-scope';
 import { AvatarRuntime } from './avatar-runtime';
 import {
   signOutAccount,
@@ -56,16 +56,19 @@ const releasedLinks = [
     label,
     href: id === 'map' ? '/journey/worlds' : routes[id],
     icon: id,
-    available: [
-      'hero',
-      'map',
-      'garden',
-      'guild',
-      'backpack',
-      'collection',
-      'diary',
-      'arena',
-    ].includes(id) || (isShopTestPreview() && ['shop','equipment'].includes(id)),
+    available:
+      [
+        'hero',
+        'map',
+        'garden',
+        'guild',
+        'backpack',
+        'collection',
+        'diary',
+        'arena',
+      ].includes(id) ||
+      ((isShopTestPreview() || isShopRelease()) &&
+        ['shop', 'equipment'].includes(id)),
   })),
   {
     id: 'ebd',

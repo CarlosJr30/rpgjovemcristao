@@ -30,6 +30,7 @@ type OwnedChest = {
   quantity: number;
   communityOrigin?: boolean;
   qaOrigin?: boolean;
+  shopOrigin?: boolean;
 };
 const chestTypes = Object.keys(chestCatalog) as ChestType[];
 
@@ -41,6 +42,7 @@ export function ChestPanel({
   onViewEquipment,
   communityOnly = false,
   qaShop = false,
+  releaseShop = false,
   onRefreshInventory,
 }: {
   ownerId: string;
@@ -50,6 +52,7 @@ export function ChestPanel({
   onViewEquipment: () => void;
   communityOnly?: boolean;
   qaShop?: boolean;
+  releaseShop?: boolean;
   onRefreshInventory?: () => void;
 }) {
   const [owned, setOwned] = useState<OwnedChest[]>(() =>
@@ -160,6 +163,10 @@ export function ChestPanel({
             Array.isArray(row.sources) &&
             typeof row.sources[0] === 'string' &&
             row.sources[0].startsWith('qa-shop001c:'),
+          shopOrigin:
+            Array.isArray(row.sources) &&
+            typeof row.sources[0] === 'string' &&
+            row.sources[0].startsWith('shop001c:'),
         }));
       setOwned(remote);
       onCountChange(remote.reduce((sum, entry) => sum + entry.quantity, 0));
@@ -328,9 +335,11 @@ export function ChestPanel({
       )}
       {communityOnly && (
         <p className={styles.notice}>
-          {qaShop
-            ? 'Somente baús comuns comprados pela Loja QA podem ser abertos neste avatar TEST.'
-            : 'Somente baús comuns e épicos de atividades verificadas podem ser abertos. Baús legados e demais categorias aguardam liberação. Compras e ações de equipar continuam indisponíveis.'}
+          {releaseShop
+            ? 'Baús elegíveis de atividades e baús comuns comprados na Loja podem ser abertos após confirmação. Baús legados e demais categorias aguardam liberação.'
+            : qaShop
+              ? 'Somente baús comuns comprados pela Loja QA podem ser abertos neste avatar TEST.'
+              : 'Somente baús comuns e épicos de atividades verificadas podem ser abertos. Baús legados e demais categorias aguardam liberação. Compras e ações de equipar continuam indisponíveis.'}
         </p>
       )}
       {confirmType && (
@@ -370,28 +379,35 @@ export function ChestPanel({
           </div>
         ) : (
           <div className={styles.chestGrid}>
-            {owned.map(({ type, quantity, communityOrigin, qaOrigin }) => (
-              <ChestCard
-                key={type}
-                type={type}
-                quantity={quantity}
-                action="open"
-                busy={busy === `open:${type}`}
-                disabled={
-                  !!busy ||
-                  !!pending ||
-                  !online ||
-                  !ownerId ||
-                  (qaShop
-                    ? !qaOrigin || type !== 'common'
-                    : communityOnly &&
-                      (!communityOrigin || !['common', 'epic'].includes(type)))
-                }
-                onAction={() =>
-                  communityOnly ? setConfirmType(type) : void open(type)
-                }
-              />
-            ))}
+            {owned.map(
+              ({ type, quantity, communityOrigin, qaOrigin, shopOrigin }) => (
+                <ChestCard
+                  key={type}
+                  type={type}
+                  quantity={quantity}
+                  action="open"
+                  busy={busy === `open:${type}`}
+                  disabled={
+                    !!busy ||
+                    !!pending ||
+                    !online ||
+                    !ownerId ||
+                    (releaseShop
+                      ? (!communityOrigin && !shopOrigin) ||
+                        !['common', 'epic'].includes(type) ||
+                        (shopOrigin && type !== 'common')
+                      : qaShop
+                        ? !qaOrigin || type !== 'common'
+                        : communityOnly &&
+                          (!communityOrigin ||
+                            !['common', 'epic'].includes(type)))
+                  }
+                  onAction={() =>
+                    communityOnly ? setConfirmType(type) : void open(type)
+                  }
+                />
+              ),
+            )}
           </div>
         )}
       </section>

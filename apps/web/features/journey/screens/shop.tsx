@@ -10,11 +10,12 @@ import { EquipmentBibleDetails } from '../components/equipment-bible-details';
 import { EquipmentStatBonuses } from '../components/equipment-stat-bonuses';
 import { buyEquipment } from '../state/use-journey';
 import styles from '../journey.module.css';
+import {ShopPurchaseHistory} from '../../qa-shop/purchase-history';
 import { purchaseQAShop, resumeQAPurchase } from '../../../lib/qa-shop/client';
 
 export function ShopScreen({
   qa,
-}: { qa?: { actor: string; coins: number } } = {}) {
+}: { qa?: { actor: string; coins: number; production?: boolean } } = {}) {
   const [feedback, setFeedback] = useState('');
   const [confirmation, setConfirmation] = useState<{
     kind: 'chest' | 'equipment';
@@ -71,7 +72,11 @@ export function ShopScreen({
         {(traveler) => (
           <section className={styles.diarySection}>
             <p className={styles.eyebrow}>
-              {qa ? 'LOJA QA · SOMENTE TEST' : 'ECONOMIA DE GAMEPLAY'}
+              {qa?.production
+                ? 'LOJA DO VIAJANTE'
+                : qa
+                  ? 'LOJA QA · SOMENTE TEST'
+                  : 'ECONOMIA DE GAMEPLAY'}
             </p>
             <h1>Loja do Viajante</h1>
             <p>
@@ -90,8 +95,9 @@ export function ShopScreen({
             {qa && (
               <>
                 <p>
-                  Orçamento QA isolado. Preços aprovados somente para TEST; sem
-                  pagamentos reais.
+                  {qa.production
+                    ? 'Compras com suas moedas de jogo, confirmadas pelo servidor. Sem pagamentos em dinheiro real.'
+                    : 'Orçamento QA isolado. Preços aprovados somente para TEST; sem pagamentos reais.'}
                 </p>
                 <button disabled={busy} onClick={() => void resume()}>
                   Consultar compra pendente
@@ -187,9 +193,8 @@ export function ShopScreen({
                 );
               })}
             </div>
-            <p>
-              <Link href={routes.backpack}>Abrir Mochila →</Link>
-            </p>
+            <p><Link href={routes.backpack}>Abrir Mochila →</Link></p>
+            {qa?.production&&<ShopPurchaseHistory key={qa.actor} actor={qa.actor} revision={traveler.coins}/>}
           </section>
         )}
       </RequireTraveler>

@@ -45,8 +45,19 @@ export function isReleasedPath(path: string): boolean {
   return (
     paths.has(path) ||
     /^\/guilda\/convite\/[a-f0-9]{64}$/.test(path) ||
-    (isShopTestPreview() &&
+    ((isShopTestPreview() || isShopRelease()) &&
       ['/journey/shop', '/journey/equipment'].includes(path))
+  );
+}
+export function isShopRelease(): boolean {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  return (
+    (url === 'https://wspafhlbtlpabypzymjo.supabase.co' &&
+      process.env.NEXT_PUBLIC_SHOP_PRODUCTION_RELEASE === '1') ||
+    (url === 'https://wkdvdzfkbwvhyjmamrsg.supabase.co' &&
+      process.env.NEXT_PUBLIC_SHOP_RELEASE_PREVIEW === '1' &&
+      process.env.VERCEL_ENV !== 'production' &&
+      process.env.NEXT_PUBLIC_VERCEL_ENV !== 'production')
   );
 }
 export function isShopTestPreview(): boolean {

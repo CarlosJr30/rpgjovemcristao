@@ -15,7 +15,7 @@ import cardsCss from '../guild-missions/panel.module.css';
 import archiveCss from './archive.module.css';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { isShopTestPreview } from '../../lib/release-scope';
+import { isShopTestPreview, isShopRelease } from '../../lib/release-scope';
 import { readQAShop } from '../../lib/qa-shop/client';
 import { useAuth } from '../../lib/supabase/auth-context';
 import { useJourney } from '../journey/state/use-journey';
@@ -42,7 +42,7 @@ function CommunityChests({ onRefresh }: { onRefresh: () => void }) {
   const [qaActor, setQAActor] = useState<string | null>(null);
   useEffect(() => {
     let live = true;
-    if (isShopTestPreview() && actor)
+    if ((isShopTestPreview() || isShopRelease()) && actor)
       readQAShop(actor)
         .then((s) => {
           if (live) setQAActor(s.enabled && s.balanceVerified ? actor : null);
@@ -55,16 +55,17 @@ function CommunityChests({ onRefresh }: { onRefresh: () => void }) {
     };
   }, [actor]);
   if (auth.status !== 'signedIn' || journey.status !== 'ready') return null;
-  const qa = qaActor === journey.traveler.id;
+  const released = isShopRelease();
+  const qa = !released && qaActor === journey.traveler.id;
   return (
     <section aria-label="Baús de atividades">
       <h2>{qa ? 'Baús da Loja QA' : 'Baús de atividades'}</h2>
       <p>
         Saldo confirmado: {journey.traveler.coins} moedas.{' '}
-        {qa ? (
+        {qa || released ? (
           <>
-            <Link href="/journey/shop">Loja TEST</Link> ·{' '}
-            <Link href="/journey/equipment">Equipar itens próprios</Link>
+            <Link href="/journey/shop">{released ? 'Loja' : 'Loja TEST'}</Link>{' '}
+            · <Link href="/journey/equipment">Equipar itens próprios</Link>
           </>
         ) : (
           'Equipamentos adquiridos ficam em consulta; ações de equipar e Loja continuam bloqueadas.'
@@ -77,6 +78,7 @@ function CommunityChests({ onRefresh }: { onRefresh: () => void }) {
         online
         communityOnly
         qaShop={qa}
+        releaseShop={released}
         onCountChange={ignoreCount}
         onViewEquipment={onRefresh}
         onRefreshInventory={onRefresh}

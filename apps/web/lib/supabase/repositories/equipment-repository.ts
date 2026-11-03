@@ -1,7 +1,7 @@
 import type { EquipmentSlot } from '../../../features/journey/domain/traveler';
 import { getSupabaseBrowserClient } from '../client';
 import type { EquippedItemRow } from '../database.types';
-import { isShopTestPreview } from '../../release-scope';
+import { isShopTestPreview, isShopRelease } from '../../release-scope';
 
 export const equipmentRepository = {
   async getEquippedItems(travelerId: string): Promise<EquippedItemRow[]> {
@@ -37,13 +37,16 @@ async function setOwnedEquipment(
   itemId: string | null,
   expectedItemId: string | null,
 ) {
-  if (isShopTestPreview()) {
-    const { error } = await getSupabaseBrowserClient().rpc('equip_qa_shop', {
-      p_actor: travelerId,
-      p_slot: slot,
-      p_item_id: itemId,
-      p_expected_item_id: expectedItemId,
-    });
+  if (isShopTestPreview() || isShopRelease()) {
+    const { error } = await getSupabaseBrowserClient().rpc(
+      isShopRelease() ? 'equip_shop_item' : 'equip_qa_shop',
+      {
+        p_actor: travelerId,
+        p_slot: slot,
+        p_item_id: itemId,
+        p_expected_item_id: expectedItemId,
+      },
+    );
     if (error)
       throw Error(
         'Equipamento não confirmado. Atualize sua coleção e tente novamente.',

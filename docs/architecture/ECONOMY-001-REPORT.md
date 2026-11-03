@@ -1,5 +1,9 @@
 # ECONOMY-001 — recuperação por incrementos
 
+## 001C.2 — preparação PROD; preços pendentes
+
+03/11. PR31a31f0a8 confirmada, fechamento76b9e45 preservado. [Pacote/propostaD5](ECONOMY-001C2-PRODUCTION-PLAN.md): comum40, Espada35, Couraça65, Escudo115; valores TEST não promovidos por inferência. Migrations próprias PROD045257/045303 e incremental TEST045300 preparadas, não aplicadas. Sem perfis/orçamentoQA no pacote PROD;20legados não reconciliados preservados/bloqueados. Fronteira nova reconhece débitos legítimos na abertura comunitária e mantém suspensão privada de anomalias.14PG produtivos+2compatibilidadeTEST e7unitários novos PASS, sem repetir homologações extensas; build/tipos PASS, demais gates em andamento. Nenhum DDL/grant/merge/deploy PROD. DecisãoD5 e gates obrigatórios precedem ativação.
+
 ## 001C — entrega TEST concluída; publicação PROD pendente
 
 03/11/2026. **Loja existente, baús e equipamentos utilizáveis em TEST; PR31 preservada/draft, sem merge.** Candidato **a31f0a843dd93259bec076d5d1e48a5d086cb81c**, autoridade funcional3258e41. CI [push41578241247](https://github.com/CarlosJr30/rpgjovemcristao/actions/runs/41578241247) e [PR41578246465](https://github.com/CarlosJr30/rpgjovemcristao/actions/runs/41578246465) success/SHA exato: **1088unit PASS/74SKIP**, qualidade/PG/RSC/protocolo obrigatórios; publicação condicional SKIP, não PASS. Reutilizados26PG de baús;18PG direcionados da Loja,11unitários novos/14afetados e4do ajuste visual aprovados, já incluídos no CI. Nenhuma suíte geral local repetida.
