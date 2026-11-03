@@ -215,6 +215,9 @@ for (const [engine, launcher] of [
           await page
             .getByRole('heading', { name: 'Local WebKit', exact: true })
             .waitFor();
+          // The avatar title renders before its document finishes Auth checks.
+          // Finish this load before the next deliberate hard navigation.
+          await page.waitForLoadState('networkidle');
           run.checks.push('avatar');
           await navigate('/journey/guild', 'Guilda');
           await page
