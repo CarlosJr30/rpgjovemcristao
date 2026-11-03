@@ -1,10 +1,10 @@
 # ECONOMY-001C.2 — pacote produtivo próprio
 
-03/11/2026. **Preparado, sem DDL/merge/deploy PROD. D5 pendente.** Pedido1731b83f autoriza a preparação e publicação após os gates e a aprovação explícita das decisões econômicas faltantes. PR31a31f0a8 confirmada; fechamento76b9e45 incorporado por fast-forward, sem perder commits.
+03/11/2026. **Executado e publicado; D5 aprovada explicitamente para os quatro produtos/preços.** Migrations PROD20261103084418/084501; merge18ea40c, CImerge41606481815success, deploymentdpl_2RhvadgSwK98F7bJBThyJTH9VYopREADY/PROD/alias oficial. Recuperação não necessária. O fechamento comprovado está no relatório econômico; o planejamento abaixo preserva o escopo autorizado, sem perder commits anteriores.
 
-## D5 — única decisão econômica proposta
+## D5 — decisão econômica aprovada
 
-| Produto existente | ID canônico | Preço proposto PROD |
+| Produto existente | ID canônico | Preço aprovado PROD |
 | --- | --- | ---: |
 | Baú comum |common|40moedas|
 | Espada do Caminho |traveler-sword-common|35moedas|
@@ -26,4 +26,4 @@ Os20avatares PROD não reconciliados continuam bloqueados para operações depen
 
 Recuperação vazia própria, na ordem Loja→baús, recusa histórico emitido. Contenção revoga apenas novas escritas e mantém vínculos, recibos, saldo, inventário e a leitura do saldo canônico. Propostas em `packages/database/proposals/economy-001c-*-production.sql` e `economy-001c-shop-release-*-prod.sql`; execução remota somente se necessária.
 
-Validação adicional mínima:14PG da fronteira produtiva,2da compatibilidade TEST/QA e7unitários novos PASS; provas anteriores reutilizadas. Build/tipos/lint PASS; variável sem uso no coletor corrigida sem desativar regra. CI exato/Preview final/preflight autenticado/ativação PROD ainda pendentes. Nenhuma nova compra, abertura ou batalha PROD será usada para fabricar prova. Não DEPLOY_COMPLETE.
+Validação adicional mínima:14PG da fronteira produtiva,2da compatibilidade TEST/QA e7unitários novos PASS; provas anteriores reutilizadas. Build/tipos/lint PASS; variável sem uso no coletor corrigida sem desativar regra. CI exato/Preview final/preflight autenticado/ativação PROD concluídos, retida/oficial/6HTTP e hashes finais aprovados. Nenhuma compra, abertura ou batalha PROD fabricada. DEPLOY_COMPLETE restrito ao catálogo e autoridades descritos;20legados não reconciliados preservados e bloqueados.
