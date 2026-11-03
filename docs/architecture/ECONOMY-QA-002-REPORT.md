@@ -1,5 +1,13 @@
 # ECONOMY-QA-002 — Teste Chat A nível50
 
+## Retomada de03/11 — precondição do coletor corrigida; TEST continua bloqueado
+
+Headbd5a651 confirmado na PR32draft; checkpoint locald49678e incorporado por fast-forward, sem perder commits ou alterações. Investigadas somente WebKit/fixture-only/goto e WebKit/continue/goto, três repetições por célula. Trace mostrou `/auth/v1/user` cancelada10–32ms após sair do documento inicial para `/journey/hero`; nesse intervalo não houve novo pedido Auth no servidor local. Respostas observadas mantinham200/ACAO correto. Contraste dirigido: original4/6com erros → conclusão da carga inicial6/6sem erros → restauração3/6com erros. A primeira reprodução sem telemetria também falhou3/6 e permanece preservada.
+
+Correção restrita ao coletor: aguardar `networkidle` após o título inicial, antes de começar as navegações sob ensaio. Nenhum filtro, limite, assertion, contrato Auth/RLS/CORS ou runtime modificado; não se declara corrigido um comportamento geral de cancelamento do navegador. Evidências em `build/rpg-dev-005/economy-qa-002-{focused,trace,ready,restore}-app-regression.json`. Novo CI exato pendente;14PG/14unit novos e18afetados anteriores reutilizados, sem suíte geral local repetida.
+
+TEST: autorização antiga do QA Loja cobre outro mecanismo, com gravação na carteira canônica TEST; ela não autoriza nem financia esta nova carteira privada. A designação específica de QA Multiguild TEST foi recusada e o novo pedido não a concede. **Menor ação humana necessária:** autorizar uma única ativação privada do mecanismo já preparado para o avatar QA TEST existente, exclusivamente para um ciclo de compra/abertura/equipamento e revogação, sem nova conta/avatar. O orçamento PROD10.000 já está aprovado e não será solicitado novamente. Sem essa designação TEST compatível, o gate real e a ativação PROD permanecem BLOCKED. Nenhuma migration remota, concessão ou deploy efetuado nesta retomada.
+
 03/11/2026. **Implementação preparada na [PR32 draft](https://github.com/CarlosJr30/rpgjovemcristao/pull/32); ativação PROD BLOCKED.** Candidato **bd5a65197ad102bd1134e19638236a625443c94f**. Proprietário aprovou o mecanismo:10.000 moedas QA únicas/sete dias, carteira, itens, baús e recibos privados; equipamentos sobrepostos somente em treino. Nenhuma concessão, migration remota, claim de starter, nova conta/avatar ou alteração PROD executada.
 
 Identidade normal e vínculo foram confirmados pelo Auth/servidor: fingerprint51f8f162f5bf, Teste Chat A ativo nível50, XP245016 e bloqueio legado mantidos. Baseline privado dos atributos/equipamentos/inventário/pilhas/recibos preservado. A leitura encontrou zero cartas homologadas/zero starter; aquisição legítima continua manual e separada, nunca disparada pelo treino.

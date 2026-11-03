@@ -206,6 +206,10 @@ for (const [engine, launcher] of [
               exact: true,
             })
             .waitFor();
+          // The welcome heading precedes the new document's Auth bootstrap.
+          // Complete that initial transition before exercising hard departures.
+          // Subsequent navigation, error monitors and their assertions stay exact.
+          await page.waitForLoadState('networkidle');
           run.checks.push('login');
           await navigate('/journey/hero', 'Meu avatar');
           await page
