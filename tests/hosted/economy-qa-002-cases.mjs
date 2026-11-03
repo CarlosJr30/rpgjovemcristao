@@ -43,11 +43,18 @@ export async function run({
   const compiled = read(
     'supabase/migrations/20261103093714_economy_qa_002_isolated_training_test.sql',
   );
-  assert(compiled.includes('TEST-NO-REAL-DESIGNATION'));
+  const designation = JSON.parse(
+    read('packages/database/proposals/economy-qa-002-test-designation.json'),
+  );
+  assert(compiled.includes(designation.approval));
+  assert(
+    compiled.includes(designation.owner) &&
+      compiled.includes(designation.actor),
+  );
   // Technical identity substitution in a discarded loopback database only.
   const source = compiled.replace(
-    /00000000-0000-4000-8000-00000000000[23]/g,
-    (id) => (id.endsWith('2') ? uid(3) : tid(3)),
+    new RegExp(designation.owner + '|' + designation.actor, 'g'),
+    (id) => (id === designation.owner ? uid(3) : tid(3)),
   );
   const tables = [
     'travelers',

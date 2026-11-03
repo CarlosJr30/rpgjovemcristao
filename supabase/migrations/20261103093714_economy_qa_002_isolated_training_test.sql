@@ -1,4 +1,4 @@
--- TEST ONLY. No real account or budget designated.
+-- TEST ONLY. Single QA identity designated by explicit owner approval ff2814e4; no automatic activation.
 -- Isolated training persistence. No writes to canonical player tables.
 DO $$BEGIN
  IF current_setting('economyqa002.target_project',true) IS DISTINCT FROM 'wkdvdzfkbwvhyjmamrsg'
@@ -15,7 +15,7 @@ CREATE TABLE economy_qa_private.policy (
  singleton boolean PRIMARY KEY DEFAULT true CHECK(singleton),
  account_id uuid NOT NULL,traveler_id uuid NOT NULL,approval_ref text NOT NULL
 );
-INSERT INTO economy_qa_private.policy VALUES(true,'00000000-0000-4000-8000-000000000002','00000000-0000-4000-8000-000000000003','ECONOMY-QA-002:TEST-NO-REAL-DESIGNATION:OWNER-APPROVED');
+INSERT INTO economy_qa_private.policy VALUES(true,'ebed9022-687c-4605-9e7a-edd88a572da4','183f9286-5568-48c9-bee2-e63af26300ef','ECONOMY-QA-002:TEST-OWNER-ff2814e4-ONE-CYCLE:OWNER-APPROVED');
 CREATE TABLE economy_qa_private.profiles (
  account_id uuid PRIMARY KEY REFERENCES auth.users(id),
  traveler_id uuid UNIQUE NOT NULL REFERENCES public.travelers(id),

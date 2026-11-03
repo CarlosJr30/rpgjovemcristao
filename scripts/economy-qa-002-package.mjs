@@ -1,15 +1,21 @@
 import fs from 'node:fs';
-// No production package before real TEST homologation. TEST designates no real user.
+// One owner-approved TEST designation. No production activation in this task.
+const designation = JSON.parse(
+  fs.readFileSync(
+    'packages/database/proposals/economy-qa-002-test-designation.json',
+    'utf8',
+  ),
+);
 const replace = (s) =>
   s
     .replaceAll('__PROJECT__', 'wkdvdzfkbwvhyjmamrsg')
     .replaceAll('__SCOPE__', 'hero-equipment-006')
-    .replaceAll('__OWNER__', '00000000-0000-4000-8000-000000000002')
-    .replaceAll('__ACTOR__', '00000000-0000-4000-8000-000000000003')
-    .replaceAll('__ENV__', 'TEST-NO-REAL-DESIGNATION');
+    .replaceAll('__OWNER__', designation.owner)
+    .replaceAll('__ACTOR__', designation.actor)
+    .replaceAll('__ENV__', designation.approval);
 fs.writeFileSync(
   'supabase/migrations/20261103093714_economy_qa_002_isolated_training_test.sql',
-  '-- TEST ONLY. No real account or budget designated.\n' +
+  '-- TEST ONLY. Single QA identity designated by explicit owner approval ff2814e4; no automatic activation.\n' +
     replace(
       fs.readFileSync(
         'packages/database/proposals/economy-qa-002.sql.in',
