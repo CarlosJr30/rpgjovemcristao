@@ -1,0 +1,309 @@
+{
+  "version": 1,
+  "status": "TEST_VALIDATED_PROD_BLOCKED",
+  "date": "2026-11-03",
+  "pr": 31,
+  "sha": "a31f0a843dd93259bec076d5d1e48a5d086cb81c",
+  "authorityRuntime": "3258e41af081a3b0e750ad9b8509c722acf0c8b0",
+  "finalChange": "Only specificity of existing equipment card cream surface",
+  "ci": {
+    "sha": "a31f0a843dd93259bec076d5d1e48a5d086cb81c",
+    "pushSuccess": true,
+    "prSuccess": true,
+    "runs": [
+      {
+        "id": 41578246465,
+        "sha": "a31f0a843dd93259bec076d5d1e48a5d086cb81c",
+        "event": "pull_request",
+        "status": "completed",
+        "conclusion": "success",
+        "attempt": 1
+      },
+      {
+        "id": 41578241247,
+        "sha": "a31f0a843dd93259bec076d5d1e48a5d086cb81c",
+        "event": "push",
+        "status": "completed",
+        "conclusion": "success",
+        "attempt": 1
+      }
+    ]
+  },
+  "preview": {
+    "id": "dpl_J1HSAGKcYGcvVeQK6xPgZ24n43bm",
+    "url": "rpgjovemcristao-42t056han-carlos-junior-s-projects.vercel.app",
+    "state": "READY",
+    "target": "preview",
+    "sha": "a31f0a843dd93259bec076d5d1e48a5d086cb81c",
+    "backend": "TEST"
+  },
+  "migration": {
+    "scope": "TEST only",
+    "applied": "20261103041526",
+    "file": "20261103034651_economy_001c_shop_qa_test.sql",
+    "sha256": "60ed329f33a19643fbd1009dbca20a1d00aa15940a1db88e7e3efc7777c40390",
+    "communityApplied": "20261102144048",
+    "communityFile": "20261102135323_economy_001c_community_chests_test.sql",
+    "tables": 85,
+    "functions": 237,
+    "migrations": 46,
+    "oldFunctionsACLsExact": 225,
+    "policiesPreserved": 39
+  },
+  "tests": {
+    "localShopPostgres": 18,
+    "previousCommunityPostgres": 26,
+    "shopClientUnit": 11,
+    "readOnlyShopWebKit320": true,
+    "affectedOpeningEquipmentUnit": 14,
+    "visualEquipmentUnit": 4,
+    "ciUnitPassed": 1088,
+    "ciUnitSkipped": 74,
+    "conditionalPublish": "SKIP, not PASS",
+    "previousEvidenceReused": true,
+    "repeatFullLocalSuite": false
+  },
+  "community": {
+    "distinctNormalAuthIdentities": 2,
+    "normalActorSelection": true,
+    "activitiesCreated": 3,
+    "grants": 3,
+    "openings": 2,
+    "coins": 95,
+    "equipment": "Existing rare helmet",
+    "grantConcurrentReplays": 2,
+    "openingReplays": 4,
+    "revokedReviewDeniedWithSameJWT": 403,
+    "suspendedClosedChest": 1,
+    "openingAfterRevocationIssued": false,
+    "readOnlyWebKit320Passed": true
+  },
+  "shop": {
+    "existingConfirmedQAAccount": true,
+    "normalLogin": true,
+    "newAccounts": 0,
+    "newAvatar": "QA Loja",
+    "normalAvatarCreation": true,
+    "normalStarterRequested": true,
+    "artificialCards": false,
+    "budget": {
+      "amount": 255,
+      "receipts": 1,
+      "privateAudit": true,
+      "scope": "TEST only"
+    },
+    "uiPurchases": 4,
+    "prices": {
+      "commonChest": 40,
+      "sword": 35,
+      "armor": 65,
+      "shield": 115
+    },
+    "spent": 255,
+    "purchasedChestOpenings": 1,
+    "openingCoins": 25,
+    "purchaseReplays": 2,
+    "openingReplays": 2,
+    "equippedSlots": 3,
+    "baseAttributes": {
+      "life": 1,
+      "strength": 1,
+      "defense": 1,
+      "wisdom": 1
+    },
+    "derivedArenaAttributes": {
+      "life": 3,
+      "strength": 3,
+      "defense": 4,
+      "wisdom": 1
+    },
+    "level": 1,
+    "xp": 0,
+    "finalCoins": 25,
+    "sevenOwnedCards": true,
+    "arenaStarted": true,
+    "cardUsed": true,
+    "officialCombatRewards": false,
+    "negativeChecks": [
+      {
+        "name": "foreign",
+        "status": 403,
+        "code": "42501"
+      },
+      {
+        "name": "card",
+        "status": 400,
+        "code": "22023"
+      },
+      {
+        "name": "unapproved-chest",
+        "status": 400,
+        "code": "22023"
+      },
+      {
+        "name": "insufficient",
+        "status": 400,
+        "code": "P0001"
+      },
+      {
+        "name": "anonymous",
+        "status": 401,
+        "code": "42501"
+      }
+    ]
+  },
+  "preservation": {
+    "communityOriginalDatasets": 80,
+    "communityStrictEqual": 67,
+    "communityOriginalProjectedEqual": 79,
+    "communityWalletDelta": "95 authorized coins and normal wallet timestamp; full wallet hash not declared equal",
+    "shopOriginalDatasets": 83,
+    "shopOriginalProjectedEqual": 83,
+    "projection": "Excludes only rows of newly authorized QA Loja avatar, without deleting data or modifying comparison values",
+    "originalProductionDatasetsExact": 73,
+    "productionDeployment": "dpl_8iGErYZYufcMGx2KAJ1UdTdUqQ1p",
+    "productionSha": "86ae074656c8fac8da3ae18c9636114906edcf0a",
+    "productionChanged": false
+  },
+  "security": {
+    "publicWrappers": "INVOKER",
+    "privateTables": "RLS deny-all; no app SELECT/DML",
+    "budgetGrant": "Owner-only INVOKER; no application EXECUTE",
+    "authRlsRelaxed": false,
+    "genericEconomicAuthorityOpened": false,
+    "rollbackContainmentValidated": true,
+    "legacyDefinerWarnings": 12,
+    "legacyPasswordWarnings": 1,
+    "intentionalPrivateDenyAllInfo": 61,
+    "review": "Author, not independent"
+  },
+  "limits": [
+    "Mobile Chromium/WebKit and touch emulated, no physical device",
+    "TEST positives do not constitute productive purchase approval",
+    "Card sales and other chest categories remain disabled without approved tables",
+    "Interrupted attempts preserved; intentional HTTP denial errors not hidden",
+    "No production migration, merge or deployment; no paid billing"
+  ],
+  "artifacts": [
+    {
+      "path": "build/economy-001c/community-preview.json",
+      "private": true,
+      "sha256": "3887b196792d257be2a514f42bac11b3be91c6a0a0cba3ff012355da3d875ae2"
+    },
+    {
+      "path": "build/economy-001c/hosted-progress.json",
+      "private": true,
+      "sha256": "31e54302d919925c59a5596bc8fa1941756ab8a4ea422936c2a78fdcd7e7e49e"
+    },
+    {
+      "path": "build/economy-001c/opening-monitor.json",
+      "private": true,
+      "sha256": "d7a62eb1e4548969529ca4ab8ba4ff22e3219959c164044d561a36e9a96b6035"
+    },
+    {
+      "path": "build/economy-001c/after-hosted-data.json",
+      "private": true,
+      "sha256": "559cbf90495ed1047499f2e6a1287a62fffaff83f8405d02f15392126e44186d"
+    },
+    {
+      "path": "build/economy-001c/after-hosted-projection.json",
+      "private": true,
+      "sha256": "1139a462c2f67aa4b5ec5c56f14fea7e0cc01604b32292bbe5197bb6027b3523"
+    },
+    {
+      "path": "build/economy-001c/readonly-webkit.json",
+      "private": true,
+      "sha256": "1875efb66a814eb8f50aedc7d3e604291a2fbfad6515267e6127ef77eb04e998"
+    },
+    {
+      "path": "build/economy-001c/shop-pg/postgres-results.json",
+      "private": true,
+      "sha256": "6485540786c4bb2a82b160093229be209dd6b110a2c9d0abf84bd53c023f437a"
+    },
+    {
+      "path": "build/economy-001c/shop-ci-approved.json",
+      "private": true,
+      "sha256": "50ef07daa708f816aa4d5fcf766e15a2fdbb116939980c9f42eec9605577cd80"
+    },
+    {
+      "path": "build/economy-001c/shop-before-avatar-data.json",
+      "private": true,
+      "sha256": "f8868420f69f2c56672163e7b4feb9ef45831f252bbc77ef25e11abb4dede9e9"
+    },
+    {
+      "path": "build/economy-001c/shop-before-ddl-data.json",
+      "private": true,
+      "sha256": "da89ce1fa971d8aaca16ab51ab862356e626f6c37d0a498cc0c3209bdadbf675"
+    },
+    {
+      "path": "build/economy-001c/shop-after-ddl.json",
+      "private": true,
+      "sha256": "16d5ee38d9f9bcb16f1b97cb9dd4f9ec69e778f4a3633d15586e457bb43f158e"
+    },
+    {
+      "path": "build/economy-001c/shop-full-structure.json",
+      "private": true,
+      "sha256": "fb838eacda1de805b1def2fa721ac2da22d35cdf53fc2e8663d5fecd1897bdc1"
+    },
+    {
+      "path": "build/economy-001c/shop-hosted-plan.private.json",
+      "private": true,
+      "sha256": "2c72012f06eca5b59b8e9e0e791c79042113d0d4ca709fd393be34de5f6bc8da"
+    },
+    {
+      "path": "build/economy-001c/shop-purchase-monitor.json",
+      "private": true,
+      "sha256": "4a297478ffbdbb7bdebefcae15734162cc09ae152cb7dce2795ec0e276ad8691"
+    },
+    {
+      "path": "build/economy-001c/shop-open-equip-monitor.json",
+      "private": true,
+      "sha256": "d269a11be92c80e606c2bc90d2362471998f9d7a092a456f3674078f5301dd7c"
+    },
+    {
+      "path": "build/economy-001c/shop-final-original-data-projection.json",
+      "private": true,
+      "sha256": "a8a3debe5d1d39a68bae7d9726bdff7c22c95d84a42231b3845b41a77004479e"
+    },
+    {
+      "path": "build/economy-001c/shop-final-visual.json",
+      "private": true,
+      "sha256": "01799b44e4105dfb3fa5a7e38f6b0c6104a5cdbf782db22e4596813ead6bf56b"
+    },
+    {
+      "path": "build/economy-001c/shop-final-webkit.json",
+      "private": true,
+      "sha256": "673e21cf797c10e7ad8a895409249d0fb4b3ce80e4c4c7e5d89d2d118c480bbc"
+    },
+    {
+      "path": "build/economy-001c/shop-advisors.json",
+      "private": true,
+      "sha256": "1be1e547f255113ed4a4d5a54e8c9b3e44b93d526140a67ffda9ea7a1e4f9df5"
+    },
+    {
+      "path": "build/economy-001c/production-preserved-20261103.json",
+      "private": true,
+      "sha256": "d63e873a4de2d0bae853a40d8aade764bb178102f9c7cbd42f672b3c02eee7a3"
+    },
+    {
+      "path": "build/economy-001c/production-final-status.json",
+      "private": true,
+      "sha256": "9a92f4300fac71f78ad3da56b9e3cf389219b177ffb39d955780c2c67c3781bb"
+    },
+    {
+      "path": "build/economy-001c/collector-failures-20261103.json",
+      "private": true,
+      "sha256": "3a04b0c7f527a4392508288b326fa7c8ac390a54b0b464501120c9112b9d86dd"
+    },
+    {
+      "path": "build/economy-001c/ci-approved.json",
+      "private": true,
+      "sha256": "2b98a1aaf627536488f60069c35581421e7f9c2e11d70426f170d6032bc25771"
+    },
+    {
+      "path": "build/economy-001c/preview.json",
+      "private": true,
+      "sha256": "0022f03fc64851440b2a6c2ec9b38beaac83309630a58a4b30cfca30d5d4dc00"
+    }
+  ]
+}
