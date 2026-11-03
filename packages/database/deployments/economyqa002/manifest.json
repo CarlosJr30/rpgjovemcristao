@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "phase": "PREPARED_NOT_APPLIED",
+  "file": "supabase/migrations/20261103145109_economy_qa_002_isolated_training_production.sql",
+  "project": "wspafhlbtlpabypzymjo",
+  "scope": "guild-ebd-001",
+  "source": "packages/database/proposals/economy-qa-002.sql.in",
+  "sha256": "3167528dc78b13c142890d5d7f21244c4cb76bd11b86ea7089be4fcc3e30cb76",
+  "authorityBodiesUnchanged": true,
+  "testIdentifiersAbsent": true,
+  "activationStatementsAbsent": true,
+  "profilesAndReceiptsInitiallyEmpty": true,
+  "canonicalWrites": false,
+  "authorization": "prior mechanism and budget approved; current execution limited to TEST",
+  "remaining": [
+    "specific productive execution authorization",
+    "isolated productive scope/recovery checks",
+    "exact package CI",
+    "normal approved PROD identity preflight and canonical snapshot",
+    "own migration only",
+    "Git merge and retained READY PROD backend",
+    "retained check, promotion, official alias and preservation"
+  ]
+}

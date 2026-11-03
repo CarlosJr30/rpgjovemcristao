@@ -769,6 +769,10 @@ Contratos em tasks/completed/. Histórico abaixo preservado e supersedido quanto
 
 # Estado atual
 
+## 2026-11-03 — ECONOMY-QA-002 gate TEST único concluído
+
+Nova autorizaçãoff2814e4 supersede recusaTEST antiga. QA Multiguild TEST existente, login normal confirmado; migrationTEST20261103144407/arquivo093714,90tabelas259rotinas48migrations. Uma carteira privada10.000/168h→comum40→abertura25→Espada35→equiparForça1→3 somente treino. Revogada,403/42501/sem novo recibo/modoUIausente; cinco recibos/perfil/item preservados,9950QA indisponíveis. Sete tabelas canônicas globais exatas;87tabelas250rotinas/ACLs39policies/defaults anteriores intactos. CI87fc281 push41654799698/PR41654811834success/tentativa1, publicaçãoSKIP. Mesmos14PG envelope designadoPASS; sem suíte geral local. d16CI RSCFAIL, contraste somenteWebKitdelay-prefetch/goto1/3erro→hero conclui carga3/3sem erro; coletor apenas, sem filtro/AuthRLS/runtime. Ciclo real sem erros antes de negativaintencional; timeout coletor mobile painelfechado antesdeequipar retomado só comando restante. PacotePROD145109 separado/preparado, nenhuma ativação/dadoTEST; guardas/recuperação/CI produtivos pendentes. PR32draft/semmerge; execuçãoPROD requer autorização específica neste próximo escopo, orçamentoPROD jáaprovado não pedirdenovo. PROD18ea40c/21migrations/schemaQAausente intacta. Relatório/evidênciaTESTACTIVATION próprios; não refazer módulos/claimstarter/combate ou outro ciclo.
+
 ## REWORK-1 — estado atual: PILOT_COMPLETE
 
 Dois pilotos HD_READY passaram Geometry Lock alpha ≥128 (critério confirmado pelo usuário); alpha >0 é diagnóstico e seus FAIL permanecem registrados. Artes nativas1024×1536 copiadas sem transformação final. Aprovação visual humana dos DOIS pilotos: HUMAN_VISUAL_APPROVED por Carlos Faustino, registrada em 2026-10-07T12:46:52.119Z. Identidade, pose, silhueta, proporções, linha dos pés, enquadramento e aparência geral do legado aprovados explicitamente. Nenhum outro52gerado, nunca DONE nesta fase.
