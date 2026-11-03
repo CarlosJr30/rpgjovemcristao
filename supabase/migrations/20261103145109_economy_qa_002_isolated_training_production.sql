@@ -1,4 +1,4 @@
--- PRODUCTION CANDIDATE ONLY. Not authorized for application by the current TEST task.
+-- PRODUCTION package. Owner 0fa04b94 approves restricted installation after gates; activation is separate.
 -- Empty private persistence; one previously approved PROD designation, no activation or TEST data.
 -- Isolated training persistence. No writes to canonical player tables.
 DO $$BEGIN
@@ -6,7 +6,7 @@ DO $$BEGIN
  OR public.release_scope()<>'guild-ebd-001'
  OR to_regprocedure('economy_private.community_xp_actor(uuid)') IS NULL
  OR to_regprocedure('public.get_shop(uuid)') IS NULL
- OR md5(pg_get_functiondef('economy_private.open_chest(uuid,text,uuid)'::regprocedure))<>'63af7f1b3138b9056c91bf9242fda193'
+ OR md5(replace(pg_get_functiondef('economy_private.open_chest(uuid,text,uuid)'::regprocedure),E'\r\n',E'\n'))<>'63af7f1b3138b9056c91bf9242fda193'
  THEN RAISE EXCEPTION 'Reviewed training environment required' USING ERRCODE='42501'; END IF;
 END $$;
 CREATE SCHEMA economy_qa_private;

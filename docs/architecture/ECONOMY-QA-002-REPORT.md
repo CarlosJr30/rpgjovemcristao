@@ -1,5 +1,11 @@
 # ECONOMY-QA-002 — Teste Chat A nível50
 
+## 03/11 — ativação PROD autorizada; gates em execução
+
+Autorização expressa `0fa04b94`: publicar e ativar somente Teste Chat A existente, carteira privada10.000QA/168h, sem economia oficial. Auth normal e servidor confirmaram UID/avatar aprovados, ativo50/XP245016. Existem dois homônimos da mesma conta; somente o ID anteriormente aprovado corresponde à designação, sem usar o avatar antigo. Nenhuma conta/avatar novo.
+
+**Seis checks críticos PROD isolados PASS**, sem repetir o ciclo TEST ou os14casos anteriores: escopo/projeto, hash legado integral LF/CRLF, instalação vazia/ACLs, recuperação vazia, recusa com dados e contenção preservadora. Detectada antes de DDL uma incompatibilidade de representação: hash bruto legadoPROD b272... e normalizado63af... aprovado. Ajuste apenas na guarda do pacote próprio145109 para normalizar CRLF/LF; funções legadas/autoridade/runtime intactos. Novo CI exato obrigatório. Snapshot78conjuntos/224rotinas/39policies anterior capturado; PROD21migrations/schemaQAausente, sem ativação neste checkpoint. Histórico TEST abaixo preservado.
+
 ## 03/11 — ciclo privado único TEST concluído e revogado
 
 **Gate real TEST concluído; PROD não ativada.** Nova autorização `ff2814e4` substituiu a recusa TEST anterior. Utilizado somente **QA Multiguild TEST**, existente, por login normal/conta confirmada/avatar ativo conferidos no servidor. Nenhuma conta/avatar criado. Preview `axj9rfwea`, `dpl_7nttoh52oXpDVGV2d39zEz9Wjb69`, READY/TEST/runtime `87fc281`. CI [push41654799698](https://github.com/CarlosJr30/rpgjovemcristao/actions/runs/41654799698) e [PR41654811834](https://github.com/CarlosJr30/rpgjovemcristao/actions/runs/41654811834) success/SHA exato/tentativa1; publicação condicional SKIP.
