@@ -1,3 +1,4 @@
+import { trainingNamespace } from '../../lib/training-qa/store';
 import {
   validateArenaDeck,
   type ArenaCard,
@@ -27,7 +28,8 @@ export type TowerProgress = {
 };
 const key = (owner: string, traveler: string) =>
   'rpg-jovem-cristao:arena-tower:v1:' +
-  encodeURIComponent(JSON.stringify([owner, traveler]));
+  encodeURIComponent(JSON.stringify([owner, traveler])) +
+  trainingNamespace(traveler);
 const fail = () =>
   new Error(
     'O checkpoint local da Torre não pôde ser confirmado. Os dados foram preservados para revisão.',

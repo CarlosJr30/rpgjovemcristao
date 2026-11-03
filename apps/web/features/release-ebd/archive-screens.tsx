@@ -13,7 +13,13 @@ import styles from '../journey/journey.module.css';
 import book from '../journey/components/diary-experience.module.css';
 import cardsCss from '../guild-missions/panel.module.css';
 import archiveCss from './archive.module.css';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useSyncExternalStore } from 'react';
+import { useTrainingTraveler } from '../training-qa/context';
+import {
+  trainingSnapshot,
+  subscribeTraining,
+  emptyTrainingSnapshot,
+} from '../../lib/training-qa/store';
 import Link from 'next/link';
 import { isShopTestPreview, isShopRelease } from '../../lib/release-scope';
 import { readQAShop } from '../../lib/qa-shop/client';
@@ -87,17 +93,47 @@ function CommunityChests({ onRefresh }: { onRefresh: () => void }) {
   );
 }
 export function BackpackContents({
-  snapshot,
+  snapshot: canonicalSnapshot,
   cards,
 }: {
   snapshot: ArchiveSnapshot;
   cards: ArchiveCard[];
 }) {
+  const training = useTrainingTraveler(),
+    binding = useSyncExternalStore(
+      subscribeTraining,
+      trainingSnapshot,
+      emptyTrainingSnapshot,
+    );
+  const snapshot: ArchiveSnapshot =
+    training && binding?.selected
+      ? {
+          ...canonicalSnapshot,
+          traveler: training,
+          inventory: [
+            ...canonicalSnapshot.inventory.filter((row) => row.card_receipt_id),
+            ...Object.entries(binding.state.items).map(
+              ([item_id, quantity]) => ({
+                id: 'training002:' + item_id,
+                traveler_id: training.id,
+                item_id,
+                quantity,
+                acquired_at: binding.state.expiresAt,
+                metadata: { qaOnly: true },
+              }),
+            ),
+          ],
+        }
+      : canonicalSnapshot;
   return (
     <section className={styles.diarySection}>
       <p className={styles.eyebrow}>INVENTÁRIO GERAL</p>
       <h1>Mochila</h1>
-      <p className={styles.phaseLead}>Seus itens guardados, para consulta.</p>
+      <p className={styles.phaseLead}>
+        {training
+          ? 'Itens QA separados e cartas legítimas. Inventário oficial preservado.'
+          : 'Seus itens guardados, para consulta.'}
+      </p>
       {!snapshot.inventory.length && <p>Nenhum item guardado neste avatar.</p>}
       <div className={`${styles.itemShelf} ${archiveCss.backpackGrid}`}>
         {snapshot.inventory

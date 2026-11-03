@@ -8,6 +8,12 @@ import {
 import { isShopTestPreview, isShopRelease } from '../release-scope';
 import { CommunityOpeningSuspended } from '../community-chests/errors';
 import { uuid } from '../../features/chest-reveal/receipt';
+import {
+  activeTraining,
+  commandTraining,
+  trainingHistory,
+} from '../training-qa/client';
+import { trainingNamespace } from '../training-qa/store';
 export type ShopState = {
   enabled: boolean;
   coins: number;
@@ -32,6 +38,13 @@ function guard(actor: string) {
 }
 export async function readQAShop(actor: string): Promise<ShopState> {
   const verify = guard(actor);
+  const training = activeTraining(actor);
+  if (training)
+    return {
+      enabled: true,
+      coins: training.state.coins,
+      balanceVerified: true,
+    };
   const { data, error } = await getSupabaseBrowserClient().rpc(
     isShopRelease() ? 'get_shop' : 'get_qa_shop',
     {
@@ -71,6 +84,10 @@ export async function readQAShop(actor: string): Promise<ShopState> {
 }
 export async function readShopPurchases(actor: string) {
   const verify = guard(actor);
+  if (activeTraining(actor))
+    return (await trainingHistory(actor)).filter(
+      (r) => r.operation_type !== 'open',
+    );
   if (!isShopRelease()) return [];
   const { data, error } = await getSupabaseBrowserClient()
     .from('chest_operations')
@@ -89,7 +106,7 @@ export async function readShopPurchases(actor: string) {
 }
 type Intent = { kind: 'chest' | 'equipment'; offer: string; id: string };
 const key = (owner: string, actor: string) =>
-  `rpg:${isShopRelease() ? 'shop' : 'qa-shop'}-purchase:v1:${owner}:${actor}`;
+  `rpg:${isShopRelease() ? 'shop' : 'qa-shop'}-purchase:v1:${owner}:${actor}${trainingNamespace(actor)}`;
 export function purchaseIntent(
   owner: string,
   actor: string,
@@ -128,15 +145,26 @@ export async function purchaseQAShop(
         );
       verify();
       const intent = purchaseIntent(owner, actor, kind, offer);
-      const { data, error } = await getSupabaseBrowserClient().rpc(
-        isShopRelease() ? 'purchase_shop' : 'purchase_qa_shop',
-        {
-          p_actor: actor,
-          p_kind: kind,
-          p_offer: offer,
-          p_operation_id: intent.id,
-        },
-      );
+      const training = activeTraining(actor);
+      const { data, error } = training
+        ? {
+            data: await commandTraining(
+              actor,
+              'purchase',
+              { kind, offer },
+              intent.id,
+            ),
+            error: null,
+          }
+        : await getSupabaseBrowserClient().rpc(
+            isShopRelease() ? 'purchase_shop' : 'purchase_qa_shop',
+            {
+              p_actor: actor,
+              p_kind: kind,
+              p_offer: offer,
+              p_operation_id: intent.id,
+            },
+          );
       verify();
       if (error)
         throw Error(
@@ -162,7 +190,7 @@ export async function purchaseQAShop(
         typeof data !== 'object' ||
         Array.isArray(data) ||
         data.version !== 1 ||
-        data.qaOnly !== !isShopRelease() ||
+        data.qaOnly !== (!!training || !isShopRelease()) ||
         !uuid(data.receiptId) ||
         data.kind !== kind ||
         data.offer !== offer
@@ -213,6 +241,10 @@ export async function openShopChest(
 ) {
   const verify = guard(actor);
   if (!isShopRelease()) throw Error('Loja ainda indisponível.');
+  if (activeTraining(actor)) {
+    await commandTraining(actor, 'open', { type }, operation);
+    return;
+  }
   const { data, error } = await getSupabaseBrowserClient().rpc(
     'open_shop_chest',
     { p_actor: actor, p_chest_type: type, p_operation_id: operation },

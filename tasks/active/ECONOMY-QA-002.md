@@ -1,6 +1,9 @@
 # ECONOMY-QA-002 — treino no Teste Chat A existente
 
-STATUS: BLOCKED — proposta entregue; execução econômica aguarda aprovação específica.
+STATUS: ACTIVE — mecanismo aprovado explicitamente pelo proprietário em03/11/2026.
+APPROVAL: Resposta à pergunta5149c13b: “Aprovar mecanismo proposto”. Autoriza implementação e ativação privada após gates:10.000QA únicos/sete dias para o Teste Chat A PROD existente, carteira/itens/baús/recibos separados e equipamentos sobrepostos apenas em treino. Nenhuma reconciliação canônica autorizada.
+RUNTIME_SCOPE: apps/web integração mínima das telas/treino existentes; packages/database/proposals e migrations próprias; testes adicionais diretamente afetados e CI obrigatório. Sem nova conta/avatar, alteração de jogadores canônicos, transporte da fonte QA TEST antiga ou integração de outras PRs. Perfis Backend/Frontend/Database/QA/Security/DevOps assumidos pelo autor nos limites aprovados. O registro anterior abaixo descreve a proposta e não revoga a aprovação atual.
+TEST_DECISION: Proprietário recusou designação do QA Multiguild TEST na pergunta6034bb56: “Manter somente Teste Chat A PROD”. Nenhum orçamento/perfil real TEST será ativado. A migration TEST preparada designa somente IDs sintéticos inexistentes, sem criar conta/avatar; execução remota não necessária nesta condição. Fixtures PostgreSQL são efêmeras/loopback, nunca sessões hospedadas. Gate positivo real TEST do RELEASE_POLICY permanece bloqueado; não substituí-lo por prova local e não aplicar/ativar PROD enquanto faltar.
 PRIORITY: P2
 OBJECTIVE: Propor isolamento de treino para a conta/avatar PROD existentes, sem alterar dados nesta etapa.
 AUTHORIZATION: Pedido de03/11/2026 autoriza inspeção somente leitura e proposta primeiro; proíbe concessão/mudança PROD antes de aprovação do mecanismo.

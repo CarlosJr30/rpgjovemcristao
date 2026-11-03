@@ -170,6 +170,8 @@ jobs:
         run: node tests/hosted/economy-001c-release-postgres.mjs
       - name: Exigir compatibilidade do pacote incremental com o orçamento QA TEST existente
         run: node tests/hosted/economy-001c-release-postgres.mjs --test-envelope
+      - name: Exigir isolamento do treino sem alterar carteiras inventário ou equipamentos canônicos
+        run: node tests/hosted/economy-qa-002-postgres.mjs
 
   pinned-preview:
     name: Preview do SHA aprovado

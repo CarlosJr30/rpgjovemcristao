@@ -1,5 +1,6 @@
 'use client';
 import { useSyncExternalStore } from 'react';
+import { useTrainingTraveler } from '../../training-qa/context';
 import { hasEconomicChange } from '../../../lib/authority/legacy-cutover';
 import {
   createTraveler,
@@ -94,12 +95,19 @@ function subscribe(listener: () => void) {
     }
   };
 }
-export function useJourney() {
+export function useCanonicalJourney() {
   return useSyncExternalStore(
     subscribe,
     () => snapshot,
     () => initial,
   );
+}
+
+export function useJourney() {
+  const canonical = useCanonicalJourney(), overlay = useTrainingTraveler();
+  return canonical.status === 'ready' && overlay?.id === canonical.traveler.id
+    ? { ...canonical, traveler: overlay }
+    : canonical;
 }
 
 export async function registerTraveler(

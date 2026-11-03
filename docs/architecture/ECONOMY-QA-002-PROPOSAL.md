@@ -1,6 +1,6 @@
 # ECONOMY-QA-002 — proposta para Teste Chat A
 
-03/11/2026. **Proposta entregue; implementação, ativação e orçamento ainda NÃO autorizados.** Nenhuma escrita PROD, migration, concessão, reconciliação ou deployment nesta tarefa.
+03/11/2026. **Mecanismo aprovado explicitamente pelo proprietário** na resposta5149c13b, para implementação e ativação somente após os gates. A designação adicional de QA Multiguild TEST foi recusada na resposta6034bb56; permanece exclusivamente Teste Chat A PROD. [Estado da implementação e bloqueio TEST](ECONOMY-QA-002-REPORT.md). Nenhuma escrita PROD, migration remota, concessão, reconciliação ou deployment nesta tarefa. O texto abaixo preserva o mecanismo aprovado.
 
 ## Estado confirmado por leitura
 

@@ -7,6 +7,8 @@ import { ArenaExperience } from '../journey/screens/arena';
 import { TowerExperience } from '../arena-tower/screen';
 import { ArenaDeckContent } from './screen';
 import { loadPlayerArenaCollection } from './player-collection';
+import { useTrainingTraveler } from '../training-qa/context';
+import { trainingNamespace } from '../../lib/training-qa/store';
 
 export function ArenaPlayerScreen({
   mode,
@@ -14,6 +16,7 @@ export function ArenaPlayerScreen({
   mode: 'arena' | 'deck' | 'tower';
 }) {
   const auth = useAuth();
+  const training = useTrainingTraveler();
   return (
     <ReleaseAccess>
       <ReleaseShell back="/journey" backLabel="Voltar à Jornada">
@@ -39,7 +42,7 @@ export function ArenaPlayerScreen({
               collectionSource: loadPlayerArenaCollection,
               practiceOnly: true,
             };
-            const key = `${auth.user.id}:${traveler.id}:${mode}`;
+            const key = `${auth.user.id}:${traveler.id}:${mode}:${!!training}${trainingNamespace(traveler.id)}`;
             return mode === 'arena' ? (
               <ArenaExperience key={key} {...props} />
             ) : mode === 'tower' ? (

@@ -1,4 +1,5 @@
 import { isChestType, uuid, type RevealReceipt } from './receipt';
+import { trainingNamespace } from '../../lib/training-qa/store';
 import type { ChestType } from '../journey/data/chests';
 export type VisualCursor = {
   receiptId: string;
@@ -18,7 +19,8 @@ const key = (owner: string, traveler: string) => {
     throw new Error('Identidade indisponível para a apresentação.');
   return (
     'rpg-jovem-cristao:chest-reveal:v1:' +
-    encodeURIComponent(JSON.stringify([owner, traveler]))
+    encodeURIComponent(JSON.stringify([owner, traveler])) +
+    trainingNamespace(traveler)
   );
 };
 export function readVisual(owner: string, traveler: string): VisualState {
@@ -134,8 +136,13 @@ export async function openingLock<T>(
 
 /** A committed server hold confirms that this intent did not produce an opening.
  * Network errors and ambiguous responses must never call this function. */
-export function rejectOpeningIntent(owner:string,traveler:string,operationId:string){
- const state=readVisual(owner,traveler);
- if(state.intent?.operationId!==operationId)throw Error('Outra solicitação está em andamento. Consulte seu resultado.');
- write(owner,traveler,{...state,intent:null});
+export function rejectOpeningIntent(
+  owner: string,
+  traveler: string,
+  operationId: string,
+) {
+  const state = readVisual(owner, traveler);
+  if (state.intent?.operationId !== operationId)
+    throw Error('Outra solicitação está em andamento. Consulte seu resultado.');
+  write(owner, traveler, { ...state, intent: null });
 }

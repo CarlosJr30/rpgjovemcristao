@@ -3,6 +3,7 @@
 import { useEffect, type ReactNode } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import { AuthProvider, useAuth } from '../lib/supabase/auth-context';
+import { TrainingQAProvider } from '../features/training-qa/provider';
 import { AuthScreen } from '../features/auth/auth-screen';
 import { safeEntryReturn } from '../lib/supabase/auth-return';
 
@@ -55,7 +56,9 @@ function AuthGate({ children }: { children: ReactNode }) {
 export function Providers({ children }: { children: ReactNode }) {
   return (
     <AuthProvider>
-      <AuthGate>{children}</AuthGate>
+      <TrainingQAProvider>
+        <AuthGate>{children}</AuthGate>
+      </TrainingQAProvider>
     </AuthProvider>
   );
 }

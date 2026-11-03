@@ -1,4 +1,6 @@
+import { trainingNamespace } from '../../lib/training-qa/store';
 import {
+  // Existing battle journal remains local; QA uses a separate namespace.
   createArenaDeckBattle,
   resolveArenaCommand,
   equipmentEffects,
@@ -38,7 +40,9 @@ export function createArenaDeckStorage(scope: 'training' | 'tower-local') {
       ? TRAINING_PREFIX
       : 'rpg-jovem-cristao:arena-tower-battle:v1:';
   const key = (owner: string, traveler: string) =>
-    PREFIX + encodeURIComponent(JSON.stringify([owner, traveler]));
+    PREFIX +
+    encodeURIComponent(JSON.stringify([owner, traveler])) +
+    trainingNamespace(traveler);
   const fail = () =>
     new Error(
       'O estado local da Arena não pôde ser confirmado. Recarregue antes de continuar.',
