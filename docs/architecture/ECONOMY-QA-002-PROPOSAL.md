@@ -1,0 +1,34 @@
+# ECONOMY-QA-002 — proposta para Teste Chat A
+
+03/11/2026. **Proposta entregue; implementação, ativação e orçamento ainda NÃO autorizados.** Nenhuma escrita PROD, migration, concessão, reconciliação ou deployment nesta tarefa.
+
+## Estado confirmado por leitura
+
+Sessão normal do domínio oficial validada pelo Supabase Auth: conta confirmada/não anônima, fingerprint `51f8f162f5bf`. Banco confirmou vínculo com um único avatar próprio ativo: **Teste Chat A, nível50, XP245016**, fingerprint do avatar `1ef91a760179`. Esses fingerprints identificam a proposta; o mecanismo futuro conferirá os UUIDs completos no servidor, sem usar nome/nível como autorização. Identidade deverá ser reconfirmada imediatamente antes da ativação.
+
+`economic_verified_at` permanece ausente. A Loja publicada exige essa verificação e saldo compatível com recibos canônicos; preencher o campo sozinho não reconcilia a procedência. Há seis registros de equipamentos, seis de inventário, cinco pilhas de baús e34recibos históricos associados ao avatar; não são cartas starter homologadas. **Zero cartas vinculadas a recibo e zero recibos starter da conta** nesta leitura. Preservação registrada por hashes privados, sem publicar valores do saldo legado ou credenciais: `build/economy-qa-002/read-only-evidence.json`.
+
+## Mecanismo proposto para aprovação
+
+1. **Modo “Treino — saldo e itens QA” nas telas existentes**, habilitado pelo servidor exclusivamente para o par conta/avatar acima. Não criar conta/avatar. Loja, Mochila, Equipamentos, baralho, Arena/Torre e animações são reutilizados; indicador permanente distingue treino de economia oficial. Fora do modo, o estado canônico permanece como está.
+2. **Orçamento único de10.000 moedas QA**, em carteira privada separada de `public.wallets`, válido por sete dias desde a ativação. Sem recarga, transferência, conversão ou compra em dinheiro. Crédito inicial apenas por operação privada do proprietário SQL com aprovação, motivo e nonce, uma vez por conta/avatar. Nenhuma função de aplicação/Admin/líder pode conceder ou aumentar orçamento. Repetição retorna o mesmo recibo.
+3. **Baús, itens, recibos e seleção de equipamentos de treino também separados.** Uma marca `qaOnly` no inventário real não basta. Compras debitam somente a carteira QA; abertura credita somente moedas/itens QA. Não consumir pilhas, equipamentos ou itens legados. Não inserir operações QA nos recibos canônicos, não completar inventário e não alterar os seis equipamentos existentes. Catálogo/preços40/35/65/115 e loot comum aprovados são os mesmos; sem venda de cartas, épico com preço inventado ou tabela nova.
+4. **Equipamento de treino é uma seleção sobreposta**, sem escrever em `equipped_items` nem nos atributos base. O snapshot de treino combina os dados atuais do herói com a seleção QA, respeitando slots e sem somar duas vezes o equipamento substituído. Arena contra adversários do jogo e Torre usam motor/IA/regras publicados; sem XP, ranking, prêmios ou progresso competitivo oficial. Sair do modo descarta a sobreposição e volta à leitura canônica; registros QA permanecem auditáveis.
+5. **Cartas continuam legítimas.** A solicitação e confirmação do starter existente poderão ser feitas pessoalmente em Meu Baralho, uma vez por conta, sem custo QA e sem concessão automática. Esse ato explícito é uma operação canônica separada e auditada; não será disparado pela ativação do treino. Baralho de sete cartas próprias, níveis mínimos e uso único por batalha permanecem. Nenhuma carta é comprada ou fabricada pelo orçamento QA.
+6. **Autoridade restrita no servidor:** sessão Auth existente/confirmada, vínculo e avatar ativo, autorização específica vigente e expiração em cada comando. Troca de avatar/conta encerra acesso e descarta respostas antigas. Tabelas privadas com RLS deny-all, sem DML direto; funções limitadas de consumo, sem parâmetros de preço/crédito vindos do cliente. Lock transacional, saldo não negativo, nonce/recibo por conta/avatar/operação e auditoria append-only impedem duplicação e débito/entrega parcial. Conta Admin não recebe essa autorização por inferência.
+
+## Reconciliação e menor mudança necessária
+
+**A liberação de treino não certificará a economia legada.** Preparar dossiê somente desse avatar: valores atuais, fontes/recibos, itens e divergências, com hashes antes/depois. Manter o saldo legado intacto, em consulta e bloqueado para gasto oficial. Aprovar ou corrigir qualquer saldo/inventário canônico exige outra proposta concreta e decisão explícita; não zerar, substituir por10.000 nem marcar `economic_verified_at` para contornar o bloqueio. Nenhum outro jogador será reconciliado.
+
+A fonte QA de001C em TEST não será transportada: ela exige avatar novo e grava na carteira pública. As funções PROD também operam diretamente nas tabelas canônicas. A alteração mínima segura é uma ponte de persistência isolada e seleção de contexto nas telas existentes, reaproveitando catálogo, validações, algoritmo de loot e motor. Não alternar temporariamente o saldo real nem chamar autoridades canônicas com orçamento QA. Se o reaproveitamento exigir enfraquecer uma guarda ou permitir escape de itens, a ativação fica bloqueada.
+
+## Gates mínimos depois da aprovação
+
+Somente casos novos: acesso exclusivo/expiração/revogação, débito e entrega atômicos/replay/concorrência, impossibilidade de transferência/conversão e uso de itens QA na economia oficial, troca de contexto e preservação de todos os dados canônicos. Reutilizar homologação de catálogo, telas, loot e combate inalterados. CI e gates obrigatórios de TEST/publicação continuam exigidos; nenhuma restrição de conta/avatar será contornada para fabricar prova hospedada. Se não houver forma de cumprir um gate com as identidades autorizadas, registrar o impedimento antes de ativar PROD.
+
+Contenção: desabilitar somente a autorização de treino, preservando carteira, recibos e itens QA para auditoria. Recuperação vazia somente sem operações; após uso, não apagar histórico nem restaurar saldos por SQL. Revalidar identidade e hashes antes da ativação e conferir a preservação após o uso afetado. Sem suíte geral repetida.
+
+**Decisão solicitada:** aprovar este isolamento, orçamento único10.000, janela de sete dias e seleção sobreposta de equipamentos somente em treino para o Teste Chat A existente. Essa aprovação autorizará implementação e ativação privada desse único orçamento somente após os gates obrigatórios aprovados. Não aprova reconciliação financeira oficial, moedas grátis canônicas ou mudanças em outros jogadores. Sem a aprovação, nenhuma dessas operações será executada.
+
+Revisão documental de arquitetura/segurança pelo autor, sem independência. Nenhum teste executável ou homologação nova alegados; esta entrega é somente inspeção e proposta.
