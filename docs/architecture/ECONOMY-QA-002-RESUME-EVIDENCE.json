@@ -1,0 +1,131 @@
+{
+  "task": "ECONOMY-QA-002",
+  "date": "2026-11-03",
+  "status": "BLOCKED_HOSTED_TEST",
+  "candidate": "f508456dd2122ca0210481e50e449b18b2b0921a",
+  "runtimeSameAs": "bd5a65197ad102bd1134e19638236a625443c94f",
+  "runtimeDiffEmpty": true,
+  "ci": {
+    "sha": "f508456dd2122ca0210481e50e449b18b2b0921a",
+    "pushSuccess": true,
+    "prSuccess": true,
+    "runs": [
+      {
+        "id": 41619779883,
+        "sha": "f508456dd2122ca0210481e50e449b18b2b0921a",
+        "event": "pull_request",
+        "status": "completed",
+        "conclusion": "success",
+        "attempt": 1
+      },
+      {
+        "id": 41619770739,
+        "sha": "f508456dd2122ca0210481e50e449b18b2b0921a",
+        "event": "push",
+        "status": "completed",
+        "conclusion": "success",
+        "attempt": 1
+      }
+    ]
+  },
+  "fullCiUnitPassed": 1109,
+  "fullCiUnitSkipped": 74,
+  "conditionalPreview": "SKIP",
+  "focusedCells": 2,
+  "focusedParts": [
+    {
+      "path": "build/rpg-dev-005/economy-qa-002-focused-app-regression.json",
+      "sha256": "627000c86e6ea74712a4b7429cbb563df59daafae543cd660d44b5a748e3b55d",
+      "runs": 6,
+      "functional": 6,
+      "errorFree": 3,
+      "errors": 3
+    },
+    {
+      "path": "build/rpg-dev-005/economy-qa-002-trace-app-regression.json",
+      "sha256": "388ed0e1d53ca902c86bf1488e84b1ba0169724759f139d870b51c684733fd9c",
+      "runs": 6,
+      "functional": 6,
+      "errorFree": 2,
+      "errors": 4
+    },
+    {
+      "path": "build/rpg-dev-005/economy-qa-002-ready-app-regression.json",
+      "sha256": "ea2b70b5b92b4787f1f69a40ea618f2a6a4f62c6b05b99c290d36ca286ce9df7",
+      "runs": 6,
+      "functional": 6,
+      "errorFree": 6,
+      "errors": 0
+    },
+    {
+      "path": "build/rpg-dev-005/economy-qa-002-restore-app-regression.json",
+      "sha256": "35616a8ace7ec20b3a9db97983ffc1f656b46487d9d238b64284e471c5f17254",
+      "runs": 6,
+      "functional": 6,
+      "errorFree": 3,
+      "errors": 3
+    }
+  ],
+  "assertionsAndTimeoutsUnchanged": true,
+  "noErrorFiltering": true,
+  "hostedPositiveTest": false,
+  "remoteMigrations": 0,
+  "remoteGrants": 0,
+  "newAccountsOrAvatars": 0,
+  "deploymentsCreated": 0,
+  "gateTest": "No compatible specific authorization; old QA wallet grant belongs to a different mechanism",
+  "minimumHumanAction": "Authorize one private validation designation for an already existing TEST QA avatar; no new account/avatar",
+  "productionBudgetAlreadyApproved": 10000,
+  "productionBudgetIssued": 0,
+  "independentReview": false,
+  "artifacts": [
+    {
+      "path": "build/economy-qa-002/ci-resume-final.json",
+      "bytes": 517,
+      "sha256": "c65be4dfea6205da1b226c57d243c30c787cf6018be2ae1f2204f2717df942ad",
+      "visibility": "private-local"
+    },
+    {
+      "path": "build/economy-qa-002/focused-summary.json",
+      "bytes": 1349,
+      "sha256": "bfde694accd2b5e798c43dadfda4805115d78ac1f0161bc8d0be504cd3b37896",
+      "visibility": "private-local"
+    },
+    {
+      "path": "build/economy-qa-002/platform-resume-read-only.json",
+      "bytes": 153,
+      "sha256": "b65457f32f902cbb3b7852589c7aeadf79bcd935f8b56cec6c320127ed122e5d",
+      "visibility": "private-local"
+    },
+    {
+      "path": "build/rpg-dev-005/economy-qa-002-focused-app-regression.json",
+      "bytes": 242401,
+      "sha256": "627000c86e6ea74712a4b7429cbb563df59daafae543cd660d44b5a748e3b55d",
+      "visibility": "private-local"
+    },
+    {
+      "path": "build/rpg-dev-005/economy-qa-002-trace-app-regression.json",
+      "bytes": 403951,
+      "sha256": "388ed0e1d53ca902c86bf1488e84b1ba0169724759f139d870b51c684733fd9c",
+      "visibility": "private-local"
+    },
+    {
+      "path": "build/rpg-dev-005/economy-qa-002-ready-app-regression.json",
+      "bytes": 436534,
+      "sha256": "ea2b70b5b92b4787f1f69a40ea618f2a6a4f62c6b05b99c290d36ca286ce9df7",
+      "visibility": "private-local"
+    },
+    {
+      "path": "build/rpg-dev-005/economy-qa-002-restore-app-regression.json",
+      "bytes": 408679,
+      "sha256": "35616a8ace7ec20b3a9db97983ffc1f656b46487d9d238b64284e471c5f17254",
+      "visibility": "private-local"
+    },
+    {
+      "path": "docs/architecture/ECONOMY-QA-002-EVIDENCE.json",
+      "bytes": 4279,
+      "sha256": "53657402e2f4263533e66221368d845c9574872e7e470a7267b6e4469b523264",
+      "visibility": "tracked"
+    }
+  ]
+}

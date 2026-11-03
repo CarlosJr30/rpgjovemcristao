@@ -1,0 +1,159 @@
+{
+  "version": 1,
+  "scope": "Single owner-authorized TEST private cycle ff2814e4",
+  "status": "TEST_GATE_COMPLETE_REVOKED_PROD_NOT_ACTIVATED",
+  "runtime": "87fc281a05f4c21a6ef6ff80701551c67a046887",
+  "pr": 32,
+  "avatar": "QA Multiguild TEST existing",
+  "normalLogin": true,
+  "sessionCopied": false,
+  "newAccount": false,
+  "newAvatar": false,
+  "cycle": {
+    "budget": 10000,
+    "validityHours": 168,
+    "commonPurchase": 40,
+    "commonOpenCoins": 25,
+    "swordPurchase": 35,
+    "trainingStrength": {
+      "before": 1,
+      "after": 3
+    },
+    "privateBalance": 9950,
+    "enabled": false
+  },
+  "proof": {
+    "canonicalTablesExact": 7,
+    "oldDefinitionsAndACLsUnchanged": true,
+    "postDDLStructureExact": true,
+    "privateProfile": {
+      "enabled": false,
+      "coins": 9950,
+      "hours": 168,
+      "revision": 4
+    },
+    "receipts": {
+      "budget": 1,
+      "purchase": 2,
+      "open": 1,
+      "equip": 1,
+      "total": 5
+    },
+    "revokedCommand": {
+      "status": 403,
+      "code": "42501",
+      "receiptAdded": false
+    },
+    "prod": {
+      "changed": false,
+      "schemaAbsent": true,
+      "migrations": 21
+    },
+    "preview": {
+      "sha": "87fc281a05f4c21a6ef6ff80701551c67a046887",
+      "id": "dpl_7nttoh52oXpDVGV2d39zEz9Wjb69",
+      "ready": true,
+      "backend": "TEST"
+    },
+    "migration": {
+      "test": "20261103144407",
+      "source": "20261103093714"
+    },
+    "limitations": [
+      "Chromium390 emulated, not physical",
+      "One real private cycle, no Arena/Tower/Guild/EBD reruns",
+      "First equipment collector stopped on collapsed native details before any equip; resumed only equip once",
+      "RSC first new candidate failed; targeted collector wait only; original failures preserved"
+    ]
+  },
+  "reuse": {
+    "postgres": 14,
+    "unit": "previous directed evidence reused",
+    "generalLocalSuiteRepeated": false
+  },
+  "ci": {
+    "push": 41654799698,
+    "pr": 41654811834,
+    "sha": "87fc281a05f4c21a6ef6ff80701551c67a046887",
+    "success": true,
+    "conditionalPreview": "SKIP"
+  },
+  "productionPackage": {
+    "file": "supabase/migrations/20261103145109_economy_qa_002_isolated_training_production.sql",
+    "applied": false,
+    "activationIncluded": false,
+    "testIdsAbsent": true,
+    "staticComparison": true,
+    "productiveGuardsAndRecoveryRun": false,
+    "exactPackageCI": "pending"
+  },
+  "artifacts": [
+    {
+      "file": "build/economy-qa-002/activation-test/ci-approved.json",
+      "sha256": "4f36090baeda4c697024ab47c3db30e63a0b610c931a2a6a71d083ae5ce34de6",
+      "bytes": 517
+    },
+    {
+      "file": "build/economy-qa-002/activation-test/postgres-designation-results.json",
+      "sha256": "50b2c868b9383b0825a2d548fe5377a8b815b2f40100e7ba0824c5c58a33009e",
+      "bytes": 1965
+    },
+    {
+      "file": "build/economy-qa-002/activation-test/validation.json",
+      "sha256": "88d1ee87431b42a4df1b3145fadd68340a14ee2e4b9dba105cf37b8abd410438",
+      "bytes": 1074
+    },
+    {
+      "file": "build/economy-qa-002/activation-test/chest-purchase.json",
+      "sha256": "c90b3b03d62720319b37413a4e6c36264fca06e66932951c01ce0b50c02d841c",
+      "bytes": 648
+    },
+    {
+      "file": "build/economy-qa-002/activation-test/opened.json",
+      "sha256": "9e36879b5fa6008b6c57d15986e5d1068de60c6c7cf3e633027445544ab27587",
+      "bytes": 1012
+    },
+    {
+      "file": "build/economy-qa-002/activation-test/equipped.json",
+      "sha256": "408696cfa1cf212791115bbe1410b0c646b9110e70b4035afe14bf7bdf69dcdd",
+      "bytes": 1825
+    },
+    {
+      "file": "build/economy-qa-002/activation-test/monitor-happy-cycle.json",
+      "sha256": "fca9e9734b19aad99d563c007362467cf424478f25db5f6dcaa62c44765e03d0",
+      "bytes": 16162
+    },
+    {
+      "file": "build/economy-qa-002/activation-test/revocation-ui.json",
+      "sha256": "adf541d890be527ccd123e65233884c48d40339b22c06b5bcc6ea5657930f053",
+      "bytes": 206
+    },
+    {
+      "file": "build/economy-qa-002/activation-test/production-separation.json",
+      "sha256": "da3210e65652dc72601fa09c5700136faffc44e4d573d37f6bb21e3f48431d83",
+      "bytes": 988
+    },
+    {
+      "file": "build/economy-qa-002/activation-test/reveal.png",
+      "sha256": "8181e47346f357a403941b8e03dc2bdb990bebf47813d73e7041d5a2d2fe92c2",
+      "bytes": 98625
+    },
+    {
+      "file": "build/economy-qa-002/activation-test/equipped.png",
+      "sha256": "f8fd797c84e1e2ec21ee830cf408e2f038f508dc5d0446a8e910afa35de9e25c",
+      "bytes": 92765
+    },
+    {
+      "file": "build/economy-qa-002/activation-test/test-controller-error.json",
+      "sha256": "8b4950972598c937e6b91e419772e4acb0d7eb3a387a8225288ab4714bb3a8af",
+      "bytes": 291
+    }
+  ],
+  "limitations": [
+    "Chromium390 emulated, not physical",
+    "One real private cycle, no Arena/Tower/Guild/EBD reruns",
+    "First equipment collector stopped on collapsed native details before any equip; resumed only equip once",
+    "RSC first new candidate failed; targeted collector wait only; original failures preserved"
+  ],
+  "historyIntegrity": "Prior private PG output was replaced by the same-envelope designation run; this manifest hashes its copied current output. Prior manifests are historical, not reasserted as current private-file matches."
+}

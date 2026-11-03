@@ -1,0 +1,132 @@
+{
+  "task": "ECONOMY-QA-002",
+  "date": "2026-11-03",
+  "status": "BLOCKED",
+  "candidate": "bd5a65197ad102bd1134e19638236a625443c94f",
+  "pr": 32,
+  "ownerApproval": {
+    "budget": 10000,
+    "once": true,
+    "validHours": 168,
+    "productionActorOnly": true,
+    "additionalRealTestActorApproved": false
+  },
+  "grantedBudget": 0,
+  "remoteMigrations": 0,
+  "remoteDeployments": 0,
+  "ci": {
+    "sha": "bd5a65197ad102bd1134e19638236a625443c94f",
+    "pushSuccess": true,
+    "prSuccess": false,
+    "runs": [
+      {
+        "id": 41615563522,
+        "sha": "bd5a65197ad102bd1134e19638236a625443c94f",
+        "event": "pull_request",
+        "status": "completed",
+        "conclusion": "failure",
+        "attempt": 2
+      },
+      {
+        "id": 41615554892,
+        "sha": "bd5a65197ad102bd1134e19638236a625443c94f",
+        "event": "push",
+        "status": "completed",
+        "conclusion": "success",
+        "attempt": 2
+      }
+    ]
+  },
+  "validation": {
+    "additionalPgPassed": 14,
+    "additionalUnitPassed": 14,
+    "affectedExistingUnitPassed": 18,
+    "fullCiUnitPassed": 1109,
+    "fullCiUnitSkipped": 74,
+    "fullCiOverallApproved": false,
+    "prRscAttempt1": "FAIL",
+    "prRscAttempt2": "FAIL",
+    "pushAttempt2": "PASS",
+    "rscRetries": "Only failed job retried; previous successful jobs retained",
+    "hostedPositiveTest": false,
+    "canonicalTargetHashesUnchanged": true,
+    "productionTrainingSchemaExists": false,
+    "productionMigrations": 21,
+    "legacyUnreconciled": 20
+  },
+  "limits": [
+    "Synthetic local PostgreSQL fixtures do not prove hosted TEST",
+    "RSC PR failure remains unresolved; functional cases do not override monitor failure",
+    "No account/avatar created or starter claimed",
+    "No production QA coins or privilege granted",
+    "QA/Security by author, not independent"
+  ],
+  "artifacts": [
+    {
+      "path": "build/economy-qa-002/read-only-evidence.json",
+      "bytes": 1273,
+      "sha256": "f496ec806cde714a425fcdcee115ddce78045f57116155e35e7da1bfae0b21c9",
+      "visibility": "private-local"
+    },
+    {
+      "path": "build/economy-qa-002/final-preservation.private.json",
+      "bytes": 1812,
+      "sha256": "c4b1033b1de20f02497a8fddaeb68a610a9cd32675a03823642687c6e02431e4",
+      "visibility": "private-local"
+    },
+    {
+      "path": "build/economy-qa-002/checkpoint.json",
+      "bytes": 936,
+      "sha256": "13d4f1e35053fd2c57af9ce759e00084753f71f7986e1af8b33324840c2493c1",
+      "visibility": "private-local"
+    },
+    {
+      "path": "build/economy-qa-002/platform-read-only.json",
+      "bytes": 233,
+      "sha256": "992aee91febf07f84b69fb666d92d39efba20c8b8a5471e1ee0a6fb10b69abfc",
+      "visibility": "private-local"
+    },
+    {
+      "path": "build/economy-qa-002/ci-current.json",
+      "bytes": 518,
+      "sha256": "ac26f908ec008ff5ce0fc5ec5d8d60aa0497dec189d8a32cddf4d7ad4be07c84",
+      "visibility": "private-local"
+    },
+    {
+      "path": "build/economy-qa-002/ci-rsc-attempt1.private.json",
+      "bytes": 69146,
+      "sha256": "9f60f1457efe0647909243371633941a3d9d70865dfd3f151ddd69ab27025fa4",
+      "visibility": "private-local"
+    },
+    {
+      "path": "build/economy-qa-002/ci-rsc-attempt2.private.json",
+      "bytes": 69172,
+      "sha256": "2dadafa523878ed15b15a394a366b1a9d6c3bcdc098aefd65b5f3370280f78f7",
+      "visibility": "private-local"
+    },
+    {
+      "path": "build/economy-qa-002/pg/postgres-results.json",
+      "bytes": 1965,
+      "sha256": "50b2c868b9383b0825a2d548fe5377a8b815b2f40100e7ba0824c5c58a33009e",
+      "visibility": "private-local"
+    },
+    {
+      "path": "build/economy-qa-002/pg/postgres-failure.json",
+      "bytes": 461,
+      "sha256": "2aae4c484bc6554879f9eaaa42a6c139ce60cf4f97aaca09bdf52d1b5db91a1f",
+      "visibility": "private-local"
+    },
+    {
+      "path": "packages/database/proposals/economy-qa-002.sql.in",
+      "bytes": 14176,
+      "sha256": "e58325fbddea6ef4cbf05f59aa63bd75878464898f3183697da137e6c4c84452",
+      "visibility": "tracked"
+    },
+    {
+      "path": "supabase/migrations/20261103093714_economy_qa_002_isolated_training_test.sql",
+      "bytes": 14317,
+      "sha256": "11d838a59663c5847399696c507e52d8a557b9fc592e3013c69f5bb349a82103",
+      "visibility": "tracked"
+    }
+  ]
+}

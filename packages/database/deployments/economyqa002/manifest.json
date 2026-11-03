@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "phase": "PREPARED_NOT_APPLIED",
+  "file": "supabase/migrations/20261103145109_economy_qa_002_isolated_training_production.sql",
+  "project": "wspafhlbtlpabypzymjo",
+  "scope": "guild-ebd-001",
+  "source": "packages/database/proposals/economy-qa-002.sql.in",
+  "sha256": "6b35ee6576df1352930871f9f429397f48b81fb077985fe2a76a769c3daff128",
+  "authorityBodiesUnchanged": true,
+  "testIdentifiersAbsent": true,
+  "activationStatementsAbsent": true,
+  "profilesAndReceiptsInitiallyEmpty": true,
+  "canonicalWrites": false,
+  "authorization": "Owner 0fa04b94 authorizes restricted PROD installation and one activation after mandatory gates",
+  "remaining": [
+    "exact package CI",
+    "normal approved PROD identity preflight and canonical snapshot",
+    "own migration only",
+    "Git merge and retained READY PROD backend",
+    "retained check, promotion, official alias and preservation"
+  ],
+  "legacyGuard": "Full pg_get_functiondef normalized only CRLF to LF; same approved canonical hash",
+  "productiveGuardChecks": {
+    "count": 6,
+    "pass": true,
+    "synthetic": true,
+    "artifact": "build/economy-qa-002/production/pg/postgres-results.json"
+  }
+}

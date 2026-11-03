@@ -1,5 +1,6 @@
 'use client';
 import Link from 'next/link';
+import { TrainingQAControls } from '../../training-qa/provider';
 import {
   useEffect,
   useCallback,
@@ -601,6 +602,7 @@ export function Shell({
                 </section>
               )}
             <div key={pathname} className={styles.areaArrival}>
+              <TrainingQAControls />
               {children}
             </div>
           </main>

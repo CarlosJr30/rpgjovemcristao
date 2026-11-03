@@ -14,6 +14,9 @@ export async function run({q,tx,as,check,denied,uid,tid,options,connections,read
  if(process.env.RPG_ECONOMY_001C_CASES==='1'){
   await q(wrap(migration));
   await tx(read('supabase/migrations/20261031033721_rpg_dev_010c1_meetings_test.sql'));
+  if(process.env.RPG_ECONOMY_QA002_CASES==='1'){
+   await (await import('./economy-qa-002-cases.mjs')).run({q,tx,as,check,denied,uid,tid,options,connections,read});return;
+  }
   if(process.env.RPG_ECONOMY_001C_RELEASE_CASES==='1'){
    await (await import('./economy-001c-release-cases.mjs')).run({q,tx,as,check,denied,uid,tid,options,connections,read});return;
   }

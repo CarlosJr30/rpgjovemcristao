@@ -1,0 +1,201 @@
+{
+  "task": "ECONOMY-001C.2",
+  "date": "2026-11-03",
+  "status": "DONE / DEPLOY_COMPLETE",
+  "candidate": "9990a2768e34d9aa697f4e557ca01424596d8adc",
+  "merge": "18ea40c3e8f7086c8eff8bfab8b67dfe5012f7a2",
+  "deployment": "dpl_2RhvadgSwK98F7bJBThyJTH9VYop",
+  "productionMigrations": [
+    "20261103084418",
+    "20261103084501"
+  ],
+  "testMigration": "20261103083352",
+  "approval": {
+    "ownerExplicit": true,
+    "prices": {
+      "common": 40,
+      "sword": 35,
+      "armor": 65,
+      "shield": 115
+    }
+  },
+  "checks": {
+    "unitPass": 1095,
+    "unitSkip": 74,
+    "publicationConditional": "SKIP",
+    "additionalPgProduction": 14,
+    "additionalPgTestCompatibility": 2,
+    "additionalClientUnit": 7,
+    "previousEvidenceReused": "ECONOMY-001C-TEST-EVIDENCE.json",
+    "testOriginalDatasets": 85,
+    "testStrictUnchanged": 82,
+    "testDeltaDatasets": [
+      "public.chest_operations",
+      "public.traveler_chests",
+      "public.wallets"
+    ],
+    "productionPostDDLUnchanged": 78,
+    "productionOldFunctionsACLUnchanged": 204,
+    "policiesPreserved": 39,
+    "productionEconomicWrites": 0,
+    "legacyUnreconciledBlocked": 20,
+    "http": 6
+  },
+  "limits": [
+    "Positive economic transactions in TEST only",
+    "Mobile emulated, not physical",
+    "UI monitor scoped to settled shop document; intentional earlier negative HTTP responses preserved",
+    "Auth session metadata may change",
+    "QA/Security by author, not independent",
+    "No card sales, unapproved chest tiers, real payments or official combat rewards"
+  ],
+  "artifacts": [
+    {
+      "path": "build/economy-001c2/ci-approved.json",
+      "sha256": "f0645c5061384441490ca86f241e13cd2d893d62f75d24b406be577c9cf8a2d0",
+      "bytes": 517,
+      "visibility": "private-local",
+      "purpose": "ci-approved.json"
+    },
+    {
+      "path": "build/economy-001c2/merge-ci-approved.json",
+      "sha256": "3b3506950482666f7e2b0bf945809a87c4748d59b2643cdaf39b1e6bebfb1c3b",
+      "bytes": 268,
+      "visibility": "private-local",
+      "purpose": "merge-ci-approved.json"
+    },
+    {
+      "path": "build/economy-001c2/preview.json",
+      "sha256": "db9b68db93548123389910d6d0520c124589fa9e6c238e3a61fdb881e85bce32",
+      "bytes": 237,
+      "visibility": "private-local",
+      "purpose": "preview.json"
+    },
+    {
+      "path": "build/economy-001c2/test-boundary.json",
+      "sha256": "e8fe82d4c75a096777ee6657079f462b495917f55cb6c7501518bf5a058207e5",
+      "bytes": 349,
+      "visibility": "private-local",
+      "purpose": "test-boundary.json"
+    },
+    {
+      "path": "build/economy-001c2/test-boundary-monitor.json",
+      "sha256": "1c44c0989e79469ecc9a7e8a39d5bf22d7a659d2e99d82771a27962ffc27be04",
+      "bytes": 535,
+      "visibility": "private-local",
+      "purpose": "test-boundary-monitor.json"
+    },
+    {
+      "path": "build/economy-001c2/test-final-data.json",
+      "sha256": "753f53f1047ff03e13543a1110a5d793f25cb89494ab0c73359da31bb6ef71c8",
+      "bytes": 11348,
+      "visibility": "private-local",
+      "purpose": "test-final-data.json"
+    },
+    {
+      "path": "build/economy-001c2/production-full-after-data.json",
+      "sha256": "353a94668cb05dd677269cc668f9157184d1d76f55f348553e04f8200a5d5ada",
+      "bytes": 26505,
+      "visibility": "private-local",
+      "purpose": "production-full-after-data.json"
+    },
+    {
+      "path": "build/economy-001c2/production-final-data.json",
+      "sha256": "f9a5c0bd738925b7675b5f6b57e561b49449bd95a2742b05eda499c64ae54d96",
+      "bytes": 10028,
+      "visibility": "private-local",
+      "purpose": "production-final-data.json"
+    },
+    {
+      "path": "build/economy-001c2/production-full-after-structure.json",
+      "sha256": "b82689d13cb17456269d3d7586a9ce0c0aff797c4af605a7ac5a04d4fa633a7b",
+      "bytes": 299891,
+      "visibility": "private-local",
+      "purpose": "production-full-after-structure.json"
+    },
+    {
+      "path": "build/economy-001c2/production-final-structure.json",
+      "sha256": "3c2d521ace3d14ecc8986bc9a59a300937b232b3b9410b841773a6a6cc45025a",
+      "bytes": 296422,
+      "visibility": "private-local",
+      "purpose": "production-final-structure.json"
+    },
+    {
+      "path": "build/economy-001c2/production-post-ddl.json",
+      "sha256": "388e461adc373c605c196dceab7f2eec76a18745d964e1cbbfd3c366d3588918",
+      "bytes": 318,
+      "visibility": "private-local",
+      "purpose": "production-post-ddl.json"
+    },
+    {
+      "path": "build/economy-001c2/production-retained-checks.json",
+      "sha256": "4714d2604dbaf1e199064df1421a4c1983e02c2a079583b3ab9f5edf8888153a",
+      "bytes": 565,
+      "visibility": "private-local",
+      "purpose": "production-retained-checks.json"
+    },
+    {
+      "path": "build/economy-001c2/production-official-checks.json",
+      "sha256": "6e4cea21dfa3e3da40059602293567fff75b3a7d6f1b85b1ef28cfb73c7ab9fc",
+      "bytes": 565,
+      "visibility": "private-local",
+      "purpose": "production-official-checks.json"
+    },
+    {
+      "path": "build/economy-001c2/production-http.json",
+      "sha256": "a84fb77e77fc8e5c6e5d0d553e98fb49d2e5f73c318db734a43657fc49aa80c5",
+      "bytes": 669,
+      "visibility": "private-local",
+      "purpose": "production-http.json"
+    },
+    {
+      "path": "build/economy-001c2/promoted.json",
+      "sha256": "956efb93b849c8de24b0a79477577c5edee47af305f5c25f388b9fe9a9fe132f",
+      "bytes": 203,
+      "visibility": "private-local",
+      "purpose": "promoted.json"
+    },
+    {
+      "path": "build/economy-001c2/release-controls-restore.json",
+      "sha256": "afd1d6724daa6ad5ec2b5d5a6a3c2fb65a44f09c3b7eec5195d5ee83d0a11849",
+      "bytes": 100,
+      "visibility": "private-local",
+      "purpose": "release-controls-restore.json"
+    },
+    {
+      "path": "build/economy-001c2/production-official-320.png",
+      "sha256": "0ba2a28933e3003e470a6038db4f1abe9cc2a21ac042142db0cb459c20792d12",
+      "bytes": 85341,
+      "visibility": "private-local",
+      "purpose": "production-official-320.png"
+    },
+    {
+      "path": "build/economy-001c/release-pg/postgres-results.json",
+      "sha256": "bce67e10db742974de99330b8815e93b1aca3273a42b462353296ca899e08876",
+      "bytes": 1897,
+      "visibility": "private-local",
+      "purpose": "Previously approved native cases or applied production source"
+    },
+    {
+      "path": "build/economy-001c/release-test-pg/postgres-results.json",
+      "sha256": "f66c74010862760f3367284b75fde6a4426b6e42ccc4cedeb2524b5a617b3334",
+      "bytes": 458,
+      "visibility": "private-local",
+      "purpose": "Previously approved native cases or applied production source"
+    },
+    {
+      "path": "supabase/migrations/20261103045257_economy_001c_community_chests_production.sql",
+      "sha256": "0a2b470b13fb71c734e15c6d11a977297bb553efdd25c87d327135e5356d9b31",
+      "bytes": 20963,
+      "visibility": "tracked",
+      "purpose": "Previously approved native cases or applied production source"
+    },
+    {
+      "path": "supabase/migrations/20261103045303_economy_001c_shop_release_production.sql",
+      "sha256": "fcebd1de0fc0488a90a6cb761ea142d3fc330888a97030dc730bfea61c21101e",
+      "bytes": 24229,
+      "visibility": "tracked",
+      "purpose": "Previously approved native cases or applied production source"
+    }
+  ]
+}

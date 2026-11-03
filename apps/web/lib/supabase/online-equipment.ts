@@ -1,4 +1,5 @@
 import type { EquipmentSlot } from '../../features/journey/domain/traveler';
+import { activeTraining, changeTrainingEquipment } from '../training-qa/client';
 import {
   canUseTravelerInCurrentSession,
   getCurrentOnlineUserId,
@@ -24,6 +25,11 @@ export async function changeOnlineEquipment(
     throw new Error('Aguarde a confirmação do equipamento.');
   pending.add(travelerId);
   try {
+    const training = activeTraining(travelerId);
+    if (training) {
+      await changeTrainingEquipment(travelerId, slot, itemId);
+      return;
+    }
     if (itemId === null)
       await equipmentRepository.unequipItem(travelerId, slot, expectedItemId);
     else

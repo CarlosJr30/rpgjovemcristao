@@ -1,6 +1,12 @@
 'use client';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useSyncExternalStore } from 'react';
+import {
+  trainingSnapshot,
+  emptyTrainingSnapshot,
+  subscribeTraining,
+} from '../../../lib/training-qa/store';
+import { useTrainingTraveler } from '../../training-qa/context';
 import { Shell, RequireTraveler } from '../components/shell';
 import { JOURNEY_ROUTES as routes } from '../data/campaign';
 import { SHOP_OFFERS } from '../data/equipmentCatalog';
@@ -10,13 +16,19 @@ import { EquipmentBibleDetails } from '../components/equipment-bible-details';
 import { EquipmentStatBonuses } from '../components/equipment-stat-bonuses';
 import { buyEquipment } from '../state/use-journey';
 import styles from '../journey.module.css';
-import {ShopPurchaseHistory} from '../../qa-shop/purchase-history';
+import { ShopPurchaseHistory } from '../../qa-shop/purchase-history';
 import { purchaseQAShop, resumeQAPurchase } from '../../../lib/qa-shop/client';
 
 export function ShopScreen({
   qa,
 }: { qa?: { actor: string; coins: number; production?: boolean } } = {}) {
   const [feedback, setFeedback] = useState('');
+  const training = useTrainingTraveler();
+  const trainingBinding = useSyncExternalStore(
+    subscribeTraining,
+    trainingSnapshot,
+    emptyTrainingSnapshot,
+  );
   const [confirmation, setConfirmation] = useState<{
     kind: 'chest' | 'equipment';
     id: string;
@@ -72,11 +84,13 @@ export function ShopScreen({
         {(traveler) => (
           <section className={styles.diarySection}>
             <p className={styles.eyebrow}>
-              {qa?.production
-                ? 'LOJA DO VIAJANTE'
-                : qa
-                  ? 'LOJA QA · SOMENTE TEST'
-                  : 'ECONOMIA DE GAMEPLAY'}
+              {training
+                ? 'LOJA DE TREINO · SALDO E ITENS QA'
+                : qa?.production
+                  ? 'LOJA DO VIAJANTE'
+                  : qa
+                    ? 'LOJA QA · SOMENTE TEST'
+                    : 'ECONOMIA DE GAMEPLAY'}
             </p>
             <h1>Loja do Viajante</h1>
             <p>
@@ -95,9 +109,11 @@ export function ShopScreen({
             {qa && (
               <>
                 <p>
-                  {qa.production
-                    ? 'Compras com suas moedas de jogo, confirmadas pelo servidor. Sem pagamentos em dinheiro real.'
-                    : 'Orçamento QA isolado. Preços aprovados somente para TEST; sem pagamentos reais.'}
+                  {training
+                    ? 'Somente a carteira e o inventário privados de treino serão alterados.'
+                    : qa.production
+                      ? 'Compras com suas moedas de jogo, confirmadas pelo servidor. Sem pagamentos em dinheiro real.'
+                      : 'Orçamento QA isolado. Preços aprovados somente para TEST; sem pagamentos reais.'}
                 </p>
                 <button disabled={busy} onClick={() => void resume()}>
                   Consultar compra pendente
@@ -142,9 +158,9 @@ export function ShopScreen({
             )}
             <div className={styles.itemShelf}>
               {SHOP_OFFERS.map(({ equipment, price, description }) => {
-                const owned = traveler.inventory.some(
-                  (item) => item.id === equipment.id,
-                );
+                const owned = training
+                  ? !!trainingBinding?.state.items[equipment.id]
+                  : traveler.inventory.some((item) => item.id === equipment.id);
                 return (
                   <article
                     className={styles.itemCard}
@@ -193,8 +209,16 @@ export function ShopScreen({
                 );
               })}
             </div>
-            <p><Link href={routes.backpack}>Abrir Mochila →</Link></p>
-            {qa?.production&&<ShopPurchaseHistory key={qa.actor} actor={qa.actor} revision={traveler.coins}/>}
+            <p>
+              <Link href={routes.backpack}>Abrir Mochila →</Link>
+            </p>
+            {qa?.production && (
+              <ShopPurchaseHistory
+                key={qa.actor}
+                actor={qa.actor}
+                revision={traveler.coins}
+              />
+            )}
           </section>
         )}
       </RequireTraveler>
