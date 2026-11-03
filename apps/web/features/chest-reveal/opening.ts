@@ -4,6 +4,7 @@ import { receiptFromOperation } from './receipt';
 import { openingLock, readVisual, startIntent } from './visual-store';
 import { rejectOpeningIntent } from './visual-store';
 import { CommunityOpeningSuspended } from '../../lib/community-chests/errors';
+import { openQAShop } from '../../lib/qa-shop/client';
 
 /** Economic intent goes to the existing RPC; animation is not involved. */
 export function requestChestOpening(
@@ -12,6 +13,7 @@ export function requestChestOpening(
   type: ChestType,
   retry = false,
   communityOnly = false,
+  qaShop = false,
 ) {
   return openingLock(owner, traveler, async () => {
     const prior = readVisual(owner, traveler).intent;
@@ -25,9 +27,11 @@ export function requestChestOpening(
       : null;
     try {
       if (!existing)
-        await (communityOnly
-          ? chestRepository.openCommunity(traveler, type, intent.operationId)
-          : chestRepository.open(traveler, type, intent.operationId));
+        await (qaShop
+          ? openQAShop(traveler, intent.operationId)
+          : communityOnly
+            ? chestRepository.openCommunity(traveler, type, intent.operationId)
+            : chestRepository.open(traveler, type, intent.operationId));
     } catch (e) {
       if (communityOnly && e instanceof CommunityOpeningSuspended)
         rejectOpeningIntent(owner, traveler, intent.operationId);

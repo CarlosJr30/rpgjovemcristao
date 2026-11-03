@@ -42,7 +42,21 @@ const paths = new Set([
   '/guilda/participar',
 ]);
 export function isReleasedPath(path: string): boolean {
-  return paths.has(path) || /^\/guilda\/convite\/[a-f0-9]{64}$/.test(path);
+  return (
+    paths.has(path) ||
+    /^\/guilda\/convite\/[a-f0-9]{64}$/.test(path) ||
+    (isShopTestPreview() &&
+      ['/journey/shop', '/journey/equipment'].includes(path))
+  );
+}
+export function isShopTestPreview(): boolean {
+  return (
+    process.env.NEXT_PUBLIC_SHOP_TEST_PREVIEW === '1' &&
+    process.env.NEXT_PUBLIC_SUPABASE_URL ===
+      'https://wkdvdzfkbwvhyjmamrsg.supabase.co' &&
+    process.env.VERCEL_ENV !== 'production' &&
+    process.env.NEXT_PUBLIC_VERCEL_ENV !== 'production'
+  );
 }
 export function unavailableResponse(): Response {
   return Response.json(

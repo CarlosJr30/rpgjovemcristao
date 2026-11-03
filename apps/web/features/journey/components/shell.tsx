@@ -10,6 +10,7 @@ import {
 } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import { GAME_NAME } from '@rpg/shared';
+import {isShopTestPreview} from '../../../lib/release-scope';
 import { AvatarRuntime } from './avatar-runtime';
 import {
   signOutAccount,
@@ -64,7 +65,7 @@ const releasedLinks = [
       'collection',
       'diary',
       'arena',
-    ].includes(id),
+    ].includes(id) || (isShopTestPreview() && ['shop','equipment'].includes(id)),
   })),
   {
     id: 'ebd',

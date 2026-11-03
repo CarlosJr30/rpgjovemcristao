@@ -1,5 +1,6 @@
 'use client';
 import Image from 'next/image';
+import {isShopTestPreview} from '../../../lib/release-scope';
 import portal from '../components/equipment-portal.module.css';
 import { EquipmentComparison } from '../components/equipment-comparison';
 import { EquipmentArenaDetails } from '../components/arena-rule-details';
@@ -248,7 +249,7 @@ export function EquipmentScreen() {
     }, EQUIP_ANIMATION_TIMING.leave);
   };
   return (
-    <Shell back={routes.hero} backLabel="Voltar ao Herói">
+    <Shell navigationMode={isShopTestPreview()?'released':'journey'} back={routes.hero} backLabel="Voltar ao Herói">
       <RequireTraveler>
         {(t) => (
           <section className={portal.portal} data-mobile-screen="equipment">

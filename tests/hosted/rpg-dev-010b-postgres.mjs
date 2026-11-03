@@ -17,7 +17,7 @@ const communityProductionPackage =
   process.env.RPG_010C1_PRODUCTION_PACKAGE === '1';
 const lessonCases = process.env.RPG_010B3_CASES === '1' || communityCases || economyBCases;
 const root = path.resolve(
-    economyCCases ? 'build/economy-001c/pg' :
+    economyCCases ? (process.env.RPG_ECONOMY_001C_SHOP_CASES==='1'?'build/economy-001c/shop-pg':'build/economy-001c/pg') :
     economyBCases ? (economyBProductionPackage ? 'build/economy-001b/pg-production' : 'build/economy-001b/pg') : challengeCases ? (challengeProductionPackage ? 'build/rpg-dev-010c2-production' : 'build/rpg-dev-010c2') : communityCases
       ? communityProductionPackage
         ? 'build/rpg-dev-010c-production'

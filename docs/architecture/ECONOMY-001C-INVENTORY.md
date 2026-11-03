@@ -1,5 +1,27 @@
 # ECONOMY-001C — inventário e decisões de ativação
 
+03/11 — **D3/D4 APROVADAS:** preços TEST40/35/65/115 e orçamento QA único255, no avatar dedicado QA Loja de conta TEST existente/confirmada, criado pelo fluxo normal. As propostas abaixo passaram a aprovadas somente nesse escopo; não autorizam preços/compras PROD. Nenhuma concessão QA executada até este checkpoint. Cartas à venda e outros baús continuam sem aprovação.
+
+## Retomada03/11/2026 e complemento da Loja
+
+PR31draft/head4b60cc1, árvore rastreada limpa e todos os commits enviados. CIpush41463034000/PR41463046594 success:1077unit/74SKIP,PG/RSC/qualidade. Migration **somenteTEST20261102144048** (arquivo20261102135323) aplicada em02/11;83tabelas/225rotinas/45migrations.80dados anteriores e218rotinas/ACLs preservados; apenas2triggers e1índice previstos em objetos antigos. Previewf1rb6akbt/READY/TEST. QA normal/preflight/negativas/Mochila vazia1365/390/320 PASS nas partes identificadas; nenhum evento, grant ou abertura001C. Positivos entre contas continuam pendentes; janelas anteriores fechadas. Relato de login humano anterior não substitui nova validação Auth. PROD/main86ae074 preservados; não houve merge/publicação001C.
+
+O complemento autoriza recuperar a Loja no mesmo escopo, inicialmente TEST, sem pagamentos reais nem mistura automática de PRs. Catálogo/UI de Loja e compra de baús/equipamentos existem; autoridade genérica e rotas seguem fechadas. O preço continua decisão do servidor. Venda de cartas não tem tabela localizada.
+
+| Oferta legada | Preço existente | Proposta de primeiro ensaio TEST |
+| --- | ---: | --- |
+| Baú comum |40|Reutilizar compra/abertura e loot comum já aprovado; falta integrar débito/proveniência ao novo escopo. |
+| Espada do Caminho |35|Reutilizar item, arte/slot e compra existentes; recibo/idempotência da ponte precisam ser completados. |
+| Couraça do Viajante |65|Mesmo contrato, sem alteração de atributos ou raridade. |
+| Escudo da Perseverança |115|Mesmo contrato; equipar exige sua autoridade própria TEST. |
+| Incomum/raro |90/180|Preços existentes, mas conteúdo não homologado nesta etapa: compras bloqueadas. |
+| Épico/extraordinário |Não compráveis|Preservar regra; não criar preço. |
+| Sete cartas existentes |Sem preço de venda localizado|Starter independente; compras de cartas bloqueadas até tabela aprovada. |
+
+**D3 proposta de preços TEST:** validar somente40/35/65/115 acima, sem presumir aprovação produtiva. Nenhum novo valor/preço/sorteio criado.
+
+**D4 proposta de fonte QA:**255moedas (40+35+65+115), uma concessão limitada e auditada para um único avatar dedicado “QA Loja”, criado pelo fluxo normal em uma conta QA TEST existente e confirmada. Confirmar identidade/avatar antes da escrita. Proveniência QA separada e reconhecível, sem importação para PROD, reconciliação de legados, XP, itens ou cartas artificiais. É orçamento de ensaio, não regra econômica de jogadores. A integração deverá preservar o saldo canônico e distinguir essa fonte dos créditos oficiais; falha nos invariantes impede concessão. Sem liberação produtiva de compras ou preços por inferência.
+
 02/11/2026. Main86ae074/CImerge41452725336 success; oficial dpl_8iGErYZYufcMGx2KAJ1UdTdUqQ1p READY/production/PROD/alias confirmado. Auditoria somente leitura; nenhuma concessão, migration ou alteração de produção nesta etapa. Branch codex/economy-001c-chests preserva o fechamento Arena f268001.
 
 | Sistema encontrado | Reutilização e falta real |

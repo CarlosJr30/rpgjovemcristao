@@ -13,26 +13,76 @@ import styles from '../journey/journey.module.css';
 import book from '../journey/components/diary-experience.module.css';
 import cardsCss from '../guild-missions/panel.module.css';
 import archiveCss from './archive.module.css';
-import {useState} from 'react';
-import {useAuth} from '../../lib/supabase/auth-context';
-import {useJourney} from '../journey/state/use-journey';
-import {ChestPanel} from '../journey/components/chest-panel';
+import { useState, useEffect } from 'react';
+import Link from 'next/link';
+import { isShopTestPreview } from '../../lib/release-scope';
+import { readQAShop } from '../../lib/qa-shop/client';
+import { useAuth } from '../../lib/supabase/auth-context';
+import { useJourney } from '../journey/state/use-journey';
+import { ChestPanel } from '../journey/components/chest-panel';
 
 export function ArchiveBackpack() {
-  const [revision,setRevision]=useState(0);
+  const [revision, setRevision] = useState(0);
   return (
     <ArchiveAccess key={revision} includeCards>
       {(snapshot, cards) => (
-        <><BackpackContents snapshot={snapshot} cards={cards} /><CommunityChests onRefresh={()=>setRevision(v=>v+1)}/></>
+        <>
+          <BackpackContents snapshot={snapshot} cards={cards} />
+          <CommunityChests onRefresh={() => setRevision((v) => v + 1)} />
+        </>
       )}
     </ArchiveAccess>
   );
 }
-const ignoreCount=()=>{};
-function CommunityChests({onRefresh}:{onRefresh:()=>void}){
- const auth=useAuth(),journey=useJourney();
- if(auth.status!=='signedIn'||journey.status!=='ready')return null;
- return <section aria-label="Baús de atividades"><h2>Baús de atividades</h2><p>Saldo confirmado: {journey.traveler.coins} moedas. Equipamentos adquiridos ficam em consulta; ações de equipar e Loja continuam bloqueadas.</p><ChestPanel key={`${auth.user.id}:${journey.traveler.id}`} ownerId={auth.user.id} traveler={journey.traveler} online communityOnly onCountChange={ignoreCount} onViewEquipment={onRefresh} onRefreshInventory={onRefresh}/></section>;
+const ignoreCount = () => {};
+function CommunityChests({ onRefresh }: { onRefresh: () => void }) {
+  const auth = useAuth(),
+    journey = useJourney();
+  const actor = journey.status === 'ready' ? journey.traveler.id : null;
+  const [qaActor, setQAActor] = useState<string | null>(null);
+  useEffect(() => {
+    let live = true;
+    if (isShopTestPreview() && actor)
+      readQAShop(actor)
+        .then((s) => {
+          if (live) setQAActor(s.enabled && s.balanceVerified ? actor : null);
+        })
+        .catch(() => {
+          if (live) setQAActor(null);
+        });
+    return () => {
+      live = false;
+    };
+  }, [actor]);
+  if (auth.status !== 'signedIn' || journey.status !== 'ready') return null;
+  const qa = qaActor === journey.traveler.id;
+  return (
+    <section aria-label="Baús de atividades">
+      <h2>{qa ? 'Baús da Loja QA' : 'Baús de atividades'}</h2>
+      <p>
+        Saldo confirmado: {journey.traveler.coins} moedas.{' '}
+        {qa ? (
+          <>
+            <Link href="/journey/shop">Loja TEST</Link> ·{' '}
+            <Link href="/journey/equipment">Equipar itens próprios</Link>
+          </>
+        ) : (
+          'Equipamentos adquiridos ficam em consulta; ações de equipar e Loja continuam bloqueadas.'
+        )}
+      </p>
+      <ChestPanel
+        key={`${auth.user.id}:${journey.traveler.id}:${qa}`}
+        ownerId={auth.user.id}
+        traveler={journey.traveler}
+        online
+        communityOnly
+        qaShop={qa}
+        onCountChange={ignoreCount}
+        onViewEquipment={onRefresh}
+        onRefreshInventory={onRefresh}
+      />
+    </section>
+  );
 }
 export function BackpackContents({
   snapshot,
@@ -64,7 +114,11 @@ export function BackpackContents({
                 data-rarity={equipment?.rarity ?? ownedCard?.rarity}
               >
                 {equipment /* eslint-disable-next-line @next/next/no-img-element -- approved existing inventory icon */ && (
-                  <img className={archiveCss.backpackIcon} src={equipmentAssetForItem(equipment)} alt="" />
+                  <img
+                    className={archiveCss.backpackIcon}
+                    src={equipmentAssetForItem(equipment)}
+                    alt=""
+                  />
                 )}
                 <h2>{equipment?.name ?? ownedCard?.name ?? row.item_id}</h2>
                 <p>

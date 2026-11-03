@@ -164,6 +164,8 @@ jobs:
 
       - name: Exigir elegibilidade cotas globais loot legado aprovado e contenção de baús
         run: node tests/hosted/economy-001c-postgres.mjs
+      - name: Exigir orçamento QA isolado compras atômicas e recuperação da Loja TEST
+        run: node tests/hosted/economy-001c-shop-postgres.mjs
 
   pinned-preview:
     name: Preview do SHA aprovado

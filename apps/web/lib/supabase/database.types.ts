@@ -376,6 +376,10 @@ export type Database = {
       get_owned_cards: { Args: { p_traveler_id: string }; Returns: Json };
       claim_arena_starter: { Args: { p_traveler_id: string }; Returns: Json };
       claim_community_chest: { Args: { p_actor: string; p_mission: string }; Returns: Json };
+      get_qa_shop: { Args: { p_actor: string }; Returns: Json };
+      purchase_qa_shop: { Args: { p_actor: string; p_kind: string; p_offer: string; p_operation_id: string }; Returns: Json };
+      open_qa_shop_chest: { Args: { p_actor: string; p_operation_id: string }; Returns: Json };
+      equip_qa_shop: { Args: { p_actor: string; p_slot: string; p_item_id: string | null; p_expected_item_id: string | null }; Returns: Json };
       open_community_chest: { Args: { p_actor: string; p_chest_type: string; p_operation_id: string }; Returns: Json };
       claim_ebd_attendance_xp: {
         Args: { p_actor: string; p_lesson: string };
