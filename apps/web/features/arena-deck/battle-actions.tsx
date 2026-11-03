@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useId, useRef, useState } from 'react';
+import { useCallback, useEffect, useId, useRef, useState } from 'react';
 import {
   arenaCombatConfig,
   type ArenaProductAction,
@@ -21,16 +21,23 @@ export function ArenaBattleActions({
   const [open, setOpen] = useState(false);
   const trigger = useRef<HTMLButtonElement>(null);
   const panelId = useId();
+  const closePanel = useCallback(() => {
+    setOpen(false);
+    trigger.current?.focus();
+    trigger.current?.scrollIntoView?.({ block: 'nearest' });
+  }, []);
   useEffect(() => {
     if (!open) return;
+    const panel = document.getElementById(panelId);
+    panel?.focus({ preventScroll: true });
+    panel?.scrollIntoView?.({ block: 'start' });
     const close = (event: KeyboardEvent) => {
       if (event.key !== 'Escape') return;
-      setOpen(false);
-      trigger.current?.focus();
+      closePanel();
     };
     window.addEventListener('keydown', close);
     return () => window.removeEventListener('keydown', close);
-  }, [open]);
+  }, [open, panelId, closePanel]);
   if (battle.status !== 'in_progress') return null;
   return (
     <>
@@ -76,6 +83,7 @@ export function ArenaBattleActions({
           battle={battle}
           busy={busy}
           onPlay={(id) => onAction(`card:${id}`)}
+          onClose={closePanel}
         />
       )}
     </>

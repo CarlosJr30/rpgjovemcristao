@@ -42,10 +42,35 @@ test('exactly three primary actions; only CARTAS opens seven, Escape closes and 
   fireEvent.click(trigger);
   const panel = screen.getByRole('region', { name: 'Cartas desta batalha' });
   expect(trigger).toHaveAttribute('aria-controls', panel.id);
+  expect(panel).toHaveFocus();
   expect(within(panel).getAllByRole('article')).toHaveLength(7);
   fireEvent.keyDown(window, { key: 'Escape' });
   expect(trigger).toHaveFocus();
   expect(trigger).toHaveAttribute('aria-expanded', 'false');
+  fireEvent.click(trigger);
+  fireEvent.click(screen.getByRole('button', { name: 'Fechar cartas' }));
+  expect(trigger).toHaveFocus();
+  expect(
+    screen.queryByRole('region', { name: 'Cartas desta batalha' }),
+  ).toBeNull();
+});
+
+test('an empty battle deck explains the block and links to the existing manual deck flow', () => {
+  render(
+    <BattleCards
+      battle={{ ...start(), deck: undefined }}
+      busy={false}
+      onPlay={vi.fn()}
+    />,
+  );
+  expect(screen.getByRole('status')).toHaveTextContent(
+    'não possui um baralho válido',
+  );
+  expect(screen.getByRole('link', { name: 'Meu Baralho' })).toHaveAttribute(
+    'href',
+    '/journey/arena/deck',
+  );
+  expect(screen.queryByRole('button', { name: /Usar carta/ })).toBeNull();
 });
 test('actual costs and explicit focus/level/used/closed reasons disable activation', () => {
   const b = start();
