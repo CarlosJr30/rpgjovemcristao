@@ -273,7 +273,7 @@
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1rem;
 }
-.card {
+.portal .card {
   min-width: 0;
   padding: 1rem;
   border: 1px solid #c4bda6;
