@@ -1,4 +1,19 @@
-# RPG-FIX-002 — Arena, Loja e interface
+# RPG-FIX-002 ? Arena, Loja e Torre
+
+03/11/2026. **DONE / DEPLOY_COMPLETE para as corre??es aprovadas.** [Jogo oficial](https://rpgjovemcristao-web-inky.vercel.app/journey/shop), [PR33 integrada normalmente](https://github.com/CarlosJr30/rpgjovemcristao/pull/33): candidato83baae7, merge **29825f575c70576c5ef92032a1bd6513e7b69c97**. Vercel **dpl_AYbbfNr4TPjKcn6dFuaLcKtePkVX / READY / production / backend PROD / dom?nio oficial confirmado**. Mesmo deployment Git promovido, sem rebuild; autoAssign=true, SSO/TrustedSources preservados.
+
+- **Arena:** Cartas leva foco/rolagem ?s sete cartas; fechamento restaura o foco. Uma carta eleg?vel aplicada pelo motor original em TEST, depois indispon?vel na mesma batalha. Efeitos, custos, HP/Foco/turnos/IA e equipamentos n?o alterados.
+- **Loja:** grade compacta, duas colunas desktop/uma em320px, artes existentes e filtros sem compras. Mantidos somente comum40, Espada35, Coura?a65 e Escudo115. **Torre:** orienta??o para solicitar/confirmar starter e selecionar/salvar sete cartas; bloqueio0/7 preservado.
+- **Valida??o:**9unit?rios afetados PASS, lint/tipos/build e CI obrigat?rio. [Push41679247771](https://github.com/CarlosJr30/rpgjovemcristao/actions/runs/41679247771) success/tentativa2, somente job RSC falho reexecutado; [PR41679350415](https://github.com/CarlosJr30/rpgjovemcristao/actions/runs/41679350415) e [merge41753296480](https://github.com/CarlosJr30/rpgjovemcristao/actions/runs/41753296480) success/tentativa1. **1112unit PASS/74SKIP**, qualidade/PG/RSC/protocolo aprovados; publica??o condicional SKIP, n?o PASS. Nenhuma su?te geral local repetida.
+- **Preview TEST:** [l4qa01nyk](https://rpgjovemcristao-l4qa01nyk-carlos-junior-s-projects.vercel.app), dpl_32Tr7PF6nmgHVhECZKGYc1fC4ukf READY/83baae7/TEST; login normal, Loja390, Torre0/7 e uma carta contra Noemi homologados. Larguras320/390/1365 verificadas nas partes identificadas, emuladas, sem aparelho f?sico. Sem compras, aberturas ou concess?es nesta tarefa.
+- **PROD:** login normal separado na origem retida; leituras retidas/oficiais e seis checks HTTP/API PASS, monitores finais sem erros/falhas/escritas econ?micas. **81conjuntos PROD, estrutura/233fun??es/39policies/22migrations e sete tabelas can?nicas TEST id?nticos**. Teste Chat A mant?m n?vel50, XP, sete cartas, or?amento QA atual9960 e validade10/11/2026 13:10:27; n?o reiniciados. **Zero migrations, grants ou altera??es Auth/RLS.** Recupera??o dispon?vel pelo deployment anterior1220cdb, sem DDL; n?o necess?ria.
+
+**Pend?ncias separadas:** menu duplicado n?o reproduzido na navega??o ou transi??es QA; menu n?o alterado, conforme propriet?rio, sem alegar corre??o. Invent?rio confirma seis equipamentos existentes; ofertas adicionais e outros ba?s continuam indispon?veis sem contrato econ?mico completo. PR12/18/24/26 preservadas, sem integra??o autom?tica.
+
+Falhas preservadas: primeiro CI teve conex?o ao servidor local no gate m?vel, n?o falha convertida em PASS; reexecutado somente job afetado. Retida parou na leitura antecipada de imagens ap?s filtro; quatro assets carregados confirmados, coletor passou a aguardar imagem completa e retomou apenas trecho restante. Interrup??es preparat?rias anteriores preservadas abaixo. Nenhum filtro de erros ou mudan?a Auth/RLS/assertions para mascarar falhas. [Evid?ncia sanitizada](RPG-FIX-002-RELEASE-EVIDENCE.json); artefatos privados em build/rpg-fix-002. QA/Security pelo autor, sem independ?ncia. Registro final documental em branch pr?pria, sem deploy adicional.
+
+## Prepara??o hist?rica
+
 
 03/11/2026 — ACTIVE, main1220cdb preservada, incremento próprio. Nenhuma migration ou mudança econômica autorizada/necessária nesta preparação.
 
