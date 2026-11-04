@@ -1,5 +1,6 @@
 'use client';
 import Link from 'next/link';
+import { chestCatalog } from '@rpg/game-engine';
 import { useState, useSyncExternalStore } from 'react';
 import {
   trainingSnapshot,
@@ -16,6 +17,7 @@ import { EquipmentBibleDetails } from '../components/equipment-bible-details';
 import { EquipmentStatBonuses } from '../components/equipment-stat-bonuses';
 import { buyEquipment } from '../state/use-journey';
 import styles from '../journey.module.css';
+import shop from './shop.module.css';
 import { ShopPurchaseHistory } from '../../qa-shop/purchase-history';
 import { purchaseQAShop, resumeQAPurchase } from '../../../lib/qa-shop/client';
 
@@ -23,6 +25,9 @@ export function ShopScreen({
   qa,
 }: { qa?: { actor: string; coins: number; production?: boolean } } = {}) {
   const [feedback, setFeedback] = useState('');
+  const [category, setCategory] = useState<'all' | 'chests' | 'equipment'>(
+    'all',
+  );
   const training = useTrainingTraveler();
   const trainingBinding = useSyncExternalStore(
     subscribeTraining,
@@ -82,7 +87,7 @@ export function ShopScreen({
     >
       <RequireTraveler>
         {(traveler) => (
-          <section className={styles.diarySection}>
+          <section className={`${styles.diarySection} ${shop.shop}`}>
             <p className={styles.eyebrow}>
               {training
                 ? 'LOJA DE TREINO · SALDO E ITENS QA'
@@ -103,7 +108,7 @@ export function ShopScreen({
               Os melhores equipamentos continuam ligados à exploração e aos
               desafios.
             </p>
-            <p role="status" aria-live="polite">
+            <p role="status" aria-live="polite" className={shop.feedback}>
               {feedback}
             </p>
             {qa && (
@@ -118,22 +123,6 @@ export function ShopScreen({
                 <button disabled={busy} onClick={() => void resume()}>
                   Consultar compra pendente
                 </button>
-                <article className={styles.itemCard}>
-                  <h2>Baú comum</h2>
-                  <p>40 moedas · conteúdo comum já aprovado.</p>
-                  <button
-                    disabled={busy || traveler.coins < 40}
-                    onClick={() =>
-                      setConfirmation({
-                        kind: 'chest',
-                        id: 'common',
-                        name: 'Baú comum',
-                      })
-                    }
-                  >
-                    Comprar baú comum
-                  </button>
-                </article>
                 <p>
                   Cartas: compras indisponíveis.{' '}
                   <Link href="/journey/arena/deck">
@@ -146,9 +135,16 @@ export function ShopScreen({
               </>
             )}
             {confirmation && (
-              <section aria-label="Confirmar compra">
+              <section
+                aria-label="Confirmar compra"
+                className={shop.confirmation}
+              >
                 <p>Confirmar compra de {confirmation.name}?</p>
-                <button disabled={busy} onClick={() => void confirm()}>
+                <button
+                  className={styles.primaryLink}
+                  disabled={busy}
+                  onClick={() => void confirm()}
+                >
                   Confirmar compra
                 </button>
                 <button disabled={busy} onClick={() => setConfirmation(null)}>
@@ -156,58 +152,122 @@ export function ShopScreen({
                 </button>
               </section>
             )}
-            <div className={styles.itemShelf}>
-              {SHOP_OFFERS.map(({ equipment, price, description }) => {
-                const owned = training
-                  ? !!trainingBinding?.state.items[equipment.id]
-                  : traveler.inventory.some((item) => item.id === equipment.id);
-                return (
-                  <article
-                    className={styles.itemCard}
-                    key={equipment.id}
-                    data-rarity={equipment.rarity}
+            {qa && (
+              <div
+                className={shop.categories}
+                role="group"
+                aria-label="Categorias da Loja"
+              >
+                {(
+                  [
+                    ['all', 'Todos'],
+                    ['chests', 'Baús'],
+                    ['equipment', 'Equipamentos'],
+                  ] as const
+                ).map(([id, label]) => (
+                  <button
+                    key={id}
+                    aria-pressed={category === id}
+                    onClick={() => setCategory(id)}
                   >
-                    {/* eslint-disable-next-line @next/next/no-img-element -- ícone local registrado */}
-                    <img
-                      className={styles.equipmentItemIcon}
-                      src={equipmentAssetForItem(equipment)}
-                      alt=""
-                    />
-                    <h2>{equipment.name}</h2>
-                    <p>
-                      {equipment.rarity.toUpperCase()} · {equipment.slot} ·
-                      poder {equipment.power}
-                    </p>
-                    <EquipmentStatBonuses stats={equipment.stats} />
-                    <p>{description}</p>
-                    <EquipmentBibleDetails item={equipment} />
-                    <strong>
-                      ◈ {price} {TRAVELER_CURRENCY_NAME}
-                    </strong>
-                    <button
-                      className={styles.primaryLink}
-                      disabled={
-                        owned || busy || (!!qa && traveler.coins < price)
-                      }
-                      onClick={() =>
-                        qa
-                          ? setConfirmation({
-                              kind: 'equipment',
-                              id: equipment.id,
-                              name: equipment.name,
-                            })
-                          : buy(equipment.id, equipment.name)
-                      }
+                    {label}
+                  </button>
+                ))}
+              </div>
+            )}
+            <div className={shop.products} aria-label="Produtos disponíveis">
+              {qa && category !== 'equipment' && (
+                <article
+                  className={`${styles.itemCard} ${shop.product}`}
+                  data-rarity="comum"
+                >
+                  {/* eslint-disable-next-line @next/next/no-img-element -- arte local existente do baú */}
+                  <img
+                    className={shop.art}
+                    src={chestCatalog.common.image}
+                    alt=""
+                  />
+                  <h2>Baú comum</h2>
+                  <p className={shop.rarity}>COMUM · Baú</p>
+                  <p>
+                    Moedas e possibilidade de equipamento, conforme o conteúdo
+                    comum existente.
+                  </p>
+                  <strong className={shop.price}>
+                    ◈ 40 {TRAVELER_CURRENCY_NAME}
+                  </strong>
+                  <button
+                    className={styles.primaryLink}
+                    disabled={busy || traveler.coins < 40}
+                    onClick={() =>
+                      setConfirmation({
+                        kind: 'chest',
+                        id: 'common',
+                        name: 'Baú comum',
+                      })
+                    }
+                  >
+                    Comprar baú comum
+                  </button>
+                </article>
+              )}
+              {category !== 'chests' &&
+                SHOP_OFFERS.map(({ equipment, price, description }) => {
+                  const owned = training
+                    ? !!trainingBinding?.state.items[equipment.id]
+                    : traveler.inventory.some(
+                        (item) => item.id === equipment.id,
+                      );
+                  return (
+                    <article
+                      className={`${styles.itemCard} ${shop.product}`}
+                      key={equipment.id}
+                      data-rarity={equipment.rarity}
                     >
-                      {owned
-                        ? 'Adquirido'
-                        : traveler.coins < price
-                          ? 'Moedas insuficientes'
-                          : 'Comprar'}
-                    </button>
-                  </article>
-                );
-              })}
+                      {/* eslint-disable-next-line @next/next/no-img-element -- ícone local registrado */}
+                      <img
+                        className={shop.art}
+                        src={equipmentAssetForItem(equipment)}
+                        alt=""
+                      />
+                      <h2>{equipment.name}</h2>
+                      <p className={shop.rarity}>
+                        {equipment.rarity.toUpperCase()} · poder{' '}
+                        {equipment.power}
+                      </p>
+                      <EquipmentStatBonuses stats={equipment.stats} />
+                      <details className={shop.details}>
+                        <summary>Sobre este equipamento</summary>
+                        <p>{description}</p>
+                        <EquipmentBibleDetails item={equipment} />
+                      </details>
+                      <strong className={shop.price}>
+                        ◈ {price} {TRAVELER_CURRENCY_NAME}
+                      </strong>
+                      <button
+                        className={styles.primaryLink}
+                        disabled={
+                          owned || busy || (!!qa && traveler.coins < price)
+                        }
+                        onClick={() =>
+                          qa
+                            ? setConfirmation({
+                                kind: 'equipment',
+                                id: equipment.id,
+                                name: equipment.name,
+                              })
+                            : buy(equipment.id, equipment.name)
+                        }
+                      >
+                        {owned
+                          ? 'Adquirido'
+                          : traveler.coins < price
+                            ? 'Moedas insuficientes'
+                            : 'Comprar'}
+                      </button>
+                    </article>
+                  );
+                })}
             </div>
             <p>
               <Link href={routes.backpack}>Abrir Mochila →</Link>

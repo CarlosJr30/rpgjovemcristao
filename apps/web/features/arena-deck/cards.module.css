@@ -10,4 +10,10 @@
   border-radius: 12px;
   background: #f4eedf;
   color: #25392e;
+  scroll-margin-top: 100px;
+}
+
+.battlePanel:focus-visible {
+  outline: 3px solid #a88a54;
+  outline-offset: 3px;
 }

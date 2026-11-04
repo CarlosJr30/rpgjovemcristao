@@ -1,0 +1,252 @@
+{
+  "version": 1,
+  "status": "DONE_DEPLOY_COMPLETE",
+  "ownerApproval": "0fa04b94-dbaa-490b-b08c-a60e4002152b",
+  "candidate": "f7c947b53baa0833ff8443e2c41b1d61b12bf583",
+  "merge": "1220cdbc0d58929904e26656838a19bd7f0a803c",
+  "pr": {
+    "number": 32,
+    "merged": true
+  },
+  "owner": {
+    "avatar": "Teste Chat A",
+    "level": 50,
+    "xp": 245016,
+    "authFingerprint": "51f8f162f5bf",
+    "identityVerifiedByNormalAuthAndServer": true,
+    "duplicateNameResolvedByApprovedExactOwnerAndAvatarId": true
+  },
+  "privateActivation": {
+    "state": {
+      "coins": 10000,
+      "hours": 168,
+      "items": {},
+      "chests": 0,
+      "enabled": true,
+      "equipped": {},
+      "revision": 0,
+      "createdAt": "2026-11-03T16:10:27.017129+00:00",
+      "expiresAt": "2026-11-10T16:10:27.017129+00:00",
+      "designated": true,
+      "activationMatches": true
+    },
+    "legacy": 20,
+    "profiles": 1,
+    "receipts": 1,
+    "budgetOnly": true,
+    "migrations": 22
+  },
+  "canonicalPreservation": {
+    "datasets": 78,
+    "exact": true,
+    "previousFunctions": 224,
+    "previousACLsPoliciesDefaultsPreserved": true,
+    "legacyUnreconciled": 20,
+    "accountsOrAvatarsCreated": false,
+    "officialRewardsGranted": false
+  },
+  "migration": {
+    "remote": "20261103153930",
+    "file": "20261103145109_economy_qa_002_isolated_training_production.sql",
+    "sha256": "6b35ee6576df1352930871f9f429397f48b81fb077985fe2a76a769c3daff128",
+    "testOnlyAppliedToProd": false,
+    "installWasEmpty": true
+  },
+  "ci": {
+    "push": 41664353588,
+    "pr": 41664364654,
+    "merge": 41666470997,
+    "exactSHAs": true,
+    "attempt": 1,
+    "success": true,
+    "unitPass": 1109,
+    "unitSkip": 74,
+    "filesPassed": 166,
+    "optInFilesSkipped": 7,
+    "conditionalPublication": "SKIP"
+  },
+  "verification": {
+    "newIsolatedProductiveGuardCases": 6,
+    "reusedMechanismCases": 14,
+    "hostedTestCycleReused": true,
+    "liveProductivePurchaseOpenEquipOrStarterExecuted": false,
+    "liveProductiveTrainingCommands": 0,
+    "normalSessionsPerOrigin": true,
+    "sessionsCopied": false,
+    "retainedDesktop": true,
+    "official320Emulated": true,
+    "physicalMobileTest": false,
+    "unrelatedBrowserSuitesRepeatedLocally": false
+  },
+  "deployment": {
+    "checks": [
+      {
+        "path": "/",
+        "status": 200
+      },
+      {
+        "path": "/auth",
+        "status": 200
+      },
+      {
+        "path": "/journey/shop",
+        "status": 200
+      },
+      {
+        "path": "/journey/equipment",
+        "status": 200
+      },
+      {
+        "path": "/journey/arena/deck",
+        "status": 200
+      },
+      {
+        "path": "/api/authority",
+        "status": 403
+      }
+    ],
+    "sha": "1220cdbc0d58929904e26656838a19bd7f0a803c",
+    "ready": true,
+    "deployment": "dpl_JCFAPsSRA9W8jHSnVHizLhjvrdif",
+    "official": "dpl_JCFAPsSRA9W8jHSnVHizLhjvrdif",
+    "backend": "PROD",
+    "autoAssign": true,
+    "ssoUnchanged": true,
+    "trustedSourcesUnchanged": true
+  },
+  "artifacts": [
+    {
+      "path": "build/economy-qa-002/production/owner-approval.json",
+      "sha256": "cede3193cd5b64bf8a440fc4097a23e13d2d747cc7c411301747479d734831d5",
+      "bytes": 308
+    },
+    {
+      "path": "build/economy-qa-002/production/package-reviewed.json",
+      "sha256": "65ab6b0881dfba3590d7e94538057a4d5c2e37a34b1f61ee1f2c649e0bb314de",
+      "bytes": 329
+    },
+    {
+      "path": "build/economy-qa-002/production/pg/postgres-results.json",
+      "sha256": "a37b4a12d8849c17923bfc4085f6850ee66112b5626707658c883b2fe6488bc3",
+      "bytes": 866
+    },
+    {
+      "path": "build/economy-qa-002/production/ci-approved.json",
+      "sha256": "6f51dc71516a6873bec5c8b509cace690ae7769edf98ea52b3ed3dce901eaacc",
+      "bytes": 517
+    },
+    {
+      "path": "build/economy-qa-002/production/merge-ci-approved.json",
+      "sha256": "d75a419db348f9d52181d41d05b8065647f6cc844d70998614825f46c86deb9c",
+      "bytes": 268
+    },
+    {
+      "path": "build/economy-qa-002/production/preview.json",
+      "sha256": "a4b74670a5b0955e5e72efd2107b16eb8084a593d8ef542a020b2e3e5ce51132",
+      "bytes": 237
+    },
+    {
+      "path": "build/economy-qa-002/production/merge.json",
+      "sha256": "4c34ef092a0962068411e9b9e8d17ba005e25d432b9f437d8de4deb60cd2e3d4",
+      "bytes": 123
+    },
+    {
+      "path": "build/economy-qa-002/production/before-data.json",
+      "sha256": "353a94668cb05dd677269cc668f9157184d1d76f55f348553e04f8200a5d5ada",
+      "bytes": 26505
+    },
+    {
+      "path": "build/economy-qa-002/production/before-structure.json",
+      "sha256": "b82689d13cb17456269d3d7586a9ce0c0aff797c4af605a7ac5a04d4fa633a7b",
+      "bytes": 299891
+    },
+    {
+      "path": "build/economy-qa-002/production/after-ddl-data.json",
+      "sha256": "353a94668cb05dd677269cc668f9157184d1d76f55f348553e04f8200a5d5ada",
+      "bytes": 26505
+    },
+    {
+      "path": "build/economy-qa-002/production/after-ddl-structure.json",
+      "sha256": "9bc946cfabddb4c95f1fb95194573d000f5c0de17158a3a1cb6414d195840458",
+      "bytes": 300848
+    },
+    {
+      "path": "build/economy-qa-002/production/post-ddl-auth.json",
+      "sha256": "99330250920785ea2674103d88f1ca8e4620999ec2b234a30ac5b57a68f817db",
+      "bytes": 343
+    },
+    {
+      "path": "build/economy-qa-002/production/retained-empty.json",
+      "sha256": "d224837e43386daad88a311deacb9f1b0e57200f988486711fbf0be0f422a8a3",
+      "bytes": 274
+    },
+    {
+      "path": "build/economy-qa-002/production/production-retained-checks.json",
+      "sha256": "df83fa14d101955c147b0c9745ce953ece2bf32fc6e459ea6a4821d29f4eeb9c",
+      "bytes": 1005
+    },
+    {
+      "path": "build/economy-qa-002/production/production-official-checks.json",
+      "sha256": "1cfc216f5301cac1134d211b45dd86edb81a2c3054ff77b627eef6a24a86c184",
+      "bytes": 1005
+    },
+    {
+      "path": "build/economy-qa-002/production/promoted.json",
+      "sha256": "028a6fea34da3a156fc412e6b313db7476db5c408d8cc885716bbe3f9db78c24",
+      "bytes": 203
+    },
+    {
+      "path": "build/economy-qa-002/production/release-controls-restore.json",
+      "sha256": "afd1d6724daa6ad5ec2b5d5a6a3c2fb65a44f09c3b7eec5195d5ee83d0a11849",
+      "bytes": 100
+    },
+    {
+      "path": "build/economy-qa-002/production/production-http.json",
+      "sha256": "6fae47e14e41ccee869f04ee39f4acad4668837dcf32465768ce149bd6969f6d",
+      "bytes": 670
+    },
+    {
+      "path": "build/economy-qa-002/production/final-data.json",
+      "sha256": "353a94668cb05dd677269cc668f9157184d1d76f55f348553e04f8200a5d5ada",
+      "bytes": 26505
+    },
+    {
+      "path": "build/economy-qa-002/production/final-structure.json",
+      "sha256": "9bc946cfabddb4c95f1fb95194573d000f5c0de17158a3a1cb6414d195840458",
+      "bytes": 300848
+    },
+    {
+      "path": "build/economy-qa-002/production/final-private-state.json",
+      "sha256": "9121bd2b0a6494a8713881eff3a00aa2b9ad0c6fe3dbd3e424c449fbfeb42a7d",
+      "bytes": 506
+    },
+    {
+      "path": "build/economy-qa-002/production/security-final.json",
+      "sha256": "fbc30fd89bb6a4d74f283fbf6fb2f6d7e6ee62df5b123351e7613fd39e1fb1ad",
+      "bytes": 553
+    },
+    {
+      "path": "build/economy-qa-002/production/retained-training.png",
+      "sha256": "827595b618109b6783e9fc902209d287a0e424b95d50ed7a584e13ca17b46c7f",
+      "bytes": 565381
+    },
+    {
+      "path": "build/economy-qa-002/production/official-training.png",
+      "sha256": "5cf8050e08ee5d5ecca93c61efa8a552eae3234a2cdf05823fca010521551628",
+      "bytes": 180812
+    }
+  ],
+  "limitations": [
+    "QA/Security by author, no independent review claimed",
+    "Original 14 mechanism cases and single TEST cycle reused",
+    "Only productive guard normalized CRLF/LF; full approved hash still required",
+    "Productive transactions intentionally left to owner; agent performed no purchases/openings/starter",
+    "HTTP negatives recorded separately; no claim of zero POSTs"
+  ],
+  "preservedPRs": {
+    "12": "61b7177b2ba52a04b955a8306677a0e13dfdeb3c",
+    "18": "fd6f1498783d00c2a338cc42968bc7d0d4f3f822",
+    "24": "0c484e8bb97ccae2aec2cf44e1adc30a08cdb3ce",
+    "26": "3ca29d7f295f2daf9e1db01d517187df5321113f"
+  }
+}

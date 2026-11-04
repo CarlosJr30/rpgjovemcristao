@@ -198,23 +198,34 @@ export function BattleCards({
   busy,
   onPlay,
   panelId,
+  onClose,
 }: {
   battle: BattleState;
   busy: boolean;
   onPlay: (id: string) => void;
   panelId?: string;
+  onClose?: () => void;
 }) {
   return (
     <section
       id={panelId}
       className={`${css.panel} ${cardsCss.battlePanel}`}
       aria-label="Cartas desta batalha"
+      tabIndex={-1}
     >
       <h3>Seu baralho nesta batalha</h3>
+      {onClose && <button onClick={onClose}>Fechar cartas</button>}
       <p>
         Usadas: {battle.deck?.usedIds.length ?? 0}/7. Cada carta tem um uso.
         Atacar e Defender não consomem cartas; especiais passam pelo baralho.
       </p>
+      {!battle.deck?.cards.length && (
+        <p role="status">
+          Este combate não possui um baralho válido. Acesse{' '}
+          <a href="/journey/arena/deck">Meu Baralho</a>, solicite e confirme o
+          pacote inicial se necessário e selecione/salve sete cartas próprias.
+        </p>
+      )}
       <div className={css.grid}>
         {battle.deck?.cards.map((c) => {
           const availability = arenaCardAvailability(battle, c.id);

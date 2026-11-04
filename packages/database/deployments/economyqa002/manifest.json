@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "phase": "PREPARED_NOT_APPLIED",
+  "phase": "DEPLOY_COMPLETE",
   "file": "supabase/migrations/20261103145109_economy_qa_002_isolated_training_production.sql",
   "project": "wspafhlbtlpabypzymjo",
   "scope": "guild-ebd-001",
@@ -12,18 +12,21 @@
   "profilesAndReceiptsInitiallyEmpty": true,
   "canonicalWrites": false,
   "authorization": "Owner 0fa04b94 authorizes restricted PROD installation and one activation after mandatory gates",
-  "remaining": [
-    "exact package CI",
-    "normal approved PROD identity preflight and canonical snapshot",
-    "own migration only",
-    "Git merge and retained READY PROD backend",
-    "retained check, promotion, official alias and preservation"
-  ],
+  "remaining": [],
   "legacyGuard": "Full pg_get_functiondef normalized only CRLF to LF; same approved canonical hash",
   "productiveGuardChecks": {
     "count": 6,
     "pass": true,
     "synthetic": true,
     "artifact": "build/economy-qa-002/production/pg/postgres-results.json"
+  },
+  "remoteMigration": "20261103153930",
+  "releasedCommit": "1220cdbc0d58929904e26656838a19bd7f0a803c",
+  "activation": {
+    "once": true,
+    "privateBudget": 10000,
+    "hours": 168,
+    "expiresAt": "2026-11-10T16:10:27.017129Z",
+    "canonicalWrites": false
   }
 }

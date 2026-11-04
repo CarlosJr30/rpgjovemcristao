@@ -126,9 +126,10 @@ export function TowerExperience({
           </p>
           {deckError && (
             <p className={css.notice}>
-              A entrada exige sete cartas homologadas e possuídas. Catálogo e
-              aquisição ainda pendentes; nenhuma carta será concedida para
-              liberar a Torre.
+              A entrada exige sete cartas próprias válidas. Em Meu Baralho,
+              solicite e confirme o pacote inicial se ainda não o recebeu;
+              depois selecione e salve sete cartas. O nível não concede cartas
+              automaticamente.
             </p>
           )}
           {data.view.battle && (
