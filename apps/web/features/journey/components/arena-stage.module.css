@@ -19,7 +19,11 @@
   height: var(--stage-height);
   min-height: 0;
   width: 100%;
-  border-radius: 14px;
+  border: 2px solid #b39a61;
+  border-radius: 18px;
+  box-shadow:
+    0 14px 30px #0b251d44,
+    inset 0 0 70px #061d1755;
   background:
     radial-gradient(ellipse at 50% 25%, #d5b77a55, transparent 65%),
     linear-gradient(#315443, #193a31);
@@ -54,7 +58,9 @@
   position: absolute;
   inset: 0;
   z-index: var(--layer-environment);
-  background: radial-gradient(ellipse at 30% 55%, #ffe1a324, transparent 40%);
+  background:
+    radial-gradient(ellipse at 30% 55%, #ffe1a324, transparent 40%),
+    linear-gradient(90deg, #061e1844, transparent 30% 70%, #061e1844);
 }
 .ground {
   position: absolute;
@@ -81,7 +87,10 @@
   min-height: 98px;
   z-index: var(--layer-hud);
   padding: 9px;
-  background: #193b31fa;
+  border: 1px solid #bd9e5e;
+  border-radius: 12px;
+  box-shadow: 0 4px 14px #061d1855;
+  background: linear-gradient(130deg, #193b31fa, #102b27fa);
 }
 .fighter[data-side='opponent'] .hud {
   left: var(--opponent-x);

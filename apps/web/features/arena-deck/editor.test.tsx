@@ -37,6 +37,11 @@ test('player with40 cards chooses7, cannot select8, removes/replaces and saves e
       ).getByRole('button'),
     );
   expect(screen.getByText('Cartas selecionadas: 7/7')).toBeInTheDocument();
+  const selected = screen.getByRole('article', {
+    name: 'Carta: Carta de teste 1',
+  });
+  expect(selected).toHaveAttribute('data-art-status', 'pending');
+  expect(within(selected).getByText('Símbolo de ação')).toBeVisible();
   expect(
     within(
       screen.getByRole('article', { name: 'Carta: Carta de teste 8' }),

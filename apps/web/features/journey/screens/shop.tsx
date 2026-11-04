@@ -88,16 +88,18 @@ export function ShopScreen({
       <RequireTraveler>
         {(traveler) => (
           <section className={`${styles.diarySection} ${shop.shop}`}>
-            <p className={styles.eyebrow}>
-              {training
-                ? 'LOJA DE TREINO · SALDO E ITENS QA'
-                : qa?.production
-                  ? 'LOJA DO VIAJANTE'
-                  : qa
-                    ? 'LOJA QA · SOMENTE TEST'
-                    : 'ECONOMIA DE GAMEPLAY'}
-            </p>
-            <h1>Loja do Viajante</h1>
+            <header className={shop.marketHero}>
+              <p className={styles.eyebrow}>
+                {training
+                  ? 'LOJA DE TREINO · SALDO E ITENS QA'
+                  : qa?.production
+                    ? 'LOJA DO VIAJANTE'
+                    : qa
+                      ? 'LOJA QA · SOMENTE TEST'
+                      : 'ECONOMIA DE GAMEPLAY'}
+              </p>
+              <h1>Loja do Viajante</h1>
+            </header>
             <p>
               ◈ Saldo:{' '}
               <strong>
@@ -271,127 +273,141 @@ export function ShopScreen({
             </div>
             {qa && category !== 'equipment' && (
               <section aria-labelledby="activity-chests">
-                <h2 id="activity-chests">Baús obtidos por atividades</h2>
-                <div className={shop.products}>
-                  {(['common', 'epic'] as const).map((id) => (
-                    <article
-                      className={`${styles.itemCard} ${shop.product}`}
-                      key={id}
-                    >
-                      {/* eslint-disable-next-line @next/next/no-img-element -- arte existente do catálogo */}
-                      <img
-                        className={shop.art}
-                        src={chestCatalog[id].image}
-                        alt=""
-                      />
-                      <h3>{chestCatalog[id].name}</h3>
-                      <p className={shop.rarity}>
-                        {chestCatalog[id].rarityLabel}
-                      </p>
-                      <p>Origem: atividade comunitária elegível e validada.</p>
-                      <p>
-                        {id === 'epic'
-                          ? 'Moedas e possibilidade de Elmo do Viajante, conforme o sorteio épico aprovado. Não está à venda.'
-                          : 'Moedas e possibilidade de Espada do Caminho, conforme o sorteio comum aprovado. Também disponível para compra acima.'}
-                      </p>
-                      <Link href="/journey/guild">
-                        Consultar atividades da Guilda
-                      </Link>
-                    </article>
-                  ))}
-                </div>
+                <details className={shop.catalogDetails}>
+                  <summary>
+                    <h2 id="activity-chests">Baús obtidos por atividades</h2>
+                  </summary>
+                  <div className={shop.products}>
+                    {(['common', 'epic'] as const).map((id) => (
+                      <article
+                        className={`${styles.itemCard} ${shop.product}`}
+                        key={id}
+                      >
+                        {/* eslint-disable-next-line @next/next/no-img-element -- arte existente do catálogo */}
+                        <img
+                          className={shop.art}
+                          src={chestCatalog[id].image}
+                          alt=""
+                        />
+                        <h3>{chestCatalog[id].name}</h3>
+                        <p className={shop.rarity}>
+                          {chestCatalog[id].rarityLabel}
+                        </p>
+                        <p>
+                          Origem: atividade comunitária elegível e validada.
+                        </p>
+                        <p>
+                          {id === 'epic'
+                            ? 'Moedas e possibilidade de Elmo do Viajante, conforme o sorteio épico aprovado. Não está à venda.'
+                            : 'Moedas e possibilidade de Espada do Caminho, conforme o sorteio comum aprovado. Também disponível para compra acima.'}
+                        </p>
+                        <Link href="/journey/guild">
+                          Consultar atividades da Guilda
+                        </Link>
+                      </article>
+                    ))}
+                  </div>
+                </details>
               </section>
             )}
             {qa && (
               <section aria-labelledby="other-acquisitions">
-                <h2 id="other-acquisitions">
-                  Outras origens e vendas indisponíveis
-                </h2>
-                <p>
-                  Este catálogo é informativo. Nenhum item abaixo pode ser
-                  comprado nesta Loja.
-                </p>
-                <div className={shop.products}>
-                  {category !== 'chests' &&
-                    EQUIPMENT_CATALOG.filter(
-                      (item) =>
-                        !SHOP_OFFERS.some(
-                          (offer) => offer.equipment.id === item.id,
-                        ),
-                    ).map((item) => (
-                      <article
-                        className={`${styles.itemCard} ${shop.product}`}
-                        key={item.id}
-                        data-rarity={item.rarity}
-                      >
-                        {/* eslint-disable-next-line @next/next/no-img-element -- ícone existente registrado */}
-                        <img
-                          className={shop.art}
-                          src={equipmentAssetForItem(item)}
-                          alt=""
-                        />
-                        <h3>{item.name}</h3>
-                        <p className={shop.rarity}>
-                          {item.rarity.toUpperCase()} · poder {item.power}
-                        </p>
-                        <EquipmentStatBonuses stats={item.stats} />
-                        <p>
-                          {item.slot === 'boots'
-                            ? 'Origem: equipamento inicial. Não está à venda.'
-                            : item.slot === 'helmet'
-                              ? 'Origem: sorteio do baú épico comunitário. Sem preço de venda aprovado.'
-                              : 'Origem prevista: progressão da Jornada. Aquisição produtiva e venda ainda indisponíveis.'}
-                        </p>
-                      </article>
-                    ))}
-                  {category !== 'equipment' &&
-                    (['uncommon', 'rare', 'extraordinary'] as const).map(
-                      (id) => (
+                <details className={shop.catalogDetails}>
+                  <summary>
+                    <h2 id="other-acquisitions">
+                      Outras origens e vendas indisponíveis
+                    </h2>
+                  </summary>
+                  <p>
+                    Este catálogo é informativo. Nenhum item abaixo pode ser
+                    comprado nesta Loja.
+                  </p>
+                  <div className={shop.products}>
+                    {category !== 'chests' &&
+                      EQUIPMENT_CATALOG.filter(
+                        (item) =>
+                          !SHOP_OFFERS.some(
+                            (offer) => offer.equipment.id === item.id,
+                          ),
+                      ).map((item) => (
                         <article
                           className={`${styles.itemCard} ${shop.product}`}
-                          key={id}
+                          key={item.id}
+                          data-rarity={item.rarity}
                         >
-                          {/* eslint-disable-next-line @next/next/no-img-element -- arte existente compartilhada pelos baús */}
+                          {/* eslint-disable-next-line @next/next/no-img-element -- ícone existente registrado */}
                           <img
                             className={shop.art}
-                            src={chestCatalog[id].image}
+                            src={equipmentAssetForItem(item)}
                             alt=""
                           />
-                          <h3>{chestCatalog[id].name}</h3>
+                          <h3>{item.name}</h3>
                           <p className={shop.rarity}>
-                            {chestCatalog[id].rarityLabel}
+                            {item.rarity.toUpperCase()} · poder {item.power}
                           </p>
+                          <EquipmentStatBonuses stats={item.stats} />
                           <p>
-                            Venda e aquisição indisponíveis: contrato econômico
-                            ainda não homologado.
-                          </p>
-                          <p>
-                            Preço e conteúdo não estão liberados para compra. A
-                            arte existente não representa uma oferta.
+                            {item.slot === 'boots'
+                              ? 'Origem: equipamento inicial. Não está à venda.'
+                              : item.slot === 'helmet'
+                                ? 'Origem: sorteio do baú épico comunitário. Sem preço de venda aprovado.'
+                                : 'Origem prevista: progressão da Jornada. Aquisição produtiva e venda ainda indisponíveis.'}
                           </p>
                         </article>
-                      ),
-                    )}
-                </div>
+                      ))}
+                    {category !== 'equipment' &&
+                      (['uncommon', 'rare', 'extraordinary'] as const).map(
+                        (id) => (
+                          <article
+                            className={`${styles.itemCard} ${shop.product}`}
+                            key={id}
+                          >
+                            {/* eslint-disable-next-line @next/next/no-img-element -- arte existente compartilhada pelos baús */}
+                            <img
+                              className={shop.art}
+                              src={chestCatalog[id].image}
+                              alt=""
+                            />
+                            <h3>{chestCatalog[id].name}</h3>
+                            <p className={shop.rarity}>
+                              {chestCatalog[id].rarityLabel}
+                            </p>
+                            <p>
+                              Venda e aquisição indisponíveis: contrato
+                              econômico ainda não homologado.
+                            </p>
+                            <p>
+                              Preço e conteúdo não estão liberados para compra.
+                              A arte existente não representa uma oferta.
+                            </p>
+                          </article>
+                        ),
+                      )}
+                  </div>
+                </details>
               </section>
             )}
             {qa && category === 'all' && (
               <section aria-labelledby="existing-cards">
-                <h2 id="existing-cards">Cartas da Arena</h2>
-                <p>
-                  Sete cartas de combate existentes pelo pacote inicial:
-                  solicitação e confirmação manuais, uma vez por conta. A
-                  coleção e o baralho de sete cartas permanecem em Meu Baralho,
-                  com raridades, efeitos e posse próprios.
-                </p>
-                <p>
-                  Venda de cartas indisponível: não há tabela de preços ou
-                  contrato de compra aprovado. Nenhuma carta adicional é
-                  concedida por esta tela.
-                </p>
-                <Link href="/journey/arena/deck">
-                  Consultar cartas e pacote inicial em Meu Baralho
-                </Link>
+                <details className={shop.catalogDetails}>
+                  <summary>
+                    <h2 id="existing-cards">Cartas da Arena</h2>
+                  </summary>
+                  <p>
+                    Sete cartas de combate existentes pelo pacote inicial:
+                    solicitação e confirmação manuais, uma vez por conta. A
+                    coleção e o baralho de sete cartas permanecem em Meu
+                    Baralho, com raridades, efeitos e posse próprios.
+                  </p>
+                  <p>
+                    Venda de cartas indisponível: não há tabela de preços ou
+                    contrato de compra aprovado. Nenhuma carta adicional é
+                    concedida por esta tela.
+                  </p>
+                  <Link href="/journey/arena/deck">
+                    Consultar cartas e pacote inicial em Meu Baralho
+                  </Link>
+                </details>
               </section>
             )}
             <p>

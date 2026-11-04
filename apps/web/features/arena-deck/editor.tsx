@@ -10,6 +10,13 @@ import {
 } from '@rpg/game-engine';
 import css from '../guild-missions/panel.module.css';
 import cardsCss from './cards.module.css';
+// Registered equipment icons are action symbols, not approved card illustrations.
+const symbolFor = (card: ArenaCard) =>
+  card.type === 'OFFENSIVE'
+    ? '/assets/equipment/weapon/traveler_sword_rare_icon.png'
+    : card.type === 'DEFENSIVE'
+      ? '/assets/equipment/shield/traveler_shield_rare_icon.png'
+      : '/assets/equipment/amulet/amulet_of_the_path_icon.png';
 export function DeckEditor({
   cards,
   initial,
@@ -42,7 +49,10 @@ export function DeckEditor({
     );
   };
   return (
-    <section className={css.panel} aria-label="Montagem do baralho">
+    <section
+      className={`${css.panel} ${cardsCss.collection}`}
+      aria-label="Montagem do baralho"
+    >
       {showTitle && <h2>Meu Baralho — Arena</h2>}
       <p>
         Cartas adquiridas: {cards.length}. Escolha sete cartas diferentes da sua
@@ -63,7 +73,7 @@ export function DeckEditor({
           concedida automaticamente ao acessar esta tela.
         </p>
       )}
-      <ol aria-label="Sete posições do baralho">
+      <ol className={cardsCss.slots} aria-label="Sete posições do baralho">
         {Array.from({ length: 7 }, (_, i) => {
           const id = ids[i];
           return (
@@ -112,7 +122,11 @@ export function DeckEditor({
           </select>
         </label>
       </div>
-      <div className={css.grid}>
+      <p className={cardsCss.artNotice}>
+        Ícones existentes representam o tipo de ação. Ilustrações individuais
+        das cartas ainda não foram aprovadas.
+      </p>
+      <div className={cardsCss.collectionGrid}>
         {cards
           .filter(
             (c) =>
@@ -122,10 +136,23 @@ export function DeckEditor({
             const detail = describeArenaAction(c.action);
             return (
               <article
-                className={css.card}
+                className={cardsCss.card}
                 key={c.id}
                 aria-label={`Carta: ${c.name}`}
+                data-rarity={c.rarity}
+                data-kind={c.type}
+                data-selected={ids.includes(c.id)}
+                data-art-status="pending"
               >
+                <span className={cardsCss.focusBadge}>
+                  {detail.focusCost}
+                  <small>FOCO</small>
+                </span>
+                <figure className={cardsCss.artSlot}>
+                  {/* eslint-disable-next-line @next/next/no-img-element -- ícone local aprovado, não ilustração nova */}
+                  <img src={symbolFor(c)} alt="" />
+                  <figcaption>Símbolo de ação</figcaption>
+                </figure>
                 <h3>{c.name}</h3>
                 <p>
                   {c.rarity} ·{' '}
@@ -135,12 +162,16 @@ export function DeckEditor({
                       ? 'Defensiva'
                       : 'Tática'}
                 </p>
-                <p>{arenaCardDescription(c)}</p>
                 <p>
                   <strong>{detail.headline}</strong>
                 </p>
-                <p>Duração: {detail.duration}</p>
-                <p>Condição: {detail.condition}</p>
+                <details>
+                  <summary>Regras e duração</summary>
+                  <p>{arenaCardDescription(c)}</p>
+                  <p>{detail.explanation}</p>
+                  <p>Duração: {detail.duration}</p>
+                  <p>Condição: {detail.condition}</p>
+                </details>
                 <p>
                   Custo base: {detail.focusCost} Foco · Nível mínimo:{' '}
                   {detail.minimumLevel}. O custo na batalha considera
@@ -219,6 +250,10 @@ export function BattleCards({
         Usadas: {battle.deck?.usedIds.length ?? 0}/7. Cada carta tem um uso.
         Atacar e Defender não consomem cartas; especiais passam pelo baralho.
       </p>
+      <p className={cardsCss.artNotice}>
+        Símbolos de ação reutilizados; ilustrações individuais pendentes.
+        Percorra sua mão para escolher uma carta.
+      </p>
       {!battle.deck?.cards.length && (
         <p role="status">
           Este combate não possui um baralho válido. Acesse{' '}
@@ -226,7 +261,7 @@ export function BattleCards({
           pacote inicial se necessário e selecione/salve sete cartas próprias.
         </p>
       )}
-      <div className={css.grid}>
+      <div className={cardsCss.hand} aria-label="Mão de sete cartas">
         {battle.deck?.cards.map((c) => {
           const availability = arenaCardAvailability(battle, c.id);
           const description = describeArenaAction(c.action, battle.player);
@@ -249,9 +284,22 @@ export function BattleCards({
           return (
             <article
               key={c.id}
-              className={css.card}
+              className={cardsCss.card}
               aria-label={`Carta: ${c.name}`}
+              data-rarity={c.rarity}
+              data-kind={c.type}
+              data-used={status === 'used'}
+              data-art-status="pending"
             >
+              <span className={cardsCss.focusBadge}>
+                {focusCost}
+                <small>FOCO</small>
+              </span>
+              <figure className={cardsCss.artSlot}>
+                {/* eslint-disable-next-line @next/next/no-img-element -- símbolo existente; sem declarar arte oficial de carta */}
+                <img src={symbolFor(c)} alt="" />
+                <figcaption>Símbolo de ação</figcaption>
+              </figure>
               <h4>{c.name}</h4>
               <p>
                 {c.rarity} ·{' '}
@@ -268,8 +316,8 @@ export function BattleCards({
                 <p>
                   Condição: {description.condition} Nível e Foco suficientes.
                 </p>
+                <p>Duração: {description.duration}</p>
               </details>
-              <p>Duração: {description.duration}</p>
               <p>
                 Custo: {focusCost} Foco · Nível mínimo: {minimumLevel}
               </p>

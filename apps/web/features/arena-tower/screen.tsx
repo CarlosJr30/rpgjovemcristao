@@ -120,6 +120,12 @@ export function TowerExperience({
       {data && (
         <>
           <p role="status">Torre local: {current}/7 desafios concluídos.</p>
+          <progress
+            className={css.progress}
+            max={7}
+            value={current}
+            aria-label="Desafios concluídos no treino local"
+          />
           <p>
             Cartas selecionadas: {data.view.selection.length}/7.{' '}
             <Link href="/journey/arena/deck">Meu Baralho</Link>
@@ -168,6 +174,9 @@ export function TowerExperience({
                   }
                   className={floor.boss ? css.champion : undefined}
                 >
+                  <div className={css.floorEmblem} aria-hidden="true">
+                    {floor.boss ? '♛' : String(floor.index).padStart(2, '0')}
+                  </div>
                   <span>
                     ANDAR {floor.index}
                     {floor.boss ? ' · CAMPEÃO' : ''}
