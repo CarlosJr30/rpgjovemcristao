@@ -45,7 +45,8 @@ test('existing offers retain prices and assets while categories never purchase o
   render(
     <ShopScreen qa={{ actor: 'fixture', coins: 123, production: true }} />,
   );
-  expect(screen.getAllByRole('article')).toHaveLength(4);
+  const offers = screen.getByLabelText('Produtos disponíveis');
+  expect(within(offers).getAllByRole('article')).toHaveLength(4);
   for (const [name, price] of [
     ['Baú comum', 40],
     ['Espada do Caminho', 35],
@@ -62,16 +63,57 @@ test('existing offers retain prices and assets while categories never purchase o
   }
   const categories = screen.getByRole('group', { name: 'Categorias da Loja' });
   fireEvent.click(within(categories).getByRole('button', { name: 'Baús' }));
-  expect(screen.getAllByRole('article')).toHaveLength(1);
+  expect(within(offers).getAllByRole('article')).toHaveLength(1);
   fireEvent.click(
     within(categories).getByRole('button', {
       name: 'Equipamentos',
     }),
   );
-  expect(screen.getAllByRole('article')).toHaveLength(3);
+  expect(within(offers).getAllByRole('article')).toHaveLength(3);
   expect(f.purchase).not.toHaveBeenCalled();
   expect(f.resume).not.toHaveBeenCalled();
   expect(screen.getByText('Adquirido')).toBeDisabled();
+});
+test('existing acquisition catalog has no purchase actions or unapproved prices', () => {
+  render(
+    <ShopScreen qa={{ actor: 'fixture', coins: 123, production: true }} />,
+  );
+  const other = screen.getByRole('region', {
+    name: 'Outras origens e vendas indisponíveis',
+  });
+  expect(within(other).getAllByRole('article')).toHaveLength(6);
+  expect(within(other).queryByRole('button')).toBeNull();
+  expect(other).not.toHaveTextContent(/90 Moedas|180 Moedas/);
+  for (const name of [
+    'Botas do Viajante',
+    'Elmo do Viajante',
+    'Medalhão do Caminho',
+    'Baú Incomum',
+    'Baú Raro',
+    'Baú Extraordinário',
+  ]) {
+    expect(within(other).getByRole('heading', { name })).toBeVisible();
+  }
+  const activities = screen.getByRole('region', {
+    name: 'Baús obtidos por atividades',
+  });
+  expect(within(activities).getAllByRole('article')).toHaveLength(2);
+  expect(within(activities).queryByRole('button')).toBeNull();
+  expect(
+    screen.getByRole('region', { name: 'Cartas da Arena' }),
+  ).toHaveTextContent('Venda de cartas indisponível');
+  const filters = screen.getByRole('group', { name: 'Categorias da Loja' });
+  fireEvent.click(
+    within(filters).getByRole('button', { name: 'Equipamentos' }),
+  );
+  expect(within(other).getAllByRole('article')).toHaveLength(3);
+  expect(
+    screen.queryByRole('region', { name: 'Baús obtidos por atividades' }),
+  ).toBeNull();
+  fireEvent.click(within(filters).getByRole('button', { name: 'Baús' }));
+  expect(within(other).getAllByRole('article')).toHaveLength(3);
+  expect(f.purchase).not.toHaveBeenCalled();
+  expect(f.resume).not.toHaveBeenCalled();
 });
 test('filtering and cancelling preserve the displayed balance and never submit a purchase', () => {
   render(
