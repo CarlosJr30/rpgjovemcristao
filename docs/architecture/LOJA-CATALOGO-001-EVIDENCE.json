@@ -1,0 +1,104 @@
+{
+  "task": "LOJA-CATALOGO-001",
+  "status": "DONE / DEPLOY_COMPLETE",
+  "candidate": "50dca9bb9e6f2fb1f6094549c182bc434ddb796f",
+  "merge": "1fb83679e075ba6aa550a1100d5d5481834552e7",
+  "deployment": "dpl_4EDdVKrC7tNg3ELqgSEcvrn7sKtP",
+  "backend": "PROD",
+  "sameGitDeployment": true,
+  "catalog": {
+    "equipment": 6,
+    "equipmentForSale": 3,
+    "chestTypes": 5,
+    "chestTypesForSale": 1,
+    "combatCards": 7,
+    "cardsForSale": 0,
+    "newProducts": 0
+  },
+  "validation": {
+    "directedUnitPassed": 3,
+    "ciUnitPassed": 1113,
+    "ciUnitSkipped": 74,
+    "ciPush": 41804498239,
+    "ciPR": 41804538714,
+    "ciMerge": 41806059706,
+    "attempts": 1,
+    "previewWidths": [
+      320,
+      390,
+      1365
+    ],
+    "prodWidths": [
+      320,
+      390,
+      1366
+    ],
+    "httpChecks": 6,
+    "unchangedProdDatasets": 81,
+    "unchangedTestCanonicalDatasets": 7,
+    "migrations": 0,
+    "grants": 0,
+    "purchases": 0
+  },
+  "limits": [
+    "Mobile emulated, not physical",
+    "QA/Security by author, no independent review claimed",
+    "Original interrupted collector and build preparation attempts retained, not PASS",
+    "Only existing approved offers remain purchasable; other catalog entries informational",
+    "No full local homologation repeated"
+  ],
+  "artifacts": [
+    {
+      "path": "build/loja-catalogo-001/review.json",
+      "sha256": "75074923b15d776b52f710a02ce3a1d6b0426b5dc076e4b41cd2395c938f1cb4"
+    },
+    {
+      "path": "build/loja-catalogo-001/ci-approved.json",
+      "sha256": "3772785950745b835680045372310fefb36216c3d80f6188df52f07df8646c53"
+    },
+    {
+      "path": "build/loja-catalogo-001/merge-ci-approved.json",
+      "sha256": "42b61425f78bea742d3f885d12cdf507aab78702d37753d79d7aa5cf8393edbc"
+    },
+    {
+      "path": "build/loja-catalogo-001/preview.json",
+      "sha256": "a49273fe4f61794f87589dbb69da9ae508b3c978c95319a50f69221c67568326"
+    },
+    {
+      "path": "build/loja-catalogo-001/test-catalog.json",
+      "sha256": "28e144de52a891e9ee341965debcc9b8f28e357d35217edd501b1418d220bbf1"
+    },
+    {
+      "path": "build/loja-catalogo-001/test-monitor.json",
+      "sha256": "d4c8afba9f8d9e13cf96ac3880bd3208086678d137d7cb9e1e5bfa4cf78fa5c4"
+    },
+    {
+      "path": "build/loja-catalogo-001/production-preflight.json",
+      "sha256": "213c1711cf4fde249448c1d3d4f70e95e82c09ab4f4555064859004a9490c025"
+    },
+    {
+      "path": "build/loja-catalogo-001/retained-precondition-failed.json",
+      "sha256": "131444b2c4aa63f96db2c664994090a7ec5febcc943b3178d8b76fabb109de0d"
+    },
+    {
+      "path": "build/loja-catalogo-001/production-retained-checks.json",
+      "sha256": "da4dd46bdd0493a2468de3f8abaf5c627c0ca96859472d76a96c21bedf690bc9"
+    },
+    {
+      "path": "build/loja-catalogo-001/production-official-checks.json",
+      "sha256": "4f88a56e4cd008f5f07c12c22fb0c864bbc0ed91019ce49e8d31f25912327f0c"
+    },
+    {
+      "path": "build/loja-catalogo-001/production-http.json",
+      "sha256": "5ad356c4d96cf68947b8b91154572a0fad59e540e08b2475a1fd617a37b0f4af"
+    },
+    {
+      "path": "build/loja-catalogo-001/final-preservation.json",
+      "sha256": "ab2799c344a18f7b06e4fde46c26a14bcdcff72b72452786be53279869008213"
+    },
+    {
+      "path": "build/loja-catalogo-001/release-controls-restore.json",
+      "sha256": "afd1d6724daa6ad5ec2b5d5a6a3c2fb65a44f09c3b7eec5195d5ee83d0a11849"
+    }
+  ]
+}
