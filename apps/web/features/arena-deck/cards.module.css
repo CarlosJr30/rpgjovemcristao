@@ -240,6 +240,17 @@
 .collection h2 {
   color: #fff2d1;
 }
+.collection.collection {
+  box-sizing: border-box;
+  width: 100%;
+  padding: clamp(12px, 2vw, 20px);
+}
+.collection [role='status'] {
+  color: #fff2d1;
+  background: #173e30;
+  border: 1px solid #b69a59;
+  padding: 12px;
+}
 .collection select {
   color: #203d30;
   background: #fff5de;

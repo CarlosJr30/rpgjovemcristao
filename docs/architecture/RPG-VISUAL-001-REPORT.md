@@ -1,5 +1,7 @@
 # RPG-VISUAL-001 — apresentação de aventura
 
+Revisão hospedada7d3d534: Loja/Torre/baralho/mão320/390/1365 sem overflow; uma Ataque Simples contra Noemi aplicada/USADA/reuso negado, foco restaurado, monitor0erros/0falhas/0escritas econômicas. Captura revelou contraste insuficiente no aviso “Baralho salvo” por herança de texto claro sobre notice claro. Correção somente CSS de status e padding do editor; TSX/motor/handlers idênticos. Provas de carta/fluxos reutilizadas, sem repetir a ação. Novo artefato exige CI e recheck visual somente leitura; primeira aparência não é aceite integral.
+
 04/11/2026. **VALIDATING; ainda sem publicação deste incremento.** Base main1fb8367, branch própria; fechamentos LOJA-CATALOGO/ECONOMY-CONTENT preservados. As duas referências citadas não estão anexadas neste pedido; aplicada a direção textual com assets existentes, sem produzir novas artes.
 
 - **Cartas:** DeckEditor/BattleCards reutilizados; moldura, cor de raridade, emblema de Foco, nomes/efeitos, estados selecionada/usada e regras recolhíveis. Sete cartas oficiais intactas. Ícones de equipamentos são apresentados como símbolos de ação, não ilustrações oficiais; arte individual continua pendente. Mão com rolagem própria, sem overflow da página; foco/fechar/Escape e bloqueios preservados.
