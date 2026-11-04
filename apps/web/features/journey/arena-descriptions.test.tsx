@@ -1,7 +1,13 @@
 // @vitest-environment jsdom
 import '@testing-library/jest-dom/vitest';
 import { afterEach, expect, test, vi } from 'vitest';
-import { cleanup, render, screen, within } from '@testing-library/react';
+import {
+  cleanup,
+  fireEvent,
+  render,
+  screen,
+  within,
+} from '@testing-library/react';
 import { createArenaDeckBattle, resolveArenaCommand } from '@rpg/game-engine';
 import {
   specialCards,
@@ -41,6 +47,7 @@ test('card panel shows rarity/type, numerical effect, duration, cost, level and 
   expect(
     within(strike()).getByText('Usos disponíveis nesta batalha: 1.'),
   ).toBeInTheDocument();
+  fireEvent.click(within(strike()).getByText('Como funciona esta carta'));
   expect(within(strike()).getByText(/Duração: Um ataque/)).toBeVisible();
   expect(within(strike()).getByRole('button')).toBeDisabled();
   const ready = { ...b, player: { ...b.player, focusPoints: 3 } };
