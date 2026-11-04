@@ -7,6 +7,7 @@ import {
 } from '@rpg/game-engine';
 import { BattleCards } from './editor';
 import styles from '../journey/journey.module.css';
+import visual from './cards.module.css';
 
 /** The same product controls are exercised by the isolated browser harness. */
 export function ArenaBattleActions({
@@ -42,7 +43,7 @@ export function ArenaBattleActions({
   return (
     <>
       <div
-        className={styles.battleActions}
+        className={`${styles.battleActions} ${visual.actions}`}
         role="group"
         aria-label="Ações da batalha"
       >
@@ -51,6 +52,7 @@ export function ArenaBattleActions({
           aria-label="ATACAR"
           onClick={() => onAction('attack')}
         >
+          <span aria-hidden="true">⚔</span>
           <b>ATACAR</b>
           <span>Dano com Força</span>
           <small>Até +{arenaCombatConfig.attackFocus} Foco</small>
@@ -60,6 +62,7 @@ export function ArenaBattleActions({
           aria-label="DEFENDER"
           onClick={() => onAction('defend')}
         >
+          <span aria-hidden="true">◈</span>
           <b>DEFENDER</b>
           <span>Protege o próximo golpe</span>
           <small>Até +{arenaCombatConfig.defendFocus} Foco</small>
@@ -72,6 +75,7 @@ export function ArenaBattleActions({
           aria-controls={open ? panelId : undefined}
           onClick={() => setOpen((value) => !value)}
         >
+          <span aria-hidden="true">✦</span>
           <b>CARTAS</b>
           <span>Seu baralho de sete</span>
           <small>Um uso por carta</small>

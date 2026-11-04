@@ -6,10 +6,17 @@
 }
 .tower header {
   padding: 24px;
-  background: #173c2f;
+  background:
+    linear-gradient(90deg, #102e28f2, #102e2888),
+    url('/assets/world/arena/arena_training_courtyard_960.webp') center / cover;
   color: #fff7e6;
   border-radius: 16px;
   border-top: 4px solid #c3a269;
+  min-height: 180px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-shadow: 0 12px 30px #102b2630;
 }
 .notice {
   padding: 16px;
@@ -28,17 +35,48 @@
   border: 1px solid #c9b988;
   border-radius: 12px;
   background: #fffaf0;
+  border-left: 5px solid #b99d60;
+  box-shadow: 0 6px 16px #193c261c;
+  transition:
+    border-color 180ms,
+    box-shadow 180ms;
   min-width: 0;
   overflow-wrap: anywhere;
 }
 .floors li[data-state='available'] {
   border: 2px solid #426342;
+  box-shadow:
+    0 0 0 3px #bfa36044,
+    0 8px 24px #132b2522;
 }
 .floors li[data-state='completed'] {
   background: #e8ecd9;
 }
 .floors li[data-state='locked'] {
   border-style: dashed;
+}
+.floorEmblem {
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  margin-bottom: 12px;
+  border: 3px double #b29653;
+  border-radius: 50%;
+  background: radial-gradient(circle, #34583e, #142d26);
+  color: #f6dda0;
+  font:
+    700 1.7rem Georgia,
+    serif;
+}
+.champion .floorEmblem {
+  font-size: 2.5rem;
+  border-color: #a16f20;
+}
+.progress {
+  width: 100%;
+  height: 16px;
+  accent-color: #385c3d;
 }
 .floors button {
   min-height: 48px;
@@ -70,6 +108,19 @@
   background: #f4e9cb !important;
   padding: 22px;
   border-radius: 12px;
+}
+@media (min-width: 760px) {
+  .floors {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .floors > li:last-child {
+    grid-column: 1/-1;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .floors li {
+    transition: none;
+  }
 }
 @media (max-width: 480px) {
   .tower header,

@@ -81,6 +81,8 @@ test('existing acquisition catalog has no purchase actions or unapproved prices'
   const other = screen.getByRole('region', {
     name: 'Outras origens e vendas indisponíveis',
   });
+  expect(other.querySelector('details')).not.toHaveAttribute('open');
+  fireEvent.click(other.querySelector('summary')!);
   expect(within(other).getAllByRole('article')).toHaveLength(6);
   expect(within(other).queryByRole('button')).toBeNull();
   expect(other).not.toHaveTextContent(/90 Moedas|180 Moedas/);
@@ -97,6 +99,7 @@ test('existing acquisition catalog has no purchase actions or unapproved prices'
   const activities = screen.getByRole('region', {
     name: 'Baús obtidos por atividades',
   });
+  fireEvent.click(activities.querySelector('summary')!);
   expect(within(activities).getAllByRole('article')).toHaveLength(2);
   expect(within(activities).queryByRole('button')).toBeNull();
   expect(

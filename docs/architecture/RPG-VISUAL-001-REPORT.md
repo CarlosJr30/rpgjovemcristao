@@ -1,0 +1,12 @@
+# RPG-VISUAL-001 — apresentação de aventura
+
+04/11/2026. **VALIDATING; ainda sem publicação deste incremento.** Base main1fb8367, branch própria; fechamentos LOJA-CATALOGO/ECONOMY-CONTENT preservados. As duas referências citadas não estão anexadas neste pedido; aplicada a direção textual com assets existentes, sem produzir novas artes.
+
+- **Cartas:** DeckEditor/BattleCards reutilizados; moldura, cor de raridade, emblema de Foco, nomes/efeitos, estados selecionada/usada e regras recolhíveis. Sete cartas oficiais intactas. Ícones de equipamentos são apresentados como símbolos de ação, não ilustrações oficiais; arte individual continua pendente. Mão com rolagem própria, sem overflow da página; foco/fechar/Escape e bloqueios preservados.
+- **Arena:** ArenaStage, cenário, avatares/adversários, HP/Foco e FX existentes; reforçados moldura, iluminação/HUD e ações grandes. Sem mexer em motor, IA, atributos, turnos, custos, uso único ou recompensas.
+- **Loja:** mesmo componente, quatro ofertas/preços/handlers; artes maiores, cabeçalho com asset aprovado, preço destacado e áreas informativas recolhíveis. Sem novas compras ou permissões.
+- **Torre:** sete andares/configurações intactos; medalhões numéricos, campeão destacado, cenário existente e progresso explicitamente local. Sem mapear retrato de outro personagem como arte exclusiva da Torre.
+
+**Local:**12unitários afetados de cartas/ações/Loja PASS;1mapa Torre PASS/1teste de batalha completa SKIP nesta execução direcionada, não PASS. Lint/tipos/build TEST e gates de assets PASS. Fixture de apresentação320/390/1365, foco/fechamento/reduced-motion e sete cartas/símbolos PASS; não é prova hospedada nem aparelho físico. Nenhuma suíte geral local repetida. Revisão React/QA/Security pelo autor, sem independência.
+
+CI exato, Preview TEST e publicação conforme RELEASE_POLICY pendentes. Baselines somente leitura:81conjuntos PROD e sete tabelas canônicas TEST. Zero migration/grant/compra/reset QA/alteração Auth/RLS. Artefatos privados em build/rpg-visual-001. A validação hospedada ficará restrita às telas alteradas e uma carta TEST, sem repetir batalhas completas, transações ou Torre inteira.
