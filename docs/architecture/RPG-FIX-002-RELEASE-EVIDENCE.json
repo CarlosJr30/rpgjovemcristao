@@ -1,0 +1,89 @@
+{
+  "task": "RPG-FIX-002",
+  "status": "DONE / DEPLOY_COMPLETE",
+  "candidate": "83baae7846470b13528b3eb85c2114df5728df54",
+  "merge": "29825f575c70576c5ef92032a1bd6513e7b69c97",
+  "deployment": "dpl_AYbbfNr4TPjKcn6dFuaLcKtePkVX",
+  "backend": "PROD",
+  "sameGitDeployment": true,
+  "migrations": 0,
+  "grants": 0,
+  "checks": {
+    "directedUnit": 9,
+    "ciUnitPass": 1112,
+    "ciUnitSkip": 74,
+    "prodDatasetsUnchanged": 81,
+    "testCanonicalDatasetsUnchanged": 7,
+    "prodStructureUnchanged": true,
+    "officialHttp": 6
+  },
+  "limits": [
+    "Mobile emulado, n?o f?sico",
+    "Uma carta em TEST; sem repetir batalha completa, compras ou aberturas",
+    "Menu duplicado n?o reproduzido; navega??o inalterada",
+    "Falhas hist?ricas preservadas; SKIP n?o ? PASS",
+    "QA/Security pelo autor, sem independ?ncia"
+  ],
+  "artifacts": [
+    {
+      "path": "build/rpg-fix-002/ci-approved.json",
+      "sha256": "9640dffe5caf42bd126b037203c06ba14f25454c798225e2257fe42f54855b5a"
+    },
+    {
+      "path": "build/rpg-fix-002/ci-first-failure.json",
+      "sha256": "d6df1e14c0f3c32b56702309955d83b7f517a01ab332f3d7bbfb93e0830c8123"
+    },
+    {
+      "path": "build/rpg-fix-002/merge-ci-approved.json",
+      "sha256": "b08197f3d074959170b608c9edc916e8f76cf7c47e17db1976f2640460854cdd"
+    },
+    {
+      "path": "build/rpg-fix-002/preview.json",
+      "sha256": "de5c34ff50cef47407a47b9aa7558cc64d5c24a82257379226618b8c282e136c"
+    },
+    {
+      "path": "build/rpg-fix-002/hosted-shop.json",
+      "sha256": "22d0f4d0f8561029a99106e53bd46f540e6a616ed4677f5d223dd9a32ab66ddc"
+    },
+    {
+      "path": "build/rpg-fix-002/hosted-cards.json",
+      "sha256": "abdd1a3d432d5010389adef2abd894feacfe8029a546a1ea7a9b3f9bd4b9c4fa"
+    },
+    {
+      "path": "build/rpg-fix-002/hosted-tower.json",
+      "sha256": "0b25a670f5134b3994fafca0fe82bee6067bc46b9532c0f1f00f396495d4fbe1"
+    },
+    {
+      "path": "build/rpg-fix-002/hosted-monitor-final.json",
+      "sha256": "e9d346f5a7bab31d356da6e567c74aff0d7938825f6681de4fe52ca09928144c"
+    },
+    {
+      "path": "build/rpg-fix-002/production-preflight.json",
+      "sha256": "8f78752efaf64007345727cebebed010b7962d5d0de8d6be605739e9f4c94a4a"
+    },
+    {
+      "path": "build/rpg-fix-002/production-retained-checks.json",
+      "sha256": "bc801b93c58b3782c54665684ae51e3d835f9901ac49f1fc9a1bcefef364af19"
+    },
+    {
+      "path": "build/rpg-fix-002/production-retained-error.json",
+      "sha256": "371e00c7d0e6c4fc6f5dc006c44f05a387eb2736455f553f936823947c17fe57"
+    },
+    {
+      "path": "build/rpg-fix-002/production-official-checks.json",
+      "sha256": "c2c62b79b9b836ed853f33f7a8c5ad2bc51108fa3461990ed92d043e46478660"
+    },
+    {
+      "path": "build/rpg-fix-002/production-http.json",
+      "sha256": "013e70a0a1c0ec70037cad78a66b14927d1eed9bdeed6bab5881b27a9107d1d0"
+    },
+    {
+      "path": "build/rpg-fix-002/final-preservation.json",
+      "sha256": "c95c9f20daa4a09592acb012a205ab7abbb4a1056f925d6351d770ff84c6f04d"
+    },
+    {
+      "path": "build/rpg-fix-002/qa-toggles-settled.json",
+      "sha256": "992367d26b118b2e701bfc5060219621f556f051aaa875cbc28365d228e4abc9"
+    }
+  ]
+}
