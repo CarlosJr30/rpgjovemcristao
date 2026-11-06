@@ -16,8 +16,23 @@ import {
   player,
   opponent,
 } from '../../../../tests/fixtures/arena-deck';
-import { createArenaDeckBattle, resolveArenaRound } from '@rpg/game-engine';
+import {
+  createArenaDeckBattle,
+  getArenaCardCatalog,
+  resolveArenaRound,
+  type ArenaCard,
+} from '@rpg/game-engine';
+import { ARENA_CARD_ILLUSTRATIONS } from './card-illustrations';
 afterEach(cleanup);
+const officialCards: ArenaCard[] = getArenaCardCatalog().map(
+  ({ id, name, rarity, type, action }) => ({
+    id,
+    name,
+    rarity,
+    type,
+    action,
+  }),
+);
 test('player with40 cards chooses7, cannot select8, removes/replaces and saves exact IDs', async () => {
   const save = vi.fn().mockResolvedValue(undefined);
   render(
@@ -123,4 +138,79 @@ test('battle displays7 cards, marks USADA, rejects interaction on used/finished 
   expect(
     screen.getAllByRole('button').every((b) => b.hasAttribute('disabled')),
   ).toBe(true);
+});
+
+test('approved official illustrations remain selectable in the existing deck editor', () => {
+  expect(Object.keys(ARENA_CARD_ILLUSTRATIONS).sort()).toEqual(
+    officialCards.map((card) => card.id).sort(),
+  );
+  const save = vi.fn().mockResolvedValue(undefined);
+  render(
+    <DeckEditor
+      cards={officialCards}
+      initial={[]}
+      locked={false}
+      busy={false}
+      onSave={save}
+    />,
+  );
+
+  for (const card of officialCards) {
+    const article = screen.getByRole('article', {
+      name: `Carta: ${card.name}`,
+    });
+    const illustration = ARENA_CARD_ILLUSTRATIONS[card.id];
+    expect(article).toHaveAttribute('data-art-status', 'approved');
+    expect(within(article).getByRole('img')).toHaveAttribute(
+      'src',
+      illustration.src,
+    );
+    expect(within(article).getByRole('img')).toHaveAttribute(
+      'alt',
+      illustration.alt,
+    );
+    fireEvent.click(
+      within(article).getByRole('button', { name: 'Selecionar carta' }),
+    );
+    expect(article).toHaveAttribute('data-selected', 'true');
+  }
+  expect(screen.getByText('Cartas selecionadas: 7/7')).toBeInTheDocument();
+  expect(save).not.toHaveBeenCalled();
+});
+
+test('official art is reused in battle while used cards retain their original state', () => {
+  const battle = createArenaDeckBattle(
+    player,
+    opponent,
+    42,
+    'official-art',
+    officialCards.map((card) => card.id),
+    officialCards,
+  );
+  const usedId = officialCards[0].id;
+  const usedBattle = {
+    ...battle,
+    deck: { ...battle.deck!, usedIds: [usedId] },
+  };
+  render(<BattleCards battle={usedBattle} busy={false} onPlay={vi.fn()} />);
+
+  for (const card of officialCards) {
+    const article = screen.getByRole('article', {
+      name: `Carta: ${card.name}`,
+    });
+    expect(within(article).getByRole('img')).toHaveAttribute(
+      'src',
+      ARENA_CARD_ILLUSTRATIONS[card.id].src,
+    );
+  }
+  const usedArticle = screen.getByRole('article', {
+    name: `Carta: ${officialCards[0].name}`,
+  });
+  expect(usedArticle).toHaveAttribute('data-used', 'true');
+  expect(within(usedArticle).getByText('USADA')).toBeVisible();
+  expect(
+    within(usedArticle).getByRole('button', {
+      name: `Usar carta ${officialCards[0].name}`,
+    }),
+  ).toBeDisabled();
 });
