@@ -20,6 +20,7 @@ TEST_PLAN:
 - Teste unitário focal de navegação/seleção e modal.
 - Conferir uma vez 320 px, 390 px e desktop, uma seleção; sem combate completo ou escrita econômica.
 - Executar lint, TypeScript, build e CI obrigatório do SHA candidato.
-- Estado inicial: 16 testes direcionados, ESLint, Prettier e typecheck PASS; build local não concluiu por resolução de dependências via junction fora da raiz Turbopack; build alternativo Webpack parou numa regra CSS Modules preexistente fora do diff. Confirmar build padrão no CI.
+- 17 testes direcionados em 3 arquivos PASS (inclui regressão canônica apontada pelo CI); ESLint, Prettier e typecheck PASS. CI inicial falhou porque a linha canônica de custo/nível tinha sido removida; restaurada e teste afetado passou localmente.
+- Build local não concluiu por resolução de dependências via junction fora da raiz Turbopack; build alternativo Webpack parou numa regra CSS Modules preexistente fora do diff. Confirmar build padrão no CI.
 DEFINITION_OF_DONE:
 - Aceite visual e gates aplicáveis registrados; Preview/produção READY e SHA confirmados; memória atualizada.

@@ -392,6 +392,9 @@ export function BattleCards({
                         : 'Tática'}
                   </p>
                   <strong>{description.headline}</strong>
+                  <p>
+                    Custo: {focusCost} Foco · Nível mínimo: {minimumLevel}
+                  </p>
                 </>
               ) : (
                 <>
