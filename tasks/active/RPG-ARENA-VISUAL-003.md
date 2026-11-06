@@ -27,5 +27,5 @@ PROGRESS:
 - Implementação compartilhada concluída localmente; regras e motor intactos.
 - CI inicial encontrou três testes afetados pela seleção/confirmacão explícita; atualizados para manter as assertions do motor e exigir o novo fluxo.
 - 24 testes direcionados em cinco arquivos, ESLint, TypeScript, build, Prettier e diff check passaram.
-- Vercel CLI mostrou arquivos de QA/baselines `build/` entrando no pacote; `.vercelignore` agora exclui somente `build/` e `.npm-cache/`. CI no SHA final precisa passar.
-- Preview autenticada, confirmação visual mínima, merge e produção ainda pendentes.
+- Primeiro deploy Preview falhou porque excluir `build/` removia o manifesto versionado necessário ao gate de build. A regra agora inclui somente `current-targets.json` de `build/`; os demais artefatos continuam fora do pacote. Dry-run confirmou essa seleção.
+- CI no SHA de empacotamento e Preview autenticada/visual ainda pendentes; merge e produção somente depois desses gates.

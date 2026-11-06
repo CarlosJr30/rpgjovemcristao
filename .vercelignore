@@ -1,6 +1,10 @@
 # Local QA evidence and release artifacts are not deploy input. Retain the one
 # tracked equipment manifest required by the protected production build gate.
-build/*
+build/**
+!build/
+!build/task-0059-equipment-recovery/
+!build/task-0059-equipment-recovery
+build/task-0059-equipment-recovery/*
 !build/task-0059-equipment-recovery/
 !build/task-0059-equipment-recovery/current-targets.json
 .npm-cache/

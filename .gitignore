@@ -1213,3 +1213,11 @@ secrets/
 
 # DEPLOY-003: contexto Vercel e envs locais nunca entram no Git.
 .vercel/
+
+# The protected Vercel production gate reads this one tracked manifest.
+!/build/
+!/build/task-0059-equipment-recovery/
+/build/task-0059-equipment-recovery/*
+!/build/task-0059-equipment-recovery
+!/build/task-0059-equipment-recovery/
+!/build/task-0059-equipment-recovery/current-targets.json
