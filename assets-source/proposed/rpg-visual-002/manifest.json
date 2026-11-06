@@ -1,0 +1,78 @@
+{
+  "task": "RPG-VISUAL-002",
+  "status": "proposal-awaiting-owner-approval",
+  "approved": false,
+  "runtimeIntegrated": false,
+  "generatedWith": "OpenAI image_gen built-in tool",
+  "styleReferencesInspected": [
+    "apps/web/public/assets/world/arena/arena_training_courtyard.webp",
+    "apps/web/public/assets/characters/arena/arena_davi.png",
+    "apps/web/public/assets/equipment/weapon/traveler_sword_rare_icon.png"
+  ],
+  "output": {
+    "format": "PNG",
+    "width": 1024,
+    "height": 1536,
+    "textInImage": false,
+    "frameIncluded": false
+  },
+  "sharedPrompt": "Premium realistic storybook fantasy RPG illustration, recurring young adult traveler with wavy chestnut hair, cream linen tunic, deep burgundy mantle, worn brown leather and restrained bronze details; warm natural directional light, deep emerald and gold accents matching existing Arena art. Portrait 2:3, edge-to-edge image only. No writing, letters, numbers, UI, logo, watermark, frame, gore, magic, supernatural glow or spiritual power attributed to equipment.",
+  "cards": [
+    {
+      "id": "arena-card-basic-attack",
+      "name": "Ataque Simples",
+      "approved": false,
+      "image": "arena-card-basic-attack.png",
+      "promptSubject": "One straightforward controlled sword swing toward a wooden practice target; no injury.",
+      "sha256": "dce32c33653bad36ba8a9e44ae737bbbcd7d3aeec51feac6fc64494698bcff31"
+    },
+    {
+      "id": "arena-card-basic-defense",
+      "name": "Defesa",
+      "approved": false,
+      "image": "arena-card-basic-defense.png",
+      "promptSubject": "Brace behind an ordinary round shield to block a wooden practice strike; no magical barrier.",
+      "sha256": "86dcf848e7835cfd6c64913bb6dbdd2ab88ee3c6d1f2a3e33c03774ff7b3f582"
+    },
+    {
+      "id": "arena-card-path-strike",
+      "name": "Golpe do Caminho",
+      "approved": false,
+      "image": "arena-card-path-strike.png",
+      "promptSubject": "Committed forward step with a sword strike at a practice post, showing forward momentum.",
+      "sha256": "3fe9895a036e3c52365f79cd9fa6aac61715a3af2ed35ad62b485863c553f7fc"
+    },
+    {
+      "id": "arena-card-steadfast-guard",
+      "name": "Guarda Perseverante",
+      "approved": false,
+      "image": "arena-card-steadfast-guard.png",
+      "promptSubject": "Patient, planted defensive stance with shield held high against an incoming practice strike.",
+      "sha256": "1901983aedfc727fbdba89978468031cb9ec5299b62af74dea6875dba50539b7"
+    },
+    {
+      "id": "arena-card-discernment",
+      "name": "Discernimento",
+      "approved": false,
+      "image": "arena-card-discernment.png",
+      "promptSubject": "Thoughtfully study an unmarked parchment map in natural sunlight; no writing or symbols.",
+      "sha256": "f2d738d9a96203e34c7a95fb61dee89f1b4a5a1732d2e833f19b9922ee8152cd"
+    },
+    {
+      "id": "arena-card-pilgrim-step",
+      "name": "Passo do Peregrino",
+      "approved": false,
+      "image": "arena-card-pilgrim-step.png",
+      "promptSubject": "Purposeful walk along an old stone road at sunrise, ordinary travel only.",
+      "sha256": "af4b149647278a20cfddeea3dcfceb079c05f8da2af2d16b6739dc365fb3eac6"
+    },
+    {
+      "id": "arena-card-measured-strike",
+      "name": "Golpe Medido",
+      "approved": false,
+      "image": "arena-card-measured-strike.png",
+      "promptSubject": "Precise controlled sword thrust to the center of a wooden practice target; no injury.",
+      "sha256": "822efdcb93f646d0b4c5739040546cd112f25105b2d4f98e1ee34a8e72518eb9"
+    }
+  ]
+}
