@@ -1221,3 +1221,15 @@ secrets/
 !/build/task-0059-equipment-recovery
 !/build/task-0059-equipment-recovery/
 !/build/task-0059-equipment-recovery/current-targets.json
+
+# The same build gate also verifies the approved staging PNG and bake metadata.
+!/build/task-0054-body-fit-bake/
+/build/task-0054-body-fit-bake/*
+!/build/task-0054-body-fit-bake
+!/build/task-0054-body-fit-bake/
+!/build/task-0054-body-fit-bake/fit-metadata.json
+!/build/task-0054-body-fit-bake/pilot/
+/build/task-0054-body-fit-bake/pilot/*
+!/build/task-0054-body-fit-bake/pilot
+!/build/task-0054-body-fit-bake/pilot/
+!/build/task-0054-body-fit-bake/pilot/armor_traveler_uncommon_female_v2_baked.png

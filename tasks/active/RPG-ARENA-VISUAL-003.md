@@ -27,5 +27,5 @@ PROGRESS:
 - Implementação compartilhada concluída localmente; regras e motor intactos.
 - CI inicial encontrou três testes afetados pela seleção/confirmacão explícita; atualizados para manter as assertions do motor e exigir o novo fluxo.
 - 24 testes direcionados em cinco arquivos, ESLint, TypeScript, build, Prettier e diff check passaram.
-- Primeiro deploy Preview falhou porque excluir `build/` removia o manifesto versionado necessário ao gate de build. A regra agora inclui somente `current-targets.json` de `build/`; os demais artefatos continuam fora do pacote. Dry-run confirmou essa seleção.
+- Duas tentativas iniciais de Preview falharam por falta de insumos do gate de build. O pacote agora inclui somente os três arquivos estritamente requeridos em `build/`; o dry-run confirmou a seleção.
 - CI no SHA de empacotamento e Preview autenticada/visual ainda pendentes; merge e produção somente depois desses gates.
