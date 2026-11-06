@@ -21,10 +21,12 @@ export function useBattlePresentation(options?: {
   const [busy, setBusy] = useState(false);
   const locked = useRef(false);
   const timers = useRef<ReturnType<typeof setTimeout>[]>([]);
+  const skipCurrent = useRef<(() => void) | null>(null);
   useEffect(
     () => () => {
       timers.current.forEach(clearTimeout);
       locked.current = false;
+      skipCurrent.current = null;
     },
     [],
   );
@@ -33,6 +35,7 @@ export function useBattlePresentation(options?: {
     timers.current.forEach(clearTimeout);
     timers.current = [];
     locked.current = false;
+    skipCurrent.current = null;
     setEvent(null);
     setDisplay(null);
     setBusy(false);
@@ -47,18 +50,27 @@ export function useBattlePresentation(options?: {
     locked.current = true;
     setBusy(true);
     let shown = before;
+    let completed = false;
     const later = (callback: () => void, delay: number) => {
       timers.current.push(setTimeout(callback, delay));
     };
+    const finish = () => {
+      if (completed) return;
+      completed = true;
+      timers.current.forEach(clearTimeout);
+      timers.current = [];
+      setEvent(null);
+      setDisplay(null);
+      setBusy(false);
+      locked.current = false;
+      skipCurrent.current = null;
+      complete();
+    };
+    skipCurrent.current = finish;
     const advance = (index: number) => {
       const next = queue[index];
       if (!next) {
-        setEvent(null);
-        setDisplay(null);
-        setBusy(false);
-        locked.current = false;
-        timers.current = [];
-        complete();
+        finish();
         return;
       }
       setDisplay(shown);
@@ -153,5 +165,6 @@ export function useBattlePresentation(options?: {
     queue: BattleFeedback[],
     complete: () => void,
   ) => run(before, after, queue, complete);
-  return { event, phase, display, busy, play, playPreview, cancel };
+  const skip = () => skipCurrent.current?.();
+  return { event, phase, display, busy, play, playPreview, cancel, skip };
 }

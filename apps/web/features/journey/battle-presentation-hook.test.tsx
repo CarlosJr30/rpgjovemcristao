@@ -76,6 +76,27 @@ test('rodada toca eventos em ordem, HP só muda no alvo e dupla ação é recusa
   expect(result.current.busy).toBe(false);
   expect(complete).toHaveBeenCalledOnce();
 });
+
+test('pular encerra apenas a apresentação e entrega o estado já resolvido uma única vez', () => {
+  const before = createArenaBattle(
+    { ...TRAINING_OPPONENTS[0], id: 'p' },
+    { ...TRAINING_OPPONENTS[1], id: 'o' },
+    29,
+  );
+  const after = resolveArenaRound(before, 'attack');
+  const complete = vi.fn();
+  const { result } = renderHook(useBattlePresentation);
+  act(() => {
+    expect(result.current.play(before, after, complete)).toBe(true);
+    result.current.skip();
+    result.current.skip();
+  });
+  expect(complete).toHaveBeenCalledOnce();
+  expect(result.current.busy).toBe(false);
+  expect(result.current.display).toBeNull();
+  act(() => vi.runAllTimers());
+  expect(complete).toHaveBeenCalledOnce();
+});
 test('desmontar cancela conclusão e efeitos pendentes', () => {
   const before = createBattle(TRAINING_OPPONENTS[0], TRAINING_OPPONENTS[1], 2);
   const complete = vi.fn();
