@@ -193,6 +193,9 @@ test('selection previews canon data; confirm sends once, runs 6.5s and returns w
     within(dialog).getByRole('heading', { name: card.name }),
   ).toBeVisible();
   expect(within(dialog).getByText(/FOCO/)).toBeVisible();
+  const fullExplanation = within(dialog).getByText('Explicação completa');
+  expect(fullExplanation).toBeVisible();
+  expect(fullExplanation.closest('details')).not.toHaveAttribute('open');
   expect(action).not.toHaveBeenCalled();
 
   fireEvent.click(within(dialog).getByRole('button', { name: 'Voltar' }));

@@ -17,13 +17,17 @@ import {
   opponent,
 } from '../../../../tests/fixtures/arena-deck';
 import {
+  arenaCardAvailability,
   createArenaDeckBattle,
   getArenaCardCatalog,
   resolveArenaRound,
   type ArenaCard,
 } from '@rpg/game-engine';
 import { ARENA_CARD_ILLUSTRATIONS } from './card-illustrations';
-afterEach(cleanup);
+afterEach(() => {
+  cleanup();
+  vi.unstubAllGlobals();
+});
 const officialCards: ArenaCard[] = getArenaCardCatalog().map(
   ({ id, name, rarity, type, action }) => ({
     id,
@@ -138,6 +142,52 @@ test('battle displays7 cards, marks USADA, rejects interaction on used/finished 
   expect(
     screen.getAllByRole('button').every((b) => b.hasAttribute('disabled')),
   ).toBe(true);
+});
+
+test('compact battle hand pages the seven cards and keeps selection connected', async () => {
+  const battle = createArenaDeckBattle(
+    player,
+    opponent,
+    42,
+    'compact-hand',
+    officialCards.map((card) => card.id),
+    officialCards,
+  );
+  const onSelect = vi.fn();
+  vi.stubGlobal('matchMedia', () => ({ matches: false }));
+  render(
+    <BattleCards
+      compact
+      panelId="compact-hand"
+      battle={battle}
+      busy={false}
+      onPlay={vi.fn()}
+      onSelect={onSelect}
+    />,
+  );
+
+  const rail = screen.getByLabelText('Mão de sete cartas');
+  Object.defineProperties(rail, {
+    clientWidth: { configurable: true, value: 600 },
+    scrollWidth: { configurable: true, value: 1400 },
+    scrollLeft: { configurable: true, writable: true, value: 0 },
+    scrollBy: { configurable: true, value: vi.fn() },
+  });
+  fireEvent.scroll(rail);
+  const next = screen.getByRole('button', { name: 'Mostrar próximas cartas' });
+  await waitFor(() => expect(next).toBeEnabled());
+  fireEvent.click(next);
+  expect(rail.scrollBy).toHaveBeenCalledWith({ left: 600, behavior: 'smooth' });
+
+  const available = battle.deck!.cards.find(
+    (card) => arenaCardAvailability(battle, card.id).status === 'available',
+  )!;
+  fireEvent.click(
+    screen.getByRole('button', {
+      name: `Selecionar carta ${available.name}`,
+    }),
+  );
+  expect(onSelect).toHaveBeenCalledWith(available.id);
 });
 
 test('approved official illustrations remain selectable in the existing deck editor', () => {

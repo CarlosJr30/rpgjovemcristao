@@ -190,20 +190,52 @@
   width: auto;
 }
 .compactHand {
-  grid-auto-columns: 92px;
-  gap: 8px;
-  padding: 8px 4px 14px;
+  grid-auto-columns: calc((100% - 24px) / 3);
+  gap: 12px;
+  padding: 12px 4px 18px;
+  scroll-padding-inline: 4px;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: thin;
+  overscroll-behavior-inline: contain;
+}
+.compactNavigation {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 12px;
+}
+.compactNavigation button {
+  min-height: 44px;
+  padding: 8px 14px;
+  border: 1px solid #c6a65d;
+  border-radius: 8px;
+  background: #173e32;
+  color: #fff3d4;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+.compactNavigation button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+.compactNavigation button:focus-visible,
+.compactHand:focus-visible {
+  outline: 3px solid #f1d27f;
+  outline-offset: 3px;
 }
 .compactCard.compactCard {
-  gap: 4px;
-  padding: 7px;
+  gap: 8px;
+  padding: 12px;
   border-width: 2px;
   border-radius: 9px 9px 15px 15px;
 }
 .compactCard .artSlot {
   width: 100%;
-  min-height: 0;
-  aspect-ratio: 2 / 3;
+  height: min(39dvh, 360px);
+  min-height: 180px;
+  aspect-ratio: auto;
   padding: 0;
   overflow: hidden;
   border-radius: 5px;
@@ -211,7 +243,7 @@
 .compactCard .artSlot img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
 }
 .compactCard .focusBadge {
   top: 10px;
@@ -224,24 +256,24 @@
   font-size: 0.43rem;
 }
 .compactCard h4 {
-  min-height: 2.5em;
-  font-size: 0.74rem;
+  min-height: 2.2em;
+  font-size: clamp(1rem, 1.5vw, 1.25rem);
   line-height: 1.2;
 }
 .compactCard > b {
-  font-size: 0.66rem;
+  font-size: 0.9rem;
 }
 .compactCard .compactReason {
-  font-size: 0.62rem;
+  font-size: 0.8rem;
   line-height: 1.25;
 }
 .compactCard > p:last-child {
   margin-top: 2px;
 }
 .compactCard button {
-  min-height: 40px;
-  padding: 6px 4px;
-  font-size: 0.72rem;
+  min-height: 48px;
+  padding: 8px;
+  font-size: 0.9rem;
 }
 .cardDialogBackdrop {
   position: fixed;
@@ -255,9 +287,10 @@
 }
 .cardDialog {
   position: relative;
-  width: min(720px, 100%);
-  max-height: min(92dvh, 820px);
+  width: min(75%, 980px);
+  max-height: min(92dvh, 900px);
   min-width: 0;
+  box-sizing: border-box;
   overflow: auto;
   padding: clamp(12px, 3vw, 24px);
   border: 2px solid #c6a65d;
@@ -275,14 +308,14 @@
 }
 .cardPreview {
   display: grid;
-  grid-template-columns: minmax(140px, 0.72fr) minmax(0, 1fr);
+  grid-template-columns: minmax(220px, 0.82fr) minmax(0, 1fr);
   gap: clamp(12px, 3vw, 24px);
   align-items: center;
 }
 .cardPreview > img {
   display: block;
   width: 100%;
-  max-height: min(56vh, 520px);
+  max-height: min(70dvh, 650px);
   aspect-ratio: 2 / 3;
   object-fit: contain;
   border: 2px solid #c6a65d;
@@ -317,6 +350,23 @@
 .cardPreview small {
   color: #eadcb8;
 }
+.previewDetails {
+  margin-top: 14px;
+  padding: 10px 12px;
+  border: 1px solid #c6a65d77;
+  border-radius: 10px;
+  background: #071b1766;
+}
+.previewDetails summary {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-weight: 700;
+}
+.previewDetails p {
+  margin-block: 10px;
+}
 .dialogBack {
   margin-bottom: 12px;
 }
@@ -342,7 +392,7 @@
   background: #4a5149;
   cursor: not-allowed;
 }
-.cardDialog button:focus-visible {
+.cardDialog :is(button, summary):focus-visible {
   outline: 3px solid #f1d27f;
   outline-offset: 3px;
 }
@@ -517,14 +567,37 @@
   }
 }
 @media (max-width: 520px) {
+  .compactHand {
+    grid-auto-columns: calc(100% - 2px);
+    gap: 8px;
+  }
+  .compactCard .artSlot {
+    height: min(32dvh, 280px);
+    min-height: 150px;
+  }
+  .compactCard h4 {
+    font-size: 1.1rem;
+  }
+  .compactNavigation button {
+    min-width: 44%;
+  }
+  .cardDialogBackdrop {
+    padding: 6px;
+  }
+  .cardDialog {
+    width: 100%;
+    max-height: calc(100dvh - 12px);
+    padding: 12px;
+    border-radius: 14px;
+  }
   .cardPreview {
     grid-template-columns: minmax(0, 1fr);
     justify-items: center;
   }
   .cardPreview > img {
     width: auto;
-    max-width: min(54vw, 220px);
-    max-height: min(31dvh, 260px);
+    max-width: min(68vw, 300px);
+    max-height: min(37dvh, 300px);
   }
   .cardPreview > div {
     width: 100%;

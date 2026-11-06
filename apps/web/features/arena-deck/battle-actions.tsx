@@ -115,7 +115,7 @@ export function ArenaBattleActions({
       }
       if (event.key !== 'Tab' || !hasSelectedCard) return;
       const focusable = dialog.current?.querySelectorAll<HTMLElement>(
-        'button:not(:disabled), [href], [tabindex]:not([tabindex="-1"])',
+        'button:not(:disabled), summary, [href], [tabindex]:not([tabindex="-1"])',
       );
       if (!focusable?.length) return;
       const first = focusable[0];
@@ -366,11 +366,16 @@ export function ArenaBattleActions({
                     <p className={visual.previewCost}>
                       {selectedAvailability?.focusCost} FOCO
                     </p>
-                    <strong>{effect.headline}</strong>
-                    <p id={`${panelId}-dialog-effect`}>{effect.explanation}</p>
-                    <small>
-                      {effect.condition} · {effect.duration}
-                    </small>
+                    <strong id={`${panelId}-dialog-effect`}>
+                      {effect.headline}
+                    </strong>
+                    <details className={visual.previewDetails}>
+                      <summary>Explicação completa</summary>
+                      <p>{effect.explanation}</p>
+                      <small>
+                        {effect.condition} · {effect.duration}
+                      </small>
+                    </details>
                     {selectedAvailability?.status !== 'available' && (
                       <p role="status">
                         {selectedAvailability?.status === 'used'

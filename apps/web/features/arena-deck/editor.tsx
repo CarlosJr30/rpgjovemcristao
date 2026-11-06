@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
   arenaCardDescription,
   arenaCardAvailability,
@@ -244,6 +244,45 @@ export function BattleCards({
   compact?: boolean;
   onSelect?: (id: string) => void;
 }) {
+  const hand = useRef<HTMLDivElement>(null);
+  const [handEdges, setHandEdges] = useState({ start: true, end: true });
+
+  useEffect(() => {
+    if (!compact) return;
+    const element = hand.current;
+    if (!element) return;
+    const updateEdges = () => {
+      const next = {
+        start: element.scrollLeft <= 1,
+        end:
+          element.scrollLeft + element.clientWidth >= element.scrollWidth - 2,
+      };
+      setHandEdges((current) =>
+        current.start === next.start && current.end === next.end
+          ? current
+          : next,
+      );
+    };
+    updateEdges();
+    element.addEventListener('scroll', updateEdges, { passive: true });
+    window.addEventListener('resize', updateEdges);
+    return () => {
+      element.removeEventListener('scroll', updateEdges);
+      window.removeEventListener('resize', updateEdges);
+    };
+  }, [compact, battle.deck?.cards.length]);
+
+  const moveHand = (direction: -1 | 1) => {
+    const element = hand.current;
+    if (!element) return;
+    element.scrollBy({
+      left: direction * element.clientWidth,
+      behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches
+        ? 'auto'
+        : 'smooth',
+    });
+  };
+
   return (
     <section
       id={panelId}
@@ -266,9 +305,35 @@ export function BattleCards({
           pacote inicial se necessário e selecione/salve sete cartas próprias.
         </p>
       )}
+      {compact && (
+        <nav
+          className={cardsCss.compactNavigation}
+          aria-label="Navegação das cartas"
+        >
+          <button
+            type="button"
+            aria-label="Mostrar cartas anteriores"
+            disabled={handEdges.start}
+            onClick={() => moveHand(-1)}
+          >
+            <span aria-hidden="true">←</span> Anteriores
+          </button>
+          <button
+            type="button"
+            aria-label="Mostrar próximas cartas"
+            disabled={handEdges.end}
+            onClick={() => moveHand(1)}
+          >
+            Próximas <span aria-hidden="true">→</span>
+          </button>
+        </nav>
+      )}
       <div
+        ref={hand}
         className={`${cardsCss.hand} ${compact ? cardsCss.compactHand : ''}`}
         aria-label="Mão de sete cartas"
+        role={compact ? 'group' : undefined}
+        tabIndex={compact ? 0 : undefined}
       >
         {battle.deck?.cards.map((c) => {
           const availability = arenaCardAvailability(battle, c.id);
@@ -327,15 +392,6 @@ export function BattleCards({
                         : 'Tática'}
                   </p>
                   <strong>{description.headline}</strong>
-                  <p>
-                    Custo: {focusCost} Foco · Nível mínimo: {minimumLevel}
-                  </p>
-                  <p>
-                    Uso restante:{' '}
-                    {status === 'used' || battle.status !== 'in_progress'
-                      ? 0
-                      : 1}
-                  </p>
                 </>
               ) : (
                 <>
