@@ -189,6 +189,354 @@
 .battlePanel > button {
   width: auto;
 }
+.compactHand {
+  grid-auto-columns: 92px;
+  gap: 8px;
+  padding: 8px 4px 14px;
+}
+.compactCard.compactCard {
+  gap: 4px;
+  padding: 7px;
+  border-width: 2px;
+  border-radius: 9px 9px 15px 15px;
+}
+.compactCard .artSlot {
+  width: 100%;
+  min-height: 0;
+  aspect-ratio: 2 / 3;
+  padding: 0;
+  overflow: hidden;
+  border-radius: 5px;
+}
+.compactCard .artSlot img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.compactCard .focusBadge {
+  top: 10px;
+  right: 10px;
+  min-width: 32px;
+  min-height: 34px;
+  font-size: 0.85rem;
+}
+.compactCard .focusBadge small {
+  font-size: 0.43rem;
+}
+.compactCard h4 {
+  min-height: 2.5em;
+  font-size: 0.74rem;
+  line-height: 1.2;
+}
+.compactCard > b {
+  font-size: 0.66rem;
+}
+.compactCard .compactReason {
+  font-size: 0.62rem;
+  line-height: 1.25;
+}
+.compactCard > p:last-child {
+  margin-top: 2px;
+}
+.compactCard button {
+  min-height: 40px;
+  padding: 6px 4px;
+  font-size: 0.72rem;
+}
+.cardDialogBackdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: grid;
+  place-items: center;
+  padding: clamp(8px, 3vw, 28px);
+  background: #061510e8;
+  overscroll-behavior: contain;
+}
+.cardDialog {
+  position: relative;
+  width: min(720px, 100%);
+  max-height: min(92dvh, 820px);
+  min-width: 0;
+  overflow: auto;
+  padding: clamp(12px, 3vw, 24px);
+  border: 2px solid #c6a65d;
+  border-radius: 18px;
+  background:
+    radial-gradient(ellipse at top, #315848, transparent 64%),
+    linear-gradient(145deg, #142c24, #081914);
+  color: #fff1cf;
+  box-shadow: 0 18px 70px #000b;
+  overscroll-behavior: contain;
+}
+.cardDialog:focus-visible {
+  outline: 3px solid #f1d27f;
+  outline-offset: 3px;
+}
+.cardPreview {
+  display: grid;
+  grid-template-columns: minmax(140px, 0.72fr) minmax(0, 1fr);
+  gap: clamp(12px, 3vw, 24px);
+  align-items: center;
+}
+.cardPreview > img {
+  display: block;
+  width: 100%;
+  max-height: min(56vh, 520px);
+  aspect-ratio: 2 / 3;
+  object-fit: contain;
+  border: 2px solid #c6a65d;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px #0008;
+}
+.cardPreview h2,
+.cinematicCard h2 {
+  margin: 4px 0 8px;
+  color: #ffe6a3;
+  font-family: Georgia, serif;
+  font-size: clamp(1.25rem, 4vw, 2rem);
+  line-height: 1.15;
+}
+.previewRarity,
+.previewCost {
+  color: #f5d67e;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.previewCost {
+  display: inline-block;
+  padding: 5px 9px;
+  border: 1px solid #d4b363;
+  border-radius: 20px;
+  background: #102d41;
+}
+.cardPreview p {
+  line-height: 1.5;
+}
+.cardPreview small {
+  color: #eadcb8;
+}
+.dialogBack {
+  margin-bottom: 12px;
+}
+.dialogActions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  margin-top: 14px;
+}
+.cardDialog :is(button) {
+  min-height: 48px;
+  padding: 10px 16px;
+  border: 1px solid #d7b968;
+  border-radius: 8px;
+  background: linear-gradient(145deg, #315f46, #153628);
+  color: #fff2cd;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+.cardDialog button:disabled {
+  color: #d3cfbf;
+  background: #4a5149;
+  cursor: not-allowed;
+}
+.cardDialog button:focus-visible {
+  outline: 3px solid #f1d27f;
+  outline-offset: 3px;
+}
+.cinematicHeader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: #f2d27c;
+  font-family: Georgia, serif;
+  letter-spacing: 0.12em;
+}
+.cinematicHeader p {
+  margin: 4px 0 10px;
+  text-align: center;
+}
+.cinematicCard {
+  position: relative;
+  width: min(270px, 68vw);
+  height: min(405px, 54dvh);
+  min-height: 250px;
+  margin: 8px auto;
+  overflow: hidden;
+  border: 4px double #e1c276;
+  border-radius: 16px 16px 28px 28px;
+  background: #19392d;
+  box-shadow: 0 12px 40px #000c;
+  transform-style: preserve-3d;
+  animation: cardCinematic 6.5s cubic-bezier(0.2, 0.72, 0.25, 1) both;
+}
+.cinematicCard > img {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.cinematicCard::after {
+  position: absolute;
+  inset: 35% 0 0;
+  background: linear-gradient(transparent, #081711ed);
+  content: '';
+}
+.cinematicCard h2,
+.cinematicCard > p,
+.cinematicFocus,
+.effectGlyph {
+  position: absolute;
+  z-index: 1;
+}
+.cinematicCard h2 {
+  right: 12px;
+  bottom: 34px;
+  left: 12px;
+  margin: 0;
+  text-align: center;
+  text-shadow: 0 2px 8px #000;
+}
+.cinematicCard > p {
+  right: 8px;
+  bottom: 8px;
+  left: 8px;
+  margin: 0;
+  color: #f5dfad;
+  font-size: 0.77rem;
+  text-align: center;
+}
+.cinematicFocus {
+  top: 10px;
+  right: 10px;
+  padding: 7px 9px;
+  border: 1px solid #e4c873;
+  border-radius: 20px;
+  background: #102e42;
+  font-size: 0.74rem;
+  font-weight: 800;
+}
+.effectGlyph {
+  top: 38%;
+  left: 50%;
+  color: #fff0bd;
+  font-size: 4rem;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.4);
+}
+.cinematicCard[data-card-phase='effect'] .effectGlyph {
+  animation: effectPulse 900ms ease-out 2;
+}
+.cinematic-offensive {
+  box-shadow:
+    0 0 34px #d68a3d99,
+    0 12px 40px #000c;
+}
+.cinematic-defensive {
+  box-shadow:
+    0 0 34px #6c9bc399,
+    0 12px 40px #000c;
+}
+.cinematic-tactical {
+  box-shadow:
+    0 0 34px #d2ba7199,
+    0 12px 40px #000c;
+}
+.cinematicCaption {
+  min-height: 2.8em;
+  margin: 8px auto;
+  color: #fff0d0;
+  line-height: 1.45;
+  text-align: center;
+}
+.skipPresentation {
+  display: block;
+  margin: 0 auto;
+  background: #243c32 !important;
+  font-size: 0.85rem !important;
+}
+.presentationAwaiting {
+  display: grid;
+  min-height: 180px;
+  place-content: center;
+  color: #f2d27c;
+  text-align: center;
+}
+.presentationAwaiting > span {
+  font-size: 2rem;
+}
+@keyframes cardCinematic {
+  0% {
+    opacity: 0;
+    transform: translateY(42dvh) rotateY(180deg) scale(0.45);
+  }
+  23.07% {
+    opacity: 1;
+    transform: translateY(0) rotateY(0) scale(1.04);
+  }
+  53.84% {
+    opacity: 1;
+    transform: translateY(0) rotateY(0) scale(1);
+  }
+  84.61% {
+    opacity: 1;
+    transform: translateY(0) rotateY(0) scale(0.96);
+  }
+  100% {
+    opacity: 0.2;
+    transform: translateY(42dvh) rotateY(-18deg) scale(0.35);
+  }
+}
+@keyframes effectPulse {
+  35% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.12);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(1.45);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cinematicCard,
+  .cinematicCard[data-card-phase='effect'] .effectGlyph {
+    animation: none;
+  }
+  .cinematicCard {
+    opacity: 1;
+    transform: none;
+  }
+  .cinematicCard .effectGlyph {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+}
+@media (max-width: 520px) {
+  .cardPreview {
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: center;
+  }
+  .cardPreview > img {
+    width: auto;
+    max-width: min(54vw, 220px);
+    max-height: min(31dvh, 260px);
+  }
+  .cardPreview > div {
+    width: 100%;
+  }
+  .dialogActions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  .dialogActions button {
+    padding-inline: 8px;
+  }
+}
 .card button:disabled {
   color: #4d5147;
   background: #ded9c9;

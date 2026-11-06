@@ -93,13 +93,18 @@ test('real Arena starts with saved7, commits one rapid action, remount resumes s
     screen.queryByRole('region', { name: 'Cartas desta batalha' }),
   ).not.toBeInTheDocument();
   fireEvent.click(screen.getByRole('button', { name: 'CARTAS' }));
-  await screen.findByRole('button', { name: 'Usar carta Carta de teste 1' });
-  const before = arenaDeckStorage.load('owner', 'player', cards).battle!;
-  const button = screen.getByRole('button', {
-    name: 'Usar carta Carta de teste 1',
+  await screen.findByRole('button', {
+    name: 'Selecionar carta Carta de teste 1',
   });
-  fireEvent.click(button);
-  fireEvent.click(button);
+  const before = arenaDeckStorage.load('owner', 'player', cards).battle!;
+  fireEvent.click(
+    screen.getByRole('button', {
+      name: 'Selecionar carta Carta de teste 1',
+    }),
+  );
+  const confirm = screen.getByRole('button', { name: 'Usar carta' });
+  fireEvent.click(confirm);
+  fireEvent.click(confirm);
   await waitFor(() => expect(screen.getByText('USADA')).toBeInTheDocument());
   view.unmount();
   render(
@@ -112,7 +117,9 @@ test('real Arena starts with saved7, commits one rapid action, remount resumes s
   fireEvent.click(await screen.findByRole('button', { name: 'CARTAS' }));
   await waitFor(() =>
     expect(
-      screen.getByRole('button', { name: 'Usar carta Carta de teste 1' }),
+      screen.getByRole('button', {
+        name: 'Selecionar carta Carta de teste 1',
+      }),
     ).toBeDisabled(),
   );
   expect(arenaDeckStorage.load('owner', 'player', cards).battle?.id).toBe(

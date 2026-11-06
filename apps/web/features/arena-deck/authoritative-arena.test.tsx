@@ -31,7 +31,15 @@ vi.mock('../journey/hooks/use-battle-presentation', () => ({
     display: null,
     phase: 'anticipation',
     event: null,
-    play: vi.fn(),
+    play: (
+      _before: unknown,
+      _after: unknown,
+      _queue: unknown,
+      complete: () => void,
+    ) => {
+      complete();
+      return true;
+    },
   }),
 }));
 vi.mock('../journey/components/arena-stage', () => ({
@@ -165,8 +173,12 @@ it('official client sends only intent, takes confirmed state, and recovers consu
   await screen.findByTestId('confirmed-stage');
   fireEvent.click(screen.getByRole('button', { name: 'CARTAS' }));
   fireEvent.click(
-    screen.getByRole('button', { name: 'Usar carta Ataque Simples' }),
+    screen.getByRole('button', { name: 'Selecionar carta Ataque Simples' }),
   );
+  expect(
+    transport.mock.calls.filter(([body]) => body.operation === 'command'),
+  ).toHaveLength(0);
+  fireEvent.click(screen.getByRole('button', { name: 'Usar carta' }));
   await waitFor(() =>
     expect(
       transport.mock.calls.filter(([body]) => body.operation === 'command'),
@@ -201,7 +213,7 @@ it('official client sends only intent, takes confirmed state, and recovers consu
   expect(
     (
       screen.getByRole('button', {
-        name: 'Usar carta Ataque Simples',
+        name: 'Selecionar carta Ataque Simples',
       }) as HTMLButtonElement
     ).disabled,
   ).toBe(true);

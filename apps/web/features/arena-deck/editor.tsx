@@ -233,12 +233,16 @@ export function BattleCards({
   onPlay,
   panelId,
   onClose,
+  compact = false,
+  onSelect,
 }: {
   battle: BattleState;
   busy: boolean;
   onPlay: (id: string) => void;
   panelId?: string;
   onClose?: () => void;
+  compact?: boolean;
+  onSelect?: (id: string) => void;
 }) {
   return (
     <section
@@ -247,12 +251,14 @@ export function BattleCards({
       aria-label="Cartas desta batalha"
       tabIndex={-1}
     >
-      <h3>Seu baralho nesta batalha</h3>
+      <h3>{compact ? 'Escolha uma carta' : 'Seu baralho nesta batalha'}</h3>
       {onClose && <button onClick={onClose}>Fechar cartas</button>}
-      <p>
-        Usadas: {battle.deck?.usedIds.length ?? 0}/7. Cada carta tem um uso.
-        Atacar e Defender não consomem cartas; especiais passam pelo baralho.
-      </p>
+      {!compact && (
+        <p>
+          Usadas: {battle.deck?.usedIds.length ?? 0}/7. Cada carta tem um uso.
+          Atacar e Defender não consomem cartas; especiais passam pelo baralho.
+        </p>
+      )}
       {!battle.deck?.cards.length && (
         <p role="status">
           Este combate não possui um baralho válido. Acesse{' '}
@@ -260,7 +266,10 @@ export function BattleCards({
           pacote inicial se necessário e selecione/salve sete cartas próprias.
         </p>
       )}
-      <div className={cardsCss.hand} aria-label="Mão de sete cartas">
+      <div
+        className={`${cardsCss.hand} ${compact ? cardsCss.compactHand : ''}`}
+        aria-label="Mão de sete cartas"
+      >
         {battle.deck?.cards.map((c) => {
           const availability = arenaCardAvailability(battle, c.id);
           const description = describeArenaAction(c.action, battle.player);
@@ -284,12 +293,13 @@ export function BattleCards({
           return (
             <article
               key={c.id}
-              className={cardsCss.card}
+              className={`${cardsCss.card} ${compact ? cardsCss.compactCard : ''}`}
               aria-label={`Carta: ${c.name}`}
               data-rarity={c.rarity}
               data-kind={c.type}
               data-used={status === 'used'}
               data-art-status={illustration ? 'approved' : 'pending'}
+              data-compact={compact || undefined}
             >
               <span className={cardsCss.focusBadge}>
                 {focusCost}
@@ -306,30 +316,59 @@ export function BattleCards({
                 {!illustration && <figcaption>Símbolo de ação</figcaption>}
               </figure>
               <h4>{c.name}</h4>
-              <p>
-                {c.rarity} ·{' '}
-                {c.type === 'OFFENSIVE'
-                  ? 'Ofensiva'
-                  : c.type === 'DEFENSIVE'
-                    ? 'Defensiva'
-                    : 'Tática'}
-              </p>
-              <strong>{description.headline}</strong>
-              <details>
-                <summary>Como funciona esta carta</summary>
-                <p>{description.explanation}</p>
-                <p>
-                  Condição: {description.condition} Nível e Foco suficientes.
-                </p>
-                <p>Duração: {description.duration}</p>
-              </details>
-              <p>
-                Custo: {focusCost} Foco · Nível mínimo: {minimumLevel}
-              </p>
-              <p>
-                Usos disponíveis nesta batalha:{' '}
-                {status === 'used' || battle.status !== 'in_progress' ? 0 : 1}.
-              </p>
+              {compact ? (
+                <>
+                  <p>
+                    {c.rarity} ·{' '}
+                    {c.type === 'OFFENSIVE'
+                      ? 'Ofensiva'
+                      : c.type === 'DEFENSIVE'
+                        ? 'Defensiva'
+                        : 'Tática'}
+                  </p>
+                  <strong>{description.headline}</strong>
+                  <p>
+                    Custo: {focusCost} Foco · Nível mínimo: {minimumLevel}
+                  </p>
+                  <p>
+                    Uso restante:{' '}
+                    {status === 'used' || battle.status !== 'in_progress'
+                      ? 0
+                      : 1}
+                  </p>
+                </>
+              ) : (
+                <>
+                  <p>
+                    {c.rarity} ·{' '}
+                    {c.type === 'OFFENSIVE'
+                      ? 'Ofensiva'
+                      : c.type === 'DEFENSIVE'
+                        ? 'Defensiva'
+                        : 'Tática'}
+                  </p>
+                  <strong>{description.headline}</strong>
+                  <details>
+                    <summary>Como funciona esta carta</summary>
+                    <p>{description.explanation}</p>
+                    <p>
+                      Condição: {description.condition} Nível e Foco
+                      suficientes.
+                    </p>
+                    <p>Duração: {description.duration}</p>
+                  </details>
+                  <p>
+                    Custo: {focusCost} Foco · Nível mínimo: {minimumLevel}
+                  </p>
+                  <p>
+                    Usos disponíveis nesta batalha:{' '}
+                    {status === 'used' || battle.status !== 'in_progress'
+                      ? 0
+                      : 1}
+                    .
+                  </p>
+                </>
+              )}
               <b>
                 {status === 'used'
                   ? 'USADA'
@@ -337,14 +376,18 @@ export function BattleCards({
                     ? 'Disponível'
                     : 'Indisponível'}
               </b>
-              {reason && <p>{reason}</p>}
+              {compact && reason && (
+                <p className={cardsCss.compactReason}>{reason}</p>
+              )}
+              {!compact && reason && <p>{reason}</p>}
               <p>
                 <button
                   disabled={busy || status !== 'available'}
-                  onClick={() => onPlay(c.id)}
-                  aria-label={`Usar carta ${c.name}`}
+                  id={compact ? `${panelId}-option-${c.id}` : undefined}
+                  onClick={() => (onSelect ? onSelect(c.id) : onPlay(c.id))}
+                  aria-label={`${compact ? 'Selecionar' : 'Usar'} carta ${c.name}`}
                 >
-                  Usar carta
+                  {compact ? 'Selecionar' : 'Usar carta'}
                 </button>
               </p>
             </article>

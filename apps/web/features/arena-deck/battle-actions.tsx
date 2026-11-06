@@ -1,45 +1,226 @@
 'use client';
-import { useCallback, useEffect, useId, useRef, useState } from 'react';
 import {
+  useCallback,
+  useEffect,
+  useId,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
+import {
+  arenaCardAvailability,
   arenaCombatConfig,
+  describeArenaAction,
   type ArenaProductAction,
   type BattleState,
 } from '@rpg/game-engine';
+import { arenaCardIllustration } from './card-illustrations';
 import { BattleCards } from './editor';
 import styles from '../journey/journey.module.css';
 import visual from './cards.module.css';
 
-/** The same product controls are exercised by the isolated browser harness. */
+type PresentationStep = 'rise' | 'reveal' | 'effect' | 'return' | 'awaiting';
+
+/** The same product controls are exercised by Arena and the shared Tower mode. */
 export function ArenaBattleActions({
   battle,
   busy,
   onAction,
+  onSkipAnimation,
 }: {
   battle: BattleState;
   busy: boolean;
-  onAction: (action: ArenaProductAction) => void;
+  onAction: (action: ArenaProductAction) => void | Promise<boolean>;
+  onSkipAnimation?: () => void;
 }) {
   const [open, setOpen] = useState(false);
+  const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [step, setStep] = useState<PresentationStep | null>(null);
+  const [commandPending, setCommandPending] = useState(false);
+  const [error, setError] = useState('');
   const trigger = useRef<HTMLButtonElement>(null);
+  const dialog = useRef<HTMLDivElement>(null);
+  const focusOptionAfterPreview = useRef<string | null>(null);
+  const commandLock = useRef(false);
+  const timers = useRef<ReturnType<typeof setTimeout>[]>([]);
   const panelId = useId();
+  const selectedCard = useMemo(
+    () => battle.deck?.cards.find((card) => card.id === selectedId) ?? null,
+    [battle.deck?.cards, selectedId],
+  );
+  const selectedAvailability = selectedCard
+    ? arenaCardAvailability(battle, selectedCard.id)
+    : null;
+  const hasSelectedCard = Boolean(selectedCard);
+  const availableCount =
+    battle.deck?.cards.filter(
+      (card) => arenaCardAvailability(battle, card.id).status === 'available',
+    ).length ?? 0;
+
+  const clearTimers = useCallback(() => {
+    timers.current.forEach(clearTimeout);
+    timers.current = [];
+  }, []);
+  const focusOption = useCallback(
+    (id: string) => {
+      document.getElementById(`${panelId}-option-${id}`)?.focus();
+    },
+    [panelId],
+  );
+  const finishPresentation = useCallback(() => {
+    clearTimers();
+    setStep(null);
+    setSelectedId(null);
+    setCommandPending(false);
+    commandLock.current = false;
+    setOpen(true);
+    requestAnimationFrame(() => {
+      const panel = document.getElementById(panelId);
+      panel?.focus({ preventScroll: true });
+      panel?.scrollIntoView?.({ block: 'nearest' });
+    });
+  }, [clearTimers, panelId]);
   const closePanel = useCallback(() => {
+    if (commandLock.current) return;
     setOpen(false);
+    setSelectedId(null);
+    setStep(null);
     trigger.current?.focus();
     trigger.current?.scrollIntoView?.({ block: 'nearest' });
   }, []);
+
+  useEffect(() => () => clearTimers(), [clearTimers]);
+
   useEffect(() => {
-    if (!open) return;
-    const panel = document.getElementById(panelId);
-    panel?.focus({ preventScroll: true });
-    panel?.scrollIntoView?.({ block: 'start' });
-    const close = (event: KeyboardEvent) => {
-      if (event.key !== 'Escape') return;
-      closePanel();
+    if (!open && !hasSelectedCard) return;
+    const previousOverflow = document.body.style.overflow;
+    if (hasSelectedCard) document.body.style.overflow = 'hidden';
+    if (hasSelectedCard) dialog.current?.focus({ preventScroll: true });
+    else if (open && focusOptionAfterPreview.current) {
+      focusOption(focusOptionAfterPreview.current);
+      focusOptionAfterPreview.current = null;
+    } else if (open) {
+      document.getElementById(panelId)?.focus({ preventScroll: true });
+    }
+    const handleKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        if (commandLock.current) return;
+        event.preventDefault();
+        if (selectedId) {
+          focusOptionAfterPreview.current = selectedId;
+          setSelectedId(null);
+          setError('');
+        } else closePanel();
+        return;
+      }
+      if (event.key !== 'Tab' || !hasSelectedCard) return;
+      const focusable = dialog.current?.querySelectorAll<HTMLElement>(
+        'button:not(:disabled), [href], [tabindex]:not([tabindex="-1"])',
+      );
+      if (!focusable?.length) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
     };
-    window.addEventListener('keydown', close);
-    return () => window.removeEventListener('keydown', close);
-  }, [open, panelId, closePanel]);
-  if (battle.status !== 'in_progress') return null;
+    window.addEventListener('keydown', handleKey);
+    return () => {
+      window.removeEventListener('keydown', handleKey);
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [open, hasSelectedCard, selectedId, panelId, closePanel, focusOption]);
+
+  useEffect(() => {
+    if (
+      step !== 'awaiting' ||
+      !selectedId ||
+      (selectedAvailability?.status !== 'used' &&
+        battle.status === 'in_progress')
+    )
+      return;
+    const frame = requestAnimationFrame(finishPresentation);
+    return () => cancelAnimationFrame(frame);
+  }, [
+    step,
+    selectedId,
+    selectedAvailability?.status,
+    battle.status,
+    finishPresentation,
+  ]);
+
+  const selectCard = (id: string) => {
+    if (busy || commandLock.current) return;
+    setSelectedId(id);
+    setError('');
+  };
+
+  const confirmCard = async () => {
+    if (
+      !selectedCard ||
+      busy ||
+      commandLock.current ||
+      selectedAvailability?.status !== 'available'
+    )
+      return;
+    commandLock.current = true;
+    setCommandPending(true);
+    setError('');
+    try {
+      const accepted = await onAction(`card:${selectedCard.id}`);
+      if (!accepted) {
+        commandLock.current = false;
+        setCommandPending(false);
+        setError(
+          'A carta não foi confirmada. Confira o estado da batalha e tente novamente.',
+        );
+        return;
+      }
+      const reduced =
+        typeof window !== 'undefined' &&
+        (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ??
+          false);
+      if (reduced) {
+        setStep('awaiting');
+        onSkipAnimation?.();
+        return;
+      }
+      setStep('rise');
+      timers.current = [
+        setTimeout(() => setStep('reveal'), 1500),
+        setTimeout(() => setStep('effect'), 3500),
+        setTimeout(() => setStep('return'), 5500),
+        setTimeout(() => setStep('awaiting'), 6500),
+      ];
+    } catch {
+      commandLock.current = false;
+      setCommandPending(false);
+      setError(
+        'A carta não foi confirmada. Confira o estado da batalha antes de tentar novamente.',
+      );
+    }
+  };
+
+  const skipPresentation = () => {
+    if (step === 'awaiting' || !commandLock.current) return;
+    clearTimers();
+    setStep('awaiting');
+    onSkipAnimation?.();
+  };
+
+  const effect = selectedCard
+    ? describeArenaAction(selectedCard.action, battle.player)
+    : null;
+  const illustration = selectedCard
+    ? arenaCardIllustration(selectedCard.id)
+    : null;
+  const cardKind = selectedCard?.type.toLowerCase() ?? 'tactical';
+
+  if (battle.status !== 'in_progress' && step === null) return null;
   return (
     <>
       <div
@@ -48,9 +229,9 @@ export function ArenaBattleActions({
         aria-label="Ações da batalha"
       >
         <button
-          disabled={busy}
+          disabled={busy || commandPending}
           aria-label="ATACAR"
-          onClick={() => onAction('attack')}
+          onClick={() => void onAction('attack')}
         >
           <span aria-hidden="true">⚔</span>
           <b>ATACAR</b>
@@ -58,9 +239,9 @@ export function ArenaBattleActions({
           <small>Até +{arenaCombatConfig.attackFocus} Foco</small>
         </button>
         <button
-          disabled={busy}
+          disabled={busy || commandPending}
           aria-label="DEFENDER"
-          onClick={() => onAction('defend')}
+          onClick={() => void onAction('defend')}
         >
           <span aria-hidden="true">◈</span>
           <b>DEFENDER</b>
@@ -69,26 +250,164 @@ export function ArenaBattleActions({
         </button>
         <button
           ref={trigger}
-          disabled={busy}
+          disabled={busy || commandPending}
           aria-label="CARTAS"
           aria-expanded={open}
           aria-controls={open ? panelId : undefined}
           onClick={() => setOpen((value) => !value)}
         >
           <span aria-hidden="true">✦</span>
-          <b>CARTAS</b>
-          <span>Seu baralho de sete</span>
+          <b>CARTAS · {availableCount}/7</b>
+          <span>Escolha uma carta</span>
           <small>Um uso por carta</small>
         </button>
       </div>
       {open && (
         <BattleCards
+          compact
           panelId={panelId}
           battle={battle}
-          busy={busy}
-          onPlay={(id) => onAction(`card:${id}`)}
+          busy={busy || commandPending}
+          onPlay={() => undefined}
+          onSelect={selectCard}
           onClose={closePanel}
         />
+      )}
+      {selectedCard && effect && (
+        <div
+          className={visual.cardDialogBackdrop}
+          data-card-phase={step ?? 'selection'}
+          onClick={(event) => event.stopPropagation()}
+        >
+          <div
+            ref={dialog}
+            className={visual.cardDialog}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby={`${panelId}-dialog-title`}
+            aria-describedby={`${panelId}-dialog-effect`}
+            tabIndex={-1}
+          >
+            {step && step !== 'awaiting' ? (
+              <>
+                <div className={visual.cinematicHeader}>
+                  <span aria-hidden="true">✦</span>
+                  <p>
+                    {step === 'rise'
+                      ? 'REVELANDO CARTA'
+                      : step === 'reveal'
+                        ? 'CARTA EM DESTAQUE'
+                        : step === 'effect'
+                          ? 'AÇÃO CONFIRMADA'
+                          : 'RETORNO AO BARALHO'}
+                  </p>
+                  <span aria-hidden="true">✦</span>
+                </div>
+                <article
+                  className={`${visual.cinematicCard} ${visual[`cinematic-${cardKind}`]}`}
+                  data-card-phase={step}
+                >
+                  {illustration && (
+                    // eslint-disable-next-line @next/next/no-img-element -- imagem local aprovada da carta
+                    <img src={illustration.src} alt={illustration.alt} />
+                  )}
+                  <span className={visual.cinematicFocus}>
+                    {selectedAvailability?.focusCost} FOCO
+                  </span>
+                  <h2 id={`${panelId}-dialog-title`}>{selectedCard.name}</h2>
+                  <p>{effect.headline}</p>
+                  {step === 'effect' && (
+                    <span className={visual.effectGlyph} aria-hidden="true">
+                      {selectedCard.type === 'OFFENSIVE'
+                        ? '⚔'
+                        : selectedCard.type === 'DEFENSIVE'
+                          ? '◈'
+                          : '✦'}
+                    </span>
+                  )}
+                </article>
+                <p
+                  id={`${panelId}-dialog-effect`}
+                  className={visual.cinematicCaption}
+                >
+                  {step === 'effect'
+                    ? effect.explanation
+                    : `${effect.headline} · ${selectedAvailability?.focusCost} Foco`}
+                </p>
+                {error && <p role="alert">{error}</p>}
+                <button
+                  className={visual.skipPresentation}
+                  type="button"
+                  onClick={skipPresentation}
+                >
+                  Pular animação
+                </button>
+              </>
+            ) : step === 'awaiting' ? (
+              <div className={visual.presentationAwaiting} role="status">
+                <span aria-hidden="true">✦</span>
+                <h2 id={`${panelId}-dialog-title`}>Resultado da carta</h2>
+                <p id={`${panelId}-dialog-effect`}>
+                  Conferindo o resultado da batalha…
+                </p>
+              </div>
+            ) : (
+              <>
+                <article className={visual.cardPreview}>
+                  {illustration && (
+                    // eslint-disable-next-line @next/next/no-img-element -- imagem local aprovada da carta
+                    <img src={illustration.src} alt={illustration.alt} />
+                  )}
+                  <div>
+                    <p className={visual.previewRarity}>
+                      {selectedCard.rarity}
+                    </p>
+                    <h2 id={`${panelId}-dialog-title`}>{selectedCard.name}</h2>
+                    <p className={visual.previewCost}>
+                      {selectedAvailability?.focusCost} FOCO
+                    </p>
+                    <strong>{effect.headline}</strong>
+                    <p id={`${panelId}-dialog-effect`}>{effect.explanation}</p>
+                    <small>
+                      {effect.condition} · {effect.duration}
+                    </small>
+                    {selectedAvailability?.status !== 'available' && (
+                      <p role="status">
+                        {selectedAvailability?.status === 'used'
+                          ? 'Esta carta já foi utilizada nesta batalha.'
+                          : 'Carta indisponível nesta rodada.'}
+                      </p>
+                    )}
+                    {error && <p role="alert">{error}</p>}
+                  </div>
+                </article>
+                <div className={visual.dialogActions}>
+                  <button
+                    type="button"
+                    disabled={
+                      busy ||
+                      commandPending ||
+                      selectedAvailability?.status !== 'available'
+                    }
+                    onClick={() => void confirmCard()}
+                  >
+                    Usar carta
+                  </button>
+                  <button
+                    type="button"
+                    disabled={busy || commandPending}
+                    onClick={() => {
+                      focusOptionAfterPreview.current = selectedCard.id;
+                      setSelectedId(null);
+                    }}
+                  >
+                    Voltar
+                  </button>
+                </div>
+              </>
+            )}
+          </div>
+        </div>
       )}
     </>
   );

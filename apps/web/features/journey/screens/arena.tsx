@@ -321,7 +321,7 @@ export function ArenaExperience({
     emitArenaSound(won ? 'victory' : 'defeat');
   }
 
-  async function act(action: ArenaProductAction) {
+  async function act(action: ArenaProductAction): Promise<boolean> {
     if (
       !battle ||
       battle.status !== 'in_progress' ||
@@ -329,7 +329,7 @@ export function ArenaExperience({
       pending.current ||
       !deckData
     )
-      return;
+      return false;
     pending.current = true;
     setDeckBusy(true);
     setDeckError('');
@@ -392,10 +392,12 @@ export function ArenaExperience({
         setDeckBusy(false);
         setDeckError('Rodada salva. Recarregue para retomar.');
       }
+      return started;
     } catch (e) {
       pending.current = false;
       setDeckBusy(false);
       setDeckError(e instanceof Error ? e.message : 'Ação indisponível.');
+      return false;
     }
   }
 
@@ -744,7 +746,8 @@ export function ArenaExperience({
                 key={battle.id}
                 battle={battle}
                 busy={presentation.busy || deckBusy}
-                onAction={(action) => void act(action)}
+                onAction={act}
+                onSkipAnimation={presentation.skip}
               />
             )}
             {stage === 'battle' &&
