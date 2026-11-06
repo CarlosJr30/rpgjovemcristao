@@ -1,6 +1,6 @@
-# RPG-VISUAL-002 — propostas de arte para revisão
+# RPG-VISUAL-002 — integração das sete artes aprovadas
 
-**Estado: aguardando aprovação das imagens.** Nenhuma arte foi marcada como aprovada, ligada ao runtime, publicada em Preview ou promovida. A PR #35 e o merge `a3ff7089e4d18d70c939df144d8506149681b29e` foram preservados; o trabalho está na branch local `codex/rpg-visual-002`.
+**Estado: integração em andamento na branch `codex/rpg-visual-002-release`, baseada no main `a3ff7089e4d18d70c939df144d8506149681b29e`.** O proprietário aprovou expressamente as sete artes e a apresentação conjunta. A PR #35 e sua publicação de RPG-VISUAL-001 permanecem preservadas.
 
 ## Inventário
 
@@ -22,6 +22,10 @@ Geração raster via ferramenta integrada `image_gen`, em arquivos PNG retrato 1
 
 Prompt comum: fantasia medieval heroica realista, viajante recorrente de cabelo castanho ondulado, túnica de linho creme, manto bordô, couro marrom e detalhes bronze; luz quente, verdes profundos e dourado coerentes com a Arena publicada. Ilustrações sem palavras, números, UI, logotipo, moldura, violência gráfica, brilho mágico ou atribuição de poder espiritual. Cada prompt individual corresponde à ação da linha acima.
 
-## Próximo passo
+## Integração
 
-Após aprovação explícita, integrar cada imagem uma única vez no componente existente para que a mesma arte apareça no Meu Baralho e na mão da Arena. Preservar nomes, raridade, custo, descrição, estado usada, motor e foco. Depois executar apenas testes de associação e layout 320/390/desktop, além dos gates CI obrigatórios. Até esse aceite: sem código runtime, Preview, PR, deploy, alteração econômica ou novos testes de Arena/Torre.
+Os sete PNGs originais permanecem íntegros em `assets-source/proposed/rpg-visual-002/`; cópias WebP de 1024×1536 são servidas de `apps/web/public/assets/cards/arena/` (aproximadamente 2,66 MB no total). O mapeamento por ID canônico reutiliza `DeckEditor` e `BattleCards`, sem nova moldura e sem tocar catálogo, motor ou economia. O estado `USADA`, seleção, foco, custos, descrições e requisitos continuam vindos dos componentes e do motor existentes. Fallbacks de símbolos continuam disponíveis para cartas sintéticas ou não mapeadas.
+
+## Validação e publicação
+
+Pendentes neste checkpoint: testes direcionados de mapeamento/seleção/estado usado; conferência visual única em 320/390/desktop; gates obrigatórios do CI; Preview, integração Git e conferência do deployment oficial. Nenhuma operação econômica, migration, escrita de dados ou alteração Auth/RLS foi executada.

@@ -10,6 +10,7 @@ import {
 } from '@rpg/game-engine';
 import css from '../guild-missions/panel.module.css';
 import cardsCss from './cards.module.css';
+import { arenaCardIllustration } from './card-illustrations';
 // Registered equipment icons are action symbols, not approved card illustrations.
 const symbolFor = (card: ArenaCard) =>
   card.type === 'OFFENSIVE'
@@ -122,10 +123,6 @@ export function DeckEditor({
           </select>
         </label>
       </div>
-      <p className={cardsCss.artNotice}>
-        Ícones existentes representam o tipo de ação. Ilustrações individuais
-        das cartas ainda não foram aprovadas.
-      </p>
       <div className={cardsCss.collectionGrid}>
         {cards
           .filter(
@@ -134,6 +131,7 @@ export function DeckEditor({
           )
           .map((c) => {
             const detail = describeArenaAction(c.action);
+            const illustration = arenaCardIllustration(c.id);
             return (
               <article
                 className={cardsCss.card}
@@ -142,16 +140,21 @@ export function DeckEditor({
                 data-rarity={c.rarity}
                 data-kind={c.type}
                 data-selected={ids.includes(c.id)}
-                data-art-status="pending"
+                data-art-status={illustration ? 'approved' : 'pending'}
               >
                 <span className={cardsCss.focusBadge}>
                   {detail.focusCost}
                   <small>FOCO</small>
                 </span>
-                <figure className={cardsCss.artSlot}>
-                  {/* eslint-disable-next-line @next/next/no-img-element -- ícone local aprovado, não ilustração nova */}
-                  <img src={symbolFor(c)} alt="" />
-                  <figcaption>Símbolo de ação</figcaption>
+                <figure
+                  className={`${cardsCss.artSlot} ${illustration ? cardsCss.illustratedArt : ''}`}
+                >
+                  {/* eslint-disable-next-line @next/next/no-img-element -- arte local versionada, sem otimização remota */}
+                  <img
+                    src={illustration?.src ?? symbolFor(c)}
+                    alt={illustration?.alt ?? ''}
+                  />
+                  {!illustration && <figcaption>Símbolo de ação</figcaption>}
                 </figure>
                 <h3>{c.name}</h3>
                 <p>
@@ -250,10 +253,6 @@ export function BattleCards({
         Usadas: {battle.deck?.usedIds.length ?? 0}/7. Cada carta tem um uso.
         Atacar e Defender não consomem cartas; especiais passam pelo baralho.
       </p>
-      <p className={cardsCss.artNotice}>
-        Símbolos de ação reutilizados; ilustrações individuais pendentes.
-        Percorra sua mão para escolher uma carta.
-      </p>
       {!battle.deck?.cards.length && (
         <p role="status">
           Este combate não possui um baralho válido. Acesse{' '}
@@ -265,6 +264,7 @@ export function BattleCards({
         {battle.deck?.cards.map((c) => {
           const availability = arenaCardAvailability(battle, c.id);
           const description = describeArenaAction(c.action, battle.player);
+          const illustration = arenaCardIllustration(c.id);
           const { status, focusCost, minimumLevel, missingFocus } =
             availability;
           const reason =
@@ -289,16 +289,21 @@ export function BattleCards({
               data-rarity={c.rarity}
               data-kind={c.type}
               data-used={status === 'used'}
-              data-art-status="pending"
+              data-art-status={illustration ? 'approved' : 'pending'}
             >
               <span className={cardsCss.focusBadge}>
                 {focusCost}
                 <small>FOCO</small>
               </span>
-              <figure className={cardsCss.artSlot}>
-                {/* eslint-disable-next-line @next/next/no-img-element -- símbolo existente; sem declarar arte oficial de carta */}
-                <img src={symbolFor(c)} alt="" />
-                <figcaption>Símbolo de ação</figcaption>
+              <figure
+                className={`${cardsCss.artSlot} ${illustration ? cardsCss.illustratedArt : ''}`}
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element -- arte local versionada, sem otimização remota */}
+                <img
+                  src={illustration?.src ?? symbolFor(c)}
+                  alt={illustration?.alt ?? ''}
+                />
+                {!illustration && <figcaption>Símbolo de ação</figcaption>}
               </figure>
               <h4>{c.name}</h4>
               <p>
