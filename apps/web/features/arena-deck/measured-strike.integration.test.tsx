@@ -6,6 +6,7 @@ import {
   render,
   screen,
   within,
+  waitFor,
 } from '@testing-library/react';
 import { afterEach, expect, test, vi } from 'vitest';
 import { BattleCards } from './editor';
@@ -18,7 +19,7 @@ import {
   syntheticSevenCards,
 } from '../../../../tests/fixtures/measured-strike';
 afterEach(cleanup);
-test('existing three-button interface describes the candidate, insufficient focus, availability and one remaining use', () => {
+test('compact hand preserves canonical summary and confirmation still uses the single existing action', async () => {
   const cards = syntheticSevenCards();
   const b = createArenaDeckBattle(
     measuredHero,
@@ -28,7 +29,7 @@ test('existing three-button interface describes the candidate, insufficient focu
     cards.map((card) => card.id),
     cards,
   );
-  const onAction = vi.fn();
+  const onAction = vi.fn().mockResolvedValue(true);
   const view = render(
     <ArenaBattleActions battle={b} busy={false} onAction={onAction} />,
   );
@@ -52,7 +53,20 @@ test('existing three-button interface describes the candidate, insufficient focu
     <ArenaBattleActions battle={ready} busy={false} onAction={onAction} />,
   );
   fireEvent.click(card().getByRole('button'));
-  expect(onAction).toHaveBeenCalledExactlyOnceWith(`card:${MEASURED_CARD_ID}`);
+  expect(
+    within(screen.getByRole('dialog')).getByText('Golpe Medido ×1,15'),
+  ).toBeVisible();
+  expect(onAction).not.toHaveBeenCalled();
+  fireEvent.click(
+    within(screen.getByRole('dialog')).getByRole('button', {
+      name: 'Usar carta',
+    }),
+  );
+  await waitFor(() =>
+    expect(onAction).toHaveBeenCalledExactlyOnceWith(
+      `card:${MEASURED_CARD_ID}`,
+    ),
+  );
   const used = resolveArenaCommand(
     ready,
     ready.id,

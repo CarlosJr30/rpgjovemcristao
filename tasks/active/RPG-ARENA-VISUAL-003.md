@@ -25,5 +25,6 @@ DEFINITION_OF_DONE: Critérios aceitos, gates aplicáveis PASS, branch/PR/merge/
 
 PROGRESS:
 - Implementação compartilhada concluída localmente; regras e motor intactos.
-- 17 testes focados, ESLint, TypeScript, build, Prettier e diff check passaram.
-- CI, Preview autenticada, confirmação visual mínima, merge e produção ainda pendentes.
+- CI inicial encontrou três testes afetados pela seleção/confirmacão explícita; atualizados para manter as assertions do motor e exigir o novo fluxo.
+- 24 testes direcionados em cinco arquivos, ESLint, TypeScript, build, Prettier e diff check passaram.
+- CI no novo SHA, Preview autenticada, confirmação visual mínima, merge e produção ainda pendentes.

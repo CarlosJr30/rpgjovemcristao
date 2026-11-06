@@ -316,7 +316,28 @@ export function BattleCards({
                 {!illustration && <figcaption>Símbolo de ação</figcaption>}
               </figure>
               <h4>{c.name}</h4>
-              {!compact && (
+              {compact ? (
+                <>
+                  <p>
+                    {c.rarity} ·{' '}
+                    {c.type === 'OFFENSIVE'
+                      ? 'Ofensiva'
+                      : c.type === 'DEFENSIVE'
+                        ? 'Defensiva'
+                        : 'Tática'}
+                  </p>
+                  <strong>{description.headline}</strong>
+                  <p>
+                    Custo: {focusCost} Foco · Nível mínimo: {minimumLevel}
+                  </p>
+                  <p>
+                    Uso restante:{' '}
+                    {status === 'used' || battle.status !== 'in_progress'
+                      ? 0
+                      : 1}
+                  </p>
+                </>
+              ) : (
                 <>
                   <p>
                     {c.rarity} ·{' '}
