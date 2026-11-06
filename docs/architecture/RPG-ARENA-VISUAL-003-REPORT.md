@@ -5,7 +5,7 @@
 - Reutilizados `BattleCards`, `ArenaBattleActions`, ilustrações oficiais e `useBattlePresentation`; nenhuma regra, atributo, IA, economia, Auth/RLS, dado ou migration alterados.
 - Testes direcionados: **24 PASS** em cinco arquivos, cobrindo seletor/preview/confirmação, uma única intenção e estado confirmado; ESLint, TypeScript, build, Prettier e `git diff --check` PASS. Nenhum combate completo ou fluxo econômico repetido.
 - Primeiro CI encontrou três testes de interface que ainda esperavam o uso direto antigo. Eles foram atualizados para exigir seleção e confirmação explícita, preservando as assertions do comando canônico; CI final precisa passar no SHA atualizado.
-- Três tentativas iniciais de Preview falharam por exclusão progressivamente identificada de insumos do gate de build. O pacote foi delimitado aos seis arquivos estritamente requeridos (manifesto, metadados e PNGs aprovados de staging); o dry-run confirmou que nenhum outro arquivo de `build/` entra.
+- Quatro tentativas iniciais de Preview falharam por exclusão progressivamente identificada de insumos do gate de build. O pacote agora inclui somente os nove arquivos lidos pelo gate (manifesto, relatórios/metadados e PNGs aprovados de staging); o dry-run confirma que nenhum outro arquivo de `build/` entra.
 - CI do commit de empacotamento está em andamento. Após CI verde: Preview visual mínima na Arena/Torre e larguras 320/390/desktop; depois merge/publicação e conferência oficial.
 
 Ainda não publicado. Homologação visual hospedada e estado final de produção serão registrados após os gates.

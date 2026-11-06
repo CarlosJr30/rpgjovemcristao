@@ -1242,6 +1242,7 @@ secrets/
 /build/task-0055-body-fit-bake/armor_traveler_uncommon_male_v2/*
 !/build/task-0055-body-fit-bake/armor_traveler_uncommon_male_v2
 !/build/task-0055-body-fit-bake/armor_traveler_uncommon_male_v2/
+!/build/task-0055-body-fit-bake/armor_traveler_uncommon_male_v2/fit-report.json
 !/build/task-0055-body-fit-bake/armor_traveler_uncommon_male_v2/armor_traveler_uncommon_male_v2_baked.png
 
 !/build/task-0058-sword-sheath-pilot/
@@ -1256,6 +1257,7 @@ secrets/
 !/build/task-0058-sword-sheath-pilot/baked/attempt-03
 /build/task-0058-sword-sheath-pilot/baked/attempt-03/*
 !/build/task-0058-sword-sheath-pilot/baked/attempt-03/
+!/build/task-0058-sword-sheath-pilot/baked/attempt-03/fit-report.json
 !/build/task-0058-sword-sheath-pilot/baked/attempt-03/sword_path_common_female_v2_sheathed_baked.png
 
 !/build/task-0059-equipment-recovery/recovery/
@@ -1270,4 +1272,5 @@ secrets/
 !/build/task-0059-equipment-recovery/recovery/sword_path_common_male_v2/c-split-suspension-mouth
 /build/task-0059-equipment-recovery/recovery/sword_path_common_male_v2/c-split-suspension-mouth/*
 !/build/task-0059-equipment-recovery/recovery/sword_path_common_male_v2/c-split-suspension-mouth/
+!/build/task-0059-equipment-recovery/recovery/sword_path_common_male_v2/c-split-suspension-mouth/fit-report.json
 !/build/task-0059-equipment-recovery/recovery/sword_path_common_male_v2/c-split-suspension-mouth/sword_path_common_male_v2_baked.png
