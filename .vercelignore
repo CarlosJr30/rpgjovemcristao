@@ -1,0 +1,3 @@
+# Local QA evidence, protected baselines and release artifacts are not deploy input.
+build/
+.npm-cache/
