@@ -126,10 +126,10 @@ export function ArenaExperience({
         : showDeck
           ? 'Salve o baralho ou feche o editor antes de iniciar.'
           : deckData.cards.length < 7
-            ? `Você possui ${deckData.cards.length}/7 cartas de combate válidas. São necessárias sete cartas próprias. Acesse Meu Baralho para consultar sua coleção e o pacote inicial.`
+            ? `Você possui ${deckData.cards.length}/7 cartas próprias; são necessárias sete.`
             : invalidDeck
-              ? `Seu baralho tem ${deckData.selection.length}/7 cartas selecionadas. Selecione e salve sete cartas próprias distintas em Meu Baralho ou no editor desta tela.`
-              : 'Baralho pronto: sete cartas próprias selecionadas.');
+              ? 'Selecione e salve sete cartas próprias distintas.'
+              : 'Baralho pronto.');
   const [stage, setStage] = useState<Stage>(localTower ? 'preview' : 'lobby');
   const [options, setOptions] = useState<OpponentOption[]>(
     TRAINING_OPPONENTS.map((snapshot) => ({ snapshot, source: 'training' })),
@@ -431,10 +431,6 @@ export function ArenaExperience({
               : 'ÁREA DE TREINO'}
           </span>
           <h1>{localTower ? 'Torre dos 7 Desafios' : 'Arena dos Viajantes'}</h1>
-          <p>
-            Batalhas estratégicas 1x1 com atributos, equipamentos e escolhas por
-            rodada.
-          </p>
         </div>
         <div className={styles.combatPower}>
           <small>PODER DE COMBATE</small>
@@ -467,19 +463,12 @@ export function ArenaExperience({
         </div>
       </header>
       <p className={styles.arenaEthics}>
-        Os atributos representam somente regras do jogo. A Arena não mede fé,
-        espiritualidade ou valor pessoal.
+        Regras do jogo: não medem fé ou valor pessoal.
       </p>
 
-      <p>
-        <Link href="/journey/arena/deck">Meu Baralho</Link>
-        {!localTower && (
-          <>
-            {' '}
-            · <Link href="/journey/arena/tower">Torre dos 7 Desafios</Link>
-          </>
-        )}
-      </p>
+      {!localTower && (
+        <Link href="/journey/arena/tower">Torre dos 7 Desafios</Link>
+      )}
       {localTower && stage !== 'result' && (
         <button disabled={deckBusy} onClick={reset}>
           Voltar à Torre
@@ -514,10 +503,9 @@ export function ArenaExperience({
         validateArenaDeck(deckData.selection, deckData.cards) &&
         stage !== 'battle' && (
           <p>
-            Monte um baralho com sete cartas de combate válidas para iniciar. O
             {practiceOnly
-              ? 'treino não concede cartas; são necessárias sete já possuídas.'
-              : 'catálogo e a aquisição de cartas ainda aguardam integração autorizada.'}
+              ? 'Treino sem recompensas: são necessárias sete cartas próprias.'
+              : 'São necessárias sete cartas próprias para iniciar.'}
           </p>
         )}
       {stage === 'lobby' && (
@@ -626,9 +614,8 @@ export function ArenaExperience({
           </h2>
           {localTower?.boss && (
             <p>
-              Você chegou ao sétimo andar. Prepare seu baralho: o campeão
-              combina defesa, leitura e ataque pelas mesmas regras da Arena.
-              Este é um treino local.
+              Você chegou ao sétimo andar. Prepare seu baralho para o confronto
+              final.
             </p>
           )}
           <div className={styles.arenaVersus}>
@@ -679,7 +666,9 @@ export function ArenaExperience({
           <p id={startHelpId} role={deckError ? 'alert' : 'status'}>
             {startHelp}
           </p>
-          <Link href="/journey/arena/deck">Meu Baralho</Link>
+          {localTower && (
+            <Link href="/journey/arena/deck">Abrir Meu Baralho</Link>
+          )}
         </section>
       )}
 

@@ -57,6 +57,13 @@ vi.mock('../../../lib/supabase/online-sync', () => ({
   getOnlineSyncStatus: () => mocks.onlineSyncStatus,
   subscribeOnlineSync: () => () => undefined,
 }));
+vi.mock('../../training-qa/provider', () => ({
+  TrainingQAControls: () => (
+    <details data-testid="training-qa-controls">
+      <summary>Treino QA</summary>
+    </details>
+  ),
+}));
 
 import { Shell } from './shell';
 
@@ -69,6 +76,14 @@ beforeEach(() => {
 afterEach(cleanup);
 
 describe('Shell account and traveler actions', () => {
+  test('keeps QA training controls in the sidebar, outside the Arena content', () => {
+    render(<Shell>Conteúdo da Arena</Shell>);
+
+    const control = screen.getByTestId('training-qa-controls');
+    expect(control.closest('#journey-sidebar')).not.toBeNull();
+    expect(screen.getByRole('main')).not.toContainElement(control);
+  });
+
   test('switching traveler never calls account sign out', () => {
     render(<Shell>Conteúdo</Shell>);
 
