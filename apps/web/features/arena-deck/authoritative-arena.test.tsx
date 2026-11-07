@@ -34,7 +34,6 @@ vi.mock('../journey/hooks/use-battle-presentation', () => ({
     play: (
       _before: unknown,
       _after: unknown,
-      _queue: unknown,
       complete: () => void,
     ) => {
       complete();
@@ -199,6 +198,7 @@ it('official client sends only intent, takes confirmed state, and recovers consu
     ].sort(),
   );
   expect(command.action).toBe(`card:${cards[0].id}`);
+  await screen.findByText('REVELANDO CARTA');
   first.unmount();
   render(
     <AuthoritativeArena
@@ -208,6 +208,11 @@ it('official client sends only intent, takes confirmed state, and recovers consu
     />,
   );
   await screen.findByTestId('confirmed-stage');
+  const combatViewport = screen.getByTestId('confirmed-stage').parentElement;
+  expect(combatViewport?.getAttribute('data-combat-overlay')).toBe('true');
+  expect(
+    combatViewport?.contains(screen.getByRole('button', { name: 'CARTAS' })),
+  ).toBe(true);
   fireEvent.click(screen.getByRole('button', { name: 'CARTAS' }));
   await screen.findByText('USADA');
   expect(

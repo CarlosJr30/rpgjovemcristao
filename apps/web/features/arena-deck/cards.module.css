@@ -27,6 +27,68 @@
   box-shadow: 0 12px 32px #0b211b26;
   min-width: 0;
 }
+.combatViewport {
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  min-width: 0;
+  border-radius: 18px;
+  order: 1;
+  grid-column: 1 / -1;
+}
+.actions.actions.actions {
+  position: absolute;
+  z-index: 5;
+  right: 12px;
+  bottom: 12px;
+  left: 12px;
+  width: auto;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(4px, 1.2vw, 10px);
+  margin: 0;
+}
+.cardSelectionLayer {
+  position: absolute;
+  z-index: 10;
+  inset: 148px 0 0;
+  display: grid;
+  place-items: center;
+  min-width: 0;
+  border-radius: 0 0 18px 18px;
+  background: linear-gradient(#06151060, #061510bd);
+}
+.cardSelectionLayer[data-selection-active] {
+  filter: brightness(0.45);
+}
+.cardSelectionLayer .battlePanel.battlePanel {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: 100%;
+  max-height: 100%;
+  margin: 0;
+  padding: 8px 20px;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+  overflow: hidden;
+  overscroll-behavior: contain;
+}
+.cardSelectionLayer .battlePanel > h3 {
+  margin: 0 100px 4px 0;
+  font-size: 1rem;
+  color: #fff3d4;
+}
+.cardSelectionLayer .battlePanel > button {
+  position: absolute;
+  z-index: 3;
+  top: 2px;
+  right: 12px;
+  min-height: 36px;
+  padding: 4px 10px;
+  font-size: 0.8rem;
+}
 .collectionGrid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
@@ -190,20 +252,94 @@
   width: auto;
 }
 .compactHand {
-  grid-auto-columns: 92px;
-  gap: 8px;
-  padding: 8px 4px 14px;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 0;
+  padding: 18px 62px 26px;
+  order: 1;
+  overflow: visible;
+  scroll-padding-inline: 4px;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: thin;
+  overscroll-behavior-inline: contain;
+}
+.compactNavigation {
+  display: none;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 12px;
+  order: 2;
+}
+.compactNavigation button {
+  min-height: 44px;
+  padding: 8px 14px;
+  border: 1px solid #c6a65d;
+  border-radius: 8px;
+  background: #173e32;
+  color: #fff3d4;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+.compactNavigation button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+.compactNavigation button:focus-visible,
+.compactHand:focus-visible {
+  outline: 3px solid #f1d27f;
+  outline-offset: 3px;
 }
 .compactCard.compactCard {
+  --fan-angle: 0deg;
+  --fan-lift: 0px;
   gap: 4px;
-  padding: 7px;
+  padding: 6px;
+  width: calc(100% + 14px);
+  margin-left: -7px;
+  box-sizing: border-box;
   border-width: 2px;
   border-radius: 9px 9px 15px 15px;
+  transform: translateY(var(--fan-lift)) rotate(var(--fan-angle));
+  transform-origin: 50% 100%;
+  transition:
+    transform 160ms,
+    box-shadow 160ms;
+}
+.compactCard:nth-child(1) {
+  --fan-angle: -12deg;
+  --fan-lift: 18px;
+}
+.compactCard:nth-child(2) {
+  --fan-angle: -8deg;
+  --fan-lift: 8px;
+}
+.compactCard:nth-child(3) {
+  --fan-angle: -4deg;
+  --fan-lift: 2px;
+}
+.compactCard:nth-child(5) {
+  --fan-angle: 4deg;
+  --fan-lift: 2px;
+}
+.compactCard:nth-child(6) {
+  --fan-angle: 8deg;
+  --fan-lift: 8px;
+}
+.compactCard:nth-child(7) {
+  --fan-angle: 12deg;
+  --fan-lift: 18px;
+}
+.compactCard:focus-within,
+.compactCard:hover {
+  z-index: 3;
+  transform: translateY(-8px);
 }
 .compactCard .artSlot {
   width: 100%;
+  height: clamp(96px, 10vw, 130px);
   min-height: 0;
-  aspect-ratio: 2 / 3;
+  aspect-ratio: auto;
   padding: 0;
   overflow: hidden;
   border-radius: 5px;
@@ -211,11 +347,11 @@
 .compactCard .artSlot img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
 }
 .compactCard .focusBadge {
-  top: 10px;
-  right: 10px;
+  top: 5px;
+  right: 5px;
   min-width: 32px;
   min-height: 34px;
   font-size: 0.85rem;
@@ -224,15 +360,43 @@
   font-size: 0.43rem;
 }
 .compactCard h4 {
-  min-height: 2.5em;
-  font-size: 0.74rem;
+  min-height: 2.2em;
+  font-size: clamp(0.75rem, 1.05vw, 1rem);
   line-height: 1.2;
 }
 .compactCard > b {
-  font-size: 0.66rem;
+  font-size: 0.7rem;
+}
+.compactDetails {
+  position: relative;
+  z-index: 2;
+}
+.compactDetails > summary {
+  min-height: 28px;
+  padding: 2px 0;
+  font-size: 0.75rem;
+}
+.compactDetails > div {
+  position: absolute;
+  z-index: 4;
+  bottom: 100%;
+  left: -6px;
+  width: max(100%, 138px);
+  max-height: 150px;
+  overflow: auto;
+  box-sizing: border-box;
+  padding: 8px;
+  border: 1px solid #c6a65d;
+  border-radius: 8px;
+  color: #fff3d4;
+  background: #102c26;
+}
+.compactCard:nth-child(7) .compactDetails > div {
+  right: -6px;
+  left: auto;
 }
 .compactCard .compactReason {
-  font-size: 0.62rem;
+  font-size: 0.8rem;
   line-height: 1.25;
 }
 .compactCard > p:last-child {
@@ -240,24 +404,33 @@
 }
 .compactCard button {
   min-height: 40px;
-  padding: 6px 4px;
-  font-size: 0.72rem;
+  padding: 4px;
+  font-size: 0.75rem;
+}
+.compactCard button::before {
+  position: absolute;
+  inset: 0;
+  content: '';
 }
 .cardDialogBackdrop {
-  position: fixed;
+  position: absolute;
   inset: 0;
-  z-index: 10000;
+  z-index: 12;
   display: grid;
   place-items: center;
   padding: clamp(8px, 3vw, 28px);
-  background: #061510e8;
+  background: #06151085;
   overscroll-behavior: contain;
+  overflow: hidden;
 }
 .cardDialog {
   position: relative;
-  width: min(720px, 100%);
-  max-height: min(92dvh, 820px);
+  width: min(75%, 980px);
+  display: flex;
+  flex-direction: column;
+  max-height: 100%;
   min-width: 0;
+  box-sizing: border-box;
   overflow: auto;
   padding: clamp(12px, 3vw, 24px);
   border: 2px solid #c6a65d;
@@ -275,14 +448,15 @@
 }
 .cardPreview {
   display: grid;
-  grid-template-columns: minmax(140px, 0.72fr) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 0.82fr) minmax(0, 1fr);
+  min-height: 0;
   gap: clamp(12px, 3vw, 24px);
   align-items: center;
 }
 .cardPreview > img {
   display: block;
   width: 100%;
-  max-height: min(56vh, 520px);
+  max-height: min(46dvh, 290px);
   aspect-ratio: 2 / 3;
   object-fit: contain;
   border: 2px solid #c6a65d;
@@ -314,8 +488,30 @@
 .cardPreview p {
   line-height: 1.5;
 }
+.cardPreview strong {
+  display: block;
+}
 .cardPreview small {
   color: #eadcb8;
+}
+.previewDetails {
+  margin-top: 14px;
+  padding: 10px 12px;
+  border: 1px solid #c6a65d77;
+  border-radius: 10px;
+  background: #071b1766;
+  max-height: 110px;
+  overflow: auto;
+}
+.previewDetails summary {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-weight: 700;
+}
+.previewDetails p {
+  margin-block: 10px;
 }
 .dialogBack {
   margin-bottom: 12px;
@@ -325,6 +521,7 @@
   gap: 10px;
   justify-content: flex-end;
   margin-top: 14px;
+  flex-shrink: 0;
 }
 .cardDialog :is(button) {
   min-height: 48px;
@@ -342,7 +539,7 @@
   background: #4a5149;
   cursor: not-allowed;
 }
-.cardDialog button:focus-visible {
+.cardDialog :is(button, summary):focus-visible {
   outline: 3px solid #f1d27f;
   outline-offset: 3px;
 }
@@ -362,8 +559,9 @@
 .cinematicCard {
   position: relative;
   width: min(270px, 68vw);
-  height: min(405px, 54dvh);
-  min-height: 250px;
+  height: min(290px, 40dvh);
+  min-height: 120px;
+  flex-shrink: 1;
   margin: 8px auto;
   overflow: hidden;
   border: 4px double #e1c276;
@@ -517,17 +715,111 @@
   }
 }
 @media (max-width: 520px) {
+  .compactHand {
+    grid-template-columns: none;
+    grid-auto-columns: calc(100% - 2px);
+    gap: 8px;
+    overflow-x: auto;
+    padding: 6px 2px;
+  }
+  .compactCard.compactCard {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1fr);
+    gap: 4px 10px;
+    width: 100%;
+    margin: 0;
+    padding: 8px;
+    transform: none;
+  }
+  .compactCard .artSlot {
+    grid-column: 1;
+    grid-row: 1 / 5;
+    height: 120px;
+    min-height: 0;
+  }
+  .compactCard :is(h4, details, b),
+  .compactCard > p:last-child {
+    grid-column: 2;
+    margin: 0;
+  }
+  .compactCard .focusBadge {
+    right: auto;
+    left: 10px;
+  }
+  .compactDetails > div {
+    left: auto;
+    right: 0;
+  }
+  .compactCard h4 {
+    font-size: 1rem;
+  }
+  .compactNavigation {
+    display: flex;
+    margin: 4px 0;
+    gap: 8px;
+  }
+  .compactNavigation button {
+    min-width: 44%;
+  }
+  .actions.actions.actions {
+    right: 6px;
+    bottom: 6px;
+    left: 6px;
+    gap: 4px;
+  }
+  .actions.actions.actions button {
+    min-height: 58px;
+    padding: 5px 2px;
+  }
+  .cardSelectionLayer .battlePanel.battlePanel {
+    padding: 4px 8px;
+  }
+  .cardSelectionLayer {
+    inset: 144px 0 0;
+  }
+  .cardSelectionLayer .battlePanel > h3 {
+    min-height: 32px;
+  }
+  .cardDialogBackdrop {
+    padding: 6px;
+  }
+  .cardDialog {
+    width: 100%;
+    max-height: 100%;
+    padding: 12px;
+    border-radius: 14px;
+  }
   .cardPreview {
-    grid-template-columns: minmax(0, 1fr);
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1fr);
     justify-items: center;
+    gap: 10px;
   }
   .cardPreview > img {
-    width: auto;
-    max-width: min(54vw, 220px);
-    max-height: min(31dvh, 260px);
+    width: 100%;
+    max-width: 100%;
+    max-height: 220px;
   }
   .cardPreview > div {
     width: 100%;
+    max-height: 230px;
+    overflow: auto;
+  }
+  .cardPreview h2 {
+    font-size: 1.1rem;
+  }
+  .cardPreview p {
+    margin-block: 6px;
+  }
+  .cardPreview strong {
+    font-size: 0.85rem;
+  }
+  .previewDetails {
+    padding: 6px;
+    margin-top: 8px;
+  }
+  .previewDetails summary {
+    min-height: 36px;
+    font-size: 0.8rem;
   }
   .dialogActions {
     display: grid;

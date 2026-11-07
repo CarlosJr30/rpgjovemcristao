@@ -331,6 +331,15 @@
   margin: 8px 0;
   pointer-events: none;
 }
+:global([data-combat-overlay]) > .feedback {
+  position: absolute;
+  z-index: 3;
+  right: 0;
+  bottom: 104px;
+  left: 0;
+  margin: 0;
+  padding-inline: 12px;
+}
 .feedback .combatText[data-feedback-side='opponent'] {
   grid-column: 2;
 }

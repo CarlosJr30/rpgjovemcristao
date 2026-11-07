@@ -52,6 +52,7 @@ import {
 import { arenaDeckStorage } from '../../arena-deck/storage';
 import { DeckEditor, BattleCards } from '../../arena-deck/editor';
 import { ArenaBattleActions } from '../../arena-deck/battle-actions';
+import arenaVisual from '../../arena-deck/cards.module.css';
 import {
   ArenaEffectDetails,
   ArenaRuleSummary,
@@ -696,20 +697,31 @@ export function ArenaExperience({
                 recurso mecânico de batalha.
               </p>
             </ResponsivePanel>
-            <ArenaStage
-              battle={visibleBattle}
-              player={traveler}
-              opponent={selected.traveler}
-              event={presentation.event}
-              phase={presentation.phase}
-              result={
-                stage === 'result'
-                  ? battle.winnerId === traveler.id
-                    ? 'victory'
-                    : 'defeat'
-                  : undefined
-              }
-            />
+            <div className={arenaVisual.combatViewport} data-combat-overlay>
+              <ArenaStage
+                battle={visibleBattle}
+                player={traveler}
+                opponent={selected.traveler}
+                event={presentation.event}
+                phase={presentation.phase}
+                result={
+                  stage === 'result'
+                    ? battle.winnerId === traveler.id
+                      ? 'victory'
+                      : 'defeat'
+                    : undefined
+                }
+              />
+              {stage === 'battle' && (
+                <ArenaBattleActions
+                  key={battle.id}
+                  battle={battle}
+                  busy={presentation.busy || deckBusy}
+                  onAction={act}
+                  onSkipAnimation={presentation.skip}
+                />
+              )}
+            </div>
             <div
               className={styles.combatAnnouncement}
               role="status"
@@ -741,15 +753,6 @@ export function ArenaExperience({
                 </>
               )}
             </div>
-            {stage === 'battle' && (
-              <ArenaBattleActions
-                key={battle.id}
-                battle={battle}
-                busy={presentation.busy || deckBusy}
-                onAction={act}
-                onSkipAnimation={presentation.skip}
-              />
-            )}
             {stage === 'battle' &&
               (battle.player.tacticalMultiplier ?? 1) > 1 && (
                 <p className={styles.arenaIntent} role="status">

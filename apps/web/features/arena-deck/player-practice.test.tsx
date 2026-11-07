@@ -74,6 +74,31 @@ afterEach(() => {
   cleanup();
   vi.restoreAllMocks();
 });
+test('local practice opens the shared seven-card layer inside the combat viewport without playing a turn', async () => {
+  await arenaDeckStorage.save('owner', hero.id, cards, ids);
+  render(
+    <ArenaExperience
+      traveler={hero}
+      ownerId="owner"
+      collectionSource={async () => cards}
+      practiceOnly
+    />,
+  );
+  await screen.findByText('Cartas selecionadas: 7/7');
+  fireEvent.click(screen.getByRole('button', { name: /Davi, o Aprendiz/ }));
+  fireEvent.click(screen.getByRole('button', { name: 'Iniciar batalha' }));
+  const trigger = await screen.findByRole('button', { name: 'CARTAS' });
+  const before = JSON.stringify(
+    arenaDeckStorage.load('owner', hero.id, cards).battle,
+  );
+  fireEvent.click(trigger);
+  const dialog = screen.getByRole('dialog', { name: 'Escolha uma carta' });
+  expect(dialog.closest('[data-combat-overlay]')).toContainElement(trigger);
+  expect(screen.getAllByRole('article', { name: /^Carta:/ })).toHaveLength(7);
+  expect(
+    JSON.stringify(arenaDeckStorage.load('owner', hero.id, cards).battle),
+  ).toBe(before);
+});
 test('practice victory and reload never settle rewards, mutate traveler or add legacy records', async () => {
   const source = vi.fn(async () => cards),
     record = vi.spyOn(arenaRepository, 'add'),
