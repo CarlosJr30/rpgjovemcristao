@@ -1302,3 +1302,11 @@ Preservação final comprovada: baseline 192 arquivos, 180 intactos e 12 altera�
 - CI `42208490096` success: testes, lint, tipos/build, PostgreSQL e RSC/móvel PASS; Preview condicional SKIP. 17 testes direcionados locais PASS.
 - Preview TEST `dpl_78LJqy85UHUBEUwUk1fvgd4XRrUZ` READY/Preview; configurada apenas com URL/chave pública TEST existentes no build e sem alterar variáveis persistentes. Deploy inicial sem backend TEST removido. `/auth` responde via CLI e proteção segue ativa; proprietário informou que não consegue acessar. Smoke autenticado focal 320/390/desktop + uma seleção pendente; manter PROD intacta.
 - Promoção/merge PROD não realizados enquanto o gate real permanece pendente. Ver `docs/architecture/RPG-ARENA-VISUAL-004-REPORT.md` e `tasks/active/TASK-0090-rpg-arena-visual-004-card-modal.md`.
+
+## 2026-11-07 — RPG-ARENA-UI-007 VALIDATING
+
+Branch `codex/rpg-arena-ui-007` baseada na publicação cdd4dcf. O TrainingQAControls saiu do conteúdo principal e agora é um `<details>` recolhido na sidebar, ainda restrito ao binding designado pelo servidor. Avisos de saldo/orçamento/validade removidos da apresentação; mensagens necessárias de segurança e deck resumidas. Sem alteração em treino/dados, Arena, Torre, motor, Auth/RLS ou economia. 9 testes focados Provider/Shell, ESLint e diff check PASS. CI/Preview/publicação pendentes. O caminho de backup informado não existe no checkout; versão publicada em main permanece preservada.
+## 2026-11-07 — RPG-ARENA-UI-007: aceite visual recebido; publicação em andamento
+
+PR39 (`codex/rpg-arena-ui-007`, SHA `21bf934`) remove avisos extensos e move o controle QA recolhido para a sidebar. Link "Meu Baralho" mantido apenas quando treino tem menos de sete cartas; regressão identificada no CI inicial foi corrigida e teste afetado PASS. CI42364607345 success:1124unitPASS/74SKIP, qualidade/PG/RSC PASS. Preview `dpl_4fy8dp6kDUEExLRaiv5WNxpUkV4m` READY; rotas `/auth` e Arena HTTP200. Proprietário confirmou visualmente bloco removido e Treino QA disponível. Mobile CSS, Arena/economia/dados/Auth/RLS intocados. Backup nomeado não localizado; main publicada `cdd4dcf` preserva versão aprovada. Reutilizar aceite visual para código idêntico; publicação aguarda CI obrigatório do head documental final e merge normal.
+

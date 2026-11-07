@@ -101,7 +101,7 @@ export function TrainingQAProvider({ children }: { children: ReactNode }) {
     </TrainingTravelerContext.Provider>
   );
 }
-export function TrainingQAControls() {
+export function TrainingQAControls({ className }: { className?: string }) {
   const binding = useSyncExternalStore(
       subscribeTraining,
       trainingSnapshot,
@@ -126,24 +126,15 @@ export function TrainingQAControls() {
     }
   };
   return (
-    <aside role="note">
-      <strong>
-        {binding.selected
-          ? 'TREINO — saldo e itens QA'
-          : 'Treino isolado disponível'}
-      </strong>
-      <p>
-        {binding.selected
-          ? `${binding.state.coins} moedas QA. Itens e saldo oficiais preservados.`
-          : 'Orçamento privado, sem alteração do saldo legado.'}
-      </p>
-      <p>
-        Validade: {new Date(binding.state.expiresAt).toLocaleString('pt-BR')}
-      </p>
-      <button onClick={() => void toggle()}>
-        {binding.selected ? 'Sair do treino isolado' : 'Ativar treino isolado'}
-      </button>
-      {error && <p role="status">{error}</p>}
-    </aside>
+    <details className={className} data-training-qa-controls>
+      <summary>{binding.selected ? 'Treino QA · ativo' : 'Treino QA'}</summary>
+      <div>
+        <p>Modo isolado. Saldos e itens oficiais permanecem preservados.</p>
+        <button onClick={() => void toggle()}>
+          {binding.selected ? 'Sair do treino isolado' : 'Ativar treino isolado'}
+        </button>
+        {error && <p role="status">{error}</p>}
+      </div>
+    </details>
   );
 }

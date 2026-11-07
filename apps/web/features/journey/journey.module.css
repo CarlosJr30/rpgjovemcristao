@@ -7431,6 +7431,45 @@
 .primarySidebar a[aria-current='page'] {
   background: linear-gradient(90deg, #c5a14d32, #b49a5311);
 }
+.trainingQaMenu {
+  display: block;
+  margin: 14px 8px 0;
+  padding-top: 8px;
+  border-top: 1px solid #b79d5d55;
+  color: #cedcc8;
+  font-size: 0.76rem;
+}
+.trainingQaMenu summary {
+  padding: 7px 4px;
+  color: #d8bd70;
+  cursor: pointer;
+}
+.trainingQaMenu > div {
+  padding: 2px 4px 8px;
+}
+.trainingQaMenu p {
+  margin: 4px 0 8px;
+  color: #b9c8b5;
+  line-height: 1.4;
+}
+.trainingQaMenu button {
+  min-height: 36px;
+  padding: 6px 10px;
+  border: 1px solid #b79d5d88;
+  border-radius: 7px;
+  color: #f4efce;
+  background: #d5b35e18;
+  font: inherit;
+  cursor: pointer;
+}
+.trainingQaMenu button:hover,
+.trainingQaMenu button:focus-visible {
+  border-color: #ead084;
+  background: #d5b35e30;
+}
+.shell .arenaHub {
+  margin-top: 8px;
+}
 .heroArt {
   background:
     linear-gradient(#1c3d3420, #0d312b50),

@@ -87,6 +87,14 @@ it('only a server designation makes the button visible; mode selection changes p
     history: [],
   });
   render(view());
+  const controls = await screen.findByText('Treino QA');
+  expect(
+    screen.queryByText(/Orçamento privado|Validade:|10000 moedas QA/),
+  ).toBeNull();
+  const details = controls.closest('details');
+  expect(details?.open).toBe(false);
+  fireEvent.click(controls);
+  expect(details?.open).toBe(true);
   const enter = await screen.findByRole('button', {
     name: 'Ativar treino isolado',
   });

@@ -551,6 +551,7 @@ export function Shell({
                 />
               )}
             </nav>
+            <TrainingQAControls className={styles.trainingQaMenu} />
           </aside>
         )}
         <div className={styles.appContent}>
@@ -602,7 +603,6 @@ export function Shell({
                 </section>
               )}
             <div key={pathname} className={styles.areaArrival}>
-              <TrainingQAControls />
               {children}
             </div>
           </main>
