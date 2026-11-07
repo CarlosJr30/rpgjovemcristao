@@ -1,6 +1,6 @@
 {
   "task": "RPG-ECONOMY-FIX-010",
-  "status": "BLOCKED",
+  "status": "VALIDATING",
   "source": "Supabase PROD MCP execute_sql, BEGIN READ ONLY",
   "runtimeBase": "d0e30e069f568467686f02ad9260c1ed1041df4f",
   "approval": "No administrative legacy ratification received at time of audit",
@@ -247,7 +247,7 @@
   "qaAvailability": {
     "method": "Read-only profile/receipt reconciliation and source inspection; previous ECONOMY-QA-002 flow evidence reused",
     "selectedModeRequired": true,
-    "control": "Treino QA > Ativar treino isolado",
+    "control": "Treino QA \u003e Ativar treino isolado",
     "noNewBrowserValidation": true,
     "authorityIndependentOfEconomicVerifiedAt": true
   },
@@ -256,5 +256,89 @@
     "No current authenticated browser session or purchase/open/equip test was used.",
     "Eight scoped datasets compared, not all PROD tables.",
     "Initial read-only function-catalog query failed on aggregate pg_get_functiondef; corrected to scalar functions."
-  ]
+  ],
+  "ownerDecision": {
+    "approval": "Aprovar base administrativa individual",
+    "coins": 1006265,
+    "xp": 245016,
+    "date": "2026-11-07",
+    "newCurrencyAuthorized": 0
+  },
+  "implementation": {
+    "testChecks": [
+      {
+        "name": "010 refuses wrong deployment project before any DDL",
+        "pass": true
+      },
+      {
+        "name": "010 installs support without currency receipt or canonical data change",
+        "pass": true
+      },
+      {
+        "name": "010 empty recovery restores exact old definitions ACLs and constraint",
+        "pass": true
+      },
+      {
+        "name": "010 only intended prior balance function changes; generic authority remains closed",
+        "pass": true
+      },
+      {
+        "name": "010 wrong avatar and homonym cannot be reconciled",
+        "pass": true
+      },
+      {
+        "name": "010 explicit approval and exact snapshot are mandatory",
+        "pass": true
+      },
+      {
+        "name": "010 absent normal session prevents operator reconciliation",
+        "pass": true
+      },
+      {
+        "name": "010 snapshot mutation refuses operation without blessing changed coins",
+        "pass": true
+      },
+      {
+        "name": "010 official legacy denial and private QA budget remain independent",
+        "pass": true
+      },
+      {
+        "name": "010 failure during marker update rolls back approval receipt atomically",
+        "pass": true
+      },
+      {
+        "name": "010 concurrent operator retries create exactly one administrative basis with no grant",
+        "pass": true
+      },
+      {
+        "name": "010 replay keeps receipt while another nonce cannot ratify twice",
+        "pass": true
+      },
+      {
+        "name": "010 administrative receipt records missing provenance and cannot be altered or deleted",
+        "pass": true
+      },
+      {
+        "name": "010 normal existing shop debits approved baseline and replay never repeats debit",
+        "pass": true
+      },
+      {
+        "name": "010 ratification keeps existing suspension of legacy sources without credit or opening",
+        "pass": true
+      },
+      {
+        "name": "010 containment targets only this avatar, preserves receipts QA and other players",
+        "pass": true
+      }
+    ],
+    "productionCheckCount": 16,
+    "sameCasesInTwoEnvelopes": true,
+    "testMigrations": ["20261107123927", "20261107124310"],
+    "testTrackedDatasetsUnchanged": 90,
+    "priorTrackedFunctionsUnchangedExceptBalance": 249,
+    "newPrivateFunctions": 3,
+    "prodApplied": false,
+    "privateEvidence": "build/economy-fix-010/remote-baseline.json",
+    "mandatoryCI": "PENDING"
+  }
 }

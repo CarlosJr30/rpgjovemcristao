@@ -1,6 +1,8 @@
 # RPG-ECONOMY-FIX-010 — reconciliação individual
 
-07/11/2026. **BLOCKED para regularização/publicação. Auditoria somente leitura concluída.** Base Git d0e30e0; branch codex/rpg-economy-fix-010. Nenhum saldo, item, XP, marca de verificação ou perfil QA foi alterado.
+07/11/2026. **VALIDATING. Base administrativa individual aprovada explicitamente pelo proprietário.** Valores existentes 1.006.265 moedas/245.016 XP serão reconhecidos somente pelo comando privado auditado após os gates. PROD ainda não recebeu migration ou ativação. Base Git d0e30e0; branch codex/rpg-economy-fix-010.
+
+Suporte implementado no ledger existente, sem carteira/inventário/compra paralelos. Registro administrativo único e protegido, conferência de conta/avatar/sessão e snapshot sob locks; nenhuma moeda nova. **16 casos PG TEST e os mesmos16 no pacote produtivo isolado PASS**, não32 casos distintos; recuperação vazia/contenção incluídas. Somente suporte instalado em TEST, sem ativar saldo em outra conta:90 conjuntos acompanhados idênticos,249 rotinas anteriores preservadas e três novas privadas. Uma revisão TEST endurece a inserção da auditoria para postgres; história da migration inicial preservada. CI e gates PROD pendentes. Auth/RLS e interface não mudaram; provas anteriores aplicáveis reutilizadas.
 
 | Origem / valor | Evidência e tratamento |
 | --- | --- |
@@ -20,19 +22,19 @@ O processo existente de reconciliação consiste nas consultas somente leitura d
 
 **Treino privado:** a autoridade economy_qa_private e seu validador de identidade não dependem de economic_verified_at. O cliente readQAShop já usa activeTraining antes da consulta oficial, e o provider remonta a tela ao entrar/sair do modo. A ação existente é **Treino QA → Ativar treino isolado**, no menu. Perfil habilitado no banco não seleciona automaticamente esse modo em cada sessão. Não se demonstrou defeito que justifique reconstruir o acesso; inspeção do código e evidência anterior ECONOMY-QA-002 reutilizadas. Não foi executada compra, abertura, mudança de equipamento ou nova homologação de navegador.
 
-## Única decisão antes de qualquer escrita
+## Decisão recebida antes da escrita financeira
 
-**Proposta para aprovação:** reconhecer os valores existentes **1.006.265 moedas e 245.016 XP** como base administrativa individual de teste do avatar ativo, explicitando no registro que os **16 XP e 6 moedas** não têm evento de jogo comprovado e que os registros legados não constituem recibos autoritativos modernos. Isso permitirá tornar gastável o saldo legado na Loja após implementação e gates; não é aprovação de nova moeda, recompensa retroativa ou prova de vitória. Equipamentos, cartas, baús e históricos ficam intactos; aberturas de tiers/fontes não aprovados continuam fechadas.
+**Aprovada pelo proprietário: “Aprovar base administrativa individual”.** Reconhecer os valores existentes **1.006.265 moedas e 245.016 XP** como base administrativa individual de teste do avatar ativo, explicitando no registro que os **16 XP e 6 moedas** não têm evento de jogo comprovado e que os registros legados não constituem recibos autoritativos modernos. Isso permitirá tornar gastável o saldo legado na Loja após os gates; não é aprovação de nova moeda, recompensa retroativa ou prova de vitória. Equipamentos, cartas, baús e históricos ficam intactos; aberturas de tiers/fontes não aprovados continuam fechadas.
 
-Sem essa ratificação explícita, manter a economia oficial bloqueada e o treino privado existente disponível até sua validade. Não usar a aprovação anterior do orçamento QA como aprovação deste saldo oficial.
+A ratificação específica foi recebida nesta tarefa; a aprovação antiga do orçamento QA não foi usada para autorizá-la. A economia oficial continua bloqueada até aplicar com sucesso o comando aprovado após os gates.
 
 ## Execução preparada, condicionada à decisão
 
 1. Reutilizar o ledger/autoridade existentes: acrescentar somente o suporte ao registro de reconciliação administrativa individual, sem criar carteira, inventário ou compra paralelos. Registrar aprovação atual, motivo, origem administrativa anterior, lacunas declaradas e hashes do snapshot; nunca retrodatá-lo ou preencher account_id dos recibos antigos.
 2. Comando privado e restrito à conta/avatar exatos, sem EXECUTE para clientes ou service_role; sessão normal confirmada antes da ativação. Locks e comparação integral do snapshot devem abortar se algo mudar. Repetição deve retornar o mesmo registro, sem conceder ou contabilizar o saldo duas vezes.
 3. Fazer a autoridade de saldo reconhecer essa base apenas uma vez e somente para o avatar designado; entradas/débitos futuros seguem os recibos atuais. Preencher a verificação apenas como parte dessa operação auditada validada, nunca por UPDATE avulso. Carteira/XP/nível/itens permanecem nos números originais na ativação.
-4. Validar somente esta fronteira em PostgreSQL isolado/TEST: idempotência, débito, concorrência, homônimo/outros jogadores negados, ausência de crédito adicional, preservação e contenção. CI/gates da política antes de qualquer pacote/ativação PROD. O suporte ao checkpoint ainda não foi implementado ou homologado.
+4. Validar somente esta fronteira: idempotência, débito, concorrência, homônimo/outros jogadores negados, ausência de crédito adicional, preservação e contenção. Casos isolados PASS; suporte TEST sem designação presente nesse banco e sem verba artificial nova. CI e preflight/ativação produtivos ainda obrigatórios.
 
 **Evidência:** [snapshot sanitizado](RPG-ECONOMY-FIX-010-EVIDENCE.json); consultas existentes packages/database/deployments/fixprod004/reconciliation-readonly.sql e fixprod006/reconciliation-checkpoints.sql reutilizadas. Oito conjuntos canônicos/privados e a linha do homônimo permaneceram idênticos na conferência final; não se declara auditoria de todas as tabelas do projeto. Uma primeira consulta de catálogo falhou ao aplicar pg_get_functiondef a agregado; corrigida para funções escalares, sem escrita.
 
-QA/Security pelo autor, sem revisão independente. Sem alteração de runtime/SQL executável, migration, concessão ou deploy; nenhum teste geral repetido. **Não DONE / DEPLOY_COMPLETE.**
+QA/Security pelo autor, sem revisão independente. A rodada inicial foi somente leitura; nesta continuação há suporte SQL TEST, ainda sem PROD ou concessão. Falhas preservadas: etapa QA ausente na fixture inicial; recuperação TEST usava constraint produtiva sem a variante QA (corrigida para seu envelope exato); ensaio de fonte antiga esperava erro em vez da resposta publicada suspended, agora exige suspensão e ausência de crédito. Lint apontou duas variáveis não usadas no novo teste, removidas. Nenhuma guarda de produção ou assertion de saldo foi relaxada. **Não DONE / DEPLOY_COMPLETE.**

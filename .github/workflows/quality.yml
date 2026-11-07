@@ -172,6 +172,10 @@ jobs:
         run: node tests/hosted/economy-001c-release-postgres.mjs --test-envelope
       - name: Exigir isolamento do treino sem alterar carteiras inventário ou equipamentos canônicos
         run: node tests/hosted/economy-qa-002-postgres.mjs
+      - name: Exigir reconciliação individual aprovada sem concessão ou alteração de outros jogadores
+        run: node tests/hosted/rpg-economy-fix-010-postgres.mjs
+      - name: Ensaiar o pacote produtivo individual e a contenção preservadora
+        run: node tests/hosted/rpg-economy-fix-010-postgres.mjs --production
 
   pinned-preview:
     name: Preview do SHA aprovado
