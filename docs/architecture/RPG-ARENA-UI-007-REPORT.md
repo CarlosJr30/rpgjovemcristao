@@ -4,6 +4,6 @@
 
 Removidos textos introdutórios e links redundantes da apresentação principal; mantidos o acesso à Torre, ao Meu Baralho quando necessário, o aviso ético e as mensagens curtas de baralho incompleto. O título sobe no desktop; o override mobile existente permanece, sem novas regras responsivas para a Arena. Motor, cartas, dados, treinamento, economia, Auth/RLS e backup não foram alterados.
 
-**Checks locais:** 9 testes focados de Provider/Shell PASS; ESLint e `git diff --check` PASS. Uma assertion inicial usou visibilidade que JSDOM não modela para conteúdo interno de `<details>` fechado; substituída pela verificação do estado nativo, sem mudança de runtime. CI, Preview e publicação pendentes.
+**Checks locais:** 9 testes focados de Provider/Shell PASS; ESLint e `git diff --check` PASS. Uma assertion inicial usou visibilidade que JSDOM não modela para conteúdo interno de `<details>` fechado; substituída pela verificação do estado nativo, sem mudança de runtime. O CI da PR identificou que retirar todo link ao baralho também removia o caminho necessário quando o treino está sem sete cartas. O link foi restaurado apenas nesse estado de bloqueio; o teste específico do caso passou (1 PASS, 4 não executados). CI atualizado, Preview e publicação ainda pendentes.
 
 O caminho `backup/arena-visual-006-aprovada-2026-11-07` não existe neste checkout. A versão aprovada continua preservada no merge publicado `cdd4dcf`; nenhum arquivo presumido foi criado ou sobrescrito. Nenhuma escrita em PROD ou dado de jogador.

@@ -508,6 +508,9 @@ export function ArenaExperience({
               : 'São necessárias sete cartas próprias para iniciar.'}
           </p>
         )}
+      {practiceOnly && deckData && deckData.cards.length < 7 && (
+        <Link href="/journey/arena/deck">Meu Baralho</Link>
+      )}
       {stage === 'lobby' && (
         <>
           <div className={styles.arenaLobbyGrid}>

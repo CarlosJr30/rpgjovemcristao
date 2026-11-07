@@ -17,7 +17,8 @@ ACCEPTANCE_CRITERIA:
 - CSS e estrutura responsiva mobile existentes permanecem intactos; apenas o bloco pedido sai da área principal, sem espaço reservado.
 TEST_PLAN:
 - Provider/Shell focados: 9 testes PASS; controle no menu, recolhível, ativação/saída intactas, sem saldo/validade no bloco.
-- ESLint e diff check PASS; CI, Preview e conferência desktop/mobile pendentes.
+- Regressão do CI: link “Meu Baralho” necessário quando o treino QA não possui sete cartas. Restaurado somente nessa condição; teste afetado 1 PASS/4 não executados.
+- ESLint e diff check PASS; CI atualizado, Preview e conferência desktop/mobile pendentes.
 - Verificação visual dirigida desktop/mobile e gates obrigatórios do CI; sem Arena, compra ou transação econômica.
 DEFINITION_OF_DONE:
 - Critérios comprovados, testes focados e CI obrigatório aprovados, Preview conferida, publicação pelo fluxo normal, relatório e memória atualizados.
