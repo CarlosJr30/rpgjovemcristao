@@ -3,7 +3,7 @@ ID: TASK-0093
 TITLE: Remover bloco redundante de treinamento da área principal da Arena
 OBJECTIVE: Manter Arena visualmente limpa, com controle QA de treino discreto e acessível no menu.
 PRIORITY: P2 Normal
-STATUS: VALIDATING
+STATUS: PUBLISHING
 SCOPE: TrainingQAControls, posição de montagem no Shell, estilo mínimo do menu e testes diretamente afetados.
 OUT_OF_SCOPE: Arena/Torre/motor/cartas/IA/economia/Auth/RLS/dados/validades, mudanças de responsividade do conteúdo principal, backup aprovado.
 DEPENDENCIES: Base publicada VISUAL-006 no origin/main cdd4dcf.
@@ -18,7 +18,7 @@ ACCEPTANCE_CRITERIA:
 TEST_PLAN:
 - Provider/Shell focados: 9 testes PASS; controle no menu, recolhível, ativação/saída intactas, sem saldo/validade no bloco.
 - Regressão do CI: link “Meu Baralho” necessário quando o treino QA não possui sete cartas. Restaurado somente nessa condição; teste afetado 1 PASS/4 não executados.
-- ESLint e diff check PASS; CI atualizado, Preview e conferência desktop/mobile pendentes.
+- ESLint e diff check PASS. CI SHA 21bf934 success: 1124 unit PASS/74 SKIP, qualidade, PostgreSQL e RSC/móvel PASS; Preview condicional SKIP. Preview dpl_4fy8dp6k READY, `/auth` e Arena HTTP 200; proprietário aprovou visualmente bloco removido e Treino QA no menu. Runtime não muda neste commit documental. Publicação aguarda CI obrigatório do head final e merge normal.
 - Verificação visual dirigida desktop/mobile e gates obrigatórios do CI; sem Arena, compra ou transação econômica.
 DEFINITION_OF_DONE:
 - Critérios comprovados, testes focados e CI obrigatório aprovados, Preview conferida, publicação pelo fluxo normal, relatório e memória atualizados.
