@@ -1,0 +1,344 @@
+{
+  "task": "RPG-ECONOMY-FIX-010",
+  "status": "VALIDATING",
+  "source": "Supabase PROD MCP execute_sql, BEGIN READ ONLY",
+  "runtimeBase": "d0e30e069f568467686f02ad9260c1ed1041df4f",
+  "approval": "No administrative legacy ratification received at time of audit",
+  "snapshot": {
+    "qa": {
+      "coins": 9960,
+      "items": {},
+      "chests": 1,
+      "enabled": true,
+      "commands": [
+        {
+          "count": 1,
+          "delta": 10000,
+          "command": "budget"
+        },
+        {
+          "count": 1,
+          "delta": 0,
+          "command": "equip"
+        },
+        {
+          "count": 1,
+          "delta": -40,
+          "command": "purchase"
+        }
+      ],
+      "equipped": {
+        "weapon": null
+      },
+      "revision": 2,
+      "unexpired": true,
+      "expires_at": "2026-11-10T16:10:27.017129+00:00",
+      "owner_matches": true,
+      "receipt_balance": 9960
+    },
+    "shop": {
+      "holds": 0,
+      "balance_valid": false,
+      "receipt_balance": 0
+    },
+    "cards": {
+      "count": 7,
+      "starter_receipts": 1
+    },
+    "chests": [
+      {
+        "type": "common",
+        "quantity": 500,
+        "source_count": 500
+      },
+      {
+        "type": "uncommon",
+        "quantity": 500,
+        "source_count": 500
+      },
+      {
+        "type": "rare",
+        "quantity": 505,
+        "source_count": 505
+      },
+      {
+        "type": "epic",
+        "quantity": 492,
+        "source_count": 492
+      },
+      {
+        "type": "extraordinary",
+        "quantity": 480,
+        "source_count": 480
+      }
+    ],
+    "hashes": {
+      "wallets": "e37ad3aa0df5c1d5439484509db43bcb",
+      "inventory": "ba4e5fe0018862a1dc03cbc88426f894",
+      "travelers": "a73ef4926984645ee76f860cc5c1a1e9",
+      "qa_profiles": "c153e4e6b03cff8d82385c6d9d566419",
+      "qa_receipts": "960a3a76ffade2479d2bdb34c136e943",
+      "equipped_items": "3d1b3435a8fea8e3949bf0872f34c338",
+      "traveler_chests": "5c003456f53b6bbe2a3e4af3d256ef7e",
+      "chest_operations": "453430637a9817e3d8cac7a97d5b4ec6"
+    },
+    "target": {
+      "xp": 245016,
+      "coins": 1006265,
+      "level": 50,
+      "active": true,
+      "verified": false,
+      "fingerprint": "073815900479",
+      "owner_fingerprint": "7882153ca018"
+    },
+    "homonym": [
+      {
+        "xp": 0,
+        "level": 1,
+        "active": false,
+        "row_hash": "a61adcc45a4ee65b12a9b5d338299024",
+        "fingerprint": "ef4b63abe282"
+      }
+    ],
+    "project": "PROD",
+    "equipment": [
+      {
+        "item": "traveler-boots",
+        "quantity": 1
+      },
+      {
+        "item": "traveler-armor-uncommon",
+        "quantity": 1
+      },
+      {
+        "item": "wisdom-amulet",
+        "quantity": 6
+      },
+      {
+        "item": "traveler-shield-rare",
+        "quantity": 1
+      },
+      {
+        "item": "traveler-helmet-rare",
+        "quantity": 4
+      },
+      {
+        "item": "traveler-sword-common",
+        "quantity": 1
+      }
+    ],
+    "observed_at": "2026-11-07T12:19:57.547497+00:00",
+    "legacy_receipts": [
+      {
+        "count": 1,
+        "debit": 0,
+        "source": "phase_completion",
+        "chest_type": "common",
+        "coin_credit": 0,
+        "operation_type": "grant",
+        "missing_account": 1
+      },
+      {
+        "count": 8,
+        "debit": 0,
+        "source": "task-0076-admin-test-profile",
+        "chest_type": "epic",
+        "coin_credit": 1160,
+        "operation_type": "open",
+        "missing_account": 8
+      },
+      {
+        "count": 20,
+        "debit": 0,
+        "source": "task-0076-admin-test-profile",
+        "chest_type": "extraordinary",
+        "coin_credit": 6000,
+        "operation_type": "open",
+        "missing_account": 20
+      },
+      {
+        "count": 5,
+        "debit": 900,
+        "source": "shop",
+        "chest_type": "rare",
+        "coin_credit": 0,
+        "operation_type": "purchase",
+        "missing_account": 5
+      }
+    ]
+  },
+  "afterObservedAt": "2026-11-07T12:22:02.898023+00:00",
+  "preservation": [
+    {
+      "table": "wallets",
+      "unchanged": true,
+      "before": "e37ad3aa0df5c1d5439484509db43bcb",
+      "after": "e37ad3aa0df5c1d5439484509db43bcb"
+    },
+    {
+      "table": "inventory",
+      "unchanged": true,
+      "before": "ba4e5fe0018862a1dc03cbc88426f894",
+      "after": "ba4e5fe0018862a1dc03cbc88426f894"
+    },
+    {
+      "table": "travelers",
+      "unchanged": true,
+      "before": "a73ef4926984645ee76f860cc5c1a1e9",
+      "after": "a73ef4926984645ee76f860cc5c1a1e9"
+    },
+    {
+      "table": "qa_profiles",
+      "unchanged": true,
+      "before": "c153e4e6b03cff8d82385c6d9d566419",
+      "after": "c153e4e6b03cff8d82385c6d9d566419"
+    },
+    {
+      "table": "qa_receipts",
+      "unchanged": true,
+      "before": "960a3a76ffade2479d2bdb34c136e943",
+      "after": "960a3a76ffade2479d2bdb34c136e943"
+    },
+    {
+      "table": "equipped_items",
+      "unchanged": true,
+      "before": "3d1b3435a8fea8e3949bf0872f34c338",
+      "after": "3d1b3435a8fea8e3949bf0872f34c338"
+    },
+    {
+      "table": "traveler_chests",
+      "unchanged": true,
+      "before": "5c003456f53b6bbe2a3e4af3d256ef7e",
+      "after": "5c003456f53b6bbe2a3e4af3d256ef7e"
+    },
+    {
+      "table": "chest_operations",
+      "unchanged": true,
+      "before": "453430637a9817e3d8cac7a97d5b4ec6",
+      "after": "453430637a9817e3d8cac7a97d5b4ec6"
+    }
+  ],
+  "legacyCalculation": {
+    "source": "FIX-PROD-004 prior verified provisioning; existing FIX-PROD-006 read-only checkpoint query reexecuted",
+    "administrativeCoins": 999999,
+    "administrativeXP": 245000,
+    "legacyOpenCoins": 7160,
+    "legacyPurchaseDebit": 900,
+    "expectedCoins": 1006259,
+    "unexplainedCoins": 6,
+    "unexplainedXP": 16,
+    "purchaseCheckpointsMatched": 5,
+    "authoritativeBattleEvents": 0,
+    "journeyRewardEvents": 0,
+    "guildClaims": 0,
+    "ebdPending": 0,
+    "legacyRecordsLackAccountId": 34,
+    "modernReceiptsCannotBeInferredFromLegacy": true
+  },
+  "scope": {
+    "databaseMutations": 0,
+    "migrations": 0,
+    "economicCommands": 0,
+    "newAccounts": 0,
+    "newAvatars": 0,
+    "publishAttempted": false,
+    "runtimeChanges": false
+  },
+  "qaAvailability": {
+    "method": "Read-only profile/receipt reconciliation and source inspection; previous ECONOMY-QA-002 flow evidence reused",
+    "selectedModeRequired": true,
+    "control": "Treino QA \u003e Ativar treino isolado",
+    "noNewBrowserValidation": true,
+    "authorityIndependentOfEconomicVerifiedAt": true
+  },
+  "limits": [
+    "Historical provisioning backup not located at prior absolute path on this machine; prior verified report reused.",
+    "No current authenticated browser session or purchase/open/equip test was used.",
+    "Eight scoped datasets compared, not all PROD tables.",
+    "Initial read-only function-catalog query failed on aggregate pg_get_functiondef; corrected to scalar functions."
+  ],
+  "ownerDecision": {
+    "approval": "Aprovar base administrativa individual",
+    "coins": 1006265,
+    "xp": 245016,
+    "date": "2026-11-07",
+    "newCurrencyAuthorized": 0
+  },
+  "implementation": {
+    "testChecks": [
+      {
+        "name": "010 refuses wrong deployment project before any DDL",
+        "pass": true
+      },
+      {
+        "name": "010 installs support without currency receipt or canonical data change",
+        "pass": true
+      },
+      {
+        "name": "010 empty recovery restores exact old definitions ACLs and constraint",
+        "pass": true
+      },
+      {
+        "name": "010 only intended prior balance function changes; generic authority remains closed",
+        "pass": true
+      },
+      {
+        "name": "010 wrong avatar and homonym cannot be reconciled",
+        "pass": true
+      },
+      {
+        "name": "010 explicit approval and exact snapshot are mandatory",
+        "pass": true
+      },
+      {
+        "name": "010 absent normal session prevents operator reconciliation",
+        "pass": true
+      },
+      {
+        "name": "010 snapshot mutation refuses operation without blessing changed coins",
+        "pass": true
+      },
+      {
+        "name": "010 official legacy denial and private QA budget remain independent",
+        "pass": true
+      },
+      {
+        "name": "010 failure during marker update rolls back approval receipt atomically",
+        "pass": true
+      },
+      {
+        "name": "010 concurrent operator retries create exactly one administrative basis with no grant",
+        "pass": true
+      },
+      {
+        "name": "010 replay keeps receipt while another nonce cannot ratify twice",
+        "pass": true
+      },
+      {
+        "name": "010 administrative receipt records missing provenance and cannot be altered or deleted",
+        "pass": true
+      },
+      {
+        "name": "010 normal existing shop debits approved baseline and replay never repeats debit",
+        "pass": true
+      },
+      {
+        "name": "010 ratification keeps existing suspension of legacy sources without credit or opening",
+        "pass": true
+      },
+      {
+        "name": "010 containment targets only this avatar, preserves receipts QA and other players",
+        "pass": true
+      }
+    ],
+    "productionCheckCount": 16,
+    "sameCasesInTwoEnvelopes": true,
+    "testMigrations": ["20261107123927", "20261107124310"],
+    "testTrackedDatasetsUnchanged": 90,
+    "priorTrackedFunctionsUnchangedExceptBalance": 249,
+    "newPrivateFunctions": 3,
+    "prodApplied": false,
+    "privateEvidence": "build/economy-fix-010/remote-baseline.json",
+    "mandatoryCI": "PENDING"
+  }
+}

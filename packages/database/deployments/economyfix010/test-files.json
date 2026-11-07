@@ -1,0 +1,9 @@
+{
+  "project": "wkdvdzfkbwvhyjmamrsg",
+  "scope": "hero-equipment-006",
+  "migration": "supabase/migrations/20261107122951_rpg_economy_fix_010_reconciliation_test.sql",
+  "patch": "supabase/migrations/20261107124148_rpg_economy_fix_010_reconciliation_test_guard.sql",
+  "recovery": "packages/database/deployments/economyfix010/test-recovery-empty.sql",
+  "containment": "packages/database/deployments/economyfix010/test-containment.sql",
+  "activation": "PRIVATE-OWNER-ONLY; requires approved snapshot and normal session; never part of migration"
+}
