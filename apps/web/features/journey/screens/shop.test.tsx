@@ -74,15 +74,13 @@ test('existing offers retain prices and assets while categories never purchase o
   expect(f.resume).not.toHaveBeenCalled();
   expect(screen.getByText('Adquirido')).toBeDisabled();
 });
-test('existing acquisition catalog has no purchase actions or unapproved prices', () => {
+test('full acquisition catalog is visible without purchase actions or unapproved prices', () => {
   render(
     <ShopScreen qa={{ actor: 'fixture', coins: 123, production: true }} />,
   );
   const other = screen.getByRole('region', {
-    name: 'Outras origens e vendas indisponíveis',
+    name: 'Mais artefatos',
   });
-  expect(other.querySelector('details')).not.toHaveAttribute('open');
-  fireEvent.click(other.querySelector('summary')!);
   expect(within(other).getAllByRole('article')).toHaveLength(6);
   expect(within(other).queryByRole('button')).toBeNull();
   expect(other).not.toHaveTextContent(/90 Moedas|180 Moedas/);
@@ -97,10 +95,18 @@ test('existing acquisition catalog has no purchase actions or unapproved prices'
     expect(within(other).getByRole('heading', { name })).toBeVisible();
   }
   const activities = screen.getByRole('region', {
-    name: 'Baús obtidos por atividades',
+    name: 'Tesouros de atividades',
   });
-  fireEvent.click(activities.querySelector('summary')!);
-  expect(within(activities).getAllByRole('article')).toHaveLength(2);
+  expect(within(activities).getAllByRole('article')).toHaveLength(1);
+  for (const name of [
+    'Baú comum',
+    'Baú Incomum',
+    'Baú Raro',
+    'Baú Épico',
+    'Baú Extraordinário',
+  ]) {
+    expect(screen.getAllByRole('heading', { name }).length).toBeGreaterThan(0);
+  }
   expect(within(activities).queryByRole('button')).toBeNull();
   expect(
     screen.getByRole('region', { name: 'Cartas da Arena' }),
@@ -111,7 +117,7 @@ test('existing acquisition catalog has no purchase actions or unapproved prices'
   );
   expect(within(other).getAllByRole('article')).toHaveLength(3);
   expect(
-    screen.queryByRole('region', { name: 'Baús obtidos por atividades' }),
+    screen.queryByRole('region', { name: 'Tesouros de atividades' }),
   ).toBeNull();
   fireEvent.click(within(filters).getByRole('button', { name: 'Baús' }));
   expect(within(other).getAllByRole('article')).toHaveLength(3);

@@ -99,17 +99,19 @@ export function ShopScreen({
                       : 'ECONOMIA DE GAMEPLAY'}
               </p>
               <h1>Loja do Viajante</h1>
+              <div className={shop.heroFooter}>
+                <p className={shop.wallet}>
+                  <span aria-hidden="true">◈</span>
+                  <span>Saldo</span>
+                  <strong>
+                    {traveler.coins} {TRAVELER_CURRENCY_NAME}
+                  </strong>
+                </p>
+                <Link className={shop.backpackLink} href={routes.backpack}>
+                  Mochila <span aria-hidden="true">→</span>
+                </Link>
+              </div>
             </header>
-            <p>
-              ◈ Saldo:{' '}
-              <strong>
-                {traveler.coins} {TRAVELER_CURRENCY_NAME}
-              </strong>
-            </p>
-            <p>
-              Os melhores equipamentos continuam ligados à exploração e aos
-              desafios.
-            </p>
             <p role="status" aria-live="polite" className={shop.feedback}>
               {feedback}
             </p>
@@ -191,10 +193,17 @@ export function ShopScreen({
                   />
                   <h2>Baú comum</h2>
                   <p className={shop.rarity}>COMUM · Baú</p>
-                  <p>
-                    Moedas e possibilidade de equipamento, conforme o conteúdo
-                    comum existente.
+                  <p className={shop.origin}>
+                    <span aria-hidden="true">✦</span> Loja · atividade
+                    comunitária
                   </p>
+                  <details className={shop.details}>
+                    <summary>Ver conteúdo aprovado</summary>
+                    <p>
+                      Moedas e possibilidade de equipamento, conforme o conteúdo
+                      comum existente.
+                    </p>
+                  </details>
                   <strong className={shop.price}>
                     ◈ 40 {TRAVELER_CURRENCY_NAME}
                   </strong>
@@ -272,119 +281,132 @@ export function ShopScreen({
                 })}
             </div>
             {qa && category !== 'equipment' && (
-              <section aria-labelledby="activity-chests">
-                <details className={shop.catalogDetails}>
-                  <summary>
-                    <h2 id="activity-chests">Baús obtidos por atividades</h2>
-                  </summary>
-                  <div className={shop.products}>
-                    {(['common', 'epic'] as const).map((id) => (
-                      <article
-                        className={`${styles.itemCard} ${shop.product}`}
-                        key={id}
-                      >
-                        {/* eslint-disable-next-line @next/next/no-img-element -- arte existente do catálogo */}
-                        <img
-                          className={shop.art}
-                          src={chestCatalog[id].image}
-                          alt=""
-                        />
-                        <h3>{chestCatalog[id].name}</h3>
-                        <p className={shop.rarity}>
-                          {chestCatalog[id].rarityLabel}
-                        </p>
+              <section
+                aria-labelledby="activity-chests"
+                className={shop.catalogSection}
+              >
+                <h2 id="activity-chests">Tesouros de atividades</h2>
+                <p className={shop.sectionLead}>
+                  Baús concedidos por atividades comunitárias validadas.
+                </p>
+                <div className={shop.products}>
+                  {(['epic'] as const).map((id) => (
+                    <article
+                      className={`${styles.itemCard} ${shop.product}`}
+                      key={id}
+                      data-rarity="épico"
+                    >
+                      {/* eslint-disable-next-line @next/next/no-img-element -- arte existente do catálogo */}
+                      <img
+                        className={shop.art}
+                        src={chestCatalog[id].image}
+                        alt=""
+                      />
+                      <h3>{chestCatalog[id].name}</h3>
+                      <p className={shop.rarity}>
+                        {chestCatalog[id].rarityLabel}
+                      </p>
+                      <p className={shop.origin}>
+                        <span aria-hidden="true">✦</span> Atividade comunitária
+                      </p>
+                      <details className={shop.details}>
+                        <summary>Ver conteúdo aprovado</summary>
                         <p>
-                          Origem: atividade comunitária elegível e validada.
+                          Moedas e possibilidade de Elmo do Viajante, conforme o
+                          sorteio épico aprovado. Não está à venda.
                         </p>
-                        <p>
-                          {id === 'epic'
-                            ? 'Moedas e possibilidade de Elmo do Viajante, conforme o sorteio épico aprovado. Não está à venda.'
-                            : 'Moedas e possibilidade de Espada do Caminho, conforme o sorteio comum aprovado. Também disponível para compra acima.'}
-                        </p>
-                        <Link href="/journey/guild">
-                          Consultar atividades da Guilda
-                        </Link>
-                      </article>
-                    ))}
-                  </div>
-                </details>
+                      </details>
+                      <Link href="/journey/guild">
+                        Consultar atividades da Guilda
+                      </Link>
+                    </article>
+                  ))}
+                </div>
               </section>
             )}
             {qa && (
-              <section aria-labelledby="other-acquisitions">
-                <details className={shop.catalogDetails}>
-                  <summary>
-                    <h2 id="other-acquisitions">
-                      Outras origens e vendas indisponíveis
-                    </h2>
-                  </summary>
-                  <p>
-                    Este catálogo é informativo. Nenhum item abaixo pode ser
-                    comprado nesta Loja.
-                  </p>
-                  <div className={shop.products}>
-                    {category !== 'chests' &&
-                      EQUIPMENT_CATALOG.filter(
-                        (item) =>
-                          !SHOP_OFFERS.some(
-                            (offer) => offer.equipment.id === item.id,
-                          ),
-                      ).map((item) => (
+              <section
+                aria-labelledby="other-acquisitions"
+                className={shop.catalogSection}
+              >
+                <h2 id="other-acquisitions">Mais artefatos</h2>
+                <p className={shop.sectionLead}>
+                  Descubra como cada item entra na jornada.
+                </p>
+                <div className={shop.products}>
+                  {category !== 'chests' &&
+                    EQUIPMENT_CATALOG.filter(
+                      (item) =>
+                        !SHOP_OFFERS.some(
+                          (offer) => offer.equipment.id === item.id,
+                        ),
+                    ).map((item) => (
+                      <article
+                        className={`${styles.itemCard} ${shop.product}`}
+                        key={item.id}
+                        data-rarity={item.rarity}
+                      >
+                        {/* eslint-disable-next-line @next/next/no-img-element -- ícone existente registrado */}
+                        <img
+                          className={shop.art}
+                          src={equipmentAssetForItem(item)}
+                          alt=""
+                        />
+                        <h3>{item.name}</h3>
+                        <p className={shop.rarity}>
+                          {item.rarity.toUpperCase()} · poder {item.power}
+                        </p>
+                        <EquipmentStatBonuses stats={item.stats} />
+                        <p className={shop.origin}>
+                          <span aria-hidden="true">✦</span>{' '}
+                          {item.slot === 'boots'
+                            ? 'Equipamento inicial'
+                            : item.slot === 'helmet'
+                              ? 'Baú épico comunitário'
+                              : 'Jornada'}
+                        </p>
+                        <span className={shop.availability}>
+                          Sem oferta de compra
+                        </span>
+                      </article>
+                    ))}
+                  {category !== 'equipment' &&
+                    (['uncommon', 'rare', 'extraordinary'] as const).map(
+                      (id) => (
                         <article
                           className={`${styles.itemCard} ${shop.product}`}
-                          key={item.id}
-                          data-rarity={item.rarity}
+                          key={id}
+                          data-rarity={
+                            id === 'uncommon'
+                              ? 'incomum'
+                              : id === 'rare'
+                                ? 'raro'
+                                : 'lendário'
+                          }
                         >
-                          {/* eslint-disable-next-line @next/next/no-img-element -- ícone existente registrado */}
+                          {/* eslint-disable-next-line @next/next/no-img-element -- arte existente compartilhada pelos baús */}
                           <img
                             className={shop.art}
-                            src={equipmentAssetForItem(item)}
+                            src={chestCatalog[id].image}
                             alt=""
                           />
-                          <h3>{item.name}</h3>
+                          <h3>{chestCatalog[id].name}</h3>
                           <p className={shop.rarity}>
-                            {item.rarity.toUpperCase()} · poder {item.power}
+                            {chestCatalog[id].rarityLabel}
                           </p>
-                          <EquipmentStatBonuses stats={item.stats} />
-                          <p>
-                            {item.slot === 'boots'
-                              ? 'Origem: equipamento inicial. Não está à venda.'
-                              : item.slot === 'helmet'
-                                ? 'Origem: sorteio do baú épico comunitário. Sem preço de venda aprovado.'
-                                : 'Origem prevista: progressão da Jornada. Aquisição produtiva e venda ainda indisponíveis.'}
+                          <p className={shop.origin}>
+                            <span aria-hidden="true">✦</span>{' '}
+                            {id === 'extraordinary'
+                              ? 'Guilda · fonte não liberada'
+                              : 'Fonte não homologada'}
                           </p>
+                          <span className={shop.availability}>
+                            Sem oferta de compra
+                          </span>
                         </article>
-                      ))}
-                    {category !== 'equipment' &&
-                      (['uncommon', 'rare', 'extraordinary'] as const).map(
-                        (id) => (
-                          <article
-                            className={`${styles.itemCard} ${shop.product}`}
-                            key={id}
-                          >
-                            {/* eslint-disable-next-line @next/next/no-img-element -- arte existente compartilhada pelos baús */}
-                            <img
-                              className={shop.art}
-                              src={chestCatalog[id].image}
-                              alt=""
-                            />
-                            <h3>{chestCatalog[id].name}</h3>
-                            <p className={shop.rarity}>
-                              {chestCatalog[id].rarityLabel}
-                            </p>
-                            <p>
-                              Venda e aquisição indisponíveis: contrato
-                              econômico ainda não homologado.
-                            </p>
-                            <p>
-                              Preço e conteúdo não estão liberados para compra.
-                              A arte existente não representa uma oferta.
-                            </p>
-                          </article>
-                        ),
-                      )}
-                  </div>
-                </details>
+                      ),
+                    )}
+                </div>
               </section>
             )}
             {qa && category === 'all' && (
@@ -410,9 +432,6 @@ export function ShopScreen({
                 </details>
               </section>
             )}
-            <p>
-              <Link href={routes.backpack}>Abrir Mochila →</Link>
-            </p>
             {qa?.production && (
               <ShopPurchaseHistory
                 key={qa.actor}

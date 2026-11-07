@@ -149,3 +149,344 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
+
+/* Visual 008: a spacious medieval showcase, keeping the existing catalog and actions. */
+.shop {
+  max-width: 1180px;
+  padding-bottom: clamp(1.5rem, 4vw, 3rem);
+}
+.marketHero {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1.1rem;
+  min-height: 238px;
+  padding: clamp(1.25rem, 3.5vw, 2.5rem);
+  overflow: hidden;
+  border: 1px solid #d8b65e;
+  border-radius: 22px;
+  background:
+    linear-gradient(100deg, #10291ff5 0%, #132e29dc 46%, #132e2970 100%),
+    url('/assets/world/guild/guild_leader_table.webp') center 48% / cover;
+  box-shadow:
+    inset 0 0 0 4px #e7cb8030,
+    0 18px 38px #183b2e35;
+}
+.marketHero::after {
+  position: absolute;
+  z-index: -1;
+  inset: 10px;
+  border: 1px solid #f4d88c65;
+  border-radius: 15px;
+  content: '';
+  pointer-events: none;
+}
+.marketHero h1 {
+  margin: 0;
+  font-size: clamp(2rem, 5vw, 3.3rem);
+  line-height: 1.05;
+  letter-spacing: 0.015em;
+  text-shadow: 0 3px 18px #071d16b0;
+}
+.heroFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+.wallet {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0.6rem 0.9rem;
+  border: 1px solid #eed38d91;
+  border-radius: 999px;
+  background: #0b2119d9;
+  color: #f8edcf;
+  box-shadow: 0 6px 18px #071a1390;
+}
+.wallet > span:first-child {
+  color: #f0ce68;
+  font-size: 1.3rem;
+}
+.wallet strong {
+  color: #ffe18b;
+}
+.backpackLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  min-height: 44px;
+  padding: 0.6rem 1rem;
+  border: 1px solid #f0d284;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #f2d783, #c69b3f);
+  color: #263a2b;
+  font-weight: 800;
+  text-decoration: none;
+  box-shadow: 0 5px 14px #070f0c60;
+}
+.backpackLink:hover,
+.backpackLink:focus-visible {
+  background: #ffebad;
+  outline: 3px solid #fff0bf;
+  outline-offset: 3px;
+}
+.feedback:not(:empty) {
+  margin: 0.75rem 0;
+  padding: 0.85rem 1rem;
+  border: 1px solid #b99c5a;
+  border-radius: 12px;
+  background: #f8efda;
+  color: #243d2c;
+  font-weight: 700;
+}
+.categories {
+  margin: 1.4rem 0 1.1rem;
+  padding-bottom: 0.7rem;
+  border-bottom: 1px solid #a18a542e;
+}
+.categories button {
+  min-height: 46px;
+  padding-inline: 1.25rem;
+  border-radius: 999px;
+  font-weight: 800;
+  transition:
+    transform 160ms ease,
+    box-shadow 160ms ease;
+}
+.categories button[aria-pressed='true'] {
+  border-color: #dbb958;
+  background: linear-gradient(180deg, #315d43, #173b2c);
+  color: #fff2d2;
+  box-shadow:
+    inset 0 0 0 1px #e4c36e6b,
+    0 5px 14px #1837272b;
+}
+.categories button:hover {
+  transform: translateY(-1px);
+}
+.products {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(0.85rem, 2vw, 1.35rem);
+}
+.product {
+  position: relative;
+  align-items: stretch;
+  min-height: 430px;
+  padding: clamp(1rem, 2vw, 1.4rem);
+  overflow: hidden;
+  border: 1px solid #b99e63;
+  border-radius: 20px;
+  background: radial-gradient(
+    ellipse at 50% 22%,
+    #fffdf2 0%,
+    #f7f2e3 58%,
+    #e8ddc1 100%
+  );
+  box-shadow:
+    inset 0 0 0 4px #fff8e74d,
+    0 12px 26px #17382420;
+  text-align: center;
+  transition:
+    transform 200ms ease,
+    box-shadow 200ms ease,
+    border-color 200ms ease;
+}
+.product::before {
+  position: absolute;
+  inset: 0 0 auto;
+  height: 4px;
+  background: linear-gradient(90deg, transparent, #b5964e, transparent);
+  content: '';
+}
+.product[data-rarity='comum']::before {
+  background: linear-gradient(90deg, transparent, #a5aa91, transparent);
+}
+.product[data-rarity='incomum']::before {
+  background: linear-gradient(90deg, transparent, #5e9b62, transparent);
+}
+.product[data-rarity='raro']::before {
+  background: linear-gradient(90deg, transparent, #648bc0, transparent);
+}
+.product[data-rarity='épico']::before {
+  background: linear-gradient(90deg, transparent, #9c71c2, transparent);
+}
+.product[data-rarity='lendário']::before {
+  background: linear-gradient(90deg, transparent, #d1a632, transparent);
+}
+.product:hover,
+.product:focus-within {
+  transform: translateY(-4px);
+  border-color: #aa8739;
+  box-shadow:
+    inset 0 0 0 4px #fff8e77a,
+    0 18px 30px #17382432,
+    0 0 0 1px #d6b55d66;
+}
+.product h2,
+.product h3 {
+  align-self: center;
+  margin: 0.35rem 0;
+  color: #243d2d;
+  font-size: clamp(1.15rem, 1.6vw, 1.4rem);
+  line-height: 1.2;
+}
+.product .art {
+  width: 100%;
+  height: clamp(205px, 23vw, 270px);
+  margin: 0 auto 0.35rem;
+  padding: 0.5rem;
+  object-fit: contain;
+  filter: drop-shadow(0 12px 12px #16291b3b);
+  transition:
+    transform 240ms ease,
+    filter 240ms ease;
+}
+.product:hover .art {
+  transform: translateY(-2px) scale(1.035);
+  filter: drop-shadow(0 16px 16px #16291b4f);
+}
+.rarity {
+  align-self: center;
+  margin: 0.15rem 0 0.4rem;
+  padding: 0.25rem 0.65rem;
+  border: 1px solid #b69a595c;
+  border-radius: 999px;
+  background: #e5d7ae6b;
+  color: #4a5d3f;
+  letter-spacing: 0.075em;
+}
+.origin {
+  align-self: center;
+  margin: 0.4rem 0 0;
+  padding: 0.35rem 0.65rem;
+  border-radius: 999px;
+  background: #e8e4cf;
+  color: #435a3d;
+  font-size: 0.84rem;
+  font-weight: 700;
+}
+.origin span {
+  color: #9c7832;
+}
+.availability {
+  align-self: center;
+  color: #66705a;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+.product .price {
+  align-self: center;
+  margin-top: auto;
+  padding: 0.8rem 0 0.55rem;
+  color: #795c20;
+  font-size: 1.25rem;
+  font-weight: 900;
+}
+.product > button {
+  min-height: 48px;
+  border: 1px solid #dfc16f;
+  border-radius: 12px;
+  background: linear-gradient(180deg, #e5c762, #bd9138);
+  color: #20392b;
+  font-size: 1rem;
+  font-weight: 900;
+  box-shadow:
+    inset 0 1px #fff4c5a1,
+    0 5px 12px #263a291f;
+  cursor: pointer;
+}
+.product > button:hover:not(:disabled) {
+  background: linear-gradient(180deg, #f1d982, #d3aa4b);
+  transform: translateY(-1px);
+}
+.product > button:disabled {
+  border-color: #c6c0ab;
+  background: #ddd9cb;
+  color: #5f6459;
+  box-shadow: none;
+  cursor: not-allowed;
+}
+.catalogSection {
+  margin-top: clamp(1.8rem, 4vw, 3rem);
+}
+.catalogSection > h2 {
+  margin: 0 0 0.35rem;
+  color: #2d4934;
+  font-size: clamp(1.45rem, 2.4vw, 1.9rem);
+}
+.sectionLead {
+  margin: 0 0 1rem;
+  color: #56624d;
+}
+.details {
+  align-self: stretch;
+  margin: 0.5rem 0;
+  text-align: left;
+}
+.details summary {
+  min-height: 38px;
+  padding: 0.55rem 0;
+  color: #536244;
+  font-weight: 700;
+}
+.details summary:focus-visible {
+  outline: 3px solid #806024;
+  outline-offset: 2px;
+}
+.confirmation {
+  border-color: #c39c4b;
+  border-radius: 16px;
+  background: linear-gradient(150deg, #fff9e9, #eee3c8);
+  box-shadow: 0 10px 24px #1738241e;
+}
+
+@media (max-width: 900px) {
+  .products {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 560px) {
+  .marketHero {
+    min-height: 220px;
+    border-radius: 18px;
+    background-position: 57% center;
+  }
+  .heroFooter {
+    align-items: stretch;
+  }
+  .wallet,
+  .backpackLink {
+    flex: 1 1 auto;
+    justify-content: center;
+  }
+  .products {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .product {
+    min-height: 0;
+    padding: 1rem;
+  }
+  .product .art {
+    width: min(100%, 310px);
+    height: clamp(205px, 68vw, 260px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .categories button,
+  .product,
+  .product .art {
+    transition: none;
+  }
+  .categories button:hover,
+  .product:hover,
+  .product:hover .art {
+    transform: none;
+  }
+}
