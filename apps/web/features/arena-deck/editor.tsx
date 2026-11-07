@@ -382,20 +382,24 @@ export function BattleCards({
               </figure>
               <h4>{c.name}</h4>
               {compact ? (
-                <>
-                  <p>
-                    {c.rarity} ·{' '}
-                    {c.type === 'OFFENSIVE'
-                      ? 'Ofensiva'
-                      : c.type === 'DEFENSIVE'
-                        ? 'Defensiva'
-                        : 'Tática'}
-                  </p>
-                  <strong>{description.headline}</strong>
-                  <p>
-                    Custo: {focusCost} Foco · Nível mínimo: {minimumLevel}
-                  </p>
-                </>
+                <details className={cardsCss.compactDetails}>
+                  <summary>Detalhes</summary>
+                  <div>
+                    <p>
+                      {c.rarity} ·{' '}
+                      {c.type === 'OFFENSIVE'
+                        ? 'Ofensiva'
+                        : c.type === 'DEFENSIVE'
+                          ? 'Defensiva'
+                          : 'Tática'}
+                    </p>
+                    <strong>{description.headline}</strong>
+                    <p>
+                      Custo: {focusCost} Foco · Nível mínimo: {minimumLevel}
+                    </p>
+                    {reason && <p>{reason}</p>}
+                  </div>
+                </details>
               ) : (
                 <>
                   <p>
@@ -435,9 +439,6 @@ export function BattleCards({
                     ? 'Disponível'
                     : 'Indisponível'}
               </b>
-              {compact && reason && (
-                <p className={cardsCss.compactReason}>{reason}</p>
-              )}
               {!compact && reason && <p>{reason}</p>}
               <p>
                 <button

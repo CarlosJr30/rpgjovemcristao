@@ -34,7 +34,6 @@ vi.mock('../journey/hooks/use-battle-presentation', () => ({
     play: (
       _before: unknown,
       _after: unknown,
-      _queue: unknown,
       complete: () => void,
     ) => {
       complete();
@@ -199,6 +198,7 @@ it('official client sends only intent, takes confirmed state, and recovers consu
     ].sort(),
   );
   expect(command.action).toBe(`card:${cards[0].id}`);
+  await screen.findByText('REVELANDO CARTA');
   first.unmount();
   render(
     <AuthoritativeArena

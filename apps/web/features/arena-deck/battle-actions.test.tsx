@@ -53,6 +53,14 @@ test('exactly three primary actions; only CARTAS opens seven, Escape closes and 
   expect(trigger).toHaveAttribute('aria-controls', panel.id);
   expect(panel).toHaveFocus();
   expect(within(panel).getAllByRole('article')).toHaveLength(7);
+  const handDialog = screen.getByRole('dialog', { name: 'Escolha uma carta' });
+  expect(handDialog).toContainElement(panel);
+  const lastOption = within(handDialog)
+    .getAllByRole('button')
+    .filter((button) => !button.hasAttribute('disabled'))
+    .at(-1)!;
+  fireEvent.keyDown(window, { key: 'Tab', shiftKey: true });
+  expect(lastOption).toHaveFocus();
   fireEvent.keyDown(window, { key: 'Escape' });
   expect(trigger).toHaveFocus();
   expect(trigger).toHaveAttribute('aria-expanded', 'false');
@@ -199,7 +207,9 @@ test('selection previews canon data; confirm sends once, runs 6.5s and returns w
   expect(action).not.toHaveBeenCalled();
 
   fireEvent.click(within(dialog).getByRole('button', { name: 'Voltar' }));
-  expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+  expect(
+    screen.getByRole('dialog', { name: 'Escolha uma carta' }),
+  ).toBeVisible();
   expect(option).toHaveFocus();
   fireEvent.click(option);
   const preview = screen.getByRole('dialog');
@@ -232,6 +242,8 @@ test('selection previews canon data; confirm sends once, runs 6.5s and returns w
     />,
   );
   expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+  expect(screen.getByRole('button', { name: 'CARTAS' })).toHaveFocus();
+  fireEvent.click(screen.getByRole('button', { name: 'CARTAS' }));
   const usedCard = screen.getByRole('article', { name: `Carta: ${card.name}` });
   expect(within(usedCard).getByText('USADA')).toBeVisible();
   expect(within(usedCard).getByRole('button')).toBeDisabled();

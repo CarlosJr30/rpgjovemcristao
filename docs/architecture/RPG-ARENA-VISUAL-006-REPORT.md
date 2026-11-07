@@ -1,0 +1,11 @@
+# RPG-ARENA-VISUAL-006 — sete cartas sobre a Arena
+
+07/11/2026. **VALIDATING; PROD ainda na VISUAL-003.** Continuação da PR38/branch `codex/rpg-arena-visual-004-card-modal`, entrada `6abd701`. VISUAL004/005 preservadas, sem presumir publicação.
+
+Causa: a composição sobre o palco da005 alcançava apenas `AuthoritativeArena`; o treino local compartilhado pela Torre mantinha palco e ações em posições separadas. A mesma composição agora envolve ambos. `BattleCards` exibe sete artes em leque no desktop e trilho horizontal no celular; seleção e prévia são camadas dentro do combate, com cenário escurecido. Nome/Foco/estado visíveis; explicações recolhidas. `ArenaBattleActions`, `ArenaStage` e `useBattlePresentation` reutilizados.
+
+Confirmação permanece única; adapter visual do modo com servidor agora retorna o sucesso recebido à apresentação e conecta Pular ao hook existente. Retorno de foco ocorre após remover `inert`; Escape e captura de foco também cobrem a mão. Os tempos1500/2000/2000/1000ms, movimento reduzido, regras/motor/IA, dados e economia permanecem. Zero migrations ou operações econômicas remotas.
+
+**Validação:** 22 casos direcionados únicos PASS em partes identificadas, lint/diff check aprovados; CI exato pendente. Capturas reais Chromium1365/390/320 de componentes com fixture local confirmam leque sem overflow, seleção ampliada, confirmação dentro do palco e documento sem deslocamento. Uma ação sintética confirmou animação/USADA; não é fluxo hospedado nem aquisição real. Falhas de foco/limites laterais corrigidas; coletor aguardava botão visualmente presente enquanto inert e passou a esperar o encerramento da camada. Mock antigo de play tinha um argumento extra e foi corrigido conforme assinatura real. Tentativas interrompidas não são PASS.
+
+**Preview/produção pendentes.** Dois valores públicos TEST existentes configurados somente para esta branch Preview; produção/SSO preservados. O deployment anterior READY não comprova configuração TEST: referências literais aos dois backends no bundle não identificam o backend ativo. Nova Preview deverá confirmar a configuração efetivamente usada, seguida do smoke autenticado/aceite antes de merge/publicação. Capturas privadas em `build/rpg-arena-visual-006`; QA/React/Security pelo autor.

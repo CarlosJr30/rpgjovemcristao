@@ -41,6 +41,7 @@ test('compact hand preserves canonical summary and confirmation still uses the s
   fireEvent.click(screen.getByRole('button', { name: 'CARTAS' }));
   const card = () =>
     within(screen.getByRole('article', { name: 'Carta: Golpe Medido' }));
+  fireEvent.click(card().getByText('Detalhes'));
   expect(card().getByText('Golpe Medido ×1,15')).toBeVisible();
   expect(card().getByText('Custo: 1 Foco · Nível mínimo: 1')).toBeVisible();
   expect(card().getByText(/comum/)).toBeVisible();

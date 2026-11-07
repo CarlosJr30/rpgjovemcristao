@@ -40,7 +40,9 @@ export function ArenaBattleActions({
   const [error, setError] = useState('');
   const trigger = useRef<HTMLButtonElement>(null);
   const dialog = useRef<HTMLDivElement>(null);
+  const handDialog = useRef<HTMLDivElement>(null);
   const focusOptionAfterPreview = useRef<string | null>(null);
+  const returnFocusPending = useRef(false);
   const commandLock = useRef(false);
   const timers = useRef<ReturnType<typeof setTimeout>[]>([]);
   const panelId = useId();
@@ -63,7 +65,9 @@ export function ArenaBattleActions({
   }, []);
   const focusOption = useCallback(
     (id: string) => {
-      document.getElementById(`${panelId}-option-${id}`)?.focus();
+      document
+        .getElementById(`${panelId}-option-${id}`)
+        ?.focus({ preventScroll: true });
     },
     [panelId],
   );
@@ -73,28 +77,29 @@ export function ArenaBattleActions({
     setSelectedId(null);
     setCommandPending(false);
     commandLock.current = false;
-    setOpen(true);
-    requestAnimationFrame(() => {
-      const panel = document.getElementById(panelId);
-      panel?.focus({ preventScroll: true });
-      panel?.scrollIntoView?.({ block: 'nearest' });
-    });
-  }, [clearTimers, panelId]);
+    returnFocusPending.current = true;
+    setOpen(false);
+  }, [clearTimers]);
   const closePanel = useCallback(() => {
     if (commandLock.current) return;
+    returnFocusPending.current = true;
     setOpen(false);
     setSelectedId(null);
     setStep(null);
-    trigger.current?.focus();
-    trigger.current?.scrollIntoView?.({ block: 'nearest' });
   }, []);
 
   useEffect(() => () => clearTimers(), [clearTimers]);
 
   useEffect(() => {
-    if (!open && !hasSelectedCard) return;
+    if (!open && !hasSelectedCard) {
+      if (returnFocusPending.current) {
+        trigger.current?.focus({ preventScroll: true });
+        returnFocusPending.current = false;
+      }
+      return;
+    }
     const previousOverflow = document.body.style.overflow;
-    if (hasSelectedCard) document.body.style.overflow = 'hidden';
+    document.body.style.overflow = 'hidden';
     if (hasSelectedCard) dialog.current?.focus({ preventScroll: true });
     else if (open && focusOptionAfterPreview.current) {
       focusOption(focusOptionAfterPreview.current);
@@ -113,17 +118,29 @@ export function ArenaBattleActions({
         } else closePanel();
         return;
       }
-      if (event.key !== 'Tab' || !hasSelectedCard) return;
-      const focusable = dialog.current?.querySelectorAll<HTMLElement>(
+      if (event.key !== 'Tab') return;
+      const activeDialog = hasSelectedCard
+        ? dialog.current
+        : handDialog.current;
+      const focusable = activeDialog?.querySelectorAll<HTMLElement>(
         'button:not(:disabled), summary, [href], [tabindex]:not([tabindex="-1"])',
       );
       if (!focusable?.length) return;
       const first = focusable[0];
       const last = focusable[focusable.length - 1];
-      if (event.shiftKey && document.activeElement === first) {
+      if (
+        event.shiftKey &&
+        (document.activeElement === first ||
+          document.activeElement === activeDialog ||
+          document.activeElement === document.getElementById(panelId))
+      ) {
         event.preventDefault();
         last.focus();
-      } else if (!event.shiftKey && document.activeElement === last) {
+      } else if (
+        !event.shiftKey &&
+        (document.activeElement === last ||
+          !activeDialog?.contains(document.activeElement))
+      ) {
         event.preventDefault();
         first.focus();
       }
@@ -227,6 +244,7 @@ export function ArenaBattleActions({
         className={`${styles.battleActions} ${visual.actions}`}
         role="group"
         aria-label="Ações da batalha"
+        inert={open || hasSelectedCard}
       >
         <button
           disabled={busy || commandPending}
@@ -263,15 +281,25 @@ export function ArenaBattleActions({
         </button>
       </div>
       {open && (
-        <BattleCards
-          compact
-          panelId={panelId}
-          battle={battle}
-          busy={busy || commandPending}
-          onPlay={() => undefined}
-          onSelect={selectCard}
-          onClose={closePanel}
-        />
+        <div
+          ref={handDialog}
+          className={visual.cardSelectionLayer}
+          role={hasSelectedCard ? undefined : 'dialog'}
+          aria-modal={hasSelectedCard ? undefined : true}
+          aria-label="Escolha uma carta"
+          inert={hasSelectedCard}
+          data-selection-active={hasSelectedCard || undefined}
+        >
+          <BattleCards
+            compact
+            panelId={panelId}
+            battle={battle}
+            busy={busy || commandPending}
+            onPlay={() => undefined}
+            onSelect={selectCard}
+            onClose={closePanel}
+          />
+        </div>
       )}
       {selectedCard && effect && (
         <div

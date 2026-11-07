@@ -78,17 +78,19 @@ export function AuthoritativeArena({
     };
   }, [travelerId, mode, transport]);
   async function run(operation: () => Promise<void>) {
-    if (pending.current || presentation.busy) return;
+    if (pending.current || presentation.busy) return false;
     pending.current = true;
     setBusy(true);
     try {
       await operation();
+      return true;
     } catch (e) {
       setMessage(
         e instanceof Error
           ? e.message
           : 'Operação pendente. Retome pelo servidor.',
       );
+      return false;
     } finally {
       pending.current = false;
       setBusy(false);
@@ -251,8 +253,9 @@ export function AuthoritativeArena({
             <ArenaBattleActions
               battle={battle.state}
               busy={busy || presentation.busy}
+              onSkipAnimation={presentation.skip}
               onAction={(action) =>
-                void run(async () => {
+                run(async () => {
                   if (
                     commandRequest.current?.revision !== battle.revision ||
                     commandRequest.current.action !== action
