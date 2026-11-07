@@ -1310,3 +1310,7 @@ Branch `codex/rpg-arena-ui-007` baseada na publicação cdd4dcf. O TrainingQACon
 
 PR39 (`codex/rpg-arena-ui-007`, SHA `21bf934`) remove avisos extensos e move o controle QA recolhido para a sidebar. Link "Meu Baralho" mantido apenas quando treino tem menos de sete cartas; regressão identificada no CI inicial foi corrigida e teste afetado PASS. CI42364607345 success:1124unitPASS/74SKIP, qualidade/PG/RSC PASS. Preview `dpl_4fy8dp6kDUEExLRaiv5WNxpUkV4m` READY; rotas `/auth` e Arena HTTP200. Proprietário confirmou visualmente bloco removido e Treino QA disponível. Mobile CSS, Arena/economia/dados/Auth/RLS intocados. Backup nomeado não localizado; main publicada `cdd4dcf` preserva versão aprovada. Reutilizar aceite visual para código idêntico; publicação aguarda CI obrigatório do head documental final e merge normal.
 
+# 2026-11-07 — RPG-LOJA-VISUAL-008 ACTIVE
+
+TASK-0094 VALIDATING na branch isolada `codex/rpg-loja-visual-008`, baseada no `origin/main` remoto `151e698` (UI-007). Loja: vitrine de três colunas desktop/uma mobile, seis equipamentos e cinco baús com artes existentes, fontes/status visíveis; só quatro preços/ofertas autorizados. Teste focado 3/3 PASS; CI/Preview/aceite pendentes. Catálogo/preços, transações, Auth/RLS, dados/economia não alterados. Aguarda Preview protegida e aceite visual antes da publicação. Backup Arena não existe neste checkout; nenhum substituto criado, histórico aprovado preservado.
+
