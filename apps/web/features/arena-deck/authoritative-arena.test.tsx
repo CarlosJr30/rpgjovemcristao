@@ -208,6 +208,11 @@ it('official client sends only intent, takes confirmed state, and recovers consu
     />,
   );
   await screen.findByTestId('confirmed-stage');
+  const combatViewport = screen.getByTestId('confirmed-stage').parentElement;
+  expect(combatViewport?.getAttribute('data-combat-overlay')).toBe('true');
+  expect(
+    combatViewport?.contains(screen.getByRole('button', { name: 'CARTAS' })),
+  ).toBe(true);
   fireEvent.click(screen.getByRole('button', { name: 'CARTAS' }));
   await screen.findByText('USADA');
   expect(

@@ -11,6 +11,7 @@ import { ArenaBattleActions } from './battle-actions';
 import { ArenaStage } from '../journey/components/arena-stage';
 import { reloadOnlineTraveler } from '../../lib/supabase/online-sync';
 import styles from '../journey/journey.module.css';
+import arenaVisual from './cards.module.css';
 import { useBattlePresentation } from '../journey/hooks/use-battle-presentation';
 import { useAudioScene } from '../journey/hooks/use-game-audio';
 import { emitArenaSound } from '../journey/audio/arena-audio';
@@ -241,64 +242,68 @@ export function AuthoritativeArena({
       </button>
       {battle && (
         <>
-          <ArenaStage
-            battle={presentation.display ?? battle.state}
-            phase={presentation.phase}
-            event={presentation.event}
-          />
-          <ArenaBattleActions
-            battle={battle.state}
-            busy={busy || presentation.busy}
-            onAction={(action) =>
-              void run(async () => {
-                if (
-                  commandRequest.current?.revision !== battle.revision ||
-                  commandRequest.current.action !== action
-                )
-                  commandRequest.current = {
+          <div className={arenaVisual.combatViewport} data-combat-overlay>
+            <ArenaStage
+              battle={presentation.display ?? battle.state}
+              phase={presentation.phase}
+              event={presentation.event}
+            />
+            <ArenaBattleActions
+              battle={battle.state}
+              busy={busy || presentation.busy}
+              onAction={(action) =>
+                void run(async () => {
+                  if (
+                    commandRequest.current?.revision !== battle.revision ||
+                    commandRequest.current.action !== action
+                  )
+                    commandRequest.current = {
+                      revision: battle.revision,
+                      id: crypto.randomUUID(),
+                      action,
+                    };
+                  const next = await transport<BattleView>({
+                    ...base,
+                    operation: 'command',
+                    battleId: battle.state.id,
                     revision: battle.revision,
-                    id: crypto.randomUUID(),
+                    round: battle.state.round,
+                    commandId: commandRequest.current.id,
                     action,
-                  };
-                const next = await transport<BattleView>({
-                  ...base,
-                  operation: 'command',
-                  battleId: battle.state.id,
-                  revision: battle.revision,
-                  round: battle.state.round,
-                  commandId: commandRequest.current.id,
-                  action,
-                });
-                setBattle(next);
-                presentation.play(battle.state, next.state, () => {
-                  if (next.state.status === 'finished')
-                    emitArenaSound(
-                      next.state.winnerId === travelerId ? 'victory' : 'defeat',
+                  });
+                  setBattle(next);
+                  presentation.play(battle.state, next.state, () => {
+                    if (next.state.status === 'finished')
+                      emitArenaSound(
+                        next.state.winnerId === travelerId
+                          ? 'victory'
+                          : 'defeat',
+                      );
+                  });
+                  commandRequest.current = null;
+                  if (next.state.status === 'finished') {
+                    setMessage(
+                      next.reward?.rewarded
+                        ? 'Resultado e recompensa confirmados.'
+                        : next.reward?.status === 'blocked'
+                          ? 'Resultado confirmado. Recompensa bloqueada até homologação.'
+                          : 'Resultado confirmado sem prêmio.',
                     );
-                });
-                commandRequest.current = null;
-                if (next.state.status === 'finished') {
-                  setMessage(
-                    next.reward?.rewarded
-                      ? 'Resultado e recompensa confirmados.'
-                      : next.reward?.status === 'blocked'
-                        ? 'Resultado confirmado. Recompensa bloqueada até homologação.'
-                        : 'Resultado confirmado sem prêmio.',
-                  );
-                  if (mode === 'tower-v3')
-                    setFloor(
-                      (
-                        await transport<{ nextFloor: number }>({
-                          ...base,
-                          operation: 'tower',
-                        })
-                      ).nextFloor,
-                    );
-                  await reloadOnlineTraveler(travelerId);
-                }
-              })
-            }
-          />
+                    if (mode === 'tower-v3')
+                      setFloor(
+                        (
+                          await transport<{ nextFloor: number }>({
+                            ...base,
+                            operation: 'tower',
+                          })
+                        ).nextFloor,
+                      );
+                    await reloadOnlineTraveler(travelerId);
+                  }
+                })
+              }
+            />
+          </div>
           {battle.receiptId && (
             <p>
               Recibo: {battle.receiptId}. XP: {battle.reward?.xp ?? 0}. Moedas:{' '}

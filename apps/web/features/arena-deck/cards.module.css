@@ -27,6 +27,34 @@
   box-shadow: 0 12px 32px #0b211b26;
   min-width: 0;
 }
+.combatViewport {
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  min-width: 0;
+  border-radius: 18px;
+}
+.actions.actions.actions {
+  position: absolute;
+  z-index: 5;
+  right: 12px;
+  bottom: 12px;
+  left: 12px;
+  width: auto;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(4px, 1.2vw, 10px);
+  margin: 0;
+}
+.battlePanel.battlePanel.battlePanel {
+  position: absolute;
+  z-index: 4;
+  inset: 8px 8px 108px;
+  width: auto;
+  max-height: none;
+  margin: 0;
+  overflow: auto;
+  overscroll-behavior: contain;
+}
 .collectionGrid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
@@ -580,6 +608,20 @@
   }
   .compactNavigation button {
     min-width: 44%;
+  }
+  .actions.actions.actions {
+    right: 6px;
+    bottom: 6px;
+    left: 6px;
+    gap: 4px;
+  }
+  .actions.actions.actions button {
+    min-height: 58px;
+    padding: 5px 2px;
+  }
+  .battlePanel.battlePanel.battlePanel {
+    inset: 5px 5px 74px;
+    padding: 10px;
   }
   .cardDialogBackdrop {
     padding: 6px;
