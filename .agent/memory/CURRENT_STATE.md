@@ -1,3 +1,11 @@
+## 2026-11-07 — RPG-ARENA-VISUAL-006 desktop scroll fix VALIDATING
+
+PR38/branch `codex/rpg-arena-visual-004-card-modal` estava aberta/draft em41f9c76. Causa desktop em `ArenaBattleActions`: efeito de rolagem dependia da selecao, removendo/reaplicando `body.overflow` durante preview/Voltar. Fix separa lock com dependencia so em `open`; sem CSS ou mudancas ao layout mobile. Um teste de regressao observa que overflow nao alterna durante selecao e Voltar; testes direcionados battle-actions10/10 PASS. Chromium em fixture local desktop1365/mobile390: scrollY/altura estaveis, Voltar visivel, sem overflow. Mudanca local ainda nao commitada/CI/Preview pendentes. Nenhuma alteracao mecanica/economica/Supabase/dados. Preservar outras alteracoes locais; nao repetir testes anteriores.
+
+## 2026-11-07 — RPG-ARENA-VISUAL-006 VALIDATING
+
+PR38draft/head41f9c7634b92d9ed626afcfe937f893c8a346ae0; VISUAL004/005 preservadas/não publicadas, mainf57876b. Sete cartas em leque/trilho móvel sobre palco local/oficial compartilhado com Torre; prévia interna/foco/modal e ack visual/skip corrigidos; motor/economia/dados intocados.22casos direcionados/capturas locais1365/390/320 PASS, fixture não prova Auth hospedada. CIpush42338688472/PR42338691583success1122PASS74SKIP/gates obrigatórios, Preview condicionalSKIP. Previewdpl_GXhbrZ7ZXz6KtHHtNh48q62px6AY/mvd9wevs3 READY/41f9c76; alias estável rpgjovemcristao-web-git-codex-r-d76a96-carlos-junior-s-projects.vercel.app. Dois valores públicos TEST somente nesta branch; Chromium sem sessão confirmou formulário/TESTativo/zeroerros. Link compartilhável oficial temporário enviado privadamente; nenhum bearer/cookie salvo nos docs. Aguardar smoke autenticado de cartas e aceite pedido ao proprietário antes de merge/PROD; não reaproveitar aprovação003 para006. Nenhum Auth/RLS/PROD/SSO alterado. Relatório006/TASK0092; preservar alterações locais004 e PR12/18/24/26. Sem compras/baús/grants ou batalhas completas novas.
+
 ## 2026-11-06 — RPG-VISUAL-002 integração autorizada
 
 Proprietário aprovou sete propostas e apresentação conjunta. PR35/main a3ff708 confirmadas; branch de publicação baseada no main remoto atualizado. Originais PNG preservados em assets-source/proposed/rpg-visual-002. Próximo: otimizar cópias WebP em apps/web/public/assets/cards/arena, integrar ID→arte no DeckEditor/BattleCards atuais, manter estado/foco/custos/regras, testes focados de associação/seleção/USADA e layout320/390/desktop, CI obrigatório, Preview, PR/merge/deploy normal. Sem reabrir combate completo/economia/Auth/RLS/Torre. Teste Chat A/treino privado sem mudanças.
@@ -1287,3 +1295,10 @@ NEXT_ACTION: repetir login real e confirmar signIn/getSession/getUser/storage ap
 - Validação: lint/typecheck/build aprovados, suíte completa 43/43 e rota `/journey/guild` HTTP 200.
 
 Preservação final comprovada: baseline 192 arquivos, 180 intactos e 12 alterações autorizadas; zero divergências inesperadas. Os seis arquivos recebidos mantêm os hashes medidos. next-env restaurado byte a byte.
+
+## 2026-11-06 — RPG-ARENA-VISUAL-004
+
+- PR #38, candidato `27352b18c8365c26157b8121748a2d0f2b13f772`; mudanças visuais em `BattleCards`/modal, sem regras ou dados.
+- CI `42208490096` success: testes, lint, tipos/build, PostgreSQL e RSC/móvel PASS; Preview condicional SKIP. 17 testes direcionados locais PASS.
+- Preview TEST `dpl_78LJqy85UHUBEUwUk1fvgd4XRrUZ` READY/Preview; configurada apenas com URL/chave pública TEST existentes no build e sem alterar variáveis persistentes. Deploy inicial sem backend TEST removido. `/auth` responde via CLI e proteção segue ativa; proprietário informou que não consegue acessar. Smoke autenticado focal 320/390/desktop + uma seleção pendente; manter PROD intacta.
+- Promoção/merge PROD não realizados enquanto o gate real permanece pendente. Ver `docs/architecture/RPG-ARENA-VISUAL-004-REPORT.md` e `tasks/active/TASK-0090-rpg-arena-visual-004-card-modal.md`.

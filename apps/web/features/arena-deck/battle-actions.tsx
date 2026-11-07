@@ -91,6 +91,15 @@ export function ArenaBattleActions({
   useEffect(() => () => clearTimers(), [clearTimers]);
 
   useEffect(() => {
+    if (!open) return;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [open]);
+
+  useEffect(() => {
     if (!open && !hasSelectedCard) {
       if (returnFocusPending.current) {
         trigger.current?.focus({ preventScroll: true });
@@ -98,8 +107,6 @@ export function ArenaBattleActions({
       }
       return;
     }
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
     if (hasSelectedCard) dialog.current?.focus({ preventScroll: true });
     else if (open && focusOptionAfterPreview.current) {
       focusOption(focusOptionAfterPreview.current);
@@ -148,7 +155,6 @@ export function ArenaBattleActions({
     window.addEventListener('keydown', handleKey);
     return () => {
       window.removeEventListener('keydown', handleKey);
-      document.body.style.overflow = previousOverflow;
     };
   }, [open, hasSelectedCard, selectedId, panelId, closePanel, focusOption]);
 
