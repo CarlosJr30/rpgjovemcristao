@@ -1,5 +1,6 @@
 'use client';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { chestCatalog } from '@rpg/game-engine';
 import dynamic from 'next/dynamic';
 import { useEffect, useRef, useState, useSyncExternalStore } from 'react';
@@ -41,6 +42,7 @@ import { purchaseQAShop, resumeQAPurchase } from '../../../lib/qa-shop/client';
 export function ShopScreen({
   qa,
 }: { qa?: { actor: string; coins: number; production?: boolean } } = {}) {
+  const router = useRouter();
   const [feedback, setFeedback] = useState('');
   const [category, setCategory] = useState<'all' | 'chests' | 'equipment'>(
     'all',
@@ -580,7 +582,10 @@ export function ShopScreen({
                   saveCursor(reveal.owner, qa.actor, cursor)
                 }
                 onClose={() => setReveal(null)}
-                onViewEquipment={() => setReveal(null)}
+                onViewEquipment={() => {
+                  setReveal(null);
+                  router.push(routes.backpack);
+                }}
               />
             )}
           </section>

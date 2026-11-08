@@ -14,6 +14,7 @@ const f = vi.hoisted(() => ({
   resume: vi.fn(),
   open: vi.fn(),
   reload: vi.fn(),
+  push: vi.fn(),
   traveler: {
     id: 'fixture',
     coins: 123,
@@ -29,6 +30,7 @@ vi.mock('../components/shell', () => ({
   }) => children(f.traveler),
 }));
 vi.mock('../state/use-journey', () => ({ buyEquipment: vi.fn() }));
+vi.mock('next/navigation', () => ({ useRouter: () => ({ push: f.push }) }));
 vi.mock('../../training-qa/context', () => ({
   useTrainingTraveler: () => null,
 }));
@@ -52,9 +54,16 @@ vi.mock('../../chest-reveal/visual-store', () => ({
 vi.mock('next/dynamic', () => ({
   default:
     () =>
-    ({ onClose }: { onClose: () => void }) => (
+    ({
+      onClose,
+      onViewEquipment,
+    }: {
+      onClose: () => void;
+      onViewEquipment: () => void;
+    }) => (
       <div role="dialog" aria-label="Tesouro">
         <button onClick={onClose}>Continuar</button>
+        <button onClick={onViewEquipment}>Ver na Mochila</button>
       </div>
     ),
 }));
@@ -196,4 +205,24 @@ test('confirmed purchase auto opens once; failed opening retries the same ID wit
   fireEvent.click(screen.getByRole('button', { name: 'Continuar' }));
   expect(screen.queryByRole('dialog')).toBeNull();
   expect(f.open).toHaveBeenCalledTimes(2);
+});
+
+test('Ver na Mochila navigates after confirmed opening without another transaction', async () => {
+  f.purchase.mockResolvedValue({
+    kind: 'chest',
+    openingOperationId: 'stable-opening',
+  });
+  f.open.mockResolvedValue({ id: 'receipt' });
+  f.reload.mockResolvedValue(true);
+  render(
+    <ShopScreen qa={{ actor: 'fixture', coins: 123, production: true }} />,
+  );
+  fireEvent.click(screen.getByRole('button', { name: 'Comprar baú comum' }));
+  fireEvent.click(screen.getByRole('button', { name: 'Confirmar compra' }));
+  fireEvent.click(
+    await screen.findByRole('button', { name: 'Ver na Mochila' }),
+  );
+  expect(f.push).toHaveBeenCalledWith('/journey/backpack');
+  expect(f.purchase).toHaveBeenCalledTimes(1);
+  expect(f.open).toHaveBeenCalledTimes(1);
 });
