@@ -33,10 +33,16 @@ try {
       checks: [],
       errors: [],
       consoleErrors: [],
+      forbiddenResponsePaths: [],
       externalOrigins: [],
       passed: false,
     };
     result.runs.push(run);
+    page.on('response', (response) => {
+      if (response.status() === 403) {
+        run.forbiddenResponsePaths.push(new URL(response.url()).pathname);
+      }
+    });
     const check = (name, pass) => {
       run.checks.push({ name, pass });
       assert.ok(pass, name);
@@ -295,12 +301,21 @@ try {
 console.log(
   JSON.stringify(
     result.runs.map(
-      ({ name, passed, checks, errors, consoleErrors, failure }) => ({
+      ({
+        name,
+        passed,
+        checks,
+        errors,
+        consoleErrors,
+        forbiddenResponsePaths,
+        failure,
+      }) => ({
         name,
         passed,
         checks: checks.length,
         errors,
         consoleErrors,
+        forbiddenResponsePaths,
         failure,
       }),
     ),
