@@ -1,6 +1,6 @@
-## 08/11/2026 — RPG-LOJA-FIX-011 ACTIVE
+## 08/11/2026 — RPG-LOJA-FIX-011 BLOCKED no login/fluxo real TEST
 
-TASK-0096/branch codex/rpg-loja-fix-011, base main3dd53c3. Duas compras oficiais40+40/baús fechados atrás de500fontes legadas; QA9960/um comum intactos. Correção restrita do abridor e fluxo Loja→abertura→modal6,5s/recuperação, sem nova economia.13PG em dois envelopes isolados PASS (mesmos casos), testes direcionados/tipos/lint aprovados nas partes registradas. CI e fluxo real TEST pendentes; PROD intacta. Ver docs/architecture/RPG-LOJA-FIX-011-REPORT.md. Backup Arena remoto cdd4dcf confirmado e preservado. Sem delegação.
+TASK-0096/PR42draft/candidatoa3f3343, base main3dd53c3. Duas compras oficiais40+40 fechadas atrás de500fontes legadas; QA9960/um comum intactos. Abridor corrigido e Loja→abertura→modal6,5s/recuperação existentes integrados, sem nova economia.13PG em dois envelopes isolados PASS (mesmos casos), testes direcionados/tipos/lint e CIpush42468089490/PR42468107566success,1129PASS74SKIP. Previewdpl_3qUQhRPjMw1onP3rUGV8hKbDy7GZREADY/TEST. Migration somenteTEST20261108094902:90conjuntos idênticos e ACLs/policies/defaults preservados, só funçãoopen alterada. Janela ChromeTEST/auth aberta pelo acesso Vercel autorizado; falta login normal em QA Multiguild TEST (saldo55/um baú comprado existentes) para recuperação+uma compra/abertura/visual. Nenhuma operação econômica ou mudançaPROD; sem merge/publicação até gate real. Ver relatórioRPG-LOJA-FIX-011. Backup Arena remoto cdd4dcf preservado. Sem delegação.
 
 ## 2026-11-07 — RPG-ECONOMY-FIX-010 VALIDATING
 
