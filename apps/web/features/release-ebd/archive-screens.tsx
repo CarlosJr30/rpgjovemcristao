@@ -226,7 +226,9 @@ export function BackpackContents({
       </p>
       <p className={archiveCss.wallet}>
         ◈ {snapshot.traveler.coins} {TRAVELER_CURRENCY_NAME} ·{' '}
-        <Link href="/journey/shop">Loja</Link>
+        <Link href="/journey/shop" prefetch={false}>
+          Loja
+        </Link>
       </p>
       <div
         className={archiveCss.tabs}
@@ -345,6 +347,7 @@ export function BackpackContents({
                     <Link
                       className={archiveCss.itemAction}
                       href="/journey/equipment"
+                      prefetch={false}
                     >
                       {equipped ? 'Trocar ou desequipar' : 'Equipar'}
                     </Link>
