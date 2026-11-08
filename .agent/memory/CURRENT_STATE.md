@@ -1,3 +1,7 @@
+## 08/11/2026 — RPG-LOJA-FIX-011 ACTIVE
+
+TASK-0096/branch codex/rpg-loja-fix-011, base main3dd53c3. Duas compras oficiais40+40/baús fechados atrás de500fontes legadas; QA9960/um comum intactos. Correção restrita do abridor e fluxo Loja→abertura→modal6,5s/recuperação, sem nova economia.13PG em dois envelopes isolados PASS (mesmos casos), testes direcionados/tipos/lint aprovados nas partes registradas. CI e fluxo real TEST pendentes; PROD intacta. Ver docs/architecture/RPG-LOJA-FIX-011-REPORT.md. Backup Arena remoto cdd4dcf confirmado e preservado. Sem delegação.
+
 ## 2026-11-07 — RPG-ECONOMY-FIX-010 VALIDATING
 
 Proprietário aprovou explicitamente a base administrativa individual 1006265 moedas/245016XP. Suporte de reconciliação único no ledger existente preparado, sem carteira nova e sem grant: snapshot/locks, recibo imutável/idempotência, verificação somente dentro da operação auditada;16PG direcionados TEST e os mesmos16 no pacote PROD isolado PASS. Instalação TEST e endurecimento de guardas sem ativar outro avatar;90 conjuntos dados acompanhados preservados,249 rotinas anteriores exceto saldo mantidas, três novas privadas. Fonte QA9960/validade e homônimo preservados. CI/preflight/DDL/ativação PROD pendentes; decisão financeira não deve ser solicitada novamente. Sem frontend/Auth/RLS alterados. Auditoria histórica abaixo permanece válida para o instante anterior à aprovação.

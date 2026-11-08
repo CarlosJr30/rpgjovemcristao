@@ -50,7 +50,8 @@ export function ChestReveal({
   onProgress,
   onClose,
   onViewEquipment,
-  presentationLabel = 'Abertura registrada no servidor · apresentação visual',
+  presentationLabel = 'Seu tesouro',
+  cinematic = false,
 }: {
   receipt: RevealReceipt;
   traveler: Traveler;
@@ -59,8 +60,14 @@ export function ChestReveal({
   onClose: () => void;
   onViewEquipment: () => void;
   presentationLabel?: string;
+  cinematic?: boolean;
 }) {
-  const [state, dispatch] = useReducer(revealTransition, cursor, initialState);
+  const [state, dispatch] = useReducer(revealTransition, cursor, (c) => {
+    const state = initialState(c);
+    return cinematic && state.phase === 'ready'
+      ? { ...state, phase: 'opening' as const }
+      : state;
+  });
   const [reduced, setReduced] = useState(
     () =>
       typeof window !== 'undefined' &&
@@ -79,12 +86,15 @@ export function ChestReveal({
   );
   const event = (type: 'start' | 'skip' | 'next' | 'tick') => {
     if (type === 'next')
-      panel.current?.querySelector<HTMLButtonElement>('button')?.focus();
+      panel.current
+        ?.querySelector<HTMLButtonElement>('button')
+        ?.focus({ preventScroll: true });
     dispatch({
       type,
       revision: state.revision,
       count: receipt.entries.length,
       static: still,
+      cinematic,
     });
   };
   useEffect(() => {
@@ -100,7 +110,9 @@ export function ChestReveal({
     const before = document.activeElement as HTMLElement | null;
     const oldOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
-    panel.current?.querySelector<HTMLButtonElement>('button')?.focus();
+    panel.current
+      ?.querySelector<HTMLButtonElement>('button')
+      ?.focus({ preventScroll: true });
     const keyboard = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         e.preventDefault();
@@ -116,17 +128,17 @@ export function ChestReveal({
         last = targets.at(-1);
       if (e.shiftKey && document.activeElement === first) {
         e.preventDefault();
-        last?.focus();
+        last?.focus({ preventScroll: true });
       } else if (!e.shiftKey && document.activeElement === last) {
         e.preventDefault();
-        first?.focus();
+        first?.focus({ preventScroll: true });
       }
     };
     document.addEventListener('keydown', keyboard);
     return () => {
       document.body.style.overflow = oldOverflow;
       document.removeEventListener('keydown', keyboard);
-      if (before?.isConnected) before.focus();
+      if (before?.isConnected) before.focus({ preventScroll: true });
     };
   }, []);
   useEffect(() => {
@@ -134,17 +146,21 @@ export function ChestReveal({
     if (still) {
       dispatch({
         type: 'skip',
+        cinematic,
         revision: state.revision,
         count: receipt.entries.length,
       });
       return;
     }
     const duration =
-      REVEAL_TIMING[state.phase as keyof typeof REVEAL_TIMING] / speed;
+      (cinematic
+        ? { opening: 1500, rising: 2000, holding: 2000, flipping: 1000 }
+        : REVEAL_TIMING)[state.phase as keyof typeof REVEAL_TIMING] / speed;
     const timer = window.setTimeout(
       () =>
         dispatch({
           type: 'tick',
+          cinematic,
           revision: state.revision,
           count: receipt.entries.length,
         }),
@@ -157,6 +173,7 @@ export function ChestReveal({
     state.revision,
     speed,
     still,
+    cinematic,
     receipt.entries.length,
   ]);
   useEffect(() => {
@@ -198,6 +215,7 @@ export function ChestReveal({
   return createPortal(
     <div
       className={css.backdrop}
+      data-cinematic={cinematic || undefined}
       data-rarity={prize.rarity}
       data-phase={state.phase}
       data-static={still || undefined}
@@ -338,10 +356,25 @@ export function ChestReveal({
         ) : (
           <div className={css.summary}>
             <p className={css.eyebrow}>ABERTURA CONCLUÍDA</p>
-            <h3>Resumo dos prêmios registrados</h3>
+            <h3>Você recebeu</h3>
             <ol>
               {receipt.entries.map((p, i) => (
                 <li key={i}>
+                  {cinematic && (
+                    <Image
+                      src={
+                        p.kind === 'equipment'
+                          ? equipmentAssetForItem(p.item)
+                          : p.kind === 'coins'
+                            ? '/assets/items/coin_pouch.png'
+                            : p.art || '/assets/items/coin_pouch.png'
+                      }
+                      alt=""
+                      width={120}
+                      height={120}
+                      unoptimized
+                    />
+                  )}
                   <b>{prizeName(p)}</b>
                   <span>
                     {p.kind === 'coins'
@@ -351,17 +384,15 @@ export function ChestReveal({
                 </li>
               ))}
             </ol>
-            <p>Rever ou fechar esta apresentação não concede novos itens.</p>
+
             <div className={css.controls}>
-              <button onClick={onClose}>Concluir</button>
+              <button onClick={onClose}>
+                {cinematic ? 'Continuar' : 'Concluir'}
+              </button>
               <button onClick={onViewEquipment}>Ver na Mochila</button>
             </div>
           </div>
         )}
-        <footer>
-          Você pode fechar e continuar pelo histórico. Os detalhes permanecem
-          até sua decisão.
-        </footer>
       </section>
     </div>,
     document.body,

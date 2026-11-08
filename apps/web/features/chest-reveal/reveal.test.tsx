@@ -58,6 +58,52 @@ function mount(r = cardReceipt, c = cursor(r)) {
   return { ...ui, onProgress, onClose };
 }
 const tick = (ms: number) => act(() => vi.advanceTimersByTime(ms));
+
+test('cinematic starts from a confirmed receipt and finishes in6500ms; skip changes presentation only', () => {
+  const onClose = vi.fn();
+  const ui = render(
+    <ChestReveal
+      cinematic
+      receipt={receipt}
+      traveler={fixtureTraveler()}
+      cursor={cursor(receipt)}
+      onProgress={vi.fn()}
+      onClose={onClose}
+      onViewEquipment={vi.fn()}
+    />,
+  );
+  const phase = () =>
+    document.querySelector('[data-phase]')?.getAttribute('data-phase');
+  expect(phase()).toBe('opening');
+  tick(1500);
+  expect(phase()).toBe('rising');
+  tick(2000);
+  expect(phase()).toBe('holding');
+  tick(2000);
+  expect(phase()).toBe('flipping');
+  tick(999);
+  expect(screen.queryByRole('button', { name: 'Continuar' })).toBeNull();
+  tick(1);
+  expect(phase()).toBe('summary');
+  fireEvent.click(screen.getByRole('button', { name: 'Continuar' }));
+  expect(onClose).toHaveBeenCalledTimes(1);
+  ui.unmount();
+  render(
+    <ChestReveal
+      cinematic
+      receipt={receipt}
+      traveler={fixtureTraveler()}
+      cursor={cursor(receipt)}
+      onProgress={vi.fn()}
+      onClose={onClose}
+      onViewEquipment={vi.fn()}
+    />,
+  );
+  fireEvent.click(screen.getByRole('button', { name: 'Pular animação' }));
+  expect(phase()).toBe('summary');
+  tick(10000);
+  expect(phase()).toBe('summary');
+});
 test('closed chest opens, card rises, holds2000ms before flip, then details persist until manual next', () => {
   mount();
   const phase = () =>

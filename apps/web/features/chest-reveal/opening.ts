@@ -15,17 +15,21 @@ export function requestChestOpening(
   retry = false,
   communityOnly = false,
   qaShop = false,
+  purchaseOperation?: string,
 ) {
   return openingLock(owner, traveler, async () => {
     const prior = readVisual(owner, traveler).intent;
     if (retry && (!prior || prior.type !== type))
       throw new Error('Não há solicitação pendente para reenviar.');
-    const intent = retry ? prior! : startIntent(owner, traveler, type);
+    const intent = retry
+      ? prior!
+      : startIntent(owner, traveler, type, purchaseOperation);
     const operationKey = `open:${intent.operationId}`;
     // On explicit retry, first consult the ledger. Never issue a fresh ID.
-    const existing = retry
-      ? await chestRepository.operation(traveler, operationKey)
-      : null;
+    const existing =
+      retry || purchaseOperation
+        ? await chestRepository.operation(traveler, operationKey)
+        : null;
     try {
       if (!existing)
         await (isShopRelease()

@@ -8,6 +8,7 @@ import {
 import { isShopTestPreview, isShopRelease } from '../release-scope';
 import { CommunityOpeningSuspended } from '../community-chests/errors';
 import { uuid } from '../../features/chest-reveal/receipt';
+import { readVisual } from '../../features/chest-reveal/visual-store';
 import {
   activeTraining,
   commandTraining,
@@ -104,7 +105,12 @@ export async function readShopPurchases(actor: string) {
     );
   return data;
 }
-type Intent = { kind: 'chest' | 'equipment'; offer: string; id: string };
+type Intent = {
+  kind: 'chest' | 'equipment';
+  offer: string;
+  id: string;
+  openingId?: string;
+};
 const key = (owner: string, actor: string) =>
   `rpg:${isShopRelease() ? 'shop' : 'qa-shop'}-purchase:v1:${owner}:${actor}${trainingNamespace(actor)}`;
 export function purchaseIntent(
@@ -116,13 +122,27 @@ export function purchaseIntent(
   const raw = localStorage.getItem(key(owner, actor));
   if (raw) {
     const prior = JSON.parse(raw) as Intent;
-    if (!uuid(prior.id) || prior.kind !== kind || prior.offer !== offer)
+    if (
+      !uuid(prior.id) ||
+      (prior.openingId !== undefined && !uuid(prior.openingId)) ||
+      prior.kind !== kind ||
+      prior.offer !== offer
+    )
       throw Error(
         'Confirme a compra pendente anterior antes de iniciar outra.',
       );
+    if (!prior.openingId) {
+      prior.openingId = crypto.randomUUID();
+      localStorage.setItem(key(owner, actor), JSON.stringify(prior));
+    }
     return prior;
   }
-  const next = { kind, offer, id: crypto.randomUUID() };
+  const next = {
+    kind,
+    offer,
+    id: crypto.randomUUID(),
+    openingId: crypto.randomUUID(),
+  };
   localStorage.setItem(key(owner, actor), JSON.stringify(next));
   return next;
 }
@@ -144,6 +164,16 @@ export async function purchaseQAShop(
           'Há uma compra em andamento em outra aba. Consulte o resultado antes de repetir.',
         );
       verify();
+      const pending = readVisual(owner, actor).intent;
+      const saved = localStorage.getItem(key(owner, actor));
+      if (
+        pending &&
+        (!saved ||
+          ![JSON.parse(saved).id, JSON.parse(saved).openingId].includes(
+            pending.operationId,
+          ))
+      )
+        throw Error('Conclua a abertura pendente antes de comprar outro item.');
       const intent = purchaseIntent(owner, actor, kind, offer);
       const training = activeTraining(actor);
       const { data, error } = training
@@ -205,7 +235,12 @@ export async function purchaseQAShop(
       verify();
       if (localStorage.getItem(key(owner, actor)) === JSON.stringify(intent))
         localStorage.removeItem(key(owner, actor));
-      return data;
+      return {
+        ...data,
+        kind,
+        offer,
+        openingOperationId: training ? intent.openingId! : intent.id,
+      };
     },
   );
 }

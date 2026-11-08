@@ -73,6 +73,9 @@ export function receiptFromOperation(
     Number(v.remainingQuantity) < 0 ||
     v.source !== row.source ||
     typeof v.duplicate !== 'boolean' ||
+    (v.catalogVersion !== undefined &&
+      (v.catalogVersion !== 'ECONOMY-001C:shop:v1' ||
+        !row.source?.startsWith('shop001c:'))) ||
     Object.keys(v).some(
       (key) =>
         ![
@@ -83,6 +86,7 @@ export function receiptFromOperation(
           'source',
           'remainingQuantity',
           'duplicate',
+          'catalogVersion',
         ].includes(key),
     )
   )

@@ -7,6 +7,26 @@ import {
 import { receiptFromOperation, rarityLabel, chestRarity } from './receipt';
 import type { ChestOperationRow } from '../../lib/supabase/database.types';
 import { getArenaCardCatalog } from '@rpg/game-engine';
+
+test('productive shop receipt accepts only the existing approved catalog metadata', () => {
+  const source = 'shop001c:00000000-0000-4000-8000-000000000011';
+  const row = {
+    ...chestRow,
+    source,
+    rewards: {
+      ...(chestRow.rewards as object),
+      source,
+      catalogVersion: 'ECONOMY-001C:shop:v1',
+    },
+  };
+  expect(receiptFromOperation(row, TRAVELER).entries).toEqual(receipt.entries);
+  expect(() =>
+    receiptFromOperation(
+      { ...row, rewards: { ...row.rewards, catalogVersion: 'unapproved' } },
+      TRAVELER,
+    ),
+  ).toThrow();
+});
 test('legacy confirmed ledger maps only granted coins then catalog equipment, without quantity guesses', () => {
   expect(receipt.entries.map((p) => p.kind)).toEqual(['coins', 'equipment']);
   expect(receipt.entries[1]).toMatchObject({

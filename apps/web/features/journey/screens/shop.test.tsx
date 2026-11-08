@@ -6,11 +6,14 @@ import {
   render,
   screen,
   within,
+  waitFor,
 } from '@testing-library/react';
 import { afterEach, expect, test, vi } from 'vitest';
 const f = vi.hoisted(() => ({
   purchase: vi.fn(),
   resume: vi.fn(),
+  open: vi.fn(),
+  reload: vi.fn(),
   traveler: {
     id: 'fixture',
     coins: 123,
@@ -35,6 +38,25 @@ vi.mock('../../../lib/qa-shop/client', () => ({
 }));
 vi.mock('../../qa-shop/purchase-history', () => ({
   ShopPurchaseHistory: () => null,
+}));
+vi.mock('../../../lib/supabase/online-sync', () => ({
+  getCurrentOnlineUserId: () => 'owner',
+  reloadOnlineTraveler: f.reload,
+}));
+vi.mock('../../chest-reveal/opening', () => ({ requestChestOpening: f.open }));
+vi.mock('../../chest-reveal/visual-store', () => ({
+  readVisual: () => ({ intent: null }),
+  bindReceipt: () => ({}),
+  saveCursor: vi.fn(),
+}));
+vi.mock('next/dynamic', () => ({
+  default:
+    () =>
+    ({ onClose }: { onClose: () => void }) => (
+      <div role="dialog" aria-label="Tesouro">
+        <button onClick={onClose}>Continuar</button>
+      </div>
+    ),
 }));
 import { ShopScreen } from './shop';
 afterEach(() => {
@@ -137,4 +159,41 @@ test('filtering and cancelling preserve the displayed balance and never submit a
   expect(screen.getByText('123 Moedas do Viajante')).toBeVisible();
   expect(f.purchase).not.toHaveBeenCalled();
   expect(f.traveler.coins).toBe(123);
+});
+
+test('confirmed purchase auto opens once; failed opening retries the same ID without buying again', async () => {
+  f.purchase.mockResolvedValue({
+    kind: 'chest',
+    openingOperationId: 'stable-opening',
+  });
+  f.open
+    .mockRejectedValueOnce(Error('Rede indisponível'))
+    .mockResolvedValueOnce({ id: 'receipt' });
+  f.reload.mockResolvedValue(true);
+  render(
+    <ShopScreen qa={{ actor: 'fixture', coins: 123, production: true }} />,
+  );
+  fireEvent.click(screen.getByRole('button', { name: 'Comprar baú comum' }));
+  fireEvent.click(screen.getByRole('button', { name: 'Confirmar compra' }));
+  await waitFor(() => expect(f.open).toHaveBeenCalledTimes(1));
+  const retry = await screen.findByRole('button', {
+    name: 'Tentar abrir novamente',
+  });
+  await waitFor(() => expect(retry).not.toBeDisabled());
+  fireEvent.click(retry);
+  await screen.findByRole('dialog', { name: 'Tesouro' });
+  expect(f.purchase).toHaveBeenCalledTimes(1);
+  expect(f.open.mock.calls[1]).toEqual(f.open.mock.calls[0]);
+  expect(f.open.mock.calls[0]).toEqual([
+    'owner',
+    'fixture',
+    'common',
+    false,
+    true,
+    false,
+    'stable-opening',
+  ]);
+  fireEvent.click(screen.getByRole('button', { name: 'Continuar' }));
+  expect(screen.queryByRole('dialog')).toBeNull();
+  expect(f.open).toHaveBeenCalledTimes(2);
 });
