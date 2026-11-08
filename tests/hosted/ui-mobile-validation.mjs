@@ -33,10 +33,16 @@ try {
       checks: [],
       errors: [],
       consoleErrors: [],
+      forbiddenResponsePaths: [],
       externalOrigins: [],
       passed: false,
     };
     result.runs.push(run);
+    page.on('response', (response) => {
+      if (response.status() === 403) {
+        run.forbiddenResponsePaths.push(new URL(response.url()).pathname);
+      }
+    });
     const check = (name, pass) => {
       run.checks.push({ name, pass });
       assert.ok(pass, name);
@@ -198,7 +204,9 @@ try {
       });
       await navigateReleased(page, 'Mochila');
       await expect(page.getByRole('heading', { name: 'Botas do Viajante', exact: true })).toBeVisible();
-      await expect(page.getByText(/^Quantidade: 3/)).toBeVisible();
+      await expect(
+        page.getByRole('tab', { name: /Equipamentos.*3 possuídos/ }),
+      ).toBeVisible();
       await page.locator('main img[src]').evaluateAll(images => Promise.all(images.map(image => image.decode())));
       check('populated backpack fits after original icon decodes', await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
       check('inventory icon fits its card', await page.locator('main img[src]').evaluateAll(images => images.every(image => image.getBoundingClientRect().right <= image.closest('article').getBoundingClientRect().right)));
@@ -293,12 +301,21 @@ try {
 console.log(
   JSON.stringify(
     result.runs.map(
-      ({ name, passed, checks, errors, consoleErrors, failure }) => ({
+      ({
+        name,
+        passed,
+        checks,
+        errors,
+        consoleErrors,
+        forbiddenResponsePaths,
+        failure,
+      }) => ({
         name,
         passed,
         checks: checks.length,
         errors,
         consoleErrors,
+        forbiddenResponsePaths,
         failure,
       }),
     ),

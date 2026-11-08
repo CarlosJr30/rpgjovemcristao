@@ -1,10 +1,13 @@
 .backpackGrid {
-  grid-template-columns: minmax(0, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr));
+  align-items: stretch;
+  gap: 1rem;
 }
 
 .backpackItem {
   min-width: 0;
   overflow-wrap: anywhere;
+  height: 100%;
 }
 
 .backpackIcon {
@@ -13,4 +16,232 @@
   max-width: 100%;
   height: 6rem;
   object-fit: contain;
+}
+
+.wallet {
+  margin: 0.5rem 0 1.1rem;
+  color: #ead59a;
+  font-weight: 750;
+}
+
+.wallet a,
+.itemAction {
+  color: #f3d887;
+  font-weight: 750;
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}
+
+.tabs {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.65rem;
+  margin: 1rem 0 1.25rem;
+}
+
+.tabs button {
+  display: flex;
+  min-width: 0;
+  min-height: 4.5rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.7rem 0.65rem;
+  border: 1px solid #b99c5a99;
+  border-radius: 14px;
+  color: #f6f0d5;
+  background: linear-gradient(145deg, #1e4938, #133528);
+  font: inherit;
+  font-weight: 750;
+  cursor: pointer;
+}
+
+.tabs button[aria-selected='true'] {
+  border-color: #e2bd62;
+  color: #173526;
+  background: linear-gradient(145deg, #f0d480, #cda94f);
+  box-shadow: 0 5px 16px #090f0b55;
+}
+
+.tabs button:focus-visible,
+.itemAction:focus-visible,
+.filter select:focus-visible {
+  outline: 3px solid #f6df91;
+  outline-offset: 3px;
+}
+
+.count {
+  min-width: 1.5rem;
+  padding: 0.12rem 0.4rem;
+  border-radius: 999px;
+  background: #101e17;
+  color: #f4d57e;
+  text-align: center;
+  font-size: 0.8rem;
+  line-height: 1.35;
+}
+
+.tabs button[aria-selected='true'] .count {
+  color: #f8e5aa;
+}
+
+.panelHeading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.panelHeading h2 {
+  margin: 0;
+}
+
+.panelHeading h2 small {
+  display: block;
+  margin-top: 0.3rem;
+  color: #d7c99e;
+  font-size: 0.75em;
+  font-weight: 500;
+}
+
+.filter {
+  display: grid;
+  gap: 0.25rem;
+  color: #e6d9b8;
+  font-size: 0.86rem;
+}
+
+.filter select {
+  min-height: 2.5rem;
+  max-width: 12rem;
+  padding: 0.45rem 0.65rem;
+  border: 1px solid #b99c5a88;
+  border-radius: 9px;
+  color: #f6f0d5;
+  background: #173a2d;
+  font: inherit;
+}
+
+.cardsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 10rem), 1fr));
+  gap: 0.85rem;
+  margin-top: 1rem;
+}
+
+.card {
+  min-width: 0;
+  overflow: hidden;
+  padding: 0;
+  border: 1px solid #a99668;
+  border-radius: 16px;
+  background: linear-gradient(160deg, #284334, #152c23);
+  color: #f8efd7;
+}
+
+.card[data-rarity='raro'],
+.card[data-rarity='rare'],
+.card[data-rarity='épico'],
+.card[data-rarity='epic'],
+.card[data-rarity='lendário'],
+.card[data-rarity='legendary'] {
+  border-color: #e1bd67;
+  box-shadow:
+    inset 0 0 0 1px #e1bd6733,
+    0 8px 22px #0a120e55;
+}
+
+.cardArt {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 0.73;
+  object-fit: contain;
+  background: #111e17;
+}
+
+.cardDetails {
+  padding: 0.75rem;
+}
+
+.cardDetails h3,
+.cardDetails p {
+  margin: 0.25rem 0 0.5rem;
+}
+
+.cardDetails strong {
+  display: block;
+  color: #f3d887;
+}
+
+.cardDetails details {
+  margin-top: 0.65rem;
+  color: #e1ddce;
+  font-size: 0.88rem;
+}
+
+.cardDetails summary {
+  color: #f0d78f;
+  cursor: pointer;
+}
+
+.itemAction {
+  display: inline-flex;
+  min-height: 2.5rem;
+  align-items: center;
+  margin-top: 0.4rem;
+  padding: 0.45rem 0.65rem;
+  border: 1px solid #d2b66b88;
+  border-radius: 10px;
+  background: #193b2d;
+}
+
+.itemAction + .cardsGrid {
+  margin-top: 1rem;
+}
+
+.backpackItem h3 {
+  margin: 0.5rem 0;
+}
+
+.backpackPanel[hidden] {
+  display: none;
+}
+
+@media (max-width: 600px) {
+  .tabs {
+    gap: 0.4rem;
+  }
+
+  .tabs button {
+    min-height: 4.1rem;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+    padding: 0.5rem 0.25rem;
+    font-size: 0.82rem;
+  }
+
+  .tabs button svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .panelHeading {
+    align-items: start;
+  }
+
+  .cardsGrid {
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 9.5rem), 1fr));
+  }
+}
+
+@media (max-width: 350px) {
+  .tabs button {
+    flex-direction: column;
+  }
+
+  .panelHeading {
+    flex-direction: column;
+  }
 }

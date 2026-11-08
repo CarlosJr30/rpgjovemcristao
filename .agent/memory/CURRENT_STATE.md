@@ -1324,3 +1324,7 @@ PR39 (`codex/rpg-arena-ui-007`, SHA `21bf934`) remove avisos extensos e move o c
 
 TASK-0094 VALIDATING na branch isolada `codex/rpg-loja-visual-008`, baseada no `origin/main` remoto `151e698` (UI-007). Loja: vitrine de três colunas desktop/uma mobile, seis equipamentos e cinco baús com artes existentes, fontes/status visíveis; só quatro preços/ofertas autorizados. Teste focado 3/3 PASS; CI/Preview/aceite pendentes. Catálogo/preços, transações, Auth/RLS, dados/economia não alterados. Aguarda Preview protegida e aceite visual antes da publicação. Backup Arena não existe neste checkout; nenhum substituto criado, histórico aprovado preservado.
 
+## 2026-11-08 — MOCHILA-040 VALIDATING / PR e Preview TEST
+
+TASK-0097 na branch isolada `codex/rpg-mochila-040`, base `ca19484c344ed668cee51513dca98755bbbd7884`. Dependências reutilizadas do worktree irmão com lockfile idêntico, Next16.4.2 e workspaces de jogo/UI iguais à base. Teste focused `archive.test.tsx` 7/7, ESLint, Prettier, TypeScript e build Turbopack/gates artefato PASS. Turbopack usou `turbopack.root` temporário no diretório pai somente para enxergar o junction externo; next.config restaurado, patch Next restaurado e junction removido. PR/CI/Preview TEST e aceite visual ainda pendentes; PROD/dados/Auth/RLS/economia/migrations intocados. Backup Arena remoto cdd4dcf preservado. Ver `docs/architecture/RPG-MOCHILA-040-REPORT.md`.
+
