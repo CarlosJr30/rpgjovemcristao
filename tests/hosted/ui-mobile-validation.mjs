@@ -198,7 +198,9 @@ try {
       });
       await navigateReleased(page, 'Mochila');
       await expect(page.getByRole('heading', { name: 'Botas do Viajante', exact: true })).toBeVisible();
-      await expect(page.getByText(/^Quantidade: 3/)).toBeVisible();
+      await expect(
+        page.getByRole('tab', { name: /Equipamentos.*3 possuídos/ }),
+      ).toBeVisible();
       await page.locator('main img[src]').evaluateAll(images => Promise.all(images.map(image => image.decode())));
       check('populated backpack fits after original icon decodes', await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
       check('inventory icon fits its card', await page.locator('main img[src]').evaluateAll(images => images.every(image => image.getBoundingClientRect().right <= image.closest('article').getBoundingClientRect().right)));
