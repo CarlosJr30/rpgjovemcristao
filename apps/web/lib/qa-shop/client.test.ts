@@ -8,6 +8,7 @@ import {
   openShopChest,
 } from './client';
 import { isReleasedPath } from '../release-scope';
+import { startIntent } from '../../features/chest-reveal/visual-store';
 const mocks = vi.hoisted(() => ({
   rpc: vi.fn(),
   reload: vi.fn(),
@@ -183,9 +184,18 @@ it('refuses another backend', () => {
 it('retains the purchase identity across navigation/retry', () => {
   const a = purchaseIntent(mocks.owner, actor, 'chest', 'common');
   expect(purchaseIntent(mocks.owner, actor, 'chest', 'common')).toEqual(a);
+  expect(a.openingId).not.toBe(a.id);
   expect(() =>
     purchaseIntent(mocks.owner, actor, 'equipment', 'traveler-sword-common'),
   ).toThrow('pendente');
+});
+
+it('an unresolved opening prevents another debit before creating a purchase intent', async () => {
+  startIntent(mocks.owner, actor, 'common');
+  await expect(purchaseQAShop(actor, 'chest', 'common')).rejects.toThrow(
+    'abertura pendente',
+  );
+  expect(mocks.rpc).not.toHaveBeenCalled();
 });
 it('isolates pending purchase identity by account and avatar', () => {
   expect(purchaseIntent(mocks.owner, actor, 'chest', 'common').id).not.toBe(

@@ -166,7 +166,10 @@ export function ChestPanel({
           shopOrigin:
             Array.isArray(row.sources) &&
             typeof row.sources[0] === 'string' &&
-            row.sources[0].startsWith('shop001c:'),
+            row.sources.some(
+              (source) =>
+                typeof source === 'string' && source.startsWith('shop001c:'),
+            ),
         }));
       setOwned(remote);
       onCountChange(remote.reduce((sum, entry) => sum + entry.quantity, 0));
@@ -336,7 +339,7 @@ export function ChestPanel({
       {communityOnly && (
         <p className={styles.notice}>
           {releaseShop
-            ? 'Baús elegíveis de atividades e baús comuns comprados na Loja podem ser abertos após confirmação. Baús legados e demais categorias aguardam liberação.'
+            ? 'Abra seus baús disponíveis. Fontes antigas permanecem bloqueadas.'
             : qaShop
               ? 'Somente baús comuns comprados pela Loja QA podem ser abertos neste avatar TEST.'
               : 'Somente baús comuns e épicos de atividades verificadas podem ser abertos. Baús legados e demais categorias aguardam liberação. Compras e ações de equipar continuam indisponíveis.'}
@@ -431,80 +434,87 @@ export function ChestPanel({
         </section>
       )}
       {online && (
-        <section aria-label="Histórico de aberturas">
-          <h2>Aberturas registradas</h2>
-          <p>Ver novamente consulta o registro e não abre outro Baú.</p>
-          {history.length === 0 ? (
-            <p>Nenhuma abertura confirmada carregada.</p>
-          ) : (
-            <ul>
-              {history
+        <details>
+          <summary>Rever recompensas</summary>
+          <section aria-label="Histórico de aberturas">
+            <h2>Aberturas registradas</h2>
+            <p>Ver novamente consulta o registro e não abre outro Baú.</p>
+            {history.length === 0 ? (
+              <p>Nenhuma abertura confirmada carregada.</p>
+            ) : (
+              <ul>
+                {history
+                  .filter(
+                    (r) =>
+                      r.traveler_id === traveler.id &&
+                      isChestType(r.chest_type),
+                  )
+                  .map((row) => (
+                    <li key={row.id}>
+                      {chestCatalog[row.chest_type as ChestType].name} ·{' '}
+                      {new Date(row.created_at).toLocaleDateString('pt-BR')}{' '}
+                      <button
+                        disabled={!!busy || !!pending}
+                        onClick={async () => {
+                          if (opening.current) return;
+                          opening.current = true;
+                          setBusy('history');
+                          try {
+                            const fresh = await chestRepository.operation(
+                              traveler.id,
+                              row.operation_key,
+                            );
+                            if (!fresh)
+                              throw new Error('Registro não confirmado.');
+                            if (mounted.current)
+                              present(
+                                receiptFromOperation(fresh, traveler.id),
+                                true,
+                              );
+                          } catch (e) {
+                            if (mounted.current)
+                              setMessage(
+                                e instanceof Error
+                                  ? e.message
+                                  : 'Histórico indisponível.',
+                              );
+                          } finally {
+                            opening.current = false;
+                            if (mounted.current) setBusy(null);
+                          }
+                        }}
+                      >
+                        Ver novamente
+                      </button>
+                    </li>
+                  ))}
+              </ul>
+            )}
+          </section>
+        </details>
+      )}
+      {communityOnly && (
+        <details>
+          <summary>Baús de atividades</summary>
+          <section aria-label="Histórico de baús conquistados">
+            <h2>Baús conquistados</h2>
+            {grants.length ? (
+              grants
                 .filter(
                   (r) =>
                     r.traveler_id === traveler.id && isChestType(r.chest_type),
                 )
-                .map((row) => (
-                  <li key={row.id}>
-                    {chestCatalog[row.chest_type as ChestType].name} ·{' '}
-                    {new Date(row.created_at).toLocaleDateString('pt-BR')}{' '}
-                    <button
-                      disabled={!!busy || !!pending}
-                      onClick={async () => {
-                        if (opening.current) return;
-                        opening.current = true;
-                        setBusy('history');
-                        try {
-                          const fresh = await chestRepository.operation(
-                            traveler.id,
-                            row.operation_key,
-                          );
-                          if (!fresh)
-                            throw new Error('Registro não confirmado.');
-                          if (mounted.current)
-                            present(
-                              receiptFromOperation(fresh, traveler.id),
-                              true,
-                            );
-                        } catch (e) {
-                          if (mounted.current)
-                            setMessage(
-                              e instanceof Error
-                                ? e.message
-                                : 'Histórico indisponível.',
-                            );
-                        } finally {
-                          opening.current = false;
-                          if (mounted.current) setBusy(null);
-                        }
-                      }}
-                    >
-                      Ver novamente
-                    </button>
-                  </li>
-                ))}
-            </ul>
-          )}
-        </section>
-      )}
-      {communityOnly && (
-        <section aria-label="Histórico de baús conquistados">
-          <h2>Baús conquistados</h2>
-          {grants.length ? (
-            grants
-              .filter(
-                (r) =>
-                  r.traveler_id === traveler.id && isChestType(r.chest_type),
-              )
-              .map((r) => (
-                <p key={r.id}>
-                  {chestCatalog[r.chest_type as ChestType].name} ·{' '}
-                  {new Date(r.created_at).toLocaleString('pt-BR')}
-                </p>
-              ))
-          ) : (
-            <p>Nenhum baú comunitário confirmado carregado.</p>
-          )}
-        </section>
+                .map((r) => (
+                  <p key={r.id}>
+                    {chestCatalog[r.chest_type as ChestType].name} ·{' '}
+                    {new Date(r.created_at).toLocaleString('pt-BR')}
+                  </p>
+                ))
+            ) : (
+              <p>Nenhum baú comunitário confirmado carregado.</p>
+            )}
+          </section>
+        </details>
       )}
       {message && (
         <p className={styles.notice} role="status">

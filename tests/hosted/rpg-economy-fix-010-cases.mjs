@@ -67,6 +67,10 @@ export async function run({
         ';COMMIT;',
     );
   }
+  if (process.env.RPG_LOJA_FIX011_CASES === '1') {
+    await (await import('./rpg-loja-fix-011-cases.mjs')).run({q, check, denied, uid, tid, options, connections, read, project, env});
+    return;
+  }
   const actor = tid(2),
     other = tid(3),
     nonce = uid(90010);

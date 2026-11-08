@@ -23,6 +23,7 @@ export type RevealEvent = {
   revision: number;
   count: number;
   static?: boolean;
+  cinematic?: boolean;
 };
 export function revealTransition(
   state: RevealState,
@@ -37,8 +38,8 @@ export function revealTransition(
   const revision = state.revision + 1;
   const detail = () => ({
     ...state,
-    phase: 'details' as const,
-    seen: Math.max(state.seen, state.index + 1),
+    phase: event.cinematic ? ('summary' as const) : ('details' as const),
+    seen: event.cinematic ? event.count : Math.max(state.seen, state.index + 1),
     revision,
   });
   if (event.type === 'skip' && state.phase !== 'details') return detail();

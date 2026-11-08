@@ -177,6 +177,11 @@ jobs:
       - name: Ensaiar o pacote produtivo individual e a contenção preservadora
         run: node tests/hosted/rpg-economy-fix-010-postgres.mjs --production
 
+      - name: Exigir recuperação de baús pagos sem consumir fontes legadas ou duplicar recompensa
+        run: node tests/hosted/rpg-loja-fix-011-postgres.mjs
+      - name: Ensaiar a mesma correção no envelope produtivo
+        run: node tests/hosted/rpg-loja-fix-011-postgres.mjs --production
+
   pinned-preview:
     name: Preview do SHA aprovado
     needs: [quality, rsc-regression, governance-postgres]

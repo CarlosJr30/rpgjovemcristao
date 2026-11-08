@@ -66,11 +66,19 @@ function write(owner: string, traveler: string, v: VisualState) {
     );
   }
 }
-export function startIntent(owner: string, traveler: string, type: ChestType) {
+export function startIntent(
+  owner: string,
+  traveler: string,
+  type: ChestType,
+  operationId = crypto.randomUUID(),
+) {
   const state = readVisual(owner, traveler);
+  if (state.intent?.operationId === operationId && state.intent.type === type)
+    return state.intent;
+  if (!uuid(operationId)) throw new Error('Solicitação de abertura inválida.');
   if (state.intent)
     throw new Error('Consulte a abertura pendente antes de iniciar outra.');
-  const intent = { operationId: crypto.randomUUID(), type };
+  const intent = { operationId, type };
   write(owner, traveler, { ...state, intent });
   return intent;
 }

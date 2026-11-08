@@ -1,7 +1,9 @@
 'use client';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { chestCatalog } from '@rpg/game-engine';
-import { useState, useSyncExternalStore } from 'react';
+import dynamic from 'next/dynamic';
+import { useEffect, useRef, useState, useSyncExternalStore } from 'react';
 import {
   trainingSnapshot,
   emptyTrainingSnapshot,
@@ -18,12 +20,29 @@ import { EquipmentStatBonuses } from '../components/equipment-stat-bonuses';
 import { buyEquipment } from '../state/use-journey';
 import styles from '../journey.module.css';
 import shop from './shop.module.css';
-import { ShopPurchaseHistory } from '../../qa-shop/purchase-history';
+import {
+  getCurrentOnlineUserId,
+  reloadOnlineTraveler,
+} from '../../../lib/supabase/online-sync';
+import { requestChestOpening } from '../../chest-reveal/opening';
+import {
+  readVisual,
+  bindReceipt,
+  saveCursor,
+  type VisualCursor,
+} from '../../chest-reveal/visual-store';
+import { chestRepository } from '../../../lib/supabase/repositories/chest-repository';
+import type { RevealReceipt } from '../../chest-reveal/receipt';
+const ChestReveal = dynamic(
+  () => import('../../chest-reveal/reveal').then((m) => m.ChestReveal),
+  { ssr: false },
+);
 import { purchaseQAShop, resumeQAPurchase } from '../../../lib/qa-shop/client';
 
 export function ShopScreen({
   qa,
 }: { qa?: { actor: string; coins: number; production?: boolean } } = {}) {
+  const router = useRouter();
   const [feedback, setFeedback] = useState('');
   const [category, setCategory] = useState<'all' | 'chests' | 'equipment'>(
     'all',
@@ -40,29 +59,136 @@ export function ShopScreen({
     name: string;
   } | null>(null);
   const [busy, setBusy] = useState(false);
-  const resume = async () => {
-    if (!qa || busy) return;
+  const [pendingOpen, setPendingOpen] = useState<string | null>(() => {
+    const owner = getCurrentOnlineUserId();
+    if (!owner || !qa) return null;
+    try {
+      const intent = readVisual(owner, qa.actor).intent;
+      return intent?.type === 'common' ? intent.operationId : null;
+    } catch {
+      return null;
+    }
+  });
+  const [reveal, setReveal] = useState<{
+    receipt: RevealReceipt;
+    cursor: VisualCursor;
+    owner: string;
+  } | null>(null);
+  const mounted = useRef(true);
+  const running = useRef(false);
+  useEffect(() => {
+    mounted.current = true;
+    return () => {
+      mounted.current = false;
+    };
+  }, []);
+  const openPurchased = async (operation: string) => {
+    if (!qa) return;
+    const owner = getCurrentOnlineUserId();
+    if (!owner) throw Error('Entre novamente para abrir seu baú.');
+    setPendingOpen(operation);
+    setFeedback('Preparando seu baú…');
+    const receipt = await requestChestOpening(
+      owner,
+      qa.actor,
+      'common',
+      false,
+      true,
+      !qa.production,
+      operation,
+    );
+    if (!mounted.current) return;
+    const cursor = bindReceipt(owner, qa.actor, receipt);
+    setReveal({ receipt, cursor, owner });
+    setPendingOpen(null);
+    setFeedback('');
+    if (!(await reloadOnlineTraveler(qa.actor)) && mounted.current)
+      setFeedback('Recompensa confirmada. Atualização do saldo pendente.');
+  };
+  const retryOpen = async () => {
+    if (!pendingOpen || running.current) return;
+    running.current = true;
     setBusy(true);
     try {
-      await resumeQAPurchase(qa.actor);
-      setFeedback('Compra anterior confirmada; saldo atualizado.');
+      await openPurchased(pendingOpen);
+    } catch {
+      if (mounted.current)
+        setFeedback(
+          'Seu baú está guardado. Tente abrir novamente, sem nova cobrança.',
+        );
+    } finally {
+      running.current = false;
+      if (mounted.current) setBusy(false);
+    }
+  };
+  const recover = async () => {
+    if (!qa || running.current || pendingOpen) return;
+    running.current = true;
+    setBusy(true);
+    try {
+      const chests = await chestRepository.list(qa.actor);
+      if (!mounted.current) return;
+      if (
+        !chests.some(
+          (c) =>
+            c.chest_type === 'common' &&
+            c.quantity > 0 &&
+            Array.isArray(c.sources) &&
+            c.sources.some(
+              (source) =>
+                typeof source === 'string' && source.startsWith('shop001c:'),
+            ),
+        )
+      )
+        throw Error('Nenhum baú comprado disponível neste modo.');
+      await openPurchased(crypto.randomUUID());
+    } catch (e) {
+      if (mounted.current)
+        setFeedback(
+          e instanceof Error ? e.message : 'Seu baú permanece guardado.',
+        );
+    } finally {
+      running.current = false;
+      if (mounted.current) setBusy(false);
+    }
+  };
+  const resume = async () => {
+    if (!qa || running.current) return;
+    running.current = true;
+    setBusy(true);
+    try {
+      const receipt = await resumeQAPurchase(qa.actor);
+      if (!mounted.current) return;
+      if (receipt.kind === 'chest')
+        await openPurchased(receipt.openingOperationId);
+      else setFeedback('Item na Mochila.');
     } catch (e) {
       setFeedback(e instanceof Error ? e.message : 'Consulta não confirmada.');
     } finally {
-      setBusy(false);
+      running.current = false;
+      if (mounted.current) setBusy(false);
     }
   };
   const confirm = async () => {
-    if (!qa || !confirmation || busy) return;
+    if (!qa || !confirmation || running.current || pendingOpen) return;
+    running.current = true;
     setBusy(true);
     try {
-      await purchaseQAShop(qa.actor, confirmation.kind, confirmation.id);
-      setFeedback('Compra confirmada no servidor. Consulte a Mochila.');
+      const receipt = await purchaseQAShop(
+        qa.actor,
+        confirmation.kind,
+        confirmation.id,
+      );
+      if (!mounted.current) return;
       setConfirmation(null);
+      if (receipt.kind === 'chest')
+        await openPurchased(receipt.openingOperationId);
+      else setFeedback('Item na Mochila.');
     } catch (e) {
       setFeedback(e instanceof Error ? e.message : 'Compra não confirmada.');
     } finally {
-      setBusy(false);
+      running.current = false;
+      if (mounted.current) setBusy(false);
     }
   };
   const buy = (id: string, name: string) => {
@@ -116,27 +242,37 @@ export function ShopScreen({
               {feedback}
             </p>
             {qa && (
-              <>
+              <details className={shop.details}>
+                <summary>Ajuda e recuperação</summary>
                 <p>
                   {training
-                    ? 'Somente a carteira e o inventário privados de treino serão alterados.'
-                    : qa.production
-                      ? 'Compras com suas moedas de jogo, confirmadas pelo servidor. Sem pagamentos em dinheiro real.'
-                      : 'Orçamento QA isolado. Preços aprovados somente para TEST; sem pagamentos reais.'}
+                    ? 'Saldo e itens de treino separados.'
+                    : 'Compras com moedas de jogo.'}
                 </p>
-                <button disabled={busy} onClick={() => void resume()}>
+                <button
+                  disabled={busy || !!pendingOpen}
+                  onClick={() => void resume()}
+                >
                   Consultar compra pendente
                 </button>
+                <button
+                  disabled={busy || !!pendingOpen}
+                  onClick={() => void recover()}
+                >
+                  Abrir baú guardado
+                </button>
+                <Link href="/journey/equipment">Meus equipamentos</Link>
+              </details>
+            )}
+            {pendingOpen && (
+              <section aria-label="Baú comprado">
                 <p>
-                  Cartas: compras indisponíveis.{' '}
-                  <Link href="/journey/arena/deck">
-                    Meu Baralho e pacote inicial existente
-                  </Link>
+                  Compra confirmada. Seu baú permanece guardado até a abertura.
                 </p>
-                <Link href="/journey/equipment">
-                  Usar equipamentos adquiridos
-                </Link>
-              </>
+                <button disabled={busy} onClick={() => void retryOpen()}>
+                  Tentar abrir novamente
+                </button>
+              </section>
             )}
             {confirmation && (
               <section
@@ -209,7 +345,7 @@ export function ShopScreen({
                   </strong>
                   <button
                     className={styles.primaryLink}
-                    disabled={busy || traveler.coins < 40}
+                    disabled={busy || !!pendingOpen || traveler.coins < 40}
                     onClick={() =>
                       setConfirmation({
                         kind: 'chest',
@@ -432,11 +568,24 @@ export function ShopScreen({
                 </details>
               </section>
             )}
-            {qa?.production && (
-              <ShopPurchaseHistory
-                key={qa.actor}
-                actor={qa.actor}
-                revision={traveler.coins}
+            {reveal && qa && (
+              <ChestReveal
+                key={reveal.receipt.id}
+                receipt={reveal.receipt}
+                traveler={traveler}
+                cursor={reveal.cursor}
+                cinematic
+                presentationLabel={
+                  training ? 'Tesouro de treino QA' : 'Seu tesouro'
+                }
+                onProgress={(cursor) =>
+                  saveCursor(reveal.owner, qa.actor, cursor)
+                }
+                onClose={() => setReveal(null)}
+                onViewEquipment={() => {
+                  setReveal(null);
+                  router.push(routes.backpack);
+                }}
               />
             )}
           </section>
