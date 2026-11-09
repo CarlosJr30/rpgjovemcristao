@@ -8,7 +8,7 @@ import {
   type BattleParticipantSnapshot,
 } from '@rpg/game-engine';
 export const MEASURED_CARD_ID = 'arena-card-measured-strike';
-export const syntheticSevenCards = () => getArenaCardCatalog();
+export const syntheticSevenCards = () => getArenaCardCatalog().slice(0, 7);
 export const measuredHero: BattleParticipantSnapshot = {
   id: '003a-fixture-player',
   name: 'Viajante sintético003A',

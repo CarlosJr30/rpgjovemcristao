@@ -1,6 +1,6 @@
 import { createHash } from 'node:crypto';
 import {
-  ARENA_CARD_BALANCE_VERSION,
+  arenaRulesVersionForDeck,
   createArenaDeckBattle,
   isArenaCard,
   resolveArenaCommand,
@@ -118,7 +118,7 @@ function snapshot(id: string, c: CanonicalContext) {
   });
 }
 function canonicalState(b: BattleRecord) {
-  requireValue(b.rules_version === ARENA_CARD_BALANCE_VERSION, 409);
+  requireValue(b.rules_version === arenaRulesVersionForDeck(b.cards), 409);
   return (
     b.state ??
     createArenaDeckBattle(
@@ -230,7 +230,7 @@ export async function executeAuthority(
           opponent,
           floor: b.floor,
           towerVersion: b.mode === 'tower-v3' ? TOWER_VERSION : null,
-          rulesVersion: ARENA_CARD_BALANCE_VERSION,
+          rulesVersion: arenaRulesVersionForDeck(ids.map((id) => ({ id }))),
         }),
       );
     }
@@ -279,7 +279,7 @@ export async function executeAuthority(
           commandId: b.commandId,
           command: { round: b.round, action: b.action },
           state: next,
-          rulesVersion: ARENA_CARD_BALANCE_VERSION,
+          rulesVersion: registered.rules_version,
         }),
       );
     }

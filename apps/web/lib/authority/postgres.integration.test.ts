@@ -22,13 +22,15 @@ import {
 } from './service';
 
 // Synthetic catalog approval exists ONLY in this opt-in disposable PostgreSQL.
-const cards = getArenaCardCatalog().map((c, i) => ({
-  id: `004-synthetic-card-${i}`,
-  name: `Synthetic ${i}`,
-  type: c.type,
-  rarity: c.rarity,
-  action: c.action,
-}));
+const cards = getArenaCardCatalog()
+  .slice(0, 7)
+  .map((c, i) => ({
+    id: `004-synthetic-card-${i}`,
+    name: `Synthetic ${i}`,
+    type: c.type,
+    rarity: c.rarity,
+    action: c.action,
+  }));
 const ids = cards.map((c) => c.id);
 const db = offlinePostgres();
 const port: AuthorityPort = {
@@ -152,7 +154,7 @@ describe.runIf(process.env.RPG_LOCAL_PG === '1')(
         card: 1,
         chests: 1,
       });
-      expect(getApprovedArenaCards()).toHaveLength(0);
+      expect(getApprovedArenaCards()).toHaveLength(40);
       const old = JSON.parse(preservedLegacy),
         now = JSON.parse(
           db.query(

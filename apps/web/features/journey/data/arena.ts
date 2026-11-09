@@ -14,6 +14,12 @@ const EFFECT_BY_ITEM: Readonly<Record<string, readonly BattleEffectId[]>> = {
   'wisdom-amulet': ['prudence-amulet'],
   'traveler-helmet-rare': ['traveler-helmet'],
   'traveler-armor-uncommon': ['traveler-armor'],
+  'equipment-guardian-armor': ['traveler-armor'],
+  'equipment-perseverance-armor': ['traveler-armor'],
+  'equipment-fortress-armor': ['traveler-armor'],
+  'equipment-vigilance-helmet': ['traveler-helmet'],
+  'equipment-perseverance-helmet': ['traveler-helmet'],
+  'equipment-prudence-amulet': ['prudence-amulet'],
 };
 
 export function equipmentSnapshot(item: Equipment) {
@@ -38,7 +44,13 @@ export function travelerBattleSnapshot(
     equipment,
     avatarKey: `${traveler.avatar.gender}:${traveler.appearance.hair}:${traveler.appearance.outfit}:${traveler.appearance.skin}`,
   };
-  return { ...base, combatPower: calculateCombatPower(base) };
+  const specialModifiers = equippedItems(traveler).some(
+    (item) => item.id === 'equipment-perseverance-medallion',
+  )
+    ? { 'pilgrim-step': { focusDiscount: 1 } }
+    : undefined;
+  const frozen = { ...base, ...(specialModifiers ? { specialModifiers } : {}) };
+  return { ...frozen, combatPower: calculateCombatPower(frozen) };
 }
 
 function trainingSnapshot(

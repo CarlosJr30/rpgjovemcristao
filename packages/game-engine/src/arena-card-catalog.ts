@@ -10,10 +10,17 @@ import {
   type ArenaBaseAction,
   type ArenaCard,
 } from './arena-deck';
+import {
+  ARENA_CONTENT_040_CARDS,
+  CONTENT_040_CARD_BY_ID,
+} from './arena-content-040';
 
 export const ARENA_CARD_CATALOG_VERSION = 'arena-cards-2026-10-20.2';
+export const CONTENT_040_CARD_CATALOG_VERSION =
+  'arena-cards-2026-11-09.1-content-040a';
 export const ARENA_CARD_ID_PREFIX = 'arena-card-';
 export const ARENA_CARD_BALANCE_VERSION = 'arena-v2-measured-strike-003a.1';
+export const CONTENT_040_CARD_RULES_VERSION = 'arena-content-040a-2026-11-09.1';
 export const ARENA_CARD_RARITIES = Object.freeze([
   'comum',
   'incomum',
@@ -36,10 +43,12 @@ export type OfficialArenaCardDefinition = Readonly<{
   focusCost: number;
   usesPerBattle: 1;
   remainsOwnedAfterBattle: true;
-  catalogVersion: typeof ARENA_CARD_CATALOG_VERSION;
-  balanceVersion: typeof ARENA_CARD_BALANCE_VERSION;
+  catalogVersion:
+    typeof ARENA_CARD_CATALOG_VERSION | typeof CONTENT_040_CARD_CATALOG_VERSION;
+  balanceVersion:
+    typeof ARENA_CARD_BALANCE_VERSION | typeof CONTENT_040_CARD_RULES_VERSION;
   biblicalReference: string | null;
-  art: Readonly<{ approved: false; reference: null }>;
+  art: Readonly<{ approved: boolean; reference: string | null }>;
   homologation: Readonly<{
     status: 'proposed' | 'approved' | 'retired';
     approvalReference: string | null;
@@ -159,10 +168,10 @@ function parameters(action: ArenaBaseAction): Readonly<Record<string, number>> {
   return Object.freeze({ avoidedHits: 1, receivedDamage: 0, maximumFocus });
 }
 
-/** Registry of proposals, not an owned collection or authorization to grant. */
+/** Static approved definitions. Possession remains receipt-backed and separate. */
 export function getArenaCardCatalog(): readonly OfficialArenaCardDefinition[] {
-  return Object.freeze(
-    identities.map((identity) => {
+  return Object.freeze([
+    ...identities.map((identity) => {
       const special = arenaSpecials.find(
         (entry) => `special:${entry.id}` === identity.action,
       );
@@ -193,7 +202,51 @@ export function getArenaCardCatalog(): readonly OfficialArenaCardDefinition[] {
         }),
       });
     }),
-  );
+    ...ARENA_CONTENT_040_CARDS.map((entry) => ({
+      id: entry.id,
+      name: entry.name,
+      type: entry.type,
+      rarity: entry.rarity as ArenaCardRarity,
+      action: entry.action,
+      description: Object.freeze({
+        focusCost: entry.focusCost,
+        minimumLevel: entry.minimumLevel,
+        condition:
+          'Carta própria, não usada nesta batalha, com nível, Foco e condição de HP atendidos.',
+        headline: entry.summary,
+        explanation: entry.explanation,
+        duration:
+          'Uma utilização por batalha; ocupa a ação da rodada. O resultado usa somente regras do servidor.',
+      }),
+      parameters: Object.freeze(
+        Object.fromEntries(
+          Object.entries(entry.rule).filter(
+            ([, value]) => typeof value === 'number',
+          ),
+        ) as Record<string, number>,
+      ),
+      minimumLevel: entry.minimumLevel,
+      focusCost: entry.focusCost,
+      usesPerBattle: 1 as const,
+      remainsOwnedAfterBattle: true as const,
+      catalogVersion:
+        CONTENT_040_CARD_CATALOG_VERSION as typeof CONTENT_040_CARD_CATALOG_VERSION,
+      balanceVersion:
+        CONTENT_040_CARD_RULES_VERSION as typeof CONTENT_040_CARD_RULES_VERSION,
+      biblicalReference: null,
+      art: Object.freeze({ approved: true, reference: entry.artPath }),
+      homologation: Object.freeze({
+        status: 'approved' as const,
+        approvalReference: 'CONTENT-040A:OWNER:2026-11-09',
+      }),
+      acquisition: Object.freeze({
+        status: 'pending-server-contract' as const,
+        proposedSources,
+        authorizedSources: Object.freeze([]),
+        approvalReference: null,
+      }),
+    })),
+  ]);
 }
 
 export function findArenaCardDefinition(id: unknown) {
@@ -205,6 +258,19 @@ export function findArenaCardDefinition(id: unknown) {
 /** Costs/descriptions use the actual frozen fighter, including equipment modifiers. */
 export function describeCatalogCard(id: unknown, fighter?: BattleFighterState) {
   const definition = findArenaCardDefinition(id);
+  const content =
+    typeof id === 'string' ? CONTENT_040_CARD_BY_ID.get(id) : undefined;
+  if (content)
+    return Object.freeze({
+      focusCost: content.focusCost,
+      minimumLevel: content.minimumLevel,
+      condition:
+        'Carta própria, não usada nesta batalha, com nível, Foco e condição de HP atendidos.',
+      headline: content.summary,
+      explanation: content.explanation,
+      duration:
+        'Uma utilização por batalha; ocupa a ação da rodada. O resultado usa somente regras do servidor.',
+    });
   return definition ? describeArenaAction(definition.action, fighter) : null;
 }
 
@@ -214,10 +280,7 @@ export function getApprovedArenaCards(): readonly ArenaCard[] {
       .filter(
         (entry) =>
           entry.homologation.status === 'approved' &&
-          !!entry.homologation.approvalReference &&
-          entry.acquisition.status === 'enabled' &&
-          !!entry.acquisition.approvalReference &&
-          entry.acquisition.authorizedSources.length > 0,
+          !!entry.homologation.approvalReference,
       )
       .map(({ id, name, rarity, type, action }) =>
         Object.freeze({ id, name, rarity, type, action }),
@@ -230,6 +293,14 @@ export function resolveApprovedArenaCard(id: unknown): ArenaCard | null {
   return typeof id === 'string'
     ? (getApprovedArenaCards().find((entry) => entry.id === id) ?? null)
     : null;
+}
+
+export function arenaRulesVersionForDeck(
+  cards: readonly Pick<ArenaCard, 'id'>[],
+): string {
+  return cards.some((card) => CONTENT_040_CARD_BY_ID.has(card.id))
+    ? CONTENT_040_CARD_RULES_VERSION
+    : ARENA_CARD_BALANCE_VERSION;
 }
 
 export function getArenaCardReadiness(level = 1) {
@@ -250,16 +321,13 @@ export function getArenaCardReadiness(level = 1) {
     proposedUsableAtLevel: proposals.filter(
       (entry) => entry.minimumLevel <= level,
     ).length,
-    // No authoritative entitlement/starter/receipt protocol exists yet. Adding a
-    // catalog approval alone must never activate browser inventory as authority.
+    // Definitions alone never authorize client inventory, grants, or acquisition.
     collectionAvailable: false,
     starterAvailable: false,
     authoritativeAcquisitionAvailable: false,
     blockers: Object.freeze([
       ...(missing ? ['seventh-effect-pending' as const] : []),
-      'homologation-pending',
       'server-acquisition-pending',
-      'starter-contract-pending',
     ] as const),
   });
 }

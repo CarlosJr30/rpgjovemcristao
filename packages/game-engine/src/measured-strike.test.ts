@@ -76,10 +76,10 @@ test('candidate identity, seven distinct proposals and production gates remain i
     art: { reference: null },
     biblicalReference: null,
   });
-  expect(getApprovedArenaCards()).toEqual([]);
+  expect(getApprovedArenaCards()).toHaveLength(33);
   expect(getArenaCardReadiness()).toMatchObject({
     missingDistinctEffects: 0,
-    approvedCards: 0,
+    approvedCards: 33,
     collectionAvailable: false,
     starterAvailable: false,
   });

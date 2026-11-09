@@ -10,7 +10,7 @@ import {
 import {
   arenaCardAvailability,
   arenaCombatConfig,
-  describeArenaAction,
+  describeCatalogCard,
   type ArenaProductAction,
   type BattleState,
 } from '@rpg/game-engine';
@@ -236,7 +236,7 @@ export function ArenaBattleActions({
   };
 
   const effect = selectedCard
-    ? describeArenaAction(selectedCard.action, battle.player)
+    ? describeCatalogCard(selectedCard.id, battle.player)
     : null;
   const illustration = selectedCard
     ? arenaCardIllustration(selectedCard.id)

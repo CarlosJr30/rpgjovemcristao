@@ -18,10 +18,12 @@ const replicas = [
   offlinePostgres({ authoritySeed: seed }),
 ];
 type DB = (typeof replicas)[number];
-const cards = getArenaCardCatalog().map((c, i) => ({
-  ...c,
-  id: `006-offline-${i}`,
-}));
+const cards = getArenaCardCatalog()
+  .slice(0, 7)
+  .map((c, i) => ({
+    ...c,
+    id: `006-offline-${i}`,
+  }));
 const ids = cards.map((c) => c.id);
 const rows: object[] = [];
 const execute = <T>(db: DB, n: number, body: object) =>

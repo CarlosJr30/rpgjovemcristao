@@ -178,6 +178,12 @@ export function EquipmentScreen() {
     event: MouseEvent<HTMLButtonElement>,
   ) => {
     if (busy) return;
+    if (traveler.level < (item.minimumLevel ?? 1)) {
+      setFeedback(
+        `Nível ${item.minimumLevel} necessário para equipar ${item.name}.`,
+      );
+      return;
+    }
     if (getCurrentOnlineUserId()) {
       void confirmOnline(traveler, item.slot, item.id);
       return;
@@ -545,7 +551,9 @@ export function EquipmentScreen() {
                           </button>
                           <button
                             className={styles.primaryLink}
-                            disabled={busy}
+                            disabled={
+                              busy || t.level < (item.minimumLevel ?? 1)
+                            }
                             onClick={(event) =>
                               t.equipped[slot] === item.id
                                 ? unequip(slot, t)
@@ -554,7 +562,9 @@ export function EquipmentScreen() {
                           >
                             {t.equipped[slot] === item.id
                               ? 'Desequipar'
-                              : 'Equipar'}
+                              : t.level < (item.minimumLevel ?? 1)
+                                ? `Nível ${item.minimumLevel} necessário`
+                                : 'Equipar'}
                           </button>
                           {t.equipped[slot] === item.id && (
                             <button

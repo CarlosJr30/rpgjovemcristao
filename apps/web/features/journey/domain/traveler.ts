@@ -19,12 +19,23 @@ export type AvatarConfig = {
   portraitConfig: { state: 'idle' };
 };
 export const DEFAULT_AVATAR: AvatarConfig = {
-  gender: 'male', face: 1, hair: 1, hairColor: 'castanho', cloakColor: 'musgo', clothing: 'musgo',
-  equippedItems: {}, portraitConfig: { state: 'idle' },
+  gender: 'male',
+  face: 1,
+  hair: 1,
+  hairColor: 'castanho',
+  cloakColor: 'musgo',
+  clothing: 'musgo',
+  equippedItems: {},
+  portraitConfig: { state: 'idle' },
 };
 export type EquipmentSlot =
   'helmet' | 'armor' | 'weapon' | 'shield' | 'boots' | 'amulet';
-export const ATTRIBUTE_KEYS = ['life', 'strength', 'defense', 'wisdom'] as const;
+export const ATTRIBUTE_KEYS = [
+  'life',
+  'strength',
+  'defense',
+  'wisdom',
+] as const;
 export type AttributeKey = (typeof ATTRIBUTE_KEYS)[number];
 export type AttributeValues = Record<AttributeKey, number>;
 export type EquipmentStats = Partial<AttributeValues>;
@@ -35,23 +46,74 @@ export type Equipment = {
   rarity: 'comum' | 'incomum' | 'raro' | 'épico' | 'lendário';
   power: number;
   stats: EquipmentStats;
+  /** Server-enforced level requirement for approved content-catalog items. */
+  minimumLevel?: number;
+  /** Standalone approved item portrait; never used as a body overlay. */
+  catalogArt?: string;
+  /** Short player-facing flavor text for the inventory card. */
+  description?: string;
   quantity?: number;
   isNew?: boolean;
 };
-const EQUIPMENT_SLOTS: readonly EquipmentSlot[] = ['helmet', 'armor', 'weapon', 'shield', 'boots', 'amulet'];
+const EQUIPMENT_SLOTS: readonly EquipmentSlot[] = [
+  'helmet',
+  'armor',
+  'weapon',
+  'shield',
+  'boots',
+  'amulet',
+];
 function isEquipmentStats(value: unknown): value is EquipmentStats {
-  return record(value) && Object.keys(value).every((key) => ATTRIBUTE_KEYS.includes(key as AttributeKey)) &&
-    Object.values(value).every((bonus) => typeof bonus === 'number' && Number.isInteger(bonus) && bonus >= 0 && bonus <= 100);
+  return (
+    record(value) &&
+    Object.keys(value).every((key) =>
+      ATTRIBUTE_KEYS.includes(key as AttributeKey),
+    ) &&
+    Object.values(value).every(
+      (bonus) =>
+        typeof bonus === 'number' &&
+        Number.isInteger(bonus) &&
+        bonus >= 0 &&
+        bonus <= 100,
+    )
+  );
 }
 function isEquipment(value: unknown): value is Equipment {
-  return record(value) && typeof value.id === 'string' && value.id.length > 0 && value.id.length <= 64 &&
-    typeof value.name === 'string' && value.name.length > 0 && value.name.length <= 80 &&
+  return (
+    record(value) &&
+    typeof value.id === 'string' &&
+    value.id.length > 0 &&
+    value.id.length <= 64 &&
+    typeof value.name === 'string' &&
+    value.name.length > 0 &&
+    value.name.length <= 80 &&
     EQUIPMENT_SLOTS.includes(value.slot as EquipmentSlot) &&
-    ['comum', 'incomum', 'raro', 'épico', 'lendário'].includes(String(value.rarity)) &&
-    typeof value.power === 'number' && Number.isInteger(value.power) && value.power >= 0 && value.power <= 1000 &&
+    ['comum', 'incomum', 'raro', 'épico', 'lendário'].includes(
+      String(value.rarity),
+    ) &&
+    typeof value.power === 'number' &&
+    Number.isInteger(value.power) &&
+    value.power >= 0 &&
+    value.power <= 1000 &&
     isEquipmentStats(value.stats) &&
-    (value.quantity === undefined || (typeof value.quantity === 'number' && Number.isInteger(value.quantity) && value.quantity > 0 && value.quantity <= 999)) &&
-    (value.isNew === undefined || typeof value.isNew === 'boolean');
+    (value.minimumLevel === undefined ||
+      (typeof value.minimumLevel === 'number' &&
+        Number.isInteger(value.minimumLevel) &&
+        value.minimumLevel >= 1 &&
+        value.minimumLevel <= 50)) &&
+    (value.catalogArt === undefined ||
+      (typeof value.catalogArt === 'string' &&
+        value.catalogArt.startsWith('/assets/equipment/catalog/'))) &&
+    (value.description === undefined ||
+      (typeof value.description === 'string' &&
+        value.description.length <= 180)) &&
+    (value.quantity === undefined ||
+      (typeof value.quantity === 'number' &&
+        Number.isInteger(value.quantity) &&
+        value.quantity > 0 &&
+        value.quantity <= 999)) &&
+    (value.isNew === undefined || typeof value.isNew === 'boolean')
+  );
 }
 export type ChestOpening = {
   operationId: string;
@@ -162,7 +224,10 @@ export type Traveler = {
     guildRewardClaimed: boolean;
     nextPhaseUnlocked: boolean;
     specialChallenges: SpecialChallenge[];
-    guildActivities: Record<string, 'submitted' | 'revision-requested' | 'approved' | 'claimed'>;
+    guildActivities: Record<
+      string,
+      'submitted' | 'revision-requested' | 'approved' | 'claimed'
+    >;
     guildActivitySubmittedAt: Record<string, string>;
     diaryEntries: number;
     gardenExploredPoints: string[];
@@ -208,14 +273,25 @@ export function createTraveler(
     attributes: { ...BASE_ATTRIBUTES },
     inventory: STARTER_EQUIPMENT.map((item) => ({ ...item })),
     chests: { common: 0, uncommon: 0, rare: 0, epic: 0, extraordinary: 0 },
-    chestSources: { common: [], uncommon: [], rare: [], epic: [], extraordinary: [] },
+    chestSources: {
+      common: [],
+      uncommon: [],
+      rare: [],
+      epic: [],
+      extraordinary: [],
+    },
     chestHistory: [],
     chestOperationIds: [],
     equipped: { boots: 'traveler-boots' },
     appearance: { ...appearance },
     avatar: {
       ...DEFAULT_AVATAR,
-      hair: appearance.hair === 'longo' ? 2 : appearance.hair === 'cacheado' ? 3 : 1,
+      hair:
+        appearance.hair === 'longo'
+          ? 2
+          : appearance.hair === 'cacheado'
+            ? 3
+            : 1,
       cloakColor: appearance.outfit,
       clothing: appearance.outfit,
       equippedItems: { boots: 'traveler-boots' },
@@ -277,11 +353,20 @@ const isSpecialChallenge = (value: unknown): value is SpecialChallenge =>
   typeof value.createdAt === 'string' &&
   (value.expiresAt === null || typeof value.expiresAt === 'string') &&
   typeof value.createdBy === 'string' &&
-  ['available', 'in-progress', 'submitted', 'awaiting-validation', 'revision-requested', 'reward-available', 'completed'].includes(String(value.status)) &&
+  [
+    'available',
+    'in-progress',
+    'submitted',
+    'awaiting-validation',
+    'revision-requested',
+    'reward-available',
+    'completed',
+  ].includes(String(value.status)) &&
   (value.submittedAt === null || typeof value.submittedAt === 'string') &&
   (value.validatedAt === null || typeof value.validatedAt === 'string') &&
   typeof value.rewardClaimed === 'boolean' &&
-  (value.collectiveTarget === null || typeof value.collectiveTarget === 'number');
+  (value.collectiveTarget === null ||
+    typeof value.collectiveTarget === 'number');
 
 /** Validação estrita da versão local: dados alterados nunca liberam atos ou recompensas. */
 export function parseTraveler(value: unknown): Traveler | null {
@@ -312,25 +397,97 @@ export function parseTraveler(value: unknown): Traveler | null {
     !/^[\da-f]{8}-[\da-f]{4}-[\da-f]{4}-[\da-f]{4}-[\da-f]{12}$/i.test(value.id)
   )
     return null;
-  if (!record(value.avatar) || !['male', 'female'].includes(String(value.avatar.gender)) ||
-    typeof value.avatar.face !== 'number' || typeof value.avatar.hair !== 'number' ||
-    typeof value.avatar.hairColor !== 'string' || typeof value.avatar.cloakColor !== 'string' ||
+  if (
+    !record(value.avatar) ||
+    !['male', 'female'].includes(String(value.avatar.gender)) ||
+    typeof value.avatar.face !== 'number' ||
+    typeof value.avatar.hair !== 'number' ||
+    typeof value.avatar.hairColor !== 'string' ||
+    typeof value.avatar.cloakColor !== 'string' ||
     typeof value.avatar.clothing !== 'string' ||
-    !record(value.avatar.equippedItems) || !record(value.avatar.portraitConfig) ||
-    value.avatar.portraitConfig.state !== 'idle') return null;
+    !record(value.avatar.equippedItems) ||
+    !record(value.avatar.portraitConfig) ||
+    value.avatar.portraitConfig.state !== 'idle'
+  )
+    return null;
   const inventory = value.inventory;
-  const chestTypes: readonly ChestType[] = ['common', 'uncommon', 'rare', 'epic', 'extraordinary'];
+  const chestTypes: readonly ChestType[] = [
+    'common',
+    'uncommon',
+    'rare',
+    'epic',
+    'extraordinary',
+  ];
   const chests = record(value.chests) ? value.chests : null;
   const chestSources = record(value.chestSources) ? value.chestSources : null;
-  if (!chests || !exactKeys(chests, [...chestTypes]) || !chestSources || !exactKeys(chestSources, [...chestTypes]) || !chestTypes.every((type) => {
-    const quantity = chests[type];
-    const sources = chestSources[type];
-    return typeof quantity === 'number' && Number.isInteger(quantity) && quantity >= 0 && quantity <= 9999 && Array.isArray(sources) && sources.length === quantity && sources.every((source) => typeof source === 'string' && source.length > 0 && source.length <= 120);
-  }) || !Array.isArray(value.chestOperationIds) || value.chestOperationIds.length > 200 || !value.chestOperationIds.every((id) => typeof id === 'string' && id.length > 0 && id.length <= 160) || !Array.isArray(value.chestHistory) || value.chestHistory.length > 100 || !value.chestHistory.every((entry) => record(entry) && typeof entry.operationId === 'string' && chestTypes.includes(entry.chestType as ChestType) && typeof entry.source === 'string' && entry.source.length <= 120 && typeof entry.openedAt === 'string' && record(entry.reward) && typeof entry.reward.coins === 'number' && Number.isInteger(entry.reward.coins) && entry.reward.coins >= 0 && (entry.reward.itemId === null || typeof entry.reward.itemId === 'string') && (entry.reward.itemName === null || typeof entry.reward.itemName === 'string'))) return null;
-  if (!Array.isArray(inventory) || !inventory.every(isEquipment) || !record(value.equipped) ||
-    !Object.entries(value.equipped).every(([slot, id]) => EQUIPMENT_SLOTS.includes(slot as EquipmentSlot) &&
-      typeof id === 'string' && inventory.some((item: Equipment) => item.id === id && item.slot === slot)) ||
-    !Object.entries(value.avatar.equippedItems).every(([slot, id]) => EQUIPMENT_SLOTS.includes(slot as EquipmentSlot) && typeof id === 'string')) return null;
+  if (
+    !chests ||
+    !exactKeys(chests, [...chestTypes]) ||
+    !chestSources ||
+    !exactKeys(chestSources, [...chestTypes]) ||
+    !chestTypes.every((type) => {
+      const quantity = chests[type];
+      const sources = chestSources[type];
+      return (
+        typeof quantity === 'number' &&
+        Number.isInteger(quantity) &&
+        quantity >= 0 &&
+        quantity <= 9999 &&
+        Array.isArray(sources) &&
+        sources.length === quantity &&
+        sources.every(
+          (source) =>
+            typeof source === 'string' &&
+            source.length > 0 &&
+            source.length <= 120,
+        )
+      );
+    }) ||
+    !Array.isArray(value.chestOperationIds) ||
+    value.chestOperationIds.length > 200 ||
+    !value.chestOperationIds.every(
+      (id) => typeof id === 'string' && id.length > 0 && id.length <= 160,
+    ) ||
+    !Array.isArray(value.chestHistory) ||
+    value.chestHistory.length > 100 ||
+    !value.chestHistory.every(
+      (entry) =>
+        record(entry) &&
+        typeof entry.operationId === 'string' &&
+        chestTypes.includes(entry.chestType as ChestType) &&
+        typeof entry.source === 'string' &&
+        entry.source.length <= 120 &&
+        typeof entry.openedAt === 'string' &&
+        record(entry.reward) &&
+        typeof entry.reward.coins === 'number' &&
+        Number.isInteger(entry.reward.coins) &&
+        entry.reward.coins >= 0 &&
+        (entry.reward.itemId === null ||
+          typeof entry.reward.itemId === 'string') &&
+        (entry.reward.itemName === null ||
+          typeof entry.reward.itemName === 'string'),
+    )
+  )
+    return null;
+  if (
+    !Array.isArray(inventory) ||
+    !inventory.every(isEquipment) ||
+    !record(value.equipped) ||
+    !Object.entries(value.equipped).every(
+      ([slot, id]) =>
+        EQUIPMENT_SLOTS.includes(slot as EquipmentSlot) &&
+        typeof id === 'string' &&
+        inventory.some(
+          (item: Equipment) => item.id === id && item.slot === slot,
+        ),
+    ) ||
+    !Object.entries(value.avatar.equippedItems).every(
+      ([slot, id]) =>
+        EQUIPMENT_SLOTS.includes(slot as EquipmentSlot) &&
+        typeof id === 'string',
+    )
+  )
+    return null;
   if (
     typeof value.name !== 'string' ||
     validateName(value.name) ||
@@ -409,28 +566,59 @@ export function parseTraveler(value: unknown): Traveler | null {
     typeof progress.gardenRewardGranted !== 'boolean' ||
     typeof progress.gardenDiscoveryFound !== 'boolean' ||
     !(progress.guildId === null || typeof progress.guildId === 'string') ||
-    !['locked', 'available', 'in-progress', 'submitted', 'awaiting-validation', 'revision-requested', 'approved', 'reward-available', 'completed'].includes(
-      String(progress.guildChallengeStatus),
-    ) ||
+    ![
+      'locked',
+      'available',
+      'in-progress',
+      'submitted',
+      'awaiting-validation',
+      'revision-requested',
+      'approved',
+      'reward-available',
+      'completed',
+    ].includes(String(progress.guildChallengeStatus)) ||
     progress.guildChallengeId !== 'share-learning' ||
-    !(progress.guildChallengeSubmittedAt === null || typeof progress.guildChallengeSubmittedAt === 'string') ||
-    !(progress.guildChallengeValidatedAt === null || typeof progress.guildChallengeValidatedAt === 'string') ||
+    !(
+      progress.guildChallengeSubmittedAt === null ||
+      typeof progress.guildChallengeSubmittedAt === 'string'
+    ) ||
+    !(
+      progress.guildChallengeValidatedAt === null ||
+      typeof progress.guildChallengeValidatedAt === 'string'
+    ) ||
     typeof progress.guildRewardClaimed !== 'boolean' ||
     typeof progress.nextPhaseUnlocked !== 'boolean' ||
     !Array.isArray(progress.specialChallenges) ||
     !progress.specialChallenges.every(isSpecialChallenge) ||
     !record(progress.guildActivities) ||
-    !Object.entries(progress.guildActivities).every(([id, status]) => id.length > 0 && id.length <= 64 && ['submitted', 'revision-requested', 'approved', 'claimed'].includes(String(status))) ||
+    !Object.entries(progress.guildActivities).every(
+      ([id, status]) =>
+        id.length > 0 &&
+        id.length <= 64 &&
+        ['submitted', 'revision-requested', 'approved', 'claimed'].includes(
+          String(status),
+        ),
+    ) ||
     !record(progress.guildActivitySubmittedAt) ||
-    !Object.entries(progress.guildActivitySubmittedAt).every(([id, date]) => id.length > 0 && id.length <= 64 && typeof date === 'string' && Number.isFinite(Date.parse(date))) ||
+    !Object.entries(progress.guildActivitySubmittedAt).every(
+      ([id, date]) =>
+        id.length > 0 &&
+        id.length <= 64 &&
+        typeof date === 'string' &&
+        Number.isFinite(Date.parse(date)),
+    ) ||
     typeof progress.diaryEntries !== 'number' ||
     !Number.isInteger(progress.diaryEntries) ||
-    progress.diaryEntries < 0
-    || !Array.isArray(progress.gardenExploredPoints) ||
-    !progress.gardenExploredPoints.every((point) => typeof point === 'string') ||
+    progress.diaryEntries < 0 ||
+    !Array.isArray(progress.gardenExploredPoints) ||
+    !progress.gardenExploredPoints.every(
+      (point) => typeof point === 'string',
+    ) ||
     typeof progress.gardenFragments !== 'number' ||
-    !Number.isInteger(progress.gardenFragments) || progress.gardenFragments < 0 ||
-    progress.gardenFragments > 3 || typeof progress.gardenStep !== 'string' ||
+    !Number.isInteger(progress.gardenFragments) ||
+    progress.gardenFragments < 0 ||
+    progress.gardenFragments > 3 ||
+    typeof progress.gardenStep !== 'string' ||
     !Array.isArray(progress.gardenOpenedChests) ||
     !progress.gardenOpenedChests.every((id) => typeof id === 'string') ||
     !Array.isArray(progress.gardenCollectedLoot) ||
@@ -440,10 +628,22 @@ export function parseTraveler(value: unknown): Traveler | null {
     !Array.isArray(progress.gardenEvents) ||
     !progress.gardenEvents.every((id) => typeof id === 'string') ||
     !record(progress.bibleReading) ||
-    !exactKeys(progress.bibleReading, ['genesis2Opened', 'genesis2Confirmed', 'genesis3Opened', 'genesis3Confirmed', 'comprehensionCompleted']) ||
-    !(progress.bibleReading.genesis2Opened === null || typeof progress.bibleReading.genesis2Opened === 'string') ||
+    !exactKeys(progress.bibleReading, [
+      'genesis2Opened',
+      'genesis2Confirmed',
+      'genesis3Opened',
+      'genesis3Confirmed',
+      'comprehensionCompleted',
+    ]) ||
+    !(
+      progress.bibleReading.genesis2Opened === null ||
+      typeof progress.bibleReading.genesis2Opened === 'string'
+    ) ||
     typeof progress.bibleReading.genesis2Confirmed !== 'boolean' ||
-    !(progress.bibleReading.genesis3Opened === null || typeof progress.bibleReading.genesis3Opened === 'string') ||
+    !(
+      progress.bibleReading.genesis3Opened === null ||
+      typeof progress.bibleReading.genesis3Opened === 'string'
+    ) ||
     typeof progress.bibleReading.genesis3Confirmed !== 'boolean' ||
     typeof progress.bibleReading.comprehensionCompleted !== 'boolean' ||
     typeof progress.snakeTutorialCompleted !== 'boolean' ||
@@ -453,7 +653,8 @@ export function parseTraveler(value: unknown): Traveler | null {
     !Array.isArray(progress.explorationObjectives) ||
     !progress.explorationObjectives.every((id) => typeof id === 'string') ||
     typeof progress.quizAttemptId !== 'number' ||
-    !Number.isInteger(progress.quizAttemptId) || progress.quizAttemptId < 0
+    !Number.isInteger(progress.quizAttemptId) ||
+    progress.quizAttemptId < 0
   )
     return null;
   return value as Traveler;

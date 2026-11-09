@@ -6,6 +6,7 @@ import {
   fireEvent,
   render,
   screen,
+  within,
 } from '@testing-library/react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import type { ReactNode } from 'react';
@@ -17,6 +18,18 @@ import {
   type Traveler,
 } from './domain/traveler';
 import { EQUIPMENT_CATALOG } from './data/equipmentCatalog';
+
+const ORIGINAL_EQUIPMENT_IDS = new Set([
+  'traveler-boots',
+  'traveler-helmet-rare',
+  'wisdom-amulet',
+  'traveler-sword-common',
+  'traveler-armor-uncommon',
+  'traveler-shield-rare',
+]);
+const ORIGINAL_EQUIPMENT = EQUIPMENT_CATALOG.filter((item) =>
+  ORIGINAL_EQUIPMENT_IDS.has(item.id),
+);
 import {
   overlayFixture,
   fullCanvasFixture,
@@ -89,7 +102,7 @@ beforeEach(() => {
     'lia',
     '2026-10-01T00:00:00Z',
   );
-  mocks.traveler.inventory = [...EQUIPMENT_CATALOG];
+  mocks.traveler.inventory = [...ORIGINAL_EQUIPMENT];
   mocks.equipItem.mockImplementation((item) => {
     mocks.traveler = {
       ...mocks.traveler!,
@@ -483,5 +496,27 @@ describe('Avatar overlays and equipment feedback', () => {
       '/assets/equipment/overlays/traveler-sword-common_male.webp',
     );
     expect(screen.getByRole('img', { name: 'Avatar do Viajante' })).toBe(base);
+  });
+
+  it('keeps a high-level approved item visible but blocks equipping below its minimum level', () => {
+    const blade = EQUIPMENT_CATALOG.find(
+      (item) => item.id === 'equipment-victory-blade',
+    )!;
+    mocks.traveler = {
+      ...mocks.traveler!,
+      level: 1,
+      inventory: [...ORIGINAL_EQUIPMENT, blade],
+    };
+    const { container } = render(<EquipmentScreen />);
+    const article = [...container.querySelectorAll('article')].find((entry) =>
+      entry.textContent?.includes(blade.name),
+    );
+    expect(article).toBeTruthy();
+    expect(
+      within(article as HTMLElement).getByRole('button', {
+        name: `Nível ${blade.minimumLevel} necessário`,
+      }),
+    ).toBeDisabled();
+    expect(mocks.equipItem).not.toHaveBeenCalled();
   });
 });
