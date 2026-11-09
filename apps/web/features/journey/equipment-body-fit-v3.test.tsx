@@ -82,7 +82,12 @@ it.each(['female', 'male'] as const)(
   (gender) => {
     const t = make();
     t.avatar.gender = gender;
-    for (const item of t.inventory) t.equipped[item.slot] = item.id;
+    // Keep the historical owned loadout explicit. The expanded definition
+    // catalog contains unequipped proposals with overlapping slots.
+    t.equipped = {
+      armor: armor.id,
+      weapon: 'traveler-sword-common',
+    };
     expect(resolveAvatarRuntime(t).layers.map((l) => l.itemId)).toEqual([
       armor.id,
       'traveler-sword-common',
