@@ -1,10 +1,11 @@
 # RPG-ECONOMY-FIX-012A — vitrine da Loja
 
-10/11/2026. **Validação local PASS; PR/CI/Preview pendentes.** Incremento separado da PR #46, baseado em `origin/main` `4d5a64e`. A PR #46 em `d97d8ae` permanece intacta.
+10/11/2026. **Publicado / deployment READY.** A PR #47 separada mantém o catálogo visível para jogadores autenticados enquanto a elegibilidade é consultada, bloqueada ou indisponível; operações só habilitam após a leitura canônica existente autorizar. Mensagens de estado foram simplificadas.
 
-- A rota autenticada da Loja agora mantém o catálogo visível durante consulta, bloqueio ou falha de leitura. Mensagens curtas indicam análise do histórico ou indisponibilidade.
-- Compra, consulta/recuperação de operação e abertura de baú permanecem desabilitadas até a leitura canônica existente confirmar `enabled` e `balanceVerified`. Estados autorizados mantêm o fluxo atual.
-- Nenhuma RPC de ativação, migration, mudança em Auth/RLS, saldo, item, recibo ou dado de jogador entrou neste recorte. A restauração individual dos legados permanece pendente na PR #46.
-- Validação local: `shop.test.tsx` **9/9 PASS**; ESLint, Prettier, TypeScript do workspace web e `git diff --check` PASS. Dependências reutilizadas por junction existente, sem instalação. Build e gates abrangentes serão confirmados no CI obrigatório do SHA da PR.
+- **Código:** SHA candidato `8f293e90b3edc7ab9c9e28d23bf2578481102b3b`; PR #47 integrada normalmente no merge `9b32b1364573400c3e4c41b5a15119eeb8d044cf`.
+- **CI:** [run 42768030551](https://github.com/CarlosJr30/rpgjovemcristao/actions/runs/42768030551) success no SHA candidato; testes/lint/tipos/build, PostgreSQL e RSC/móvel obrigatórios aprovados. Job condicional de Preview `skipped`; Preview foi validada separadamente.
+- **Preview TEST:** `dpl_HmXAxCowgYu12zWRrRCvgy5Vi6gj`, READY no candidato. O proprietário confirmou login normal, vitrine visível e operações bloqueadas; nenhuma transação foi necessária para o smoke.
+- **Produção:** `dpl_EnZ7r2TmcU8BxtpU5crBb1qrDNdv`, READY/production no merge; alias oficial `rpgjovemcristao-web-inky.vercel.app`. Bundle usa o backend PROD. A rota oficial `/journey/shop` respondeu HTTP 200.
+- **Preservação:** nenhuma migration, alteração Auth/RLS, saldo, XP, item, recibo ou dado de jogador foi executada pelo agente. PR #46 continua aberta/draft no SHA `d97d8ae`; sua inicialização legada permanece pendente. Oito casos elegíveis não foram ativados; onze legados ambíguos seguem protegidos; Teste Chat A não foi alterado por esta entrega.
 
-**Pendente:** commit/PR, CI exato, Preview TEST e smoke autenticado somente de leitura. Não publicar antes desses gates.
+No smoke de produção, o proprietário informou que comprou usando Teste Chat A. Consulta de leitura restrita a esse avatar confirmou um par novo de recibos canônicos após a publicação: Baú Comum por 40 moedas e abertura correspondente com recompensa de 25 moedas; sem item. O saldo oficial lido foi 1.006.135, nível 50 e XP 245.016. O perfil Treino QA permaneceu com 9.960 moedas e não recebeu recibo novo. Há outro par de compra/abertura distinto anterior à publicação; ambos têm IDs próprios e não são replay duplicado. Nenhuma transação foi realizada pelo agente. O helper de estado autenticado não pode ser invocado pelo contexto SQL administrativo, então não foi usado para alegar uma leitura adicional de elegibilidade.
