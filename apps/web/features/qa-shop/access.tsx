@@ -1,7 +1,14 @@
 'use client';
-import { useEffect, useState, type ReactNode } from 'react';
+import {
+  Fragment,
+  useEffect,
+  useState,
+  useSyncExternalStore,
+  type ReactNode,
+} from 'react';
 import { useJourney } from '../journey/state/use-journey';
 import { readQAShop, type ShopState } from '../../lib/qa-shop/client';
+import { subscribeTraining, trainingEpoch } from '../../lib/training-qa/store';
 import { isShopTestPreview, isShopRelease } from '../../lib/release-scope';
 import { ShopScreen } from '../journey/screens/shop';
 import { EquipmentScreen } from '../journey/screens/equipment';
@@ -11,7 +18,11 @@ export function QAShopAccess({ equipment = false }: { equipment?: boolean }) {
   if (!isShopTestPreview() && !isShopRelease())
     return <p>Loja e equipamentos ainda indisponíveis neste ambiente.</p>;
   return journey.status === 'ready' ? (
-    <Access key={journey.traveler.id} actor={journey.traveler.id}>
+    <Access
+      key={journey.traveler.id}
+      actor={journey.traveler.id}
+      catalog={!equipment}
+    >
       {(state) =>
         equipment ? (
           <EquipmentScreen />
@@ -20,7 +31,12 @@ export function QAShopAccess({ equipment = false }: { equipment?: boolean }) {
             qa={{
               actor: journey.traveler.id,
               production: isShopRelease(),
-              ...state,
+              ...(state ?? {
+                enabled: false,
+                balanceVerified: false,
+                coins: 0,
+                reason: 'loading',
+              }),
             }}
           />
         )
@@ -34,26 +50,50 @@ export function QAShopAccess({ equipment = false }: { equipment?: boolean }) {
 }
 function Access({
   actor,
+  catalog,
   children,
 }: {
   actor: string;
+  catalog: boolean;
   children: (state: ShopState) => ReactNode;
 }) {
-  const [state, setState] = useState<ShopState | null>(null),
-    [error, setError] = useState('');
+  const epoch = useSyncExternalStore(subscribeTraining, trainingEpoch, () => 0);
+  const currentEpoch = catalog ? epoch : 0;
+  const [resolved, setResolved] = useState<{
+    epoch: number;
+    value: ShopState;
+  } | null>(null);
+  const [failedEpoch, setFailedEpoch] = useState<number | null>(null);
+  const state = resolved?.epoch === currentEpoch ? resolved.value : null;
+  const error = failedEpoch === currentEpoch;
   useEffect(() => {
     let live = true;
     readQAShop(actor)
       .then((v) => {
-        if (live) setState(v);
+        if (live) setResolved({ epoch: currentEpoch, value: v });
       })
       .catch(() => {
-        if (live) setError('Acesso à Loja não confirmado.');
+        if (live) setFailedEpoch(currentEpoch);
       });
     return () => {
       live = false;
     };
-  }, [actor]);
+  }, [actor, currentEpoch]);
+  const visibleState: ShopState = error
+    ? {
+        enabled: false,
+        coins: 0,
+        balanceVerified: false,
+        reason: 'unavailable',
+      }
+    : (state ?? {
+        enabled: false,
+        coins: 0,
+        balanceVerified: false,
+        reason: 'loading',
+      });
+  if (catalog)
+    return <Fragment key={currentEpoch}>{children(visibleState)}</Fragment>;
   return state?.enabled && state.balanceVerified ? (
     children(state)
   ) : (

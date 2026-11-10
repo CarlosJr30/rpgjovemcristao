@@ -15,6 +15,7 @@ const f = vi.hoisted(() => ({
   open: vi.fn(),
   reload: vi.fn(),
   push: vi.fn(),
+  read: vi.fn(),
   traveler: {
     id: 'fixture',
     coins: 123,
@@ -29,7 +30,10 @@ vi.mock('../components/shell', () => ({
     children: (t: typeof f.traveler) => React.ReactNode;
   }) => children(f.traveler),
 }));
-vi.mock('../state/use-journey', () => ({ buyEquipment: vi.fn() }));
+vi.mock('../state/use-journey', () => ({
+  buyEquipment: vi.fn(),
+  useJourney: () => ({ status: 'ready', traveler: f.traveler }),
+}));
 vi.mock('next/navigation', () => ({ useRouter: () => ({ push: f.push }) }));
 vi.mock('../../training-qa/context', () => ({
   useTrainingTraveler: () => null,
@@ -37,6 +41,7 @@ vi.mock('../../training-qa/context', () => ({
 vi.mock('../../../lib/qa-shop/client', () => ({
   purchaseQAShop: f.purchase,
   resumeQAPurchase: f.resume,
+  readQAShop: f.read,
 }));
 vi.mock('../../qa-shop/purchase-history', () => ({
   ShopPurchaseHistory: () => null,
@@ -68,9 +73,128 @@ vi.mock('next/dynamic', () => ({
     ),
 }));
 import { ShopScreen } from './shop';
+import { QAShopAccess } from '../../qa-shop/access';
 afterEach(() => {
   cleanup();
   vi.clearAllMocks();
+  vi.unstubAllEnvs();
+  f.traveler.id = 'fixture';
+  f.traveler.coins = 123;
+});
+const testShopEnvironment = () => {
+  vi.stubEnv(
+    'NEXT_PUBLIC_SUPABASE_URL',
+    'https://wkdvdzfkbwvhyjmamrsg.supabase.co',
+  );
+  vi.stubEnv('NEXT_PUBLIC_SHOP_TEST_PREVIEW', '1');
+  vi.stubEnv('VERCEL_ENV', 'preview');
+  vi.stubEnv('NEXT_PUBLIC_VERCEL_ENV', 'preview');
+};
+test('blocked legacy accounts still see the catalog, with all transactions disabled', async () => {
+  testShopEnvironment();
+  let resolveRead!: (state: {
+    enabled: boolean;
+    coins: number;
+    balanceVerified: boolean;
+    reason: string;
+  }) => void;
+  f.read.mockImplementation(
+    () =>
+      new Promise((resolve) => {
+        resolveRead = resolve;
+      }),
+  );
+  render(<QAShopAccess />);
+  expect(
+    screen.getByRole('heading', { name: 'Loja do Viajante' }),
+  ).toBeVisible();
+  expect(
+    screen.getByText('Verificando disponibilidade da Loja.'),
+  ).toBeVisible();
+  expect(
+    screen.getByRole('button', { name: /Comprar.*comum/i }),
+  ).toBeDisabled();
+  resolveRead({
+    enabled: false,
+    coins: 0,
+    balanceVerified: false,
+    reason: 'legacy-reconciliation-required',
+  });
+  await waitFor(() =>
+    expect(screen.getByRole('status')).toHaveTextContent(
+      'Aguardando revisão do histórico.',
+    ),
+  );
+  expect(screen.getByRole('status')).toHaveTextContent(
+    'Aguardando revisão do histórico.',
+  );
+  expect(
+    screen.getByRole('button', { name: /Comprar.*comum/i }),
+  ).toBeDisabled();
+  fireEvent.click(screen.getByText('Ajuda e recuperação'));
+  expect(
+    screen.getByRole('button', { name: 'Consultar compra pendente' }),
+  ).toBeDisabled();
+  expect(screen.getByRole('button', { name: /Abrir ba/ })).toBeDisabled();
+  expect(f.purchase).not.toHaveBeenCalled();
+  expect(f.resume).not.toHaveBeenCalled();
+});
+test('an unconfirmed access read keeps the catalog visible and disables transactions', async () => {
+  testShopEnvironment();
+  f.traveler.coins = 1000;
+  f.read.mockRejectedValue(Error('read failed'));
+  render(<QAShopAccess />);
+  expect(
+    await screen.findByText(
+      'Operações indisponíveis. Seus saldos e itens estão preservados.',
+    ),
+  ).toBeVisible();
+  expect(
+    screen.getByRole('heading', { name: 'Loja do Viajante' }),
+  ).toBeVisible();
+  expect(
+    screen.getByRole('button', { name: /Comprar.*comum/i }),
+  ).toBeDisabled();
+  expect(f.purchase).not.toHaveBeenCalled();
+  expect(f.resume).not.toHaveBeenCalled();
+});
+test('a verified account with an unverified balance cannot start a purchase', async () => {
+  testShopEnvironment();
+  f.traveler.coins = 1000;
+  f.read.mockResolvedValue({
+    enabled: true,
+    coins: 1000,
+    balanceVerified: false,
+    reason: 'balance-unverified',
+  });
+  render(<QAShopAccess />);
+  expect(
+    await screen.findByText(
+      'Operações indisponíveis. Seus saldos e itens estão preservados.',
+    ),
+  ).toBeVisible();
+  expect(
+    screen.getByRole('button', { name: /Comprar.*comum/i }),
+  ).toBeDisabled();
+  expect(f.purchase).not.toHaveBeenCalled();
+});
+test('an authorized Shop state keeps the existing purchase flow available', async () => {
+  testShopEnvironment();
+  f.read.mockResolvedValue({
+    enabled: true,
+    coins: 123,
+    balanceVerified: true,
+  });
+  render(<QAShopAccess />);
+  const buy = await screen.findByRole('button', {
+    name: /Comprar.*comum/i,
+  });
+  expect(buy).toBeEnabled();
+  fireEvent.click(buy);
+  expect(
+    screen.getByRole('region', { name: 'Confirmar compra' }),
+  ).toBeVisible();
+  expect(f.purchase).not.toHaveBeenCalled();
 });
 test('existing offers retain prices and assets while categories never purchase or resume', () => {
   render(
@@ -165,7 +289,9 @@ test('filtering and cancelling preserve the displayed balance and never submit a
   ).toHaveTextContent('Baú comum');
   fireEvent.click(screen.getByRole('button', { name: 'Cancelar' }));
   expect(screen.queryByRole('region', { name: 'Confirmar compra' })).toBeNull();
-  expect(screen.getByText('123 Moedas do Viajante')).toBeVisible();
+  const balance = screen.getByText('Saldo').parentElement;
+  expect(balance).toHaveTextContent('123');
+  expect(balance).toHaveTextContent('Moedas do Viajante');
   expect(f.purchase).not.toHaveBeenCalled();
   expect(f.traveler.coins).toBe(123);
 });
