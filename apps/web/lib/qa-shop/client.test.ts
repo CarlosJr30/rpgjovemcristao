@@ -6,7 +6,9 @@ import {
   readQAShop,
   resumeQAPurchase,
   openShopChest,
+  initializeShopEconomy,
 } from './client';
+import { setTraining } from '../training-qa/store';
 import { isReleasedPath } from '../release-scope';
 import { startIntent } from '../../features/chest-reveal/visual-store';
 const mocks = vi.hoisted(() => ({
@@ -85,6 +87,79 @@ it('productive state preserves explicit legacy reconciliation block without issu
   expect((await readQAShop(actor)).reason).toBe(
     'legacy-reconciliation-required',
   );
+  expect(mocks.rpc).toHaveBeenCalledOnce();
+});
+it('clean legacy eligibility is read-only and never auto initializes', async () => {
+  production();
+  mocks.rpc.mockResolvedValue({
+    data: {
+      version: 1,
+      qaOnly: false,
+      enabled: false,
+      reason: 'legacy-reconciliation-required',
+      initializationEligible: true,
+    },
+    error: null,
+  });
+  expect((await readQAShop(actor)).initializationEligible).toBe(true);
+  expect(mocks.rpc).toHaveBeenCalledExactlyOnceWith('get_shop', {
+    p_actor: actor,
+  });
+});
+it('explicit initialization uses the own-actor command then refreshes the canonical Shop state', async () => {
+  production();
+  mocks.rpc
+    .mockResolvedValueOnce({
+      data: { version: 1, qaOnly: false, status: 'initialized' },
+      error: null,
+    })
+    .mockResolvedValueOnce({
+      data: {
+        version: 1,
+        qaOnly: false,
+        enabled: true,
+        balanceVerified: true,
+        coins: 0,
+      },
+      error: null,
+    });
+  expect(await initializeShopEconomy(actor)).toMatchObject({
+    enabled: true,
+    balanceVerified: true,
+    coins: 0,
+  });
+  expect(mocks.rpc.mock.calls.map((c) => c[0])).toEqual([
+    'initialize_shop_economy',
+    'get_shop',
+  ]);
+  expect(mocks.rpc.mock.calls[0][1]).toEqual({ p_actor: actor });
+});
+it('failed initialization cannot invent confirmation or consume a saved purchase intent', async () => {
+  production();
+  const pending = purchaseIntent(mocks.owner, actor, 'chest', 'common');
+  mocks.rpc.mockResolvedValue({ data: null, error: { code: '42501' } });
+  await expect(initializeShopEconomy(actor)).rejects.toThrow('não confirmada');
+  expect(purchaseIntent(mocks.owner, actor, 'chest', 'common')).toEqual(
+    pending,
+  );
+  expect(mocks.rpc).toHaveBeenCalledOnce();
+});
+it('a training context change discards initialization confirmation without refreshing the wrong mode', async () => {
+  production();
+  let resolve!: (v: unknown) => void;
+  mocks.rpc.mockImplementation(
+    () =>
+      new Promise((r) => {
+        resolve = r;
+      }),
+  );
+  const operation = initializeShopEconomy(actor);
+  setTraining(null);
+  resolve({
+    data: { version: 1, qaOnly: false, status: 'already-initialized' },
+    error: null,
+  });
+  await expect(operation).rejects.toThrow('modo de treino mudou');
   expect(mocks.rpc).toHaveBeenCalledOnce();
 });
 it('definitive authenticated hold clears only the failed productive intent', async () => {

@@ -103,6 +103,11 @@ export async function run({
       );
     }
   };
+  if (process.env.RPG_ECONOMY_FIX012_CASES === '1') {
+    await install();
+    await (await import('./rpg-economy-fix-012-cases.mjs')).run({q,tx,check,denied,uid,tid,options,connections,read,env,project});
+    return;
+  }
   const functions = async () =>
     (
       await q(

@@ -182,6 +182,11 @@ jobs:
       - name: Ensaiar a mesma correção no envelope produtivo
         run: node tests/hosted/rpg-loja-fix-011-postgres.mjs --production
 
+      - name: Exigir inicialização individual sem crédito, isolamento e preservação dos legados
+        run: node tests/hosted/rpg-economy-fix-012-postgres.mjs
+      - name: Ensaiar inicialização no envelope PROD sem atualizar dados remotos
+        run: node tests/hosted/rpg-economy-fix-012-postgres.mjs --production
+
   pinned-preview:
     name: Preview do SHA aprovado
     needs: [quality, rsc-regression, governance-postgres]

@@ -15,11 +15,13 @@ import {
   trainingHistory,
 } from '../training-qa/client';
 import { trainingNamespace } from '../training-qa/store';
+import { trainingEpoch } from '../training-qa/store';
 export type ShopState = {
   enabled: boolean;
   coins: number;
   balanceVerified: boolean;
   reason?: string;
+  initializationEligible?: boolean;
 };
 function guard(actor: string) {
   const owner = getCurrentOnlineUserId(),
@@ -69,6 +71,8 @@ export async function readQAShop(actor: string): Promise<ShopState> {
       coins: 0,
       balanceVerified: false,
       reason: typeof data.reason === 'string' ? data.reason : undefined,
+      initializationEligible:
+        isShopRelease() && data.initializationEligible === true,
     };
   if (
     typeof data.coins !== 'number' ||
@@ -82,6 +86,31 @@ export async function readQAShop(actor: string): Promise<ShopState> {
     coins: data.coins,
     balanceVerified: data.balanceVerified,
   };
+}
+export async function initializeShopEconomy(actor: string): Promise<ShopState> {
+  const verify = guard(actor);
+  const epoch = trainingEpoch();
+  if (!isShopRelease() || activeTraining(actor))
+    throw Error('Retome a economia oficial para ativá-la.');
+  const { data, error } = await getSupabaseBrowserClient().rpc(
+    'initialize_shop_economy',
+    { p_actor: actor },
+  );
+  verify();
+  if (epoch !== trainingEpoch())
+    throw Error('O modo de treino mudou. Consulte o estado atual da Loja.');
+  if (
+    error ||
+    !data ||
+    typeof data !== 'object' ||
+    Array.isArray(data) ||
+    data.version !== 1 ||
+    data.qaOnly !== false ||
+    typeof data.status !== 'string' ||
+    !['initialized', 'already-initialized'].includes(data.status)
+  )
+    throw Error('Ativação não confirmada. Seu saldo foi preservado.');
+  return readQAShop(actor);
 }
 export async function readShopPurchases(actor: string) {
   const verify = guard(actor);

@@ -220,6 +220,7 @@ export type Database = {
     };
     Views: Record<string, never>;
     Functions: {
+      initialize_shop_economy: { Args: { p_actor: string }; Returns: Json };
       get_training_qa: { Args: { p_actor: string }; Returns: Json };
       get_training_qa_receipt: { Args: { p_actor: string; p_operation_id: string }; Returns: Json };
       command_training_qa: { Args: { p_actor: string; p_command: string; p_payload: Json; p_operation_id: string }; Returns: Json };
