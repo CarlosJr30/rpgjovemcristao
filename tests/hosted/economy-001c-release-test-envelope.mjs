@@ -55,8 +55,12 @@ export async function run({ q, as, check, denied, uid, tid, read }) {
       ),
     );
     await (
-      await import('./rpg-equipment-fix-014-cases.mjs')
-    ).run({ q, check, denied, uid, tid, read });
+      await import(
+        process.env.RPG_EQUIPMENT_FIX014_FUNDED_FIXTURE === '1'
+          ? './rpg-equipment-fixture-014-cases.mjs'
+          : './rpg-equipment-fix-014-cases.mjs'
+      )
+    ).run({ q, as, check, denied, uid, tid, read });
     return;
   }
   await check(

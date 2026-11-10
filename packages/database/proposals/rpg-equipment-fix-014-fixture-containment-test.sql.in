@@ -1,0 +1,11 @@
+-- Stop issuance; retain the exact TEST credit in balance accounting and all audit/history.
+SET LOCAL lock_timeout='5s'; SET LOCAL statement_timeout='30s';
+DO $$ BEGIN
+ IF public.release_scope()<>'hero-equipment-006'
+ OR current_setting('equipment014.target_project',true) IS DISTINCT FROM 'wkdvdzfkbwvhyjmamrsg'
+ THEN RAISE EXCEPTION 'TEST containment only' USING ERRCODE='42501'; END IF;
+END $$;
+CREATE OR REPLACE FUNCTION shop_qa_private.fund_fixture_014(p_owner uuid,p_actor uuid,p_operation uuid,p_snapshot text) RETURNS uuid
+LANGUAGE plpgsql SECURITY INVOKER SET search_path='' AS $$ BEGIN
+ RAISE EXCEPTION 'TEST fixture issuance contained' USING ERRCODE='42501'; END $$;
+REVOKE ALL ON FUNCTION shop_qa_private.fund_fixture_014(uuid,uuid,uuid,text) FROM PUBLIC,anon,authenticated,service_role;

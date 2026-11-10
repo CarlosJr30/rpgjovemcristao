@@ -1,0 +1,18 @@
+-- Empty recovery only. Issued test credit/history requires containment, never deletion.
+SET LOCAL lock_timeout='5s'; SET LOCAL statement_timeout='30s';
+DO $$ DECLARE current_body text; marker text:=E' +shop_qa_private.fixture_credit_014(p_actor)\n'; BEGIN
+ IF public.release_scope()<>'hero-equipment-006'
+ OR current_setting('equipment014.target_project',true) IS DISTINCT FROM 'wkdvdzfkbwvhyjmamrsg'
+ OR EXISTS(SELECT 1 FROM shop_qa_private.profiles WHERE approval_ref='FIX014:TEST-FIXTURE35:OWNER-APPROVED-2026-11-10')
+ OR EXISTS(SELECT 1 FROM shop_qa_private.budget_receipts WHERE amount=35)
+ THEN RAISE EXCEPTION 'Empty TEST recovery only; preserve issued audit' USING ERRCODE='42501'; END IF;
+ current_body:=pg_get_functiondef('shop_private.coin_balance(uuid)'::regprocedure);
+ IF position(marker IN current_body)=0 OR md5(replace(replace(current_body,marker,''),E'\r\n',E'\n'))<>'{{BALANCE_MD5}}'
+ THEN RAISE EXCEPTION 'Reviewed original TEST balance required'; END IF;
+ EXECUTE replace(current_body,marker,'');
+END $$;
+DROP FUNCTION shop_qa_private.fund_fixture_014(uuid,uuid,uuid,text),shop_qa_private.fixture_snapshot_014(uuid),shop_qa_private.fixture_credit_014(uuid);
+ALTER TABLE shop_qa_private.profiles DROP CONSTRAINT profiles_approval_ref_check;
+ALTER TABLE shop_qa_private.profiles ADD CONSTRAINT profiles_approval_ref_check CHECK(approval_ref='ECONOMY-001C:OWNER:QA-TEST:2026-11-03');
+ALTER TABLE shop_qa_private.budget_receipts DROP CONSTRAINT budget_receipts_amount_check;
+ALTER TABLE shop_qa_private.budget_receipts ADD CONSTRAINT budget_receipts_amount_check CHECK(amount=255);
