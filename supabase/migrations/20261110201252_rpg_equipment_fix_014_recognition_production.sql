@@ -187,4 +187,3 @@ BEGIN
  RETURN NULL;
 END $$;
 REVOKE ALL ON FUNCTION shop_private.equipment_origin_014(uuid,uuid,text) FROM PUBLIC,anon,authenticated,service_role;
-
