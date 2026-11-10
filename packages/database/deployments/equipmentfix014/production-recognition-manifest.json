@@ -1,0 +1,70 @@
+{
+  "contract": "RPG-EQUIPMENT-FIX-014:v1",
+  "approvalRef": "OWNER-APPROVED-2026-11-10:FIX-014",
+  "actor": "31b70059-deca-44c8-a6df-f21ea68b6e42",
+  "owner": "78729453-8e04-478c-96ae-d37cead1bc8c",
+  "financialApproval": {
+    "id": "b1b1ffdf-74ab-4193-ad6c-7e43458ecff8",
+    "rowMD5": "bf4b640be59b60b2529ccec33f7cdc5a"
+  },
+  "items": [
+    {
+      "itemId": "traveler-armor-uncommon",
+      "quantity": 1,
+      "inventoryRowMD5": "4351c195af1467990ff8aa636eba8873",
+      "legacyReceipts": []
+    },
+    {
+      "itemId": "traveler-shield-rare",
+      "quantity": 1,
+      "inventoryRowMD5": "6b0f5c42fa0dd855d2be181a03987236",
+      "legacyReceipts": []
+    },
+    {
+      "itemId": "traveler-helmet-rare",
+      "quantity": 4,
+      "inventoryRowMD5": "d5326c59560ac6ff921e7abc99a66269",
+      "legacyReceipts": [
+        {
+          "id": "3ad028c4-91d7-4a9f-971b-2a801ccdb930",
+          "rowMD5": "d3427c5c5c91320be26822c5f7bd2fe4"
+        },
+        {
+          "id": "ad8cffa2-04db-45bc-8184-d54af45e82b1",
+          "rowMD5": "8ee2a407f2169eb1da41393261a2f80d"
+        },
+        {
+          "id": "fdaf483b-47e1-40a3-a898-63595c07973f",
+          "rowMD5": "43c5b93b853007cf7203231f3fff784e"
+        }
+      ]
+    },
+    {
+      "itemId": "wisdom-amulet",
+      "quantity": 6,
+      "inventoryRowMD5": "42b6ac82209f42bf42ca86a46cf1e047",
+      "legacyReceipts": [
+        {
+          "id": "17a90eb7-002b-4667-b80a-9a56854479c6",
+          "rowMD5": "9388ec49456991402ef91515b87550a4"
+        },
+        {
+          "id": "26863ba3-aaa3-4aa0-b5e5-6f36c307d8a4",
+          "rowMD5": "2417ad8bfa1ba14b1bc6b45abbcb546f"
+        },
+        {
+          "id": "3431bec6-d016-4ce2-ad48-17909ed81f63",
+          "rowMD5": "15fa72e888e656f00cd49e541f6fcf15"
+        },
+        {
+          "id": "5b796cd1-b746-4b24-a6df-386af255426c",
+          "rowMD5": "d8e6f9358ec5128f028a3d0bd8941240"
+        },
+        {
+          "id": "b88dafac-aab3-499d-95ea-7a2bfce906ff",
+          "rowMD5": "bb387f8d34ea7a1472a44e1885a80171"
+        }
+      ]
+    }
+  ]
+}

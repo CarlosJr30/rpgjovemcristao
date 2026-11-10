@@ -1,6 +1,7 @@
 {
   "task": "RPG-EQUIPMENT-FIX-014",
-  "status": "PROPOSAL_NOT_ACTIVATED",
+  "status": "OWNER_APPROVED_SUPPORT_PREPARED_NOT_ACTIVATED",
+  "approval": "Owner explicitly answered Aprovar reconhecimento individual on 2026-11-10 for the four exact quantities",
   "source": "Supabase PROD SELECT only; targeted existing records",
   "audit": {
     "verified": true,

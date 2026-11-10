@@ -1,0 +1,15 @@
+-- Preserve recognition history; disable only new administrative recognition/use.
+SET LOCAL lock_timeout='5s'; SET LOCAL statement_timeout='30s';
+DO $$ BEGIN
+ IF current_user<>'postgres' OR current_setting('equipment014.target_project',true) IS DISTINCT FROM '{{TARGET_PROJECT}}'
+ OR public.release_scope()<>'{{RELEASE_SCOPE}}'
+ OR shop_private.recognition_manifest_014()->>'actor' IS DISTINCT FROM '{{APPROVED_ACTOR}}'
+ OR shop_private.recognition_manifest_014()->>'owner' IS DISTINCT FROM '{{APPROVED_OWNER}}'
+ THEN RAISE EXCEPTION 'Reviewed recognition containment required' USING ERRCODE='42501'; END IF;
+END $$;
+{{ORIGINAL_ORIGIN_FUNCTION}}
+CREATE OR REPLACE FUNCTION shop_private.recognize_equipment_014(p_actor uuid,p_operation uuid,p_snapshot text) RETURNS jsonb
+LANGUAGE plpgsql SECURITY INVOKER SET search_path='' AS $$ BEGIN
+ RAISE EXCEPTION 'Administrative equipment recognition contained' USING ERRCODE='42501';
+END $$;
+REVOKE ALL ON FUNCTION shop_private.recognize_equipment_014(uuid,uuid,text) FROM PUBLIC,anon,authenticated,service_role;

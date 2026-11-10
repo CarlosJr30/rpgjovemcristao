@@ -68,7 +68,20 @@ export async function run({
     );
   }
   if (process.env.RPG_LOJA_FIX011_CASES === '1') {
-    await (await import('./rpg-loja-fix-011-cases.mjs')).run({q, check, denied, uid, tid, options, connections, read, project, env});
+    await (
+      await import('./rpg-loja-fix-011-cases.mjs')
+    ).run({
+      q,
+      check,
+      denied,
+      uid,
+      tid,
+      options,
+      connections,
+      read,
+      project,
+      env,
+    });
     return;
   }
   const actor = tid(2),
@@ -154,6 +167,50 @@ export async function run({
         "select pg_get_constraintdef(oid) x from pg_constraint where conrelid='public.chest_operations'::regclass and conname='chest_operations_type_check'",
       )
     ).rows[0].x;
+  if (process.env.RPG_EQUIPMENT_RECOGNITION014_CASES === '1') {
+    await install();
+    const initialSnapshot = (
+      await q('select shop_private.reconciliation_snapshot_010($1) x', [actor])
+    ).rows[0].x;
+    await q(
+      "BEGIN;SET LOCAL economyfix010.approval='OWNER-APPROVED-2026-11-07';select shop_private.reconcile_legacy_010('" +
+        actor +
+        "','" +
+        nonce +
+        "','" +
+        initialSnapshot +
+        "');COMMIT;",
+    );
+    await q(
+      read('tests/hosted/fixtures/rpg-equipment-fix-013-existing-wrapper.sql'),
+    );
+    const fix013 =
+      env === 'production'
+        ? 'supabase/migrations/20261110175229_rpg_equipment_fix_013_production.sql'
+        : 'supabase/migrations/20261110121538_rpg_equipment_fix_013_test.sql';
+    await q(
+      "BEGIN;SET LOCAL equipment013.target_project='" +
+        project +
+        "';" +
+        read(fix013) +
+        ';COMMIT;',
+    );
+    await (
+      await import('./rpg-equipment-recognition-014-cases.mjs')
+    ).run({
+      q,
+      check,
+      denied,
+      uid,
+      tid,
+      options,
+      connections,
+      read,
+      project,
+      env,
+    });
+    return;
+  }
   await check(
     '010 refuses wrong deployment project before any DDL',
     async () => {
