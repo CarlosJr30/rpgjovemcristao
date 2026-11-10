@@ -41,13 +41,36 @@ import { purchaseQAShop, resumeQAPurchase } from '../../../lib/qa-shop/client';
 
 export function ShopScreen({
   qa,
-}: { qa?: { actor: string; coins: number; production?: boolean } } = {}) {
+}: {
+  qa?: {
+    actor: string;
+    coins: number;
+    production?: boolean;
+    enabled?: boolean;
+    balanceVerified?: boolean;
+    reason?: string;
+    initializationEligible?: boolean;
+    initialize?: () => Promise<void>;
+  };
+} = {}) {
   const router = useRouter();
   const [feedback, setFeedback] = useState('');
   const [category, setCategory] = useState<'all' | 'chests' | 'equipment'>(
     'all',
   );
   const training = useTrainingTraveler();
+  const operationsAllowed =
+    !qa || (qa.enabled !== false && qa.balanceVerified !== false);
+  const availabilityMessage =
+    !qa || operationsAllowed
+      ? ''
+      : qa.reason === 'legacy-reconciliation-required'
+        ? qa.initializationEligible
+          ? 'Seu estado inicial está preservado. Ative a economia para usar as operações disponíveis.'
+          : 'Operações aguardam reconciliação do histórico. Seus itens e saldos estão preservados.'
+        : qa.reason === 'loading'
+          ? 'Consultando as operações disponíveis…'
+          : 'Operações indisponíveis neste momento. Seus itens e saldos estão preservados.';
   const trainingBinding = useSyncExternalStore(
     subscribeTraining,
     trainingSnapshot,
@@ -83,7 +106,7 @@ export function ShopScreen({
     };
   }, []);
   const openPurchased = async (operation: string) => {
-    if (!qa) return;
+    if (!qa || !operationsAllowed) return;
     const owner = getCurrentOnlineUserId();
     if (!owner) throw Error('Entre novamente para abrir seu baú.');
     setPendingOpen(operation);
@@ -106,7 +129,7 @@ export function ShopScreen({
       setFeedback('Recompensa confirmada. Atualização do saldo pendente.');
   };
   const retryOpen = async () => {
-    if (!pendingOpen || running.current) return;
+    if (!operationsAllowed || !pendingOpen || running.current) return;
     running.current = true;
     setBusy(true);
     try {
@@ -122,7 +145,7 @@ export function ShopScreen({
     }
   };
   const recover = async () => {
-    if (!qa || running.current || pendingOpen) return;
+    if (!operationsAllowed || !qa || running.current || pendingOpen) return;
     running.current = true;
     setBusy(true);
     try {
@@ -153,7 +176,7 @@ export function ShopScreen({
     }
   };
   const resume = async () => {
-    if (!qa || running.current) return;
+    if (!operationsAllowed || !qa || running.current) return;
     running.current = true;
     setBusy(true);
     try {
@@ -170,7 +193,14 @@ export function ShopScreen({
     }
   };
   const confirm = async () => {
-    if (!qa || !confirmation || running.current || pendingOpen) return;
+    if (
+      !operationsAllowed ||
+      !qa ||
+      !confirmation ||
+      running.current ||
+      pendingOpen
+    )
+      return;
     running.current = true;
     setBusy(true);
     try {
@@ -239,8 +269,38 @@ export function ShopScreen({
               </div>
             </header>
             <p role="status" aria-live="polite" className={shop.feedback}>
-              {feedback}
+              {feedback || availabilityMessage}
             </p>
+            {qa?.initializationEligible &&
+              qa.initialize &&
+              !operationsAllowed && (
+                <button
+                  className={styles.primaryLink}
+                  disabled={busy}
+                  onClick={async () => {
+                    if (running.current) return;
+                    running.current = true;
+                    setBusy(true);
+                    try {
+                      await qa.initialize!();
+                      if (mounted.current)
+                        setFeedback(
+                          'Economia ativada. Nenhuma moeda ou item foi concedido.',
+                        );
+                    } catch {
+                      if (mounted.current)
+                        setFeedback(
+                          'Ativação não confirmada. Tente consultar novamente.',
+                        );
+                    } finally {
+                      running.current = false;
+                      if (mounted.current) setBusy(false);
+                    }
+                  }}
+                >
+                  Ativar economia
+                </button>
+              )}
             {qa && (
               <details className={shop.details}>
                 <summary>Ajuda e recuperação</summary>
@@ -250,13 +310,13 @@ export function ShopScreen({
                     : 'Compras com moedas de jogo.'}
                 </p>
                 <button
-                  disabled={busy || !!pendingOpen}
+                  disabled={!operationsAllowed || busy || !!pendingOpen}
                   onClick={() => void resume()}
                 >
                   Consultar compra pendente
                 </button>
                 <button
-                  disabled={busy || !!pendingOpen}
+                  disabled={!operationsAllowed || busy || !!pendingOpen}
                   onClick={() => void recover()}
                 >
                   Abrir baú guardado
@@ -269,7 +329,10 @@ export function ShopScreen({
                 <p>
                   Compra confirmada. Seu baú permanece guardado até a abertura.
                 </p>
-                <button disabled={busy} onClick={() => void retryOpen()}>
+                <button
+                  disabled={!operationsAllowed || busy}
+                  onClick={() => void retryOpen()}
+                >
                   Tentar abrir novamente
                 </button>
               </section>
@@ -282,7 +345,7 @@ export function ShopScreen({
                 <p>Confirmar compra de {confirmation.name}?</p>
                 <button
                   className={styles.primaryLink}
-                  disabled={busy}
+                  disabled={!operationsAllowed || busy}
                   onClick={() => void confirm()}
                 >
                   Confirmar compra
@@ -345,7 +408,12 @@ export function ShopScreen({
                   </strong>
                   <button
                     className={styles.primaryLink}
-                    disabled={busy || !!pendingOpen || traveler.coins < 40}
+                    disabled={
+                      !operationsAllowed ||
+                      busy ||
+                      !!pendingOpen ||
+                      traveler.coins < 40
+                    }
                     onClick={() =>
                       setConfirmation({
                         kind: 'chest',
@@ -356,6 +424,11 @@ export function ShopScreen({
                   >
                     Comprar baú comum
                   </button>
+                  {operationsAllowed && traveler.coins < 40 && (
+                    <p className={shop.origin}>
+                      Moedas insuficientes para este baú.
+                    </p>
+                  )}
                 </article>
               )}
               {category !== 'chests' &&
@@ -394,7 +467,10 @@ export function ShopScreen({
                       <button
                         className={styles.primaryLink}
                         disabled={
-                          owned || busy || (!!qa && traveler.coins < price)
+                          !operationsAllowed ||
+                          owned ||
+                          busy ||
+                          (!!qa && traveler.coins < price)
                         }
                         onClick={() =>
                           qa

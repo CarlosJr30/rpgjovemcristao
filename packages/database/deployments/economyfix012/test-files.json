@@ -1,0 +1,8 @@
+{
+  "project": "wkdvdzfkbwvhyjmamrsg",
+  "scope": "hero-equipment-006",
+  "migration": "supabase/migrations/20261110045152_rpg_economy_fix_012_initialization_test.sql",
+  "recovery": "packages/database/deployments/economyfix012/test-recovery-empty.sql",
+  "containment": "packages/database/deployments/economyfix012/test-containment.sql",
+  "activation": "Explicit own-avatar request only; migration never initializes avatars"
+}

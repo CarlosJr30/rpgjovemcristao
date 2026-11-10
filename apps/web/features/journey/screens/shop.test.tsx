@@ -1,6 +1,7 @@
 // @vitest-environment jsdom
 import '@testing-library/jest-dom/vitest';
 import {
+  act,
   cleanup,
   fireEvent,
   render,
@@ -15,6 +16,8 @@ const f = vi.hoisted(() => ({
   open: vi.fn(),
   reload: vi.fn(),
   push: vi.fn(),
+  read: vi.fn(),
+  initialize: vi.fn(),
   traveler: {
     id: 'fixture',
     coins: 123,
@@ -29,7 +32,10 @@ vi.mock('../components/shell', () => ({
     children: (t: typeof f.traveler) => React.ReactNode;
   }) => children(f.traveler),
 }));
-vi.mock('../state/use-journey', () => ({ buyEquipment: vi.fn() }));
+vi.mock('../state/use-journey', () => ({
+  buyEquipment: vi.fn(),
+  useJourney: () => ({ status: 'ready', traveler: f.traveler }),
+}));
 vi.mock('next/navigation', () => ({ useRouter: () => ({ push: f.push }) }));
 vi.mock('../../training-qa/context', () => ({
   useTrainingTraveler: () => null,
@@ -37,6 +43,8 @@ vi.mock('../../training-qa/context', () => ({
 vi.mock('../../../lib/qa-shop/client', () => ({
   purchaseQAShop: f.purchase,
   resumeQAPurchase: f.resume,
+  readQAShop: f.read,
+  initializeShopEconomy: f.initialize,
 }));
 vi.mock('../../qa-shop/purchase-history', () => ({
   ShopPurchaseHistory: () => null,
@@ -68,9 +76,201 @@ vi.mock('next/dynamic', () => ({
     ),
 }));
 import { ShopScreen } from './shop';
+import { QAShopAccess } from '../../qa-shop/access';
+import { setTraining } from '../../../lib/training-qa/store';
 afterEach(() => {
   cleanup();
   vi.clearAllMocks();
+  vi.unstubAllEnvs();
+  setTraining(null);
+  f.traveler.id = 'fixture';
+  f.traveler.coins = 123;
+});
+
+const official = () => {
+  vi.stubEnv(
+    'NEXT_PUBLIC_SUPABASE_URL',
+    'https://wspafhlbtlpabypzymjo.supabase.co',
+  );
+  vi.stubEnv('NEXT_PUBLIC_SHOP_PRODUCTION_RELEASE', '1');
+};
+test.each([
+  ['new', true, 0, false],
+  ['pristine legacy', false, 0, true],
+  ['legacy with history', false, 1000000, false],
+  ['approved owner', true, 1000000, false],
+] as const)(
+  'Shop remains visible for %s; only authorized operations are enabled',
+  async (_kind, enabled, coins, initializationEligible) => {
+    official();
+    f.traveler.coins = coins;
+    f.read.mockResolvedValue({
+      enabled,
+      balanceVerified: enabled,
+      coins,
+      reason: enabled ? undefined : 'legacy-reconciliation-required',
+      initializationEligible,
+    });
+    render(<QAShopAccess />);
+    expect(
+      screen.getByRole('heading', { name: 'Loja do Viajante' }),
+    ).toBeVisible();
+    await waitFor(() =>
+      expect(
+        screen.queryByText('Consultando as operações disponíveis…'),
+      ).toBeNull(),
+    );
+    const buy = screen.getByRole('button', { name: 'Comprar baú comum' });
+    expect(buy).toHaveProperty('disabled', !enabled || coins < 40);
+    if (enabled && coins < 40)
+      expect(
+        screen.getByText('Moedas insuficientes para este baú.'),
+      ).toBeVisible();
+    if (!enabled) {
+      fireEvent.click(buy);
+      expect(
+        screen.queryByRole('region', { name: 'Confirmar compra' }),
+      ).toBeNull();
+    }
+    expect(f.purchase).not.toHaveBeenCalled();
+    expect(f.initialize).not.toHaveBeenCalled();
+  },
+);
+
+test('unconfirmed Shop reads keep the catalog visible and never enable recovery or buying', async () => {
+  official();
+  f.traveler.coins = 1000;
+  f.read.mockRejectedValue(Error('read failed'));
+  render(<QAShopAccess />);
+  expect(
+    await screen.findByText(
+      'Operações indisponíveis neste momento. Seus itens e saldos estão preservados.',
+    ),
+  ).toBeVisible();
+  expect(
+    screen.getByRole('button', { name: 'Comprar baú comum' }),
+  ).toBeDisabled();
+  expect(
+    screen.getByRole('button', { name: 'Consultar compra pendente' }),
+  ).toBeDisabled();
+  expect(
+    screen.getByRole('button', { name: 'Abrir baú guardado' }),
+  ).toBeDisabled();
+  expect(f.purchase).not.toHaveBeenCalled();
+  expect(f.resume).not.toHaveBeenCalled();
+});
+
+test('pristine initialization requires an explicit action and does not invent spendable coins', async () => {
+  official();
+  f.traveler.coins = 0;
+  f.read.mockResolvedValue({
+    enabled: false,
+    balanceVerified: false,
+    coins: 0,
+    reason: 'legacy-reconciliation-required',
+    initializationEligible: true,
+  });
+  f.initialize.mockResolvedValue({
+    enabled: true,
+    balanceVerified: true,
+    coins: 0,
+  });
+  render(<QAShopAccess />);
+  const activate = await screen.findByRole('button', {
+    name: 'Ativar economia',
+  });
+  expect(f.initialize).not.toHaveBeenCalled();
+  fireEvent.click(activate);
+  await waitFor(() =>
+    expect(f.initialize).toHaveBeenCalledExactlyOnceWith('fixture'),
+  );
+  expect(
+    await screen.findByText(
+      'Economia ativada. Nenhuma moeda ou item foi concedido.',
+    ),
+  ).toBeVisible();
+  expect(
+    screen.getByRole('button', { name: 'Comprar baú comum' }),
+  ).toBeDisabled();
+  expect(f.traveler.coins).toBe(0);
+  expect(f.purchase).not.toHaveBeenCalled();
+});
+
+test('switching private training refreshes access without initializing the official economy', async () => {
+  official();
+  const blocked = {
+    enabled: false,
+    balanceVerified: false,
+    coins: 0,
+    reason: 'legacy-reconciliation-required',
+  };
+  f.read
+    .mockResolvedValueOnce(blocked)
+    .mockResolvedValueOnce({ enabled: true, balanceVerified: true, coins: 123 })
+    .mockResolvedValueOnce(blocked);
+  render(<QAShopAccess />);
+  await waitFor(() => expect(f.read).toHaveBeenCalledTimes(1));
+  const binding = {
+    owner: 'owner',
+    actor: 'fixture',
+    session: 1,
+    selected: true,
+    state: {
+      version: 1 as const,
+      qaOnly: true as const,
+      enabled: true as const,
+      actor: 'fixture',
+      activation: 'fixture-training',
+      expiresAt: '2100-01-01T00:00:00Z',
+      coins: 123,
+      chests: 0,
+      revision: 0,
+      items: {},
+      equipped: {},
+      history: [],
+    },
+  };
+  await act(async () => setTraining(binding));
+  await waitFor(() =>
+    expect(
+      screen.getByRole('button', { name: 'Comprar baú comum' }),
+    ).toBeEnabled(),
+  );
+  await act(async () => setTraining({ ...binding, selected: false }));
+  await waitFor(() => expect(f.read).toHaveBeenCalledTimes(3));
+  expect(
+    screen.getByRole('button', { name: 'Comprar baú comum' }),
+  ).toBeDisabled();
+  expect(f.initialize).not.toHaveBeenCalled();
+  expect(f.purchase).not.toHaveBeenCalled();
+});
+
+test('an old avatar response cannot enable the newly selected avatar', async () => {
+  official();
+  let resolve!: (v: unknown) => void;
+  f.read
+    .mockImplementationOnce(
+      () =>
+        new Promise((r) => {
+          resolve = r;
+        }),
+    )
+    .mockResolvedValue({
+      enabled: false,
+      balanceVerified: false,
+      coins: 0,
+      reason: 'legacy-reconciliation-required',
+    });
+  const view = render(<QAShopAccess />);
+  f.traveler.id = 'other-fixture';
+  view.rerender(<QAShopAccess />);
+  await waitFor(() => expect(f.read).toHaveBeenCalledTimes(2));
+  await act(async () =>
+    resolve({ enabled: true, balanceVerified: true, coins: 1000000 }),
+  );
+  expect(
+    screen.getByRole('button', { name: 'Comprar baú comum' }),
+  ).toBeDisabled();
 });
 test('existing offers retain prices and assets while categories never purchase or resume', () => {
   render(

@@ -1,0 +1,8 @@
+{
+  "project": "wspafhlbtlpabypzymjo",
+  "scope": "guild-ebd-001",
+  "migration": "supabase/migrations/20261110045153_rpg_economy_fix_012_initialization_production.sql",
+  "recovery": "packages/database/deployments/economyfix012/production-recovery-empty.sql",
+  "containment": "packages/database/deployments/economyfix012/production-containment.sql",
+  "activation": "Explicit own-avatar request only; migration never initializes avatars"
+}
