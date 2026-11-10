@@ -22,6 +22,9 @@ export async function run({
     ),
     shop = read(
       'supabase/migrations/20261103045303_economy_001c_shop_release_production.sql',
+    ),
+    equipmentFix = read(
+      'supabase/migrations/20261110080001_rpg_equipment_fix_013_production.sql',
     );
   const wrapC = (s) =>
     "BEGIN;SET LOCAL economy001c.target_project='wspafhlbtlpabypzymjo';" +
@@ -29,6 +32,10 @@ export async function run({
     ';COMMIT;';
   const wrap = (s) =>
     "BEGIN;SET LOCAL shop001c.target_project='wspafhlbtlpabypzymjo';SET LOCAL shop001c.price_approval='common40-sword35-armor65-shield115';" +
+    s +
+    ';COMMIT;';
+  const wrapEquipmentFix = (s) =>
+    "BEGIN;SET LOCAL equipment013.target_project='wspafhlbtlpabypzymjo';" +
     s +
     ';COMMIT;';
   const definitions = async () =>
@@ -113,6 +120,37 @@ export async function run({
       );
     },
   );
+  await q(
+    read('tests/hosted/fixtures/rpg-equipment-fix-013-existing-wrapper.sql'),
+  );
+  const equipBeforeFix = (
+    await q(
+      "select pg_get_functiondef('shop_private.equip(uuid,text,text,text)'::regprocedure) body",
+    )
+  ).rows[0].body;
+  await q(wrapEquipmentFix(equipmentFix));
+  const fixedEquipDef = (
+    await q(
+      "select pg_get_functiondef('shop_private.equip(uuid,text,text,text)'::regprocedure) body",
+    )
+  ).rows[0].body;
+  const oldAllowedList = equipBeforeFix.match(
+    /p_item\s+NOT\s+IN\s*\(([^)]*)\)/s,
+  )?.[1];
+  const newAllowedList = fixedEquipDef.match(
+    /p_item\s+NOT\s+IN\s*\(([^)]*)\)/s,
+  )?.[1];
+  assert(oldAllowedList);
+  assert(newAllowedList);
+  const previouslySupportedIds = [...oldAllowedList.matchAll(/'([^']+)'/g)].map(
+    (match) => match[1],
+  );
+  const currentlySupportedIds = new Set(
+    [...newAllowedList.matchAll(/'([^']+)'/g)].map((match) => match[1]),
+  );
+  assert.equal(new Set(previouslySupportedIds).size, 40);
+  for (const id of previouslySupportedIds)
+    assert(currentlySupportedIds.has(id));
   const call = async (n, name, args, client, session = uid(5000 + n)) => {
     const c = client ?? { query: q };
     try {
@@ -200,6 +238,16 @@ export async function run({
             'chest',
             'common',
             uid(9000),
+          ]),
+        '42501',
+      );
+      await denied(
+        () =>
+          call(3, 'select public.equip_shop_item($1,$2,$3,$4) x', [
+            tid(3),
+            'boots',
+            'traveler-boots',
+            null,
           ]),
         '42501',
       );
@@ -312,14 +360,99 @@ export async function run({
     },
   );
   await check(
-    'Equipment reuses ownership slot and acquisition receipt without modifying canonical stats',
+    'Equipment preserves base and published expansion IDs with canonical receipt gates',
     async () => {
+      // Isolated fixture for the published non-sale starter boots. This row is
+      // seeded only in the ephemeral PostgreSQL test database.
+      await q(
+        "insert into public.inventory(traveler_id,item_id,quantity,metadata) values($1,'traveler-boots',1,null),($1,'wisdom-amulet',1,jsonb_build_object('source','phase:garden-choice')),($1,'traveler-helmet-rare',1,jsonb_build_object('source','garden-equipment')),($1,'traveler-shield-rare',1,null) on conflict(traveler_id,item_id) do nothing",
+        [tid(2)],
+      );
+      await q(
+        "insert into public.inventory(traveler_id,item_id,quantity,metadata) values($1,'equipment-apprentice-sword',1,null) on conflict(traveler_id,item_id) do nothing",
+        [tid(2)],
+      );
+      await q(
+        "insert into economy_private.journey_rewards(traveler_id,reward_key) values($1,'phase:garden-choice'),($1,'garden-equipment') on conflict do nothing",
+        [tid(2)],
+      );
+      await q(
+        "insert into public.chest_operations(traveler_id,account_id,operation_key,operation_type,chest_type,source,price_paid,rewards) values($1,$2,'equipment-purchase:013-other-owner','equipment-purchase',null,'shop001c:equipment',115,jsonb_build_object('itemId','traveler-shield-rare','catalogVersion','ECONOMY-001C:shop:v1')) on conflict do nothing",
+        [tid(3), uid(3)],
+      );
+      await q(
+        "insert into public.equipped_items(traveler_id,slot,item_id) values($1,'weapon','equipment-apprentice-sword') on conflict(traveler_id,slot) do update set item_id=excluded.item_id",
+        [tid(2)],
+      );
       const b = (
         await q(
           'select to_jsonb(t) x from public.traveler_stats t where traveler_id=$1',
           [tid(2)],
         )
       ).rows[0].x;
+      const before = await snap();
+      delete before.equipment;
+      await call(2, 'select public.equip_shop_item($1,$2,$3,$4) x', [
+        tid(2),
+        'boots',
+        'traveler-boots',
+        null,
+      ]);
+      await call(2, 'select public.equip_shop_item($1,$2,$3,$4) x', [
+        tid(2),
+        'boots',
+        null,
+        'traveler-boots',
+      ]);
+      await call(2, 'select public.equip_shop_item($1,$2,$3,$4) x', [
+        tid(2),
+        'boots',
+        'traveler-boots',
+        null,
+      ]);
+      await call(2, 'select public.equip_shop_item($1,$2,$3,$4) x', [
+        tid(2),
+        'weapon',
+        'traveler-sword-common',
+        'equipment-apprentice-sword',
+      ]);
+      await call(2, 'select public.equip_shop_item($1,$2,$3,$4) x', [
+        tid(2),
+        'amulet',
+        'wisdom-amulet',
+        null,
+      ]);
+      await call(2, 'select public.equip_shop_item($1,$2,$3,$4) x', [
+        tid(2),
+        'amulet',
+        null,
+        'wisdom-amulet',
+      ]);
+      await call(2, 'select public.equip_shop_item($1,$2,$3,$4) x', [
+        tid(2),
+        'helmet',
+        'traveler-helmet-rare',
+        null,
+      ]);
+      await call(2, 'select public.equip_shop_item($1,$2,$3,$4) x', [
+        tid(2),
+        'helmet',
+        null,
+        'traveler-helmet-rare',
+      ]);
+      // Same-item replay exercises the current-slot compare-and-set path.
+      await call(2, 'select public.equip_shop_item($1,$2,$3,$4) x', [
+        tid(2),
+        'weapon',
+        'traveler-sword-common',
+        'traveler-sword-common',
+      ]);
+      await call(2, 'select public.equip_shop_item($1,$2,$3,$4) x', [
+        tid(2),
+        'weapon',
+        null,
+        'traveler-sword-common',
+      ]);
       await call(2, 'select public.equip_shop_item($1,$2,$3,$4) x', [
         tid(2),
         'weapon',
@@ -336,6 +469,59 @@ export async function run({
           ]),
         '42501',
       );
+      await denied(
+        () =>
+          call(3, 'select public.equip_shop_item($1,$2,$3,$4) x', [
+            tid(2),
+            'boots',
+            'traveler-boots',
+            null,
+          ]),
+        '42501',
+      );
+      for (const role of ['anon', 'service_role'])
+        await denied(
+          () =>
+            as(
+              2,
+              'select public.equip_shop_item($1,$2,$3,$4)',
+              [tid(2), 'boots', 'traveler-boots', null],
+              role,
+            ),
+          '42501',
+        );
+      await denied(
+        () =>
+          call(2, 'select public.equip_shop_item($1,$2,$3,$4) x', [
+            tid(2),
+            'boots',
+            'equipment-reinforced-tunic',
+            null,
+          ]),
+        '42501',
+      );
+      await denied(
+        () =>
+          call(2, 'select public.equip_shop_item($1,$2,$3,$4) x', [
+            tid(2),
+            'shield',
+            'traveler-shield-rare',
+            null,
+          ]),
+        '42501',
+      );
+      const after = await snap();
+      delete after.equipment;
+      assert.deepEqual(after, before);
+      assert.deepEqual(
+        (
+          await q(
+            "select coalesce(jsonb_object_agg(slot,item_id),'{}'::jsonb) x from public.equipped_items where traveler_id=$1",
+            [tid(2)],
+          )
+        ).rows[0].x,
+        { boots: 'traveler-boots', weapon: 'traveler-sword-common' },
+      );
       assert.deepEqual(
         (
           await q(
@@ -344,6 +530,34 @@ export async function run({
           )
         ).rows[0].x,
         b,
+      );
+    },
+  );
+  await check(
+    'Equipment fix recovery restores the exact prior wrapper and preserves grants',
+    async () => {
+      await q(
+        wrapEquipmentFix(
+          read(
+            'packages/database/proposals/rpg-equipment-fix-013-recovery-production.sql',
+          ),
+        ),
+      );
+      assert.equal(
+        (
+          await q(
+            "select pg_get_functiondef('shop_private.equip(uuid,text,text,text)'::regprocedure) body",
+          )
+        ).rows[0].body,
+        equipBeforeFix,
+      );
+      assert.equal(
+        (
+          await q(
+            "select proacl::text acl from pg_proc where oid='shop_private.equip(uuid,text,text,text)'::regprocedure",
+          )
+        ).rows[0].acl,
+        '{postgres=X/postgres,authenticated=X/postgres}',
       );
     },
   );
