@@ -25,7 +25,7 @@ it('freezes only the 33 approved cards as non-starter definitions with acquisiti
       (entry) => entry.id === card.id,
     )!;
     expect(ARENA_CARD_ILLUSTRATIONS[card.id]?.src).toBe(source.artPath);
-    expect(existsSync(`public${source.artPath}`)).toBe(true);
+    expect(existsSync(`apps/web/public${source.artPath}`)).toBe(true);
     expect(card).toMatchObject({
       action: source.action,
       name: source.name,
@@ -59,6 +59,7 @@ it('freezes the 34 approved equipment definitions and their exact art mappings',
   );
   for (const item of equipment) {
     const source = approved.find((entry) => entry.id === item.id)!;
+    expect(existsSync(`apps/web/public${source.catalogArt}`)).toBe(true);
     expect(item).toMatchObject({
       ...source,
       catalogArt: `/assets/equipment/catalog/${item.id}.webp`,
