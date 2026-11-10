@@ -35,7 +35,7 @@ vi.mock('../journey/hooks/use-battle-presentation', () => ({
   }),
 }));
 import { ArenaExperience } from '../journey/screens/arena';
-const cards = getArenaCardCatalog(),
+const cards = getArenaCardCatalog().slice(0, 7),
   ids = cards.map((c) => c.id);
 // Isolated synthetic fighter only; never sent to hosted storage or a player account.
 const hero = {

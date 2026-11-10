@@ -15,8 +15,11 @@ import {
 } from './collection';
 import { cards } from '../../../../tests/fixtures/arena-deck';
 import { getArenaCardCatalog } from '@rpg/game-engine';
-test('production catalog grants no cards and metadata/equipment cannot invent ownership', () => {
-  expect(APPROVED_ARENA_CARDS).toEqual([]);
+test('approved catalog definitions do not grant ownership or let metadata/equipment invent it', () => {
+  expect(APPROVED_ARENA_CARDS).toHaveLength(33);
+  expect(APPROVED_ARENA_CARDS.map((card) => card.id)).toContain(
+    'arena-card-traveler-charge',
+  );
   expect(
     cardsFromInventory(
       'p',

@@ -1,0 +1,473 @@
+[
+  {
+    "id": "equipment-apprentice-sword",
+    "name": "Espada do Aprendiz",
+    "slot": "weapon",
+    "rarity": "comum",
+    "minimumLevel": 1,
+    "power": 1,
+    "stats": {
+      "strength": 1
+    },
+    "description": "Uma lâmina para começar.",
+    "catalogArt": "/assets/equipment/catalog/equipment-apprentice-sword.webp"
+  },
+  {
+    "id": "equipment-pilgrim-blade",
+    "name": "Lâmina do Peregrino",
+    "slot": "weapon",
+    "rarity": "incomum",
+    "minimumLevel": 4,
+    "power": 2,
+    "stats": {
+      "strength": 2,
+      "wisdom": 1
+    },
+    "description": "Força com atenção ao caminho.",
+    "catalogArt": "/assets/equipment/catalog/equipment-pilgrim-blade.webp"
+  },
+  {
+    "id": "equipment-guardian-sword",
+    "name": "Espada do Guardião",
+    "slot": "weapon",
+    "rarity": "incomum",
+    "minimumLevel": 6,
+    "power": 2,
+    "stats": {
+      "strength": 2,
+      "defense": 1
+    },
+    "description": "Ataque sem abandonar a defesa.",
+    "catalogArt": "/assets/equipment/catalog/equipment-guardian-sword.webp"
+  },
+  {
+    "id": "equipment-courage-blade",
+    "name": "Lâmina da Coragem",
+    "slot": "weapon",
+    "rarity": "raro",
+    "minimumLevel": 10,
+    "power": 2,
+    "stats": {
+      "life": 1,
+      "strength": 3
+    },
+    "description": "Avance com firmeza.",
+    "catalogArt": "/assets/equipment/catalog/equipment-courage-blade.webp"
+  },
+  {
+    "id": "equipment-perseverance-sword",
+    "name": "Espada da Perseverança",
+    "slot": "weapon",
+    "rarity": "épico",
+    "minimumLevel": 18,
+    "power": 3,
+    "stats": {
+      "strength": 3,
+      "wisdom": 1
+    },
+    "description": "Precisão após uma longa jornada.",
+    "catalogArt": "/assets/equipment/catalog/equipment-perseverance-sword.webp"
+  },
+  {
+    "id": "equipment-victory-blade",
+    "name": "Lâmina da Vitória",
+    "slot": "weapon",
+    "rarity": "lendário",
+    "minimumLevel": 28,
+    "power": 3,
+    "stats": {
+      "strength": 3,
+      "wisdom": 2
+    },
+    "description": "Uma conquista, não uma vitória garantida.",
+    "catalogArt": "/assets/equipment/catalog/equipment-victory-blade.webp"
+  },
+  {
+    "id": "equipment-reinforced-tunic",
+    "name": "Túnica Reforçada",
+    "slot": "armor",
+    "rarity": "comum",
+    "minimumLevel": 1,
+    "power": 1,
+    "stats": {
+      "life": 1
+    },
+    "description": "Proteção leve para viajar.",
+    "catalogArt": "/assets/equipment/catalog/equipment-reinforced-tunic.webp"
+  },
+  {
+    "id": "equipment-traveler-vest",
+    "name": "Colete do Viajante",
+    "slot": "armor",
+    "rarity": "comum",
+    "minimumLevel": 2,
+    "power": 1,
+    "stats": {
+      "defense": 1
+    },
+    "description": "Resista sem carregar peso.",
+    "catalogArt": "/assets/equipment/catalog/equipment-traveler-vest.webp"
+  },
+  {
+    "id": "equipment-vigilance-cuirass",
+    "name": "Couraça da Vigilância",
+    "slot": "armor",
+    "rarity": "incomum",
+    "minimumLevel": 5,
+    "power": 2,
+    "stats": {
+      "life": 1,
+      "wisdom": 2
+    },
+    "description": "Atenção também protege.",
+    "catalogArt": "/assets/equipment/catalog/equipment-vigilance-cuirass.webp"
+  },
+  {
+    "id": "equipment-guardian-armor",
+    "name": "Armadura do Guardião",
+    "slot": "armor",
+    "rarity": "raro",
+    "minimumLevel": 11,
+    "power": 2,
+    "stats": {
+      "life": 1,
+      "defense": 2
+    },
+    "description": "Uma defesa preparada.",
+    "catalogArt": "/assets/equipment/catalog/equipment-guardian-armor.webp"
+  },
+  {
+    "id": "equipment-perseverance-armor",
+    "name": "Armadura da Perseverança",
+    "slot": "armor",
+    "rarity": "épico",
+    "minimumLevel": 19,
+    "power": 3,
+    "stats": {
+      "life": 2,
+      "defense": 1,
+      "wisdom": 1
+    },
+    "description": "Resistência para continuar.",
+    "catalogArt": "/assets/equipment/catalog/equipment-perseverance-armor.webp"
+  },
+  {
+    "id": "equipment-fortress-armor",
+    "name": "Armadura da Fortaleza",
+    "slot": "armor",
+    "rarity": "lendário",
+    "minimumLevel": 30,
+    "power": 3,
+    "stats": {
+      "life": 3,
+      "defense": 2
+    },
+    "description": "Firmeza diante da pressão.",
+    "catalogArt": "/assets/equipment/catalog/equipment-fortress-armor.webp"
+  },
+  {
+    "id": "equipment-wooden-shield",
+    "name": "Escudo de Madeira",
+    "slot": "shield",
+    "rarity": "comum",
+    "minimumLevel": 1,
+    "power": 1,
+    "stats": {
+      "defense": 1
+    },
+    "description": "Proteção simples e confiável.",
+    "catalogArt": "/assets/equipment/catalog/equipment-wooden-shield.webp"
+  },
+  {
+    "id": "equipment-apprentice-shield",
+    "name": "Escudo do Aprendiz",
+    "slot": "shield",
+    "rarity": "comum",
+    "minimumLevel": 2,
+    "power": 1,
+    "stats": {
+      "life": 1
+    },
+    "description": "Mais fôlego para aprender.",
+    "catalogArt": "/assets/equipment/catalog/equipment-apprentice-shield.webp"
+  },
+  {
+    "id": "equipment-vigilance-shield",
+    "name": "Escudo da Vigilância",
+    "slot": "shield",
+    "rarity": "incomum",
+    "minimumLevel": 4,
+    "power": 2,
+    "stats": {
+      "defense": 1,
+      "wisdom": 1
+    },
+    "description": "Observe e proteja.",
+    "catalogArt": "/assets/equipment/catalog/equipment-vigilance-shield.webp"
+  },
+  {
+    "id": "equipment-pilgrim-shield",
+    "name": "Escudo do Peregrino",
+    "slot": "shield",
+    "rarity": "incomum",
+    "minimumLevel": 6,
+    "power": 2,
+    "stats": {
+      "life": 1,
+      "defense": 1
+    },
+    "description": "Companhia para o caminho.",
+    "catalogArt": "/assets/equipment/catalog/equipment-pilgrim-shield.webp"
+  },
+  {
+    "id": "equipment-courage-shield",
+    "name": "Escudo da Coragem",
+    "slot": "shield",
+    "rarity": "raro",
+    "minimumLevel": 12,
+    "power": 2,
+    "stats": {
+      "strength": 1,
+      "defense": 2
+    },
+    "description": "Proteja e responda.",
+    "catalogArt": "/assets/equipment/catalog/equipment-courage-shield.webp"
+  },
+  {
+    "id": "equipment-fortress-shield",
+    "name": "Escudo da Fortaleza",
+    "slot": "shield",
+    "rarity": "épico",
+    "minimumLevel": 20,
+    "power": 3,
+    "stats": {
+      "life": 2,
+      "defense": 3
+    },
+    "description": "Uma linha difícil de romper.",
+    "catalogArt": "/assets/equipment/catalog/equipment-fortress-shield.webp"
+  },
+  {
+    "id": "equipment-leather-helmet",
+    "name": "Elmo de Couro",
+    "slot": "helmet",
+    "rarity": "comum",
+    "minimumLevel": 1,
+    "power": 1,
+    "stats": {
+      "defense": 1
+    },
+    "description": "Proteção para os primeiros passos.",
+    "catalogArt": "/assets/equipment/catalog/equipment-leather-helmet.webp"
+  },
+  {
+    "id": "equipment-journey-helmet",
+    "name": "Elmo da Jornada",
+    "slot": "helmet",
+    "rarity": "incomum",
+    "minimumLevel": 5,
+    "power": 2,
+    "stats": {
+      "life": 1,
+      "wisdom": 1
+    },
+    "description": "Atenção ao horizonte.",
+    "catalogArt": "/assets/equipment/catalog/equipment-journey-helmet.webp"
+  },
+  {
+    "id": "equipment-vigilance-helmet",
+    "name": "Elmo da Vigilância",
+    "slot": "helmet",
+    "rarity": "raro",
+    "minimumLevel": 10,
+    "power": 2,
+    "stats": {
+      "defense": 1,
+      "wisdom": 2
+    },
+    "description": "Perceba o momento certo.",
+    "catalogArt": "/assets/equipment/catalog/equipment-vigilance-helmet.webp"
+  },
+  {
+    "id": "equipment-guardian-helmet",
+    "name": "Elmo do Guardião",
+    "slot": "helmet",
+    "rarity": "raro",
+    "minimumLevel": 13,
+    "power": 2,
+    "stats": {
+      "life": 1,
+      "strength": 1,
+      "defense": 1
+    },
+    "description": "Pronto para o confronto.",
+    "catalogArt": "/assets/equipment/catalog/equipment-guardian-helmet.webp"
+  },
+  {
+    "id": "equipment-perseverance-helmet",
+    "name": "Elmo da Perseverança",
+    "slot": "helmet",
+    "rarity": "épico",
+    "minimumLevel": 21,
+    "power": 3,
+    "stats": {
+      "life": 2,
+      "defense": 1,
+      "wisdom": 1
+    },
+    "description": "Mantenha a cabeça erguida.",
+    "catalogArt": "/assets/equipment/catalog/equipment-perseverance-helmet.webp"
+  },
+  {
+    "id": "equipment-reinforced-sandals",
+    "name": "Sandálias Reforçadas",
+    "slot": "boots",
+    "rarity": "comum",
+    "minimumLevel": 1,
+    "power": 1,
+    "stats": {
+      "wisdom": 1
+    },
+    "description": "Passos atentos.",
+    "catalogArt": "/assets/equipment/catalog/equipment-reinforced-sandals.webp"
+  },
+  {
+    "id": "equipment-explorer-boots",
+    "name": "Botas do Explorador",
+    "slot": "boots",
+    "rarity": "incomum",
+    "minimumLevel": 4,
+    "power": 2,
+    "stats": {
+      "life": 1,
+      "wisdom": 1
+    },
+    "description": "Explore com cuidado.",
+    "catalogArt": "/assets/equipment/catalog/equipment-explorer-boots.webp"
+  },
+  {
+    "id": "equipment-journey-boots",
+    "name": "Botas da Jornada",
+    "slot": "boots",
+    "rarity": "incomum",
+    "minimumLevel": 7,
+    "power": 2,
+    "stats": {
+      "life": 1,
+      "defense": 1
+    },
+    "description": "Prepare-se para um caminho longo.",
+    "catalogArt": "/assets/equipment/catalog/equipment-journey-boots.webp"
+  },
+  {
+    "id": "equipment-pilgrim-boots",
+    "name": "Botas do Peregrino",
+    "slot": "boots",
+    "rarity": "raro",
+    "minimumLevel": 12,
+    "power": 2,
+    "stats": {
+      "life": 1,
+      "wisdom": 2
+    },
+    "description": "Encontre seu ritmo.",
+    "catalogArt": "/assets/equipment/catalog/equipment-pilgrim-boots.webp"
+  },
+  {
+    "id": "equipment-perseverance-boots",
+    "name": "Botas da Perseverança",
+    "slot": "boots",
+    "rarity": "épico",
+    "minimumLevel": 22,
+    "power": 3,
+    "stats": {
+      "life": 2,
+      "strength": 1,
+      "defense": 1
+    },
+    "description": "Continue mesmo sob pressão.",
+    "catalogArt": "/assets/equipment/catalog/equipment-perseverance-boots.webp"
+  },
+  {
+    "id": "equipment-simple-pendant",
+    "name": "Pingente Simples",
+    "slot": "amulet",
+    "rarity": "comum",
+    "minimumLevel": 1,
+    "power": 1,
+    "stats": {
+      "wisdom": 1
+    },
+    "description": "Um lembrete do caminho.",
+    "catalogArt": "/assets/equipment/catalog/equipment-simple-pendant.webp"
+  },
+  {
+    "id": "equipment-journey-medal",
+    "name": "Medalha da Jornada",
+    "slot": "amulet",
+    "rarity": "incomum",
+    "minimumLevel": 6,
+    "power": 2,
+    "stats": {
+      "life": 1,
+      "wisdom": 1
+    },
+    "description": "Marcas de uma jornada.",
+    "catalogArt": "/assets/equipment/catalog/equipment-journey-medal.webp"
+  },
+  {
+    "id": "equipment-prudence-amulet",
+    "name": "Amuleto da Prudência",
+    "slot": "amulet",
+    "rarity": "raro",
+    "minimumLevel": 14,
+    "power": 2,
+    "stats": {
+      "defense": 1,
+      "wisdom": 2
+    },
+    "description": "Observe antes de agir.",
+    "catalogArt": "/assets/equipment/catalog/equipment-prudence-amulet.webp"
+  },
+  {
+    "id": "equipment-vigilance-medallion",
+    "name": "Medalhão da Vigilância",
+    "slot": "amulet",
+    "rarity": "épico",
+    "minimumLevel": 20,
+    "power": 2,
+    "stats": {
+      "wisdom": 4
+    },
+    "description": "Atenção em cada decisão.",
+    "catalogArt": "/assets/equipment/catalog/equipment-vigilance-medallion.webp"
+  },
+  {
+    "id": "equipment-guardian-medallion",
+    "name": "Medalhão do Guardião",
+    "slot": "amulet",
+    "rarity": "épico",
+    "minimumLevel": 23,
+    "power": 3,
+    "stats": {
+      "life": 2,
+      "defense": 2
+    },
+    "description": "Firmeza sem ostentação.",
+    "catalogArt": "/assets/equipment/catalog/equipment-guardian-medallion.webp"
+  },
+  {
+    "id": "equipment-perseverance-medallion",
+    "name": "Medalhão da Perseverança",
+    "slot": "amulet",
+    "rarity": "lendário",
+    "minimumLevel": 30,
+    "power": 2,
+    "stats": {
+      "life": 1,
+      "wisdom": 3
+    },
+    "description": "Reserve forças para o próximo passo.",
+    "catalogArt": "/assets/equipment/catalog/equipment-perseverance-medallion.webp"
+  }
+]

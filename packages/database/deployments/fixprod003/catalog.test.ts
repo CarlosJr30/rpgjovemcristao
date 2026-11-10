@@ -13,7 +13,7 @@ const review = JSON.parse(
   ),
 );
 it('freezes exactly seven existing cards without changing effects, level, Focus, rarity or numerical parameters', () => {
-  const source = getArenaCardCatalog();
+  const source = getArenaCardCatalog().slice(0, 7);
   expect(review.definitions).toHaveLength(7);
   expect(
     new Set(review.definitions.map((c: { id: string }) => c.id)).size,
@@ -25,6 +25,7 @@ it('freezes exactly seven existing cards without changing effects, level, Focus,
     const c = review.definitions[i];
     expect({
       ...c,
+      art: source[i].art,
       catalogVersion: source[i].catalogVersion,
       homologation: source[i].homologation,
       acquisition: source[i].acquisition,

@@ -112,7 +112,7 @@ test('full acquisition catalog is visible without purchase actions or unapproved
   const other = screen.getByRole('region', {
     name: 'Mais artefatos',
   });
-  expect(within(other).getAllByRole('article')).toHaveLength(6);
+  expect(within(other).getAllByRole('article')).toHaveLength(40);
   expect(within(other).queryByRole('button')).toBeNull();
   expect(other).not.toHaveTextContent(/90 Moedas|180 Moedas/);
   for (const name of [
@@ -146,7 +146,7 @@ test('full acquisition catalog is visible without purchase actions or unapproved
   fireEvent.click(
     within(filters).getByRole('button', { name: 'Equipamentos' }),
   );
-  expect(within(other).getAllByRole('article')).toHaveLength(3);
+  expect(within(other).getAllByRole('article')).toHaveLength(37);
   expect(
     screen.queryByRole('region', { name: 'Tesouros de atividades' }),
   ).toBeNull();

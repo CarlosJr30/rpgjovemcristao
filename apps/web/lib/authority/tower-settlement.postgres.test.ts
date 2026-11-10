@@ -13,10 +13,12 @@ import { executeAuthority, type BattleView } from './service';
 // Disposable, network-disabled PostgreSQL only. These synthetic actors/catalog
 // approvals do NOT prove legitimate hosted clears or homologate real credits.
 const db = offlinePostgres();
-const cards = getArenaCardCatalog().map((card, i) => ({
-  ...card,
-  id: `005-offline-card-${i}`,
-}));
+const cards = getArenaCardCatalog()
+  .slice(0, 7)
+  .map((card, i) => ({
+    ...card,
+    id: `005-offline-card-${i}`,
+  }));
 const ids = cards.map((c) => c.id);
 const execute = <T>(n: number, body: object) =>
   executeAuthority({ authenticate: async () => null, call: db.rpc }, uid(n), {

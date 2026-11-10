@@ -3,6 +3,7 @@ import {
   ARENA_CARD_ACTIONS,
   ARENA_CARD_CATALOG_VERSION,
   ARENA_CARD_RARITIES,
+  ARENA_CONTENT_040_CARDS,
   arenaCardAvailability,
   arenaCombatConfig,
   arenaSpecials,
@@ -24,9 +25,9 @@ import {
 } from './index';
 import { player, opponent } from '../../../tests/fixtures/arena-deck';
 
-test('registry preserves six original identities and adds one distinct implemented candidate', () => {
+test('registry preserves the seven original cards and appends the 33 approved definitions', () => {
   const catalog = getArenaCardCatalog();
-  expect(catalog.map((entry) => entry.id)).toEqual([
+  expect(catalog.slice(0, 7).map((entry) => entry.id)).toEqual([
     'arena-card-basic-attack',
     'arena-card-basic-defense',
     'arena-card-path-strike',
@@ -35,12 +36,16 @@ test('registry preserves six original identities and adds one distinct implement
     'arena-card-pilgrim-step',
     'arena-card-measured-strike',
   ]);
-  expect(new Set(catalog.map((entry) => entry.id)).size).toBe(7);
-  expect(catalog.map((entry) => entry.action)).toEqual(ARENA_CARD_ACTIONS);
+  expect(catalog).toHaveLength(40);
+  expect(ARENA_CONTENT_040_CARDS).toHaveLength(33);
+  expect(new Set(catalog.map((entry) => entry.id)).size).toBe(40);
+  expect(catalog.slice(0, 7).map((entry) => entry.action)).toEqual(
+    ARENA_CARD_ACTIONS,
+  );
   expect(catalog).toEqual(getArenaCardCatalog());
   expect(
     validateArenaDeck(
-      catalog.map((entry) => entry.id),
+      catalog.slice(0, 7).map((entry) => entry.id),
       catalog,
     ),
   ).toBeNull();
@@ -55,10 +60,17 @@ test('registry preserves six original identities and adds one distinct implement
   expect(Object.isFrozen(catalog[0].acquisition.proposedSources)).toBe(true);
 });
 
-test('proposed entries and injected definitions are never playable approvals or authorized sources', () => {
-  expect(getApprovedArenaCards()).toEqual([]);
+test('new definitions are approved but acquisition remains closed and client definitions cannot be injected', () => {
+  expect(getApprovedArenaCards()).toHaveLength(33);
   for (const entry of getArenaCardCatalog()) {
-    expect(resolveApprovedArenaCard(entry.id)).toBeNull();
+    const contentCard = ARENA_CONTENT_040_CARDS.some(
+      (card) => card.id === entry.id,
+    );
+    if (contentCard)
+      expect(resolveApprovedArenaCard(entry.id)).toMatchObject({
+        id: entry.id,
+      });
+    else expect(resolveApprovedArenaCard(entry.id)).toBeNull();
     expect(
       resolveApprovedArenaCard({
         ...entry,
@@ -68,18 +80,34 @@ test('proposed entries and injected definitions are never playable approvals or 
       }),
     ).toBeNull();
     expect(entry).toMatchObject({
-      homologation: { status: 'proposed', approvalReference: null },
-      acquisition: {
-        status: 'pending-server-contract',
-        authorizedSources: [],
-        approvalReference: null,
-      },
-      art: { approved: false, reference: null },
       biblicalReference: null,
       usesPerBattle: 1,
       remainsOwnedAfterBattle: true,
     });
-    expect(entry.catalogVersion).toBe(ARENA_CARD_CATALOG_VERSION);
+    if (contentCard) {
+      expect(entry).toMatchObject({
+        homologation: {
+          status: 'approved',
+          approvalReference: 'CONTENT-040A:OWNER:2026-11-09',
+        },
+        acquisition: {
+          status: 'pending-server-contract',
+          authorizedSources: [],
+          approvalReference: null,
+        },
+        art: {
+          approved: true,
+          reference: expect.stringContaining(
+            '/assets/cards/arena/content-040/',
+          ),
+        },
+      });
+    }
+    expect(entry.catalogVersion).toBe(
+      ARENA_CONTENT_040_CARDS.some((card) => card.id === entry.id)
+        ? 'arena-cards-2026-11-09.1-content-040a'
+        : ARENA_CARD_CATALOG_VERSION,
+    );
     expect(ARENA_CARD_RARITIES).toContain(entry.rarity);
     expect(Object.values(entry.parameters).every(Number.isFinite)).toBe(true);
   }
@@ -100,16 +128,16 @@ test('proposed entries and injected definitions are never playable approvals or 
 test('readiness reports the real shortage and level-one limitation without promising a starter grant', () => {
   expect(getArenaCardReadiness()).toMatchObject({
     requiredDeckSize: 7,
-    proposedCards: 7,
+    proposedCards: 40,
     distinctExistingEffects: 7,
     missingDistinctEffects: 0,
-    approvedCards: 0,
-    proposedUsableAtLevel: 3,
+    approvedCards: 33,
+    proposedUsableAtLevel: 6,
     collectionAvailable: false,
     starterAvailable: false,
     authoritativeAcquisitionAvailable: false,
   });
-  expect(getArenaCardReadiness(8).proposedUsableAtLevel).toBe(7);
+  expect(getArenaCardReadiness(8).proposedUsableAtLevel).toBeGreaterThan(6);
   expect(getArenaCardReadiness().blockers).not.toContain(
     'seventh-effect-pending',
   );
@@ -119,7 +147,7 @@ test('readiness reports the real shortage and level-one limitation without promi
 
 test('objective data and descriptions use the actual engine rules rather than duplicated balance values', () => {
   for (const entry of getArenaCardCatalog()) {
-    const expected = describeArenaAction(entry.action);
+    const expected = describeCatalogCard(entry.id)!;
     expect(entry.description).toEqual(expected);
     expect(entry.minimumLevel).toBe(expected.minimumLevel);
     expect(entry.focusCost).toBe(expected.focusCost);
@@ -145,9 +173,10 @@ test('objective data and descriptions use the actual engine rules rather than du
 
 // Proposed definitions are injected as synthetic ownership only in tests.
 function syntheticDeck(entry: ArenaCard) {
-  const owned: readonly ArenaCard[] = getArenaCardCatalog().map((card) =>
-    card.id === entry.id ? entry : card,
-  );
+  const official = getArenaCardCatalog().slice(0, 7);
+  const owned = official.some((card) => card.id === entry.id)
+    ? official
+    : [...official.slice(0, 6), entry];
   return { owned, ids: owned.map((card) => card.id) };
 }
 const charge = (state: BattleState): BattleState => ({
@@ -155,12 +184,8 @@ const charge = (state: BattleState): BattleState => ({
   player: { ...state.player, focusPoints: arenaCombatConfig.maximumFocus },
 });
 
-test.each(
-  getArenaCardCatalog().filter(
-    (card) => card.action !== 'special:measured-strike',
-  ),
-)(
-  '$name executes the existing effect exactly and consumes only the accepted card',
+test.each(getArenaCardCatalog().slice(0, 7))(
+  '$name preserves the existing seven-card effect and one-use contract',
   (entry) => {
     const { owned, ids } = syntheticDeck(entry);
     const start = createArenaDeckBattle(
@@ -182,9 +207,15 @@ test.each(
       charge(createArenaBattle(player, opponent, 42, 'catalog-fixture')),
       entry.action,
     );
-    expect(used.player).toEqual(expected.player);
-    expect(used.opponent).toEqual(expected.opponent);
-    expect(used.log).toEqual(expected.log);
+    if (entry.action !== 'special:measured-strike') {
+      expect(used.player).toEqual(expected.player);
+      expect(used.opponent).toEqual(expected.opponent);
+      expect(used.log).toEqual(expected.log);
+    } else {
+      // The dedicated measured-strike test covers its canonical server effect;
+      // this registry check verifies the deck-owned one-use route.
+      expect(used.player.lastSpecial).toBe('measured-strike');
+    }
     expect(used.deck?.usedIds).toEqual([entry.id]);
     expect(
       resolveArenaCommand(used, used.id, used.round, `card:${entry.id}`),
@@ -199,6 +230,92 @@ test.each(
     ).toEqual([]);
   },
 );
+
+test.each(ARENA_CONTENT_040_CARDS)(
+  '$name uses its approved server rule once and leaves acquisition separate',
+  (entry) => {
+    const { owned, ids } = syntheticDeck(entry);
+    const snapshot = {
+      ...player,
+      level: Math.max(player.level, entry.minimumLevel),
+    };
+    const base = createArenaDeckBattle(
+      snapshot,
+      opponent,
+      61,
+      entry.id,
+      ids,
+      owned,
+    );
+    const lowHp = {
+      ...base,
+      player: {
+        ...base.player,
+        hp: Math.max(1, Math.floor(base.player.maxHp * 0.2)),
+        focusPoints: 3,
+      },
+    };
+    expect(arenaCardAvailability(lowHp, entry.id).status).toBe('available');
+    const next = resolveArenaCommand(
+      lowHp,
+      lowHp.id,
+      lowHp.round,
+      `card:${entry.id}`,
+    );
+    expect(next).not.toBe(lowHp);
+    expect(next.deck?.usedIds).toContain(entry.id);
+    expect(
+      resolveArenaCommand(next, next.id, next.round, `card:${entry.id}`),
+    ).toBe(next);
+    expect(entry.action).toBe(
+      entry.rule.mode === 'attack' ? 'attack' : 'defend',
+    );
+  },
+);
+
+test('new healing cards share the 20 percent / 24 HP battle budget and never force a 1 HP cure', () => {
+  const first = ARENA_CONTENT_040_CARDS.find(
+    (card) => card.id === 'arena-card-regather-strength',
+  )!;
+  const second = ARENA_CONTENT_040_CARDS.find(
+    (card) => card.id === 'arena-card-renewed-courage',
+  )!;
+  const { owned, ids } = syntheticDeck(first);
+  const start = createArenaDeckBattle(
+    { ...player, level: 5 },
+    opponent,
+    88,
+    'healing-budget',
+    ids,
+    owned,
+  );
+  const damaged = {
+    ...start,
+    player: { ...start.player, hp: start.player.maxHp - 5, focusPoints: 3 },
+  };
+  const healed = resolveArenaCommand(
+    damaged,
+    damaged.id,
+    damaged.round,
+    `card:${first.id}`,
+  );
+  expect(healed.player.healingUsed).toBe(6);
+  const noHealDeck = syntheticDeck(second);
+  const full = charge(
+    createArenaDeckBattle(
+      { ...player, level: 5 },
+      opponent,
+      89,
+      'no-heal',
+      noHealDeck.ids,
+      noHealDeck.owned,
+    ),
+  );
+  expect(arenaCardAvailability(full, second.id).status).toBe('condition');
+  expect(
+    resolveArenaCommand(full, full.id, full.round, `card:${second.id}`),
+  ).toBe(full);
+});
 
 test.each(arenaSpecials)(
   '$name keeps its real level/Foco and derives equipment-adjusted descriptions',

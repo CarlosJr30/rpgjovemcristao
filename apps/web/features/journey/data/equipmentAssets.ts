@@ -145,9 +145,12 @@ export const equipmentIcons: Readonly<Record<EquipmentSlot, string>> = {
   boots: '/assets/equipment/boots/traveler_boots_common_icon.png',
   amulet: '/assets/equipment/amulet/amulet_of_the_path_icon.png',
 };
-const missingOverlay = (slot: EquipmentSlot): EquipmentAssetEntry => ({
+const missingOverlay = (
+  slot: EquipmentSlot,
+  iconAsset = equipmentIcons[slot],
+): EquipmentAssetEntry => ({
   slot,
-  iconAsset: equipmentIcons[slot],
+  iconAsset,
   overlayAsset: null,
   visualConfig: null,
   visualQuality: 'NEEDS_NEW_OVERLAY',
@@ -378,7 +381,12 @@ export function resolveEquipmentDefinition(
   const equipment = EQUIPMENT_CATALOG.find((item) => item.id === itemId);
   const assets =
     EQUIPMENT_ASSET_MANIFEST[itemId] ??
-    (equipment ? missingOverlay(equipment.slot) : undefined);
+    (equipment
+      ? missingOverlay(
+          equipment.slot,
+          equipment.catalogArt ?? equipmentIcons[equipment.slot],
+        )
+      : undefined);
   return assets ? { ...assets, itemId, equipment } : undefined;
 }
 

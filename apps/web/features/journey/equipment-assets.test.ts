@@ -32,6 +32,17 @@ import {
 const sword = EQUIPMENT_CATALOG.find(
   (item) => item.id === 'traveler-sword-common',
 )!;
+const ORIGINAL_EQUIPMENT_IDS = new Set([
+  'traveler-boots',
+  'traveler-helmet-rare',
+  'wisdom-amulet',
+  'traveler-sword-common',
+  'traveler-armor-uncommon',
+  'traveler-shield-rare',
+]);
+const ORIGINAL_EQUIPMENT = EQUIPMENT_CATALOG.filter((item) =>
+  ORIGINAL_EQUIPMENT_IDS.has(item.id),
+);
 const makeTraveler = () =>
   createTraveler(
     'Luca',
@@ -60,10 +71,17 @@ describe('equipment visual contract', () => {
       const definition = resolveEquipmentDefinition(item.id)!;
       expect(definition.equipment).toBe(item);
       expect(definition.slot).toBe(item.slot);
-      expect(equipmentAssetForItem(item)).toBe(definition.iconAsset);
-      expect(definition.iconAsset).toMatch(
-        /^\/assets\/equipment\/.+_icon\.png$/,
-      );
+      if (item.catalogArt) {
+        expect(equipmentAssetForItem(item)).toBe(item.catalogArt);
+        expect(
+          equipmentVisualForItem(item, 'female').visualOverlayUnavailable,
+        ).toBe(true);
+      } else {
+        expect(equipmentAssetForItem(item)).toBe(definition.iconAsset);
+        expect(definition.iconAsset).toMatch(
+          /^\/assets\/equipment\/.+_icon\.png$/,
+        );
+      }
     }
     expect(resolveEquipmentDefinition('unknown')).toBeUndefined();
     expect(equipmentAssetForItem({ id: 'unknown', slot: 'armor' })).toBe(
@@ -341,9 +359,9 @@ describe('equipment visual contract', () => {
 
   it('orders dedicated layers centrally, with back below body and medallion above armor', () => {
     const traveler = makeTraveler();
-    traveler.inventory = [...EQUIPMENT_CATALOG];
+    traveler.inventory = [...ORIGINAL_EQUIPMENT];
     traveler.equipped = Object.fromEntries(
-      EQUIPMENT_CATALOG.map((item) => [item.slot, item.id]),
+      ORIGINAL_EQUIPMENT.map((item) => [item.slot, item.id]),
     );
     const layers = equippedOverlayLayers(traveler, (id) => {
       const item = traveler.inventory.find((owned) => owned.id === id)!;
@@ -370,9 +388,9 @@ describe('equipment visual contract', () => {
 
   it('visual resolution leaves all attributes, bonuses, inventory and equipment untouched', () => {
     const traveler = makeTraveler();
-    traveler.inventory = [...EQUIPMENT_CATALOG];
+    traveler.inventory = [...ORIGINAL_EQUIPMENT];
     traveler.equipped = Object.fromEntries(
-      EQUIPMENT_CATALOG.map((item) => [item.slot, item.id]),
+      ORIGINAL_EQUIPMENT.map((item) => [item.slot, item.id]),
     );
     const snapshot = JSON.stringify(traveler);
     const attributes = calculateTotalAttributes(traveler);

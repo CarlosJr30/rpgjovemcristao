@@ -4,6 +4,7 @@ import {
   arenaCardDescription,
   arenaCardAvailability,
   describeArenaAction,
+  describeCatalogCard,
   validateArenaDeck,
   type ArenaCard,
   type BattleState,
@@ -130,7 +131,8 @@ export function DeckEditor({
               (!rarity || c.rarity === rarity) && (!kind || c.type === kind),
           )
           .map((c) => {
-            const detail = describeArenaAction(c.action);
+            const detail =
+              describeCatalogCard(c.id) ?? describeArenaAction(c.action);
             const illustration = arenaCardIllustration(c.id);
             return (
               <article
@@ -337,7 +339,9 @@ export function BattleCards({
       >
         {battle.deck?.cards.map((c) => {
           const availability = arenaCardAvailability(battle, c.id);
-          const description = describeArenaAction(c.action, battle.player);
+          const description =
+            describeCatalogCard(c.id, battle.player) ??
+            describeArenaAction(c.action, battle.player);
           const illustration = arenaCardIllustration(c.id);
           const { status, focusCost, minimumLevel, missingFocus } =
             availability;
@@ -350,11 +354,13 @@ export function BattleCards({
                   ? `Carta disponível após atingir o nível ${minimumLevel}.`
                   : status === 'focus'
                     ? `Você precisa de mais ${missingFocus} ${missingFocus === 1 ? 'ponto' : 'pontos'} de Foco.`
-                    : status === 'unavailable'
-                      ? 'Efeito indisponível.'
-                      : busy
-                        ? 'Aguarde a confirmação da rodada.'
-                        : '';
+                    : status === 'condition'
+                      ? 'Condição de vida ou proteção ainda não atendida.'
+                      : status === 'unavailable'
+                        ? 'Efeito indisponível.'
+                        : busy
+                          ? 'Aguarde a confirmação da rodada.'
+                          : '';
           return (
             <article
               key={c.id}

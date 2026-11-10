@@ -1,0 +1,1605 @@
+[
+  {
+    "id": "arena-card-traveler-charge",
+    "name": "Investida do Viajante",
+    "type": "OFFENSIVE",
+    "rarity": "comum",
+    "action": "attack",
+    "description": {
+      "focusCost": 0,
+      "minimumLevel": 1,
+      "condition": "Carta própria, não usada nesta batalha, com nível, Foco e condição de HP atendidos.",
+      "headline": "Avance antes do golpe.",
+      "explanation": "Um ataque ×1,05; iniciativa +2 nesta rodada. Não gera Foco.",
+      "duration": "Uma utilização por batalha; ocupa a ação da rodada. O resultado usa somente regras do servidor."
+    },
+    "parameters": {
+      "attackMultiplier": 1.05,
+      "minimumLevel": 1,
+      "focusCost": 0
+    },
+    "minimumLevel": 1,
+    "focusCost": 0,
+    "usesPerBattle": 1,
+    "remainsOwnedAfterBattle": true,
+    "catalogVersion": "arena-cards-2026-11-09.1-content-040a",
+    "balanceVersion": "arena-content-040a-2026-11-09.1",
+    "biblicalReference": null,
+    "art": {
+      "approved": true,
+      "reference": "/assets/cards/arena/content-040/arena-card-traveler-charge.webp"
+    },
+    "homologation": {
+      "status": "approved",
+      "approvalReference": "CONTENT-040A:OWNER:2026-11-09"
+    },
+    "acquisition": {
+      "status": "pending-server-contract",
+      "proposedSources": [
+        "starter",
+        "chest",
+        "guild-mission",
+        "journey",
+        "authorized-challenge"
+      ],
+      "authorizedSources": [],
+      "approvalReference": null
+    }
+  },
+  {
+    "id": "arena-card-precise-cut",
+    "name": "Corte Preciso",
+    "type": "OFFENSIVE",
+    "rarity": "incomum",
+    "action": "attack",
+    "description": {
+      "focusCost": 1,
+      "minimumLevel": 3,
+      "condition": "Carta própria, não usada nesta batalha, com nível, Foco e condição de HP atendidos.",
+      "headline": "Encontre uma abertura na guarda.",
+      "explanation": "×1,20 contra guarda; ×1,05 sem guarda. A guarda continua reduzindo normalmente.",
+      "duration": "Uma utilização por batalha; ocupa a ação da rodada. O resultado usa somente regras do servidor."
+    },
+    "parameters": {
+      "multiplierWhenGuarded": 1.2,
+      "multiplierWhenUnguarded": 1.05,
+      "minimumLevel": 3,
+      "focusCost": 1
+    },
+    "minimumLevel": 3,
+    "focusCost": 1,
+    "usesPerBattle": 1,
+    "remainsOwnedAfterBattle": true,
+    "catalogVersion": "arena-cards-2026-11-09.1-content-040a",
+    "balanceVersion": "arena-content-040a-2026-11-09.1",
+    "biblicalReference": null,
+    "art": {
+      "approved": true,
+      "reference": "/assets/cards/arena/content-040/arena-card-precise-cut.webp"
+    },
+    "homologation": {
+      "status": "approved",
+      "approvalReference": "CONTENT-040A:OWNER:2026-11-09"
+    },
+    "acquisition": {
+      "status": "pending-server-contract",
+      "proposedSources": [
+        "starter",
+        "chest",
+        "guild-mission",
+        "journey",
+        "authorized-challenge"
+      ],
+      "authorizedSources": [],
+      "approvalReference": null
+    }
+  },
+  {
+    "id": "arena-card-brave-advance",
+    "name": "Avanço Corajoso",
+    "type": "OFFENSIVE",
+    "rarity": "incomum",
+    "action": "attack",
+    "description": {
+      "focusCost": 2,
+      "minimumLevel": 4,
+      "condition": "Carta própria, não usada nesta batalha, com nível, Foco e condição de HP atendidos.",
+      "headline": "Ataque e proteja seu avanço.",
+      "explanation": "Ataque ×1,35 e guarda ×0,80 para um golpe até o fim da próxima rodada.",
+      "duration": "Uma utilização por batalha; ocupa a ação da rodada. O resultado usa somente regras do servidor."
+    },
+    "parameters": {
+      "attackMultiplier": 1.35,
+      "guardMultiplier": 0.8,
+      "guardHits": 1,
+      "guardRounds": 1,
+      "minimumLevel": 4,
+      "focusCost": 2
+    },
+    "minimumLevel": 4,
+    "focusCost": 2,
+    "usesPerBattle": 1,
+    "remainsOwnedAfterBattle": true,
+    "catalogVersion": "arena-cards-2026-11-09.1-content-040a",
+    "balanceVersion": "arena-content-040a-2026-11-09.1",
+    "biblicalReference": null,
+    "art": {
+      "approved": true,
+      "reference": "/assets/cards/arena/content-040/arena-card-brave-advance.webp"
+    },
+    "homologation": {
+      "status": "approved",
+      "approvalReference": "CONTENT-040A:OWNER:2026-11-09"
+    },
+    "acquisition": {
+      "status": "pending-server-contract",
+      "proposedSources": [
+        "starter",
+        "chest",
+        "guild-mission",
+        "journey",
+        "authorized-challenge"
+      ],
+      "authorizedSources": [],
+      "approvalReference": null
+    }
+  },
+  {
+    "id": "arena-card-perseverance-blow",
+    "name": "Golpe da Perseverança",
+    "type": "OFFENSIVE",
+    "rarity": "raro",
+    "action": "attack",
+    "description": {
+      "focusCost": 2,
+      "minimumLevel": 8,
+      "condition": "Carta própria, não usada nesta batalha, com nível, Foco e condição de HP atendidos.",
+      "headline": "Responda sob pressão.",
+      "explanation": "×1,50 com HP próprio até 35%; caso contrário, ×1,20.",
+      "duration": "Uma utilização por batalha; ocupa a ação da rodada. O resultado usa somente regras do servidor."
+    },
+    "parameters": {
+      "attackMultiplier": 1.2,
+      "multiplierWhenSelfHpAtMost": 0.35,
+      "multiplierWhenSelfHpAtMostMultiplier": 1.5,
+      "minimumLevel": 8,
+      "focusCost": 2
+    },
+    "minimumLevel": 8,
+    "focusCost": 2,
+    "usesPerBattle": 1,
+    "remainsOwnedAfterBattle": true,
+    "catalogVersion": "arena-cards-2026-11-09.1-content-040a",
+    "balanceVersion": "arena-content-040a-2026-11-09.1",
+    "biblicalReference": null,
+    "art": {
+      "approved": true,
+      "reference": "/assets/cards/arena/content-040/arena-card-perseverance-blow.webp"
+    },
+    "homologation": {
+      "status": "approved",
+      "approvalReference": "CONTENT-040A:OWNER:2026-11-09"
+    },
+    "acquisition": {
+      "status": "pending-server-contract",
+      "proposedSources": [
+        "starter",
+        "chest",
+        "guild-mission",
+        "journey",
+        "authorized-challenge"
+      ],
+      "authorizedSources": [],
+      "approvalReference": null
+    }
+  },
+  {
+    "id": "arena-card-double-charge",
+    "name": "Investida Dupla",
+    "type": "OFFENSIVE",
+    "rarity": "raro",
+    "action": "attack",
+    "description": {
+      "focusCost": 3,
+      "minimumLevel": 10,
+      "condition": "Carta própria, não usada nesta batalha, com nível, Foco e condição de HP atendidos.",
+      "headline": "Uma investida em dois movimentos.",
+      "explanation": "Uma única resolução ×1,55; guarda, esquiva e equipamentos processam uma vez. Os dois movimentos são apenas visuais.",
+      "duration": "Uma utilização por batalha; ocupa a ação da rodada. O resultado usa somente regras do servidor."
+    },
+    "parameters": {
+      "attackMultiplier": 1.55,
+      "minimumLevel": 10,
+      "focusCost": 3
+    },
+    "minimumLevel": 10,
+    "focusCost": 3,
+    "usesPerBattle": 1,
+    "remainsOwnedAfterBattle": true,
+    "catalogVersion": "arena-cards-2026-11-09.1-content-040a",
+    "balanceVersion": "arena-content-040a-2026-11-09.1",
+    "biblicalReference": null,
+    "art": {
+      "approved": true,
+      "reference": "/assets/cards/arena/content-040/arena-card-double-charge.webp"
+    },
+    "homologation": {
+      "status": "approved",
+      "approvalReference": "CONTENT-040A:OWNER:2026-11-09"
+    },
+    "acquisition": {
+      "status": "pending-server-contract",
+      "proposedSources": [
+        "starter",
+        "chest",
+        "guild-mission",
+        "journey",
+        "authorized-challenge"
+      ],
+      "authorizedSources": [],
+      "approvalReference": null
+    }
+  },
+  {
+    "id": "arena-card-guard-break",
+    "name": "Ruptura de Guarda",
+    "type": "OFFENSIVE",
+    "rarity": "raro",
+    "action": "attack",
+    "description": {
+      "focusCost": 2,
+      "minimumLevel": 11,
+      "condition": "Carta própria, não usada nesta batalha, com nível, Foco e condição de HP atendidos.",
+      "headline": "Pressione a defesa.",
+      "explanation": "×1,60 contra guarda; ×1,10 sem guarda. Não remove a proteção antes do ataque.",
+      "duration": "Uma utilização por batalha; ocupa a ação da rodada. O resultado usa somente regras do servidor."
+    },
+    "parameters": {
+      "multiplierWhenGuarded": 1.6,
+      "multiplierWhenUnguarded": 1.1,
+      "minimumLevel": 11,
+      "focusCost": 2
+    },
+    "minimumLevel": 11,
+    "focusCost": 2,
+    "usesPerBattle": 1,
+    "remainsOwnedAfterBattle": true,
+    "catalogVersion": "arena-cards-2026-11-09.1-content-040a",
+    "balanceVersion": "arena-content-040a-2026-11-09.1",
+    "biblicalReference": null,
+    "art": {
+      "approved": true,
+      "reference": "/assets/cards/arena/content-040/arena-card-guard-break.webp"
+    },
+    "homologation": {
+      "status": "approved",
+      "approvalReference": "CONTENT-040A:OWNER:2026-11-09"
+    },
+    "acquisition": {
+      "status": "pending-server-contract",
+      "proposedSources": [
+        "starter",
+        "chest",
+        "guild-mission",
+        "journey",
+        "authorized-challenge"
+      ],
+      "authorizedSources": [],
+      "approvalReference": null
+    }
+  },
+  {
+    "id": "arena-card-decisive-blow",
+    "name": "Golpe Decisivo",
+    "type": "OFFENSIVE",
+    "rarity": "épico",
+    "action": "attack",
+    "description": {
+      "focusCost": 3,
+      "minimumLevel": 16,
+      "condition": "Carta própria, não usada nesta batalha, com nível, Foco e condição de HP atendidos.",
+      "headline": "Aproveite o momento.",
+      "explanation": "×1,65 contra alvo com HP até 35%; caso contrário, ×1,25. Sem execução automática.",
+      "duration": "Uma utilização por batalha; ocupa a ação da rodada. O resultado usa somente regras do servidor."
+    },
+    "parameters": {
+      "attackMultiplier": 1.25,
+      "multiplierWhenTargetHpAtMost": 0.35,
+      "multiplierWhenTargetHpAtMostMultiplier": 1.65,
+      "minimumLevel": 16,
+      "focusCost": 3
+    },
+    "minimumLevel": 16,
+    "focusCost": 3,
+    "usesPerBattle": 1,
+    "remainsOwnedAfterBattle": true,
+    "catalogVersion": "arena-cards-2026-11-09.1-content-040a",
+    "balanceVersion": "arena-content-040a-2026-11-09.1",
+    "biblicalReference": null,
+    "art": {
+      "approved": true,
+      "reference": "/assets/cards/arena/content-040/arena-card-decisive-blow.webp"
+    },
+    "homologation": {
+      "status": "approved",
+      "approvalReference": "CONTENT-040A:OWNER:2026-11-09"
+    },
+    "acquisition": {
+      "status": "pending-server-contract",
+      "proposedSources": [
+        "starter",
+        "chest",
+        "guild-mission",
+        "journey",
+        "authorized-challenge"
+      ],
+      "authorizedSources": [],
+      "approvalReference": null
+    }
+  },
+  {
+    "id": "arena-card-guardian-cut",
+    "name": "Corte do Guardião",
+    "type": "OFFENSIVE",
+    "rarity": "épico",
+    "action": "attack",
+    "description": {
+      "focusCost": 3,
+      "minimumLevel": 18,
+      "condition": "Carta própria, não usada nesta batalha, com nível, Foco e condição de HP atendidos.",
+      "headline": "Ataque sem abandonar a guarda.",
+      "explanation": "Ataque ×1,40 e guarda ×0,60 para um golpe até o fim da próxima rodada.",
+      "duration": "Uma utilização por batalha; ocupa a ação da rodada. O resultado usa somente regras do servidor."
+    },
+    "parameters": {
+      "attackMultiplier": 1.4,
+      "guardMultiplier": 0.6,
+      "guardHits": 1,
+      "guardRounds": 1,
+      "minimumLevel": 18,
+      "focusCost": 3
+    },
+    "minimumLevel": 18,
+    "focusCost": 3,
+    "usesPerBattle": 1,
+    "remainsOwnedAfterBattle": true,
+    "catalogVersion": "arena-cards-2026-11-09.1-content-040a",
+    "balanceVersion": "arena-content-040a-2026-11-09.1",
+    "biblicalReference": null,
+    "art": {
+      "approved": true,
+      "reference": "/assets/cards/arena/content-040/arena-card-guardian-cut.webp"
+    },
+    "homologation": {
+      "status": "approved",
+      "approvalReference": "CONTENT-040A:OWNER:2026-11-09"
+    },
+    "acquisition": {
+      "status": "pending-server-contract",
+      "proposedSources": [
+        "starter",
+        "chest",
+        "guild-mission",
+        "journey",
+        "authorized-challenge"
+      ],
+      "authorizedSources": [],
+      "approvalReference": null
+    }
+  },
+  {
+    "id": "arena-card-last-resistance",
+    "name": "Última Resistência",
+    "type": "OFFENSIVE",
+    "rarity": "lendário",
+    "action": "attack",
+    "description": {
+      "focusCost": 3,
+      "minimumLevel": 25,
+      "condition": "Carta própria, não usada nesta batalha, com nível, Foco e condição de HP atendidos.",
+      "headline": "Um último contra-ataque.",
+      "explanation": "Só pode ser usada com HP próprio até 25%; ataque ×1,70. Sem cura ou invulnerabilidade.",
+      "duration": "Uma utilização por batalha; ocupa a ação da rodada. O resultado usa somente regras do servidor."
+    },
+    "parameters": {
+      "attackMultiplier": 1.7,
+      "requiresSelfHpAtMost": 0.25,
+      "minimumLevel": 25,
+      "focusCost": 3
+    },
+    "minimumLevel": 25,
+    "focusCost": 3,
+    "usesPerBattle": 1,
+    "remainsOwnedAfterBattle": true,
+    "catalogVersion": "arena-cards-2026-11-09.1-content-040a",
+    "balanceVersion": "arena-content-040a-2026-11-09.1",
+    "biblicalReference": null,
+    "art": {
+      "approved": true,
+      "reference": "/assets/cards/arena/content-040/arena-card-last-resistance.webp"
+    },
+    "homologation": {
+      "status": "approved",
+      "approvalReference": "CONTENT-040A:OWNER:2026-11-09"
+    },
+    "acquisition": {
+      "status": "pending-server-contract",
+      "proposedSources": [
+        "starter",
+        "chest",
+        "guild-mission",
+        "journey",
+        "authorized-challenge"
+      ],
+      "authorizedSources": [],
+      "approvalReference": null
+    }
+  },
+  {
+    "id": "arena-card-firm-block",
+    "name": "Bloqueio Firme",
+    "type": "DEFENSIVE",
+    "rarity": "comum",
+    "action": "defend",
+    "description": {
+      "focusCost": 0,
+      "minimumLevel": 1,
+      "condition": "Carta própria, não usada nesta batalha, com nível, Foco e condição de HP atendidos.",
+      "headline": "Proteja-se e prepare Foco.",
+      "explanation": "Guarda ×0,70 para um golpe e recupera até 2 Foco, limitado a 3.",
+      "duration": "Uma utilização por batalha; ocupa a ação da rodada. O resultado usa somente regras do servidor."
+    },
+    "parameters": {
+      "guardMultiplier": 0.7,
+      "guardHits": 1,
+      "focusGain": 2,
+      "minimumLevel": 1,
+      "focusCost": 0
+    },
+    "minimumLevel": 1,
+    "focusCost": 0,
+    "usesPerBattle": 1,
+    "remainsOwnedAfterBattle": true,
+    "catalogVersion": "arena-cards-2026-11-09.1-content-040a",
+    "balanceVersion": "arena-content-040a-2026-11-09.1",
+    "biblicalReference": null,
+    "art": {
+      "approved": true,
+      "reference": "/assets/cards/arena/content-040/arena-card-firm-block.webp"
+    },
+    "homologation": {
+      "status": "approved",
+      "approvalReference": "CONTENT-040A:OWNER:2026-11-09"
+    },
+    "acquisition": {
+      "status": "pending-server-contract",
+      "proposedSources": [
+        "starter",
+        "chest",
+        "guild-mission",
+        "journey",
+        "authorized-challenge"
+      ],
+      "authorizedSources": [],
+      "approvalReference": null
+    }
+  },
+  {
+    "id": "arena-card-prudent-posture",
+    "name": "Postura Prudente",
+    "type": "DEFENSIVE",
+    "rarity": "incomum",
+    "action": "defend",
+    "description": {
+      "focusCost": 1,
+      "minimumLevel": 3,
+      "condition": "Carta própria, não usada nesta batalha, com nível, Foco e condição de HP atendidos.",
+      "headline": "Defenda e observe.",
+      "explanation": "Guarda ×0,40 para um golpe; o próximo ataque recebe ×1,08.",
+      "duration": "Uma utilização por batalha; ocupa a ação da rodada. O resultado usa somente regras do servidor."
+    },
+    "parameters": {
+      "guardMultiplier": 0.4,
+      "guardHits": 1,
+      "tacticalMultiplier": 1.08,
+      "minimumLevel": 3,
+      "focusCost": 1
+    },
+    "minimumLevel": 3,
+    "focusCost": 1,
+    "usesPerBattle": 1,
+    "remainsOwnedAfterBattle": true,
+    "catalogVersion": "arena-cards-2026-11-09.1-content-040a",
+    "balanceVersion": "arena-content-040a-2026-11-09.1",
+    "biblicalReference": null,
+    "art": {
+      "approved": true,
+      "reference": "/assets/cards/arena/content-040/arena-card-prudent-posture.webp"
+    },
+    "homologation": {
+      "status": "approved",
+      "approvalReference": "CONTENT-040A:OWNER:2026-11-09"
+    },
+    "acquisition": {
+      "status": "pending-server-contract",
+      "proposedSources": [
+        "starter",
+        "chest",
+        "guild-mission",
+        "journey",
+        "authorized-challenge"
+      ],
+      "authorizedSources": [],
+      "approvalReference": null
+    }
+  },
+  {
+    "id": "arena-card-traveler-wall",
+    "name": "Muralha do Viajante",
+    "type": "DEFENSIVE",
+    "rarity": "incomum",
+    "action": "defend",
+    "description": {
+      "focusCost": 1,
+      "minimumLevel": 5,
+      "condition": "Carta própria, não usada nesta batalha, com nível, Foco e condição de HP atendidos.",
+      "headline": "Resista ao próximo impacto.",
+      "explanation": "Guarda ×0,35 para um golpe; não gera Foco.",
+      "duration": "Uma utilização por batalha; ocupa a ação da rodada. O resultado usa somente regras do servidor."
+    },
+    "parameters": {
+      "guardMultiplier": 0.35,
+      "guardHits": 1,
+      "minimumLevel": 5,
+      "focusCost": 1
+    },
+    "minimumLevel": 5,
+    "focusCost": 1,
+    "usesPerBattle": 1,
+    "remainsOwnedAfterBattle": true,
+    "catalogVersion": "arena-cards-2026-11-09.1-content-040a",
+    "balanceVersion": "arena-content-040a-2026-11-09.1",
+    "biblicalReference": null,
+    "art": {
+      "approved": true,
+      "reference": "/assets/cards/arena/content-040/arena-card-traveler-wall.webp"
+    },
+    "homologation": {
+      "status": "approved",
+      "approvalReference": "CONTENT-040A:OWNER:2026-11-09"
+    },
+    "acquisition": {
+      "status": "pending-server-contract",
+      "proposedSources": [
+        "starter",
+        "chest",
+        "guild-mission",
+        "journey",
+        "authorized-challenge"
+      ],
+      "authorizedSources": [],
+      "approvalReference": null
+    }
+  },
+  {
+    "id": "arena-card-reinforced-guard",
+    "name": "Guarda Reforçada",
+    "type": "DEFENSIVE",
+    "rarity": "incomum",
+    "action": "defend",
+    "description": {
+      "focusCost": 2,
+      "minimumLevel": 9,
+      "condition": "Carta própria, não usada nesta batalha, com nível, Foco e condição de HP atendidos.",
+      "headline": "Resista a uma sequência de golpes.",
+      "explanation": "Guarda ×0,65 por até dois golpes não esquivados até o fim da próxima rodada. Requer ausência de guarda.",
+      "duration": "Uma utilização por batalha; ocupa a ação da rodada. O resultado usa somente regras do servidor."
+    },
+    "parameters": {
+      "guardMultiplier": 0.65,
+      "guardHits": 2,
+      "guardRounds": 1,
+      "minimumLevel": 9,
+      "focusCost": 2
+    },
+    "minimumLevel": 9,
+    "focusCost": 2,
+    "usesPerBattle": 1,
+    "remainsOwnedAfterBattle": true,
+    "catalogVersion": "arena-cards-2026-11-09.1-content-040a",
+    "balanceVersion": "arena-content-040a-2026-11-09.1",
+    "biblicalReference": null,
+    "art": {
+      "approved": true,
+      "reference": "/assets/cards/arena/content-040/arena-card-reinforced-guard.webp"
+    },
+    "homologation": {
+      "status": "approved",
+      "approvalReference": "CONTENT-040A:OWNER:2026-11-09"
+    },
+    "acquisition": {
+      "status": "pending-server-contract",
+      "proposedSources": [
+        "starter",
+        "chest",
+        "guild-mission",
+        "journey",
+        "authorized-challenge"
+      ],
+      "authorizedSources": [],
+      "approvalReference": null
+    }
+  },
+  {
+    "id": "arena-card-strategic-defense",
+    "name": "Defesa Estratégica",
+    "type": "DEFENSIVE",
+    "rarity": "raro",
+    "action": "defend",
+    "description": {
+      "focusCost": 2,
+      "minimumLevel": 11,
+      "condition": "Carta própria, não usada nesta batalha, com nível, Foco e condição de HP atendidos.",
+      "headline": "Prepare sua resposta.",
+      "explanation": "Guarda ×0,40 para um golpe e iniciativa +2 na próxima rodada.",
+      "duration": "Uma utilização por batalha; ocupa a ação da rodada. O resultado usa somente regras do servidor."
+    },
+    "parameters": {
+      "guardMultiplier": 0.4,
+      "guardHits": 1,
+      "minimumLevel": 11,
+      "focusCost": 2
+    },
+    "minimumLevel": 11,
+    "focusCost": 2,
+    "usesPerBattle": 1,
+    "remainsOwnedAfterBattle": true,
+    "catalogVersion": "arena-cards-2026-11-09.1-content-040a",
+    "balanceVersion": "arena-content-040a-2026-11-09.1",
+    "biblicalReference": null,
+    "art": {
+      "approved": true,
+      "reference": "/assets/cards/arena/content-040/arena-card-strategic-defense.webp"
+    },
+    "homologation": {
+      "status": "approved",
+      "approvalReference": "CONTENT-040A:OWNER:2026-11-09"
+    },
+    "acquisition": {
+      "status": "pending-server-contract",
+      "proposedSources": [
+        "starter",
+        "chest",
+        "guild-mission",
+        "journey",
+        "authorized-challenge"
+      ],
+      "authorizedSources": [],
+      "approvalReference": null
+    }
+  },
+  {
+    "id": "arena-card-safe-shelter",
+    "name": "Abrigo Seguro",
+    "type": "DEFENSIVE",
+    "rarity": "épico",
+    "action": "defend",
+    "description": {
+      "focusCost": 3,
+      "minimumLevel": 15,
+      "condition": "Carta própria, não usada nesta batalha, com nível, Foco e condição de HP atendidos.",
+      "headline": "Proteção breve contra pressão.",
+      "explanation": "Guarda ×0,35 por até dois golpes; expira no fim da próxima rodada. Não soma cargas e só substitui guarda se melhorar a proteção.",
+      "duration": "Uma utilização por batalha; ocupa a ação da rodada. O resultado usa somente regras do servidor."
+    },
+    "parameters": {
+      "guardMultiplier": 0.35,
+      "guardHits": 2,
+      "guardRounds": 1,
+      "minimumLevel": 15,
+      "focusCost": 3
+    },
+    "minimumLevel": 15,
+    "focusCost": 3,
+    "usesPerBattle": 1,
+    "remainsOwnedAfterBattle": true,
+    "catalogVersion": "arena-cards-2026-11-09.1-content-040a",
+    "balanceVersion": "arena-content-040a-2026-11-09.1",
+    "biblicalReference": null,
+    "art": {
+      "approved": true,
+      "reference": "/assets/cards/arena/content-040/arena-card-safe-shelter.webp"
+    },
+    "homologation": {
+      "status": "approved",
+      "approvalReference": "CONTENT-040A:OWNER:2026-11-09"
+    },
+    "acquisition": {
+      "status": "pending-server-contract",
+      "proposedSources": [
+        "starter",
+        "chest",
+        "guild-mission",
+        "journey",
+        "authorized-challenge"
+      ],
+      "authorizedSources": [],
+      "approvalReference": null
+    }
+  },
+  {
+    "id": "arena-card-courage-bastion",
+    "name": "Bastião da Coragem",
+    "type": "DEFENSIVE",
+    "rarity": "épico",
+    "action": "defend",
+    "description": {
+      "focusCost": 3,
+      "minimumLevel": 18,
+      "condition": "Carta própria, não usada nesta batalha, com nível, Foco e condição de HP atendidos.",
+      "headline": "Segure um golpe decisivo.",
+      "explanation": "Só com HP próprio até 50%; guarda ×0,20 para um golpe. Não cura.",
+      "duration": "Uma utilização por batalha; ocupa a ação da rodada. O resultado usa somente regras do servidor."
+    },
+    "parameters": {
+      "guardMultiplier": 0.2,
+      "guardHits": 1,
+      "requiresSelfHpAtMost": 0.5,
+      "minimumLevel": 18,
+      "focusCost": 3
+    },
+    "minimumLevel": 18,
+    "focusCost": 3,
+    "usesPerBattle": 1,
+    "remainsOwnedAfterBattle": true,
+    "catalogVersion": "arena-cards-2026-11-09.1-content-040a",
+    "balanceVersion": "arena-content-040a-2026-11-09.1",
+    "biblicalReference": null,
+    "art": {
+      "approved": true,
+      "reference": "/assets/cards/arena/content-040/arena-card-courage-bastion.webp"
+    },
+    "homologation": {
+      "status": "approved",
+      "approvalReference": "CONTENT-040A:OWNER:2026-11-09"
+    },
+    "acquisition": {
+      "status": "pending-server-contract",
+      "proposedSources": [
+        "starter",
+        "chest",
+        "guild-mission",
+        "journey",
+        "authorized-challenge"
+      ],
+      "authorizedSources": [],
+      "approvalReference": null
+    }
+  },
+  {
+    "id": "arena-card-persevering-fortress",
+    "name": "Fortaleza Perseverante",
+    "type": "DEFENSIVE",
+    "rarity": "lendário",
+    "action": "defend",
+    "description": {
+      "focusCost": 3,
+      "minimumLevel": 26,
+      "condition": "Carta própria, não usada nesta batalha, com nível, Foco e condição de HP atendidos.",
+      "headline": "Sustente a linha por um instante.",
+      "explanation": "Guarda ×0,25 por até dois golpes até o fim da próxima rodada. Só substitui guarda se melhorar a proteção.",
+      "duration": "Uma utilização por batalha; ocupa a ação da rodada. O resultado usa somente regras do servidor."
+    },
+    "parameters": {
+      "guardMultiplier": 0.25,
+      "guardHits": 2,
+      "guardRounds": 1,
+      "minimumLevel": 26,
+      "focusCost": 3
+    },
+    "minimumLevel": 26,
+    "focusCost": 3,
+    "usesPerBattle": 1,
+    "remainsOwnedAfterBattle": true,
+    "catalogVersion": "arena-cards-2026-11-09.1-content-040a",
+    "balanceVersion": "arena-content-040a-2026-11-09.1",
+    "biblicalReference": null,
+    "art": {
+      "approved": true,
+      "reference": "/assets/cards/arena/content-040/arena-card-persevering-fortress.webp"
+    },
+    "homologation": {
+      "status": "approved",
+      "approvalReference": "CONTENT-040A:OWNER:2026-11-09"
+    },
+    "acquisition": {
+      "status": "pending-server-contract",
+      "proposedSources": [
+        "starter",
+        "chest",
+        "guild-mission",
+        "journey",
+        "authorized-challenge"
+      ],
+      "authorizedSources": [],
+      "approvalReference": null
+    }
+  },
+  {
+    "id": "arena-card-breathe-observe",
+    "name": "Respirar e Observar",
+    "type": "TACTICAL",
+    "rarity": "comum",
+    "action": "defend",
+    "description": {
+      "focusCost": 0,
+      "minimumLevel": 1,
+      "condition": "Carta própria, não usada nesta batalha, com nível, Foco e condição de HP atendidos.",
+      "headline": "Prepare-se para agir primeiro.",
+      "explanation": "+1 Foco e iniciativa +3 na próxima rodada. Não protege nem causa dano; bônus de iniciativa não se acumula.",
+      "duration": "Uma utilização por batalha; ocupa a ação da rodada. O resultado usa somente regras do servidor."
+    },
+    "parameters": {
+      "focusGain": 1,
+      "minimumLevel": 1,
+      "focusCost": 0
+    },
+    "minimumLevel": 1,
+    "focusCost": 0,
+    "usesPerBattle": 1,
+    "remainsOwnedAfterBattle": true,
+    "catalogVersion": "arena-cards-2026-11-09.1-content-040a",
+    "balanceVersion": "arena-content-040a-2026-11-09.1",
+    "biblicalReference": null,
+    "art": {
+      "approved": true,
+      "reference": "/assets/cards/arena/content-040/arena-card-breathe-observe.webp"
+    },
+    "homologation": {
+      "status": "approved",
+      "approvalReference": "CONTENT-040A:OWNER:2026-11-09"
+    },
+    "acquisition": {
+      "status": "pending-server-contract",
+      "proposedSources": [
+        "starter",
+        "chest",
+        "guild-mission",
+        "journey",
+        "authorized-challenge"
+      ],
+      "authorizedSources": [],
+      "approvalReference": null
+    }
+  },
+  {
+    "id": "arena-card-side-step",
+    "name": "Passo Lateral",
+    "type": "TACTICAL",
+    "rarity": "incomum",
+    "action": "defend",
+    "description": {
+      "focusCost": 1,
+      "minimumLevel": 4,
+      "condition": "Carta própria, não usada nesta batalha, com nível, Foco e condição de HP atendidos.",
+      "headline": "Mude o ângulo do confronto.",
+      "explanation": "Iniciativa +3 nesta rodada e guarda ×0,70 para um golpe até o fim da rodada; não garante esquiva.",
+      "duration": "Uma utilização por batalha; ocupa a ação da rodada. O resultado usa somente regras do servidor."
+    },
+    "parameters": {
+      "guardMultiplier": 0.7,
+      "guardHits": 1,
+      "guardRounds": 0,
+      "minimumLevel": 4,
+      "focusCost": 1
+    },
+    "minimumLevel": 4,
+    "focusCost": 1,
+    "usesPerBattle": 1,
+    "remainsOwnedAfterBattle": true,
+    "catalogVersion": "arena-cards-2026-11-09.1-content-040a",
+    "balanceVersion": "arena-content-040a-2026-11-09.1",
+    "biblicalReference": null,
+    "art": {
+      "approved": true,
+      "reference": "/assets/cards/arena/content-040/arena-card-side-step.webp"
+    },
+    "homologation": {
+      "status": "approved",
+      "approvalReference": "CONTENT-040A:OWNER:2026-11-09"
+    },
+    "acquisition": {
+      "status": "pending-server-contract",
+      "proposedSources": [
+        "starter",
+        "chest",
+        "guild-mission",
+        "journey",
+        "authorized-challenge"
+      ],
+      "authorizedSources": [],
+      "approvalReference": null
+    }
+  },
+  {
+    "id": "arena-card-opponent-reading",
+    "name": "Leitura do Adversário",
+    "type": "TACTICAL",
+    "rarity": "incomum",
+    "action": "defend",
+    "description": {
+      "focusCost": 1,
+      "minimumLevel": 6,
+      "condition": "Carta própria, não usada nesta batalha, com nível, Foco e condição de HP atendidos.",
+      "headline": "Leia o ritmo do combate.",
+      "explanation": "O próximo ataque recebe ×1,12; após a resolução, mostra apenas a intenção provável permitida.",
+      "duration": "Uma utilização por batalha; ocupa a ação da rodada. O resultado usa somente regras do servidor."
+    },
+    "parameters": {
+      "tacticalMultiplier": 1.12,
+      "minimumLevel": 6,
+      "focusCost": 1
+    },
+    "minimumLevel": 6,
+    "focusCost": 1,
+    "usesPerBattle": 1,
+    "remainsOwnedAfterBattle": true,
+    "catalogVersion": "arena-cards-2026-11-09.1-content-040a",
+    "balanceVersion": "arena-content-040a-2026-11-09.1",
+    "biblicalReference": null,
+    "art": {
+      "approved": true,
+      "reference": "/assets/cards/arena/content-040/arena-card-opponent-reading.webp"
+    },
+    "homologation": {
+      "status": "approved",
+      "approvalReference": "CONTENT-040A:OWNER:2026-11-09"
+    },
+    "acquisition": {
+      "status": "pending-server-contract",
+      "proposedSources": [
+        "starter",
+        "chest",
+        "guild-mission",
+        "journey",
+        "authorized-challenge"
+      ],
+      "authorizedSources": [],
+      "approvalReference": null
+    }
+  },
+  {
+    "id": "arena-card-careful-preparation",
+    "name": "Preparação Cuidadosa",
+    "type": "TACTICAL",
+    "rarity": "incomum",
+    "action": "defend",
+    "description": {
+      "focusCost": 1,
+      "minimumLevel": 7,
+      "condition": "Carta própria, não usada nesta batalha, com nível, Foco e condição de HP atendidos.",
+      "headline": "Prepare um golpe calculado.",
+      "explanation": "O próximo ataque recebe ×1,18 e a iniciativa aumenta +1 na próxima rodada.",
+      "duration": "Uma utilização por batalha; ocupa a ação da rodada. O resultado usa somente regras do servidor."
+    },
+    "parameters": {
+      "tacticalMultiplier": 1.18,
+      "minimumLevel": 7,
+      "focusCost": 1
+    },
+    "minimumLevel": 7,
+    "focusCost": 1,
+    "usesPerBattle": 1,
+    "remainsOwnedAfterBattle": true,
+    "catalogVersion": "arena-cards-2026-11-09.1-content-040a",
+    "balanceVersion": "arena-content-040a-2026-11-09.1",
+    "biblicalReference": null,
+    "art": {
+      "approved": true,
+      "reference": "/assets/cards/arena/content-040/arena-card-careful-preparation.webp"
+    },
+    "homologation": {
+      "status": "approved",
+      "approvalReference": "CONTENT-040A:OWNER:2026-11-09"
+    },
+    "acquisition": {
+      "status": "pending-server-contract",
+      "proposedSources": [
+        "starter",
+        "chest",
+        "guild-mission",
+        "journey",
+        "authorized-challenge"
+      ],
+      "authorizedSources": [],
+      "approvalReference": null
+    }
+  },
+  {
+    "id": "arena-card-reposition",
+    "name": "Reposicionamento",
+    "type": "TACTICAL",
+    "rarity": "raro",
+    "action": "defend",
+    "description": {
+      "focusCost": 2,
+      "minimumLevel": 10,
+      "condition": "Carta própria, não usada nesta batalha, com nível, Foco e condição de HP atendidos.",
+      "headline": "Conquiste uma posição melhor.",
+      "explanation": "Guarda ×0,55 para um golpe e iniciativa +4 na próxima rodada. Não move o personagem no mapa.",
+      "duration": "Uma utilização por batalha; ocupa a ação da rodada. O resultado usa somente regras do servidor."
+    },
+    "parameters": {
+      "guardMultiplier": 0.55,
+      "guardHits": 1,
+      "minimumLevel": 10,
+      "focusCost": 2
+    },
+    "minimumLevel": 10,
+    "focusCost": 2,
+    "usesPerBattle": 1,
+    "remainsOwnedAfterBattle": true,
+    "catalogVersion": "arena-cards-2026-11-09.1-content-040a",
+    "balanceVersion": "arena-content-040a-2026-11-09.1",
+    "biblicalReference": null,
+    "art": {
+      "approved": true,
+      "reference": "/assets/cards/arena/content-040/arena-card-reposition.webp"
+    },
+    "homologation": {
+      "status": "approved",
+      "approvalReference": "CONTENT-040A:OWNER:2026-11-09"
+    },
+    "acquisition": {
+      "status": "pending-server-contract",
+      "proposedSources": [
+        "starter",
+        "chest",
+        "guild-mission",
+        "journey",
+        "authorized-challenge"
+      ],
+      "authorizedSources": [],
+      "approvalReference": null
+    }
+  },
+  {
+    "id": "arena-card-tactical-planning",
+    "name": "Planejamento Tático",
+    "type": "TACTICAL",
+    "rarity": "raro",
+    "action": "defend",
+    "description": {
+      "focusCost": 2,
+      "minimumLevel": 12,
+      "condition": "Carta própria, não usada nesta batalha, com nível, Foco e condição de HP atendidos.",
+      "headline": "Prepare a próxima ofensiva.",
+      "explanation": "O próximo ataque recebe ×1,30; após o custo, recupera até 1 Foco, limitado a 3.",
+      "duration": "Uma utilização por batalha; ocupa a ação da rodada. O resultado usa somente regras do servidor."
+    },
+    "parameters": {
+      "tacticalMultiplier": 1.3,
+      "focusGain": 1,
+      "minimumLevel": 12,
+      "focusCost": 2
+    },
+    "minimumLevel": 12,
+    "focusCost": 2,
+    "usesPerBattle": 1,
+    "remainsOwnedAfterBattle": true,
+    "catalogVersion": "arena-cards-2026-11-09.1-content-040a",
+    "balanceVersion": "arena-content-040a-2026-11-09.1",
+    "biblicalReference": null,
+    "art": {
+      "approved": true,
+      "reference": "/assets/cards/arena/content-040/arena-card-tactical-planning.webp"
+    },
+    "homologation": {
+      "status": "approved",
+      "approvalReference": "CONTENT-040A:OWNER:2026-11-09"
+    },
+    "acquisition": {
+      "status": "pending-server-contract",
+      "proposedSources": [
+        "starter",
+        "chest",
+        "guild-mission",
+        "journey",
+        "authorized-challenge"
+      ],
+      "authorizedSources": [],
+      "approvalReference": null
+    }
+  },
+  {
+    "id": "arena-card-constant-watch",
+    "name": "Vigilância Constante",
+    "type": "TACTICAL",
+    "rarity": "épico",
+    "action": "defend",
+    "description": {
+      "focusCost": 2,
+      "minimumLevel": 17,
+      "condition": "Carta própria, não usada nesta batalha, com nível, Foco e condição de HP atendidos.",
+      "headline": "Mantenha a leitura do adversário.",
+      "explanation": "Iniciativa +4 nas próximas duas rodadas; revela intenção provável após cada resolução, sem expor a escolha futura.",
+      "duration": "Uma utilização por batalha; ocupa a ação da rodada. O resultado usa somente regras do servidor."
+    },
+    "parameters": {
+      "minimumLevel": 17,
+      "focusCost": 2
+    },
+    "minimumLevel": 17,
+    "focusCost": 2,
+    "usesPerBattle": 1,
+    "remainsOwnedAfterBattle": true,
+    "catalogVersion": "arena-cards-2026-11-09.1-content-040a",
+    "balanceVersion": "arena-content-040a-2026-11-09.1",
+    "biblicalReference": null,
+    "art": {
+      "approved": true,
+      "reference": "/assets/cards/arena/content-040/arena-card-constant-watch.webp"
+    },
+    "homologation": {
+      "status": "approved",
+      "approvalReference": "CONTENT-040A:OWNER:2026-11-09"
+    },
+    "acquisition": {
+      "status": "pending-server-contract",
+      "proposedSources": [
+        "starter",
+        "chest",
+        "guild-mission",
+        "journey",
+        "authorized-challenge"
+      ],
+      "authorizedSources": [],
+      "approvalReference": null
+    }
+  },
+  {
+    "id": "arena-card-master-strategy",
+    "name": "Estratégia do Mestre",
+    "type": "TACTICAL",
+    "rarity": "lendário",
+    "action": "defend",
+    "description": {
+      "focusCost": 3,
+      "minimumLevel": 28,
+      "condition": "Carta própria, não usada nesta batalha, com nível, Foco e condição de HP atendidos.",
+      "headline": "Una preparo e proteção.",
+      "explanation": "O próximo ataque recebe ×1,45 e uma guarda ×0,60 protege um golpe até o fim da próxima rodada. Não acumula vantagens.",
+      "duration": "Uma utilização por batalha; ocupa a ação da rodada. O resultado usa somente regras do servidor."
+    },
+    "parameters": {
+      "tacticalMultiplier": 1.45,
+      "guardMultiplier": 0.6,
+      "guardHits": 1,
+      "guardRounds": 1,
+      "minimumLevel": 28,
+      "focusCost": 3
+    },
+    "minimumLevel": 28,
+    "focusCost": 3,
+    "usesPerBattle": 1,
+    "remainsOwnedAfterBattle": true,
+    "catalogVersion": "arena-cards-2026-11-09.1-content-040a",
+    "balanceVersion": "arena-content-040a-2026-11-09.1",
+    "biblicalReference": null,
+    "art": {
+      "approved": true,
+      "reference": "/assets/cards/arena/content-040/arena-card-master-strategy.webp"
+    },
+    "homologation": {
+      "status": "approved",
+      "approvalReference": "CONTENT-040A:OWNER:2026-11-09"
+    },
+    "acquisition": {
+      "status": "pending-server-contract",
+      "proposedSources": [
+        "starter",
+        "chest",
+        "guild-mission",
+        "journey",
+        "authorized-challenge"
+      ],
+      "authorizedSources": [],
+      "approvalReference": null
+    }
+  },
+  {
+    "id": "arena-card-regather-strength",
+    "name": "Recompor Forças",
+    "type": "TACTICAL",
+    "rarity": "incomum",
+    "action": "defend",
+    "description": {
+      "focusCost": 1,
+      "minimumLevel": 3,
+      "condition": "Carta própria, não usada nesta batalha, com nível, Foco e condição de HP atendidos.",
+      "headline": "Recupere um pouco de vida.",
+      "explanation": "Cura C(10%;6), limitada pela vida faltante e pelo orçamento compartilhado de cura.",
+      "duration": "Uma utilização por batalha; ocupa a ação da rodada. O resultado usa somente regras do servidor."
+    },
+    "parameters": {
+      "healPercent": 0.1,
+      "healCap": 6,
+      "minimumLevel": 3,
+      "focusCost": 1
+    },
+    "minimumLevel": 3,
+    "focusCost": 1,
+    "usesPerBattle": 1,
+    "remainsOwnedAfterBattle": true,
+    "catalogVersion": "arena-cards-2026-11-09.1-content-040a",
+    "balanceVersion": "arena-content-040a-2026-11-09.1",
+    "biblicalReference": null,
+    "art": {
+      "approved": true,
+      "reference": "/assets/cards/arena/content-040/arena-card-regather-strength.webp"
+    },
+    "homologation": {
+      "status": "approved",
+      "approvalReference": "CONTENT-040A:OWNER:2026-11-09"
+    },
+    "acquisition": {
+      "status": "pending-server-contract",
+      "proposedSources": [
+        "starter",
+        "chest",
+        "guild-mission",
+        "journey",
+        "authorized-challenge"
+      ],
+      "authorizedSources": [],
+      "approvalReference": null
+    }
+  },
+  {
+    "id": "arena-card-renewed-courage",
+    "name": "Coragem Renovada",
+    "type": "TACTICAL",
+    "rarity": "incomum",
+    "action": "defend",
+    "description": {
+      "focusCost": 1,
+      "minimumLevel": 5,
+      "condition": "Carta própria, não usada nesta batalha, com nível, Foco e condição de HP atendidos.",
+      "headline": "Reúna coragem para continuar.",
+      "explanation": "Cura C(8%;4) e recupera até 1 Foco após custo, somente se a cura for efetiva.",
+      "duration": "Uma utilização por batalha; ocupa a ação da rodada. O resultado usa somente regras do servidor."
+    },
+    "parameters": {
+      "healPercent": 0.08,
+      "healCap": 4,
+      "focusGainWhenHealed": 1,
+      "minimumLevel": 5,
+      "focusCost": 1
+    },
+    "minimumLevel": 5,
+    "focusCost": 1,
+    "usesPerBattle": 1,
+    "remainsOwnedAfterBattle": true,
+    "catalogVersion": "arena-cards-2026-11-09.1-content-040a",
+    "balanceVersion": "arena-content-040a-2026-11-09.1",
+    "biblicalReference": null,
+    "art": {
+      "approved": true,
+      "reference": "/assets/cards/arena/content-040/arena-card-renewed-courage.webp"
+    },
+    "homologation": {
+      "status": "approved",
+      "approvalReference": "CONTENT-040A:OWNER:2026-11-09"
+    },
+    "acquisition": {
+      "status": "pending-server-contract",
+      "proposedSources": [
+        "starter",
+        "chest",
+        "guild-mission",
+        "journey",
+        "authorized-challenge"
+      ],
+      "authorizedSources": [],
+      "approvalReference": null
+    }
+  },
+  {
+    "id": "arena-card-prudent-recovery",
+    "name": "Recuperação Prudente",
+    "type": "TACTICAL",
+    "rarity": "raro",
+    "action": "defend",
+    "description": {
+      "focusCost": 2,
+      "minimumLevel": 9,
+      "condition": "Carta própria, não usada nesta batalha, com nível, Foco e condição de HP atendidos.",
+      "headline": "Recupere-se com cautela.",
+      "explanation": "Cura C(8%;8) e guarda ×0,75 para um golpe até o fim da próxima rodada.",
+      "duration": "Uma utilização por batalha; ocupa a ação da rodada. O resultado usa somente regras do servidor."
+    },
+    "parameters": {
+      "healPercent": 0.08,
+      "healCap": 8,
+      "guardMultiplier": 0.75,
+      "guardHits": 1,
+      "guardRounds": 1,
+      "minimumLevel": 9,
+      "focusCost": 2
+    },
+    "minimumLevel": 9,
+    "focusCost": 2,
+    "usesPerBattle": 1,
+    "remainsOwnedAfterBattle": true,
+    "catalogVersion": "arena-cards-2026-11-09.1-content-040a",
+    "balanceVersion": "arena-content-040a-2026-11-09.1",
+    "biblicalReference": null,
+    "art": {
+      "approved": true,
+      "reference": "/assets/cards/arena/content-040/arena-card-prudent-recovery.webp"
+    },
+    "homologation": {
+      "status": "approved",
+      "approvalReference": "CONTENT-040A:OWNER:2026-11-09"
+    },
+    "acquisition": {
+      "status": "pending-server-contract",
+      "proposedSources": [
+        "starter",
+        "chest",
+        "guild-mission",
+        "journey",
+        "authorized-challenge"
+      ],
+      "authorizedSources": [],
+      "approvalReference": null
+    }
+  },
+  {
+    "id": "arena-card-persevering-spirit",
+    "name": "Ânimo Perseverante",
+    "type": "TACTICAL",
+    "rarity": "raro",
+    "action": "defend",
+    "description": {
+      "focusCost": 2,
+      "minimumLevel": 12,
+      "condition": "Carta própria, não usada nesta batalha, com nível, Foco e condição de HP atendidos.",
+      "headline": "Retome o ritmo.",
+      "explanation": "Cura C(8%;5) e prepara ×1,12 para o próximo ataque.",
+      "duration": "Uma utilização por batalha; ocupa a ação da rodada. O resultado usa somente regras do servidor."
+    },
+    "parameters": {
+      "healPercent": 0.08,
+      "healCap": 5,
+      "tacticalMultiplier": 1.12,
+      "minimumLevel": 12,
+      "focusCost": 2
+    },
+    "minimumLevel": 12,
+    "focusCost": 2,
+    "usesPerBattle": 1,
+    "remainsOwnedAfterBattle": true,
+    "catalogVersion": "arena-cards-2026-11-09.1-content-040a",
+    "balanceVersion": "arena-content-040a-2026-11-09.1",
+    "biblicalReference": null,
+    "art": {
+      "approved": true,
+      "reference": "/assets/cards/arena/content-040/arena-card-persevering-spirit.webp"
+    },
+    "homologation": {
+      "status": "approved",
+      "approvalReference": "CONTENT-040A:OWNER:2026-11-09"
+    },
+    "acquisition": {
+      "status": "pending-server-contract",
+      "proposedSources": [
+        "starter",
+        "chest",
+        "guild-mission",
+        "journey",
+        "authorized-challenge"
+      ],
+      "authorizedSources": [],
+      "approvalReference": null
+    }
+  },
+  {
+    "id": "arena-card-second-wind",
+    "name": "Segundo Fôlego",
+    "type": "TACTICAL",
+    "rarity": "épico",
+    "action": "defend",
+    "description": {
+      "focusCost": 2,
+      "minimumLevel": 16,
+      "condition": "Carta própria, não usada nesta batalha, com nível, Foco e condição de HP atendidos.",
+      "headline": "Ganhe fôlego sob pressão.",
+      "explanation": "Só com HP próprio até 50%; cura C(10%;10).",
+      "duration": "Uma utilização por batalha; ocupa a ação da rodada. O resultado usa somente regras do servidor."
+    },
+    "parameters": {
+      "healPercent": 0.1,
+      "healCap": 10,
+      "healWhenSelfHpAtMost": 0.5,
+      "minimumLevel": 16,
+      "focusCost": 2
+    },
+    "minimumLevel": 16,
+    "focusCost": 2,
+    "usesPerBattle": 1,
+    "remainsOwnedAfterBattle": true,
+    "catalogVersion": "arena-cards-2026-11-09.1-content-040a",
+    "balanceVersion": "arena-content-040a-2026-11-09.1",
+    "biblicalReference": null,
+    "art": {
+      "approved": true,
+      "reference": "/assets/cards/arena/content-040/arena-card-second-wind.webp"
+    },
+    "homologation": {
+      "status": "approved",
+      "approvalReference": "CONTENT-040A:OWNER:2026-11-09"
+    },
+    "acquisition": {
+      "status": "pending-server-contract",
+      "proposedSources": [
+        "starter",
+        "chest",
+        "guild-mission",
+        "journey",
+        "authorized-challenge"
+      ],
+      "authorizedSources": [],
+      "approvalReference": null
+    }
+  },
+  {
+    "id": "arena-card-heroic-endurance",
+    "name": "Resistência Heroica",
+    "type": "TACTICAL",
+    "rarity": "épico",
+    "action": "defend",
+    "description": {
+      "focusCost": 3,
+      "minimumLevel": 20,
+      "condition": "Carta própria, não usada nesta batalha, com nível, Foco e condição de HP atendidos.",
+      "headline": "Resista à pressão por duas rodadas.",
+      "explanation": "Dano recebido ×0,70 por duas rodadas incluindo a atual. Não multiplica guarda; aplica somente a melhor proteção.",
+      "duration": "Uma utilização por batalha; ocupa a ação da rodada. O resultado usa somente regras do servidor."
+    },
+    "parameters": {
+      "damageReduction": 0.7,
+      "damageReductionRounds": 2,
+      "minimumLevel": 20,
+      "focusCost": 3
+    },
+    "minimumLevel": 20,
+    "focusCost": 3,
+    "usesPerBattle": 1,
+    "remainsOwnedAfterBattle": true,
+    "catalogVersion": "arena-cards-2026-11-09.1-content-040a",
+    "balanceVersion": "arena-content-040a-2026-11-09.1",
+    "biblicalReference": null,
+    "art": {
+      "approved": true,
+      "reference": "/assets/cards/arena/content-040/arena-card-heroic-endurance.webp"
+    },
+    "homologation": {
+      "status": "approved",
+      "approvalReference": "CONTENT-040A:OWNER:2026-11-09"
+    },
+    "acquisition": {
+      "status": "pending-server-contract",
+      "proposedSources": [
+        "starter",
+        "chest",
+        "guild-mission",
+        "journey",
+        "authorized-challenge"
+      ],
+      "authorizedSources": [],
+      "approvalReference": null
+    }
+  },
+  {
+    "id": "arena-card-unwavering-resolve",
+    "name": "Determinação Inabalável",
+    "type": "TACTICAL",
+    "rarity": "raro",
+    "action": "defend",
+    "description": {
+      "focusCost": 2,
+      "minimumLevel": 14,
+      "condition": "Carta própria, não usada nesta batalha, com nível, Foco e condição de HP atendidos.",
+      "headline": "Erga-se para responder.",
+      "explanation": "Só com HP próprio até 35%; cura C(10%;7) e iniciativa +2 na próxima rodada.",
+      "duration": "Uma utilização por batalha; ocupa a ação da rodada. O resultado usa somente regras do servidor."
+    },
+    "parameters": {
+      "healPercent": 0.1,
+      "healCap": 7,
+      "healWhenSelfHpAtMost": 0.35,
+      "minimumLevel": 14,
+      "focusCost": 2
+    },
+    "minimumLevel": 14,
+    "focusCost": 2,
+    "usesPerBattle": 1,
+    "remainsOwnedAfterBattle": true,
+    "catalogVersion": "arena-cards-2026-11-09.1-content-040a",
+    "balanceVersion": "arena-content-040a-2026-11-09.1",
+    "biblicalReference": null,
+    "art": {
+      "approved": true,
+      "reference": "/assets/cards/arena/content-040/arena-card-unwavering-resolve.webp"
+    },
+    "homologation": {
+      "status": "approved",
+      "approvalReference": "CONTENT-040A:OWNER:2026-11-09"
+    },
+    "acquisition": {
+      "status": "pending-server-contract",
+      "proposedSources": [
+        "starter",
+        "chest",
+        "guild-mission",
+        "journey",
+        "authorized-challenge"
+      ],
+      "authorizedSources": [],
+      "approvalReference": null
+    }
+  },
+  {
+    "id": "arena-card-firm-until-end",
+    "name": "Firme Até o Fim",
+    "type": "TACTICAL",
+    "rarity": "lendário",
+    "action": "defend",
+    "description": {
+      "focusCost": 3,
+      "minimumLevel": 30,
+      "condition": "Carta própria, não usada nesta batalha, com nível, Foco e condição de HP atendidos.",
+      "headline": "Permaneça firme sob pressão.",
+      "explanation": "Só com HP próprio até 25%; cura C(8%;8) e guarda ×0,35 para um golpe até o fim da próxima rodada.",
+      "duration": "Uma utilização por batalha; ocupa a ação da rodada. O resultado usa somente regras do servidor."
+    },
+    "parameters": {
+      "healPercent": 0.08,
+      "healCap": 8,
+      "healWhenSelfHpAtMost": 0.25,
+      "guardMultiplier": 0.35,
+      "guardHits": 1,
+      "guardRounds": 1,
+      "minimumLevel": 30,
+      "focusCost": 3
+    },
+    "minimumLevel": 30,
+    "focusCost": 3,
+    "usesPerBattle": 1,
+    "remainsOwnedAfterBattle": true,
+    "catalogVersion": "arena-cards-2026-11-09.1-content-040a",
+    "balanceVersion": "arena-content-040a-2026-11-09.1",
+    "biblicalReference": null,
+    "art": {
+      "approved": true,
+      "reference": "/assets/cards/arena/content-040/arena-card-firm-until-end.webp"
+    },
+    "homologation": {
+      "status": "approved",
+      "approvalReference": "CONTENT-040A:OWNER:2026-11-09"
+    },
+    "acquisition": {
+      "status": "pending-server-contract",
+      "proposedSources": [
+        "starter",
+        "chest",
+        "guild-mission",
+        "journey",
+        "authorized-challenge"
+      ],
+      "authorizedSources": [],
+      "approvalReference": null
+    }
+  }
+]

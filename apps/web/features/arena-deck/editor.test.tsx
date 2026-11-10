@@ -28,15 +28,15 @@ afterEach(() => {
   cleanup();
   vi.unstubAllGlobals();
 });
-const officialCards: ArenaCard[] = getArenaCardCatalog().map(
-  ({ id, name, rarity, type, action }) => ({
+const officialCards: ArenaCard[] = getArenaCardCatalog()
+  .slice(0, 7)
+  .map(({ id, name, rarity, type, action }) => ({
     id,
     name,
     rarity,
     type,
     action,
-  }),
-);
+  }));
 test('player with40 cards chooses7, cannot select8, removes/replaces and saves exact IDs', async () => {
   const save = vi.fn().mockResolvedValue(undefined);
   render(
@@ -192,7 +192,9 @@ test('compact battle hand pages the seven cards and keeps selection connected', 
 
 test('approved official illustrations remain selectable in the existing deck editor', () => {
   expect(Object.keys(ARENA_CARD_ILLUSTRATIONS).sort()).toEqual(
-    officialCards.map((card) => card.id).sort(),
+    getArenaCardCatalog()
+      .map((card) => card.id)
+      .sort(),
   );
   const save = vi.fn().mockResolvedValue(undefined);
   render(

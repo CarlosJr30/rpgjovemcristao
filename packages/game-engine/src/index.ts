@@ -108,6 +108,9 @@ export type BattleFighterState = Readonly<{
   damageDealt: number; damageTaken: number; abilitiesUsed: number;
   focusPoints?: number; guard?: 'basic' | 'fortified' | null;
   tacticalMultiplier?: number; mobilityReady?: boolean; lastSpecial?: ArenaSpecialId | null;
+  healingUsed?: number; guardMultiplier?: number; guardHitsRemaining?: number; guardExpiresRound?: number;
+  initiativeBonus?: number; initiativeStartsRound?: number; initiativeExpiresRound?: number;
+  damageReductionMultiplier?: number; damageReductionExpiresRound?: number;
 }>;
 export type BattleState = Readonly<{
   deck?: import('./arena-deck').ArenaBattleDeck;
@@ -169,7 +172,7 @@ export function isWithinMatchmakingRange(power: number, candidatePower: number, 
   const range = Math.max(25, Math.round(Math.max(0, power) * Math.max(0, ratio)));
   return Math.abs(power - candidatePower) <= range;
 }
-export function calculateDamage(attacker: BattleParticipantSnapshot, defender: BattleParticipantSnapshot, modifiers: { multiplier?: number; defending?: boolean; fortified?: boolean; armored?: boolean } = {}): number {
+export function calculateDamage(attacker: BattleParticipantSnapshot, defender: BattleParticipantSnapshot, modifiers: { multiplier?: number; defending?: boolean; fortified?: boolean; armored?: boolean; guardMultiplier?: number } = {}): number {
   const offensive = battleBalanceConfig.baseDamage + clampStat(attacker.attributes.strength) * battleBalanceConfig.strengthDamageMultiplier + equipmentPower(attacker) * battleBalanceConfig.equipmentPowerDamageMultiplier;
   const reduction = clampStat(defender.attributes.defense) * battleBalanceConfig.defenseReductionMultiplier;
   let damage = Math.max(battleBalanceConfig.minimumDamage, Math.round((offensive - reduction) * (modifiers.multiplier ?? 1)));
@@ -183,10 +186,10 @@ export function seededUnit(seed: number, round: number, salt: string): number {
   value ^= value >>> 13;
   return (value >>> 0) / 4294967295;
 }
-export function calculateInitiative(snapshot: BattleParticipantSnapshot, seed: number, round: number): number {
+export function calculateInitiative(snapshot: BattleParticipantSnapshot, seed: number, round: number, bonus = 0): number {
   const helmet = snapshot.equipment.some((item) => item.effectIds.includes('traveler-helmet')) ? battleBalanceConfig.helmetInitiativeBonus : 0;
   const variation = Math.floor(seededUnit(seed, round, snapshot.id) * (battleBalanceConfig.initiativeVariance * 2 + 1)) - battleBalanceConfig.initiativeVariance;
-  return clampStat(snapshot.attributes.wisdom) * battleBalanceConfig.wisdomInitiativeMultiplier + helmet + variation;
+  return clampStat(snapshot.attributes.wisdom) * battleBalanceConfig.wisdomInitiativeMultiplier + helmet + variation + bonus;
 }
 function makeFighter(snapshot: BattleParticipantSnapshot): BattleFighterState {
   const maxHp = calculateMaxHp(snapshot.attributes);
@@ -277,6 +280,7 @@ export function calculateTrainingReward(won: boolean, rewardedBattlesToday: numb
 }
 export function getEngineStatus(): { readonly gameplayAvailable: true } { return { gameplayAvailable: true }; }
 export * from './arena-combat-v2';
+export * from './arena-content-040';
 export * from './arena-deck';
 export * from './arena-descriptions';
 export * from './arena-card-catalog';

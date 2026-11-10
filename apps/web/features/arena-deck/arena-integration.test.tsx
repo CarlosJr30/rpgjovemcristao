@@ -8,7 +8,7 @@ import {
   screen,
   waitFor,
 } from '@testing-library/react';
-import { cards, ids } from '../../../../tests/fixtures/arena-deck';
+import { cards as catalogCards } from '../../../../tests/fixtures/arena-deck';
 import { createTraveler, DEFAULT_APPEARANCE } from '../journey/domain/traveler';
 import { arenaDeckStorage } from './storage';
 vi.mock('../journey/components/arena-stage', () => ({
@@ -35,6 +35,8 @@ const traveler = createTraveler(
   'player',
   '2026-10-20T12:00:00Z',
 );
+const cards = catalogCards.slice(0, 7);
+const ids = cards.map((card) => card.id);
 const source = async () => cards;
 beforeEach(() => {
   localStorage.clear();
