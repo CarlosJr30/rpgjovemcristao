@@ -191,10 +191,10 @@ export const ARENA_CARD_ILLUSTRATIONS: Readonly<
     alt: 'Viajante executando um golpe preciso contra alvo de madeira.',
   },
   ...Object.fromEntries(
-    CONTENT_040_CARD_ART.map(([id, name, path]) => [
+    CONTENT_040_CARD_ART.map(([id, name]) => [
       id,
       {
-        src: `/assets/cards/arena/content-040/${path}.webp`,
+        src: `/assets/cards/arena/content-040/${id}.webp`,
         alt: `Ilustração aprovada da carta ${name}.`,
       },
     ]),
