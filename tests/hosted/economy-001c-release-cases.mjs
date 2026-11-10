@@ -24,7 +24,7 @@ export async function run({
       'supabase/migrations/20261103045303_economy_001c_shop_release_production.sql',
     ),
     equipmentFix = read(
-      'supabase/migrations/20261110080001_rpg_equipment_fix_013_production.sql',
+      'supabase/migrations/20261110121539_rpg_equipment_fix_013_production.sql',
     );
   const wrapC = (s) =>
     "BEGIN;SET LOCAL economy001c.target_project='wspafhlbtlpabypzymjo';" +

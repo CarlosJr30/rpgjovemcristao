@@ -80,7 +80,7 @@ export async function run({ q, as, check, denied, uid, tid, read }) {
   ).rows[0].body;
   await q(
     wrap(
-      read('supabase/migrations/20261110080000_rpg_equipment_fix_013_test.sql'),
+      read('supabase/migrations/20261110121538_rpg_equipment_fix_013_test.sql'),
       'equipment013.target_project',
     ),
   );
