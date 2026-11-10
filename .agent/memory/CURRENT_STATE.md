@@ -1,3 +1,7 @@
+# 10/11/2026 — RPG-ECONOMY-FIX-012A
+
+Autorizada PR separada somente para a vitrine da Loja e avisos curtos; preservar compras conforme autoridade/elegibilidade existente. Branch baseada na main publicada `4d5a64e`; PR46/d97d8ae não alterada. Access sempre mostra Shop; leituras pendentes/erro/bloqueio mantêm operações desativadas, e troca do modo Treino QA refaz a leitura. Nenhuma RPC de inicialização, migration, Auth/RLS ou escrita de economia. `shop.test.tsx` 9/9, lint, Prettier, TypeScript e diff-check PASS; PR, CI SHA exato, Preview e publicação pendentes. Ver `RPG-ECONOMY-FIX-012A-REPORT.md`.
+
 ## 08/11/2026 — RPG-LOJA-FIX-011 VALIDATING / dispensa específica de transações TEST
 
 TASK-0096/PR42draft/base main3dd53c3. Candidatoa3f3343/CIpush42468089490/PR42468107566success1129PASS74SKIP; PreviewTESTREADY.13PG nos dois envelopes isolados PASS(mesmos casos); migration somenteTEST20261108094902/90conjuntos exatos, uma função/ACL preservada. Login normal Herói TEST Equipamentos confirmado/saldo0. Proprietário não tem acesso a QA Multiguild(saldo55/baú) e autorizou pular somente os positivos transacionais hospedados: SKIP, nãoPASS. Modal fixture1365/390/320 PASS. Pacote produtivo próprio e navegação Mochila preparados para CI final; sem merge/DDL/operação econômicaPROD ainda. Duas compras40+40/500baúslegados e QA9960/validade originais preservados. Backup Arena cdd4dcf intacto. Ver relatórioRPG-LOJA-FIX-011. Sem delegação.
