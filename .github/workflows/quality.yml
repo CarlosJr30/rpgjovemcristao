@@ -170,6 +170,10 @@ jobs:
         run: node tests/hosted/economy-001c-release-postgres.mjs
       - name: Exigir compatibilidade do pacote incremental com o orçamento QA TEST existente
         run: node tests/hosted/economy-001c-release-postgres.mjs --test-envelope
+      - name: Exigir leitura de proveniência compartilhada sem liberar inventário legado
+        run: node tests/hosted/rpg-equipment-fix-014-postgres.mjs
+      - name: Exigir o mesmo contrato de leitura no envelope TEST
+        run: node tests/hosted/rpg-equipment-fix-014-postgres.mjs --test-envelope
       - name: Exigir isolamento do treino sem alterar carteiras inventário ou equipamentos canônicos
         run: node tests/hosted/economy-qa-002-postgres.mjs
       - name: Exigir reconciliação individual aprovada sem concessão ou alteração de outros jogadores

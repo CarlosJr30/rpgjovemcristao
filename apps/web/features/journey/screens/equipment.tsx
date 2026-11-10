@@ -11,11 +11,30 @@ import { travelerBattleSnapshot } from '../data/arena';
 import { RARITY_PRESENTATION } from '../data/equipmentCinematic';
 import { formatAttributeBonuses, equippedItems } from '../data/attributes';
 import { gameAudio } from '../audio/audio-manager';
-import { useEffect, useRef, useState, type MouseEvent } from 'react';
+import {
+  useEffect,
+  useRef,
+  useState,
+  useSyncExternalStore,
+  type MouseEvent,
+} from 'react';
 import { Shell, RequireTraveler } from '../components/shell';
 import { JOURNEY_ROUTES as routes } from '../data/campaign';
-import { equipItem, unequipSlot } from '../state/use-journey';
-import { getCurrentOnlineUserId } from '../../../lib/supabase/online-sync';
+import { equipItem, unequipSlot, useJourney } from '../state/use-journey';
+import {
+  getCurrentOnlineUserId,
+  getOnlineSessionRevision,
+} from '../../../lib/supabase/online-sync';
+import {
+  equipmentAccessMessage,
+  readEquipmentAccess,
+  type EquipmentAccess,
+} from '../../../lib/supabase/equipment-access';
+import { activeTraining } from '../../../lib/training-qa/client';
+import {
+  subscribeTraining,
+  trainingEpoch,
+} from '../../../lib/training-qa/store';
 import { changeOnlineEquipment } from '../../../lib/supabase/online-equipment';
 import type { EquipmentSlot, Traveler } from '../domain/traveler';
 import { EquippedAvatar } from '../components/equipped-avatar';
@@ -62,6 +81,64 @@ const rarityEffect: Record<string, string> = {
   lendário: styles.equipLegendaryEffect,
 };
 export function EquipmentScreen() {
+  const journey = useJourney();
+  const actor = journey.status === 'ready' ? journey.traveler.id : null;
+  const inventoryKey =
+    journey.status === 'ready'
+      ? journey.traveler.inventory.map((item) => item.id).join('|')
+      : '';
+  const owner = getCurrentOnlineUserId();
+  const session = getOnlineSessionRevision();
+  const epoch = useSyncExternalStore(subscribeTraining, trainingEpoch, () => 0);
+  const [accessRevision, setAccessRevision] = useState(0);
+  const accessContext = `${actor}:${owner}:${session}:${epoch}:${inventoryKey}:${accessRevision}`;
+  const [access, setAccess] = useState<{
+    context: string;
+    items: EquipmentAccess[];
+    training: boolean;
+  } | null>(null);
+  useEffect(() => {
+    if (!actor || !owner || !isShopRelease()) return;
+    let live = true;
+    const load = async () => {
+      const training = activeTraining(actor);
+      const items = await Promise.resolve(
+        training
+          ? Object.entries(training.state.items)
+              .filter(([, quantity]) => quantity > 0)
+              .map(([itemId]) => ({
+                itemId,
+                sourceConfirmed: true,
+                reason: null,
+              }))
+          : readEquipmentAccess(actor),
+      );
+      if (live)
+        setAccess({ context: accessContext, items, training: !!training });
+    };
+    void load().catch(() => {
+      if (live)
+        setAccess({ context: accessContext, items: [], training: false });
+    });
+    return () => {
+      live = false;
+    };
+  }, [actor, owner, accessContext]);
+  const equipmentBlock = (
+    traveler: Traveler,
+    item: Traveler['inventory'][number],
+  ) => {
+    if (traveler.level < (item.minimumLevel ?? 1))
+      return `Nível ${item.minimumLevel} necessário.`;
+    if (!isShopRelease()) return null;
+    const current = access?.context === accessContext ? access : null;
+    const decision = current?.items.find((entry) => entry.itemId === item.id);
+    if (!decision && current?.training)
+      return 'Este item não foi adquirido no treino ativo.';
+    return decision?.sourceConfirmed && decision.reason === null
+      ? null
+      : equipmentAccessMessage(decision?.reason);
+  };
   const compact = useCompactGameLayout();
   const [inventoryOpen, setInventoryOpen] = useState(false);
   const [selected, setSelected] = useState<{
@@ -125,7 +202,10 @@ export function EquipmentScreen() {
         );
     } finally {
       pending.current = false;
-      if (live.current) setOnlineBusy(false);
+      if (live.current) {
+        setOnlineBusy(false);
+        setAccessRevision((value) => value + 1);
+      }
     }
   };
   useEffect(
@@ -178,6 +258,11 @@ export function EquipmentScreen() {
     event: MouseEvent<HTMLButtonElement>,
   ) => {
     if (busy) return;
+    const block = equipmentBlock(traveler, item);
+    if (block) {
+      setFeedback(block);
+      return;
+    }
     if (traveler.level < (item.minimumLevel ?? 1)) {
       setFeedback(
         `Nível ${item.minimumLevel} necessário para equipar ${item.name}.`,
@@ -464,7 +549,8 @@ export function EquipmentScreen() {
                         (availability === 'all' ||
                           (availability === 'equipped'
                             ? t.equipped[slot] === i.id
-                            : t.equipped[slot] !== i.id)),
+                            : t.equipped[slot] !== i.id &&
+                              !equipmentBlock(t, i))),
                     )
                     .map((item) => {
                       const visual = equipmentVisualForItem(
@@ -517,7 +603,10 @@ export function EquipmentScreen() {
                           <span className={portal.available}>
                             {t.equipped[slot] === item.id
                               ? '✓ Equipado'
-                              : 'Disponível para equipar'}
+                              : (equipmentBlock(t, item) ??
+                                (isShopRelease()
+                                  ? 'Origem confirmada · pode equipar'
+                                  : 'Na Mochila · servidor confirma ao equipar'))}
                           </span>
                           <EquipmentBibleDetails item={item} />
                           <EquipmentArenaDetails item={item} />
@@ -529,7 +618,7 @@ export function EquipmentScreen() {
                             }
                           >
                             {visual.visualOverlayUnavailable
-                              ? 'Visual corporal em preparação · pode ser equipado e mantém seus atributos.'
+                              ? 'Visual corporal em preparação · bônus preservados no catálogo.'
                               : 'Camada corporal disponível: aparece no Avatar ao equipar.'}
                           </p>
                           <EquipmentComparison traveler={t} item={item} />
@@ -552,7 +641,9 @@ export function EquipmentScreen() {
                           <button
                             className={styles.primaryLink}
                             disabled={
-                              busy || t.level < (item.minimumLevel ?? 1)
+                              busy ||
+                              (t.equipped[slot] !== item.id &&
+                                !!equipmentBlock(t, item))
                             }
                             onClick={(event) =>
                               t.equipped[slot] === item.id
@@ -564,7 +655,9 @@ export function EquipmentScreen() {
                               ? 'Desequipar'
                               : t.level < (item.minimumLevel ?? 1)
                                 ? `Nível ${item.minimumLevel} necessário`
-                                : 'Equipar'}
+                                : equipmentBlock(t, item)
+                                  ? 'Equipar indisponível'
+                                  : 'Equipar'}
                           </button>
                           {t.equipped[slot] === item.id && (
                             <button
@@ -585,7 +678,8 @@ export function EquipmentScreen() {
                       (availability === 'all' ||
                         (availability === 'equipped'
                           ? t.equipped[slot] === i.id
-                          : t.equipped[slot] !== i.id)),
+                          : t.equipped[slot] !== i.id &&
+                            !equipmentBlock(t, i))),
                   ) && (
                     <p>
                       Nenhum item para estes filtros. Escolha Todos do slot ou
@@ -597,6 +691,15 @@ export function EquipmentScreen() {
               <p className={portal.feedback} role="status" aria-live="polite">
                 {feedback}
               </p>
+              {isShopRelease() && (
+                <button
+                  className={styles.textLink}
+                  disabled={busy}
+                  onClick={() => setAccessRevision((value) => value + 1)}
+                >
+                  Atualizar autorização
+                </button>
+              )}
               {selected?.travelerId === t.id &&
                 t.inventory.some((item) => item.id === selected.itemId) && (
                   <>
@@ -621,6 +724,12 @@ export function EquipmentScreen() {
                       )!}
                       open={previewOpen}
                       busy={busy}
+                      equipBlockedReason={equipmentBlock(
+                        t,
+                        t.inventory.find(
+                          (item) => item.id === selected.itemId,
+                        )!,
+                      )}
                       onClose={() => setPreviewOpen(false)}
                       onEquip={(event) => {
                         const item = t.inventory.find(

@@ -52,6 +52,7 @@ vi.mock('./components/shell', () => ({
   }) => children(mocks.traveler!),
 }));
 vi.mock('./state/use-journey', () => ({
+  useJourney: () => ({ status: 'ready', traveler: mocks.traveler }),
   equipItem: mocks.equipItem,
   unequipSlot: mocks.unequipSlot,
 }));

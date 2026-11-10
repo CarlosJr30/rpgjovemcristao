@@ -34,6 +34,31 @@ export async function run({ q, as, check, denied, uid, tid, read }) {
       )
     ).rows;
   const original = await defs();
+  if (process.env.RPG_EQUIPMENT_FIX014_CASES === '1') {
+    await q(
+      wrap(
+        read(
+          'supabase/migrations/20261103045300_economy_001c_shop_release_test.sql',
+        ),
+        'shop001c.target_project',
+      ),
+    );
+    await q(
+      read('tests/hosted/fixtures/rpg-equipment-fix-013-existing-wrapper.sql'),
+    );
+    await q(
+      wrap(
+        read(
+          'supabase/migrations/20261110121538_rpg_equipment_fix_013_test.sql',
+        ),
+        'equipment013.target_project',
+      ),
+    );
+    await (
+      await import('./rpg-equipment-fix-014-cases.mjs')
+    ).run({ q, check, denied, uid, tid, read });
+    return;
+  }
   await check(
     'Incremental TEST release preserves existing QA authority and budget',
     async () => {
