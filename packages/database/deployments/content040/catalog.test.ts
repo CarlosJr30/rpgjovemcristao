@@ -1,7 +1,8 @@
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { expect, it } from 'vitest';
 import { ARENA_CONTENT_040_CARDS } from '../../../game-engine/src/arena-content-040';
 import { EQUIPMENT_CATALOG } from '../../../../apps/web/features/journey/data/equipmentCatalog';
+import { ARENA_CARD_ILLUSTRATIONS } from '../../../../apps/web/features/arena-deck/card-illustrations';
 
 const cards = JSON.parse(
   readFileSync('packages/database/deployments/content040/catalog.json', 'utf8'),
@@ -23,6 +24,8 @@ it('freezes only the 33 approved cards as non-starter definitions with acquisiti
     const source = ARENA_CONTENT_040_CARDS.find(
       (entry) => entry.id === card.id,
     )!;
+    expect(ARENA_CARD_ILLUSTRATIONS[card.id]?.src).toBe(source.artPath);
+    expect(existsSync(`apps/web/public${source.artPath}`)).toBe(true);
     expect(card).toMatchObject({
       action: source.action,
       name: source.name,
@@ -56,6 +59,7 @@ it('freezes the 34 approved equipment definitions and their exact art mappings',
   );
   for (const item of equipment) {
     const source = approved.find((entry) => entry.id === item.id)!;
+    expect(existsSync(`apps/web/public${source.catalogArt}`)).toBe(true);
     expect(item).toMatchObject({
       ...source,
       catalogArt: `/assets/equipment/catalog/${item.id}.webp`,
