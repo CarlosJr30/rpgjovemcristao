@@ -299,6 +299,7 @@ test('filtering and cancelling preserve the displayed balance and never submit a
 test('confirmed purchase auto opens once; failed opening retries the same ID without buying again', async () => {
   f.purchase.mockResolvedValue({
     kind: 'chest',
+    offer: 'common',
     openingOperationId: 'stable-opening',
   });
   f.open
@@ -336,6 +337,7 @@ test('confirmed purchase auto opens once; failed opening retries the same ID wit
 test('Ver na Mochila navigates after confirmed opening without another transaction', async () => {
   f.purchase.mockResolvedValue({
     kind: 'chest',
+    offer: 'common',
     openingOperationId: 'stable-opening',
   });
   f.open.mockResolvedValue({ id: 'receipt' });
@@ -351,4 +353,52 @@ test('Ver na Mochila navigates after confirmed opening without another transacti
   expect(f.push).toHaveBeenCalledWith('/journey/backpack');
   expect(f.purchase).toHaveBeenCalledTimes(1);
   expect(f.open).toHaveBeenCalledTimes(1);
+});
+
+test('041 displays the five approved purchase prices and opens the selected tier with the original purchase ID', async () => {
+  f.traveler.coins = 1000;
+  f.purchase.mockResolvedValue({
+    kind: 'chest',
+    offer: 'rare',
+    openingOperationId: 'same-operation',
+  });
+  f.open.mockResolvedValue({ id: 'receipt' });
+  f.reload.mockResolvedValue(true);
+  render(
+    <ShopScreen
+      qa={{
+        actor: 'fixture',
+        coins: 1000,
+        production: true,
+        expansionReady: true,
+      }}
+    />,
+  );
+  const products = screen.getByLabelText('Produtos disponíveis');
+  const buttons = within(products).getAllByRole('button', {
+    name: /Comprar baú/,
+  });
+  expect(buttons).toHaveLength(5);
+  for (const price of [40, 80, 150, 250, 400])
+    expect(
+      within(products).getByText(`◈ ${price} Moedas do Viajante`),
+    ).toBeVisible();
+  fireEvent.click(screen.getByRole('button', { name: 'Comprar baú raro' }));
+  fireEvent.click(screen.getByRole('button', { name: 'Confirmar compra' }));
+  await screen.findByRole('dialog', { name: 'Tesouro' });
+  expect(f.purchase).toHaveBeenCalledExactlyOnceWith(
+    'fixture',
+    'chest',
+    'rare',
+    true,
+  );
+  expect(f.open).toHaveBeenCalledExactlyOnceWith(
+    'owner',
+    'fixture',
+    'rare',
+    false,
+    true,
+    false,
+    'same-operation',
+  );
 });

@@ -1,4 +1,10 @@
-import type { ArenaCard } from '@rpg/game-engine';
+import {
+  ECONOMY_041_CHESTS,
+  ECONOMY_041_RESALE,
+  findArenaCardDefinition,
+  type ArenaCard,
+} from '@rpg/game-engine';
+import { arenaCardIllustration } from '../arena-deck/card-illustrations';
 import type { ChestOperationRow } from '../../lib/supabase/database.types';
 import { chestCatalog, type ChestType } from '../journey/data/chests';
 import { EQUIPMENT_CATALOG } from '../journey/data/equipmentCatalog';
@@ -17,6 +23,8 @@ export type RevealReceipt = Readonly<{
   travelerId: string;
   chestType: ChestType;
   entries: readonly RevealPrize[];
+  repeated?: { itemId: string; quantity: number; sellValue: number };
+  catalogVersion?: 'economy041-chest-v1';
 }>;
 export const uuid = (s: unknown): s is string =>
   typeof s === 'string' &&
@@ -61,6 +69,90 @@ export function receiptFromOperation(
   )
     throw fail();
   const v = row.rewards;
+  if (
+    v &&
+    typeof v === 'object' &&
+    !Array.isArray(v) &&
+    v.catalogVersion === 'economy041-chest-v1'
+  ) {
+    if (
+      !row.source?.startsWith('economy041:') ||
+      v.source !== row.source ||
+      v.chestType !== row.chest_type ||
+      !Number.isSafeInteger(v.coins) ||
+      Number(v.coins) < 0 ||
+      !Number.isSafeInteger(v.quantity) ||
+      Number(v.quantity) < 0 ||
+      !Number.isSafeInteger(v.remainingQuantity) ||
+      Number(v.remainingQuantity) < 0 ||
+      typeof v.duplicateItem !== 'boolean' ||
+      typeof v.duplicate !== 'boolean' ||
+      v.sellValue !== ECONOMY_041_RESALE[chestRarity[row.chest_type]]
+    )
+      throw fail();
+    let prize: RevealPrize;
+    if (
+      v.itemKind === 'coins' &&
+      v.itemId === null &&
+      v.cardVersion === null &&
+      v.coins === ECONOMY_041_CHESTS[row.chest_type].coins &&
+      v.quantity === 0 &&
+      !v.duplicateItem
+    )
+      prize = {
+        kind: 'coins',
+        amount: Number(v.coins),
+        rarity: chestRarity[row.chest_type],
+      };
+    else if (
+      v.coins === 0 &&
+      typeof v.itemId === 'string' &&
+      Number(v.quantity) > 0 &&
+      v.duplicateItem === Number(v.quantity) > 1
+    ) {
+      if (v.itemKind === 'card') {
+        const card = findArenaCardDefinition(v.itemId),
+          art = arenaCardIllustration(v.itemId);
+        if (
+          !card ||
+          card.catalogVersion !== v.cardVersion ||
+          card.name !== v.itemName ||
+          card.rarity !== chestRarity[row.chest_type] ||
+          !art
+        )
+          throw fail();
+        prize = { kind: 'card', card, rarity: card.rarity, art: art.src };
+      } else {
+        const item = EQUIPMENT_CATALOG.find((e) => e.id === v.itemId);
+        if (
+          v.itemKind !== 'equipment' ||
+          !item ||
+          item.name !== v.itemName ||
+          item.rarity !== chestRarity[row.chest_type] ||
+          v.cardVersion !== null
+        )
+          throw fail();
+        prize = { kind: 'equipment', item, rarity: item.rarity };
+      }
+    } else throw fail();
+    return {
+      id: row.id,
+      operationKey: row.operation_key,
+      travelerId,
+      chestType: row.chest_type,
+      entries: [prize],
+      catalogVersion: 'economy041-chest-v1',
+      ...(v.duplicateItem
+        ? {
+            repeated: {
+              itemId: String(v.itemId),
+              quantity: Number(v.quantity),
+              sellValue: Number(v.sellValue),
+            },
+          }
+        : {}),
+    };
+  }
   if (
     !v ||
     typeof v !== 'object' ||

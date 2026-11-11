@@ -16,6 +16,13 @@ export const futureCategories = {
   rare: 'Raro · indisponível',
   epic: 'Épico · sujeito à elegibilidade',
 } as const;
+export const economyMissionTiers = {
+  none: 'Sem recompensa 041',
+  normal: 'Normal · 25 moedas + Baú Comum',
+  great: 'Grande · 100 moedas + Baú Incomum',
+  epic: 'Épica · 220 moedas + Baú Raro',
+  extraordinary: 'Extraordinária · 360 moedas + Baú Épico',
+} as const;
 export type CellDetails = {
   kind: 'meeting' | 'activity';
   meetingId: string;
@@ -25,6 +32,7 @@ export type CellDetails = {
   responsibleId: string;
   accessDetails: string;
   futureCategory: keyof typeof futureCategories;
+  economyTier?: keyof typeof economyMissionTiers;
 };
 export type CellMission = CellDetails & {
   id: string;
@@ -54,6 +62,7 @@ export type CellProgress = {
   revision: number;
   submittedAt: string;
   approvedAt: string | null;
+  rewardClaimed?: boolean;
   reviewNote: string | null;
 };
 export type CellDelegation = {
@@ -148,6 +157,9 @@ export function cellPayload(form: MissionFormData, extra: CellDetails) {
     meetingType: extra.meetingType,
     responsibleId: extra.responsibleId,
     futureCategory: extra.futureCategory,
+    ...(extra.economyTier !== undefined
+      ? { economyTier: extra.economyTier }
+      : {}),
     accessDetails: extra.kind === 'meeting' ? extra.accessDetails : '',
   };
 }
@@ -204,7 +216,9 @@ export function parseCellWorkspace(
       !['meeting', 'activity'].includes(raw.kind) ||
       !['draft', 'published', 'closed', 'cancelled'].includes(raw.status) ||
       !Number.isInteger(raw.revision) ||
-      !Array.isArray(raw.targetIds)
+      !Array.isArray(raw.targetIds) ||
+      (raw.economyTier !== undefined &&
+        !Object.hasOwn(economyMissionTiers, raw.economyTier))
     )
       throw Error('Atividade incompatível.');
     ids.add(raw.id);

@@ -16,7 +16,7 @@ const communityCases = process.env.RPG_010C1_CASES === '1' || challengeCases;
 const communityProductionPackage =
   process.env.RPG_010C1_PRODUCTION_PACKAGE === '1';
 const lessonCases = process.env.RPG_010B3_CASES === '1' || communityCases || economyBCases;
-const root = process.env.RPG_ECONOMY_FIX010_CASES==='1'?path.resolve('build/economy-fix-010/'+(process.env.RPG_FIX010_PRODUCTION==='1'?'pg-production':'pg-test')):process.env.RPG_ECONOMY_QA002_CASES==='1'?path.resolve('build/economy-qa-002/pg'):path.resolve(
+const root = process.env.RPG_ECONOMY_041_CASES==='1'?path.resolve('build/economy-041/pg-'+(process.env.RPG_ECONOMY_041_PROGRESS==='1'?'progress':process.env.RPG_ECONOMY_041_INSTALLATION==='1'?'installation':'core')):process.env.RPG_ECONOMY_FIX010_CASES==='1'?path.resolve('build/economy-fix-010/'+(process.env.RPG_FIX010_PRODUCTION==='1'?'pg-production':'pg-test')):process.env.RPG_ECONOMY_QA002_CASES==='1'?path.resolve('build/economy-qa-002/pg'):path.resolve(
     economyCCases ? (process.env.RPG_ECONOMY_001C_RELEASE_CASES==='1'?(process.env.RPG_ECONOMY_001C_RELEASE_ENV==='TEST'?'build/economy-001c/release-test-pg':'build/economy-001c/release-pg'):process.env.RPG_ECONOMY_001C_SHOP_CASES==='1'?'build/economy-001c/shop-pg':'build/economy-001c/pg') :
     economyBCases ? (economyBProductionPackage ? 'build/economy-001b/pg-production' : 'build/economy-001b/pg') : challengeCases ? (challengeProductionPackage ? 'build/rpg-dev-010c2-production' : 'build/rpg-dev-010c2') : communityCases
       ? communityProductionPackage

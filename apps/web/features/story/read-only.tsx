@@ -19,6 +19,7 @@ import {
 import { GARDEN, GARDEN_CONTENT } from '../journey/data/campaign';
 import { diaryView } from '../journey/data/diaryView';
 import css from './story.module.css';
+import { ProgressReward } from '../chest-reveal/progress-reward';
 
 export function JourneyReadScreen({
   worldId,
@@ -179,6 +180,12 @@ export function JourneyReadView({
           Contexto das referências: {world.chronology}
         </p>
       )}
+      {world &&
+        !story &&
+        world.stories.length > 0 &&
+        world.stories.every((s) => completed(s.id)) && (
+          <ProgressReward actor={traveler.id} kind="world" event={world.id} />
+        )}
       {world &&
         !story &&
         (world.stories.length ? (

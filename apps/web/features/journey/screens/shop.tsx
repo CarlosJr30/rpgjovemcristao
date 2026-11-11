@@ -1,7 +1,11 @@
 'use client';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { chestCatalog } from '@rpg/game-engine';
+import {
+  chestCatalog,
+  ECONOMY_041_CHESTS,
+  type ChestType,
+} from '@rpg/game-engine';
 import dynamic from 'next/dynamic';
 import { useEffect, useRef, useState, useSyncExternalStore } from 'react';
 import {
@@ -32,7 +36,7 @@ import {
   type VisualCursor,
 } from '../../chest-reveal/visual-store';
 import { chestRepository } from '../../../lib/supabase/repositories/chest-repository';
-import type { RevealReceipt } from '../../chest-reveal/receipt';
+import { isChestType, type RevealReceipt } from '../../chest-reveal/receipt';
 const ChestReveal = dynamic(
   () => import('../../chest-reveal/reveal').then((m) => m.ChestReveal),
   { ssr: false },
@@ -49,6 +53,7 @@ export function ShopScreen({
     enabled?: boolean;
     balanceVerified?: boolean;
     reason?: string;
+    expansionReady?: boolean;
   };
 } = {}) {
   const router = useRouter();
@@ -78,12 +83,17 @@ export function ShopScreen({
     name: string;
   } | null>(null);
   const [busy, setBusy] = useState(false);
-  const [pendingOpen, setPendingOpen] = useState<string | null>(() => {
+  const [pendingOpen, setPendingOpen] = useState<{
+    type: ChestType;
+    operation: string;
+  } | null>(() => {
     const owner = getCurrentOnlineUserId();
     if (!owner || !qa) return null;
     try {
       const intent = readVisual(owner, qa.actor).intent;
-      return intent?.type === 'common' ? intent.operationId : null;
+      return intent
+        ? { type: intent.type, operation: intent.operationId }
+        : null;
     } catch {
       return null;
     }
@@ -101,16 +111,16 @@ export function ShopScreen({
       mounted.current = false;
     };
   }, []);
-  const openPurchased = async (operation: string) => {
+  const openPurchased = async (type: ChestType, operation: string) => {
     if (!qa || !operationsAllowed) return;
     const owner = getCurrentOnlineUserId();
     if (!owner) throw Error('Entre novamente para abrir seu baú.');
-    setPendingOpen(operation);
+    setPendingOpen({ type, operation });
     setFeedback('Preparando seu baú…');
     const receipt = await requestChestOpening(
       owner,
       qa.actor,
-      'common',
+      type,
       false,
       true,
       !qa.production,
@@ -129,7 +139,7 @@ export function ShopScreen({
     running.current = true;
     setBusy(true);
     try {
-      await openPurchased(pendingOpen);
+      await openPurchased(pendingOpen.type, pendingOpen.operation);
     } catch {
       if (mounted.current)
         setFeedback(
@@ -147,20 +157,21 @@ export function ShopScreen({
     try {
       const chests = await chestRepository.list(qa.actor);
       if (!mounted.current) return;
-      if (
-        !chests.some(
-          (c) =>
-            c.chest_type === 'common' &&
-            c.quantity > 0 &&
-            Array.isArray(c.sources) &&
-            c.sources.some(
-              (source) =>
-                typeof source === 'string' && source.startsWith('shop001c:'),
-            ),
-        )
-      )
+      const stored = chests.find(
+        (c) =>
+          isChestType(c.chest_type) &&
+          c.quantity > 0 &&
+          Array.isArray(c.sources) &&
+          c.sources.some(
+            (source) =>
+              typeof source === 'string' &&
+              (source.startsWith('shop001c:') ||
+                source.startsWith('economy041:')),
+          ),
+      );
+      if (!stored || !isChestType(stored.chest_type))
         throw Error('Nenhum baú comprado disponível neste modo.');
-      await openPurchased(crypto.randomUUID());
+      await openPurchased(stored.chest_type, crypto.randomUUID());
     } catch (e) {
       if (mounted.current)
         setFeedback(
@@ -178,8 +189,8 @@ export function ShopScreen({
     try {
       const receipt = await resumeQAPurchase(qa.actor);
       if (!mounted.current) return;
-      if (receipt.kind === 'chest')
-        await openPurchased(receipt.openingOperationId);
+      if (receipt.kind === 'chest' && isChestType(receipt.offer))
+        await openPurchased(receipt.offer, receipt.openingOperationId);
       else setFeedback('Item na Mochila.');
     } catch (e) {
       setFeedback(e instanceof Error ? e.message : 'Consulta não confirmada.');
@@ -204,11 +215,12 @@ export function ShopScreen({
         qa.actor,
         confirmation.kind,
         confirmation.id,
+        qa.expansionReady === true,
       );
       if (!mounted.current) return;
       setConfirmation(null);
-      if (receipt.kind === 'chest')
-        await openPurchased(receipt.openingOperationId);
+      if (receipt.kind === 'chest' && isChestType(receipt.offer))
+        await openPurchased(receipt.offer, receipt.openingOperationId);
       else setFeedback('Item na Mochila.');
     } catch (e) {
       setFeedback(e instanceof Error ? e.message : 'Compra não confirmada.');
@@ -345,53 +357,70 @@ export function ShopScreen({
               </div>
             )}
             <div className={shop.products} aria-label="Produtos disponíveis">
-              {qa && category !== 'equipment' && (
-                <article
-                  className={`${styles.itemCard} ${shop.product}`}
-                  data-rarity="comum"
-                >
-                  {/* eslint-disable-next-line @next/next/no-img-element -- arte local existente do baú */}
-                  <img
-                    className={shop.art}
-                    src={chestCatalog.common.image}
-                    alt=""
-                  />
-                  <h2>Baú comum</h2>
-                  <p className={shop.rarity}>COMUM · Baú</p>
-                  <p className={shop.origin}>
-                    <span aria-hidden="true">✦</span> Loja · atividade
-                    comunitária
-                  </p>
-                  <details className={shop.details}>
-                    <summary>Ver conteúdo aprovado</summary>
-                    <p>
-                      Moedas e possibilidade de equipamento, conforme o conteúdo
-                      comum existente.
-                    </p>
-                  </details>
-                  <strong className={shop.price}>
-                    ◈ 40 {TRAVELER_CURRENCY_NAME}
-                  </strong>
-                  <button
-                    className={styles.primaryLink}
-                    disabled={
-                      !operationsAllowed ||
-                      busy ||
-                      !!pendingOpen ||
-                      traveler.coins < 40
-                    }
-                    onClick={() =>
-                      setConfirmation({
-                        kind: 'chest',
-                        id: 'common',
-                        name: 'Baú comum',
-                      })
-                    }
+              {qa &&
+                category !== 'equipment' &&
+                (qa.expansionReady && !training
+                  ? (Object.keys(ECONOMY_041_CHESTS) as ChestType[])
+                  : (['common'] as ChestType[])
+                ).map((type) => (
+                  <article
+                    key={type}
+                    className={`${styles.itemCard} ${shop.product}`}
+                    data-rarity={ECONOMY_041_CHESTS[type].rarity}
                   >
-                    Comprar baú comum
-                  </button>
-                </article>
-              )}
+                    {/* eslint-disable-next-line @next/next/no-img-element -- arte local existente do baú */}
+                    <img
+                      className={shop.art}
+                      src={chestCatalog[type].image}
+                      alt=""
+                    />
+                    <h2>
+                      {type === 'common'
+                        ? 'Baú comum'
+                        : chestCatalog[type].name}
+                    </h2>
+                    <p className={shop.rarity}>
+                      {chestCatalog[type].rarityLabel} · Baú
+                    </p>
+                    <p className={shop.origin}>
+                      <span aria-hidden="true">✦</span> Loja · atividade
+                      comunitária
+                    </p>
+                    <details className={shop.details}>
+                      <summary>Ver conteúdo aprovado</summary>
+                      <p>
+                        {qa.expansionReady && !training
+                          ? `${ECONOMY_041_CHESTS[type].coinWeight}%: ${ECONOMY_041_CHESTS[type].coins} moedas · ${ECONOMY_041_CHESTS[type].cardWeight}%: carta · ${ECONOMY_041_CHESTS[type].equipmentWeight}%: equipamento. Uma recompensa principal. Itens ${ECONOMY_041_CHESTS[type].rarity}; repetidos permitidos.`
+                          : 'Moedas e possibilidade de equipamento, conforme o conteúdo comum existente.'}
+                      </p>
+                    </details>
+                    <strong className={shop.price}>
+                      ◈ {ECONOMY_041_CHESTS[type].price}{' '}
+                      {TRAVELER_CURRENCY_NAME}
+                    </strong>
+                    <button
+                      className={styles.primaryLink}
+                      disabled={
+                        !operationsAllowed ||
+                        busy ||
+                        !!pendingOpen ||
+                        traveler.coins < ECONOMY_041_CHESTS[type].price
+                      }
+                      onClick={() =>
+                        setConfirmation({
+                          kind: 'chest',
+                          id: type,
+                          name:
+                            type === 'common'
+                              ? 'Baú comum'
+                              : chestCatalog[type].name,
+                        })
+                      }
+                    >
+                      Comprar {chestCatalog[type].name.toLowerCase()}
+                    </button>
+                  </article>
+                ))}
               {category !== 'chests' &&
                 SHOP_OFFERS.map(({ equipment, price, description }) => {
                   const owned = training
@@ -532,18 +561,21 @@ export function ShopScreen({
                         <EquipmentStatBonuses stats={item.stats} />
                         <p className={shop.origin}>
                           <span aria-hidden="true">✦</span>{' '}
-                          {item.slot === 'boots'
-                            ? 'Equipamento inicial'
-                            : item.slot === 'helmet'
-                              ? 'Baú épico comunitário'
-                              : 'Jornada'}
+                          {item.id.startsWith('equipment-')
+                            ? 'Baús da Loja'
+                            : item.slot === 'boots'
+                              ? 'Equipamento inicial'
+                              : item.slot === 'helmet'
+                                ? 'Baú épico comunitário'
+                                : 'Jornada'}
                         </p>
                         <span className={shop.availability}>
                           Sem oferta de compra
                         </span>
                       </article>
                     ))}
-                  {category !== 'equipment' &&
+                  {!qa.expansionReady &&
+                    category !== 'equipment' &&
                     (['uncommon', 'rare', 'extraordinary'] as const).map(
                       (id) => (
                         <article

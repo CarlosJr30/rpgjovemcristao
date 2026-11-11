@@ -10,6 +10,7 @@ export type ArchiveCard = {
   card: ArenaCard;
   receiptId: string;
   version: string;
+  quantity?: number;
 };
 export async function readOwnedCards(
   travelerId: string,
@@ -46,6 +47,10 @@ export async function readOwnedCards(
               value.version === 'arena-cards-2026-10-20.2-fixprod003-test'
             )))) ||
       typeof value.receiptId !== 'string' ||
+      (value.quantity !== undefined &&
+        (!Number.isSafeInteger(value.quantity) ||
+          Number(value.quantity) < 1 ||
+          Number(value.quantity) > 999)) ||
       !/^[\da-f]{8}-[\da-f]{4}-[\da-f]{4}-[\da-f]{4}-[\da-f]{12}$/i.test(
         value.receiptId,
       )
@@ -55,6 +60,9 @@ export async function readOwnedCards(
       card: value.card,
       version: value.version,
       receiptId: value.receiptId,
+      ...(value.quantity !== undefined
+        ? { quantity: Number(value.quantity) }
+        : {}),
     };
   });
 }

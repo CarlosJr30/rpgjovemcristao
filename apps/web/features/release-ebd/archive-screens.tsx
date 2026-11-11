@@ -36,6 +36,7 @@ import { JourneyIcon } from '../journey/components/journey-icon';
 import { formatAttributeBonuses } from '../journey/data/attributes';
 import { TRAVELER_CURRENCY_NAME } from '../journey/data/progression';
 import { arenaCardIllustration } from '../arena-deck/card-illustrations';
+import { DuplicateActions } from '../chest-reveal/duplicate-actions';
 
 type BackpackTab = 'equipment' | 'chests' | 'cards';
 
@@ -62,6 +63,7 @@ function BackpackSession() {
           tab={tab}
           onTabChange={setTab}
           chestCount={chestCount}
+          onRefresh={() => setRevision((v) => v + 1)}
           chests={
             <CommunityChests
               onCountChange={setChestCount}
@@ -131,6 +133,7 @@ export function BackpackContents({
   onTabChange,
   chestCount = 0,
   chests,
+  onRefresh,
 }: {
   snapshot: ArchiveSnapshot;
   cards: ArchiveCard[];
@@ -138,6 +141,7 @@ export function BackpackContents({
   onTabChange?: (tab: BackpackTab) => void;
   chestCount?: number;
   chests?: ReactNode;
+  onRefresh?: () => void;
 }) {
   const [localTab, setLocalTab] = useState<BackpackTab>('equipment');
   const [equipmentRarity, setEquipmentRarity] = useState('all');
@@ -351,6 +355,15 @@ export function BackpackContents({
                     >
                       {equipped ? 'Trocar ou desequipar' : 'Equipar'}
                     </Link>
+                    {!training &&
+                      quantity > 1 &&
+                      item.id.startsWith('equipment-') && (
+                        <DuplicateActions
+                          actor={snapshot.traveler.id}
+                          itemId={item.id}
+                          onSold={onRefresh}
+                        />
+                      )}
                   </article>
                 );
               })}
@@ -414,7 +427,7 @@ export function BackpackContents({
                 ({ card }) =>
                   cardRarity === 'all' || card.rarity === cardRarity,
               )
-              .map(({ card }) => {
+              .map(({ card, quantity = 1 }) => {
                 const art = arenaCardIllustration(card.id);
                 const detail = describeArenaAction(card.action);
                 return (
@@ -437,6 +450,7 @@ export function BackpackContents({
                     )}
                     <div className={archiveCss.cardDetails}>
                       <h3>{card.name}</h3>
+                      {quantity > 1 && <p>{quantity} cópias</p>}
                       <p>
                         {card.rarity} · Custo {detail.focusCost} Foco
                       </p>
@@ -449,6 +463,13 @@ export function BackpackContents({
                           {detail.minimumLevel}
                         </p>
                       </details>
+                      {quantity > 1 && (
+                        <DuplicateActions
+                          actor={snapshot.traveler.id}
+                          itemId={card.id}
+                          onSold={onRefresh}
+                        />
+                      )}
                     </div>
                   </article>
                 );
