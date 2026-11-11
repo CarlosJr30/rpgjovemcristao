@@ -14,6 +14,7 @@ export function EquipmentTryOn({
   item,
   open,
   busy,
+  equipBlockedReason,
   onClose,
   onEquip,
 }: {
@@ -21,6 +22,7 @@ export function EquipmentTryOn({
   item: Equipment;
   open: boolean;
   busy: boolean;
+  equipBlockedReason?: string | null;
   onClose: () => void;
   onEquip: (event: MouseEvent<HTMLButtonElement>) => void;
 }) {
@@ -103,9 +105,12 @@ export function EquipmentTryOn({
         </p>
       )}
       <EquipmentComparison traveler={traveler} item={item} expanded />
+      {equipBlockedReason && !equipped && (
+        <p role="status">{equipBlockedReason}</p>
+      )}
       <button
         className={portal.previewConfirm}
-        disabled={busy || equipped}
+        disabled={busy || equipped || !!equipBlockedReason}
         onClick={onEquip}
       >
         {equipped ? 'Já equipado' : 'Equipar este item'}

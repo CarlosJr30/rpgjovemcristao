@@ -45,6 +45,21 @@ export async function run({
       )
     ).rows;
   const base = await definitions();
+  if (process.env.RPG_EQUIPMENT_FIX014_CASES === '1') {
+    await q(
+      "create or replace function public.release_scope() returns text language sql immutable as $$select 'guild-ebd-001'::text$$",
+    );
+    await q(wrapC(c1));
+    await q(wrap(shop));
+    await q(
+      read('tests/hosted/fixtures/rpg-equipment-fix-013-existing-wrapper.sql'),
+    );
+    await q(wrapEquipmentFix(equipmentFix));
+    await (
+      await import('./rpg-equipment-fix-014-cases.mjs')
+    ).run({ q, check, denied, uid, tid, read });
+    return;
+  }
   await check(
     'Production community package refuses TEST baseline',
     async () => {

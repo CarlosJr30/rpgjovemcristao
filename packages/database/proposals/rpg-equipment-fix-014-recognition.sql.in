@@ -1,0 +1,155 @@
+-- Installs the approved individual recognition support. NEVER issues recognition.
+-- Render a separate reviewed environment package; no blind db push.
+SET LOCAL lock_timeout='5s'; SET LOCAL statement_timeout='45s';
+DO $$ BEGIN
+ IF current_user<>'postgres' OR current_setting('equipment014.target_project',true) IS DISTINCT FROM '{{TARGET_PROJECT}}'
+ OR public.release_scope()<>'{{RELEASE_SCOPE}}' OR public.economy_protocol_version()<>3
+ OR to_regprocedure('shop_private.reconciliation_snapshot_010(uuid)') IS NULL
+ OR md5(replace(pg_get_functiondef('shop_private.equipment_origin_014(uuid,uuid,text)'::regprocedure),E'\r\n',E'\n'))<>'{{PRIOR_ORIGIN_MD5}}'
+ OR (SELECT proacl::text FROM pg_proc WHERE oid='shop_private.equipment_origin_014(uuid,uuid,text)'::regprocedure)<>'{postgres=X/postgres}'
+ OR (SELECT md5(pg_get_constraintdef(oid)) FROM pg_constraint WHERE conrelid='public.chest_operations'::regclass AND conname='chest_operations_type_check')<>'{{PRIOR_LEDGER_CONSTRAINT_MD5}}'
+ OR to_regprocedure('shop_private.recognize_equipment_014(uuid,uuid,text)') IS NOT NULL
+ THEN RAISE EXCEPTION 'Reviewed individual recognition environment required' USING ERRCODE='42501'; END IF;
+END $$;
+
+CREATE FUNCTION shop_private.recognition_manifest_014() RETURNS jsonb
+LANGUAGE sql IMMUTABLE SECURITY INVOKER SET search_path='' AS $$
+ SELECT '{{RECOGNITION_MANIFEST_JSON}}'::jsonb
+$$;
+REVOKE ALL ON FUNCTION shop_private.recognition_manifest_014() FROM PUBLIC,anon,authenticated,service_role;
+DO $$ DECLARE m jsonb:=shop_private.recognition_manifest_014(); BEGIN
+ IF m->>'contract' IS DISTINCT FROM 'RPG-EQUIPMENT-FIX-014:v1' OR m->>'approvalRef' IS DISTINCT FROM 'OWNER-APPROVED-2026-11-10:FIX-014'
+ OR m->>'actor' IS DISTINCT FROM '{{APPROVED_ACTOR}}' OR m->>'owner' IS DISTINCT FROM '{{APPROVED_OWNER}}'
+ OR jsonb_array_length(m->'items') IS DISTINCT FROM 4
+ OR (SELECT jsonb_object_agg(x->>'itemId',(x->>'quantity')::int) FROM jsonb_array_elements(m->'items') x)
+ IS DISTINCT FROM '{"traveler-armor-uncommon":1,"traveler-shield-rare":1,"traveler-helmet-rare":4,"wisdom-amulet":6}'::jsonb
+ THEN RAISE EXCEPTION 'Only the four individually approved items are allowed' USING ERRCODE='42501'; END IF;
+END $$;
+
+-- Extend only the existing audit ledger; monetary authority does not count this type.
+DO $$ DECLARE prior text; BEGIN
+ SELECT pg_get_constraintdef(oid) INTO prior FROM pg_constraint WHERE conrelid='public.chest_operations'::regclass AND conname='chest_operations_type_check';
+ ALTER TABLE public.chest_operations DROP CONSTRAINT chest_operations_type_check;
+ EXECUTE 'ALTER TABLE public.chest_operations ADD CONSTRAINT chest_operations_type_check CHECK (('||substring(prior FROM 8 FOR char_length(prior)-8)||') OR (operation_type=''equipment-recognition'' AND chest_type IS NULL AND account_id IS NOT NULL AND price_paid IS NULL AND source=''legacy-equipment-014'' AND rewards->>''contract''=''RPG-EQUIPMENT-FIX-014:v1''))';
+END $$;
+
+-- Fixed projection: future unrelated ledger columns must not invalidate evidence.
+CREATE FUNCTION shop_private.receipt_hash_014(p_receipt public.chest_operations) RETURNS text
+LANGUAGE sql IMMUTABLE SECURITY INVOKER SET search_path='' SET timezone='UTC' AS $$
+ SELECT md5(jsonb_build_object('id',(p_receipt).id,'traveler_id',(p_receipt).traveler_id,
+  'account_id',(p_receipt).account_id,'identity_key',(p_receipt).identity_key,'operation_key',(p_receipt).operation_key,
+  'operation_type',(p_receipt).operation_type,'chest_type',(p_receipt).chest_type,'source',(p_receipt).source,
+  'price_paid',(p_receipt).price_paid,'rewards',(p_receipt).rewards,'created_at',(p_receipt).created_at)::text)
+$$;
+REVOKE ALL ON FUNCTION shop_private.receipt_hash_014(public.chest_operations) FROM PUBLIC,anon,authenticated,service_role;
+
+CREATE FUNCTION shop_private.protect_equipment_recognition_014() RETURNS trigger
+LANGUAGE plpgsql SECURITY INVOKER SET search_path='' AS $$
+DECLARE m jsonb; item jsonb; expected jsonb;
+BEGIN
+ IF TG_OP<>'INSERT' AND OLD.operation_type='equipment-recognition' THEN RAISE EXCEPTION 'Equipment recognition audit is append only' USING ERRCODE='42501'; END IF;
+ IF TG_OP<>'DELETE' AND NEW.operation_type='equipment-recognition' THEN
+  m:=shop_private.recognition_manifest_014();
+  SELECT x INTO item FROM jsonb_array_elements(m->'items') x WHERE x->>'itemId'=NEW.rewards->>'itemId';
+  IF current_user<>'postgres' OR TG_OP<>'INSERT' OR item IS NULL
+  OR NEW.traveler_id IS DISTINCT FROM (m->>'actor')::uuid OR NEW.account_id IS DISTINCT FROM (m->>'owner')::uuid
+  OR NEW.source<>'legacy-equipment-014' OR NEW.chest_type IS NOT NULL OR NEW.price_paid IS NOT NULL
+  OR NEW.created_at IS DISTINCT FROM transaction_timestamp()
+  OR NEW.identity_key IS DISTINCT FROM 'equipment014:'||(m->>'actor')||':'||(item->>'itemId')
+  OR coalesce(NEW.rewards->>'snapshot','')!~'^[0-9a-f]{32}$'
+  OR coalesce(NEW.rewards->>'operationId','')!~'^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$'
+  OR NEW.operation_key IS DISTINCT FROM 'recognize-equipment:'||(NEW.rewards->>'operationId')||':'||(item->>'itemId')
+  THEN RAISE EXCEPTION 'Approved individual equipment audit required' USING ERRCODE='42501'; END IF;
+  expected:=jsonb_build_object('contract',m->>'contract','approvalRef',m->>'approvalRef','basis','administrative-owner-ratification',
+   'itemId',item->>'itemId','quantity',item->'quantity','snapshot',NEW.rewards->>'snapshot','operationId',NEW.rewards->>'operationId',
+   'newItemsGranted',0,'coins',0,'xp',0,'evidence',item);
+  IF NEW.rewards IS DISTINCT FROM expected THEN RAISE EXCEPTION 'Recognition payload differs from approval' USING ERRCODE='42501'; END IF;
+ END IF;
+ IF TG_OP='DELETE' THEN RETURN OLD; END IF; RETURN NEW;
+END $$;
+REVOKE ALL ON FUNCTION shop_private.protect_equipment_recognition_014() FROM PUBLIC,anon,authenticated,service_role;
+CREATE TRIGGER protect_equipment_recognition_014 BEFORE INSERT OR UPDATE OR DELETE ON public.chest_operations
+FOR EACH ROW EXECUTE FUNCTION shop_private.protect_equipment_recognition_014();
+
+CREATE FUNCTION shop_private.recognition_valid_014(p_owner uuid,p_actor uuid,p_item text) RETURNS boolean
+LANGUAGE sql STABLE SECURITY INVOKER SET search_path='' AS $$
+ SELECT EXISTS(
+ SELECT 1 FROM jsonb_array_elements(shop_private.recognition_manifest_014()->'items') item
+ CROSS JOIN LATERAL(SELECT shop_private.recognition_manifest_014() m) s
+ JOIN public.chest_operations r ON r.traveler_id=p_actor AND r.account_id=p_owner
+  AND r.operation_type='equipment-recognition' AND r.source='legacy-equipment-014'
+  AND r.identity_key='equipment014:'||p_actor||':'||p_item
+ WHERE p_actor=(m->>'actor')::uuid AND p_owner=(m->>'owner')::uuid AND item->>'itemId'=p_item
+  AND r.rewards->>'contract'=m->>'contract' AND r.rewards->>'approvalRef'=m->>'approvalRef'
+  AND r.rewards->'evidence'=item AND r.rewards->'quantity'=item->'quantity'
+  AND r.rewards->>'newItemsGranted'='0' AND r.rewards->>'coins'='0' AND r.rewards->>'xp'='0'
+  AND EXISTS(SELECT 1 FROM public.chest_operations f WHERE f.id=(m->'financialApproval'->>'id')::uuid
+   AND f.traveler_id=p_actor AND f.account_id=p_owner AND f.source='legacy-admin-010'
+   AND f.operation_type='administrative-reconciliation' AND shop_private.receipt_hash_014(f)=m->'financialApproval'->>'rowMD5')
+  AND NOT EXISTS(SELECT 1 FROM jsonb_array_elements(item->'legacyReceipts') ref WHERE NOT EXISTS(
+   SELECT 1 FROM public.chest_operations old WHERE old.id=(ref->>'id')::uuid AND old.traveler_id=p_actor
+    AND old.source='task-0076-admin-test-profile' AND old.operation_type='open' AND old.rewards->>'itemId'=p_item
+    AND shop_private.receipt_hash_014(old)=ref->>'rowMD5'))
+ )
+$$;
+REVOKE ALL ON FUNCTION shop_private.recognition_valid_014(uuid,uuid,text) FROM PUBLIC,anon,authenticated,service_role;
+
+CREATE FUNCTION shop_private.recognize_equipment_014(p_actor uuid,p_operation uuid,p_snapshot text) RETURNS jsonb
+LANGUAGE plpgsql SECURITY INVOKER SET search_path='' SET timezone='UTC' AS $$
+DECLARE m jsonb:=shop_private.recognition_manifest_014(); who uuid:=(m->>'owner')::uuid; item jsonb; prior_count integer;
+BEGIN
+ IF current_user<>'postgres' OR p_actor IS DISTINCT FROM (m->>'actor')::uuid OR p_operation IS NULL
+ OR current_setting('equipment014.target_project',true) IS DISTINCT FROM '{{TARGET_PROJECT}}'
+ OR current_setting('equipment014.approval',true) IS DISTINCT FROM (m->>'approvalRef')
+ OR public.release_scope()<>'{{RELEASE_SCOPE}}' OR coalesce(p_snapshot,'')!~'^[0-9a-f]{32}$'
+ THEN RAISE EXCEPTION 'Private individually approved recognition required' USING ERRCODE='42501'; END IF;
+ PERFORM pg_advisory_xact_lock(1010,1);
+ PERFORM 1 FROM auth.users WHERE id=who AND email_confirmed_at IS NOT NULL AND NOT coalesce(is_anonymous,false)
+  AND deleted_at IS NULL AND(banned_until IS NULL OR banned_until<=clock_timestamp()) FOR UPDATE;
+ IF NOT FOUND OR NOT EXISTS(SELECT 1 FROM auth.sessions WHERE user_id=who AND(not_after IS NULL OR not_after>clock_timestamp()))
+ THEN RAISE EXCEPTION 'Existing confirmed normal session required' USING ERRCODE='42501'; END IF;
+ PERFORM 1 FROM public.travelers WHERE id=p_actor AND user_id=who AND is_active AND economic_verified_at IS NOT NULL FOR UPDATE;
+ IF NOT FOUND THEN RAISE EXCEPTION 'Approved active owner/avatar required' USING ERRCODE='42501'; END IF;
+ SELECT count(*) INTO prior_count FROM public.chest_operations WHERE traveler_id=p_actor AND operation_type='equipment-recognition';
+ IF prior_count>0 THEN
+  IF prior_count<>4 OR EXISTS(SELECT 1 FROM public.chest_operations WHERE traveler_id=p_actor AND operation_type='equipment-recognition'
+   AND(account_id IS DISTINCT FROM who OR rewards->>'operationId' IS DISTINCT FROM p_operation::text OR rewards->>'snapshot' IS DISTINCT FROM p_snapshot
+    OR rewards->>'approvalRef' IS DISTINCT FROM (m->>'approvalRef')))
+  THEN RAISE EXCEPTION 'Recognition identity conflict' USING ERRCODE='PT409'; END IF;
+  RETURN (SELECT jsonb_agg(id ORDER BY id) FROM public.chest_operations WHERE traveler_id=p_actor AND operation_type='equipment-recognition');
+ END IF;
+ -- Reuse the published reconciliation snapshot and account -> avatar -> data lock order.
+ PERFORM 1 FROM public.wallets WHERE traveler_id=p_actor FOR UPDATE;
+ PERFORM 1 FROM public.traveler_stats WHERE traveler_id=p_actor FOR UPDATE;
+ PERFORM 1 FROM public.inventory WHERE traveler_id=p_actor ORDER BY id FOR UPDATE;
+ PERFORM 1 FROM public.equipped_items WHERE traveler_id=p_actor ORDER BY slot FOR UPDATE;
+ PERFORM 1 FROM public.traveler_chests WHERE traveler_id=p_actor ORDER BY chest_type FOR UPDATE;
+ PERFORM 1 FROM public.chest_operations WHERE traveler_id=p_actor ORDER BY id FOR UPDATE;
+ PERFORM 1 FROM economy_qa_private.profiles WHERE traveler_id=p_actor FOR UPDATE;
+ PERFORM 1 FROM economy_qa_private.receipts WHERE traveler_id=p_actor ORDER BY id FOR UPDATE;
+ IF shop_private.reconciliation_snapshot_010(p_actor) IS DISTINCT FROM p_snapshot
+ OR NOT EXISTS(SELECT 1 FROM public.chest_operations f WHERE f.id=(m->'financialApproval'->>'id')::uuid AND f.traveler_id=p_actor AND f.account_id=who
+  AND f.operation_type='administrative-reconciliation' AND f.source='legacy-admin-010' AND shop_private.receipt_hash_014(f)=m->'financialApproval'->>'rowMD5')
+ THEN RAISE EXCEPTION 'Approved snapshot changed; no recognition applied' USING ERRCODE='PT409'; END IF;
+ FOR item IN SELECT x FROM jsonb_array_elements(m->'items') x LOOP
+  IF NOT EXISTS(SELECT 1 FROM public.inventory i WHERE i.traveler_id=p_actor AND i.item_id=item->>'itemId'
+   AND i.quantity=(item->>'quantity')::int AND i.card_receipt_id IS NULL AND md5(to_jsonb(i)::text)=item->>'inventoryRowMD5')
+  OR EXISTS(SELECT 1 FROM jsonb_array_elements(item->'legacyReceipts') ref WHERE NOT EXISTS(
+   SELECT 1 FROM public.chest_operations old WHERE old.id=(ref->>'id')::uuid AND old.traveler_id=p_actor
+    AND old.source='task-0076-admin-test-profile' AND old.operation_type='open' AND old.rewards->>'itemId'=item->>'itemId'
+    AND shop_private.receipt_hash_014(old)=ref->>'rowMD5'))
+  THEN RAISE EXCEPTION 'Approved item evidence changed; no recognition applied' USING ERRCODE='PT409'; END IF;
+ END LOOP;
+ FOR item IN SELECT x FROM jsonb_array_elements(m->'items') x LOOP
+  INSERT INTO public.chest_operations(traveler_id,account_id,identity_key,operation_key,operation_type,chest_type,source,price_paid,rewards)
+  VALUES(p_actor,who,'equipment014:'||p_actor||':'||(item->>'itemId'),'recognize-equipment:'||p_operation||':'||(item->>'itemId'),
+   'equipment-recognition',NULL,'legacy-equipment-014',NULL,jsonb_build_object('contract',m->>'contract','approvalRef',m->>'approvalRef',
+    'basis','administrative-owner-ratification','itemId',item->>'itemId','quantity',item->'quantity','snapshot',p_snapshot,'operationId',p_operation,
+    'newItemsGranted',0,'coins',0,'xp',0,'evidence',item));
+ END LOOP;
+ RETURN (SELECT jsonb_agg(id ORDER BY id) FROM public.chest_operations WHERE traveler_id=p_actor AND operation_type='equipment-recognition');
+END $$;
+REVOKE ALL ON FUNCTION shop_private.recognize_equipment_014(uuid,uuid,text) FROM PUBLIC,anon,authenticated,service_role;
+
+-- Extend only the shared origin predicate; all normal official receipts remain required.
+{{RECOGNITION_ORIGIN_FUNCTION}}

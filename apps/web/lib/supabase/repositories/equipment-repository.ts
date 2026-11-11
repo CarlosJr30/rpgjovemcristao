@@ -2,6 +2,7 @@ import type { EquipmentSlot } from '../../../features/journey/domain/traveler';
 import { getSupabaseBrowserClient } from '../client';
 import type { EquippedItemRow } from '../database.types';
 import { isShopTestPreview, isShopRelease } from '../../release-scope';
+import { equipmentOperationError } from '../equipment-access';
 
 export const equipmentRepository = {
   async getEquippedItems(travelerId: string): Promise<EquippedItemRow[]> {
@@ -47,10 +48,7 @@ async function setOwnedEquipment(
         p_expected_item_id: expectedItemId,
       },
     );
-    if (error)
-      throw Error(
-        'Equipamento não confirmado. Atualize sua coleção e tente novamente.',
-      );
+    if (error) throw Error(equipmentOperationError(error));
     return;
   }
   const { error } = await getSupabaseBrowserClient().rpc(
@@ -62,10 +60,5 @@ async function setOwnedEquipment(
       p_expected_item_id: expectedItemId,
     },
   );
-  if (error)
-    throw new Error(
-      error.code === '40001'
-        ? 'O equipamento mudou em outra aba ou há um combate ativo. Atualize e tente novamente.'
-        : 'Não foi possível confirmar o equipamento no servidor. Seus itens foram preservados.',
-    );
+  if (error) throw new Error(equipmentOperationError(error));
 }
