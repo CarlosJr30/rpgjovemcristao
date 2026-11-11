@@ -4,8 +4,8 @@
   "scope": "hero-equipment-006",
   "contract": "economy041-chest-v1",
   "approvalRef": "OWNER-ECONOMY-041-2026-11-11",
-  "migration": "supabase/migrations/20261111063639_economy_041_test.sql",
-  "version": "20261111063639",
+  "migration": "supabase/migrations/20261111100618_economy_041_test.sql",
+  "version": "20261111100618",
   "sha256": "573348ea3c6f2e61210e8d018189fb02b1cf0bb41fbc667f5c96e1a065d58dc5",
   "preservedOrAdaptedAuthorities": [
     {

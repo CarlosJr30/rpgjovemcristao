@@ -1,0 +1,74 @@
+-- Explicitly approved funded fixture. TEST only; installation never funds it.
+SET LOCAL lock_timeout='5s';SET LOCAL statement_timeout='30s';
+DO $$ BEGIN
+ IF current_setting('economy041.target_project',true) IS DISTINCT FROM 'wkdvdzfkbwvhyjmamrsg'
+ OR public.release_scope()<>'hero-equipment-006' OR public.economy_protocol_version()<>3
+ OR to_regclass('shop_private.policy_041') IS NULL
+ OR to_regprocedure('shop_qa_private.fixture_credit_041(uuid)') IS NOT NULL
+ OR md5(replace(pg_get_functiondef('shop_private.coin_balance(uuid)'::regprocedure),E'\r\n',E'\n'))<>'{{BALANCE_MD5}}'
+ THEN RAISE EXCEPTION 'Reviewed TEST installation required' USING ERRCODE='42501';END IF;
+ {{PRIOR_GUARDS}}
+END $$;
+-- Keep one original budget and at most one specifically approved 041 budget.
+ALTER TABLE shop_qa_private.budget_receipts DROP CONSTRAINT budget_receipts_account_id_key;
+ALTER TABLE shop_qa_private.budget_receipts DROP CONSTRAINT budget_receipts_traveler_id_key;
+CREATE UNIQUE INDEX budget041_prior_account ON shop_qa_private.budget_receipts(account_id) WHERE reason<>'ECONOMY041 funded TEST fixture; not earned resources; owner approved 2026-11-11';
+CREATE UNIQUE INDEX budget041_prior_traveler ON shop_qa_private.budget_receipts(traveler_id) WHERE reason<>'ECONOMY041 funded TEST fixture; not earned resources; owner approved 2026-11-11';
+CREATE UNIQUE INDEX budget041_account ON shop_qa_private.budget_receipts(account_id) WHERE reason='ECONOMY041 funded TEST fixture; not earned resources; owner approved 2026-11-11';
+CREATE UNIQUE INDEX budget041_traveler ON shop_qa_private.budget_receipts(traveler_id) WHERE reason='ECONOMY041 funded TEST fixture; not earned resources; owner approved 2026-11-11';
+ALTER TABLE shop_qa_private.budget_receipts DROP CONSTRAINT budget_receipts_amount_check;
+ALTER TABLE shop_qa_private.budget_receipts ADD CONSTRAINT budget_receipts_amount_check CHECK(
+ (reason<>'ECONOMY041 funded TEST fixture; not earned resources; owner approved 2026-11-11' AND ({{OLD_AMOUNT_CHECK}})) OR
+ (reason='ECONOMY041 funded TEST fixture; not earned resources; owner approved 2026-11-11' AND amount=2000
+ AND account_id='{{OWNER}}'::uuid AND traveler_id='{{ACTOR}}'::uuid));
+CREATE TRIGGER budget041_immutable BEFORE UPDATE OR DELETE ON shop_qa_private.budget_receipts FOR EACH ROW
+ WHEN(OLD.reason='ECONOMY041 funded TEST fixture; not earned resources; owner approved 2026-11-11') EXECUTE FUNCTION shop_private.immutable_041();
+
+CREATE FUNCTION shop_qa_private.fixture_credit_041(p_actor uuid) RETURNS bigint LANGUAGE sql STABLE SECURITY INVOKER SET search_path='' AS $$
+ SELECT CASE WHEN public.release_scope()='hero-equipment-006' AND p_actor='{{ACTOR}}'::uuid THEN
+ coalesce((SELECT sum(b.amount)::bigint FROM shop_qa_private.budget_receipts b
+ JOIN shop_qa_private.profiles p ON p.account_id=b.account_id AND p.traveler_id=b.traveler_id AND NOT p.enabled
+ JOIN public.travelers t ON t.id=b.traveler_id AND t.user_id=b.account_id
+ WHERE b.account_id='{{OWNER}}'::uuid AND b.traveler_id=p_actor AND b.amount=2000
+ AND b.reason='ECONOMY041 funded TEST fixture; not earned resources; owner approved 2026-11-11'),0) ELSE 0 END
+$$;
+{{BALANCE_DEFINITION}}
+{{PRIOR_BUDGET_FUNCTIONS}}
+
+CREATE FUNCTION shop_qa_private.fund_fixture_041(p_owner uuid,p_actor uuid,p_operation uuid,p_snapshot text) RETURNS uuid
+LANGUAGE plpgsql SECURITY INVOKER SET search_path='' AS $$
+DECLARE t public.travelers; prior shop_qa_private.budget_receipts; receipt uuid;BEGIN
+ IF current_user<>'postgres' OR public.release_scope()<>'hero-equipment-006'
+ OR current_setting('economy041.target_project',true) IS DISTINCT FROM 'wkdvdzfkbwvhyjmamrsg'
+ OR current_setting('economy041.fixture_approval',true) IS DISTINCT FROM 'OWNER-APPROVED-TEST-FIXTURE-2000'
+ OR p_owner IS DISTINCT FROM '{{OWNER}}'::uuid OR p_actor IS DISTINCT FROM '{{ACTOR}}'::uuid OR p_operation IS NULL
+ THEN RAISE EXCEPTION 'Specific TEST fixture approval required' USING ERRCODE='42501';END IF;
+ PERFORM pg_advisory_xact_lock(1010,1);
+ PERFORM 1 FROM auth.users WHERE id=p_owner AND email_confirmed_at IS NOT NULL AND NOT coalesce(is_anonymous,false)
+ AND deleted_at IS NULL AND(banned_until IS NULL OR banned_until<=clock_timestamp()) FOR UPDATE;
+ IF NOT FOUND OR NOT EXISTS(SELECT 1 FROM auth.sessions WHERE user_id=p_owner AND(not_after IS NULL OR not_after>clock_timestamp()))
+ THEN RAISE EXCEPTION 'Normal confirmed TEST session required' USING ERRCODE='42501';END IF;
+ SELECT * INTO t FROM public.travelers WHERE id=p_actor AND user_id=p_owner AND is_active FOR UPDATE;
+ IF t.id IS NULL THEN RAISE EXCEPTION 'Exact active TEST avatar required' USING ERRCODE='42501';END IF;
+ PERFORM 1 FROM public.wallets WHERE traveler_id=p_actor FOR UPDATE;
+ SELECT * INTO prior FROM shop_qa_private.budget_receipts WHERE account_id=p_owner
+ AND reason='ECONOMY041 funded TEST fixture; not earned resources; owner approved 2026-11-11';
+ IF FOUND THEN
+  IF prior.traveler_id<>p_actor OR prior.nonce<>p_operation OR prior.amount<>2000 THEN RAISE EXCEPTION 'Fixture already funded' USING ERRCODE='42501';END IF;
+  RETURN prior.id;
+ END IF;
+ IF p_snapshot IS NULL OR p_snapshot IS DISTINCT FROM shop_qa_private.fixture_snapshot_014(p_actor)
+ OR t.level<>1 OR t.xp<>0 OR t.economic_verified_at IS NULL
+ OR NOT EXISTS(SELECT 1 FROM public.wallets WHERE traveler_id=p_actor AND coins=0)
+ OR NOT shop_private.balance_valid(p_actor) OR shop_qa_private.fixture_credit_014(p_actor)<>35
+ OR NOT EXISTS(SELECT 1 FROM shop_qa_private.profiles WHERE account_id=p_owner AND traveler_id=p_actor AND NOT enabled)
+ OR EXISTS(SELECT 1 FROM shop_private.holds WHERE traveler_id=p_actor)
+ OR NOT EXISTS(SELECT 1 FROM shop_private.policy_041 WHERE singleton AND enabled)
+ THEN RAISE EXCEPTION 'Unchanged approved fixture baseline required' USING ERRCODE='42501';END IF;
+ INSERT INTO shop_qa_private.budget_receipts(account_id,traveler_id,amount,nonce,reason)
+ VALUES(p_owner,p_actor,2000,p_operation,'ECONOMY041 funded TEST fixture; not earned resources; owner approved 2026-11-11') RETURNING id INTO receipt;
+ PERFORM public.add_coins(p_actor,2000);
+ IF NOT shop_private.balance_valid(p_actor) THEN RAISE EXCEPTION 'Fixture accounting inconsistent';END IF;
+ RETURN receipt;
+END $$;
+REVOKE ALL ON FUNCTION shop_qa_private.fixture_credit_041(uuid),shop_qa_private.fund_fixture_041(uuid,uuid,uuid,text) FROM PUBLIC,anon,authenticated,service_role;

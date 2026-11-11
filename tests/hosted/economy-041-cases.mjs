@@ -17,14 +17,18 @@ export async function run({
       await new Promise((r) => setTimeout(r, 1100));
       await fn();
     });
-  const project = 'wspafhlbtlpabypzymjo',
-    scope = 'guild-ebd-001',
+  const fixture = process.env.RPG_ECONOMY_041_FIXTURE === '1';
+  const project = fixture ? 'wkdvdzfkbwvhyjmamrsg' : 'wspafhlbtlpabypzymjo',
+    scope = fixture ? 'hero-equipment-006' : 'guild-ebd-001',
     actor = tid(2);
+  if (fixture)
+    await q(
+      "create or replace function public.release_scope() returns text language sql immutable as $$select 'hero-equipment-006'::text$$",
+    );
   await q(
-    read('tests/hosted/fixtures/economy041-approved-baseline.sql').replaceAll(
-      '__SCOPE__',
-      scope,
-    ),
+    read('tests/hosted/fixtures/economy041-approved-baseline.sql')
+      .replaceAll('guild-ebd-001', scope)
+      .replaceAll('__SCOPE__', scope),
   );
   const cards = JSON.parse(
     read('packages/database/deployments/content040/catalog.json'),
@@ -51,6 +55,48 @@ export async function run({
       "select conname name,pg_get_constraintdef(oid) def from pg_constraint where(conrelid='public.chest_operations'::regclass and conname='chest_operations_type_check')or(conrelid='public.inventory'::regclass and conname='inventory_card_provenance')",
     )
   ).rows;
+  if (fixture) {
+    // Reuse the exact approved private QA table/budget definitions; this test
+    // starts from the production bootstrap, where TEST-only tables do not exist.
+    const qa = read(
+      'supabase/migrations/20261103034651_economy_001c_shop_qa_test.sql',
+    );
+    const start = qa.indexOf('CREATE SCHEMA shop_qa_private;');
+    const stop = qa.indexOf(
+      'ALTER TABLE public.chest_operations DROP CONSTRAINT',
+    );
+    const grantStart = qa.indexOf(
+      'CREATE FUNCTION shop_qa_private.grant_budget(',
+    );
+    const grantStop = qa.indexOf('END $$;', grantStart) + 'END $$;'.length;
+    if (start < 0 || stop < start || grantStart < 0 || grantStop < grantStart)
+      throw Error('Approved QA fixture boundaries missing');
+    await q(
+      qa.slice(start, stop) +
+        qa.slice(grantStart, grantStop) +
+        'REVOKE ALL ON FUNCTION shop_qa_private.grant_budget(uuid,uuid,text,uuid) FROM PUBLIC,anon,authenticated,service_role;',
+    );
+    const balance = (
+      await q(
+        "select pg_get_functiondef('shop_private.coin_balance(uuid)'::regprocedure) d",
+      )
+    ).rows[0].d;
+    const { createHash } = await import('node:crypto');
+    const md5 = createHash('md5')
+      .update(balance.replaceAll('\r\n', '\n'))
+      .digest('hex');
+    const old = read(
+      'packages/database/proposals/rpg-equipment-fix-014-fixture-test.sql.in',
+    )
+      .replaceAll('{{ACTOR}}', actor)
+      .replaceAll('{{OWNER}}', uid(2))
+      .replaceAll('{{BALANCE_MD5}}', md5);
+    await q(
+      "BEGIN;SET LOCAL equipment014.target_project='wkdvdzfkbwvhyjmamrsg';" +
+        old +
+        'COMMIT;',
+    );
+  }
   const baseline = await definitions(),
     before = await snap(),
     pack = renderEconomy041({
@@ -65,6 +111,14 @@ export async function run({
     q(wrap("SELECT shop_private.activate_041('OWNER-ECONOMY-041-2026-11-11')"));
   fs.mkdirSync('build/economy-041', { recursive: true });
   fs.writeFileSync('build/economy-041/synthetic-package.sql', wrap(pack.sql));
+  if (fixture) {
+    await q(wrap(pack.sql));
+    await activate();
+    await (
+      await import('./economy-041-fixture-cases.mjs')
+    ).run({ q, check, denied, uid, tid });
+    return;
+  }
   if (process.env.RPG_ECONOMY_041_PROGRESS === '1') {
     await q(wrap(pack.sql));
     await activate();
