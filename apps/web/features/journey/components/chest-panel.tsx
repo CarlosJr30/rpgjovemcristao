@@ -31,6 +31,7 @@ type OwnedChest = {
   communityOrigin?: boolean;
   qaOrigin?: boolean;
   shopOrigin?: boolean;
+  expansionOrigin?: boolean;
 };
 const chestTypes = Object.keys(chestCatalog) as ChestType[];
 
@@ -168,7 +169,15 @@ export function ChestPanel({
             typeof row.sources[0] === 'string' &&
             row.sources.some(
               (source) =>
-                typeof source === 'string' && source.startsWith('shop001c:'),
+                typeof source === 'string' &&
+                (source.startsWith('shop001c:') ||
+                  source.startsWith('economy041:')),
+            ),
+          expansionOrigin:
+            Array.isArray(row.sources) &&
+            row.sources.some(
+              (source) =>
+                typeof source === 'string' && source.startsWith('economy041:'),
             ),
         }));
       setOwned(remote);
@@ -383,7 +392,14 @@ export function ChestPanel({
         ) : (
           <div className={styles.chestGrid}>
             {owned.map(
-              ({ type, quantity, communityOrigin, qaOrigin, shopOrigin }) => (
+              ({
+                type,
+                quantity,
+                communityOrigin,
+                qaOrigin,
+                shopOrigin,
+                expansionOrigin,
+              }) => (
                 <ChestCard
                   key={type}
                   type={type}
@@ -396,9 +412,10 @@ export function ChestPanel({
                     !online ||
                     !ownerId ||
                     (releaseShop
-                      ? (!communityOrigin && !shopOrigin) ||
-                        !['common', 'epic'].includes(type) ||
-                        (shopOrigin && type !== 'common')
+                      ? !expansionOrigin &&
+                        ((!communityOrigin && !shopOrigin) ||
+                          !['common', 'epic'].includes(type) ||
+                          (shopOrigin && type !== 'common'))
                       : qaShop
                         ? !qaOrigin || type !== 'common'
                         : communityOnly &&
@@ -525,6 +542,7 @@ export function ChestPanel({
         <ChestReveal
           key={reveal.receipt.id}
           receipt={reveal.receipt}
+          cinematic={reveal.receipt.catalogVersion === 'economy041-chest-v1'}
           traveler={traveler}
           cursor={reveal.cursor}
           onProgress={(cursor) => saveCursor(ownerId, traveler.id, cursor)}

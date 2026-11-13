@@ -220,6 +220,9 @@ export type Database = {
     };
     Views: Record<string, never>;
     Functions: {
+      get_repeated_item_access: { Args: {p_actor: string; p_item: string}; Returns: Json };
+      sell_repeated_item: { Args: {p_actor: string; p_item: string; p_operation_id: string; p_expected_quantity: number}; Returns: Json };
+      claim_progress_reward: { Args: {p_actor: string; p_kind: string; p_event: string}; Returns: Json };
       get_training_qa: { Args: { p_actor: string }; Returns: Json };
       get_training_qa_receipt: { Args: { p_actor: string; p_operation_id: string }; Returns: Json };
       command_training_qa: { Args: { p_actor: string; p_command: string; p_payload: Json; p_operation_id: string }; Returns: Json };
@@ -383,6 +386,7 @@ export type Database = {
       get_shop: { Args: { p_actor: string }; Returns: Json };
       get_equipment_access: { Args: { p_actor: string }; Returns: Json };
       purchase_shop: { Args: { p_actor: string; p_kind: string; p_offer: string; p_operation_id: string }; Returns: Json };
+      purchase_expansion_chest: { Args: { p_actor: string; p_kind: string; p_offer: string; p_operation_id: string }; Returns: Json };
       open_shop_chest: { Args: { p_actor: string; p_chest_type: string; p_operation_id: string }; Returns: Json };
       equip_shop_item: { Args: { p_actor: string; p_slot: string; p_item_id: string | null; p_expected_item_id: string | null }; Returns: Json };
       purchase_qa_shop: { Args: { p_actor: string; p_kind: string; p_offer: string; p_operation_id: string }; Returns: Json };

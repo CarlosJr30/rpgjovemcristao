@@ -45,6 +45,17 @@ export async function run({
       )
     ).rows;
   const base = await definitions();
+  if (process.env.RPG_ECONOMY_041_CASES === '1') {
+    await q(
+      "create or replace function public.release_scope() returns text language sql immutable as $$select 'guild-ebd-001'::text$$",
+    );
+    await q(wrapC(c1));
+    await q(wrap(shop));
+    await (
+      await import('./economy-041-cases.mjs')
+    ).run({ q, check, denied, uid, tid, options, connections, read });
+    return;
+  }
   if (process.env.RPG_EQUIPMENT_FIX014_CASES === '1') {
     await q(
       "create or replace function public.release_scope() returns text language sql immutable as $$select 'guild-ebd-001'::text$$",

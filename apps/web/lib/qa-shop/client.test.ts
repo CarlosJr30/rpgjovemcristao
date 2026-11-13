@@ -71,6 +71,28 @@ it('productive state never accepts a QA budget response', async () => {
   await expect(readQAShop(actor)).rejects.toThrow();
   expect(mocks.rpc.mock.calls[0][0]).toBe('get_shop');
 });
+it('041 purchase opts in explicitly and retains its contract when retried', async () => {
+  production();
+  mocks.rpc.mockResolvedValue({
+    data: {
+      version: 1,
+      qaOnly: false,
+      receiptId: crypto.randomUUID(),
+      kind: 'chest',
+      offer: 'common',
+    },
+    error: null,
+  });
+  mocks.reload.mockResolvedValue(false);
+  await expect(
+    purchaseQAShop(actor, 'chest', 'common', true),
+  ).rejects.toThrow();
+  const first = mocks.rpc.mock.calls[0];
+  expect(first[0]).toBe('purchase_expansion_chest');
+  mocks.reload.mockResolvedValue(true);
+  await purchaseQAShop(actor, 'chest', 'common');
+  expect(mocks.rpc.mock.calls[1]).toEqual(first);
+});
 it('productive state preserves explicit legacy reconciliation block without issuing a purchase', async () => {
   production();
   mocks.rpc.mockResolvedValue({

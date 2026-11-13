@@ -1,0 +1,12 @@
+{
+  "environment": "TEST ONLY",
+  "project": "wkdvdzfkbwvhyjmamrsg",
+  "scope": "hero-equipment-006",
+  "migration": "supabase/migrations/20261111100726_economy_041_fixture_test.sql",
+  "sha256": "9301e172e4818c297e2fd01e881851ef9e0b6c1199bb9c7bbeb7119f54e5cec1",
+  "approval": "OWNER-TEST-FIXTURE-2000-2026-11-11",
+  "installationFunds": false,
+  "maxFunding": 2000,
+  "maxSmokePurchases": 50,
+  "preservePreviousBudget": true
+}

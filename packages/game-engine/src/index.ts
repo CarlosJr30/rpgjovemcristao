@@ -284,3 +284,5 @@ export * from './arena-content-040';
 export * from './arena-deck';
 export * from './arena-descriptions';
 export * from './arena-card-catalog';
+
+export * from './economy-041';

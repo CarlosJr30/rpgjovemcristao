@@ -178,6 +178,12 @@ jobs:
         run: node tests/hosted/rpg-equipment-fixture-014-postgres.mjs
       - name: Exigir reconhecimento administrativo individual sem alterar recursos ou recibos antigos
         run: node tests/hosted/rpg-equipment-recognition-014-postgres.mjs
+      - name: Exigir cinco baús sorteio seguro duplicatas última cópia e recuperação sem dados remotos
+        run: node tests/hosted/economy-041-postgres.mjs
+      - name: Exigir recompensas únicas após aprovação atual e provas privadas de História
+        run: node tests/hosted/economy-041-postgres.mjs --progress
+      - name: Exigir financiamento TEST 041 privado único e preservação do orçamento anterior
+        run: node tests/hosted/economy-041-postgres.mjs --fixture
       - name: Ensaiar o reconhecimento restrito no envelope produtivo isolado
         run: node tests/hosted/rpg-equipment-recognition-014-postgres.mjs --production
       - name: Exigir isolamento do treino sem alterar carteiras inventário ou equipamentos canônicos

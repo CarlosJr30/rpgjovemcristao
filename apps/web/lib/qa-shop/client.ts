@@ -20,6 +20,7 @@ export type ShopState = {
   coins: number;
   balanceVerified: boolean;
   reason?: string;
+  expansionReady?: boolean;
 };
 function guard(actor: string) {
   const owner = getCurrentOnlineUserId(),
@@ -81,6 +82,9 @@ export async function readQAShop(actor: string): Promise<ShopState> {
     enabled: true,
     coins: data.coins,
     balanceVerified: data.balanceVerified,
+    ...(data.expansionVersion === 'economy041-chest-v1'
+      ? { expansionReady: true }
+      : {}),
   };
 }
 export async function readShopPurchases(actor: string) {
@@ -110,6 +114,7 @@ type Intent = {
   offer: string;
   id: string;
   openingId?: string;
+  expansion?: true;
 };
 const key = (owner: string, actor: string) =>
   `rpg:${isShopRelease() ? 'shop' : 'qa-shop'}-purchase:v1:${owner}:${actor}${trainingNamespace(actor)}`;
@@ -118,6 +123,7 @@ export function purchaseIntent(
   actor: string,
   kind: Intent['kind'],
   offer: string,
+  expansion = false,
 ): Intent {
   const raw = localStorage.getItem(key(owner, actor));
   if (raw) {
@@ -142,6 +148,7 @@ export function purchaseIntent(
     offer,
     id: crypto.randomUUID(),
     openingId: crypto.randomUUID(),
+    ...(expansion ? { expansion: true as const } : {}),
   };
   localStorage.setItem(key(owner, actor), JSON.stringify(next));
   return next;
@@ -150,6 +157,7 @@ export async function purchaseQAShop(
   actor: string,
   kind: Intent['kind'],
   offer: string,
+  expansionReady = false,
 ) {
   const verify = guard(actor),
     owner = getCurrentOnlineUserId()!;
@@ -174,8 +182,15 @@ export async function purchaseQAShop(
           ))
       )
         throw Error('Conclua a abertura pendente antes de comprar outro item.');
-      const intent = purchaseIntent(owner, actor, kind, offer);
       const training = activeTraining(actor);
+      const expansion =
+        !saved &&
+        !training &&
+        isShopRelease() &&
+        kind === 'chest' &&
+        expansionReady;
+      verify();
+      const intent = purchaseIntent(owner, actor, kind, offer, expansion);
       const { data, error } = training
         ? {
             data: await commandTraining(
@@ -187,7 +202,11 @@ export async function purchaseQAShop(
             error: null,
           }
         : await getSupabaseBrowserClient().rpc(
-            isShopRelease() ? 'purchase_shop' : 'purchase_qa_shop',
+            isShopRelease()
+              ? intent.expansion
+                ? 'purchase_expansion_chest'
+                : 'purchase_shop'
+              : 'purchase_qa_shop',
             {
               p_actor: actor,
               p_kind: kind,

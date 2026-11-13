@@ -9,6 +9,7 @@ import { MissionEditor } from './mission-editor';
 import {
   activityCategories,
   futureCategories,
+  economyMissionTiers,
   blankCell,
   cellForm,
   cellPayload,
@@ -18,7 +19,8 @@ import {
   type CellProgress,
 } from './cell-contracts';
 import css from './panel.module.css';
-import {CommunityChestClaim} from './chest-claim';
+import { CommunityChestClaim } from './chest-claim';
+import { ProgressReward } from '../chest-reveal/progress-reward';
 const labels = {
   draft: 'Rascunho',
   published: 'Publicado',
@@ -167,8 +169,9 @@ export function CellActivityPanel({
       <h2>Encontros e atividades da comunidade</h2>
       <p>
         Guilda selecionada. Participação educativa, sem medir fé ou
-        espiritualidade. Registrar participação não emite prêmios. Após validação,
-        consulte a elegibilidade do baú; o conteúdo só é concedido ao confirmar a abertura na Mochila.
+        espiritualidade. Registrar participação não emite prêmios. Após
+        validação, consulte a elegibilidade do baú; o conteúdo só é concedido ao
+        confirmar a abertura na Mochila.
       </p>
       <div className={css.actions}>
         <button disabled={busy} onClick={() => void refresh()}>
@@ -345,9 +348,16 @@ export function CellActivityPanel({
                 prova automática de presença ou fé.
               </p>
               <p>
-                Categoria: {futureCategories[m.futureCategory]}.
-                O baú depende de elegibilidade verificada e dos limites por conta; não é concedido pela declaração de participação.
+                Categoria: {futureCategories[m.futureCategory]}. O baú depende
+                de elegibilidade verificada e dos limites por conta; não é
+                concedido pela declaração de participação.
               </p>
+              {m.economyTier && m.economyTier !== 'none' && (
+                <p>
+                  {economyMissionTiers[m.economyTier]} · após validação do líder
+                  · uma recompensa por evento e conta.
+                </p>
+              )}
             </details>
             {m.canEdit && (
               <div className={css.actions}>
@@ -406,7 +416,30 @@ export function CellActivityPanel({
               busy={busy}
               action={action}
             />
-            {m.kind==='activity' && ['common','epic'].includes(m.futureCategory) && data.progress.some(p=>p.missionId===m.id && p.travelerId===actor && p.status==='approved') && <CommunityChestClaim actor={actor} guild={guildId} mission={m.id}/>}
+            {m.kind === 'activity' &&
+              ['common', 'epic'].includes(m.futureCategory) &&
+              data.progress.some(
+                (p) =>
+                  p.missionId === m.id &&
+                  p.travelerId === actor &&
+                  p.status === 'approved',
+              ) && (
+                <CommunityChestClaim
+                  actor={actor}
+                  guild={guildId}
+                  mission={m.id}
+                />
+              )}
+            {m.kind === 'activity' &&
+              m.economyTier &&
+              m.economyTier !== 'none' &&
+              data.progress.some(
+                (p) =>
+                  p.missionId === m.id &&
+                  p.travelerId === actor &&
+                  p.status === 'approved' &&
+                  !p.rewardClaimed,
+              ) && <ProgressReward actor={actor} kind="mission" event={m.id} />}
             {m.canEdit && (
               <Delegate
                 mission={m}
@@ -583,6 +616,30 @@ function CellFields({
           ))}
         </select>
       </label>
+      {value.kind === 'activity' && (
+        <label>
+          Recompensa da missão
+          <select
+            aria-label="Recompensa da missão"
+            value={value.economyTier ?? 'none'}
+            onChange={(e) =>
+              onChange({
+                ...value,
+                economyTier: e.target.value as NonNullable<
+                  CellDetails['economyTier']
+                >,
+                futureCategory: 'none',
+              })
+            }
+          >
+            {Object.entries(economyMissionTiers).map(([id, label]) => (
+              <option key={id} value={id}>
+                {label}
+              </option>
+            ))}
+          </select>
+        </label>
+      )}
     </fieldset>
   );
 }

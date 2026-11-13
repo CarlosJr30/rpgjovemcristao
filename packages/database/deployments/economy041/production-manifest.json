@@ -1,0 +1,67 @@
+{
+  "environment": "production",
+  "project": "wspafhlbtlpabypzymjo",
+  "scope": "guild-ebd-001",
+  "contract": "economy041-chest-v1",
+  "approvalRef": "OWNER-ECONOMY-041-2026-11-11",
+  "migration": "supabase/migrations/20261111063736_economy_041_production.sql",
+  "version": "20261111063736",
+  "sha256": "1f377a035c68cde8921909536820a2e8fe3cc8d9c6b4d3c8dafe8901c6609ad0",
+  "preservedOrAdaptedAuthorities": [
+    {
+      "signature": "shop_private.purchase(uuid,text,text,uuid)",
+      "md5": "99042c132283581240df571b6851b1d1",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres}"
+    },
+    {
+      "signature": "shop_private.open(uuid,text,uuid)",
+      "md5": "398178a7fd1e2764ab3d3edf990e72c5",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres}"
+    },
+    {
+      "signature": "shop_private.coin_balance(uuid)",
+      "md5": "6376add527a9d3152cee9bfe438d7573",
+      "acl": "{postgres=X/postgres}"
+    },
+    {
+      "signature": "shop_private.state(uuid)",
+      "md5": "6b01d4fe6e306397ba5ccfa80b4e15bd",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres}"
+    },
+    {
+      "signature": "shop_private.equipment_origin_014(uuid,uuid,text)",
+      "md5": "5f1e400ef659b938ee981e7fb287068f",
+      "acl": "{postgres=X/postgres}"
+    },
+    {
+      "signature": "economy_private.collection(uuid,uuid)",
+      "md5": "77791950c34168c84805aa740d42510d",
+      "acl": "{postgres=X/postgres}"
+    },
+    {
+      "signature": "guild_activity_private.command(uuid,uuid,text,uuid,uuid,integer,jsonb)",
+      "md5": "89cafab8e005c6c7922dd48afdb1d65e",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres}"
+    },
+    {
+      "signature": "guild_activity_private.workspace(uuid,uuid,integer)",
+      "md5": "2420bb68eaab73cb7ae01f3974422247",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres}"
+    },
+    {
+      "signature": "shop_private.actor(uuid)",
+      "md5": "5ca6c118f1a0418886f8df293e53fcb6",
+      "acl": "{postgres=X/postgres}"
+    },
+    {
+      "signature": "shop_private.equip(uuid,text,text,text)",
+      "md5": "2af23c8d7801146f43c07841f81cd289",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres}"
+    },
+    {
+      "signature": "shop_private.owned_equipment(uuid,text,text,text)",
+      "md5": "3a43a9559d5ec4e82a1fad41f6b3ed89",
+      "acl": "{postgres=X/postgres}"
+    }
+  ]
+}

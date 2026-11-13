@@ -1,0 +1,331 @@
+-- ECONOMY-041 shared implementation. Render separate, guarded TEST/PROD packages.
+CREATE TABLE shop_private.chest_policy_041 (
+ chest_type text PRIMARY KEY, price integer NOT NULL CHECK(price>0), rarity text NOT NULL,
+ coin_weight integer NOT NULL, card_weight integer NOT NULL, equipment_weight integer NOT NULL,
+ coin_prize integer NOT NULL CHECK(coin_prize>=0),
+ CHECK(coin_weight>0 AND card_weight>0 AND equipment_weight>0 AND coin_weight+card_weight+equipment_weight=100)
+);
+CREATE TABLE shop_private.content_041 (
+ item_id text PRIMARY KEY,kind text NOT NULL CHECK(kind IN('card','equipment')),rarity text NOT NULL,
+ name text NOT NULL,version text,definition_hash text NOT NULL,definition jsonb NOT NULL
+);
+CREATE TABLE shop_private.policy_041 (
+ singleton boolean PRIMARY KEY DEFAULT true CHECK(singleton),enabled boolean NOT NULL DEFAULT false,
+ contract text NOT NULL CHECK(contract='economy041-chest-v1'),activated_at timestamptz,
+ approval_ref text NOT NULL CHECK(approval_ref='OWNER-ECONOMY-041-2026-11-11'),CHECK(NOT enabled OR activated_at IS NOT NULL)
+);
+INSERT INTO shop_private.policy_041(singleton,contract,approval_ref) VALUES(true,'economy041-chest-v1','OWNER-ECONOMY-041-2026-11-11');
+CREATE FUNCTION shop_private.activate_041(p_approval text) RETURNS void LANGUAGE plpgsql SET search_path='' AS $$
+BEGIN
+ IF current_setting('economy041.target_project',true) IS DISTINCT FROM '{{TARGET_PROJECT}}' OR public.release_scope()<>'{{RELEASE_SCOPE}}'
+ OR p_approval IS DISTINCT FROM 'OWNER-ECONOMY-041-2026-11-11' THEN RAISE EXCEPTION 'Reviewed activation required' USING ERRCODE='42501';END IF;
+ PERFORM pg_advisory_xact_lock(1010,1);
+ IF EXISTS(SELECT 1 FROM shop_private.policy_041 WHERE singleton AND enabled) THEN RETURN;END IF;
+ IF EXISTS(SELECT 1 FROM shop_private.policy_041 WHERE singleton AND activated_at IS NOT NULL) THEN RAISE EXCEPTION 'Containment requires a new reviewed recovery decision' USING ERRCODE='42501';END IF;
+ UPDATE shop_private.policy_041 SET enabled=true,activated_at=clock_timestamp() WHERE singleton AND activated_at IS NULL;
+END $$;
+REVOKE ALL ON FUNCTION shop_private.activate_041(text) FROM PUBLIC,anon,authenticated,service_role;
+INSERT INTO shop_private.chest_policy_041 VALUES
+ ('common',40,'comum',70,15,15,25),('uncommon',80,'incomum',60,20,20,55),('rare',150,'raro',50,25,25,105),
+ ('epic',250,'épico',40,30,30,190),('extraordinary',400,'lendário',30,35,35,360);
+{{CONTENT_SEED}}
+ALTER TABLE shop_private.chest_policy_041 ENABLE ROW LEVEL SECURITY;
+ALTER TABLE shop_private.content_041 ENABLE ROW LEVEL SECURITY;
+ALTER TABLE shop_private.policy_041 ENABLE ROW LEVEL SECURITY;
+REVOKE ALL ON shop_private.chest_policy_041,shop_private.content_041,shop_private.policy_041 FROM PUBLIC,anon,authenticated,service_role;
+
+-- Existing inventory and ledger remain the only possessions and financial records.
+ALTER TABLE public.inventory DROP CONSTRAINT inventory_card_provenance;
+ALTER TABLE public.inventory ADD CONSTRAINT inventory_card_provenance CHECK(
+ (card_receipt_id IS NULL AND card_version IS NULL) OR
+ (card_receipt_id IS NOT NULL AND card_version IS NOT NULL AND
+  (quantity=1 OR (quantity>1 AND item_id LIKE 'arena-card-%' AND metadata->>'contract' IS NOT DISTINCT FROM 'economy041-chest-v1'))));
+ALTER TABLE public.chest_operations DROP CONSTRAINT chest_operations_type_check;
+ALTER TABLE public.chest_operations ADD CONSTRAINT chest_operations_type_check CHECK(
+ {{OLD_LEDGER_CHECK}} OR
+ (operation_type='duplicate-sale-041' AND chest_type IS NULL AND account_id IS NOT NULL AND price_paid=0
+  AND source='economy041:sale' AND rewards->>'catalogVersion'='economy041-chest-v1' AND rewards ? 'itemId')
+);
+CREATE FUNCTION shop_private.immutable_041() RETURNS trigger LANGUAGE plpgsql SET search_path='' AS $$
+BEGIN RAISE EXCEPTION 'ECONOMY-041 audit is immutable' USING ERRCODE='42501';END $$;
+CREATE TRIGGER content041_immutable BEFORE UPDATE OR DELETE ON shop_private.content_041 FOR EACH ROW EXECUTE FUNCTION shop_private.immutable_041();
+CREATE TRIGGER chest_policy041_immutable BEFORE UPDATE OR DELETE ON shop_private.chest_policy_041 FOR EACH ROW EXECUTE FUNCTION shop_private.immutable_041();
+CREATE TRIGGER receipt041_immutable BEFORE UPDATE OR DELETE ON public.chest_operations FOR EACH ROW
+ WHEN(OLD.source LIKE 'economy041:%') EXECUTE FUNCTION shop_private.immutable_041();
+
+CREATE FUNCTION shop_private.random_index_041(p_count integer) RETURNS integer LANGUAGE plpgsql VOLATILE SET search_path='' AS $$
+DECLARE bytes bytea; n bigint; ceiling bigint;BEGIN
+ IF p_count IS NULL OR p_count<1 OR p_count>100000 THEN RAISE EXCEPTION 'Invalid random bound' USING ERRCODE='22023';END IF;
+ ceiling:=(4294967296::bigint/p_count)*p_count;
+ LOOP
+  bytes:=extensions.gen_random_bytes(4);
+  n:=get_byte(bytes,0)::bigint*16777216+get_byte(bytes,1)::bigint*65536+get_byte(bytes,2)::bigint*256+get_byte(bytes,3);
+  IF n<ceiling THEN RETURN (n%p_count)::integer;END IF;
+ END LOOP;
+END $$;
+CREATE FUNCTION shop_private.pool_ready_041(p_type text) RETURNS boolean LANGUAGE sql STABLE SET search_path='' AS $$
+ SELECT EXISTS(SELECT 1 FROM shop_private.policy_041 WHERE enabled AND singleton)
+ AND EXISTS(SELECT 1 FROM shop_private.chest_policy_041 p WHERE p.chest_type=p_type
+  AND (SELECT count(*) FROM shop_private.content_041 c WHERE c.rarity=p.rarity AND c.kind='card')=
+   CASE p_type WHEN 'common' THEN 3 WHEN 'uncommon' THEN 10 WHEN 'rare' THEN 9 WHEN 'epic' THEN 7 WHEN 'extraordinary' THEN 4 END
+  AND (SELECT count(*) FROM shop_private.content_041 c WHERE c.rarity=p.rarity AND c.kind='equipment')=
+   CASE p_type WHEN 'common' THEN 8 WHEN 'uncommon' THEN 9 WHEN 'rare' THEN 7 WHEN 'epic' THEN 7 WHEN 'extraordinary' THEN 3 END
+  AND NOT EXISTS(SELECT 1 FROM shop_private.content_041 c WHERE c.rarity=p.rarity AND c.kind='card'
+   AND NOT EXISTS(SELECT 1 FROM economy_private.card_catalog cc WHERE cc.id=c.item_id AND cc.version=c.version
+    AND cc.revoked_at IS NULL AND md5(cc.definition::text)=c.definition_hash)))
+$$;
+CREATE FUNCTION shop_private.ready_041(p_actor uuid,p_operation uuid) RETURNS uuid LANGUAGE plpgsql SET search_path='' AS $$
+DECLARE who uuid;BEGIN
+ PERFORM pg_advisory_xact_lock(1010,1);who:=shop_private.actor(p_actor);
+ IF p_operation IS NULL THEN RAISE EXCEPTION 'Operation required' USING ERRCODE='22023';END IF;
+ PERFORM 1 FROM public.wallets WHERE traveler_id=p_actor FOR UPDATE;
+ IF NOT FOUND OR NOT EXISTS(SELECT 1 FROM shop_private.policy WHERE singleton AND enabled)
+ OR NOT EXISTS(SELECT 1 FROM shop_private.policy_041 WHERE singleton AND enabled)
+ OR EXISTS(SELECT 1 FROM shop_private.holds WHERE account_id=who AND traveler_id=p_actor)
+ OR NOT shop_private.balance_valid(p_actor) THEN RAISE EXCEPTION 'Economic authorization unavailable' USING ERRCODE='42501';END IF;
+ RETURN who;
+END $$;
+CREATE FUNCTION shop_private.rate_limit_041(p_owner uuid) RETURNS void LANGUAGE plpgsql SET search_path='' AS $$
+BEGIN
+ IF (SELECT count(*) FROM public.chest_operations WHERE account_id=p_owner AND source LIKE 'economy041:%'
+  AND created_at>clock_timestamp()-interval '1 second')>=10 THEN RAISE EXCEPTION 'Aguarde antes de tentar novamente' USING ERRCODE='PT429';END IF;
+END $$;
+CREATE FUNCTION shop_private.quantity_041(p_owner uuid,p_actor uuid,p_item text) RETURNS integer LANGUAGE sql STABLE SET search_path='' AS $$
+ SELECT coalesce(sum(CASE operation_type WHEN 'open' THEN 1 WHEN 'duplicate-sale-041' THEN -1 ELSE 0 END),0)::integer
+ FROM public.chest_operations WHERE account_id=p_owner AND traveler_id=p_actor AND source LIKE 'economy041:%'
+ AND rewards->>'catalogVersion'='economy041-chest-v1' AND rewards->>'itemId'=p_item
+$$;
+CREATE FUNCTION shop_private.purchase_041(p_actor uuid,p_type text,p_operation uuid) RETURNS jsonb LANGUAGE plpgsql SECURITY DEFINER SET search_path='' AS $$
+DECLARE who uuid; prior public.chest_operations; p shop_private.chest_policy_041; src text; rid uuid;BEGIN
+ who:=shop_private.ready_041(p_actor,p_operation);
+ IF EXISTS(SELECT 1 FROM public.chest_operations WHERE identity_key='shop-purchase:v1:'||who||':'||p_operation) THEN RAISE EXCEPTION 'Purchase contract conflict' USING ERRCODE='22023';END IF;
+ SELECT * INTO prior FROM public.chest_operations WHERE identity_key='economy041:purchase:'||who||':'||p_operation;
+ IF FOUND THEN
+  IF prior.traveler_id<>p_actor OR prior.chest_type IS DISTINCT FROM p_type THEN RAISE EXCEPTION 'Purchase identity conflict' USING ERRCODE='22023';END IF;
+  RETURN jsonb_build_object('version',1,'qaOnly',false,'receiptId',prior.id,'kind','chest','offer',p_type,'pricePaid',prior.price_paid,'replayed',true);
+ END IF;
+ IF NOT coalesce(shop_private.pool_ready_041(p_type),false) THEN RAISE EXCEPTION 'Chest pool unavailable' USING ERRCODE='55000';END IF;
+ PERFORM shop_private.rate_limit_041(who);
+ SELECT * INTO STRICT p FROM shop_private.chest_policy_041 WHERE chest_type=p_type;
+ IF EXISTS(SELECT 1 FROM public.traveler_chests WHERE traveler_id=p_actor AND chest_type=p_type AND(quantity>=9999 OR jsonb_typeof(sources) IS DISTINCT FROM 'array' OR jsonb_array_length(sources)<>quantity)) THEN RAISE EXCEPTION 'Chest inventory requires review' USING ERRCODE='55000';END IF;
+ UPDATE public.wallets SET coins=coins-p.price,updated_at=clock_timestamp() WHERE traveler_id=p_actor AND coins>=p.price;
+ IF NOT FOUND THEN RAISE EXCEPTION 'Moedas insuficientes' USING ERRCODE='P0001';END IF;
+ src:='economy041:'||p_operation;
+ INSERT INTO public.traveler_chests(traveler_id,chest_type,quantity,sources) VALUES(p_actor,p_type,1,jsonb_build_array(src))
+ ON CONFLICT(traveler_id,chest_type) DO UPDATE SET quantity=public.traveler_chests.quantity+1,sources=public.traveler_chests.sources||EXCLUDED.sources,updated_at=clock_timestamp();
+ INSERT INTO public.chest_operations(traveler_id,account_id,identity_key,operation_key,operation_type,chest_type,source,price_paid,rewards)
+ VALUES(p_actor,who,'economy041:purchase:'||who||':'||p_operation,'purchase:'||p_operation,'purchase',p_type,src,p.price,
+  jsonb_build_object('catalogVersion','economy041-chest-v1','chestType',p_type,'pricePaid',p.price,'coins',0)) RETURNING id INTO rid;
+ IF NOT shop_private.balance_valid(p_actor) THEN RAISE EXCEPTION 'Purchase reconciliation failed' USING ERRCODE='42501';END IF;
+ RETURN jsonb_build_object('version',1,'qaOnly',false,'receiptId',rid,'kind','chest','offer',p_type,'pricePaid',p.price,'replayed',false);
+END $$;
+CREATE FUNCTION shop_private.open_041(p_actor uuid,p_type text,p_operation uuid) RETURNS jsonb LANGUAGE plpgsql SET search_path='' AS $$
+DECLARE who uuid; prior public.chest_operations; stack public.traveler_chests; p shop_private.chest_policy_041; item shop_private.content_041;
+ src text; idx integer; wanted text; category text; roll integer; prize_coins integer:=0; qty integer:=0; oldqty integer:=0; rid uuid; answer jsonb;
+BEGIN
+ who:=shop_private.ready_041(p_actor,p_operation);
+ SELECT * INTO prior FROM public.chest_operations WHERE traveler_id=p_actor AND operation_key='open:'||p_operation;
+ IF FOUND THEN
+  IF prior.account_id IS DISTINCT FROM who OR prior.chest_type IS DISTINCT FROM p_type OR prior.operation_type<>'open'
+   OR prior.source NOT LIKE 'economy041:%' OR prior.rewards->>'catalogVersion'<>'economy041-chest-v1' THEN RAISE EXCEPTION 'Opening identity conflict' USING ERRCODE='22023';END IF;
+  RETURN prior.rewards||jsonb_build_object('duplicate',true);
+ END IF;
+ IF NOT coalesce(shop_private.pool_ready_041(p_type),false) THEN RAISE EXCEPTION 'Chest pool unavailable' USING ERRCODE='55000';END IF;
+ PERFORM shop_private.rate_limit_041(who);
+ SELECT * INTO STRICT p FROM shop_private.chest_policy_041 WHERE chest_type=p_type;
+ SELECT * INTO stack FROM public.traveler_chests WHERE traveler_id=p_actor AND chest_type=p_type AND quantity>0 FOR UPDATE;
+ IF stack.traveler_id IS NULL OR jsonb_array_length(stack.sources)<>stack.quantity THEN RAISE EXCEPTION 'Unopened chest required' USING ERRCODE='42501';END IF;
+ SELECT source INTO wanted FROM public.chest_operations WHERE traveler_id=p_actor AND account_id=who
+  AND operation_type='purchase' AND operation_key='purchase:'||p_operation AND chest_type=p_type
+  AND source='economy041:'||p_operation AND rewards->>'catalogVersion'='economy041-chest-v1';
+ SELECT e.value,e.ordinality::integer-1 INTO src,idx FROM jsonb_array_elements_text(stack.sources) WITH ORDINALITY e(value,ordinality)
+ WHERE e.value LIKE 'economy041:%' AND(wanted IS NULL OR e.value=wanted)
+  AND (SELECT count(*) FROM jsonb_array_elements_text(stack.sources) x(value) WHERE x.value=e.value)=1
+  AND EXISTS(SELECT 1 FROM public.chest_operations r WHERE r.traveler_id=p_actor AND r.account_id=who AND r.chest_type=p_type
+   AND r.source=e.value AND r.operation_type IN('purchase','grant') AND r.rewards->>'catalogVersion'='economy041-chest-v1')
+  AND NOT EXISTS(SELECT 1 FROM public.chest_operations r WHERE r.traveler_id=p_actor AND r.operation_type='open' AND r.source=e.value)
+ ORDER BY e.ordinality LIMIT 1;
+ IF src IS NULL THEN RAISE EXCEPTION 'Authorized unconsumed chest required' USING ERRCODE='42501';END IF;
+ SELECT * INTO prior FROM public.chest_operations WHERE traveler_id=p_actor AND account_id=who AND source=src AND operation_type='grant';
+ IF FOUND AND prior.rewards->>'eventKind'='mission' AND NOT EXISTS(
+  SELECT 1 FROM public.guild_missions m JOIN public.guilds g ON g.id=m.guild_id AND g.status='active'
+  JOIN public.guild_mission_progress gp ON gp.mission_id=m.id AND gp.traveler_id=p_actor AND gp.participant_uid=who
+  WHERE m.id::text=prior.rewards->>'eventId' AND m.status IN('published','closed') AND gp.status='approved'
+   AND gp.community_revision::text=prior.rewards->>'approvalRevision' AND gp.approved_by_traveler_id::text=prior.rewards->>'validatorId'
+   AND g.leader_traveler_id=gp.approved_by_traveler_id AND economy_private.community_chest_validator(gp.approved_by_traveler_id,m.id)
+ ) THEN RAISE EXCEPTION 'Mission reward source unavailable' USING ERRCODE='42501';END IF;
+ roll:=shop_private.random_index_041(100);
+ category:=CASE WHEN roll<p.coin_weight THEN 'coins' WHEN roll<p.coin_weight+p.card_weight THEN 'card' ELSE 'equipment' END;
+ IF category='coins' THEN prize_coins:=p.coin_prize;
+ ELSE
+  SELECT * INTO STRICT item FROM shop_private.content_041 WHERE rarity=p.rarity AND kind=category ORDER BY item_id
+   OFFSET shop_private.random_index_041((SELECT count(*)::integer FROM shop_private.content_041 WHERE rarity=p.rarity AND kind=category)) LIMIT 1;
+  SELECT quantity INTO oldqty FROM public.inventory WHERE traveler_id=p_actor AND item_id=item.item_id FOR UPDATE;
+  oldqty:=coalesce(oldqty,0);
+  IF oldqty<>shop_private.quantity_041(who,p_actor,item.item_id) THEN RAISE EXCEPTION 'Item provenance requires review' USING ERRCODE='42501';END IF;
+  IF oldqty>=999 THEN RAISE EXCEPTION 'Inventory quantity limit' USING ERRCODE='55000';END IF;
+  qty:=oldqty+1;
+ END IF;
+ rid:=gen_random_uuid();
+ answer:=jsonb_build_object('chestType',p_type,'coins',prize_coins,'itemId',item.item_id,'itemName',item.name,'itemKind',category,
+  'cardVersion',item.version,'quantity',qty,'duplicateItem',oldqty>0,'source',src,'remainingQuantity',stack.quantity-1,
+  'duplicate',false,'catalogVersion','economy041-chest-v1','sellValue',CASE p.rarity WHEN 'comum' THEN 10 WHEN 'incomum' THEN 20 WHEN 'raro' THEN 35 WHEN 'épico' THEN 70 WHEN 'lendário' THEN 120 END);
+ INSERT INTO public.chest_operations(id,traveler_id,account_id,identity_key,operation_key,operation_type,chest_type,source,rewards)
+ VALUES(rid,p_actor,who,'economy041:open:'||who||':'||p_operation,'open:'||p_operation,'open',p_type,src,answer);
+ IF item.item_id IS NOT NULL THEN
+  INSERT INTO public.inventory(traveler_id,item_id,quantity,metadata,card_receipt_id,card_version)
+  VALUES(p_actor,item.item_id,1,jsonb_build_object('source',src,'contract','economy041-chest-v1'),CASE WHEN category='card' THEN rid END,item.version)
+  ON CONFLICT(traveler_id,item_id) DO UPDATE SET quantity=public.inventory.quantity+1;
+ END IF;
+ IF stack.quantity=1 THEN DELETE FROM public.traveler_chests WHERE traveler_id=p_actor AND chest_type=p_type;
+ ELSE UPDATE public.traveler_chests SET quantity=quantity-1,sources=sources-idx,updated_at=clock_timestamp() WHERE traveler_id=p_actor AND chest_type=p_type;END IF;
+ UPDATE public.wallets SET coins=coins+prize_coins,updated_at=clock_timestamp() WHERE traveler_id=p_actor;
+ IF NOT shop_private.balance_valid(p_actor) THEN RAISE EXCEPTION 'Opening reconciliation failed' USING ERRCODE='42501';END IF;
+ RETURN answer;
+END $$;
+CREATE FUNCTION shop_private.sell_041(p_actor uuid,p_item text,p_operation uuid,p_expected integer) RETURNS jsonb LANGUAGE plpgsql SECURITY DEFINER SET search_path='' AS $$
+DECLARE who uuid;prior public.chest_operations;item shop_private.content_041;qty integer;value integer;answer jsonb;rid uuid;
+BEGIN
+ who:=shop_private.ready_041(p_actor,p_operation);
+ SELECT * INTO prior FROM public.chest_operations WHERE identity_key='economy041:sale:'||who||':'||p_operation;
+ IF FOUND THEN
+  IF prior.traveler_id<>p_actor OR prior.rewards->>'itemId' IS DISTINCT FROM p_item THEN RAISE EXCEPTION 'Sale identity conflict' USING ERRCODE='22023';END IF;
+  RETURN prior.rewards||jsonb_build_object('receiptId',prior.id,'replayed',true);
+ END IF;
+ SELECT * INTO item FROM shop_private.content_041 WHERE item_id=p_item;
+ IF NOT FOUND THEN RAISE EXCEPTION 'Resale source unavailable' USING ERRCODE='42501';END IF;
+ SELECT i.quantity INTO qty FROM public.inventory i WHERE traveler_id=p_actor AND item_id=p_item AND card_revoked_at IS NULL AND(to_jsonb(i)->>'arena_qa_receipt_id') IS NULL FOR UPDATE;
+ IF qty IS NULL OR qty<2 OR qty<>shop_private.quantity_041(who,p_actor,p_item) THEN RAISE EXCEPTION 'A última cópia deve ser preservada' USING ERRCODE='42501';END IF;
+ IF p_expected IS NULL OR qty<>p_expected THEN RAISE EXCEPTION 'A coleção mudou. Atualize antes de vender' USING ERRCODE='PT409';END IF;
+ PERFORM shop_private.rate_limit_041(who);
+ value:=CASE item.rarity WHEN 'comum' THEN 10 WHEN 'incomum' THEN 20 WHEN 'raro' THEN 35 WHEN 'épico' THEN 70 WHEN 'lendário' THEN 120 END;
+ UPDATE public.inventory SET quantity=quantity-1 WHERE traveler_id=p_actor AND item_id=p_item;
+ UPDATE public.wallets SET coins=coins+value,updated_at=clock_timestamp() WHERE traveler_id=p_actor;
+ answer:=jsonb_build_object('version',1,'catalogVersion','economy041-chest-v1','itemId',p_item,'coins',value,'quantity',qty-1,'replayed',false);
+ INSERT INTO public.chest_operations(traveler_id,account_id,identity_key,operation_key,operation_type,source,price_paid,rewards)
+ VALUES(p_actor,who,'economy041:sale:'||who||':'||p_operation,'sale:'||p_operation,'duplicate-sale-041','economy041:sale',0,answer) RETURNING id INTO rid;
+ IF NOT shop_private.balance_valid(p_actor) THEN RAISE EXCEPTION 'Sale reconciliation failed' USING ERRCODE='42501';END IF;
+ RETURN answer||jsonb_build_object('receiptId',rid);
+END $$;
+CREATE FUNCTION public.sell_repeated_item(p_actor uuid,p_item text,p_operation_id uuid,p_expected_quantity integer) RETURNS jsonb LANGUAGE sql SECURITY INVOKER SET search_path='' AS $$
+ SELECT shop_private.sell_041(p_actor,p_item,p_operation_id,p_expected_quantity)
+$$;
+CREATE FUNCTION shop_private.resale_state_041(p_actor uuid,p_item text) RETURNS jsonb LANGUAGE plpgsql SECURITY DEFINER SET search_path='' AS $$
+DECLARE who uuid;qty integer;item shop_private.content_041;BEGIN
+ who:=shop_private.actor(p_actor);
+ SELECT * INTO item FROM shop_private.content_041 WHERE item_id=p_item;
+ SELECT i.quantity INTO qty FROM public.inventory i WHERE traveler_id=p_actor AND item_id=p_item AND card_revoked_at IS NULL AND(to_jsonb(i)->>'arena_qa_receipt_id') IS NULL;
+ RETURN jsonb_build_object('version',1,'actor',p_actor,'itemId',p_item,'quantity',coalesce(qty,0),
+  'eligible',coalesce(item.item_id IS NOT NULL AND qty>1 AND qty=shop_private.quantity_041(who,p_actor,p_item)
+    AND shop_private.balance_valid(p_actor) AND EXISTS(SELECT 1 FROM shop_private.policy_041 WHERE singleton AND enabled)
+    AND EXISTS(SELECT 1 FROM shop_private.policy WHERE singleton AND enabled)
+    AND NOT EXISTS(SELECT 1 FROM shop_private.holds WHERE traveler_id=p_actor AND account_id=who),false),
+  'sellValue',CASE item.rarity WHEN 'comum' THEN 10 WHEN 'incomum' THEN 20 WHEN 'raro' THEN 35 WHEN 'épico' THEN 70 WHEN 'lendário' THEN 120 ELSE 0 END);
+END $$;
+CREATE FUNCTION public.get_repeated_item_access(p_actor uuid,p_item text) RETURNS jsonb LANGUAGE sql SECURITY INVOKER SET search_path='' AS $$ SELECT shop_private.resale_state_041(p_actor,p_item) $$;
+REVOKE ALL ON FUNCTION shop_private.resale_state_041(uuid,text),public.get_repeated_item_access(uuid,text) FROM PUBLIC,anon,authenticated,service_role;
+GRANT EXECUTE ON FUNCTION shop_private.resale_state_041(uuid,text),public.get_repeated_item_access(uuid,text) TO authenticated;
+CREATE TABLE shop_private.reward_policy_041(kind text NOT NULL CHECK(kind IN('mission','world')),event_key text NOT NULL,coins integer NOT NULL CHECK(coins>=0),chest_type text NOT NULL REFERENCES shop_private.chest_policy_041(chest_type),PRIMARY KEY(kind,event_key));
+ALTER TABLE shop_private.reward_policy_041 ENABLE ROW LEVEL SECURITY;
+REVOKE ALL ON shop_private.reward_policy_041 FROM PUBLIC,anon,authenticated,service_role;
+INSERT INTO shop_private.reward_policy_041 VALUES
+ ('mission','normal',25,'common'),('mission','great',100,'uncommon'),('mission','epic',220,'rare'),('mission','extraordinary',360,'epic'),
+ ('world','origins',30,'common'),('world','patriarchs',45,'common'),('world','liberation',60,'uncommon'),('world','promised-land',80,'uncommon'),
+ ('world','kings',100,'rare'),('world','return',125,'rare'),('world','jesus',150,'epic'),('world','church',180,'epic'),('world','new-creation',220,'extraordinary');
+CREATE TRIGGER reward_policy041_immutable BEFORE UPDATE OR DELETE ON shop_private.reward_policy_041 FOR EACH ROW EXECUTE FUNCTION shop_private.immutable_041();
+CREATE FUNCTION shop_private.reward_041(p_actor uuid,p_kind text,p_event text) RETURNS jsonb LANGUAGE plpgsql SECURITY DEFINER SET search_path='' AS $$
+DECLARE who uuid;since timestamptz;prior public.chest_operations;policy shop_private.reward_policy_041;
+ m public.guild_missions;progress public.guild_mission_progress;attempt public.guild_mission_attempts;g public.guilds;reviewer public.travelers;
+ validation guild_activity_private.validation_history;detail guild_activity_private.details;
+ rid uuid;source_value text;k text;event_identity text;answer jsonb;d public.story_definitions;s public.story_progress;steps text[];
+BEGIN
+ -- The immutable event, not a client nonce or selected avatar, identifies the grant globally for Auth.
+ who:=shop_private.ready_041(p_actor,gen_random_uuid());
+ IF p_kind IS NULL OR p_kind NOT IN('mission','world') OR p_event IS NULL OR length(p_event)>80 THEN RAISE EXCEPTION 'Reward event denied' USING ERRCODE='22023';END IF;
+ event_identity:=p_event;
+ IF p_kind='mission' THEN
+  PERFORM guild_admin_private.require_writes();
+  IF p_event !~* '^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$' THEN RAISE EXCEPTION 'Mission identity required' USING ERRCODE='22023';END IF;
+  SELECT * INTO m FROM public.guild_missions WHERE id=p_event::uuid FOR UPDATE;
+  SELECT * INTO detail FROM guild_activity_private.details WHERE mission_id=m.id FOR SHARE;
+  event_identity:=coalesce(detail.meeting_id,m.id)::text;
+ END IF;
+ k:='economy041:'||p_kind||':'||who||':'||event_identity;
+ SELECT * INTO prior FROM public.chest_operations WHERE identity_key=k;
+ IF FOUND THEN
+  IF prior.traveler_id<>p_actor OR prior.rewards->>'eventId' IS DISTINCT FROM p_event THEN RAISE EXCEPTION 'Reward belongs to original avatar and activity' USING ERRCODE='42501';END IF;
+  RETURN prior.rewards||jsonb_build_object('receiptId',prior.id,'replayed',true);
+ END IF;
+ SELECT activated_at INTO STRICT since FROM shop_private.policy_041 WHERE singleton AND enabled;
+ IF p_kind='mission' THEN
+  IF p_event !~* '^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$' THEN RAISE EXCEPTION 'Mission identity required' USING ERRCODE='22023';END IF;
+  IF m.id IS NULL OR m.community_protocol IS DISTINCT FROM 1 OR m.metadata->'economy041'->>'contract' IS DISTINCT FROM 'economy041-chest-v1'
+   OR m.metadata->'economy041'->>'tier' IS DISTINCT FROM m.reward_tier OR detail.kind IS DISTINCT FROM 'activity' OR detail.future_category IS DISTINCT FROM 'none'
+   OR(detail.meeting_id IS NOT NULL AND NOT EXISTS(SELECT 1 FROM public.guild_missions WHERE id=detail.meeting_id AND status IN('published','closed')))
+   OR m.status NOT IN('published','closed') OR m.published_at IS NULL OR m.published_at<since
+   OR NOT m.requires_leader_approval THEN RAISE EXCEPTION 'Mission not eligible for ECONOMY-041' USING ERRCODE='55000';END IF;
+  PERFORM guild_ops.actor(p_actor,m.guild_id);
+  SELECT * INTO g FROM public.guilds WHERE id=m.guild_id AND status='active' FOR SHARE;
+  SELECT * INTO progress FROM public.guild_mission_progress WHERE mission_id=m.id AND traveler_id=p_actor FOR UPDATE;
+  SELECT * INTO attempt FROM public.guild_mission_attempts WHERE mission_id=m.id AND traveler_id=p_actor AND revision=progress.submission_revision FOR SHARE;
+  SELECT * INTO validation FROM guild_activity_private.validation_history WHERE mission_id=m.id AND traveler_id=p_actor AND revision=progress.community_revision FOR SHARE;
+  SELECT * INTO reviewer FROM public.travelers WHERE id=attempt.reviewer_traveler_id FOR SHARE;
+  PERFORM 1 FROM auth.users WHERE id=reviewer.user_id AND NOT coalesce(is_anonymous,false) AND email_confirmed_at IS NOT NULL
+   AND deleted_at IS NULL AND(banned_until IS NULL OR banned_until<=clock_timestamp()) FOR SHARE;
+  IF NOT FOUND OR reviewer.user_id=who OR progress.participant_uid IS DISTINCT FROM who OR progress.status IS DISTINCT FROM 'approved' OR progress.reward_claimed_at IS NOT NULL
+   OR validation.after_status IS DISTINCT FROM 'approved' OR validation.reviewer_id IS DISTINCT FROM reviewer.id
+   OR NOT EXISTS(SELECT 1 FROM guild_activity_private.future_eligibility WHERE mission_id=m.id AND owner_id=who AND traveler_id=p_actor AND participation_revision=progress.community_revision AND validated AND category='none')
+   OR progress.approved_at IS NULL OR progress.approved_at<since OR progress.approved_by_traveler_id IS DISTINCT FROM attempt.reviewer_traveler_id
+   OR attempt.decision IS DISTINCT FROM 'approved' OR attempt.decided_at IS NULL OR attempt.decided_at<since OR length(btrim(coalesce(attempt.note,'')))=0
+   OR g.leader_traveler_id IS DISTINCT FROM reviewer.id OR NOT guild_admin_private.leader_not_revoked(reviewer.id)
+   OR NOT EXISTS(SELECT 1 FROM public.guild_members WHERE guild_id=g.id AND traveler_id=reviewer.id AND role='leader' AND status='active')
+   OR EXISTS(SELECT 1 FROM public.guild_reward_claims c JOIN public.travelers t ON t.id=c.traveler_id WHERE c.mission_id=m.id AND t.user_id=who)
+   THEN RAISE EXCEPTION 'Current independent leader approval required' USING ERRCODE='42501';END IF;
+  SELECT * INTO policy FROM shop_private.reward_policy_041 WHERE kind='mission' AND event_key=m.reward_tier;
+ ELSE
+  SELECT * INTO policy FROM shop_private.reward_policy_041 WHERE kind='world' AND event_key=p_event;
+  IF policy.kind IS NULL OR NOT EXISTS(SELECT 1 FROM public.story_definitions WHERE world_id=p_event) THEN RAISE EXCEPTION 'Published world required' USING ERRCODE='55000';END IF;
+  FOR d IN SELECT * FROM public.story_definitions WHERE world_id=p_event ORDER BY narrative_order FOR SHARE LOOP
+   IF NOT(d.content_ready AND d.video_ready AND d.reward_ready) THEN RAISE EXCEPTION 'Published content and verified video unavailable' USING ERRCODE='55000';END IF;
+   SELECT * INTO s FROM public.story_progress WHERE traveler_id=p_actor AND story_id=d.id FOR SHARE;
+   IF s.completed_at IS NULL OR s.completed_at<since OR NOT s.video_completed OR NOT s.completed_steps @> d.required_steps
+    THEN RAISE EXCEPTION 'Current official story completion required' USING ERRCODE='55000';END IF;
+   SELECT array_agg(step) INTO steps FROM story_private.step_receipts r WHERE r.traveler_id=p_actor AND r.story_id=d.id AND r.revision=d.revision AND r.created_at>=since
+    AND((step='video' AND source='provider-api' AND observed_seconds>=duration_seconds AND duration_seconds>0)
+     OR(step IN('explore','reading','activity','quiz','reflection') AND source='server-activity')
+     OR(step='reward' AND source='economic-ledger' AND EXISTS(SELECT 1 FROM public.chest_operations o WHERE o.id::text=r.proof_reference AND o.traveler_id=p_actor AND o.account_id=who)));
+   IF steps IS NULL OR NOT steps @> d.required_steps THEN RAISE EXCEPTION 'Server evidence and provider-verified video required' USING ERRCODE='55000';END IF;
+  END LOOP;
+ END IF;
+ IF policy.kind IS NULL OR NOT coalesce(shop_private.pool_ready_041(policy.chest_type),false) THEN RAISE EXCEPTION 'Reward pool unavailable' USING ERRCODE='55000';END IF;
+ PERFORM shop_private.rate_limit_041(who);
+ rid:=gen_random_uuid();source_value:='economy041:'||p_kind||':'||rid;
+ answer:=jsonb_build_object('version',1,'catalogVersion','economy041-chest-v1','eventKind',p_kind,'eventId',p_event,'coins',policy.coins,'chestType',policy.chest_type,'quantityAdded',1,'replayed',false);
+ IF p_kind='mission' THEN answer:=answer||jsonb_build_object('approvalRevision',progress.community_revision,'validatorId',reviewer.id,'approvalReference',validation.request_id);END IF;
+ INSERT INTO public.chest_operations(id,traveler_id,account_id,identity_key,operation_key,operation_type,chest_type,source,rewards)
+ VALUES(rid,p_actor,who,k,'reward:'||rid,'grant',policy.chest_type,source_value,answer);
+ UPDATE public.wallets SET coins=coins+policy.coins,updated_at=clock_timestamp() WHERE traveler_id=p_actor;
+ INSERT INTO public.traveler_chests(traveler_id,chest_type,quantity,sources) VALUES(p_actor,policy.chest_type,1,jsonb_build_array(source_value))
+ ON CONFLICT(traveler_id,chest_type) DO UPDATE SET quantity=public.traveler_chests.quantity+1,sources=public.traveler_chests.sources||EXCLUDED.sources,updated_at=clock_timestamp();
+ IF p_kind='mission' THEN
+  INSERT INTO public.guild_reward_claims(mission_id,traveler_id,reward_tier,xp_awarded,coins_awarded) VALUES(m.id,p_actor,m.reward_tier,0,policy.coins);
+  UPDATE public.guild_mission_progress SET reward_claimed_at=clock_timestamp() WHERE id=progress.id;
+ END IF;
+ IF NOT shop_private.balance_valid(p_actor) THEN RAISE EXCEPTION 'Reward reconciliation failed' USING ERRCODE='42501';END IF;
+ RETURN answer||jsonb_build_object('receiptId',rid);
+END $$;
+CREATE FUNCTION public.claim_progress_reward(p_actor uuid,p_kind text,p_event text) RETURNS jsonb LANGUAGE sql SECURITY INVOKER SET search_path='' AS $$ SELECT shop_private.reward_041(p_actor,p_kind,p_event) $$;
+REVOKE ALL ON FUNCTION shop_private.reward_041(uuid,text,text),public.claim_progress_reward(uuid,text,text) FROM PUBLIC,anon,authenticated,service_role;
+GRANT EXECUTE ON FUNCTION shop_private.reward_041(uuid,text,text),public.claim_progress_reward(uuid,text,text) TO authenticated;
+{{EXISTING_FUNCTIONS}}
+-- Every helper starts closed. Only the existing wrappers and this limited sale RPC are callable.
+REVOKE ALL ON FUNCTION shop_private.immutable_041(),shop_private.random_index_041(integer),shop_private.pool_ready_041(text),shop_private.ready_041(uuid,uuid),shop_private.rate_limit_041(uuid),shop_private.quantity_041(uuid,uuid,text),shop_private.purchase_041(uuid,text,uuid),shop_private.open_041(uuid,text,uuid),shop_private.sell_041(uuid,text,uuid,integer),public.sell_repeated_item(uuid,text,uuid,integer) FROM PUBLIC,anon,authenticated,service_role;
+GRANT EXECUTE ON FUNCTION shop_private.sell_041(uuid,text,uuid,integer),public.sell_repeated_item(uuid,text,uuid,integer) TO authenticated;
+-- Explicit version negotiation: old clients keep purchase_shop and its receipts.
+CREATE FUNCTION public.purchase_expansion_chest(p_actor uuid,p_kind text,p_offer text,p_operation_id uuid) RETURNS jsonb LANGUAGE plpgsql SECURITY INVOKER SET search_path='' AS $$
+BEGIN
+ IF p_kind IS DISTINCT FROM 'chest' THEN RAISE EXCEPTION 'Chest required' USING ERRCODE='22023';END IF;
+ RETURN shop_private.purchase_041(p_actor,p_offer,p_operation_id);
+END $$;
+REVOKE ALL ON FUNCTION public.purchase_expansion_chest(uuid,text,text,uuid) FROM PUBLIC,anon,authenticated,service_role;
+GRANT EXECUTE ON FUNCTION public.purchase_expansion_chest(uuid,text,text,uuid),shop_private.purchase_041(uuid,text,uuid) TO authenticated;

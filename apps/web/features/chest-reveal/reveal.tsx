@@ -2,7 +2,8 @@
 import { useEffect, useEffectEvent, useReducer, useRef, useState } from 'react';
 import Image from 'next/image';
 import { createPortal } from 'react-dom';
-import { describeArenaAction } from '@rpg/game-engine';
+import { describeArenaAction, describeCatalogCard } from '@rpg/game-engine';
+import { DuplicateActions } from './duplicate-actions';
 import { chestCatalog } from '../journey/data/chests';
 import { equipmentAssetForItem } from '../journey/data/equipmentAssets';
 import { EQUIPMENT_SLOT_LABELS } from '../journey/data/equipmentCinematic';
@@ -345,6 +346,12 @@ export function ChestReveal({
                 </p>
                 <h3>{prizeName(prize)}</h3>
                 <PrizeDetails prize={prize} traveler={traveler} />
+                {receipt.repeated && (
+                  <DuplicateActions
+                    actor={receipt.travelerId}
+                    itemId={receipt.repeated.itemId}
+                  />
+                )}
                 <button className={css.next} onClick={() => event('next')}>
                   {state.index + 1 === receipt.entries.length
                     ? 'Ver resumo'
@@ -384,6 +391,12 @@ export function ChestReveal({
                 </li>
               ))}
             </ol>
+            {receipt.repeated && (
+              <DuplicateActions
+                actor={receipt.travelerId}
+                itemId={receipt.repeated.itemId}
+              />
+            )}
 
             <div className={css.controls}>
               <button onClick={onClose}>
@@ -413,7 +426,9 @@ function PrizeDetails({
       </p>
     );
   if (prize.kind === 'card') {
-    const d = describeArenaAction(prize.card.action);
+    const d =
+      describeCatalogCard(prize.card.id) ??
+      describeArenaAction(prize.card.action);
     return (
       <>
         <p>
@@ -432,7 +447,6 @@ function PrizeDetails({
           Custo: {d.focusCost} Foco · Nível mínimo: {d.minimumLevel}
         </p>
         <p>Duração: {d.duration}</p>
-        <p>Identificação de nova/repetida indisponível neste contrato.</p>
       </>
     );
   }
@@ -453,10 +467,7 @@ function PrizeDetails({
         </p>
       )}
       <EquipmentBibleDetails item={item} />
-      <p>
-        Não foi equipado automaticamente. Identificação de novo/repetido não
-        fornecida pelo recibo.
-      </p>
+      <p>Guardado na Mochila. Não foi equipado automaticamente.</p>
     </>
   );
 }
