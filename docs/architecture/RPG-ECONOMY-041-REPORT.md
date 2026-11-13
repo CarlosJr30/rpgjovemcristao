@@ -1,12 +1,20 @@
 # RPG-ECONOMY-041 — expansão econômica
 
+## Estado atual — revenda QA TEST (13/11/2026)
+
+**Bloqueado antes de merge/PROD:** causa corrigida somente em TEST, mas ainda sem recibo de revenda real. A migration foi aplicada à instância TEST conforme aprovação restrita; o Supabase registrou `20261113111702`, e o nome local foi alinhado. Verificação pós-DDL: trigger ACL continua `{postgres=X/postgres}`, condição geral de negação preservada e nenhum saldo/inventário/recibo alterado pela migration. PROD permanece intacta.
+
+Teste PostgreSQL isolado da exceção passou **5/5**. CI `43414659888` passou para `835a122f54110679f43285f24e114779813cd067`; Preview `dpl_Ht58MAnhqD4CVtKsN2Q1v1eftaAL` está READY nesse SHA, backend TEST, `/auth` 200. O arquivo da migration foi renomeado para corresponder à versão que o Supabase registrou; o CI do novo SHA fica pendente.
+
+Última leitura somente leitura do TEST: **0 vendas/recibos**, crédito de venda 0, saldo/canonical balance 1.875, capacete x2. Saldo é rastreável ao orçamento QA TEST aprovado (2.000), compras 041 (−230) e moedas de abertura (+105); os recibos de abertura confirmam o item duplicado. A interface do proprietário foi informada como bem-sucedida, mas sem recibo no ledger esse aceite não é comprovado. **Única condição pendente:** uma tentativa de “Vender repetido” sobre a cópia excedente existente na Preview. Sem isso, não marcar venda PASS nem publicar PROD.
+
 ## Retomada — correção isolada da revenda QA (13/11/2026)
 
 Leitura atual no TEST (`wkdvdzfkbwvhyjmamrsg`): compra/open 041 do avatar de fixture totalizam 3/3; origem do saldo contabilizado é o orçamento QA TEST aprovado de 2.000, menos 230 em compras e mais 105 de recompensa de abertura, resultando em 1.875. Dois recibos de abertura sustentam `equipment-leather-helmet`; inventário segue em 2. A afirmação de venda concluída ainda não se confirma: zero recibos/vendas, zero crédito e última cópia não consumida. Nenhuma nova compra ou abertura foi realizada.
 
-Causa confirmada: `shop_qa_private.isolate_credit()` negava todas as vendas para qualquer avatar com perfil QA; no TEST esse perfil está desabilitado, mas preservado. Preparada migration **somente TEST** `20261113103956_economy_041_fixture_sale_qa_test.sql`: permite no máximo uma venda de uma cópia excedente deste avatar/conta, por sessão autenticada, mediante orçamento QA aprovado, dois recibos 041 de abertura/compras comuns, item específico, payout comum de 10, inventário com uma cópia restante e saldo pós-crédito consistente. O recibo recebe marcador explícito de fixture; grants e outras vendas continuam negados. Nenhum código de segurança global, Auth/RLS ou PROD foi alterado.
+Causa confirmada: `shop_qa_private.isolate_credit()` negava todas as vendas para qualquer avatar com perfil QA; no TEST esse perfil está desabilitado, mas preservado. A migration **somente TEST** `20261113111702_economy_041_fixture_sale_qa_test.sql` permite no máximo uma venda de uma cópia excedente deste avatar/conta, por sessão autenticada, mediante orçamento QA aprovado, dois recibos 041 de abertura/compras comuns, item específico, payout comum de 10, inventário com uma cópia restante e saldo pós-crédito consistente. O recibo recebe marcador explícito de fixture; grants e outras vendas continuam negados. Nenhum código de segurança global, Auth/RLS ou PROD foi alterado.
 
-O teste PostgreSQL descartável direcionado passou **5/5 checks**, cobrindo recusa de venda/grant não autorizados, um crédito de 10, consumo exato de uma cópia, recibo marcado e imutável, repetição idempotente e recusa de venda da última cópia. Nenhuma migration remota foi aplicada nesta retomada; CI do novo SHA e smoke autenticado ainda não executados. Publicação permanece bloqueada até CI, aplicação TEST, Preview compatível e ledger confirmar exatamente uma venda.
+O teste PostgreSQL descartável direcionado passou **5/5 checks**, cobrindo recusa de venda/grant não autorizados, um crédito de 10, consumo exato de uma cópia, recibo marcado e imutável, repetição idempotente e recusa de venda da última cópia. Esta subseção é o checkpoint antes da aplicação TEST; o estado mais recente está acima. Publicação permanece bloqueada até CI do SHA com o nome de migration alinhado e ledger confirmar exatamente uma venda.
 
 ## Retomada — 13/11/2026
 

@@ -257,7 +257,7 @@ export async function run({ q, check, denied, uid, tid }) {
       );
 
       const migration = fs.readFileSync(
-        'supabase/migrations/20261113103956_economy_041_fixture_sale_qa_test.sql',
+        'supabase/migrations/20261113111702_economy_041_fixture_sale_qa_test.sql',
         'utf8',
       )
         .replaceAll(
