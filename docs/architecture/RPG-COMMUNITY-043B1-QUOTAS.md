@@ -1,0 +1,29 @@
+# RPG-COMMUNITY-043B.1 — semântica proposta para quotas aprovadas
+
+**Valores aprovados pelo proprietário; enforcement não implementado.** As regras abaixo especificam como aplicar os valores existentes no servidor. As semânticas marcadas “contrato técnico proposto” devem ser confirmadas na revisão final antes de virar runtime, especialmente porque os valores foram aprovados mas detalhes de consumo não.
+
+| Quota aprovada | Semântica técnica proposta | Chave/concorrência e repetição | Compatibilidade |
+|---|---|---|---|
+| Uma Guilda criada por conta | Uma criação bem-sucedida durante a vida do registro da conta, inclusive após arquivar/encerrar; tentativa falha não consome. | Lock por Auth account; linha durável única; retry igual retorna mesmo resultado. | Nunca derivar apenas da quantidade de Guildas ativas; sem backfill que marque todas as contas como criadoras. |
+| Até 5 Guildas por avatar | Contar memberships ativas em todas as Guildas; confirmar a quota na criação/entrada, nunca na UI. | Lock por avatar e contagem na mesma transação da membership. | Participação multiguild atual permanece. |
+| Até 50 membros por Guilda | Contar toda membership ativa, incluindo todos os papéis e o líder; teto vale no ato de aprovar pedido/aceitar convite e no eventual fluxo de entrada existente. | Lock/capacity reservation por Guilda; uma única transação concede a posição. | Convites não reservam capacidade indefinidamente; aceitar/pedir não ultrapassa limite. |
+| Até 10 links ativos/Guilda | Contar links não expirados e não revogados conforme autoridade do servidor. | Lock por Guilda durante emissão/revogação; mesma chave idempotente não duplica link. | O limite técnico 10 já existe segundo snapshot PROD 13/11; confirmar novamente antes do código. Preservar links atuais. |
+| Validade máxima 30 dias para novos links | A expiração é definida pelo relógio UTC do servidor na emissão e não pode exceder 30×24h. Links menores podem ter validade menor por decisão do emissor. | Persistir `created_at`/`expires_at`; replay devolve a emissão original. | Somente links emitidos depois da ativação. Não alongar nem encurtar os existentes (limite técnico observado atualmente: sete dias). |
+| Até 50 usos por novo link | **Proposta:** contar uma unidade quando o link válido cria uma nova solicitação pendente; nunca criar membership automaticamente. Um pedido repetido/replay não consome de novo. Rejeição/cancelamento não reembolsa uso. Capacidade de 50 membros continua prevalecendo na aprovação final. | Contador/reserva e pedido na mesma transação com lock por link; vincular consumo ao ID do pedido. | Links antigos continuam no fluxo/histórico original e não recebem contador retroativo. |
+| Até 20 convites individuais/Guilda/24h | **Proposta:** contar cada nova emissão aceita pelo servidor em janela móvel `[agora−24h, agora)`, mesmo se revogada depois; replay com a mesma chave não conta. | Contador por Guilda e evento de emissão sob lock; UTC do banco. | Aplica apenas a emissões novas; não revoga convites existentes. Evitar expor destinatários em métricas. |
+| Até 5 solicitações por conta/24h | **Proposta:** contar novos pedidos aceitos pelo servidor, somando avatares da mesma conta, em janela móvel de 24 horas; retry da mesma chave/payload não conta; cancelamento/rejeição não restitui cota. | Lock por conta Auth; o contador e pedido são atômicos. | Pedidos preexistentes ficam; não usar limite por IP nem por avatar para contornar o escopo aprovado “por conta”. |
+| 1 solicitação pendente/avatar/Guilda | Reutilizar a unicidade parcial atual `(guild_id, traveler_id)` em estado pendente, com resultado idempotente para retry. | Constraint e tratamento de conflito; uma única solicitação pendente. | Preservar pedido pendente legítimo já existente; não duplicar ao mudar contexto. |
+| Cooldown de 24h após rejeição | **Proposta:** cooldown por par avatar/Guilda, começando no timestamp de rejeição do servidor; permitir nova solicitação em `rejected_at + 24h`. | Decisão da rejeição e timestamp atômicos; não usar relógio do cliente. | Preservar estado/histórico antigo; não revelar motivo privado ao solicitante além da resposta prevista. |
+| Renomeação 1/7 dias | **Proposta:** uma alteração bem-sucedida por Guilda em janela móvel de sete dias desde o rename anterior; criação inicial do nome não conta. | Lock/CAS por Guilda; falha não consome janela; repetição idempotente não gera evento. | Correções de abuso usam contenção/moderação própria, não bypass invisível da quota. |
+
+## Regras de implementação
+
+- Contadores devem ser derivados de eventos duráveis ou atualizados transacionalmente; nunca confiar em contagem enviada pelo cliente, cache local ou chamadas separadas sujeitas à corrida.
+- Cada operação mutável usa `request_id` com hash do payload e resultado persistido; repetição de chave com conteúdo diferente é erro. A expiração de idempotência não pode permitir nova criação/consumo da mesma operação econômica/social.
+- A quota de conta é calculada pela identidade Auth no servidor e agrega todos os avatares da conta. Não coletar novo PII para contar.
+- Quotas e limites devem falhar fechados se a autoridade necessária estiver indisponível; não converter falha de contador em autorização.
+- Não criar prêmios nem alterar ECONOMY-041. Quotas, papéis e moderação nunca creditam recursos.
+
+## Decisões técnicas que ainda exigem confirmação antes do runtime
+
+O proprietário aprovou os números. A revisão do contrato deve confirmar a semântica proposta para consumo de uso de link, cancelamentos/rejeições, janela rolling, cooldown por avatar/Guilda, rename bem-sucedido e retenção de eventos de quota. Deve também definir política para recuperação/remoção de conta Auth de forma compatível com a regra “uma criação por conta”, sem armazenar identificadores desnecessários. Alterações nesses pontos são escolhas técnicas de alto impacto e precisam constar no contrato runtime antes de migration.
