@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import fs from 'node:fs';
 import { renderFixture041 } from '../../packages/database/deployments/economy041/render-fixture.mjs';
 export async function run({ q, check, denied, uid, tid }) {
   const owner = uid(2),
@@ -18,7 +19,7 @@ export async function run({ q, check, denied, uid, tid }) {
     [owner, actor, uid(44099)],
   );
   await q('select public.add_coins($1,35)', [actor]);
-  const player = async (sql, args) => {
+  const player = async (sql, args, { deterministicLoot = false } = {}) => {
     try {
       await q('BEGIN;SET LOCAL ROLE authenticated');
       await q(
@@ -32,6 +33,8 @@ export async function run({ q, check, denied, uid, tid }) {
           }),
         ],
       );
+      if (deterministicLoot)
+        await q("select set_config('fixture.random_counter','0',true)");
       const r = await q(sql, args);
       await q('COMMIT');
       return r.rows[0]?.x;
@@ -210,6 +213,191 @@ export async function run({ q, check, denied, uid, tid }) {
         (await q('select shop_private.balance_valid($1) x', [actor])).rows[0].x,
         true,
       );
+    },
+  );
+  await check(
+    'QA isolation permits only the reviewed single TEST resale; ledger, last copy and replay stay exact',
+    async () => {
+      // Deterministic PRNG exists only inside this disposable PostgreSQL test database.
+      await q(`CREATE OR REPLACE FUNCTION shop_private.random_index_041(p_count integer)
+        RETURNS integer LANGUAGE plpgsql VOLATILE SET search_path='' AS $$
+        DECLARE n integer;
+        BEGIN
+          n:=coalesce(current_setting('fixture.random_counter',true),'0')::integer+1;
+          PERFORM set_config('fixture.random_counter',n::text,true);
+          RETURN (CASE WHEN n%2=1 THEN 99 ELSE 2 END)%p_count;
+        END $$`);
+      const openOwnedChest = (id) =>
+        player(
+          "select public.open_shop_chest($1,'common',$2) x",
+          [actor, id],
+          { deterministicLoot: true },
+        );
+      for (const [operation, expectedQuantity] of [
+        [uid(44101), 1],
+        [uid(44102), 2],
+      ]) {
+        await player(
+          "select public.purchase_expansion_chest($1,'chest','common',$2) x",
+          [actor, operation],
+        );
+        const opened = await openOwnedChest(operation);
+        assert.equal(opened.itemId, 'equipment-leather-helmet');
+        assert.equal(opened.quantity, expectedQuantity);
+      }
+      assert.equal(await amounts(), 1920);
+      assert.equal(
+        (
+          await q(
+            "select quantity from public.inventory where traveler_id=$1 and item_id='equipment-leather-helmet'",
+            [actor],
+          )
+        ).rows[0].quantity,
+        2,
+      );
+
+      const migration = fs.readFileSync(
+        'supabase/migrations/20261113103956_economy_041_fixture_sale_qa_test.sql',
+        'utf8',
+      )
+        .replaceAll(
+          '575d92d9-2e5b-4fdc-8e02-3a4a096285a9',
+          owner,
+        )
+        .replaceAll(
+          '5558c6a7-2faf-4b6f-901f-bfc980c5c687',
+          actor,
+        )
+        .replace('IS DISTINCT FROM 1875', 'IS DISTINCT FROM 1920');
+      // The local fixture has two purchased/opened chests; hosted TEST has three.
+      // Keep the reviewed live migration's exact counts while adapting only this disposable harness.
+      const fixtureMigration = migration
+        .replace(
+          "operation_type='purchase' AND source LIKE 'economy041:%')<>3",
+          "operation_type='purchase' AND source LIKE 'economy041:%')<>2",
+        )
+        .replace(
+          "operation_type='open' AND source LIKE 'economy041:%')<>3",
+          "operation_type='open' AND source LIKE 'economy041:%')<>2",
+        );
+      await q(
+        "BEGIN;SET LOCAL economy041.target_project='wkdvdzfkbwvhyjmamrsg';" +
+          fixtureMigration +
+          ';COMMIT;',
+      );
+
+      await denied(
+        () =>
+          q(
+            `INSERT INTO public.chest_operations
+              (traveler_id,account_id,identity_key,operation_key,operation_type,source,price_paid,rewards)
+             VALUES($1,$2::uuid,'economy041:sale:'||$2::text||':'||$3::text,'sale:'||$3::text,'duplicate-sale-041','economy041:sale',0,
+               '{"catalogVersion":"economy041-chest-v1","itemId":"equipment-apprentice-shield","coins":10,"quantity":1,"replayed":false}')`,
+            [actor, owner, uid(44103)],
+          ),
+        '42501',
+      );
+      assert.equal(
+        (
+          await q(
+            "select count(*)::integer n from public.chest_operations where traveler_id=$1 and operation_type='duplicate-sale-041'",
+            [actor],
+          )
+        ).rows[0].n,
+        0,
+      );
+      await denied(
+        () =>
+          q(
+            `INSERT INTO public.chest_operations
+              (traveler_id,account_id,identity_key,operation_key,operation_type,chest_type,source,rewards)
+             VALUES($1,$2,'economy041:grant:fixture-denied','grant:fixture-denied','grant','common',
+               'economy041:fixture-denied','{"catalogVersion":"economy041-chest-v1","coins":25}')`,
+            [actor, owner],
+          ),
+        '42501',
+      );
+
+      const walletBefore = await amounts();
+      const operation = uid(44104);
+      const sold = await player(
+        'select public.sell_repeated_item($1,$2,$3,$4) x',
+        [actor, 'equipment-leather-helmet', operation, 2],
+      );
+      assert.equal(sold.coins, 10);
+      assert.equal(sold.quantity, 1);
+      assert.equal(sold.replayed, false);
+      assert.equal(await amounts(), walletBefore + 10);
+      assert.equal(
+        (
+          await q(
+            "select quantity from public.inventory where traveler_id=$1 and item_id='equipment-leather-helmet'",
+            [actor],
+          )
+        ).rows[0].quantity,
+        1,
+      );
+      const receipt = (
+        await q(
+          'select id,rewards,source,operation_type from public.chest_operations where id=$1 and traveler_id=$2',
+          [sold.receiptId, actor],
+        )
+      ).rows[0];
+      assert.equal(receipt.operation_type, 'duplicate-sale-041');
+      assert.equal(receipt.source, 'economy041:sale');
+      assert.equal(receipt.rewards.coins, 10);
+      assert.equal(
+        receipt.rewards.qaFixtureProvenance,
+        'ECONOMY041-TEST-OWNER-APPROVED-2026-11-11',
+      );
+      assert.equal(
+        (
+          await q(
+            "select count(*)::integer n from public.chest_operations where traveler_id=$1 and operation_type='duplicate-sale-041' and rewards->>'itemId'='equipment-leather-helmet'",
+            [actor],
+          )
+        ).rows[0].n,
+        1,
+      );
+      assert.equal(
+        (await q('select shop_private.balance_valid($1) x', [actor])).rows[0].x,
+        true,
+      );
+      assert.equal(
+        (
+          await q(
+            'select enabled from shop_qa_private.profiles where account_id=$1 and traveler_id=$2',
+            [owner, actor],
+          )
+        ).rows[0].enabled,
+        false,
+      );
+
+      const replay = await player(
+        'select public.sell_repeated_item($1,$2,$3,$4) x',
+        [actor, 'equipment-leather-helmet', operation, 2],
+      );
+      assert.equal(replay.receiptId, sold.receiptId);
+      assert.equal(replay.replayed, true);
+      await denied(
+        () =>
+          player('select public.sell_repeated_item($1,$2,$3,$4) x', [
+            actor,
+            'equipment-leather-helmet',
+            uid(44105),
+            1,
+          ]),
+        '42501',
+      );
+      assert.equal(await amounts(), walletBefore + 10);
+      await denied(
+        () =>
+          q('update public.chest_operations set rewards=rewards where id=$1', [
+            sold.receiptId,
+          ]),
+        '42501',
+      );
+      await q('ROLLBACK');
     },
   );
 }

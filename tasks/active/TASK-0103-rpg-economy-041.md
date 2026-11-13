@@ -4,7 +4,7 @@ ID: TASK-0103
 TITLE: RPG-ECONOMY-041 — baús, duplicatas e recompensas de progressão
 OBJECTIVE: Integrar cinco baús compráveis, sorteios server-side de cartas/equipamentos, revenda opcional de cópias excedentes e recompensas de missões/História, reutilizando autoridades/ledgers existentes e preservando dados e fontes históricas.
 PRIORITY: P1 High
-STATUS: ACTIVE — contratos aprovados expressamente no pedido anexado em 11/11/2026.
+STATUS: VALIDATING — causa da rejeição confirmada no trigger QA TEST. Exceção única e marcada preparada para a fixture aprovada; teste PostgreSQL isolado direcionado PASS (5 checks). Leitura TEST em 13/11 ainda mostra zero venda/recibo, saldo 1.875 e quantidade 2, apesar do relato do proprietário. Migration TEST, CI do novo SHA e smoke de venda com ledger ainda pendentes; nenhuma alteração PROD.
 SCOPE: branch `codex/rpg-economy-041`, base `3cfa561ab4cd76d86e89e9757d31ad3e11d504e1`; contratos propostos em `docs/architecture/RPG-ECONOMY-041-DECISIONS.md`.
 OUT_OF_SCOPE: conceder recursos retroativos; alterar resultados/recibos antigos; compras artificiais em PROD; transferir saldo; habilitar tabela de protótipo por inferência; alterar Auth/RLS além da extensão estritamente necessária e revisada.
 DEPENDENCIES: decisão do proprietário para probabilidades/payouts dos cinco baús, revenda por raridade, recompensas de missão/História, limites e comportamento sem pool; gates RELEASE_POLICY.md.

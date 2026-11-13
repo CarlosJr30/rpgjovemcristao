@@ -771,6 +771,10 @@ try {
   execFileSync(
     path.join(bin, 'pg_ctl.exe'),
     ['-D', cluster, '-m', 'fast', '-w', 'stop'],
-    { windowsHide: true, stdio: 'ignore', timeout: 10000 },
+    {
+      windowsHide: true,
+      stdio: 'ignore',
+      timeout: process.env.RPG_ECONOMY_041_CASES === '1' ? 30000 : 10000,
+    },
   );
 }

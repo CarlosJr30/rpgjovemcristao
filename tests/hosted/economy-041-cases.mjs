@@ -69,12 +69,27 @@ export async function run({
       'CREATE FUNCTION shop_qa_private.grant_budget(',
     );
     const grantStop = qa.indexOf('END $$;', grantStart) + 'END $$;'.length;
-    if (start < 0 || stop < start || grantStart < 0 || grantStop < grantStart)
+    const isolationStart = qa.indexOf(
+      'CREATE FUNCTION shop_qa_private.isolate_credit()',
+    );
+    const isolationStop = qa.indexOf(
+      'CREATE FUNCTION public.get_qa_shop',
+      isolationStart,
+    );
+    if (
+      start < 0 ||
+      stop < start ||
+      grantStart < 0 ||
+      grantStop < grantStart ||
+      isolationStart < 0 ||
+      isolationStop < isolationStart
+    )
       throw Error('Approved QA fixture boundaries missing');
     await q(
       qa.slice(start, stop) +
         qa.slice(grantStart, grantStop) +
-        'REVOKE ALL ON FUNCTION shop_qa_private.grant_budget(uuid,uuid,text,uuid) FROM PUBLIC,anon,authenticated,service_role;',
+        qa.slice(isolationStart, isolationStop) +
+        'REVOKE ALL ON FUNCTION shop_qa_private.grant_budget(uuid,uuid,text,uuid),shop_qa_private.isolate_credit() FROM PUBLIC,anon,authenticated,service_role;',
     );
     const balance = (
       await q(
