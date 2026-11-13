@@ -1,4 +1,5 @@
 'use client';
+import { communityCreationTestUI } from '../../lib/guild-governance/community-creation';
 import Link from 'next/link';
 import { useEffect, useRef, useState, type FormEvent } from 'react';
 import { guildRepository } from '../../lib/supabase/repositories/guild-repository';
@@ -277,7 +278,7 @@ function GuildCommunity({
           <p>Já enviou um pedido? Atualize para conferir a aprovação.</p>
         </section>
       )}
-      {canCreate && writesEnabled ? (
+      {(canCreate || communityCreationTestUI()) && writesEnabled ? (
         <CreateGuild actor={id} scope={scope} />
       ) : (
         <section className={css.card}>
@@ -342,13 +343,19 @@ function CreateGuild({
         description = String(values.get('description') ?? '').trim();
       const request = beginGuildCreation(actor, name, description);
       setIntent(request);
-      const id = await guildRepository.createScoped(
-        actor,
-        request.id,
-        request.name,
-        request.description,
-        request.request,
-      );
+      const id = communityCreationTestUI()
+        ? await guildRepository.createOwn(
+            actor,
+            request.name,
+            request.description,
+          )
+        : await guildRepository.createScoped(
+            actor,
+            request.id,
+            request.name,
+            request.description,
+            request.request,
+          );
       confirmGuildCreation(actor, id);
       selectGuild(actor, id);
       scope.refresh();

@@ -1,6 +1,6 @@
 # 13/11/2026 ? COMMUNITY-043B-IMPL-1 VALIDATING local
 
-Branch codex/rpg-community-043b-impl-1/base724f0e7. Autoridade de cria??o pr?pria aditiva/TEST/default fechado, ledger e trava existentes; 21PG locais e11unit direcionados PASS, lint/tipos/build PASS. Quotas extras/recupera??o/migration versionada ainda pendentes. PR Draft/CI em prepara??o; nenhum merge, migration remota, Preview ou PROD. Relat?rio RPG-COMMUNITY-043B-IMPL-1-REPORT.md.
+Branch codex/rpg-community-043b-impl-1/base724f0e7. Autoridade de cria??o pr?pria aditiva/TEST/default fechado, ledger e trava existentes; 25PG locais e14unit direcionados PASS, lint/tipos/build PASS. Recupera??o local ensaiada/migrationTEST20261113215415 preparada; quotas extras e revis?o final pendentes. PR55 Draft/CI em prepara??o; nenhum merge, migration remota, Preview ou PROD. Relat?rio RPG-COMMUNITY-043B-IMPL-1-REPORT.md.
 
 # 10/11/2026 — RPG-ECONOMY-FIX-012A
 

@@ -238,10 +238,74 @@ try {
     'alter table auth.users add column deleted_at timestamptz,add column banned_until timestamptz;create table auth.sessions(id uuid primary key,user_id uuid,not_after timestamptz)',
   );
   const legacyDefinitions = await definitions();
+  await check(
+    'installation without explicit target fails before DDL',
+    async () => {
+      await rejects(
+        () =>
+          q(
+            'BEGIN;' +
+              sql(
+                'supabase/migrations/20261113215415_community_043b_controlled_creation_test.sql',
+              ) +
+              'COMMIT;',
+          ),
+        'P0001',
+      );
+      await q('ROLLBACK');
+      assert.equal(
+        (
+          await q(
+            "select count(*)::int n from information_schema.columns where table_schema='guild_admin_private' and table_name='multiguild_control' and column_name like 'community_%'",
+          )
+        ).rows[0].n,
+        0,
+      );
+    },
+  );
   await q(
     'BEGIN;' +
-      sql('packages/database/proposals/community-043b-creation.sql.in') +
+      ("SET LOCAL rpg.community043b.install='local-test';" +
+        sql(
+          'supabase/migrations/20261113215415_community_043b_controlled_creation_test.sql',
+        )) +
       'COMMIT;',
+  );
+  await check(
+    'empty recovery restores additive schema and can reinstall',
+    async () => {
+      await q(
+        'BEGIN;' +
+          sql(
+            'packages/database/proposals/community-043b-recovery-empty.sql.in',
+          ) +
+          'COMMIT;',
+      );
+      assert.equal(
+        (
+          await q(
+            "select to_regprocedure('public.community_create_own_guild(uuid,uuid,text,text)') x",
+          )
+        ).rows[0].x,
+        null,
+      );
+      assert.equal(
+        (
+          await q(
+            "select count(*)::int n from information_schema.columns where table_schema='guild_admin_private' and table_name='multiguild_control' and column_name like 'community_%'",
+          )
+        ).rows[0].n,
+        0,
+      );
+      await q(
+        'BEGIN;' +
+          ("SET LOCAL rpg.community043b.install='local-test';" +
+            sql(
+              'supabase/migrations/20261113215415_community_043b_controlled_creation_test.sql',
+            )) +
+          'COMMIT;',
+      );
+    },
   );
   await q('insert into auth.sessions(id,user_id) select id,id from auth.users');
   const call = async (
@@ -475,6 +539,42 @@ try {
   await check('PROD scope denied even if TEST switches enabled', async () =>
     rejects(() => call(2), '55000'),
   );
+  await check('nonempty recovery refuses to remove live feature', async () => {
+    await rejects(
+      () =>
+        q(
+          'BEGIN;' +
+            sql(
+              'packages/database/proposals/community-043b-recovery-empty.sql.in',
+            ) +
+            'COMMIT;',
+        ),
+      'P0001',
+    );
+    await q('ROLLBACK');
+    assert.notEqual(
+      (
+        await q(
+          "select to_regprocedure('public.community_create_own_guild(uuid,uuid,text,text)') x",
+        )
+      ).rows[0].x,
+      null,
+    );
+  });
+  const auditBefore = (
+    await q('select count(*)::int n from guild_admin_private.audit')
+  ).rows[0].n;
+  await q(
+    "create or replace function public.release_scope() returns text language sql immutable as $$select 'hero-equipment-006'::text$$;update guild_admin_private.multiguild_control set community_creation_enabled=false",
+  );
+  await check('containment denies replay and preserves audit', async () => {
+    await rejects(() => call(2, key), '55000');
+    assert.equal(
+      (await q('select count(*)::int n from guild_admin_private.audit')).rows[0]
+        .n,
+      auditBefore,
+    );
+  });
   console.log(JSON.stringify({ pass: true, checks, hostedProof: false }));
 } finally {
   for (const c of connections) await c.end().catch(() => {});

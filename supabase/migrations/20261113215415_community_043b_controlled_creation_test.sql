@@ -1,3 +1,9 @@
+-- TEST ONLY. PR53 dependency unresolved: remote application is not authorized.
+DO $$ BEGIN
+ IF current_setting('rpg.community043b.install',true) IS DISTINCT FROM 'local-test'
+ OR public.release_scope() IS DISTINCT FROM 'hero-equipment-006'
+ THEN RAISE EXCEPTION 'Explicit local/TEST installation required'; END IF;
+END $$;
 -- LOCAL/TEST candidate. Not approved for remote application.
 -- Existing governance functions, invitations and rows remain intact.
 ALTER TABLE guild_admin_private.multiguild_control
