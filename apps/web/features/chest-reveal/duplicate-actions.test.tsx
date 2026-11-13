@@ -45,8 +45,10 @@ test('guardar never sells; confirmed sale preserves one copy and retains keyboar
     2,
   );
   expect(screen.queryByRole('button', { name: /Vender repetido/ })).toBeNull();
-  expect(document.activeElement).toHaveAttribute(
-    'aria-label',
-    'Cópia excedente',
+  await waitFor(() =>
+    expect(document.activeElement).toHaveAttribute(
+      'aria-label',
+      'Cópia excedente',
+    ),
   );
 });
