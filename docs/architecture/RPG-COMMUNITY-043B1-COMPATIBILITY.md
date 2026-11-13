@@ -1,5 +1,7 @@
 # RPG-COMMUNITY-043B.1 — compatibilidade e recuperação futura
 
+Sequência de implementação e decisões de abertura pública: [COMMUNITY-043B.2 Final Decisions](RPG-COMMUNITY-043B2-FINAL-DECISIONS.md).
+
 **Contrato documental somente; sem migration, backfill ou mudança remota.** A referência observada é código/migrations versionados e snapshot PROD somente leitura de 13/11/2026. Revalidar contra o schema real no começo da implementação.
 
 | Dado/fluxo atual | Compatibilidade obrigatória | Estratégia futura recomendada | Risco e verificação |

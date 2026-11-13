@@ -1,5 +1,7 @@
 # RPG-COMMUNITY-043B.1 — contrato futuro de criação pública
 
+Divisão entre criação controlada e descoberta pública, requisitos de lançamento e decisões pendentes: [COMMUNITY-043B.2 Final Decisions](RPG-COMMUNITY-043B2-FINAL-DECISIONS.md).
+
 **Planejamento; sem alteração de comportamento.** O fluxo abaixo concretiza as regras já aprovadas em 043B. Identificadores de função são contratos conceituais, não nomes de RPC já implantados.
 
 ## Pré-condições e entrada
@@ -42,6 +44,16 @@ O sistema existente tem `public.create_guild` e `guild_admin_private.guild_comma
 | Guilda criada mas resposta perdida | Registro de criação persistente impede recreação; recuperação não apaga nem clona Guilda. |
 | Falha da auditoria ou de membro líder | Reverter a transação toda; não publicar Guilda órfã. |
 | Nome/descrição recusados | Erro curto e seguro; não revela regra interna ou conteúdo de outro usuário. |
+
+## Elegibilidade e escopo de lançamento
+
+- Conta suspensa, sessão revogada, conta anônima/não confirmada ou escrita globalmente suspensa: negar sem reservar quota. Os critérios exatos de confirmação/banimento devem corresponder às autoridades Auth atuais; não inventar requisito de nível ou idade.
+- Avatar removido/inativo antes do commit: negar e não criar Guilda. Se removido após criação, manter Guilda, ownership e auditoria; transferência/recuperação segue fluxo separado, nunca reatribuição automática a outro avatar.
+- Criação comum deriva a liderança local e não consulta nem altera `leader_authorizations` para conferir Admin global. Esse mecanismo administrativo existente permanece disponível somente aos seus comandos próprios.
+- **IMPL-1 (controlado):** desenvolver/testar autoridade de criação em TEST com contas elegíveis autorizadas, diretório desligado e Guildas novas privadas/não listáveis por padrão. Qualquer allowlist temporária de homologação fica server-side, limitada a TEST e removível, sem criar papel de jogo permanente. A disponibilidade de criação em PROD exige decisão de rollout separada.
+- **IMPL-2 (descoberta pública):** ativar campos/visibilidade pública, diretório e pedidos somente depois de requisitos jurídicos, responsáveis e capacidade operacional de moderação, denúncia/bloqueio e proteção de menores aprovados e comprovados. Não habilitar chat global nem mensagens privadas irrestritas.
+
+Essa divisão permite validar a transação de criação sem expor Guildas publicamente nem afirmar que diretrizes de menores já foram homologadas.
 
 ## Condições prévias ao runtime
 

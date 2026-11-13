@@ -1,5 +1,7 @@
 # RPG-COMMUNITY-043B — critérios futuros de aceite
 
+Para a divisão entre criação controlada e descoberta pública e os itens de aprovação, consultar [COMMUNITY-043B.2 — decisões técnicas consolidadas](RPG-COMMUNITY-043B2-FINAL-DECISIONS.md). Este arquivo continua plano futuro; não relata smoke executado.
+
 Este roteiro serve a uma implementação futura autorizada. **Nenhum teste funcional/CI foi executado para 043B:** esta entrega é documentação somente. Os casos não substituem fluxo autenticado obrigatório da [RELEASE_POLICY.md](../../.agent/RELEASE_POLICY.md).
 
 ## Casos focados

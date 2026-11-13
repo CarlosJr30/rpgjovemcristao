@@ -1,5 +1,7 @@
 # RPG-COMMUNITY-043B — decisões, limites e condições
 
+**Consolidação técnica B.2:** consultar [RPG-COMMUNITY-043B2-FINAL-DECISIONS.md](RPG-COMMUNITY-043B2-FINAL-DECISIONS.md). Os valores de quota permanecem aprovados; semânticas técnicas estão propostas; os itens de produto, privacidade e operação continuam pendentes antes da implementação/abertura pública.
+
 **Planejamento somente.** As diretrizes e valores de quotas das seções 1–3 foram aprovados pelo proprietário, mas ainda não foram implementados ou publicados. A proposta técnica por operação, criação, semântica de quotas, compatibilidade e testes está consolidada em [COMMUNITY-043B.1](RPG-COMMUNITY-043B1-PERMISSION-MATRIX.md). Os detalhes técnicos ainda requerem confirmação no contrato de runtime; prazos de resposta continuam metas condicionadas à capacidade operacional, e revisão jurídica/operacional permanece pendente.
 
 ## 1. Limites e fluxos aprovados

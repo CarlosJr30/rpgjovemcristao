@@ -56,3 +56,10 @@
 ## Critério de corte
 
 Se não houver conta TEST naturalmente elegível para um fluxo, não criar avatar, membership, convite ou conteúdo que represente usuário real para fabricar prova. Registrar exatamente o ramo não exercitável e bloquear a etapa que depende dele. Testes sintéticos podem cobrir invariantes de banco, mas não substituem autenticação real/Preview prevista pela política.
+
+## Separação por incremento
+
+- **043B-IMPL-1:** validar criação em TEST, identidade, quota por conta/avatar, atomicidade, idempotência, convites existentes e isolamento. Diretório e ingresso público permanecem desligados; o teste não deve criar Guilda pública listável.
+- **043B-IMPL-2:** repetir somente novos casos de projeção allowlisted, pedido/aprovação, moderação/denúncia/bloqueio, privacidade e lançamento operacional. Não repetir cobertura IMPL-1 sem alteração relevante.
+
+O [documento consolidado B.2](RPG-COMMUNITY-043B2-FINAL-DECISIONS.md) discrimina semânticas sugeridas, aprovações pendentes e gates de cada incremento.
