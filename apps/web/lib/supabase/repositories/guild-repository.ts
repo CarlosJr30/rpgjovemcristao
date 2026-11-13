@@ -1,5 +1,9 @@
 import { getSupabaseBrowserClient } from '../client';
 import {
+  beginGuildCreation,
+  confirmGuildCreation,
+} from '../../guild-governance/creation-intent';
+import {
   getGuildSelection,
   beginGuildWork,
 } from '../../guild-governance/selection';
@@ -172,6 +176,46 @@ export const guildRepository = {
         'Selecione o pedido da Guilda desejada.',
       );
     return result.data?.[0] ?? null;
+  },
+
+  async createOwn(traveler: string, name: string, description: string) {
+    const verify = guardGuildContext(traveler);
+    const intent = beginGuildCreation(traveler, name, description);
+    const result = await getSupabaseBrowserClient().rpc(
+      'community_create_own_guild',
+      {
+        p_actor: traveler,
+        p_request: intent.request,
+        p_name: intent.name,
+        p_description: intent.description,
+      },
+    );
+    verify();
+    if (result.error) {
+      const messages: Record<string, string> = {
+        '23505': 'Esta conta já criou uma Guilda.',
+        '42501': 'Confirme sua sessão e o avatar ativo elegível.',
+        '54000': 'Este avatar já participa de cinco Guildas.',
+        '55000': 'A criação controlada ainda não está disponível.',
+      };
+      throw Error(
+        messages[result.error.code] ??
+          'Não foi possível confirmar a criação. Tente novamente com os mesmos dados.',
+      );
+    }
+    const value = result.data;
+    if (
+      !value ||
+      typeof value !== 'object' ||
+      Array.isArray(value) ||
+      value.version !== 1 ||
+      value.status !== 'created' ||
+      typeof value.id !== 'string' ||
+      !/^[a-f0-9]{8}(-[a-f0-9]{4}){3}-[a-f0-9]{12}$/i.test(value.id)
+    )
+      throw Error('A criação ainda precisa ser confirmada pelo servidor.');
+    confirmGuildCreation(traveler, intent.id);
+    return value.id;
   },
 
   async createScoped(

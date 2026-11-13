@@ -1,4 +1,5 @@
 'use client';
+import { communityCreationTestUI } from '../../../lib/guild-governance/community-creation';
 import { GuildInvitePanel } from '../../guild-invites/invite-panel';
 import { GuildLeaderPanel } from '../../guild-missions/leader-panel';
 import { MemberMission } from '../../guild-missions/member-mission';
@@ -453,7 +454,9 @@ function OnlineGuildLegacyHub({
                 event.preventDefault();
                 void act(
                   () =>
-                    guildRepository.create(
+                    (communityCreationTestUI()
+                      ? guildRepository.createOwn
+                      : guildRepository.create)(
                       traveler.id,
                       guildName.trim(),
                       guildDescription.trim(),
@@ -2048,7 +2051,9 @@ function OnlineGuildLegacyHub({
         <small>
           ID para pedidos de entrada: <code>{context.guild.id}</code>
         </small>
-        <Link className={styles.primaryLink} href="/journey/guild/ebd">Escola Bíblica</Link>
+        <Link className={styles.primaryLink} href="/journey/guild/ebd">
+          Escola Bíblica
+        </Link>
         {isLeader && (
           <Link className={styles.primaryLink} href="/journey/guild/manage">
             Gerenciar Guilda

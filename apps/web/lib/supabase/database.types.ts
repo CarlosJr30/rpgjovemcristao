@@ -413,6 +413,7 @@ export type Database = {
         Args: { p_traveler_id: string; p_amount: number };
         Returns: number;
       };
+      community_create_own_guild: { Args: { p_actor: string; p_request: string; p_name: string; p_description: string }; Returns: Json };
       create_guild: { Args: { p_leader_traveler_id: string; p_name: string; p_description?: string | null }; Returns: string };
       request_join_guild: { Args: { p_guild_id: string; p_traveler_id: string }; Returns: string };
       create_guild_link_invite: { Args: { p_leader_traveler_id: string }; Returns: Json };
