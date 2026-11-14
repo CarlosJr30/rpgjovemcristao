@@ -27,3 +27,5 @@ Quota audit and CI checkpoint are recorded in the report. Do not mark IMPLEMENTE
 ## 14/11/2026 — CI fixture correction
 
 Runs `43549606124`, `43550327860`, `43550697653`, and `43551086971` failed and remain recorded as failures. They exposed duplicate-active-avatar setup/restore order, a missing `FROM pg_proc`, an inactive target in revoked-link testing, then duplicate historical-use fixture rows for avatars with multiple memberships. The corresponding harness setup/assertions have been corrected without changing runtime migration. These remain failed attempts, not PASS. Syntax, formatter, and diff checks pass. New-SHA CI pending. No remote database or player data changed.
+
+The 50-member approval regression initially reused account/avatar 152 after the new quota tests had correctly exhausted its five-request allowance. It now uses fresh synthetic account/avatar 154. CI `43551490880` remains failed; new-SHA CI pending.

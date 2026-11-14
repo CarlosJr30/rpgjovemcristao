@@ -926,9 +926,9 @@ try {
     'join-request approval at capacity rolls back and preserves pending request',
     async () => {
       const request = (
-        await as(152, 'select public.request_join_guild($1,$2) id', [
+        await as(154, 'select public.request_join_guild($1,$2) id', [
           uid(4000),
-          tid(152),
+          tid(154),
         ])
       ).rows[0].id;
       await rejects(

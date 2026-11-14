@@ -86,3 +86,7 @@ O job de qualidade do CI `43515401651` no candidato `d98fea4` falhou em um teste
 ## CI fixture correction — 14/11/2026
 
 Runs `43549606124`, `43550327860`, `43550697653`, and `43551086971` failed and remain recorded as failures. The first three exposed, in sequence, an invalid duplicate-active-avatar setup/restoration order, a missing `FROM pg_proc`, and an inactive target in the revoked-link test; the latter was changed to a separate active disposable avatar. The fourth passed the new quota tests but an older historical-use fixture selected multiple memberships for the same avatar, producing duplicate invitation/avatar rows. The setup query now chooses one existing membership per avatar with `DISTINCT ON`. These are harness/assertion issues, not application runtime failures or PASS results for the failed runs. Syntax, Prettier, and diff checks pass. New-SHA CI is pending; no remote database or player data changed.
+
+## Follow-up fixture interaction — 14/11/2026
+
+CI `43551490880` passed the new quota checks, then failed an existing 50-member approval regression because it reused synthetic account/avatar 152 after that account had consumed the new five-request quota. The capacity test now uses fresh synthetic account/avatar 154. This test-fixture separation does not change the runtime migration. New-SHA CI is pending; the failed run remains a failure, not PASS.
