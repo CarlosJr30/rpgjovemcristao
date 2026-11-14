@@ -631,9 +631,9 @@ try {
     ]);
     await assert.rejects(
       () =>
-        as(152, 'select public.ebd_member_invite_accept($1,$2,$3)', [
+        as(2, 'select public.ebd_member_invite_accept($1,$2,$3)', [
           invite.token,
-          tid(155),
+          tid(2),
           randomUUID(),
         ]),
       (e) => e.code === 'P0002',
