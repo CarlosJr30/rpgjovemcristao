@@ -31,3 +31,5 @@ Runs `43549606124`, `43550327860`, `43550697653`, and `43551086971` failed and r
 The 50-member approval regression initially reused account/avatar 152 after the new quota tests had correctly exhausted its five-request allowance. It now uses fresh synthetic account/avatar 154. CI `43551490880` remains failed; new-SHA CI pending.
 
 CI `43551889479` reached the final preservation assertion; active-avatar switching updated bookkeeping timestamps on the two synthetic avatars. The check now ignores only those expected `updated_at` changes and asserts active flags restored, while retaining all other traveler/game/economic comparisons. Failed run preserved; new-SHA CI pending.
+
+CI `43552307309` still failed the final full game-data snapshot after expected timestamps were normalized. The runner truncated the compared JSON, so the harness now reports compact changed table/avatar rows before failing. Diagnostic-only; invariant remains unchanged. New-SHA CI pending; prior run remains non-PASS.

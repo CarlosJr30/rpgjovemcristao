@@ -1100,9 +1100,43 @@ try {
   await check('historical creator limit', async () =>
     rejects(() => call(3), '23505'),
   );
-  await check('economic baseline unchanged', async () =>
-    assert.equal(await gameData(), beforeGame),
-  );
+  await check('economic baseline unchanged', async () => {
+    const after = await gameData();
+    if (after !== beforeGame) {
+      const beforeData = JSON.parse(beforeGame);
+      const afterData = JSON.parse(after);
+      const changes = Object.fromEntries(
+        Object.keys(beforeData)
+          .map((key) => {
+            if (
+              JSON.stringify(beforeData[key]) === JSON.stringify(afterData[key])
+            )
+              return null;
+            if (key === 'travelers') {
+              const beforeById = new Map(
+                beforeData.travelers.map((row) => [row.id, row]),
+              );
+              return [
+                key,
+                afterData.travelers
+                  .filter(
+                    (row) =>
+                      JSON.stringify(beforeById.get(row.id)) !==
+                      JSON.stringify(row),
+                  )
+                  .map((row) => ({
+                    before: beforeById.get(row.id),
+                    after: row,
+                  })),
+              ];
+            }
+            return [key, { before: beforeData[key], after: afterData[key] }];
+          })
+          .filter(Boolean),
+      );
+      throw new Error(`Unexpected game-data delta: ${JSON.stringify(changes)}`);
+    }
+  });
   await check('helper and anonymous ACL', async () => {
     for (const [role, fn] of [
       ['authenticated', 'guild_admin_private.community_actor(uuid)'],
