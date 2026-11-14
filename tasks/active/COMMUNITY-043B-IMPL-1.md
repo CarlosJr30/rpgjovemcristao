@@ -23,3 +23,7 @@ PR #55 remains Draft. CI success for push `43533144941` and PR `43533138363` on 
 Audit: current link invite RPC has the 10-active limit, seven-day new-link expiry and versioned 50-use successful-membership cap; historical links remain unchanged with legacy cap. Five active memberships/avatar and 50 active members/Guild are protected by the shared private trigger, including approval insert; one pending request/avatar/Guild already uses partial uniqueness. No recipient-specific Guild invite or Guild rename RPC exists. Five requests/account/day and 24-hour rejection cooldown remain proposals pending explicit semantics confirmation. Lifetime marker retention after Auth deletion/recovery remains a legal/policy blocker. PR53/54 still open; no remote DDL, Preview, merge, or deploy.
 
 Quota audit and CI checkpoint are recorded in the report. Do not mark IMPLEMENTED_LOCAL complete or proceed to TEST until the documented product/legal decisions are resolved.
+
+## 14/11/2026 — CI fixture correction
+
+CI `43549606124` failed in the disposable PostgreSQL harness because it created two active avatars for one Auth account, violating the existing unique-active-avatar index. The failure remains a failure and is not counted as PASS. Corrected only the fixture: the second avatar starts inactive; the test switches active avatars sequentially, checks the rolling account-wide quota, and restores original active flags and timestamps in `finally`. Syntax, formatter, and diff checks pass. Corrected-SHA CI pending. No runtime behavior, remote database, or player data changed.

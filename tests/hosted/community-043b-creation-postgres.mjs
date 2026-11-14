@@ -254,7 +254,7 @@ try {
     "insert into public.guild_members(guild_id,traveler_id,role,status) select ('00000000-0000-4000-8000-'||lpad((1100+n)::text,12,'0'))::uuid,('10000000-0000-4000-8000-'||lpad(n::text,12,'0'))::uuid,'leader','active' from generate_series(100,149) n",
   );
   await q(
-    "insert into public.travelers(id,user_id,name,body_type,skin_tone,hair_style,avatar_variant,is_active,level) values($1,$2,'Second quota avatar','male','medio','curto','musgo',true,1)",
+    "insert into public.travelers(id,user_id,name,body_type,skin_tone,hair_style,avatar_variant,is_active,level) values($1,$2,'Second quota avatar','male','medio','curto','musgo',false,1)",
     [tid(155), uid(152)],
   );
   const beforeGame = await gameData();
@@ -384,29 +384,47 @@ try {
   await check(
     'five rolling requests aggregate across avatars and replay is free',
     async () => {
+      const activeState = (
+        await q(
+          'select id,is_active,updated_at from public.travelers where id in ($1,$2) order by id',
+          [tid(152), tid(155)],
+        )
+      ).rows;
       const ids = [];
-      for (const [guild, avatar] of [
-        [6000, tid(152)],
-        [6001, tid(152)],
-        [6002, tid(152)],
-        [6003, tid(152)],
-        [6004, tid(155)],
-      ])
-        ids.push(await requestJoin(152, guild, avatar));
-      assert.equal(await requestJoin(152, 6000, tid(152)), ids[0]);
-      assert.equal(
-        (
+      try {
+        for (const guild of [6000, 6001, 6002, 6003])
+          ids.push(await requestJoin(152, guild, tid(152)));
+        assert.equal(await requestJoin(152, 6000, tid(152)), ids[0]);
+
+        // Each Auth account may have only one active avatar. Switch the
+        // fixture's active avatar to exercise the account-wide aggregate.
+        await q('update public.travelers set is_active=false where id=$1', [
+          tid(152),
+        ]);
+        await q('update public.travelers set is_active=true where id=$1', [
+          tid(155),
+        ]);
+        ids.push(await requestJoin(152, 6004, tid(155)));
+        assert.equal(
+          (
+            await q(
+              "select count(*)::int n from public.guild_join_requests r join public.travelers t on t.id=r.traveler_id where t.user_id=$1 and r.created_at>clock_timestamp()-interval '24 hours'",
+              [uid(152)],
+            )
+          ).rows[0].n,
+          5,
+        );
+        await assert.rejects(
+          () => requestJoin(152, 6005, tid(155)),
+          (e) => e.code === '54000',
+        );
+      } finally {
+        for (const state of activeState)
           await q(
-            "select count(*)::int n from public.guild_join_requests r join public.travelers t on t.id=r.traveler_id where t.user_id=$1 and r.created_at>clock_timestamp()-interval '24 hours'",
-            [uid(152)],
-          )
-        ).rows[0].n,
-        5,
-      );
-      await assert.rejects(
-        () => requestJoin(152, 6005, tid(155)),
-        (e) => e.code === '54000',
-      );
+            'update public.travelers set is_active=$2,updated_at=$3 where id=$1',
+            [state.id, state.is_active, state.updated_at],
+          );
+      }
       assert.ok(await requestJoin(153, 6005));
     },
   );
