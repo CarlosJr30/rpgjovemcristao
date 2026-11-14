@@ -1,0 +1,61 @@
+{
+  "package": "community-043b-production",
+  "status": "blocked",
+  "environment": "production",
+  "targetProject": "wspafhlbtlpabypzymjo",
+  "sourceBranchSha": "e894b226f9b5669885f0e7bba72de8f856262f8a",
+  "observedProductionBaseline": {
+    "project": "wspafhlbtlpabypzymjo",
+    "postgresMajor": 17,
+    "releaseScope": "guild-ebd-001",
+    "communityMigrationsApplied": false,
+    "communityCreationColumnsPresent": false,
+    "inspection": "read-only Supabase MCP, 2026-11-14"
+  },
+  "requires": [
+    "verified-production-backup-and-isolated-restore",
+    "approved-creation-marker-retention-policy",
+    "reviewed-production-sql-tested-on-disposable-postgresql"
+  ],
+  "migrations": [],
+  "testSources": [
+    {
+      "path": "supabase/migrations/20261113215415_community_043b_controlled_creation_test.sql",
+      "gitBlob": "a562923cbf42a1b96f90494ecdee6e84a5fd1e67"
+    },
+    {
+      "path": "supabase/migrations/20261113232954_community_043b_membership_link_quotas.sql",
+      "gitBlob": "692a15aececb86eb0f2bff61a90ae59746ac864e"
+    },
+    {
+      "path": "supabase/migrations/20261114110000_community_043b_join_request_quotas_test.sql",
+      "gitBlob": "99188b48126fb12fd608de92fa5682eb03d4814a"
+    }
+  ],
+  "candidateMigrations": [
+    {
+      "order": 1,
+      "file": "20261113215415_community_043b_controlled_creation_production.sql",
+      "sha256": "47be11a66a089bd6eda0e224ab1cc2619a718c0bc01c1e5e47f8ce085bffa62f",
+      "validation": "postgresql17-isolated-pass"
+    },
+    {
+      "order": 2,
+      "file": "20261113232954_community_043b_membership_link_quotas_production.sql",
+      "sha256": "3c3141ce281fce3a20584130ea25762601a8409eb3b54fc36cf47eeae6260a93",
+      "validation": "postgresql17-isolated-pass"
+    },
+    {
+      "order": 3,
+      "file": "20261114110000_community_043b_join_request_quotas_production.sql",
+      "sha256": "4553e9e02992d2faa564d0303f44ea694c005ac79fe3696e9702c3494f04a70e",
+      "validation": "postgresql17-isolated-pass"
+    }
+  ],
+  "validation": {
+    "status": "postgresql17-isolated-pass",
+    "checks": 49,
+    "postgresVersion": "postgres (PostgreSQL) 17.10",
+    "evidence": "validation-summary.json"
+  }
+}

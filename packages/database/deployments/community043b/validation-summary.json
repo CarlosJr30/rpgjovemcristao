@@ -1,0 +1,229 @@
+{
+  "task": "GUILD-028C",
+  "postgresVersion": "postgres (PostgreSQL) 17.10",
+  "checks": [
+    {
+      "name": "PROD foundation rejects wrong project and leaves no columns",
+      "pass": true
+    },
+    {
+      "name": "PROD rejects request migration before foundation",
+      "pass": true
+    },
+    {
+      "name": "PROD installs all three migrations in order with defaults closed",
+      "pass": true
+    },
+    {
+      "name": "PROD repeated installation fails without partial changes",
+      "pass": true
+    },
+    {
+      "name": "RLS policies and global role privileges remain identical",
+      "pass": true
+    },
+    {
+      "name": "disabled controls preserve legacy membership and request behavior",
+      "pass": true
+    },
+    {
+      "name": "disabled controls issue unversioned legacy links",
+      "pass": true
+    },
+    {
+      "name": "five rolling requests aggregate across avatars and replay is free",
+      "pass": true
+    },
+    {
+      "name": "rejection consumes quota and enforces per-avatar Guild cooldown",
+      "pass": true
+    },
+    {
+      "name": "cancelled persisted requests do not refund account quota",
+      "pass": true
+    },
+    {
+      "name": "concurrent request attempts cannot exceed five per account",
+      "pass": true
+    },
+    {
+      "name": "approval revalidates active target and preserves pending request on denial",
+      "pass": true
+    },
+    {
+      "name": "co-leader without operation-specific delegation cannot review requests",
+      "pass": true
+    },
+    {
+      "name": "request quota trigger remains private with a fixed search path",
+      "pass": true
+    },
+    {
+      "name": "revoked link denies new acceptance",
+      "pass": true
+    },
+    {
+      "name": "historical link provenance and usage preserved",
+      "pass": true
+    },
+    {
+      "name": "empty recovery restores additive schema and can reinstall",
+      "pass": true
+    },
+    {
+      "name": "new link carries the approved 50-use quota",
+      "pass": true
+    },
+    {
+      "name": "full new link replays prior use but rejects a new member",
+      "pass": true
+    },
+    {
+      "name": "historical link retains its legacy 100-use behavior",
+      "pass": true
+    },
+    {
+      "name": "concurrent membership inserts enforce five per avatar",
+      "pass": true
+    },
+    {
+      "name": "leaving a Guild releases one membership slot",
+      "pass": true
+    },
+    {
+      "name": "51st active Guild member is denied",
+      "pass": true
+    },
+    {
+      "name": "join-request approval at capacity rolls back and preserves pending request",
+      "pass": true
+    },
+    {
+      "name": "concurrent membership inserts enforce 50 per Guild",
+      "pass": true
+    },
+    {
+      "name": "quota helpers retain private execution and fixed search path",
+      "pass": true
+    },
+    {
+      "name": "disabled PROD creation denies even valid session",
+      "pass": true
+    },
+    {
+      "name": "foreign avatar",
+      "pass": true
+    },
+    {
+      "name": "anonymous account",
+      "pass": true
+    },
+    {
+      "name": "suspended account",
+      "pass": true
+    },
+    {
+      "name": "unconfirmed account",
+      "pass": true
+    },
+    {
+      "name": "revoked session",
+      "pass": true
+    },
+    {
+      "name": "common creation and local leadership without global grants",
+      "pass": true
+    },
+    {
+      "name": "idempotent replay",
+      "pass": true
+    },
+    {
+      "name": "conflicting replay",
+      "pass": true
+    },
+    {
+      "name": "account lifetime limit",
+      "pass": true
+    },
+    {
+      "name": "historical creator limit",
+      "pass": true
+    },
+    {
+      "name": "economic baseline unchanged",
+      "pass": true
+    },
+    {
+      "name": "helper and anonymous ACL",
+      "pass": true
+    },
+    {
+      "name": "existing functions and ACL preserved",
+      "pass": true
+    },
+    {
+      "name": "revocation during lock wait",
+      "pass": true
+    },
+    {
+      "name": "concurrent account creation has one winner",
+      "pass": true
+    },
+    {
+      "name": "audit failure rolls back Guild and membership",
+      "pass": true
+    },
+    {
+      "name": "sixth membership through creation denied",
+      "pass": true
+    },
+    {
+      "name": "released fifth slot permits creation",
+      "pass": true
+    },
+    {
+      "name": "another active avatar cannot bypass account creation limit",
+      "pass": true
+    },
+    {
+      "name": "TEST scope denied even if PROD switches enabled",
+      "pass": true
+    },
+    {
+      "name": "nonempty recovery refuses to remove live feature",
+      "pass": true
+    },
+    {
+      "name": "containment denies replay and preserves audit",
+      "pass": true
+    }
+  ],
+  "hostedProof": false,
+  "migrations": [
+    {
+      "order": 1,
+      "file": "20261113215415_community_043b_controlled_creation_production.sql",
+      "sha256": "47be11a66a089bd6eda0e224ab1cc2619a718c0bc01c1e5e47f8ce085bffa62f",
+      "validation": "postgresql17-isolated-pass"
+    },
+    {
+      "order": 2,
+      "file": "20261113232954_community_043b_membership_link_quotas_production.sql",
+      "sha256": "3c3141ce281fce3a20584130ea25762601a8409eb3b54fc36cf47eeae6260a93",
+      "validation": "postgresql17-isolated-pass"
+    },
+    {
+      "order": 3,
+      "file": "20261114110000_community_043b_join_request_quotas_production.sql",
+      "sha256": "4553e9e02992d2faa564d0303f44ea694c005ac79fe3696e9702c3494f04a70e",
+      "validation": "postgresql17-isolated-pass"
+    }
+  ],
+  "limitations": [
+    "Synthetic Auth/JWT/session fixtures; not hosted Auth validation",
+    "Versioned governance baseline, not a PROD clone",
+    "ECONOMY-041 full activation package not installed; economic tables and unrelated functions compared",
+    "Empty recovery covers creation foundation; not a verified PROD backup/restore"
+  ]
+}
