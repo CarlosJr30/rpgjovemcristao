@@ -733,7 +733,7 @@ try {
     firstUseRequest,
   ]);
   await q(
-    "insert into ebd_class_private.legacy_uses(invite_id,traveler_id,user_id,membership_id,request_id) select $1,('10000000-0000-4000-8000-'||lpad(n::text,12,'0'))::uuid,('00000000-0000-4000-8000-'||lpad(n::text,12,'0'))::uuid,m.id,gen_random_uuid() from generate_series(100,148) n join public.guild_members m on m.traveler_id=('10000000-0000-4000-8000-'||lpad(n::text,12,'0'))::uuid",
+    "insert into ebd_class_private.legacy_uses(invite_id,traveler_id,user_id,membership_id,request_id) select distinct on (m.traveler_id) $1,m.traveler_id,t.user_id,m.id,gen_random_uuid() from generate_series(100,148) n join public.travelers t on t.id=('10000000-0000-4000-8000-'||lpad(n::text,12,'0'))::uuid join public.guild_members m on m.traveler_id=t.id order by m.traveler_id,m.id",
     [newCommunityInvite.id],
   );
   await check('new link carries the approved 50-use quota', async () => {
