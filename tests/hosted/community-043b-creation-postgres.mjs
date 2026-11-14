@@ -607,7 +607,7 @@ try {
     async () => {
       const fn = (
         await q(
-          "select prosecdef,proconfig,has_function_privilege('authenticated','guild_admin_private.enforce_join_request_quotas()','EXECUTE') auth_exec,has_function_privilege('anon','guild_admin_private.enforce_join_request_quotas()','EXECUTE') anon_exec",
+          "select p.prosecdef,p.proconfig,has_function_privilege('authenticated','guild_admin_private.enforce_join_request_quotas()','EXECUTE') auth_exec,has_function_privilege('anon','guild_admin_private.enforce_join_request_quotas()','EXECUTE') anon_exec from pg_proc p where p.oid='guild_admin_private.enforce_join_request_quotas()'::regprocedure",
         )
       ).rows[0];
       assert.equal(fn.prosecdef, true);
