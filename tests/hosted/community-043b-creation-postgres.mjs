@@ -159,7 +159,7 @@ async function gameData() {
   return JSON.stringify(
     (
       await q(
-        "select jsonb_build_object('travelers',(select jsonb_agg(case when id in ('10000000-0000-4000-8000-000000000009','10000000-0000-4000-8000-000000000010') then to_jsonb(x)-'updated_at' else to_jsonb(x) end order by id) from public.travelers x),'wallets',(select jsonb_agg(to_jsonb(x) order by traveler_id) from public.wallets x),'stats',(select jsonb_agg(to_jsonb(x) order by traveler_id) from public.traveler_stats x),'inventory',(select jsonb_agg(to_jsonb(x) order by id) from public.inventory x),'chests',(select jsonb_agg(to_jsonb(x) order by to_jsonb(x)::text) from public.traveler_chests x)) result",
+        "select jsonb_build_object('travelers',(select jsonb_agg(case when id in ('10000000-0000-4000-8000-000000000009','10000000-0000-4000-8000-000000000010','10000000-0000-4000-8000-000000000152','10000000-0000-4000-8000-000000000155') then to_jsonb(x)-'updated_at' else to_jsonb(x) end order by id) from public.travelers x),'wallets',(select jsonb_agg(to_jsonb(x) order by traveler_id) from public.wallets x),'stats',(select jsonb_agg(to_jsonb(x) order by traveler_id) from public.traveler_stats x),'inventory',(select jsonb_agg(to_jsonb(x) order by id) from public.inventory x),'chests',(select jsonb_agg(to_jsonb(x) order by to_jsonb(x)::text) from public.traveler_chests x)) result",
       )
     ).rows[0].result,
   );
@@ -429,6 +429,15 @@ try {
             [state.id, state.is_active, state.updated_at],
           );
       }
+      assert.deepEqual(
+        (
+          await q(
+            'select id,is_active from public.travelers where id in ($1,$2) order by id',
+            [tid(152), tid(155)],
+          )
+        ).rows,
+        activeState.map(({ id, is_active }) => ({ id, is_active })),
+      );
       assert.ok(await requestJoin(153, 6005));
     },
   );

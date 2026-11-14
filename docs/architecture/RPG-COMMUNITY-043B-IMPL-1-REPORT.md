@@ -90,3 +90,5 @@ Runs `43549606124`, `43550327860`, `43550697653`, and `43551086971` failed and r
 ## Follow-up fixture interaction — 14/11/2026
 
 CI `43551490880` passed the new quota checks, then failed an existing 50-member approval regression because it reused synthetic account/avatar 152 after that account had consumed the new five-request quota. The capacity test now uses fresh synthetic account/avatar 154. This test-fixture separation does not change the runtime migration. New-SHA CI is pending; the failed run remains a failure, not PASS.
+
+CI `43551889479` passed the quota checks and fresh-avatar capacity test but failed the final data snapshot because switching `is_active` updates `updated_at` through the existing timestamp trigger. The fixture now compares all traveler/game/economic fields while excluding only the expected bookkeeping timestamp on the two synthetic avatars switched during the test, and asserts their original active flags were restored. The failed run is preserved as failure; new-SHA CI pending.
