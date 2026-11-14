@@ -1,0 +1,53 @@
+name: COMMUNITY TEST Preview preflight
+
+on:
+  workflow_dispatch:
+    inputs:
+      candidate_sha:
+        description: Exact current PR #55 commit SHA
+        required: true
+        type: string
+      quality_run_id:
+        description: Successful first-attempt quality workflow run for that SHA
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: community-043b-test-preview-verification
+  cancel-in-progress: false
+
+jobs:
+  verify-existing-preview:
+    if: >-
+      github.repository == 'CarlosJr30/rpgjovemcristao' &&
+      github.event_name == 'workflow_dispatch' &&
+      github.ref == 'refs/heads/main' &&
+      github.run_attempt == 1 &&
+      vars.COMMUNITY_TEST_PREVIEW_VERIFY_ENABLED == 'true'
+    environment: community-test-preview
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      actions: read
+      pull-requests: read
+    steps:
+      - name: Checkout trusted verifier from main only
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - name: Configure pinned Node.js
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: '24.16.0'
+      - name: Verify exact candidate and existing Git-created TEST Preview (read-only)
+        run: node scripts/ci/community-test-preview.mjs
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERCEL_TOKEN: ${{ secrets.VERCEL_READ_TOKEN }}
+          COMMUNITY_CANDIDATE_SHA: ${{ inputs.candidate_sha }}
+          COMMUNITY_QUALITY_RUN_ID: ${{ inputs.quality_run_id }}
