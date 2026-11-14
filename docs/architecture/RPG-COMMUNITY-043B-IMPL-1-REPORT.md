@@ -1,3 +1,36 @@
+# Quota audit and closure — 14/11/2026
+
+**PR55 remains Draft; no remote migration, Preview, merge, or production change.** CI was reconfirmed on SHA `28b3435685fa2bfb98fc787060fb8fd6b758683b`: push `43531289827` and PR `43531296844` both **SUCCESS**. The 35 earlier isolated PostgreSQL scenarios remain valid. One focused regression was added for the 50-member join-approval path; the local runner could not start because this worktree lacks `pg`, and temporary dependency junction creation was rejected by the execution policy. The new-SHA CI is the required execution for that added case.
+
+## Existing command audit
+
+| Approved quota | Existing authority/path | Current state |
+| --- | --- | --- |
+| 1 created Guild/account | `community_create_own_guild` and the existing governance audit | Enforced by the account-level creation ledger. Retention after Auth deletion/recovery is still a legal/policy decision; do not claim durable lifetime enforcement through account deletion. |
+| 5 active memberships/avatar | All `guild_members` insert/reactivation paths | Enforced by private serialized trigger. |
+| 50 active members/Guild | `review_guild_join_request` → `guild_admin_private.guild_command('review')` → membership insert; link acceptance also inserts membership | Enforced by the same trigger. Added a focused test that fills a Guild, attempts approval 51, and asserts the transaction rolls back while the request stays pending. |
+| 10 active community links/Guild | `guild_scoped_create_invite` → `guild_invite_private.create_invite` | Existing server-side cap retained under advisory lock. |
+| Link validity ≤30 days | Same community-link creator | New links retain the current seven-day expiry, within the approved maximum. Existing expirations are untouched. |
+| 50 uses per new community link | `legacy_accept` consumes only on the existing direct membership acceptance path | Version-1 links cap at 50; NULL-version historical links retain their prior 100-use contract and rows are not rewritten. The separate question of counting pending-link requests does not apply to this existing direct-enrollment path; do not extend it to a future pending-link flow without product approval. |
+| One pending request/avatar/Guild | `request_join_guild` → `guild_command('join')` | Existing partial uniqueness returns the current pending request without creating another. |
+
+The audited individual invitation endpoint does **not** exist. `guild_scoped_create_invite` creates a reusable Guild link, while `ebd_member_invite_create` creates a separate class/EBD link invitation (currently with its own 100-use/active bounds). Applying “20 individual invites/Guild/24h” to either would change the wrong contract or invent a new recipient-based command; neither was changed.
+
+The existing join-request path is `public.request_join_guild` (compatibility wrapper) and the scoped `guild_command('join')`; review is through `public.review_guild_join_request`. Current duplicate-pending handling is already present. The five-per-account rolling-day limit and 24-hour rejection cooldown remain **blocked** because the approved documents still label their consumption/refund and cooldown scope as proposals awaiting product confirmation. The existing migration exposes no Guild rename action: `guild_command` accepts only create/join/review/leave/remove. A seven-day rename cooldown cannot be attached until a separately authorized rename operation exists.
+
+### Decisions and rollout gates still open
+
+- Confirm request-quota semantics: count only a newly persisted request across all avatars on the Auth account, whether rejection/cancellation consumes quota, and how client retries identify the original request.
+- Confirm rejection cooldown scope (proposed avatar/Guild pair) and the server timestamp/retention source; this is not currently enforced.
+- Decide whether a future invitation flow should be recipient-specific and how it differs from class/EBD links before applying the 20/day cap.
+- Authorize/specify a Guild rename command before applying the one-per-seven-days quota.
+- Obtain legal/privacy direction for retaining the lifetime creation marker after account deletion/recovery. No retroactive retention rule was added.
+- PR53 and PR54 remain open. PR53 must be integrated and migration history checked before any remote migration. TEST migration, Preview, and authenticated smoke are a later authorized phase.
+
+No Auth/RLS/ACL, ECONOMY-041, historical invitation rows, player data, production flags, or Vercel configuration changed. Directory, automatic admission, expanded admin permissions, and public rollout remain out of scope. **Do not mark IMPLEMENTED_LOCAL complete, merge, or publish while the listed controls and gates remain unresolved.**
+
+---
+
 # Quota completion update — 13/11/2026
 
 Local implementation added in migration `20261113232954_community_043b_membership_link_quotas.sql` (explicit local/TEST opt-in only). One private database trigger now enforces at most five active Guild memberships per avatar and 50 active members per Guild across every existing membership insertion/reactivation path; the existing governance advisory lock serializes concurrent writes. New community links are marked quota version 1 and stop at 50 successful uses. Existing links remain `NULL` version and preserve token hash, dates, revocations and use records; they keep the prior 100-use behavior. New links retain the existing seven-day lifetime, below the approved 30-day maximum. The existing 10-active-link limit and one-pending-request-per-avatar/Guild constraint were already enforced and remain unchanged.

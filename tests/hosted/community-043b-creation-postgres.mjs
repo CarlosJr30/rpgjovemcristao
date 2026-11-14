@@ -615,6 +615,43 @@ try {
       50,
     );
   });
+  await check(
+    'join-request approval at capacity rolls back and preserves pending request',
+    async () => {
+      const request = (
+        await as(152, 'select public.request_join_guild($1,$2) id', [
+          uid(4000),
+          tid(152),
+        ])
+      ).rows[0].id;
+      await rejects(
+        () =>
+          as(149, 'select public.review_guild_join_request($1,$2,true)', [
+            request,
+            tid(149),
+          ]),
+        '54000',
+      );
+      assert.equal(
+        (
+          await q(
+            'select status from public.guild_join_requests where id=$1',
+            [request],
+          )
+        ).rows[0].status,
+        'pending',
+      );
+      assert.equal(
+        (
+          await q(
+            "select count(*)::int n from public.guild_members where guild_id=$1 and status='active'",
+            [uid(4000)],
+          )
+        ).rows[0].n,
+        50,
+      );
+    },
+  );
   await q(
     "insert into public.guilds(id,name,created_by_user_id,leader_traveler_id) values($1,'Concurrent fifty member quota',$2,$3)",
     [uid(4001), uid(149), tid(149)],
