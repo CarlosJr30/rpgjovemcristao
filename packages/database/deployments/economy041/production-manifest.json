@@ -4,8 +4,8 @@
   "scope": "guild-ebd-001",
   "contract": "economy041-chest-v1",
   "approvalRef": "OWNER-ECONOMY-041-2026-11-11",
-  "migration": "supabase/migrations/20261111063736_economy_041_production.sql",
-  "version": "20261111063736",
+  "migration": "supabase/migrations/20261113153902_economy_041_production.sql",
+  "version": "20261113153902",
   "sha256": "1f377a035c68cde8921909536820a2e8fe3cc8d9c6b4d3c8dafe8901c6609ad0",
   "preservedOrAdaptedAuthorities": [
     {

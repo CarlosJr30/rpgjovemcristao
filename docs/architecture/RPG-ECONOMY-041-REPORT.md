@@ -1,5 +1,29 @@
 # RPG-ECONOMY-041 — expansão econômica
 
+## Estado final — 13/11/2026
+
+**Revenda TEST autenticada confirmada no ledger; ECONOMY-041 publicada e ativada em PROD.** A causa era o trigger `shop_qa_private.isolate_credit()`, que bloqueava todo crédito de venda para perfis QA. A exceção foi limitada à fixture TEST aprovada e ao capacete duplicado; o bloqueio geral e o isolamento de QA permanecem.
+
+- Venda real: um recibo imutável `duplicate-sale-041`, `replayed:false`, removeu exatamente uma cópia de `equipment-leather-helmet` e creditou 10 moedas. Inventário final: 1 cópia, preservando a última. Não há segundo recibo nem crédito duplicado.
+- Auditoria TEST da fixture: 14 compras e 14 aberturas ECONOMY-041 observadas, saldo final 1.495 (orçamento TEST aprovado 2.000 − 930 em compras + 415 em recompensas de moeda + 10 da venda). QA permaneceu desabilitado; a trilha registra a proveniência de fixture. Nenhuma compra, abertura ou venda em PROD.
+- CI final do candidato `5fce6559c3851935d26f6619e130e7c698abfee3`: run `43417115863` success; testes unitários, lint, tipos, build, PostgreSQL e RSC/mobile obrigatórios passaram. Preview condicional SKIP, não PASS. O smoke autenticado de compra/abertura/venda foi concluído em Preview TEST; a confirmação da venda foi corroborada por recibo e inventário no Supabase TEST.
+- PR [#52](https://github.com/CarlosJr30/rpgjovemcristao/pull/52) integrada pelo fluxo normal; merge `724f0e76e2e519e21e369cfdd24e334d1a7f6a9a`. Migration produtiva aplicada uma vez; política ECONOMY-041 ativada pela autoridade privada aprovada. A ativação não escreveu carteiras, inventários ou operações de jogadores.
+- Vercel `dpl_5VvSi4LELKSCCke3ogRGRVSa3sz6`, **READY / Production**, SHA do merge confirmado; alias oficial [rpgjovemcristao-web-inky.vercel.app](https://rpgjovemcristao-web-inky.vercel.app). `/auth` e `/journey/shop` retornaram HTTP 200. Pós-ativação PROD: catálogo 67, política ativa, zero operações e zero inventário ECONOMY-041; não houve transação de jogo em PROD.
+
+**Alinhamento preparado em branch própria:** arquivo e manifesto usam `20261113153902`, igual ao registro remoto. O SQL foi renomeado sem alteração; SHA-256 `1f377a035c68cde8921909536820a2e8fe3cc8d9c6b4d3c8dafe8901c6609ad0`. Nenhuma migration foi reaplicada. A referência em `main` depende da integração normal desta correção; não executar `db push` antes disso. O backup remoto `backup/rpg-equipment-fix-014-aprovado-2026-11-11` continua apontando para `cdd4dcf06319e9cdadccdd818c78caaa7e96014b`. A conferência HTTP não equivale a compra/smoke autenticado em PROD, que não foi executado.
+
+## Checkpoints históricos
+
+Os estados BLOCKED abaixo descrevem leituras anteriores à confirmação final da venda e foram superados pelo recibo e pela consulta de inventário registrados acima.
+
+## Checkpoint histórico anterior à confirmação final da revenda — 13/11/2026
+
+**Revenda continua BLOCKED; nenhuma publicação PROD.** O CI do SHA final `5fce6559c3851935d26f6619e130e7c698abfee3` concluiu success no run `43417115863`; testes/lint/tipos/build, PostgreSQL isolado e RSC/mobile passaram. O job condicional de Preview foi SKIPPED, não PASS. A migration de exceção está instalada apenas em TEST como `20261113111702_economy_041_fixture_sale_qa_test`.
+
+Após a confirmação do proprietário, leitura somente leitura do Supabase TEST encontrou **zero** recibos `duplicate-sale-041` no avatar da fixture e zero vendas 041 em todo o projeto; capacete permanece em quantidade 2, carteira em 1.875, perfil QA desabilitado e nenhum marcador de venda. Portanto não há evidência no ledger de consumo, crédito único ou preservação da última cópia pela revenda. A venda informada não pode ser classificada como PASS enquanto o estado do servidor não a confirmar.
+
+O Supabase PROD continua sem migrations ECONOMY-041; a PR #52 permanece aberta e não integrada. Nenhum deployment ou dado PROD foi alterado. A condição de desbloqueio é a existência de exatamente um recibo de venda TEST autorizado, associado à fixture, com quantidade 1 e crédito de 10 refletido; sem isso, não integrar nem publicar.
+
 ## Estado atual — revenda QA TEST (13/11/2026)
 
 **Bloqueado antes de merge/PROD:** causa corrigida somente em TEST, mas ainda sem recibo de revenda real. A migration foi aplicada à instância TEST conforme aprovação restrita; o Supabase registrou `20261113111702`, e o nome local foi alinhado. Verificação pós-DDL: trigger ACL continua `{postgres=X/postgres}`, condição geral de negação preservada e nenhum saldo/inventário/recibo alterado pela migration. PROD permanece intacta.
