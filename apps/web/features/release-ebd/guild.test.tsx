@@ -24,6 +24,26 @@ vi.mock('../journey/state/use-journey', () => ({
 vi.mock('../guild-ebd/common-invites', () => ({
   CommonInvites: () => <div>Convites existentes</div>,
 }));
+vi.mock('../../lib/guild-governance/creation-intent', () => ({
+  pendingGuildCreation: () => null,
+  beginGuildCreation: vi.fn(),
+  confirmGuildCreation: vi.fn(),
+}));
+afterEach(() => vi.unstubAllEnvs());
+test('controlled TEST creation reuses the form without administrative leadership', async () => {
+  vi.stubEnv('NEXT_PUBLIC_COMMUNITY_CREATION_TEST', '1');
+  vi.stubEnv(
+    'NEXT_PUBLIC_SUPABASE_URL',
+    'https://wkdvdzfkbwvhyjmamrsg.supabase.co',
+  );
+  render(<ReleaseGuild />);
+  expect(
+    await screen.findByRole('button', {
+      name: 'Criar Guilda e assumir liderança',
+    }),
+  ).toBeInTheDocument();
+  expect(screen.getByLabelText('Nome da Guilda')).toBeInTheDocument();
+});
 vi.mock('../../lib/supabase/repositories/guild-repository', () => ({
   guildRepository: {
     ...mock,
