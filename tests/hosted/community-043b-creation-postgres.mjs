@@ -159,7 +159,7 @@ async function gameData() {
   return JSON.stringify(
     (
       await q(
-        "select jsonb_build_object('travelers',(select jsonb_agg(case when id in ('10000000-0000-4000-8000-000000000009','10000000-0000-4000-8000-000000000010','10000000-0000-4000-8000-000000000152','10000000-0000-4000-8000-000000000155') then to_jsonb(x)-'updated_at' else to_jsonb(x) end order by id) from public.travelers x),'wallets',(select jsonb_agg(to_jsonb(x) order by traveler_id) from public.wallets x),'stats',(select jsonb_agg(to_jsonb(x) order by traveler_id) from public.traveler_stats x),'inventory',(select jsonb_agg(to_jsonb(x) order by id) from public.inventory x),'chests',(select jsonb_agg(to_jsonb(x) order by to_jsonb(x)::text) from public.traveler_chests x)) result",
+        "select jsonb_build_object('travelers',(select jsonb_agg(case when id in ('10000000-0000-4000-8000-000000000009','10000000-0000-4000-8000-000000000010','10000000-0000-4000-8000-000000000146','10000000-0000-4000-8000-000000000152','10000000-0000-4000-8000-000000000155') then to_jsonb(x)-'updated_at' else to_jsonb(x) end order by id) from public.travelers x),'wallets',(select jsonb_agg(to_jsonb(x) order by traveler_id) from public.wallets x),'stats',(select jsonb_agg(to_jsonb(x) order by traveler_id) from public.traveler_stats x),'inventory',(select jsonb_agg(to_jsonb(x) order by id) from public.inventory x),'chests',(select jsonb_agg(to_jsonb(x) order by to_jsonb(x)::text) from public.traveler_chests x)) result",
       )
     ).rows[0].result,
   );
@@ -552,6 +552,14 @@ try {
       await q(
         'update public.travelers set is_active=true,updated_at=$2 where id=$1',
         [tid(146), originalTraveler.updated_at],
+      );
+      assert.equal(
+        (
+          await q('select is_active from public.travelers where id=$1', [
+            tid(146),
+          ])
+        ).rows[0].is_active,
+        true,
       );
       await q(
         "update auth.users set banned_until=clock_timestamp()+interval '1 day' where id=$1",

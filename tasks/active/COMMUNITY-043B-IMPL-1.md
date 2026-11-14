@@ -33,3 +33,5 @@ The 50-member approval regression initially reused account/avatar 152 after the 
 CI `43551889479` reached the final preservation assertion; active-avatar switching updated bookkeeping timestamps on the two synthetic avatars. The check now ignores only those expected `updated_at` changes and asserts active flags restored, while retaining all other traveler/game/economic comparisons. Failed run preserved; new-SHA CI pending.
 
 CI `43552307309` still failed the final full game-data snapshot after expected timestamps were normalized. The runner truncated the compared JSON, so the harness now reports compact changed table/avatar rows before failing. Diagnostic-only; invariant remains unchanged. New-SHA CI pending; prior run remains non-PASS.
+
+Diagnostic-only CI identified the final snapshot delta: `updated_at` on synthetic avatar 146 from the existing timestamp trigger during active-target eligibility testing. The harness now explicitly asserts restoration to active and excludes only that fixture timestamp from the baseline comparison. All other player/game/economic fields remain checked. New-SHA CI pending.
