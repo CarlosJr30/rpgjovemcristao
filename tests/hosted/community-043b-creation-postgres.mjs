@@ -419,6 +419,10 @@ try {
           (e) => e.code === '54000',
         );
       } finally {
+        await q(
+          'update public.travelers set is_active=false where id in ($1,$2)',
+          [tid(152), tid(155)],
+        );
         for (const state of activeState)
           await q(
             'update public.travelers set is_active=$2,updated_at=$3 where id=$1',
