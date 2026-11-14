@@ -71,6 +71,9 @@ const migration = sql(
 const quotaMigration = sql(
   'supabase/migrations/20261113232954_community_043b_membership_link_quotas.sql',
 );
+const requestQuotaMigration = sql(
+  'supabase/migrations/20261114110000_community_043b_join_request_quotas_test.sql',
+);
 const check = async (name, fn) => {
   await fn();
   checks.push({ name, pass: true });
@@ -250,6 +253,10 @@ try {
   await q(
     "insert into public.guild_members(guild_id,traveler_id,role,status) select ('00000000-0000-4000-8000-'||lpad((1100+n)::text,12,'0'))::uuid,('10000000-0000-4000-8000-'||lpad(n::text,12,'0'))::uuid,'leader','active' from generate_series(100,149) n",
   );
+  await q(
+    "insert into public.travelers(id,user_id,name,body_type,skin_tone,hair_style,avatar_variant,is_active,level) values($1,$2,'Second quota avatar','male','medio','curto','musgo',true,1)",
+    [tid(155), uid(152)],
+  );
   const beforeGame = await gameData();
   await q('BEGIN;' + migration + 'COMMIT;');
   await q(
@@ -332,6 +339,284 @@ try {
       quotaMigration +
       'COMMIT;',
   );
+  await check(
+    'request-quota migration fails closed without explicit target',
+    async () => {
+      await rejects(
+        () => q('BEGIN;' + requestQuotaMigration + 'COMMIT;'),
+        'P0001',
+      );
+      await q('ROLLBACK');
+      assert.equal(
+        (
+          await q(
+            "select to_regprocedure('guild_admin_private.enforce_join_request_quotas()') fn",
+          )
+        ).rows[0].fn,
+        null,
+      );
+    },
+  );
+  await q(
+    "BEGIN;SET LOCAL rpg.community043b.request_quotas_install='local-test';" +
+      requestQuotaMigration +
+      'COMMIT;',
+  );
+  await q(
+    "insert into public.guilds(id,name,created_by_user_id,leader_traveler_id) select ('00000000-0000-4000-8000-'||lpad((6000+n)::text,12,'0'))::uuid,'Request quota Guild '||n,('00000000-0000-4000-8000-'||lpad((100+n)::text,12,'0'))::uuid,('10000000-0000-4000-8000-'||lpad((100+n)::text,12,'0'))::uuid from generate_series(0,5) n",
+  );
+  await q(
+    "insert into public.guild_members(guild_id,traveler_id,role,status) select ('00000000-0000-4000-8000-'||lpad((6000+n)::text,12,'0'))::uuid,('10000000-0000-4000-8000-'||lpad((100+n)::text,12,'0'))::uuid,'leader','active' from generate_series(0,5) n",
+  );
+  const requestJoin = async (account, guildNumber, avatar = tid(account)) =>
+    (
+      await as(account, 'select public.request_join_guild($1,$2) id', [
+        uid(guildNumber),
+        avatar,
+      ])
+    ).rows[0].id;
+  const reviewJoin = (account, request, approve = false) =>
+    as(account, 'select public.review_guild_join_request($1,$2,$3)', [
+      request,
+      tid(account),
+      approve,
+    ]);
+  await check(
+    'five rolling requests aggregate across avatars and replay is free',
+    async () => {
+      const ids = [];
+      for (const [guild, avatar] of [
+        [6000, tid(152)],
+        [6001, tid(152)],
+        [6002, tid(152)],
+        [6003, tid(152)],
+        [6004, tid(155)],
+      ])
+        ids.push(await requestJoin(152, guild, avatar));
+      assert.equal(await requestJoin(152, 6000, tid(152)), ids[0]);
+      assert.equal(
+        (
+          await q(
+            "select count(*)::int n from public.guild_join_requests r join public.travelers t on t.id=r.traveler_id where t.user_id=$1 and r.created_at>clock_timestamp()-interval '24 hours'",
+            [uid(152)],
+          )
+        ).rows[0].n,
+        5,
+      );
+      await assert.rejects(
+        () => requestJoin(152, 6005, tid(155)),
+        (e) => e.code === '54000',
+      );
+      assert.ok(await requestJoin(153, 6005));
+    },
+  );
+  await check(
+    'rejection consumes quota and enforces per-avatar Guild cooldown',
+    async () => {
+      const request = await requestJoin(150, 6000);
+      await reviewJoin(100, request, false);
+      await assert.rejects(
+        () => requestJoin(150, 6000),
+        (e) => e.code === '55000',
+      );
+      for (const guild of [6001, 6002, 6003, 6004])
+        await requestJoin(150, guild);
+      await assert.rejects(
+        () => requestJoin(150, 6005),
+        (e) => e.code === '54000',
+      );
+      await q(
+        "update public.guild_join_requests set created_at=clock_timestamp()-interval '25 hours',reviewed_at=clock_timestamp()-interval '25 hours' where traveler_id=$1 and guild_id=$2 and status='rejected'",
+        [tid(150), uid(6000)],
+      );
+      assert.ok(await requestJoin(150, 6000));
+    },
+  );
+  await check(
+    'cancelled persisted requests do not refund account quota',
+    async () => {
+      const request = await requestJoin(149, 6000);
+      await q(
+        "update public.guild_join_requests set status='cancelled' where id=$1",
+        [request],
+      );
+      for (const guild of [6001, 6002, 6003, 6004])
+        await requestJoin(149, guild);
+      await assert.rejects(
+        () => requestJoin(149, 6005),
+        (e) => e.code === '54000',
+      );
+    },
+  );
+  await check(
+    'concurrent request attempts cannot exceed five per account',
+    async () => {
+      for (const guild of [6000, 6001, 6002, 6003])
+        await requestJoin(148, guild);
+      const winner = await newConnection();
+      const contender = await newConnection();
+      await winner.query('BEGIN');
+      await auth(winner, 148);
+      await winner.query('select public.request_join_guild($1,$2)', [
+        uid(6004),
+        tid(148),
+      ]);
+      const contenderResult = as(
+        148,
+        'select public.request_join_guild($1,$2)',
+        [uid(6005), tid(148)],
+        true,
+        contender,
+      ).then(
+        () => null,
+        (error) => error,
+      );
+      await waitBlocked(contender);
+      await winner.query('COMMIT');
+      assert.equal((await contenderResult)?.code, '54000');
+      assert.equal(
+        (
+          await q(
+            "select count(*)::int n from public.guild_join_requests r join public.travelers t on t.id=r.traveler_id where t.user_id=$1 and r.created_at>clock_timestamp()-interval '24 hours'",
+            [uid(148)],
+          )
+        ).rows[0].n,
+        5,
+      );
+    },
+  );
+  await check(
+    'approval revalidates active target and preserves pending request on denial',
+    async () => {
+      const request = await requestJoin(146, 6000);
+      const originalTraveler = (
+        await q('select updated_at from public.travelers where id=$1', [
+          tid(146),
+        ])
+      ).rows[0];
+      await q('update public.travelers set is_active=false where id=$1', [
+        tid(146),
+      ]);
+      await assert.rejects(
+        () => reviewJoin(100, request, true),
+        (e) => e.code === '42501',
+      );
+      assert.equal(
+        (
+          await q('select status from public.guild_join_requests where id=$1', [
+            request,
+          ])
+        ).rows[0].status,
+        'pending',
+      );
+      assert.equal(
+        (
+          await q(
+            "select count(*)::int n from public.guild_members where guild_id=$1 and traveler_id=$2 and status='active'",
+            [uid(6000), tid(146)],
+          )
+        ).rows[0].n,
+        0,
+      );
+      await q(
+        'update public.travelers set is_active=true,updated_at=$2 where id=$1',
+        [tid(146), originalTraveler.updated_at],
+      );
+      await q(
+        "update auth.users set banned_until=clock_timestamp()+interval '1 day' where id=$1",
+        [uid(146)],
+      );
+      await assert.rejects(
+        () => reviewJoin(100, request, true),
+        (e) => e.code === '42501',
+      );
+      assert.equal(
+        (
+          await q('select status from public.guild_join_requests where id=$1', [
+            request,
+          ])
+        ).rows[0].status,
+        'pending',
+      );
+      await q('update auth.users set banned_until=null where id=$1', [
+        uid(146),
+      ]);
+      await reviewJoin(100, request, true);
+      assert.equal(
+        (
+          await q(
+            "select count(*)::int n from public.guild_members where guild_id=$1 and traveler_id=$2 and status='active'",
+            [uid(6000), tid(146)],
+          )
+        ).rows[0].n,
+        1,
+      );
+    },
+  );
+  await check(
+    'co-leader without operation-specific delegation cannot review requests',
+    async () => {
+      const request = await requestJoin(145, 6000);
+      await q(
+        "insert into public.guild_members(guild_id,traveler_id,role,status) values($1,$2,'co_leader','active')",
+        [uid(6000), tid(147)],
+      );
+      await assert.rejects(
+        () => reviewJoin(147, request, false),
+        (e) => e.code === '42501',
+      );
+      assert.equal(
+        (
+          await q('select status from public.guild_join_requests where id=$1', [
+            request,
+          ])
+        ).rows[0].status,
+        'pending',
+      );
+      const otherGuildRequest = await requestJoin(144, 6001);
+      await assert.rejects(
+        () => reviewJoin(147, otherGuildRequest, false),
+        (e) => e.code === '42501',
+      );
+    },
+  );
+  await check(
+    'request quota trigger remains private with a fixed search path',
+    async () => {
+      const fn = (
+        await q(
+          "select prosecdef,proconfig,has_function_privilege('authenticated','guild_admin_private.enforce_join_request_quotas()','EXECUTE') auth_exec,has_function_privilege('anon','guild_admin_private.enforce_join_request_quotas()','EXECUTE') anon_exec",
+        )
+      ).rows[0];
+      assert.equal(fn.prosecdef, true);
+      assert.deepEqual(fn.proconfig, ['search_path=""']);
+      assert.equal(fn.auth_exec, false);
+      assert.equal(fn.anon_exec, false);
+    },
+  );
+  await check('revoked link denies new acceptance', async () => {
+    const invite = (
+      await as(3, 'select public.guild_scoped_create_invite($1,$2,$3) result', [
+        tid(3),
+        uid(203),
+        randomUUID(),
+      ])
+    ).rows[0].result;
+    await as(3, 'select public.guild_scoped_revoke_invite($1,$2,$3)', [
+      invite.id,
+      tid(3),
+      uid(203),
+    ]);
+    await assert.rejects(
+      () =>
+        as(152, 'select public.ebd_member_invite_accept($1,$2,$3)', [
+          invite.token,
+          tid(155),
+          randomUUID(),
+        ]),
+      (e) => e.code === 'P0002',
+    );
+  });
   await check('historical link provenance and usage preserved', async () => {
     assert.deepEqual(
       (
@@ -634,10 +919,9 @@ try {
       );
       assert.equal(
         (
-          await q(
-            'select status from public.guild_join_requests where id=$1',
-            [request],
-          )
+          await q('select status from public.guild_join_requests where id=$1', [
+            request,
+          ])
         ).rows[0].status,
         'pending',
       );

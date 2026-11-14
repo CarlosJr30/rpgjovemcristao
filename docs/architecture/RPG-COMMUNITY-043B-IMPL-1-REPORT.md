@@ -1,6 +1,22 @@
+# Fechamento das semânticas — 14/11/2026
+
+**Implementação local em validação; sem migration remota, Preview, merge ou publicação.** O proprietário aprovou as semânticas de pedidos descritas abaixo. A aprovação não resolve a retenção jurídica do marcador de criação após exclusão/recuperação Auth.
+
+- Migration local `20261114110000_community_043b_join_request_quotas_test.sql`: trigger privado na tabela existente. Até cinco pedidos persistidos por conta Auth em 24 horas móveis, somando avatares; cancelados/rejeitados continuam contando; replay de pedido pendente não cria nem conta outro; uma pendência por avatar/Guilda continua usando a unicidade existente. Cooldown de 24 horas após rejeição por avatar/Guilda. Trava compartilhada serializa concorrência e timestamps vêm do banco.
+- Na aprovação, a autoridade atual do líder continua necessária; a migration também revalida que o avatar-alvo está ativo e que a conta está confirmada, não anônima, não excluída e não suspensa. Recusa aborta a transação e mantém o pedido pendente. A compra/convite não cria admissão automática.
+- Quotas de membership e links já preparadas na migration anterior permanecem: até cinco associações ativas por avatar, 50 membros por Guilda, dez links ativos, 50 usos e sete dias para novos links. Hashes, datas, revogações e usos históricos não são reescritos; links históricos retêm o limite legado. Link revogado não admite novo uso.
+- Convite individual (20/dia) e renomeação (7 dias) continuam adiados: os comandos não existem. Colíder permanece sem autoridade presumida; teste confirma negação em revisão da própria e de outra Guilda sem delegação. O código não contém um registro/API com operações granulares delegáveis; não foi criada permissão genérica que pudesse ampliar acesso. Fechar isso requer contrato explícito da lista de operações e fluxo de concessão/revogação.
+- A retenção do marcador de uma Guilda criada por conta após exclusão/recuperação Auth segue pendente de decisão jurídica. Por isso, mesmo com checks aprovados, criação/rollout PROD não pode ser declarado completo.
+
+**Checks desta revisão:** `node --check` e `git diff --check` PASS. O PostgreSQL descartável não pôde ser executado localmente: este worktree não tem o pacote `pg` nem o binário do PostgreSQL já instalado; nenhuma dependência foi instalada. A migration e os novos cenários foram ligados ao harness PostgreSQL que já é obrigatório no CI. O CI do novo SHA ainda precisa confirmar SQL, testes, lint, TypeScript e build. Os 35 cenários e os CI aprovados de `bd8703173b8aa9bf00c2b7cc9e7eb9cef16ab19a` são preservados e não são contabilizados como validação do SHA novo.
+
+**Estado das PRs:** #53 e #54 permanecem dependências abertas; #55 permanece Draft e sem merge. Sem migration remota/TEST, Preview, alteração de dados, Auth/RLS ou PROD. Homologação TEST futura depende primeiro de resolver a sequência autorizada das PRs #53/#54 e dos critérios legais de retenção; a ausência de uma semântica granular de delegação também precisa ser resolvida antes de habilitar poderes de colíder.
+
 # Quota audit and closure — 14/11/2026
 
-**PR55 remains Draft; no remote migration, Preview, merge, or production change.** CI was reconfirmed on SHA `28b3435685fa2bfb98fc787060fb8fd6b758683b`: push `43531289827` and PR `43531296844` both **SUCCESS**. The 35 earlier isolated PostgreSQL scenarios remain valid. One focused regression was added for the 50-member join-approval path; the local runner could not start because this worktree lacks `pg`, and temporary dependency junction creation was rejected by the execution policy. The new-SHA CI is the required execution for that added case.
+Historical snapshot written before the owner approved request-consumption and cooldown semantics. The current state and remaining blockers are in “Fechamento das semânticas” above.
+
+**PR55 remains Draft; no remote migration, Preview, merge, or production change.** CI on SHA `bd8703173b8aa9bf00c2b7cc9e7eb9cef16ab19a`: push [43533144941](https://github.com/CarlosJr30/rpgjovemcristao/actions/runs/43533144941) and PR [43533138363](https://github.com/CarlosJr30/rpgjovemcristao/actions/runs/43533138363) both **SUCCESS**. Tests/lint/types/build, PostgreSQL and RSC/mobile passed; conditional Preview job was **SKIPPED**, not PASS. The 35 earlier isolated PostgreSQL scenarios remain valid, and the new regression for approval at 50 members passed in the PostgreSQL CI job. It was not run locally: this worktree lacks `pg` and the execution policy rejected creating a temporary dependency junction.
 
 ## Existing command audit
 
@@ -22,6 +38,7 @@ The existing join-request path is `public.request_join_guild` (compatibility wra
 
 - Confirm request-quota semantics: count only a newly persisted request across all avatars on the Auth account, whether rejection/cancellation consumes quota, and how client retries identify the original request.
 - Confirm rejection cooldown scope (proposed avatar/Guild pair) and the server timestamp/retention source; this is not currently enforced.
+- Confirm the 50-use meaning for any future link flow that creates pending requests and whether revoking/expiring a link affects requests already submitted. The existing community-link command enrolls directly, so the current versioned counter is consumed only by successful membership and this change does not add a pending-link path.
 - Decide whether a future invitation flow should be recipient-specific and how it differs from class/EBD links before applying the 20/day cap.
 - Authorize/specify a Guild rename command before applying the one-per-seven-days quota.
 - Obtain legal/privacy direction for retaining the lifetime creation marker after account deletion/recovery. No retroactive retention rule was added.
