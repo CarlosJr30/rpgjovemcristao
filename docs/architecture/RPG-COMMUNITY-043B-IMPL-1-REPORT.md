@@ -1,3 +1,15 @@
+# Quota completion update — 13/11/2026
+
+Local implementation added in migration `20261113232954_community_043b_membership_link_quotas.sql` (explicit local/TEST opt-in only). One private database trigger now enforces at most five active Guild memberships per avatar and 50 active members per Guild across every existing membership insertion/reactivation path; the existing governance advisory lock serializes concurrent writes. New community links are marked quota version 1 and stop at 50 successful uses. Existing links remain `NULL` version and preserve token hash, dates, revocations and use records; they keep the prior 100-use behavior. New links retain the existing seven-day lifetime, below the approved 30-day maximum. The existing 10-active-link limit and one-pending-request-per-avatar/Guild constraint were already enforced and remain unchanged.
+
+The focused disposable PostgreSQL harness now reports **35/35 PASS** (the previous 25 plus 10 quota, compatibility, ACL and concurrency checks). It verifies historical link preservation, 50-use boundary/replay, legacy 100-use behavior, five-membership and 50-member limits under concurrency, slot release, private trigger execution and preservation of existing function ACLs. ESLint and Prettier for the modified harness pass. Full TypeScript typecheck passes after a temporary local path mapping to this worktree's workspace packages; the mapping was removed. Local Turbopack build was attempted but stopped before compilation because the reused `node_modules` junction is outside Turbopack's filesystem root. The temporary Next patch and generated/config changes were restored. The updated SHA's mandatory CI build remains the final build gate.
+
+Not inferred/implemented: the five-requests-per-account daily limit and 24-hour rejection cooldown still require the unresolved consumption/refund semantics; there is no matching individual Guild-invite command to safely attach the 20-per-day quota (EBD/class invitations are a separate contract); no Guild rename command exists for the seven-day cooldown. No new UI or permissions were added for absent commands. Creation authority/flags remain closed for PROD. No remote migration, Preview, merge, deployment or player-data write was performed. PR53 remains required before any remote migration; account deletion/recovery retention for the one-Guild-per-account marker remains a legal/policy blocker for rollout.
+
+**PR55 remains Draft.** Updated CI for the new candidate is pending. TEST/Preview and PROD remain untouched.
+
+---
+
 # COMMUNITY-043B-IMPL-1 — criação controlada local
 
 13/11/2026. **VALIDATING / incremento local preparado; sem publicação.** Branch `codex/rpg-community-043b-impl-1`, base `724f0e76`. Contratos B.1/B.2 consultados no commit documental `95e6196f34908d52620b12e9f55444a847337f8d` da PR54, sem integrar essa PR ou a PR53.

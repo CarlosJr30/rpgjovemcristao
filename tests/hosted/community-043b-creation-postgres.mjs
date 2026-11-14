@@ -68,6 +68,9 @@ const q = (s, p) => db.query(s, p),
 const migration = sql(
   'supabase/migrations/20261028213600_rpg_dev_010a2_multiguild_test.sql',
 );
+const quotaMigration = sql(
+  'supabase/migrations/20261113232954_community_043b_membership_link_quotas.sql',
+);
 const check = async (name, fn) => {
   await fn();
   checks.push({ name, pass: true });
@@ -161,7 +164,7 @@ async function gameData() {
 async function definitions() {
   return (
     await q(
-      "select n.nspname,p.proname,pg_get_function_identity_arguments(p.oid) args,pg_get_functiondef(p.oid) definition,p.proacl::text acl from pg_proc p join pg_namespace n on n.oid=p.pronamespace where n.nspname in ('public','guild_ops','ebd_ops','guild_invite_private','guild_admin_private','guild_chat_private') order by 1,2,3",
+      "select n.nspname,p.proname,pg_get_function_identity_arguments(p.oid) args,pg_get_functiondef(p.oid) definition,p.proacl::text acl from pg_proc p join pg_namespace n on n.oid=p.pronamespace where n.nspname in ('public','guild_ops','ebd_ops','guild_invite_private','guild_admin_private','guild_chat_private','ebd_class_private') order by 1,2,3",
     )
   ).rows;
 }
@@ -232,11 +235,49 @@ try {
   const firstInvite = await issue(3),
     firstAcceptance = randomUUID();
   await accept(3, firstInvite, firstAcceptance);
+  // Disposable historical-link fixture: real FK-linked use rows are captured
+  // before the additive version marker migration, then compared afterward.
+  const historicalLinkToken = 'a'.repeat(64);
+  await q(
+    "insert into auth.users(id,is_anonymous,email,email_confirmed_at) select ('00000000-0000-4000-8000-'||lpad(n::text,12,'0'))::uuid,false,'isolated-'||n||'@fixtures.invalid',now() from generate_series(100,154) n",
+  );
+  await q(
+    "insert into public.travelers(id,user_id,name,body_type,skin_tone,hair_style,avatar_variant,is_active) select ('10000000-0000-4000-8000-'||lpad(n::text,12,'0'))::uuid,('00000000-0000-4000-8000-'||lpad(n::text,12,'0'))::uuid,'Quota Fixture '||n,'male','medio','curto','musgo',true from generate_series(100,154) n",
+  );
+  await q(
+    "insert into public.guilds(id,name,created_by_user_id,leader_traveler_id) select ('00000000-0000-4000-8000-'||lpad((1100+n)::text,12,'0'))::uuid,'Quota Fixture Guild '||n,('00000000-0000-4000-8000-'||lpad(n::text,12,'0'))::uuid,('10000000-0000-4000-8000-'||lpad(n::text,12,'0'))::uuid from generate_series(100,149) n",
+  );
+  await q(
+    "insert into public.guild_members(guild_id,traveler_id,role,status) select ('00000000-0000-4000-8000-'||lpad((1100+n)::text,12,'0'))::uuid,('10000000-0000-4000-8000-'||lpad(n::text,12,'0'))::uuid,'leader','active' from generate_series(100,149) n",
+  );
   const beforeGame = await gameData();
   await q('BEGIN;' + migration + 'COMMIT;');
   await q(
     'alter table auth.users add column deleted_at timestamptz,add column banned_until timestamptz;create table auth.sessions(id uuid primary key,user_id uuid,not_after timestamptz)',
   );
+  await q(
+    `BEGIN;${sql('supabase/migrations/20261030105539_rpg_dev_010b_classes_test.sql')}\nCOMMIT;`,
+  );
+  await q(
+    `BEGIN;${sql('supabase/migrations/20261030110258_rpg_dev_010b_member_invites_test.sql')}\nCOMMIT;`,
+  );
+  await q(
+    `BEGIN;${sql('supabase/migrations/20261030131230_rpg_dev_010b_legacy_invites_test.sql')}\nCOMMIT;`,
+  );
+  await q(
+    "insert into guild_invite_private.link_invites(id,guild_id,leader_traveler_id,token_hash,created_at,expires_at) values($1,$2,$3,extensions.digest($4,'sha256'),transaction_timestamp(),transaction_timestamp()+interval '7 days')",
+    [uid(2500), uid(203), tid(3), historicalLinkToken],
+  );
+  await q(
+    "insert into ebd_class_private.legacy_uses(invite_id,traveler_id,user_id,membership_id,request_id) select $1,('10000000-0000-4000-8000-'||lpad(n::text,12,'0'))::uuid,('00000000-0000-4000-8000-'||lpad(n::text,12,'0'))::uuid,m.id,gen_random_uuid() from generate_series(100,149) n join public.guild_members m on m.traveler_id=('10000000-0000-4000-8000-'||lpad(n::text,12,'0'))::uuid",
+    [uid(2500)],
+  );
+  const legacyInviteBefore = (
+    await q(
+      "select encode(token_hash,'hex') token_hash,created_at,expires_at,revoked_at,(select count(*)::int from ebd_class_private.legacy_uses where invite_id=i.id) uses from guild_invite_private.link_invites i where id=$1",
+      [uid(2500)],
+    )
+  ).rows[0];
   const legacyDefinitions = await definitions();
   await check(
     'installation without explicit target fails before DDL',
@@ -271,6 +312,46 @@ try {
         )) +
       'COMMIT;',
   );
+  await check(
+    'quota migration requires explicit local TEST target',
+    async () => {
+      await rejects(() => q('BEGIN;' + quotaMigration + 'COMMIT;'), 'P0001');
+      await q('ROLLBACK');
+      assert.equal(
+        (
+          await q(
+            "select count(*)::int n from information_schema.columns where table_schema='guild_invite_private' and table_name='link_invites' and column_name='community_quota_version'",
+          )
+        ).rows[0].n,
+        0,
+      );
+    },
+  );
+  await q(
+    "BEGIN;SET LOCAL rpg.community043b.quotas_install='local-test';" +
+      quotaMigration +
+      'COMMIT;',
+  );
+  await check('historical link provenance and usage preserved', async () => {
+    assert.deepEqual(
+      (
+        await q(
+          "select encode(i.token_hash,'hex') token_hash,i.created_at,i.expires_at,i.revoked_at,(select count(*)::int from ebd_class_private.legacy_uses where invite_id=i.id) uses,i.community_quota_version from guild_invite_private.link_invites i where i.id=$1",
+          [uid(2500)],
+        )
+      ).rows[0],
+      { ...legacyInviteBefore, community_quota_version: null },
+    );
+    assert.equal(
+      (
+        await q(
+          "select (ebd_class_private.invite_preview($1)->>'guildName') is not null allowed",
+          [historicalLinkToken],
+        )
+      ).rows[0].allowed,
+      true,
+    );
+  });
   await check(
     'empty recovery restores additive schema and can reinstall',
     async () => {
@@ -331,6 +412,275 @@ try {
       throw e;
     }
   };
+  const newCommunityInvite = (
+    await as(3, 'select public.guild_scoped_create_invite($1,$2,$3) result', [
+      tid(3),
+      uid(203),
+      randomUUID(),
+    ])
+  ).rows[0].result;
+  const firstUseRequest = randomUUID();
+  await as(151, 'select public.ebd_member_invite_accept($1,$2,$3) result', [
+    newCommunityInvite.token,
+    tid(151),
+    firstUseRequest,
+  ]);
+  await q(
+    "insert into ebd_class_private.legacy_uses(invite_id,traveler_id,user_id,membership_id,request_id) select $1,('10000000-0000-4000-8000-'||lpad(n::text,12,'0'))::uuid,('00000000-0000-4000-8000-'||lpad(n::text,12,'0'))::uuid,m.id,gen_random_uuid() from generate_series(100,148) n join public.guild_members m on m.traveler_id=('10000000-0000-4000-8000-'||lpad(n::text,12,'0'))::uuid",
+    [newCommunityInvite.id],
+  );
+  await check('new link carries the approved 50-use quota', async () => {
+    assert.equal(
+      (
+        await q(
+          'select community_quota_version from guild_invite_private.link_invites where id=$1',
+          [newCommunityInvite.id],
+        )
+      ).rows[0].community_quota_version,
+      1,
+    );
+    assert.equal(
+      (
+        await q(
+          'select count(*)::int n from ebd_class_private.legacy_uses where invite_id=$1',
+          [newCommunityInvite.id],
+        )
+      ).rows[0].n,
+      50,
+    );
+    await rejects(
+      () =>
+        q('select ebd_class_private.invite_preview($1)', [
+          newCommunityInvite.token,
+        ]),
+      'P0002',
+    );
+  });
+  await check(
+    'full new link replays prior use but rejects a new member',
+    async () => {
+      assert.equal(
+        (
+          await as(
+            151,
+            'select public.ebd_member_invite_accept($1,$2,$3) result',
+            [newCommunityInvite.token, tid(151), firstUseRequest],
+          )
+        ).rows[0].result.replayed,
+        true,
+      );
+      await rejects(
+        () =>
+          as(152, 'select public.ebd_member_invite_accept($1,$2,$3) result', [
+            newCommunityInvite.token,
+            tid(152),
+            randomUUID(),
+          ]),
+        'P0002',
+      );
+      assert.equal(
+        (
+          await q(
+            'select count(*)::int n from ebd_class_private.legacy_uses where invite_id=$1',
+            [newCommunityInvite.id],
+          )
+        ).rows[0].n,
+        50,
+      );
+      assert.equal(
+        (
+          await q(
+            "select count(*)::int n from public.guild_members where guild_id=$1 and traveler_id=$2 and status='active'",
+            [uid(203), tid(152)],
+          )
+        ).rows[0].n,
+        0,
+      );
+    },
+  );
+  await check(
+    'historical link retains its legacy 100-use behavior',
+    async () => {
+      const result = (
+        await as(
+          152,
+          'select public.ebd_member_invite_accept($1,$2,$3) result',
+          [historicalLinkToken, tid(152), randomUUID()],
+        )
+      ).rows[0].result;
+      assert.equal(result.enrolled, true);
+      assert.equal(result.replayed, false);
+      assert.equal(
+        (
+          await q(
+            'select count(*)::int n from ebd_class_private.legacy_uses where invite_id=$1',
+            [uid(2500)],
+          )
+        ).rows[0].n,
+        51,
+      );
+    },
+  );
+  await q(
+    "insert into public.guilds(id,name,created_by_user_id,leader_traveler_id) select ('00000000-0000-4000-8000-'||lpad((3000+n)::text,12,'0'))::uuid,'Membership quota '||n,$1,$2 from generate_series(0,5) n",
+    [uid(153), tid(153)],
+  );
+  for (let n = 0; n < 4; n++)
+    await q(
+      "insert into public.guild_members(guild_id,traveler_id,role,status) values($1,$2,'member','active')",
+      [uid(3000 + n), tid(153)],
+    );
+  const capWinner = await newConnection(),
+    capContender = await newConnection();
+  await capWinner.query('BEGIN');
+  await capWinner.query(
+    "insert into public.guild_members(guild_id,traveler_id,role,status) values($1,$2,'member','active')",
+    [uid(3004), tid(153)],
+  );
+  const capContenderResult = capContender
+    .query(
+      "insert into public.guild_members(guild_id,traveler_id,role,status) values($1,$2,'member','active')",
+      [uid(3005), tid(153)],
+    )
+    .then(
+      () => null,
+      (error) => error,
+    );
+  await waitBlocked(capContender);
+  await capWinner.query('COMMIT');
+  await check(
+    'concurrent membership inserts enforce five per avatar',
+    async () => {
+      const error = await capContenderResult;
+      assert.equal(error?.code, '54000');
+      assert.equal(
+        (
+          await q(
+            "select count(*)::int n from public.guild_members where traveler_id=$1 and status='active'",
+            [tid(153)],
+          )
+        ).rows[0].n,
+        5,
+      );
+    },
+  );
+  await check('leaving a Guild releases one membership slot', async () => {
+    await q(
+      "update public.guild_members set status='left' where guild_id=$1 and traveler_id=$2",
+      [uid(3000), tid(153)],
+    );
+    await q(
+      "insert into public.guild_members(guild_id,traveler_id,role,status) values($1,$2,'member','active')",
+      [uid(3005), tid(153)],
+    );
+    assert.equal(
+      (
+        await q(
+          "select count(*)::int n from public.guild_members where traveler_id=$1 and status='active'",
+          [tid(153)],
+        )
+      ).rows[0].n,
+      5,
+    );
+  });
+  await q(
+    "insert into public.guilds(id,name,created_by_user_id,leader_traveler_id) values($1,'Fifty member quota',$2,$3)",
+    [uid(4000), uid(149), tid(149)],
+  );
+  await q(
+    "insert into public.guild_members(guild_id,traveler_id,role,status) values($1,$2,'leader','active')",
+    [uid(4000), tid(149)],
+  );
+  for (let n = 100; n < 149; n++)
+    await q(
+      "insert into public.guild_members(guild_id,traveler_id,role,status) values($1,$2,'member','active')",
+      [uid(4000), tid(n)],
+    );
+  await check('51st active Guild member is denied', async () => {
+    await rejects(
+      () =>
+        q(
+          "insert into public.guild_members(guild_id,traveler_id,role,status) values($1,$2,'member','active')",
+          [uid(4000), tid(152)],
+        ),
+      '54000',
+    );
+    assert.equal(
+      (
+        await q(
+          "select count(*)::int n from public.guild_members where guild_id=$1 and status='active'",
+          [uid(4000)],
+        )
+      ).rows[0].n,
+      50,
+    );
+  });
+  await q(
+    "insert into public.guilds(id,name,created_by_user_id,leader_traveler_id) values($1,'Concurrent fifty member quota',$2,$3)",
+    [uid(4001), uid(149), tid(149)],
+  );
+  await q(
+    "insert into public.guild_members(guild_id,traveler_id,role,status) values($1,$2,'leader','active')",
+    [uid(4001), tid(149)],
+  );
+  for (let n = 100; n < 148; n++)
+    await q(
+      "insert into public.guild_members(guild_id,traveler_id,role,status) values($1,$2,'member','active')",
+      [uid(4001), tid(n)],
+    );
+  const guildCapWinner = await newConnection(),
+    guildCapContender = await newConnection();
+  await guildCapWinner.query('BEGIN');
+  await guildCapWinner.query(
+    "insert into public.guild_members(guild_id,traveler_id,role,status) values($1,$2,'member','active')",
+    [uid(4001), tid(154)],
+  );
+  const guildCapContenderResult = guildCapContender
+    .query(
+      "insert into public.guild_members(guild_id,traveler_id,role,status) values($1,$2,'member','active')",
+      [uid(4001), tid(152)],
+    )
+    .then(
+      () => null,
+      (error) => error,
+    );
+  await waitBlocked(guildCapContender);
+  await guildCapWinner.query('COMMIT');
+  await check(
+    'concurrent membership inserts enforce 50 per Guild',
+    async () => {
+      const error = await guildCapContenderResult;
+      assert.equal(error?.code, '54000');
+      assert.equal(
+        (
+          await q(
+            "select count(*)::int n from public.guild_members where guild_id=$1 and status='active'",
+            [uid(4001)],
+          )
+        ).rows[0].n,
+        50,
+      );
+    },
+  );
+  await check(
+    'quota helpers retain private execution and fixed search path',
+    async () => {
+      const fn = (
+        await q(
+          "select prosecdef,proconfig,has_function_privilege('authenticated','guild_admin_private.enforce_membership_quotas()','EXECUTE') auth_exec,has_function_privilege('anon','guild_admin_private.enforce_membership_quotas()','EXECUTE') anon_exec,has_function_privilege('authenticated','guild_invite_private.create_invite(uuid,uuid)','EXECUTE') create_exec,has_function_privilege('authenticated','ebd_class_private.legacy_accept(text,uuid,uuid)','EXECUTE') legacy_exec,has_function_privilege('authenticated','ebd_class_private.invite_preview(text)','EXECUTE') preview_exec,has_function_privilege('anon','ebd_class_private.invite_preview(text)','EXECUTE') preview_anon,has_function_privilege('authenticated','ebd_class_private.invite_list(uuid,uuid,uuid)','EXECUTE') list_exec from pg_proc where oid='guild_admin_private.enforce_membership_quotas()'::regprocedure",
+        )
+      ).rows[0];
+      assert.equal(fn.prosecdef, true);
+      assert.deepEqual(fn.proconfig, ['search_path=""']);
+      assert.equal(fn.auth_exec, false);
+      assert.equal(fn.anon_exec, false);
+      assert.equal(fn.create_exec, false);
+      assert.equal(fn.legacy_exec, false);
+      assert.equal(fn.preview_exec, true);
+      assert.equal(fn.preview_anon, true);
+      assert.equal(fn.list_exec, true);
+    },
+  );
   await check('default disabled', async () => rejects(() => call(2), '55000'));
   await q(
     "update guild_admin_private.multiguild_control set community_creation_enabled=true,community_environment='local'",
@@ -429,6 +779,11 @@ try {
           'community_actor',
           'create_own_guild',
           'community_create_own_guild',
+          'enforce_membership_quotas',
+          'create_invite',
+          'legacy_accept',
+          'invite_preview',
+          'invite_list',
         ].includes(x.proname),
     ))
       assert.deepEqual(
