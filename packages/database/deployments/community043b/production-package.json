@@ -76,13 +76,22 @@
       "transaction": "same-reviewed-production-transaction",
       "sha256": "8ca257ce13ecfa20cdb49b405eacb20b89523a5b521986700eb97b84c2cfc414",
       "migrationVersion": "20261115150002"
+    },
+    {
+      "order": 6,
+      "version": "community-retention-v1",
+      "path": "packages/database/deployments/community043b/sql/community_retention_v1.sql.in",
+      "dependsOn": [5],
+      "transaction": "same-reviewed-production-transaction",
+      "sha256": "a2d2e973615f1d0ed19893b50ed50d7ac5688e2f5417a02010d27b2020b03d29",
+      "migrationVersion": "20261115170001"
     }
   ],
   "installationPlan": {
     "version": 1,
     "status": "blocked",
-    "orders": [1, 2, 3, 4, 5],
+    "orders": [1, 2, 3, 4, 5, 6],
     "activationIncluded": false,
-    "registration": "Three PROD migrations plus two versioned installation operations; allocate and reconcile remote migration versions before release."
+    "registration": "Three PROD migrations plus three pinned versioned operations. Retention schedule installed separately by private operator after checking pg_cron. No activation."
   }
 }

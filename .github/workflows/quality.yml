@@ -49,6 +49,8 @@ jobs:
 
       - name: Verificar protocolo de publicação por SHA
         run: node --test scripts/ci/*.test.mjs
+      - name: Validate pinned COMMUNITY production package without authorizing release
+        run: node --test packages/database/deployments/community043b/preflight.test.mjs
 
       - name: Conferir isolamento da demonstração
         id: demo
@@ -184,6 +186,10 @@ jobs:
         run: node tests/hosted/community-043b-capability-postgres.mjs --production-package
       - name: Validar controle privado PROD somente em PostgreSQL descartável
         run: node tests/hosted/community-043b-production-control-postgres.mjs
+      - name: COMMUNITY retention lifecycle in disposable PostgreSQL
+        run: node tests/hosted/community-retention-postgres.mjs
+      - name: COMMUNITY complete package retention integration
+        run: node tests/hosted/community-043b-capability-postgres.mjs --production-package --retention
       - name: Exigir financiamento privado da fixture TEST sem alterar o gate de equipamentos
         run: node tests/hosted/rpg-equipment-fixture-014-postgres.mjs
       - name: Exigir reconhecimento administrativo individual sem alterar recursos ou recibos antigos

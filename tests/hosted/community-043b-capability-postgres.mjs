@@ -310,6 +310,22 @@ try {
         for(const role of ['anon','service_role']) assert.equal((await q("select has_function_privilege($1,'public.community_own_guild_capability(uuid)','EXECUTE') ok",[role])).rows[0].ok,false);
         assert.equal((await q("select prosecdef from pg_proc where oid='public.community_own_guild_capability(uuid)'::regprocedure")).rows[0].prosecdef,false);
       });
+      if (process.argv.includes('--retention')) {
+        assert(fullPackage && production, 'Retention integration requires full PROD package');
+        await q("select set_config('request.jwt.claim.sub','',true),set_config('request.jwt.claims','{}',true),set_config('rpg.community043b.retention_install','reviewed-production',true)");
+        const guildsBefore = JSON.stringify((await q('select * from public.guilds order by id')).rows);
+        const auditBefore = JSON.stringify((await q('select * from guild_admin_private.audit order by id')).rows);
+        await q(sql('packages/database/deployments/community043b/sql/community_retention_v1.sql.in'));
+        await check('six-step retention installation preserves historical rows', async () => {
+          assert.equal(JSON.stringify((await q('select * from public.guilds order by id')).rows), guildsBefore);
+          assert.equal(JSON.stringify((await q('select * from guild_admin_private.audit order by id')).rows), auditBefore);
+          assert.equal((await q('select community_creation_enabled v from guild_admin_private.multiguild_control')).rows[0].v, false);
+        });
+        await check('six-step capability fails closed before server scheduler', async () => {
+          assert.deepEqual(await read(), { version: 1, available: false });
+          assert.equal((await q('select community_retention_private.operational() v')).rows[0].v, false);
+        });
+      }
     } finally {await q('ROLLBACK');}
   }
   assert.equal(await gameData(),beforeGame);

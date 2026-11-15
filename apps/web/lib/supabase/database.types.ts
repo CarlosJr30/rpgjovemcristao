@@ -93,8 +93,8 @@ export type EquippedItemRow = {
 };
 
 export type GuildRow = {
-  id: string; name: string; description: string | null; created_by_user_id: string;
-  leader_traveler_id: string; status: string; created_at: string; updated_at: string;
+  id: string; name: string; description: string | null; created_by_user_id: string | null;
+  leader_traveler_id: string | null; status: string; created_at: string; updated_at: string;
 };
 export type GuildMemberRow = {
   id: string; guild_id: string; traveler_id: string; role: string; status: string;

@@ -33,10 +33,10 @@ const context = {
   appliedVersions: ['20261113153902'],
 };
 
-test('validates exactly five pinned operations without authorizing installation', () => {
+test('validates exactly six pinned operations without authorizing installation', () => {
   const result = validateProductionPlan(plan, context);
-  assert.equal(result.length, 5);
-  assert.equal(new Set(result.map((x) => x.version)).size, 5);
+  assert.equal(result.length, 6);
+  assert.equal(new Set(result.map((x) => x.version)).size, 6);
   assert.equal(manifest.status, 'blocked');
 });
 
@@ -48,7 +48,7 @@ test('rejects substituted, reordered, extra, TEST and historical operations', ()
   }
   assert.throws(
     () => validateProductionPlan([...plan, plan[0]], context),
-    /Exactly five/,
+    /Exactly six/,
   );
   assert.throws(
     () => validateProductionPlan([...plan].reverse(), context),
@@ -87,13 +87,13 @@ test('rejects wrong scope, project and missing production history', () => {
   );
 });
 
-test('pins both versioned supplements after the original migrations without authorizing activation', () => {
-  assert.deepEqual(manifest.installationPlan.orders, [1, 2, 3, 4, 5]);
+test('pins three versioned supplements after the original migrations without authorizing activation', () => {
+  assert.deepEqual(manifest.installationPlan.orders, [1, 2, 3, 4, 5, 6]);
   assert.equal(manifest.installationPlan.activationIncluded, false);
   assert.equal(manifest.installationPlan.status, 'blocked');
   assert.deepEqual(
     manifest.supplementalInstallations.map((x) => x.order),
-    [4, 5],
+    [4, 5, 6],
   );
   for (const entry of manifest.supplementalInstallations) {
     assert.deepEqual(entry.dependsOn, [entry.order - 1]);

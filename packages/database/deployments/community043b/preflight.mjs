@@ -32,6 +32,11 @@ const approved = [
     'packages/database/proposals/community-043b-production-control-v1.sql.in',
     '8ca257ce13ecfa20cdb49b405eacb20b89523a5b521986700eb97b84c2cfc414',
   ],
+  [
+    '20261115170001',
+    'packages/database/deployments/community043b/sql/community_retention_v1.sql.in',
+    'a2d2e973615f1d0ed19893b50ed50d7ac5688e2f5417a02010d27b2020b03d29',
+  ],
 ];
 
 // Pure plan validation does not authorize installation or connect to a database.
@@ -46,8 +51,8 @@ export function validateProductionPlan(
     !appliedVersions.includes('20261113153902')
   )
     throw new Error('Reviewed remote migration history required');
-  if (!Array.isArray(entries) || entries.length !== 5)
-    throw new Error('Exactly five reviewed operations required');
+  if (!Array.isArray(entries) || entries.length !== 6)
+    throw new Error('Exactly six reviewed operations required');
   return entries.map((entry, index) => {
     const [version, path, sha256] = approved[index];
     if (

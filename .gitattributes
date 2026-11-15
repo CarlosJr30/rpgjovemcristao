@@ -2,3 +2,6 @@
 /build/** -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
 /assets-source/** -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
 /docs/architecture/** -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+# Pinned release SQL is hashed as Git LF bytes, including on Windows.
+/packages/database/deployments/community043b/sql/* text eol=lf
+/packages/database/proposals/community-043b-production-control-v1.sql.in text eol=lf

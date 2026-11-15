@@ -1,0 +1,95 @@
+{
+  "checks": [
+    {
+      "name": "wrong project rejects retention atomically",
+      "pass": true
+    },
+    {
+      "name": "backfill preserves legacy Guild, invites and noncreation audit",
+      "pass": true
+    },
+    {
+      "name": "missing scheduler denies capability and private schedule fails closed",
+      "pass": true
+    },
+    {
+      "name": "schedule installation idempotent and health fresh",
+      "pass": true
+    },
+    {
+      "name": "private ACL/RLS and immutable audit resist ordinary account",
+      "pass": true
+    },
+    {
+      "name": "active account marker, replay and payload conflict",
+      "pass": true
+    },
+    {
+      "name": "live account marker does not age out",
+      "pass": true
+    },
+    {
+      "name": "suspended account and foreign avatar denied",
+      "pass": true
+    },
+    {
+      "name": "same-account concurrent creates serialize to one Guild",
+      "pass": true
+    },
+    {
+      "name": "deletion starts window, freezes leader and preserves members/invites",
+      "pass": true
+    },
+    {
+      "name": "same identity recovers within window; different account not linked",
+      "pass": true
+    },
+    {
+      "name": "expired deletion removes covered links only and purge is idempotent",
+      "pass": true
+    },
+    {
+      "name": "new eligible identity can create after former marker expiration",
+      "pass": true
+    },
+    {
+      "name": "ordinary users cannot grant themselves a redaction permit",
+      "pass": true
+    },
+    {
+      "name": "legal hold explicitly preserves marker pending operator review",
+      "pass": true
+    },
+    {
+      "name": "cleanup failure rolls back redaction and disables creation with redacted alert",
+      "pass": true
+    },
+    {
+      "name": "physical Auth deletion blocked by unrelated references is atomic",
+      "pass": true
+    },
+    {
+      "name": "expired soft Auth recovery requires explicit review even after marker removal",
+      "pass": true
+    },
+    {
+      "name": "stale scheduler heartbeat fails closed",
+      "pass": true
+    }
+  ],
+  "hostedProof": false,
+  "schedulerFixture": true,
+  "postgresMajor": 17,
+  "task": "GUILD-035C",
+  "sqlSHA256": "a2d2e973615f1d0ed19893b50ed50d7ac5688e2f5417a02010d27b2020b03d29",
+  "integration": {
+    "checks": 14,
+    "newChecks": 2,
+    "passed": true
+  },
+  "limitations": [
+    "pg_cron SQL fixture; real scheduler not observed",
+    "Synthetic accounts only; not hosted Auth proof",
+    "No complete anonymization or verified backup claim"
+  ]
+}
