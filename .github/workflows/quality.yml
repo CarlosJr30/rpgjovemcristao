@@ -180,6 +180,8 @@ jobs:
         run: node tests/hosted/community-043b-control-postgres.mjs
       - name: Validar capacidade autenticada de criação própria em TEST e PROD descartáveis
         run: node tests/hosted/community-043b-capability-postgres.mjs
+      - name: Validar instalação conjunta COMMUNITY PROD em banco descartável
+        run: node tests/hosted/community-043b-capability-postgres.mjs --production-package
       - name: Validar controle privado PROD somente em PostgreSQL descartável
         run: node tests/hosted/community-043b-production-control-postgres.mjs
       - name: Exigir financiamento privado da fixture TEST sem alterar o gate de equipamentos

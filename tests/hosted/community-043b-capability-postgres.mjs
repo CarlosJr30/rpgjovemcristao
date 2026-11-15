@@ -245,7 +245,8 @@ try {
   );
   const capability = sql('packages/database/deployments/community043b/sql/community_own_guild_capability.sql.in');
   await q("insert into auth.sessions(id,user_id) select id,id from auth.users");
-  for (const production of [false,true]) {
+  const fullPackage = process.argv.includes('--production-package');
+  for (const production of (fullPackage ? [true] : [false,true])) {
     const foundation=production ? 'packages/database/deployments/community043b/sql/20261113215415_community_043b_controlled_creation_production.sql' : 'supabase/migrations/20261113215415_community_043b_controlled_creation_test.sql';
     await q('BEGIN');
     try {
@@ -254,7 +255,20 @@ try {
         await q("select set_config('rpg.community043b.target_project','wspafhlbtlpabypzymjo',true),set_config('rpg.community043b.install','reviewed-production',true)");
       } else await q("select set_config('rpg.community043b.install','local-test',true)");
       await q(sql(foundation).replace(/^BEGIN;$/m,'').replace(/^COMMIT;$/m,''));
+      if (fullPackage) {
+        for (const [file, guc] of [
+          ['20261113232954_community_043b_membership_link_quotas_production.sql','quotas_install'],
+          ['20261114110000_community_043b_join_request_quotas_production.sql','request_quotas_install'],
+        ]) {
+          await q(`select set_config('rpg.community043b.${guc}','reviewed-production',true)`);
+          await q(sql('packages/database/deployments/community043b/sql/'+file).replace(/^BEGIN;$/m,'').replace(/^COMMIT;$/m,''));
+        }
+      }
       await q(capability);
+      if (fullPackage) {
+        await q("select set_config('rpg.community043b.control_install','reviewed-production',true)");
+        await q(sql('packages/database/proposals/community-043b-production-control-v1.sql.in'));
+      }
       const read = async (actor=tid(2), session=true) => {
         await q('SET LOCAL ROLE authenticated');
         await q("select set_config('request.jwt.claim.sub',$1,true),set_config('request.jwt.claims',$2,true)",[uid(2),JSON.stringify({is_anonymous:false,...(session?{session_id:uid(2)}:{})})]);
@@ -262,7 +276,17 @@ try {
       };
       const label=production?'PROD':'TEST';
       await check(label+' disabled returns exact contract',async()=>assert.deepEqual(await read(),{version:1,available:false}));
-      await q("update guild_admin_private.multiguild_control set writes_enabled=true,community_creation_enabled=true,community_environment=$1",[production?'production':'local']);
+      if (fullPackage) {
+        await q("select set_config('request.jwt.claim.sub','',true),set_config('request.jwt.claims','{}',true)");
+        const revision=(await q('select revision from guild_admin_private.multiguild_control')).rows[0].revision;
+        const params=[randomUUID(),true,revision,false,'disabled','isolated-operator','https://github.com/CarlosJr30/rpgjovemcristao/pull/55'];
+        const command='select guild_admin_private.community_production_control_v1($1,$2,$3,$4,$5,$6,$7) result';
+        await q(command,params);
+        await check('PROD package activation replay writes one audit only',async()=>{
+          assert.equal((await q(command,params)).rows[0].result.replayed,true);
+          assert.equal((await q('select count(*)::int n from guild_admin_private.community_control_operations')).rows[0].n,1);
+        });
+      } else await q("update guild_admin_private.multiguild_control set writes_enabled=true,community_creation_enabled=true,community_environment=$1",[production?'production':'local']);
       await check(label+' ordinary eligible account and read preserves game data',async()=>{const before=await gameData();assert.deepEqual(await read(),{version:1,available:true});assert.equal(await gameData(),before);});
       await q("insert into public.guild_members(guild_id,traveler_id,role,status) select id,$1,'member','active' from public.guilds limit 5",[tid(2)]);
       await check(label+' five memberships denied',async()=>assert.equal((await read()).available,false));

@@ -9,6 +9,18 @@ import { selectProductionMigrations } from './preflight.mjs';
 const dir = fileURLToPath(new URL('.', import.meta.url));
 const manifest = JSON.parse(readFileSync(resolve(dir, 'production-package.json'), 'utf8'));
 
+test('pins both versioned supplements after the original migrations without authorizing activation', () => {
+  assert.deepEqual(manifest.installationPlan.orders, [1, 2, 3, 4, 5]);
+  assert.equal(manifest.installationPlan.activationIncluded, false);
+  assert.equal(manifest.installationPlan.status, 'blocked');
+  assert.deepEqual(manifest.supplementalInstallations.map((x) => x.order), [4, 5]);
+  for (const entry of manifest.supplementalInstallations) {
+    assert.deepEqual(entry.dependsOn, [entry.order - 1]);
+    const contents = readFileSync(resolve(dir, '../../../..', entry.path));
+    assert.equal(createHash('sha256').update(contents).digest('hex'), entry.sha256);
+  }
+});
+
 test('keeps PROD release list empty and pins current production project/scope', () => {
   assert.equal(manifest.status, 'blocked');
   assert.deepEqual(manifest.migrations, []);

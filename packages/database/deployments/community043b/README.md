@@ -36,3 +36,22 @@ node packages/database/deployments/community043b/preflight.mjs production wspafh
 ```
 
 Enquanto o manifesto estiver `blocked`, o segundo comando deve terminar com erro `COMMUNITY-043B production package is blocked`; isso é esperado e não acessa o banco. Quando um pacote validado estiver pronto, a mesma verificação deve listar somente os três SQL versionados e conferir seus SHA-256. Esses comandos não aplicam migrations.
+
+## GUILD-031E.2 — sequência consolidada (bloqueada)
+
+`production-package.json` fixa os três SQLs em `candidateMigrations` e os dois complementos em `supplementalInstallations`, com SHA-256 e dependência do passo anterior. Os complementos são operações de instalação versionadas, sem cópias divergentes dos templates. Não são comandos de ativação. O seletor atual continua recusando o pacote; não basta trocar `status` para publicar cinco passos: o executor/lista aprovada deverá contemplar os complementos e o registro remoto antes da liberação.
+
+Ordem única:
+1. Fundação PROD (`candidateMigrations[0]`).
+2. Quotas de membros e links (`candidateMigrations[1]`).
+3. Quotas de solicitações (`candidateMigrations[2]`).
+4. `sql/community_own_guild_capability.sql.in`, versão `community-own-guild-capability-v1`.
+5. `packages/database/proposals/community-043b-production-control-v1.sql.in`, versão `community-production-control-v1`.
+
+O passo 4 herda a guarda da fundação: nunca executar isoladamente, somente dentro da transação PROD revisada, após 1–3. O passo 5 exige postgres sem identidade de jogador, projeto declarado, scope correto, controles desligados e dependências presentes. Ambos têm ACLs explícitas; somente authenticated lê capacidade, somente postgres opera o controle. A capacidade não concede permissão: a criação revalida ownership, sessão e quotas. `createScoped` é preservado. Links/QR usam os fluxos atuais; não há endpoint novo de convites individuais.
+
+Antes da instalação futura: comprovar recuperação com restore isolado e aprovar retenção; conferir conexão real PROD independentemente do GUC; confirmar CI exato, hashes e baseline; obter liberação explícita do manifesto. Alocar versões remotas distintas e conferir o histórico sem reaplicar ECONOMY-041. Revisar um envelope transacional único com limites de lock/tempo e os GUCs exigidos por cada etapa; os BEGIN/COMMIT internos dos três arquivos devem ser tratados explicitamente pelo executor revisado, nunca por db push geral. Qualquer erro deve abortar o envelope inteiro. O ensaio local usa esse envelope sobre dados sintéticos, não prova recuperação PROD.
+
+Após instalar e registrar exclusivamente os cinco passos: verificar funções/ACL/RLS, controles desligados e invariantes dos registros históricos. Integrar código aprovado pelo fluxo normal e confirmar deployment/SHA. Só depois executar controle privado autorizado com UUID novo, revisão/estado anterior lidos, operador e referência de aprovação. Nunca alterar writes_enabled antigo para compensar bloqueios. Conferir criação e convites com conta autorizada; isso cria registros legítimos de teste e exige gate próprio. Conter incidente com a operação privada inversa e CAS, preservando Guildas, convites e ledger; não apagar histórico. Rollback de código não desfaz SQL nem transações.
+
+Validação adicional: `node tests/hosted/community-043b-capability-postgres.mjs --production-package` (12 checks de integração dos cinco passos, PostgreSQL17.10 descartável). Reutilizar 49 cenários dos SQLs originais, 16 do controle e 22 da capacidade do SHA anterior quando seus hashes forem idênticos. Recuperação PROD BLOCKED; retenção PENDING; manifesto blocked/migrations=[]; nenhuma instalação remota autorizada nesta etapa.
