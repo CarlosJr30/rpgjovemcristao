@@ -35,7 +35,7 @@ const approved = [
   [
     '20261115170001',
     'packages/database/deployments/community043b/sql/community_retention_v1.sql.in',
-    'a2d2e973615f1d0ed19893b50ed50d7ac5688e2f5417a02010d27b2020b03d29',
+    '4bf1e9a181032acde0133ed3bf2f1ec7e24f134b1c542d479b6314c567d6c68f',
   ],
 ];
 

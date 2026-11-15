@@ -1,5 +1,7 @@
 # GUILD-035 — Decisão de produto: retenção do marcador de criação de Guilda
 
+**Esclarecimento aprovado na GUILD-036:** exclusão via Supabase Auth/deleteUser é irreversível. Não há restauração automática, reconstrução de identidades/credenciais ou associação de conta nova por email/dispositivo. A janela de até 30 dias é um teto, não obrigação de conservar dados sem finalidade. Sem recuperação de identidade suportada, os vínculos abrangidos são desidentificados no evento de exclusão; retenção adicional só por obrigação legal específica documentada. Login/recuperação de senha de conta existente preservam seu marcador. Não criar estágio reversível novo nesta entrega. Demais decisões e revisão de privacidade pendente permanecem.
+
 **Data da decisão:** 2026-11-15  
 **Aprovador:** proprietário do RPG Jovem Cristão (aprovação expressa registrada na conversa)  
 **Status de produto:** APPROVED  

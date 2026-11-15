@@ -16,8 +16,7 @@ INSERT INTO community_retention_private.secret VALUES(true,extensions.gen_random
 CREATE TABLE community_retention_private.markers(subject bytea PRIMARY KEY, deleted_at timestamptz);
 CREATE TABLE community_retention_private.guild_links(
  guild_id uuid PRIMARY KEY REFERENCES public.guilds(id) ON DELETE RESTRICT,
- subject bytea NOT NULL REFERENCES community_retention_private.markers(subject) ON DELETE CASCADE,
- recovery_leader uuid);
+ subject bytea NOT NULL REFERENCES community_retention_private.markers(subject) ON DELETE CASCADE);
 CREATE TABLE community_retention_private.audit_links(
  audit_id bigint PRIMARY KEY REFERENCES guild_admin_private.audit(id) ON DELETE RESTRICT,
  subject bytea NOT NULL REFERENCES community_retention_private.markers(subject) ON DELETE CASCADE);
@@ -70,7 +69,7 @@ LANGUAGE plpgsql SECURITY DEFINER SET search_path='' AS $$DECLARE s bytea;BEGIN
  IF EXISTS(SELECT 1 FROM community_retention_private.markers WHERE subject=s)
  THEN RAISE EXCEPTION 'Account already created a Guild' USING ERRCODE='23505'; END IF;
  INSERT INTO community_retention_private.markers VALUES(s,NULL);
- INSERT INTO community_retention_private.guild_links VALUES(NEW.id,s,NULL);
+ INSERT INTO community_retention_private.guild_links VALUES(NEW.id,s);
  RETURN NEW;
 END $$;
 CREATE TRIGGER community_capture_creator AFTER INSERT ON public.guilds FOR EACH ROW EXECUTE FUNCTION community_retention_private.capture_guild();
@@ -87,50 +86,26 @@ END $$;
 CREATE TRIGGER community_capture_creation_audit AFTER INSERT ON guild_admin_private.audit FOR EACH ROW EXECUTE FUNCTION community_retention_private.capture_audit();
 
 CREATE FUNCTION community_retention_private.auth_lifecycle() RETURNS trigger
-LANGUAGE plpgsql SECURITY DEFINER SET search_path='' AS $$DECLARE s bytea; d timestamptz;BEGIN
+LANGUAGE plpgsql SECURITY DEFINER SET search_path='' AS $$DECLARE s bytea;BEGIN
  PERFORM pg_advisory_xact_lock(1010,1);
- -- Auth must not silently resurrect an expired identity after its marker has been erased.
- IF TG_OP='UPDATE' AND OLD.deleted_at IS NOT NULL AND NEW.deleted_at IS NULL
- AND clock_timestamp()>=OLD.deleted_at+interval '30 days'-interval '2 minutes'
- THEN RAISE EXCEPTION 'Recovery window closed; explicit identity review required' USING ERRCODE='42501'; END IF;
  s:=community_retention_private.subject(OLD.id);
- SELECT deleted_at INTO d FROM community_retention_private.markers WHERE subject=s FOR UPDATE;
- IF NOT FOUND THEN IF TG_OP='DELETE' THEN RETURN OLD; ELSE RETURN NEW; END IF; END IF;
- IF TG_OP='UPDATE' THEN
-  IF NEW.id IS DISTINCT FROM OLD.id THEN RAISE EXCEPTION 'Identity change denied' USING ERRCODE='42501'; END IF;
-  IF NEW.deleted_at IS NULL THEN
-   IF d IS NULL THEN RETURN NEW; END IF;
-   IF clock_timestamp()>=d+interval '30 days'-interval '2 minutes'
-   THEN RAISE EXCEPTION 'Recovery window closed; explicit identity review required' USING ERRCODE='42501'; END IF;
-   UPDATE community_retention_private.markers SET deleted_at=NULL WHERE subject=s;
-   -- Only the exact previous leader, same Auth identity, still a leader member; never transfer leadership.
-   UPDATE public.guilds g SET leader_traveler_id=l.recovery_leader
-   FROM community_retention_private.guild_links l,public.travelers t
-   WHERE l.subject=s AND l.guild_id=g.id AND g.leader_traveler_id IS NULL
-    AND t.id=l.recovery_leader AND t.user_id=NEW.id AND t.is_active
-    AND EXISTS(SELECT 1 FROM public.guild_members m WHERE m.guild_id=g.id AND m.traveler_id=t.id AND m.role='member' AND m.status='active')
-    AND NEW.is_anonymous IS FALSE AND NEW.email_confirmed_at IS NOT NULL
-    AND (NEW.banned_until IS NULL OR NEW.banned_until<=clock_timestamp());
-   UPDATE public.guild_members m SET role='leader'
-   FROM community_retention_private.guild_links l,public.guilds g
-   WHERE l.subject=s AND l.guild_id=g.id AND g.leader_traveler_id=l.recovery_leader
-    AND m.guild_id=g.id AND m.traveler_id=l.recovery_leader AND m.role='member' AND m.status='active';
-   UPDATE community_retention_private.guild_links SET recovery_leader=NULL WHERE subject=s;
-   RETURN NEW;
-  END IF;
+ IF NOT EXISTS(SELECT 1 FROM community_retention_private.markers WHERE subject=s) THEN
+  IF TG_OP='DELETE' THEN RETURN OLD; ELSE RETURN NEW; END IF;
  END IF;
  IF TG_OP='UPDATE' THEN
-  UPDATE community_retention_private.markers SET deleted_at=least(coalesce(d,clock_timestamp()),NEW.deleted_at,clock_timestamp()) WHERE subject=s;
- ELSE
-  UPDATE community_retention_private.markers SET deleted_at=coalesce(d,clock_timestamp()) WHERE subject=s;
+  IF NEW.id IS DISTINCT FROM OLD.id THEN RAISE EXCEPTION 'Covered identity change denied' USING ERRCODE='42501'; END IF;
+  -- Password recovery and unrelated Auth updates do not change COMMUNITY state.
+  -- Clearing deleted_at is not a supported identity restore and never restores a marker/leader.
+  IF NEW.deleted_at IS NULL THEN RETURN NEW; END IF;
  END IF;
- UPDATE community_retention_private.guild_links l SET recovery_leader=g.leader_traveler_id
- FROM public.guilds g,public.travelers t WHERE l.subject=s AND l.guild_id=g.id
-  AND t.id=g.leader_traveler_id AND t.user_id=OLD.id AND l.recovery_leader IS NULL;
- UPDATE public.guild_members m SET role='member' FROM community_retention_private.guild_links l
- WHERE l.subject=s AND m.guild_id=l.guild_id AND m.traveler_id=l.recovery_leader AND m.role='leader';
+ UPDATE community_retention_private.markers SET deleted_at=coalesce(deleted_at,clock_timestamp()) WHERE subject=s;
+ UPDATE public.guild_members gm SET role='member' FROM community_retention_private.guild_links l,public.travelers t
+ WHERE l.subject=s AND l.guild_id=gm.guild_id AND gm.traveler_id=t.id AND gm.role='leader' AND t.user_id=OLD.id;
  UPDATE public.guilds g SET leader_traveler_id=NULL FROM community_retention_private.guild_links l,public.travelers t
  WHERE l.subject=s AND l.guild_id=g.id AND t.id=g.leader_traveler_id AND t.user_id=OLD.id;
+ -- No identity recovery purpose remains: redact covered links in this transaction.
+ -- A failure aborts deletion rather than silently retaining unaudited partial changes.
+ PERFORM community_retention_private.sweep();
  IF TG_OP='DELETE' THEN RETURN OLD; ELSE RETURN NEW; END IF;
 END $$;
 CREATE TRIGGER community_auth_retention BEFORE UPDATE OF deleted_at,id OR DELETE ON auth.users
@@ -139,11 +114,11 @@ CREATE TRIGGER community_auth_retention BEFORE UPDATE OF deleted_at,id OR DELETE
 CREATE FUNCTION community_retention_private.sweep() RETURNS bigint
 LANGUAGE plpgsql SECURITY INVOKER SET search_path='' AS $$
 DECLARE m record; a record; n bigint:=0; newrow jsonb;BEGIN
- IF current_user<>'postgres' OR session_user<>'postgres' OR auth.uid() IS NOT NULL OR public.release_scope()<>'guild-ebd-001'
+ IF current_user<>'postgres' OR public.release_scope()<>'guild-ebd-001'
  THEN RAISE EXCEPTION 'Private retention operator required' USING ERRCODE='42501'; END IF;
  PERFORM pg_advisory_xact_lock(1010,1);
  FOR m IN SELECT * FROM community_retention_private.markers x
- WHERE x.deleted_at+interval '30 days'-interval '2 minutes'<=clock_timestamp()
+ WHERE x.deleted_at<=clock_timestamp()
  AND NOT EXISTS(SELECT 1 FROM community_retention_private.legal_holds h WHERE h.subject=x.subject)
  FOR UPDATE LOOP
   FOR a IN SELECT v.* FROM guild_admin_private.audit v JOIN community_retention_private.audit_links l ON l.audit_id=v.id
@@ -210,8 +185,26 @@ LANGUAGE plpgsql SECURITY INVOKER SET search_path='' AS $$BEGIN
  THEN RAISE EXCEPTION 'pg_cron unavailable; keep creation disabled' USING ERRCODE='55000'; END IF;
  PERFORM pg_advisory_xact_lock(1010,1);
  EXECUTE $q$SELECT cron.schedule('community-retention-v1','* * * * *','SELECT community_retention_private.tick()')$q$;
+ EXECUTE $q$SELECT cron.schedule('community-retention-watchdog-v1','* * * * *','SELECT community_retention_private.watchdog()')$q$;
  PERFORM community_retention_private.tick();
 END $$;
+
+CREATE FUNCTION community_retention_private.watchdog() RETURNS void
+LANGUAGE plpgsql SECURITY INVOKER SET search_path='' AS $$BEGIN
+ IF current_user<>'postgres' OR session_user<>'postgres' OR auth.uid() IS NOT NULL OR public.release_scope()<>'guild-ebd-001'
+ THEN RAISE EXCEPTION 'Private monitor required' USING ERRCODE='42501'; END IF;
+ IF NOT community_retention_private.operational() THEN
+  UPDATE guild_admin_private.multiguild_control SET community_creation_enabled=false,community_environment='disabled' WHERE singleton;
+  RAISE WARNING 'COMMUNITY_RETENTION_STALE_OR_FAILED; creation disabled; operator action required';
+ END IF;
+END $$;
+CREATE FUNCTION community_retention_private.monitor_status() RETURNS jsonb
+LANGUAGE sql SECURITY INVOKER SET search_path='' AS $$
+ SELECT jsonb_build_object('operational',community_retention_private.operational(),
+ 'lastSuccess',last_success,'lastFailure',last_failure,'failureCode',failure_code,'purged',purged,
+ 'pending',(SELECT count(*) FROM community_retention_private.markers WHERE deleted_at IS NOT NULL))
+ FROM community_retention_private.health WHERE singleton
+$$;
 
 CREATE OR REPLACE FUNCTION guild_admin_private.own_guild_capability(p_actor uuid) RETURNS jsonb
 LANGUAGE plpgsql SECURITY DEFINER SET search_path='' AS $$DECLARE actor uuid; available boolean:=false;BEGIN
@@ -256,5 +249,7 @@ DECLARE actor uuid;s bytea;rh bytea;ph bytea;prior community_retention_private.r
 END $$;
 -- Existing public wrappers/ACLs remain unchanged. All added internals are private.
 REVOKE ALL ON ALL FUNCTIONS IN SCHEMA community_retention_private FROM PUBLIC,anon,authenticated,service_role;
+-- Existing irreversibly deleted accounts have no supported recovery purpose.
+SELECT community_retention_private.sweep();
 -- Keep rollout closed until scheduling, privacy review and release gates are satisfied.
 UPDATE guild_admin_private.multiguild_control SET community_creation_enabled=false,community_environment='disabled' WHERE singleton;

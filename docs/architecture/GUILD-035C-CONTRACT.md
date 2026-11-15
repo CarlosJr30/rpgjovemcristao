@@ -1,5 +1,7 @@
 # GUILD-035C — contrato técnico de retenção da criação
 
+**GUILD-036 substitui o fluxo de recuperação descrito abaixo:** deleteUser é irreversível. O trigger COMMUNITY não restaura identidade, marcador ou liderança e não impõe bloqueio global a deleted_at→NULL. A exclusão abrangida desidentifica na mesma transação, sem esperar 30 dias por finalidade inexistente. Apenas obrigação legal documentada conserva marcador. Não há recovery_leader persistido. sweep privado pode ser chamado pelo trigger Auth SECURITY DEFINER sem conceder acesso direto ao serviço Auth ou jogador. A assinatura pública das RPCs permanece. O job é contingência para backlog/retirada de retenção legal; watchdog separado fecha criação e emite WARNING se o job principal parar. Estes pontos prevalecem sobre as descrições históricas abaixo. Detalhes/evidências finais em GUILD-036-REPORT.md.
+
 Decisão de produto: GUILD-035-RETENTION-DECISION.md, sem alteração do prazo aprovado. Implementação exclusivamente local; instalação, agendamento, merge e ativação remotos não autorizados nesta execução. Revisão de privacidade PENDING.
 
 ## Escopo e dados

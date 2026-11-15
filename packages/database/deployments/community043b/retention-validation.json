@@ -29,6 +29,10 @@
       "pass": true
     },
     {
+      "name": "Auth service session can trigger scoped deletion without receiving sweep privileges",
+      "pass": true
+    },
+    {
       "name": "suspended account and foreign avatar denied",
       "pass": true
     },
@@ -37,15 +41,15 @@
       "pass": true
     },
     {
-      "name": "deletion starts window, freezes leader and preserves members/invites",
+      "name": "irreversible deletion redacts promptly and preserves members/invites",
       "pass": true
     },
     {
-      "name": "same identity recovers within window; different account not linked",
+      "name": "no identity restore or leadership resurrection; different account independent",
       "pass": true
     },
     {
-      "name": "expired deletion removes covered links only and purge is idempotent",
+      "name": "immediate deletion removes covered links only and purge is idempotent",
       "pass": true
     },
     {
@@ -69,27 +73,31 @@
       "pass": true
     },
     {
-      "name": "expired soft Auth recovery requires explicit review even after marker removal",
+      "name": "unrelated Auth transitions are not globally blocked",
       "pass": true
     },
     {
       "name": "stale scheduler heartbeat fails closed",
+      "pass": true
+    },
+    {
+      "name": "watchdog closes creation after paused worker and status contains no identities",
       "pass": true
     }
   ],
   "hostedProof": false,
   "schedulerFixture": true,
   "postgresMajor": 17,
-  "task": "GUILD-035C",
-  "sqlSHA256": "a2d2e973615f1d0ed19893b50ed50d7ac5688e2f5417a02010d27b2020b03d29",
+  "task": "GUILD-036",
+  "sqlSHA256": "4bf1e9a181032acde0133ed3bf2f1ec7e24f134b1c542d479b6314c567d6c68f",
   "integration": {
     "checks": 14,
     "newChecks": 2,
     "passed": true
   },
   "limitations": [
-    "pg_cron SQL fixture; real scheduler not observed",
-    "Synthetic accounts only; not hosted Auth proof",
-    "No complete anonymization or verified backup claim"
+    "Local scheduler fixture is not hosted proof; separate TEST real pg_cron probe recorded in GUILD-036-REPORT",
+    "Auth service session simulated; no real player deletion used",
+    "No complete anonymization or backup verification claim"
   ]
 }

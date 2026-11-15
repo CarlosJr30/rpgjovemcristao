@@ -305,7 +305,7 @@ try {
    SELECT community_retention_private.install_schedule();`);
   await check('schedule installation idempotent and health fresh', async () => {
     await q('select community_retention_private.install_schedule()');
-    assert.equal(await count('cron.job'), 1);
+    assert.equal(await count('cron.job'), 2);
     assert.equal(
       (await q('select community_retention_private.operational() v')).rows[0].v,
       true,
@@ -378,6 +378,36 @@ try {
     );
     await denied(() => create(2), '23505');
   });
+  await check(
+    'Auth service session can trigger scoped deletion without receiving sweep privileges',
+    async () => {
+      const g = await create(7);
+      await q(
+        'CREATE ROLE synthetic_auth_service; GRANT USAGE ON SCHEMA auth TO synthetic_auth_service; GRANT SELECT ON auth.users TO synthetic_auth_service; GRANT UPDATE(deleted_at) ON auth.users TO synthetic_auth_service; SET SESSION AUTHORIZATION synthetic_auth_service',
+      );
+      try {
+        await q('update auth.users set deleted_at=now() where id=$1', [uid(7)]);
+      } finally {
+        await q('RESET SESSION AUTHORIZATION');
+      }
+      assert.equal(
+        (
+          await q('select created_by_user_id from public.guilds where id=$1', [
+            g.id,
+          ])
+        ).rows[0].created_by_user_id,
+        null,
+      );
+      assert.equal(
+        (
+          await q(
+            "select has_function_privilege('synthetic_auth_service','community_retention_private.sweep()','EXECUTE') ok",
+          )
+        ).rows[0].ok,
+        false,
+      );
+    },
+  );
   await check('suspended account and foreign avatar denied', async () => {
     await q(
       "update auth.users set banned_until=now()+interval '1 day' where id=$1",
@@ -413,7 +443,7 @@ try {
     },
   );
   await check(
-    'deletion starts window, freezes leader and preserves members/invites',
+    'irreversible deletion redacts promptly and preserves members/invites',
     async () => {
       await q('update auth.users set deleted_at=now() where id=$1', [uid(2)]);
       assert.equal(
@@ -446,7 +476,7 @@ try {
     },
   );
   await check(
-    'same identity recovers within window; different account not linked',
+    'no identity restore or leadership resurrection; different account independent',
     async () => {
       await q('update auth.users set deleted_at=null where id=$1', [uid(2)]);
       assert.equal(
@@ -455,7 +485,7 @@ try {
             made.id,
           ])
         ).rows[0].leader_traveler_id,
-        tid(2),
+        null,
       );
       assert.equal(
         (
@@ -463,25 +493,21 @@ try {
             made.id,
           ])
         ).rows[0].role,
-        'leader',
+        'member',
       );
-      await denied(() => create(2), '23505');
+      await q('update auth.users set deleted_at=now() where id=$1', [uid(2)]);
       assert.equal((await create(5)).status, 'created');
     },
   );
   await check(
-    'expired deletion removes covered links only and purge is idempotent',
+    'immediate deletion removes covered links only and purge is idempotent',
     async () => {
       await q('update auth.users set deleted_at=now() where id=$1', [uid(1)]);
-      await q(
-        "update community_retention_private.markers set deleted_at=now()-interval '31 days' where subject=community_retention_private.subject($1)",
-        [uid(1)],
-      );
       assert.equal(
         Number(
           (await q('select community_retention_private.sweep() n')).rows[0].n,
         ),
-        1,
+        0,
       );
       assert.equal(
         Number(
@@ -565,15 +591,11 @@ try {
   await check(
     'legal hold explicitly preserves marker pending operator review',
     async () => {
-      await q('update auth.users set deleted_at=now() where id=$1', [uid(5)]);
-      await q(
-        "update community_retention_private.markers set deleted_at=now()-interval '31 days' where subject=community_retention_private.subject($1)",
-        [uid(5)],
-      );
       await q(
         "insert into community_retention_private.legal_holds values(community_retention_private.subject($1),'synthetic-obligation-reference',now()+interval '1 day')",
         [uid(5)],
       );
+      await q('update auth.users set deleted_at=now() where id=$1', [uid(5)]);
       assert.equal(
         Number(
           (await q('select community_retention_private.sweep() n')).rows[0].n,
@@ -585,10 +607,9 @@ try {
   await check(
     'cleanup failure rolls back redaction and disables creation with redacted alert',
     async () => {
-      await q('update auth.users set deleted_at=now() where id=$1', [uid(2)]);
       await q(
         "update community_retention_private.markers set deleted_at=now()-interval '31 days' where subject=community_retention_private.subject($1)",
-        [uid(2)],
+        [uid(6)],
       );
       await q(
         "create function public.synthetic_failure() returns trigger language plpgsql as $$begin raise exception 'synthetic only' using errcode='23514';end$$; create trigger synthetic_failure before delete on community_retention_private.markers for each row execute function public.synthetic_failure()",
@@ -628,7 +649,7 @@ try {
         (
           await q(
             'select count(*)::int n from community_retention_private.replays where subject=community_retention_private.subject($1)',
-            [uid(2)],
+            [uid(6)],
           )
         ).rows[0].n,
         0,
@@ -637,7 +658,7 @@ try {
         (
           await q(
             'select count(*)::int n from community_retention_private.audit_links where subject=community_retention_private.subject($1)',
-            [uid(2)],
+            [uid(6)],
           )
         ).rows[0].n,
         0,
@@ -671,14 +692,17 @@ try {
     },
   );
   await check(
-    'expired soft Auth recovery requires explicit review even after marker removal',
+    'unrelated Auth transitions are not globally blocked',
     async () => {
       await q(
         "update auth.users set deleted_at=now()-interval '31 days' where id=$1",
-        [uid(2)],
+        [uid(12)],
       );
-      await denied(() =>
-        q('update auth.users set deleted_at=null where id=$1', [uid(2)]),
+      await q('update auth.users set deleted_at=null where id=$1', [uid(12)]);
+      assert.equal(
+        (await q('select deleted_at from auth.users where id=$1', [uid(12)]))
+          .rows[0].deleted_at,
+        null,
       );
     },
   );
@@ -692,6 +716,27 @@ try {
       false,
     );
   });
+  await check(
+    'watchdog closes creation after paused worker and status contains no identities',
+    async () => {
+      await q(
+        "update guild_admin_private.multiguild_control set community_creation_enabled=true,community_environment='production';update cron.job set active=false where jobname='community-retention-v1';select community_retention_private.watchdog()",
+      );
+      assert.equal(
+        (
+          await q(
+            'select community_creation_enabled v from guild_admin_private.multiguild_control',
+          )
+        ).rows[0].v,
+        false,
+      );
+      const status = (
+        await q('select community_retention_private.monitor_status() v')
+      ).rows[0].v;
+      assert.equal(status.operational, false);
+      assert(!JSON.stringify(status).includes(uid(1)));
+    },
+  );
   fs.writeFileSync(
     path.join(root, 'evidence.json'),
     JSON.stringify(
