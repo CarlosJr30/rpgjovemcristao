@@ -63,33 +63,25 @@
       "order": 4,
       "version": "community-own-guild-capability-v1",
       "path": "packages/database/deployments/community043b/sql/community_own_guild_capability.sql.in",
-      "dependsOn": [
-        3
-      ],
+      "dependsOn": [3],
       "transaction": "same-reviewed-production-transaction",
-      "sha256": "8838d65d9488855b140ba547464f1c1f05c359c34801e6a74c00b019bf8e04d8"
+      "sha256": "8838d65d9488855b140ba547464f1c1f05c359c34801e6a74c00b019bf8e04d8",
+      "migrationVersion": "20261115150001"
     },
     {
       "order": 5,
       "version": "community-production-control-v1",
       "path": "packages/database/proposals/community-043b-production-control-v1.sql.in",
-      "dependsOn": [
-        4
-      ],
+      "dependsOn": [4],
       "transaction": "same-reviewed-production-transaction",
-      "sha256": "8ca257ce13ecfa20cdb49b405eacb20b89523a5b521986700eb97b84c2cfc414"
+      "sha256": "8ca257ce13ecfa20cdb49b405eacb20b89523a5b521986700eb97b84c2cfc414",
+      "migrationVersion": "20261115150002"
     }
   ],
   "installationPlan": {
     "version": 1,
     "status": "blocked",
-    "orders": [
-      1,
-      2,
-      3,
-      4,
-      5
-    ],
+    "orders": [1, 2, 3, 4, 5],
     "activationIncluded": false,
     "registration": "Three PROD migrations plus two versioned installation operations; allocate and reconcile remote migration versions before release."
   }
