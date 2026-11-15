@@ -18,6 +18,17 @@ export type GovernanceStatus = {
   writesEnabled?: boolean;
   economicRewardsEnabled: false;
 };
+export type OwnGuildCreationCapability = { version: 1; available: boolean };
+
+export function parseOwnGuildCreationCapability(
+  value: unknown,
+): OwnGuildCreationCapability | null {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return null;
+  const candidate = value as Record<string, unknown>;
+  if (candidate.version !== 1 || typeof candidate.available !== 'boolean')
+    return null;
+  return { version: 1, available: candidate.available };
+}
 export type GovernanceWorkspace = {
   version: 1;
   guilds: {

@@ -7,6 +7,11 @@ const mocks = vi.hoisted(() => ({
 vi.mock('../supabase/client', () => ({
   getSupabaseBrowserClient: () => ({ rpc: mocks.rpc }),
 }));
+vi.mock('../supabase/online-sync', () => ({
+  canUseTravelerInCurrentSession: () => true,
+  getCurrentOnlineUserId: () => 'actor',
+  getOnlineSessionRevision: () => 1,
+}));
 vi.mock('./context-guard', () => ({ guardGuildContext: () => mocks.verify }));
 vi.mock('./creation-intent', () => ({
   beginGuildCreation: () => ({
@@ -17,22 +22,30 @@ vi.mock('./creation-intent', () => ({
   }),
   confirmGuildCreation: mocks.confirm,
 }));
-import { communityCreationTestUI } from './community-creation';
 import { guildRepository } from '../supabase/repositories/guild-repository';
 beforeEach(() => vi.clearAllMocks());
 afterEach(() => vi.unstubAllEnvs());
 const id = '10000000-0000-4000-8000-000000000001';
-test('UI defaults closed and refuses PROD backend even with switch enabled', () => {
-  vi.stubEnv('NEXT_PUBLIC_COMMUNITY_CREATION_TEST', '');
-  expect(communityCreationTestUI()).toBe(false);
-  vi.stubEnv('NEXT_PUBLIC_COMMUNITY_CREATION_TEST', '1');
-  vi.stubEnv('NEXT_PUBLIC_SUPABASE_URL', 'https://other.supabase.co');
-  expect(communityCreationTestUI()).toBe(false);
-  vi.stubEnv(
-    'NEXT_PUBLIC_SUPABASE_URL',
-    'https://wkdvdzfkbwvhyjmamrsg.supabase.co',
-  );
-  expect(communityCreationTestUI()).toBe(true);
+test('own-creation capability comes from the authenticated server and fails closed', async () => {
+  mocks.rpc.mockResolvedValueOnce({
+    data: { version: 1, available: true },
+    error: null,
+  });
+  await expect(guildRepository.canCreateOwnGuild('actor')).resolves.toBe(true);
+  expect(mocks.rpc).toHaveBeenCalledWith('community_own_guild_capability', {
+    p_actor: 'actor',
+  });
+
+  mocks.rpc.mockResolvedValueOnce({
+    data: null,
+    error: { code: 'PGRST202' },
+  });
+  await expect(guildRepository.canCreateOwnGuild('actor')).resolves.toBe(false);
+  mocks.rpc.mockResolvedValueOnce({
+    data: { version: 2, available: true },
+    error: null,
+  });
+  await expect(guildRepository.canCreateOwnGuild('actor')).resolves.toBe(false);
 });
 test('sends only actor and persisted intent, confirms server receipt', async () => {
   mocks.rpc.mockResolvedValue({

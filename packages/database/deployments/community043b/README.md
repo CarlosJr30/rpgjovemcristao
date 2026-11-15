@@ -1,5 +1,9 @@
 # COMMUNITY-043B — pacote PROD (bloqueado)
 
+GUILD-031C: `sql/community_own_guild_capability.sql.in` é um complemento local de leitura, fora da seleção de migrations. Depende da fundação guardada do ambiente correto e deverá ser instalado na mesma transação/pacote revisado, após ela; não tem instalação remota autorizada. Reutiliza `community_actor`, sem copiar sua autorização de ambiente, e responde somente `{version:1,available:boolean}`. Nega capacidade para conta já criadora ou cinco memberships. O wrapper INVOKER e o helper privado de leitura só são executáveis por authenticated; anon/service_role não recebem EXECUTE. A submissão continua revalidada pela autoridade transacional. Não basta consultar capacidade para garantir uma criação futura sob concorrência.
+
+Validação local dirigida: `node tests/hosted/community-043b-capability-postgres.mjs`, com `RPG_POSTGRES_BIN` e driver `pg` existentes (ou `RPG_PG_MODULE` explícito). Exercita as duas fundações em PostgreSQL descartável, 22 checks, sem endpoints remotos. Os três SQLs originais e seus hashes não mudaram; manifesto continua bloqueado.
+
 Este diretório é o único futuro ponto de entrada para uma implantação específica de COMMUNITY-043B em produção. As fontes TEST continuam em `supabase/migrations` sem alterações; elas não devem ser reaplicadas nem encaminhadas a PROD.
 
 ## Seleção de ambiente

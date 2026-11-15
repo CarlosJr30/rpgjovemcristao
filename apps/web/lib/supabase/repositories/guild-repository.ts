@@ -8,7 +8,10 @@ import {
   beginGuildWork,
 } from '../../guild-governance/selection';
 import { guardGuildContext } from '../../guild-governance/context-guard';
-import { parseGovernanceStatus } from '../../guild-governance/contracts';
+import {
+  parseGovernanceStatus,
+  parseOwnGuildCreationCapability,
+} from '../../guild-governance/contracts';
 import {
   canUseTravelerInCurrentSession,
   getCurrentOnlineUserId,
@@ -132,6 +135,22 @@ export const guildRepository = {
       requireData(result, 'Não foi possível confirmar suas permissões.'),
     );
   },
+  async canCreateOwnGuild(actor: string) {
+    const verify = sessionGuard(actor);
+    let result;
+    try {
+      result = await getSupabaseBrowserClient().rpc(
+        'community_own_guild_capability',
+        { p_actor: actor },
+      );
+    } catch {
+      verify();
+      return false;
+    }
+    verify();
+    if (result.error) return false;
+    return parseOwnGuildCreationCapability(result.data)?.available === true;
+  },
   listContexts: contexts,
   async getContext(
     travelerId: string,
@@ -193,6 +212,8 @@ export const guildRepository = {
     verify();
     if (result.error) {
       const messages: Record<string, string> = {
+        PGRST202: 'A criação própria ainda não está disponível neste ambiente.',
+        '42883': 'A criação própria ainda não está disponível neste ambiente.',
         '23505': 'Esta conta já criou uma Guilda.',
         '42501': 'Confirme sua sessão e o avatar ativo elegível.',
         '54000': 'Este avatar já participa de cinco Guildas.',

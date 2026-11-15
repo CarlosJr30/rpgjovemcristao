@@ -1,0 +1,24 @@
+-- Local candidate, after the guarded COMMUNITY foundation. Manifest stays blocked.
+-- No activation or player-data writes. The foundation selects the environment.
+CREATE FUNCTION guild_admin_private.own_guild_capability(p_actor uuid) RETURNS jsonb
+LANGUAGE plpgsql SECURITY DEFINER SET search_path='' AS $$
+DECLARE actor uuid; available boolean := false;
+BEGIN
+  BEGIN
+    actor := guild_admin_private.community_actor(p_actor);
+    available := NOT EXISTS(SELECT 1 FROM public.guilds WHERE created_by_user_id=actor)
+      AND NOT EXISTS(SELECT 1 FROM guild_admin_private.audit WHERE actor_uid=actor AND action='guild_create')
+      AND (SELECT count(*) FROM public.guild_members WHERE traveler_id=p_actor AND status='active') < 5;
+  EXCEPTION WHEN SQLSTATE '42501' OR SQLSTATE '55000' THEN
+    available := false;
+  END;
+  RETURN jsonb_build_object('version',1,'available',available);
+END $$;
+CREATE FUNCTION public.community_own_guild_capability(p_actor uuid) RETURNS jsonb
+LANGUAGE sql SECURITY INVOKER SET search_path='' AS $$
+  SELECT guild_admin_private.own_guild_capability(p_actor)
+$$;
+REVOKE ALL ON FUNCTION guild_admin_private.own_guild_capability(uuid),
+  public.community_own_guild_capability(uuid) FROM PUBLIC,anon,authenticated,service_role;
+GRANT EXECUTE ON FUNCTION guild_admin_private.own_guild_capability(uuid),
+  public.community_own_guild_capability(uuid) TO authenticated;
