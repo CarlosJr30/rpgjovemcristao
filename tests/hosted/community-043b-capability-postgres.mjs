@@ -325,6 +325,28 @@ try {
           assert.deepEqual(await read(), { version: 1, available: false });
           assert.equal((await q('select community_retention_private.operational() v')).rows[0].v, false);
         });
+        if(process.argv.includes('--age')) {
+          await q("select set_config('rpg.community043b.age_install','reviewed-production',true)");
+          await q(sql('packages/database/deployments/community043b/sql/community_age_eligibility_v1.sql.in'));
+          await check('seven-step package preserves histories and disables unverified old leadership',async()=>{
+            assert.equal(JSON.stringify((await q('select * from public.guilds order by id')).rows), guildsBefore);
+            assert.equal(JSON.stringify((await q('select * from guild_admin_private.audit order by id')).rows), auditBefore);
+            assert.equal((await q('select guild_admin_private.leader_not_revoked($1) v',[tid(3)])).rows[0].v,false);
+            await q('SAVEPOINT age_status; SET LOCAL ROLE authenticated');
+            await q("select set_config('request.jwt.claim.sub',$1,true)",[uid(3)]);
+            const status=(await q('select public.guild_scoped_status() result')).rows[0].result;
+            assert.equal(status.canCreateAdditionalGuilds,false);
+            await q('ROLLBACK TO age_status; RELEASE age_status');
+          });
+          await check('seven-step legacy leadership requires a current private assertion and cannot bypass closed controls',async()=>{
+            await q("insert into community_age_private.attestations values(community_retention_private.subject($1),true,now()-interval '1 minute',now()+interval '1 hour',decode(repeat('ab',32),'hex'))",[uid(3)]);
+            assert.equal((await q('select guild_admin_private.leader_not_revoked($1) v',[tid(3)])).rows[0].v,true);
+            await q('SAVEPOINT age_closed; SET LOCAL ROLE authenticated');
+            await q("select set_config('request.jwt.claim.sub',$1,true)",[uid(3)]);
+            await assert.rejects(()=>q('select public.guild_scoped_command($1,$2,$3,$4,$5,$6)',[tid(3),randomUUID(),'create',randomUUID(),randomUUID(),{name:'Denied closed control',description:''}]),e=>e.code==='55000');
+            await q('ROLLBACK TO age_closed; RELEASE age_closed');
+          });
+        }
       }
     } finally {await q('ROLLBACK');}
   }

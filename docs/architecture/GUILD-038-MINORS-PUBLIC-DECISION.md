@@ -6,6 +6,10 @@
 
 ## Decisão expressa
 
+**Complemento definitivo GUILD-040:** somente jogadores com **18 anos completos ou mais**, com elegibilidade validada no servidor, podem criar ou liderar Guildas. Inclui transferências, promoções, atribuições administrativas e recuperação de conta. Líder de célula e professor de EBD não têm exceção. Adultos elegíveis não precisam de aprovação de outro líder. Menores podem jogar e participar somente com as salvaguardas aplicáveis; essa decisão não prova que elas estejam implantadas.
+
+A integração real de aferição etária e a revisão formal de privacidade continuam pendentes. Azure/AWS foram mencionados, mas nenhum serviço específico, contrato de evidência ou sandbox foi disponibilizado. Não há autorização para inferir idade de cargo, e-mail, avatar, metadados editáveis ou checkbox.
+
 O jogo RPG Jovem Cristão poderá aceitar cadastro e participação de **crianças e adolescentes com menos de 18 anos**. A funcionalidade de Guildas deverá atender jogadores elegíveis, incluindo menores, quando cumprirem as salvaguardas apropriadas.
 
 Esta decisão não é autorização para desativar verificações de idade, supervisão parental, proteção de dados ou controles específicos de comunicação; não equivale a parecer jurídico ou a comprovação técnica de conformidade. Não presumir que as três contas existentes de adultos descrevem o público futuro.

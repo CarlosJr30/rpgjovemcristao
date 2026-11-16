@@ -295,7 +295,8 @@ function GuildCommunity({
           <h2>Criar uma Guilda</h2>
           <p>
             A criação própria não está autorizada ou disponível neste ambiente.
-            Tente novamente mais tarde.
+            Criar e liderar exige ter 18 anos ou mais, com elegibilidade
+            validada.
           </p>
         </section>
       )}

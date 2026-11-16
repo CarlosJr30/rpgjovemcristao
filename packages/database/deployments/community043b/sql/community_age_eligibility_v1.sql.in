@@ -1,0 +1,148 @@
+-- GUILD-040 candidate operation 7, version 20261116010001. NOT activation.
+-- Deliberately no issuer, seeded attestations or public write endpoint: a reviewed
+-- real age-assurance integration and privacy decision are release prerequisites.
+DO $$ BEGIN
+ IF session_user <> 'postgres' OR current_user <> 'postgres'
+ OR current_setting('rpg.community043b.target_project',true) IS DISTINCT FROM 'wspafhlbtlpabypzymjo'
+ OR current_setting('rpg.community043b.age_install',true) IS DISTINCT FROM 'reviewed-production'
+ OR public.release_scope() IS DISTINCT FROM 'guild-ebd-001'
+ OR to_regnamespace('community_retention_private') IS NULL
+ THEN RAISE EXCEPTION 'Reviewed PROD identity, scope and retention required' USING ERRCODE='42501'; END IF;
+ PERFORM pg_catalog.pg_advisory_xact_lock(1010,1);
+END $$;
+
+CREATE SCHEMA community_age_private;
+REVOKE ALL ON SCHEMA community_age_private FROM PUBLIC,anon,authenticated,service_role;
+-- Minimal derived assertion, not DOB, documents, email or self-editable metadata.
+-- A digest is a reference to evidence, never proof by itself. No real issuer exists yet.
+CREATE TABLE community_age_private.attestations(
+ subject bytea PRIMARY KEY CHECK(octet_length(subject)=32),
+ adult boolean NOT NULL,
+ verified_at timestamptz NOT NULL,
+ valid_until timestamptz NOT NULL CHECK(valid_until>verified_at),
+ evidence_digest bytea NOT NULL CHECK(octet_length(evidence_digest)=32)
+);
+ALTER TABLE community_age_private.attestations ENABLE ROW LEVEL SECURITY;
+REVOKE ALL ON community_age_private.attestations FROM PUBLIC,anon,authenticated,service_role;
+
+CREATE FUNCTION community_age_private.adult_account(p_uid uuid) RETURNS boolean
+LANGUAGE sql VOLATILE SECURITY DEFINER SET search_path='' AS $$
+ SELECT EXISTS(SELECT 1 FROM auth.users u
+ JOIN community_age_private.attestations a ON a.subject=community_retention_private.subject(u.id)
+ WHERE u.id=p_uid AND u.is_anonymous IS FALSE AND u.email_confirmed_at IS NOT NULL
+ AND u.deleted_at IS NULL AND (u.banned_until IS NULL OR u.banned_until<=clock_timestamp())
+ AND a.adult AND a.verified_at<=clock_timestamp() AND a.valid_until>clock_timestamp())
+$$;
+CREATE FUNCTION community_age_private.require_adult(p_uid uuid) RETURNS void
+LANGUAGE plpgsql SECURITY DEFINER SET search_path='' AS $$ BEGIN
+ -- Same lock as Guild writers; serialize checks with deletion/approved issuer updates.
+ PERFORM pg_catalog.pg_advisory_xact_lock(1010,1);
+ PERFORM 1 FROM auth.users WHERE id=p_uid FOR SHARE;
+ PERFORM 1 FROM community_age_private.attestations
+ WHERE subject=community_retention_private.subject(p_uid) FOR SHARE;
+ IF NOT community_age_private.adult_account(p_uid) THEN
+  RAISE EXCEPTION 'Verified adult eligibility required' USING ERRCODE='42501';
+ END IF;
+END $$;
+
+-- Preserve the function OID, existing revocations and all existing callers.
+CREATE OR REPLACE FUNCTION guild_admin_private.leader_not_revoked(p_actor uuid) RETURNS boolean
+LANGUAGE sql VOLATILE SECURITY DEFINER SET search_path='' AS $$
+ SELECT EXISTS(SELECT 1 FROM public.travelers t WHERE t.id=p_actor
+  AND NOT EXISTS(SELECT 1 FROM guild_admin_private.leadership_revocations r WHERE r.user_id=t.user_id AND r.cleared_at IS NULL)
+  AND NOT EXISTS(SELECT 1 FROM guild_admin_private.leader_authorizations a WHERE a.user_id=t.user_id AND a.revoked_at IS NOT NULL)
+  AND community_age_private.adult_account(t.user_id))
+$$;
+REVOKE ALL ON FUNCTION guild_admin_private.leader_not_revoked(uuid) FROM PUBLIC,anon,authenticated,service_role;
+
+-- Legacy creation must use the same session, control and account checks as own
+-- creation, without requiring a prior leader's grant for a verified adult.
+CREATE OR REPLACE FUNCTION guild_admin_private.require_creation(p_actor uuid) RETURNS void
+LANGUAGE plpgsql SECURITY DEFINER SET search_path='' AS $$ BEGIN
+ PERFORM guild_admin_private.community_actor(p_actor);
+ IF NOT community_retention_private.operational() THEN
+  RAISE EXCEPTION 'Retention unavailable' USING ERRCODE='55000';
+ END IF;
+END $$;
+REVOKE ALL ON FUNCTION guild_admin_private.require_creation(uuid) FROM PUBLIC,anon,authenticated,service_role;
+
+-- Prevent the old leadership UI fallback advertising creation to unverified
+-- historical leaders. The own-capability RPC remains the authoritative new path.
+CREATE OR REPLACE FUNCTION guild_admin_private.current_status() RETURNS jsonb
+LANGUAGE plpgsql VOLATILE SECURITY DEFINER SET search_path='' AS $$
+DECLARE actor uuid:=guild_admin_private.account_uid(); response jsonb:=guild_admin_private.status(); can_create boolean; enabled boolean; BEGIN
+ SELECT writes_enabled INTO enabled FROM guild_admin_private.multiguild_control WHERE singleton;
+ SELECT community_age_private.adult_account(actor)
+ AND community_retention_private.operational()
+ AND EXISTS(SELECT 1 FROM guild_admin_private.multiguild_control WHERE singleton AND community_creation_enabled AND community_environment='production')
+ AND NOT EXISTS(SELECT 1 FROM community_retention_private.markers WHERE subject=community_retention_private.subject(actor))
+ AND EXISTS(
+  SELECT 1 FROM guild_admin_private.leader_authorizations a WHERE a.user_id=actor AND a.revoked_at IS NULL
+  AND NOT EXISTS(SELECT 1 FROM guild_admin_private.leadership_revocations r WHERE r.user_id=actor AND r.cleared_at IS NULL)) INTO can_create;
+ IF EXISTS(SELECT 1 FROM guild_admin_private.leadership_revocations WHERE user_id=actor AND cleared_at IS NULL)
+ THEN response:=response||jsonb_build_object('leadership','revoked'); END IF;
+ RETURN response||jsonb_build_object('version',2,'multiGuildReady',true,'canCreateAdditionalGuilds',can_create AND enabled,'writesEnabled',enabled);
+END $$;
+REVOKE ALL ON FUNCTION guild_admin_private.current_status() FROM PUBLIC,anon,authenticated,service_role;
+GRANT EXECUTE ON FUNCTION guild_admin_private.current_status() TO authenticated;
+
+CREATE FUNCTION community_age_private.guard_guild() RETURNS trigger
+LANGUAGE plpgsql SECURITY DEFINER SET search_path='' AS $$
+DECLARE leader_uid uuid; BEGIN
+ IF TG_OP='INSERT' OR NEW.leader_traveler_id IS DISTINCT FROM OLD.leader_traveler_id THEN
+  IF NEW.leader_traveler_id IS NOT NULL THEN
+   SELECT user_id INTO leader_uid FROM public.travelers WHERE id=NEW.leader_traveler_id;
+   PERFORM community_age_private.require_adult(leader_uid);
+  END IF;
+ END IF;
+ IF TG_OP='INSERT' OR NEW.created_by_user_id IS DISTINCT FROM OLD.created_by_user_id THEN
+  IF NEW.created_by_user_id IS NOT NULL THEN
+   PERFORM community_age_private.require_adult(NEW.created_by_user_id);
+   IF EXISTS(SELECT 1 FROM community_retention_private.markers
+    WHERE subject=community_retention_private.subject(NEW.created_by_user_id)) THEN
+    RAISE EXCEPTION 'Account already created a Guild' USING ERRCODE='23505';
+   END IF;
+  END IF;
+ END IF;
+ RETURN NEW;
+END $$;
+CREATE TRIGGER community_age_guild BEFORE INSERT OR UPDATE OF leader_traveler_id,created_by_user_id
+ ON public.guilds FOR EACH ROW EXECUTE FUNCTION community_age_private.guard_guild();
+
+CREATE FUNCTION community_age_private.guard_membership() RETURNS trigger
+LANGUAGE plpgsql SECURITY DEFINER SET search_path='' AS $$
+DECLARE target_uid uuid; BEGIN
+ -- Existing membership rows are preserved. New social access for minors/unknown
+ -- age stays closed until supervised participation safeguards are integrated.
+ IF NEW.status IN ('active','pending') AND (TG_OP='INSERT'
+  OR NEW.traveler_id IS DISTINCT FROM OLD.traveler_id
+  OR NEW.status IS DISTINCT FROM OLD.status
+  OR NEW.role IN ('leader','co_leader','moderator')) THEN
+  SELECT user_id INTO target_uid FROM public.travelers WHERE id=NEW.traveler_id;
+  PERFORM community_age_private.require_adult(target_uid);
+ END IF;
+ RETURN NEW;
+END $$;
+CREATE TRIGGER community_age_membership BEFORE INSERT OR UPDATE OF traveler_id,role,status
+ ON public.guild_members FOR EACH ROW EXECUTE FUNCTION community_age_private.guard_membership();
+
+CREATE FUNCTION community_age_private.guard_authorization() RETURNS trigger
+LANGUAGE plpgsql SECURITY DEFINER SET search_path='' AS $$ BEGIN
+ IF NEW.revoked_at IS NULL THEN PERFORM community_age_private.require_adult(NEW.user_id); END IF;
+ RETURN NEW;
+END $$;
+CREATE TRIGGER community_age_authorization BEFORE INSERT OR UPDATE
+ ON guild_admin_private.leader_authorizations FOR EACH ROW EXECUTE FUNCTION community_age_private.guard_authorization();
+
+CREATE FUNCTION community_age_private.auth_deleted() RETURNS trigger
+LANGUAGE plpgsql SECURITY DEFINER SET search_path='' AS $$ BEGIN
+ IF TG_OP='DELETE' OR NEW.deleted_at IS NOT NULL THEN
+  DELETE FROM community_age_private.attestations WHERE subject=community_retention_private.subject(OLD.id);
+ END IF;
+ IF TG_OP='DELETE' THEN RETURN OLD; END IF;
+ RETURN NEW;
+END $$;
+CREATE TRIGGER community_age_auth_deleted BEFORE UPDATE OF deleted_at OR DELETE ON auth.users
+ FOR EACH ROW EXECUTE FUNCTION community_age_private.auth_deleted();
+REVOKE ALL ON ALL FUNCTIONS IN SCHEMA community_age_private FROM PUBLIC,anon,authenticated,service_role;
+-- Installation never backfills age, promotes members, deletes Guilds or opens controls.

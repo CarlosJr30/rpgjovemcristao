@@ -737,6 +737,10 @@ try {
       assert(!JSON.stringify(status).includes(uid(1)));
     },
   );
+  if (process.argv.includes('--age')) {
+    const { verifyAge } = await import('./community-age-cases.mjs');
+    await verifyAge({ q, check, denied, login, reset, db, uid, tid, create });
+  }
   fs.writeFileSync(
     path.join(root, 'evidence.json'),
     JSON.stringify(

@@ -187,9 +187,9 @@ jobs:
       - name: Validar controle privado PROD somente em PostgreSQL descartável
         run: node tests/hosted/community-043b-production-control-postgres.mjs
       - name: COMMUNITY retention lifecycle in disposable PostgreSQL
-        run: node tests/hosted/community-retention-postgres.mjs
+        run: node tests/hosted/community-retention-postgres.mjs --age
       - name: COMMUNITY complete package retention integration
-        run: node tests/hosted/community-043b-capability-postgres.mjs --production-package --retention
+        run: node tests/hosted/community-043b-capability-postgres.mjs --production-package --retention --age
       - name: Exigir financiamento privado da fixture TEST sem alterar o gate de equipamentos
         run: node tests/hosted/rpg-equipment-fixture-014-postgres.mjs
       - name: Exigir reconhecimento administrativo individual sem alterar recursos ou recibos antigos

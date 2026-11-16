@@ -15,7 +15,10 @@
   "requires": [
     "verified-production-backup-and-isolated-restore",
     "approved-creation-marker-retention-policy",
-    "reviewed-production-sql-tested-on-disposable-postgresql"
+    "reviewed-production-sql-tested-on-disposable-postgresql",
+    "reviewed-real-age-assurance-integration",
+    "formal-privacy-and-minor-safeguards-review",
+    "hosted-authenticated-age-and-guild-validation"
   ],
   "migrations": [],
   "testSources": [
@@ -63,7 +66,9 @@
       "order": 4,
       "version": "community-own-guild-capability-v1",
       "path": "packages/database/deployments/community043b/sql/community_own_guild_capability.sql.in",
-      "dependsOn": [3],
+      "dependsOn": [
+        3
+      ],
       "transaction": "same-reviewed-production-transaction",
       "sha256": "8838d65d9488855b140ba547464f1c1f05c359c34801e6a74c00b019bf8e04d8",
       "migrationVersion": "20261115150001"
@@ -72,7 +77,9 @@
       "order": 5,
       "version": "community-production-control-v1",
       "path": "packages/database/proposals/community-043b-production-control-v1.sql.in",
-      "dependsOn": [4],
+      "dependsOn": [
+        4
+      ],
       "transaction": "same-reviewed-production-transaction",
       "sha256": "8ca257ce13ecfa20cdb49b405eacb20b89523a5b521986700eb97b84c2cfc414",
       "migrationVersion": "20261115150002"
@@ -81,17 +88,39 @@
       "order": 6,
       "version": "community-retention-v1",
       "path": "packages/database/deployments/community043b/sql/community_retention_v1.sql.in",
-      "dependsOn": [5],
+      "dependsOn": [
+        5
+      ],
       "transaction": "same-reviewed-production-transaction",
       "sha256": "4bf1e9a181032acde0133ed3bf2f1ec7e24f134b1c542d479b6314c567d6c68f",
       "migrationVersion": "20261115170001"
+    },
+    {
+      "order": 7,
+      "version": "community-age-eligibility-v1",
+      "path": "packages/database/deployments/community043b/sql/community_age_eligibility_v1.sql.in",
+      "dependsOn": [
+        6
+      ],
+      "transaction": "same-reviewed-production-transaction",
+      "sha256": "06726fbfd1852a86aaccaf992ace1802e81ddaca06bedec48ecb55ab516fd8cc",
+      "migrationVersion": "20261116010001",
+      "validation": "postgresql17-isolated-pass; real issuer and hosted verification BLOCKED"
     }
   ],
   "installationPlan": {
     "version": 1,
     "status": "blocked",
-    "orders": [1, 2, 3, 4, 5, 6],
+    "orders": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
     "activationIncluded": false,
-    "registration": "Three PROD migrations plus three pinned versioned operations. Retention schedule installed separately by private operator after checking pg_cron. No activation."
+    "registration": "Three PROD migrations plus four pinned versioned operations. No activation. Age assertions initially empty; no real issuer integrated. All gates remain closed."
   }
 }

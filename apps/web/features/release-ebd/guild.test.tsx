@@ -140,7 +140,7 @@ test('server-disabled own creation stays unavailable and does not expose a form'
   render(<ReleaseGuild />);
   expect(
     await screen.findByText(
-      'A criação própria não está autorizada ou disponível neste ambiente. Tente novamente mais tarde.',
+      /A criação própria não está autorizada ou disponível neste ambiente\. Criar e liderar exige ter 18 anos ou mais, com elegibilidade validada\./,
     ),
   ).toBeInTheDocument();
   expect(
