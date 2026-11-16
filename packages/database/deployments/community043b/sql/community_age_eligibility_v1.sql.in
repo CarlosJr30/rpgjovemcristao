@@ -115,6 +115,7 @@ DECLARE target_uid uuid; BEGIN
  -- Existing membership rows are preserved. New social access for minors/unknown
  -- age stays closed until supervised participation safeguards are integrated.
  IF NEW.status IN ('active','pending') AND (TG_OP='INSERT'
+  OR NEW.guild_id IS DISTINCT FROM OLD.guild_id
   OR NEW.traveler_id IS DISTINCT FROM OLD.traveler_id
   OR NEW.status IS DISTINCT FROM OLD.status
   OR NEW.role IN ('leader','co_leader','moderator')) THEN
@@ -123,7 +124,7 @@ DECLARE target_uid uuid; BEGIN
  END IF;
  RETURN NEW;
 END $$;
-CREATE TRIGGER community_age_membership BEFORE INSERT OR UPDATE OF traveler_id,role,status
+CREATE TRIGGER community_age_membership BEFORE INSERT OR UPDATE OF guild_id,traveler_id,role,status
  ON public.guild_members FOR EACH ROW EXECUTE FUNCTION community_age_private.guard_membership();
 
 CREATE FUNCTION community_age_private.guard_authorization() RETURNS trigger

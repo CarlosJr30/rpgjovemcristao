@@ -103,7 +103,7 @@
         6
       ],
       "transaction": "same-reviewed-production-transaction",
-      "sha256": "06726fbfd1852a86aaccaf992ace1802e81ddaca06bedec48ecb55ab516fd8cc",
+      "sha256": "f69c3af8b3159987f372c63b009132bffd4aa4a499bc4f947d25fb5ab61325c4",
       "migrationVersion": "20261116010001",
       "validation": "postgresql17-isolated-pass; real issuer and hosted verification BLOCKED"
     }

@@ -266,4 +266,39 @@ export async function verifyAge({
         );
     },
   );
+  await check(
+    'existing membership cannot promote or move after evidence revocation',
+    async () => {
+      await attest(27);
+      await q(
+        "insert into public.guild_members(guild_id,traveler_id,role,status) values($1,$2,'member','active')",
+        [guild, tid(27)],
+      );
+      await attest(27, false);
+      await denied(() =>
+        q(
+          "update public.guild_members set role='leader' where guild_id=$1 and traveler_id=$2",
+          [guild, tid(27)],
+        ),
+      );
+      const other = (
+        await q('select id from public.guilds where id<>$1 limit 1', [guild])
+      ).rows[0].id;
+      await denied(() =>
+        q(
+          'update public.guild_members set guild_id=$1 where guild_id=$2 and traveler_id=$3',
+          [other, guild, tid(27)],
+        ),
+      );
+      assert.equal(
+        (
+          await q(
+            'select role from public.guild_members where guild_id=$1 and traveler_id=$2',
+            [guild, tid(27)],
+          )
+        ).rows[0].role,
+        'member',
+      );
+    },
+  );
 }

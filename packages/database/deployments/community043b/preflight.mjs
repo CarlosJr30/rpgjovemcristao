@@ -40,7 +40,7 @@ const approved = [
   [
     '20261116010001',
     'packages/database/deployments/community043b/sql/community_age_eligibility_v1.sql.in',
-    '06726fbfd1852a86aaccaf992ace1802e81ddaca06bedec48ecb55ab516fd8cc',
+    'f69c3af8b3159987f372c63b009132bffd4aa4a499bc4f947d25fb5ab61325c4',
   ],
 ];
 
