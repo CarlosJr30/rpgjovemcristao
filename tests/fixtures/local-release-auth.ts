@@ -4,7 +4,11 @@ import type { BrowserContext } from '@playwright/test';
 export async function mockLocalReleaseAuth(
   context: BrowserContext,
   origin: string,
-  options: { guildRole?: 'leader' | 'member'; archiveInventory?: boolean } = {},
+  options: {
+    guildRole?: 'leader' | 'member';
+    archiveInventory?: boolean;
+    adultVerified?: boolean;
+  } = {},
 ) {
   if (origin !== 'http://127.0.0.1:3199')
     throw new Error('Loopback fixture required');
@@ -43,6 +47,13 @@ export async function mockLocalReleaseAuth(
         });
       }
       const endpoint = url.pathname.split('/').at(-1);
+      // Loopback UI simulator only. This is not an age verifier or hosted proof.
+      if (endpoint === 'phase1_game_access')
+        return route.fulfill({
+          json: { version: 1, allowed: options.adultVerified !== false },
+        });
+      if (endpoint === 'phase1_enrollment_access')
+        return route.fulfill({ json: { version: 1, allowed: false } });
       let data: unknown = [];
       if (endpoint === 'ebd_classes_workspace')
         data = {

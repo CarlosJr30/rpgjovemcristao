@@ -80,10 +80,11 @@ try {
         'no blocked route exposed by restored home',
         allowed.every(isReleasedPath),
       );
-      check(
-        'home contains no large navigation card grid',
-        (await page.getByRole('main').getByRole('link').count()) === 0,
-      );
+      // Auth and age checks settle asynchronously after the login navigation.
+      // Preserve the exact zero-link contract; an instantaneous count races
+      // the outgoing login/privacy screen in some viewport sizes.
+      await expect(page.getByRole('main').getByRole('link')).toHaveCount(0);
+      check('home contains no large navigation card grid', true);
       const nav = page.locator('nav[aria-label="Navegação principal"]');
       check(
         'one original navigation with eleven modules',

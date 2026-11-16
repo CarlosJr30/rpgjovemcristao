@@ -14,6 +14,7 @@ const mock = vi.hoisted(() => ({
   revision: 1,
   list: vi.fn(),
   status: vi.fn(),
+  ownCapability: vi.fn(),
 }));
 vi.mock('../../lib/supabase/auth-context', () => ({
   useAuth: () => ({
@@ -27,7 +28,11 @@ vi.mock('../../lib/supabase/online-sync', () => ({
   subscribeOnlineSync: () => () => {},
 }));
 vi.mock('../../lib/supabase/repositories/guild-repository', () => ({
-  guildRepository: { listContexts: mock.list, getStatus: mock.status },
+  guildRepository: {
+    listContexts: mock.list,
+    getStatus: mock.status,
+    canCreateOwnGuild: mock.ownCapability,
+  },
 }));
 import { GuildScope } from './scope';
 import {
@@ -52,7 +57,8 @@ const mount = () =>
       {(scope) => (
         <div data-testid="selected">
           {scope.context?.guild.name}:{scope.canManage ? 'manage' : 'read'}:
-          {scope.canCreate ? 'create' : 'closed'}
+          {scope.canCreate ? 'create' : 'closed'}:
+          {scope.canCreateOwnGuild ? 'own' : 'own-closed'}
         </div>
       )}
     </GuildScope>,
@@ -72,6 +78,7 @@ beforeEach(() => {
     writesEnabled: true,
     economicRewardsEnabled: false,
   });
+  mock.ownCapability.mockResolvedValue(false);
   mock.list.mockResolvedValue([
     context(a, 'Comunidade A'),
     context(b, 'Comunidade B'),
@@ -89,6 +96,14 @@ test('multiple memberships never choose the first community implicitly', async (
   });
   expect(await screen.findByTestId('selected')).toHaveTextContent(
     'Comunidade B:read:closed',
+  );
+});
+test('server own-creation capability reaches the release scope without changing leadership grants', async () => {
+  mock.list.mockResolvedValue([]);
+  mock.ownCapability.mockResolvedValue(true);
+  mount();
+  expect(await screen.findByTestId('selected')).toHaveTextContent(
+    ':read:closed:own',
   );
 });
 test('stored community preference is retained after reload only when still a current membership', async () => {

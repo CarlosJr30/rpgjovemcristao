@@ -53,7 +53,14 @@ function GuildCommunity({
   scope: GuildScopeValue;
   management: boolean;
 }) {
-  const { context, canManage, canCreate, writesEnabled, refresh } = scope;
+  const {
+    context,
+    canManage,
+    canCreate,
+    canCreateOwnGuild,
+    writesEnabled,
+    refresh,
+  } = scope;
   const guildId = context?.guild.id;
   const [members, setMembers] = useState<GuildMemberSummary[]>([]),
     [requests, setRequests] = useState<GuildJoinRequestSummary[]>([]),
@@ -277,15 +284,19 @@ function GuildCommunity({
           <p>Já enviou um pedido? Atualize para conferir a aprovação.</p>
         </section>
       )}
-      {canCreate && writesEnabled ? (
-        <CreateGuild actor={id} scope={scope} />
+      {(canCreateOwnGuild || canCreate) && writesEnabled ? (
+        <CreateGuild
+          actor={id}
+          scope={scope}
+          mode={canCreateOwnGuild ? 'own' : 'leadership'}
+        />
       ) : (
         <section className={css.card}>
           <h2>Criar uma Guilda</h2>
           <p>
-            A criação exige uma autorização individual de liderança ativa,
-            confirmada pelo servidor. Ser Administrador ou ter nível elevado não
-            substitui essa autorização.
+            A criação própria não está autorizada ou disponível neste ambiente.
+            Criar e liderar exige ter 18 anos ou mais, com elegibilidade
+            validada.
           </p>
         </section>
       )}
@@ -298,9 +309,11 @@ function GuildCommunity({
 function CreateGuild({
   actor,
   scope,
+  mode,
 }: {
   actor: string;
   scope: GuildScopeValue;
+  mode: 'own' | 'leadership';
 }) {
   const [initial] = useState(() => {
     try {
@@ -342,13 +355,20 @@ function CreateGuild({
         description = String(values.get('description') ?? '').trim();
       const request = beginGuildCreation(actor, name, description);
       setIntent(request);
-      const id = await guildRepository.createScoped(
-        actor,
-        request.id,
-        request.name,
-        request.description,
-        request.request,
-      );
+      const id =
+        mode === 'own'
+          ? await guildRepository.createOwn(
+              actor,
+              request.name,
+              request.description,
+            )
+          : await guildRepository.createScoped(
+              actor,
+              request.id,
+              request.name,
+              request.description,
+              request.request,
+            );
       confirmGuildCreation(actor, id);
       selectGuild(actor, id);
       scope.refresh();

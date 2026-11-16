@@ -1,0 +1,103 @@
+{
+  "checks": [
+    {
+      "name": "wrong project rejects retention atomically",
+      "pass": true
+    },
+    {
+      "name": "backfill preserves legacy Guild, invites and noncreation audit",
+      "pass": true
+    },
+    {
+      "name": "missing scheduler denies capability and private schedule fails closed",
+      "pass": true
+    },
+    {
+      "name": "schedule installation idempotent and health fresh",
+      "pass": true
+    },
+    {
+      "name": "private ACL/RLS and immutable audit resist ordinary account",
+      "pass": true
+    },
+    {
+      "name": "active account marker, replay and payload conflict",
+      "pass": true
+    },
+    {
+      "name": "live account marker does not age out",
+      "pass": true
+    },
+    {
+      "name": "Auth service session can trigger scoped deletion without receiving sweep privileges",
+      "pass": true
+    },
+    {
+      "name": "suspended account and foreign avatar denied",
+      "pass": true
+    },
+    {
+      "name": "same-account concurrent creates serialize to one Guild",
+      "pass": true
+    },
+    {
+      "name": "irreversible deletion redacts promptly and preserves members/invites",
+      "pass": true
+    },
+    {
+      "name": "no identity restore or leadership resurrection; different account independent",
+      "pass": true
+    },
+    {
+      "name": "immediate deletion removes covered links only and purge is idempotent",
+      "pass": true
+    },
+    {
+      "name": "new eligible identity can create after former marker expiration",
+      "pass": true
+    },
+    {
+      "name": "ordinary users cannot grant themselves a redaction permit",
+      "pass": true
+    },
+    {
+      "name": "legal hold explicitly preserves marker pending operator review",
+      "pass": true
+    },
+    {
+      "name": "cleanup failure rolls back redaction and disables creation with redacted alert",
+      "pass": true
+    },
+    {
+      "name": "physical Auth deletion blocked by unrelated references is atomic",
+      "pass": true
+    },
+    {
+      "name": "unrelated Auth transitions are not globally blocked",
+      "pass": true
+    },
+    {
+      "name": "stale scheduler heartbeat fails closed",
+      "pass": true
+    },
+    {
+      "name": "watchdog closes creation after paused worker and status contains no identities",
+      "pass": true
+    }
+  ],
+  "hostedProof": false,
+  "schedulerFixture": true,
+  "postgresMajor": 17,
+  "task": "GUILD-036",
+  "sqlSHA256": "4bf1e9a181032acde0133ed3bf2f1ec7e24f134b1c542d479b6314c567d6c68f",
+  "integration": {
+    "checks": 14,
+    "newChecks": 2,
+    "passed": true
+  },
+  "limitations": [
+    "Local scheduler fixture is not hosted proof; separate TEST real pg_cron probe recorded in GUILD-036-REPORT",
+    "Auth service session simulated; no real player deletion used",
+    "No complete anonymization or backup verification claim"
+  ]
+}

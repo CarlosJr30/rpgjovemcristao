@@ -295,10 +295,8 @@ export const guilds = pgTable(
     name: text('name').notNull(),
     description: text('description'),
     createdByUserId: uuid('created_by_user_id')
-      .notNull()
       .references(() => authUsers.id, { onDelete: 'restrict' }),
     leaderTravelerId: uuid('leader_traveler_id')
-      .notNull()
       .references(() => travelers.id, { onDelete: 'restrict' }),
     status: text('status').notNull().default('active'),
     ...timestamps,

@@ -33,6 +33,10 @@ vi.mock('./repositories/profile-repository', () => ({
 }));
 
 import { AuthProvider, useAuth } from './auth-context';
+const { hasAdultGameAccess } = vi.hoisted(() => ({
+  hasAdultGameAccess: vi.fn(),
+}));
+vi.mock('./adult-access', () => ({ hasAdultGameAccess }));
 
 const user = { id: 'aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa' };
 const session = { user };
@@ -48,6 +52,7 @@ function Probe() {
 
 beforeEach(() => {
   vi.clearAllMocks();
+  hasAdultGameAccess.mockResolvedValue(true);
   localStorage.clear();
   getSession.mockResolvedValue(session);
   getAuthenticatedUser.mockResolvedValue(user);
@@ -59,13 +64,90 @@ beforeEach(() => {
 afterEach(cleanup);
 
 describe('AuthProvider bootstrap', () => {
+  test('stale empty INITIAL_SESSION cannot overwrite the verified restored account', async () => {
+    onAuthStateChange.mockImplementationOnce((notify) => {
+      notify('INITIAL_SESSION', null);
+      return { unsubscribe: vi.fn() };
+    });
+    await act(async () => {
+      render(
+        <AuthProvider>
+          <Probe />
+        </AuthProvider>,
+      );
+    });
+    expect(screen.getByText(`signedIn:${user.id}`)).toBeVisible();
+    expect(getAuthenticatedUser).toHaveBeenCalledTimes(1);
+    expect(hasAdultGameAccess).toHaveBeenCalledTimes(1);
+  });
+  test('same-identity revalidation preserves the mounted game until the verdict', async () => {
+    render(
+      <AuthProvider>
+        <Probe />
+      </AuthProvider>,
+    );
+    await screen.findByText(`signedIn:${user.id}`);
+    let verdict!: (allowed: boolean) => void;
+    hasAdultGameAccess.mockReturnValueOnce(
+      new Promise<boolean>((resolve) => {
+        verdict = resolve;
+      }),
+    );
+    const notify = onAuthStateChange.mock.calls[0][0];
+    await act(async () => {
+      notify('TOKEN_REFRESHED', session);
+    });
+    expect(screen.getByText(`signedIn:${user.id}`)).toBeVisible();
+    expect(screen.queryByText('loading:none')).not.toBeInTheDocument();
+    await act(async () => {
+      verdict(false);
+    });
+    expect(await screen.findByText(`restricted:${user.id}`)).toBeVisible();
+    expect(hydrateOnlineTravelers).toHaveBeenCalledTimes(1);
+  });
+  test('unverified old account is restricted without hydrating or changing its save', async () => {
+    hasAdultGameAccess.mockResolvedValue(false);
+    localStorage.setItem('rpg-jovem-cristao:journey:v1', 'preserved-save');
+    render(
+      <AuthProvider>
+        <Probe />
+      </AuthProvider>,
+    );
+    expect(await screen.findByText(`restricted:${user.id}`)).toBeVisible();
+    expect(hydrateOnlineTravelers).not.toHaveBeenCalled();
+    expect(profileEnsure).not.toHaveBeenCalled();
+    expect(localStorage.getItem('rpg-jovem-cristao:journey:v1')).toBe(
+      'preserved-save',
+    );
+  });
+  test('refresh of the same account rechecks eligibility and restricts revoked access', async () => {
+    render(
+      <AuthProvider>
+        <Probe />
+      </AuthProvider>,
+    );
+    await screen.findByText(`signedIn:${user.id}`);
+    hasAdultGameAccess.mockResolvedValue(false);
+    const notify = onAuthStateChange.mock.calls[0][0];
+    await act(async () => {
+      notify('TOKEN_REFRESHED', session);
+    });
+    expect(await screen.findByText(`restricted:${user.id}`)).toBeVisible();
+    expect(hydrateOnlineTravelers).toHaveBeenCalledTimes(1);
+  });
   test('buffered INITIAL_SESSION cannot override a rejected server identity', async () => {
     getAuthenticatedUser.mockResolvedValue(null);
     onAuthStateChange.mockImplementationOnce((notify) => {
       notify('INITIAL_SESSION', session);
       return { unsubscribe: vi.fn() };
     });
-    await act(async () => { render(<AuthProvider><Probe /></AuthProvider>); });
+    await act(async () => {
+      render(
+        <AuthProvider>
+          <Probe />
+        </AuthProvider>,
+      );
+    });
     expect(screen.getByText('signedOut:none')).toBeVisible();
     expect(hydrateOnlineTravelers).not.toHaveBeenCalled();
     expect(profileEnsure).not.toHaveBeenCalled();
@@ -73,36 +155,65 @@ describe('AuthProvider bootstrap', () => {
 
   test('a later SDK event cannot authenticate an identity rejected by getUser', async () => {
     getSession.mockResolvedValue(null);
-    await act(async () => { render(<AuthProvider><Probe /></AuthProvider>); });
+    await act(async () => {
+      render(
+        <AuthProvider>
+          <Probe />
+        </AuthProvider>,
+      );
+    });
     getAuthenticatedUser.mockResolvedValue({ id: 'different-account' });
     const notify = onAuthStateChange.mock.calls[0][0];
-    await act(async () => { notify('SIGNED_IN', session); });
+    await act(async () => {
+      notify('SIGNED_IN', session);
+    });
     expect(screen.getByText('signedOut:none')).toBeVisible();
     expect(hydrateOnlineTravelers).not.toHaveBeenCalled();
   });
   test('does not accept an anonymous session as a registered account', async () => {
     getAuthenticatedUser.mockResolvedValue({ ...user, is_anonymous: true });
-    render(<AuthProvider><Probe /></AuthProvider>);
+    render(
+      <AuthProvider>
+        <Probe />
+      </AuthProvider>,
+    );
     expect(await screen.findByText('signedOut:none')).toBeVisible();
     expect(hydrateOnlineTravelers).not.toHaveBeenCalled();
   });
   test('ignores the legacy local flag and preserves old saves when signed out', async () => {
     getSession.mockResolvedValue(null);
     localStorage.setItem('rpg-jovem-cristao:auth-mode:v1', 'local');
-    localStorage.setItem('rpg-jovem-cristao:journey:v1', 'preserved-legacy-save');
-    render(<AuthProvider><Probe /></AuthProvider>);
+    localStorage.setItem(
+      'rpg-jovem-cristao:journey:v1',
+      'preserved-legacy-save',
+    );
+    render(
+      <AuthProvider>
+        <Probe />
+      </AuthProvider>,
+    );
     expect(await screen.findByText('signedOut:none')).toBeVisible();
-    expect(localStorage.getItem('rpg-jovem-cristao:journey:v1')).toBe('preserved-legacy-save');
+    expect(localStorage.getItem('rpg-jovem-cristao:journey:v1')).toBe(
+      'preserved-legacy-save',
+    );
     expect(hydrateOnlineTravelers).not.toHaveBeenCalled();
   });
 
   test('logout and new login restore the same account and rehydrate its travelers', async () => {
-    render(<AuthProvider><Probe /></AuthProvider>);
+    render(
+      <AuthProvider>
+        <Probe />
+      </AuthProvider>,
+    );
     await screen.findByText(`signedIn:${user.id}`);
     const notify = onAuthStateChange.mock.calls[0][0];
-    await act(async () => { notify('SIGNED_OUT', null); });
+    await act(async () => {
+      notify('SIGNED_OUT', null);
+    });
     await screen.findByText('signedOut:none');
-    await act(async () => { notify('SIGNED_IN', session); });
+    await act(async () => {
+      notify('SIGNED_IN', session);
+    });
     expect(await screen.findByText(`signedIn:${user.id}`)).toBeVisible();
     expect(hydrateOnlineTravelers).toHaveBeenCalledTimes(2);
   });
@@ -115,9 +226,7 @@ describe('AuthProvider bootstrap', () => {
 
     expect(screen.getByText('loading:none')).toBeVisible();
     await waitFor(() =>
-      expect(
-        screen.getByText(`signedIn:${user.id}`),
-      ).toBeVisible(),
+      expect(screen.getByText(`signedIn:${user.id}`)).toBeVisible(),
     );
     expect(hydrateOnlineTravelers).toHaveBeenCalledWith(user.id);
   });

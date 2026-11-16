@@ -1,0 +1,179 @@
+-- COMMUNITY-043B TEST-only maintenance package, version 1.
+-- Review and apply only after the three 043B migrations, backup preflight,
+-- explicit owner authorization, and project/session verification.
+-- Execute in one transaction with the target GUC below set in that transaction.
+
+DO $install_guard$
+BEGIN
+  IF session_user <> 'postgres'
+     OR current_user <> 'postgres'
+     OR auth.uid() IS NOT NULL
+     OR current_setting('rpg.community043b.control_install', true) IS DISTINCT FROM 'local-test'
+     OR current_setting('rpg.community043b.target_project', true) IS DISTINCT FROM 'wkdvdzfkbwvhyjmamrsg'
+     OR public.release_scope() IS DISTINCT FROM 'hero-equipment-006'
+     OR to_regclass('guild_admin_private.multiguild_control') IS NULL
+     OR NOT EXISTS (
+       SELECT 1
+       FROM pg_catalog.pg_attribute a
+       WHERE a.attrelid = 'guild_admin_private.multiguild_control'::regclass
+         AND a.attname = 'community_creation_enabled'
+         AND NOT a.attisdropped
+     )
+     OR NOT EXISTS (
+       SELECT 1
+       FROM guild_admin_private.multiguild_control
+       WHERE singleton
+         AND community_creation_enabled = false
+         AND community_environment = 'disabled'
+     )
+     OR to_regprocedure('guild_admin_private.enforce_membership_quotas()') IS NULL
+     OR to_regprocedure('guild_admin_private.enforce_join_request_quotas()') IS NULL
+     OR to_regclass('guild_admin_private.community_control_operations') IS NOT NULL
+     OR to_regprocedure('guild_admin_private.community_test_control_v1(uuid,boolean,integer,boolean,text,text,text)') IS NOT NULL
+  THEN
+    RAISE EXCEPTION 'Reviewed COMMUNITY-043B TEST control baseline required'
+      USING ERRCODE = '42501';
+  END IF;
+END
+$install_guard$;
+
+CREATE TABLE guild_admin_private.community_control_operations (
+  operation_id uuid PRIMARY KEY,
+  expected_revision integer NOT NULL CHECK (expected_revision > 0),
+  expected_enabled boolean NOT NULL,
+  expected_environment text NOT NULL CHECK (expected_environment IN ('disabled', 'test')),
+  desired_enabled boolean NOT NULL,
+  desired_environment text NOT NULL CHECK (desired_environment IN ('disabled', 'test')),
+  operator_label text NOT NULL CHECK (length(btrim(operator_label)) BETWEEN 2 AND 80),
+  approval_reference text NOT NULL CHECK (
+    approval_reference ~ '^https://github\.com/CarlosJr30/rpgjovemcristao/(actions/runs/[0-9]+|pull/[0-9]+)(#[A-Za-z0-9_-]+)?$'
+  ),
+  revision_after integer NOT NULL CHECK (revision_after = expected_revision + 1),
+  applied_at timestamptz NOT NULL DEFAULT clock_timestamp(),
+  database_session text NOT NULL,
+  result jsonb NOT NULL CHECK (jsonb_typeof(result) = 'object')
+);
+ALTER TABLE guild_admin_private.community_control_operations ENABLE ROW LEVEL SECURITY;
+REVOKE ALL ON guild_admin_private.community_control_operations FROM PUBLIC, anon, authenticated, service_role;
+
+CREATE FUNCTION guild_admin_private.community_control_operation_is_immutable()
+RETURNS trigger
+LANGUAGE plpgsql
+SET search_path = ''
+AS $$
+BEGIN
+  RAISE EXCEPTION 'Community control audit is immutable' USING ERRCODE = '42501';
+END
+$$;
+REVOKE ALL ON FUNCTION guild_admin_private.community_control_operation_is_immutable() FROM PUBLIC, anon, authenticated, service_role;
+CREATE TRIGGER community_control_operation_immutable
+BEFORE UPDATE OR DELETE ON guild_admin_private.community_control_operations
+FOR EACH ROW EXECUTE FUNCTION guild_admin_private.community_control_operation_is_immutable();
+
+CREATE FUNCTION guild_admin_private.community_test_control_v1(
+  p_operation_id uuid,
+  p_enabled boolean,
+  p_expected_revision integer,
+  p_expected_enabled boolean,
+  p_expected_environment text,
+  p_operator_label text,
+  p_approval_reference text
+)
+RETURNS jsonb
+LANGUAGE plpgsql
+SECURITY DEFINER
+SET search_path = ''
+AS $$
+DECLARE
+  control_row record;
+  prior guild_admin_private.community_control_operations%ROWTYPE;
+  next_environment text;
+  result_value jsonb;
+BEGIN
+  IF session_user <> 'postgres'
+     OR current_user <> 'postgres'
+     OR auth.uid() IS NOT NULL
+     OR current_setting('rpg.community043b.target_project', true) IS DISTINCT FROM 'wkdvdzfkbwvhyjmamrsg'
+     OR public.release_scope() IS DISTINCT FROM 'hero-equipment-006'
+  THEN
+    RAISE EXCEPTION 'Owner-authorized TEST operation required' USING ERRCODE = '42501';
+  END IF;
+
+  IF p_operation_id IS NULL
+     OR p_expected_revision IS NULL OR p_expected_revision <= 0
+     OR p_expected_enabled IS NULL OR p_enabled IS NULL
+     OR p_expected_environment IS NULL OR p_expected_environment NOT IN ('disabled', 'test')
+     OR (p_expected_enabled AND p_expected_environment <> 'test')
+     OR (NOT p_expected_enabled AND p_expected_environment <> 'disabled')
+     OR p_enabled = p_expected_enabled
+     OR p_operator_label IS NULL OR length(btrim(p_operator_label)) NOT BETWEEN 2 AND 80
+     OR p_approval_reference IS NULL
+     OR p_approval_reference !~ '^https://github\.com/CarlosJr30/rpgjovemcristao/(actions/runs/[0-9]+|pull/[0-9]+)(#[A-Za-z0-9_-]+)?$'
+  THEN
+    RAISE EXCEPTION 'Invalid versioned TEST control operation' USING ERRCODE = '22023';
+  END IF;
+
+  next_environment := CASE WHEN p_enabled THEN 'test' ELSE 'disabled' END;
+  PERFORM pg_catalog.pg_advisory_xact_lock(1010, 1);
+
+  SELECT * INTO prior
+  FROM guild_admin_private.community_control_operations
+  WHERE operation_id = p_operation_id;
+  IF FOUND THEN
+    IF prior.expected_revision <> p_expected_revision
+       OR prior.expected_enabled <> p_expected_enabled
+       OR prior.expected_environment <> p_expected_environment
+       OR prior.desired_enabled <> p_enabled
+       OR prior.desired_environment <> next_environment
+       OR prior.operator_label <> p_operator_label
+       OR prior.approval_reference <> p_approval_reference
+    THEN
+      RAISE EXCEPTION 'Operation identifier payload conflict' USING ERRCODE = '22023';
+    END IF;
+    RETURN prior.result || jsonb_build_object('replayed', true);
+  END IF;
+
+  SELECT revision, community_creation_enabled, community_environment
+    INTO control_row
+  FROM guild_admin_private.multiguild_control
+  WHERE singleton
+  FOR UPDATE;
+
+  IF NOT FOUND
+     OR control_row.revision <> p_expected_revision
+     OR control_row.community_creation_enabled <> p_expected_enabled
+     OR control_row.community_environment <> p_expected_environment
+  THEN
+    RAISE EXCEPTION 'Community control compare-and-set conflict' USING ERRCODE = '40001';
+  END IF;
+
+  UPDATE guild_admin_private.multiguild_control
+  SET community_creation_enabled = p_enabled,
+      community_environment = next_environment,
+      revision = revision + 1
+  WHERE singleton;
+
+  result_value := jsonb_build_object(
+    'status', 'applied',
+    'enabled', p_enabled,
+    'environment', next_environment,
+    'revision', p_expected_revision + 1
+  );
+
+  INSERT INTO guild_admin_private.community_control_operations (
+    operation_id, expected_revision, expected_enabled, expected_environment,
+    desired_enabled, desired_environment, operator_label, approval_reference,
+    revision_after, database_session, result
+  ) VALUES (
+    p_operation_id, p_expected_revision, p_expected_enabled, p_expected_environment,
+    p_enabled, next_environment, btrim(p_operator_label), p_approval_reference,
+    p_expected_revision + 1,
+    session_user || ':pid=' || pg_backend_pid()::text || ':tx=' || txid_current()::text,
+    result_value
+  );
+
+  RETURN result_value || jsonb_build_object('replayed', false);
+END
+$$;
+REVOKE ALL ON FUNCTION guild_admin_private.community_test_control_v1(uuid,boolean,integer,boolean,text,text,text) FROM PUBLIC, anon, authenticated, service_role;
+GRANT EXECUTE ON FUNCTION guild_admin_private.community_test_control_v1(uuid,boolean,integer,boolean,text,text,text) TO postgres;

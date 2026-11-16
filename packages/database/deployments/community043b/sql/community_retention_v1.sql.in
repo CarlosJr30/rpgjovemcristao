@@ -1,0 +1,255 @@
+-- Sixth guarded installation operation. No activation. No remote execution here.
+DO $$BEGIN
+ IF current_user<>'postgres' OR session_user<>'postgres'
+ OR public.release_scope()<>'guild-ebd-001'
+ OR current_setting('rpg.community043b.target_project',true) IS DISTINCT FROM 'wspafhlbtlpabypzymjo'
+ OR current_setting('rpg.community043b.retention_install',true) IS DISTINCT FROM 'reviewed-production'
+ OR to_regprocedure('public.community_own_guild_capability(uuid)') IS NULL
+ OR to_regclass('public.guild_activity_log') IS NULL
+ THEN RAISE EXCEPTION 'Reviewed retention installation required' USING ERRCODE='42501'; END IF;
+ PERFORM pg_advisory_xact_lock(1010,1);
+END $$;
+CREATE SCHEMA community_retention_private;
+REVOKE ALL ON SCHEMA community_retention_private FROM PUBLIC,anon,authenticated,service_role;
+CREATE TABLE community_retention_private.secret(singleton boolean PRIMARY KEY CHECK(singleton), key bytea NOT NULL);
+INSERT INTO community_retention_private.secret VALUES(true,extensions.gen_random_bytes(32));
+CREATE TABLE community_retention_private.markers(subject bytea PRIMARY KEY, deleted_at timestamptz);
+CREATE TABLE community_retention_private.guild_links(
+ guild_id uuid PRIMARY KEY REFERENCES public.guilds(id) ON DELETE RESTRICT,
+ subject bytea NOT NULL REFERENCES community_retention_private.markers(subject) ON DELETE CASCADE);
+CREATE TABLE community_retention_private.audit_links(
+ audit_id bigint PRIMARY KEY REFERENCES guild_admin_private.audit(id) ON DELETE RESTRICT,
+ subject bytea NOT NULL REFERENCES community_retention_private.markers(subject) ON DELETE CASCADE);
+CREATE TABLE community_retention_private.replays(
+ subject bytea REFERENCES community_retention_private.markers(subject) ON DELETE CASCADE,
+ request_hash bytea NOT NULL,payload_hash bytea NOT NULL,result jsonb NOT NULL,
+ PRIMARY KEY(subject,request_hash));
+CREATE TABLE community_retention_private.redaction_permits(audit_id bigint PRIMARY KEY, transaction_id bigint NOT NULL, expected jsonb NOT NULL);
+CREATE TABLE community_retention_private.legal_holds(
+ subject bytea PRIMARY KEY REFERENCES community_retention_private.markers(subject) ON DELETE CASCADE,
+ obligation_reference text NOT NULL CHECK(length(obligation_reference) BETWEEN 8 AND 200),review_until timestamptz NOT NULL);
+CREATE TABLE community_retention_private.health(singleton boolean PRIMARY KEY CHECK(singleton),last_success timestamptz,last_failure timestamptz,failure_code text,purged bigint NOT NULL DEFAULT 0);
+INSERT INTO community_retention_private.health(singleton) VALUES(true);
+DO $$DECLARE t text;BEGIN
+ FOREACH t IN ARRAY ARRAY['secret','markers','guild_links','audit_links','replays','redaction_permits','legal_holds','health'] LOOP
+ EXECUTE format('ALTER TABLE community_retention_private.%I ENABLE ROW LEVEL SECURITY',t);
+ END LOOP;
+END $$;
+REVOKE ALL ON ALL TABLES IN SCHEMA community_retention_private FROM PUBLIC,anon,authenticated,service_role;
+CREATE FUNCTION community_retention_private.subject(p_uid uuid) RETURNS bytea
+LANGUAGE sql STABLE SECURITY DEFINER SET search_path='' AS $$
+ SELECT extensions.hmac(convert_to(p_uid::text,'UTF8'),key,'sha256') FROM community_retention_private.secret WHERE singleton
+$$;
+ALTER TABLE public.guilds ALTER COLUMN created_by_user_id DROP NOT NULL, ALTER COLUMN leader_traveler_id DROP NOT NULL;
+-- Backfill only creation markers; preserve historical rows and all non-creation actions.
+INSERT INTO community_retention_private.markers
+ SELECT community_retention_private.subject(u.id),u.deleted_at FROM auth.users u
+ WHERE EXISTS(SELECT 1 FROM public.guilds g WHERE g.created_by_user_id=u.id)
+ OR EXISTS(SELECT 1 FROM guild_admin_private.audit a WHERE a.actor_uid=u.id AND a.action='guild_create');
+INSERT INTO community_retention_private.guild_links(guild_id,subject)
+ SELECT id,community_retention_private.subject(created_by_user_id) FROM public.guilds WHERE created_by_user_id IS NOT NULL;
+INSERT INTO community_retention_private.audit_links
+ SELECT id,community_retention_private.subject(actor_uid) FROM guild_admin_private.audit WHERE action='guild_create' AND actor_uid IS NOT NULL;
+
+-- Preserve the trigger and its default denial; allow one exact UPDATE from this transaction's private permit only.
+CREATE OR REPLACE FUNCTION guild_admin_private.immutable_audit() RETURNS trigger
+LANGUAGE plpgsql SET search_path='' AS $$BEGIN
+ IF TG_OP='UPDATE' AND current_user='postgres' AND OLD.action='guild_create'
+ AND EXISTS(SELECT 1 FROM community_retention_private.redaction_permits p
+ WHERE p.audit_id=OLD.id AND p.transaction_id=txid_current() AND p.expected=to_jsonb(NEW))
+ THEN RETURN NEW; END IF;
+ RAISE EXCEPTION 'Governance audit is immutable' USING ERRCODE='42501';
+END $$;
+
+CREATE FUNCTION community_retention_private.capture_guild() RETURNS trigger
+LANGUAGE plpgsql SECURITY DEFINER SET search_path='' AS $$DECLARE s bytea;BEGIN
+ PERFORM pg_advisory_xact_lock(1010,1);
+ IF NEW.created_by_user_id IS NULL THEN RETURN NEW; END IF;
+ s:=community_retention_private.subject(NEW.created_by_user_id);
+ IF EXISTS(SELECT 1 FROM community_retention_private.markers WHERE subject=s)
+ THEN RAISE EXCEPTION 'Account already created a Guild' USING ERRCODE='23505'; END IF;
+ INSERT INTO community_retention_private.markers VALUES(s,NULL);
+ INSERT INTO community_retention_private.guild_links VALUES(NEW.id,s);
+ RETURN NEW;
+END $$;
+CREATE TRIGGER community_capture_creator AFTER INSERT ON public.guilds FOR EACH ROW EXECUTE FUNCTION community_retention_private.capture_guild();
+CREATE FUNCTION community_retention_private.capture_audit() RETURNS trigger
+LANGUAGE plpgsql SECURITY DEFINER SET search_path='' AS $$DECLARE s bytea;BEGIN
+ IF NEW.action='guild_create' AND NEW.actor_uid IS NOT NULL THEN
+ PERFORM pg_advisory_xact_lock(1010,1);
+ s:=community_retention_private.subject(NEW.actor_uid);
+ INSERT INTO community_retention_private.markers VALUES(s,NULL) ON CONFLICT DO NOTHING;
+ INSERT INTO community_retention_private.audit_links VALUES(NEW.id,s);
+ END IF;
+ RETURN NEW;
+END $$;
+CREATE TRIGGER community_capture_creation_audit AFTER INSERT ON guild_admin_private.audit FOR EACH ROW EXECUTE FUNCTION community_retention_private.capture_audit();
+
+CREATE FUNCTION community_retention_private.auth_lifecycle() RETURNS trigger
+LANGUAGE plpgsql SECURITY DEFINER SET search_path='' AS $$DECLARE s bytea;BEGIN
+ PERFORM pg_advisory_xact_lock(1010,1);
+ s:=community_retention_private.subject(OLD.id);
+ IF NOT EXISTS(SELECT 1 FROM community_retention_private.markers WHERE subject=s) THEN
+  IF TG_OP='DELETE' THEN RETURN OLD; ELSE RETURN NEW; END IF;
+ END IF;
+ IF TG_OP='UPDATE' THEN
+  IF NEW.id IS DISTINCT FROM OLD.id THEN RAISE EXCEPTION 'Covered identity change denied' USING ERRCODE='42501'; END IF;
+  -- Password recovery and unrelated Auth updates do not change COMMUNITY state.
+  -- Clearing deleted_at is not a supported identity restore and never restores a marker/leader.
+  IF NEW.deleted_at IS NULL THEN RETURN NEW; END IF;
+ END IF;
+ UPDATE community_retention_private.markers SET deleted_at=coalesce(deleted_at,clock_timestamp()) WHERE subject=s;
+ UPDATE public.guild_members gm SET role='member' FROM community_retention_private.guild_links l,public.travelers t
+ WHERE l.subject=s AND l.guild_id=gm.guild_id AND gm.traveler_id=t.id AND gm.role='leader' AND t.user_id=OLD.id;
+ UPDATE public.guilds g SET leader_traveler_id=NULL FROM community_retention_private.guild_links l,public.travelers t
+ WHERE l.subject=s AND l.guild_id=g.id AND t.id=g.leader_traveler_id AND t.user_id=OLD.id;
+ -- No identity recovery purpose remains: redact covered links in this transaction.
+ -- A failure aborts deletion rather than silently retaining unaudited partial changes.
+ PERFORM community_retention_private.sweep();
+ IF TG_OP='DELETE' THEN RETURN OLD; ELSE RETURN NEW; END IF;
+END $$;
+CREATE TRIGGER community_auth_retention BEFORE UPDATE OF deleted_at,id OR DELETE ON auth.users
+ FOR EACH ROW EXECUTE FUNCTION community_retention_private.auth_lifecycle();
+
+CREATE FUNCTION community_retention_private.sweep() RETURNS bigint
+LANGUAGE plpgsql SECURITY INVOKER SET search_path='' AS $$
+DECLARE m record; a record; n bigint:=0; newrow jsonb;BEGIN
+ IF current_user<>'postgres' OR public.release_scope()<>'guild-ebd-001'
+ THEN RAISE EXCEPTION 'Private retention operator required' USING ERRCODE='42501'; END IF;
+ PERFORM pg_advisory_xact_lock(1010,1);
+ FOR m IN SELECT * FROM community_retention_private.markers x
+ WHERE x.deleted_at<=clock_timestamp()
+ AND NOT EXISTS(SELECT 1 FROM community_retention_private.legal_holds h WHERE h.subject=x.subject)
+ FOR UPDATE LOOP
+  FOR a IN SELECT v.* FROM guild_admin_private.audit v JOIN community_retention_private.audit_links l ON l.audit_id=v.id
+   WHERE l.subject=m.subject AND v.action='guild_create' FOR UPDATE OF v LOOP
+   newrow:=to_jsonb(a)||jsonb_build_object('actor_uid',NULL,'request_id',gen_random_uuid(),'resource_id',gen_random_uuid(),
+    'reason','Creation identity removed under retention policy','payload_hash',encode(extensions.gen_random_bytes(32),'hex'),'result','{}'::jsonb);
+   INSERT INTO community_retention_private.redaction_permits VALUES(a.id,txid_current(),newrow);
+   UPDATE guild_admin_private.audit SET actor_uid=NULL,request_id=(newrow->>'request_id')::uuid,
+    resource_id=(newrow->>'resource_id')::uuid,reason=newrow->>'reason',payload_hash=newrow->>'payload_hash',result='{}' WHERE id=a.id;
+   DELETE FROM community_retention_private.redaction_permits WHERE audit_id=a.id;
+  END LOOP;
+  UPDATE public.guilds g SET created_by_user_id=NULL
+  FROM community_retention_private.guild_links l WHERE l.subject=m.subject AND l.guild_id=g.id
+   AND community_retention_private.subject(g.created_by_user_id)=m.subject;
+  UPDATE public.guild_activity_log activity SET actor_traveler_id=NULL,metadata='{}'
+  FROM community_retention_private.guild_links l,public.travelers t
+  WHERE l.subject=m.subject AND activity.guild_id=l.guild_id AND activity.event_type='guild_created'
+   AND t.id=activity.actor_traveler_id AND community_retention_private.subject(t.user_id)=m.subject;
+  UPDATE public.guilds g SET leader_traveler_id=NULL
+  FROM community_retention_private.guild_links l,public.travelers t
+  WHERE l.subject=m.subject AND l.guild_id=g.id AND t.id=g.leader_traveler_id
+   AND community_retention_private.subject(t.user_id)=m.subject;
+  UPDATE public.guild_members gm SET role='member'
+  FROM community_retention_private.guild_links l,public.travelers t
+  WHERE l.subject=m.subject AND l.guild_id=gm.guild_id AND gm.traveler_id=t.id AND gm.role='leader'
+   AND community_retention_private.subject(t.user_id)=m.subject;
+  DELETE FROM community_retention_private.markers WHERE subject=m.subject;
+  n:=n+1;
+ END LOOP;
+ RETURN n;
+END $$;
+
+CREATE FUNCTION community_retention_private.tick() RETURNS void
+LANGUAGE plpgsql SECURITY INVOKER SET search_path='' AS $$DECLARE n bigint; code text;BEGIN
+ IF current_user<>'postgres' OR session_user<>'postgres' OR auth.uid() IS NOT NULL OR public.release_scope()<>'guild-ebd-001'
+ THEN RAISE EXCEPTION 'Private retention operator required' USING ERRCODE='42501'; END IF;
+ BEGIN
+  IF EXISTS(SELECT 1 FROM community_retention_private.legal_holds WHERE review_until<=clock_timestamp())
+  THEN RAISE WARNING 'COMMUNITY_RETENTION_LEGAL_HOLD_REVIEW_REQUIRED'; END IF;
+  n:=community_retention_private.sweep();
+  UPDATE community_retention_private.health SET last_success=clock_timestamp(),failure_code=NULL,purged=purged+n WHERE singleton;
+ EXCEPTION WHEN OTHERS THEN
+  GET STACKED DIAGNOSTICS code=RETURNED_SQLSTATE;
+  UPDATE community_retention_private.health SET last_failure=clock_timestamp(),failure_code=code WHERE singleton;
+  UPDATE guild_admin_private.multiguild_control SET community_creation_enabled=false,community_environment='disabled' WHERE singleton;
+  RAISE WARNING 'COMMUNITY_RETENTION_FAILURE SQLSTATE %; creation disabled',code;
+ END;
+END $$;
+CREATE FUNCTION community_retention_private.operational() RETURNS boolean
+LANGUAGE plpgsql SECURITY DEFINER SET search_path='' AS $$DECLARE ready boolean;BEGIN
+ IF to_regclass('cron.job') IS NULL THEN RETURN false; END IF;
+ EXECUTE $q$SELECT EXISTS(SELECT 1 FROM cron.job WHERE jobname='community-retention-v1' AND active
+  AND schedule='* * * * *' AND command='SELECT community_retention_private.tick()' AND username='postgres'
+  AND database=current_database())$q$ INTO ready;
+ RETURN ready AND EXISTS(SELECT 1 FROM community_retention_private.health WHERE singleton AND failure_code IS NULL AND last_success>clock_timestamp()-interval '2 minutes');
+END $$;
+CREATE FUNCTION community_retention_private.install_schedule() RETURNS void
+LANGUAGE plpgsql SECURITY INVOKER SET search_path='' AS $$BEGIN
+ IF current_user<>'postgres' OR session_user<>'postgres' OR auth.uid() IS NOT NULL
+ OR public.release_scope()<>'guild-ebd-001'
+ OR current_setting('rpg.community043b.target_project',true) IS DISTINCT FROM 'wspafhlbtlpabypzymjo'
+ THEN RAISE EXCEPTION 'Reviewed scheduler operator required' USING ERRCODE='42501'; END IF;
+ IF to_regprocedure('cron.schedule(text,text,text)') IS NULL
+ THEN RAISE EXCEPTION 'pg_cron unavailable; keep creation disabled' USING ERRCODE='55000'; END IF;
+ PERFORM pg_advisory_xact_lock(1010,1);
+ EXECUTE $q$SELECT cron.schedule('community-retention-v1','* * * * *','SELECT community_retention_private.tick()')$q$;
+ EXECUTE $q$SELECT cron.schedule('community-retention-watchdog-v1','* * * * *','SELECT community_retention_private.watchdog()')$q$;
+ PERFORM community_retention_private.tick();
+END $$;
+
+CREATE FUNCTION community_retention_private.watchdog() RETURNS void
+LANGUAGE plpgsql SECURITY INVOKER SET search_path='' AS $$BEGIN
+ IF current_user<>'postgres' OR session_user<>'postgres' OR auth.uid() IS NOT NULL OR public.release_scope()<>'guild-ebd-001'
+ THEN RAISE EXCEPTION 'Private monitor required' USING ERRCODE='42501'; END IF;
+ IF NOT community_retention_private.operational() THEN
+  UPDATE guild_admin_private.multiguild_control SET community_creation_enabled=false,community_environment='disabled' WHERE singleton;
+  RAISE WARNING 'COMMUNITY_RETENTION_STALE_OR_FAILED; creation disabled; operator action required';
+ END IF;
+END $$;
+CREATE FUNCTION community_retention_private.monitor_status() RETURNS jsonb
+LANGUAGE sql SECURITY INVOKER SET search_path='' AS $$
+ SELECT jsonb_build_object('operational',community_retention_private.operational(),
+ 'lastSuccess',last_success,'lastFailure',last_failure,'failureCode',failure_code,'purged',purged,
+ 'pending',(SELECT count(*) FROM community_retention_private.markers WHERE deleted_at IS NOT NULL))
+ FROM community_retention_private.health WHERE singleton
+$$;
+
+CREATE OR REPLACE FUNCTION guild_admin_private.own_guild_capability(p_actor uuid) RETURNS jsonb
+LANGUAGE plpgsql SECURITY DEFINER SET search_path='' AS $$DECLARE actor uuid; available boolean:=false;BEGIN
+ BEGIN
+  actor:=guild_admin_private.community_actor(p_actor);
+  available:=community_retention_private.operational()
+   AND NOT EXISTS(SELECT 1 FROM community_retention_private.markers WHERE subject=community_retention_private.subject(actor))
+   AND (SELECT count(*) FROM public.guild_members WHERE traveler_id=p_actor AND status='active')<5;
+ EXCEPTION WHEN SQLSTATE '42501' OR SQLSTATE '55000' THEN available:=false; END;
+ RETURN jsonb_build_object('version',1,'available',available);
+END $$;
+CREATE OR REPLACE FUNCTION guild_admin_private.create_own_guild(p_actor uuid,p_request uuid,p_name text,p_description text) RETURNS jsonb
+LANGUAGE plpgsql SECURITY DEFINER SET search_path='' AS $$
+DECLARE actor uuid;s bytea;rh bytea;ph bytea;prior community_retention_private.replays;gid uuid;aid bigint;response jsonb;BEGIN
+ PERFORM pg_advisory_xact_lock(1010,1);
+ actor:=guild_admin_private.community_actor(p_actor);
+ IF NOT community_retention_private.operational() THEN RAISE EXCEPTION 'Retention unavailable' USING ERRCODE='55000'; END IF;
+ IF p_request IS NULL OR p_name IS NULL OR p_description IS NULL OR length(btrim(p_name)) NOT BETWEEN 2 AND 60
+ OR length(p_description)>500 OR p_name~'[[:cntrl:]]' OR p_description~'[[:cntrl:]]'
+ THEN RAISE EXCEPTION 'Invalid Guild data' USING ERRCODE='22023'; END IF;
+ s:=community_retention_private.subject(actor);
+ rh:=extensions.hmac(convert_to(p_request::text,'UTF8'),s,'sha256');
+ ph:=extensions.hmac(convert_to(jsonb_build_object('actor',p_actor,'name',p_name,'description',p_description)::text,'UTF8'),s,'sha256');
+ SELECT * INTO prior FROM community_retention_private.replays WHERE subject=s AND request_hash=rh;
+ IF FOUND THEN
+  IF prior.payload_hash<>ph THEN RAISE EXCEPTION 'Request payload conflict' USING ERRCODE='22023'; END IF;
+  RETURN prior.result||jsonb_build_object('replayed',true);
+ END IF;
+ IF EXISTS(SELECT 1 FROM community_retention_private.markers WHERE subject=s)
+ THEN RAISE EXCEPTION 'Account already created a Guild' USING ERRCODE='23505'; END IF;
+ IF (SELECT count(*) FROM public.guild_members WHERE traveler_id=p_actor AND status='active')>=5
+ THEN RAISE EXCEPTION 'Avatar membership limit reached' USING ERRCODE='54000'; END IF;
+ gid:=gen_random_uuid();
+ INSERT INTO public.guilds(id,name,description,created_by_user_id,leader_traveler_id) VALUES(gid,btrim(p_name),NULLIF(btrim(p_description),''),actor,p_actor);
+ INSERT INTO public.guild_members(guild_id,traveler_id,role,status) VALUES(gid,p_actor,'leader','active');
+ response:=jsonb_build_object('id',gid,'status','created','version',1);
+ INSERT INTO guild_admin_private.audit(actor_uid,request_id,action,resource_id,reason,payload_hash,result)
+ VALUES(NULL,gen_random_uuid(),'guild_create',gid,'Controlled creation of own private Guild',encode(extensions.gen_random_bytes(32),'hex'),response) RETURNING id INTO aid;
+ INSERT INTO community_retention_private.audit_links VALUES(aid,s);
+ INSERT INTO community_retention_private.replays VALUES(s,rh,ph,response);
+ RETURN response||jsonb_build_object('replayed',false);
+END $$;
+-- Existing public wrappers/ACLs remain unchanged. All added internals are private.
+REVOKE ALL ON ALL FUNCTIONS IN SCHEMA community_retention_private FROM PUBLIC,anon,authenticated,service_role;
+-- Existing irreversibly deleted accounts have no supported recovery purpose.
+SELECT community_retention_private.sweep();
+-- Keep rollout closed until scheduling, privacy review and release gates are satisfied.
+UPDATE guild_admin_private.multiguild_control SET community_creation_enabled=false,community_environment='disabled' WHERE singleton;

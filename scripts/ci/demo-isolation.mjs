@@ -27,7 +27,24 @@ export function hasReviewedDemo(source) {
   });
 }
 
-export function localDemoEligibility() {
+// Diagnostics only: never updates the reviewed hashes or authorizes a source.
+export function reviewedDemoIssues(source) {
+  if (source?.truncated !== false || !Array.isArray(source.tree))
+    return [{ reason: 'incomplete-tree' }];
+  return Object.entries(reviewedDemo).flatMap(([path, expected]) => {
+    const matches = source.tree.filter((entry) => entry.path === path);
+    if (matches.length !== 1)
+      return [{ path, reason: matches.length ? 'duplicate' : 'missing' }];
+    const actual = matches[0];
+    if (actual.type !== 'blob' || actual.mode !== '100644')
+      return [{ path, reason: 'invalid-entry' }];
+    return actual.sha === expected
+      ? []
+      : [{ path, reason: 'changed', expected, actual: actual.sha }];
+  });
+}
+
+function localDemoSource() {
   const output = execFileSync(
     'git',
     ['ls-tree', '-r', 'HEAD', '--', ...Object.keys(reviewedDemo)],
@@ -42,7 +59,11 @@ export function localDemoEligibility() {
       const [mode, type, sha] = metadata.split(' ');
       return { mode, type, sha, path };
     });
-  return hasReviewedDemo({ truncated: false, tree });
+  return { truncated: false, tree };
+}
+
+export function localDemoEligibility() {
+  return hasReviewedDemo(localDemoSource());
 }
 
 if (
@@ -50,4 +71,6 @@ if (
   import.meta.url === pathToFileURL(process.argv[1]).href
 ) {
   console.log(`eligible=${localDemoEligibility()}`);
+  if (process.argv.includes('--explain'))
+    console.log(JSON.stringify(reviewedDemoIssues(localDemoSource()), null, 2));
 }

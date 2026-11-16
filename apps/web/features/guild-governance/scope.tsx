@@ -33,6 +33,7 @@ export type GuildScopeValue = {
   contexts: OnlineGuildContext[];
   canManage: boolean;
   canCreate: boolean;
+  canCreateOwnGuild: boolean;
   writesEnabled: boolean;
   refresh: () => void;
   generation: number;
@@ -74,6 +75,7 @@ function ScopeForAccount({
   const [snapshot, setSnapshot] = useState<{
       contexts: OnlineGuildContext[];
       status: GovernanceStatus;
+      canCreateOwnGuild: boolean;
       generation: number;
     }>(),
     [error, setError] = useState(false),
@@ -98,12 +100,14 @@ function ScopeForAccount({
     void Promise.all([
       guildRepository.listContexts(actor),
       guildRepository.getStatus(actor),
+      guildRepository.canCreateOwnGuild(actor),
     ])
-      .then(([contexts, status]) => {
+      .then(([contexts, status, canCreateOwnGuild]) => {
         if (live) {
           setSnapshot({
             contexts,
             status: parseGovernanceStatus(status),
+            canCreateOwnGuild,
             generation: reload,
           });
           setError(false);
@@ -207,6 +211,7 @@ function ScopeForAccount({
           contexts: snapshot.contexts,
           canManage: context?.canManage === true,
           canCreate: snapshot.status.canCreateAdditionalGuilds,
+          canCreateOwnGuild: snapshot.canCreateOwnGuild,
           writesEnabled: snapshot.status.writesEnabled !== false,
           refresh,
           generation: reload,

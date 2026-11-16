@@ -1,0 +1,224 @@
+{
+  "task": "GUILD-040",
+  "postgresVersion": "17.12",
+  "sql": {
+    "order": 7,
+    "version": "community-age-eligibility-v1",
+    "path": "packages/database/deployments/community043b/sql/community_age_eligibility_v1.sql.in",
+    "dependsOn": [6],
+    "transaction": "same-reviewed-production-transaction",
+    "sha256": "f69c3af8b3159987f372c63b009132bffd4aa4a499bc4f947d25fb5ab61325c4",
+    "migrationVersion": "20261116010001",
+    "validation": "postgresql17-isolated-pass; real issuer and hosted verification BLOCKED"
+  },
+  "checks": [
+    {
+      "name": "wrong project rejects retention atomically",
+      "pass": true
+    },
+    {
+      "name": "backfill preserves legacy Guild, invites and noncreation audit",
+      "pass": true
+    },
+    {
+      "name": "missing scheduler denies capability and private schedule fails closed",
+      "pass": true
+    },
+    {
+      "name": "schedule installation idempotent and health fresh",
+      "pass": true
+    },
+    {
+      "name": "private ACL/RLS and immutable audit resist ordinary account",
+      "pass": true
+    },
+    {
+      "name": "active account marker, replay and payload conflict",
+      "pass": true
+    },
+    {
+      "name": "live account marker does not age out",
+      "pass": true
+    },
+    {
+      "name": "Auth service session can trigger scoped deletion without receiving sweep privileges",
+      "pass": true
+    },
+    {
+      "name": "suspended account and foreign avatar denied",
+      "pass": true
+    },
+    {
+      "name": "same-account concurrent creates serialize to one Guild",
+      "pass": true
+    },
+    {
+      "name": "irreversible deletion redacts promptly and preserves members/invites",
+      "pass": true
+    },
+    {
+      "name": "no identity restore or leadership resurrection; different account independent",
+      "pass": true
+    },
+    {
+      "name": "immediate deletion removes covered links only and purge is idempotent",
+      "pass": true
+    },
+    {
+      "name": "new eligible identity can create after former marker expiration",
+      "pass": true
+    },
+    {
+      "name": "ordinary users cannot grant themselves a redaction permit",
+      "pass": true
+    },
+    {
+      "name": "legal hold explicitly preserves marker pending operator review",
+      "pass": true
+    },
+    {
+      "name": "cleanup failure rolls back redaction and disables creation with redacted alert",
+      "pass": true
+    },
+    {
+      "name": "physical Auth deletion blocked by unrelated references is atomic",
+      "pass": true
+    },
+    {
+      "name": "unrelated Auth transitions are not globally blocked",
+      "pass": true
+    },
+    {
+      "name": "stale scheduler heartbeat fails closed",
+      "pass": true
+    },
+    {
+      "name": "watchdog closes creation after paused worker and status contains no identities",
+      "pass": true
+    },
+    {
+      "name": "age installation rejects missing explicit production guard",
+      "pass": true
+    },
+    {
+      "name": "age installation preserves historical Guilds memberships and invites",
+      "pass": true
+    },
+    {
+      "name": "unknown age and known minor cannot create",
+      "pass": true
+    },
+    {
+      "name": "verified adult creates leads and replay preserves one Guild",
+      "pass": true
+    },
+    {
+      "name": "minor administrative promotion transfer grant and direct creation denied",
+      "pass": true
+    },
+    {
+      "name": "new minor or unknown participation closed pending supervised safeguards",
+      "pass": true
+    },
+    {
+      "name": "ordinary player cannot read or write age assertions or bypass helpers",
+      "pass": true
+    },
+    {
+      "name": "turning eighteen requires fresh trusted validation, not a browser change",
+      "pass": true
+    },
+    {
+      "name": "expired assertion no avatar suspended account or missing session denied",
+      "pass": true
+    },
+    {
+      "name": "existing effective leadership closes after evidence expiry",
+      "pass": true
+    },
+    {
+      "name": "Auth deletion erases assertion and restoration cannot recover authority",
+      "pass": true
+    },
+    {
+      "name": "age tables have RLS and no client service-role privileges",
+      "pass": true
+    },
+    {
+      "name": "existing membership cannot promote or move after evidence revocation",
+      "pass": true
+    }
+  ],
+  "integrationChecks": [
+    {
+      "name": "PROD disabled returns exact contract",
+      "pass": true
+    },
+    {
+      "name": "PROD package activation replay writes one audit only",
+      "pass": true
+    },
+    {
+      "name": "PROD ordinary eligible account and read preserves game data",
+      "pass": true
+    },
+    {
+      "name": "PROD five memberships denied",
+      "pass": true
+    },
+    {
+      "name": "PROD foreign/null avatar denied",
+      "pass": true
+    },
+    {
+      "name": "PROD missing session denied",
+      "pass": true
+    },
+    {
+      "name": "PROD suspended account denied",
+      "pass": true
+    },
+    {
+      "name": "PROD unconfirmed denied",
+      "pass": true
+    },
+    {
+      "name": "PROD inactive avatar denied",
+      "pass": true
+    },
+    {
+      "name": "PROD writes disabled denied",
+      "pass": true
+    },
+    {
+      "name": "PROD already created denied",
+      "pass": true
+    },
+    {
+      "name": "PROD ACL and wrapper privileges",
+      "pass": true
+    },
+    {
+      "name": "six-step retention installation preserves historical rows",
+      "pass": true
+    },
+    {
+      "name": "six-step capability fails closed before server scheduler",
+      "pass": true
+    },
+    {
+      "name": "seven-step package preserves histories and disables unverified old leadership",
+      "pass": true
+    },
+    {
+      "name": "seven-step legacy leadership requires a current private assertion and cannot bypass closed controls",
+      "pass": true
+    }
+  ],
+  "uiTests": 6,
+  "preflightTests": 12,
+  "hostedProof": false,
+  "realAgeIssuerIntegrated": false,
+  "privacyReview": "PENDING",
+  "syntheticAssertionsOnly": true
+}

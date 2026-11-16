@@ -9,21 +9,19 @@ import {
   useState,
   type ReactNode,
 } from 'react';
-import {
-  getAuthenticatedUser,
-  getSession,
-  onAuthStateChange,
-} from './auth';
+import { getAuthenticatedUser, getSession, onAuthStateChange } from './auth';
 import {
   hydrateOnlineTravelers,
   protectSignedOutCache,
   setCurrentOnlineUser,
 } from './online-sync';
 import { profileRepository } from './repositories/profile-repository';
+import { hasAdultGameAccess } from './adult-access';
 
 type AuthState =
   | { status: 'loading'; session: null; user: null }
   | { status: 'signedOut'; session: null; user: null }
+  | { status: 'restricted'; session: Session; user: User }
   | { status: 'signedIn'; session: Session; user: User };
 
 type AuthContextValue = AuthState & {
@@ -59,6 +57,21 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       const session = incoming?.user.is_anonymous ? null : incoming;
       if (!active) return;
       const nextUserId = session?.user.id ?? null;
+      if (session) {
+        // Rechecking an already accepted identity must not remount the game.
+        // The backend guards every operation while this request is in flight;
+        // a negative/error response below immediately restricts the client too.
+        if (currentSessionUserId !== nextUserId)
+          setState({ status: 'loading', session: null, user: null });
+        const allowed = await hasAdultGameAccess();
+        if (!active) return;
+        if (!allowed) {
+          currentSessionUserId = undefined;
+          setCurrentOnlineUser(null);
+          setState({ status: 'restricted', session, user: session.user });
+          return;
+        }
+      }
       if (currentSessionUserId === nextUserId) {
         if (session)
           setState({ status: 'signedIn', session, user: session.user });
@@ -121,19 +134,21 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         if (pending && active) void scheduleSession(pending.session);
       }
     };
-    const subscription = onAuthStateChange(
-      (event, session) => {
-        if (process.env.NODE_ENV === 'development') {
-          console.info('[AUTH STATE] event:', event);
-          console.info('[AUTH STATE] user present:', Boolean(session?.user));
-        }
-        if (!bootCompleted) {
-          bufferedAuthChange = { event, session };
-          return;
-        }
-        void scheduleSession(session);
-      },
-    );
+    const subscription = onAuthStateChange((event, session) => {
+      // Boot verifies getSession + getUser + server age eligibility itself.
+      // INITIAL_SESSION is an earlier SDK snapshot, not a new sign-out; it
+      // must not replace that verdict when its callback arrives late.
+      if (event === 'INITIAL_SESSION') return;
+      if (process.env.NODE_ENV === 'development') {
+        console.info('[AUTH STATE] event:', event);
+        console.info('[AUTH STATE] user present:', Boolean(session?.user));
+      }
+      if (!bootCompleted) {
+        bufferedAuthChange = { event, session };
+        return;
+      }
+      void scheduleSession(session);
+    });
     void boot();
     return () => {
       active = false;

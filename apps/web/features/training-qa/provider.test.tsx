@@ -13,6 +13,7 @@ import { TrainingQAProvider, TrainingQAControls } from './provider';
 import { useTrainingTraveler } from './context';
 import { setTraining } from '../../lib/training-qa/store';
 const fixture = vi.hoisted(() => ({
+  authStatus: 'signedIn',
   actor: '10000000-0000-4000-8000-000000000003',
   owner: '00000000-0000-4000-8000-000000000003',
   read: vi.fn(),
@@ -32,7 +33,7 @@ vi.mock('../journey/state/use-journey', () => ({
   useCanonicalJourney: () => fixture.journey,
 }));
 vi.mock('../../lib/supabase/auth-context', () => ({
-  useAuth: () => ({ status: 'signedIn', user: { id: fixture.owner } }),
+  useAuth: () => ({ status: fixture.authStatus, user: { id: fixture.owner } }),
 }));
 vi.mock('../../lib/supabase/online-sync', () => ({
   getOnlineSessionRevision: () => 1,
@@ -56,9 +57,17 @@ const view = () => (
   </TrainingQAProvider>
 );
 beforeEach(() => {
+  fixture.authStatus = 'signedIn';
   vi.stubEnv('NEXT_PUBLIC_ECONOMY_QA002', '1');
   setTraining(null);
   fixture.read.mockReset();
+});
+it('restricted account never queries QA authority or receives a training overlay', async () => {
+  fixture.authStatus = 'restricted';
+  render(view());
+  await act(async () => {});
+  expect(fixture.read).not.toHaveBeenCalled();
+  expect(screen.getByLabelText('Projected balance').textContent).toBe('1234');
 });
 afterEach(() => {
   cleanup();

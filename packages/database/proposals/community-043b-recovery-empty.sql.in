@@ -1,0 +1,13 @@
+-- LOCAL disposable rehearsal only. Never delete audit/history to satisfy this guard.
+SELECT pg_catalog.pg_advisory_xact_lock(1010,1);
+DO $$ BEGIN
+ IF EXISTS(SELECT 1 FROM guild_admin_private.audit
+  WHERE action='guild_create' AND reason='Controlled creation of own private Guild')
+ THEN RAISE EXCEPTION 'Community creation history exists: containment required'; END IF;
+END $$;
+DROP FUNCTION public.community_create_own_guild(uuid,uuid,text,text);
+DROP FUNCTION guild_admin_private.create_own_guild(uuid,uuid,text,text);
+DROP FUNCTION guild_admin_private.community_actor(uuid);
+DROP FUNCTION guild_admin_private.community_quota_contract();
+ALTER TABLE guild_admin_private.multiguild_control
+ DROP COLUMN community_creation_enabled, DROP COLUMN community_environment;

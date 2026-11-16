@@ -1,0 +1,122 @@
+{
+  "package": "community-043b-production",
+  "status": "blocked",
+  "environment": "production",
+  "targetProject": "wspafhlbtlpabypzymjo",
+  "sourceBranchSha": "e894b226f9b5669885f0e7bba72de8f856262f8a",
+  "observedProductionBaseline": {
+    "project": "wspafhlbtlpabypzymjo",
+    "postgresMajor": 17,
+    "releaseScope": "guild-ebd-001",
+    "communityMigrationsApplied": false,
+    "communityCreationColumnsPresent": false,
+    "inspection": "read-only Supabase MCP, 2026-11-14"
+  },
+  "requires": [
+    "verified-production-backup-and-isolated-restore",
+    "approved-creation-marker-retention-policy",
+    "reviewed-production-sql-tested-on-disposable-postgresql",
+    "reviewed-real-age-assurance-integration",
+    "formal-privacy-and-minor-safeguards-review",
+    "hosted-authenticated-age-and-guild-validation",
+    "official-auth-hooks-configured-and-hosted-verified",
+    "reviewed-storage-realtime-and-server-api-global-coverage"
+  ],
+  "migrations": [],
+  "testSources": [
+    {
+      "path": "supabase/migrations/20261113215415_community_043b_controlled_creation_test.sql",
+      "gitBlob": "a562923cbf42a1b96f90494ecdee6e84a5fd1e67"
+    },
+    {
+      "path": "supabase/migrations/20261113232954_community_043b_membership_link_quotas.sql",
+      "gitBlob": "692a15aececb86eb0f2bff61a90ae59746ac864e"
+    },
+    {
+      "path": "supabase/migrations/20261114110000_community_043b_join_request_quotas_test.sql",
+      "gitBlob": "99188b48126fb12fd608de92fa5682eb03d4814a"
+    }
+  ],
+  "candidateMigrations": [
+    {
+      "order": 1,
+      "file": "20261113215415_community_043b_controlled_creation_production.sql",
+      "sha256": "47be11a66a089bd6eda0e224ab1cc2619a718c0bc01c1e5e47f8ce085bffa62f",
+      "validation": "postgresql17-isolated-pass"
+    },
+    {
+      "order": 2,
+      "file": "20261113232954_community_043b_membership_link_quotas_production.sql",
+      "sha256": "3c3141ce281fce3a20584130ea25762601a8409eb3b54fc36cf47eeae6260a93",
+      "validation": "postgresql17-isolated-pass"
+    },
+    {
+      "order": 3,
+      "file": "20261114110000_community_043b_join_request_quotas_production.sql",
+      "sha256": "4553e9e02992d2faa564d0303f44ea694c005ac79fe3696e9702c3494f04a70e",
+      "validation": "postgresql17-isolated-pass"
+    }
+  ],
+  "validation": {
+    "status": "postgresql17-isolated-pass",
+    "checks": 49,
+    "postgresVersion": "postgres (PostgreSQL) 17.10",
+    "evidence": "validation-summary.json"
+  },
+  "supplementalInstallations": [
+    {
+      "order": 4,
+      "version": "community-own-guild-capability-v1",
+      "path": "packages/database/deployments/community043b/sql/community_own_guild_capability.sql.in",
+      "dependsOn": [3],
+      "transaction": "same-reviewed-production-transaction",
+      "sha256": "8838d65d9488855b140ba547464f1c1f05c359c34801e6a74c00b019bf8e04d8",
+      "migrationVersion": "20261115150001"
+    },
+    {
+      "order": 5,
+      "version": "community-production-control-v1",
+      "path": "packages/database/proposals/community-043b-production-control-v1.sql.in",
+      "dependsOn": [4],
+      "transaction": "same-reviewed-production-transaction",
+      "sha256": "8ca257ce13ecfa20cdb49b405eacb20b89523a5b521986700eb97b84c2cfc414",
+      "migrationVersion": "20261115150002"
+    },
+    {
+      "order": 6,
+      "version": "community-retention-v1",
+      "path": "packages/database/deployments/community043b/sql/community_retention_v1.sql.in",
+      "dependsOn": [5],
+      "transaction": "same-reviewed-production-transaction",
+      "sha256": "4bf1e9a181032acde0133ed3bf2f1ec7e24f134b1c542d479b6314c567d6c68f",
+      "migrationVersion": "20261115170001"
+    },
+    {
+      "order": 7,
+      "version": "community-age-eligibility-v1",
+      "path": "packages/database/deployments/community043b/sql/community_age_eligibility_v1.sql.in",
+      "dependsOn": [6],
+      "transaction": "same-reviewed-production-transaction",
+      "sha256": "f69c3af8b3159987f372c63b009132bffd4aa4a499bc4f947d25fb5ab61325c4",
+      "migrationVersion": "20261116010001",
+      "validation": "postgresql17-isolated-pass; real issuer and hosted verification BLOCKED"
+    },
+    {
+      "order": 8,
+      "version": "adults-only-phase1-v1",
+      "path": "packages/database/deployments/community043b/sql/adults_phase1_global_access.sql.in",
+      "dependsOn": [7],
+      "transaction": "same-reviewed-production-transaction",
+      "sha256": "128f99158e5e8bd3e52e10c34708f8435b0a7832b75b2368e9dc7beae7f43998",
+      "migrationVersion": "20261116020001",
+      "validation": "postgresql17.12-isolated-pass; Auth hook configuration, Storage/Realtime hosted coverage and verification issuer BLOCKED"
+    }
+  ],
+  "installationPlan": {
+    "version": 1,
+    "status": "blocked",
+    "orders": [1, 2, 3, 4, 5, 6, 7, 8],
+    "activationIncluded": false,
+    "registration": "Three PROD migrations and five pinned versioned supplements; phase1 global guards. No activation. Auth hooks require separate official configuration. No age verifier or verified enrollment exists; release remains blocked."
+  }
+}
