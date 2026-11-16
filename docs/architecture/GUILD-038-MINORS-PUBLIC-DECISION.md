@@ -6,6 +6,8 @@
 
 ## Decisão expressa
 
+**Fase1 GUILD-041:** a decisão `387b5f0` substitui a admissão de menores durante o lançamento inicial. Cadastro/acesso ao jogo ficam limitados a adultos com elegibilidade validada. Participação de menores pertence somente à futura fase2, sem ativação implícita. A revisão de privacidade permanece pendente.
+
 **Complemento definitivo GUILD-040:** somente jogadores com **18 anos completos ou mais**, com elegibilidade validada no servidor, podem criar ou liderar Guildas. Inclui transferências, promoções, atribuições administrativas e recuperação de conta. Líder de célula e professor de EBD não têm exceção. Adultos elegíveis não precisam de aprovação de outro líder. Menores podem jogar e participar somente com as salvaguardas aplicáveis; essa decisão não prova que elas estejam implantadas.
 
 A integração real de aferição etária e a revisão formal de privacidade continuam pendentes. Azure/AWS foram mencionados, mas nenhum serviço específico, contrato de evidência ou sandbox foi disponibilizado. Não há autorização para inferir idade de cargo, e-mail, avatar, metadados editáveis ou checkbox.

@@ -18,7 +18,9 @@
     "reviewed-production-sql-tested-on-disposable-postgresql",
     "reviewed-real-age-assurance-integration",
     "formal-privacy-and-minor-safeguards-review",
-    "hosted-authenticated-age-and-guild-validation"
+    "hosted-authenticated-age-and-guild-validation",
+    "official-auth-hooks-configured-and-hosted-verified",
+    "reviewed-storage-realtime-and-server-api-global-coverage"
   ],
   "migrations": [],
   "testSources": [
@@ -66,9 +68,7 @@
       "order": 4,
       "version": "community-own-guild-capability-v1",
       "path": "packages/database/deployments/community043b/sql/community_own_guild_capability.sql.in",
-      "dependsOn": [
-        3
-      ],
+      "dependsOn": [3],
       "transaction": "same-reviewed-production-transaction",
       "sha256": "8838d65d9488855b140ba547464f1c1f05c359c34801e6a74c00b019bf8e04d8",
       "migrationVersion": "20261115150001"
@@ -77,9 +77,7 @@
       "order": 5,
       "version": "community-production-control-v1",
       "path": "packages/database/proposals/community-043b-production-control-v1.sql.in",
-      "dependsOn": [
-        4
-      ],
+      "dependsOn": [4],
       "transaction": "same-reviewed-production-transaction",
       "sha256": "8ca257ce13ecfa20cdb49b405eacb20b89523a5b521986700eb97b84c2cfc414",
       "migrationVersion": "20261115150002"
@@ -88,9 +86,7 @@
       "order": 6,
       "version": "community-retention-v1",
       "path": "packages/database/deployments/community043b/sql/community_retention_v1.sql.in",
-      "dependsOn": [
-        5
-      ],
+      "dependsOn": [5],
       "transaction": "same-reviewed-production-transaction",
       "sha256": "4bf1e9a181032acde0133ed3bf2f1ec7e24f134b1c542d479b6314c567d6c68f",
       "migrationVersion": "20261115170001"
@@ -99,28 +95,28 @@
       "order": 7,
       "version": "community-age-eligibility-v1",
       "path": "packages/database/deployments/community043b/sql/community_age_eligibility_v1.sql.in",
-      "dependsOn": [
-        6
-      ],
+      "dependsOn": [6],
       "transaction": "same-reviewed-production-transaction",
       "sha256": "f69c3af8b3159987f372c63b009132bffd4aa4a499bc4f947d25fb5ab61325c4",
       "migrationVersion": "20261116010001",
       "validation": "postgresql17-isolated-pass; real issuer and hosted verification BLOCKED"
+    },
+    {
+      "order": 8,
+      "version": "adults-only-phase1-v1",
+      "path": "packages/database/deployments/community043b/sql/adults_phase1_global_access.sql.in",
+      "dependsOn": [7],
+      "transaction": "same-reviewed-production-transaction",
+      "sha256": "128f99158e5e8bd3e52e10c34708f8435b0a7832b75b2368e9dc7beae7f43998",
+      "migrationVersion": "20261116020001",
+      "validation": "postgresql17.12-isolated-pass; Auth hook configuration, Storage/Realtime hosted coverage and verification issuer BLOCKED"
     }
   ],
   "installationPlan": {
     "version": 1,
     "status": "blocked",
-    "orders": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7
-    ],
+    "orders": [1, 2, 3, 4, 5, 6, 7, 8],
     "activationIncluded": false,
-    "registration": "Three PROD migrations plus four pinned versioned operations. No activation. Age assertions initially empty; no real issuer integrated. All gates remain closed."
+    "registration": "Three PROD migrations and five pinned versioned supplements; phase1 global guards. No activation. Auth hooks require separate official configuration. No age verifier or verified enrollment exists; release remains blocked."
   }
 }

@@ -741,6 +741,11 @@ try {
     const { verifyAge } = await import('./community-age-cases.mjs');
     await verifyAge({ q, check, denied, login, reset, db, uid, tid, create });
   }
+  if (process.argv.includes('--phase1')) {
+    assert(process.argv.includes('--age'), 'Phase1 requires the age operation');
+    const { verifyPhase1 } = await import('./adults-phase1-cases.mjs');
+    await verifyPhase1({ q, check, denied, login, reset, db, uid });
+  }
   fs.writeFileSync(
     path.join(root, 'evidence.json'),
     JSON.stringify(

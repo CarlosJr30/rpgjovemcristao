@@ -2,13 +2,18 @@ import type { AuthChangeEvent, Session, User } from '@supabase/supabase-js';
 import { authDiagnostic, safeAuthError } from './auth-diagnostics';
 import { getSupabaseBrowserClient } from './client';
 import { authCallbackPath } from './auth-return';
+import { verifiedGameAccess } from './adult-access';
 
 export const signUp = async (
   email: string,
   password: string,
   displayName: string,
-) =>
-  getSupabaseBrowserClient().auth.signUp({
+) => {
+  const client = getSupabaseBrowserClient();
+  const access = await client.rpc('phase1_enrollment_access');
+  if (access.error || !verifiedGameAccess(access.data))
+    throw new Error('Cadastro indisponível até haver verificação etária.');
+  return client.auth.signUp({
     email,
     password,
     options: {
@@ -16,6 +21,7 @@ export const signUp = async (
       emailRedirectTo: `${window.location.origin}${authCallbackPath()}`,
     },
   });
+};
 
 export const signIn = async (email: string, password: string) => {
   authDiagnostic('signIn:start');

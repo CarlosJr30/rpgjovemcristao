@@ -1,0 +1,97 @@
+-- GUILD-041 operation 8, version 20261116020001. Candidate only; no real issuer.
+-- Requires Auth hooks to be configured and verified separately before rollout.
+DO $$ BEGIN
+ IF session_user<>'postgres' OR current_user<>'postgres'
+ OR current_setting('rpg.community043b.target_project',true) IS DISTINCT FROM 'wspafhlbtlpabypzymjo'
+ OR current_setting('rpg.community043b.phase1_install',true) IS DISTINCT FROM 'reviewed-production'
+ OR public.release_scope() IS DISTINCT FROM 'guild-ebd-001'
+ OR to_regprocedure('community_age_private.adult_account(uuid)') IS NULL
+ THEN RAISE EXCEPTION 'Reviewed phase1 identity and age foundation required' USING ERRCODE='42501'; END IF;
+ PERFORM pg_advisory_xact_lock(1010,1);
+ IF EXISTS(SELECT 1 FROM pg_db_role_setting s JOIN pg_roles r ON r.oid=s.setrole,
+  unnest(s.setconfig) v WHERE r.rolname='authenticator' AND v LIKE 'pgrst.db_pre_request=%'
+  AND v<>'pgrst.db_pre_request=') THEN
+  RAISE EXCEPTION 'Existing pre-request hook requires explicit composition'; END IF;
+END $$;
+
+-- Calendar calculation only: declared DOB is never evidence or an authorization.
+-- Leap-day birthday becomes eligible on March 1 in a non-leap year (conservative).
+CREATE FUNCTION community_age_private.declared_adult(p_birth date,p_today date) RETURNS boolean
+LANGUAGE sql IMMUTABLE SECURITY INVOKER SET search_path='' AS $$
+ SELECT coalesce(isfinite(p_birth) AND isfinite(p_today) AND p_birth<=p_today
+  AND p_birth <= (p_today-interval '18 years')::date,false)
+$$;
+REVOKE ALL ON FUNCTION community_age_private.declared_adult(date,date) FROM PUBLIC,anon,authenticated,service_role;
+
+CREATE FUNCTION public.phase1_is_adult() RETURNS boolean
+LANGUAGE sql VOLATILE SECURITY DEFINER SET search_path='' AS $$
+ SELECT community_age_private.adult_account(auth.uid())
+ AND EXISTS(SELECT 1 FROM auth.sessions s WHERE s.user_id=auth.uid()
+  AND s.id::text=auth.jwt()->>'session_id'
+  AND (s.not_after IS NULL OR s.not_after>clock_timestamp()))
+$$;
+CREATE FUNCTION public.phase1_game_access() RETURNS jsonb
+LANGUAGE sql VOLATILE SECURITY INVOKER SET search_path='' AS $$
+ SELECT jsonb_build_object('version',1,'allowed',public.phase1_is_adult())
+$$;
+CREATE FUNCTION public.phase1_enrollment_access() RETURNS jsonb
+LANGUAGE sql IMMUTABLE SECURITY INVOKER SET search_path='' AS $$
+ SELECT jsonb_build_object('version',1,'allowed',false)
+$$;
+REVOKE ALL ON FUNCTION public.phase1_is_adult(),public.phase1_game_access() FROM PUBLIC,anon,authenticated,service_role;
+GRANT EXECUTE ON FUNCTION public.phase1_is_adult(),public.phase1_game_access() TO anon,authenticated,service_role;
+REVOKE ALL ON FUNCTION public.phase1_enrollment_access() FROM PUBLIC,anon,authenticated,service_role;
+GRANT EXECUTE ON FUNCTION public.phase1_enrollment_access() TO anon,authenticated,service_role;
+
+CREATE FUNCTION public.phase1_check_request() RETURNS void
+LANGUAGE plpgsql SECURITY INVOKER SET search_path='' AS $$ BEGIN
+ -- Only a current-account boolean is public; no other anonymous API exceptions.
+ IF current_setting('request.path',true) IN ('/rpc/phase1_game_access','/rpc/phase1_enrollment_access') THEN RETURN; END IF;
+ IF NOT public.phase1_is_adult() THEN
+  RAISE EXCEPTION 'Fase inicial exclusiva para adultos com elegibilidade validada.' USING ERRCODE='42501';
+ END IF;
+END $$;
+REVOKE ALL ON FUNCTION public.phase1_check_request() FROM PUBLIC,anon,authenticated,service_role;
+GRANT EXECUTE ON FUNCTION public.phase1_check_request() TO anon,authenticated,service_role;
+
+-- Add restrictive conditions to existing permissive policies; do not rewrite
+-- ownership expressions or grant new rights. RLS must already be enabled.
+DO $$ DECLARE t record; BEGIN
+ FOR t IN SELECT n.nspname,c.relname,c.relrowsecurity FROM pg_class c JOIN pg_namespace n ON n.oid=c.relnamespace
+ WHERE c.relkind IN ('r','p') AND (n.nspname='public' OR (n.nspname='storage')
+  OR (n.nspname='realtime' AND c.relname='messages'))
+ AND (has_table_privilege('anon',c.oid,'select,insert,update,delete')
+  OR has_table_privilege('authenticated',c.oid,'select,insert,update,delete'))
+ LOOP
+  IF NOT t.relrowsecurity THEN RAISE EXCEPTION 'Client-accessible table without reviewed RLS: %.%',t.nspname,t.relname; END IF;
+  EXECUTE format('CREATE POLICY phase1_verified_adult ON %I.%I AS RESTRICTIVE FOR ALL TO anon,authenticated USING ((SELECT public.phase1_is_adult())) WITH CHECK ((SELECT public.phase1_is_adult()))',t.nspname,t.relname);
+ END LOOP;
+END $$;
+
+-- The declared DOB does not satisfy this hook. Until a reviewed enrollment
+-- verifier exists, all new Auth account creation (including OAuth/invite) is closed.
+CREATE FUNCTION public.phase1_before_user_created(event jsonb) RETURNS jsonb
+LANGUAGE sql SECURITY INVOKER SET search_path='' AS $$
+ SELECT jsonb_build_object('error',jsonb_build_object('http_code',403,
+  'message','Cadastro 18+ indisponível até haver verificação de idade.'))
+$$;
+CREATE FUNCTION public.phase1_access_token(event jsonb) RETURNS jsonb
+LANGUAGE plpgsql SECURITY DEFINER SET search_path='' AS $$ BEGIN
+ IF jsonb_typeof(event->'claims') IS DISTINCT FROM 'object'
+ OR event->>'user_id' IS DISTINCT FROM event->'claims'->>'sub'
+ OR NOT community_age_private.adult_account((event->>'user_id')::uuid) THEN
+  RETURN jsonb_build_object('error',jsonb_build_object('http_code',403,
+   'message','Acesso 18+ depende de elegibilidade validada.'));
+ END IF;
+ RETURN jsonb_build_object('claims',event->'claims');
+END $$;
+REVOKE ALL ON FUNCTION public.phase1_before_user_created(jsonb),public.phase1_access_token(jsonb)
+ FROM PUBLIC,anon,authenticated,service_role;
+GRANT EXECUTE ON FUNCTION public.phase1_before_user_created(jsonb),public.phase1_access_token(jsonb)
+ TO supabase_auth_admin;
+
+-- Configures Data API only. Auth hooks above require official Auth configuration.
+-- Storage public objects/signed URLs and public Realtime channels must separately
+-- be reviewed; these SQL policies are not a claim of complete hosted coverage.
+ALTER ROLE authenticator SET pgrst.db_pre_request='public.phase1_check_request';
+NOTIFY pgrst,'reload config';

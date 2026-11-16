@@ -124,7 +124,7 @@ export function AuthScreen({ inviteToken }: { inviteToken?: string }) {
       setError(
         (mode === 'signIn'
           ? 'Não foi possível entrar. Confira seus dados e tente novamente.'
-          : 'Não foi possível criar a conta. Tente novamente.') +
+          : 'O cadastro depende de verificação etária e ainda não está disponível.') +
           developmentDetails,
       );
     } finally {
@@ -164,6 +164,12 @@ export function AuthScreen({ inviteToken }: { inviteToken?: string }) {
       <section className={styles.card} aria-labelledby="auth-title">
         <p className={styles.eyebrow}>JORNADA ONLINE</p>
         <h1 id="auth-title">{mode === 'signIn' ? 'Entrar' : 'Criar conta'}</h1>
+        <Link href="/privacy">Privacidade do lançamento 18+</Link>
+        <p>
+          Lançamento inicial exclusivo para maiores de 18 anos, com
+          elegibilidade validada. Data de nascimento autodeclarada não comprova
+          idade.
+        </p>
         {inviteToken && (
           <GuildInvitePreview key={inviteToken} token={inviteToken} />
         )}

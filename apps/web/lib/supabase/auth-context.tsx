@@ -9,21 +9,19 @@ import {
   useState,
   type ReactNode,
 } from 'react';
-import {
-  getAuthenticatedUser,
-  getSession,
-  onAuthStateChange,
-} from './auth';
+import { getAuthenticatedUser, getSession, onAuthStateChange } from './auth';
 import {
   hydrateOnlineTravelers,
   protectSignedOutCache,
   setCurrentOnlineUser,
 } from './online-sync';
 import { profileRepository } from './repositories/profile-repository';
+import { hasAdultGameAccess } from './adult-access';
 
 type AuthState =
   | { status: 'loading'; session: null; user: null }
   | { status: 'signedOut'; session: null; user: null }
+  | { status: 'restricted'; session: Session; user: User }
   | { status: 'signedIn'; session: Session; user: User };
 
 type AuthContextValue = AuthState & {
@@ -59,6 +57,17 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       const session = incoming?.user.is_anonymous ? null : incoming;
       if (!active) return;
       const nextUserId = session?.user.id ?? null;
+      if (session) {
+        setState({ status: 'loading', session: null, user: null });
+        const allowed = await hasAdultGameAccess();
+        if (!active) return;
+        if (!allowed) {
+          currentSessionUserId = undefined;
+          setCurrentOnlineUser(null);
+          setState({ status: 'restricted', session, user: session.user });
+          return;
+        }
+      }
       if (currentSessionUserId === nextUserId) {
         if (session)
           setState({ status: 'signedIn', session, user: session.user });
@@ -121,19 +130,17 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         if (pending && active) void scheduleSession(pending.session);
       }
     };
-    const subscription = onAuthStateChange(
-      (event, session) => {
-        if (process.env.NODE_ENV === 'development') {
-          console.info('[AUTH STATE] event:', event);
-          console.info('[AUTH STATE] user present:', Boolean(session?.user));
-        }
-        if (!bootCompleted) {
-          bufferedAuthChange = { event, session };
-          return;
-        }
-        void scheduleSession(session);
-      },
-    );
+    const subscription = onAuthStateChange((event, session) => {
+      if (process.env.NODE_ENV === 'development') {
+        console.info('[AUTH STATE] event:', event);
+        console.info('[AUTH STATE] user present:', Boolean(session?.user));
+      }
+      if (!bootCompleted) {
+        bufferedAuthChange = { event, session };
+        return;
+      }
+      void scheduleSession(session);
+    });
     void boot();
     return () => {
       active = false;

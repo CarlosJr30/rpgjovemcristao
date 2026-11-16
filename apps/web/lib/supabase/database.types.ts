@@ -415,6 +415,8 @@ export type Database = {
       };
       community_create_own_guild: { Args: { p_actor: string; p_request: string; p_name: string; p_description: string }; Returns: Json };
       community_own_guild_capability: { Args: { p_actor: string }; Returns: Json };
+      phase1_game_access: { Args: Record<string, never>; Returns: Json };
+      phase1_enrollment_access: { Args: Record<string, never>; Returns: Json };
       create_guild: { Args: { p_leader_traveler_id: string; p_name: string; p_description?: string | null }; Returns: string };
       request_join_guild: { Args: { p_guild_id: string; p_traveler_id: string }; Returns: string };
       create_guild_link_invite: { Args: { p_leader_traveler_id: string }; Returns: Json };
