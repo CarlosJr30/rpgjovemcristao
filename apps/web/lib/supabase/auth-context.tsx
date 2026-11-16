@@ -135,6 +135,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       }
     };
     const subscription = onAuthStateChange((event, session) => {
+      // Boot verifies getSession + getUser + server age eligibility itself.
+      // INITIAL_SESSION is an earlier SDK snapshot, not a new sign-out; it
+      // must not replace that verdict when its callback arrives late.
+      if (event === 'INITIAL_SESSION') return;
       if (process.env.NODE_ENV === 'development') {
         console.info('[AUTH STATE] event:', event);
         console.info('[AUTH STATE] user present:', Boolean(session?.user));

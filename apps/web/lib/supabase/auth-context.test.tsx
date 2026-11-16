@@ -64,6 +64,22 @@ beforeEach(() => {
 afterEach(cleanup);
 
 describe('AuthProvider bootstrap', () => {
+  test('stale empty INITIAL_SESSION cannot overwrite the verified restored account', async () => {
+    onAuthStateChange.mockImplementationOnce((notify) => {
+      notify('INITIAL_SESSION', null);
+      return { unsubscribe: vi.fn() };
+    });
+    await act(async () => {
+      render(
+        <AuthProvider>
+          <Probe />
+        </AuthProvider>,
+      );
+    });
+    expect(screen.getByText(`signedIn:${user.id}`)).toBeVisible();
+    expect(getAuthenticatedUser).toHaveBeenCalledTimes(1);
+    expect(hasAdultGameAccess).toHaveBeenCalledTimes(1);
+  });
   test('same-identity revalidation preserves the mounted game until the verdict', async () => {
     render(
       <AuthProvider>
