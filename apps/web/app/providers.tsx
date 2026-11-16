@@ -81,9 +81,9 @@ function AuthGate({ children }: { children: ReactNode }) {
 export function Providers({ children }: { children: ReactNode }) {
   return (
     <AuthProvider>
-      <AuthGate>
-        <TrainingQAProvider>{children}</TrainingQAProvider>
-      </AuthGate>
+      <TrainingQAProvider>
+        <AuthGate>{children}</AuthGate>
+      </TrainingQAProvider>
     </AuthProvider>
   );
 }

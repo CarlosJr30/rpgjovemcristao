@@ -27,7 +27,7 @@ vi.mock('../features/auth/auth-screen', () => ({
 vi.mock('../lib/supabase/auth', () => ({ signOut: vi.fn() }));
 import { Providers } from './providers';
 afterEach(cleanup);
-test('restricted identity never mounts game or training providers', () => {
+test('restricted identity never mounts the game', () => {
   state.status = 'restricted';
   state.pathname = '/journey/guild';
   render(
@@ -39,7 +39,6 @@ test('restricted identity never mounts game or training providers', () => {
     screen.getByRole('heading', { name: /exclusivo para maiores de 18 anos/ }),
   ).toBeVisible();
   expect(screen.queryByText('Private game data')).not.toBeInTheDocument();
-  expect(screen.queryByTestId('qa-provider')).not.toBeInTheDocument();
 });
 test('verified adult mounts the existing game and training providers', () => {
   state.status = 'signedIn';
