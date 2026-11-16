@@ -58,7 +58,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       if (!active) return;
       const nextUserId = session?.user.id ?? null;
       if (session) {
-        setState({ status: 'loading', session: null, user: null });
+        // Rechecking an already accepted identity must not remount the game.
+        // The backend guards every operation while this request is in flight;
+        // a negative/error response below immediately restricts the client too.
+        if (currentSessionUserId !== nextUserId)
+          setState({ status: 'loading', session: null, user: null });
         const allowed = await hasAdultGameAccess();
         if (!active) return;
         if (!allowed) {

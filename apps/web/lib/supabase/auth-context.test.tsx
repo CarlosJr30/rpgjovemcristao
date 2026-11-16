@@ -64,6 +64,31 @@ beforeEach(() => {
 afterEach(cleanup);
 
 describe('AuthProvider bootstrap', () => {
+  test('same-identity revalidation preserves the mounted game until the verdict', async () => {
+    render(
+      <AuthProvider>
+        <Probe />
+      </AuthProvider>,
+    );
+    await screen.findByText(`signedIn:${user.id}`);
+    let verdict!: (allowed: boolean) => void;
+    hasAdultGameAccess.mockReturnValueOnce(
+      new Promise<boolean>((resolve) => {
+        verdict = resolve;
+      }),
+    );
+    const notify = onAuthStateChange.mock.calls[0][0];
+    await act(async () => {
+      notify('TOKEN_REFRESHED', session);
+    });
+    expect(screen.getByText(`signedIn:${user.id}`)).toBeVisible();
+    expect(screen.queryByText('loading:none')).not.toBeInTheDocument();
+    await act(async () => {
+      verdict(false);
+    });
+    expect(await screen.findByText(`restricted:${user.id}`)).toBeVisible();
+    expect(hydrateOnlineTravelers).toHaveBeenCalledTimes(1);
+  });
   test('unverified old account is restricted without hydrating or changing its save', async () => {
     hasAdultGameAccess.mockResolvedValue(false);
     localStorage.setItem('rpg-jovem-cristao:journey:v1', 'preserved-save');
