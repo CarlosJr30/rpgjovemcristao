@@ -13,6 +13,7 @@ import {
 } from '../../lib/supabase/online-sync';
 import {
   guildRepository,
+  type GuildCreationStatus,
   type OnlineGuildContext,
 } from '../../lib/supabase/repositories/guild-repository';
 import {
@@ -31,6 +32,7 @@ export type GuildScopeValue = {
   guildId: string | null;
   context: OnlineGuildContext | null;
   contexts: OnlineGuildContext[];
+  creationStatus: GuildCreationStatus;
   canManage: boolean;
   canCreate: boolean;
   writesEnabled: boolean;
@@ -74,6 +76,7 @@ function ScopeForAccount({
   const [snapshot, setSnapshot] = useState<{
       contexts: OnlineGuildContext[];
       status: GovernanceStatus;
+      creationStatus: GuildCreationStatus;
       generation: number;
     }>(),
     [error, setError] = useState(false),
@@ -98,12 +101,14 @@ function ScopeForAccount({
     void Promise.all([
       guildRepository.listContexts(actor),
       guildRepository.getStatus(actor),
+      guildRepository.getCreationStatus(actor),
     ])
-      .then(([contexts, status]) => {
+      .then(([contexts, status, creationStatus]) => {
         if (live) {
           setSnapshot({
             contexts,
             status: parseGovernanceStatus(status),
+            creationStatus,
             generation: reload,
           });
           setError(false);
@@ -197,16 +202,34 @@ function ScopeForAccount({
       {snapshot.generation !== reload ? (
         <p role="status">Reconfirmando a comunidade e suas permissões…</p>
       ) : contexts && contexts.length > 1 && !context ? (
-        <p role="status">
-          Escolha explicitamente a Guilda ativa para continuar.
-        </p>
+        <>
+          <p role="status">
+            Escolha explicitamente a Guilda ativa para continuar.
+          </p>
+          {children({
+            guildId: null,
+            context: null,
+            contexts: snapshot.contexts,
+            canManage: false,
+            canCreate:
+              snapshot.creationStatus.canCreate &&
+              snapshot.status.writesEnabled !== false,
+            creationStatus: snapshot.creationStatus,
+            writesEnabled: snapshot.status.writesEnabled !== false,
+            refresh,
+            generation: reload,
+          })}
+        </>
       ) : (
         children({
           guildId: context?.guild.id ?? null,
           context: context ?? null,
           contexts: snapshot.contexts,
           canManage: context?.canManage === true,
-          canCreate: snapshot.status.canCreateAdditionalGuilds,
+          canCreate:
+            snapshot.creationStatus.canCreate &&
+            snapshot.status.writesEnabled !== false,
+          creationStatus: snapshot.creationStatus,
           writesEnabled: snapshot.status.writesEnabled !== false,
           refresh,
           generation: reload,

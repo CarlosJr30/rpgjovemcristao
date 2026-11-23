@@ -101,6 +101,27 @@ test('scoped creation sends one existing intent without claims balances or econo
     p_data: { name: 'Comunidade', description: 'Descrição' },
   });
 });
+test('public creation eligibility comes from the authenticated scoped RPC', async () => {
+  mock.rpc.mockResolvedValue({
+    data: { eligible: true, canCreate: true, hasCreated: false },
+    error: null,
+  });
+  await expect(guildRepository.getCreationStatus('actor-a')).resolves.toEqual({
+    eligible: true,
+    canCreate: true,
+    hasCreated: false,
+  });
+  expect(mock.rpc).toHaveBeenCalledWith('guild_creation_status', {
+    p_actor: 'actor-a',
+  });
+  mock.rpc.mockResolvedValue({
+    data: { eligible: false, canCreate: true, hasCreated: false },
+    error: null,
+  });
+  await expect(guildRepository.getCreationStatus('actor-a')).rejects.toThrow(
+    /inv\u00e1lida/,
+  );
+});
 test('leave and removal include their exact community and member rather than broad avatar RPC', async () => {
   mock.rpc.mockResolvedValue({ data: { id: 'actor-a' }, error: null });
   await guildRepository.leaveScoped('actor-a', a, b);

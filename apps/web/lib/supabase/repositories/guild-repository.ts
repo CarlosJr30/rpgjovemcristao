@@ -26,6 +26,12 @@ export type OnlineGuildContext = Readonly<{
   canManage?: boolean;
 }>;
 
+export type GuildCreationStatus = Readonly<{
+  eligible: boolean;
+  canCreate: boolean;
+  hasCreated: boolean;
+}>;
+
 export class GuildSelectionRequired extends Error {}
 function sessionGuard(actor: string) {
   const owner = getCurrentOnlineUserId(),
@@ -117,6 +123,29 @@ async function scoped(
 }
 
 export const guildRepository = {
+  async getCreationStatus(travelerId: string): Promise<GuildCreationStatus> {
+    const verify = sessionGuard(travelerId);
+    const result = await getSupabaseBrowserClient().rpc(
+      'guild_creation_status',
+      { p_actor: travelerId },
+    );
+    verify();
+    const data = requireData(
+      result,
+      'Não foi possível confirmar a elegibilidade para criar uma Guilda.',
+    );
+    if (
+      !data ||
+      typeof data !== 'object' ||
+      Array.isArray(data) ||
+      typeof data.eligible !== 'boolean' ||
+      typeof data.canCreate !== 'boolean' ||
+      typeof data.hasCreated !== 'boolean' ||
+      (data.canCreate && (!data.eligible || data.hasCreated))
+    )
+      throw Error('Resposta de elegibilidade da Guilda inválida.');
+    return data as GuildCreationStatus;
+  },
   async getStatus(actor: string) {
     const verify = sessionGuard(actor);
     const result = await getSupabaseBrowserClient().rpc(
