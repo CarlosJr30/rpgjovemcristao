@@ -66,6 +66,8 @@ export async function mockLocalReleaseAuth(
           writesEnabled: true,
           economicRewardsEnabled: false,
         };
+      if (endpoint === 'guild_creation_status')
+        data = { eligible: false, canCreate: false, hasCreated: true };
       if (endpoint === 'guild_scoped_contexts')
         data = { version: 1, guilds: [] };
       const traveler = {
