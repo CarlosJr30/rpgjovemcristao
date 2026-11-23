@@ -71,7 +71,7 @@ const migration = sql(
   'supabase/migrations/20261028213600_rpg_dev_010a2_multiguild_test.sql',
 );
 const guildPublicMigration = sql(
-  'supabase/migrations/20261123184217_guild_public_001_test.sql',
+  'supabase/migrations/20261123193206_guild_public_001_test.sql',
 );
 const check = async (name, fn) => {
   await fn();
