@@ -10,7 +10,7 @@ const version = JSON.parse(
 ).version;
 assert.equal(
   version,
-  '16.4.2',
+  '16.4.5',
   'Review RPG-DEV-005 patch before changing Next version',
 );
 const helper = readFileSync(
