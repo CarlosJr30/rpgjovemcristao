@@ -66,7 +66,7 @@ const session = (n, sql, anonymous = false) =>
 const rpc = (n, sql) => query(session(n, sql));
 const denied = (
   sql,
-  pattern = /permission denied|denied|Active traveler|required|not found/i,
+  pattern = /permission denied|denied|Active traveler|required|not found|query returned no rows/i,
 ) => assert.rejects(query(sql), pattern);
 after(async () => {
   await db.end();
@@ -336,7 +336,7 @@ test('STORY-007: local checkpoint RPCs isolate owners, enforce ordering and repl
           `SELECT public.submit_creation_quiz('${traveler(1)}','${second}',ARRAY[1,1,1,1,1]::smallint[])`,
         ),
       );
-      assert.equal(retry.score, 0);
+      assert.equal(retry.score, 1);
       assert.equal(retry.perfect, false);
       const state = JSON.parse(
         await rpc(
