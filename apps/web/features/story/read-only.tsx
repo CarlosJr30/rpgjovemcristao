@@ -257,6 +257,13 @@ export function JourneyReadView({
           </p>
         </section>
       )}
+      {story?.id === 'creation' && (
+        <p>
+          <Link className={css.link} href="/journey/stories/creation/explore">
+            Explorar o protótipo do Santuário · demonstração temporária →
+          </Link>
+        </p>
+      )}
       {story?.id === 'garden-choice' && (
         <p>
           <Link
