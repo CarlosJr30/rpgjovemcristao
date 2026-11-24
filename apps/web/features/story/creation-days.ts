@@ -1,167 +1,189 @@
+import manifestSource from './creation-content-v1.json';
 import type { Point } from './creation-explorer-model';
 
-type Marker = Readonly<{
+export type CreationMarker = Readonly<{
   label: string;
   symbol: string;
   point: Point;
   note?: string;
 }>;
-type Day = Readonly<{
+
+export type CreationContentDay = Readonly<{
   id: string;
   title: string;
-  harmonyLabel?: string;
+  harmonyLabel: string;
   reference: string;
   passage: string;
   motifs: string;
   objective: string;
-  markers: readonly Marker[];
+  markers: readonly CreationMarker[];
   question: string;
   options: readonly [string, string];
-  correct: 0 | 1;
+  answer: number;
   explanation: string;
 }>;
 
-const mainMarker = { x: 72, y: 50 };
+export type CreationContentQuizQuestion = Readonly<{
+  id: string;
+  question: string;
+  options: readonly string[];
+  optionIds: readonly string[];
+  answer: number;
+  reference: string;
+  passage: string;
+  explanation: string;
+}>;
+
+export type CreationContentManifest = Readonly<{
+  revision: number;
+  days: readonly CreationContentDay[];
+  harmony: readonly string[];
+  quiz: readonly CreationContentQuizQuestion[];
+}>;
+
+export type CreationDay = CreationContentDay & { correct: 0 | 1 };
 
 export function creationPassageUrl(passage: string) {
   return `https://www.bible.com/pt/bible/129/GEN.${passage}.NVI`;
 }
 
-export const CREATION_DAYS: readonly Day[] = [
-  {
-    id: 'creation-day-1',
-    title: 'Luz e trevas',
-    reference: 'Gênesis 1:3–5',
-    passage: '1.3-5',
-    motifs: '✦',
-    objective: 'Encontre o marco da luz para abrir o desafio.',
-    markers: [{ label: 'Marco da luz', symbol: '✦', point: mainMarker }],
-    question: 'O que Deus criou no primeiro dia?',
-    options: ['A luz.', 'O firmamento.'],
-    correct: 0,
-    explanation:
-      'Deus disse que houvesse luz, separou a luz das trevas e chamou a luz de Dia e as trevas de Noite.',
-  },
-  {
-    id: 'creation-day-2',
-    title: 'Firmamento',
-    reference: 'Gênesis 1:6–8',
-    passage: '1.6-8',
-    motifs: '☁ ≋',
-    objective:
-      'Encontre o marco do céu e identifique o acontecimento do segundo dia.',
-    markers: [{ label: 'Marco do céu', symbol: '☁', point: mainMarker }],
-    question: 'O que o firmamento separou?',
-    options: [
-      'A terra seca dos mares.',
-      'As águas de cima das águas de baixo.',
-    ],
-    correct: 1,
-    explanation:
-      'O firmamento separou as águas acima e abaixo dele. Deus deu ao firmamento o nome de céu.',
-  },
-  {
-    id: 'creation-day-3',
-    title: 'Terra e vegetação',
-    harmonyLabel: 'Terra, mares e vegetação',
-    reference: 'Gênesis 1:9–13',
-    passage: '1.9-13',
-    motifs: '▲ ≋ ♧',
-    objective: 'Visite os três marcos educativos: terra, mares e vegetação.',
-    markers: [
-      {
-        label: 'Terra',
-        symbol: '▲',
-        point: { x: 25, y: 80 },
-        note: 'A porção seca recebeu o nome de terra.',
-      },
-      {
-        label: 'Mares',
-        symbol: '≋',
-        point: mainMarker,
-        note: 'As águas reunidas receberam o nome de mares.',
-      },
-      {
-        label: 'Vegetação',
-        symbol: '♧',
-        point: { x: 73, y: 78 },
-        note: 'A terra fez brotar plantas e árvores que produzem sementes.',
-      },
-    ],
-    question: 'O que acontece no terceiro dia?',
-    options: [
-      'Aparece a terra seca, as águas se reúnem e surge vegetação.',
-      'As aves e os seres aquáticos povoam o céu e as águas.',
-    ],
-    correct: 0,
-    explanation:
-      'O relato reúne o aparecimento da terra seca, a formação dos mares e o surgimento da vegetação.',
-  },
-  {
-    id: 'creation-day-4',
-    title: 'Luminares',
-    reference: 'Gênesis 1:14–19',
-    passage: '1.14-19',
-    motifs: '☀ ☾ ✦',
-    objective: 'Observe o céu e encontre o marco dos luminares.',
-    markers: [{ label: 'Marco dos luminares', symbol: '☀', point: mainMarker }],
-    question: 'Que funções o relato atribui aos luminares?',
-    options: [
-      'Separar as águas acima e abaixo do céu.',
-      'Iluminar a terra, distinguir dia e noite e marcar tempos.',
-    ],
-    correct: 1,
-    explanation:
-      'Os luminares iluminam a terra, distinguem dia e noite e servem para marcar tempos, dias e anos.',
-  },
-  {
-    id: 'creation-day-5',
-    title: 'Aves e criaturas das águas',
-    reference: 'Gênesis 1:20–23',
-    passage: '1.20-23',
-    motifs: '🐦 🐟',
-    objective: 'Encontre o marco das águas e dos céus.',
-    markers: [{ label: 'Marco da vida', symbol: '≈', point: mainMarker }],
-    question: 'Quais grupos aparecem no quinto dia?',
-    options: ['Seres aquáticos e aves.', 'Animais terrestres e seres humanos.'],
-    correct: 0,
-    explanation:
-      'Deus criou os seres que povoam as águas e as aves que voam pelo céu.',
-  },
-  {
-    id: 'creation-day-6',
-    title: 'Animais terrestres e humanidade',
-    reference: 'Gênesis 1:24–31',
-    passage: '1.24-31',
-    motifs: '🐾 👥',
-    objective:
-      'Encontre o marco que apresenta os animais terrestres e a humanidade.',
-    markers: [{ label: 'Marco da humanidade', symbol: '◇', point: mainMarker }],
-    question: 'Além dos animais terrestres, quem foi criado no sexto dia?',
-    options: [
-      'As aves, feitas à imagem de Deus.',
-      'Os seres humanos, criados à imagem de Deus.',
-    ],
-    correct: 1,
-    explanation:
-      'O relato apresenta os animais terrestres e ensina que Deus criou os seres humanos à sua imagem.',
-  },
-  {
-    id: 'creation-day-7',
-    title: 'Descanso e reflexão',
-    harmonyLabel: 'Descanso do sétimo dia',
-    reference: 'Gênesis 2:1–3',
-    passage: '2.1-3',
-    motifs: '◌',
-    objective: 'Visite o marco do descanso. O Diário Bíblico é opcional.',
-    markers: [{ label: 'Marco do descanso', symbol: '◌', point: mainMarker }],
-    question: 'Como o relato descreve o sétimo dia?',
-    options: [
-      'Deus havia concluído sua obra, descansou e santificou o dia.',
-      'Deus começou a criar os luminares do céu.',
-    ],
-    correct: 0,
-    explanation:
-      'Com sua obra concluída, Deus descansou. Ele abençoou e santificou o sétimo dia.',
-  },
-];
+export function parseCreationManifest(value: unknown): CreationContentManifest {
+  if (!isRecord(value)) throw new Error('Manifesto da Criação inválido.');
+  const revision = value.revision;
+  if (!Number.isSafeInteger(revision) || (revision as number) < 1)
+    throw new Error('Revisão do manifesto da Criação inválida.');
+  if (!Array.isArray(value.days) || value.days.length !== 7)
+    throw new Error('O manifesto deve conter os sete dias.');
+  if (!Array.isArray(value.harmony) || value.harmony.length !== 7)
+    throw new Error('A sequência da Harmonia está incompleta.');
+  if (!Array.isArray(value.quiz) || value.quiz.length !== 5)
+    throw new Error('O manifesto deve conter cinco questões do quiz.');
+
+  const days = value.days.map(parseDay);
+  const quiz = value.quiz.map(parseQuizQuestion);
+  const dayIds = days.map(({ id }) => id);
+  if (new Set(dayIds).size !== 7 || dayIds.some((id, i) => id !== `creation-day-${i + 1}`))
+    throw new Error('Os identificadores dos dias são inválidos.');
+  if (value.harmony.some((id, i) => id !== dayIds[i]))
+    throw new Error('A sequência da Harmonia não corresponde aos dias.');
+  const quizIds = quiz.map(({ id }) => id);
+  if (
+    new Set(quizIds).size !== 5 ||
+    quizIds.some((id) => !/^[a-z][a-z0-9-]{0,31}$/.test(id))
+  )
+    throw new Error('Os identificadores do quiz devem ser únicos.');
+
+  return {
+    revision: revision as number,
+    days,
+    harmony: value.harmony as string[],
+    quiz,
+  };
+}
+
+export function parseCreationManifestText(text: string, revision: number) {
+  const manifest = parseCreationManifest(JSON.parse(text) as unknown);
+  if (manifest.revision !== revision)
+    throw new Error('O manifesto não corresponde à revisão publicada.');
+  return manifest;
+}
+
+export function creationDaysFromManifest(
+  manifest: CreationContentManifest,
+): readonly CreationDay[] {
+  return manifest.days.map((day) => ({
+    ...day,
+    correct: (day.answer - 1) as 0 | 1,
+  }));
+}
+
+function parseDay(value: unknown): CreationContentDay {
+  if (!isRecord(value)) throw new Error('Dia inválido no manifesto.');
+  const id = requiredString(value.id);
+  const options = requiredStrings(value.options, 2) as [string, string];
+  const answer = validAnswer(value.answer, options.length);
+  const markers = Array.isArray(value.markers)
+    ? value.markers.map((marker) => {
+        if (!isRecord(marker) || !isRecord(marker.point))
+          throw new Error('Marco inválido no manifesto.');
+        const point = marker.point;
+        if (
+          typeof point.x !== 'number' ||
+          typeof point.y !== 'number' ||
+          point.x < 0 || point.x > 100 || point.y < 0 || point.y > 100
+        )
+          throw new Error('Posição de marco inválida no manifesto.');
+        return {
+          label: requiredString(marker.label),
+          symbol: requiredString(marker.symbol),
+          point: { x: point.x, y: point.y },
+          ...(marker.note === undefined ? {} : { note: requiredString(marker.note) }),
+        };
+      })
+    : [];
+  if (!markers.length) throw new Error('O dia deve conter ao menos um marco.');
+  return {
+    id,
+    title: requiredString(value.title),
+    harmonyLabel: requiredString(value.harmonyLabel),
+    reference: requiredString(value.reference),
+    passage: requiredString(value.passage),
+    motifs: requiredString(value.motifs),
+    objective: requiredString(value.objective),
+    markers,
+    question: requiredString(value.question),
+    options,
+    answer,
+    explanation: requiredString(value.explanation),
+  };
+}
+
+function parseQuizQuestion(value: unknown): CreationContentQuizQuestion {
+  if (!isRecord(value)) throw new Error('Questão inválida no manifesto.');
+  const options = requiredStrings(value.options, 3);
+  const optionIds = requiredStrings(value.optionIds, 3);
+  if (new Set(options).size !== 3 || new Set(optionIds).size !== 3)
+    throw new Error('Alternativas e identificadores devem ser únicos.');
+  if (optionIds.some((id) => !/^[a-z][a-z0-9_-]{0,15}$/.test(id)))
+    throw new Error('Identificador de alternativa inválido.');
+  return {
+    id: requiredString(value.id),
+    question: requiredString(value.question),
+    options,
+    optionIds,
+    answer: validAnswer(value.answer, options.length),
+    reference: requiredString(value.reference),
+    passage: requiredString(value.passage),
+    explanation: requiredString(value.explanation),
+  };
+}
+
+function requiredStrings(value: unknown, count: number): string[] {
+  if (
+    !Array.isArray(value) ||
+    value.length !== count ||
+    value.some((item) => typeof item !== 'string' || !item.trim())
+  )
+    throw new Error('Lista de alternativas inválida no manifesto.');
+  return value as string[];
+}
+
+function requiredString(value: unknown): string {
+  if (typeof value !== 'string' || !value.trim())
+    throw new Error('Campo de texto obrigatório ausente no manifesto.');
+  return value;
+}
+
+function validAnswer(value: unknown, count: number): number {
+  if (!Number.isInteger(value) || (value as number) < 1 || (value as number) > count)
+    throw new Error('Gabarito inválido no manifesto.');
+  return value as number;
+}
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return !!value && typeof value === 'object' && !Array.isArray(value);
+}
+
+const bundledManifest = parseCreationManifest(manifestSource);
+export const CREATION_DAYS = creationDaysFromManifest(bundledManifest);
+export const CREATION_CONTENT_V1 = bundledManifest;

@@ -6,7 +6,8 @@ const snapshot = {
   storyId: 'creation',
   revision: 3,
   available: true,
-  manifest: 'a'.repeat(64),
+  manifestText: '{}',
+  manifestHash: 'a'.repeat(64),
   completedDays: [1, 2, 3],
   harmonyCompleted: false,
   quizAttempts: 1,
@@ -51,7 +52,7 @@ describe('STORY-007 checkpoint adapter', () => {
     const repository = createCreationCheckpointRepository(rpc);
 
     await expect(
-      repository.submitDay('traveler-a', 3, snapshot.manifest, 4, 2),
+      repository.submitDay('traveler-a', 3, 4, 2),
     ).resolves.toMatchObject({
       completed: true,
       revision: 3,
@@ -60,21 +61,18 @@ describe('STORY-007 checkpoint adapter', () => {
       repository.submitHarmony(
         'traveler-a',
         3,
-        snapshot.manifest,
         [2, 1, 3, 4, 5, 6, 7],
       ),
     ).resolves.toMatchObject({ completed: false, correct: false });
     expect(rpc).toHaveBeenNthCalledWith(1, 'submit_creation_day', {
       p_traveler_id: 'traveler-a',
       p_revision: 3,
-      p_manifest: snapshot.manifest,
       p_day: 4,
       p_answer_index: 2,
     });
     expect(rpc).toHaveBeenNthCalledWith(2, 'submit_creation_harmony', {
       p_traveler_id: 'traveler-a',
       p_revision: 3,
-      p_manifest: snapshot.manifest,
       p_order: [2, 1, 3, 4, 5, 6, 7],
     });
   });
@@ -95,21 +93,18 @@ describe('STORY-007 checkpoint adapter', () => {
     await repository.submitQuiz(
       'traveler-a',
       3,
-      snapshot.manifest,
       'attempt-1',
       [2, 1, 3, 2, 3],
     );
     await repository.submitQuiz(
       'traveler-a',
       3,
-      snapshot.manifest,
       'attempt-1',
       [2, 1, 3, 2, 3],
     );
     expect(rpc).toHaveBeenNthCalledWith(2, 'submit_creation_quiz', {
       p_traveler_id: 'traveler-a',
       p_revision: 3,
-      p_manifest: snapshot.manifest,
       p_operation_id: 'attempt-1',
       p_answers: [2, 1, 3, 2, 3],
     });
@@ -120,16 +115,15 @@ describe('STORY-007 checkpoint adapter', () => {
     const repository = createCreationCheckpointRepository(rpc);
 
     await expect(
-      repository.submitDay('traveler-a', 3, snapshot.manifest, 8, 1),
+      repository.submitDay('traveler-a', 3, 8, 1),
     ).rejects.toThrow(RangeError);
     await expect(
-      repository.submitHarmony('traveler-a', 3, snapshot.manifest, [1, 2]),
+      repository.submitHarmony('traveler-a', 3, [1, 2]),
     ).rejects.toThrow(RangeError);
     await expect(
       repository.submitQuiz(
         'traveler-a',
         3,
-        snapshot.manifest,
         '',
         [1, 1, 1, 1, 1],
       ),

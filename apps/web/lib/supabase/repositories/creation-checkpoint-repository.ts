@@ -9,7 +9,8 @@ export type CreationCheckpointSnapshot = {
   storyId: 'creation';
   revision: number;
   available: boolean;
-  manifest: string | null;
+  manifestText: string | null;
+  manifestHash: string | null;
   completedDays: number[];
   harmonyCompleted: boolean;
   quizAttempts: number;
@@ -55,7 +56,6 @@ export type CreationCheckpointRpc = (
   args: {
     p_traveler_id: string;
     p_revision?: number;
-    p_manifest?: string;
     p_day?: number;
     p_answer_index?: number;
     p_order?: number[];
@@ -102,12 +102,21 @@ const parseSnapshot = (value: unknown): CreationCheckpointSnapshot => {
     !Array.isArray(row.completedDays)
   )
     throw new Error('Resposta inválida ao retomar checkpoints da Criação.');
-  const manifest = row.manifest;
+  const manifestText = row.manifestText;
+  const manifestHash = row.manifestHash;
   if (
-    manifest !== null &&
-    (typeof manifest !== 'string' || !/^[a-f0-9]{64}$/.test(manifest))
+    (manifestText !== null && typeof manifestText !== 'string') ||
+    (typeof manifestText === 'string' && manifestText.length > 65536)
+  )
+    throw new Error('Invalid creation manifest content');
+  if (
+    manifestHash !== null &&
+    (typeof manifestHash !== 'string' || !/^[a-f0-9]{64}$/.test(manifestHash))
   )
     throw new Error('Invalid creation manifest identity');
+  const available = asBoolean(row.available, 'available');
+  if (available && (typeof manifestText !== 'string' || !manifestHash))
+    throw new Error('Published creation manifest is missing');
   const completedDays = row.completedDays.map((day) =>
     asInteger(day, 'completedDays', 1, 7),
   );
@@ -118,9 +127,10 @@ const parseSnapshot = (value: unknown): CreationCheckpointSnapshot => {
   return {
     version: 1,
     storyId: 'creation',
-    manifest,
+    manifestText,
+    manifestHash,
     revision: asInteger(row.revision, 'revision', 1, Number.MAX_SAFE_INTEGER),
-    available: asBoolean(row.available, 'available'),
+    available,
     completedDays,
     harmonyCompleted: asBoolean(row.harmonyCompleted, 'harmonyCompleted'),
     quizAttempts: asInteger(
@@ -243,7 +253,6 @@ export const createCreationCheckpointRepository = (
     async submitDay(
       travelerId: string,
       revision: number,
-      manifest: string,
       day: number,
       answerIndex: number,
     ): Promise<CreationDayResult> {
@@ -255,7 +264,6 @@ export const createCreationCheckpointRepository = (
         await invoke('submit_creation_day', {
           p_traveler_id: travelerId,
           p_revision: revision,
-          p_manifest: manifest,
           p_day: day,
           p_answer_index: answerIndex,
         }),
@@ -264,7 +272,6 @@ export const createCreationCheckpointRepository = (
     async submitHarmony(
       travelerId: string,
       revision: number,
-      manifest: string,
       order: number[],
     ): Promise<CreationHarmonyResult> {
       if (
@@ -276,7 +283,6 @@ export const createCreationCheckpointRepository = (
         await invoke('submit_creation_harmony', {
           p_traveler_id: travelerId,
           p_revision: revision,
-          p_manifest: manifest,
           p_order: order,
         }),
       );
@@ -284,7 +290,6 @@ export const createCreationCheckpointRepository = (
     async submitQuiz(
       travelerId: string,
       revision: number,
-      manifest: string,
       operationId: string,
       answers: number[],
     ): Promise<CreationQuizResult> {
@@ -303,7 +308,6 @@ export const createCreationCheckpointRepository = (
         await invoke('submit_creation_quiz', {
           p_traveler_id: travelerId,
           p_revision: revision,
-          p_manifest: manifest,
           p_operation_id: operationId,
           p_answers: answers,
         }),

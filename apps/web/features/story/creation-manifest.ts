@@ -1,27 +1,11 @@
-import { CREATION_DAYS } from './creation-days';
-import { CREATION_QUIZ } from './creation-quiz-content';
+import manifestSource from './creation-content-v1.json';
 
-// Preserve key order and UTF-8 bytes when staging this JSON for review.
-export const CREATION_MANIFEST = JSON.stringify({
-  revision: 1,
-  days: CREATION_DAYS.map((day) => ({
-    ...day,
-    harmonyLabel: day.harmonyLabel ?? day.title,
-    answer: day.correct + 1,
-  })),
-  harmony: CREATION_DAYS.map(({ id }) => id),
-  quiz: CREATION_QUIZ.map((question) => ({
-    ...question,
-    options: question.options.map(({ text }) => text),
-    optionIds: question.options.map(({ id }) => id),
-    answer:
-      question.options.findIndex(({ id }) => id === question.correctOptionId) +
-      1,
-  })),
-});
+// This versioned JSON is the demo artifact and is also the seed for TEST.
+// Remote gameplay uses the exact immutable manifest returned by the server.
+export const CREATION_MANIFEST = JSON.stringify(manifestSource);
 
-export async function creationManifestId() {
-  const bytes = new TextEncoder().encode(CREATION_MANIFEST);
+export async function creationManifestId(text = CREATION_MANIFEST) {
+  const bytes = new TextEncoder().encode(text);
   const hash = await crypto.subtle.digest('SHA-256', bytes);
   return Array.from(new Uint8Array(hash), (value) =>
     value.toString(16).padStart(2, '0'),

@@ -2,8 +2,12 @@
 
 import { useRef, useState, type FormEvent } from 'react';
 import { scoreGardenQuiz } from '../journey/data/gardenQuiz';
-import { CREATION_DAYS, creationPassageUrl } from './creation-days';
+import {
+  CREATION_DAYS,
+  creationPassageUrl,
+} from './creation-days';
 import { CREATION_QUIZ } from './creation-quiz-content';
+import type { GardenQuizSessionQuestion } from '../journey/data/gardenQuiz';
 import css from './creation-explorer.module.css';
 
 export type QuizAnswers = Readonly<Record<string, string>>;
@@ -15,9 +19,11 @@ function focusQuestion(element: HTMLHeadingElement | null) {
 export function CreationQuiz({
   onComplete,
   remote = false,
+  questions = CREATION_QUIZ,
 }: {
   onComplete: (answers: QuizAnswers) => void | Promise<boolean>;
   remote?: boolean;
+  questions?: readonly GardenQuizSessionQuestion[];
 }) {
   const request = useRef(false);
   const [pending, setPending] = useState(false);
@@ -25,7 +31,7 @@ export function CreationQuiz({
   const [answers, setAnswers] = useState<QuizAnswers>({});
   const [selected, setSelected] = useState<string>();
   const index = Object.keys(answers).length;
-  const question = CREATION_QUIZ[index];
+  const question = questions[index];
 
   async function confirm(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -37,7 +43,7 @@ export function CreationQuiz({
     )
       return;
     const next = { ...answers, [question.id]: selected };
-    if (remote && index === CREATION_QUIZ.length - 1) {
+    if (remote && index === questions.length - 1) {
       request.current = true;
       setPending(true);
       try {
@@ -53,7 +59,7 @@ export function CreationQuiz({
     }
     setAnswers(next);
     setSelected(undefined);
-    if (!remote && index === CREATION_QUIZ.length - 1) onComplete(next);
+    if (!remote && index === questions.length - 1) onComplete(next);
   }
 
   return (
@@ -70,7 +76,7 @@ export function CreationQuiz({
             key={question.id}
             ref={focusQuestion}
           >
-            Pergunta {index + 1} de {CREATION_QUIZ.length} · {question.question}
+            Pergunta {index + 1} de {questions.length} · {question.question}
           </h3>
           <fieldset
             disabled={pending || failed}

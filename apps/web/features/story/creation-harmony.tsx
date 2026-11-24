@@ -1,16 +1,10 @@
 'use client';
 
-import { useRef, useState } from 'react';
-import { CREATION_DAYS } from './creation-days';
+import { useMemo, useRef, useState } from 'react';
+import { CREATION_DAYS, type CreationDay } from './creation-days';
 import css from './creation-harmony.module.css';
 
-const symbols = CREATION_DAYS.map((day) => ({
-  id: day.id,
-  label: day.harmonyLabel ?? day.title,
-  icon: day.motifs,
-}));
-
-function shuffleSymbols() {
+function shuffleSymbols(symbols: readonly Symbol[]) {
   const shuffled = [...symbols];
   for (let i = shuffled.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -22,6 +16,8 @@ function shuffleSymbols() {
   return shuffled;
 }
 
+type Symbol = { id: string; label: string; icon: string };
+
 function focusTitle(node: HTMLHeadingElement | null) {
   node?.focus();
 }
@@ -30,14 +26,25 @@ export function CreationHarmony({
   onStartQuiz,
   onVerify,
   verified,
+  days = CREATION_DAYS,
 }: {
   onStartQuiz?: () => void;
   onVerify?: (order: number[]) => Promise<boolean>;
   verified?: boolean;
+  days?: readonly CreationDay[];
 }) {
+  const symbols = useMemo(
+    () =>
+      days.map((day) => ({
+        id: day.id,
+        label: day.harmonyLabel ?? day.title,
+        icon: day.motifs,
+      })),
+    [days],
+  );
   const request = useRef(false);
   const [pending, setPending] = useState(false);
-  const [bank, setBank] = useState(shuffleSymbols);
+  const [bank, setBank] = useState(() => shuffleSymbols(symbols));
   const [sequence, setSequence] = useState<typeof symbols>([]);
   const [feedback, setFeedback] = useState('Escolha o primeiro símbolo.');
   const [result, setResult] = useState<'retry' | 'correct'>();
@@ -66,7 +73,7 @@ export function CreationHarmony({
 
   function reset() {
     if (request.current || (onVerify && complete)) return;
-    setBank(shuffleSymbols());
+    setBank(shuffleSymbols(symbols));
     setSequence([]);
     setResult(undefined);
     setFeedback('Tabuleiro reiniciado. Escolha o primeiro símbolo.');

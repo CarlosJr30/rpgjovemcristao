@@ -4,6 +4,7 @@ import Link from 'next/link';
 import {
   useCallback,
   useEffect,
+  useMemo,
   useRef,
   useState,
   type KeyboardEvent,
@@ -23,19 +24,25 @@ import {
 } from '../../lib/supabase/repositories/creation-checkpoint-repository';
 import { creationManifestId } from './creation-manifest';
 import {
+  creationDaysFromManifest,
+  parseCreationManifestText,
+  CREATION_CONTENT_V1,
+  type CreationContentManifest,
+} from './creation-days';
+import { creationQuizFromManifest } from './creation-quiz-content';
+import {
   clearPendingQuiz,
   discardPendingQuizForOtherTraveler,
   invalidatePendingQuiz,
   preparePendingQuiz,
   readPendingQuiz,
 } from './creation-pending-quiz';
-import { CREATION_QUIZ } from './creation-quiz-content';
 import { useStoryProgress } from './use-story-progress';
 import { ArchiveAccess } from '../release-ebd/archive';
 import { AvatarRuntime } from '../journey/components/avatar-runtime';
 import type { Point } from './creation-explorer-model';
 import { movePoint, pointIsNear } from './creation-explorer-model';
-import { CREATION_DAYS, creationPassageUrl } from './creation-days';
+import { creationPassageUrl } from './creation-days';
 import { CreationHarmony } from './creation-harmony';
 import { CreationFinale, CreationVideoStage } from './creation-finale';
 import {
@@ -123,7 +130,8 @@ function CheckpointSession({
 }: CheckpointExplorerProps) {
   const [initial, setInitial] = useState<CreationCheckpointSnapshot | null>();
   const [failed, setFailed] = useState(false);
-  const [expectedManifest, setExpectedManifest] = useState<string>();
+  const [content, setContent] = useState<CreationContentManifest>();
+  const [contentError, setContentError] = useState('');
   const [hasPendingQuiz, setHasPendingQuiz] = useState(false);
   const [attempt, setAttempt] = useState(0);
   const id = snapshot.traveler.id;
@@ -134,17 +142,46 @@ function CheckpointSession({
     } catch {
       // An unavailable store is handled when a quiz is submitted.
     }
-    Promise.all([repository.read(id), creationManifestId()]).then(
-      ([progress, manifest]) => {
+    repository.read(id).then(
+      async (progress) => {
         if (!active) return;
+        if (!progress.available) {
+          setInitial(progress);
+          return;
+        }
+        let parsed: CreationContentManifest;
+        try {
+          if (!progress.manifestText || !progress.manifestHash)
+            throw new Error('Published content is missing.');
+          parsed = parseCreationManifestText(
+            progress.manifestText,
+            progress.revision,
+          );
+          if (
+            (await creationManifestId(progress.manifestText)) !==
+            progress.manifestHash
+          )
+            throw new Error('Published content integrity mismatch.');
+        } catch {
+          if (!active) return;
+          setContent(undefined);
+          setContentError(
+            'O conteúdo publicado não pôde ser validado. Recarregue a revisão autorizada.',
+          );
+          setInitial(progress);
+          return;
+        }
+        if (!active) return;
+        setContent(parsed);
+        setContentError('');
         const scope = JSON.stringify([
           accountId,
           id,
           progress.revision,
-          progress.manifest,
+          progress.manifestHash,
         ]);
         try {
-          if (progress.available && progress.manifest === manifest)
+          if (progress.available)
             setHasPendingQuiz(Boolean(readPendingQuiz(scope)));
           else {
             invalidatePendingQuiz();
@@ -153,7 +190,6 @@ function CheckpointSession({
         } catch {
           // Optional browser storage does not authorize checkpoints.
         }
-        setExpectedManifest(manifest);
         setInitial(progress);
       },
       (error: unknown) => {
@@ -187,17 +223,27 @@ function CheckpointSession({
     return <p role="status">Consultando checkpoints da Criação…</p>;
   if (!initial || !initial.available)
     return <DemoExplorer snapshot={snapshot} />;
-  if (initial.manifest !== expectedManifest)
+  if (contentError || !content)
     return (
-      <p role="alert">
-        Conteúdo da Criação incompatível com esta versão do aplicativo.
-      </p>
+      <section>
+        <p role="alert">{contentError || 'Manifesto autorizado indispon?vel.'}</p>
+        <button
+          type="button"
+          onClick={() => {
+            setContentError('');
+            setInitial(undefined);
+            setAttempt((value) => value + 1);
+          }}
+        >
+          Recarregar conte?do autorizado
+        </button>
+      </section>
     );
   return (
     <CreationExplorerView
       key={initial.revision}
       traveler={snapshot.traveler}
-      remote={{ initial, repository, accountId, hasPendingQuiz }}
+      remote={{ initial, content, repository, accountId, hasPendingQuiz }}
     />
   );
 }
@@ -224,6 +270,7 @@ export function CreationExplorerView({
   canonicalSteps?: readonly string[];
   remote?: {
     initial: CreationCheckpointSnapshot;
+    content?: CreationContentManifest;
     accountId: string;
     hasPendingQuiz?: boolean;
     repository: typeof checkpointRepository;
@@ -250,16 +297,19 @@ export function CreationExplorerView({
   const mounted = useRef(false);
   const readGeneration = useRef(0);
   const repository = remote?.repository;
-  const manifest = remote?.initial.manifest;
+  const manifestHash = remote?.initial.manifestHash;
   const revision = remote?.initial.revision;
+  const content = remote?.content ?? CREATION_CONTENT_V1;
+  const days = useMemo(() => creationDaysFromManifest(content), [content]);
+  const quiz = useMemo(() => creationQuizFromManifest(content), [content]);
   const quizScope =
     remote &&
-    JSON.stringify([remote.accountId, traveler.id, revision, manifest]);
+    JSON.stringify([remote.accountId, traveler.id, revision, manifestHash]);
   const completedDays = saved?.completedDays.length ?? 0;
   const harmonyUnlocked = remote
-    ? completedDays === CREATION_DAYS.length
+    ? completedDays === days.length
     : demoHarmonyUnlocked;
-  const nextDayIndex = Math.min(completedDays, CREATION_DAYS.length - 1);
+  const nextDayIndex = Math.min(completedDays, days.length - 1);
   const [harmonyStarted, setHarmonyStarted] = useState(false);
   const [section, setSection] = useState<
     'harmony' | 'quiz' | 'summary' | 'video' | 'finale' | null
@@ -289,7 +339,7 @@ export function CreationExplorerView({
     }
   }, [diaryOpen, section]);
 
-  const day = dayIndex === null ? undefined : CREATION_DAYS[dayIndex];
+  const day = dayIndex === null ? undefined : days[dayIndex];
   const dayNumber = dayIndex === null ? 0 : dayIndex + 1;
   const challengeOpen = day?.markers.every(({ label }) =>
     visited.includes(label),
@@ -316,7 +366,7 @@ export function CreationExplorerView({
     setFeedback(undefined);
     setMessage(
       next !== null
-        ? CREATION_DAYS[next].objective
+        ? days[next].objective
         : finished
           ? remote
             ? 'Você voltou ao Santuário após os sete checkpoints.'
@@ -402,7 +452,6 @@ export function CreationExplorerView({
       const result = await remote.repository.submitDay(
         traveler.id,
         remote.initial.revision,
-        remote.initial.manifest!,
         dayNumber,
         answer + 1,
       );
@@ -423,7 +472,7 @@ export function CreationExplorerView({
   }
 
   const refreshRemote = useCallback(async () => {
-    if (!repository || !manifest)
+    if (!repository || !manifestHash)
       throw new Error('Checkpoint mode unavailable');
     const generation = ++readGeneration.current;
     const current = () =>
@@ -434,7 +483,7 @@ export function CreationExplorerView({
       if (
         !state.available ||
         state.revision !== revision ||
-        state.manifest !== manifest
+        state.manifestHash !== manifestHash
       ) {
         try {
           if (quizScope) clearPendingQuiz(quizScope);
@@ -461,7 +510,7 @@ export function CreationExplorerView({
       );
       throw error;
     }
-  }, [repository, manifest, revision, traveler.id, quizScope]);
+  }, [repository, manifestHash, revision, traveler.id, quizScope]);
 
   useEffect(() => {
     if (!repository) return;
@@ -485,14 +534,13 @@ export function CreationExplorerView({
   }, [repository, refreshRemote]);
 
   async function verifyHarmony(order: number[]) {
-    if (!remote || !manifest) return false;
+    if (!remote || !manifestHash) return false;
     const state = await refreshRemote();
     if (state.completedDays.length !== 7) return false;
     try {
       const result = await remote.repository.submitHarmony(
         traveler.id,
         state.revision,
-        manifest,
         order,
       );
       return result.completed && (await refreshRemote()).harmonyCompleted;
@@ -503,7 +551,7 @@ export function CreationExplorerView({
   }
 
   async function recordQuiz(answers: number[], displayAnswers?: QuizAnswers) {
-    if (!repository || !quizScope || !manifest || quizRequest.current)
+    if (!repository || !quizScope || !manifestHash || quizRequest.current)
       return false;
     quizRequest.current = true;
     try {
@@ -514,7 +562,6 @@ export function CreationExplorerView({
       const result = await repository.submitQuiz(
         traveler.id,
         current.revision,
-        manifest,
         pending.id,
         pending.answers,
       );
@@ -547,7 +594,7 @@ export function CreationExplorerView({
       setSection('summary');
       return true;
     }
-    const indices = CREATION_QUIZ.map(
+    const indices = quiz.map(
       (question) =>
         question.options.findIndex(
           (option) => option.id === answers[question.id],
@@ -651,7 +698,7 @@ export function CreationExplorerView({
               <>
                 <p className={css.sceneTitle}>Santuário fictício</p>
                 <div className={css.daySigils} aria-hidden="true">
-                  {CREATION_DAYS.map((day, index) => (
+                  {days.map((day, index) => (
                     <span key={day.id}>{index === 0 ? '✦' : '◇'}</span>
                   ))}
                 </div>
@@ -753,7 +800,7 @@ export function CreationExplorerView({
             </>
           ) : (
             <ol className={css.dayList} aria-label="Sete símbolos da Criação">
-              {CREATION_DAYS.map((day, index) => (
+              {days.map((day, index) => (
                 <li key={day.id}>
                   Dia {index + 1} · {day.title}
                 </li>
@@ -800,12 +847,12 @@ export function CreationExplorerView({
                 <button
                   type="button"
                   onClick={() =>
-                    dayNumber < CREATION_DAYS.length
+                    dayNumber < days.length
                       ? changeScene(dayNumber)
                       : changeScene(null, true)
                   }
                 >
-                  {dayNumber < CREATION_DAYS.length
+                  {dayNumber < days.length
                     ? `Prosseguir para o Dia ${dayNumber + 1}`
                     : 'Voltar ao Santuário e liberar Harmonia'}
                 </button>
@@ -888,6 +935,7 @@ export function CreationExplorerView({
               onStartQuiz={() => void openQuiz()}
               verified={saved?.harmonyCompleted}
               onVerify={remote ? verifyHarmony : undefined}
+              days={days}
             />
           </div>
         )}
@@ -900,6 +948,7 @@ export function CreationExplorerView({
               key={quizAttempt}
               onComplete={submitQuiz}
               remote={Boolean(remote)}
+              questions={quiz}
             />
           </div>
         )}

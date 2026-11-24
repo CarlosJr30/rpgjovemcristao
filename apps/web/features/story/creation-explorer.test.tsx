@@ -331,7 +331,8 @@ beforeEach(() => {
 afterEach(() => vi.unstubAllGlobals());
 
 const remoteSnapshot = {
-  manifest,
+  manifestText: CREATION_MANIFEST,
+  manifestHash: manifest,
   version: 1 as const,
   storyId: 'creation' as const,
   revision: 1,
@@ -449,7 +450,7 @@ test('advances a day only after the server returns a confirmed checkpoint snapsh
   expect(
     await screen.findByRole('button', { name: /Prosseguir para o Dia 2/ }),
   ).toBeInTheDocument();
-  expect(repo.submitDay).toHaveBeenCalledWith(traveler.id, 1, manifest, 1, 1);
+  expect(repo.submitDay).toHaveBeenCalledWith(traveler.id, 1, 1, 1);
 });
 
 test('retries a failed quiz submission with the same operation ID and displays the server score', async () => {
@@ -469,7 +470,7 @@ test('retries a failed quiz submission with the same operation ID and displays t
       throw new Error('connection lost');
     })
     .mockImplementationOnce(
-      async (_traveler, revision, _manifest, attemptId) => ({
+      async (_traveler, revision, attemptId) => ({
         score: 2,
         revision,
         attemptId,
@@ -505,9 +506,12 @@ test('retries a failed quiz submission with the same operation ID and displays t
   ).not.toBeInTheDocument();
 });
 
-test('blocks a server manifest that differs from the application', async () => {
+test('blocks a modified published manifest with an arbitrary server hash', async () => {
   const repo = makeRepository();
-  repo.read.mockResolvedValue({ ...remoteSnapshot, manifest: '0'.repeat(64) });
+  repo.read.mockResolvedValue({
+    ...remoteSnapshot,
+    manifestHash: '0'.repeat(64),
+  });
   render(
     <CheckpointExplorer
       accountId="owner"
@@ -515,8 +519,27 @@ test('blocks a server manifest that differs from the application', async () => {
       repository={repo}
     />,
   );
-  expect(await screen.findByRole('alert')).toHaveTextContent(/incompat.vel/);
+  expect(await screen.findByRole('alert')).toHaveTextContent(/n.o p.de ser validado/);
   expect(repo.submitDay).not.toHaveBeenCalled();
+});
+
+test('renders the official server manifest instead of requiring a bundled copy', async () => {
+  const repo = makeRepository();
+  const official = JSON.parse(CREATION_MANIFEST);
+  official.days[0].title = 'Título publicado pelo servidor';
+  const manifestText = JSON.stringify(official);
+  const manifestHash = createHash('sha256').update(manifestText).digest('hex');
+  repo.read.mockResolvedValue({ ...remoteSnapshot, manifestText, manifestHash });
+  render(
+    <CheckpointExplorer
+      accountId="owner"
+      snapshot={archive}
+      repository={repo}
+    />,
+  );
+  expect(
+    await screen.findByText(/Dia 1 · Título publicado pelo servidor/),
+  ).toBeInTheDocument();
 });
 
 test('resumes the same committed quiz after reloading and losing the HTTP response', async () => {
@@ -553,7 +576,6 @@ test('resumes the same committed quiz after reloading and losing the HTTP respon
   expect(repo.submitQuiz).toHaveBeenCalledWith(
     traveler.id,
     1,
-    manifest,
     pending.id,
     pending.answers,
   );
