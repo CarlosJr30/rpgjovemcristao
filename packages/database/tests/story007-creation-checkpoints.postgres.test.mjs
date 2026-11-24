@@ -141,16 +141,22 @@ test('STORY-007: local checkpoint RPCs isolate owners, enforce ordering and repl
     'Auth ownership, active avatar and private evidence permissions are enforced',
     async () => {
       await denied(
-        session(2, `SELECT public.submit_creation_day('${traveler(1)}',1,1)`),
+        session(
+          2,
+          `SELECT public.submit_creation_day('${traveler(1)}',1::smallint,1::smallint)`,
+        ),
       );
       await denied(
-        session(3, `SELECT public.submit_creation_day('${traveler(3)}',1,1)`),
+        session(
+          3,
+          `SELECT public.submit_creation_day('${traveler(3)}',1::smallint,1::smallint)`,
+        ),
         /Active traveler/,
       );
       await denied(
         session(
           4,
-          `SELECT public.submit_creation_day('${traveler(4)}',1,1)`,
+          `SELECT public.submit_creation_day('${traveler(4)}',1::smallint,1::smallint)`,
           true,
         ),
       );
@@ -243,11 +249,17 @@ test('STORY-007: local checkpoint RPCs isolate owners, enforce ordering and repl
     'days reject wrong answers and skips; concurrent retries create one receipt',
     async () => {
       await denied(
-        session(1, `SELECT public.submit_creation_day('${traveler(1)}',2,2)`),
+        session(
+          1,
+          `SELECT public.submit_creation_day('${traveler(1)}',2::smallint,2::smallint)`,
+        ),
         /Previous creation day incomplete/,
       );
       const wrong = JSON.parse(
-        await rpc(1, `SELECT public.submit_creation_day('${traveler(1)}',1,2)`),
+        await rpc(
+          1,
+          `SELECT public.submit_creation_day('${traveler(1)}',1::smallint,2::smallint)`,
+        ),
       );
       assert.equal(wrong.correct, false);
       assert.equal(
@@ -258,7 +270,7 @@ test('STORY-007: local checkpoint RPCs isolate owners, enforce ordering and repl
       );
       const sql = session(
         1,
-        `SELECT public.submit_creation_day('${traveler(1)}',1,1)`,
+        `SELECT public.submit_creation_day('${traveler(1)}',1::smallint,1::smallint)`,
       );
       const results = await Promise.all([concurrent(sql), concurrent(sql)]);
       assert.equal(results.length, 2);
@@ -283,7 +295,7 @@ test('STORY-007: local checkpoint RPCs isolate owners, enforce ordering and repl
       for (let day = 2; day <= 7; day++)
         await rpc(
           1,
-          `SELECT public.submit_creation_day('${traveler(1)}',${day},${keys[day - 1]})`,
+          `SELECT public.submit_creation_day('${traveler(1)}',${day}::smallint,${keys[day - 1]}::smallint)`,
         );
       const wrongOrder = JSON.parse(
         await rpc(
