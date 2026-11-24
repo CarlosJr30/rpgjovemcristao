@@ -17,6 +17,7 @@ O [MVP anterior](history/MVP-NEHEMIAH.md) é histórico. Suas três missões lin
 | QUIZ BÍBLICO | [Quiz](QUIZ-SYSTEM.md), consulta, resultados e replay |
 | CONTRATO DE FASE | [Loop](CORE-GAMEPLAY-LOOP.md), quatro pilares e ordem flexível |
 | PERSONAGEM E ATRIBUTOS / PROGRESSION & REWARDS | [Personagem](CHARACTER-SYSTEM.md) |
+| RECOMPENSAS DA JORNADA — FASE 1 | [Character System](CHARACTER-SYSTEM.md), contrato detalhado em [STORY-001A](../../tasks/completed/STORY-001A-biblical-journey-rewards.md) |
 | BIBLICAL CONTENT RULES | [Integridade bíblica](../biblical/README.md) |
 | MINIGAME / GREAT CHALLENGE RULES | [Campanha](CAMPAIGN-STRUCTURE.md), regra dos grandes desafios |
 | COMMUNITY / LEADER CONCEPT | [Missões e comunidade](MISSION-SYSTEM.md), papéis e acesso |
@@ -26,11 +27,11 @@ Este índice delimita o recorte; regras são mantidas nas fontes acima, não cop
 
 ## O que está fechado e o que falta
 
-Fechados: início em Gênesis, identidade da fase 1.1, leis de experiência/conteúdo, categorias de missão, separação do acesso comunitário, funções de progressão e obrigação de grande desafio; Viajante sem classe, quatro atributos provisórios, Quiz por fase e direção macro em oito atos, conforme as fontes acima. São regras de produto, não promessa de que todos os sistemas estarão implementados no primeiro protótipo.
+Fechados: início em Gênesis, identidade da fase 1.1, leis de experiência/conteúdo, categorias de missão, separação do acesso comunitário, funções de progressão e obrigação de grande desafio; Viajante sem classe, quatro atributos provisórios, Quiz por fase e direção macro em oito atos, conforme as fontes acima. A composição de recompensas e os critérios server-side da Fase 1 da Jornada Bíblica estão especificados por STORY-001A; a integração econômica e a prontidão de conteúdo permanecem bloqueadas pelos gates registrados no contrato. São regras de produto, não promessa de que todos os sistemas estarão implementados no primeiro protótipo.
 
 Pendente de especificação do slice: roteiro e enquadramento do jogador, mapa/exploração, objetivos, desafio exato e dificuldade, checkpoints, curva de XP, economia, catálogo e utilidades, entradas iniciais do Codex, duração e critérios detalhados de playtest. Criação sem classes, base comum e atributos seguem a decisão vigente em [personagem](CHARACTER-SYSTEM.md); não são mais pendência de escolha de classes. Quiz exige detalhar banco, critérios de conclusão, pontuação e limites de bônus, sem valores finais aqui.
 
-Comunidade/liderança participam obrigatoriamente do gate entre fases: o conteúdo da fase pode ser concluído sem vínculo, mas a fase seguinte só é liberada após associação, desafio final, submissão e validação objetiva. Não existe fallback solo automático. Desafios especiais continuam opcionais e usam tiers centrais de recompensa. Auth/RBAC reais permanecem pendentes; criação de personagem e associação à igreja continuam processos separados.
+A Jornada Bíblica libera a fase seguinte por seus próprios requisitos narrativos e de gameplay, sem exigir vínculo com Guilda/Célula nem aprovação de líder. Gates de líder continuam valendo para atividades comunitárias quando seu contrato os exigir; eles não bloqueiam a história individual. Outros fluxos de fase devem declarar seu gate próprio. Auth/RBAC reais permanecem pendentes; criação de personagem e associação à igreja continuam processos separados.
 
 Fora desta tarefa: código, dependências, schema/migrations/banco, autenticação/RBAC, integrações externas, minigames executáveis, monetização, Bíblia/Codex completos e cronologia integral.
 
