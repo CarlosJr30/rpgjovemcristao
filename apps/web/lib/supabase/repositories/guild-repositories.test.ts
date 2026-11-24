@@ -13,6 +13,41 @@ import { guildLessonRepository } from './guild-lesson-repository';
 beforeEach(() => rpc.mockReset());
 
 describe('Guild Supabase repositories', () => {
+  test.each([
+    [{ eligible: true, canCreate: true, hasCreated: false }, true],
+    [{ eligible: true, canCreate: false, hasCreated: true }, true],
+    [{ eligible: true, canCreate: true, hasCreated: true }, true],
+    [{ eligible: false, canCreate: false, hasCreated: false }, true],
+    [{ eligible: false, canCreate: true, hasCreated: false }, false],
+    [{ eligible: true, canCreate: 'true', hasCreated: false }, false],
+  ])('validates Guild creation status %o', async (data, valid) => {
+    rpc.mockResolvedValue({ data, error: null });
+    const onlineSync = await import('../online-sync');
+    vi.spyOn(onlineSync, 'getCurrentOnlineUserId').mockReturnValue('user-1');
+    vi.spyOn(onlineSync, 'getOnlineSessionRevision').mockReturnValue(1);
+    vi.spyOn(onlineSync, 'canUseTravelerInCurrentSession').mockReturnValue(true);
+    const request = guildRepository.getCreationStatus('traveler-1');
+    if (valid) await expect(request).resolves.toEqual(data);
+    else
+      await expect(request).rejects.toThrow(
+        'Resposta de elegibilidade da Guilda inválida.',
+      );
+  });
+
+  test('keeps Guild creation status unavailable when its RPC fails', async () => {
+    rpc.mockResolvedValue({
+      data: null,
+      error: { message: 'network unavailable' },
+    });
+    const onlineSync = await import('../online-sync');
+    vi.spyOn(onlineSync, 'getCurrentOnlineUserId').mockReturnValue('user-1');
+    vi.spyOn(onlineSync, 'getOnlineSessionRevision').mockReturnValue(1);
+    vi.spyOn(onlineSync, 'canUseTravelerInCurrentSession').mockReturnValue(true);
+    await expect(
+      guildRepository.getCreationStatus('traveler-1'),
+    ).rejects.toThrow('elegibilidade para criar uma Guilda');
+  });
+
   test('creates a Guild without sending user identity or role', async () => {
     rpc.mockResolvedValue({ data: 'guild-1', error: null });
     await expect(

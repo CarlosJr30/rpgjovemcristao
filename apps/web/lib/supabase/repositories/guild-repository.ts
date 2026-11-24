@@ -141,7 +141,7 @@ export const guildRepository = {
       typeof data.eligible !== 'boolean' ||
       typeof data.canCreate !== 'boolean' ||
       typeof data.hasCreated !== 'boolean' ||
-      (data.canCreate && (!data.eligible || data.hasCreated))
+      (data.canCreate && !data.eligible)
     )
       throw Error('Resposta de elegibilidade da Guilda inválida.');
     return data as GuildCreationStatus;
