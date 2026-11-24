@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, test, vi } from 'vitest';
+﻿import { beforeEach, describe, expect, test, vi } from 'vitest';
 
 const { client, rpc } = vi.hoisted(() => {
   const rpc = vi.fn();
@@ -13,14 +13,90 @@ import { guildLessonRepository } from './guild-lesson-repository';
 beforeEach(() => rpc.mockReset());
 
 describe('Guild Supabase repositories', () => {
+  test.each([
+    [
+      'common account without a Guild',
+      { eligible: true, canCreate: true, hasCreated: false },
+      true,
+    ],
+    [
+      'common account that already created a Guild',
+      { eligible: true, canCreate: false, hasCreated: true },
+      true,
+    ],
+    [
+      'QA account with an existing Guild',
+      { eligible: true, canCreate: true, hasCreated: true },
+      true,
+    ],
+    [
+      'ineligible account',
+      { eligible: false, canCreate: false, hasCreated: false },
+      true,
+    ],
+    [
+      'ineligible account with malformed permission',
+      { eligible: false, canCreate: true, hasCreated: false },
+      false,
+    ],
+    [
+      'malformed response',
+      { eligible: true, canCreate: 'true', hasCreated: false },
+      false,
+    ],
+  ])('validates creation status for %s', async (_label, data, valid) => {
+    rpc.mockResolvedValue({ data, error: null });
+    vi.spyOn(
+      await import('../online-sync'),
+      'getCurrentOnlineUserId',
+    ).mockReturnValue('user-1');
+    vi.spyOn(
+      await import('../online-sync'),
+      'getOnlineSessionRevision',
+    ).mockReturnValue(1);
+    vi.spyOn(
+      await import('../online-sync'),
+      'canUseTravelerInCurrentSession',
+    ).mockReturnValue(true);
+
+    const request = guildRepository.getCreationStatus('traveler-1');
+    if (valid) await expect(request).resolves.toEqual(data);
+    else
+      await expect(request).rejects.toThrow(
+        'Resposta de elegibilidade da Guilda inválida.',
+      );
+  });
+
+  test('keeps RPC failures as errors without granting creation locally', async () => {
+    rpc.mockResolvedValue({
+      data: null,
+      error: { message: 'network unavailable' },
+    });
+    vi.spyOn(
+      await import('../online-sync'),
+      'getCurrentOnlineUserId',
+    ).mockReturnValue('user-1');
+    vi.spyOn(
+      await import('../online-sync'),
+      'getOnlineSessionRevision',
+    ).mockReturnValue(1);
+    vi.spyOn(
+      await import('../online-sync'),
+      'canUseTravelerInCurrentSession',
+    ).mockReturnValue(true);
+    await expect(
+      guildRepository.getCreationStatus('traveler-1'),
+    ).rejects.toThrow('elegibilidade para criar uma Guilda');
+  });
+
   test('creates a Guild without sending user identity or role', async () => {
     rpc.mockResolvedValue({ data: 'guild-1', error: null });
     await expect(
-      guildRepository.create('traveler-1', 'Célula Esperança', 'Grupo jovem'),
+      guildRepository.create('traveler-1', 'CÃ©lula EsperanÃ§a', 'Grupo jovem'),
     ).resolves.toBe('guild-1');
     expect(rpc).toHaveBeenCalledWith('create_guild', {
       p_leader_traveler_id: 'traveler-1',
-      p_name: 'Célula Esperança',
+      p_name: 'CÃ©lula EsperanÃ§a',
       p_description: 'Grupo jovem',
     });
   });
@@ -56,7 +132,7 @@ describe('Guild Supabase repositories', () => {
       guildMissionRepository.submit(
         'mission-1',
         'member-1',
-        'Concluí a tarefa.',
+        'ConcluÃ­ a tarefa.',
       ),
     ).resolves.toBe('pending_approval');
     await expect(
@@ -75,31 +151,66 @@ describe('Guild Supabase repositories', () => {
     await guildMissionRepository.deleteDraft('draft-1', 'leader-1');
     await guildMissionRepository.close('mission-1', 'leader-1');
     await guildRepository.removeMember('member-1', 'leader-1');
-    expect(rpc).toHaveBeenNthCalledWith(1, 'delete_guild_mission_draft', { p_mission_id: 'draft-1', p_leader_traveler_id: 'leader-1' });
-    expect(rpc).toHaveBeenNthCalledWith(2, 'close_guild_mission', { p_mission_id: 'mission-1', p_leader_traveler_id: 'leader-1' });
-    expect(rpc).toHaveBeenNthCalledWith(3, 'remove_guild_member', { p_member_traveler_id: 'member-1', p_leader_traveler_id: 'leader-1' });
+    expect(rpc).toHaveBeenNthCalledWith(1, 'delete_guild_mission_draft', {
+      p_mission_id: 'draft-1',
+      p_leader_traveler_id: 'leader-1',
+    });
+    expect(rpc).toHaveBeenNthCalledWith(2, 'close_guild_mission', {
+      p_mission_id: 'mission-1',
+      p_leader_traveler_id: 'leader-1',
+    });
+    expect(rpc).toHaveBeenNthCalledWith(3, 'remove_guild_member', {
+      p_member_traveler_id: 'member-1',
+      p_leader_traveler_id: 'leader-1',
+    });
     expect(client.from).not.toHaveBeenCalled();
   });
 
   test('sends optional rejection guidance but no reward values', async () => {
     rpc.mockResolvedValue({ data: 'rejected', error: null });
-    await expect(guildMissionRepository.reviewWithGuidance('mission-1', 'member-1', 'leader-1', false, 'Tente novamente.')).resolves.toBe('rejected');
+    await expect(
+      guildMissionRepository.reviewWithGuidance(
+        'mission-1',
+        'member-1',
+        'leader-1',
+        false,
+        'Tente novamente.',
+      ),
+    ).resolves.toBe('rejected');
     expect(rpc).toHaveBeenCalledWith('review_guild_mission_with_guidance', {
-      p_mission_id: 'mission-1', p_member_traveler_id: 'member-1', p_reviewer_traveler_id: 'leader-1',
-      p_approve: false, p_guidance: 'Tente novamente.',
+      p_mission_id: 'mission-1',
+      p_member_traveler_id: 'member-1',
+      p_reviewer_traveler_id: 'leader-1',
+      p_approve: false,
+      p_guidance: 'Tente novamente.',
     });
   });
   test('saves a lesson through the guarded RPC and only links a mission by id', async () => {
     rpc.mockResolvedValue({ data: 'lesson-1', error: null });
-    await guildLessonRepository.save({ leaderTravelerId: 'leader-1', title: 'Eu sou a videira', theme: 'Permanecer',
-      bibleReference: 'João 15', bibleUrl: 'https://www.bible.com/pt/bible/129/JHN.15.NVI',
-      introduction: 'Introdução', content: 'Estudo da passagem', mainPoints: ['A videira'],
-      discussionQuestions: ['Qual é a imagem central?'], activityText: '', scheduledAt: '',
-      relatedMissionId: 'mission-1', publish: true });
-    expect(rpc).toHaveBeenCalledWith('save_guild_lesson', expect.objectContaining({
-      p_leader_traveler_id: 'leader-1', p_related_mission_id: 'mission-1', p_publish: true,
-      p_discussion_questions: ['Qual é a imagem central?'],
-    }));
+    await guildLessonRepository.save({
+      leaderTravelerId: 'leader-1',
+      title: 'Eu sou a videira',
+      theme: 'Permanecer',
+      bibleReference: 'JoÃ£o 15',
+      bibleUrl: 'https://www.bible.com/pt/bible/129/JHN.15.NVI',
+      introduction: 'IntroduÃ§Ã£o',
+      content: 'Estudo da passagem',
+      mainPoints: ['A videira'],
+      discussionQuestions: ['Qual Ã© a imagem central?'],
+      activityText: '',
+      scheduledAt: '',
+      relatedMissionId: 'mission-1',
+      publish: true,
+    });
+    expect(rpc).toHaveBeenCalledWith(
+      'save_guild_lesson',
+      expect.objectContaining({
+        p_leader_traveler_id: 'leader-1',
+        p_related_mission_id: 'mission-1',
+        p_publish: true,
+        p_discussion_questions: ['Qual Ã© a imagem central?'],
+      }),
+    );
     expect(client.from).not.toHaveBeenCalled();
   });
 });
