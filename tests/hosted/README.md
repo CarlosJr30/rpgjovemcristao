@@ -2,7 +2,7 @@
 
 ## RPG-DEV-005 — correção no transporte e gates de estabilidade
 
-`npm test` e o build da aplicação aplicam explicitamente o patch interno do Next16.4.2, com versão/hashes exatos. `.npmrc` continua com `ignore-scripts=true`; nenhum hook de dependência precisa ser habilitado. `node scripts/next-rsc-departure-patch.mjs --check` verifica a aplicação nos formatos CJS/ESM. Fontes desconhecidas bloqueiam o comando.
+`npm test` e o build da aplicação aplicam explicitamente o patch interno do Next16.4.5, com versão/hashes exatos. `.npmrc` continua com `ignore-scripts=true`; nenhum hook de dependência precisa ser habilitado. `node scripts/next-rsc-departure-patch.mjs --check` verifica a aplicação nos formatos CJS/ESM. Fontes desconhecidas bloqueiam o comando.
 
 Para um **controle nativo isolado**, antes de qualquer build de teste, executar `node scripts/next-rsc-departure-patch.mjs --restore` e então `node tests/hosted/next-rsc-concurrency-probe.mjs --build --output build/rpg-dev-005/manual-native`. Reaplicar com `node scripts/next-rsc-departure-patch.mjs` ao terminar, inclusive em falha. O job CI usa `finally` para essa restauração. Não usar `--restore` em operação produtiva.
 
@@ -20,7 +20,7 @@ Relatório e resultados: `docs/architecture/RPG-DEV-005-REPORT.md` e `RPG-DEV-00
 
 ### Continuação: RSC automático determinístico e correção de lifecycle
 
-Executar `node tests/hosted/next-rsc-concurrency-probe.mjs --build` na raiz, com Node24/dependências e navegadores já instalados. A fixture Next16.4.2 compila separadamente em `tests/fixtures/rsc-lifecycle-harness/.next` e roda somente em `127.0.0.1:3205`, com proxy GET/HEAD em `127.0.0.1:3206`. Não usa Auth, banco, cookies, browser routing ou wrappers de fetch/Promise; remove variáveis de credenciais do processo filho. Nenhuma instalação, conta ou recurso externo é criado. `--smoke` executa uma repetição WebKit por condição; a matriz completa usa três repetições Chromium/WebKit.
+Executar `node tests/hosted/next-rsc-concurrency-probe.mjs --build` na raiz, com Node24/dependências e navegadores já instalados. A fixture Next16.4.5 compila separadamente em `tests/fixtures/rsc-lifecycle-harness/.next` e roda somente em `127.0.0.1:3205`, com proxy GET/HEAD em `127.0.0.1:3206`. Não usa Auth, banco, cookies, browser routing ou wrappers de fetch/Promise; remove variáveis de credenciais do processo filho. Nenhuma instalação, conta ou recurso externo é criado. `--smoke` executa uma repetição WebKit por condição; a matriz completa usa três repetições Chromium/WebKit.
 
 A barreira inicial exige quatro requisições reais `RSC:1 / Next-Router-Prefetch:1 / Next-Router-Segment-Prefetch:/_tree` pendentes. Com seis links visíveis, duas tarefas permanecem na fila do Next. A navegação completa só começa após essa barreira. O proxy segura a resposta do documento de substituição: no WebKit os quatro cancelamentos ocorrem antes de liberá-la; no Chromium, a resposta precisa avançar para que o motor cancele as cargas anteriores. Timeout invalida o ensaio, nunca prova um resultado. Comparações: quatro/seis links, SPA, alteração de estado sem navegação e variante com `DocumentNavigationLink`. Também valida histórico e cancelamento do aviso de formulário com retomada de prefetch. Todas as respostas liberadas vêm do Next real; nenhum RSC/HTTP200 é fabricado.
 

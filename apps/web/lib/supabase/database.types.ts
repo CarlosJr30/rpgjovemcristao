@@ -297,6 +297,7 @@ export type Database = {
       };
 
       guild_scoped_status: { Args: Record<string, never>; Returns: Json };
+      guild_creation_status: { Args: { p_actor: string }; Returns: Json };
       guild_scoped_contexts: { Args: { p_actor: string }; Returns: Json };
       guild_scoped_command: {
         Args: {

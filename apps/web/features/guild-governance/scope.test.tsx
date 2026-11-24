@@ -14,6 +14,7 @@ const mock = vi.hoisted(() => ({
   revision: 1,
   list: vi.fn(),
   status: vi.fn(),
+  creationStatus: vi.fn(),
 }));
 vi.mock('../../lib/supabase/auth-context', () => ({
   useAuth: () => ({
@@ -27,7 +28,11 @@ vi.mock('../../lib/supabase/online-sync', () => ({
   subscribeOnlineSync: () => () => {},
 }));
 vi.mock('../../lib/supabase/repositories/guild-repository', () => ({
-  guildRepository: { listContexts: mock.list, getStatus: mock.status },
+  guildRepository: {
+    listContexts: mock.list,
+    getStatus: mock.status,
+    getCreationStatus: mock.creationStatus,
+  },
 }));
 import { GuildScope } from './scope';
 import {
@@ -72,6 +77,11 @@ beforeEach(() => {
     writesEnabled: true,
     economicRewardsEnabled: false,
   });
+  mock.creationStatus.mockResolvedValue({
+    eligible: true,
+    canCreate: false,
+    hasCreated: false,
+  });
   mock.list.mockResolvedValue([
     context(a, 'Comunidade A'),
     context(b, 'Comunidade B'),
@@ -83,7 +93,9 @@ test('multiple memberships never choose the first community implicitly', async (
   await screen.findByText(
     'Escolha explicitamente a Guilda ativa para continuar.',
   );
-  expect(screen.queryByTestId('selected')).toBeNull();
+  expect(await screen.findByTestId('selected')).toHaveTextContent(
+    ':read:closed',
+  );
   fireEvent.change(screen.getByLabelText('Guilda ativa'), {
     target: { value: b },
   });
@@ -94,8 +106,8 @@ test('multiple memberships never choose the first community implicitly', async (
 test('stored community preference is retained after reload only when still a current membership', async () => {
   sessionStorage.setItem('rpg-guild-selection:scope-owner:actor', b);
   mount();
-  expect(await screen.findByTestId('selected')).toHaveTextContent(
-    'Comunidade B',
+  await waitFor(() =>
+    expect(screen.getByTestId('selected')).toHaveTextContent('Comunidade B'),
   );
 });
 test('forged preference outside memberships cannot load a private community', async () => {
@@ -107,7 +119,22 @@ test('forged preference outside memberships cannot load a private community', as
   await screen.findByText(
     'Escolha explicitamente a Guilda ativa para continuar.',
   );
-  expect(screen.queryByTestId('selected')).toBeNull();
+  expect(await screen.findByTestId('selected')).toHaveTextContent(
+    ':read:closed',
+  );
+});
+
+test('eligible regular account can create without governance leadership authorization', async () => {
+  mock.list.mockResolvedValue([]);
+  mock.creationStatus.mockResolvedValue({
+    eligible: true,
+    canCreate: true,
+    hasCreated: false,
+  });
+  mount();
+  expect(await screen.findByTestId('selected')).toHaveTextContent(
+    ':read:create',
+  );
 });
 test('late account response is ignored after owner and session change', async () => {
   let resolve!: (value: unknown) => void;

@@ -152,7 +152,7 @@ const proxy = createServer((req, res) => {
 });
 const out = {
   origin,
-  nextVersion: '16.4.2',
+  nextVersion: '16.4.5',
   noAuth: true,
   noBrowserRouting: true,
   noFetchWrapper: true,

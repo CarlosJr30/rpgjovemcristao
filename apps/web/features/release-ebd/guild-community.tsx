@@ -53,7 +53,7 @@ function GuildCommunity({
   scope: GuildScopeValue;
   management: boolean;
 }) {
-  const { context, canManage, canCreate, writesEnabled, refresh } = scope;
+  const { context, canManage, writesEnabled, refresh } = scope;
   const guildId = context?.guild.id;
   const [members, setMembers] = useState<GuildMemberSummary[]>([]),
     [requests, setRequests] = useState<GuildJoinRequestSummary[]>([]),
@@ -277,18 +277,7 @@ function GuildCommunity({
           <p>Já enviou um pedido? Atualize para conferir a aprovação.</p>
         </section>
       )}
-      {canCreate && writesEnabled ? (
-        <CreateGuild actor={id} scope={scope} />
-      ) : (
-        <section className={css.card}>
-          <h2>Criar uma Guilda</h2>
-          <p>
-            A criação exige uma autorização individual de liderança ativa,
-            confirmada pelo servidor. Ser Administrador ou ter nível elevado não
-            substitui essa autorização.
-          </p>
-        </section>
-      )}
+      <CreateGuild actor={id} scope={scope} />
       <Link href="/journey/guild/administration">
         Autorizações e administração
       </Link>
@@ -367,6 +356,19 @@ function CreateGuild({
     return (
       <section className={css.card}>
         <p role="alert">{initial.error}</p>
+      </section>
+    );
+  if (!scope.canCreate && !intent)
+    return (
+      <section className={css.card}>
+        <h2>Criar uma Guilda</h2>
+        <p role="status">
+          {scope.creationStatus.hasCreated
+            ? 'Sua conta já criou uma Guilda. Você continua podendo participar de outras por convite e aprovação.'
+            : !scope.writesEnabled
+              ? 'A criação está temporariamente indisponível. Tente novamente mais tarde.'
+              : 'Esta conta não está elegível para criar uma Guilda. Confirme a conta e selecione um avatar ativo.'}
+        </p>
       </section>
     );
   return (

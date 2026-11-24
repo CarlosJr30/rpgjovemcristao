@@ -7,6 +7,7 @@ import { execFileSync } from 'node:child_process';
 import { createHash, randomUUID } from 'node:crypto';
 import { Client } from 'pg';
 const adminUiCases = process.env.RPG_UI_ADMIN_CASES === '1';
+const guildPublicCases = process.env.RPG_GUILD_PUBLIC_001_CASES === '1';
 const root = path.resolve(adminUiCases ? (process.env.RPG_UI_ADMIN_PROD === '1' ? 'build/ui-admin-001/pg-production' : 'build/ui-admin-001') : 'build/rpg-dev-010a2'),
   bin = path.resolve(
     process.env.RPG_POSTGRES_BIN ??
@@ -68,6 +69,9 @@ const q = (s, p) => db.query(s, p),
   email = (n) => `isolated-${n}@fixtures.invalid`;
 const migration = sql(
   'supabase/migrations/20261028213600_rpg_dev_010a2_multiguild_test.sql',
+);
+const guildPublicMigration = sql(
+  'supabase/migrations/20261123193206_guild_public_001_test.sql',
 );
 const check = async (name, fn) => {
   await fn();
@@ -236,6 +240,7 @@ try {
   await q(
     'alter table auth.users add column email text,add column email_confirmed_at timestamptz',
   );
+  if (guildPublicCases) await q('alter table auth.users add column banned_until timestamptz,add column deleted_at timestamptz');
   for (const lock of ['consolidation-002', 'consolidation-004'])
     for (const step of JSON.parse(
       sql(`packages/database/reviewed/${lock}.lock.json`),
@@ -298,6 +303,21 @@ try {
   if (adminUiCases) {
     await q(`BEGIN;${migration}\nCOMMIT;`);
     await (await import('./ui-admin-001-cases.mjs')).run({ q, uid, tid, as, check, rejects, sql, gameData });
+  } else if (guildPublicCases) {
+    // Reconstruct the pre-010A.2 guild predicates from migration 0001. The
+    // shared offline fixture includes their newer revocation-aware bodies.
+    const legacyGuildSql = sql('packages/database/migrations/0001_guild_supabase_v1.sql');
+    for (const name of ['is_guild_leader', 'can_lead_mission']) {
+      const start = legacyGuildSql.indexOf(`CREATE FUNCTION public.${name}`);
+      const source = legacyGuildSql.slice(start).split('--> statement-breakpoint')[0]
+        .replace(`CREATE FUNCTION public.${name}`, `CREATE OR REPLACE FUNCTION public.${name}`);
+      await q(source);
+    }
+    await q(`BEGIN;${migration}\nCOMMIT;`);
+    const beforeChestOps = (await q('select count(*) n from public.chest_operations')).rows[0].n;
+    await q("select set_config('guild_public_001.target_project','wkdvdzfkbwvhyjmamrsg',false)");
+    await q(`BEGIN;${guildPublicMigration}\nCOMMIT;`);
+    await (await import('./guild-public-001-cases.mjs')).run({ q, uid, tid, as, cmd, check, rejects, newConnection, email, gameData, beforeGame, beforeGuilds, beforeMembers, beforeChestOps });
   } else {
   await check(
     'TEST target guard refuses production scope before DDL',
