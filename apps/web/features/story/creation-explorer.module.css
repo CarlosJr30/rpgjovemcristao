@@ -45,6 +45,33 @@
 .flowNav {
   margin-block: 1rem;
 }
+.rewardTable {
+  width: 100%;
+  border-collapse: collapse;
+  overflow-wrap: anywhere;
+}
+.rewardTable caption {
+  text-align: start;
+  font-weight: 700;
+  padding-block: 0.4rem;
+}
+.rewardTable th,
+.rewardTable td {
+  border-block-end: 1px solid #cbd6c4;
+  padding: 0.5rem;
+  text-align: start;
+  vertical-align: top;
+}
+.rewardTable tfoot {
+  color: #184530;
+  background: #e9f4e9;
+  font-weight: 700;
+}
+.mapLink {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
 .playArea,
 .panel {
   min-width: 0;

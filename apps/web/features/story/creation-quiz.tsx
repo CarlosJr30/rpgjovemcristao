@@ -79,10 +79,12 @@ export function CreationJourneySummary({
   answers,
   discoveries,
   onRepeat,
+  onOpenVideo,
 }: {
   answers: QuizAnswers;
   discoveries: readonly string[];
   onRepeat: () => void;
+  onOpenVideo: () => void;
 }) {
   const score = scoreGardenQuiz(CREATION_QUIZ, answers);
   return (
@@ -98,6 +100,25 @@ export function CreationJourneySummary({
         Descobertas na demonstração · {discoveries.length} de{' '}
         {CREATION_DAYS.length} dias.
       </p>
+      <p>Harmonia da Criação · concluída na demonstração.</p>
+      <ol aria-label="Resumo dos sete dias da Criação">
+        {CREATION_DAYS.map((day, index) => (
+          <li key={day.id}>
+            <strong>
+              Dia {index + 1} · {day.title}.
+            </strong>{' '}
+            {day.explanation}
+          </li>
+        ))}
+      </ol>
+      <p>
+        Leia <a href={creationPassageUrl('1')}>Gênesis 1 (NVI)</a> e{' '}
+        <a href={creationPassageUrl('2.1-3')}>Gênesis 2:1–3 (NVI)</a>.
+      </p>
+      <p>
+        Se desejar, faça uma pausa para refletir sobre a Criação e agradecer a
+        Deus em oração.
+      </p>
       <p>
         O vídeo obrigatório ainda falta para a conclusão oficial futura da fase.
       </p>
@@ -107,6 +128,9 @@ export function CreationJourneySummary({
       </p>
       <button type="button" onClick={onRepeat}>
         Repetir quiz
+      </button>{' '}
+      <button type="button" onClick={onOpenVideo}>
+        Abrir etapa do vídeo obrigatório
       </button>
       <h3>Revisão das respostas</h3>
       <ol>

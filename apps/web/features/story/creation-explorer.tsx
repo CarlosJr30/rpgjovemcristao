@@ -17,6 +17,7 @@ import type { Point } from './creation-explorer-model';
 import { movePoint, pointIsNear } from './creation-explorer-model';
 import { CREATION_DAYS, creationPassageUrl } from './creation-days';
 import { CreationHarmony } from './creation-harmony';
+import { CreationFinale, CreationVideoStage } from './creation-finale';
 import {
   CreationJourneySummary,
   CreationQuiz,
@@ -88,9 +89,9 @@ export function CreationExplorerView({
   const [feedback, setFeedback] = useState<'retry' | 'correct'>();
   const [harmonyUnlocked, setHarmonyUnlocked] = useState(false);
   const [harmonyStarted, setHarmonyStarted] = useState(false);
-  const [section, setSection] = useState<'harmony' | 'quiz' | 'summary' | null>(
-    null,
-  );
+  const [section, setSection] = useState<
+    'harmony' | 'quiz' | 'summary' | 'video' | 'finale' | null
+  >(null);
   const [diaryOpen, setDiaryOpen] = useState(false);
   const [discoveries, setDiscoveries] = useState<readonly string[]>([]);
   const [quizAttempt, setQuizAttempt] = useState(0);
@@ -509,10 +510,24 @@ export function CreationExplorerView({
             <CreationJourneySummary
               answers={quizResult.answers}
               discoveries={discoveries}
+              onOpenVideo={() => setSection('video')}
               onRepeat={() => {
                 setQuizAttempt((attempt) => attempt + 1);
                 setSection('quiz');
               }}
+            />
+          </div>
+        )}
+        {quizResult && !diaryOpen && section === 'video' && (
+          <div data-current="true">
+            <CreationVideoStage onContinue={() => setSection('finale')} />
+          </div>
+        )}
+        {quizResult && !diaryOpen && section === 'finale' && (
+          <div data-current="true">
+            <CreationFinale
+              answers={quizResult.answers}
+              discoveries={discoveries.length}
             />
           </div>
         )}

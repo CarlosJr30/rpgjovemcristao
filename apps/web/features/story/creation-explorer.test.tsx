@@ -245,7 +245,12 @@ test('requires each day’s educational interaction and correct answer before ad
   );
   expect(screen.getByText(/7 de 7 dias/)).toBeInTheDocument();
   expect(screen.getByText(/vídeo obrigatório ainda falta/)).toBeInTheDocument();
-  expect(screen.getAllByRole('link', { name: /Gênesis.*NVI/ })).toHaveLength(5);
+  expect(screen.getAllByRole('link', { name: /Gênesis.*NVI/ })).toHaveLength(7);
+  expect(
+    within(
+      screen.getByRole('list', { name: 'Resumo dos sete dias da Criação' }),
+    ).getAllByRole('listitem'),
+  ).toHaveLength(7);
   click('Abrir Diário Bíblico');
   click('Voltar à demonstração');
   expect(screen.getByRole('status')).toHaveTextContent('4 de 5 acertos');
@@ -255,6 +260,42 @@ test('requires each day’s educational interaction and correct answer before ad
   expect(
     screen.getByText(/Recompensa futura prevista.*60 XP.*Baú Raro/),
   ).toBeInTheDocument();
+  click('Abrir etapa do vídeo obrigatório');
+  expect(
+    screen.getByRole('heading', { name: 'Vídeo educativo' }),
+  ).toHaveFocus();
+  expect(screen.getByRole('status')).toHaveTextContent('Vídeo pendente');
+  expect(view.container.querySelector('video, iframe')).toBeNull();
+  click('Abrir Diário Bíblico');
+  click('Voltar à demonstração');
+  expect(screen.getByRole('status')).toHaveTextContent('Vídeo pendente');
+  click('Ver estado da conclusão');
+  expect(
+    screen.getByRole('heading', { name: 'Encerramento da Criação' }),
+  ).toHaveFocus();
+  expect(screen.getByRole('status')).toHaveTextContent(
+    'Conclusão oficial bloqueada',
+  );
+  expect(screen.getByText('Quiz: 5 de 5 acertos.')).toBeInTheDocument();
+  expect(
+    within(
+      screen.getByRole('table', { name: 'Planejamento de recompensas' }),
+    ).getByText('500 XP + 200 moedas + 4 baús'),
+  ).toBeInTheDocument();
+  expect(
+    screen.getByText(/Recebidas nesta demonstração/).closest('p'),
+  ).toHaveTextContent('nenhuma');
+  expect(
+    screen.getByRole('link', { name: 'Voltar ao mapa de mundos' }),
+  ).toHaveAttribute('href', '/journey/worlds');
+  expect(
+    screen.queryByRole('link', { name: /Jardim do Éden/i }),
+  ).not.toBeInTheDocument();
+  click('Abrir Diário Bíblico');
+  click('Voltar à demonstração');
+  expect(screen.getByRole('status')).toHaveTextContent(
+    'Conclusão oficial bloqueada',
+  );
   expect(storageWrite).not.toHaveBeenCalled();
   view.unmount();
   render(<CreationExplorerView traveler={traveler} />);
