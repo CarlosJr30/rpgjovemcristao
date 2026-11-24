@@ -9,6 +9,7 @@ type Marker = Readonly<{
 type Day = Readonly<{
   id: string;
   title: string;
+  harmonyLabel?: string;
   reference: string;
   passage: string;
   motifs: string;
@@ -58,6 +59,7 @@ export const CREATION_DAYS: readonly Day[] = [
   {
     id: 'creation-day-3',
     title: 'Terra e vegetação',
+    harmonyLabel: 'Terra, mares e vegetação',
     reference: 'Gênesis 1:9–13',
     passage: '1.9-13',
     motifs: '▲ ≋ ♧',
@@ -143,6 +145,7 @@ export const CREATION_DAYS: readonly Day[] = [
   {
     id: 'creation-day-7',
     title: 'Descanso e reflexão',
+    harmonyLabel: 'Descanso do sétimo dia',
     reference: 'Gênesis 2:1–3',
     passage: '2.1-3',
     motifs: '◌',

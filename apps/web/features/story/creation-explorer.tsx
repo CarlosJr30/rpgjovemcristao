@@ -15,6 +15,7 @@ import { AvatarRuntime } from '../journey/components/avatar-runtime';
 import type { Point } from './creation-explorer-model';
 import { movePoint, pointIsNear } from './creation-explorer-model';
 import { CREATION_DAYS } from './creation-days';
+import { CreationHarmony } from './creation-harmony';
 import css from './creation-explorer.module.css';
 
 const PORTAL: Point = { x: 78, y: 50 };
@@ -77,6 +78,8 @@ export function CreationExplorerView({
   const [answer, setAnswer] = useState<number>();
   const [visited, setVisited] = useState<readonly string[]>([]);
   const [feedback, setFeedback] = useState<'retry' | 'correct'>();
+  const [harmonyUnlocked, setHarmonyUnlocked] = useState(false);
+  const [harmonyOpen, setHarmonyOpen] = useState(false);
   const stage = useRef<HTMLDivElement>(null);
 
   const day = dayIndex === null ? undefined : CREATION_DAYS[dayIndex];
@@ -96,6 +99,8 @@ export function CreationExplorerView({
   const nearby = points.find(({ point }) => pointIsNear(position, point));
 
   function changeScene(next: number | null, finished = false) {
+    if (finished) setHarmonyUnlocked(true);
+    setHarmonyOpen(false);
     setDayIndex(next);
     setPosition(next === null ? INITIAL : START);
     setVisited([]);
@@ -367,7 +372,7 @@ export function CreationExplorerView({
                 >
                   {dayNumber < CREATION_DAYS.length
                     ? `Prosseguir para o Dia ${dayNumber + 1}`
-                    : 'Encerrar a demo no Santuário'}
+                    : 'Voltar ao Santuário e liberar Harmonia'}
                 </button>
               )}
             </form>
@@ -387,8 +392,26 @@ export function CreationExplorerView({
               </li>
             ))}
           </ul>
+          {!day &&
+            (harmonyUnlocked ? (
+              <button
+                type="button"
+                aria-expanded={harmonyOpen}
+                onClick={() => setHarmonyOpen((open) => !open)}
+              >
+                {harmonyOpen
+                  ? 'Fechar Harmonia da Criação'
+                  : 'Abrir Harmonia da Criação'}
+              </button>
+            ) : (
+              <p>
+                Complete os sete dias da demonstração para abrir Harmonia da
+                Criação.
+              </p>
+            ))}
         </aside>
       </div>
+      {!day && harmonyOpen && <CreationHarmony />}
     </article>
   );
 }

@@ -98,6 +98,14 @@ test('requires each day’s educational interaction and correct answer before ad
   const submit = () =>
     fireEvent.click(screen.getByRole('button', { name: 'Conferir resposta' }));
 
+  expect(
+    screen.queryByRole('button', { name: 'Abrir Harmonia da Criação' }),
+  ).not.toBeInTheDocument();
+  choose('Portal · Dia 1');
+  choose('Retornar ao Santuário');
+  expect(
+    screen.queryByRole('button', { name: 'Abrir Harmonia da Criação' }),
+  ).not.toBeInTheDocument();
   choose('Portal · Dia 1');
   const itinerary = [
     { markers: ['Marco da luz'], correct: 'A luz.' },
@@ -143,7 +151,7 @@ test('requires each day’s educational interaction and correct answer before ad
     const advance =
       index < 6
         ? `Prosseguir para o Dia ${index + 2}`
-        : 'Encerrar a demo no Santuário';
+        : 'Voltar ao Santuário e liberar Harmonia';
     fireEvent.click(wrong);
     submit();
     expect(screen.getByText(/Tente novamente/)).toBeInTheDocument();
@@ -163,6 +171,17 @@ test('requires each day’s educational interaction and correct answer before ad
   expect(
     screen.getByText(/Registros canônicos consultados: 1/),
   ).toBeInTheDocument();
+  fireEvent.click(
+    screen.getByRole('button', { name: 'Abrir Harmonia da Criação' }),
+  );
+  expect(
+    screen.getByRole('heading', { name: 'Harmonia da Criação' }),
+  ).toHaveFocus();
+  expect(
+    within(
+      screen.getByRole('list', { name: 'Símbolos embaralhados' }),
+    ).getAllByRole('button'),
+  ).toHaveLength(7);
   expect(storageWrite).not.toHaveBeenCalled();
   view.unmount();
   render(<CreationExplorerView traveler={traveler} />);
@@ -170,4 +189,7 @@ test('requires each day’s educational interaction and correct answer before ad
     screen.queryByText('Você percorreu os sete dias da demonstração.'),
   ).not.toBeInTheDocument();
   expect(screen.getByText('Santuário fictício')).toBeInTheDocument();
+  expect(
+    screen.queryByRole('button', { name: 'Abrir Harmonia da Criação' }),
+  ).not.toBeInTheDocument();
 });
