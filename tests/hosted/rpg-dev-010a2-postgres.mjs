@@ -73,6 +73,9 @@ const migration = sql(
 const guildPublicMigration = sql(
   'supabase/migrations/20261123193206_guild_public_001_test.sql',
 );
+const guildQaMigration = sql(
+  'supabase/migrations/20261124051929_guild_qa_001_test.sql',
+);
 const check = async (name, fn) => {
   await fn();
   checks.push({ name, pass: true });
@@ -317,6 +320,7 @@ try {
     const beforeChestOps = (await q('select count(*) n from public.chest_operations')).rows[0].n;
     await q("select set_config('guild_public_001.target_project','wkdvdzfkbwvhyjmamrsg',false)");
     await q(`BEGIN;${guildPublicMigration}\nCOMMIT;`);
+    await q(`BEGIN;${guildQaMigration}\nCOMMIT;`);
     await (await import('./guild-public-001-cases.mjs')).run({ q, uid, tid, as, cmd, check, rejects, newConnection, email, gameData, beforeGame, beforeGuilds, beforeMembers, beforeChestOps });
   } else {
   await check(

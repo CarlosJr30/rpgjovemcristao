@@ -105,6 +105,111 @@ export async function run({
   );
 
   await check(
+    'revocable QA grant permits multiple Guilds without rewriting the historical claim or changing economy',
+    async () => {
+      const originalClaim = (
+        await q(
+          'select user_id,guild_id,leader_traveler_id,request_id,payload_hash,created_at from guild_admin_private.guild_creation_claims where user_id=$1',
+          [uid(2)],
+        )
+      ).rows[0];
+      const before = JSON.parse(await gameData());
+      await q(
+        "insert into guild_admin_private.guild_creation_qa_permissions(account_id,permission_key,grant_source) values($1,'multiple_guild_creation','GUILD-QA-001')",
+        [uid(2)],
+      );
+      assert.deepEqual(
+        (
+          await as(2, 'select public.guild_creation_status($1) result', [
+            tid(2),
+          ])
+        ).rows[0].result,
+        { eligible: true, canCreate: true, hasCreated: true },
+      );
+      assert.deepEqual(
+        (
+          await as(3, 'select public.guild_creation_status($1) result', [
+            tid(3),
+          ])
+        ).rows[0].result,
+        { eligible: true, canCreate: false, hasCreated: true },
+      );
+      await rejects(
+        () =>
+          as(3, 'select public.guild_scoped_command($1,$2,$3,$4,$5,$6) result', [
+            tid(3),
+            uid(418),
+            'create',
+            uid(418),
+            randomUUID(),
+            createData,
+          ]),
+        '23505',
+      );
+      assert.equal(
+        await q(
+          "select has_table_privilege('authenticated','guild_admin_private.guild_creation_qa_permissions','SELECT') or has_table_privilege('authenticated','guild_admin_private.guild_creation_qa_permissions','INSERT') as exposed",
+        ).then((r) => r.rows[0].exposed),
+        false,
+      );
+      const secondGuild = uid(416),
+        secondRequest = randomUUID();
+      const created = (
+        await createAs(tid(2), secondGuild, secondRequest, {
+          name: 'Guild QA',
+          description: 'Fixture isolada',
+        })
+      ).rows[0].result;
+      assert.equal(created.status, 'created');
+      assert.equal(created.replayed, false);
+      assert.deepEqual(
+        (
+          await q(
+            'select user_id,guild_id,leader_traveler_id,request_id,payload_hash,created_at from guild_admin_private.guild_creation_claims where user_id=$1',
+            [uid(2)],
+          )
+        ).rows[0],
+        originalClaim,
+      );
+      assert.equal(
+        (
+          await q(
+            'select count(*) n from public.guilds where created_by_user_id=$1',
+            [uid(2)],
+          )
+        ).rows[0].n,
+        '2',
+      );
+      assert.deepEqual(JSON.parse(await gameData()), before);
+      await q(
+        'update guild_admin_private.guild_creation_qa_permissions set revoked_at=clock_timestamp() where account_id=$1',
+        [uid(2)],
+      );
+      assert.deepEqual(
+        (
+          await as(2, 'select public.guild_creation_status($1) result', [
+            tid(2),
+          ])
+        ).rows[0].result,
+        { eligible: true, canCreate: false, hasCreated: true },
+      );
+      await rejects(
+        () => createAs(tid(2), uid(417), randomUUID()),
+        '23505',
+      );
+      assert.equal(
+        (
+          await q(
+            'select count(*) n from public.guilds where created_by_user_id=$1',
+            [uid(2)],
+          )
+        ).rows[0].n,
+        '2',
+      );
+    },
+  );
+
+  await check(
     'account-wide limit rejects another active avatar and payload conflict',
     async () => {
       await q(
@@ -148,7 +253,7 @@ export async function run({
             [uid(2)],
           )
         ).rows[0].n,
-        '1',
+        '2',
       );
     },
   );
@@ -225,7 +330,7 @@ export async function run({
             tid(2),
           ])
         ).rows[0].result.guilds.length,
-        1,
+        2,
       );
     },
   );
