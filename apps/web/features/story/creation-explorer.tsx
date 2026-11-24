@@ -10,6 +10,14 @@ import {
   type FormEvent,
 } from 'react';
 import type { ArchiveSnapshot } from '../../lib/supabase/online-sync';
+import { getSupabaseBrowserClient } from '../../lib/supabase/client';
+import { getOnlineSessionRevision } from '../../lib/supabase/online-sync';
+import {
+  createCreationCheckpointRepository,
+  CreationCheckpointUnavailable,
+  type CreationCheckpointSnapshot,
+} from '../../lib/supabase/repositories/creation-checkpoint-repository';
+import { CREATION_QUIZ } from './creation-quiz-content';
 import { useStoryProgress } from './use-story-progress';
 import { ArchiveAccess } from '../release-ebd/archive';
 import { AvatarRuntime } from '../journey/components/avatar-runtime';
@@ -59,7 +67,89 @@ export function CreationExplorerScreen() {
   );
 }
 
+const checkpointRepository = createCreationCheckpointRepository(
+  async (name, args) => getSupabaseBrowserClient().rpc(name, args),
+);
+
 function AuthenticatedExplorer({ snapshot }: { snapshot: ArchiveSnapshot }) {
+  if (
+    process.env.NEXT_PUBLIC_CREATION_CHECKPOINTS !== 'true' ||
+    process.env.NEXT_PUBLIC_SUPABASE_URL?.replace(/\/$/, '') !==
+      'https://wkdvdzfkbwvhyjmamrsg.supabase.co'
+  )
+    return <DemoExplorer snapshot={snapshot} />;
+  return (
+    <CheckpointExplorer
+      key={snapshot.traveler.id + ':' + getOnlineSessionRevision()}
+      snapshot={snapshot}
+    />
+  );
+}
+
+export function CheckpointExplorer(props: CheckpointExplorerProps) {
+  return <CheckpointSession key={props.snapshot.traveler.id} {...props} />;
+}
+
+type CheckpointExplorerProps = {
+  snapshot: ArchiveSnapshot;
+  repository?: typeof checkpointRepository;
+};
+
+function CheckpointSession({
+  snapshot,
+  repository = checkpointRepository,
+}: CheckpointExplorerProps) {
+  const [initial, setInitial] = useState<CreationCheckpointSnapshot | null>();
+  const [failed, setFailed] = useState(false);
+  const [attempt, setAttempt] = useState(0);
+  const id = snapshot.traveler.id;
+  useEffect(() => {
+    let active = true;
+    repository.read(id).then(
+      (progress) => {
+        if (active) setInitial(progress);
+      },
+      (error: unknown) => {
+        if (!active) return;
+        if (error instanceof CreationCheckpointUnavailable) setInitial(null);
+        else setFailed(true);
+      },
+    );
+    return () => {
+      active = false;
+    };
+  }, [id, attempt, repository]);
+  if (failed)
+    return (
+      <section>
+        <p role="alert">
+          Não foi possível consultar os checkpoints. Verifique sua conexão e
+          sessão.
+        </p>
+        <button
+          onClick={() => {
+            setFailed(false);
+            setAttempt(attempt + 1);
+          }}
+        >
+          Tentar novamente
+        </button>
+      </section>
+    );
+  if (initial === undefined)
+    return <p role="status">Consultando checkpoints da Criação…</p>;
+  if (!initial || !initial.available || initial.revision !== 1)
+    return <DemoExplorer snapshot={snapshot} />;
+  return (
+    <CreationExplorerView
+      key={initial.revision}
+      traveler={snapshot.traveler}
+      remote={{ initial, repository }}
+    />
+  );
+}
+
+function DemoExplorer({ snapshot }: { snapshot: ArchiveSnapshot }) {
   const progress = useStoryProgress(snapshot.traveler.id);
   const saved = progress.records?.find(
     (record) => record.story_id === 'creation',
@@ -75,9 +165,14 @@ function AuthenticatedExplorer({ snapshot }: { snapshot: ArchiveSnapshot }) {
 export function CreationExplorerView({
   traveler,
   canonicalSteps = [],
+  remote,
 }: {
   traveler: ArchiveSnapshot['traveler'];
   canonicalSteps?: readonly string[];
+  remote?: {
+    initial: CreationCheckpointSnapshot;
+    repository: typeof checkpointRepository;
+  };
 }) {
   const [dayIndex, setDayIndex] = useState<number | null>(null);
   const [position, setPosition] = useState<Point>(INITIAL);
@@ -87,7 +182,17 @@ export function CreationExplorerView({
   const [answer, setAnswer] = useState<number>();
   const [visited, setVisited] = useState<readonly string[]>([]);
   const [feedback, setFeedback] = useState<'retry' | 'correct'>();
-  const [harmonyUnlocked, setHarmonyUnlocked] = useState(false);
+  const [demoHarmonyUnlocked, setHarmonyUnlocked] = useState(false);
+  const [saved, setSaved] = useState(remote?.initial);
+  const [savingDay, setSavingDay] = useState(false);
+  const dayRequest = useRef(false);
+  const [saveError, setSaveError] = useState('');
+  const operationId = useRef<string>(undefined);
+  const completedDays = saved?.completedDays.length ?? 0;
+  const harmonyUnlocked = remote
+    ? completedDays === CREATION_DAYS.length
+    : demoHarmonyUnlocked;
+  const nextDayIndex = Math.min(completedDays, CREATION_DAYS.length - 1);
   const [harmonyStarted, setHarmonyStarted] = useState(false);
   const [section, setSection] = useState<
     'harmony' | 'quiz' | 'summary' | 'video' | 'finale' | null
@@ -98,6 +203,7 @@ export function CreationExplorerView({
   const [quizResult, setQuizResult] = useState<{
     attempt: number;
     answers: QuizAnswers;
+    score?: number;
   }>();
   const stage = useRef<HTMLDivElement>(null);
   const pages = useRef<HTMLDivElement>(null);
@@ -125,7 +231,7 @@ export function CreationExplorerView({
     ? [
         {
           point: PORTAL,
-          label: 'Portal · Dia 1',
+          label: `Portal · Dia ${nextDayIndex + 1}`,
           symbol: '◉',
         },
       ]
@@ -133,7 +239,9 @@ export function CreationExplorerView({
   const nearby = points.find(({ point }) => pointIsNear(position, point));
 
   function changeScene(next: number | null, finished = false) {
-    if (finished) setHarmonyUnlocked(true);
+    if (dayRequest.current) return;
+    setSaveError('');
+    if (finished && !remote) setHarmonyUnlocked(true);
     setDayIndex(next);
     setPosition(next === null ? INITIAL : START);
     setVisited([]);
@@ -143,7 +251,9 @@ export function CreationExplorerView({
       next !== null
         ? CREATION_DAYS[next].objective
         : finished
-          ? 'Você percorreu os sete dias da demonstração.'
+          ? remote
+            ? 'Você voltou ao Santuário após os sete checkpoints.'
+            : 'Você percorreu os sete dias da demonstração.'
           : 'Você voltou ao Santuário da Jornada.',
     );
     stage.current?.focus();
@@ -156,7 +266,7 @@ export function CreationExplorerView({
   }
 
   function activate(point: Point) {
-    if (point === PORTAL) return changeScene(0);
+    if (point === PORTAL) return changeScene(nextDayIndex);
     if (point === EXIT) return changeScene(null);
     const marker = day?.markers.find((entry) => entry.point === point);
     if (!day || !marker || visited.includes(marker.label)) return;
@@ -208,15 +318,97 @@ export function CreationExplorerView({
     event.currentTarget.focus({ preventScroll: true });
   }
 
-  function submitAnswer(event: FormEvent<HTMLFormElement>) {
+  async function submitAnswer(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (day && challengeOpen && answer !== undefined)
+    if (!day || !challengeOpen || answer === undefined || dayRequest.current)
+      return;
+    if (!remote) {
       setFeedback(answer === day.correct ? 'correct' : 'retry');
+      return;
+    }
+    dayRequest.current = true;
+    setSavingDay(true);
+    setFeedback(undefined);
+    setSaveError('');
+    try {
+      const result = await remote.repository.submitDay(
+        traveler.id,
+        remote.initial.revision,
+        dayNumber,
+        answer + 1,
+      );
+      if (result.completed) {
+        const state = await refreshRemote();
+        if (!state.completedDays.includes(dayNumber))
+          throw new Error('Checkpoint missing');
+      }
+      setFeedback(result.completed ? 'correct' : 'retry');
+    } catch {
+      setSaveError(
+        'Não foi possível confirmar o checkpoint. Tente novamente ou recarregue a Jornada.',
+      );
+    } finally {
+      dayRequest.current = false;
+      setSavingDay(false);
+    }
+  }
+
+  async function refreshRemote() {
+    if (!remote) throw new Error('Checkpoint mode unavailable');
+    const state = await remote.repository.read(traveler.id);
+    if (!state.available || state.revision !== remote.initial.revision)
+      throw new Error('Checkpoint revision unavailable');
+    setSaved(state);
+    return state;
+  }
+
+  async function verifyHarmony(order: number[]) {
+    if (!remote) return false;
+    const result = await remote.repository.submitHarmony(
+      traveler.id,
+      remote.initial.revision,
+      order,
+    );
+    return result.completed && (await refreshRemote()).harmonyCompleted;
+  }
+
+  async function submitQuiz(answers: QuizAnswers) {
+    if (!remote) {
+      setQuizResult({ attempt: quizAttempt, answers });
+      setSection('summary');
+      return true;
+    }
+    try {
+      operationId.current ??= crypto.randomUUID();
+      const indices = CREATION_QUIZ.map(
+        (question) =>
+          question.options.findIndex(
+            (option) => option.id === answers[question.id],
+          ) + 1,
+      );
+      const result = await remote.repository.submitQuiz(
+        traveler.id,
+        remote.initial.revision,
+        operationId.current,
+        indices,
+      );
+      await refreshRemote();
+      setQuizResult({ attempt: quizAttempt, answers, score: result.score });
+      setSection('summary');
+      return true;
+    } catch {
+      return false;
+    }
   }
 
   function openQuiz() {
     setQuizAttempt((attempt) => Math.max(1, attempt));
-    setSection(quizResult?.attempt === quizAttempt ? 'summary' : 'quiz');
+    setSection(
+      (saved && saved.quizAttempts > 0 && quizAttempt === 0) ||
+        (quizResult && quizResult.attempt === quizAttempt)
+        ? 'summary'
+        : 'quiz',
+    );
   }
 
   return (
@@ -226,7 +418,9 @@ export function CreationExplorerView({
       </Link>
       <header className={css.header}>
         <p className={css.eyebrow}>
-          Protótipo jogável · progresso oficial somente leitura
+          {remote
+            ? 'Checkpoints da Criação'
+            : 'Protótipo jogável · progresso oficial somente leitura'}
         </p>
         <h1>Santuário da Jornada</h1>
         <p>
@@ -234,7 +428,9 @@ export function CreationExplorerView({
         </p>
       </header>
       <div className={css.notice} role="note">
-        A demonstração reinicia ao atualizar a página ou trocar de dispositivo.
+        {remote
+          ? `Dias confirmados pelo servidor: ${completedDays} de 7.`
+          : 'A demonstração reinicia ao atualizar a página ou trocar de dispositivo.'}
         {canonicalSteps.length > 0 && (
           <span>
             {' '}
@@ -375,9 +571,11 @@ export function CreationExplorerView({
               onSubmit={submitAnswer}
               tabIndex={-1}
               ref={focusChallenge}
-              aria-label="Desafio demonstrativo"
+              aria-label={
+                remote ? 'Desafio da Criação' : 'Desafio demonstrativo'
+              }
             >
-              <fieldset>
+              <fieldset disabled={savingDay}>
                 <legend>{day.question}</legend>
                 {day.options.map((option, index) => (
                   <label key={option}>
@@ -398,6 +596,7 @@ export function CreationExplorerView({
                 </button>
               </fieldset>
               <p role="status" className={css.feedback} data-result={feedback}>
+                {saveError}
                 {feedback === 'correct' &&
                   `Resposta correta. Explicação do relato: ${day.explanation}`}
                 {feedback === 'retry' &&
@@ -419,10 +618,11 @@ export function CreationExplorerView({
               )}
             </form>
           )}
-          <p className={css.pending}>
-            Atividade demonstrativa; conteúdo aguardando revisão editorial. Não
-            representa conclusão canônica.
-          </p>
+          {!remote && (
+            <p className={css.pending}>
+              Atividade demonstrativa. Conteúdo aguardando revisão editorial.
+            </p>
+          )}
           <h3>Navegação acessível</h3>
           <ul className={css.poiList} aria-label="Navegação acessível">
             {points.map(({ label, point }) => (
@@ -488,7 +688,11 @@ export function CreationExplorerView({
             hidden={diaryOpen || section !== 'harmony'}
             data-current={!diaryOpen && section === 'harmony'}
           >
-            <CreationHarmony onStartQuiz={openQuiz} />
+            <CreationHarmony
+              onStartQuiz={openQuiz}
+              verified={saved?.harmonyCompleted}
+              onVerify={remote ? verifyHarmony : undefined}
+            />
           </div>
         )}
         {quizAttempt > 0 && (
@@ -498,14 +702,30 @@ export function CreationExplorerView({
           >
             <CreationQuiz
               key={quizAttempt}
-              onComplete={(answers) => {
-                setQuizResult({ attempt: quizAttempt, answers });
-                setSection('summary');
-              }}
+              onComplete={submitQuiz}
+              remote={Boolean(remote)}
             />
           </div>
         )}
-        {quizResult && !diaryOpen && section === 'summary' && (
+        {remote && saved && !diaryOpen && section === 'summary' && (
+          <section data-current="true">
+            <h2 tabIndex={-1}>Resultado do Quiz</h2>
+            <p role="status">
+              {quizResult?.score ?? saved.bestQuizScore} de 5 acertos.
+              Tentativas registradas: {saved.quizAttempts}.
+            </p>
+            <button
+              onClick={() => {
+                operationId.current = undefined;
+                setQuizAttempt((current) => current + 1);
+                setSection('quiz');
+              }}
+            >
+              Repetir quiz
+            </button>
+          </section>
+        )}
+        {!remote && quizResult && !diaryOpen && section === 'summary' && (
           <div data-current="true">
             <CreationJourneySummary
               answers={quizResult.answers}

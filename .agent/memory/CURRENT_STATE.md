@@ -1,3 +1,7 @@
+## 2026-11-24 — STORY-007C em validação
+
+Migração candidata e integração de checkpoints preparadas na branch `codex/story-007c-checkpoint-integration`. PostgreSQL local 6/6 e Vitest direcionado 14/14. O catálogo TEST é compatível e os gates de publicação seguem fechados. Revisão independente e autorização específica para aplicação em TEST continuam pendentes. Ver `tasks/active/STORY-007C-checkpoint-integration.md`.
+
 ## 2026-11-24 — STORY-002 DONE documental
 
 Contrato técnico/visual da exploração da Fase 1 documentado em docs/game-design/STORY-002-EXPLORATION.md. Auditoria confirma reutilização de AvatarRuntime, GardenExploration (somente padrão), StoryScreen/catalog/progression, Diário, identidade Auth/Traveler e story_progress. Limite: localStorage é por dispositivo e o esquema de recibos proposto admite um passo agregado por história; não persiste/prova os sete checkpoints. Nenhum código, migration, grant, economia, Guilda, produção ou deploy alterado. Conteúdo de origins-lessons segue candidate; revisão editorial pendente. STORY-002 movida para completed; próxima STORY-002B-first-playable-scene em backlog. Branch codex/story-002-exploration-spec baseada em c27b608f59e2c6ce25897b886b3d0f4b494bcaa4; testes/suites não executados (docs-only).

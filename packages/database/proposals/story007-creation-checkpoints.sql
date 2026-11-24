@@ -37,16 +37,22 @@ VALUES (1,ARRAY[2,1,3,2,3]::smallint[],'Gênesis 1:3–2:3');
 CREATE FUNCTION story_private.guard_creation_published_content() RETURNS trigger
 LANGUAGE plpgsql SET search_path='' AS $$
 BEGIN
+  PERFORM 1 FROM story_private.creation_checkpoint_revisions r
+    WHERE (TG_OP <> 'INSERT' AND r.revision=OLD.revision)
+       OR (TG_OP <> 'DELETE' AND r.revision=NEW.revision)
+    ORDER BY revision FOR SHARE;
   IF EXISTS(SELECT 1 FROM story_private.creation_checkpoint_revisions r
-    WHERE r.revision=OLD.revision AND r.status IN ('published','revoked')) THEN
+    WHERE r.status IN ('published','revoked') AND
+      ((TG_OP <> 'INSERT' AND r.revision=OLD.revision)
+       OR (TG_OP <> 'DELETE' AND r.revision=NEW.revision))) THEN
     RAISE EXCEPTION 'Published creation content is immutable; create a new revision';
   END IF;
   IF TG_OP='DELETE' THEN RETURN OLD; END IF;
   RETURN NEW;
 END $$;
-CREATE TRIGGER creation_day_content_immutable BEFORE UPDATE OR DELETE ON story_private.creation_day_content
+CREATE TRIGGER creation_day_content_immutable BEFORE INSERT OR UPDATE OR DELETE ON story_private.creation_day_content
   FOR EACH ROW EXECUTE FUNCTION story_private.guard_creation_published_content();
-CREATE TRIGGER creation_quiz_content_immutable BEFORE UPDATE OR DELETE ON story_private.creation_quiz_content
+CREATE TRIGGER creation_quiz_content_immutable BEFORE INSERT OR UPDATE OR DELETE ON story_private.creation_quiz_content
   FOR EACH ROW EXECUTE FUNCTION story_private.guard_creation_published_content();
 
 CREATE FUNCTION story_private.guard_creation_revision() RETURNS trigger
@@ -142,7 +148,22 @@ REVOKE ALL ON story_private.creation_checkpoint_revisions,story_private.creation
 -- Neither browser nor service_role writes evidence/config. Owner-run, reviewed publication
 -- updates config; SECURITY DEFINER RPCs alone write validated activity and quiz receipts.
 
-CREATE FUNCTION public.submit_creation_day(p_traveler_id uuid,p_day smallint,p_answer_index smallint)
+CREATE FUNCTION story_private.require_creation_revision(p_revision integer)
+RETURNS void LANGUAGE plpgsql SET search_path='' AS $$
+BEGIN
+  PERFORM 1 FROM public.story_definitions d
+    JOIN story_private.creation_checkpoint_revisions r ON r.revision=d.revision
+    WHERE d.id='creation' AND d.revision=p_revision AND d.content_ready AND r.status='published'
+    FOR SHARE OF d,r;
+  IF NOT FOUND THEN
+    RAISE EXCEPTION 'Creation revision unavailable' USING ERRCODE='55000';
+  END IF;
+END $$;
+REVOKE ALL ON FUNCTION story_private.require_creation_revision(integer),
+  story_private.guard_creation_published_content(),story_private.guard_creation_revision(),
+  story_private.guard_creation_video_publication() FROM PUBLIC,anon,authenticated,service_role;
+
+CREATE FUNCTION public.submit_creation_day(p_traveler_id uuid,p_revision integer,p_day smallint,p_answer_index smallint)
 RETURNS jsonb LANGUAGE plpgsql SECURITY DEFINER SET search_path='' AS $$
 DECLARE v_revision integer; v_active boolean; v_answer smallint; v_options smallint;
   v_reference text; v_result jsonb; v_key text;
@@ -152,13 +173,10 @@ BEGIN
     JOIN public.story_definitions d ON d.id='creation'
     WHERE t.id=p_traveler_id AND t.user_id=auth.uid() AND u.is_anonymous IS FALSE
     FOR UPDATE OF t;
-  IF NOT v_active THEN RAISE EXCEPTION 'Active traveler required' USING ERRCODE='42501'; END IF;
+  IF v_active IS DISTINCT FROM true THEN RAISE EXCEPTION 'Active traveler required' USING ERRCODE='42501'; END IF;
+  IF p_revision IS DISTINCT FROM v_revision THEN RAISE EXCEPTION 'Stale creation revision' USING ERRCODE='55000'; END IF;
+  PERFORM story_private.require_creation_revision(v_revision);
   IF p_day IS NULL OR p_day NOT BETWEEN 1 AND 7 THEN RAISE EXCEPTION 'Invalid day' USING ERRCODE='22023'; END IF;
-  IF NOT EXISTS(SELECT 1 FROM story_private.creation_checkpoint_revisions r
-    JOIN public.story_definitions d ON d.id='creation' AND d.revision=r.revision AND d.content_ready
-    WHERE r.revision=v_revision AND r.status='published') THEN
-    RAISE EXCEPTION 'Creation content pending publication' USING ERRCODE='55000';
-  END IF;
   SELECT answer_index,option_count,reference INTO STRICT v_answer,v_options,v_reference
     FROM story_private.creation_day_content WHERE revision=v_revision AND day_number=p_day;
   v_key:='day:'||p_day::text;
@@ -166,13 +184,13 @@ BEGIN
     WHERE traveler_id=p_traveler_id AND story_id='creation' AND revision=v_revision AND activity='day' AND activity_key=v_key;
   IF FOUND THEN RETURN v_result; END IF;
   IF p_answer_index IS NULL OR p_answer_index NOT BETWEEN 1 AND v_options THEN RAISE EXCEPTION 'Invalid answer' USING ERRCODE='22023'; END IF;
-  IF p_answer_index<>v_answer THEN RETURN jsonb_build_object('version',1,'completed',false,'correct',false,'reference',v_reference); END IF;
   IF p_day>1 AND (SELECT count(*) FROM story_private.creation_activity_receipts r
     WHERE r.traveler_id=p_traveler_id AND r.story_id='creation' AND r.revision=v_revision
       AND r.activity='day' AND r.activity_key=ANY(ARRAY(
         SELECT 'day:'||prior.day_no::text FROM generate_series(1,p_day-1) AS prior(day_no))))<>p_day-1 THEN
     RAISE EXCEPTION 'Previous creation day incomplete' USING ERRCODE='55000';
   END IF;
+  IF p_answer_index<>v_answer THEN RETURN jsonb_build_object('version',1,'completed',false,'correct',false,'reference',v_reference); END IF;
   v_result:=jsonb_build_object('version',1,'completed',true,'correct',true,'day',p_day,
     'revision',v_revision,'reference',v_reference);
   INSERT INTO story_private.creation_activity_receipts(traveler_id,revision,activity,activity_key,result)
@@ -182,7 +200,7 @@ BEGIN
   RETURN v_result;
 END $$;
 
-CREATE FUNCTION public.submit_creation_harmony(p_traveler_id uuid,p_order smallint[])
+CREATE FUNCTION public.submit_creation_harmony(p_traveler_id uuid,p_revision integer,p_order smallint[])
 RETURNS jsonb LANGUAGE plpgsql SECURITY DEFINER SET search_path='' AS $$
 DECLARE v_revision integer; v_active boolean; v_result jsonb;
 BEGIN
@@ -190,10 +208,9 @@ BEGIN
     FROM public.travelers t JOIN auth.users u ON u.id=t.user_id
     JOIN public.story_definitions d ON d.id='creation'
     WHERE t.id=p_traveler_id AND t.user_id=auth.uid() AND u.is_anonymous IS FALSE FOR UPDATE OF t;
-  IF NOT v_active THEN RAISE EXCEPTION 'Active traveler required' USING ERRCODE='42501'; END IF;
-  IF NOT EXISTS(SELECT 1 FROM story_private.creation_checkpoint_revisions r JOIN public.story_definitions d
-    ON d.id='creation' AND d.revision=r.revision AND d.content_ready
-    WHERE r.revision=v_revision AND r.status='published') THEN RAISE EXCEPTION 'Creation content pending publication' USING ERRCODE='55000'; END IF;
+  IF v_active IS DISTINCT FROM true THEN RAISE EXCEPTION 'Active traveler required' USING ERRCODE='42501'; END IF;
+  IF p_revision IS DISTINCT FROM v_revision THEN RAISE EXCEPTION 'Stale creation revision' USING ERRCODE='55000'; END IF;
+  PERFORM story_private.require_creation_revision(v_revision);
   IF (SELECT count(*) FROM story_private.creation_activity_receipts r WHERE r.traveler_id=p_traveler_id
     AND r.story_id='creation' AND r.revision=v_revision AND r.activity='day')<>7 THEN
     RAISE EXCEPTION 'Seven creation days incomplete' USING ERRCODE='55000';
@@ -213,7 +230,7 @@ BEGIN
   RETURN v_result;
 END $$;
 
-CREATE FUNCTION public.submit_creation_quiz(p_traveler_id uuid,p_operation_id uuid,p_answers smallint[])
+CREATE FUNCTION public.submit_creation_quiz(p_traveler_id uuid,p_revision integer,p_operation_id uuid,p_answers smallint[])
 RETURNS jsonb LANGUAGE plpgsql SECURITY DEFINER SET search_path='' AS $$
 DECLARE v_revision integer; v_active boolean; v_score smallint; v_result jsonb; v_saved story_private.creation_quiz_attempts;
 BEGIN
@@ -221,7 +238,9 @@ BEGIN
     FROM public.travelers t JOIN auth.users u ON u.id=t.user_id
     JOIN public.story_definitions d ON d.id='creation'
     WHERE t.id=p_traveler_id AND t.user_id=auth.uid() AND u.is_anonymous IS FALSE FOR UPDATE OF t;
-  IF NOT v_active THEN RAISE EXCEPTION 'Active traveler required' USING ERRCODE='42501'; END IF;
+  IF v_active IS DISTINCT FROM true THEN RAISE EXCEPTION 'Active traveler required' USING ERRCODE='42501'; END IF;
+  IF p_revision IS DISTINCT FROM v_revision THEN RAISE EXCEPTION 'Stale creation revision' USING ERRCODE='55000'; END IF;
+  PERFORM story_private.require_creation_revision(v_revision);
   IF p_operation_id IS NULL THEN RAISE EXCEPTION 'Invalid quiz attempt' USING ERRCODE='22023'; END IF;
   IF EXISTS(SELECT 1 FROM story_private.creation_quiz_attempts WHERE traveler_id=p_traveler_id
     AND story_id='creation' AND revision=v_revision AND operation_id=p_operation_id) THEN
@@ -235,9 +254,6 @@ BEGIN
     OR array_position(p_answers,NULL) IS NOT NULL OR NOT (p_answers <@ ARRAY[1,2,3]::smallint[]) THEN
     RAISE EXCEPTION 'Invalid quiz attempt' USING ERRCODE='22023';
   END IF;
-  IF NOT EXISTS(SELECT 1 FROM story_private.creation_checkpoint_revisions r JOIN public.story_definitions d
-    ON d.id='creation' AND d.revision=r.revision AND d.content_ready
-    WHERE r.revision=v_revision AND r.status='published') THEN RAISE EXCEPTION 'Creation content pending publication' USING ERRCODE='55000'; END IF;
   IF NOT EXISTS(SELECT 1 FROM story_private.creation_activity_receipts r WHERE r.traveler_id=p_traveler_id
     AND r.story_id='creation' AND r.revision=v_revision AND r.activity='harmony' AND r.activity_key='seven-symbols:v1') THEN
     RAISE EXCEPTION 'Harmony incomplete' USING ERRCODE='55000';
@@ -261,7 +277,7 @@ BEGIN
   SELECT d.revision,t.is_active INTO STRICT v_revision,v_active FROM public.travelers t
     JOIN auth.users u ON u.id=t.user_id JOIN public.story_definitions d ON d.id='creation'
     WHERE t.id=p_traveler_id AND t.user_id=auth.uid() AND u.is_anonymous IS FALSE;
-  IF NOT v_active THEN RAISE EXCEPTION 'Active traveler required' USING ERRCODE='42501'; END IF;
+  IF v_active IS DISTINCT FROM true THEN RAISE EXCEPTION 'Active traveler required' USING ERRCODE='42501'; END IF;
   SELECT jsonb_build_object('version',1,'storyId','creation','revision',v_revision,
     'completedDays',coalesce((SELECT jsonb_agg(split_part(activity_key,':',2)::int ORDER BY split_part(activity_key,':',2)::int)
       FROM story_private.creation_activity_receipts WHERE traveler_id=p_traveler_id AND story_id='creation'
@@ -272,19 +288,20 @@ BEGIN
       AND story_id='creation' AND revision=v_revision),0),
     'bestQuizScore',(SELECT max(score) FROM story_private.creation_quiz_attempts WHERE traveler_id=p_traveler_id
       AND story_id='creation' AND revision=v_revision),
-    'videoCompleted',coalesce((SELECT video_completed FROM public.story_progress WHERE traveler_id=p_traveler_id
-      AND story_id='creation'),false)) INTO v_result;
+    'available',EXISTS(SELECT 1 FROM public.story_definitions d JOIN story_private.creation_checkpoint_revisions r
+      ON r.revision=d.revision WHERE d.id='creation' AND d.revision=v_revision AND d.content_ready AND r.status='published'),
+    'videoCompleted',false) INTO v_result;
   RETURN v_result;
 END $$;
 
-REVOKE ALL ON FUNCTION public.submit_creation_day(uuid,smallint,smallint),
-  public.submit_creation_harmony(uuid,smallint[]),public.submit_creation_quiz(uuid,uuid,smallint[]),
+REVOKE ALL ON FUNCTION public.submit_creation_day(uuid,integer,smallint,smallint),
+  public.submit_creation_harmony(uuid,integer,smallint[]),public.submit_creation_quiz(uuid,integer,uuid,smallint[]),
   public.read_creation_checkpoints(uuid) FROM PUBLIC,anon,service_role;
-GRANT EXECUTE ON FUNCTION public.submit_creation_day(uuid,smallint,smallint),
-  public.submit_creation_harmony(uuid,smallint[]),public.submit_creation_quiz(uuid,uuid,smallint[]),
+GRANT EXECUTE ON FUNCTION public.submit_creation_day(uuid,integer,smallint,smallint),
+  public.submit_creation_harmony(uuid,integer,smallint[]),public.submit_creation_quiz(uuid,integer,uuid,smallint[]),
   public.read_creation_checkpoints(uuid) TO authenticated;
-COMMENT ON FUNCTION public.submit_creation_day(uuid,smallint,smallint) IS 'STORY-007 local proposal. Auth owner + active traveler; checks published server key and contiguous days; no economy write.';
-COMMENT ON FUNCTION public.submit_creation_harmony(uuid,smallint[]) IS 'STORY-007 local proposal. Requires seven current-revision day receipts; no economy write.';
-COMMENT ON FUNCTION public.submit_creation_quiz(uuid,uuid,smallint[]) IS 'STORY-007 local proposal. Idempotent by account/traveler/revision/operation; server scores attempts; no economy write.';
+COMMENT ON FUNCTION public.submit_creation_day(uuid,integer,smallint,smallint) IS 'STORY-007 local proposal. Auth owner + active traveler; checks published server key and contiguous days; no economy write.';
+COMMENT ON FUNCTION public.submit_creation_harmony(uuid,integer,smallint[]) IS 'STORY-007 local proposal. Requires seven current-revision day receipts; no economy write.';
+COMMENT ON FUNCTION public.submit_creation_quiz(uuid,integer,uuid,smallint[]) IS 'STORY-007 local proposal. Idempotent by account/traveler/revision/operation; server scores attempts; no economy write.';
 COMMENT ON FUNCTION public.read_creation_checkpoints(uuid) IS 'STORY-007 local proposal. Read-only resume snapshot; does not mark video or phase complete.';
 COMMIT;

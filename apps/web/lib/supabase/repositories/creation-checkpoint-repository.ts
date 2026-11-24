@@ -8,6 +8,7 @@ export type CreationCheckpointSnapshot = {
   version: 1;
   storyId: 'creation';
   revision: number;
+  available: boolean;
   completedDays: number[];
   harmonyCompleted: boolean;
   quizAttempts: number;
@@ -42,10 +43,27 @@ export type CreationQuizResult = {
   replayed: boolean;
 };
 
+type CreationCheckpointFunction =
+  | 'read_creation_checkpoints'
+  | 'submit_creation_day'
+  | 'submit_creation_harmony'
+  | 'submit_creation_quiz';
+
 export type CreationCheckpointRpc = (
-  functionName: string,
-  args: Record<string, unknown>,
-) => Promise<{ data: unknown; error: { message: string } | null }>;
+  functionName: CreationCheckpointFunction,
+  args: {
+    p_traveler_id: string;
+    p_revision?: number;
+    p_day?: number;
+    p_answer_index?: number;
+    p_order?: number[];
+    p_operation_id?: string;
+    p_answers?: number[];
+  },
+) => Promise<{
+  data: unknown;
+  error: { message: string; code?: string } | null;
+}>;
 
 const asObject = (
   value: unknown,
@@ -85,14 +103,15 @@ const parseSnapshot = (value: unknown): CreationCheckpointSnapshot => {
   const completedDays = row.completedDays.map((day) =>
     asInteger(day, 'completedDays', 1, 7),
   );
-  if (new Set(completedDays).size !== completedDays.length)
+  if (completedDays.some((day, index) => day !== index + 1))
     throw new Error(
-      'Resposta inválida: dias duplicados no contrato STORY-007.',
+      'Resposta inválida: dias fora da sequ?ncia no contrato STORY-007.',
     );
   return {
     version: 1,
     storyId: 'creation',
     revision: asInteger(row.revision, 'revision', 1, Number.MAX_SAFE_INTEGER),
+    available: asBoolean(row.available, 'available'),
     completedDays,
     harmonyCompleted: asBoolean(row.harmonyCompleted, 'harmonyCompleted'),
     quizAttempts: asInteger(
@@ -184,14 +203,21 @@ const parseQuizResult = (value: unknown): CreationQuizResult => {
   };
 };
 
+export class CreationCheckpointUnavailable extends Error {}
+
 export const createCreationCheckpointRepository = (
   rpc: CreationCheckpointRpc,
 ) => {
   const invoke = async (
-    functionName: string,
-    args: Record<string, unknown>,
+    functionName: CreationCheckpointFunction,
+    args: Parameters<CreationCheckpointRpc>[1],
   ) => {
     const result = await rpc(functionName, args);
+    if (
+      functionName === 'read_creation_checkpoints' &&
+      result.error?.code === 'PGRST202'
+    )
+      throw new CreationCheckpointUnavailable();
     if (result.error)
       throw new Error(`STORY-007 ${functionName}: ${result.error.message}`);
     return result.data;
@@ -207,6 +233,7 @@ export const createCreationCheckpointRepository = (
     },
     async submitDay(
       travelerId: string,
+      revision: number,
       day: number,
       answerIndex: number,
     ): Promise<CreationDayResult> {
@@ -217,6 +244,7 @@ export const createCreationCheckpointRepository = (
       return parseDayResult(
         await invoke('submit_creation_day', {
           p_traveler_id: travelerId,
+          p_revision: revision,
           p_day: day,
           p_answer_index: answerIndex,
         }),
@@ -224,6 +252,7 @@ export const createCreationCheckpointRepository = (
     },
     async submitHarmony(
       travelerId: string,
+      revision: number,
       order: number[],
     ): Promise<CreationHarmonyResult> {
       if (
@@ -234,12 +263,14 @@ export const createCreationCheckpointRepository = (
       return parseHarmonyResult(
         await invoke('submit_creation_harmony', {
           p_traveler_id: travelerId,
+          p_revision: revision,
           p_order: order,
         }),
       );
     },
     async submitQuiz(
       travelerId: string,
+      revision: number,
       operationId: string,
       answers: number[],
     ): Promise<CreationQuizResult> {
@@ -257,6 +288,7 @@ export const createCreationCheckpointRepository = (
       return parseQuizResult(
         await invoke('submit_creation_quiz', {
           p_traveler_id: travelerId,
+          p_revision: revision,
           p_operation_id: operationId,
           p_answers: answers,
         }),

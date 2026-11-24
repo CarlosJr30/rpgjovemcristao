@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, type FormEvent } from 'react';
+import { useRef, useState, type FormEvent } from 'react';
 import { scoreGardenQuiz } from '../journey/data/gardenQuiz';
 import { CREATION_DAYS, creationPassageUrl } from './creation-days';
 import { CREATION_QUIZ } from './creation-quiz-content';
@@ -14,26 +14,46 @@ function focusQuestion(element: HTMLHeadingElement | null) {
 
 export function CreationQuiz({
   onComplete,
+  remote = false,
 }: {
-  onComplete: (answers: QuizAnswers) => void;
+  onComplete: (answers: QuizAnswers) => void | Promise<boolean>;
+  remote?: boolean;
 }) {
+  const request = useRef(false);
+  const [pending, setPending] = useState(false);
+  const [failed, setFailed] = useState(false);
   const [answers, setAnswers] = useState<QuizAnswers>({});
   const [selected, setSelected] = useState<string>();
   const index = Object.keys(answers).length;
   const question = CREATION_QUIZ[index];
 
-  function confirm(event: FormEvent<HTMLFormElement>) {
+  async function confirm(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (
+      request.current ||
       !question ||
       !question.options.some((option) => option.id === selected) ||
       !selected
     )
       return;
     const next = { ...answers, [question.id]: selected };
+    if (remote && index === CREATION_QUIZ.length - 1) {
+      request.current = true;
+      setPending(true);
+      try {
+        const confirmed = await onComplete(next);
+        if (!confirmed) {
+          setFailed(true);
+          return;
+        }
+      } finally {
+        request.current = false;
+        setPending(false);
+      }
+    }
     setAnswers(next);
     setSelected(undefined);
-    if (index === CREATION_QUIZ.length - 1) onComplete(next);
+    if (!remote && index === CREATION_QUIZ.length - 1) onComplete(next);
   }
 
   return (
@@ -52,7 +72,10 @@ export function CreationQuiz({
           >
             Pergunta {index + 1} de {CREATION_QUIZ.length} · {question.question}
           </h3>
-          <fieldset aria-labelledby="creation-question">
+          <fieldset
+            disabled={pending || failed}
+            aria-labelledby="creation-question"
+          >
             {question.options.map((option) => (
               <label key={option.id}>
                 <input
@@ -69,6 +92,14 @@ export function CreationQuiz({
               Confirmar resposta
             </button>
           </fieldset>
+          {failed && (
+            <p role="alert">Não foi possível confirmar a tentativa.</p>
+          )}
+          {failed && (
+            <button type="submit" disabled={pending}>
+              Reenviar tentativa
+            </button>
+          )}
         </form>
       )}
     </section>

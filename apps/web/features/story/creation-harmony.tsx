@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { CREATION_DAYS } from './creation-days';
 import css from './creation-harmony.module.css';
 
@@ -26,16 +26,27 @@ function focusTitle(node: HTMLHeadingElement | null) {
   node?.focus();
 }
 
-export function CreationHarmony({ onStartQuiz }: { onStartQuiz?: () => void }) {
+export function CreationHarmony({
+  onStartQuiz,
+  onVerify,
+  verified,
+}: {
+  onStartQuiz?: () => void;
+  onVerify?: (order: number[]) => Promise<boolean>;
+  verified?: boolean;
+}) {
+  const request = useRef(false);
+  const [pending, setPending] = useState(false);
   const [bank, setBank] = useState(shuffleSymbols);
   const [sequence, setSequence] = useState<typeof symbols>([]);
   const [feedback, setFeedback] = useState('Escolha o primeiro símbolo.');
   const [result, setResult] = useState<'retry' | 'correct'>();
-  const complete = result === 'correct';
+  const complete = verified || result === 'correct';
   const full = sequence.length === symbols.length;
 
   function place(symbol: (typeof symbols)[number]) {
-    if (full || sequence.includes(symbol)) return;
+    if (request.current || complete || full || sequence.includes(symbol))
+      return;
     setSequence([...sequence, symbol]);
     setResult(undefined);
     setFeedback(
@@ -45,7 +56,7 @@ export function CreationHarmony({ onStartQuiz }: { onStartQuiz?: () => void }) {
 
   function undo() {
     const last = sequence.at(-1);
-    if (!last || complete) return;
+    if (request.current || !last || complete) return;
     setSequence(sequence.slice(0, -1));
     setResult(undefined);
     setFeedback(
@@ -54,15 +65,34 @@ export function CreationHarmony({ onStartQuiz }: { onStartQuiz?: () => void }) {
   }
 
   function reset() {
+    if (request.current || (onVerify && complete)) return;
     setBank(shuffleSymbols());
     setSequence([]);
     setResult(undefined);
     setFeedback('Tabuleiro reiniciado. Escolha o primeiro símbolo.');
   }
 
-  function verify() {
-    if (!full || complete) return;
-    if (sequence.every((symbol, i) => symbol.id === symbols[i].id)) {
+  async function verify() {
+    if (request.current || !full || complete) return;
+    let correct: boolean;
+    if (onVerify) {
+      request.current = true;
+      setPending(true);
+      try {
+        correct = await onVerify(
+          sequence.map((symbol) => symbols.indexOf(symbol) + 1),
+        );
+      } catch {
+        setFeedback('Não foi possível confirmar a Harmonia. Tente novamente.');
+        return;
+      } finally {
+        request.current = false;
+        setPending(false);
+      }
+    } else {
+      correct = sequence.every((symbol, i) => symbol.id === symbols[i].id);
+    }
+    if (correct) {
       setResult('correct');
       setFeedback(
         'Sequência correta! Harmonia da Criação concluída nesta demonstração.',
@@ -165,14 +195,18 @@ export function CreationHarmony({ onStartQuiz }: { onStartQuiz?: () => void }) {
           <button
             type="button"
             className={css.verify}
-            aria-disabled={!full || complete}
+            aria-disabled={pending || !full || complete}
             onClick={verify}
           >
             Verificar sequência
           </button>
         </div>
         <p className={css.feedback} role="status" aria-atomic="true">
-          {feedback}
+          {pending
+            ? 'Conferindo sequência…'
+            : verified
+              ? 'Harmonia confirmada pelo servidor.'
+              : feedback}
         </p>
         {complete && onStartQuiz && (
           <div className={css.actions}>

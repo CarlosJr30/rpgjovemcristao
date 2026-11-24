@@ -129,7 +129,24 @@ test('STORY-007: local checkpoint RPCs isolate owners, enforce ordering and repl
     INSERT INTO public.travelers VALUES('${traveler(1)}','${user(1)}',true),('${traveler(2)}','${user(2)}',true),('${traveler(3)}','${user(3)}',false),('${traveler(4)}','${user(4)}',true);
     INSERT INTO public.wallets VALUES('${traveler(1)}',7),('${traveler(2)}',11);
     ${fs.readFileSync('packages/database/proposals/task0081-story-progress.sql', 'utf8')}
-    ${fs.readFileSync('packages/database/proposals/story007-creation-checkpoints.sql', 'utf8')}`);
+    CREATE SCHEMA supabase_migrations;
+    CREATE TABLE supabase_migrations.schema_migrations(version text, name text);
+    INSERT INTO supabase_migrations.schema_migrations VALUES('20261021031958','deploy002_11_task0081_story_progress');`);
+  const migration = fs.readFileSync(
+    'supabase/migrations/20261124185354_story_007c_creation_checkpoints_test.sql',
+    'utf8',
+  );
+  const proposal = fs.readFileSync(
+    'packages/database/proposals/story007-creation-checkpoints.sql',
+    'utf8',
+  );
+  assert.equal(
+    migration.split('END $guard$;')[1].trim(),
+    proposal.split('BEGIN;')[1].trim(),
+  );
+  await denied(migration, /Reviewed STORY-007C TEST baseline required/);
+  await query("SET story007c.target_project='wkdvdzfkbwvhyjmamrsg'");
+  await query(migration);
   // Synthetic publication exists only in this disposable database.
   await query(
     "INSERT INTO public.story_progress(traveler_id,story_id,completed_steps) VALUES('" +
@@ -143,20 +160,20 @@ test('STORY-007: local checkpoint RPCs isolate owners, enforce ordering and repl
       await denied(
         session(
           2,
-          `SELECT public.submit_creation_day('${traveler(1)}',1::smallint,1::smallint)`,
+          `SELECT public.submit_creation_day('${traveler(1)}',1,1::smallint,1::smallint)`,
         ),
       );
       await denied(
         session(
           3,
-          `SELECT public.submit_creation_day('${traveler(3)}',1::smallint,1::smallint)`,
+          `SELECT public.submit_creation_day('${traveler(3)}',1,1::smallint,1::smallint)`,
         ),
         /Active traveler/,
       );
       await denied(
         session(
           4,
-          `SELECT public.submit_creation_day('${traveler(4)}',1::smallint,1::smallint)`,
+          `SELECT public.submit_creation_day('${traveler(4)}',1,1::smallint,1::smallint)`,
           true,
         ),
       );
@@ -251,14 +268,14 @@ test('STORY-007: local checkpoint RPCs isolate owners, enforce ordering and repl
       await denied(
         session(
           1,
-          `SELECT public.submit_creation_day('${traveler(1)}',2::smallint,2::smallint)`,
+          `SELECT public.submit_creation_day('${traveler(1)}',1,2::smallint,2::smallint)`,
         ),
         /Previous creation day incomplete/,
       );
       const wrong = JSON.parse(
         await rpc(
           1,
-          `SELECT public.submit_creation_day('${traveler(1)}',1::smallint,2::smallint)`,
+          `SELECT public.submit_creation_day('${traveler(1)}',1,1::smallint,2::smallint)`,
         ),
       );
       assert.equal(wrong.correct, false);
@@ -270,7 +287,7 @@ test('STORY-007: local checkpoint RPCs isolate owners, enforce ordering and repl
       );
       const sql = session(
         1,
-        `SELECT public.submit_creation_day('${traveler(1)}',1::smallint,1::smallint)`,
+        `SELECT public.submit_creation_day('${traveler(1)}',1,1::smallint,1::smallint)`,
       );
       const results = await Promise.all([concurrent(sql), concurrent(sql)]);
       assert.equal(results.length, 2);
@@ -295,19 +312,19 @@ test('STORY-007: local checkpoint RPCs isolate owners, enforce ordering and repl
       for (let day = 2; day <= 7; day++)
         await rpc(
           1,
-          `SELECT public.submit_creation_day('${traveler(1)}',${day}::smallint,${keys[day - 1]}::smallint)`,
+          `SELECT public.submit_creation_day('${traveler(1)}',1,${day}::smallint,${keys[day - 1]}::smallint)`,
         );
       const wrongOrder = JSON.parse(
         await rpc(
           1,
-          `SELECT public.submit_creation_harmony('${traveler(1)}',ARRAY[2,1,3,4,5,6,7]::smallint[])`,
+          `SELECT public.submit_creation_harmony('${traveler(1)}',1,ARRAY[2,1,3,4,5,6,7]::smallint[])`,
         ),
       );
       assert.equal(wrongOrder.correct, false);
       const harmony = JSON.parse(
         await rpc(
           1,
-          `SELECT public.submit_creation_harmony('${traveler(1)}',ARRAY[1,2,3,4,5,6,7]::smallint[])`,
+          `SELECT public.submit_creation_harmony('${traveler(1)}',1,ARRAY[1,2,3,4,5,6,7]::smallint[])`,
         ),
       );
       assert.equal(harmony.completed, true);
@@ -315,7 +332,7 @@ test('STORY-007: local checkpoint RPCs isolate owners, enforce ordering and repl
       const quiz = JSON.parse(
         await rpc(
           1,
-          `SELECT public.submit_creation_quiz('${traveler(1)}','${attempt}',ARRAY[2,1,3,2,3]::smallint[])`,
+          `SELECT public.submit_creation_quiz('${traveler(1)}',1,'${attempt}',ARRAY[2,1,3,2,3]::smallint[])`,
         ),
       );
       assert.equal(quiz.score, 5);
@@ -324,7 +341,7 @@ test('STORY-007: local checkpoint RPCs isolate owners, enforce ordering and repl
       const replay = JSON.parse(
         await rpc(
           1,
-          `SELECT public.submit_creation_quiz('${traveler(1)}','${attempt}',ARRAY[1,1,1,1,1]::smallint[])`,
+          `SELECT public.submit_creation_quiz('${traveler(1)}',1,'${attempt}',ARRAY[1,1,1,1,1]::smallint[])`,
         ),
       );
       assert.equal(replay.score, 5);
@@ -333,7 +350,7 @@ test('STORY-007: local checkpoint RPCs isolate owners, enforce ordering and repl
       const retry = JSON.parse(
         await rpc(
           1,
-          `SELECT public.submit_creation_quiz('${traveler(1)}','${second}',ARRAY[1,1,1,1,1]::smallint[])`,
+          `SELECT public.submit_creation_quiz('${traveler(1)}',1,'${second}',ARRAY[1,1,1,1,1]::smallint[])`,
         ),
       );
       assert.equal(retry.score, 1);
@@ -381,6 +398,16 @@ test('STORY-007: local checkpoint RPCs isolate owners, enforce ordering and repl
   await t.test(
     'new content revision resumes independently and preserves old evidence',
     async () => {
+      await query(
+        "UPDATE story_private.creation_checkpoint_revisions SET status='revoked' WHERE revision=1",
+      );
+      await denied(
+        session(
+          1,
+          `SELECT public.submit_creation_quiz('${traveler(1)}',1,'20000000-0000-4000-8000-000000000001',ARRAY[2,1,3,2,3]::smallint[])`,
+        ),
+        /Creation revision unavailable/,
+      );
       await query(`INSERT INTO story_private.creation_checkpoint_revisions(revision,status) VALUES(2,'draft');
       INSERT INTO story_private.creation_day_content(revision,day_number,option_count,answer_index,reference)
         SELECT 2,day_number,option_count,answer_index,reference FROM story_private.creation_day_content WHERE revision=1;
@@ -399,6 +426,33 @@ test('STORY-007: local checkpoint RPCs isolate owners, enforce ordering and repl
       assert.deepEqual(state.completedDays, []);
       assert.equal(state.harmonyCompleted, false);
       assert.equal(state.quizAttempts, 0);
+      assert.equal(state.available, true);
+      await denied(
+        session(
+          1,
+          `SELECT public.submit_creation_day('${traveler(1)}',1,1::smallint,1::smallint)`,
+        ),
+        /Stale creation revision/,
+      );
+      await query(
+        "UPDATE story_private.creation_checkpoint_revisions SET status='revoked' WHERE revision=2",
+      );
+      assert.equal(
+        JSON.parse(
+          await rpc(
+            1,
+            `SELECT public.read_creation_checkpoints('${traveler(1)}')`,
+          ),
+        ).available,
+        false,
+      );
+      await denied(
+        session(
+          1,
+          `SELECT public.submit_creation_day('${traveler(1)}',2,1::smallint,1::smallint)`,
+        ),
+        /Creation revision unavailable/,
+      );
       assert.equal(state.videoCompleted, false);
       assert.equal(
         await query(

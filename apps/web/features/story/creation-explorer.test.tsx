@@ -1,6 +1,7 @@
 // @vitest-environment jsdom
 import '@testing-library/jest-dom/vitest';
 import {
+  act,
   cleanup,
   fireEvent,
   render,
@@ -9,7 +10,11 @@ import {
 } from '@testing-library/react';
 import { afterEach, expect, test, vi } from 'vitest';
 import { createTraveler, DEFAULT_APPEARANCE } from '../journey/domain/traveler';
-import { CreationExplorerView } from './creation-explorer';
+import { CheckpointExplorer, CreationExplorerView } from './creation-explorer';
+
+vi.mock('./use-story-progress', () => ({
+  useStoryProgress: () => ({ records: [] }),
+}));
 
 vi.mock('next/link', () => ({
   default: ({
@@ -305,5 +310,155 @@ test('requires each day’s educational interaction and correct answer before ad
   expect(screen.getByText('Santuário fictício')).toBeInTheDocument();
   expect(
     screen.queryByRole('button', { name: 'Abrir Harmonia da Criação' }),
+  ).not.toBeInTheDocument();
+});
+
+const accessibleMap = () =>
+  within(screen.getByRole('list', { name: /Navega.*acess.vel/ }));
+
+const remoteSnapshot = {
+  version: 1 as const,
+  storyId: 'creation' as const,
+  revision: 1,
+  available: true,
+  completedDays: [1, 2, 3],
+  harmonyCompleted: false,
+  quizAttempts: 0,
+  bestQuizScore: null,
+  videoCompleted: false,
+};
+const archive = { traveler, inventory: [], persistedProgress: false };
+const makeRepository = () => ({
+  read: vi.fn(),
+  submitDay: vi.fn(),
+  submitHarmony: vi.fn(),
+  submitQuiz: vi.fn(),
+});
+
+test('resumes at the first pending day and ignores an old traveler response', async () => {
+  const repo = makeRepository();
+  let resolveOld!: (result: typeof remoteSnapshot) => void;
+  repo.read.mockImplementationOnce(
+    () =>
+      new Promise((resolve) => {
+        resolveOld = resolve;
+      }),
+  );
+  repo.read.mockResolvedValueOnce(remoteSnapshot);
+  const view = render(
+    <CheckpointExplorer snapshot={archive} repository={repo} />,
+  );
+  const other = { ...archive, traveler: { ...traveler, id: 'other-traveler' } };
+  view.rerender(<CheckpointExplorer snapshot={other} repository={repo} />);
+  await screen.findByText(/Dias confirmados pelo servidor: 3/);
+  const portal = accessibleMap().getByRole('button', { name: /Portal.*Dia 4/ });
+  await act(async () => resolveOld({ ...remoteSnapshot, completedDays: [] }));
+  fireEvent.click(portal);
+  expect(screen.getByRole('heading', { name: /^Dia 4/ })).toBeInTheDocument();
+  expect(repo.read).toHaveBeenLastCalledWith('other-traveler');
+});
+
+test.each(['network unavailable', 'invalid session'])(
+  'offers retry for %s without showing a saved state',
+  async (error) => {
+    const repo = makeRepository();
+    repo.read
+      .mockRejectedValueOnce(new Error(error))
+      .mockResolvedValueOnce(remoteSnapshot);
+    render(<CheckpointExplorer snapshot={archive} repository={repo} />);
+    expect(await screen.findByRole('alert')).toHaveTextContent(
+      /conex.o e sess.o/,
+    );
+    expect(screen.queryByText(/Dias confirmados/)).not.toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', { name: 'Tentar novamente' }));
+    expect(
+      await screen.findByText(/Dias confirmados pelo servidor: 3/),
+    ).toBeInTheDocument();
+  },
+);
+
+test('keeps the demo playable with the server publication gate closed', async () => {
+  const repo = makeRepository();
+  repo.read.mockResolvedValue({ ...remoteSnapshot, available: false });
+  render(<CheckpointExplorer snapshot={archive} repository={repo} />);
+  expect(
+    await screen.findAllByRole('button', { name: /Portal.*Dia 1/ }),
+  ).toHaveLength(2);
+  expect(repo.submitDay).not.toHaveBeenCalled();
+});
+
+test('advances a day only after the server returns a confirmed checkpoint snapshot', async () => {
+  const repo = makeRepository();
+  const first = { ...remoteSnapshot, completedDays: [] };
+  repo.submitDay
+    .mockResolvedValueOnce({ completed: false })
+    .mockResolvedValueOnce({ completed: true });
+  repo.read.mockResolvedValue({ ...first, completedDays: [1] });
+  render(
+    <CreationExplorerView
+      traveler={traveler}
+      remote={{ initial: first, repository: repo }}
+    />,
+  );
+  fireEvent.click(
+    accessibleMap().getByRole('button', { name: /Portal.*Dia 1/ }),
+  );
+  fireEvent.click(
+    accessibleMap().getByRole('button', { name: 'Marco da luz' }),
+  );
+  fireEvent.click(screen.getByLabelText('A luz.'));
+  fireEvent.click(screen.getByRole('button', { name: 'Conferir resposta' }));
+  expect(await screen.findByText(/Tente novamente/)).toBeInTheDocument();
+  expect(
+    screen.queryByRole('button', { name: /Prosseguir/ }),
+  ).not.toBeInTheDocument();
+  fireEvent.click(screen.getByRole('button', { name: 'Conferir resposta' }));
+  expect(
+    await screen.findByRole('button', { name: /Prosseguir para o Dia 2/ }),
+  ).toBeInTheDocument();
+  expect(repo.submitDay).toHaveBeenCalledWith(traveler.id, 1, 1, 1);
+});
+
+test('retries a failed quiz submission with the same operation ID and displays the server score', async () => {
+  const repo = makeRepository();
+  const initial = {
+    ...remoteSnapshot,
+    completedDays: [1, 2, 3, 4, 5, 6, 7],
+    harmonyCompleted: true,
+  };
+  repo.submitQuiz
+    .mockRejectedValueOnce(new Error('connection lost'))
+    .mockResolvedValueOnce({ score: 2 });
+  repo.read.mockResolvedValue({
+    ...initial,
+    quizAttempts: 1,
+    bestQuizScore: 2,
+  });
+  render(
+    <CreationExplorerView
+      traveler={traveler}
+      remote={{ initial, repository: repo }}
+    />,
+  );
+  fireEvent.click(screen.getByRole('button', { name: /Abrir Harmonia/ }));
+  fireEvent.click(screen.getByRole('button', { name: /Abrir Quiz/ }));
+  for (let index = 0; index < 5; index++) {
+    const question = screen.getByRole('group', {
+      name: new RegExp('Pergunta ' + (index + 1) + ' de 5'),
+    });
+    fireEvent.click(within(question).getAllByRole('radio')[0]);
+    fireEvent.click(
+      within(question).getByRole('button', { name: 'Confirmar resposta' }),
+    );
+  }
+  expect(await screen.findByRole('alert')).toHaveTextContent(
+    /confirmar a tentativa/,
+  );
+  fireEvent.click(screen.getByRole('button', { name: 'Reenviar tentativa' }));
+  expect(await screen.findByText(/2 de 5 acertos/)).toBeInTheDocument();
+  expect(repo.submitQuiz).toHaveBeenCalledTimes(2);
+  expect(repo.submitQuiz.mock.calls[1]).toEqual(repo.submitQuiz.mock.calls[0]);
+  expect(
+    screen.queryByRole('button', { name: /v.deo obrigat.rio/ }),
   ).not.toBeInTheDocument();
 });
