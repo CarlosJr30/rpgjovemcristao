@@ -25,4 +25,6 @@ NEXT: [STORY-002B — Implementação do primeiro cenário jogável](../backlog/
 
 ## Validação e limites
 
+SECURITY REVIEW: auto-revisão documental dos limites Auth/Traveler, confiança em recibos, IDs do cliente e localStorage; PASS no contrato. Revisão de código/independente: N/A (nenhum runtime alterado).
+
 Revisão documental direcionada do commit-base `c27b608f59e2c6ce25897b886b3d0f4b494bcaa4`. Não foram executadas suites, testes de runtime ou chamadas ao Supabase. Sem mudança de código, schema, mídia, Auth, economy, PROD ou deploy. Auto-revisão documental: PASS; revisão bíblica/editorial independente: PENDING antes de publicar conteúdo. Nenhum teste ou estado de persistência foi declarado PASS sem execução.
