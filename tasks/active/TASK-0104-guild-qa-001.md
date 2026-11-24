@@ -30,6 +30,7 @@ DEFINITION_OF_DONE:
 - PostgreSQL isolado: PASS, 9 verificações; dados e recompensas sintéticos.
 - Supabase TEST: migration aplicada como versão `20261124051929`; RLS ligada; sem grants `anon`/`authenticated`; sem permissão ou identidade QA no projeto.
 - TypeScript, ESLint e build: PASS.
+- CI GitHub Actions: PASS no SHA `24123e9c98a002f4fb69cc42612034ef47bda253`; run `45333171391`.
 - Smoke autenticado: PENDING; sem sessão TEST autorizada para a identidade QA.
 - PROD: nenhuma escrita; plano/estado de recuperação verificável indisponível nesta execução.
-- CI exato e publicação PROD: pendentes.
+- Publicação PROD: pendente dos gates de recuperação e smoke autenticado.
