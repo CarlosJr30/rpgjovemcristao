@@ -1,5 +1,4 @@
 ﻿# Personagem, progressão e recompensas
-
 Fonte oficial de PROGRESSION & REWARDS e personagem, atualizada pela TASK-0007. O [balanceamento de Neemias](history/CHARACTER-SYSTEM-NEHEMIAH.md) é SUPERSEDED para a campanha atual; não reutilizar seus números automaticamente.
 
 ## Criação e classes
@@ -51,6 +50,22 @@ Equipar exige posse e compatibilidade; configuração da tentativa fica fixada p
 Servidor calcula elegibilidade. Conclusão, concessão, XP/moedas, posse e desbloqueio devem confirmar atomicamente; recibo permite retomar após resposta perdida. Identidade única de concessão de negócio impede duplicação mesmo com novo ID de operação. Recompensa principal: uma vez por personagem/objetivo publicado; replay não repaga. Objetivo opcional ou descoberta inédita pode ter sua própria concessão única. Sem recompensas aleatórias ou recorrentes aprovadas nesta tarefa. [Quiz](QUIZ-SYSTEM.md) define suas possibilidades de prêmio e bônus limitado por melhoria de recorde, ainda dependente de regras futuras; sorteio de perguntas não implica sorteio de recompensa.
 
 Derrota, recusa comunitária ou pular reflexão não retiram XP/moedas/itens existentes. Ajuda acessível não reduz prêmio principal. Curvas devem permitir toda progressão principal sem comunidade, compras ou completar todos os segredos. Não equiparar nível a maturidade cristã.
+
+## Jornada Bíblica — Fase 1
+
+A regra de recompensas aprovada para `world_id=origins`, `story_id=creation`, “Fase 1 — No Princípio de Tudo” (Gênesis 1:1–2:3) é detalhada no contrato [STORY-001A](../../tasks/completed/STORY-001A-biblical-journey-rewards.md).
+
+| Marco | XP | Moedas | Baús |
+| --- | ---: | ---: | --- |
+| Sete missões da Criação (em conjunto) | 140 | 70 | — |
+| Desafio Harmonia da Criação | 100 | 30 | 1 Comum |
+| Quiz perfeito (5/5) | 60 | 0 | 1 Raro |
+| Conclusão da fase, com vídeo obrigatório | 200 | 100 | 1 Comum + 1 Épico |
+| **Máximo total** | **500** | **200** | **4: 2 Comuns + 1 Raro + 1 Épico** |
+
+Não há divisão aprovada dos 140 XP e 70 moedas entre as sete missões. O Quiz pode ser repetido para aprendizagem, mas o prêmio por 5/5 é único. A elegibilidade depende de prova server-side; replay, retries e concorrência não duplicam concessões. Reflexão, Guilda e aprovação de líder não dão recompensa adicional para esta fase.
+
+**Gate de integração:** o contrato Economy-041 já contém um prêmio separado por conclusão do Mundo das Origens (30 moedas + um Baú Comum, sem XP). Não acumular automaticamente esse evento com o orçamento acima: excederia o teto de moedas/baús. Antes de qualquer implementação, resolver a política de substituição/absorção em versão revisada, preservar recibos históricos e não conceder retroativos. A especificação de STORY-001A não concede recompensa em runtime.
 
 ## Pendências de balanceamento
 
