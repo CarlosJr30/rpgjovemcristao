@@ -57,7 +57,7 @@ A chave da operação de transporte pode mudar após falha; a chave de negócio 
 - **Baús — prontidão de conteúdo/produção: BLOCKED.** O contrato Economy-041 falha fechado se pool ausente/inválido. O último estado auditado neste repositório registra os capítulos de Origens com `content_ready/video_ready/reward_ready=false`; é necessário confirmar estado atualizado e aprovação/publicação dos conteúdos antes de qualquer ativação. Não substituir baú por outra raridade ou item.
 - **Economia — ajuste obrigatório.** A política imutável Economy-041 já define uma recompensa de mundo para `origins` de 30 moedas + 1 Baú Comum, sem XP. Empilhar o pagamento de mundo com os marcos desta fase ultrapassaria o teto aprovado de 200 moedas e quatro baús. Não alterar a regra global aprovada nem emitir ambos: antes de implementação, decidir e versionar se a política de mundo será absorvida/substituída por estas concessões ou se haverá outro enquadramento que preserve o teto; preservar recibos históricos e sem retroativos.
 - **Adaptador atual — ajuste obrigatório.** O modelo `StoryReward` hoje comporta um único payload de prêmio por história e não representa esses quatro marcos. O adaptador de servidor precisa aceitar eventos distintos, totalização auditável e idempotência sem expor uma rota genérica de crédito ao cliente.
-- **Gate de fase — conflito documental.** A regra específica aqui solicitada dispensa aprovação de líder para avançar na Jornada; CORE-GAMEPLAY-LOOP ainda estabelece gate de líder entre fases. Antes da implementação, registrar a precedência da exceção da Jornada e ajustar a fonte global em tarefa própria, sem remover gates de Guilda aplicáveis às atividades comunitárias.
+- **Gate de fase — compatibilizado.** CORE-GAMEPLAY-LOOP agora registra que a Jornada Bíblica avança por seus requisitos narrativos e de gameplay, sem aprovação de líder; gates de líder permanecem aplicáveis às atividades comunitárias quando previstos.
 - **Balanceamento — ajuste futuro.** Os objetivos de XP para as fases 2–6 permanecem metas de design (600/700/850/950/1200 XP); moedas e baús dessas fases não foram especificados. A distribuição por missão e a curva de progressão ainda precisam de validação de balanceamento. Os números não autorizam conceder essas recompensas agora.
 - **Escopo de produto:** sem mudança em Guildas, aprovação comunitária, XP/moedas/baús de outros eventos, economia de PROD, Jornada Bíblica fora desta fase ou conteúdo canônico.
 
@@ -66,9 +66,9 @@ A chave da operação de transporte pode mudar após falha; a chave de negócio 
 - [x] Registrar exatamente o orçamento máximo da Fase 1 e sua composição.
 - [x] Relacionar o contrato à identidade `origins/creation` e Gênesis 1:1–2:3.
 - [x] Definir prova obrigatória, replay sem pagamento repetido e ausência de recompensa por reflexão/liderança.
-- [x] Propor chaves de negócio estáveis e tratamento idempotente/concor­rente.
+- [x] Propor chaves de negócio estáveis e tratamento idempotente/concorrente.
 - [x] Conferir compatibilidade dos tipos de baú e registrar gate de pool/conteúdo.
-- [x] Auditar divergência com o pagamento Economy-041 por mundo e com o gate geral de líder.
+- [x] Auditar o pagamento Economy-041 por mundo e registrar a exceção de progressão da Jornada no loop principal.
 - [ ] Resolver os gates documentais e de política econômica antes de implementação.
 - [ ] Confirmar conteúdo publicado e `content_ready/video_ready/reward_ready` antes de ativar claims.
 - [ ] Implementar e verificar em tarefa futura; este registro não comprova funcionamento em runtime.
