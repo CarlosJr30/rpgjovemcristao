@@ -39,6 +39,12 @@
   gap: 18px;
   margin-top: 18px;
 }
+.layout[hidden] {
+  display: none;
+}
+.flowNav {
+  margin-block: 1rem;
+}
 .playArea,
 .panel {
   min-width: 0;
@@ -308,6 +314,8 @@
   align-self: center;
 }
 .stage:focus-visible,
+.page h2:focus,
+.page h3:focus,
 .panel form:focus,
 .page button:focus-visible,
 .page a:focus-visible,

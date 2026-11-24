@@ -16,6 +16,7 @@ import type { ArchiveCard } from '../../lib/supabase/owned-cards-read';
 import { EQUIPMENT_CATALOG } from '../journey/data/equipmentCatalog';
 import { equipmentAssetForItem } from '../journey/data/avatarAssets';
 import { DiaryContents } from '../journey/screens/diary';
+import { CreationDiaryChapter } from '../journey/components/creation-diary-chapter';
 import styles from '../journey/journey.module.css';
 import book from '../journey/components/diary-experience.module.css';
 import cardsCss from '../guild-missions/panel.module.css';
@@ -27,7 +28,7 @@ import {
   emptyTrainingSnapshot,
 } from '../../lib/training-qa/store';
 import Link from 'next/link';
-import { isShopTestPreview, isShopRelease } from '../../lib/release-scope';
+import { CREATION_DEMO_PATH, isReleasedPath, isShopTestPreview, isShopRelease } from '../../lib/release-scope';
 import { readQAShop } from '../../lib/qa-shop/client';
 import { useAuth } from '../../lib/supabase/auth-context';
 import { useJourney } from '../journey/state/use-journey';
@@ -549,6 +550,7 @@ export function ArchiveDiary() {
                 disponíveis na sua conta.
               </p>
             </section>
+            {isReleasedPath(CREATION_DEMO_PATH) && <CreationDiaryChapter />}
           </article>
         )
       }

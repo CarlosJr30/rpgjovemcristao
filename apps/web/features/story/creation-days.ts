@@ -23,6 +23,10 @@ type Day = Readonly<{
 
 const mainMarker = { x: 72, y: 50 };
 
+export function creationPassageUrl(passage: string) {
+  return `https://www.bible.com/pt/bible/129/GEN.${passage}.NVI`;
+}
+
 export const CREATION_DAYS: readonly Day[] = [
   {
     id: 'creation-day-1',

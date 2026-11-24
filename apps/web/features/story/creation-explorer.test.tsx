@@ -182,6 +182,79 @@ test('requires each day’s educational interaction and correct answer before ad
       screen.getByRole('list', { name: 'Símbolos embaralhados' }),
     ).getAllByRole('button'),
   ).toHaveLength(7);
+  const click = (name: string) =>
+    fireEvent.click(screen.getByRole('button', { name }));
+  const bank = within(
+    screen.getByRole('list', { name: 'Símbolos embaralhados' }),
+  );
+  const symbols = [
+    'Luz e trevas',
+    'Firmamento',
+    'Terra, mares e vegetação',
+    'Luminares',
+    'Aves e criaturas das águas',
+    'Animais terrestres e humanidade',
+    'Descanso do sétimo dia',
+  ];
+  expect(
+    screen.queryByRole('button', { name: 'Abrir Quiz da Criação' }),
+  ).not.toBeInTheDocument();
+  fireEvent.click(bank.getByRole('button', { name: symbols[0] }));
+  click('Abrir Diário Bíblico');
+  const chapter = within(
+    screen.getByRole('region', { name: 'Diário Bíblico da Criação' }),
+  );
+  expect(chapter.getAllByText('Descoberto nesta demonstração')).toHaveLength(7);
+  expect(chapter.getAllByRole('link', { name: /Ler Gênesis/ })).toHaveLength(7);
+  click('Voltar à demonstração');
+  expect(
+    bank.getByRole('button', { name: /Luz e trevas, posicionado/ }),
+  ).toHaveAttribute('aria-disabled', 'true');
+  symbols
+    .slice(1)
+    .forEach((name) => fireEvent.click(bank.getByRole('button', { name })));
+  click('Verificar sequência');
+  click('Abrir Quiz da Criação');
+
+  const expectedAnswers = [
+    'A luz',
+    'Terceiro dia',
+    'Os luminares',
+    'De Deus',
+    /Concluiu Sua obra/,
+  ];
+  function respond(answer: string | RegExp, index: number) {
+    expect(
+      screen.getByRole('heading', {
+        name: new RegExp(`Pergunta ${index + 1} de 5`),
+      }),
+    ).toBeInTheDocument();
+    expect(screen.getAllByRole('radio')).toHaveLength(3);
+    expect(
+      screen.getByRole('button', { name: 'Confirmar resposta' }),
+    ).toBeDisabled();
+    fireEvent.click(screen.getByRole('radio', { name: answer }));
+    click('Confirmar resposta');
+  }
+  respond('Os animais terrestres', 0);
+  click('Abrir Diário Bíblico');
+  click('Voltar à demonstração');
+  expectedAnswers.slice(1).forEach((answer, i) => respond(answer, i + 1));
+  expect(screen.getByRole('status')).toHaveTextContent(
+    'Você concluiu o Quiz da Criação! 4 de 5 acertos.',
+  );
+  expect(screen.getByText(/7 de 7 dias/)).toBeInTheDocument();
+  expect(screen.getByText(/vídeo obrigatório ainda falta/)).toBeInTheDocument();
+  expect(screen.getAllByRole('link', { name: /Gênesis.*NVI/ })).toHaveLength(5);
+  click('Abrir Diário Bíblico');
+  click('Voltar à demonstração');
+  expect(screen.getByRole('status')).toHaveTextContent('4 de 5 acertos');
+  click('Repetir quiz');
+  expectedAnswers.forEach(respond);
+  expect(screen.getByRole('status')).toHaveTextContent('5 de 5 acertos');
+  expect(
+    screen.getByText(/Recompensa futura prevista.*60 XP.*Baú Raro/),
+  ).toBeInTheDocument();
   expect(storageWrite).not.toHaveBeenCalled();
   view.unmount();
   render(<CreationExplorerView traveler={traveler} />);

@@ -26,7 +26,7 @@ function focusTitle(node: HTMLHeadingElement | null) {
   node?.focus();
 }
 
-export function CreationHarmony() {
+export function CreationHarmony({ onStartQuiz }: { onStartQuiz?: () => void }) {
   const [bank, setBank] = useState(shuffleSymbols);
   const [sequence, setSequence] = useState<typeof symbols>([]);
   const [feedback, setFeedback] = useState('Escolha o primeiro símbolo.');
@@ -136,6 +136,9 @@ export function CreationHarmony() {
                 <button
                   type="button"
                   aria-disabled={placed}
+                  aria-label={
+                    placed ? `${symbol.label}, posicionado` : undefined
+                  }
                   onClick={() => place(symbol)}
                 >
                   <span className={css.icon} aria-hidden="true">
@@ -171,6 +174,13 @@ export function CreationHarmony() {
         <p className={css.feedback} role="status" aria-atomic="true">
           {feedback}
         </p>
+        {complete && onStartQuiz && (
+          <div className={css.actions}>
+            <button type="button" onClick={onStartQuiz}>
+              Abrir Quiz da Criação
+            </button>
+          </div>
+        )}
       </div>
     </section>
   );

@@ -15,6 +15,8 @@ import { JourneySpotlight } from '../components/journey-spotlight';
 import { diaryView, type DiaryEvent } from '../data/diaryView';
 import book from '../components/diary-experience.module.css';
 import type { Traveler } from '../domain/traveler';
+import { CreationDiaryChapter } from '../components/creation-diary-chapter';
+import { CREATION_DEMO_PATH, isReleasedPath } from '../../../lib/release-scope';
 
 const displayDate = (value: string) =>
   new Intl.DateTimeFormat('pt-BR', {
@@ -122,6 +124,9 @@ export function DiaryContents({
             <a href="#diary-readings">Leituras</a>
             <a href="#diary-reflection">Reflexão</a>
             <a href="#diary-quiz">Quiz</a>
+            {isReleasedPath(CREATION_DEMO_PATH) && (
+              <a href="#diary-creation">Criação</a>
+            )}
           </nav>
         </section>
         <section
@@ -306,6 +311,7 @@ export function DiaryContents({
             </>
           )}
         </section>
+        {isReleasedPath(CREATION_DEMO_PATH) && <CreationDiaryChapter />}
         <section className={book.codex} aria-labelledby="equipment-codex-title">
           <p className={book.kicker}>CÓDICE</p>
           <h2 id="equipment-codex-title">Equipamentos &amp; Bíblia</h2>

@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import {
+  useEffect,
   useRef,
   useState,
   type KeyboardEvent,
@@ -14,8 +15,15 @@ import { ArchiveAccess } from '../release-ebd/archive';
 import { AvatarRuntime } from '../journey/components/avatar-runtime';
 import type { Point } from './creation-explorer-model';
 import { movePoint, pointIsNear } from './creation-explorer-model';
-import { CREATION_DAYS } from './creation-days';
+import { CREATION_DAYS, creationPassageUrl } from './creation-days';
 import { CreationHarmony } from './creation-harmony';
+import {
+  CreationJourneySummary,
+  CreationQuiz,
+  type QuizAnswers,
+} from './creation-quiz';
+import { CreationDiaryChapter } from '../journey/components/creation-diary-chapter';
+import book from '../journey/components/diary-experience.module.css';
 import css from './creation-explorer.module.css';
 
 const PORTAL: Point = { x: 78, y: 50 };
@@ -79,8 +87,33 @@ export function CreationExplorerView({
   const [visited, setVisited] = useState<readonly string[]>([]);
   const [feedback, setFeedback] = useState<'retry' | 'correct'>();
   const [harmonyUnlocked, setHarmonyUnlocked] = useState(false);
-  const [harmonyOpen, setHarmonyOpen] = useState(false);
+  const [harmonyStarted, setHarmonyStarted] = useState(false);
+  const [section, setSection] = useState<'harmony' | 'quiz' | 'summary' | null>(
+    null,
+  );
+  const [diaryOpen, setDiaryOpen] = useState(false);
+  const [discoveries, setDiscoveries] = useState<readonly string[]>([]);
+  const [quizAttempt, setQuizAttempt] = useState(0);
+  const [quizResult, setQuizResult] = useState<{
+    attempt: number;
+    answers: QuizAnswers;
+  }>();
   const stage = useRef<HTMLDivElement>(null);
+  const pages = useRef<HTMLDivElement>(null);
+  const returnToMap = useRef(false);
+
+  useEffect(() => {
+    if (diaryOpen || section) {
+      const current = pages.current?.querySelector('[data-current="true"]');
+      const heading =
+        current?.querySelector<HTMLElement>('#creation-question') ??
+        current?.querySelector<HTMLElement>('h2');
+      heading?.focus();
+    } else if (returnToMap.current) {
+      returnToMap.current = false;
+      stage.current?.focus();
+    }
+  }, [diaryOpen, section]);
 
   const day = dayIndex === null ? undefined : CREATION_DAYS[dayIndex];
   const dayNumber = dayIndex === null ? 0 : dayIndex + 1;
@@ -100,7 +133,6 @@ export function CreationExplorerView({
 
   function changeScene(next: number | null, finished = false) {
     if (finished) setHarmonyUnlocked(true);
-    setHarmonyOpen(false);
     setDayIndex(next);
     setPosition(next === null ? INITIAL : START);
     setVisited([]);
@@ -129,6 +161,11 @@ export function CreationExplorerView({
     if (!day || !marker || visited.includes(marker.label)) return;
     setVisited((current) => [...current, marker.label]);
     const remaining = day.markers.length - visited.length - 1;
+    if (!remaining) {
+      setDiscoveries((current) =>
+        current.includes(day.id) ? current : [...current, day.id],
+      );
+    }
     setMessage(
       remaining
         ? `${marker.label}: ${marker.note} Faltam ${remaining} de ${day.markers.length} marcos.`
@@ -176,6 +213,11 @@ export function CreationExplorerView({
       setFeedback(answer === day.correct ? 'correct' : 'retry');
   }
 
+  function openQuiz() {
+    setQuizAttempt((attempt) => Math.max(1, attempt));
+    setSection(quizResult?.attempt === quizAttempt ? 'summary' : 'quiz');
+  }
+
   return (
     <article className={css.page}>
       <Link className={css.back} href="/journey/stories/creation">
@@ -192,7 +234,6 @@ export function CreationExplorerView({
       </header>
       <div className={css.notice} role="note">
         A demonstração reinicia ao atualizar a página ou trocar de dispositivo.
-        Recomeçar pelo portal leva ao Dia 1.
         {canonicalSteps.length > 0 && (
           <span>
             {' '}
@@ -200,7 +241,7 @@ export function CreationExplorerView({
           </span>
         )}
       </div>
-      <div className={css.layout}>
+      <div className={css.layout} hidden={diaryOpen || section !== null}>
         <section className={css.playArea} aria-label="Exploração">
           <div
             className={css.stage}
@@ -282,7 +323,9 @@ export function CreationExplorerView({
             {nearby && (
               <span className={css.nearby}>Ao alcance: {nearby.label}</span>
             )}
-            <Link href="/journey/diary">Abrir Diário Bíblico</Link>
+            <button type="button" onClick={() => setDiaryOpen(true)}>
+              Abrir Diário Bíblico
+            </button>
           </div>
         </section>
         <aside className={css.panel}>
@@ -293,9 +336,7 @@ export function CreationExplorerView({
           {day ? (
             <>
               <p>
-                <a
-                  href={`https://www.bible.com/pt/bible/129/GEN.${day.passage}.NVI`}
-                >
+                <a href={creationPassageUrl(day.passage)}>
                   Ler {day.reference} (NVI)
                 </a>
               </p>
@@ -396,12 +437,12 @@ export function CreationExplorerView({
             (harmonyUnlocked ? (
               <button
                 type="button"
-                aria-expanded={harmonyOpen}
-                onClick={() => setHarmonyOpen((open) => !open)}
+                onClick={() => {
+                  setHarmonyStarted(true);
+                  setSection('harmony');
+                }}
               >
-                {harmonyOpen
-                  ? 'Fechar Harmonia da Criação'
-                  : 'Abrir Harmonia da Criação'}
+                Abrir Harmonia da Criação
               </button>
             ) : (
               <p>
@@ -411,7 +452,89 @@ export function CreationExplorerView({
             ))}
         </aside>
       </div>
-      {!day && harmonyOpen && <CreationHarmony />}
+      <div ref={pages}>
+        {section && !diaryOpen && (
+          <nav
+            className={`${css.actions} ${css.flowNav}`}
+            aria-label="Navegação da demonstração"
+          >
+            <button
+              type="button"
+              onClick={() => {
+                returnToMap.current = true;
+                setSection(null);
+              }}
+            >
+              Voltar ao Santuário
+            </button>
+            {section !== 'harmony' && (
+              <button type="button" onClick={() => setSection('harmony')}>
+                Voltar à Harmonia
+              </button>
+            )}
+            <button type="button" onClick={() => setDiaryOpen(true)}>
+              Abrir Diário Bíblico
+            </button>
+            {quizResult && section !== 'summary' && (
+              <button type="button" onClick={() => setSection('summary')}>
+                Ver resumo da Jornada
+              </button>
+            )}
+          </nav>
+        )}
+        {harmonyStarted && (
+          <div
+            hidden={diaryOpen || section !== 'harmony'}
+            data-current={!diaryOpen && section === 'harmony'}
+          >
+            <CreationHarmony onStartQuiz={openQuiz} />
+          </div>
+        )}
+        {quizAttempt > 0 && (
+          <div
+            hidden={diaryOpen || section !== 'quiz'}
+            data-current={!diaryOpen && section === 'quiz'}
+          >
+            <CreationQuiz
+              key={quizAttempt}
+              onComplete={(answers) => {
+                setQuizResult({ attempt: quizAttempt, answers });
+                setSection('summary');
+              }}
+            />
+          </div>
+        )}
+        {quizResult && !diaryOpen && section === 'summary' && (
+          <div data-current="true">
+            <CreationJourneySummary
+              answers={quizResult.answers}
+              discoveries={discoveries}
+              onRepeat={() => {
+                setQuizAttempt((attempt) => attempt + 1);
+                setSection('quiz');
+              }}
+            />
+          </div>
+        )}
+        {diaryOpen && (
+          <div data-current="true">
+            <div className={`${css.actions} ${css.flowNav}`}>
+              <button
+                type="button"
+                onClick={() => {
+                  returnToMap.current = section === null;
+                  setDiaryOpen(false);
+                }}
+              >
+                Voltar à demonstração
+              </button>
+            </div>
+            <div className={book.book}>
+              <CreationDiaryChapter discoveries={discoveries} />
+            </div>
+          </div>
+        )}
+      </div>
     </article>
   );
 }
