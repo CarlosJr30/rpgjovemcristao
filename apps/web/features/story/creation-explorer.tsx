@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import {
+  useCallback,
   useEffect,
   useRef,
   useState,
@@ -11,12 +12,23 @@ import {
 } from 'react';
 import type { ArchiveSnapshot } from '../../lib/supabase/online-sync';
 import { getSupabaseBrowserClient } from '../../lib/supabase/client';
-import { getOnlineSessionRevision } from '../../lib/supabase/online-sync';
+import {
+  getCurrentOnlineUserId,
+  getOnlineSessionRevision,
+} from '../../lib/supabase/online-sync';
 import {
   createCreationCheckpointRepository,
   CreationCheckpointUnavailable,
   type CreationCheckpointSnapshot,
 } from '../../lib/supabase/repositories/creation-checkpoint-repository';
+import { creationManifestId } from './creation-manifest';
+import {
+  clearPendingQuiz,
+  discardPendingQuizForOtherTraveler,
+  invalidatePendingQuiz,
+  preparePendingQuiz,
+  readPendingQuiz,
+} from './creation-pending-quiz';
 import { CREATION_QUIZ } from './creation-quiz-content';
 import { useStoryProgress } from './use-story-progress';
 import { ArchiveAccess } from '../release-ebd/archive';
@@ -78,8 +90,11 @@ function AuthenticatedExplorer({ snapshot }: { snapshot: ArchiveSnapshot }) {
       'https://wkdvdzfkbwvhyjmamrsg.supabase.co'
   )
     return <DemoExplorer snapshot={snapshot} />;
+  const accountId = getCurrentOnlineUserId();
+  if (!accountId) return <DemoExplorer snapshot={snapshot} />;
   return (
     <CheckpointExplorer
+      accountId={accountId}
       key={snapshot.traveler.id + ':' + getOnlineSessionRevision()}
       snapshot={snapshot}
     />
@@ -87,27 +102,59 @@ function AuthenticatedExplorer({ snapshot }: { snapshot: ArchiveSnapshot }) {
 }
 
 export function CheckpointExplorer(props: CheckpointExplorerProps) {
-  return <CheckpointSession key={props.snapshot.traveler.id} {...props} />;
+  return (
+    <CheckpointSession
+      key={props.accountId + ':' + props.snapshot.traveler.id}
+      {...props}
+    />
+  );
 }
 
 type CheckpointExplorerProps = {
+  accountId: string;
   snapshot: ArchiveSnapshot;
   repository?: typeof checkpointRepository;
 };
 
 function CheckpointSession({
   snapshot,
+  accountId,
   repository = checkpointRepository,
 }: CheckpointExplorerProps) {
   const [initial, setInitial] = useState<CreationCheckpointSnapshot | null>();
   const [failed, setFailed] = useState(false);
+  const [expectedManifest, setExpectedManifest] = useState<string>();
+  const [hasPendingQuiz, setHasPendingQuiz] = useState(false);
   const [attempt, setAttempt] = useState(0);
   const id = snapshot.traveler.id;
   useEffect(() => {
     let active = true;
-    repository.read(id).then(
-      (progress) => {
-        if (active) setInitial(progress);
+    try {
+      discardPendingQuizForOtherTraveler(accountId, id);
+    } catch {
+      // An unavailable store is handled when a quiz is submitted.
+    }
+    Promise.all([repository.read(id), creationManifestId()]).then(
+      ([progress, manifest]) => {
+        if (!active) return;
+        const scope = JSON.stringify([
+          accountId,
+          id,
+          progress.revision,
+          progress.manifest,
+        ]);
+        try {
+          if (progress.available && progress.manifest === manifest)
+            setHasPendingQuiz(Boolean(readPendingQuiz(scope)));
+          else {
+            invalidatePendingQuiz();
+            setHasPendingQuiz(false);
+          }
+        } catch {
+          // Optional browser storage does not authorize checkpoints.
+        }
+        setExpectedManifest(manifest);
+        setInitial(progress);
       },
       (error: unknown) => {
         if (!active) return;
@@ -118,7 +165,7 @@ function CheckpointSession({
     return () => {
       active = false;
     };
-  }, [id, attempt, repository]);
+  }, [accountId, id, attempt, repository]);
   if (failed)
     return (
       <section>
@@ -138,13 +185,19 @@ function CheckpointSession({
     );
   if (initial === undefined)
     return <p role="status">Consultando checkpoints da Criação…</p>;
-  if (!initial || !initial.available || initial.revision !== 1)
+  if (!initial || !initial.available)
     return <DemoExplorer snapshot={snapshot} />;
+  if (initial.manifest !== expectedManifest)
+    return (
+      <p role="alert">
+        Conteúdo da Criação incompatível com esta versão do aplicativo.
+      </p>
+    );
   return (
     <CreationExplorerView
       key={initial.revision}
       traveler={snapshot.traveler}
-      remote={{ initial, repository }}
+      remote={{ initial, repository, accountId, hasPendingQuiz }}
     />
   );
 }
@@ -171,6 +224,8 @@ export function CreationExplorerView({
   canonicalSteps?: readonly string[];
   remote?: {
     initial: CreationCheckpointSnapshot;
+    accountId: string;
+    hasPendingQuiz?: boolean;
     repository: typeof checkpointRepository;
   };
 }) {
@@ -187,7 +242,19 @@ export function CreationExplorerView({
   const [savingDay, setSavingDay] = useState(false);
   const dayRequest = useRef(false);
   const [saveError, setSaveError] = useState('');
-  const operationId = useRef<string>(undefined);
+  const [blocked, setBlocked] = useState('');
+  const [pendingQuiz, setPendingQuiz] = useState(
+    remote?.hasPendingQuiz ?? false,
+  );
+  const quizRequest = useRef(false);
+  const mounted = useRef(false);
+  const readGeneration = useRef(0);
+  const repository = remote?.repository;
+  const manifest = remote?.initial.manifest;
+  const revision = remote?.initial.revision;
+  const quizScope =
+    remote &&
+    JSON.stringify([remote.accountId, traveler.id, revision, manifest]);
   const completedDays = saved?.completedDays.length ?? 0;
   const harmonyUnlocked = remote
     ? completedDays === CREATION_DAYS.length
@@ -331,9 +398,11 @@ export function CreationExplorerView({
     setFeedback(undefined);
     setSaveError('');
     try {
+      await refreshRemote();
       const result = await remote.repository.submitDay(
         traveler.id,
         remote.initial.revision,
+        remote.initial.manifest!,
         dayNumber,
         answer + 1,
       );
@@ -353,23 +422,123 @@ export function CreationExplorerView({
     }
   }
 
-  async function refreshRemote() {
-    if (!remote) throw new Error('Checkpoint mode unavailable');
-    const state = await remote.repository.read(traveler.id);
-    if (!state.available || state.revision !== remote.initial.revision)
-      throw new Error('Checkpoint revision unavailable');
-    setSaved(state);
-    return state;
-  }
+  const refreshRemote = useCallback(async () => {
+    if (!repository || !manifest)
+      throw new Error('Checkpoint mode unavailable');
+    const generation = ++readGeneration.current;
+    const current = () =>
+      mounted.current && readGeneration.current === generation;
+    try {
+      const state = await repository.read(traveler.id);
+      if (!current()) throw new Error('Checkpoint read superseded');
+      if (
+        !state.available ||
+        state.revision !== revision ||
+        state.manifest !== manifest
+      ) {
+        try {
+          if (quizScope) clearPendingQuiz(quizScope);
+        } catch {
+          // The server result still invalidates the view when storage is blocked.
+        }
+        setPendingQuiz(false);
+        throw new CreationCheckpointUnavailable();
+      }
+      setSaved(state);
+      setBlocked('');
+      return state;
+    } catch (error) {
+      if (!current()) throw error;
+      setSaved(undefined);
+      setSection(null);
+      setHarmonyStarted(false);
+      setQuizResult(undefined);
+      setQuizAttempt(0);
+      setBlocked(
+        error instanceof CreationCheckpointUnavailable
+          ? 'Revisão da Criação indisponível ou incompatível.'
+          : 'Não foi possível confirmar o acesso aos checkpoints.',
+      );
+      throw error;
+    }
+  }, [repository, manifest, revision, traveler.id, quizScope]);
+
+  useEffect(() => {
+    if (!repository) return;
+    readGeneration.current++;
+    mounted.current = true;
+    const recheck = () => {
+      if (document.visibilityState !== 'hidden')
+        void refreshRemote().catch(() => {});
+    };
+    window.addEventListener('focus', recheck);
+    window.addEventListener('pageshow', recheck);
+    document.addEventListener('visibilitychange', recheck);
+    const timer = window.setInterval(recheck, 30_000);
+    return () => {
+      mounted.current = false;
+      window.removeEventListener('focus', recheck);
+      window.removeEventListener('pageshow', recheck);
+      document.removeEventListener('visibilitychange', recheck);
+      window.clearInterval(timer);
+    };
+  }, [repository, refreshRemote]);
 
   async function verifyHarmony(order: number[]) {
-    if (!remote) return false;
-    const result = await remote.repository.submitHarmony(
-      traveler.id,
-      remote.initial.revision,
-      order,
-    );
-    return result.completed && (await refreshRemote()).harmonyCompleted;
+    if (!remote || !manifest) return false;
+    const state = await refreshRemote();
+    if (state.completedDays.length !== 7) return false;
+    try {
+      const result = await remote.repository.submitHarmony(
+        traveler.id,
+        state.revision,
+        manifest,
+        order,
+      );
+      return result.completed && (await refreshRemote()).harmonyCompleted;
+    } catch (error) {
+      await refreshRemote().catch(() => {});
+      throw error;
+    }
+  }
+
+  async function recordQuiz(answers: number[], displayAnswers?: QuizAnswers) {
+    if (!repository || !quizScope || !manifest || quizRequest.current)
+      return false;
+    quizRequest.current = true;
+    try {
+      const current = await refreshRemote();
+      if (!current.harmonyCompleted) return false;
+      const pending = preparePendingQuiz(quizScope, answers);
+      setPendingQuiz(true);
+      const result = await repository.submitQuiz(
+        traveler.id,
+        current.revision,
+        manifest,
+        pending.id,
+        pending.answers,
+      );
+      if (
+        result.attemptId !== pending.id ||
+        result.revision !== current.revision
+      )
+        throw new Error('Quiz receipt mismatch');
+      await refreshRemote();
+      clearPendingQuiz(quizScope, pending.id);
+      setPendingQuiz(false);
+      setQuizResult({
+        attempt: quizAttempt,
+        answers: displayAnswers ?? {},
+        score: result.score,
+      });
+      setSection('summary');
+      return true;
+    } catch {
+      await refreshRemote().catch(() => {});
+      return false;
+    } finally {
+      quizRequest.current = false;
+    }
   }
 
   async function submitQuiz(answers: QuizAnswers) {
@@ -378,38 +547,63 @@ export function CreationExplorerView({
       setSection('summary');
       return true;
     }
+    const indices = CREATION_QUIZ.map(
+      (question) =>
+        question.options.findIndex(
+          (option) => option.id === answers[question.id],
+        ) + 1,
+    );
+    return recordQuiz(indices, answers);
+  }
+
+  async function resumeQuiz() {
+    if (!quizScope || !pendingQuiz) return;
     try {
-      operationId.current ??= crypto.randomUUID();
-      const indices = CREATION_QUIZ.map(
-        (question) =>
-          question.options.findIndex(
-            (option) => option.id === answers[question.id],
-          ) + 1,
-      );
-      const result = await remote.repository.submitQuiz(
-        traveler.id,
-        remote.initial.revision,
-        operationId.current,
-        indices,
-      );
-      await refreshRemote();
-      setQuizResult({ attempt: quizAttempt, answers, score: result.score });
-      setSection('summary');
-      return true;
+      const pending = readPendingQuiz(quizScope);
+      if (pending && !(await recordQuiz(pending.answers)))
+        setSaveError('Não foi possível confirmar a tentativa pendente.');
     } catch {
-      return false;
+      setSaveError('Não foi possível recuperar a tentativa pendente.');
     }
   }
 
-  function openQuiz() {
-    setQuizAttempt((attempt) => Math.max(1, attempt));
+  async function openHarmony() {
+    if (remote) {
+      const state = await refreshRemote().catch(() => undefined);
+      if (state?.completedDays.length !== 7) return;
+    }
+    setHarmonyStarted(true);
+    setSection('harmony');
+  }
+
+  async function openQuiz(repeat = false) {
+    const state = remote
+      ? await refreshRemote().catch(() => undefined)
+      : undefined;
+    if (remote && !state?.harmonyCompleted) return;
+    if (remote && pendingQuiz) return resumeQuiz();
+    setQuizAttempt((attempt) => (repeat ? attempt + 1 : Math.max(1, attempt)));
     setSection(
-      (saved && saved.quizAttempts > 0 && quizAttempt === 0) ||
-        (quizResult && quizResult.attempt === quizAttempt)
+      !repeat &&
+        ((state && state.quizAttempts > 0 && quizAttempt === 0) ||
+          (quizResult && quizResult.attempt === quizAttempt))
         ? 'summary'
         : 'quiz',
     );
   }
+
+  if (blocked)
+    return (
+      <section>
+        <p role="alert">{blocked}</p>
+        <button
+          type="button"
+          onClick={() => void refreshRemote().catch(() => {})}
+        >
+          Tentar novamente
+        </button>
+      </section>
+    );
 
   return (
     <article className={css.page}>
@@ -636,13 +830,7 @@ export function CreationExplorerView({
           </ul>
           {!day &&
             (harmonyUnlocked ? (
-              <button
-                type="button"
-                onClick={() => {
-                  setHarmonyStarted(true);
-                  setSection('harmony');
-                }}
-              >
+              <button type="button" onClick={openHarmony}>
                 Abrir Harmonia da Criação
               </button>
             ) : (
@@ -653,6 +841,14 @@ export function CreationExplorerView({
             ))}
         </aside>
       </div>
+      {remote && pendingQuiz && (
+        <div>
+          <button type="button" onClick={resumeQuiz}>
+            Retomar tentativa pendente do quiz
+          </button>
+          {saveError && <p role="status">{saveError}</p>}
+        </div>
+      )}
       <div ref={pages}>
         {section && !diaryOpen && (
           <nav
@@ -669,7 +865,7 @@ export function CreationExplorerView({
               Voltar ao Santuário
             </button>
             {section !== 'harmony' && (
-              <button type="button" onClick={() => setSection('harmony')}>
+              <button type="button" onClick={openHarmony}>
                 Voltar à Harmonia
               </button>
             )}
@@ -689,7 +885,7 @@ export function CreationExplorerView({
             data-current={!diaryOpen && section === 'harmony'}
           >
             <CreationHarmony
-              onStartQuiz={openQuiz}
+              onStartQuiz={() => void openQuiz()}
               verified={saved?.harmonyCompleted}
               onVerify={remote ? verifyHarmony : undefined}
             />
@@ -714,15 +910,7 @@ export function CreationExplorerView({
               {quizResult?.score ?? saved.bestQuizScore} de 5 acertos.
               Tentativas registradas: {saved.quizAttempts}.
             </p>
-            <button
-              onClick={() => {
-                operationId.current = undefined;
-                setQuizAttempt((current) => current + 1);
-                setSection('quiz');
-              }}
-            >
-              Repetir quiz
-            </button>
+            <button onClick={() => void openQuiz(true)}>Repetir quiz</button>
           </section>
         )}
         {!remote && quizResult && !diaryOpen && section === 'summary' && (

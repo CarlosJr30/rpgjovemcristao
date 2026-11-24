@@ -363,9 +363,9 @@ export type Database = {
       act_guild_mission_v2: { Args: { p_actor: string; p_mission: string; p_action: string; p_note: string; p_request: string; p_expected_attempt: number }; Returns: string };
       review_guild_mission_v2: { Args: { p_actor: string; p_attempt: string; p_revision: number; p_decision: string; p_reason: string; p_request: string }; Returns: string };
       read_creation_checkpoints: { Args: { p_traveler_id: string }; Returns: Json };
-      submit_creation_day: { Args: { p_traveler_id: string; p_revision: number; p_day: number; p_answer_index: number }; Returns: Json };
-      submit_creation_harmony: { Args: { p_traveler_id: string; p_revision: number; p_order: number[] }; Returns: Json };
-      submit_creation_quiz: { Args: { p_traveler_id: string; p_revision: number; p_operation_id: string; p_answers: number[] }; Returns: Json };
+      submit_creation_day: { Args: { p_traveler_id: string; p_revision: number; p_manifest: string; p_day: number; p_answer_index: number }; Returns: Json };
+      submit_creation_harmony: { Args: { p_traveler_id: string; p_revision: number; p_manifest: string; p_order: number[] }; Returns: Json };
+      submit_creation_quiz: { Args: { p_traveler_id: string; p_revision: number; p_manifest: string; p_operation_id: string; p_answers: number[] }; Returns: Json };
       complete_story: { Args: { p_traveler_id: string; p_story_id: string }; Returns: boolean };
       send_guild_chat_message: { Args: {p_guild_id: string; p_traveler_id: string; p_client_id: string; p_body: string; p_announcement: boolean}; Returns: string };
       guild_chat_summary: {Args: {p_guild_id: string; p_traveler_id: string}; Returns: GuildChatSummary[]};

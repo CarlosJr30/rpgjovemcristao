@@ -1,0 +1,12 @@
+# STORY-007E — Correções da auditoria de checkpoints
+
+Base auditada: `a470a9e1036460e02f98bab308020ea43855d359`. A migração candidata da STORY-007C ainda está em preparação para a primeira aplicação em TEST.
+
+- As quatro RPCs verificam, no banco, conta permanente, titularidade, Viajante ativo e o estado de exclusão e suspensão. O `session_id` vem do JWT do Supabase e precisa corresponder a uma sessão presente em `auth.sessions` da mesma conta, dentro de `not_after`. Sessões ausentes ou expiradas são recusadas nas próximas checagens. Logouts e políticas de Auth só são observáveis quando persistidos no banco. A regra não interrompe transações que já passaram pela checagem e não promete invalidação instantânea em todos os endpoints.
+- A revisão começa em rascunho. O gatilho exige sete dias, cinco perguntas de quiz, alternativas válidas, gabaritos consistentes e símbolos na ordem dos dias. Depois da publicação, o manifesto e as chaves ficam imutáveis. O formato de integração usa os bytes UTF-8 de `CREATION_MANIFEST` e sua identidade SHA-256. A revisão editorial futura deve homologar o mesmo artefato no banco e no aplicativo. A migração mantém o manifesto candidato vazio e o conteúdo em rascunho.
+- A tentativa pendente mantém apenas UUID e alternativas na `sessionStorage` da aba, vinculados a conta, Viajante, revisão e manifesto. Uma recarga na mesma aba permite reenviar a mesma operação. As alternativas locais nunca valem como recibo. O PostgreSQL recusa o mesmo UUID com alternativas diferentes. Após a confirmação do servidor, a aba remove a tentativa pendente. Fechar a aba ou perder o armazenamento pode impedir o reenvio pelo mesmo UUID, mas o resultado gravado continua disponível no snapshot do servidor.
+- A interface revalida em foco, retorno pelo histórico, mudança de visibilidade, a cada 30 segundos com a página visível e antes de ações que usam progresso oficial. Perda de acesso ou incompatibilidade remove o snapshot exibido. Entre consultas o cliente pode conservar o último estado conhecido. As escritas continuam sujeitas ao gate síncrono do banco em todas as chamadas.
+
+O escopo termina com a entrega do SHA para uma nova auditoria independente. A aplicação da migração e a publicação editorial continuam pendentes. O catálogo TEST foi consultado apenas para confirmar as colunas de Auth usadas.
+
+Validação local: PostgreSQL efêmero 8/8 com a migração candidata, Vitest direcionado 17/17 em três arquivos, ESLint sem avisos, TypeScript, build de produção e `git diff --check` aprovados.

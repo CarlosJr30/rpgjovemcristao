@@ -1,3 +1,4 @@
+import { createHash } from 'node:crypto';
 import { after, test } from 'node:test';
 import assert from 'node:assert/strict';
 import { execFileSync } from 'node:child_process';
@@ -61,8 +62,30 @@ const query = async (sql) => {
 const user = (n) => `00000000-0000-4000-8000-${String(n).padStart(12, '0')}`;
 const traveler = (n) =>
   `10000000-0000-4000-8000-${String(n).padStart(12, '0')}`;
-const session = (n, sql, anonymous = false) =>
-  `BEGIN;SET LOCAL ROLE authenticated;SET LOCAL request.jwt.claim.sub='${user(n)}';SET LOCAL request.jwt.claims='{"is_anonymous":${anonymous}}';${sql};COMMIT;`;
+const sessionId = (n) =>
+  `30000000-0000-4000-8000-${String(n).padStart(12, '0')}`;
+const fixtureManifest = (revision) =>
+  JSON.stringify({
+    revision,
+    days: Array.from({ length: 7 }, (_, i) => ({
+      id: 'day-' + (i + 1),
+      question: 'Example day',
+      options: ['a', 'b'],
+      answer: (i % 2) + 1,
+      harmonyLabel: 'Symbol ' + (i + 1),
+    })),
+    harmony: Array.from({ length: 7 }, (_, i) => 'day-' + (i + 1)),
+    quiz: [2, 1, 3, 2, 3].map((answer, i) => ({
+      id: 'quiz-' + (i + 1),
+      question: 'Example quiz',
+      options: ['a', 'b', 'c'],
+      answer,
+    })),
+  });
+const manifestId = (revision) =>
+  createHash('sha256').update(fixtureManifest(revision)).digest('hex');
+const session = (n, sql, anonymous = false, sid = sessionId(n)) =>
+  `BEGIN;SET LOCAL ROLE authenticated;SET LOCAL request.jwt.claim.sub='${user(n)}';SET LOCAL request.jwt.claims='{"is_anonymous":${anonymous},"session_id":"${sid}"}';${sql};COMMIT;`;
 const rpc = (n, sql) => query(session(n, sql));
 const denied = (
   sql,
@@ -118,14 +141,16 @@ test('STORY-007: local checkpoint RPCs isolate owners, enforce ordering and repl
   ]);
   await db.connect();
   await query(`CREATE ROLE anon;CREATE ROLE authenticated;CREATE ROLE service_role BYPASSRLS;
-    CREATE SCHEMA auth;CREATE TABLE auth.users(id uuid PRIMARY KEY,is_anonymous boolean NOT NULL DEFAULT false);
+    CREATE SCHEMA auth;CREATE TABLE auth.users(id uuid PRIMARY KEY,is_anonymous boolean NOT NULL DEFAULT false,deleted_at timestamptz,banned_until timestamptz);
+    CREATE TABLE auth.sessions(id uuid PRIMARY KEY,user_id uuid REFERENCES auth.users(id),not_after timestamptz);
     CREATE FUNCTION auth.uid() RETURNS uuid LANGUAGE sql STABLE AS $$ SELECT nullif(current_setting('request.jwt.claim.sub',true),'')::uuid $$;
     CREATE FUNCTION auth.jwt() RETURNS jsonb LANGUAGE sql STABLE AS $$ SELECT coalesce(nullif(current_setting('request.jwt.claims',true),''),'{}')::jsonb $$;
     GRANT USAGE ON SCHEMA auth TO authenticated;GRANT EXECUTE ON FUNCTION auth.uid(),auth.jwt() TO authenticated;
     CREATE TABLE public.travelers(id uuid PRIMARY KEY,user_id uuid REFERENCES auth.users(id),is_active boolean NOT NULL DEFAULT false);
     CREATE TABLE public.wallets(traveler_id uuid PRIMARY KEY,coins integer NOT NULL);
     CREATE FUNCTION public.owns_traveler(p_id uuid) RETURNS boolean LANGUAGE sql STABLE SECURITY DEFINER SET search_path='' AS $$ SELECT EXISTS(SELECT 1 FROM public.travelers WHERE id=p_id AND user_id=auth.uid()) $$;
-    INSERT INTO auth.users VALUES('${user(1)}',false),('${user(2)}',false),('${user(3)}',false),('${user(4)}',true);
+    INSERT INTO auth.users(id,is_anonymous) VALUES('${user(1)}',false),('${user(2)}',false),('${user(3)}',false),('${user(4)}',true);
+    INSERT INTO auth.sessions(id,user_id) VALUES ${[1, 2, 3, 4].map((n) => `('${sessionId(n)}','${user(n)}')`).join(',')};
     INSERT INTO public.travelers VALUES('${traveler(1)}','${user(1)}',true),('${traveler(2)}','${user(2)}',true),('${traveler(3)}','${user(3)}',false),('${traveler(4)}','${user(4)}',true);
     INSERT INTO public.wallets VALUES('${traveler(1)}',7),('${traveler(2)}',11);
     ${fs.readFileSync('packages/database/proposals/task0081-story-progress.sql', 'utf8')}
@@ -147,6 +172,31 @@ test('STORY-007: local checkpoint RPCs isolate owners, enforce ordering and repl
   await denied(migration, /Reviewed STORY-007C TEST baseline required/);
   await query("SET story007c.target_project='wkdvdzfkbwvhyjmamrsg'");
   await query(migration);
+  await assert.rejects(
+    query(
+      "UPDATE story_private.creation_checkpoint_revisions SET status='published' WHERE revision=1",
+    ),
+    /Incomplete creation manifest/,
+  );
+  const incomplete = JSON.parse(fixtureManifest(1));
+  incomplete.days.pop();
+  await assert.rejects(
+    query(
+      `UPDATE story_private.creation_checkpoint_revisions SET status='published',manifest='${JSON.stringify(incomplete)}' WHERE revision=1`,
+    ),
+    /Incomplete creation manifest/,
+  );
+  const inconsistent = JSON.parse(fixtureManifest(1));
+  inconsistent.quiz[0].answer = 1;
+  await assert.rejects(
+    query(
+      `UPDATE story_private.creation_checkpoint_revisions SET status='published',manifest='${JSON.stringify(inconsistent)}' WHERE revision=1`,
+    ),
+    /Inconsistent creation quiz/,
+  );
+  await query(
+    `UPDATE story_private.creation_checkpoint_revisions SET manifest='${fixtureManifest(1)}' WHERE revision=1`,
+  );
   // Synthetic publication exists only in this disposable database.
   await query(
     "INSERT INTO public.story_progress(traveler_id,story_id,completed_steps) VALUES('" +
@@ -160,20 +210,20 @@ test('STORY-007: local checkpoint RPCs isolate owners, enforce ordering and repl
       await denied(
         session(
           2,
-          `SELECT public.submit_creation_day('${traveler(1)}',1,1::smallint,1::smallint)`,
+          `SELECT public.submit_creation_day('${traveler(1)}',1,'${manifestId(1)}',1::smallint,1::smallint)`,
         ),
       );
       await denied(
         session(
           3,
-          `SELECT public.submit_creation_day('${traveler(3)}',1,1::smallint,1::smallint)`,
+          `SELECT public.submit_creation_day('${traveler(3)}',1,'${manifestId(1)}',1::smallint,1::smallint)`,
         ),
-        /Active traveler/,
+        { code: '42501' },
       );
       await denied(
         session(
           4,
-          `SELECT public.submit_creation_day('${traveler(4)}',1,1::smallint,1::smallint)`,
+          `SELECT public.submit_creation_day('${traveler(4)}',1,'${manifestId(1)}',1::smallint,1::smallint)`,
           true,
         ),
       );
@@ -227,6 +277,60 @@ test('STORY-007: local checkpoint RPCs isolate owners, enforce ordering and repl
   );
 
   await t.test(
+    'blocks suspended, deleted and ended sessions across the RPCs',
+    async () => {
+      const id = traveler(2);
+      const revision = `1,'${manifestId(1)}'`;
+      const calls = [
+        `SELECT public.read_creation_checkpoints('${id}')`,
+        `SELECT public.submit_creation_day('${id}',${revision},1::smallint,1::smallint)`,
+        `SELECT public.submit_creation_harmony('${id}',${revision},ARRAY[1]::smallint[])`,
+        `SELECT public.submit_creation_quiz('${id}',${revision},'${sessionId(2)}',ARRAY[1]::smallint[])`,
+      ];
+      const owner = `WHERE id='${user(2)}'`;
+      for (const [column, value] of [
+        ['banned_until', "now()+interval '1 hour'"],
+        ['deleted_at', 'now()'],
+      ]) {
+        await query(`UPDATE auth.users SET ${column}=${value} ${owner}`);
+        for (const call of calls)
+          await denied(session(2, call), { code: '42501' });
+        await query(`UPDATE auth.users SET ${column}=NULL ${owner}`);
+      }
+      for (const call of calls) {
+        await denied(session(2, call, false, 'invalid'), { code: '42501' });
+        await denied(session(2, call, false, sessionId(1)), { code: '42501' });
+      }
+      const target = `WHERE id='${sessionId(2)}'`;
+      await query(
+        `UPDATE auth.sessions SET not_after=now()-interval '1 second' ${target}`,
+      );
+      for (const call of calls)
+        await denied(session(2, call), { code: '42501' });
+      await query(`DELETE FROM auth.sessions ${target}`);
+      for (const call of calls)
+        await denied(session(2, call), { code: '42501' });
+      await query(
+        `INSERT INTO auth.sessions(id,user_id) VALUES ('${sessionId(2)}','${user(2)}')`,
+      );
+    },
+  );
+
+  await t.test('rejects submissions tied to a different manifest', async () => {
+    await denied(
+      session(
+        1,
+        `SELECT public.submit_creation_day('${traveler(1)}',1,'${'0'.repeat(64)}',1::smallint,1::smallint)`,
+      ),
+      /Creation revision unavailable/,
+    );
+    const snapshot = JSON.parse(
+      await rpc(1, `SELECT public.read_creation_checkpoints('${traveler(1)}')`),
+    );
+    assert.equal(snapshot.manifest, manifestId(1));
+  });
+
+  await t.test(
     'published challenge keys and video manifest cannot be silently rewritten',
     async () => {
       await assert.rejects(
@@ -268,14 +372,14 @@ test('STORY-007: local checkpoint RPCs isolate owners, enforce ordering and repl
       await denied(
         session(
           1,
-          `SELECT public.submit_creation_day('${traveler(1)}',1,2::smallint,2::smallint)`,
+          `SELECT public.submit_creation_day('${traveler(1)}',1,'${manifestId(1)}',2::smallint,2::smallint)`,
         ),
         /Previous creation day incomplete/,
       );
       const wrong = JSON.parse(
         await rpc(
           1,
-          `SELECT public.submit_creation_day('${traveler(1)}',1,1::smallint,2::smallint)`,
+          `SELECT public.submit_creation_day('${traveler(1)}',1,'${manifestId(1)}',1::smallint,2::smallint)`,
         ),
       );
       assert.equal(wrong.correct, false);
@@ -287,7 +391,7 @@ test('STORY-007: local checkpoint RPCs isolate owners, enforce ordering and repl
       );
       const sql = session(
         1,
-        `SELECT public.submit_creation_day('${traveler(1)}',1,1::smallint,1::smallint)`,
+        `SELECT public.submit_creation_day('${traveler(1)}',1,'${manifestId(1)}',1::smallint,1::smallint)`,
       );
       const results = await Promise.all([concurrent(sql), concurrent(sql)]);
       assert.equal(results.length, 2);
@@ -312,45 +416,49 @@ test('STORY-007: local checkpoint RPCs isolate owners, enforce ordering and repl
       for (let day = 2; day <= 7; day++)
         await rpc(
           1,
-          `SELECT public.submit_creation_day('${traveler(1)}',1,${day}::smallint,${keys[day - 1]}::smallint)`,
+          `SELECT public.submit_creation_day('${traveler(1)}',1,'${manifestId(1)}',${day}::smallint,${keys[day - 1]}::smallint)`,
         );
       const wrongOrder = JSON.parse(
         await rpc(
           1,
-          `SELECT public.submit_creation_harmony('${traveler(1)}',1,ARRAY[2,1,3,4,5,6,7]::smallint[])`,
+          `SELECT public.submit_creation_harmony('${traveler(1)}',1,'${manifestId(1)}',ARRAY[2,1,3,4,5,6,7]::smallint[])`,
         ),
       );
       assert.equal(wrongOrder.correct, false);
       const harmony = JSON.parse(
         await rpc(
           1,
-          `SELECT public.submit_creation_harmony('${traveler(1)}',1,ARRAY[1,2,3,4,5,6,7]::smallint[])`,
+          `SELECT public.submit_creation_harmony('${traveler(1)}',1,'${manifestId(1)}',ARRAY[1,2,3,4,5,6,7]::smallint[])`,
         ),
       );
       assert.equal(harmony.completed, true);
       const attempt = '20000000-0000-4000-8000-000000000001';
-      const quiz = JSON.parse(
-        await rpc(
-          1,
-          `SELECT public.submit_creation_quiz('${traveler(1)}',1,'${attempt}',ARRAY[2,1,3,2,3]::smallint[])`,
-        ),
+      const submission = session(
+        1,
+        `SELECT public.submit_creation_quiz('${traveler(1)}',1,'${manifestId(1)}','${attempt}',ARRAY[2,1,3,2,3]::smallint[])`,
       );
-      assert.equal(quiz.score, 5);
-      assert.equal(quiz.perfect, true);
-      assert.equal(quiz.replayed, false);
-      const replay = JSON.parse(
-        await rpc(
+      const results = await Promise.all([
+        concurrent(submission),
+        concurrent(submission),
+      ]);
+      const receipts = results.map((result) => JSON.parse(result));
+      assert.deepEqual(receipts.map(({ replayed }) => replayed).sort(), [
+        false,
+        true,
+      ]);
+      assert.ok(receipts.every(({ score, perfect }) => score === 5 && perfect));
+      await denied(
+        session(
           1,
-          `SELECT public.submit_creation_quiz('${traveler(1)}',1,'${attempt}',ARRAY[1,1,1,1,1]::smallint[])`,
+          `SELECT public.submit_creation_quiz('${traveler(1)}',1,'${manifestId(1)}','${attempt}',ARRAY[1,1,1,1,1]::smallint[])`,
         ),
+        /payload mismatch/,
       );
-      assert.equal(replay.score, 5);
-      assert.equal(replay.replayed, true);
       const second = '20000000-0000-4000-8000-000000000002';
       const retry = JSON.parse(
         await rpc(
           1,
-          `SELECT public.submit_creation_quiz('${traveler(1)}',1,'${second}',ARRAY[1,1,1,1,1]::smallint[])`,
+          `SELECT public.submit_creation_quiz('${traveler(1)}',1,'${manifestId(1)}','${second}',ARRAY[1,1,1,1,1]::smallint[])`,
         ),
       );
       assert.equal(retry.score, 1);
@@ -404,7 +512,7 @@ test('STORY-007: local checkpoint RPCs isolate owners, enforce ordering and repl
       await denied(
         session(
           1,
-          `SELECT public.submit_creation_quiz('${traveler(1)}',1,'20000000-0000-4000-8000-000000000001',ARRAY[2,1,3,2,3]::smallint[])`,
+          `SELECT public.submit_creation_quiz('${traveler(1)}',1,'${manifestId(1)}','20000000-0000-4000-8000-000000000001',ARRAY[2,1,3,2,3]::smallint[])`,
         ),
         /Creation revision unavailable/,
       );
@@ -415,7 +523,7 @@ test('STORY-007: local checkpoint RPCs isolate owners, enforce ordering and repl
         SELECT 2,answer_indices,reference FROM story_private.creation_quiz_content WHERE revision=1;
       INSERT INTO story_private.creation_video_publications(revision,status) VALUES(2,'draft');
       UPDATE public.story_definitions SET revision=2 WHERE id='creation';
-      UPDATE story_private.creation_checkpoint_revisions SET status='published' WHERE revision=2;`);
+      UPDATE story_private.creation_checkpoint_revisions SET status='published',manifest='${fixtureManifest(2)}' WHERE revision=2;`);
       const state = JSON.parse(
         await rpc(
           1,
@@ -430,7 +538,7 @@ test('STORY-007: local checkpoint RPCs isolate owners, enforce ordering and repl
       await denied(
         session(
           1,
-          `SELECT public.submit_creation_day('${traveler(1)}',1,1::smallint,1::smallint)`,
+          `SELECT public.submit_creation_day('${traveler(1)}',1,'${manifestId(1)}',1::smallint,1::smallint)`,
         ),
         /Stale creation revision/,
       );
@@ -449,7 +557,7 @@ test('STORY-007: local checkpoint RPCs isolate owners, enforce ordering and repl
       await denied(
         session(
           1,
-          `SELECT public.submit_creation_day('${traveler(1)}',2,1::smallint,1::smallint)`,
+          `SELECT public.submit_creation_day('${traveler(1)}',2,'${manifestId(2)}',1::smallint,1::smallint)`,
         ),
         /Creation revision unavailable/,
       );
