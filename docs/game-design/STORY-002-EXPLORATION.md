@@ -16,7 +16,12 @@ O Viajante é controlado pelo jogador. Deus não aparece como avatar, personagem
 
 Os sete títulos e temas de área vêm do pedido desta tarefa. O material existente `apps/web/features/story/origins-lessons.ts` já tem um exercício candidato chamado “O mosaico dos dias” e sete associações correspondentes, mas está marcado `review: 'candidate'`. Pode ser referência para reaproveitamento e planejamento; não o tratar como conteúdo aprovado. As associações, textos de feedback, ilustrações e referências específicas de versículos precisam de revisão bíblica/editorial antes de publicação. Esta especificação não cria assets, texto bíblico novo ou conteúdo pronto para produção.
 
-Preservar o orçamento, sem o implementar: **500 XP, 200 moedas, 2 Baús Comuns, 1 Baú Raro e 1 Baú Épico**. Manter inalteradas as quatro chaves de concessão do [STORY-001A](../../tasks/completed/STORY-001A-biblical-journey-rewards.md). Nenhum componente deste contrato pode dar XP/moedas/baús. O crédito atual de Mundo Origens no Economy-041 (30 moedas + Baú Comum) continua sem resolução para a composição da Fase 1. Bloquear claims até haver política econômica versionada, conteúdo elegível e pools publicados. Não mudar Economy-041 nesta tarefa.
+Preservar o orçamento, sem o implementar: **500 XP, 200 moedas, 2 Baús Comuns, 1 Baú Raro e 1 Baú Épico**. Manter inalteradas as quatro chaves de concessão do [STORY-001A](../../tasks/completed/STORY-001A-biblical-journey-rewards.md). Chaves atuais, reproduzidas sem alteração:
+
+- Sete missões agregadas: `story:creation:missions:all-seven:v1`
+- Desafio Harmonia da Criação: `story:creation:challenge:harmony-of-creation:v1`
+- Quiz perfeito 5/5: `story:creation:quiz:perfect-5-of-5:v1`
+- Conclusão da fase: `story:creation:phase-completion:v1` Nenhum componente deste contrato pode dar XP/moedas/baús. O crédito atual de Mundo Origens no Economy-041 (30 moedas + Baú Comum) continua sem resolução para a composição da Fase 1. Bloquear claims até haver política econômica versionada, conteúdo elegível e pools publicados. Não mudar Economy-041 nesta tarefa.
 
 ## 2. Auditoria de reaproveitamento no commit-base
 
