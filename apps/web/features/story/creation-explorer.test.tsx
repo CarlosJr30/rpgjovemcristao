@@ -84,3 +84,90 @@ test('moves with desktop keyboard controls and exposes the real traveler avatar'
   fireEvent.keyDown(map, { key: 'ArrowUp' });
   expect(avatar).toHaveStyle({ top: '45%' });
 });
+
+test('requires each day’s educational interaction and correct answer before advancing through all seven days', () => {
+  const storageWrite = vi.spyOn(Storage.prototype, 'setItem');
+  const view = render(
+    <CreationExplorerView traveler={traveler} canonicalSteps={['missions']} />,
+  );
+  const list = within(
+    screen.getByRole('list', { name: 'Navegação acessível' }),
+  );
+  const choose = (name: string) =>
+    fireEvent.click(list.getByRole('button', { name }));
+  const submit = () =>
+    fireEvent.click(screen.getByRole('button', { name: 'Conferir resposta' }));
+
+  choose('Portal · Dia 1');
+  const itinerary = [
+    { markers: ['Marco da luz'], correct: 'A luz.' },
+    {
+      markers: ['Marco do céu'],
+      correct: 'As águas de cima das águas de baixo.',
+    },
+    {
+      markers: ['Terra', 'Mares', 'Vegetação'],
+      correct: /Aparece a terra seca/,
+    },
+    { markers: ['Marco dos luminares'], correct: /Iluminar a terra/ },
+    { markers: ['Marco da vida'], correct: 'Seres aquáticos e aves.' },
+    { markers: ['Marco da humanidade'], correct: /Os seres humanos, criados/ },
+    {
+      markers: ['Marco do descanso'],
+      correct: /Deus havia concluído sua obra/,
+    },
+  ];
+  itinerary.forEach(({ markers, correct }, index) => {
+    expect(
+      screen.getByRole('heading', { name: new RegExp(`^Dia ${index + 1} —`) }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('link', { name: /Ler Gênesis.*NVI/ }),
+    ).toBeInTheDocument();
+    for (const marker of markers) {
+      expect(
+        screen.queryByRole('form', { name: 'Desafio demonstrativo' }),
+      ).not.toBeInTheDocument();
+      choose(marker);
+    }
+    if (index === 2)
+      expect(
+        within(
+          screen.getByRole('list', { name: 'Notas dos marcos visitados' }),
+        ).getAllByRole('listitem'),
+      ).toHaveLength(3);
+    const answer = screen.getByRole('radio', { name: correct });
+    const wrong = screen
+      .getAllByRole('radio')
+      .find((radio) => radio !== answer)!;
+    const advance =
+      index < 6
+        ? `Prosseguir para o Dia ${index + 2}`
+        : 'Encerrar a demo no Santuário';
+    fireEvent.click(wrong);
+    submit();
+    expect(screen.getByText(/Tente novamente/)).toBeInTheDocument();
+    expect(
+      screen.queryByRole('button', { name: advance }),
+    ).not.toBeInTheDocument();
+    fireEvent.click(answer);
+    submit();
+    expect(
+      screen.getByText(/Resposta correta. Explicação do relato/),
+    ).toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', { name: advance }));
+  });
+  expect(
+    screen.getByText('Você percorreu os sete dias da demonstração.'),
+  ).toBeInTheDocument();
+  expect(
+    screen.getByText(/Registros canônicos consultados: 1/),
+  ).toBeInTheDocument();
+  expect(storageWrite).not.toHaveBeenCalled();
+  view.unmount();
+  render(<CreationExplorerView traveler={traveler} />);
+  expect(
+    screen.queryByText('Você percorreu os sete dias da demonstração.'),
+  ).not.toBeInTheDocument();
+  expect(screen.getByText('Santuário fictício')).toBeInTheDocument();
+});

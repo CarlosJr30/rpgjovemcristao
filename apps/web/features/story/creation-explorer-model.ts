@@ -1,15 +1,5 @@
 export type Point = { x: number; y: number };
 
-export const CREATION_DAYS = [
-  'Luz e trevas',
-  'Firmamento',
-  'Terra e vegetação',
-  'Luminares',
-  'Aves e criaturas das águas',
-  'Animais terrestres e humanidade',
-  'Descanso e reflexão',
-] as const;
-
 const BARRIER = { left: 44, right: 56, top: 34, bottom: 68 };
 const RADIUS = 2.5;
 

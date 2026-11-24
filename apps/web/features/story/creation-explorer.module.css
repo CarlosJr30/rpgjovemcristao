@@ -66,10 +66,38 @@
     linear-gradient(140deg, #264c3c, #547455 55%, #324b41);
   cursor: crosshair;
 }
-.dayScene {
+.stage[data-area='creation-day-1'] {
   background:
     radial-gradient(ellipse at 78% 34%, #f4cf78, #977845 22%, transparent 50%),
     linear-gradient(105deg, #0e172e 25%, #253451 56%, #564433);
+}
+.stage[data-area='creation-day-2'] {
+  background: linear-gradient(
+    #255671 0 24%,
+    #a7d9df 24% 53%,
+    #286e95 53% 78%,
+    #163f68 78%
+  );
+}
+.stage[data-area='creation-day-3'] {
+  background:
+    radial-gradient(ellipse at 73% 82%, #8ebc60, transparent 30%),
+    linear-gradient(145deg, #a69c62 34%, #346d52 35% 58%, #236c82 59%);
+}
+.stage[data-area='creation-day-4'] {
+  background:
+    radial-gradient(ellipse at 76% 32%, #655596, transparent 60%), #141a41;
+}
+.stage[data-area='creation-day-5'] {
+  background: linear-gradient(#a2c9dc 0 35%, #2a8b91 36% 62%, #135074 63%);
+}
+.stage[data-area='creation-day-6'] {
+  background:
+    radial-gradient(ellipse at 70% 55%, #c7a26c, transparent 50%), #715334;
+}
+.stage[data-area='creation-day-7'] {
+  background:
+    radial-gradient(ellipse at 72% 40%, #adc0a1, transparent 53%), #274957;
 }
 .horizon {
   position: absolute;
@@ -84,13 +112,15 @@
   left: 12px;
   top: 4px;
   margin: 0;
+  max-width: calc(100% - 24px);
   padding: 5px 8px;
   border-radius: 7px;
   background: #fffe;
   color: #263b2b;
   font-weight: 700;
+  font-size: 1rem;
 }
-.dayScene .sceneTitle {
+.stage:not([data-area='sanctuary']) .sceneTitle {
   background: #142038;
   color: white;
 }
@@ -161,6 +191,13 @@
   top: 17%;
   width: 110px;
   height: 110px;
+  display: grid;
+  place-items: center;
+  color: #fff5cb;
+  font-size: clamp(1.45rem, 4vw, 2.4rem);
+  pointer-events: none;
+}
+.stage[data-area='creation-day-1'] .light {
   border-radius: 50%;
   background: radial-gradient(
     circle,
@@ -221,6 +258,7 @@
   min-height: 44px;
 }
 .panel input {
+  flex: none;
   width: 20px;
   height: 20px;
 }
@@ -270,6 +308,7 @@
   align-self: center;
 }
 .stage:focus-visible,
+.panel form:focus,
 .page button:focus-visible,
 .page a:focus-visible,
 .page input:focus-visible {
@@ -309,6 +348,11 @@
   .poi {
     width: 44px;
     height: 44px;
+  }
+  .poi span {
+    box-sizing: border-box;
+    max-width: 120px;
+    text-align: center;
   }
 }
 @media (prefers-reduced-motion: reduce) {

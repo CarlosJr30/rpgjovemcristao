@@ -13,19 +13,19 @@ import { useStoryProgress } from './use-story-progress';
 import { ArchiveAccess } from '../release-ebd/archive';
 import { AvatarRuntime } from '../journey/components/avatar-runtime';
 import type { Point } from './creation-explorer-model';
-import {
-  CREATION_DAYS,
-  movePoint,
-  pointIsNear,
-} from './creation-explorer-model';
+import { movePoint, pointIsNear } from './creation-explorer-model';
+import { CREATION_DAYS } from './creation-days';
 import css from './creation-explorer.module.css';
 
-type Scene = 'sanctuary' | 'day-one';
 const PORTAL: Point = { x: 78, y: 50 };
-const MARKER: Point = { x: 72, y: 50 };
 const START: Point = { x: 22, y: 52 };
 const INITIAL: Point = { x: 18, y: 50 };
 const EXIT: Point = { x: 18, y: 52 };
+const RETURN_MARKER = {
+  point: EXIT,
+  label: 'Retornar ao Santuário',
+  symbol: '↩',
+};
 const KEYS: Record<string, Point> = {
   w: { x: 0, y: -5 },
   arrowup: { x: 0, y: -5 },
@@ -36,6 +36,10 @@ const KEYS: Record<string, Point> = {
   d: { x: 5, y: 0 },
   arrowright: { x: 5, y: 0 },
 };
+
+function focusChallenge(form: HTMLFormElement | null) {
+  form?.focus();
+}
 
 export function CreationExplorerScreen() {
   return (
@@ -65,56 +69,46 @@ export function CreationExplorerView({
   traveler: ArchiveSnapshot['traveler'];
   canonicalSteps?: readonly string[];
 }) {
-  const [scene, setScene] = useState<Scene>('sanctuary');
+  const [dayIndex, setDayIndex] = useState<number | null>(null);
   const [position, setPosition] = useState<Point>(INITIAL);
   const [message, setMessage] = useState(
     'Explore o santuário e interaja com o portal.',
   );
-  const [answer, setAnswer] = useState('');
-  const [challengeOpen, setChallengeOpen] = useState(false);
+  const [answer, setAnswer] = useState<number>();
+  const [visited, setVisited] = useState<readonly string[]>([]);
   const [feedback, setFeedback] = useState<'retry' | 'correct'>();
   const stage = useRef<HTMLDivElement>(null);
 
-  const points =
-    scene === 'sanctuary'
-      ? [
-          {
-            point: PORTAL,
-            label: 'Portal · Dia 1',
-            symbol: '◉',
-          },
-        ]
-      : [
-          {
-            point: MARKER,
-            label: 'Marco da luz',
-            symbol: '✦',
-          },
-          {
-            point: EXIT,
-            label: 'Retornar ao Santuário',
-            symbol: '↩',
-          },
-        ];
+  const day = dayIndex === null ? undefined : CREATION_DAYS[dayIndex];
+  const dayNumber = dayIndex === null ? 0 : dayIndex + 1;
+  const challengeOpen = day?.markers.every(({ label }) =>
+    visited.includes(label),
+  );
+  const points = !day
+    ? [
+        {
+          point: PORTAL,
+          label: 'Portal · Dia 1',
+          symbol: '◉',
+        },
+      ]
+    : [...day.markers, RETURN_MARKER];
   const nearby = points.find(({ point }) => pointIsNear(position, point));
 
-  function changeScene(next: Scene) {
-    setScene(next);
-    setPosition(next === 'day-one' ? START : INITIAL);
-    setChallengeOpen(false);
-    setAnswer('');
+  function changeScene(next: number | null, finished = false) {
+    setDayIndex(next);
+    setPosition(next === null ? INITIAL : START);
+    setVisited([]);
+    setAnswer(undefined);
     setFeedback(undefined);
     setMessage(
-      next === 'day-one'
-        ? 'Encontre o marco da luz para abrir o desafio.'
-        : 'Você voltou ao Santuário da Jornada.',
+      next !== null
+        ? CREATION_DAYS[next].objective
+        : finished
+          ? 'Você percorreu os sete dias da demonstração.'
+          : 'Você voltou ao Santuário da Jornada.',
     );
-    stage.current?.focus({ preventScroll: true });
-  }
-
-  function openChallenge() {
-    setChallengeOpen(true);
-    setMessage('Desafio do Dia 1 disponível no painel de objetivos.');
+    stage.current?.focus();
   }
 
   function interact() {
@@ -124,8 +118,17 @@ export function CreationExplorerView({
   }
 
   function activate(point: Point) {
-    if (point === MARKER) openChallenge();
-    else changeScene(point === PORTAL ? 'day-one' : 'sanctuary');
+    if (point === PORTAL) return changeScene(0);
+    if (point === EXIT) return changeScene(null);
+    const marker = day?.markers.find((entry) => entry.point === point);
+    if (!day || !marker || visited.includes(marker.label)) return;
+    setVisited((current) => [...current, marker.label]);
+    const remaining = day.markers.length - visited.length - 1;
+    setMessage(
+      remaining
+        ? `${marker.label}: ${marker.note} Faltam ${remaining} de ${day.markers.length} marcos.`
+        : `Desafio do Dia ${dayNumber} disponível no painel de objetivos.`,
+    );
   }
 
   function handleKeyDown(event: KeyboardEvent<HTMLDivElement>) {
@@ -164,7 +167,8 @@ export function CreationExplorerView({
 
   function submitAnswer(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setFeedback(answer === 'light' ? 'correct' : 'retry');
+    if (day && challengeOpen && answer !== undefined)
+      setFeedback(answer === day.correct ? 'correct' : 'retry');
   }
 
   return (
@@ -182,9 +186,8 @@ export function CreationExplorerView({
         </p>
       </header>
       <div className={css.notice} role="note">
-        Demonstração temporária: posição e respostas podem ser perdidas ao
-        atualizar a página. Nenhuma conclusão é salva nem há concessão de
-        recompensas.
+        A demonstração reinicia ao atualizar a página ou trocar de dispositivo.
+        Recomeçar pelo portal leva ao Dia 1.
         {canonicalSteps.length > 0 && (
           <span>
             {' '}
@@ -195,7 +198,8 @@ export function CreationExplorerView({
       <div className={css.layout}>
         <section className={css.playArea} aria-label="Exploração">
           <div
-            className={`${css.stage} ${scene === 'day-one' ? css.dayScene : ''}`}
+            className={css.stage}
+            data-area={day?.id ?? 'sanctuary'}
             ref={stage}
             tabIndex={0}
             role="group"
@@ -204,21 +208,25 @@ export function CreationExplorerView({
             onKeyDown={handleKeyDown}
             onClick={handleFloorClick}
           >
-            <div key={scene} className={css.sceneWash} aria-hidden="true" />
+            <div key={dayNumber} className={css.sceneWash} aria-hidden="true" />
             <div className={css.horizon} aria-hidden="true" />
-            {scene === 'sanctuary' ? (
+            {!day ? (
               <>
                 <p className={css.sceneTitle}>Santuário fictício</p>
                 <div className={css.daySigils} aria-hidden="true">
                   {CREATION_DAYS.map((day, index) => (
-                    <span key={day}>{index === 0 ? '✦' : '◇'}</span>
+                    <span key={day.id}>{index === 0 ? '✦' : '◇'}</span>
                   ))}
                 </div>
               </>
             ) : (
               <>
-                <p className={css.sceneTitle}>Dia 1 — Luz e trevas</p>
-                <div className={css.light} aria-hidden="true" />
+                <h2 className={css.sceneTitle}>
+                  Dia {dayNumber} — {day.title}
+                </h2>
+                <div className={css.light} aria-hidden="true">
+                  {dayNumber > 1 && day.motifs}
+                </div>
               </>
             )}
             {points.map(({ point, label, symbol }) => (
@@ -241,7 +249,10 @@ export function CreationExplorerView({
                 }}
               >
                 {symbol}
-                <span>{point === EXIT ? 'Retornar' : label}</span>
+                <span>
+                  {point === EXIT ? 'Retornar' : label}
+                  {visited.includes(label) ? ' ✓' : ''}
+                </span>
               </button>
             ))}
             <div className={css.barrier} aria-hidden="true" />
@@ -274,58 +285,91 @@ export function CreationExplorerView({
           <p className={css.objective} role="status">
             {message}
           </p>
-          {scene === 'day-one' ? (
-            <p>Gênesis 1:3–5 (NVI)</p>
+          {day ? (
+            <>
+              <p>
+                <a
+                  href={`https://www.bible.com/pt/bible/129/GEN.${day.passage}.NVI`}
+                >
+                  Ler {day.reference} (NVI)
+                </a>
+              </p>
+              <p>A paisagem e os marcos são recursos fictícios do jogo.</p>
+              {day.markers.some(
+                ({ label, note }) => note && visited.includes(label),
+              ) && (
+                <ul
+                  className={css.dayList}
+                  aria-label="Notas dos marcos visitados"
+                >
+                  {day.markers
+                    .filter(
+                      ({ label, note }) => note && visited.includes(label),
+                    )
+                    .map(({ label, note }) => (
+                      <li key={label}>
+                        <strong>{label}.</strong> {note}
+                      </li>
+                    ))}
+                </ul>
+              )}
+            </>
           ) : (
             <ol className={css.dayList} aria-label="Sete símbolos da Criação">
               {CREATION_DAYS.map((day, index) => (
-                <li key={day}>
-                  <span aria-hidden="true">{index === 0 ? '✦' : '◇'}</span>{' '}
-                  {day} · {index === 0 ? 'Em demonstração' : 'Em preparação'}
+                <li key={day.id}>
+                  Dia {index + 1} · {day.title}
                 </li>
               ))}
             </ol>
           )}
-          {scene === 'day-one' && challengeOpen && (
-            <form onSubmit={submitAnswer}>
+          {day && challengeOpen && (
+            <form
+              onSubmit={submitAnswer}
+              tabIndex={-1}
+              ref={focusChallenge}
+              aria-label="Desafio demonstrativo"
+            >
               <fieldset>
-                <legend>O que Deus criou no primeiro dia?</legend>
-                <label>
-                  <input
-                    type="radio"
-                    name="creation-answer"
-                    value="light"
-                    checked={answer === 'light'}
-                    onChange={(e) => {
-                      setAnswer(e.target.value);
-                      setFeedback(undefined);
-                    }}
-                  />{' '}
-                  A luz.
-                </label>
-                <label>
-                  <input
-                    type="radio"
-                    name="creation-answer"
-                    value="sky"
-                    checked={answer === 'sky'}
-                    onChange={(e) => {
-                      setAnswer(e.target.value);
-                      setFeedback(undefined);
-                    }}
-                  />{' '}
-                  O firmamento.
-                </label>
-                <button type="submit" disabled={!answer}>
+                <legend>{day.question}</legend>
+                {day.options.map((option, index) => (
+                  <label key={option}>
+                    <input
+                      type="radio"
+                      name="creation-answer"
+                      checked={answer === index}
+                      onChange={() => {
+                        setAnswer(index);
+                        setFeedback(undefined);
+                      }}
+                    />
+                    {option}
+                  </label>
+                ))}
+                <button type="submit" disabled={answer === undefined}>
                   Conferir resposta
                 </button>
               </fieldset>
               <p role="status" className={css.feedback} data-result={feedback}>
                 {feedback === 'correct' &&
-                  'Resposta correta. Deus disse que houvesse luz, separou a luz das trevas e chamou a luz de Dia e as trevas de Noite.'}
+                  `Resposta correta. Explicação do relato: ${day.explanation}`}
                 {feedback === 'retry' &&
                   'Tente novamente. Você pode responder quantas vezes quiser.'}
               </p>
+              {feedback === 'correct' && (
+                <button
+                  type="button"
+                  onClick={() =>
+                    dayNumber < CREATION_DAYS.length
+                      ? changeScene(dayNumber)
+                      : changeScene(null, true)
+                  }
+                >
+                  {dayNumber < CREATION_DAYS.length
+                    ? `Prosseguir para o Dia ${dayNumber + 1}`
+                    : 'Encerrar a demo no Santuário'}
+                </button>
+              )}
             </form>
           )}
           <p className={css.pending}>
@@ -336,7 +380,10 @@ export function CreationExplorerView({
           <ul className={css.poiList} aria-label="Navegação acessível">
             {points.map(({ label, point }) => (
               <li key={label}>
-                <button onClick={() => activate(point)}>{label}</button>
+                <button onClick={() => activate(point)}>
+                  {label}
+                  {visited.includes(label) ? ' · Visitado' : ''}
+                </button>
               </li>
             ))}
           </ul>
