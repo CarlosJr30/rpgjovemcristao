@@ -1,6 +1,7 @@
 /** Fixed release boundary. A full launch requires an explicitly reviewed change. */
 export const RELEASE_PROFILE = 'governance-foundation-010a-test' as const;
 export const GAMEPLAY_ENABLED = false;
+export const CREATION_DEMO_PATH = '/journey/stories/creation/explore';
 const paths = new Set([
   '/',
   '/auth',
@@ -44,6 +45,7 @@ const paths = new Set([
 export function isReleasedPath(path: string): boolean {
   return (
     paths.has(path) ||
+    (process.env.NODE_ENV === 'development' && path === CREATION_DEMO_PATH) ||
     /^\/guilda\/convite\/[a-f0-9]{64}$/.test(path) ||
     ((isShopTestPreview() || isShopRelease()) &&
       ['/journey/shop', '/journey/equipment'].includes(path))

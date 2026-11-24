@@ -3,7 +3,13 @@ import { movePoint, pointIsNear } from './creation-explorer-model';
 
 describe('movement and interaction geometry', () => {
   it('keeps the traveler inside scene bounds', () => {
-    expect(movePoint({ x: 10, y: 10 }, { x: -20, y: 10 })).toEqual({ x: 2.5, y: 10 });
+    expect(movePoint({ x: 18, y: 50 }, { x: -12, y: 50 })).toEqual({
+      x: 9,
+      y: 50,
+    });
+    expect(
+      movePoint({ x: 18, y: 50 }, { x: 18, y: 0 }).y,
+    ).toBeGreaterThanOrEqual(22);
   });
 
   it('blocks crossing the barrier along a long movement segment', () => {

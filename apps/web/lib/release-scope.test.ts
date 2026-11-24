@@ -1,6 +1,17 @@
-import { expect, it } from 'vitest';
-import { isReleasedPath } from './release-scope';
+import { expect, it, vi } from 'vitest';
+import { CREATION_DEMO_PATH, isReleasedPath } from './release-scope';
 import { POST } from '../app/api/authority/route';
+it('allows the Creation demo only in development', () => {
+  try {
+    vi.stubEnv('NODE_ENV', 'production');
+    expect(isReleasedPath(CREATION_DEMO_PATH)).toBe(false);
+    vi.stubEnv('NODE_ENV', 'development');
+    expect(isReleasedPath(CREATION_DEMO_PATH)).toBe(true);
+    expect(isReleasedPath('/journey/stories/garden-choice/explore')).toBe(false);
+  } finally {
+    vi.unstubAllEnvs();
+  }
+});
 it.each([
   '/',
   '/auth',
