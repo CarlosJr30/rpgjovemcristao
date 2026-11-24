@@ -18,6 +18,7 @@ O [MVP anterior](history/MVP-NEHEMIAH.md) é histórico. Suas três missões lin
 | CONTRATO DE FASE | [Loop](CORE-GAMEPLAY-LOOP.md), quatro pilares e ordem flexível |
 | PERSONAGEM E ATRIBUTOS / PROGRESSION & REWARDS | [Personagem](CHARACTER-SYSTEM.md) |
 | RECOMPENSAS DA JORNADA — FASE 1 | [Character System](CHARACTER-SYSTEM.md), contrato detalhado em [STORY-001A](../../tasks/completed/STORY-001A-biblical-journey-rewards.md) |
+| EXPLORAÇÃO DA JORNADA — FASE 1 | [STORY-002 — contrato técnico e visual](STORY-002-EXPLORATION.md) |
 | BIBLICAL CONTENT RULES | [Integridade bíblica](../biblical/README.md) |
 | MINIGAME / GREAT CHALLENGE RULES | [Campanha](CAMPAIGN-STRUCTURE.md), regra dos grandes desafios |
 | COMMUNITY / LEADER CONCEPT | [Missões e comunidade](MISSION-SYSTEM.md), papéis e acesso |
