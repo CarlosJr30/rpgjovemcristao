@@ -201,6 +201,26 @@ CREATE TABLE story_private.creation_quiz_attempts (
   CHECK (array_position(answers,NULL) IS NULL AND answers <@ ARRAY[1,2,3]::smallint[])
 );
 
+CREATE TABLE story_private.creation_day_attempts (
+  account_id uuid NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
+  revision integer NOT NULL REFERENCES story_private.creation_checkpoint_revisions(revision),
+  day smallint NOT NULL CHECK (day BETWEEN 1 AND 7),
+  traveler_id uuid NOT NULL,
+  answer_index smallint NOT NULL CHECK (answer_index BETWEEN 1 AND 2),
+  result jsonb NOT NULL,
+  PRIMARY KEY (account_id,revision,day)
+);
+CREATE TABLE story_private.creation_quiz_budgets (
+  account_id uuid NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
+  revision integer NOT NULL REFERENCES story_private.creation_checkpoint_revisions(revision),
+  attempts smallint NOT NULL CHECK (attempts BETWEEN 1 AND 2),
+  PRIMARY KEY (account_id,revision)
+);
+ALTER TABLE story_private.creation_day_attempts ENABLE ROW LEVEL SECURITY;
+ALTER TABLE story_private.creation_quiz_budgets ENABLE ROW LEVEL SECURITY;
+REVOKE ALL ON story_private.creation_day_attempts,story_private.creation_quiz_budgets
+  FROM PUBLIC,anon,authenticated,service_role;
+
 ALTER TABLE story_private.creation_checkpoint_revisions ENABLE ROW LEVEL SECURITY;
 ALTER TABLE story_private.creation_video_publications ENABLE ROW LEVEL SECURITY;
 ALTER TABLE story_private.creation_activity_receipts ENABLE ROW LEVEL SECURITY;
@@ -251,6 +271,7 @@ CREATE FUNCTION public.submit_creation_day(p_traveler_id uuid,p_revision integer
 RETURNS jsonb LANGUAGE plpgsql SECURITY DEFINER SET search_path='' AS $$
 DECLARE v_revision integer; v_manifest text; v_content jsonb; v_day jsonb;
   v_answer smallint; v_options smallint; v_reference text; v_result jsonb; v_key text;
+  v_attempt story_private.creation_day_attempts;
 BEGIN
   PERFORM 1 FROM public.travelers t WHERE t.id=p_traveler_id AND t.user_id=auth.uid() FOR UPDATE;
   PERFORM story_private.require_creation_actor(p_traveler_id);
@@ -274,9 +295,23 @@ BEGIN
         SELECT 'day:'||prior.day_no::text FROM generate_series(1,p_day-1) AS prior(day_no))))<>p_day-1 THEN
     RAISE EXCEPTION 'Previous creation day incomplete' USING ERRCODE='55000';
   END IF;
-  IF p_answer_index<>v_answer THEN RETURN jsonb_build_object('version',1,'completed',false,'correct',false,'reference',v_reference); END IF;
-  v_result:=jsonb_build_object('version',1,'completed',true,'correct',true,'day',p_day,
-    'revision',v_revision,'reference',v_reference);
+  IF p_answer_index=v_answer THEN
+    v_result:=jsonb_build_object('version',1,'completed',true,'correct',true,'day',p_day,
+      'revision',v_revision,'reference',v_reference);
+  ELSE
+    v_result:=jsonb_build_object('version',1,'completed',false,'correct',false,'reference',v_reference);
+  END IF;
+  INSERT INTO story_private.creation_day_attempts(account_id,revision,day,traveler_id,answer_index,result)
+    VALUES(auth.uid(),v_revision,p_day,p_traveler_id,p_answer_index,v_result) ON CONFLICT DO NOTHING;
+  IF NOT FOUND THEN
+    SELECT * INTO STRICT v_attempt FROM story_private.creation_day_attempts
+      WHERE account_id=auth.uid() AND revision=v_revision AND day=p_day;
+    IF v_attempt.traveler_id=p_traveler_id AND v_attempt.answer_index=p_answer_index THEN
+      RETURN v_attempt.result;
+    END IF;
+    RAISE EXCEPTION 'Creation daily attempt limit reached' USING ERRCODE='P0701';
+  END IF;
+  IF p_answer_index<>v_answer THEN RETURN v_result; END IF;
   INSERT INTO story_private.creation_activity_receipts(traveler_id,revision,activity,activity_key,result)
     VALUES(p_traveler_id,v_revision,'day',v_key,v_result) ON CONFLICT DO NOTHING;
   SELECT result INTO v_result FROM story_private.creation_activity_receipts
@@ -331,7 +366,7 @@ BEGIN
     IF v_saved.answers IS DISTINCT FROM p_answers THEN
       RAISE EXCEPTION 'Quiz operation payload mismatch' USING ERRCODE='22023';
     END IF;
-    RETURN jsonb_build_object('version',1,'attemptId',v_saved.operation_id,'score',v_saved.score,
+    RETURN jsonb_build_object('version',1,'attemptId',v_saved.operation_id,'score',CASE WHEN v_saved.perfect THEN 5 END,
       'total',5,'perfect',v_saved.perfect,'revision',v_revision,'replayed',true);
   END IF;
   IF p_answers IS NULL OR cardinality(p_answers)<>5
@@ -343,12 +378,19 @@ BEGIN
     AND r.story_id='creation' AND r.revision=v_revision AND r.activity='harmony' AND r.activity_key='seven-symbols:v1') THEN
     RAISE EXCEPTION 'Harmony incomplete' USING ERRCODE='55000';
   END IF;
+  INSERT INTO story_private.creation_quiz_budgets AS budget(account_id,revision,attempts)
+    VALUES(auth.uid(),v_revision,1)
+    ON CONFLICT (account_id,revision) DO UPDATE SET attempts=budget.attempts+1
+      WHERE budget.attempts<2;
+  IF NOT FOUND THEN
+    RAISE EXCEPTION 'Creation quiz attempt limit reached' USING ERRCODE='P0701';
+  END IF;
   SELECT count(*)::smallint INTO v_score
     FROM generate_series(0,4) AS question(position)
     WHERE p_answers[question.position+1]=((v_content->'quiz'->question.position->>'answer')::smallint);
   INSERT INTO story_private.creation_quiz_attempts(traveler_id,revision,operation_id,answers,score)
     VALUES(p_traveler_id,v_revision,p_operation_id,p_answers,v_score);
-  RETURN jsonb_build_object('version',1,'attemptId',p_operation_id,'score',v_score,'total',5,
+  RETURN jsonb_build_object('version',1,'attemptId',p_operation_id,'score',CASE WHEN v_score=5 THEN 5 END,'total',5,
     'perfect',v_score=5,'revision',v_revision,'replayed',false);
 END $$;
 
@@ -391,7 +433,7 @@ BEGIN
     'quizAttempts',coalesce((SELECT count(*) FROM story_private.creation_quiz_attempts WHERE traveler_id=p_traveler_id
       AND story_id='creation' AND revision=v_revision),0),
     'bestQuizScore',(SELECT max(score) FROM story_private.creation_quiz_attempts WHERE traveler_id=p_traveler_id
-      AND story_id='creation' AND revision=v_revision),
+      AND story_id='creation' AND revision=v_revision AND perfect),
     'available',v_public_manifest IS NOT NULL,
     'manifestText',v_public_manifest,
     'manifestHash',encode(sha256(convert_to(v_public_manifest,'UTF8')),'hex'),

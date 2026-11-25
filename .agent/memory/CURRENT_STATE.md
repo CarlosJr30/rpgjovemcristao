@@ -1,3 +1,7 @@
+## 2026-11-24 — STORY-007M em validação
+
+Branch `codex/story-007m-protect-answer-keys`. A demonstração usa exercícios sobre seus controles. PostgreSQL aplica cotas provisórias por conta e revisão, preserva reenvios e mantém notas parciais privadas. Política e riscos em `tasks/active/STORY-007M-answer-key-protection.md`. PostgreSQL isolado 3/3 e Vitest direcionado 7/7. Aprovação pedagógica, revisão final e autorização para aplicação em TEST continuam pendentes.
+
 ## 2026-11-24 — STORY-007K em validação
 
 Na branch `codex/story-007k-separate-answer-keys`, a RPC de leitura retorna uma projeção pública com hash próprio. Os gabaritos oficiais e as explicações da revisão publicada permanecem no armazenamento privado do PostgreSQL. A demonstração tem avaliação local separada. Três casos em PostgreSQL isolado, um caso Vitest, ESLint direcionado, TypeScript e `git diff --check` passaram. Aplicação em TEST e publicação editorial seguem pendentes de autorização.

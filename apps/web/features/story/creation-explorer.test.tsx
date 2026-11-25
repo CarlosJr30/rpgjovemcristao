@@ -66,18 +66,18 @@ test('shows the sanctuary, enters day one, retries the challenge, and returns wi
   const alternative = screen.getByRole('list', { name: 'Navegação acessível' });
   fireEvent.click(within(alternative).getByRole('button', { name: /Portal/ }));
   expect(
-    screen.queryByText('O que Deus criou no primeiro dia?'),
+    screen.queryByText('Qual controle abre a cena de um dia nesta demonstração?'),
   ).not.toBeInTheDocument();
   fireEvent.click(
     within(alternative).getByRole('button', { name: 'Marco da luz' }),
   );
   expect(screen.getByTestId('traveler-position')).toHaveStyle({ left: '22%' });
-  fireEvent.click(screen.getByLabelText('O firmamento.'));
+  fireEvent.click(screen.getByLabelText('O painel de recompensas.'));
   fireEvent.click(screen.getByRole('button', { name: 'Conferir resposta' }));
   expect(screen.getAllByText(/Tente novamente/).length).toBeGreaterThan(0);
-  fireEvent.click(screen.getByLabelText('A luz.'));
+  fireEvent.click(screen.getByLabelText('O portal do Santuário.'));
   fireEvent.click(screen.getByRole('button', { name: 'Conferir resposta' }));
-  expect(screen.getByText(/separou a luz das trevas/)).toBeInTheDocument();
+  expect(screen.getByText(/Resposta correta.*portal do Santuário/)).toBeInTheDocument();
   fireEvent.click(
     within(alternative).getByRole('button', { name: 'Retornar ao Santuário' }),
   );
@@ -118,21 +118,21 @@ test('requires each day’s educational interaction and correct answer before ad
   ).not.toBeInTheDocument();
   choose('Portal · Dia 1');
   const itinerary = [
-    { markers: ['Marco da luz'], correct: 'A luz.' },
+    { markers: ['Marco da luz'], correct: 'O portal do Santuário.' },
     {
       markers: ['Marco do céu'],
-      correct: 'As águas de cima das águas de baixo.',
+      correct: 'Visitando os marcos da cena.',
     },
     {
       markers: ['Terra', 'Mares', 'Vegetação'],
-      correct: /Aparece a terra seca/,
+      correct: /A descoberta continua registrada uma vez/,
     },
-    { markers: ['Marco dos luminares'], correct: /Iluminar a terra/ },
-    { markers: ['Marco da vida'], correct: 'Seres aquáticos e aves.' },
-    { markers: ['Marco da humanidade'], correct: /Os seres humanos, criados/ },
+    { markers: ['Marco dos luminares'], correct: /Na navegação acessível/ },
+    { markers: ['Marco da vida'], correct: 'Usando a saída da cena.' },
+    { markers: ['Marco da humanidade'], correct: /A demonstração reinicia/ },
     {
       markers: ['Marco do descanso'],
-      correct: /Deus havia concluído sua obra/,
+      correct: /Concluir as atividades dos sete dias/,
     },
   ];
   itinerary.forEach(({ markers, correct }, index) => {
@@ -191,7 +191,7 @@ test('requires each day’s educational interaction and correct answer before ad
     fireEvent.click(answer);
     submit();
     expect(
-      screen.getByText(/Resposta correta. Explicação do relato/),
+      screen.getByText(/Resposta correta/),
     ).toBeInTheDocument();
     fireEvent.click(screen.getByRole('button', { name: advance }));
   });
@@ -247,11 +247,11 @@ test('requires each day’s educational interaction and correct answer before ad
   click('Abrir Quiz da Criação');
 
   const expectedAnswers = [
-    'A luz',
-    'Terceiro dia',
-    'Os luminares',
-    'De Deus',
-    /Concluiu Sua obra/,
+    'No Santuário.',
+    'O estado Visitado.',
+    'Para consultar referências e resumos.',
+    'Os sete símbolos dos dias.',
+    'Nenhum progresso oficial.',
   ];
   function respond(answer: string | RegExp, index: number) {
     expect(
@@ -266,7 +266,7 @@ test('requires each day’s educational interaction and correct answer before ad
     fireEvent.click(screen.getByRole('radio', { name: answer }));
     click('Confirmar resposta');
   }
-  respond('Os animais terrestres', 0);
+  respond('No vídeo.', 0);
   click('Abrir Diário Bíblico');
   click('Voltar à demonstração');
   expectedAnswers.slice(1).forEach((answer, i) => respond(answer, i + 1));
@@ -441,11 +441,11 @@ test('keeps the demo playable with the server publication gate closed', async ()
   expect(repo.submitDay).not.toHaveBeenCalled();
 });
 
-test('advances a day only after the server returns a confirmed checkpoint snapshot', async () => {
+test('resends the same daily answer after a lost response and waits for a confirmed snapshot', async () => {
   const repo = makeRepository();
   const first = { ...remoteSnapshot, completedDays: [] };
   repo.submitDay
-    .mockResolvedValueOnce({ completed: false })
+    .mockRejectedValueOnce(new Error('connection lost'))
     .mockResolvedValueOnce({ completed: true });
   repo.read.mockResolvedValue({ ...first, completedDays: [1] });
   render(
@@ -460,9 +460,10 @@ test('advances a day only after the server returns a confirmed checkpoint snapsh
   fireEvent.click(
     accessibleMap().getByRole('button', { name: 'Marco da luz' }),
   );
-  fireEvent.click(screen.getByLabelText('A luz.'));
+  fireEvent.click(screen.getByLabelText('O portal do Santuário.'));
   fireEvent.click(screen.getByRole('button', { name: 'Conferir resposta' }));
-  expect(await screen.findByText(/Tente novamente/)).toBeInTheDocument();
+  expect(await screen.findByText(/Não foi possível confirmar o checkpoint/)).toBeInTheDocument();
+  expect(screen.getByLabelText('O painel de recompensas.')).toBeDisabled();
   expect(
     screen.queryByRole('button', { name: /Prosseguir/ }),
   ).not.toBeInTheDocument();
@@ -470,10 +471,12 @@ test('advances a day only after the server returns a confirmed checkpoint snapsh
   expect(
     await screen.findByRole('button', { name: /Prosseguir para o Dia 2/ }),
   ).toBeInTheDocument();
-  expect(repo.submitDay).toHaveBeenCalledWith(traveler.id, 1, 1, 1);
+  expect(repo.submitDay).toHaveBeenCalledTimes(2);
+  expect(repo.submitDay.mock.calls[1]).toEqual([traveler.id, 1, 1, 1]);
+  expect(repo.submitDay.mock.calls[1]).toEqual(repo.submitDay.mock.calls[0]);
 });
 
-test('retries a failed quiz submission with the same operation ID and displays the server score', async () => {
+test('retries a failed quiz submission with the same operation ID and keeps partial scores private', async () => {
   const repo = makeRepository();
   const initial = {
     ...remoteSnapshot,
@@ -485,13 +488,13 @@ test('retries a failed quiz submission with the same operation ID and displays t
       repo.read.mockResolvedValue({
         ...initial,
         quizAttempts: 1,
-        bestQuizScore: 2,
+        bestQuizScore: null,
       });
       throw new Error('connection lost');
     })
     .mockImplementationOnce(
       async (_traveler, revision, attemptId) => ({
-        score: 2,
+        score: null,
         revision,
         attemptId,
       }),
@@ -518,7 +521,7 @@ test('retries a failed quiz submission with the same operation ID and displays t
     /confirmar a tentativa/,
   );
   fireEvent.click(screen.getByRole('button', { name: 'Reenviar tentativa' }));
-  expect(await screen.findByText(/2 de 5 acertos/)).toBeInTheDocument();
+  expect(await screen.findByText(/pontuação parcial fica reservada/)).toBeInTheDocument();
   expect(repo.submitQuiz).toHaveBeenCalledTimes(2);
   expect(repo.submitQuiz.mock.calls[1]).toEqual(repo.submitQuiz.mock.calls[0]);
   expect(
@@ -570,7 +573,7 @@ test('resumes the same committed quiz after reloading and losing the HTTP respon
     completedDays: [1, 2, 3, 4, 5, 6, 7],
     harmonyCompleted: true,
     quizAttempts: 1,
-    bestQuizScore: 3,
+    bestQuizScore: null,
   };
   const pending = preparePendingQuiz(
     JSON.stringify(['owner', traveler.id, 1, manifest]),
@@ -580,7 +583,7 @@ test('resumes the same committed quiz after reloading and losing the HTTP respon
   repo.submitQuiz.mockResolvedValue({
     attemptId: pending.id,
     revision: 1,
-    score: 3,
+    score: null,
     replayed: true,
   });
   render(
@@ -593,7 +596,7 @@ test('resumes the same committed quiz after reloading and losing the HTTP respon
   fireEvent.click(
     await screen.findByRole('button', { name: /Retomar tentativa pendente/ }),
   );
-  expect(await screen.findByText(/3 de 5 acertos/)).toBeInTheDocument();
+  expect(await screen.findByText(/pontuação parcial fica reservada/)).toBeInTheDocument();
   expect(repo.submitQuiz).toHaveBeenCalledWith(
     traveler.id,
     1,

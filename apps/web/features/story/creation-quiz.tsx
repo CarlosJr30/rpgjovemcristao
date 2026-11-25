@@ -7,7 +7,7 @@ import {
   creationPassageUrl,
 } from './creation-days';
 import { CREATION_QUIZ, type CreationQuizQuestion } from './creation-quiz-content';
-import { CREATION_DEMO_FEEDBACK } from './creation-demo-feedback';
+import { CREATION_DAY_SUMMARIES } from './creation-demo-feedback';
 import css from './creation-explorer.module.css';
 
 export type QuizAnswers = Readonly<Record<string, string>>;
@@ -20,10 +20,12 @@ export function CreationQuiz({
   onComplete,
   remote = false,
   questions = CREATION_QUIZ,
+  attemptLimitReached = false,
 }: {
   onComplete: (answers: QuizAnswers) => void | Promise<boolean>;
   remote?: boolean;
   questions?: readonly CreationQuizQuestion[];
+  attemptLimitReached?: boolean;
 }) {
   const request = useRef(false);
   const [pending, setPending] = useState(false);
@@ -37,6 +39,7 @@ export function CreationQuiz({
     event.preventDefault();
     if (
       request.current ||
+      attemptLimitReached ||
       !question ||
       !question.options.some((option) => option.id === selected) ||
       !selected
@@ -67,7 +70,7 @@ export function CreationQuiz({
       <h2 id="creation-quiz-title" tabIndex={-1}>
         Quiz Bíblico da Criação
       </h2>
-      {!remote && <p>Quiz demonstrativo. As respostas locais não geram progresso oficial.</p>}
+      {!remote && <p>Exercícios de exemplo da demonstração. As respostas locais não geram progresso oficial.</p>}
       {question && (
         <form onSubmit={confirm}>
           <h3
@@ -79,7 +82,7 @@ export function CreationQuiz({
             Pergunta {index + 1} de {questions.length} · {question.question}
           </h3>
           <fieldset
-            disabled={pending || failed}
+            disabled={pending || failed || attemptLimitReached}
             aria-labelledby="creation-question"
           >
             {question.options.map((option) => (
@@ -98,10 +101,13 @@ export function CreationQuiz({
               Confirmar resposta
             </button>
           </fieldset>
-          {failed && (
+          {attemptLimitReached && (
+            <p role="alert">Você atingiu o limite do quiz nesta revisão. Para praticar, use os exercícios da demonstração.</p>
+          )}
+          {failed && !attemptLimitReached && (
             <p role="alert">Não foi possível confirmar a tentativa.</p>
           )}
-          {failed && (
+          {failed && !attemptLimitReached && (
             <button type="submit" disabled={pending}>
               Reenviar tentativa
             </button>
@@ -144,7 +150,7 @@ export function CreationJourneySummary({
             <strong>
               Dia {index + 1} · {day.title}.
             </strong>{' '}
-            {CREATION_DEMO_FEEDBACK[day.id].explanation}
+            {CREATION_DAY_SUMMARIES[day.id]}
           </li>
         ))}
       </ol>

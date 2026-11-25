@@ -426,11 +426,17 @@ test('STORY-007: local checkpoint RPCs isolate owners, enforce ordering and repl
       'SET LOCAL request.jwt.claim.sub=' + sqlLiteral(user(2)) + '; ' +
       'SET LOCAL request.jwt.claims=' + sqlLiteral(JSON.stringify({ session_id: sessionId(2) })) + '; ' +
       'SELECT public.submit_creation_quiz(' + id + ',1,' + operation + ',ARRAY[' + wrong.join(',') + ']::smallint[]) AS receipt; ' +
+      'SELECT public.read_creation_checkpoints(' + id + ') AS snapshot; ' +
+      'RESET ROLE; ' +
+      'SELECT score FROM story_private.creation_quiz_attempts WHERE traveler_id=' + id + ' AND operation_id=' + operation + '; ' +
       'ROLLBACK;',
     );
-    const { receipt } = results.find(({ command }) => command === 'SELECT').rows[0];
-    assert.equal(receipt.score, 4);
+    const [submission, read, stored] = results.filter(({ command }) => command === 'SELECT');
+    const { receipt } = submission.rows[0];
+    assert.equal(receipt.score, null);
     assert.equal(receipt.perfect, false);
+    assert.equal(read.rows[0].snapshot.bestQuizScore, null);
+    assert.equal(stored.rows[0].score, 4);
     assert.deepEqual(Object.keys(receipt).sort(),
       ['version','attemptId','score','total','perfect','revision','replayed'].sort());
   });
@@ -483,8 +489,8 @@ test('STORY-007: local checkpoint RPCs isolate owners, enforce ordering and repl
       );
       const wrong = JSON.parse(
         await rpc(
-          1,
-          `SELECT public.submit_creation_day('${traveler(1)}',1,1::smallint,${dayKeys[0] % 2 + 1}::smallint)`,
+          2,
+          `SELECT public.submit_creation_day('${traveler(2)}',1,1::smallint,${dayKeys[0] % 2 + 1}::smallint)`,
         ),
       );
       assert.equal(wrong.correct, false);
@@ -565,7 +571,7 @@ test('STORY-007: local checkpoint RPCs isolate owners, enforce ordering and repl
           `SELECT public.submit_creation_quiz('${traveler(1)}',1,'${second}',ARRAY[1,1,1,1,1]::smallint[])`,
         ),
       );
-      assert.equal(retry.score, quizKeys.filter((answer) => answer === 1).length);
+      assert.equal(retry.score, null);
       assert.equal(retry.perfect, false);
       const state = JSON.parse(
         await rpc(
@@ -606,6 +612,49 @@ test('STORY-007: local checkpoint RPCs isolate owners, enforce ordering and repl
       );
     },
   );
+
+  await t.test('enforces account quotas across avatars, retries and concurrent requests', async () => {
+    const account = 5;
+    const first = traveler(5);
+    const second = traveler(6);
+    await query(
+      'INSERT INTO auth.users(id) VALUES (' + sqlLiteral(user(account)) + ');' +
+      'INSERT INTO auth.sessions(id,user_id) VALUES (' + sqlLiteral(sessionId(account)) + ',' + sqlLiteral(user(account)) + ');' +
+      'INSERT INTO public.travelers(id,user_id,is_active) VALUES ' +
+      [first, second].map((id) => '(' + sqlLiteral(id) + ',' + sqlLiteral(user(account)) + ',true)').join(',') + ';' +
+      'INSERT INTO story_private.creation_activity_receipts(traveler_id,revision,activity,activity_key,result) VALUES ' +
+      [first, second].map((id) => '(' + sqlLiteral(id) + ",1,'harmony','seven-symbols:v1','{}')").join(','),
+    );
+    const day = (id, answer) => 'SELECT public.submit_creation_day(' + sqlLiteral(id) +
+      ',1,1::smallint,' + answer + '::smallint)';
+    const quiz = (id, op) => 'SELECT public.submit_creation_quiz(' + sqlLiteral(id) + ',1,' +
+      sqlLiteral(traveler(op)) + ',ARRAY[' + quizKeys.join(',') + ']::smallint[])';
+    const wrongDay = dayKeys[0] % 2 + 1;
+    const originalDay = await rpc(account, day(first, wrongDay));
+    assert.equal(JSON.parse(originalDay).completed, false);
+    assert.equal(await rpc(account, day(first, wrongDay)), originalDay);
+    await denied(session(account, day(first, dayKeys[0])), { code: 'P0701' });
+    await query('UPDATE public.travelers SET is_active=false WHERE id=' + sqlLiteral(first));
+    await denied(session(account, day(second, dayKeys[0])), { code: 'P0701' });
+    assert.equal(await query('SELECT count(*) FROM story_private.creation_day_attempts WHERE account_id=' + sqlLiteral(user(account))), '1');
+
+    // Separate traveler locks exercise the shared account quota under contention.
+    await query('UPDATE public.travelers SET is_active=true WHERE id=' + sqlLiteral(first));
+    const calls = [{ id: first, op: 20 }, { id: second, op: 21 }, { id: second, op: 22 }];
+    const results = await Promise.allSettled(calls.map(({ id, op }) => concurrent(session(account, quiz(id, op)))));
+    const succeeded = calls.filter((_, index) => results[index].status === 'fulfilled');
+    const rejected = results.filter(({ status }) => status === 'rejected');
+    assert.equal(succeeded.length, 2);
+    assert.equal(rejected.length, 1);
+    assert.equal(rejected[0].reason.code, 'P0701');
+    await denied(session(account, quiz(first, 23)), { code: 'P0701' });
+    const { id, op } = succeeded[0];
+    const replay = JSON.parse(await rpc(account, quiz(id, op)));
+    assert.equal(replay.replayed, true);
+    assert.equal(replay.score, 5);
+    assert.equal(await query('SELECT attempts FROM story_private.creation_quiz_budgets WHERE account_id=' + sqlLiteral(user(account))), '2');
+    assert.equal(await query('SELECT count(*) FROM story_private.creation_quiz_attempts WHERE traveler_id IN (' + [first, second].map(sqlLiteral).join(',') + ')'), '2');
+  });
 
   await t.test(
     'new content revision resumes independently and preserves old evidence',

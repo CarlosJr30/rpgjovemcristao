@@ -1,6 +1,27 @@
+import { readFileSync } from 'node:fs';
 import { describe, expect, test } from 'vitest';
 import source from './creation-content-v1.json';
 import { parseCreationManifest } from './creation-days';
+import { CREATION_DEMO_FEEDBACK } from './creation-demo-feedback';
+
+test('demonstration exercises have no official questions or correct alternatives', () => {
+  const sql = readFileSync(
+    'supabase/migrations/20261124185354_story_007c_creation_checkpoints_test.sql',
+    'utf8',
+  );
+  const official = JSON.parse(sql.split('$creation_manifest$')[1]) as {
+    days: { question: string; options: string[]; answer: number }[];
+    quiz: { question: string; options: string[]; answer: number }[];
+  };
+  const normalize = (text: string) => text.toLowerCase().replace(/[^\p{L}\p{N}]+/gu, ' ').trim();
+  const questions = new Set([...official.days, ...official.quiz].map(({ question }) => normalize(question)));
+  const answers = new Set([...official.days, ...official.quiz].map(({ options, answer }) => normalize(options[answer - 1])));
+  for (const exercise of [...source.days, ...source.quiz]) {
+    expect(questions.has(normalize(exercise.question))).toBe(false);
+    const feedback = CREATION_DEMO_FEEDBACK[exercise.id];
+    expect(answers.has(normalize(exercise.options[feedback.correctIndex]))).toBe(false);
+  }
+});
 
 describe('published creation manifest validation', () => {
   test.each([

@@ -19,6 +19,7 @@ import {
 } from '../../lib/supabase/online-sync';
 import {
   createCreationCheckpointRepository,
+  CreationAttemptLimitReached,
   CreationCheckpointUnavailable,
   type CreationCheckpointSnapshot,
 } from '../../lib/supabase/repositories/creation-checkpoint-repository';
@@ -290,6 +291,9 @@ export function CreationExplorerView({
   const [saved, setSaved] = useState(remote?.initial);
   const [savingDay, setSavingDay] = useState(false);
   const dayRequest = useRef(false);
+  const [dayLimitReached, setDayLimitReached] = useState(false);
+  const [pendingDayAnswer, setPendingDayAnswer] = useState<number>();
+  const [quizLimitReached, setQuizLimitReached] = useState(false);
   const [saveError, setSaveError] = useState('');
   const [blocked, setBlocked] = useState('');
   const [pendingQuiz, setPendingQuiz] = useState(
@@ -322,7 +326,7 @@ export function CreationExplorerView({
   const [quizResult, setQuizResult] = useState<{
     attempt: number;
     answers: QuizAnswers;
-    score?: number;
+    score?: 5 | null;
   }>();
   const stage = useRef<HTMLDivElement>(null);
   const pages = useRef<HTMLDivElement>(null);
@@ -367,6 +371,8 @@ export function CreationExplorerView({
     visitedMarkerIds.current = new Set();
     setVisited([]);
     setAnswer(undefined);
+    setPendingDayAnswer(undefined);
+    setDayLimitReached(false);
     setFeedback(undefined);
     setMessage(
       next !== null
@@ -444,13 +450,17 @@ export function CreationExplorerView({
 
   async function submitAnswer(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (!day || !challengeOpen || answer === undefined || dayRequest.current)
+    if (
+      !day || !challengeOpen || answer === undefined || dayRequest.current ||
+      dayLimitReached
+    )
       return;
     if (!remote) {
       setFeedback(answer === CREATION_DEMO_FEEDBACK[day.id].correctIndex ? 'correct' : 'retry');
       return;
     }
     dayRequest.current = true;
+    setPendingDayAnswer(answer);
     setSavingDay(true);
     setFeedback(undefined);
     setSaveError('');
@@ -467,8 +477,15 @@ export function CreationExplorerView({
         if (!state.completedDays.includes(dayNumber))
           throw new Error('Checkpoint missing');
       }
-      setFeedback(result.completed ? 'correct' : 'retry');
-    } catch {
+      setPendingDayAnswer(undefined);
+      setDayLimitReached(!result.completed);
+      if (result.completed) setFeedback('correct');
+    } catch (error) {
+      if (error instanceof CreationAttemptLimitReached) {
+        setPendingDayAnswer(undefined);
+        setDayLimitReached(true);
+        return;
+      }
       setSaveError(
         'Não foi possível confirmar o checkpoint. Tente novamente ou recarregue a Jornada.',
       );
@@ -587,7 +604,16 @@ export function CreationExplorerView({
       });
       setSection('summary');
       return true;
-    } catch {
+    } catch (error) {
+      if (error instanceof CreationAttemptLimitReached) {
+        setQuizLimitReached(true);
+        setPendingQuiz(false);
+        try {
+          clearPendingQuiz(quizScope);
+        } catch {
+          // Storage cannot change the server quota.
+        }
+      }
       await refreshRemote().catch(() => {});
       return false;
     } finally {
@@ -831,6 +857,10 @@ export function CreationExplorerView({
                       type="radio"
                       name="creation-answer"
                       checked={answer === index}
+                      disabled={
+                        dayLimitReached ||
+                        (pendingDayAnswer !== undefined && pendingDayAnswer !== index)
+                      }
                       onChange={() => {
                         setAnswer(index);
                         setFeedback(undefined);
@@ -839,15 +869,17 @@ export function CreationExplorerView({
                     {option}
                   </label>
                 ))}
-                <button type="submit" disabled={answer === undefined}>
+                <button type="submit" disabled={answer === undefined || dayLimitReached}>
                   Conferir resposta
                 </button>
               </fieldset>
               <p role="status" className={css.feedback} data-result={feedback}>
                 {saveError}
+                {dayLimitReached &&
+                  'A tentativa deste dia já foi registrada. Para retomar, aguarde uma nova revisão autorizada.'}
                 {feedback === 'correct' && (remote
                   ? 'Resposta correta.'
-                  : 'Resposta correta. Explicação do relato: ' + CREATION_DEMO_FEEDBACK[day.id].explanation)}
+                  : 'Resposta correta. ' + CREATION_DEMO_FEEDBACK[day.id].explanation)}
                 {feedback === 'retry' &&
                   'Tente novamente. Você pode responder quantas vezes quiser.'}
               </p>
@@ -957,6 +989,7 @@ export function CreationExplorerView({
               onComplete={submitQuiz}
               remote={Boolean(remote)}
               questions={quiz}
+              attemptLimitReached={quizLimitReached}
             />
           </div>
         )}
@@ -964,10 +997,12 @@ export function CreationExplorerView({
           <section data-current="true">
             <h2 tabIndex={-1}>Resultado do Quiz</h2>
             <p role="status">
-              {quizResult?.score ?? saved.bestQuizScore} de 5 acertos.
+              {(quizResult ? quizResult.score : saved.bestQuizScore) === 5
+                ? '5 de 5 acertos.'
+                : 'Tentativa registrada. A pontuação parcial fica reservada.'}
               Tentativas registradas: {saved.quizAttempts}.
             </p>
-            <button onClick={() => void openQuiz(true)}>Repetir quiz</button>
+            <button disabled={quizLimitReached} onClick={() => void openQuiz(true)}>Repetir quiz</button>
           </section>
         )}
         {!remote && quizResult && !diaryOpen && section === 'summary' && (

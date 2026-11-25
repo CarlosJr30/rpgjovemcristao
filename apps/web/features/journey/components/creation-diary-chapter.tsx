@@ -1,5 +1,5 @@
 import { CREATION_DAYS, creationPassageUrl } from '../../story/creation-days';
-import { CREATION_DEMO_FEEDBACK } from '../../story/creation-demo-feedback';
+import { CREATION_DAY_SUMMARIES } from '../../story/creation-demo-feedback';
 import book from './diary-experience.module.css';
 
 export function CreationDiaryChapter({
@@ -17,7 +17,7 @@ export function CreationDiaryChapter({
         Diário Bíblico da Criação
       </h2>
       <p>
-        Resumos do relato bíblico em revisão editorial. O Santuário, as
+        Referências bíblicas e orientações da demonstração. O Santuário, as
         paisagens e os marcos são elementos fictícios do jogo.
       </p>
       <p>
@@ -30,7 +30,7 @@ export function CreationDiaryChapter({
           <h3>
             Dia {index + 1} — {day.title}
           </h3>
-          <p>{CREATION_DEMO_FEEDBACK[day.id].explanation}</p>
+          <p>{CREATION_DAY_SUMMARIES[day.id]}</p>
           {discoveries && (
             <p>
               {discoveries.includes(day.id)

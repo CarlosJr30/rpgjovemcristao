@@ -38,7 +38,7 @@ export type CreationHarmonyResult = {
 export type CreationQuizResult = {
   version: 1;
   attemptId: string;
-  score: number;
+  score: 5 | null;
   total: 5;
   perfect: boolean;
   revision: number;
@@ -207,9 +207,9 @@ const parseQuizResult = (value: unknown): CreationQuizResult => {
   const row = asObject(value, 'registrar');
   if (row.version !== 1 || typeof row.attemptId !== 'string' || row.total !== 5)
     throw new Error('Resposta inválida ao registrar tentativa do quiz.');
-  const score = asInteger(row.score, 'score', 0, 5);
   const perfect = asBoolean(row.perfect, 'perfect');
-  if (perfect !== (score === 5))
+  const score = perfect ? 5 : null;
+  if (row.score !== score)
     throw new Error('Resposta inconsistente ao registrar tentativa do quiz.');
   return {
     version: 1,
@@ -223,6 +223,7 @@ const parseQuizResult = (value: unknown): CreationQuizResult => {
 };
 
 export class CreationCheckpointUnavailable extends Error {}
+export class CreationAttemptLimitReached extends Error {}
 
 export const createCreationCheckpointRepository = (
   rpc: CreationCheckpointRpc,
@@ -237,6 +238,8 @@ export const createCreationCheckpointRepository = (
       result.error?.code === 'PGRST202'
     )
       throw new CreationCheckpointUnavailable();
+    if (result.error?.code === 'P0701')
+      throw new CreationAttemptLimitReached();
     if (result.error)
       throw new Error(`STORY-007 ${functionName}: ${result.error.message}`);
     return result.data;

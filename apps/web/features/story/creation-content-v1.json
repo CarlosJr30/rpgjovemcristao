@@ -19,10 +19,10 @@
           "id": "creation-day-1-marker-1"
         }
       ],
-      "question": "O que Deus criou no primeiro dia?",
+      "question": "Qual controle abre a cena de um dia nesta demonstração?",
       "options": [
-        "A luz.",
-        "O firmamento."
+        "O portal do Santuário.",
+        "O painel de recompensas."
       ],
       "harmonyLabel": "Luz e trevas"
     },
@@ -44,10 +44,10 @@
           "id": "creation-day-2-marker-1"
         }
       ],
-      "question": "O que o firmamento separou?",
+      "question": "Como abrir o desafio após entrar numa cena?",
       "options": [
-        "A terra seca dos mares.",
-        "As águas de cima das águas de baixo."
+        "Visitando os marcos da cena.",
+        "Aguardando a passagem do tempo."
       ],
       "harmonyLabel": "Firmamento"
     },
@@ -91,10 +91,10 @@
           "id": "creation-day-3-marker-3"
         }
       ],
-      "question": "O que acontece no terceiro dia?",
+      "question": "O que acontece se você visitar o mesmo marco duas vezes?",
       "options": [
-        "Aparece a terra seca, as águas se reúnem e surge vegetação.",
-        "As aves e os seres aquáticos povoam o céu e as águas."
+        "A descoberta continua registrada uma vez.",
+        "A visita é contabilizada em dobro."
       ]
     },
     {
@@ -115,10 +115,10 @@
           "id": "creation-day-4-marker-1"
         }
       ],
-      "question": "Que funções o relato atribui aos luminares?",
+      "question": "Onde fica a lista dos pontos de interação da cena?",
       "options": [
-        "Separar as águas acima e abaixo do céu.",
-        "Iluminar a terra, distinguir dia e noite e marcar tempos."
+        "Na navegação acessível.",
+        "No resultado do quiz."
       ],
       "harmonyLabel": "Luminares"
     },
@@ -140,10 +140,10 @@
           "id": "creation-day-5-marker-1"
         }
       ],
-      "question": "Quais grupos aparecem no quinto dia?",
+      "question": "Como retornar ao Santuário sem avançar de dia?",
       "options": [
-        "Seres aquáticos e aves.",
-        "Animais terrestres e seres humanos."
+        "Usando a saída da cena.",
+        "Escolhendo uma alternativa da pergunta."
       ],
       "harmonyLabel": "Aves e criaturas das águas"
     },
@@ -165,10 +165,10 @@
           "id": "creation-day-6-marker-1"
         }
       ],
-      "question": "Além dos animais terrestres, quem foi criado no sexto dia?",
+      "question": "O que acontece se você atualizar a página durante a demonstração?",
       "options": [
-        "As aves, feitas à imagem de Deus.",
-        "Os seres humanos, criados à imagem de Deus."
+        "A demonstração reinicia.",
+        "O jogo cria um recibo oficial."
       ],
       "harmonyLabel": "Animais terrestres e humanidade"
     },
@@ -191,10 +191,10 @@
           "id": "creation-day-7-marker-1"
         }
       ],
-      "question": "Como o relato descreve o sétimo dia?",
+      "question": "O que libera a Harmonia nesta demonstração?",
       "options": [
-        "Deus havia concluído sua obra, descansou e santificou o dia.",
-        "Deus começou a criar os luminares do céu."
+        "Concluir as atividades dos sete dias.",
+        "Abrir o Diário uma vez."
       ]
     }
   ],
@@ -209,12 +209,12 @@
   ],
   "quiz": [
     {
-      "id": "light",
-      "question": "O que Deus criou no primeiro dia?",
+      "id": "practice-portal",
+      "question": "Em qual lugar você encontra o portal de entrada?",
       "options": [
-        "Os animais terrestres",
-        "A luz",
-        "O sol e a lua"
+        "No Santuário.",
+        "No vídeo.",
+        "No resumo do quiz."
       ],
       "reference": "Gênesis 1:3–5",
       "passage": "1.3-5",
@@ -225,12 +225,12 @@
       ]
     },
     {
-      "id": "land",
-      "question": "Em qual dia surgiram a porção seca e a vegetação?",
+      "id": "practice-markers",
+      "question": "Que informação indica uma visita já registrada?",
       "options": [
-        "Terceiro dia",
-        "Quinto dia",
-        "Sexto dia"
+        "O estado Visitado.",
+        "Um cronômetro.",
+        "Um saldo de moedas."
       ],
       "reference": "Gênesis 1:9–13",
       "passage": "1.9-13",
@@ -241,12 +241,12 @@
       ]
     },
     {
-      "id": "lights",
-      "question": "O que Deus estabeleceu no quarto dia?",
+      "id": "practice-diary",
+      "question": "Para que serve o Diário nesta demonstração?",
       "options": [
-        "As aves e os peixes",
-        "Os animais terrestres",
-        "Os luminares"
+        "Para consultar referências e resumos.",
+        "Para confirmar compras.",
+        "Para criar tentativas oficiais."
       ],
       "reference": "Gênesis 1:14–19",
       "passage": "1.14-19",
@@ -257,12 +257,12 @@
       ]
     },
     {
-      "id": "image",
-      "question": "À imagem de quem Deus criou o ser humano?",
+      "id": "practice-harmony",
+      "question": "O que se organiza na Harmonia?",
       "options": [
-        "Dos anjos",
-        "De Deus",
-        "Dos animais"
+        "Os sete símbolos dos dias.",
+        "Os nomes dos Viajantes.",
+        "As alternativas do quiz."
       ],
       "reference": "Gênesis 1:26–27",
       "passage": "1.26-27",
@@ -273,12 +273,12 @@
       ]
     },
     {
-      "id": "rest",
-      "question": "O que Deus fez no sétimo dia?",
+      "id": "practice-progress",
+      "question": "Qual progresso o resultado desta prática registra no servidor?",
       "options": [
-        "Criou os mares",
-        "Criou as árvores",
-        "Concluiu Sua obra, descansou e santificou o dia"
+        "Nenhum progresso oficial.",
+        "A conclusão automática da fase.",
+        "A liberação de recompensas."
       ],
       "reference": "Gênesis 2:1–3",
       "passage": "2.1-3",
