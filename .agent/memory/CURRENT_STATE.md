@@ -1,3 +1,7 @@
+## 2026-11-24 — STORY-007P: política aprovada, TEST não autorizado
+
+Branch de implementação `codex/story-007m-protect-answer-keys`, SHA `35e1d4cdd48aae6b89c4e86e6279fb662f500d8c`. Proprietário aprovou uma tentativa diária e duas de quiz por conta/revisão, inclusive o feedback diário de avanço e risco de dedução. STORY-007M concluída localmente e revisão direcionada STORY-007N registrada, sem independência alegada. Migration e proposta SQL equivalentes, sem economia. Procedimento somente documental em `tasks/active/STORY-007P-test-migration-preparation.md`. Aplicação TEST segue sem autorização. `supabase/config.toml` ausente e guarda `SET LOCAL` não atendida por `supabase db push` padrão, então qualquer futura execução exige sessão SQL TEST confirmada e execução transacional explícita após autorização.
+
 ## 2026-11-24 — STORY-007M em validação
 
 Branch `codex/story-007m-protect-answer-keys`. A demonstração usa exercícios sobre seus controles. PostgreSQL aplica cotas provisórias por conta e revisão, preserva reenvios e mantém notas parciais privadas. Política e riscos em `tasks/active/STORY-007M-answer-key-protection.md`. PostgreSQL isolado 3/3 e Vitest direcionado 7/7. Aprovação pedagógica, revisão final e autorização para aplicação em TEST continuam pendentes.

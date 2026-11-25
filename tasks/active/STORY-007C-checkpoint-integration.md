@@ -1,6 +1,6 @@
 # STORY-007C — Revisão e integração dos checkpoints
 
-Status: VALIDATING. Base `e08fd40375d32f90115cce9db8d69a46913e2e19`.
+Status: implementação local concluída em `35e1d4cdd48aae6b89c4e86e6279fb662f500d8c`. Revisão técnica STORY-007N e decisão pedagógica STORY-007P registradas. Aplicação em Supabase TEST NÃO AUTORIZADA.
 
 ## Segurança e compatibilidade
 
@@ -13,7 +13,9 @@ Status: VALIDATING. Base `e08fd40375d32f90115cce9db8d69a46913e2e19`.
 
 A opção de build `NEXT_PUBLIC_CREATION_CHECKPOINTS=true` funciona com a URL oficial do TEST. A rota usa a demonstração quando a opção está desligada, a RPC não existe ou a revisão de conteúdo não está disponível ou não corresponde à do aplicativo. Falhas de sessão e rede oferecem nova tentativa. A troca de sessão ou Viajante descarta leituras anteriores. O resultado do quiz vem do servidor. Reenvios da mesma tentativa reutilizam seu UUID.
 
-Para habilitar, concluir a revisão independente e obter autorização específica para aplicar a migração no TEST. Aprovar editorialmente e publicar a revisão correspondente no aplicativo e no banco. Ligar a opção em TEST e verificar com contas autorizadas a retomada em outro dispositivo, o isolamento e a revogação. Economia, vídeo e próxima história têm seus próprios gates.
+Para uma futura aplicação, obter autorização específica do proprietário. Aplicar somente a migration TEST descrita no procedimento STORY-007P, primeiro confirmando o projeto e o baseline. A revisão de conteúdo da migration permanece draft e as flags content/video/reward permanecem fechadas. Publicação editorial, ativação da persistência remota, vídeo, recompensas e próxima história exigem seus gates próprios e autorizações correspondentes.
+
+O limite de uma tentativa diária e duas tentativas de quiz por conta/revisão foi aprovado pelo proprietário em STORY-007P. O feedback diário que indica avanço também foi aceito. Risco de dedução por exclusão foi avaliado e aceito para esta fase.
 
 ## Verificações
 
