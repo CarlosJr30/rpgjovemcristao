@@ -42,28 +42,6 @@
 .layout[hidden] {
   display: none;
 }
-.sanctuaryLayout { margin-top: 1rem; }
-.sanctuaryLayout[hidden] { display: none; }
-.sanctuaryLayout .playArea { padding: clamp(.35rem, 1.25vw, .85rem); }
-.sanctuaryActions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: .45rem .8rem;
-  align-items: start;
-  margin-top: .55rem;
-}
-.sanctuaryActions button,
-.sanctuaryActions summary {
-  box-sizing: border-box;
-  min-height: 44px;
-  padding: .55rem .75rem;
-  border: 1px solid #cbd6c4;
-  border-radius: .45rem;
-  background: #f6f7ef;
-  color: #213b2c;
-  cursor: pointer;
-}
-.sanctuaryActions details button { margin-top: .35rem; }
 .flowNav {
   margin-block: 1rem;
 }
@@ -175,10 +153,6 @@
   font-weight: 700;
   font-size: 1rem;
 }
-.stage:not([data-area='sanctuary']) .sceneTitle {
-  background: #142038;
-  color: white;
-}
 .poi {
   position: absolute;
   z-index: 2;
@@ -192,18 +166,6 @@
   font-size: 1.3rem;
   box-shadow: 0 2px 10px #14271966;
   cursor: pointer;
-}
-.daySigils {
-  position: absolute;
-  top: 10px;
-  right: 9px;
-  display: flex;
-  gap: 2px;
-  color: #fdf5d7;
-  font-size: 0.85rem;
-}
-.daySigils span:first-child {
-  color: #ffdd76;
 }
 .poi span {
   position: absolute;

@@ -65,29 +65,12 @@ afterEach(() => {
   creationScreenMocks.snapshot = null;
 });
 
-test('shows the sanctuary, enters day one, retries the challenge, and returns without claiming canonical progress', () => {
+test('opens day one directly in the local demonstration without claiming official progress', () => {
   const storageWrite = vi.spyOn(Storage.prototype, 'setItem');
   render(<CreationExplorerView traveler={traveler} />);
-  expect(screen.getByText('Santu\u00e1rio da Jornada')).toBeInTheDocument();
-  expect(
-    screen.getByText(/Espa\u00e7o fict\u00edcio do jogo/),
-  ).toBeInTheDocument();
-  for (const day of [
-    'Luz e trevas',
-    'Firmamento',
-    'Terra e vegeta\u00e7\u00e3o',
-    'Luminares',
-    'Aves e criaturas das \u00e1guas',
-    'Animais terrestres e humanidade',
-    'Descanso e reflex\u00e3o',
-  ]) {
-    expect(screen.getAllByText(new RegExp(day)).length).toBeGreaterThan(0);
-  }
+  expect(screen.getByRole('heading', { level: 1, name: /^Dia 1/ })).toBeInTheDocument();
+  expect(screen.getByText(/sempre come\u00e7a no Dia 1/)).toBeInTheDocument();
   const alternative = screen.getByRole('list', { name: 'Navegação acessível' });
-  fireEvent.click(within(alternative).getByRole('button', { name: /Portal/ }));
-  expect(
-    screen.queryByText('Qual controle abre a cena de um dia nesta demonstração?'),
-  ).not.toBeInTheDocument();
   fireEvent.click(
     within(alternative).getByRole('button', { name: 'Marco da luz' }),
   );
@@ -98,27 +81,25 @@ test('shows the sanctuary, enters day one, retries the challenge, and returns wi
   fireEvent.click(screen.getByLabelText('O portal do Santuário.'));
   fireEvent.click(screen.getByRole('button', { name: 'Conferir resposta' }));
   expect(screen.getByText(/Resposta correta.*portal do Santuário/)).toBeInTheDocument();
-  fireEvent.click(
-    within(alternative).getByRole('button', { name: 'Retornar ao Santuário' }),
-  );
-  expect(screen.getByText(/Santu\u00e1rio fict\u00edcio/)).toBeInTheDocument();
+  expect(screen.getByRole('link', { name: /Voltar à Jornada/ })).toHaveAttribute('href', '/journey');
+  expect(screen.queryByText('Santuário da Jornada')).not.toBeInTheDocument();
   expect(storageWrite).not.toHaveBeenCalled();
 });
 
 test('moves with desktop keyboard controls and exposes the real traveler avatar', () => {
   render(<CreationExplorerView traveler={traveler} />);
   const avatar = screen.getByTestId('traveler-position');
-  const map = screen.getByRole('group', { name: 'Mapa de exploração' });
+  const map = screen.getByRole('group', { name: 'Exploração do Dia 1' });
   fireEvent.keyDown(map, { key: 'ArrowRight' });
-  expect(avatar).toHaveStyle({ left: '23%' });
+  expect(avatar).toHaveStyle({ left: '27%' });
   fireEvent.keyDown(map, { key: 'ArrowUp' });
-  expect(avatar).toHaveStyle({ top: '45%' });
+  expect(avatar).toHaveStyle({ top: '47%' });
 });
 
 test('requires each day’s educational interaction and correct answer before advancing through all seven days', () => {
   const storageWrite = vi.spyOn(Storage.prototype, 'setItem');
   const view = render(
-    <CreationExplorerView traveler={traveler} canonicalSteps={['missions']} />,
+    <CreationExplorerView traveler={traveler} />,
   );
   const list = within(
     screen.getByRole('list', { name: 'Navegação acessível' }),
@@ -131,12 +112,9 @@ test('requires each day’s educational interaction and correct answer before ad
   expect(
     screen.queryByRole('button', { name: 'Abrir Harmonia da Criação' }),
   ).not.toBeInTheDocument();
-  choose('Portal · Dia 1');
-  choose('Retornar ao Santuário');
   expect(
     screen.queryByRole('button', { name: 'Abrir Harmonia da Criação' }),
   ).not.toBeInTheDocument();
-  choose('Portal · Dia 1');
   const itinerary = [
     { markers: ['Marco da luz'], correct: 'O portal do Santuário.' },
     {
@@ -157,7 +135,7 @@ test('requires each day’s educational interaction and correct answer before ad
   ];
   itinerary.forEach(({ markers, correct }, index) => {
     expect(
-      screen.getByRole('heading', { name: new RegExp(`^Dia ${index + 1} —`) }),
+      screen.getByRole('heading', { level: 1, name: new RegExp(`^Dia ${index + 1} —`) }),
     ).toBeInTheDocument();
     expect(
       screen.getByRole('link', { name: /Ler Gênesis.*NVI/ }),
@@ -201,7 +179,7 @@ test('requires each day’s educational interaction and correct answer before ad
     const advance =
       index < 6
         ? `Prosseguir para o Dia ${index + 2}`
-        : 'Voltar ao Santuário e liberar Harmonia';
+        : 'Abrir Harmonia da Criação';
     fireEvent.click(wrong);
     submit();
     expect(screen.getByText(/Tente novamente/)).toBeInTheDocument();
@@ -215,15 +193,6 @@ test('requires each day’s educational interaction and correct answer before ad
     ).toBeInTheDocument();
     fireEvent.click(screen.getByRole('button', { name: advance }));
   });
-  expect(
-    screen.getByText('Você percorreu os sete dias da demonstração.'),
-  ).toBeInTheDocument();
-  expect(
-    screen.getByText(/Registros canônicos consultados: 1/),
-  ).toBeInTheDocument();
-  fireEvent.click(
-    screen.getByRole('button', { name: 'Abrir Harmonia da Criação' }),
-  );
   expect(
     screen.getByRole('heading', { name: 'Harmonia da Criação' }),
   ).toHaveFocus();
@@ -256,7 +225,7 @@ test('requires each day’s educational interaction and correct answer before ad
   );
   expect(chapter.getAllByText('Descoberto nesta demonstração')).toHaveLength(7);
   expect(chapter.getAllByRole('link', { name: /Ler Gênesis/ })).toHaveLength(7);
-  click('Voltar à demonstração');
+  click('Voltar ao Dia 7');
   expect(
     bank.getByRole('button', { name: /Luz e trevas, posicionado/ }),
   ).toHaveAttribute('aria-disabled', 'true');
@@ -288,7 +257,7 @@ test('requires each day’s educational interaction and correct answer before ad
   }
   respond('No vídeo.', 0);
   click('Abrir Diário Bíblico');
-  click('Voltar à demonstração');
+  click('Voltar ao Dia 7');
   expectedAnswers.slice(1).forEach((answer, i) => respond(answer, i + 1));
   expect(screen.getByRole('status')).toHaveTextContent(
     'Você concluiu o Quiz da Criação! 4 de 5 acertos.',
@@ -302,7 +271,7 @@ test('requires each day’s educational interaction and correct answer before ad
     ).getAllByRole('listitem'),
   ).toHaveLength(7);
   click('Abrir Diário Bíblico');
-  click('Voltar à demonstração');
+  click('Voltar ao Dia 7');
   expect(screen.getByRole('status')).toHaveTextContent('4 de 5 acertos');
   click('Repetir quiz');
   expectedAnswers.forEach(respond);
@@ -317,7 +286,7 @@ test('requires each day’s educational interaction and correct answer before ad
   expect(screen.getByRole('status')).toHaveTextContent('Vídeo pendente');
   expect(view.container.querySelector('video, iframe')).toBeNull();
   click('Abrir Diário Bíblico');
-  click('Voltar à demonstração');
+  click('Voltar ao Dia 7');
   expect(screen.getByRole('status')).toHaveTextContent('Vídeo pendente');
   click('Ver estado da conclusão');
   expect(
@@ -342,17 +311,14 @@ test('requires each day’s educational interaction and correct answer before ad
     screen.queryByRole('link', { name: /Jardim do Éden/i }),
   ).not.toBeInTheDocument();
   click('Abrir Diário Bíblico');
-  click('Voltar à demonstração');
+  click('Voltar ao Dia 7');
   expect(screen.getByRole('status')).toHaveTextContent(
     'Conclusão oficial bloqueada',
   );
   expect(storageWrite).not.toHaveBeenCalled();
   view.unmount();
   render(<CreationExplorerView traveler={traveler} />);
-  expect(
-    screen.queryByText('Você percorreu os sete dias da demonstração.'),
-  ).not.toBeInTheDocument();
-  expect(screen.getByText('Santuário fictício')).toBeInTheDocument();
+  expect(screen.getByRole('heading', { level: 1, name: /^Dia 1/ })).toBeInTheDocument();
   expect(
     screen.queryByRole('button', { name: 'Abrir Harmonia da Criação' }),
   ).not.toBeInTheDocument();
@@ -393,7 +359,7 @@ test('keeps the production demo local and never calls checkpoint RPCs when the f
   );
   creationScreenMocks.snapshot = archive;
   render(<CreationExplorerScreen />);
-  expect(screen.getByText('Santuário fictício')).toBeInTheDocument();
+  expect(screen.getByRole('heading', { level: 1, name: /^Dia 1/ })).toBeInTheDocument();
   expect(creationScreenMocks.rpc).not.toHaveBeenCalled();
 });
 
@@ -426,10 +392,8 @@ test('resumes at the first pending day and ignores an old traveler response', as
     <CheckpointExplorer accountId="owner" snapshot={other} repository={repo} />,
   );
   await screen.findByText(/Dias confirmados pelo servidor: 3/);
-  const portal = accessibleMap().getByRole('button', { name: /Portal.*Dia 4/ });
   await act(async () => resolveOld({ ...remoteSnapshot, completedDays: [] }));
-  fireEvent.click(portal);
-  expect(screen.getByRole('heading', { name: /^Dia 4/ })).toBeInTheDocument();
+  expect(screen.getByRole('heading', { level: 1, name: /^Dia 4/ })).toBeInTheDocument();
   expect(repo.read).toHaveBeenLastCalledWith('other-traveler');
 });
 
@@ -468,9 +432,7 @@ test('keeps the demo playable with the server publication gate closed', async ()
       repository={repo}
     />,
   );
-  expect(
-    await screen.findAllByRole('button', { name: /Portal.*Dia 1/ }),
-  ).toHaveLength(2);
+  expect(await screen.findByRole('heading', { level: 1, name: /^Dia 1/ })).toBeInTheDocument();
   expect(repo.submitDay).not.toHaveBeenCalled();
 });
 
@@ -486,9 +448,6 @@ test('resends the same daily answer after a lost response and waits for a confir
       traveler={traveler}
       remote={{ accountId: 'owner', initial: first, repository: repo }}
     />,
-  );
-  fireEvent.click(
-    accessibleMap().getByRole('button', { name: /Portal.*Dia 1/ }),
   );
   fireEvent.click(
     accessibleMap().getByRole('button', { name: 'Marco da luz' }),
@@ -583,7 +542,7 @@ test('renders the public server projection with no grading keys in the client ma
   const repo = makeRepository();
   const official = JSON.parse(CREATION_MANIFEST);
   expect(CREATION_MANIFEST).not.toMatch(/"(?:answer|correctOptionId|explanation)":/);
-  official.days[0].title = 'Título publicado pelo servidor';
+  official.days[3].title = 'Título publicado pelo servidor';
   const manifestText = JSON.stringify(official);
   const manifestHash = createHash('sha256').update(manifestText).digest('hex');
   repo.read.mockResolvedValue({ ...remoteSnapshot, manifestText, manifestHash });
@@ -595,7 +554,7 @@ test('renders the public server projection with no grading keys in the client ma
     />,
   );
   expect(
-    await screen.findByText(/Dia 1 · Título publicado pelo servidor/),
+    await screen.findByRole('heading', { level: 1, name: /^Dia 4.*Título publicado pelo servidor/ }),
   ).toBeInTheDocument();
 });
 
