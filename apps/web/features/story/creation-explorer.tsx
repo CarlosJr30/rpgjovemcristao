@@ -24,11 +24,11 @@ import {
 } from '../../lib/supabase/repositories/creation-checkpoint-repository';
 import { creationManifestId } from './creation-manifest';
 import {
-  creationDaysFromManifest,
   parseCreationManifestText,
   CREATION_CONTENT_V1,
   type CreationContentManifest,
 } from './creation-days';
+import { CREATION_DEMO_FEEDBACK } from './creation-demo-feedback';
 import { creationQuizFromManifest } from './creation-quiz-content';
 import {
   clearPendingQuiz,
@@ -302,7 +302,7 @@ export function CreationExplorerView({
   const manifestHash = remote?.initial.manifestHash;
   const revision = remote?.initial.revision;
   const content = remote?.content ?? CREATION_CONTENT_V1;
-  const days = useMemo(() => creationDaysFromManifest(content), [content]);
+  const days = content.days;
   const quiz = useMemo(() => creationQuizFromManifest(content), [content]);
   const quizScope =
     remote &&
@@ -447,7 +447,7 @@ export function CreationExplorerView({
     if (!day || !challengeOpen || answer === undefined || dayRequest.current)
       return;
     if (!remote) {
-      setFeedback(answer === day.correct ? 'correct' : 'retry');
+      setFeedback(answer === CREATION_DEMO_FEEDBACK[day.id].correctIndex ? 'correct' : 'retry');
       return;
     }
     dayRequest.current = true;
@@ -678,7 +678,7 @@ export function CreationExplorerView({
       <div className={css.notice} role="note">
         {remote
           ? `Dias confirmados pelo servidor: ${completedDays} de 7.`
-          : 'A demonstração reinicia ao atualizar a página ou trocar de dispositivo.'}
+          : 'A demonstração reinicia ao atualizar a página ou trocar de dispositivo. As respostas locais não geram progresso oficial.'}
         {canonicalSteps.length > 0 && (
           <span>
             {' '}
@@ -845,8 +845,9 @@ export function CreationExplorerView({
               </fieldset>
               <p role="status" className={css.feedback} data-result={feedback}>
                 {saveError}
-                {feedback === 'correct' &&
-                  `Resposta correta. Explicação do relato: ${day.explanation}`}
+                {feedback === 'correct' && (remote
+                  ? 'Resposta correta.'
+                  : 'Resposta correta. Explicação do relato: ' + CREATION_DEMO_FEEDBACK[day.id].explanation)}
                 {feedback === 'retry' &&
                   'Tente novamente. Você pode responder quantas vezes quiser.'}
               </p>

@@ -64,13 +64,15 @@ const traveler = (n) =>
   `10000000-0000-4000-8000-${String(n).padStart(12, '0')}`;
 const sessionId = (n) =>
   `30000000-0000-4000-8000-${String(n).padStart(12, '0')}`;
-const canonicalManifest = JSON.parse(
-  fs.readFileSync('apps/web/features/story/creation-content-v1.json', 'utf8'),
+const migration = fs.readFileSync(
+  'supabase/migrations/20261124185354_story_007c_creation_checkpoints_test.sql',
+  'utf8',
 );
-const fixtureManifest = (revision) =>
-  JSON.stringify({ ...canonicalManifest, revision });
-const manifestId = (revision) =>
-  createHash('sha256').update(fixtureManifest(revision)).digest('hex');
+const seedText = migration.split('$creation_manifest$')[1];
+const canonicalManifest = JSON.parse(seedText);
+const fixtureManifest = (revision) => JSON.stringify({ ...canonicalManifest, revision });
+const quizKeys = canonicalManifest.quiz.map(({ answer }) => answer);
+const dayKeys = canonicalManifest.days.map(({ answer }) => answer);
 const expectedMarkerIds = [
   'creation-day-1-marker-1',
   'creation-day-2-marker-1',
@@ -156,10 +158,6 @@ test('STORY-007: local checkpoint RPCs isolate owners, enforce ordering and repl
     CREATE SCHEMA supabase_migrations;
     CREATE TABLE supabase_migrations.schema_migrations(version text, name text);
     INSERT INTO supabase_migrations.schema_migrations VALUES('20261021031958','deploy002_11_task0081_story_progress');`);
-  const migration = fs.readFileSync(
-    'supabase/migrations/20261124185354_story_007c_creation_checkpoints_test.sql',
-    'utf8',
-  );
   const proposal = fs.readFileSync(
     'packages/database/proposals/story007-creation-checkpoints.sql',
     'utf8',
@@ -171,94 +169,103 @@ test('STORY-007: local checkpoint RPCs isolate owners, enforce ordering and repl
   await denied(migration, /Reviewed STORY-007C TEST baseline required/);
   await query("SET story007c.target_project='wkdvdzfkbwvhyjmamrsg'");
   await query(migration);
-  await assert.rejects(
-    query(
-      "UPDATE story_private.creation_checkpoint_revisions SET manifest=NULL,status='published' WHERE revision=1",
-    ),
-    /Incomplete creation manifest/,
-  );
-  assert.equal(
-    await query("SELECT manifest FROM story_private.creation_checkpoint_revisions WHERE revision=1"),
-    fixtureManifest(1),
-  );
-  const incomplete = JSON.parse(fixtureManifest(1));
-  incomplete.days.pop();
-  await assert.rejects(
-    query("UPDATE story_private.creation_checkpoint_revisions SET status='published',manifest=" + sqlLiteral(JSON.stringify(incomplete)) + " WHERE revision=1"),
-    /Incomplete creation manifest/,
-  );
-  const missingRevision = JSON.parse(fixtureManifest(1));
-  delete missingRevision.revision;
-  await assert.rejects(
-    query("UPDATE story_private.creation_checkpoint_revisions SET status='published',manifest=" + sqlLiteral(JSON.stringify(missingRevision)) + " WHERE revision=1"),
-    /Incomplete creation manifest/,
-  );
-  const missingDayText = JSON.parse(fixtureManifest(1));
-  delete missingDayText.days[0].title;
-  await assert.rejects(
-    query("UPDATE story_private.creation_checkpoint_revisions SET status='published',manifest=" + sqlLiteral(JSON.stringify(missingDayText)) + " WHERE revision=1"),
-    /Invalid creation day content/,
-  );
-  const missingQuizText = JSON.parse(fixtureManifest(1));
-  delete missingQuizText.quiz[0].question;
-  await assert.rejects(
-    query("UPDATE story_private.creation_checkpoint_revisions SET status='published',manifest=" + sqlLiteral(JSON.stringify(missingQuizText)) + " WHERE revision=1"),
-    /Invalid creation quiz content/,
-  );
-  const inconsistent = JSON.parse(fixtureManifest(1));
-  inconsistent.quiz[0].answer = 0;
-  await assert.rejects(
-    query("UPDATE story_private.creation_checkpoint_revisions SET status='published',manifest=" + sqlLiteral(JSON.stringify(inconsistent)) + " WHERE revision=1"),
-    /Invalid creation quiz content/,
-  );
-  const invalidQuizIds = [
-    ['numeric', (manifest) => { manifest.quiz[0].id = 17; }],
-    ['null', (manifest) => { manifest.quiz[0].id = null; }],
-    ['empty', (manifest) => { manifest.quiz[0].id = ''; }],
-    ['whitespace', (manifest) => { manifest.quiz[0].id = '   '; }],
-    ['duplicate', (manifest) => { manifest.quiz[1].id = manifest.quiz[0].id; }],
-  ];
-  for (const [name, mutate] of invalidQuizIds) {
-    const invalid = JSON.parse(fixtureManifest(1));
-    mutate(invalid);
+  await t.test('rejects invalid private revisions and identifiers', async () => {
     await assert.rejects(
-      query("UPDATE story_private.creation_checkpoint_revisions SET status='published',manifest=" + sqlLiteral(JSON.stringify(invalid)) + " WHERE revision=1"),
-      /Creation content identifiers must be unique|Invalid creation quiz content/,
-      name,
+      query(
+        "UPDATE story_private.creation_checkpoint_revisions SET manifest=NULL,status='published' WHERE revision=1",
+      ),
+      /Incomplete creation manifest/,
     );
-  }
-  const invalidDay = JSON.parse(fixtureManifest(1));
-  invalidDay.days[0].id = 1;
-  await assert.rejects(
-    query("UPDATE story_private.creation_checkpoint_revisions SET status='published',manifest=" + sqlLiteral(JSON.stringify(invalidDay)) + " WHERE revision=1"),
-    /Creation content identifiers must be unique|Invalid creation day content/,
-  );
-  const markerIdFailures = [
-    ['numeric', (manifest) => { manifest.days[0].markers[0].id = 17; }],
-    ['null', (manifest) => { manifest.days[0].markers[0].id = null; }],
-    ['empty', (manifest) => { manifest.days[0].markers[0].id = ''; }],
-    ['invalid format', (manifest) => { manifest.days[0].markers[0].id = 'Marker One'; }],
-    ['same-day duplicate', (manifest) => { manifest.days[2].markers[1].id = manifest.days[2].markers[0].id; }],
-    ['cross-day duplicate', (manifest) => { manifest.days[1].markers[0].id = manifest.days[0].markers[0].id; }],
-  ];
-  for (const [name, mutate] of markerIdFailures) {
-    const invalid = JSON.parse(fixtureManifest(1));
-    mutate(invalid);
+    assert.equal(
+      await query("SELECT manifest FROM story_private.creation_checkpoint_revisions WHERE revision=1"),
+      seedText,
+    );
+    const incomplete = JSON.parse(fixtureManifest(1));
+    incomplete.days.pop();
     await assert.rejects(
-      query("UPDATE story_private.creation_checkpoint_revisions SET status='published',manifest=" + sqlLiteral(JSON.stringify(invalid)) + " WHERE revision=1"),
-      /Creation marker IDs must be unique|Invalid creation marker/,
-      name,
+      query("UPDATE story_private.creation_checkpoint_revisions SET status='published',manifest=" + sqlLiteral(JSON.stringify(incomplete)) + " WHERE revision=1"),
+      /Incomplete creation manifest/,
     );
-  }
+    const missingRevision = JSON.parse(fixtureManifest(1));
+    delete missingRevision.revision;
+    await assert.rejects(
+      query("UPDATE story_private.creation_checkpoint_revisions SET status='published',manifest=" + sqlLiteral(JSON.stringify(missingRevision)) + " WHERE revision=1"),
+      /Incomplete creation manifest/,
+    );
+    const missingDayText = JSON.parse(fixtureManifest(1));
+    delete missingDayText.days[0].title;
+    await assert.rejects(
+      query("UPDATE story_private.creation_checkpoint_revisions SET status='published',manifest=" + sqlLiteral(JSON.stringify(missingDayText)) + " WHERE revision=1"),
+      /Invalid creation day content/,
+    );
+    const missingQuizText = JSON.parse(fixtureManifest(1));
+    delete missingQuizText.quiz[0].question;
+    await assert.rejects(
+      query("UPDATE story_private.creation_checkpoint_revisions SET status='published',manifest=" + sqlLiteral(JSON.stringify(missingQuizText)) + " WHERE revision=1"),
+      /Invalid creation quiz content/,
+    );
+    const inconsistent = JSON.parse(fixtureManifest(1));
+    inconsistent.quiz[0].answer = 0;
+    await assert.rejects(
+      query("UPDATE story_private.creation_checkpoint_revisions SET status='published',manifest=" + sqlLiteral(JSON.stringify(inconsistent)) + " WHERE revision=1"),
+      /Invalid creation quiz content/,
+    );
+    const invalidQuizIds = [
+      ['numeric', (manifest) => { manifest.quiz[0].id = 17; }],
+      ['null', (manifest) => { manifest.quiz[0].id = null; }],
+      ['empty', (manifest) => { manifest.quiz[0].id = ''; }],
+      ['whitespace', (manifest) => { manifest.quiz[0].id = '   '; }],
+      ['duplicate', (manifest) => { manifest.quiz[1].id = manifest.quiz[0].id; }],
+    ];
+    for (const [name, mutate] of invalidQuizIds) {
+      const invalid = JSON.parse(fixtureManifest(1));
+      mutate(invalid);
+      await assert.rejects(
+        query("UPDATE story_private.creation_checkpoint_revisions SET status='published',manifest=" + sqlLiteral(JSON.stringify(invalid)) + " WHERE revision=1"),
+        /Creation content identifiers must be unique|Invalid creation quiz content/,
+        name,
+      );
+    }
+    const invalidDay = JSON.parse(fixtureManifest(1));
+    invalidDay.days[0].id = 1;
+    await assert.rejects(
+      query("UPDATE story_private.creation_checkpoint_revisions SET status='published',manifest=" + sqlLiteral(JSON.stringify(invalidDay)) + " WHERE revision=1"),
+      /Creation content identifiers must be unique|Invalid creation day content/,
+    );
+    const markerIdFailures = [
+      ['numeric', (manifest) => { manifest.days[0].markers[0].id = 17; }],
+      ['null', (manifest) => { manifest.days[0].markers[0].id = null; }],
+      ['empty', (manifest) => { manifest.days[0].markers[0].id = ''; }],
+      ['invalid format', (manifest) => { manifest.days[0].markers[0].id = 'Marker One'; }],
+      ['same-day duplicate', (manifest) => { manifest.days[2].markers[1].id = manifest.days[2].markers[0].id; }],
+      ['cross-day duplicate', (manifest) => { manifest.days[1].markers[0].id = manifest.days[0].markers[0].id; }],
+    ];
+    for (const [name, mutate] of markerIdFailures) {
+      const invalid = JSON.parse(fixtureManifest(1));
+      mutate(invalid);
+      await assert.rejects(
+        query("UPDATE story_private.creation_checkpoint_revisions SET status='published',manifest=" + sqlLiteral(JSON.stringify(invalid)) + " WHERE revision=1"),
+        /Creation marker IDs must be unique|Invalid creation marker/,
+        name,
+      );
+    }
+  });
+  const fixture = JSON.parse(fixtureManifest(1));
+  fixture.privateCriteria = 'reserved root';
+  fixture.days[0].markers[0].privateCriteria = 'reserved marker';
+  fixture.days[0].markers[0].point.privateCriteria = 'reserved point';
+  fixture.quiz[0].privateCriteria = 'reserved quiz';
   await query(
-    "UPDATE story_private.creation_checkpoint_revisions SET manifest=" + sqlLiteral(fixtureManifest(1)) + " WHERE revision=1",
+    'UPDATE story_private.creation_checkpoint_revisions SET manifest=' +
+      sqlLiteral(JSON.stringify(fixture)) + ' WHERE revision=1',
   );
-  const unavailableInitial = JSON.parse(
-    await rpc(1, `SELECT public.read_creation_checkpoints('${traveler(1)}')`),
-  );
-  assert.equal(unavailableInitial.available, false);
-  assert.equal(unavailableInitial.manifestText, null);
-  assert.equal(unavailableInitial.manifestHash, null);
+  await t.test('hides the unavailable revision', async () => {
+    await query("UPDATE public.story_definitions SET content_ready=true WHERE id='creation'");
+    const snapshot = JSON.parse(await rpc(1, 'SELECT public.read_creation_checkpoints(' + sqlLiteral(traveler(1)) + ')'));
+    assert.equal(snapshot.available, false);
+    assert.equal(snapshot.manifestText, null);
+    assert.equal(snapshot.manifestHash, null);
+  });
   // Synthetic publication exists only in this disposable database.
   await query(
     "INSERT INTO public.story_progress(traveler_id,story_id,completed_steps) VALUES('" +
@@ -272,7 +279,7 @@ test('STORY-007: local checkpoint RPCs isolate owners, enforce ordering and repl
       await denied(
         session(
           2,
-          `SELECT public.submit_creation_day('${traveler(1)}',1,1::smallint,1::smallint)`,
+          `SELECT public.submit_creation_day('${traveler(1)}',1,1::smallint,${dayKeys[0]}::smallint)`,
         ),
       );
       await denied(
@@ -306,7 +313,7 @@ test('STORY-007: local checkpoint RPCs isolate owners, enforce ordering and repl
       await denied(
         session(
           1,
-          `INSERT INTO story_private.creation_quiz_attempts(traveler_id,revision,operation_id,answers,score) VALUES('${traveler(1)}',1,'20000000-0000-4000-8000-000000000099',ARRAY[2,1,3,2,3],5)`,
+          `INSERT INTO story_private.creation_quiz_attempts(traveler_id,revision,operation_id,answers,score) VALUES('${traveler(1)}',1,'20000000-0000-4000-8000-000000000099',ARRAY[${quizKeys.join(',')}],5)`,
         ),
       );
       await denied(
@@ -378,7 +385,7 @@ test('STORY-007: local checkpoint RPCs isolate owners, enforce ordering and repl
     },
   );
 
-  await t.test('uses the published manifest and exposes no client hash argument', async () => {
+  await t.test('returns only the public manifest', async () => {
     assert.deepEqual(
       canonicalManifest.days.flatMap((day) => day.markers.map(({ id }) => id)),
       expectedMarkerIds,
@@ -398,8 +405,34 @@ test('STORY-007: local checkpoint RPCs isolate owners, enforce ordering and repl
       await rpc(1, `SELECT public.read_creation_checkpoints('${traveler(1)}')`),
     );
     assert.equal(snapshot.available, true);
-    assert.equal(snapshot.manifestHash, manifestId(1));
-    assert.equal(snapshot.manifestText, fixtureManifest(1));
+    const expected = JSON.parse(fixtureManifest(1));
+    for (const item of [...expected.days, ...expected.quiz]) {
+      delete item.answer;
+      delete item.explanation;
+    }
+    assert.deepEqual(JSON.parse(snapshot.manifestText), expected);
+    assert.equal(snapshot.manifestHash, createHash('sha256').update(snapshot.manifestText).digest('hex'));
+  });
+
+  await t.test('grades the official quiz against private answers', async () => {
+    const id = sqlLiteral(traveler(2));
+    const operation = sqlLiteral(sessionId(2));
+    const wrong = quizKeys.map((answer, index) => index === 0 ? answer % 3 + 1 : answer);
+    const results = await db.query(
+      'BEGIN; ' +
+      'INSERT INTO story_private.creation_activity_receipts(traveler_id,revision,activity,activity_key,result) ' +
+      'VALUES (' + id + ",1,'harmony','seven-symbols:v1','{}'); " +
+      'SET LOCAL ROLE authenticated; ' +
+      'SET LOCAL request.jwt.claim.sub=' + sqlLiteral(user(2)) + '; ' +
+      'SET LOCAL request.jwt.claims=' + sqlLiteral(JSON.stringify({ session_id: sessionId(2) })) + '; ' +
+      'SELECT public.submit_creation_quiz(' + id + ',1,' + operation + ',ARRAY[' + wrong.join(',') + ']::smallint[]) AS receipt; ' +
+      'ROLLBACK;',
+    );
+    const { receipt } = results.find(({ command }) => command === 'SELECT').rows[0];
+    assert.equal(receipt.score, 4);
+    assert.equal(receipt.perfect, false);
+    assert.deepEqual(Object.keys(receipt).sort(),
+      ['version','attemptId','score','total','perfect','revision','replayed'].sort());
   });
 
   await t.test(
@@ -444,14 +477,14 @@ test('STORY-007: local checkpoint RPCs isolate owners, enforce ordering and repl
       await denied(
         session(
           1,
-          `SELECT public.submit_creation_day('${traveler(1)}',1,2::smallint,2::smallint)`,
+          `SELECT public.submit_creation_day('${traveler(1)}',1,2::smallint,${dayKeys[1]}::smallint)`,
         ),
         /Previous creation day incomplete/,
       );
       const wrong = JSON.parse(
         await rpc(
           1,
-          `SELECT public.submit_creation_day('${traveler(1)}',1,1::smallint,2::smallint)`,
+          `SELECT public.submit_creation_day('${traveler(1)}',1,1::smallint,${dayKeys[0] % 2 + 1}::smallint)`,
         ),
       );
       assert.equal(wrong.correct, false);
@@ -463,7 +496,7 @@ test('STORY-007: local checkpoint RPCs isolate owners, enforce ordering and repl
       );
       const sql = session(
         1,
-        `SELECT public.submit_creation_day('${traveler(1)}',1,1::smallint,1::smallint)`,
+        `SELECT public.submit_creation_day('${traveler(1)}',1,1::smallint,${dayKeys[0]}::smallint)`,
       );
       const results = await Promise.all([concurrent(sql), concurrent(sql)]);
       assert.equal(results.length, 2);
@@ -484,11 +517,10 @@ test('STORY-007: local checkpoint RPCs isolate owners, enforce ordering and repl
   await t.test(
     'all seven server-checked days, Harmony and quiz attempts resume by revision',
     async () => {
-      const keys = [1, 2, 1, 2, 1, 2, 1];
       for (let day = 2; day <= 7; day++)
         await rpc(
           1,
-          `SELECT public.submit_creation_day('${traveler(1)}',1,${day}::smallint,${keys[day - 1]}::smallint)`,
+          `SELECT public.submit_creation_day('${traveler(1)}',1,${day}::smallint,${dayKeys[day - 1]}::smallint)`,
         );
       const wrongOrder = JSON.parse(
         await rpc(
@@ -507,7 +539,7 @@ test('STORY-007: local checkpoint RPCs isolate owners, enforce ordering and repl
       const attempt = '20000000-0000-4000-8000-000000000001';
       const submission = session(
         1,
-        `SELECT public.submit_creation_quiz('${traveler(1)}',1,'${attempt}',ARRAY[2,1,3,2,3]::smallint[])`,
+        `SELECT public.submit_creation_quiz('${traveler(1)}',1,'${attempt}',ARRAY[${quizKeys.join(',')}]::smallint[])`,
       );
       const results = await Promise.all([
         concurrent(submission),
@@ -533,7 +565,7 @@ test('STORY-007: local checkpoint RPCs isolate owners, enforce ordering and repl
           `SELECT public.submit_creation_quiz('${traveler(1)}',1,'${second}',ARRAY[1,1,1,1,1]::smallint[])`,
         ),
       );
-      assert.equal(retry.score, 1);
+      assert.equal(retry.score, quizKeys.filter((answer) => answer === 1).length);
       assert.equal(retry.perfect, false);
       const state = JSON.parse(
         await rpc(
@@ -584,7 +616,7 @@ test('STORY-007: local checkpoint RPCs isolate owners, enforce ordering and repl
       await denied(
         session(
           1,
-          `SELECT public.submit_creation_quiz('${traveler(1)}',1,'20000000-0000-4000-8000-000000000001',ARRAY[2,1,3,2,3]::smallint[])`,
+          `SELECT public.submit_creation_quiz('${traveler(1)}',1,'20000000-0000-4000-8000-000000000001',ARRAY[${quizKeys.join(',')}]::smallint[])`,
         ),
         /Creation revision unavailable/,
       );

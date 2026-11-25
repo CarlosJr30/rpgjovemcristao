@@ -1,4 +1,5 @@
 import { CREATION_DAYS, creationPassageUrl } from '../../story/creation-days';
+import { CREATION_DEMO_FEEDBACK } from '../../story/creation-demo-feedback';
 import book from './diary-experience.module.css';
 
 export function CreationDiaryChapter({
@@ -29,7 +30,7 @@ export function CreationDiaryChapter({
           <h3>
             Dia {index + 1} — {day.title}
           </h3>
-          <p>{day.explanation}</p>
+          <p>{CREATION_DEMO_FEEDBACK[day.id].explanation}</p>
           {discoveries && (
             <p>
               {discoveries.includes(day.id)

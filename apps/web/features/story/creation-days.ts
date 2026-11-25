@@ -20,8 +20,6 @@ export type CreationContentDay = Readonly<{
   markers: readonly CreationMarker[];
   question: string;
   options: readonly [string, string];
-  answer: number;
-  explanation: string;
 }>;
 
 export type CreationContentQuizQuestion = Readonly<{
@@ -29,10 +27,8 @@ export type CreationContentQuizQuestion = Readonly<{
   question: string;
   options: readonly string[];
   optionIds: readonly string[];
-  answer: number;
   reference: string;
   passage: string;
-  explanation: string;
 }>;
 
 export type CreationContentManifest = Readonly<{
@@ -42,7 +38,7 @@ export type CreationContentManifest = Readonly<{
   quiz: readonly CreationContentQuizQuestion[];
 }>;
 
-export type CreationDay = CreationContentDay & { correct: 0 | 1 };
+export type CreationDay = CreationContentDay;
 
 export function creationPassageUrl(passage: string) {
   return `https://www.bible.com/pt/bible/129/GEN.${passage}.NVI`;
@@ -92,20 +88,10 @@ export function parseCreationManifestText(text: string, revision: number) {
   return manifest;
 }
 
-export function creationDaysFromManifest(
-  manifest: CreationContentManifest,
-): readonly CreationDay[] {
-  return manifest.days.map((day) => ({
-    ...day,
-    correct: (day.answer - 1) as 0 | 1,
-  }));
-}
-
 function parseDay(value: unknown): CreationContentDay {
   if (!isRecord(value)) throw new Error('Dia inválido no manifesto.');
   const id = requiredString(value.id);
   const options = requiredStrings(value.options, 2) as [string, string];
-  const answer = validAnswer(value.answer, options.length);
   const markers = Array.isArray(value.markers)
     ? value.markers.map((marker) => {
         if (!isRecord(marker) || !isRecord(marker.point))
@@ -140,8 +126,6 @@ function parseDay(value: unknown): CreationContentDay {
     markers,
     question: requiredString(value.question),
     options,
-    answer,
-    explanation: requiredString(value.explanation),
   };
 }
 
@@ -158,10 +142,8 @@ function parseQuizQuestion(value: unknown): CreationContentQuizQuestion {
     question: requiredString(value.question),
     options,
     optionIds,
-    answer: validAnswer(value.answer, options.length),
     reference: requiredString(value.reference),
     passage: requiredString(value.passage),
-    explanation: requiredString(value.explanation),
   };
 }
 
@@ -181,16 +163,10 @@ function requiredString(value: unknown): string {
   return value;
 }
 
-function validAnswer(value: unknown, count: number): number {
-  if (!Number.isInteger(value) || (value as number) < 1 || (value as number) > count)
-    throw new Error('Gabarito inválido no manifesto.');
-  return value as number;
-}
-
 function isRecord(value: unknown): value is Record<string, unknown> {
   return !!value && typeof value === 'object' && !Array.isArray(value);
 }
 
 const bundledManifest = parseCreationManifest(manifestSource);
-export const CREATION_DAYS = creationDaysFromManifest(bundledManifest);
+export const CREATION_DAYS = bundledManifest.days;
 export const CREATION_CONTENT_V1 = bundledManifest;

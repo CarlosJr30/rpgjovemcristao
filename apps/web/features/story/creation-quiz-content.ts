@@ -1,3 +1,4 @@
+import { CREATION_DEMO_FEEDBACK } from './creation-demo-feedback';
 import type { GardenQuizSessionQuestion } from '../journey/data/gardenQuiz';
 import {
   CREATION_CONTENT_V1,
@@ -5,9 +6,11 @@ import {
   type CreationContentQuizQuestion,
 } from './creation-days';
 
+export type CreationQuizQuestion = Pick<GardenQuizSessionQuestion, 'id' | 'question' | 'options' | 'reference'> & { passage: string };
+
 export function creationQuizFromManifest(
   manifest: CreationContentManifest,
-): readonly (GardenQuizSessionQuestion & { passage: string })[] {
+): readonly CreationQuizQuestion[] {
   return manifest.quiz.map((question: CreationContentQuizQuestion) => ({
     id: question.id,
     question: question.question,
@@ -15,12 +18,17 @@ export function creationQuizFromManifest(
       id: question.optionIds[index],
       text,
     })),
-    correctOptionId: question.optionIds[question.answer - 1] as 'a' | 'b' | 'c',
     reference: question.reference,
     passage: question.passage,
-    explanation: question.explanation,
   }));
 }
 
 // Conteúdo demonstrativo versionado; aprovação editorial final pendente.
-export const CREATION_QUIZ = creationQuizFromManifest(CREATION_CONTENT_V1);
+export const CREATION_QUIZ = creationQuizFromManifest(CREATION_CONTENT_V1).map((question) => {
+  const feedback = CREATION_DEMO_FEEDBACK[question.id];
+  return {
+    ...question,
+    correctOptionId: question.options[feedback.correctIndex].id,
+    explanation: feedback.explanation,
+  };
+});

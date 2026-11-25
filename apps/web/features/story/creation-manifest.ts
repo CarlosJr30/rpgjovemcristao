@@ -1,7 +1,7 @@
 import manifestSource from './creation-content-v1.json';
 
-// This versioned JSON is the demo artifact and is also the seed for TEST.
-// Remote gameplay uses the exact immutable manifest returned by the server.
+// This versioned presentation is used by the local demonstration.
+// Remote gameplay uses the exact public projection returned by the server.
 export const CREATION_MANIFEST = JSON.stringify(manifestSource);
 
 export async function creationManifestId(text = CREATION_MANIFEST) {

@@ -24,9 +24,7 @@
         "A luz.",
         "O firmamento."
       ],
-      "explanation": "Deus disse que houvesse luz, separou a luz das trevas e chamou a luz de Dia e as trevas de Noite.",
-      "harmonyLabel": "Luz e trevas",
-      "answer": 1
+      "harmonyLabel": "Luz e trevas"
     },
     {
       "id": "creation-day-2",
@@ -51,9 +49,7 @@
         "A terra seca dos mares.",
         "As águas de cima das águas de baixo."
       ],
-      "explanation": "O firmamento separou as águas acima e abaixo dele. Deus deu ao firmamento o nome de céu.",
-      "harmonyLabel": "Firmamento",
-      "answer": 2
+      "harmonyLabel": "Firmamento"
     },
     {
       "id": "creation-day-3",
@@ -99,9 +95,7 @@
       "options": [
         "Aparece a terra seca, as águas se reúnem e surge vegetação.",
         "As aves e os seres aquáticos povoam o céu e as águas."
-      ],
-      "explanation": "O relato reúne o aparecimento da terra seca, a formação dos mares e o surgimento da vegetação.",
-      "answer": 1
+      ]
     },
     {
       "id": "creation-day-4",
@@ -126,9 +120,7 @@
         "Separar as águas acima e abaixo do céu.",
         "Iluminar a terra, distinguir dia e noite e marcar tempos."
       ],
-      "explanation": "Os luminares iluminam a terra, distinguem dia e noite e servem para marcar tempos, dias e anos.",
-      "harmonyLabel": "Luminares",
-      "answer": 2
+      "harmonyLabel": "Luminares"
     },
     {
       "id": "creation-day-5",
@@ -153,9 +145,7 @@
         "Seres aquáticos e aves.",
         "Animais terrestres e seres humanos."
       ],
-      "explanation": "Deus criou os seres que povoam as águas e as aves que voam pelo céu.",
-      "harmonyLabel": "Aves e criaturas das águas",
-      "answer": 1
+      "harmonyLabel": "Aves e criaturas das águas"
     },
     {
       "id": "creation-day-6",
@@ -180,9 +170,7 @@
         "As aves, feitas à imagem de Deus.",
         "Os seres humanos, criados à imagem de Deus."
       ],
-      "explanation": "O relato apresenta os animais terrestres e ensina que Deus criou os seres humanos à sua imagem.",
-      "harmonyLabel": "Animais terrestres e humanidade",
-      "answer": 2
+      "harmonyLabel": "Animais terrestres e humanidade"
     },
     {
       "id": "creation-day-7",
@@ -207,9 +195,7 @@
       "options": [
         "Deus havia concluído sua obra, descansou e santificou o dia.",
         "Deus começou a criar os luminares do céu."
-      ],
-      "explanation": "Com sua obra concluída, Deus descansou. Ele abençoou e santificou o sétimo dia.",
-      "answer": 1
+      ]
     }
   ],
   "harmony": [
@@ -232,13 +218,11 @@
       ],
       "reference": "Gênesis 1:3–5",
       "passage": "1.3-5",
-      "explanation": "A luz aparece no primeiro dia.",
       "optionIds": [
         "a",
         "b",
         "c"
-      ],
-      "answer": 2
+      ]
     },
     {
       "id": "land",
@@ -250,13 +234,11 @@
       ],
       "reference": "Gênesis 1:9–13",
       "passage": "1.9-13",
-      "explanation": "A terra seca e a vegetação aparecem no terceiro dia.",
       "optionIds": [
         "a",
         "b",
         "c"
-      ],
-      "answer": 1
+      ]
     },
     {
       "id": "lights",
@@ -268,13 +250,11 @@
       ],
       "reference": "Gênesis 1:14–19",
       "passage": "1.14-19",
-      "explanation": "Os luminares são apresentados no quarto dia.",
       "optionIds": [
         "a",
         "b",
         "c"
-      ],
-      "answer": 3
+      ]
     },
     {
       "id": "image",
@@ -286,13 +266,11 @@
       ],
       "reference": "Gênesis 1:26–27",
       "passage": "1.26-27",
-      "explanation": "O relato descreve o ser humano como criado à imagem de Deus.",
       "optionIds": [
         "a",
         "b",
         "c"
-      ],
-      "answer": 2
+      ]
     },
     {
       "id": "rest",
@@ -304,13 +282,11 @@
       ],
       "reference": "Gênesis 2:1–3",
       "passage": "2.1-3",
-      "explanation": "Com a obra concluída, Deus descansou e santificou o sétimo dia.",
       "optionIds": [
         "a",
         "b",
         "c"
-      ],
-      "answer": 3
+      ]
     }
   ]
 }

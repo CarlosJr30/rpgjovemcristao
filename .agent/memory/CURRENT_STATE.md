@@ -1,3 +1,7 @@
+## 2026-11-24 — STORY-007K em validação
+
+Na branch `codex/story-007k-separate-answer-keys`, a RPC de leitura retorna uma projeção pública com hash próprio. Os gabaritos oficiais e as explicações da revisão publicada permanecem no armazenamento privado do PostgreSQL. A demonstração tem avaliação local separada. Três casos em PostgreSQL isolado, um caso Vitest, ESLint direcionado, TypeScript e `git diff --check` passaram. Aplicação em TEST e publicação editorial seguem pendentes de autorização.
+
 ## 2026-11-24 — STORY-007C em validação
 
 Migração candidata e integração de checkpoints preparadas na branch `codex/story-007c-checkpoint-integration`. PostgreSQL local 6/6 e Vitest direcionado 14/14. O catálogo TEST é compatível e os gates de publicação seguem fechados. Revisão independente e autorização específica para aplicação em TEST continuam pendentes. Ver `tasks/active/STORY-007C-checkpoint-integration.md`.

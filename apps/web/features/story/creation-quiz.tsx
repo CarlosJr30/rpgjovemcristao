@@ -6,8 +6,8 @@ import {
   CREATION_DAYS,
   creationPassageUrl,
 } from './creation-days';
-import { CREATION_QUIZ } from './creation-quiz-content';
-import type { GardenQuizSessionQuestion } from '../journey/data/gardenQuiz';
+import { CREATION_QUIZ, type CreationQuizQuestion } from './creation-quiz-content';
+import { CREATION_DEMO_FEEDBACK } from './creation-demo-feedback';
 import css from './creation-explorer.module.css';
 
 export type QuizAnswers = Readonly<Record<string, string>>;
@@ -23,7 +23,7 @@ export function CreationQuiz({
 }: {
   onComplete: (answers: QuizAnswers) => void | Promise<boolean>;
   remote?: boolean;
-  questions?: readonly GardenQuizSessionQuestion[];
+  questions?: readonly CreationQuizQuestion[];
 }) {
   const request = useRef(false);
   const [pending, setPending] = useState(false);
@@ -67,7 +67,7 @@ export function CreationQuiz({
       <h2 id="creation-quiz-title" tabIndex={-1}>
         Quiz Bíblico da Criação
       </h2>
-      <p>Quiz demonstrativo. Perguntas em revisão editorial.</p>
+      {!remote && <p>Quiz demonstrativo. As respostas locais não geram progresso oficial.</p>}
       {question && (
         <form onSubmit={confirm}>
           <h3
@@ -144,7 +144,7 @@ export function CreationJourneySummary({
             <strong>
               Dia {index + 1} · {day.title}.
             </strong>{' '}
-            {day.explanation}
+            {CREATION_DEMO_FEEDBACK[day.id].explanation}
           </li>
         ))}
       </ol>

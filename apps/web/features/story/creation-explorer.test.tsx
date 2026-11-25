@@ -543,9 +543,10 @@ test('blocks a modified published manifest with an arbitrary server hash', async
   expect(repo.submitDay).not.toHaveBeenCalled();
 });
 
-test('renders the official server manifest instead of requiring a bundled copy', async () => {
+test('renders the public server projection with no grading keys in the client manifest', async () => {
   const repo = makeRepository();
   const official = JSON.parse(CREATION_MANIFEST);
+  expect(CREATION_MANIFEST).not.toMatch(/"(?:answer|correctOptionId|explanation)":/);
   official.days[0].title = 'Título publicado pelo servidor';
   const manifestText = JSON.stringify(official);
   const manifestHash = createHash('sha256').update(manifestText).digest('hex');
