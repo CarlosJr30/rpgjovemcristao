@@ -70,6 +70,55 @@ it('connection error blocks the step, releases ambient music and provides no byp
   );
   expect(release).toHaveBeenCalledOnce();
   expect(screen.queryByText(/Término observado/)).toBeNull();
+  fireEvent.click(
+    screen.getByRole('button', { name: 'Tentar carregar vídeo novamente' }),
+  );
+  expect(screen.queryByRole('alert')).toBeNull();
+  expect(
+    screen.getByLabelText('Vídeo educativo em seleção'),
+  ).toBeInTheDocument();
+});
+it('requires an approved publication binding in demo and handles missing captions without giving progress', () => {
+  const video = { ...approved(), externalId: 'fixture-creation-video' };
+  const view = render(
+    <StoryVideoPanel video={video} completed={false} publication={null} />,
+  );
+  expect(
+    screen.getByText('Aguardando vínculo do vídeo à revisão publicada.'),
+  ).toBeVisible();
+  expect(view.container.querySelector('video')).toBeNull();
+  view.rerender(
+    <StoryVideoPanel
+      video={video}
+      completed={false}
+      publication={{ revision: 1, videoId: 'other-id' }}
+    />,
+  );
+  expect(screen.queryByRole('button', { name: /Carregar vídeo/ })).toBeNull();
+  view.rerender(
+    <StoryVideoPanel
+      video={video}
+      completed={false}
+      publication={{ revision: 1, videoId: video.externalId }}
+    />,
+  );
+  fireEvent.click(
+    screen.getByRole('button', { name: 'Carregar vídeo de html5' }),
+  );
+  const player = screen.getByLabelText('Vídeo educativo em seleção');
+  expect(player).toHaveAttribute('controls');
+  expect(player).toHaveAttribute('playsinline');
+  expect(player).not.toHaveAttribute('autoplay');
+  const track = view.container.querySelector('track')!;
+  expect(track).toHaveAttribute('kind', 'captions');
+  fireEvent.error(track);
+  expect(screen.getByRole('alert')).toHaveTextContent(
+    'Não foi possível carregar as legendas.',
+  );
+  expect(view.container.querySelector('video')).toBeNull();
+  expect(
+    screen.queryByText('Visualização registrada pelo servidor.'),
+  ).toBeNull();
 });
 it('unapproved embed/editorial, unavailable media, unsupported provider API and unsafe URLs never load a player', () => {
   const cases: StoryVideo[] = [

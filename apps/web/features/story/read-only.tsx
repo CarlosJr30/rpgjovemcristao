@@ -1,5 +1,6 @@
 'use client';
 import Link from 'next/link';
+import { CREATION_DEMO_PATH, isReleasedPath } from '../../lib/release-scope';
 import { useEffect, useState, type CSSProperties } from 'react';
 import { ArchiveAccess } from '../release-ebd/archive';
 import type { ArchiveSnapshot } from '../../lib/supabase/online-sync';
@@ -256,6 +257,13 @@ export function JourneyReadView({
               : 'Conclusão bloqueada. Conteúdo, vídeo e autoridade de progressão aguardam homologação.'}
           </p>
         </section>
+      )}
+      {story?.id === 'creation' && isReleasedPath(CREATION_DEMO_PATH) && (
+        <p>
+          <Link className={css.link} href={CREATION_DEMO_PATH}>
+            Explorar o protótipo do Santuário · demonstração temporária →
+          </Link>
+        </p>
       )}
       {story?.id === 'garden-choice' && (
         <p>

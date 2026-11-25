@@ -25,7 +25,9 @@ Reflexões são convites: podem ser lidas, adiadas ou puladas sem perda de XP, m
 
 ## Conclusão, retomada e replay
 
-A conclusão do conteúdo da fase exige os objetivos in-game publicados. O desbloqueio da fase seguinte exige também o desafio final obrigatório da Célula/Guilda, submissão do jogador e validação objetiva de líder autorizado. Sem vínculo comunitário, o conteúdo já concluído permanece salvo, mas a próxima fase fica bloqueada até a associação e aprovação. A fase inclui Quiz obrigatório, sem avaliação espiritual. Missões e concessões seguem [MISSION-SYSTEM](MISSION-SYSTEM.md); progressão segue [CHARACTER-SYSTEM](CHARACTER-SYSTEM.md).
+A conclusão do conteúdo da fase exige os objetivos in-game publicados. Para a Jornada Bíblica, o desbloqueio da fase seguinte depende apenas dos requisitos narrativos e de gameplay publicados para aquela fase; não depende de vínculo com Guilda/Célula, submissão nem aprovação de líder. Essa regra específica preserva o avanço individual da Jornada e não altera aprovações de atividades comunitárias. Outros fluxos de fase podem manter gates comunitários somente quando previstos por contrato próprio e sem bloquear o conteúdo principal da Jornada.
+
+A Fase 1 da Jornada Bíblica exige as sete missões, o Quiz e o grande desafio conforme [STORY-001A](../../tasks/completed/STORY-001A-biblical-journey-rewards.md); a regra de vídeo e os respectivos recibos server-side também se aplicam. Quiz é obrigatório, sem avaliação espiritual. Missões e concessões seguem [MISSION-SYSTEM](MISSION-SYSTEM.md); progressão segue [CHARACTER-SYSTEM](CHARACTER-SYSTEM.md).
 
 Servidor confirma cada transição significativa e checkpoint. UI distingue salvando, salvo e sem conexão. Reconexão recupera estado oficial; não reaplica ação silenciosamente. Intenções têm ID e versão; resposta perdida usa o mesmo ID/recibo, duas abas conflitantes atualizam estado antes de nova ação. Conteúdo/regras da tentativa ficam versionados. Sem fila de mutações offline ou cache persistente privado.
 
@@ -39,8 +41,8 @@ Toque e teclado, foco visível, alvos de pelo menos 44 px, texto redimensionáve
 
 ## Aceite de mesa e futuro playtest
 
-- Sem Guilda/Célula: preservar a fase concluída, mostrar o gate e orientar associação; não criar aprovação solo automática.
-- Desafio final aprovado e recompensa processada: liberar exatamente uma vez a próxima fase.
+- Sem Guilda/Célula: manter o acesso à próxima fase da Jornada Bíblica mediante seus próprios requisitos narrativos e de gameplay; não pedir associação nem aprovação de líder.
+- Desafio da Jornada aprovado e recompensa processada: liberar exatamente uma vez a próxima fase.
 - Reflexão pulada ou opinião distinta: mesma elegibilidade de gameplay e recompensa.
 - Falha, ajuda ou leitura da referência: tentar novamente sem punição espiritual/econômica.
 - Replay: manter conclusão, completar descoberta inédita uma vez e não duplicar prêmio anterior.

@@ -1,0 +1,292 @@
+{
+  "revision": 1,
+  "days": [
+    {
+      "id": "creation-day-1",
+      "title": "Luz e trevas",
+      "reference": "Gênesis 1:3–5",
+      "passage": "1.3-5",
+      "motifs": "✦",
+      "objective": "Encontre o marco da luz para abrir o desafio.",
+      "markers": [
+        {
+          "label": "Marco da luz",
+          "symbol": "✦",
+          "point": {
+            "x": 72,
+            "y": 50
+          },
+          "id": "creation-day-1-marker-1"
+        }
+      ],
+      "question": "Qual controle abre a cena de um dia nesta demonstração?",
+      "options": [
+        "O portal do Santuário.",
+        "O painel de recompensas."
+      ],
+      "harmonyLabel": "Luz e trevas"
+    },
+    {
+      "id": "creation-day-2",
+      "title": "Firmamento",
+      "reference": "Gênesis 1:6–8",
+      "passage": "1.6-8",
+      "motifs": "☁ ≋",
+      "objective": "Encontre o marco do céu e identifique o acontecimento do segundo dia.",
+      "markers": [
+        {
+          "label": "Marco do céu",
+          "symbol": "☁",
+          "point": {
+            "x": 72,
+            "y": 50
+          },
+          "id": "creation-day-2-marker-1"
+        }
+      ],
+      "question": "Como abrir o desafio após entrar numa cena?",
+      "options": [
+        "Visitando os marcos da cena.",
+        "Aguardando a passagem do tempo."
+      ],
+      "harmonyLabel": "Firmamento"
+    },
+    {
+      "id": "creation-day-3",
+      "title": "Terra e vegetação",
+      "harmonyLabel": "Terra, mares e vegetação",
+      "reference": "Gênesis 1:9–13",
+      "passage": "1.9-13",
+      "motifs": "▲ ≋ ♧",
+      "objective": "Visite os três marcos educativos: terra, mares e vegetação.",
+      "markers": [
+        {
+          "label": "Terra",
+          "symbol": "▲",
+          "point": {
+            "x": 25,
+            "y": 80
+          },
+          "note": "A porção seca recebeu o nome de terra.",
+          "id": "creation-day-3-marker-1"
+        },
+        {
+          "label": "Mares",
+          "symbol": "≋",
+          "point": {
+            "x": 72,
+            "y": 50
+          },
+          "note": "As águas reunidas receberam o nome de mares.",
+          "id": "creation-day-3-marker-2"
+        },
+        {
+          "label": "Vegetação",
+          "symbol": "♧",
+          "point": {
+            "x": 73,
+            "y": 78
+          },
+          "note": "A terra fez brotar plantas e árvores que produzem sementes.",
+          "id": "creation-day-3-marker-3"
+        }
+      ],
+      "question": "O que acontece se você visitar o mesmo marco duas vezes?",
+      "options": [
+        "A descoberta continua registrada uma vez.",
+        "A visita é contabilizada em dobro."
+      ]
+    },
+    {
+      "id": "creation-day-4",
+      "title": "Luminares",
+      "reference": "Gênesis 1:14–19",
+      "passage": "1.14-19",
+      "motifs": "☀ ☾ ✦",
+      "objective": "Observe o céu e encontre o marco dos luminares.",
+      "markers": [
+        {
+          "label": "Marco dos luminares",
+          "symbol": "☀",
+          "point": {
+            "x": 72,
+            "y": 50
+          },
+          "id": "creation-day-4-marker-1"
+        }
+      ],
+      "question": "Onde fica a lista dos pontos de interação da cena?",
+      "options": [
+        "Na navegação acessível.",
+        "No resultado do quiz."
+      ],
+      "harmonyLabel": "Luminares"
+    },
+    {
+      "id": "creation-day-5",
+      "title": "Aves e criaturas das águas",
+      "reference": "Gênesis 1:20–23",
+      "passage": "1.20-23",
+      "motifs": "🐦 🐟",
+      "objective": "Encontre o marco das águas e dos céus.",
+      "markers": [
+        {
+          "label": "Marco da vida",
+          "symbol": "≈",
+          "point": {
+            "x": 72,
+            "y": 50
+          },
+          "id": "creation-day-5-marker-1"
+        }
+      ],
+      "question": "Como retornar ao Santuário sem avançar de dia?",
+      "options": [
+        "Usando a saída da cena.",
+        "Escolhendo uma alternativa da pergunta."
+      ],
+      "harmonyLabel": "Aves e criaturas das águas"
+    },
+    {
+      "id": "creation-day-6",
+      "title": "Animais terrestres e humanidade",
+      "reference": "Gênesis 1:24–31",
+      "passage": "1.24-31",
+      "motifs": "🐾 👥",
+      "objective": "Encontre o marco que apresenta os animais terrestres e a humanidade.",
+      "markers": [
+        {
+          "label": "Marco da humanidade",
+          "symbol": "◇",
+          "point": {
+            "x": 72,
+            "y": 50
+          },
+          "id": "creation-day-6-marker-1"
+        }
+      ],
+      "question": "O que acontece se você atualizar a página durante a demonstração?",
+      "options": [
+        "A demonstração reinicia.",
+        "O jogo cria um recibo oficial."
+      ],
+      "harmonyLabel": "Animais terrestres e humanidade"
+    },
+    {
+      "id": "creation-day-7",
+      "title": "Descanso e reflexão",
+      "harmonyLabel": "Descanso do sétimo dia",
+      "reference": "Gênesis 2:1–3",
+      "passage": "2.1-3",
+      "motifs": "◌",
+      "objective": "Visite o marco do descanso. O Diário Bíblico é opcional.",
+      "markers": [
+        {
+          "label": "Marco do descanso",
+          "symbol": "◌",
+          "point": {
+            "x": 72,
+            "y": 50
+          },
+          "id": "creation-day-7-marker-1"
+        }
+      ],
+      "question": "O que libera a Harmonia nesta demonstração?",
+      "options": [
+        "Concluir as atividades dos sete dias.",
+        "Abrir o Diário uma vez."
+      ]
+    }
+  ],
+  "harmony": [
+    "creation-day-1",
+    "creation-day-2",
+    "creation-day-3",
+    "creation-day-4",
+    "creation-day-5",
+    "creation-day-6",
+    "creation-day-7"
+  ],
+  "quiz": [
+    {
+      "id": "practice-portal",
+      "question": "Em qual lugar você encontra o portal de entrada?",
+      "options": [
+        "No Santuário.",
+        "No vídeo.",
+        "No resumo do quiz."
+      ],
+      "reference": "Gênesis 1:3–5",
+      "passage": "1.3-5",
+      "optionIds": [
+        "a",
+        "b",
+        "c"
+      ]
+    },
+    {
+      "id": "practice-markers",
+      "question": "Que informação indica uma visita já registrada?",
+      "options": [
+        "O estado Visitado.",
+        "Um cronômetro.",
+        "Um saldo de moedas."
+      ],
+      "reference": "Gênesis 1:9–13",
+      "passage": "1.9-13",
+      "optionIds": [
+        "a",
+        "b",
+        "c"
+      ]
+    },
+    {
+      "id": "practice-diary",
+      "question": "Para que serve o Diário nesta demonstração?",
+      "options": [
+        "Para consultar referências e resumos.",
+        "Para confirmar compras.",
+        "Para criar tentativas oficiais."
+      ],
+      "reference": "Gênesis 1:14–19",
+      "passage": "1.14-19",
+      "optionIds": [
+        "a",
+        "b",
+        "c"
+      ]
+    },
+    {
+      "id": "practice-harmony",
+      "question": "O que se organiza na Harmonia?",
+      "options": [
+        "Os sete símbolos dos dias.",
+        "Os nomes dos Viajantes.",
+        "As alternativas do quiz."
+      ],
+      "reference": "Gênesis 1:26–27",
+      "passage": "1.26-27",
+      "optionIds": [
+        "a",
+        "b",
+        "c"
+      ]
+    },
+    {
+      "id": "practice-progress",
+      "question": "Qual progresso o resultado desta prática registra no servidor?",
+      "options": [
+        "Nenhum progresso oficial.",
+        "A conclusão automática da fase.",
+        "A liberação de recompensas."
+      ],
+      "reference": "Gênesis 2:1–3",
+      "passage": "2.1-3",
+      "optionIds": [
+        "a",
+        "b",
+        "c"
+      ]
+    }
+  ]
+}

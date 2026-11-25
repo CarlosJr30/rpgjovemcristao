@@ -1,6 +1,7 @@
 /** Fixed release boundary. A full launch requires an explicitly reviewed change. */
 export const RELEASE_PROFILE = 'governance-foundation-010a-test' as const;
 export const GAMEPLAY_ENABLED = false;
+export const CREATION_DEMO_PATH = '/journey/stories/creation/explore';
 const paths = new Set([
   '/',
   '/auth',
@@ -27,6 +28,7 @@ const paths = new Set([
   '/journey/worlds/church',
   '/journey/worlds/new-creation',
   '/journey/stories/creation',
+  CREATION_DEMO_PATH,
   '/journey/stories/garden-choice',
   '/journey/stories/cain-abel',
   '/journey/stories/noah-ark',

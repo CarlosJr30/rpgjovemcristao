@@ -103,6 +103,31 @@ jobs:
       - name: Exigir estabilidade RSC e navegação móvel na aplicação completa
         run: node tests/hosted/local-rsc-app-regression.mjs --ui-mobile --restore
 
+  story007-postgres:
+    name: PostgreSQL isolado — STORY-007
+    runs-on: windows-latest
+    timeout-minutes: 10
+    env:
+      RPG_POSTGRES_BIN: ${{ github.workspace }}/build/story007-postgres/postgres-tool/node_modules/@embedded-postgres/windows-x64/native/bin
+    steps:
+      - name: Obter código sem credenciais persistidas
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+      - name: Configurar Node.js 24
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '24.16.0'
+          cache: npm
+      - name: Configurar npm exigido pelo projeto
+        run: npm install --global npm@11.13.0
+      - name: Instalar dependências reproduzíveis
+        run: npm ci --no-audit --no-fund
+      - name: Obter somente binário PostgreSQL temporário fixado
+        run: npm install --prefix build/story007-postgres/postgres-tool --no-save --package-lock=false --ignore-scripts --no-audit --no-fund @embedded-postgres/windows-x64@17.10.0-beta.17
+      - name: Validar Auth sintético, RLS, checkpoints, retomada e concorrência
+        run: node --test packages/database/tests/story007-creation-checkpoints.postgres.test.mjs
+
   governance-postgres:
     name: PostgreSQL isolado — governança010A
     runs-on: windows-latest

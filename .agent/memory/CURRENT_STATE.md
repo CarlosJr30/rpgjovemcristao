@@ -1,3 +1,23 @@
+## 2026-11-24 — STORY-007P: política aprovada, TEST não autorizado
+
+Branch de implementação `codex/story-007m-protect-answer-keys`, SHA `35e1d4cdd48aae6b89c4e86e6279fb662f500d8c`. Proprietário aprovou uma tentativa diária e duas de quiz por conta/revisão, inclusive o feedback diário de avanço e risco de dedução. STORY-007M concluída localmente e revisão direcionada STORY-007N registrada, sem independência alegada. Migration e proposta SQL equivalentes, sem economia. Procedimento somente documental em `tasks/active/STORY-007P-test-migration-preparation.md`. Aplicação TEST segue sem autorização. `supabase/config.toml` ausente e guarda `SET LOCAL` não atendida por `supabase db push` padrão, então qualquer futura execução exige sessão SQL TEST confirmada e execução transacional explícita após autorização.
+
+## 2026-11-24 — STORY-007M em validação
+
+Branch `codex/story-007m-protect-answer-keys`. A demonstração usa exercícios sobre seus controles. PostgreSQL aplica cotas provisórias por conta e revisão, preserva reenvios e mantém notas parciais privadas. Política e riscos em `tasks/active/STORY-007M-answer-key-protection.md`. PostgreSQL isolado 3/3 e Vitest direcionado 7/7. Aprovação pedagógica, revisão final e autorização para aplicação em TEST continuam pendentes.
+
+## 2026-11-24 — STORY-007K em validação
+
+Na branch `codex/story-007k-separate-answer-keys`, a RPC de leitura retorna uma projeção pública com hash próprio. Os gabaritos oficiais e as explicações da revisão publicada permanecem no armazenamento privado do PostgreSQL. A demonstração tem avaliação local separada. Três casos em PostgreSQL isolado, um caso Vitest, ESLint direcionado, TypeScript e `git diff --check` passaram. Aplicação em TEST e publicação editorial seguem pendentes de autorização.
+
+## 2026-11-24 — STORY-007C em validação
+
+Migração candidata e integração de checkpoints preparadas na branch `codex/story-007c-checkpoint-integration`. PostgreSQL local 6/6 e Vitest direcionado 14/14. O catálogo TEST é compatível e os gates de publicação seguem fechados. Revisão independente e autorização específica para aplicação em TEST continuam pendentes. Ver `tasks/active/STORY-007C-checkpoint-integration.md`.
+
+## 2026-11-24 — STORY-002 DONE documental
+
+Contrato técnico/visual da exploração da Fase 1 documentado em docs/game-design/STORY-002-EXPLORATION.md. Auditoria confirma reutilização de AvatarRuntime, GardenExploration (somente padrão), StoryScreen/catalog/progression, Diário, identidade Auth/Traveler e story_progress. Limite: localStorage é por dispositivo e o esquema de recibos proposto admite um passo agregado por história; não persiste/prova os sete checkpoints. Nenhum código, migration, grant, economia, Guilda, produção ou deploy alterado. Conteúdo de origins-lessons segue candidate; revisão editorial pendente. STORY-002 movida para completed; próxima STORY-002B-first-playable-scene em backlog. Branch codex/story-002-exploration-spec baseada em c27b608f59e2c6ce25897b886b3d0f4b494bcaa4; testes/suites não executados (docs-only).
+
 # 10/11/2026 — RPG-ECONOMY-FIX-012A
 
 PR #47 published independently: candidate `8f293e9`, merge `9b32b13`; exact-SHA CI 42768030551 passed. The existing Shop catalog now stays visible while the canonical eligibility read is loading, blocked, or unavailable; transaction controls remain disabled until the same server authority authorizes them. Preview `dpl_HmXAxCowgYu12zWRrRCvgy5Vi6gj` READY and authenticated owner smoke confirmed visible catalog/blocked operations. Production `dpl_EnZ7r2TmcU8BxtpU5crBb1qrDNdv` READY on merge, PROD backend confirmed, official `/journey/shop` HTTP 200. No migration or agent-written player data. Owner reported a Teste Chat A purchase; targeted read-only inspection found a post-deploy canonical chest purchase/open pair (40 spent, 25 returned, no item), official wallet 1,006,135, level 50/XP 245,016; private QA wallet remains 9,960 with no new receipt. An earlier separate pair predates deploy. PR #46 stays open/draft at `d97d8ae`; its legacy initializer gate is still SKIP/BLOCKED, and its 8 eligible / 11 ambiguous avatar reconciliation remains separate. See `RPG-ECONOMY-FIX-012A-REPORT.md`.

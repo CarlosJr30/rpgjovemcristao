@@ -1,5 +1,11 @@
 'use client';
-import { useEffect, useRef, useState, useSyncExternalStore } from 'react';
+import {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  useSyncExternalStore,
+} from 'react';
 import type { StoryVideo } from './catalog';
 import { videoBlocker } from './progression';
 import css from './story.module.css';
@@ -25,7 +31,7 @@ function ApprovedNativeVideo({
 }) {
   const [playing, setPlaying] = useState(false),
     [observed, setObserved] = useState(false),
-    [failed, setFailed] = useState(false);
+    [failed, setFailed] = useState<'playback' | 'captions'>();
   const preferences = useSyncExternalStore(
     gameAudio.subscribe,
     gameAudio.getSnapshot,
@@ -39,14 +45,36 @@ function ApprovedNativeVideo({
       player.current.volume = preferences.masterVolume;
     }
   }, [preferences.muted, preferences.masterVolume]);
+  const fail = useCallback((reason: 'playback' | 'captions') => {
+    setFailed(reason);
+    setPlaying(false);
+    setObserved(false);
+  }, []);
+  const attachCaptionTrack = useCallback(
+    (track: HTMLTrackElement | null) => {
+      if (!track) return;
+      const onError = () => fail('captions');
+      track.addEventListener('error', onError);
+      return () => track.removeEventListener('error', onError);
+    },
+    [fail],
+  );
   return (
     <div>
       <button onClick={onClose}>Fechar vídeo e retomar ambiente</button>
       {failed ? (
-        <p role="alert">
-          Não foi possível reproduzir o vídeo. A etapa continua pendente; tente
-          novamente quando a conexão ou a fonte estiver disponível.
-        </p>
+        <>
+          <p role="alert">
+            {failed === 'captions'
+              ? 'Não foi possível carregar as legendas.'
+              : 'Não foi possível reproduzir o vídeo.'}{' '}
+            A etapa continua pendente; tente novamente quando a conexão ou a
+            fonte estiver disponível.
+          </p>
+          <button type="button" onClick={() => setFailed(undefined)}>
+            Tentar carregar vídeo novamente
+          </button>
+        </>
       ) : (
         <video
           aria-label={video.title}
@@ -59,11 +87,7 @@ function ApprovedNativeVideo({
           src={safeMediaUrl(video.url)!}
           onPlay={() => setPlaying(true)}
           onPause={() => setPlaying(false)}
-          onError={() => {
-            setFailed(true);
-            setPlaying(false);
-            setObserved(false);
-          }}
+          onError={() => fail('playback')}
           onEnded={(event) => {
             setPlaying(false);
             const target = event.currentTarget;
@@ -80,6 +104,7 @@ function ApprovedNativeVideo({
           }}
         >
           <track
+            ref={attachCaptionTrack}
             kind="captions"
             src={safeMediaUrl(video.captionUrl)!}
             srcLang={video.language}
@@ -116,12 +141,26 @@ export function allowedEmbed(video: StoryVideo): string | null {
 export function StoryVideoPanel({
   video,
   completed,
+  publication,
 }: {
   video: StoryVideo;
   completed: boolean;
+  // O catálogo legado usa a validação existente. A demo exige vínculo explícito.
+  publication?: { revision: number; videoId: string } | null;
 }) {
   const [opened, setOpened] = useState(false);
-  const blocker = videoBlocker(video);
+  const validPublication =
+    publication === undefined ||
+    (publication !== null &&
+      Number.isInteger(publication.revision) &&
+      publication.revision > 0 &&
+      !!publication.videoId.trim() &&
+      publication.videoId === video.externalId);
+  const blocker =
+    videoBlocker(video) ??
+    (validPublication
+      ? null
+      : 'Aguardando vínculo do vídeo à revisão publicada.');
   const native =
     video.provider === 'html5' &&
     !!safeMediaUrl(video.url) &&
@@ -129,7 +168,9 @@ export function StoryVideoPanel({
   return (
     <section className={css.panel} aria-labelledby="story-video-title">
       <p className={css.eyebrow}>Etapa obrigatória</p>
-      <h2 id="story-video-title">Vídeo educativo</h2>
+      <h2 id="story-video-title" tabIndex={-1}>
+        Vídeo educativo
+      </h2>
       <p>
         {completed
           ? 'Visualização registrada pelo servidor.'
@@ -146,8 +187,10 @@ export function StoryVideoPanel({
         ))}
       {!blocker && !native && (
         <p>
-          O player deste provedor aguarda integração de sua API de término. A
-          conclusão permanece pendente.
+          {video.provider === 'html5'
+            ? 'A fonte do vídeo ou das legendas está indisponível.'
+            : 'O player deste provedor aguarda integração de sua API de término.'}{' '}
+          A conclusão permanece pendente.
         </p>
       )}
       <p className={css.meta}>
@@ -165,8 +208,14 @@ export function StoryVideoPanel({
         Legendas: {video.captions ?? 'a confirmar'} · Alternativa acessível:{' '}
         {video.accessibleAlternative ?? 'a definir com a seleção do vídeo'}
         <br />
-        Incorporação: {video.embedding==='allowed'?'autorizada':video.embedding==='denied'?'não autorizada':'pendente'} · Revisão editorial:{' '}
-        {video.editorialReview.status==='approved'?'aprovada':'pendente'}
+        Incorporação:{' '}
+        {video.embedding === 'allowed'
+          ? 'autorizada'
+          : video.embedding === 'denied'
+            ? 'não autorizada'
+            : 'pendente'}{' '}
+        · Revisão editorial:{' '}
+        {video.editorialReview.status === 'approved' ? 'aprovada' : 'pendente'}
       </p>
       <p className={css.meta}>
         Abrir o player não conclui esta etapa. Eventos de reprodução no

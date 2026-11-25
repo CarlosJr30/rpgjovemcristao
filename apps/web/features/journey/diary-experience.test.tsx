@@ -31,7 +31,29 @@ beforeEach(() => {
   );
   saveParticipation.mockReset();
 });
-afterEach(cleanup);
+afterEach(() => {
+  cleanup();
+  vi.unstubAllEnvs();
+});
+it('adds the Creation chapter to the existing diary in development only', () => {
+  vi.stubEnv('NODE_ENV', 'development');
+  const { rerender } = render(<DiaryScreen />);
+  expect(screen.getByRole('link', { name: 'Criação' })).toHaveAttribute(
+    'href',
+    '#diary-creation',
+  );
+  expect(
+    screen.getByRole('region', { name: 'Diário Bíblico da Criação' }),
+  ).toBeInTheDocument();
+  expect(
+    screen.queryByText('Descoberto nesta demonstração'),
+  ).not.toBeInTheDocument();
+  vi.stubEnv('NODE_ENV', 'production');
+  rerender(<DiaryScreen />);
+  expect(
+    screen.queryByRole('region', { name: 'Diário Bíblico da Criação' }),
+  ).not.toBeInTheDocument();
+});
 it('keeps empty records honest and uses the central reading gate', () => {
   currentTraveler.progress.gardenStep = 'reward';
   currentTraveler.progress.quizAttemptId = 2;
