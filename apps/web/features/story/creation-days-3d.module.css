@@ -1,0 +1,44 @@
+.scene {
+  position: relative;
+  isolation: isolate;
+  height: clamp(27rem, 62svh, 43rem);
+  min-height: 24rem;
+  overflow: hidden;
+  border: 1px solid #8f8879;
+  border-radius: 1rem;
+  background: #152941;
+  color: #fff6e5;
+}
+.scene:focus-visible { outline: 2px solid #f2d394; outline-offset: 3px; }
+.canvas, .canvas canvas { position: absolute; inset: 0; display: block; width: 100%; height: 100%; }
+.title {
+  position: absolute; top: clamp(.65rem, 3vw, 1.4rem); left: clamp(.65rem, 3vw, 1.4rem);
+  max-width: calc(100% - 1.5rem); pointer-events: none; text-shadow: 0 2px 7px #0b1424, 0 1px 2px #080e20;
+}
+.title h2 { margin: .15rem 0 0; font-size: clamp(1.35rem, 4vw, 2.35rem); }
+.title small, .cinematic small { color: #f4d59c; font-size: .74rem; letter-spacing: .055em; }
+.title[data-playing='true'] { opacity: 0; }
+.hint, .cinematic {
+  position: absolute; border: 1px solid #ffffff26; border-radius: .65rem;
+  background: #0e1a2bdb; box-shadow: 0 8px 28px #08111b4a; backdrop-filter: blur(8px);
+}
+.hint { top: 5.3rem; left: .85rem; max-width: min(23rem, calc(100% - 1.7rem)); margin: 0; padding: .42rem .65rem; font-size: .84rem; }
+.pad { position: absolute; bottom: .75rem; left: .65rem; display: grid; grid-template-columns: repeat(3, 2.85rem); gap: .18rem; touch-action: none; user-select: none; }
+.pad button:first-child { grid-area: 1 / 2; }
+.pad button:nth-child(2) { grid-area: 2 / 1; }
+.pad button:nth-child(3) { grid-area: 2 / 2; }
+.pad button:nth-child(4) { grid-area: 2 / 3; }
+.scene button { min-height: 2.8rem; border: 1px solid #c8b28c; border-radius: .55rem; color: #fff6e5; background: #19283aeF; cursor: pointer; }
+.scene button:active { background: #66513b; }
+.scene button:focus-visible { outline: 2px solid #fff6e5; outline-offset: 2px; }
+.interact { position: absolute; right: .8rem; bottom: .8rem; padding: .4rem .8rem; }
+.cinematic { left: 50%; bottom: 1rem; width: min(38rem, calc(100% - 1.25rem)); transform: translateX(-50%); padding: .8rem 1rem; text-align: center; }
+.cinematic p { margin: .3rem 0 .7rem; font-size: clamp(1rem, 2.5vw, 1.2rem); line-height: 1.45; }
+@media (pointer: fine) { .pad { opacity: .78; } .pad:focus-within, .pad:hover { opacity: 1; } }
+@media (max-width: 640px) {
+  .scene { height: clamp(25rem, 60svh, 36rem); }
+  .cinematic { bottom: .7rem; }
+  .cinematic p { font-size: .98rem; }
+  .interact { max-width: 8rem; bottom: 5rem; }
+}
+@media (prefers-reduced-motion: reduce) { .title { transition: none; } }

@@ -65,6 +65,10 @@ const CreationDayOne = dynamic(() => import('./creation-day-one'), {
   ssr: false,
   loading: () => <p role="status">Carregando a exploração 3D…</p>,
 });
+const CreationDays3D = dynamic(() => import('./creation-days-3d'), {
+  ssr: false,
+  loading: () => <p role="status">Carregando o mundo 3D…</p>,
+});
 const DAY_ONE_STUDY = {
   question: 'Que expressão introduz a fala divina em Gênesis 1:3?',
   options: ['Disse Deus', 'Respondeu Moisés'],
@@ -283,6 +287,8 @@ export function CreationExplorerView({
   const [dayIndex, setDayIndex] = useState(initialDayIndex);
   const [dayOneUnavailable, setDayOneUnavailable] = useState(false);
   const [dayOnePlaying, setDayOnePlaying] = useState(false);
+  const [requestedMarker, setRequestedMarker] = useState<{ id: string; nonce: number }>();
+  const markerRequestNonce = useRef(0);
   const [position, setPosition] = useState<Point>(START);
   const [message, setMessage] = useState(
     'Explore o Dia 1 e encontre o Marco da Luz.',
@@ -360,6 +366,7 @@ export function CreationExplorerView({
   const day = days[dayIndex]!;
   const dayNumber = dayIndex + 1;
   const dayOne3D = dayNumber === 1 && !dayOneUnavailable && browserGraphics === 'available';
+  const daysTwoToSeven3D = dayNumber > 1 && !dayOneUnavailable && browserGraphics === 'available';
   const waitingForBrowserGraphics = browserGraphics === 'pending' && !dayOneUnavailable;
   const study = dayOne3D && !remote ? DAY_ONE_STUDY : null;
   const challengeOpen = day.markers.every(({ id }) =>
@@ -392,6 +399,12 @@ export function CreationExplorerView({
 
   function activate(point: Point) {
     const marker = day.markers.find((entry) => entry.point === point);
+    if (!marker) return;
+    activateMarker(marker.id);
+  }
+
+  function activateMarker(markerId: string) {
+    const marker = day.markers.find((entry) => entry.id === markerId);
     if (!marker || visitedMarkerIds.current.has(marker.id)) return;
     visitedMarkerIds.current.add(marker.id);
     setVisited([...visitedMarkerIds.current]);
@@ -411,6 +424,12 @@ export function CreationExplorerView({
   }
 
   function visitAccessiblePoint(point: Point) {
+    const marker = day.markers.find((entry) => entry.point === point);
+    if (daysTwoToSeven3D && marker) {
+      markerRequestNonce.current += 1;
+      setRequestedMarker({ id: marker.id, nonce: markerRequestNonce.current });
+      return;
+    }
     if (dayOne3D) {
       if (!challengeOpen) setDayOnePlaying(true);
       return;
@@ -733,6 +752,36 @@ export function CreationExplorerView({
                 }}
               />
               <p className={css.controls}>Mova-se com WASD, setas ou os controles de toque. Use E ou o botão do marco para observar.</p>
+              <div className={css.actions}>
+                <Link href="/journey">Voltar à Jornada</Link>
+                <button type="button" onClick={() => setDiaryOpen(true)}>Abrir Diário Bíblico</button>
+              </div>
+            </>
+          ) : daysTwoToSeven3D ? (
+            <>
+              <CreationDays3D
+                dayNumber={dayNumber as 2 | 3 | 4 | 5 | 6 | 7}
+                title={day.title}
+                reference={day.reference}
+                markers={day.markers}
+                appearance={traveler.appearance}
+                identity={traveler.avatar}
+                completedMarkers={visited}
+                requestedMarker={requestedMarker}
+                onCompleteMarker={(id) => {
+                  activateMarker(id);
+                  setRequestedMarker(undefined);
+                }}
+                onUnavailable={() => {
+                  setDayOneUnavailable(true);
+                  setRequestedMarker(undefined);
+                  if (!remote) {
+                    setAnswer(undefined);
+                    setFeedback(undefined);
+                  }
+                }}
+              />
+              <p className={css.controls}>Mova-se com WASD, setas ou os controles de toque. Aproxime-se dos marcos e pressione E para observar.</p>
               <div className={css.actions}>
                 <Link href="/journey">Voltar à Jornada</Link>
                 <button type="button" onClick={() => setDiaryOpen(true)}>Abrir Diário Bíblico</button>
