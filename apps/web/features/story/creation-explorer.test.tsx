@@ -142,11 +142,31 @@ test('requires each day’s educational interaction and correct answer before ad
     expect(
       screen.getByRole('link', { name: /Ler Gênesis.*NVI/ }),
     ).toBeInTheDocument();
-    for (const marker of markers) {
+    for (const [markerIndex, marker] of markers.entries()) {
       expect(
         screen.queryByRole('form', { name: 'Desafio demonstrativo' }),
       ).not.toBeInTheDocument();
       choose(marker);
+      if (index === 2) {
+        const remaining = markers.length - markerIndex - 1;
+        if (remaining)
+          expect(
+            screen.getByText(new RegExp(`Faltam ${remaining} de 3 marcos\\.`)),
+          ).toBeInTheDocument();
+        else
+          expect(
+            screen.getByText(/Desafio do Dia 3 disponível/),
+          ).toBeInTheDocument();
+        if (markerIndex === 0) {
+          fireEvent.click(
+            list.getByRole('button', { name: `${marker} · Visitado` }),
+          );
+          expect(
+            screen.getByText(/Faltam 2 de 3 marcos\./),
+          ).toBeInTheDocument();
+          expect(list.getByRole('button', { name: 'Terra · Visitado' })).toBeInTheDocument();
+        }
+      }
     }
     if (index === 2)
       expect(
@@ -316,7 +336,7 @@ test('requires each day’s educational interaction and correct answer before ad
   expect(
     screen.queryByRole('button', { name: 'Abrir Harmonia da Criação' }),
   ).not.toBeInTheDocument();
-});
+}, 15_000);
 
 const accessibleMap = () =>
   within(screen.getByRole('list', { name: /Navega.*acess.vel/ }));

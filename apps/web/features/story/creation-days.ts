@@ -2,6 +2,7 @@ import manifestSource from './creation-content-v1.json';
 import type { Point } from './creation-explorer-model';
 
 export type CreationMarker = Readonly<{
+  id: string;
   label: string;
   symbol: string;
   point: Point;
@@ -61,6 +62,9 @@ export function parseCreationManifest(value: unknown): CreationContentManifest {
 
   const days = value.days.map(parseDay);
   const quiz = value.quiz.map(parseQuizQuestion);
+  const markerIds = days.flatMap((day) => day.markers.map(({ id }) => id));
+  if (new Set(markerIds).size !== markerIds.length)
+    throw new Error('IDs dos marcos devem ser únicos no manifesto.');
   const dayIds = days.map(({ id }) => id);
   if (new Set(dayIds).size !== 7 || dayIds.some((id, i) => id !== `creation-day-${i + 1}`))
     throw new Error('Os identificadores dos dias são inválidos.');
@@ -114,6 +118,7 @@ function parseDay(value: unknown): CreationContentDay {
         )
           throw new Error('Posição de marco inválida no manifesto.');
         return {
+          id: requiredString(marker.id),
           label: requiredString(marker.label),
           symbol: requiredString(marker.symbol),
           point: { x: point.x, y: point.y },
@@ -122,6 +127,8 @@ function parseDay(value: unknown): CreationContentDay {
       })
     : [];
   if (!markers.length) throw new Error('O dia deve conter ao menos um marco.');
+  if (markers.some(({ id }) => !/^[a-z][a-z0-9-]{0,31}$/.test(id)))
+    throw new Error('ID de marco inválido.');
   return {
     id,
     title: requiredString(value.title),

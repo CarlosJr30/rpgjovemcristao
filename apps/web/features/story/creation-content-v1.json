@@ -15,7 +15,8 @@
           "point": {
             "x": 72,
             "y": 50
-          }
+          },
+          "id": "creation-day-1-marker-1"
         }
       ],
       "question": "O que Deus criou no primeiro dia?",
@@ -41,7 +42,8 @@
           "point": {
             "x": 72,
             "y": 50
-          }
+          },
+          "id": "creation-day-2-marker-1"
         }
       ],
       "question": "O que o firmamento separou?",
@@ -69,7 +71,8 @@
             "x": 25,
             "y": 80
           },
-          "note": "A porção seca recebeu o nome de terra."
+          "note": "A porção seca recebeu o nome de terra.",
+          "id": "creation-day-3-marker-1"
         },
         {
           "label": "Mares",
@@ -78,7 +81,8 @@
             "x": 72,
             "y": 50
           },
-          "note": "As águas reunidas receberam o nome de mares."
+          "note": "As águas reunidas receberam o nome de mares.",
+          "id": "creation-day-3-marker-2"
         },
         {
           "label": "Vegetação",
@@ -87,7 +91,8 @@
             "x": 73,
             "y": 78
           },
-          "note": "A terra fez brotar plantas e árvores que produzem sementes."
+          "note": "A terra fez brotar plantas e árvores que produzem sementes.",
+          "id": "creation-day-3-marker-3"
         }
       ],
       "question": "O que acontece no terceiro dia?",
@@ -112,7 +117,8 @@
           "point": {
             "x": 72,
             "y": 50
-          }
+          },
+          "id": "creation-day-4-marker-1"
         }
       ],
       "question": "Que funções o relato atribui aos luminares?",
@@ -138,7 +144,8 @@
           "point": {
             "x": 72,
             "y": 50
-          }
+          },
+          "id": "creation-day-5-marker-1"
         }
       ],
       "question": "Quais grupos aparecem no quinto dia?",
@@ -164,7 +171,8 @@
           "point": {
             "x": 72,
             "y": 50
-          }
+          },
+          "id": "creation-day-6-marker-1"
         }
       ],
       "question": "Além dos animais terrestres, quem foi criado no sexto dia?",
@@ -191,7 +199,8 @@
           "point": {
             "x": 72,
             "y": 50
-          }
+          },
+          "id": "creation-day-7-marker-1"
         }
       ],
       "question": "Como o relato descreve o sétimo dia?",

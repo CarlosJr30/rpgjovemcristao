@@ -59,6 +59,7 @@ const START: Point = { x: 22, y: 52 };
 const INITIAL: Point = { x: 18, y: 50 };
 const EXIT: Point = { x: 18, y: 52 };
 const RETURN_MARKER = {
+  id: undefined,
   point: EXIT,
   label: 'Retornar ao Santuário',
   symbol: '↩',
@@ -283,6 +284,7 @@ export function CreationExplorerView({
   );
   const [answer, setAnswer] = useState<number>();
   const [visited, setVisited] = useState<readonly string[]>([]);
+  const visitedMarkerIds = useRef(new Set<string>());
   const [feedback, setFeedback] = useState<'retry' | 'correct'>();
   const [demoHarmonyUnlocked, setHarmonyUnlocked] = useState(false);
   const [saved, setSaved] = useState(remote?.initial);
@@ -341,12 +343,13 @@ export function CreationExplorerView({
 
   const day = dayIndex === null ? undefined : days[dayIndex];
   const dayNumber = dayIndex === null ? 0 : dayIndex + 1;
-  const challengeOpen = day?.markers.every(({ label }) =>
-    visited.includes(label),
+  const challengeOpen = day?.markers.every(({ id }) =>
+    visited.includes(id),
   );
   const points = !day
     ? [
         {
+          id: undefined,
           point: PORTAL,
           label: `Portal · Dia ${nextDayIndex + 1}`,
           symbol: '◉',
@@ -361,6 +364,7 @@ export function CreationExplorerView({
     if (finished && !remote) setHarmonyUnlocked(true);
     setDayIndex(next);
     setPosition(next === null ? INITIAL : START);
+    visitedMarkerIds.current = new Set();
     setVisited([]);
     setAnswer(undefined);
     setFeedback(undefined);
@@ -386,9 +390,12 @@ export function CreationExplorerView({
     if (point === PORTAL) return changeScene(nextDayIndex);
     if (point === EXIT) return changeScene(null);
     const marker = day?.markers.find((entry) => entry.point === point);
-    if (!day || !marker || visited.includes(marker.label)) return;
-    setVisited((current) => [...current, marker.label]);
-    const remaining = day.markers.length - visited.length - 1;
+    if (!day || !marker || visitedMarkerIds.current.has(marker.id)) return;
+    visitedMarkerIds.current.add(marker.id);
+    setVisited([...visitedMarkerIds.current]);
+    const remaining = day.markers.filter(
+      ({ id }) => !visitedMarkerIds.current.has(id),
+    ).length;
     if (!remaining) {
       setDiscoveries((current) =>
         current.includes(day.id) ? current : [...current, day.id],
@@ -510,7 +517,7 @@ export function CreationExplorerView({
       );
       throw error;
     }
-  }, [repository, manifestHash, revision, traveler.id, quizScope]);
+  }, [repository, manifestHash, revision, traveler.id, quizScope, setSection, setQuizAttempt]);
 
   useEffect(() => {
     if (!repository) return;
@@ -713,9 +720,9 @@ export function CreationExplorerView({
                 </div>
               </>
             )}
-            {points.map(({ point, label, symbol }) => (
+            {points.map(({ id, point, label, symbol }) => (
               <button
-                key={label}
+                key={id ?? label}
                 type="button"
                 className={css.poi}
                 data-nearby={nearby?.point === point}
@@ -735,7 +742,7 @@ export function CreationExplorerView({
                 {symbol}
                 <span>
                   {point === EXIT ? 'Retornar' : label}
-                  {visited.includes(label) ? ' ✓' : ''}
+                  {id && visited.includes(id) ? ' ✓' : ''}
                 </span>
               </button>
             ))}
@@ -780,7 +787,7 @@ export function CreationExplorerView({
               </p>
               <p>A paisagem e os marcos são recursos fictícios do jogo.</p>
               {day.markers.some(
-                ({ label, note }) => note && visited.includes(label),
+                ({ id, note }) => note && visited.includes(id),
               ) && (
                 <ul
                   className={css.dayList}
@@ -788,10 +795,10 @@ export function CreationExplorerView({
                 >
                   {day.markers
                     .filter(
-                      ({ label, note }) => note && visited.includes(label),
+                      ({ id, note }) => note && visited.includes(id),
                     )
-                    .map(({ label, note }) => (
-                      <li key={label}>
+                    .map(({ id, label, note }) => (
+                      <li key={id}>
                         <strong>{label}.</strong> {note}
                       </li>
                     ))}
@@ -866,11 +873,11 @@ export function CreationExplorerView({
           )}
           <h3>Navegação acessível</h3>
           <ul className={css.poiList} aria-label="Navegação acessível">
-            {points.map(({ label, point }) => (
-              <li key={label}>
+            {points.map(({ id, label, point }) => (
+              <li key={id ?? label}>
                 <button onClick={() => activate(point)}>
                   {label}
-                  {visited.includes(label) ? ' · Visitado' : ''}
+                  {id && visited.includes(id) ? ' · Visitado' : ''}
                 </button>
               </li>
             ))}
