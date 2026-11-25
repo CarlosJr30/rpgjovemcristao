@@ -743,6 +743,7 @@ export function CreationExplorerView({
             <>
               <CreationDayOne
                 appearance={traveler.appearance}
+                identity={traveler.avatar}
                 playing={dayOnePlaying}
                 completed={Boolean(challengeOpen)}
                 onStart={() => setDayOnePlaying(true)}
@@ -895,6 +896,7 @@ export function CreationExplorerView({
           )}
           {day && challengeOpen && (
             <form
+              className={dayOne3D ? css.dayOneChallenge : undefined}
               onSubmit={submitAnswer}
               tabIndex={-1}
               ref={focusChallenge}
@@ -902,6 +904,14 @@ export function CreationExplorerView({
                 remote ? 'Desafio da Criação' : 'Desafio demonstrativo'
               }
             >
+              {dayOne3D && (
+                <div className={css.dayOneChallengeHeader}>
+                  <div className={css.dayOnePortrait}>
+                    <AvatarRuntime traveler={traveler} mode="thumbnail" label={`Viajante ${traveler.name}`} />
+                  </div>
+                  <p><strong>Desafio do Dia 1</strong><span>Gênesis 1:3–5</span></p>
+                </div>
+              )}
               <fieldset disabled={savingDay}>
                 <legend>{study?.question ?? day.question}</legend>
                 {(study?.options ?? day.options).map((option, index) => (

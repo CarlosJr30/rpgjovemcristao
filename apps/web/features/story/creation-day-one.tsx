@@ -2,7 +2,7 @@
 
 import { useEffect, useEffectEvent, useRef, useState } from 'react';
 import * as T from 'three';
-import type { Appearance } from '../journey/domain/traveler';
+import type { Appearance, AvatarConfig } from '../journey/domain/traveler';
 import {
   buildDayOneWorld, LIGHT_MARKER_Z, SEPARATION_SECONDS, walkDayOne,
 } from './creation-day-one-world';
@@ -22,9 +22,10 @@ const captions = [
 ];
 
 export default function CreationDayOne({
-  appearance, playing, completed, onStart, onComplete, onUnavailable,
+  appearance, identity, playing, completed, onStart, onComplete, onUnavailable,
 }: {
   appearance: Appearance;
+  identity?: AvatarConfig;
   playing: boolean;
   completed: boolean;
   onStart: () => void;
@@ -46,23 +47,34 @@ export default function CreationDayOne({
     const container = host.current!;
     let renderer: T.WebGLRenderer;
     try {
-      renderer = new T.WebGLRenderer({ antialias: true, powerPreference: 'default' });
+      const compact = window.matchMedia('(pointer: coarse), (max-width: 640px)').matches;
+      renderer = new T.WebGLRenderer({ antialias: !compact, powerPreference: 'default' });
     } catch {
       unavailable();
       return;
     }
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
+    const compact = window.matchMedia('(pointer: coarse), (max-width: 640px)').matches;
+    const pixelBudget = compact ? 860_000 : 2_073_600;
+    const preferredRatio = Math.min(window.devicePixelRatio || 1, compact ? 1.35 : 1.8);
     renderer.shadowMap.enabled = true;
-    renderer.shadowMap.type = T.BasicShadowMap;
+    renderer.shadowMap.type = T.PCFShadowMap;
     renderer.toneMapping = T.ACESFilmicToneMapping;
     renderer.domElement.setAttribute('aria-hidden', 'true');
     container.append(renderer.domElement);
-    const world = buildDayOneWorld(appearance);
-    const camera = new T.PerspectiveCamera(49, 1, 0.1, 125);
-    camera.position.set(0, 4.1, 15);
+    const world = buildDayOneWorld(appearance, identity, compact);
+    const camera = new T.PerspectiveCamera(49, 1, 0.1, 150);
+    camera.position.set(0, 3.3, 13.5);
     const target = new T.Vector3(0, 1.05, 2);
     const desired = new T.Vector3();
     const look = new T.Vector3();
+    const sweepPosition = new T.Vector3();
+    const sweepTarget = new T.Vector3();
+    const shot = new T.CubicBezierCurve3(
+      new T.Vector3(0.2, 3.1, -5.2),
+      new T.Vector3(6.8, 4.8, -8.2),
+      new T.Vector3(8.6, 7.6, -11.4),
+      new T.Vector3(3.4, 6.5, -12),
+    );
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
     let time = 0;
     let elapsed = 0;
@@ -72,7 +84,12 @@ export default function CreationDayOne({
     let done = false;
     let lastLight = -1;
     let visible = false;
-    const resize = new ResizeObserver(() => {
+    let quality = 1;
+    let frameTime = 16;
+    let slowTime = 0;
+    let stride = 0;
+    let walkBlend = 0;
+    function fitViewport() {
       const { clientWidth: width, clientHeight: height } = container;
       visible = width > 0 && height > 0;
       if (!visible) {
@@ -80,10 +97,12 @@ export default function CreationDayOne({
         return;
       }
       camera.aspect = width / height;
-      camera.fov = width < height ? 59 : 49;
+      camera.fov = width < height ? 55 : 46;
       camera.updateProjectionMatrix();
+      renderer.setPixelRatio(Math.min(preferredRatio, Math.sqrt(pixelBudget / (width * height))) * quality);
       renderer.setSize(width, height, false);
-    });
+    }
+    const resize = new ResizeObserver(fitViewport);
     resize.observe(container);
     const lost = (event: Event) => {
       event.preventDefault();
@@ -98,9 +117,19 @@ export default function CreationDayOne({
         last = 0;
         return;
       }
-      const dt = last === 0 ? 0 : Math.min((now - last) / 1000, 0.05);
+      const frame = last === 0 ? 16 : now - last;
+      const dt = last === 0 ? 0 : Math.min(frame / 1000, 0.05);
       last = now;
       time += dt;
+      if (frame < 250) {
+        frameTime += (frame - frameTime) * 0.05;
+        slowTime = frameTime > 27 ? slowTime + dt : 0;
+        if (slowTime > 2.1 && quality > 0.76) {
+          quality = Math.max(0.76, quality - 0.12);
+          slowTime = 0;
+          fitViewport();
+        }
+      }
       const { playing, completed } = phase();
       const actor = world.avatar.position;
       if (playing && !done) {
@@ -120,6 +149,7 @@ export default function CreationDayOne({
         world.illuminate(lit);
         lastLight = lit;
       }
+      world.updateAtmosphere(reduced.matches ? 0 : time);
       const held = [...touches.current.values()];
       const down = (key: string) => keys.current.has(key) || held.includes(key);
       const dx = Number(down('d') || down('arrowright')) - Number(down('a') || down('arrowleft'));
@@ -132,9 +162,16 @@ export default function CreationDayOne({
         const angle = facing - world.avatar.rotation.y;
         world.avatar.rotation.y += Math.atan2(Math.sin(angle), Math.cos(angle)) * (1 - Math.exp(-dt * 14));
       }
+      walkBlend = T.MathUtils.damp(walkBlend, walking && !reduced.matches ? 1 : 0, 9, dt);
+      stride += dt * (7 + walkBlend * 5);
       world.legs.forEach((leg, index) => {
-        leg.rotation.x = walking && !reduced.matches ? Math.sin(time * 12 + index * Math.PI) * 0.43 : 0;
+        const swing = Math.sin(stride + index * Math.PI) * walkBlend;
+        leg.rotation.x = swing * 0.51;
+        world.arms[index].rotation.x = -swing * 0.36;
       });
+      world.torso.position.y = reduced.matches ? 0 :
+        Math.abs(Math.sin(stride)) * walkBlend * 0.048 + Math.sin(time * 2.8) * (1 - walkBlend) * 0.017;
+      world.cloak.rotation.x = 0.14 + walkBlend * (0.13 + Math.sin(stride) * 0.045);
       world.crystal.position.y = 1.28 + (reduced.matches ? 0 : Math.sin(time * 2.4) * 0.18);
       if (!reduced.matches) world.crystal.rotation.y = time * 0.72;
       const isNear = Math.hypot(actor.x, actor.z - LIGHT_MARKER_Z) < 2.6;
@@ -142,13 +179,16 @@ export default function CreationDayOne({
         close = isNear;
         setNear(close);
       }
+      desired.set(actor.x * 0.90 + 0.46, 3.1, actor.z + (compact ? 5.4 : 5.1));
+      look.set(actor.x * 0.84, 1.26, actor.z - 3.7);
       if (playing && !reduced.matches) {
-        const sweep = T.MathUtils.smoothstep(lit, 0, 1);
-        desired.set(-1 + sweep * 7, 3.8 + sweep * 2.5, -7 + sweep * 1.2);
-        look.set(-0.9 - sweep * 4, 2.2 + sweep * 1.6, -21);
-      } else {
-        desired.set(actor.x, 3.55, actor.z + 6.2);
-        look.set(actor.x, 1.15, actor.z - 4.7);
+        const sweep = T.MathUtils.smoothstep(lit, 0.05, 0.94);
+        const weight = T.MathUtils.smoothstep(lit, 0, 0.20) *
+          (1 - T.MathUtils.smoothstep(lit, 0.86, 1));
+        shot.getPoint(sweep, sweepPosition);
+        sweepTarget.set(-2.2 - sweep * 2.8, 2.7 + sweep * 0.7, -24 - sweep * 3);
+        desired.lerp(sweepPosition, weight);
+        look.lerp(sweepTarget, weight);
       }
       target.lerp(look, 1 - Math.exp(-dt * (playing ? 2.5 : 6)));
       camera.position.lerp(desired, 1 - Math.exp(-dt * 4));
@@ -169,7 +209,7 @@ export default function CreationDayOne({
       renderer.domElement.remove();
       delete container.dataset.ready;
     };
-  }, [appearance]);
+  }, [appearance, identity]);
 
   return (
     <div
@@ -195,13 +235,14 @@ export default function CreationDayOne({
       onKeyUp={(event) => keys.current.delete(event.key.toLowerCase())}
     >
       <div ref={host} className={css.canvas} />
-      <header className={css.title}>
+      <header className={css.title} data-playing={playing}>
         <small>Gênesis 1:3–5 · Representação artística</small>
         <h2>Dia 1 — Luz e trevas</h2>
       </header>
       <span id="creation-3d-controls" hidden>Use WASD, setas ou os controles de toque. Pressione E ao alcançar o marco.</span>
       {playing ? (
         <div className={css.caption}>
+          <small>Gênesis 1:3–5</small>
           <p aria-live="polite">{captions[caption]}</p>
           <button type="button" onClick={onComplete}>Ir para a pergunta</button>
         </div>
@@ -209,7 +250,7 @@ export default function CreationDayOne({
         <>
           <p className={css.hint}>
             {completed ? 'Luz e trevas separadas. Responda ao desafio.' :
-              near ? 'Marco da luz ao alcance.' : 'Siga o caminho de pedra até o marco da luz.'}
+              near ? 'Marco da luz ao alcance.' : 'Encontre o Marco da luz.'}
           </p>
           <div className={css.pad} aria-label="Controles de movimento">
             {directions.map(({ key, symbol, label }) => (

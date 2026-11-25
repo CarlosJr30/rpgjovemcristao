@@ -3,7 +3,7 @@
   isolation: isolate;
   height: clamp(27rem, 62svh, 43rem);
   overflow: hidden;
-  border: 1px solid #62647e;
+  border: 1px solid #726955;
   border-radius: 1rem;
   background: #101a30;
   color: #fff1d8;
@@ -35,6 +35,15 @@
   margin: .15rem 0 0;
   font-size: clamp(1.45rem, 4vw, 2.4rem);
 }
+.title small {
+  color: #efcb92;
+  font-size: .74rem;
+  letter-spacing: .055em;
+}
+.title[data-playing='true'] { opacity: 0; }
+@media (prefers-reduced-motion: no-preference) {
+  .title { transition: opacity .5s ease; }
+}
 
 .hint,
 .caption {
@@ -56,9 +65,12 @@
   margin: 0;
   transform: none;
   text-align: left;
-  font-size: .875rem;
+  font-size: .8rem;
+  padding: .35rem .55rem;
+  background: #101729c9;
 }
 .caption { bottom: 1rem; }
+.caption small { color: #efcb92; }
 .caption p { margin: 0 0 .55rem; }
 
 .pad {
@@ -88,7 +100,17 @@
 
 .scene button:active { background: #66513b; }
 .scene button:focus-visible { outline: 2px solid #fff1d8; outline-offset: 2px; }
-.interact { position: absolute; right: .65rem; bottom: .7rem; }
+.interact {
+  position: absolute;
+  right: .65rem;
+  bottom: .7rem;
+  padding: .3rem .65rem;
+}
+
+@media (pointer: fine) {
+  .pad { opacity: .78; }
+  .pad:focus-within, .pad:hover { opacity: 1; }
+}
 
 @media (max-width: 480px) {
   .scene { height: clamp(23rem, 60svh, 33rem); }

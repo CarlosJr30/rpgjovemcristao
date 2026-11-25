@@ -403,3 +403,48 @@
     transition-duration: 0.01ms !important;
   }
 }
+.panel .dayOneChallenge {
+  scroll-margin: 1rem;
+  padding: 1rem;
+  border: 1px solid #a98655;
+  border-radius: .85rem;
+  background: #191d2d;
+  color: #f9ecd3;
+}
+
+.dayOneChallengeHeader {
+  display: flex;
+  align-items: center;
+  gap: .7rem;
+  margin-bottom: .9rem;
+}
+
+.dayOnePortrait {
+  width: 2.8rem;
+  height: 2.8rem;
+  flex: none;
+  overflow: hidden;
+  border: 1px solid #a98655;
+  border-radius: 50%;
+  background: #353143;
+}
+
+.dayOneChallengeHeader p { margin: 0; }
+.dayOneChallengeHeader span { display: block; color: #dbc4a2; font-size: .8rem; }
+
+.panel .dayOneChallenge fieldset { padding: 0; border: 0; }
+.panel .dayOneChallenge legend { margin-bottom: .65rem; }
+.panel .dayOneChallenge label {
+  min-height: 44px;
+  padding: .5rem .65rem;
+  margin-bottom: .4rem;
+  border: 1px solid #68627b;
+  border-radius: .45rem;
+  background: #23293c;
+  color: inherit;
+}
+.panel .dayOneChallenge label:has(input:checked) {
+  border-color: #e6bc7f;
+  background: #423340;
+}
+.panel .dayOneChallenge label:focus-within { outline: 2px solid #e6bc7f; }

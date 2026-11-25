@@ -1394,3 +1394,7 @@ Branch `codex/guild-qa-001` based on PR #56 merge `99e38a4`. Candidate migration
 ## 2026-11-25 — STORY-3D-001 em validação
 
 Dia 1 da Criação implementado em Three.js na branch `codex/story-3d-001-creation-day-one`. Movimento por teclado/toque, câmera em terceira pessoa e sequência de Gênesis 1:3–5 liberam o marco e o formulário existentes. Mapa alternativo preservado. Os demais dias, Harmonia, contratos de progresso e economia permanecem intactos. Aceite e escopo no [contrato](../../tasks/active/STORY-3D-001-creation-day-one.md).
+
+## 2026-11-25 — STORY-3D-003 em validação visual
+
+Polimento isolado do Dia 1 na branch `codex/story-3d-003-premium-day-one`, baseada no commit `d6562ac`. Comparação desktop e celular emulado em `build/story-3d-003`. A entrega é local e aguarda avaliação visual e autorização específica para Preview. [Contrato](../../tasks/active/STORY-3D-003-premium-day-one.md).
