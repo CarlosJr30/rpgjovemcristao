@@ -42,6 +42,28 @@
 .layout[hidden] {
   display: none;
 }
+.sanctuaryLayout { margin-top: 1rem; }
+.sanctuaryLayout[hidden] { display: none; }
+.sanctuaryLayout .playArea { padding: clamp(.35rem, 1.25vw, .85rem); }
+.sanctuaryActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .45rem .8rem;
+  align-items: start;
+  margin-top: .55rem;
+}
+.sanctuaryActions button,
+.sanctuaryActions summary {
+  box-sizing: border-box;
+  min-height: 44px;
+  padding: .55rem .75rem;
+  border: 1px solid #cbd6c4;
+  border-radius: .45rem;
+  background: #f6f7ef;
+  color: #213b2c;
+  cursor: pointer;
+}
+.sanctuaryActions details button { margin-top: .35rem; }
 .flowNav {
   margin-block: 1rem;
 }

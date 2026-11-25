@@ -1398,3 +1398,7 @@ Dia 1 da Criação implementado em Three.js na branch `codex/story-3d-001-creati
 ## 2026-11-25 — STORY-3D-003 em validação visual
 
 Polimento isolado do Dia 1 na branch `codex/story-3d-003-premium-day-one`, baseada no commit `d6562ac`. Comparação desktop e celular emulado em `build/story-3d-003`. A entrega é local e aguarda avaliação visual e autorização específica para Preview. [Contrato](../../tasks/active/STORY-3D-003-premium-day-one.md).
+
+## 2026-11-25 — STORY-3D-002R concluída localmente
+
+Na branch `codex/story-3d-002r-sanctuary`, baseada no SHA `b0322eb4b5ee2d2760b9cbc06069591bf4a13219`, o Santuário inicial passou do palco 2D de `CreationExplorerView` para uma cena Three.js com terreno, caminho, portal, vegetação, avatar em terceira pessoa, câmera seguidora e controle teclado/toque. WebGL 2 é selecionado após hidratação usando snapshot de browser; o palco 2D continua como fallback. Capturas desktop/Pixel 7 emulado e Dia 1 Premium em `build/story-3d-002r`. Navegador confirmou movimento, entrada no portal, marcador/desafio, retorno, Diário e fallback; typecheck, ESLint direcionado, build e `git diff --check` PASS. Fixtures locais de autenticação foram restauradas. Nenhum deploy, banco, economia, Guilda ou EBD alterado. [Contrato](../../tasks/completed/STORY-3D-002R-sanctuary.md).

@@ -8,6 +8,7 @@ import {
   useMemo,
   useRef,
   useState,
+  useSyncExternalStore,
   type KeyboardEvent,
   type MouseEvent,
   type FormEvent,
@@ -57,6 +58,12 @@ import book from '../journey/components/diary-experience.module.css';
 import css from './creation-explorer.module.css';
 
 const PORTAL: Point = { x: 78, y: 50 };
+const subscribeToBrowser = () => () => {};
+const browserHasWebGL2 = () => typeof WebGL2RenderingContext !== 'undefined';
+const Sanctuary3D = dynamic(() => import('./creation-sanctuary'), {
+  ssr: false,
+  loading: () => <p role="status">Carregando o Santuário 3D…</p>,
+});
 const CreationDayOne = dynamic(() => import('./creation-day-one'), {
   ssr: false,
   loading: () => <p role="status">Carregando a exploração 3D…</p>,
@@ -291,6 +298,7 @@ export function CreationExplorerView({
 }) {
   const [dayIndex, setDayIndex] = useState<number | null>(null);
   const [dayOneUnavailable, setDayOneUnavailable] = useState(false);
+  const [sanctuaryUnavailable, setSanctuaryUnavailable] = useState(false);
   const [dayOnePlaying, setDayOnePlaying] = useState(false);
   const [position, setPosition] = useState<Point>(INITIAL);
   const [message, setMessage] = useState(
@@ -334,6 +342,11 @@ export function CreationExplorerView({
     'harmony' | 'quiz' | 'summary' | 'video' | 'finale' | null
   >(null);
   const [diaryOpen, setDiaryOpen] = useState(false);
+  const sanctuaryWebGL2 = useSyncExternalStore(
+    subscribeToBrowser,
+    browserHasWebGL2,
+    () => false,
+  );
   const [discoveries, setDiscoveries] = useState<readonly string[]>([]);
   const [quizAttempt, setQuizAttempt] = useState(0);
   const [quizResult, setQuizResult] = useState<{
@@ -360,6 +373,7 @@ export function CreationExplorerView({
 
   const day = dayIndex === null ? undefined : days[dayIndex];
   const dayNumber = dayIndex === null ? 0 : dayIndex + 1;
+  const sanctuary3D = dayIndex === null && !sanctuaryUnavailable && sanctuaryWebGL2;
   const dayOne3D = dayNumber === 1 && !dayOneUnavailable &&
     typeof WebGL2RenderingContext !== 'undefined';
   const study = dayOne3D && !remote ? DAY_ONE_STUDY : null;
@@ -737,9 +751,29 @@ export function CreationExplorerView({
           </span>
         )}
       </div>
-      <div className={css.layout} hidden={diaryOpen || section !== null}>
+      <div className={sanctuary3D ? css.sanctuaryLayout : css.layout} hidden={diaryOpen || section !== null}>
         <section className={css.playArea} aria-label="Exploração">
-          {dayOne3D ? (
+          {sanctuary3D ? (
+            <>
+              <Sanctuary3D
+                appearance={traveler.appearance}
+                stage={stage}
+                destination={`Portal · Dia ${nextDayIndex + 1} · ${days[nextDayIndex].title}`}
+                onEnter={() => activate(PORTAL)}
+                onUnavailable={() => setSanctuaryUnavailable(true)}
+              />
+              <div className={css.sanctuaryActions}>
+                <button type="button" onClick={() => setDiaryOpen(true)}>Abrir Diário Bíblico</button>
+                {harmonyUnlocked && (
+                  <button type="button" onClick={openHarmony}>Abrir Harmonia da Criação</button>
+                )}
+                <details>
+                  <summary>Navegação acessível</summary>
+                  <button type="button" onClick={() => activate(PORTAL)}>Portal · Dia {nextDayIndex + 1}</button>
+                </details>
+              </div>
+            </>
+          ) : dayOne3D ? (
             <>
               <CreationDayOne
                 appearance={traveler.appearance}
@@ -853,7 +887,7 @@ export function CreationExplorerView({
           </div>
           </>}
         </section>
-        <aside className={css.panel}>
+        {!sanctuary3D && <aside className={css.panel}>
           <h2>Painel de objetivos</h2>
           <p className={css.objective} role="status">
             {message}
@@ -989,7 +1023,7 @@ export function CreationExplorerView({
                 Criação.
               </p>
             ))}
-        </aside>
+        </aside>}
       </div>
       {remote && pendingQuiz && (
         <div>
