@@ -1390,3 +1390,7 @@ Candidato commitado localmente em worktree `codex/guild-public-001`; CI remoto/p
 
 ## 24/11/2026 — GUILD-QA-001 (TASK-0104)
 Branch `codex/guild-qa-001` based on PR #56 merge `99e38a4`. Candidate migrations add a private UUID allowlist with timestamp revocation, preserve the original creation claim and invitation/economy paths. Isolated PostgreSQL targeted suite PASS (9 checks); TypeScript, ESLint and build PASS. CI run `45333171391` PASS on SHA `24123e9c98a002f4fb69cc42612034ef47bda253`. Supabase TEST migration `20261124051929` applied; RLS active, no client grants, no QA identity/grant in TEST. PROD checked read-only only; migration not applied. Hosted authenticated smoke pending because no authorized TEST session exists; PROD release blocked pending verifiable backup/recovery evidence.
+
+## 2026-11-25 — STORY-3D-001 em validação
+
+Dia 1 da Criação implementado em Three.js na branch `codex/story-3d-001-creation-day-one`. Movimento por teclado/toque, câmera em terceira pessoa e sequência de Gênesis 1:3–5 liberam o marco e o formulário existentes. Mapa alternativo preservado. Os demais dias, Harmonia, contratos de progresso e economia permanecem intactos. Aceite e escopo no [contrato](../../tasks/active/STORY-3D-001-creation-day-one.md).

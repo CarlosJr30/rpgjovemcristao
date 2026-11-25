@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import dynamic from 'next/dynamic';
 import {
   useCallback,
   useEffect,
@@ -56,6 +57,16 @@ import book from '../journey/components/diary-experience.module.css';
 import css from './creation-explorer.module.css';
 
 const PORTAL: Point = { x: 78, y: 50 };
+const CreationDayOne = dynamic(() => import('./creation-day-one'), {
+  ssr: false,
+  loading: () => <p role="status">Carregando a exploração 3D…</p>,
+});
+const DAY_ONE_STUDY = {
+  question: 'Que expressão introduz a fala divina em Gênesis 1:3?',
+  options: ['Disse Deus', 'Respondeu Moisés'],
+  correctIndex: 0,
+  explanation: 'O versículo começa introduzindo a fala de Deus.',
+};
 const START: Point = { x: 22, y: 52 };
 const INITIAL: Point = { x: 18, y: 50 };
 const EXIT: Point = { x: 18, y: 52 };
@@ -279,6 +290,8 @@ export function CreationExplorerView({
   };
 }) {
   const [dayIndex, setDayIndex] = useState<number | null>(null);
+  const [dayOneUnavailable, setDayOneUnavailable] = useState(false);
+  const [dayOnePlaying, setDayOnePlaying] = useState(false);
   const [position, setPosition] = useState<Point>(INITIAL);
   const [message, setMessage] = useState(
     'Explore o santuário e interaja com o portal.',
@@ -347,6 +360,9 @@ export function CreationExplorerView({
 
   const day = dayIndex === null ? undefined : days[dayIndex];
   const dayNumber = dayIndex === null ? 0 : dayIndex + 1;
+  const dayOne3D = dayNumber === 1 && !dayOneUnavailable &&
+    typeof WebGL2RenderingContext !== 'undefined';
+  const study = dayOne3D && !remote ? DAY_ONE_STUDY : null;
   const challengeOpen = day?.markers.every(({ id }) =>
     visited.includes(id),
   );
@@ -367,6 +383,7 @@ export function CreationExplorerView({
     setSaveError('');
     if (finished && !remote) setHarmonyUnlocked(true);
     setDayIndex(next);
+    setDayOnePlaying(false);
     setPosition(next === null ? INITIAL : START);
     visitedMarkerIds.current = new Set();
     setVisited([]);
@@ -414,6 +431,14 @@ export function CreationExplorerView({
     );
   }
 
+  function visitAccessiblePoint(point: Point) {
+    if (dayOne3D && point !== EXIT) {
+      if (!challengeOpen) setDayOnePlaying(true);
+      return;
+    }
+    activate(point);
+  }
+
   function handleKeyDown(event: KeyboardEvent<HTMLDivElement>) {
     if (
       event.target !== event.currentTarget ||
@@ -456,7 +481,7 @@ export function CreationExplorerView({
     )
       return;
     if (!remote) {
-      setFeedback(answer === CREATION_DEMO_FEEDBACK[day.id].correctIndex ? 'correct' : 'retry');
+      setFeedback(answer === (study ?? CREATION_DEMO_FEEDBACK[day.id]).correctIndex ? 'correct' : 'retry');
       return;
     }
     dayRequest.current = true;
@@ -714,6 +739,33 @@ export function CreationExplorerView({
       </div>
       <div className={css.layout} hidden={diaryOpen || section !== null}>
         <section className={css.playArea} aria-label="Exploração">
+          {dayOne3D ? (
+            <>
+              <CreationDayOne
+                appearance={traveler.appearance}
+                playing={dayOnePlaying}
+                completed={Boolean(challengeOpen)}
+                onStart={() => setDayOnePlaying(true)}
+                onComplete={() => {
+                  setDayOnePlaying(false);
+                  if (day) activate(day.markers[0].point);
+                }}
+                onUnavailable={() => {
+                  setDayOneUnavailable(true);
+                  setDayOnePlaying(false);
+                  if (!remote) {
+                    setAnswer(undefined);
+                    setFeedback(undefined);
+                  }
+                }}
+              />
+              <p className={css.controls}>Mova-se com WASD, setas ou os controles de toque. Use E ou o botão do marco para observar.</p>
+              <div className={css.actions}>
+                <button type="button" onClick={() => changeScene(null)}>Retornar ao Santuário</button>
+                <button type="button" onClick={() => setDiaryOpen(true)}>Abrir Diário Bíblico</button>
+              </div>
+            </>
+          ) : <>
           <div
             className={css.stage}
             data-area={day?.id ?? 'sanctuary'}
@@ -798,6 +850,7 @@ export function CreationExplorerView({
               Abrir Diário Bíblico
             </button>
           </div>
+          </>}
         </section>
         <aside className={css.panel}>
           <h2>Painel de objetivos</h2>
@@ -850,8 +903,8 @@ export function CreationExplorerView({
               }
             >
               <fieldset disabled={savingDay}>
-                <legend>{day.question}</legend>
-                {day.options.map((option, index) => (
+                <legend>{study?.question ?? day.question}</legend>
+                {(study?.options ?? day.options).map((option, index) => (
                   <label key={option}>
                     <input
                       type="radio"
@@ -879,7 +932,7 @@ export function CreationExplorerView({
                   'A tentativa deste dia já foi registrada. Para retomar, aguarde uma nova revisão autorizada.'}
                 {feedback === 'correct' && (remote
                   ? 'Resposta correta.'
-                  : 'Resposta correta. ' + CREATION_DEMO_FEEDBACK[day.id].explanation)}
+                  : 'Resposta correta. ' + (study ?? CREATION_DEMO_FEEDBACK[day.id]).explanation)}
                 {feedback === 'retry' &&
                   'Tente novamente. Você pode responder quantas vezes quiser.'}
               </p>
@@ -908,7 +961,7 @@ export function CreationExplorerView({
           <ul className={css.poiList} aria-label="Navegação acessível">
             {points.map(({ id, label, point }) => (
               <li key={id ?? label}>
-                <button onClick={() => activate(point)}>
+                <button disabled={dayOnePlaying && point !== EXIT} onClick={() => visitAccessiblePoint(point)}>
                   {label}
                   {id && visited.includes(id) ? ' · Visitado' : ''}
                 </button>
