@@ -15,7 +15,25 @@ import { CREATION_MANIFEST } from './creation-manifest';
 import { preparePendingQuiz } from './creation-pending-quiz';
 
 import { createTraveler, DEFAULT_APPEARANCE } from '../journey/domain/traveler';
-import { CheckpointExplorer, CreationExplorerView } from './creation-explorer';
+import {
+  CheckpointExplorer,
+  CreationExplorerScreen,
+  CreationExplorerView,
+} from './creation-explorer';
+
+const creationScreenMocks = vi.hoisted(() => ({
+  snapshot: null as unknown,
+  rpc: vi.fn(),
+}));
+
+vi.mock('../release-ebd/archive', () => ({
+  ArchiveAccess: ({ children }: { children: (snapshot: unknown) => React.ReactNode }) =>
+    children(creationScreenMocks.snapshot),
+}));
+
+vi.mock('../../lib/supabase/client', () => ({
+  getSupabaseBrowserClient: () => ({ rpc: creationScreenMocks.rpc }),
+}));
 
 vi.mock('./use-story-progress', () => ({
   useStoryProgress: () => ({ records: [] }),
@@ -43,6 +61,8 @@ const traveler = createTraveler(
 afterEach(() => {
   cleanup();
   vi.restoreAllMocks();
+  vi.unstubAllEnvs();
+  creationScreenMocks.snapshot = null;
 });
 
 test('shows the sanctuary, enters day one, retries the challenge, and returns without claiming canonical progress', () => {
@@ -364,6 +384,19 @@ const remoteSnapshot = {
   videoCompleted: false,
 };
 const archive = { traveler, inventory: [], persistedProgress: false };
+
+test('keeps the production demo local and never calls checkpoint RPCs when the flag is off', () => {
+  vi.stubEnv('NEXT_PUBLIC_CREATION_CHECKPOINTS', 'false');
+  vi.stubEnv(
+    'NEXT_PUBLIC_SUPABASE_URL',
+    'https://wkdvdzfkbwvhyjmamrsg.supabase.co',
+  );
+  creationScreenMocks.snapshot = archive;
+  render(<CreationExplorerScreen />);
+  expect(screen.getByText('Santuário fictício')).toBeInTheDocument();
+  expect(creationScreenMocks.rpc).not.toHaveBeenCalled();
+});
+
 const makeRepository = () => ({
   read: vi.fn(),
   submitDay: vi.fn(),
