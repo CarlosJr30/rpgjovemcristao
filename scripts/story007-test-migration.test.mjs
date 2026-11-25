@@ -10,7 +10,9 @@ import {
   prepareBody,
   requireTestConnection,
   requireOwnerConfirmation,
+  redactConnectionDetails,
   runTransaction,
+  verifyTestPreconditions,
   verifyMigrationHash,
 } from './story007-test-migration.mjs';
 
@@ -39,11 +41,72 @@ async function getAvailablePort() {
   });
 }
 
-test('accepts the exact TEST connection host and rejects PROD', () => {
-  const testUrl = `postgresql://audit:secret@db.${project}.supabase.co/postgres`;
+test('accepts direct TEST and the exact TEST Session pooler', () => {
+  const testUrl = `postgresql://postgres:secret@db.${project}.supabase.co:5432/postgres`;
+  const poolerUrl = `postgresql://postgres.${project}:secret@aws-1-sa-east-1.pooler.supabase.com:5432/postgres`;
+  assert.equal(requireTestConnection(testUrl).mode, 'direct');
+  assert.equal(requireTestConnection(poolerUrl).mode, 'session-pooler');
+});
+
+test('rejects pooler PROD identity and unknown host', () => {
   const productionUrl = 'postgresql://audit:secret@db.wspafhlbtlpabypzymjo.supabase.co/postgres';
-  assert.doesNotThrow(() => requireTestConnection(testUrl));
-  assert.throws(() => requireTestConnection(productionUrl), /exclusivamente/);
+  const productionPoolerUrl = 'postgresql://postgres.wspafhlbtlpabypzymjo:secret@aws-1-sa-east-1.pooler.supabase.com:5432/postgres';
+  const unknownHostUrl = 'postgresql://postgres.wkdvdzfkbwvhyjmamrsg:secret@pooler.invalid:5432/postgres';
+  assert.throws(() => requireTestConnection(productionUrl), /Hostname não autorizado/);
+  assert.throws(() => requireTestConnection(productionPoolerUrl), /identificar exclusivamente/);
+  assert.throws(() => requireTestConnection(unknownHostUrl), /Hostname não autorizado/);
+});
+
+test('rejects a pooler port other than Session mode 5432', () => {
+  const transactionPort = `postgresql://postgres.${project}:secret@aws-1-sa-east-1.pooler.supabase.com:6543/postgres`;
+  assert.throws(() => requireTestConnection(transactionPort), /Session pooler/);
+});
+
+test('checks effective TEST identity and baseline with read-only preflight queries', async () => {
+  const responses = [
+    { rows: [{ database: 'postgres', role: 'postgres', version_num: 170011, version: '17.11' }] },
+    {
+      rows: [{
+        baseline_count: 1,
+        target_migration_count: 0,
+        creation_count: 1,
+        expected_creation_count: 1,
+        private_schema_exists: true,
+        existing_tables: [],
+      }],
+    },
+  ];
+  const queries = [];
+  const client = { query: async (sql) => { queries.push(sql); return responses.shift(); } };
+  const connection = requireTestConnection(
+    `postgresql://postgres.${project}:secret@aws-1-sa-east-1.pooler.supabase.com:5432/postgres`,
+  );
+
+  assert.deepEqual(await verifyTestPreconditions(client, connection), {
+    version: '17.11',
+    database: 'postgres',
+    role: 'postgres',
+  });
+  assert.equal(queries.length, 2);
+  assert.ok(queries.every((sql) => /^\s*SELECT\b/i.test(sql)));
+});
+
+test('blocks preflight on a wrong effective identity before baseline query', async () => {
+  let queryCount = 0;
+  const client = {
+    query: async () => {
+      queryCount += 1;
+      return { rows: [{ database: 'postgres', role: 'postgres', version_num: 160000, version: '16' }] };
+    },
+  };
+  const connection = requireTestConnection(
+    `postgresql://postgres.${project}:secret@aws-1-sa-east-1.pooler.supabase.com:5432/postgres`,
+  );
+  await assert.rejects(
+    verifyTestPreconditions(client, connection),
+    /Identidade efetiva ou versão PostgreSQL/,
+  );
+  assert.equal(queryCount, 1);
 });
 
 test('verifies the full migration SHA-256 and rejects a modified file', () => {
@@ -113,15 +176,12 @@ test('rolls back an intentional SQL error and never commits afterward', async (c
   assert.equal(client.getTransactionStatus(), 'I');
 });
 
-test('does not print connection credentials on rejection', async () => {
-  const secret = 'should-never-appear-in-logs';
-  const url = `postgresql://audit:${secret}@db.wspafhlbtlpabypzymjo.supabase.co/postgres`;
-  let message;
-  try {
-    requireTestConnection(url);
-  } catch (error) {
-    message = error.message;
-  }
-  assert.ok(message);
-  assert.equal(message.includes(secret), false);
+test('redacts connection URL, username, and password from error logs', () => {
+  const password = 'should-never-appear-in-logs';
+  const username = `postgres.${project}`;
+  const url = `postgresql://${username}:${password}@aws-1-sa-east-1.pooler.supabase.com:5432/postgres`;
+  const message = redactConnectionDetails(`failed ${url}; role=${username}; password=${password}`, url);
+  assert.equal(message.includes(url), false);
+  assert.equal(message.includes(username), false);
+  assert.equal(message.includes(password), false);
 });
