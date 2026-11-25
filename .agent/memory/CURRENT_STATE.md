@@ -1408,3 +1408,7 @@ On branch codex/story-3d-002r-sanctuary at base 8acd124232d57370ab45494adda70a42
 
 ## 2026-11-25 — STORY-3D-005 concluída localmente
 Dias 2–7 da Criação foram ligados ao motor Three.js em branch `codex/story-3d-005-creation-days-2-to-7` (base `2ec1a6af`). Implementados ambientes distintos, avatar/câmera, controle teclado/toque, cinematic por marco, explicações com referência e integração aos quizzes existentes. Dia 1, contratos remotos, autorização, economia, Guilda e EBD preservados. Vitest 14/14, navegador Edge WebGL2 desktop/mobile sem erros, ESLint, typecheck, build e diff-check passaram. Capturas em `build/story-3d-005-evidence`. Revisão bíblica/autoral registrada; não independente. Nenhuma conexão/mudança Supabase ou deploy. Ver contrato concluído.
+
+## 2026-11-25 — STORY-3D-005R concluída localmente
+
+Na branch `codex/story-3d-005-creation-days-2-to-7`, base `190577a`, o fallback 2D passou a valer somente para o dia cuja cena falhou. Os Dias 2–7 remontam o componente Three.js a cada transição. Vitest direcionado 21/21, ESLint direcionado, TypeScript e build passaram. Edge local confirmou sete cenas WebGL 2, nove marcos, Harmonia, Diário, descarte dos canvases anteriores e recuperação nos Dias 2 e 3 após perda induzida no dia anterior. Capturas em `build/story-3d-005r-evidence`. A sessão hospedada ficou fora da validação, sem merge ou deploy. [Contrato](../../tasks/completed/STORY-3D-005R-creation-scene-routing.md).

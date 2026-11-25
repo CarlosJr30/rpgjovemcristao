@@ -39,6 +39,30 @@ vi.mock('./use-story-progress', () => ({
   useStoryProgress: () => ({ records: [] }),
 }));
 
+vi.mock('./creation-day-one', () => ({
+  default: ({ onUnavailable }: { onUnavailable: () => void }) => (
+    <button type="button" data-testid="creation-3d-day-1" onClick={onUnavailable}>
+      Simulate Day 1 renderer failure
+    </button>
+  ),
+}));
+
+vi.mock('./creation-days-3d', () => ({
+  default: ({
+    dayNumber,
+    onUnavailable,
+  }: {
+    dayNumber: number;
+    onUnavailable: () => void;
+  }) => (
+    <div data-testid={`creation-3d-day-${dayNumber}`}>
+      <button type="button" onClick={onUnavailable}>
+        Simulate Day {dayNumber} renderer failure
+      </button>
+    </div>
+  ),
+}));
+
 vi.mock('next/link', () => ({
   default: ({
     children,
@@ -361,6 +385,45 @@ test('keeps the production demo local and never calls checkpoint RPCs when the f
   render(<CreationExplorerScreen />);
   expect(screen.getByRole('heading', { level: 1, name: /^Dia 1/ })).toBeInTheDocument();
   expect(creationScreenMocks.rpc).not.toHaveBeenCalled();
+});
+
+test.each([
+  { failedDay: 1, marker: 'Marco da luz' },
+  { failedDay: 2, marker: 'Marco do céu' },
+])('falls back on Day $failedDay and mounts the next day in 3D', async ({ failedDay, marker }) => {
+  vi.stubGlobal('WebGL2RenderingContext', class WebGL2RenderingContext {});
+  const repo = makeRepository();
+  const before = { ...remoteSnapshot, completedDays: failedDay === 1 ? [] : [1] };
+  const after = { ...before, completedDays: [...before.completedDays, failedDay] };
+  repo.read
+    .mockResolvedValueOnce(before)
+    .mockResolvedValueOnce(after);
+  repo.submitDay.mockResolvedValue({ completed: true });
+
+  render(
+    <CreationExplorerView
+      traveler={traveler}
+      remote={{ accountId: 'owner', initial: before, repository: repo }}
+    />,
+  );
+
+  expect(await screen.findByTestId(`creation-3d-day-${failedDay}`)).toBeInTheDocument();
+  fireEvent.click(
+    screen.getByRole('button', { name: `Simulate Day ${failedDay} renderer failure` }),
+  );
+  expect(
+    screen.getByRole('group', { name: `Exploração do Dia ${failedDay}` }),
+  ).toBeInTheDocument();
+  fireEvent.click(
+    accessibleMap().getByRole('button', { name: marker }),
+  );
+  fireEvent.click(screen.getAllByRole('radio')[0]!);
+  fireEvent.click(screen.getByRole('button', { name: 'Conferir resposta' }));
+  fireEvent.click(
+    await screen.findByRole('button', { name: `Prosseguir para o Dia ${failedDay + 1}` }),
+  );
+
+  expect(await screen.findByTestId(`creation-3d-day-${failedDay + 1}`)).toBeInTheDocument();
 });
 
 const makeRepository = () => ({

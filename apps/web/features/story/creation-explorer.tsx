@@ -285,7 +285,9 @@ export function CreationExplorerView({
     (remote?.content ?? CREATION_CONTENT_V1).days.length - 1,
   );
   const [dayIndex, setDayIndex] = useState(initialDayIndex);
-  const [dayOneUnavailable, setDayOneUnavailable] = useState(false);
+  const [unavailable3DDays, setUnavailable3DDays] = useState<ReadonlySet<number>>(
+    () => new Set(),
+  );
   const [dayOnePlaying, setDayOnePlaying] = useState(false);
   const [requestedMarker, setRequestedMarker] = useState<{ id: string; nonce: number }>();
   const markerRequestNonce = useRef(0);
@@ -365,9 +367,10 @@ export function CreationExplorerView({
 
   const day = days[dayIndex]!;
   const dayNumber = dayIndex + 1;
-  const dayOne3D = dayNumber === 1 && !dayOneUnavailable && browserGraphics === 'available';
-  const daysTwoToSeven3D = dayNumber > 1 && !dayOneUnavailable && browserGraphics === 'available';
-  const waitingForBrowserGraphics = browserGraphics === 'pending' && !dayOneUnavailable;
+  const canRender3D = browserGraphics === 'available' && !unavailable3DDays.has(dayNumber);
+  const dayOne3D = dayNumber === 1 && canRender3D;
+  const daysTwoToSeven3D = dayNumber > 1 && canRender3D;
+  const waitingForBrowserGraphics = browserGraphics === 'pending';
   const study = dayOne3D && !remote ? DAY_ONE_STUDY : null;
   const challengeOpen = day.markers.every(({ id }) =>
     visited.includes(id),
@@ -375,11 +378,19 @@ export function CreationExplorerView({
   const points = day.markers;
   const nearby = points.find(({ point }) => pointIsNear(position, point));
 
+  function markSceneUnavailable(failedDay: number) {
+    setUnavailable3DDays((current) => {
+      const next = new Set(current);
+      next.add(failedDay);
+      return next;
+    });
+  }
   function changeScene(next: number) {
     if (dayRequest.current) return;
     setSaveError('');
     setDayIndex(next);
     setDayOnePlaying(false);
+    setRequestedMarker(undefined);
     setPosition(START);
     visitedMarkerIds.current = new Set();
     setVisited([]);
@@ -743,7 +754,7 @@ export function CreationExplorerView({
                   if (day) activate(day.markers[0].point);
                 }}
                 onUnavailable={() => {
-                  setDayOneUnavailable(true);
+                  markSceneUnavailable(1);
                   setDayOnePlaying(false);
                   if (!remote) {
                     setAnswer(undefined);
@@ -760,6 +771,7 @@ export function CreationExplorerView({
           ) : daysTwoToSeven3D ? (
             <>
               <CreationDays3D
+                key={dayNumber}
                 dayNumber={dayNumber as 2 | 3 | 4 | 5 | 6 | 7}
                 title={day.title}
                 reference={day.reference}
@@ -773,7 +785,7 @@ export function CreationExplorerView({
                   setRequestedMarker(undefined);
                 }}
                 onUnavailable={() => {
-                  setDayOneUnavailable(true);
+                  markSceneUnavailable(dayNumber);
                   setRequestedMarker(undefined);
                   if (!remote) {
                     setAnswer(undefined);
