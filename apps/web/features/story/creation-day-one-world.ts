@@ -1,6 +1,7 @@
 import * as T from 'three';
 import type { Appearance, AvatarConfig } from '../journey/domain/traveler';
 import { buildAtmosphere, stoneRelief } from './creation-day-one-atmosphere';
+import { addCreationWater } from './creation-scenery-shaders';
 
 export const LIGHT_MARKER_Z = -13;
 export const SEPARATION_SECONDS = 8;
@@ -43,12 +44,8 @@ export function buildDayOneWorld(appearance: Appearance, identity: AvatarConfig 
     parent.add(item);
     return item;
   }
-  const relief = stoneRelief();
-  const ripple = relief.clone();
-  ripple.repeat.set(7, 26);
-  const water = mesh(new T.PlaneGeometry(150, 146), '#254762', 0, -0.24, -36);
-  water.rotation.x = -Math.PI / 2;
-  water.material.setValues({ roughness: 0.38, metalness: 0.26, bumpMap: ripple, bumpScale: 0.17, flatShading: false });
+  const relief = stoneRelief(compact ? 256 : 512);
+  const water = addCreationWater(scene, 1, compact);
 
   const rock = new T.DodecahedronGeometry(1, 1);
   const positions = rock.getAttribute('position');
@@ -184,19 +181,20 @@ export function buildDayOneWorld(appearance: Appearance, identity: AvatarConfig 
   const neutral = new T.Color('#26364e');
   const warm = new T.Color('#50505d');
   function illuminate(t: number) {
-    const dim = T.MathUtils.smoothstep(t, 0, 0.21) * (1 - T.MathUtils.smoothstep(t, 0.29, 0.58));
-    const light = T.MathUtils.smoothstep(t, 0.27, 0.78);
+    const dim = 1 - T.MathUtils.smoothstep(t, 0.04, 0.57);
+    const light = T.MathUtils.smoothstep(t, 0.19, 0.92);
     atmosphere.eclipse.value = dim;
     atmosphere.light.value = light;
+    water.light.value = light;
     fog.color.copy(neutral).lerp(dark, dim * 0.9).lerp(warm, light * 0.45);
-    key.intensity = 2.25 - dim * 1.98 - light * 0.68;
-    ambient.intensity = 1.65 - dim * 1.24 - light * 0.45;
+    key.intensity = 2.25 - dim * 1.80 - light * 0.68;
+    ambient.intensity = 1.65 - dim * 1.03 - light * 0.45;
     warmKey.intensity = light * 288;
     beacon.intensity = 24 - dim * 19 - light * 7;
   }
   function updateAtmosphere(time: number) {
     atmosphere.time.value = time;
-    ripple.offset.set(time * 0.012, time * 0.019);
+    water.time.value = time;
   }
 
   function dispose() {
@@ -211,8 +209,9 @@ export function buildDayOneWorld(appearance: Appearance, identity: AvatarConfig 
     geometries.forEach((geometry) => geometry.dispose());
     materials.forEach((material) => material.dispose());
     relief.dispose();
-    ripple.dispose();
     key.dispose();
+    warmKey.dispose();
+    beacon.dispose();
   }
   return { scene, avatar, torso, arms, legs, cloak, crystal, illuminate, updateAtmosphere, dispose };
 }

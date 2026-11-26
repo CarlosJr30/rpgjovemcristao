@@ -77,7 +77,8 @@ export default function CreationDays3D({
     container.append(renderer.domElement);
     const world = buildCreationDaysWorld(dayNumber, markers, appearance, identity, compact);
     const camera = new T.PerspectiveCamera(47, 1, 0.1, 140);
-    const target = new T.Vector3(0, 1.15, 0);
+    camera.position.set(0.4, 3.05, world.avatar.position.z + (compact ? 5.8 : 5.3));
+    const target = new T.Vector3(0, 1.2, world.avatar.position.z - 3.2);
     const desired = new T.Vector3();
     const look = new T.Vector3();
     const cinematicShot = new T.CubicBezierCurve3(
@@ -85,6 +86,8 @@ export default function CreationDays3D({
       new T.Vector3(8, 8.5, -23), new T.Vector3(0, 6.2, -12),
     );
     let visible = false; let lastFrame = 0; let time = 0; let stride = 0; let walkBlend = 0;
+    let pixelScale = 1; let frameAverage = 16; let slowFor = 0;
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
     let priorNear = '';
     const fit = () => {
       const { clientWidth: width, clientHeight: height } = container;
@@ -94,7 +97,7 @@ export default function CreationDays3D({
       camera.fov = width < height ? 56 : 47;
       camera.updateProjectionMatrix();
       const pixelCap = compact ? 900_000 : 2_100_000;
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, compact ? 1.3 : 1.7, Math.sqrt(pixelCap / (width * height))));
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, compact ? 1.3 : 1.7, Math.sqrt(pixelCap / (width * height))) * pixelScale);
       renderer.setSize(width, height, false);
     };
     const resize = new ResizeObserver(fit);
@@ -105,8 +108,18 @@ export default function CreationDays3D({
     document.addEventListener('visibilitychange', clearInput);
     renderer.setAnimationLoop((now) => {
       if (!visible || document.hidden) { lastFrame = 0; return; }
-      const dt = lastFrame ? Math.min((now - lastFrame) / 1000, 0.05) : 0;
+      const frameDuration = lastFrame ? now - lastFrame : 16;
+      const dt = lastFrame ? Math.min(frameDuration / 1000, 0.05) : 0;
       lastFrame = now; time += dt;
+      if (frameDuration < 250 && pixelScale > 0.76) {
+        frameAverage += (frameDuration - frameAverage) * .05;
+        slowFor = frameAverage > 28 ? slowFor + dt : 0;
+        if (slowFor > 2.1) {
+          pixelScale = Math.max(.76, pixelScale - .12);
+          slowFor = 0;
+          fit();
+        }
+      }
       const held = [...touches.current.values()];
       const down = (key: string) => keys.current.has(key) || held.includes(key);
       const dx = Number(down('d') || down('arrowright')) - Number(down('a') || down('arrowleft'));
@@ -134,12 +147,19 @@ export default function CreationDays3D({
       }
       if (closest !== priorNear) { priorNear = closest; setNearMarker(closest || undefined); }
       const cinematicProgress = isCinematic ? Math.min(1, (now - isCinematic.started) / 7200) : 0;
-      world.update(time, cinematicProgress);
+      world.update(reducedMotion.matches ? 0 : time, cinematicProgress);
       desired.set(actor.x * 0.9 + 0.4, 3.05, actor.z + (compact ? 5.8 : 5.3));
       look.set(actor.x * 0.8, 1.2, actor.z - 3.2);
       if (isCinematic) {
         cinematicShot.getPoint(T.MathUtils.smoothstep(cinematicProgress, 0.04, 0.96), desired);
         look.set(0, 2.2, -13);
+        if (dayNumber === 4) {
+          const reveal = T.MathUtils.smoothstep(cinematicProgress, 0, .32);
+          desired.z = T.MathUtils.lerp(desired.z, -5.4, reveal);
+          look.set(0, T.MathUtils.lerp(2.2, 9.4, reveal), -28);
+        } else if (dayNumber === 5) {
+          look.set(4.4, 2.5, -24);
+        }
         const beat = Math.min(2, Math.floor(cinematicProgress * 3));
         setCaption((current) => current === beat ? current : beat);
         if (cinematicProgress >= 1) {

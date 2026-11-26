@@ -1,7 +1,6 @@
 import * as T from 'three';
 
-export function stoneRelief() {
-  const size = 256;
+export function stoneRelief(size = 256) {
   const pixels = new Uint8Array(size * size);
   for (let y = 0; y < size; y++) {
     for (let x = 0; x < size; x++) {
@@ -43,13 +42,16 @@ export function buildAtmosphere(scene: T.Scene, compact: boolean) {
       uniform float light, eclipse, time;
       void main() {
         vec3 d = normalize(direction);
-        float horizon = exp(-abs(d.y - 0.06) * 5.0);
-        float division = smoothstep(-0.28, 0.22, -d.x - 0.18 + d.y * 0.48);
-        float layers = sin(d.x * 14.0 + d.y * 28.0 + sin(d.x * 7.0 + time * 0.08) * 2.1);
-        float mist = horizon * (0.73 + layers * 0.12);
-        vec3 base = mix(vec3(0.009, 0.016, 0.044), vec3(0.064, 0.131, 0.205), mist);
-        vec3 glow = mix(vec3(0.30, 0.065, 0.042), vec3(1.22, 0.53, 0.18), horizon);
-        vec3 color = base * (1.0 - eclipse * 0.72) + glow * light * division * (0.26 + mist * 0.74);
+        float horizon = exp(-abs(d.y - 0.035) * 8.0);
+        float drift = sin(d.x * 7.0 - time * .051) * .47 + sin(d.x * 17.0 + time * .083) * .21;
+        float folds = sin(d.y * 33.0 + drift * 4.0) * cos(d.y * 69.0 + drift * 2.0);
+        float mist = horizon * (0.76 + folds * 0.21);
+        float front = -d.x - .55 + light * .73 + d.y * .59 + drift * .04;
+        float division = smoothstep(-.16, .19, front);
+        float seam = exp(-abs(front) * 12.0) * horizon;
+        vec3 base = mix(vec3(.004,.009,.025), vec3(.044,.084,.139), mist);
+        vec3 glow = mix(vec3(.31,.088,.063),vec3(1.09,.49,.17),horizon);
+        vec3 color = base * (1.0-eclipse*.65) + light*(glow*division*(.17+mist*.83)+seam*vec3(.33,.19,.11));
         gl_FragColor = vec4(color, 1.0);
         #include <tonemapping_fragment>
         #include <colorspace_fragment>
