@@ -99,11 +99,11 @@ export function buildCreationDaysWorld(
   if (day === 4) {
     const orbit = groupAt(0, 0, -27);
     celestial = orbit;
-    orbit.position.y = 9.1;
-    const solar = addMesh(new T.SphereGeometry(1.84, 32, 20), '#ffda81', [-8.1, -1.7, 0], [1, 1, 1], orbit, .62, '#ffb149');
+    orbit.position.y = 4.2;
+    const solar = addMesh(new T.SphereGeometry(1.84, 32, 20), '#ffda81', [-5.7, -1.7, 0], [1, 1, 1], orbit, .62, '#ffb149');
     solar.material.emissiveIntensity = 2.1;
     solar.castShadow = false;
-    const lunar = addMesh(new T.SphereGeometry(1.23, 28, 18), '#b5c5e6', [7.1, .9, 0], [1, 1, 1], orbit, .93, '#6f8db2');
+    const lunar = addMesh(new T.SphereGeometry(1.23, 28, 18), '#b5c5e6', [6.5, .9, 0], [1, 1, 1], orbit, .93, '#6f8db2');
     lunar.material.bumpMap = terrain.relief;
     lunar.material.bumpScale = .22;
     lunar.castShadow = false;
@@ -275,7 +275,7 @@ export function buildCreationDaysWorld(
         const night = .19 + .81 * T.MathUtils.smoothstep(reveal, .38, .95);
         sky.night.value = night;
         celestial.rotation.z = -.04 + night * .27;
-        celestial.position.y = 9.1 + night * 1.65;
+        celestial.position.y = 4.2 + night * 1.65;
         stars.material.opacity = .32 + night * .66;
         fog.color.copy(dayColor).lerp(nightColor, night);
         ambient.intensity = 1.48 - night * .70;
