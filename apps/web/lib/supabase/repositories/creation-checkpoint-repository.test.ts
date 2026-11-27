@@ -1,5 +1,8 @@
 import { describe, expect, test, vi } from 'vitest';
-import { createCreationCheckpointRepository } from './creation-checkpoint-repository';
+import {
+  CreationAttemptLimitReached,
+  createCreationCheckpointRepository,
+} from './creation-checkpoint-repository';
 
 const snapshot = {
   version: 1,
@@ -75,6 +78,18 @@ describe('STORY-007 checkpoint adapter', () => {
       p_revision: 3,
       p_order: [2, 1, 3, 4, 5, 6, 7],
     });
+  });
+
+  test('maps the server daily quota response to a recoverable attempt limit', async () => {
+    const rpc = vi.fn().mockResolvedValue({
+      data: null,
+      error: { code: 'P0701', message: 'Creation daily attempt limit reached' },
+    });
+    const repository = createCreationCheckpointRepository(rpc);
+
+    await expect(repository.submitDay('traveler-a', 3, 1, 2)).rejects.toBeInstanceOf(
+      CreationAttemptLimitReached,
+    );
   });
 
   test('keeps quiz retries idempotent with the same operation ID', async () => {

@@ -13,6 +13,7 @@ import { createHash, webcrypto } from 'node:crypto';
 import { TextEncoder } from 'node:util';
 import { CREATION_MANIFEST } from './creation-manifest';
 import { preparePendingQuiz } from './creation-pending-quiz';
+import { CreationAttemptLimitReached } from '../../lib/supabase/repositories/creation-checkpoint-repository';
 
 import { createTraveler, DEFAULT_APPEARANCE } from '../journey/domain/traveler';
 import {
@@ -529,6 +530,82 @@ test('resends the same daily answer after a lost response and waits for a confir
   expect(repo.submitDay).toHaveBeenCalledTimes(2);
   expect(repo.submitDay.mock.calls[1]).toEqual([traveler.id, 1, 1, 1]);
   expect(repo.submitDay.mock.calls[1]).toEqual(repo.submitDay.mock.calls[0]);
+});
+
+test('shows incorrect server results and locks the official evaluation without advancing', async () => {
+  const repo = makeRepository();
+  const first = { ...remoteSnapshot, completedDays: [] };
+  repo.read.mockResolvedValue(first);
+  repo.submitDay.mockResolvedValue({ completed: false });
+  render(
+    <CreationExplorerView
+      traveler={traveler}
+      remote={{ accountId: 'owner', initial: first, repository: repo }}
+    />,
+  );
+  await screen.findByText(/Dias confirmados pelo servidor: 0 de 7/);
+  fireEvent.click(accessibleMap().getByRole('button', { name: 'Marco da luz' }));
+  fireEvent.click(screen.getAllByRole('radio')[0]!);
+  fireEvent.click(screen.getByRole('button', { name: 'Conferir resposta' }));
+
+  expect(await screen.findByText(/resposta foi incorreta/i)).toBeInTheDocument();
+  expect(screen.getByRole('button', { name: 'Conferir resposta' })).toBeDisabled();
+  expect(screen.queryByRole('button', { name: /Prosseguir para o Dia 2/ })).not.toBeInTheDocument();
+});
+
+test('reconciles a duplicate attempt against the server checkpoint before showing a lock', async () => {
+  const repo = makeRepository();
+  const first = { ...remoteSnapshot, completedDays: [] };
+  repo.read.mockResolvedValueOnce(first).mockResolvedValueOnce({ ...first, completedDays: [1] });
+  repo.submitDay.mockRejectedValue(new CreationAttemptLimitReached());
+  render(
+    <CreationExplorerView
+      traveler={traveler}
+      remote={{ accountId: 'owner', initial: first, repository: repo }}
+    />,
+  );
+  await screen.findByText(/Dias confirmados pelo servidor: 0 de 7/);
+  fireEvent.click(accessibleMap().getByRole('button', { name: 'Marco da luz' }));
+  fireEvent.click(screen.getAllByRole('radio')[0]!);
+  fireEvent.click(screen.getByRole('button', { name: 'Conferir resposta' }));
+
+  expect(await screen.findByRole('button', { name: /Prosseguir para o Dia 2/ })).toBeInTheDocument();
+  expect(screen.getByText('Resposta correta.')).toBeInTheDocument();
+});
+
+test('renders a server-side attempt lock clearly and keeps only review available', async () => {
+  const repo = makeRepository();
+  const first = { ...remoteSnapshot, completedDays: [] };
+  repo.read.mockResolvedValue(first);
+  repo.submitDay.mockRejectedValue(new CreationAttemptLimitReached());
+  render(
+    <CreationExplorerView
+      traveler={traveler}
+      remote={{ accountId: 'owner', initial: first, repository: repo }}
+    />,
+  );
+  await screen.findByText(/Dias confirmados pelo servidor: 0 de 7/);
+  fireEvent.click(accessibleMap().getByRole('button', { name: 'Marco da luz' }));
+  fireEvent.click(screen.getAllByRole('radio')[1]!);
+  fireEvent.click(screen.getByRole('button', { name: 'Conferir resposta' }));
+
+  expect(await screen.findByText(/aguarde uma nova revisão autorizada/i)).toBeInTheDocument();
+  expect(screen.getByRole('button', { name: 'Conferir resposta' })).toBeDisabled();
+  expect(screen.getByRole('link', { name: /Ler Gênesis/ })).toBeInTheDocument();
+});
+
+test('restores completed-day progression from the checkpoint after reload', async () => {
+  const repo = makeRepository();
+  repo.read.mockResolvedValue({ ...remoteSnapshot, completedDays: [1] });
+  render(
+    <CreationExplorerView
+      traveler={traveler}
+      remote={{ accountId: 'owner', initial: { ...remoteSnapshot, completedDays: [1] }, repository: repo }}
+    />,
+  );
+
+  expect(await screen.findByRole('heading', { level: 1, name: /^Dia 2/ })).toBeInTheDocument();
+  expect(screen.getByText(/Dias confirmados pelo servidor: 1 de 7/)).toBeInTheDocument();
 });
 
 test('retries a failed quiz submission with the same operation ID and keeps partial scores private', async () => {

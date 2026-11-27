@@ -513,10 +513,23 @@ export function CreationExplorerView({
       }
       setPendingDayAnswer(undefined);
       setDayLimitReached(!result.completed);
-      if (result.completed) setFeedback('correct');
+      setFeedback(result.completed ? 'correct' : 'retry');
     } catch (error) {
       if (error instanceof CreationAttemptLimitReached) {
         setPendingDayAnswer(undefined);
+        try {
+          // A duplicate request can race with a successful transaction. Trust
+          // the checkpoint snapshot before reporting that this day is locked.
+          const state = await refreshRemote();
+          if (state.completedDays.includes(dayNumber)) {
+            setSaved(state);
+            setDayLimitReached(true);
+            setFeedback('correct');
+            return;
+          }
+        } catch {
+          // Keep the original server rejection visible if reconciliation fails.
+        }
         setDayLimitReached(true);
         return;
       }
@@ -948,12 +961,14 @@ export function CreationExplorerView({
               </fieldset>
               <p role="status" className={css.feedback} data-result={feedback}>
                 {saveError}
-                {dayLimitReached &&
-                  'A tentativa deste dia já foi registrada. Para retomar, aguarde uma nova revisão autorizada.'}
+                {dayLimitReached && feedback !== 'correct' &&
+                  (feedback === 'retry'
+                    ? 'Sua resposta foi incorreta e a tentativa deste dia foi usada. Uma nova avaliação depende de revisão autorizada.'
+                    : 'A tentativa deste dia já foi registrada. Para retomar, aguarde uma nova revisão autorizada.')}
                 {feedback === 'correct' && (remote
                   ? 'Resposta correta.'
                   : 'Resposta correta. ' + (study ?? CREATION_DEMO_FEEDBACK[day.id]).explanation)}
-                {feedback === 'retry' &&
+                {feedback === 'retry' && !remote &&
                   'Tente novamente. Você pode responder quantas vezes quiser.'}
               </p>
               {feedback === 'correct' && (
