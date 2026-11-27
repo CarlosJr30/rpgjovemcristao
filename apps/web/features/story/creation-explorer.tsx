@@ -215,7 +215,7 @@ function CheckpointSession({
       active = false;
     };
   }, [accountId, id, attempt, repository]);
-  if (failed)
+  if (failed || initial === null)
     return (
       <section>
         <p role="alert">
@@ -225,11 +225,13 @@ function CheckpointSession({
         <button
           onClick={() => {
             setFailed(false);
+            setInitial(undefined);
             setAttempt(attempt + 1);
           }}
         >
           Tentar novamente
         </button>
+        <CreationExplorerView traveler={snapshot.traveler} explorationOnly />
       </section>
     );
   if (initial === undefined)
@@ -270,8 +272,10 @@ function DemoExplorer({ snapshot }: { snapshot: ArchiveSnapshot }) {
 export function CreationExplorerView({
   traveler,
   remote,
+  explorationOnly = false,
 }: {
   traveler: ArchiveSnapshot['traveler'];
+  explorationOnly?: boolean;
   remote?: {
     initial: CreationCheckpointSnapshot;
     content?: CreationContentManifest;
@@ -302,13 +306,11 @@ export function CreationExplorerView({
   const [saved, setSaved] = useState(remote?.initial);
   const [savingDay, setSavingDay] = useState(false);
   const dayRequest = useRef(false);
-  const [dayLimitReached, setDayLimitReached] = useState(() =>
-    Boolean(remote?.initial.completedDays.includes(initialDayIndex + 1)),
-  );
+  const [attemptRejected, setAttemptRejected] = useState(false);
   const [pendingDayAnswer, setPendingDayAnswer] = useState<number>();
   const [quizLimitReached, setQuizLimitReached] = useState(false);
   const [saveError, setSaveError] = useState('');
-  const [blocked, setBlocked] = useState('');
+  const [checkpointError, setCheckpointError] = useState<'read' | 'revision'>();
   const [pendingQuiz, setPendingQuiz] = useState(
     remote?.hasPendingQuiz ?? false,
   );
@@ -367,6 +369,10 @@ export function CreationExplorerView({
 
   const day = days[dayIndex]!;
   const dayNumber = dayIndex + 1;
+  const dayConfirmed = Boolean(saved?.completedDays.includes(dayNumber));
+  const attemptConsumed = attemptRejected || Boolean(saved?.consumedDays?.includes(dayNumber));
+  const canEvaluate = !explorationOnly && (!remote ||
+    (saved?.consumedDays !== undefined && completedDays === dayIndex && !attemptConsumed));
   const canRender3D = browserGraphics === 'available' && !unavailable3DDays.has(dayNumber);
   const dayOne3D = dayNumber === 1 && canRender3D;
   const daysTwoToSeven3D = dayNumber > 1 && canRender3D;
@@ -396,7 +402,7 @@ export function CreationExplorerView({
     setVisited([]);
     setAnswer(undefined);
     setPendingDayAnswer(undefined);
-    setDayLimitReached(false);
+    setAttemptRejected(false);
     setFeedback(undefined);
     setMessage(days[next].objective);
     stage.current?.focus();
@@ -430,7 +436,9 @@ export function CreationExplorerView({
     setMessage(
       remaining
         ? `${marker.label}: ${marker.note} Faltam ${remaining} de ${day.markers.length} marcos.`
-        : `Desafio do Dia ${dayNumber} disponível no painel de objetivos.`,
+        : remote || explorationOnly
+          ? 'Confira a avaliação no painel de objetivos.'
+          : `Desafio do Dia ${dayNumber} disponível no painel de objetivos.`,
     );
   }
 
@@ -486,7 +494,7 @@ export function CreationExplorerView({
     event.preventDefault();
     if (
       !day || !challengeOpen || answer === undefined || dayRequest.current ||
-      dayLimitReached
+      !canEvaluate
     )
       return;
     if (!remote) {
@@ -499,7 +507,15 @@ export function CreationExplorerView({
     setFeedback(undefined);
     setSaveError('');
     try {
-      await refreshRemote();
+      const current = await refreshRemote();
+      if (
+        current.consumedDays === undefined ||
+        current.consumedDays.includes(dayNumber) ||
+        current.completedDays.length !== dayIndex
+      ) {
+        setPendingDayAnswer(undefined);
+        return;
+      }
       const result = await remote.repository.submitDay(
         traveler.id,
         remote.initial.revision,
@@ -512,25 +528,13 @@ export function CreationExplorerView({
           throw new Error('Checkpoint missing');
       }
       setPendingDayAnswer(undefined);
-      setDayLimitReached(!result.completed);
+      setAttemptRejected(!result.completed);
       setFeedback(result.completed ? 'correct' : 'retry');
     } catch (error) {
       if (error instanceof CreationAttemptLimitReached) {
         setPendingDayAnswer(undefined);
-        try {
-          // A duplicate request can race with a successful transaction. Trust
-          // the checkpoint snapshot before reporting that this day is locked.
-          const state = await refreshRemote();
-          if (state.completedDays.includes(dayNumber)) {
-            setSaved(state);
-            setDayLimitReached(true);
-            setFeedback('correct');
-            return;
-          }
-        } catch {
-          // Keep the original server rejection visible if reconciliation fails.
-        }
-        setDayLimitReached(true);
+        setAttemptRejected(true);
+        await refreshRemote().catch(() => {});
         return;
       }
       setSaveError(
@@ -565,7 +569,7 @@ export function CreationExplorerView({
         throw new CreationCheckpointUnavailable();
       }
       setSaved(state);
-      setBlocked('');
+      setCheckpointError(undefined);
       return state;
     } catch (error) {
       if (!current()) throw error;
@@ -574,11 +578,7 @@ export function CreationExplorerView({
       setHarmonyStarted(false);
       setQuizResult(undefined);
       setQuizAttempt(0);
-      setBlocked(
-        error instanceof CreationCheckpointUnavailable
-          ? 'Revisão da Criação indisponível ou incompatível.'
-          : 'Não foi possível confirmar o acesso aos checkpoints.',
-      );
+      setCheckpointError(error instanceof CreationCheckpointUnavailable ? 'revision' : 'read');
       throw error;
     }
   }, [repository, manifestHash, revision, traveler.id, quizScope, setSection, setQuizAttempt]);
@@ -719,19 +719,6 @@ export function CreationExplorerView({
     );
   }
 
-  if (blocked)
-    return (
-      <section>
-        <p role="alert">{blocked}</p>
-        <button
-          type="button"
-          onClick={() => void refreshRemote().catch(() => {})}
-        >
-          Tentar novamente
-        </button>
-      </section>
-    );
-
   return (
     <article className={css.page}>
       <Link className={css.back} href="/journey">
@@ -741,14 +728,18 @@ export function CreationExplorerView({
         <p className={css.eyebrow}>
           {remote
             ? 'Checkpoints da Criação'
-            : 'Demonstração local · sem progresso oficial'}
+            : explorationOnly
+              ? 'Exploração da Criação'
+              : 'Demonstração local · sem progresso oficial'}
         </p>
         <h1>Dia {dayNumber} — {day.title}</h1>
       </header>
       <div className={css.notice} role="note">
-        {remote
-          ? `Dias confirmados pelo servidor: ${completedDays} de 7. Continuando no Dia ${dayNumber}.`
-          : 'A demonstração sempre começa no Dia 1 e reinicia ao atualizar a página ou trocar de dispositivo. As respostas locais não geram progresso oficial.'}
+        {checkpointError || explorationOnly
+          ? 'Progresso oficial temporariamente indisponível.'
+          : remote
+            ? `Dias confirmados pelo servidor: ${completedDays} de 7. Continuando no Dia ${dayNumber}.`
+            : 'A demonstração sempre começa no Dia 1 e reinicia ao atualizar a página ou trocar de dispositivo. As respostas locais não geram progresso oficial.'}
       </div>
       <div className={css.layout} hidden={diaryOpen || section !== null}>
         <section className={css.playArea} aria-label="Exploração">
@@ -917,7 +908,33 @@ export function CreationExplorerView({
               </ul>
             )}
           </>
-          {challengeOpen && (
+          {remote && (checkpointError || saved?.consumedDays === undefined) && (
+            <div>
+              <p role="alert">
+                {checkpointError === 'revision'
+                  ? 'Revisão da Criação indisponível ou incompatível.'
+                  : checkpointError === 'read'
+                    ? 'Não foi possível confirmar o acesso aos checkpoints.'
+                    : 'O servidor ainda não informa o estado das tentativas oficiais. Você pode continuar explorando.'}
+              </p>
+              {checkpointError === 'revision' ? (
+                <button type="button" onClick={() => window.location.reload()}>
+                  Recarregar a Jornada
+                </button>
+              ) : (
+                <button type="button" onClick={() => void refreshRemote().catch(() => {})}>
+                  Tentar novamente
+                </button>
+              )}
+            </div>
+          )}
+          {remote && !dayConfirmed && attemptConsumed && (
+            <p role="status">
+              {feedback === 'retry' && 'Sua resposta foi incorreta. '}
+              Você já utilizou sua tentativa oficial neste dia. Ainda pode explorar a história e revisar a passagem bíblica. Uma nova avaliação dependerá de uma revisão autorizada.
+            </p>
+          )}
+          {challengeOpen && canEvaluate && (
             <form
               className={dayOne3D ? css.dayOneChallenge : undefined}
               onSubmit={submitAnswer}
@@ -943,10 +960,7 @@ export function CreationExplorerView({
                       type="radio"
                       name="creation-answer"
                       checked={answer === index}
-                      disabled={
-                        dayLimitReached ||
-                        (pendingDayAnswer !== undefined && pendingDayAnswer !== index)
-                      }
+                      disabled={pendingDayAnswer !== undefined && pendingDayAnswer !== index}
                       onChange={() => {
                         setAnswer(index);
                         setFeedback(undefined);
@@ -955,23 +969,18 @@ export function CreationExplorerView({
                     {option}
                   </label>
                 ))}
-                <button type="submit" disabled={answer === undefined || dayLimitReached}>
+                <button type="submit" disabled={answer === undefined}>
                   Conferir resposta
                 </button>
               </fieldset>
               <p role="status" className={css.feedback} data-result={feedback}>
                 {saveError}
-                {dayLimitReached && feedback !== 'correct' &&
-                  (feedback === 'retry'
-                    ? 'Sua resposta foi incorreta e a tentativa deste dia foi usada. Uma nova avaliação depende de revisão autorizada.'
-                    : 'A tentativa deste dia já foi registrada. Para retomar, aguarde uma nova revisão autorizada.')}
-                {feedback === 'correct' && (remote
-                  ? 'Resposta correta.'
-                  : 'Resposta correta. ' + (study ?? CREATION_DEMO_FEEDBACK[day.id]).explanation)}
+                {feedback === 'correct' && !remote &&
+                  ('Resposta correta. ' + (study ?? CREATION_DEMO_FEEDBACK[day.id]).explanation)}
                 {feedback === 'retry' && !remote &&
                   'Tente novamente. Você pode responder quantas vezes quiser.'}
               </p>
-              {feedback === 'correct' && (
+              {feedback === 'correct' && !remote && (
                 <button
                   type="button"
                   onClick={() =>
@@ -987,7 +996,20 @@ export function CreationExplorerView({
               )}
             </form>
           )}
-          {!remote && (
+          {dayConfirmed && (
+            <div>
+              <p role="status">
+                {feedback === 'correct' && 'Resposta correta. '}
+                Dia concluído e confirmado pelo servidor.
+              </p>
+              {dayNumber < days.length && (
+                <button type="button" onClick={() => changeScene(dayNumber)}>
+                  Prosseguir para o Dia {dayNumber + 1}
+                </button>
+              )}
+            </div>
+          )}
+          {!remote && !explorationOnly && (
             <p className={css.pending}>
               Atividade demonstrativa. Conteúdo aguardando revisão editorial.
             </p>
@@ -1003,7 +1025,7 @@ export function CreationExplorerView({
               </li>
             ))}
           </ul>
-          {remote && harmonyUnlocked && dayLimitReached && (
+          {remote && harmonyUnlocked && dayConfirmed && (
             <button type="button" onClick={() => void openHarmony()}>
               Abrir Harmonia da Criação
             </button>

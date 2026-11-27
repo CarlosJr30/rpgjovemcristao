@@ -12,6 +12,7 @@ export type CreationCheckpointSnapshot = {
   manifestText: string | null;
   manifestHash: string | null;
   completedDays: number[];
+  consumedDays?: number[];
   harmonyCompleted: boolean;
   quizAttempts: number;
   bestQuizScore: number | null;
@@ -124,6 +125,14 @@ const parseSnapshot = (value: unknown): CreationCheckpointSnapshot => {
     throw new Error(
       'Resposta inválida: dias fora da sequ?ncia no contrato STORY-007.',
     );
+  const consumedDays = row.consumedDays;
+  if (consumedDays !== undefined && !Array.isArray(consumedDays))
+    throw new Error('Invalid creation attempt state');
+  const parsedConsumedDays = consumedDays?.map((day) =>
+    asInteger(day, 'consumedDays', 1, 7),
+  );
+  if (parsedConsumedDays && new Set(parsedConsumedDays).size !== parsedConsumedDays.length)
+    throw new Error('Invalid creation attempt state');
   return {
     version: 1,
     storyId: 'creation',
@@ -132,6 +141,7 @@ const parseSnapshot = (value: unknown): CreationCheckpointSnapshot => {
     revision: asInteger(row.revision, 'revision', 1, Number.MAX_SAFE_INTEGER),
     available,
     completedDays,
+    ...(parsedConsumedDays === undefined ? {} : { consumedDays: parsedConsumedDays }),
     harmonyCompleted: asBoolean(row.harmonyCompleted, 'harmonyCompleted'),
     quizAttempts: asInteger(
       row.quizAttempts,

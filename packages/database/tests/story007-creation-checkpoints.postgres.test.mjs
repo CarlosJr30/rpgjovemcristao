@@ -169,6 +169,16 @@ test('STORY-007: local checkpoint RPCs isolate owners, enforce ordering and repl
   await denied(migration, /Reviewed STORY-007C TEST baseline required/);
   await query("SET story007c.target_project='wkdvdzfkbwvhyjmamrsg'");
   await query(migration);
+  const readerPrivileges =
+    "SELECT proacl::text FROM pg_proc WHERE oid='public.read_creation_checkpoints(uuid)'::regprocedure";
+  const originalReaderPrivileges = await query(readerPrivileges);
+  const attemptStateMigration = fs.readFileSync(
+    'supabase/migrations/20261127190000_story_quiz_002_creation_attempt_state.sql',
+    'utf8',
+  );
+  await query(attemptStateMigration);
+  await query(attemptStateMigration);
+  assert.equal(await query(readerPrivileges), originalReaderPrivileges);
   await t.test('rejects invalid private revisions and identifiers', async () => {
     await assert.rejects(
       query(
@@ -405,6 +415,7 @@ test('STORY-007: local checkpoint RPCs isolate owners, enforce ordering and repl
       await rpc(1, `SELECT public.read_creation_checkpoints('${traveler(1)}')`),
     );
     assert.equal(snapshot.available, true);
+    assert.deepEqual(snapshot.consumedDays, []);
     const expected = JSON.parse(fixtureManifest(1));
     for (const item of [...expected.days, ...expected.quiz]) {
       delete item.answer;
@@ -494,6 +505,10 @@ test('STORY-007: local checkpoint RPCs isolate owners, enforce ordering and repl
         ),
       );
       assert.equal(wrong.correct, false);
+      const locked = JSON.parse(await rpc(2, `SELECT public.read_creation_checkpoints('${traveler(2)}')`));
+      assert.deepEqual(locked.consumedDays, [1]);
+      assert.deepEqual(locked.completedDays, []);
+      assert.deepEqual(JSON.parse(await rpc(1, `SELECT public.read_creation_checkpoints('${traveler(1)}')`)).consumedDays, []);
       assert.equal(
         await query(
           "SELECT count(*) FROM story_private.creation_activity_receipts WHERE activity='day'",
@@ -580,6 +595,7 @@ test('STORY-007: local checkpoint RPCs isolate owners, enforce ordering and repl
         ),
       );
       assert.deepEqual(state.completedDays, [1, 2, 3, 4, 5, 6, 7]);
+      assert.deepEqual(state.consumedDays, [1, 2, 3, 4, 5, 6, 7]);
       assert.equal(state.harmonyCompleted, true);
       assert.equal(state.quizAttempts, 2);
       assert.equal(state.bestQuizScore, 5);
@@ -635,6 +651,9 @@ test('STORY-007: local checkpoint RPCs isolate owners, enforce ordering and repl
     assert.equal(await rpc(account, day(first, wrongDay)), originalDay);
     await denied(session(account, day(first, dayKeys[0])), { code: 'P0701' });
     await query('UPDATE public.travelers SET is_active=false WHERE id=' + sqlLiteral(first));
+    const switched = JSON.parse(await rpc(account, `SELECT public.read_creation_checkpoints('${second}')`));
+    assert.deepEqual(switched.consumedDays, [1]);
+    assert.deepEqual(switched.completedDays, []);
     await denied(session(account, day(second, dayKeys[0])), { code: 'P0701' });
     assert.equal(await query('SELECT count(*) FROM story_private.creation_day_attempts WHERE account_id=' + sqlLiteral(user(account))), '1');
 
@@ -689,6 +708,7 @@ test('STORY-007: local checkpoint RPCs isolate owners, enforce ordering and repl
       );
       assert.equal(state.revision, 2);
       assert.deepEqual(state.completedDays, []);
+      assert.deepEqual(state.consumedDays, []);
       assert.equal(state.harmonyCompleted, false);
       assert.equal(state.quizAttempts, 0);
       assert.equal(state.available, true);

@@ -29,6 +29,25 @@ describe('STORY-007 checkpoint adapter', () => {
     });
   });
 
+  test('reads only day numbers for the account attempt state', async () => {
+    const data = { ...snapshot, consumedDays: [1, 4], answerIndex: 2 };
+    const rpc = vi.fn().mockResolvedValue({ data, error: null });
+    const repository = createCreationCheckpointRepository(rpc);
+
+    await expect(repository.read('traveler-a')).resolves.toEqual({
+      ...snapshot,
+      consumedDays: [1, 4],
+    });
+  });
+
+  test.each([null, [0], [8], [1, 1], ['1']])(
+    'rejects invalid attempt state %j',
+    async (consumedDays) => {
+      const rpc = vi.fn().mockResolvedValue({ data: { ...snapshot, consumedDays }, error: null });
+      await expect(createCreationCheckpointRepository(rpc).read('traveler-a')).rejects.toThrow();
+    },
+  );
+
   test('sends day and harmony inputs to server validation without local completion', async () => {
     const rpc = vi
       .fn()

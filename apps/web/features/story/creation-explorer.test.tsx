@@ -369,6 +369,7 @@ const remoteSnapshot = {
   revision: 1,
   available: true,
   completedDays: [1, 2, 3],
+  consumedDays: [] as number[],
   harmonyCompleted: false,
   quizAttempts: 0,
   bestQuizScore: null,
@@ -506,7 +507,8 @@ test('resends the same daily answer after a lost response and waits for a confir
   repo.submitDay
     .mockRejectedValueOnce(new Error('connection lost'))
     .mockResolvedValueOnce({ completed: true });
-  repo.read.mockResolvedValue({ ...first, completedDays: [1] });
+  repo.read.mockResolvedValueOnce(first).mockResolvedValueOnce(first)
+    .mockResolvedValue({ ...first, completedDays: [1], consumedDays: [1] });
   render(
     <CreationExplorerView
       traveler={traveler}
@@ -549,7 +551,7 @@ test('shows incorrect server results and locks the official evaluation without a
   fireEvent.click(screen.getByRole('button', { name: 'Conferir resposta' }));
 
   expect(await screen.findByText(/resposta foi incorreta/i)).toBeInTheDocument();
-  expect(screen.getByRole('button', { name: 'Conferir resposta' })).toBeDisabled();
+  expect(screen.queryByRole('button', { name: 'Conferir resposta' })).not.toBeInTheDocument();
   expect(screen.queryByRole('button', { name: /Prosseguir para o Dia 2/ })).not.toBeInTheDocument();
 });
 
@@ -570,7 +572,7 @@ test('reconciles a duplicate attempt against the server checkpoint before showin
   fireEvent.click(screen.getByRole('button', { name: 'Conferir resposta' }));
 
   expect(await screen.findByRole('button', { name: /Prosseguir para o Dia 2/ })).toBeInTheDocument();
-  expect(screen.getByText('Resposta correta.')).toBeInTheDocument();
+  expect(screen.getByText('Dia concluído e confirmado pelo servidor.')).toBeInTheDocument();
 });
 
 test('renders a server-side attempt lock clearly and keeps only review available', async () => {
@@ -589,8 +591,8 @@ test('renders a server-side attempt lock clearly and keeps only review available
   fireEvent.click(screen.getAllByRole('radio')[1]!);
   fireEvent.click(screen.getByRole('button', { name: 'Conferir resposta' }));
 
-  expect(await screen.findByText(/aguarde uma nova revisão autorizada/i)).toBeInTheDocument();
-  expect(screen.getByRole('button', { name: 'Conferir resposta' })).toBeDisabled();
+  expect(await screen.findByText(/uma nova avaliação dependerá/i)).toBeInTheDocument();
+  expect(screen.queryByRole('button', { name: 'Conferir resposta' })).not.toBeInTheDocument();
   expect(screen.getByRole('link', { name: /Ler Gênesis/ })).toBeInTheDocument();
 });
 
@@ -606,6 +608,49 @@ test('restores completed-day progression from the checkpoint after reload', asyn
 
   expect(await screen.findByRole('heading', { level: 1, name: /^Dia 2/ })).toBeInTheDocument();
   expect(screen.getByText(/Dias confirmados pelo servidor: 1 de 7/)).toBeInTheDocument();
+});
+
+test('restores the consumed attempt in a new session and after changing traveler', async () => {
+  const repo = makeRepository();
+  repo.read.mockResolvedValue({ ...remoteSnapshot, completedDays: [], consumedDays: [1] });
+  const open = (snapshot = archive) => render(
+    <CheckpointExplorer accountId="owner" snapshot={snapshot} repository={repo} />,
+  );
+  async function expectLocked() {
+    expect(await screen.findByText(/já utilizou sua tentativa oficial/)).toBeInTheDocument();
+    fireEvent.click(accessibleMap().getByRole('button', { name: 'Marco da luz' }));
+    expect(screen.queryByRole('button', { name: 'Conferir resposta' })).not.toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: /Prosseguir para o Dia 2/ })).not.toBeInTheDocument();
+  }
+  const firstSession = open();
+  await expectLocked();
+  firstSession.unmount();
+  sessionStorage.clear();
+  const newSession = open();
+  await expectLocked();
+  newSession.unmount();
+  open({ ...archive, traveler: { ...traveler, id: 'another-traveler' } });
+  await expectLocked();
+  expect(repo.read).toHaveBeenLastCalledWith('another-traveler');
+  expect(repo.submitDay).not.toHaveBeenCalled();
+});
+
+test('keeps exploration open without enabling evaluation on an old backend or a read failure', async () => {
+  const repo = makeRepository();
+  const legacy = { ...remoteSnapshot, completedDays: [], consumedDays: undefined };
+  repo.read.mockRejectedValueOnce(new Error('offline'))
+    .mockResolvedValueOnce(legacy)
+    .mockResolvedValue({ ...legacy, consumedDays: [] });
+  render(<CheckpointExplorer accountId="owner" snapshot={archive} repository={repo} />);
+  expect(await screen.findByRole('alert')).toHaveTextContent(/conexão/);
+  expect(screen.getByRole('group', { name: /Exploração do Dia 1/ })).toBeInTheDocument();
+  fireEvent.click(screen.getByRole('button', { name: 'Tentar novamente' }));
+  expect(await screen.findByRole('alert')).toHaveTextContent(/servidor ainda não informa/);
+  fireEvent.click(accessibleMap().getByRole('button', { name: 'Marco da luz' }));
+  expect(screen.queryByRole('button', { name: 'Conferir resposta' })).not.toBeInTheDocument();
+  fireEvent.click(screen.getByRole('button', { name: 'Tentar novamente' }));
+  expect(await screen.findByRole('button', { name: 'Conferir resposta' })).toBeInTheDocument();
+  expect(repo.submitDay).not.toHaveBeenCalled();
 });
 
 test('retries a failed quiz submission with the same operation ID and keeps partial scores private', async () => {
